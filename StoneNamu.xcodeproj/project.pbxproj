@@ -15,7 +15,7 @@
 		4F34386426A36FED001161FE /* HSCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA05F6F26A30940000E93BC /* HSCard.m */; };
 		4F34386526A3700C001161FE /* BlizzardAPIRegionHost.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE097CD26A3496F00BF3A6D /* BlizzardAPIRegionHost.m */; };
 		4F34386626A3700E001161FE /* BlizzardHSAPILocale.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE097CF26A349B800BF3A6D /* BlizzardHSAPILocale.m */; };
-		4F34386726A37022001161FE /* BlizzardHSRepositoryImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA05F7526A309C7000E93BC /* BlizzardHSRepositoryImpl.m */; };
+		4F34386726A37022001161FE /* HSCardRepositoryImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA05F7526A309C7000E93BC /* HSCardRepositoryImpl.m */; };
 		4F34386826A37029001161FE /* BlizzardTokenAPIImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F34383D26A36501001161FE /* BlizzardTokenAPIImpl.m */; };
 		4F34386926A37031001161FE /* BlizzardHSAPIImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA56BED26A213B2002D9FA0 /* BlizzardHSAPIImpl.m */; };
 		4FA56BAC26A21059002D9FA0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA56BAB26A21059002D9FA0 /* AppDelegate.m */; };
@@ -23,6 +23,11 @@
 		4FA56BB726A2105A002D9FA0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4FA56BB626A2105A002D9FA0 /* Assets.xcassets */; };
 		4FA56BBD26A2105A002D9FA0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA56BBC26A2105A002D9FA0 /* main.m */; };
 		4FA56BC526A21197002D9FA0 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA56BC426A21197002D9FA0 /* MainViewController.m */; };
+		4FAA89D826A4266500572BB4 /* HSCardUseCase.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FAA89D626A4266500572BB4 /* HSCardUseCase.h */; };
+		4FAA89DC26A426E700572BB4 /* HSCardUseCaseImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FAA89DA26A426E700572BB4 /* HSCardUseCaseImpl.h */; };
+		4FAA89DD26A426E700572BB4 /* HSCardUseCaseImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA89DB26A426E700572BB4 /* HSCardUseCaseImpl.m */; };
+		4FAA89E026A42A1500572BB4 /* BlizzardHSRepositoryImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FAA89DE26A42A1500572BB4 /* BlizzardHSRepositoryImpl.h */; };
+		4FAA89E126A42A1500572BB4 /* BlizzardHSRepositoryImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA89DF26A42A1500572BB4 /* BlizzardHSRepositoryImpl.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,9 +78,9 @@
 		4FA05F6B26A30639000E93BC /* BlizzardHSAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlizzardHSAPI.h; sourceTree = "<group>"; };
 		4FA05F6E26A30940000E93BC /* HSCard.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCard.h; sourceTree = "<group>"; };
 		4FA05F6F26A30940000E93BC /* HSCard.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCard.m; sourceTree = "<group>"; };
-		4FA05F7326A30991000E93BC /* BlizzardHSRepository.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlizzardHSRepository.h; sourceTree = "<group>"; };
-		4FA05F7426A309C7000E93BC /* BlizzardHSRepositoryImpl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlizzardHSRepositoryImpl.h; sourceTree = "<group>"; };
-		4FA05F7526A309C7000E93BC /* BlizzardHSRepositoryImpl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlizzardHSRepositoryImpl.m; sourceTree = "<group>"; };
+		4FA05F7326A30991000E93BC /* HSCardRepository.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardRepository.h; sourceTree = "<group>"; };
+		4FA05F7426A309C7000E93BC /* HSCardRepositoryImpl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardRepositoryImpl.h; sourceTree = "<group>"; };
+		4FA05F7526A309C7000E93BC /* HSCardRepositoryImpl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCardRepositoryImpl.m; sourceTree = "<group>"; };
 		4FA05F7A26A31130000E93BC /* BlizzardHSRepositoryTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlizzardHSRepositoryTest.m; sourceTree = "<group>"; };
 		4FA56BA726A21059002D9FA0 /* StoneNamu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StoneNamu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FA56BAA26A21059002D9FA0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -91,6 +96,12 @@
 		4FA56BED26A213B2002D9FA0 /* BlizzardHSAPIImpl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlizzardHSAPIImpl.m; sourceTree = "<group>"; };
 		4FA56BF226A216C1002D9FA0 /* BlizzardHSAPILocale.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlizzardHSAPILocale.h; sourceTree = "<group>"; };
 		4FA99F1426A42412009AF904 /* StoneNamu.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = StoneNamu.entitlements; sourceTree = "<group>"; };
+		4FAA89D626A4266500572BB4 /* HSCardUseCase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardUseCase.h; sourceTree = "<group>"; };
+		4FAA89DA26A426E700572BB4 /* HSCardUseCaseImpl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardUseCaseImpl.h; sourceTree = "<group>"; };
+		4FAA89DB26A426E700572BB4 /* HSCardUseCaseImpl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCardUseCaseImpl.m; sourceTree = "<group>"; };
+		4FAA89DE26A42A1500572BB4 /* BlizzardHSRepositoryImpl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlizzardHSRepositoryImpl.h; sourceTree = "<group>"; };
+		4FAA89DF26A42A1500572BB4 /* BlizzardHSRepositoryImpl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlizzardHSRepositoryImpl.m; sourceTree = "<group>"; };
+		4FAA89E226A42A2100572BB4 /* BlizzardHSRepository.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlizzardHSRepository.h; sourceTree = "<group>"; };
 		4FE097C326A329B400BF3A6D /* BlizzardAPIRegionHost.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlizzardAPIRegionHost.h; sourceTree = "<group>"; };
 		4FE097C626A331FE00BF3A6D /* HSCardRarity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardRarity.h; sourceTree = "<group>"; };
 		4FE097CA26A33C7500BF3A6D /* HSCardClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardClass.h; sourceTree = "<group>"; };
@@ -148,23 +159,19 @@
 		4FA05F6C26A308FF000E93BC /* RepoImpl */ = {
 			isa = PBXGroup;
 			children = (
-				4FA05F7426A309C7000E93BC /* BlizzardHSRepositoryImpl.h */,
-				4FA05F7526A309C7000E93BC /* BlizzardHSRepositoryImpl.m */,
+				4FAA89DE26A42A1500572BB4 /* BlizzardHSRepositoryImpl.h */,
+				4FAA89DF26A42A1500572BB4 /* BlizzardHSRepositoryImpl.m */,
+				4FA05F7426A309C7000E93BC /* HSCardRepositoryImpl.h */,
+				4FA05F7526A309C7000E93BC /* HSCardRepositoryImpl.m */,
 			);
 			path = RepoImpl;
-			sourceTree = "<group>";
-		};
-		4FA05F6D26A3091F000E93BC /* Mapper */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Mapper;
 			sourceTree = "<group>";
 		};
 		4FA05F7226A30951000E93BC /* RepoIntf */ = {
 			isa = PBXGroup;
 			children = (
-				4FA05F7326A30991000E93BC /* BlizzardHSRepository.h */,
+				4FAA89E226A42A2100572BB4 /* BlizzardHSRepository.h */,
+				4FA05F7326A30991000E93BC /* HSCardRepository.h */,
 			);
 			path = RepoIntf;
 			sourceTree = "<group>";
@@ -209,7 +216,6 @@
 		4FA56BE926A212E2002D9FA0 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				4FA05F6D26A3091F000E93BC /* Mapper */,
 				4FA05F6C26A308FF000E93BC /* RepoImpl */,
 				4FA56BF026A213BC002D9FA0 /* API */,
 			);
@@ -219,8 +225,9 @@
 		4FA56BEA26A212E8002D9FA0 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
-				4FA05F7226A30951000E93BC /* RepoIntf */,
 				4FA56BF126A216A8002D9FA0 /* Entity */,
+				4FA05F7226A30951000E93BC /* RepoIntf */,
+				4FAA89D526A4260C00572BB4 /* UseCase */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -248,14 +255,20 @@
 		4FA56BF126A216A8002D9FA0 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
-				4FA05F6E26A30940000E93BC /* HSCard.h */,
-				4FA05F6F26A30940000E93BC /* HSCard.m */,
-				4FE097CA26A33C7500BF3A6D /* HSCardClass.h */,
-				4FE097C626A331FE00BF3A6D /* HSCardRarity.h */,
 				4FE097C126A3288500BF3A6D /* API */,
 				4FE097C226A3288A00BF3A6D /* Card */,
 			);
 			path = Entity;
+			sourceTree = "<group>";
+		};
+		4FAA89D526A4260C00572BB4 /* UseCase */ = {
+			isa = PBXGroup;
+			children = (
+				4FAA89D626A4266500572BB4 /* HSCardUseCase.h */,
+				4FAA89DA26A426E700572BB4 /* HSCardUseCaseImpl.h */,
+				4FAA89DB26A426E700572BB4 /* HSCardUseCaseImpl.m */,
+			);
+			path = UseCase;
 			sourceTree = "<group>";
 		};
 		4FE097C126A3288500BF3A6D /* API */ = {
@@ -273,6 +286,10 @@
 		4FE097C226A3288A00BF3A6D /* Card */ = {
 			isa = PBXGroup;
 			children = (
+				4FA05F6E26A30940000E93BC /* HSCard.h */,
+				4FA05F6F26A30940000E93BC /* HSCard.m */,
+				4FE097CA26A33C7500BF3A6D /* HSCardClass.h */,
+				4FE097C626A331FE00BF3A6D /* HSCardRarity.h */,
 			);
 			path = Card;
 			sourceTree = "<group>";
@@ -284,7 +301,10 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4FAA89DC26A426E700572BB4 /* HSCardUseCaseImpl.h in Headers */,
 				4F34385826A36FBA001161FE /* StoneNamuCore.h in Headers */,
+				4FAA89D826A4266500572BB4 /* HSCardUseCase.h in Headers */,
+				4FAA89E026A42A1500572BB4 /* BlizzardHSRepositoryImpl.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -418,8 +438,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				4F34386826A37029001161FE /* BlizzardTokenAPIImpl.m in Sources */,
-				4F34386726A37022001161FE /* BlizzardHSRepositoryImpl.m in Sources */,
+				4F34386726A37022001161FE /* HSCardRepositoryImpl.m in Sources */,
 				4F34386526A3700C001161FE /* BlizzardAPIRegionHost.m in Sources */,
+				4FAA89DD26A426E700572BB4 /* HSCardUseCaseImpl.m in Sources */,
+				4FAA89E126A42A1500572BB4 /* BlizzardHSRepositoryImpl.m in Sources */,
 				4F34386426A36FED001161FE /* HSCard.m in Sources */,
 				4F34386626A3700E001161FE /* BlizzardHSAPILocale.m in Sources */,
 				4F34386926A37031001161FE /* BlizzardHSAPIImpl.m in Sources */,

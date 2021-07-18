@@ -7,20 +7,15 @@
 
 #import <Foundation/Foundation.h>
 #import "BlizzardAPIRegionHost.h"
-#import "BlizzardHSAPILocale.h"
 
-typedef void (^BlizzardHSAPICompletionType)(NSData *, NSURLResponse *, NSError *);
+typedef void (^BlizzardHSAPICompletion)(NSData *, NSURLResponse *, NSError *);
 
 @protocol BlizzardHSAPI <NSObject>
 
-- (void)fetchCardsAtRegion:(BlizzardAPIRegionHost)regionHost
-               accessToken:(NSString *)accessToken
-                   options:(NSDictionary<NSString *, id> *)options
-         completionHandler:(BlizzardHSAPICompletionType)completion;
+- (void)getAtRegion:(BlizzardAPIRegionHost)regionHost
+               path:(NSString *)path
+        accessToken:(NSString *)accessToken
+            options:(NSDictionary<NSString *, id> *)options
+  completionHandler:(BlizzardHSAPICompletion)completion;
 
-- (void)fetchCardAtRegion:(BlizzardAPIRegionHost)regionHost
-              accessToken:(NSString *)accessToken
-                 cardSlug:(NSString *)cardSlug
-                  options:(NSDictionary<NSString *, id> *)options
-        completionHandler:(BlizzardHSAPICompletionType)completion;
 @end

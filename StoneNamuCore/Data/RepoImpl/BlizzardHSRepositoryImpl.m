@@ -2,7 +2,7 @@
 //  BlizzardHSRepositoryImpl.m
 //  StoneNamuCore
 //
-//  Created by Jinwoo Kim on 7/17/21.
+//  Created by Jinwoo Kim on 7/18/21.
 //
 
 #import "BlizzardHSRepositoryImpl.h"
@@ -38,48 +38,37 @@
     [super dealloc];
 }
 
-- (void)fetchCardsAtRegion:(BlizzardAPIRegionHost)regionHost
-               withOptions:(NSDictionary<NSString *, id> *)options
-          completionHandler:(BlizzardHSRepositoryCardsCompletion)completion
-{
-    BlizzardHSAPICompletionType hsAPICompletion = ^(NSData *data, NSURLResponse *response, NSError *error) {
-        
-        if (error) {
-            completion(nil, error);
-            return;
-        }
-        
-        NSError * _Nullable hsCardError = nil;
-        NSArray<HSCard *> *hsCards = [HSCard hsCardsFromJSONData:data error:&hsCardError];
-        
-        if (hsCardError) {
-            completion(nil, hsCardError);
-        }
-        
-        completion(hsCards, nil);
+- (void)getAtRegion:(BlizzardAPIRegionHost)regionHost
+               path:(NSString *)path
+            options:(NSDictionary<NSString *, id> *)options
+  completionHandler:(BlizzardHSRepositoryCompletion)completion {
+    
+    BlizzardHSAPICompletion hsAPICompletion = ^(NSData *data, NSURLResponse *response, NSError *error) {
+        completion(data, response, error);
     };
     
     BlizzardTokenAPICompletionType tokenAPICompletion = ^(NSData *data, NSURLResponse *response, NSError *error) {
         
         if (error) {
-            completion(nil, error);
+            completion(data, response, error);
             return;
         }
         
         NSError * _Nullable jsonError = nil;
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
-
+        
         if (jsonError) {
-            completion(nil, jsonError);
+            completion(data, response, jsonError);
             return;
         }
         
         NSString * _Nullable token = dic[@"access_token"];
         
-        [self.blizzardHSAPI fetchCardsAtRegion:regionHost
-                                   accessToken:token
-                                       options:options
-                             completionHandler:hsAPICompletion];
+        [self.blizzardHSAPI getAtRegion:regionHost
+                                   path:path
+                            accessToken:token
+                                options:options
+                      completionHandler:hsAPICompletion];
     };
     
     [self.blizzardTokenAPI getAccessTokenAtRegion:regionHost

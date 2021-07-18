@@ -6,18 +6,18 @@
 //
 
 #import <XCTest/XCTest.h>
-#import "BlizzardHSRepositoryImpl.h"
+#import "HSCardRepositoryImpl.h"
 #import "BlizzardHSAPIKeys.h"
 #import "BlizzardHSAPILocale.h"
 
 @interface BlizzardHSRepositoryTest : XCTestCase
-@property (retain) NSObject<BlizzardHSRepository> *repo;
+@property (retain) NSObject<HSCardRepository> *repo;
 @end
 
 @implementation BlizzardHSRepositoryTest
 
 - (void)setUp {
-    NSObject<BlizzardHSRepository> *repo = [BlizzardHSRepositoryImpl new];
+    NSObject<HSCardRepository> *repo = [HSCardRepositoryImpl new];
     self.repo = repo;
     [repo release];
 }
