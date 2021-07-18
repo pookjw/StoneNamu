@@ -15,9 +15,16 @@ typedef void (^HSCardRepositoryCardCompletion)(HSCard * _Nullable, NSError * _Nu
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol HSCardRepository <NSObject>
+
 - (void)fetchCardsAtRegion:(BlizzardAPIRegionHost)regionHost
-               withOptions:(NSDictionary<NSString *, id> *)options
-          completionHandler:(HSCardRepositoryCardsCompletion)completion;
+               withOptions:(NSDictionary<NSString *, id> * _Nullable)options
+         completionHandler:(HSCardRepositoryCardsCompletion)completion;
+
+- (void)fetchCardAtRegion:(BlizzardAPIRegionHost)regionHost
+              withIdOrSlug:(NSString *)idOrSlug
+               withOptions:(NSDictionary<NSString *, id> * _Nullable)options
+         completionHandler:(HSCardRepositoryCardCompletion)completion;
+
 @end
 
 NS_ASSUME_NONNULL_END

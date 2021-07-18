@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol BlizzardHSRepository <NSObject>
 - (void)getAtRegion:(BlizzardAPIRegionHost)regionHost
                path:(NSString *)path
-            options:(NSDictionary<NSString *, id> *)options
+            options:(NSDictionary<NSString *, id> * _Nullable)options
   completionHandler:(BlizzardHSRepositoryCompletion)completion;
 @end
 

@@ -40,7 +40,7 @@
 
 - (void)getAtRegion:(BlizzardAPIRegionHost)regionHost
                path:(NSString *)path
-            options:(NSDictionary<NSString *, id> *)options
+            options:(NSDictionary<NSString *, id> * _Nullable)options
   completionHandler:(BlizzardHSRepositoryCompletion)completion {
     
     BlizzardHSAPICompletion hsAPICompletion = ^(NSData *data, NSURLResponse *response, NSError *error) {

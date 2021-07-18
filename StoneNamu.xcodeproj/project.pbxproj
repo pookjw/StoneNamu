@@ -11,7 +11,6 @@
 		4F34385826A36FBA001161FE /* StoneNamuCore.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F34384A26A36FBA001161FE /* StoneNamuCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4F34385B26A36FBA001161FE /* StoneNamuCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F34384826A36FBA001161FE /* StoneNamuCore.framework */; };
 		4F34385C26A36FBA001161FE /* StoneNamuCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4F34384826A36FBA001161FE /* StoneNamuCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		4F34386326A36FCF001161FE /* BlizzardHSRepositoryTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA05F7A26A31130000E93BC /* BlizzardHSRepositoryTest.m */; };
 		4F34386426A36FED001161FE /* HSCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA05F6F26A30940000E93BC /* HSCard.m */; };
 		4F34386526A3700C001161FE /* BlizzardAPIRegionHost.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE097CD26A3496F00BF3A6D /* BlizzardAPIRegionHost.m */; };
 		4F34386626A3700E001161FE /* BlizzardHSAPILocale.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE097CF26A349B800BF3A6D /* BlizzardHSAPILocale.m */; };
@@ -28,6 +27,7 @@
 		4FAA89DD26A426E700572BB4 /* HSCardUseCaseImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA89DB26A426E700572BB4 /* HSCardUseCaseImpl.m */; };
 		4FAA89E026A42A1500572BB4 /* BlizzardHSRepositoryImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FAA89DE26A42A1500572BB4 /* BlizzardHSRepositoryImpl.h */; };
 		4FAA89E126A42A1500572BB4 /* BlizzardHSRepositoryImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA89DF26A42A1500572BB4 /* BlizzardHSRepositoryImpl.m */; };
+		4FAA89E626A4333C00572BB4 /* HSCardUseCaseTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA89E526A4333C00572BB4 /* HSCardUseCaseTest.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,7 +81,6 @@
 		4FA05F7326A30991000E93BC /* HSCardRepository.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardRepository.h; sourceTree = "<group>"; };
 		4FA05F7426A309C7000E93BC /* HSCardRepositoryImpl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardRepositoryImpl.h; sourceTree = "<group>"; };
 		4FA05F7526A309C7000E93BC /* HSCardRepositoryImpl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCardRepositoryImpl.m; sourceTree = "<group>"; };
-		4FA05F7A26A31130000E93BC /* BlizzardHSRepositoryTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlizzardHSRepositoryTest.m; sourceTree = "<group>"; };
 		4FA56BA726A21059002D9FA0 /* StoneNamu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StoneNamu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FA56BAA26A21059002D9FA0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		4FA56BAB26A21059002D9FA0 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -102,6 +101,7 @@
 		4FAA89DE26A42A1500572BB4 /* BlizzardHSRepositoryImpl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlizzardHSRepositoryImpl.h; sourceTree = "<group>"; };
 		4FAA89DF26A42A1500572BB4 /* BlizzardHSRepositoryImpl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlizzardHSRepositoryImpl.m; sourceTree = "<group>"; };
 		4FAA89E226A42A2100572BB4 /* BlizzardHSRepository.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlizzardHSRepository.h; sourceTree = "<group>"; };
+		4FAA89E526A4333C00572BB4 /* HSCardUseCaseTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCardUseCaseTest.m; sourceTree = "<group>"; };
 		4FE097C326A329B400BF3A6D /* BlizzardAPIRegionHost.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlizzardAPIRegionHost.h; sourceTree = "<group>"; };
 		4FE097C626A331FE00BF3A6D /* HSCardRarity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardRarity.h; sourceTree = "<group>"; };
 		4FE097CA26A33C7500BF3A6D /* HSCardClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardClass.h; sourceTree = "<group>"; };
@@ -151,7 +151,7 @@
 		4F34385526A36FBA001161FE /* StoneNamuCoreTests */ = {
 			isa = PBXGroup;
 			children = (
-				4FA05F7A26A31130000E93BC /* BlizzardHSRepositoryTest.m */,
+				4FAA89E326A4332B00572BB4 /* UseCase */,
 			);
 			path = StoneNamuCoreTests;
 			sourceTree = "<group>";
@@ -267,6 +267,14 @@
 				4FAA89D626A4266500572BB4 /* HSCardUseCase.h */,
 				4FAA89DA26A426E700572BB4 /* HSCardUseCaseImpl.h */,
 				4FAA89DB26A426E700572BB4 /* HSCardUseCaseImpl.m */,
+			);
+			path = UseCase;
+			sourceTree = "<group>";
+		};
+		4FAA89E326A4332B00572BB4 /* UseCase */ = {
+			isa = PBXGroup;
+			children = (
+				4FAA89E526A4333C00572BB4 /* HSCardUseCaseTest.m */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -452,7 +460,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4F34386326A36FCF001161FE /* BlizzardHSRepositoryTest.m in Sources */,
+				4FAA89E626A4333C00572BB4 /* HSCardUseCaseTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
