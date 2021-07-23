@@ -21,13 +21,13 @@
 		4FA56BAF26A21059002D9FA0 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA56BAE26A21059002D9FA0 /* SceneDelegate.m */; };
 		4FA56BB726A2105A002D9FA0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4FA56BB626A2105A002D9FA0 /* Assets.xcassets */; };
 		4FA56BBD26A2105A002D9FA0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA56BBC26A2105A002D9FA0 /* main.m */; };
-		4FA56BC526A21197002D9FA0 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA56BC426A21197002D9FA0 /* MainViewController.m */; };
 		4FAA89D826A4266500572BB4 /* HSCardUseCase.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FAA89D626A4266500572BB4 /* HSCardUseCase.h */; };
 		4FAA89DC26A426E700572BB4 /* HSCardUseCaseImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FAA89DA26A426E700572BB4 /* HSCardUseCaseImpl.h */; };
 		4FAA89DD26A426E700572BB4 /* HSCardUseCaseImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA89DB26A426E700572BB4 /* HSCardUseCaseImpl.m */; };
 		4FAA89E026A42A1500572BB4 /* BlizzardHSRepositoryImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FAA89DE26A42A1500572BB4 /* BlizzardHSRepositoryImpl.h */; };
 		4FAA89E126A42A1500572BB4 /* BlizzardHSRepositoryImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA89DF26A42A1500572BB4 /* BlizzardHSRepositoryImpl.m */; };
 		4FAA89E626A4333C00572BB4 /* HSCardUseCaseTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA89E526A4333C00572BB4 /* HSCardUseCaseTest.m */; };
+		4FF676CF26AAFC6A00477272 /* CardsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF676CE26AAFC6A00477272 /* CardsViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,8 +89,6 @@
 		4FA56BB626A2105A002D9FA0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4FA56BBB26A2105A002D9FA0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4FA56BBC26A2105A002D9FA0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		4FA56BC326A21197002D9FA0 /* MainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
-		4FA56BC426A21197002D9FA0 /* MainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		4FA56BEC26A213B2002D9FA0 /* BlizzardHSAPIImpl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlizzardHSAPIImpl.h; sourceTree = "<group>"; };
 		4FA56BED26A213B2002D9FA0 /* BlizzardHSAPIImpl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlizzardHSAPIImpl.m; sourceTree = "<group>"; };
 		4FA56BF226A216C1002D9FA0 /* BlizzardHSAPILocale.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlizzardHSAPILocale.h; sourceTree = "<group>"; };
@@ -108,6 +106,8 @@
 		4FE097CC26A3409500BF3A6D /* BlizzardHSAPIKeys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlizzardHSAPIKeys.h; sourceTree = "<group>"; };
 		4FE097CD26A3496F00BF3A6D /* BlizzardAPIRegionHost.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlizzardAPIRegionHost.m; sourceTree = "<group>"; };
 		4FE097CF26A349B800BF3A6D /* BlizzardHSAPILocale.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlizzardHSAPILocale.m; sourceTree = "<group>"; };
+		4FF676CD26AAFC6A00477272 /* CardsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardsViewController.h; sourceTree = "<group>"; };
+		4FF676CE26AAFC6A00477272 /* CardsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardsViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -204,8 +204,8 @@
 				4FA56BAB26A21059002D9FA0 /* AppDelegate.m */,
 				4FA56BAD26A21059002D9FA0 /* SceneDelegate.h */,
 				4FA56BAE26A21059002D9FA0 /* SceneDelegate.m */,
-				4FA56BC326A21197002D9FA0 /* MainViewController.h */,
-				4FA56BC426A21197002D9FA0 /* MainViewController.m */,
+				4FF676CD26AAFC6A00477272 /* CardsViewController.h */,
+				4FF676CE26AAFC6A00477272 /* CardsViewController.m */,
 				4FA56BB626A2105A002D9FA0 /* Assets.xcassets */,
 				4FA56BBB26A2105A002D9FA0 /* Info.plist */,
 				4FA56BBC26A2105A002D9FA0 /* main.m */,
@@ -468,10 +468,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4FF676CF26AAFC6A00477272 /* CardsViewController.m in Sources */,
 				4FA56BAC26A21059002D9FA0 /* AppDelegate.m in Sources */,
 				4FA56BBD26A2105A002D9FA0 /* main.m in Sources */,
 				4FA56BAF26A21059002D9FA0 /* SceneDelegate.m in Sources */,
-				4FA56BC526A21197002D9FA0 /* MainViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
