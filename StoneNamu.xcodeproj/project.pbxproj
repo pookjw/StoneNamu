@@ -17,6 +17,9 @@
 		4F34386726A37022001161FE /* HSCardRepositoryImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA05F7526A309C7000E93BC /* HSCardRepositoryImpl.m */; };
 		4F34386826A37029001161FE /* BlizzardTokenAPIImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F34383D26A36501001161FE /* BlizzardTokenAPIImpl.m */; };
 		4F34386926A37031001161FE /* BlizzardHSAPIImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA56BED26A213B2002D9FA0 /* BlizzardHSAPIImpl.m */; };
+		4F4976D226ABE6B600860809 /* CardsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4976D126ABE6B600860809 /* CardsViewModel.m */; };
+		4F4976D626ABE72C00860809 /* CardsSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4976D526ABE72C00860809 /* CardsSectionModel.m */; };
+		4F4976D926ABE80700860809 /* CardsItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4976D826ABE80700860809 /* CardsItemModel.m */; };
 		4FA56BAC26A21059002D9FA0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA56BAB26A21059002D9FA0 /* AppDelegate.m */; };
 		4FA56BAF26A21059002D9FA0 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA56BAE26A21059002D9FA0 /* SceneDelegate.m */; };
 		4FA56BB726A2105A002D9FA0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4FA56BB626A2105A002D9FA0 /* Assets.xcassets */; };
@@ -75,6 +78,12 @@
 		4F34384826A36FBA001161FE /* StoneNamuCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StoneNamuCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F34384A26A36FBA001161FE /* StoneNamuCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoneNamuCore.h; sourceTree = "<group>"; };
 		4F34384F26A36FBA001161FE /* StoneNamuCoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StoneNamuCoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4F4976D026ABE6B600860809 /* CardsViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardsViewModel.h; sourceTree = "<group>"; };
+		4F4976D126ABE6B600860809 /* CardsViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardsViewModel.m; sourceTree = "<group>"; };
+		4F4976D426ABE72C00860809 /* CardsSectionModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardsSectionModel.h; sourceTree = "<group>"; };
+		4F4976D526ABE72C00860809 /* CardsSectionModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardsSectionModel.m; sourceTree = "<group>"; };
+		4F4976D726ABE80700860809 /* CardsItemModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardsItemModel.h; sourceTree = "<group>"; };
+		4F4976D826ABE80700860809 /* CardsItemModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardsItemModel.m; sourceTree = "<group>"; };
 		4FA05F6B26A30639000E93BC /* BlizzardHSAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlizzardHSAPI.h; sourceTree = "<group>"; };
 		4FA05F6E26A30940000E93BC /* HSCard.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCard.h; sourceTree = "<group>"; };
 		4FA05F6F26A30940000E93BC /* HSCard.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCard.m; sourceTree = "<group>"; };
@@ -156,6 +165,21 @@
 			path = StoneNamuCoreTests;
 			sourceTree = "<group>";
 		};
+		4F4976D326ABE6EF00860809 /* Cards */ = {
+			isa = PBXGroup;
+			children = (
+				4FF676CD26AAFC6A00477272 /* CardsViewController.h */,
+				4FF676CE26AAFC6A00477272 /* CardsViewController.m */,
+				4F4976D026ABE6B600860809 /* CardsViewModel.h */,
+				4F4976D126ABE6B600860809 /* CardsViewModel.m */,
+				4F4976D426ABE72C00860809 /* CardsSectionModel.h */,
+				4F4976D526ABE72C00860809 /* CardsSectionModel.m */,
+				4F4976D726ABE80700860809 /* CardsItemModel.h */,
+				4F4976D826ABE80700860809 /* CardsItemModel.m */,
+			);
+			path = Cards;
+			sourceTree = "<group>";
+		};
 		4FA05F6C26A308FF000E93BC /* RepoImpl */ = {
 			isa = PBXGroup;
 			children = (
@@ -204,8 +228,7 @@
 				4FA56BAB26A21059002D9FA0 /* AppDelegate.m */,
 				4FA56BAD26A21059002D9FA0 /* SceneDelegate.h */,
 				4FA56BAE26A21059002D9FA0 /* SceneDelegate.m */,
-				4FF676CD26AAFC6A00477272 /* CardsViewController.h */,
-				4FF676CE26AAFC6A00477272 /* CardsViewController.m */,
+				4F4976D326ABE6EF00860809 /* Cards */,
 				4FA56BB626A2105A002D9FA0 /* Assets.xcassets */,
 				4FA56BBB26A2105A002D9FA0 /* Info.plist */,
 				4FA56BBC26A2105A002D9FA0 /* main.m */,
@@ -471,7 +494,10 @@
 				4FF676CF26AAFC6A00477272 /* CardsViewController.m in Sources */,
 				4FA56BAC26A21059002D9FA0 /* AppDelegate.m in Sources */,
 				4FA56BBD26A2105A002D9FA0 /* main.m in Sources */,
+				4F4976D926ABE80700860809 /* CardsItemModel.m in Sources */,
+				4F4976D226ABE6B600860809 /* CardsViewModel.m in Sources */,
 				4FA56BAF26A21059002D9FA0 /* SceneDelegate.m in Sources */,
+				4F4976D626ABE72C00860809 /* CardsSectionModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

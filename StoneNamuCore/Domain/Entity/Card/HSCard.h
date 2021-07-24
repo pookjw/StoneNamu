@@ -12,7 +12,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface HSCard : NSObject
-@property (readonly) NSInteger id;
+@property (readonly) NSInteger cardId;
 @property (readonly) BOOL collectible;
 @property (readonly, retain) NSString *slug;
 @property (readonly) HSCardClass classId;

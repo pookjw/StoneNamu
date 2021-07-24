@@ -23,6 +23,16 @@
     [super dealloc];
 }
 
+- (BOOL)isEqual:(id)object {
+    if (![object isKindOfClass:[HSCard class]]) {
+        return NO;
+    }
+    
+    HSCard *toCompare = (HSCard *)object;
+    
+    return (self.cardId == toCompare.cardId) && ([self.slug isEqualToString:toCompare.slug]);
+}
+
 + (HSCard * _Nullable)hsCardFromJSONData:(NSData *)data error:(NSError **)error {
     NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data
                                                         options:NSJSONReadingMutableContainers
@@ -61,7 +71,7 @@
 + (HSCard *)hsCardFromDic:(NSDictionary *)dic {
     HSCard *hsCard = [[HSCard new] autorelease];
     
-    hsCard->_id = [(NSNumber *)dic[@"id"] integerValue];
+    hsCard->_cardId = [(NSNumber *)dic[@"id"] integerValue];
     hsCard->_collectible = [(NSNumber *)dic[@"collectible"] boolValue];
     hsCard->_slug = [dic[@"slug"] retain];
     hsCard->_classId = [(NSNumber *)dic[@"classId"] integerValue];
