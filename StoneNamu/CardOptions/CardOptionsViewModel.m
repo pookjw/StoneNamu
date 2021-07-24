@@ -8,6 +8,10 @@
 #import "CardOptionsViewModel.h"
 #import "BlizzardHSAPIKeys.h"
 
+@interface CardOptionsViewModel ()
+@property (retain) NSOperationQueue *queue;
+@end
+
 @implementation CardOptionsViewModel
 
 - (instancetype)initWithDataSource:(CardOptionsDataSource *)dataSource {
@@ -17,7 +21,13 @@
         _dataSource = dataSource;
         [_dataSource retain];
         
-        [self configureSnapshot];
+        NSOperationQueue *queue = [NSOperationQueue new];
+        queue.qualityOfService = NSQualityOfServiceUserInitiated;
+        _queue = queue;
+        
+        [queue addOperationWithBlock:^{
+            [self configureSnapshot];
+        }];
     }
     
     return self;
@@ -25,7 +35,14 @@
 
 - (void)dealloc {
     [_dataSource release];
+    [_queue release];
     [super dealloc];
+}
+
+- (void)handleSelectionForIndexPath:(NSIndexPath *)indexPath {
+//    CardOptionsItemModel *itemModel = [self.dataSource itemIdentifierForIndexPath:indexPath];
+    
+    [NSNotificationCenter.defaultCenter postNotificationName:CardOptionsViewModelPresentTextFieldNotificationName object:self userInfo:nil];
 }
 
 - (void)configureSnapshot {

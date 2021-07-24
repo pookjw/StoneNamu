@@ -6,6 +6,7 @@
 //
 
 #import "CardsViewController.h"
+#import "UIViewController+presentErrorAlert.h"
 #import "CardsViewModel.h"
 
 @interface CardsViewController ()
@@ -46,6 +47,7 @@
     [super viewDidLoad];
     [self configureCollectionView];
     [self configureViewModel];
+    [self bind];
 }
 
 - (void)configureCollectionView {
@@ -76,10 +78,12 @@
 }
 
 - (CardsDataSource *)makeDataSource {
+    UICollectionViewCellRegistration *cellRegistration = [self makeCellRegistration];
+    
     CardsDataSource *dataSource = [[CardsDataSource alloc] initWithCollectionView:self.collectionView
                                                                      cellProvider:^UICollectionViewCell * _Nullable(UICollectionView * _Nonnull collectionView, NSIndexPath * _Nonnull indexPath, id  _Nonnull itemIdentifier) {
         
-        UICollectionViewCell *cell = [collectionView dequeueConfiguredReusableCellWithRegistration:[self makeCellRegistration]
+        UICollectionViewCell *cell = [collectionView dequeueConfiguredReusableCellWithRegistration:cellRegistration
                                                                                       forIndexPath:indexPath
                                                                                               item:itemIdentifier];
         return cell;
@@ -104,6 +108,25 @@
     }];
     
     return cellRegistration;
+}
+
+- (void)bind {
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(errorEventReceived:)
+                                               name:CardsViewModelErrorNotificationName
+                                             object:self.viewModel];
+}
+
+- (void)errorEventReceived:(NSNotification *)notification {
+    NSError * _Nullable error = notification.userInfo[CardsViewModelNotificationErrorKey];
+    
+    if (error) {
+        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+            [self presentErrorAlertWithError:error];
+        }];
+    } else {
+        NSLog(@"No error found but the notification was posted: %@", notification.userInfo);
+    }
 }
 
 @end

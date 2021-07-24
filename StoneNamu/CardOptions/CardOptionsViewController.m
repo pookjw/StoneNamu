@@ -9,7 +9,7 @@
 #import "CardOptionsViewModel.h"
 #import "CardsViewController.h"
 
-@interface CardOptionsViewController ()
+@interface CardOptionsViewController () <UICollectionViewDelegate>
 @property (assign) UICollectionView *collectionView;
 @property (retain) CardOptionsViewModel *viewModel;
 @end
@@ -27,10 +27,12 @@
     [self configureFetchButton];
     [self configureCollectionView];
     [self configureViewModel];
+    [self bind];
 }
 
 - (void)setAttributes {
     self.view.backgroundColor = UIColor.systemBackgroundColor;
+    self.title = @"StoneNamu (번역)";
 }
 
 - (void)configureFetchButton {
@@ -68,6 +70,7 @@
     ]];
     
     collectionView.backgroundColor = UIColor.systemBackgroundColor;
+    collectionView.delegate = self;
 }
 
 - (void)configureViewModel {
@@ -77,10 +80,12 @@
 }
 
 - (CardOptionsDataSource *)makeDataSource {
+    UICollectionViewCellRegistration *cellRegistration = [self makeCellRegistration];
+    
     CardOptionsDataSource *dataSource = [[CardOptionsDataSource alloc] initWithCollectionView:self.collectionView
                                                                      cellProvider:^UICollectionViewCell * _Nullable(UICollectionView * _Nonnull collectionView, NSIndexPath * _Nonnull indexPath, id  _Nonnull itemIdentifier) {
         
-        UICollectionViewCell *cell = [collectionView dequeueConfiguredReusableCellWithRegistration:[self makeCellRegistration]
+        UICollectionViewCell *cell = [collectionView dequeueConfiguredReusableCellWithRegistration:cellRegistration
                                                                                       forIndexPath:indexPath
                                                                                               item:itemIdentifier];
         return cell;
@@ -105,6 +110,55 @@
     }];
     
     return cellRegistration;
+}
+
+- (void)bind {
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(presentTextFieldEventReceived:)
+                                               name:CardOptionsViewModelPresentTextFieldNotificationName
+                                             object:self.viewModel];
+    
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(presentPickerEventReceived:)
+                                               name:CardOptionsViewModelPresentPickerNotificationName
+                                             object:self.viewModel];
+}
+
+- (void)presentTextFieldEventReceived:(NSNotification *)notification {
+    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+        UIAlertController *vc = [UIAlertController alertControllerWithTitle:@"테스트"
+                                                                    message:@"테스트"
+                                                             preferredStyle:UIAlertControllerStyleAlert];
+        
+        [vc addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+            
+        }];
+        
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"취소 (번역)"
+                                                               style:UIAlertActionStyleCancel
+                                                             handler:^(UIAlertAction * _Nonnull action) {}];
+        
+        UIAlertAction *doneAction = [UIAlertAction actionWithTitle:@"완료 (번역)"
+                                                             style:UIAlertActionStyleDefault
+                                                           handler:^(UIAlertAction * _Nonnull action) {
+        }];
+        
+        [vc addAction:cancelAction];
+        [vc addAction:doneAction];
+        
+        [self presentViewController:vc animated:YES completion:^{}];
+    }];
+}
+
+- (void)presentPickerEventReceived:(NSNotification *)notification {
+    
+}
+
+#pragma mark UICollectionViewDelegate
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    [self.viewModel handleSelectionForIndexPath:indexPath];
+    [collectionView deselectItemAtIndexPath:indexPath animated:YES];
 }
 
 @end

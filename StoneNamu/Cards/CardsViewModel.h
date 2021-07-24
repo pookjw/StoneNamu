@@ -11,7 +11,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-static NSString * const CardsViewModelErrorNotification = @"CardsViewModelErrorNotification";
+static NSString * const CardsViewModelErrorNotificationName = @"CardsViewModelErrorNotificationName";
+
+static NSString * const CardsViewModelNotificationErrorKey = @"error";
 
 typedef UICollectionViewDiffableDataSource<CardsSectionModel *, CardsItemModel *> CardsDataSource;
 

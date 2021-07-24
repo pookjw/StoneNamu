@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4F182BD126AC23600028115C /* UIViewController+presentErrorAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F182BD026AC23600028115C /* UIViewController+presentErrorAlert.m */; };
 		4F34385026A36FBA001161FE /* StoneNamuCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F34384826A36FBA001161FE /* StoneNamuCore.framework */; };
 		4F34385826A36FBA001161FE /* StoneNamuCore.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F34384A26A36FBA001161FE /* StoneNamuCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4F34385B26A36FBA001161FE /* StoneNamuCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F34384826A36FBA001161FE /* StoneNamuCore.framework */; };
@@ -77,6 +78,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4F182BCF26AC23600028115C /* UIViewController+presentErrorAlert.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+presentErrorAlert.h"; sourceTree = "<group>"; };
+		4F182BD026AC23600028115C /* UIViewController+presentErrorAlert.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+presentErrorAlert.m"; sourceTree = "<group>"; };
 		4F34383726A36492001161FE /* BlizzardTokenAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlizzardTokenAPI.h; sourceTree = "<group>"; };
 		4F34383C26A36501001161FE /* BlizzardTokenAPIImpl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlizzardTokenAPIImpl.h; sourceTree = "<group>"; };
 		4F34383D26A36501001161FE /* BlizzardTokenAPIImpl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlizzardTokenAPIImpl.m; sourceTree = "<group>"; };
@@ -160,6 +163,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4F182BCB26AC23330028115C /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				4F182BCF26AC23600028115C /* UIViewController+presentErrorAlert.h */,
+				4F182BD026AC23600028115C /* UIViewController+presentErrorAlert.m */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
 		4F34384926A36FBA001161FE /* StoneNamuCore */ = {
 			isa = PBXGroup;
 			children = (
@@ -257,6 +269,7 @@
 				4FA56BAB26A21059002D9FA0 /* AppDelegate.m */,
 				4FA56BAD26A21059002D9FA0 /* SceneDelegate.h */,
 				4FA56BAE26A21059002D9FA0 /* SceneDelegate.m */,
+				4F182BCB26AC23330028115C /* Category */,
 				4F4976E026ABFC9A00860809 /* CardOptions */,
 				4F4976D326ABE6EF00860809 /* Cards */,
 				4FA56BB626A2105A002D9FA0 /* Assets.xcassets */,
@@ -525,6 +538,7 @@
 			files = (
 				4FF676CF26AAFC6A00477272 /* CardsViewController.m in Sources */,
 				4FA56BAC26A21059002D9FA0 /* AppDelegate.m in Sources */,
+				4F182BD126AC23600028115C /* UIViewController+presentErrorAlert.m in Sources */,
 				4F4976E926ABFF5E00860809 /* CardOptionsSectionModel.m in Sources */,
 				4F4976E626ABFE2100860809 /* CardOptionsViewModel.m in Sources */,
 				4F4976EC26ABFF6900860809 /* CardOptionsItemModel.m in Sources */,
@@ -573,7 +587,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -605,7 +619,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -721,7 +735,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -774,7 +788,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -792,7 +806,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = P53D29U9LJ;
 				INFOPLIST_FILE = StoneNamu/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -814,7 +828,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = P53D29U9LJ;
 				INFOPLIST_FILE = StoneNamu/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

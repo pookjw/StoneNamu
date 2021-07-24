@@ -50,7 +50,9 @@
             [self postError:error];
         }
         
-        [self updateDataSourceWithCards:cards];
+        [self.queue addOperationWithBlock:^{
+            [self updateDataSourceWithCards:cards];
+        }];
     }];
 }
 
@@ -79,9 +81,9 @@
 }
 
 - (void)postError:(NSError *)error {
-    [NSNotificationCenter.defaultCenter postNotificationName:CardsViewModelErrorNotification
+    [NSNotificationCenter.defaultCenter postNotificationName:CardsViewModelErrorNotificationName
                                                       object:self
-                                                    userInfo:@{@"error": error}];
+                                                    userInfo:@{CardsViewModelNotificationErrorKey: error}];
 }
 
 @end
