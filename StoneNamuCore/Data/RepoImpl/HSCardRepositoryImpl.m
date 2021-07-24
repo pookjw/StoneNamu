@@ -11,7 +11,7 @@
 static NSString * const BlizzardHSCardAPIBasePath = @"/hearthstone/cards";
 
 @interface HSCardRepositoryImpl ()
-@property (retain) NSObject<BlizzardHSRepository> *blizzardHSRepository;
+@property (retain) id<BlizzardHSRepository> blizzardHSRepository;
 @end
 
 @implementation HSCardRepositoryImpl

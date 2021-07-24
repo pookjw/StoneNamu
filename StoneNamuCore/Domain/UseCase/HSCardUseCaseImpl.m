@@ -15,7 +15,7 @@
  */
 
 @interface HSCardUseCaseImpl ()
-@property (retain) NSObject<HSCardRepository> *hsCardRepository;
+@property (retain) id<HSCardRepository> hsCardRepository;
 @end
 
 @implementation HSCardUseCaseImpl

@@ -9,7 +9,7 @@
 #import "HSCardUseCaseImpl.h"
 
 @interface CardsViewModel ()
-@property (retain) NSObject<HSCardUseCase> *hsCardUseCase;
+@property (retain) id<HSCardUseCase> hsCardUseCase;
 @property (retain) NSOperationQueue *queue;
 @end
 

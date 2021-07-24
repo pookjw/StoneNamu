@@ -93,9 +93,6 @@
         default:
             break;
     }
-    
-    NSLog(@"%lu", self.type);
-    NSLog(@"%@", _text);
 }
 
 @end

@@ -10,8 +10,8 @@
 #import "BlizzardHSAPIImpl.h"
 
 @interface BlizzardHSRepositoryImpl ()
-@property (retain) NSObject<BlizzardTokenAPI> *blizzardTokenAPI;
-@property (retain) NSObject<BlizzardHSAPI> *blizzardHSAPI;
+@property (retain) id<BlizzardTokenAPI> blizzardTokenAPI;
+@property (retain) id<BlizzardHSAPI> blizzardHSAPI;
 @end
 
 @implementation BlizzardHSRepositoryImpl

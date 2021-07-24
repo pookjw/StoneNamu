@@ -9,7 +9,7 @@
 #import "HSCardUseCaseImpl.h"
 
 @interface HSCardUseCaseTest : XCTestCase
-@property (retain) NSObject<HSCardUseCase> *useCase;
+@property (retain) id<HSCardUseCase> useCase;
 @end
 
 @implementation HSCardUseCaseTest
