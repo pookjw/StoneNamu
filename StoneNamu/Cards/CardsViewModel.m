@@ -10,11 +10,12 @@
 
 @interface CardsViewModel ()
 @property (retain) NSObject<HSCardUseCase> *hsCardUseCase;
+@property (retain) NSOperationQueue *queue;
 @end
 
 @implementation CardsViewModel
 
-- (instancetype)initWithDataSource:(CardsDataSource *)dataSource {
+- (instancetype)initWithDataSource:(CardsDataSource *)dataSource options:(NSDictionary<NSString *, id> *)options {
     self = [self init];
     
     if (self) {
@@ -24,6 +25,12 @@
         HSCardUseCaseImpl *hsCardUseCase = [HSCardUseCaseImpl new];
         self.hsCardUseCase = hsCardUseCase;
         [hsCardUseCase release];
+        
+        NSOperationQueue *queue = [NSOperationQueue new];
+        queue.qualityOfService = NSQualityOfServiceUserInitiated;
+        _queue = queue;
+        
+        [self requestDataSourceWithOptions:options];
     }
     
     return self;
@@ -32,6 +39,7 @@
 - (void)dealloc {
     [_dataSource release];
     [_hsCardUseCase release];
+    [_queue release];
     [super dealloc];
 }
 
@@ -47,13 +55,13 @@
 }
 
 - (void)updateDataSourceWithCards:(NSArray<HSCard *> *)cards {
-    NSDiffableDataSourceSnapshot *snapshot = [self.dataSource snapshot];
+    NSDiffableDataSourceSnapshot *snapshot = self.dataSource.snapshot;
     
     [snapshot deleteAllItems];
     
     CardsSectionModel *sectionModel = [[CardsSectionModel alloc] initWithType:CardsSectionModelTypeCards];
-    
     [snapshot appendSectionsWithIdentifiers:@[sectionModel]];
+    [sectionModel release];
     
     NSMutableArray<CardsItemModel *> *itemModels = [@[] mutableCopy];
     
@@ -65,7 +73,6 @@
     
     [snapshot appendItemsWithIdentifiers:[[itemModels copy] autorelease] intoSectionWithIdentifier:sectionModel];
     
-    [sectionModel release];
     [itemModels release];
     
     [self.dataSource applySnapshot:snapshot animatingDifferences:YES];

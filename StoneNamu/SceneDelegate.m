@@ -6,10 +6,10 @@
 //
 
 #import "SceneDelegate.h"
-#import "CardsViewController.h"
+#import "CardOptionsViewController.h"
 
 @interface SceneDelegate ()
-@property (assign) CardsViewController *cardViewController;
+@property (assign) CardOptionsViewController *cardOptionsViewController;
 @end
 
 @implementation SceneDelegate
@@ -29,11 +29,14 @@
     self.window = window;
     [window release];
     
-    CardsViewController *cardViewController = [CardsViewController new];
-    self.cardViewController = cardViewController;
-    self.window.rootViewController = cardViewController;
-    [cardViewController release];
-    [cardViewController loadViewIfNeeded];
+    CardOptionsViewController *cardOptionsViewController = [CardOptionsViewController new];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:cardOptionsViewController];
+    self.cardOptionsViewController = cardOptionsViewController;
+    
+    [cardOptionsViewController release];
+    self.window.rootViewController = navigationController;
+    [navigationController release];
+    [navigationController loadViewIfNeeded];
     [self.window makeKeyAndVisible];
 }
 

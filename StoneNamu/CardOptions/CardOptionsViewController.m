@@ -1,51 +1,52 @@
 //
-//  CardsViewController.m
+//  CardOptionsViewController.m
 //  StoneNamu
 //
-//  Created by Jinwoo Kim on 7/23/21.
+//  Created by Jinwoo Kim on 7/24/21.
 //
 
+#import "CardOptionsViewController.h"
+#import "CardOptionsViewModel.h"
 #import "CardsViewController.h"
-#import "CardsViewModel.h"
 
-@interface CardsViewController ()
+@interface CardOptionsViewController ()
 @property (assign) UICollectionView *collectionView;
-@property (readonly, copy) NSDictionary<NSString *, id> * _Nullable options;
-@property (retain) CardsViewModel *viewModel;
+@property (retain) CardOptionsViewModel *viewModel;
 @end
 
-@implementation CardsViewController
-
-- (instancetype)init {
-    self = [super init];
-    
-    if (self) {
-        _options = nil;
-    }
-    
-    return self;
-}
-
-- (instancetype)initWithOptions:(NSDictionary<NSString *,id> *)options {
-    self = [self init];
-    
-    if (self) {
-        _options = [options copy];
-    }
-    
-    return self;
-}
+@implementation CardOptionsViewController
 
 - (void)dealloc {
-    [_options release];
     [_viewModel release];
     [super dealloc];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self setAttributes];
+    [self configureFetchButton];
     [self configureCollectionView];
     [self configureViewModel];
+}
+
+- (void)setAttributes {
+    self.view.backgroundColor = UIColor.systemBackgroundColor;
+}
+
+- (void)configureFetchButton {
+    UIBarButtonItem *fetchButton = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"play.fill"]
+                                                                    style:UIBarButtonItemStylePlain
+                                                                   target:self
+                                                                   action:@selector(fetchButtonTriggered:)];
+    
+    self.navigationItem.rightBarButtonItems = @[fetchButton];
+    [fetchButton release];
+}
+
+- (void)fetchButtonTriggered:(UIBarButtonItem *)sender {
+    CardsViewController *vc = [[CardsViewController alloc] initWithOptions:@{}];
+    [self.navigationController pushViewController:vc animated:YES];
+    [vc release];
 }
 
 - (void)configureCollectionView {
@@ -70,13 +71,13 @@
 }
 
 - (void)configureViewModel {
-    CardsViewModel *viewModel = [[CardsViewModel alloc] initWithDataSource:[self makeDataSource] options:self.options];
+    CardOptionsViewModel *viewModel = [[CardOptionsViewModel alloc] initWithDataSource:[self makeDataSource]];
     self.viewModel = viewModel;
     [viewModel release];
 }
 
-- (CardsDataSource *)makeDataSource {
-    CardsDataSource *dataSource = [[CardsDataSource alloc] initWithCollectionView:self.collectionView
+- (CardOptionsDataSource *)makeDataSource {
+    CardOptionsDataSource *dataSource = [[CardOptionsDataSource alloc] initWithCollectionView:self.collectionView
                                                                      cellProvider:^UICollectionViewCell * _Nullable(UICollectionView * _Nonnull collectionView, NSIndexPath * _Nonnull indexPath, id  _Nonnull itemIdentifier) {
         
         UICollectionViewCell *cell = [collectionView dequeueConfiguredReusableCellWithRegistration:[self makeCellRegistration]
@@ -92,14 +93,14 @@
 - (UICollectionViewCellRegistration *)makeCellRegistration {
     UICollectionViewCellRegistration *cellRegistration = [UICollectionViewCellRegistration registrationWithCellClass:[UICollectionViewListCell class]
                                                                                                 configurationHandler:^(__kindof UICollectionViewCell * _Nonnull cell, NSIndexPath * _Nonnull indexPath, id  _Nonnull item) {
-        if (![item isKindOfClass:[CardsItemModel class]]) {
+        if (![item isKindOfClass:[CardOptionsItemModel class]]) {
             return;
         }
-        CardsItemModel *itemModel = (CardsItemModel *)item;
+        CardOptionsItemModel *itemModel = (CardOptionsItemModel *)item;
         
         UIListContentConfiguration *configuration = [UIListContentConfiguration subtitleCellConfiguration];
-        configuration.text = itemModel.card.name;
-        configuration.secondaryText = itemModel.card.artistName;
+        configuration.text = itemModel.text;
+        configuration.secondaryText = itemModel.secondaryText;
         cell.contentConfiguration = configuration;
     }];
     

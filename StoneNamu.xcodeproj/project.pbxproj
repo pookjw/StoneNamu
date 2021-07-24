@@ -20,6 +20,11 @@
 		4F4976D226ABE6B600860809 /* CardsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4976D126ABE6B600860809 /* CardsViewModel.m */; };
 		4F4976D626ABE72C00860809 /* CardsSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4976D526ABE72C00860809 /* CardsSectionModel.m */; };
 		4F4976D926ABE80700860809 /* CardsItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4976D826ABE80700860809 /* CardsItemModel.m */; };
+		4F4976E326ABFCB300860809 /* CardOptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4976E226ABFCB300860809 /* CardOptionsViewController.m */; };
+		4F4976E626ABFE2100860809 /* CardOptionsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4976E526ABFE2100860809 /* CardOptionsViewModel.m */; };
+		4F4976E926ABFF5E00860809 /* CardOptionsSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4976E826ABFF5E00860809 /* CardOptionsSectionModel.m */; };
+		4F4976EC26ABFF6900860809 /* CardOptionsItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4976EB26ABFF6900860809 /* CardOptionsItemModel.m */; };
+		4F4976EE26AC03AB00860809 /* BlizzardHSAPIKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4976ED26AC03AB00860809 /* BlizzardHSAPIKeys.m */; };
 		4FA56BAC26A21059002D9FA0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA56BAB26A21059002D9FA0 /* AppDelegate.m */; };
 		4FA56BAF26A21059002D9FA0 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA56BAE26A21059002D9FA0 /* SceneDelegate.m */; };
 		4FA56BB726A2105A002D9FA0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4FA56BB626A2105A002D9FA0 /* Assets.xcassets */; };
@@ -84,6 +89,15 @@
 		4F4976D526ABE72C00860809 /* CardsSectionModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardsSectionModel.m; sourceTree = "<group>"; };
 		4F4976D726ABE80700860809 /* CardsItemModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardsItemModel.h; sourceTree = "<group>"; };
 		4F4976D826ABE80700860809 /* CardsItemModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardsItemModel.m; sourceTree = "<group>"; };
+		4F4976E126ABFCB300860809 /* CardOptionsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardOptionsViewController.h; sourceTree = "<group>"; };
+		4F4976E226ABFCB300860809 /* CardOptionsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardOptionsViewController.m; sourceTree = "<group>"; };
+		4F4976E426ABFE2100860809 /* CardOptionsViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardOptionsViewModel.h; sourceTree = "<group>"; };
+		4F4976E526ABFE2100860809 /* CardOptionsViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardOptionsViewModel.m; sourceTree = "<group>"; };
+		4F4976E726ABFF5E00860809 /* CardOptionsSectionModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardOptionsSectionModel.h; sourceTree = "<group>"; };
+		4F4976E826ABFF5E00860809 /* CardOptionsSectionModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardOptionsSectionModel.m; sourceTree = "<group>"; };
+		4F4976EA26ABFF6900860809 /* CardOptionsItemModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardOptionsItemModel.h; sourceTree = "<group>"; };
+		4F4976EB26ABFF6900860809 /* CardOptionsItemModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardOptionsItemModel.m; sourceTree = "<group>"; };
+		4F4976ED26AC03AB00860809 /* BlizzardHSAPIKeys.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlizzardHSAPIKeys.m; sourceTree = "<group>"; };
 		4FA05F6B26A30639000E93BC /* BlizzardHSAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlizzardHSAPI.h; sourceTree = "<group>"; };
 		4FA05F6E26A30940000E93BC /* HSCard.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCard.h; sourceTree = "<group>"; };
 		4FA05F6F26A30940000E93BC /* HSCard.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCard.m; sourceTree = "<group>"; };
@@ -180,6 +194,21 @@
 			path = Cards;
 			sourceTree = "<group>";
 		};
+		4F4976E026ABFC9A00860809 /* CardOptions */ = {
+			isa = PBXGroup;
+			children = (
+				4F4976E126ABFCB300860809 /* CardOptionsViewController.h */,
+				4F4976E226ABFCB300860809 /* CardOptionsViewController.m */,
+				4F4976E426ABFE2100860809 /* CardOptionsViewModel.h */,
+				4F4976E526ABFE2100860809 /* CardOptionsViewModel.m */,
+				4F4976E726ABFF5E00860809 /* CardOptionsSectionModel.h */,
+				4F4976E826ABFF5E00860809 /* CardOptionsSectionModel.m */,
+				4F4976EA26ABFF6900860809 /* CardOptionsItemModel.h */,
+				4F4976EB26ABFF6900860809 /* CardOptionsItemModel.m */,
+			);
+			path = CardOptions;
+			sourceTree = "<group>";
+		};
 		4FA05F6C26A308FF000E93BC /* RepoImpl */ = {
 			isa = PBXGroup;
 			children = (
@@ -228,6 +257,7 @@
 				4FA56BAB26A21059002D9FA0 /* AppDelegate.m */,
 				4FA56BAD26A21059002D9FA0 /* SceneDelegate.h */,
 				4FA56BAE26A21059002D9FA0 /* SceneDelegate.m */,
+				4F4976E026ABFC9A00860809 /* CardOptions */,
 				4F4976D326ABE6EF00860809 /* Cards */,
 				4FA56BB626A2105A002D9FA0 /* Assets.xcassets */,
 				4FA56BBB26A2105A002D9FA0 /* Info.plist */,
@@ -310,6 +340,7 @@
 				4FA56BF226A216C1002D9FA0 /* BlizzardHSAPILocale.h */,
 				4FE097CF26A349B800BF3A6D /* BlizzardHSAPILocale.m */,
 				4FE097CC26A3409500BF3A6D /* BlizzardHSAPIKeys.h */,
+				4F4976ED26AC03AB00860809 /* BlizzardHSAPIKeys.m */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -476,6 +507,7 @@
 				4F34386426A36FED001161FE /* HSCard.m in Sources */,
 				4F34386626A3700E001161FE /* BlizzardHSAPILocale.m in Sources */,
 				4F34386926A37031001161FE /* BlizzardHSAPIImpl.m in Sources */,
+				4F4976EE26AC03AB00860809 /* BlizzardHSAPIKeys.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -493,7 +525,11 @@
 			files = (
 				4FF676CF26AAFC6A00477272 /* CardsViewController.m in Sources */,
 				4FA56BAC26A21059002D9FA0 /* AppDelegate.m in Sources */,
+				4F4976E926ABFF5E00860809 /* CardOptionsSectionModel.m in Sources */,
+				4F4976E626ABFE2100860809 /* CardOptionsViewModel.m in Sources */,
+				4F4976EC26ABFF6900860809 /* CardOptionsItemModel.m in Sources */,
 				4FA56BBD26A2105A002D9FA0 /* main.m in Sources */,
+				4F4976E326ABFCB300860809 /* CardOptionsViewController.m in Sources */,
 				4F4976D926ABE80700860809 /* CardsItemModel.m in Sources */,
 				4F4976D226ABE6B600860809 /* CardsViewModel.m in Sources */,
 				4FA56BAF26A21059002D9FA0 /* SceneDelegate.m in Sources */,

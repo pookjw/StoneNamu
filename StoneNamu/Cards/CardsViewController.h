@@ -10,7 +10,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CardsViewController : UIViewController
-
+- (instancetype)initWithOptions:(NSDictionary<NSString *, id> *)options;
 @end
 
 NS_ASSUME_NONNULL_END

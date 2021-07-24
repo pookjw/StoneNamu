@@ -11,18 +11,27 @@
  https://develop.battle.net/documentation/hearthstone/game-data-apis
  */
 
-static NSString * const BlizzardHSAPILocaleKey = @"locale";
-static NSString * const BlizzardHSAPISetKey = @"set";
-static NSString * const BlizzardHSAPIClassKey = @"class";
-static NSString * const BlizzardHSAPIManaCostKey = @"manaCost";
-static NSString * const BlizzardHSAPIAttackKey = @"attack";
-static NSString * const BlizzardHSAPIHealthKey = @"health";
-static NSString * const BlizzardHSAPICollectibleKey = @"collectible";
-static NSString * const BlizzardHSAPIRarityKey = @"rarity";
-static NSString * const BlizzardHSAPITypeKey = @"type"; /* minion, spell... */
-static NSString * const BlizzardHSAPIMinionTypeKey = @"minionType";
-static NSString * const BlizzardHSAPIKeywordKey = @"keyword";
-static NSString * const BlizzardHSAPITextFilterKey = @"textFilter";
-static NSString * const BlizzardHSAPIGameModeKey = @"gameMode";
-static NSString * const BlizzardHSAPIPageKey = @"page";
-static NSString * const BlizzardHSAPISortKey = @"sort";
+typedef NS_ENUM(NSUInteger, BlizzardHSAPIOptionType) {
+#pragma mark Data Type
+    BlizzardHSAPIOptionTypeLocale,
+    
+#pragma mark Card Type
+    BlizzardHSAPIOptionTypeSet,
+    BlizzardHSAPIOptionTypeClass,
+    BlizzardHSAPIOptionTypeManaCost,
+    BlizzardHSAPIOptionTypeAttack,
+    BlizzardHSAPIOptionTypeHealth,
+    BlizzardHSAPIOptionTypeCollectible,
+    BlizzardHSAPIOptionTypeRarity,
+    BlizzardHSAPIOptionTypeType,
+    BlizzardHSAPIOptionTypeMinionType,
+    BlizzardHSAPIOptionTypeKeyword,
+    BlizzardHSAPIOptionTypeTextFilter,
+    BlizzardHSAPIOptionTypeGameMode,
+#pragma mark Sort Type
+    BlizzardHSAPIOptionTypeSort,
+    
+    BlizzardHSAPIOptionTypePage
+};
+
+NSString * NSStringFromOptionType(BlizzardHSAPIOptionType);

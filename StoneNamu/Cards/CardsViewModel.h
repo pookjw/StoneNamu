@@ -16,9 +16,8 @@ static NSString * const CardsViewModelErrorNotification = @"CardsViewModelErrorN
 typedef UICollectionViewDiffableDataSource<CardsSectionModel *, CardsItemModel *> CardsDataSource;
 
 @interface CardsViewModel : NSObject
-@property (readonly) CardsDataSource *dataSource;
-- (instancetype)initWithDataSource:(CardsDataSource *)dataSource;
-- (void)requestDataSourceWithOptions:(NSDictionary<NSString *, id> * _Nullable)options;
+@property (readonly, retain) CardsDataSource *dataSource;
+- (instancetype)initWithDataSource:(CardsDataSource *)dataSource options:(NSDictionary<NSString *, id> *)options;
 @end
 
 NS_ASSUME_NONNULL_END
