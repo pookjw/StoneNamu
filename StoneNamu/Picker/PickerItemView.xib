@@ -17,19 +17,20 @@
                     <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="BOP-h5-cu2" secondAttribute="height" id="ePa-6I-VhG"/>
+                        <constraint firstAttribute="width" priority="999" id="ziH-PI-uOB"/>
                     </constraints>
                 </imageView>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="15e-zd-i1f">
-                    <rect key="frame" x="108" y="20" width="306" height="60"/>
+                    <rect key="frame" x="100" y="20" width="314" height="60"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ij3-Aj-lsI">
-                            <rect key="frame" x="0.0" y="0.0" width="306" height="30"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ij3-Aj-lsI">
+                            <rect key="frame" x="0.0" y="0.0" width="314" height="30"/>
                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JNI-At-AA3">
-                            <rect key="frame" x="0.0" y="30" width="306" height="30"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JNI-At-AA3">
+                            <rect key="frame" x="0.0" y="30" width="314" height="30"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
@@ -41,7 +42,7 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="15e-zd-i1f" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="20" symbolic="YES" id="DeV-Lt-DEp"/>
-                <constraint firstItem="15e-zd-i1f" firstAttribute="leading" secondItem="BOP-h5-cu2" secondAttribute="trailing" constant="8" symbolic="YES" id="ZYD-sj-ubN"/>
+                <constraint firstItem="15e-zd-i1f" firstAttribute="leading" secondItem="BOP-h5-cu2" secondAttribute="trailing" id="ZYD-sj-ubN"/>
                 <constraint firstItem="BOP-h5-cu2" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="j6k-yi-9av"/>
                 <constraint firstItem="BOP-h5-cu2" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="l2e-h8-u2t"/>
                 <constraint firstItem="BOP-h5-cu2" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="nFb-bP-449"/>
@@ -51,6 +52,8 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="imageView" destination="BOP-h5-cu2" id="2jB-90-7Gi"/>
+                <outlet property="imageViewAspectLayout" destination="ePa-6I-VhG" id="DpQ-Wy-YGG"/>
+                <outlet property="imageViewWidthLayout" destination="ziH-PI-uOB" id="BJT-u4-XKH"/>
                 <outlet property="primaryLabel" destination="Ij3-Aj-lsI" id="SYP-hd-ryW"/>
                 <outlet property="secondaryLabel" destination="JNI-At-AA3" id="HGF-Ty-8ta"/>
             </connections>

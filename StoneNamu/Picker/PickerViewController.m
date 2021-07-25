@@ -57,12 +57,25 @@
     [self configureDoneButton];
 }
 
-- (void)selectRow:(NSInteger)row animated:(BOOL)animated {
-    if (self.view == nil) {
-        [self loadViewIfNeeded];
+- (void)selectIdentity:(NSString *)identity animated:(BOOL)animated {
+    NSUInteger __block index = 0;
+    BOOL __block found = NO;
+    
+    [self.dataSource enumerateObjectsUsingBlock:^(PickerItemModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj.identity isEqualToString:identity]) {
+            index = idx;
+            found = YES;
+            *stop = YES;
+        }
+    }];
+    
+    if ((self.showEmptyRow) && (found)) {
+        index += 1;
+    } else {
+        NSLog(@"No identity found: %@", identity);
     }
     
-    [self.pickerView selectRow:row inComponent:0 animated:animated];
+    [self.pickerView selectRow:index inComponent:0 animated:YES];
 }
 
 - (void)setAttributes {

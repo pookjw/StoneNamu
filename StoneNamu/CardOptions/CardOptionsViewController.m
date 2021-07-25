@@ -184,7 +184,9 @@
         SheetNavigationController *nvc = [[SheetNavigationController alloc] initWithRootViewController:vc];
         [nvc loadViewIfNeeded];
         
-        [self presentViewController:nvc animated:YES completion:^{}];
+        [self presentViewController:nvc animated:YES completion:^{
+            [vc selectIdentity:itemModel.value animated:YES];
+        }];
         
         [vc release];
         [nvc release];

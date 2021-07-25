@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface PickerViewController : UIViewController
 - (instancetype)initWithDataSource:(NSArray<PickerItemModel *> *)dataSource title:(NSString *)title showEmptyRow:(BOOL)showEmptyRow doneCompletion:(PickerViewControllerDoneCompletion)doneCompletion;
-- (void)selectRow:(NSInteger)row animated:(BOOL)animated;
+- (void)selectIdentity:(NSString *)identity animated:(BOOL)animated;
 @end
 
 NS_ASSUME_NONNULL_END
