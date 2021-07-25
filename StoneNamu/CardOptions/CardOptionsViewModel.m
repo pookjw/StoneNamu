@@ -60,11 +60,24 @@
 - (void)handleSelectionForIndexPath:(NSIndexPath *)indexPath {
     CardOptionsItemModel *itemModel = [self.dataSource itemIdentifierForIndexPath:indexPath];
     
-    [NSNotificationCenter.defaultCenter postNotificationName:CardOptionsViewModelPresentTextFieldNotificationName
-                                                      object:self
-                                                    userInfo:@{
-        CardOptionsViewModelNotificationItemKey: itemModel
-    }];
+    switch (itemModel.valueSetType) {
+        case CardOptionsItemModelValueSetTypeTextField:
+            [NSNotificationCenter.defaultCenter postNotificationName:CardOptionsViewModelPresentTextFieldNotificationName
+                                                              object:self
+                                                            userInfo:@{
+                CardOptionsViewModelNotificationItemKey: itemModel
+            }];
+            break;
+        case CardOptionsItemModelValueSetTypePicker:
+            [NSNotificationCenter.defaultCenter postNotificationName:CardOptionsViewModelPresentPickerNotificationName
+                                                              object:self
+                                                            userInfo:@{
+                CardOptionsViewModelNotificationItemKey: itemModel
+            }];
+            break;
+        default:
+            break;
+    }
 }
 
 - (void)updateItem:(CardOptionsItemModel *)itemModel withValue:(NSString * _Nullable)value {

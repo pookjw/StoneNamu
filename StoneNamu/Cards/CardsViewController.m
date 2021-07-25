@@ -58,7 +58,6 @@
     UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
     self.collectionView = collectionView;
     [self.view addSubview:collectionView];
-    [collectionView release];
     
     [collectionView setTranslatesAutoresizingMaskIntoConstraints:NO];
     [NSLayoutConstraint activateConstraints:@[
@@ -69,6 +68,8 @@
     ]];
     
     collectionView.backgroundColor = UIColor.systemBackgroundColor;
+    
+    [collectionView release];
 }
 
 - (void)configureViewModel {

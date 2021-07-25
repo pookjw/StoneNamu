@@ -1,5 +1,5 @@
 //
-//  HSCardUseCase.h
+//  FetchHSCardUseCase.h
 //  StoneNamuCore
 //
 //  Created by Jinwoo Kim on 7/18/21.
@@ -13,7 +13,7 @@ typedef void (^HSCardUseCaseCardCompletion)(HSCard * _Nullable, NSError * _Nulla
 
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol HSCardUseCase <NSObject>
+@protocol FetchHSCardUseCase <NSObject>
 
 - (void)fetchWithOptions:(NSDictionary<NSString *, id> * _Nullable)options
          completionHandler:(HSCardUseCaseCardsCompletion)completion;

@@ -8,6 +8,8 @@
 #import "CardOptionsViewController.h"
 #import "CardOptionsViewModel.h"
 #import "CardsViewController.h"
+#import "SheetNavigationController.h"
+#import "PickerViewController.h"
 
 @interface CardOptionsViewController () <UICollectionViewDelegate>
 @property (assign) UICollectionView *collectionView;
@@ -59,7 +61,6 @@
     UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
     self.collectionView = collectionView;
     [self.view addSubview:collectionView];
-    [collectionView release];
     
     [collectionView setTranslatesAutoresizingMaskIntoConstraints:NO];
     [NSLayoutConstraint activateConstraints:@[
@@ -71,6 +72,8 @@
     
     collectionView.backgroundColor = UIColor.systemBackgroundColor;
     collectionView.delegate = self;
+    
+    [collectionView release];
 }
 
 - (void)configureViewModel {
@@ -133,13 +136,12 @@
 }
 
 - (void)presentTextFieldEventReceived:(NSNotification *)notification {
-    CardOptionsItemModel *itemModel = [notification.userInfo[CardOptionsViewModelNotificationItemKey] retain];
+    CardOptionsItemModel *itemModel = notification.userInfo[CardOptionsViewModelNotificationItemKey];
     
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
         UIAlertController *vc = [UIAlertController alertControllerWithTitle:@"테스트"
                                                                     message:@"테스트"
                                                              preferredStyle:UIAlertControllerStyleAlert];
-        [vc retain];
         
         [vc addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
             textField.text = itemModel.value;
@@ -147,10 +149,7 @@
         
         UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"취소 (번역)"
                                                                style:UIAlertActionStyleCancel
-                                                             handler:^(UIAlertAction * _Nonnull action) {
-            [vc release];
-            [itemModel release];
-        }];
+                                                             handler:^(UIAlertAction * _Nonnull action) {}];
         
         UIAlertAction *doneAction = [UIAlertAction actionWithTitle:@"완료 (번역)"
                                                              style:UIAlertActionStyleDefault
@@ -162,20 +161,34 @@
                 [[itemModel retain] autorelease];
                 [self.viewModel updateItem:itemModel withValue:textField.text];
             }
-            
-            [vc release];
-            [itemModel release];
         }];
         
         [vc addAction:cancelAction];
         [vc addAction:doneAction];
         
         [self presentViewController:vc animated:YES completion:^{}];
+        [vc release];
     }];
 }
 
 - (void)presentPickerEventReceived:(NSNotification *)notification {
+    CardOptionsItemModel *itemModel = notification.userInfo[CardOptionsViewModelNotificationItemKey];
     
+    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+        PickerViewController *vc = [[PickerViewController alloc] initWithDataSource:itemModel.pickerDataSource
+                                                                              title:@"테스트"
+                                                                       showEmptyRow:YES
+                                                                     doneCompletion:^(PickerItemModel * _Nullable pickerItemModel) {
+            [self.viewModel updateItem:itemModel withValue:pickerItemModel.identity];
+        }];
+        SheetNavigationController *nvc = [[SheetNavigationController alloc] initWithRootViewController:vc];
+        [nvc loadViewIfNeeded];
+        
+        [self presentViewController:nvc animated:YES completion:^{}];
+        
+        [vc release];
+        [nvc release];
+    }];
 }
 
 #pragma mark UICollectionViewDelegate

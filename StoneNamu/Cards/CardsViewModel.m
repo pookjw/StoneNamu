@@ -6,10 +6,10 @@
 //
 
 #import "CardsViewModel.h"
-#import "HSCardUseCaseImpl.h"
+#import "FetchHSCardUseCaseImpl.h"
 
 @interface CardsViewModel ()
-@property (retain) id<HSCardUseCase> hsCardUseCase;
+@property (retain) id<FetchHSCardUseCase> fetchHSCardUseCase;
 @property (retain) NSOperationQueue *queue;
 @end
 
@@ -22,8 +22,8 @@
         _dataSource = dataSource;
         [_dataSource retain];
         
-        HSCardUseCaseImpl *hsCardUseCase = [HSCardUseCaseImpl new];
-        self.hsCardUseCase = hsCardUseCase;
+        FetchHSCardUseCaseImpl *hsCardUseCase = [FetchHSCardUseCaseImpl new];
+        self.fetchHSCardUseCase = hsCardUseCase;
         [hsCardUseCase release];
         
         NSOperationQueue *queue = [NSOperationQueue new];
@@ -38,13 +38,13 @@
 
 - (void)dealloc {
     [_dataSource release];
-    [_hsCardUseCase release];
+    [_fetchHSCardUseCase release];
     [_queue release];
     [super dealloc];
 }
 
 -(void)requestDataSourceWithOptions:(NSDictionary<NSString *,id> * _Nullable)options {
-    [self.hsCardUseCase fetchWithOptions:options completionHandler:^(NSArray<HSCard *> * _Nullable cards, NSError * _Nullable error) {
+    [self.fetchHSCardUseCase fetchWithOptions:options completionHandler:^(NSArray<HSCard *> * _Nullable cards, NSError * _Nullable error) {
         
         if (error) {
             [self postError:error];

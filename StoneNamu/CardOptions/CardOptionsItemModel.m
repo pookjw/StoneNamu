@@ -7,6 +7,7 @@
 
 #import "CardOptionsItemModel.h"
 #import "BlizzardHSAPIKeys.h"
+#import "HSCardSetStore.h"
 
 NSString * NSStringFromCardOptionsItemModelType(CardOptionsItemModelType type) {
     switch (type) {
@@ -43,13 +44,21 @@ NSString * NSStringFromCardOptionsItemModelType(CardOptionsItemModelType type) {
 
 @implementation CardOptionsItemModel
 
+- (instancetype)init {
+    self = [super init];
+    
+    if (self) {
+        _value = nil;
+    }
+    
+    return self;
+}
+
 - (instancetype)initWithType:(CardOptionsItemModelType)type {
     self = [self init];
     
     if (self) {
         _type = type;
-        self.value = nil;
-        [self setAttributes];
     }
     
     return self;
@@ -70,62 +79,114 @@ NSString * NSStringFromCardOptionsItemModelType(CardOptionsItemModelType type) {
     return (self.type == toCompare.type) && ([self.value isEqualToString:toCompare.value]);
 }
 
-- (void)setAttributes {
+- (CardOptionsItemModelValueSetType)valueSetType {
     switch (self.type) {
         case CardOptionsItemModelTypeSet:
-            _text = @"확장팩 (번역)";
-            _secondaryText = nil;
-            break;
+            return CardOptionsItemModelValueSetTypePicker;
         case CardOptionsItemModelTypeClass:
-            _text = @"직업 (번역)";
-            _secondaryText = nil;
-            break;
+            return CardOptionsItemModelValueSetTypePicker;
         case CardOptionsItemModelTypeManaCost:
-            _text = @"카드 비용 (번역)";
-            _secondaryText = nil;
-            break;
+            return CardOptionsItemModelValueSetTypeStepper;
         case CardOptionsItemModelTypeAttack:
-            _text = @"하수인 공격력 (번역)";
-            _secondaryText = nil;
-            break;
+            return CardOptionsItemModelValueSetTypeStepper;
         case CardOptionsItemModelTypeHealth:
-            _text = @"하수인 체력 (번역)";
-            _secondaryText = nil;
-            break;
+            return CardOptionsItemModelValueSetTypeStepper;
         case CardOptionsItemModelTypeCollectible:
-            _text = @"수집 가능 (번역)";
-            _secondaryText = nil;
-            break;
+            return CardOptionsItemModelValueSetTypePicker;
         case CardOptionsItemModelTypeRarity:
-            _text = @"카드 등급 (번역)";
-            _secondaryText = nil;
-            break;
+            return CardOptionsItemModelValueSetTypePicker;
         case CardOptionsItemModelTypeType:
-            _text = @"카드 종류 (번역)";
-            _secondaryText = nil;
-            break;
+            return CardOptionsItemModelValueSetTypePicker;
         case CardOptionsItemModelTypeMinionType:
-            _text = @"하수인 종류 (번역)";
-            _secondaryText = nil;
-            break;
+            return CardOptionsItemModelValueSetTypePicker;
         case CardOptionsItemModelTypeKeyword:
-            _text = @"카드 키워드 (번역)";
-            _secondaryText = @"예사: 죽음의 메아리, 전투의 함성... (번역)";
-            break;
+            return CardOptionsItemModelValueSetTypePicker;
         case CardOptionsItemModelTypeTextFilter:
-            _text = @"카드 텍스트 (번역)";
-            _secondaryText = nil;
-            break;
+            return CardOptionsItemModelValueSetTypeTextField;
         case CardOptionsItemModelTypeGameMode:
-            _text = @"게임 모드 (번역)";
-            _secondaryText = nil;
-            break;
+            return CardOptionsItemModelValueSetTypeTextField;
         case CardOptionsItemModelTypeSort:
-            _text = @"결과 정렬 (번역)";
-            _secondaryText = nil;
-            break;
+            return CardOptionsItemModelValueSetTypePicker;
         default:
-            break;
+            return CardOptionsItemModelValueSetTypeTextField;
+    }
+}
+
+- (NSArray<PickerItemModel *> * _Nullable)pickerDataSource {
+    switch (self.type) {
+        case CardOptionsItemModelTypeSet:
+            return HSCardSetStore.pickerItemModels;
+        case CardOptionsItemModelTypeClass:
+            return @[];
+        case CardOptionsItemModelTypeCollectible:
+            return @[];
+        case CardOptionsItemModelTypeRarity:
+            return @[];
+        case CardOptionsItemModelTypeType:
+            return @[];
+        case CardOptionsItemModelTypeMinionType:
+            return @[];
+        case CardOptionsItemModelTypeKeyword:
+            return @[];
+        case CardOptionsItemModelTypeSort:
+            return @[];
+        default:
+            return nil;
+    }
+}
+
+- (NSRange)stepperRange {
+    switch (self.type) {
+        case CardOptionsItemModelTypeManaCost:
+            return NSMakeRange(0, 50);
+        case CardOptionsItemModelTypeAttack:
+            return NSMakeRange(0, 50);
+        case CardOptionsItemModelTypeHealth:
+            return NSMakeRange(0, 50);
+        default:
+            return NSMakeRange(0, 0);
+    }
+}
+
+- (NSString *)text {
+    switch (self.type) {
+        case CardOptionsItemModelTypeSet:
+            return @"확장팩 (번역)";
+        case CardOptionsItemModelTypeClass:
+            return @"직업 (번역)";
+        case CardOptionsItemModelTypeManaCost:
+            return @"카드 비용 (번역)";
+        case CardOptionsItemModelTypeAttack:
+            return @"하수인 공격력 (번역)";
+        case CardOptionsItemModelTypeHealth:
+            return @"하수인 체력 (번역)";
+        case CardOptionsItemModelTypeCollectible:
+            return @"수집 가능 (번역)";
+        case CardOptionsItemModelTypeRarity:
+            return @"카드 등급 (번역)";
+        case CardOptionsItemModelTypeType:
+            return @"카드 종류 (번역)";
+        case CardOptionsItemModelTypeMinionType:
+            return @"하수인 종류 (번역)";
+        case CardOptionsItemModelTypeKeyword:
+            return @"카드 키워드 (번역)";
+        case CardOptionsItemModelTypeTextFilter:
+            return @"카드 텍스트 (번역)";
+        case CardOptionsItemModelTypeGameMode:
+            return @"게임 모드 (번역)";
+        case CardOptionsItemModelTypeSort:
+            return @"결과 정렬 (번역)";
+        default:
+            return @"";
+    }
+}
+
+- (NSString *)secondaryText {
+    switch (self.type) {
+        case CardOptionsItemModelTypeKeyword:
+            return @"예시: 죽음의 메아리, 전투의 함성... (번역)";
+        default:
+            return nil;
     }
 }
 

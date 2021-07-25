@@ -1,21 +1,21 @@
 //
-//  HSCardUseCaseTest.m
+//  FetchHSCardUseCaseTest.m
 //  StoneNamuCoreTests
 //
 //  Created by Jinwoo Kim on 7/18/21.
 //
 
 #import <XCTest/XCTest.h>
-#import "HSCardUseCaseImpl.h"
+#import "FetchHSCardUseCaseImpl.h"
 
-@interface HSCardUseCaseTest : XCTestCase
-@property (retain) id<HSCardUseCase> useCase;
+@interface FetchHSCardUseCaseTest : XCTestCase
+@property (retain) id<FetchHSCardUseCase> useCase;
 @end
 
-@implementation HSCardUseCaseTest
+@implementation FetchHSCardUseCaseTest
 
 - (void)setUp {
-    HSCardUseCaseImpl *useCase = [HSCardUseCaseImpl new];
+    FetchHSCardUseCaseImpl *useCase = [FetchHSCardUseCaseImpl new];
     self.useCase = useCase;
     [useCase release];
 }
