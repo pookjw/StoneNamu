@@ -39,10 +39,49 @@
     [super dealloc];
 }
 
-- (void)handleSelectionForIndexPath:(NSIndexPath *)indexPath {
-//    CardOptionsItemModel *itemModel = [self.dataSource itemIdentifierForIndexPath:indexPath];
+- (NSDictionary<NSString *,id> *)options {
+    NSDiffableDataSourceSnapshot *snapshot = self.dataSource.snapshot;
+    NSArray<CardOptionsItemModel *> *itemModels = snapshot.itemIdentifiers;
     
-    [NSNotificationCenter.defaultCenter postNotificationName:CardOptionsViewModelPresentTextFieldNotificationName object:self userInfo:nil];
+    NSMutableDictionary *dic = [@{} mutableCopy];
+    
+    for (CardOptionsItemModel *itemModel in itemModels) {
+        if ((itemModel.value) && (![itemModel.value isEqualToString:@""])) {
+            dic[NSStringFromCardOptionsItemModelType(itemModel.type)] = itemModel.value;
+        }
+    }
+    
+    NSDictionary *result = [[dic copy] autorelease];
+    [dic release];
+    
+    return result;
+}
+
+- (void)handleSelectionForIndexPath:(NSIndexPath *)indexPath {
+    CardOptionsItemModel *itemModel = [self.dataSource itemIdentifierForIndexPath:indexPath];
+    
+    [NSNotificationCenter.defaultCenter postNotificationName:CardOptionsViewModelPresentTextFieldNotificationName
+                                                      object:self
+                                                    userInfo:@{
+        CardOptionsViewModelNotificationItemKey: itemModel
+    }];
+}
+
+- (void)updateItem:(CardOptionsItemModel *)itemModel withValue:(NSString * _Nullable)value {
+    [itemModel retain];
+    [value retain];
+    
+    [self.queue addOperationWithBlock:^{
+        NSDiffableDataSourceSnapshot *snapshot = self.dataSource.snapshot;
+        itemModel.value = value;
+        [snapshot reconfigureItemsWithIdentifiers:@[itemModel]];
+        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+            [self.dataSource applySnapshot:snapshot animatingDifferences:YES];
+        }];
+        
+        [itemModel release];
+        [value release];
+    }];
 }
 
 - (void)configureSnapshot {
@@ -80,7 +119,9 @@
                    intoSectionWithIdentifier:sortSectionModel];
     }
     
-    [self.dataSource applySnapshot:snapshot animatingDifferences:YES];
+    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+        [self.dataSource applySnapshot:snapshot animatingDifferences:YES];
+    }];
 }
 
 @end

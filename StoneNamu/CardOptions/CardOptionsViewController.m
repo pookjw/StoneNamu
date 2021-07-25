@@ -46,7 +46,7 @@
 }
 
 - (void)fetchButtonTriggered:(UIBarButtonItem *)sender {
-    CardsViewController *vc = [[CardsViewController alloc] initWithOptions:@{}];
+    CardsViewController *vc = [[CardsViewController alloc] initWithOptions:self.viewModel.options];
     [self.navigationController pushViewController:vc animated:YES];
     [vc release];
 }
@@ -97,7 +97,7 @@
 
 - (UICollectionViewCellRegistration *)makeCellRegistration {
     UICollectionViewCellRegistration *cellRegistration = [UICollectionViewCellRegistration registrationWithCellClass:[UICollectionViewListCell class]
-                                                                                                configurationHandler:^(__kindof UICollectionViewCell * _Nonnull cell, NSIndexPath * _Nonnull indexPath, id  _Nonnull item) {
+                                                                                                configurationHandler:^(__kindof UICollectionViewListCell * _Nonnull cell, NSIndexPath * _Nonnull indexPath, id  _Nonnull item) {
         if (![item isKindOfClass:[CardOptionsItemModel class]]) {
             return;
         }
@@ -107,6 +107,14 @@
         configuration.text = itemModel.text;
         configuration.secondaryText = itemModel.secondaryText;
         cell.contentConfiguration = configuration;
+        
+        if (itemModel.value) {
+            cell.accessories = @[
+                [[[UICellAccessoryLabel alloc] initWithText:itemModel.value] autorelease]
+            ];
+        } else {
+            cell.accessories = @[];
+        }
     }];
     
     return cellRegistration;
@@ -125,22 +133,38 @@
 }
 
 - (void)presentTextFieldEventReceived:(NSNotification *)notification {
+    CardOptionsItemModel *itemModel = [notification.userInfo[CardOptionsViewModelNotificationItemKey] retain];
+    
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
         UIAlertController *vc = [UIAlertController alertControllerWithTitle:@"테스트"
                                                                     message:@"테스트"
                                                              preferredStyle:UIAlertControllerStyleAlert];
+        [vc retain];
         
         [vc addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-            
+            textField.text = itemModel.value;
         }];
         
         UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"취소 (번역)"
                                                                style:UIAlertActionStyleCancel
-                                                             handler:^(UIAlertAction * _Nonnull action) {}];
+                                                             handler:^(UIAlertAction * _Nonnull action) {
+            [vc release];
+            [itemModel release];
+        }];
         
         UIAlertAction *doneAction = [UIAlertAction actionWithTitle:@"완료 (번역)"
                                                              style:UIAlertActionStyleDefault
                                                            handler:^(UIAlertAction * _Nonnull action) {
+            
+            UITextField * _Nullable textField = vc.textFields.firstObject;
+            
+            if (textField) {
+                [[itemModel retain] autorelease];
+                [self.viewModel updateItem:itemModel withValue:textField.text];
+            }
+            
+            [vc release];
+            [itemModel release];
         }];
         
         [vc addAction:cancelAction];

@@ -25,9 +25,11 @@ typedef NS_ENUM(NSUInteger, CardOptionsItemModelType) {
     CardOptionsItemModelTypeSort
 };
 
+NSString * NSStringFromCardOptionsItemModelType(CardOptionsItemModelType);
+
 @interface CardOptionsItemModel : NSObject
 @property (readonly) CardOptionsItemModelType type;
-@property (copy) NSString *value;
+@property (copy) NSString * _Nullable value;
 @property (readonly) NSString * _Nullable text;
 @property (readonly) NSString * _Nullable secondaryText;
 - (instancetype)initWithType:(CardOptionsItemModelType)type;

@@ -6,6 +6,40 @@
 //
 
 #import "CardOptionsItemModel.h"
+#import "BlizzardHSAPIKeys.h"
+
+NSString * NSStringFromCardOptionsItemModelType(CardOptionsItemModelType type) {
+    switch (type) {
+        case CardOptionsItemModelTypeSet:
+            return NSStringFromOptionType(BlizzardHSAPIOptionTypeSet);
+        case CardOptionsItemModelTypeClass:
+            return NSStringFromOptionType(BlizzardHSAPIOptionTypeClass);
+        case CardOptionsItemModelTypeManaCost:
+            return NSStringFromOptionType(BlizzardHSAPIOptionTypeManaCost);
+        case CardOptionsItemModelTypeAttack:
+            return NSStringFromOptionType(BlizzardHSAPIOptionTypeAttack);
+        case CardOptionsItemModelTypeHealth:
+            return NSStringFromOptionType(BlizzardHSAPIOptionTypeHealth);
+        case CardOptionsItemModelTypeCollectible:
+            return NSStringFromOptionType(BlizzardHSAPIOptionTypeCollectible);
+        case CardOptionsItemModelTypeRarity:
+            return NSStringFromOptionType(BlizzardHSAPIOptionTypeRarity);
+        case CardOptionsItemModelTypeType:
+            return NSStringFromOptionType(BlizzardHSAPIOptionTypeType);
+        case CardOptionsItemModelTypeMinionType:
+            return NSStringFromOptionType(BlizzardHSAPIOptionTypeMinionType);
+        case CardOptionsItemModelTypeKeyword:
+            return NSStringFromOptionType(BlizzardHSAPIOptionTypeKeyword);
+        case CardOptionsItemModelTypeTextFilter:
+            return NSStringFromOptionType(BlizzardHSAPIOptionTypeTextFilter);
+        case CardOptionsItemModelTypeGameMode:
+            return NSStringFromOptionType(BlizzardHSAPIOptionTypeGameMode);
+        case CardOptionsItemModelTypeSort:
+            return NSStringFromOptionType(BlizzardHSAPIOptionTypeSort);
+        default:
+            return @"";
+    }
+}
 
 @implementation CardOptionsItemModel
 
@@ -14,7 +48,7 @@
     
     if (self) {
         _type = type;
-        self.value = @"";
+        self.value = nil;
         [self setAttributes];
     }
     
