@@ -6,6 +6,8 @@
 //
 
 #import "PickerViewController.h"
+#import "PickerItemView.h"
+#import "UIView+loadFromNib.h"
 
 @interface PickerViewController () <UIPickerViewDataSource, UIPickerViewDelegate>
 @property UIPickerView *pickerView;
@@ -30,6 +32,7 @@
 
 - (void)dealloc {
     [_dataSource release];
+    [_doneCompletion release];
     [super dealloc];
 }
 
@@ -143,16 +146,37 @@
 
 #pragma mark UIPickerViewDelegate
 
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view {
+    
+    PickerItemView *pickerItemView;
+    
+    if ((view) && ([view isKindOfClass:[PickerItemView class]])) {
+        pickerItemView = (PickerItemView *)view;
+    } else {
+        pickerItemView = [PickerItemView loadFromNib];
+    }
+    
     if (self.showEmptyRow) {
         if (row == 0) {
-            return @"(비어 있음 (번역))";
+            [pickerItemView configureWithImage:nil
+                                   primaryText:@"(비어 있음 번역)"
+                                 secondaryText:nil];
         } else {
-            return self.dataSource[row - 1].title;
+            [pickerItemView configureWithImage:self.dataSource[row - 1].image
+                                   primaryText:self.dataSource[row - 1].title
+                                 secondaryText:self.dataSource[row - 1].identity];
         }
     } else {
-        return self.dataSource[row].title;
+        [pickerItemView configureWithImage:self.dataSource[row].image
+                               primaryText:self.dataSource[row].title
+                             secondaryText:self.dataSource[row].identity];
     }
+    
+    return pickerItemView;
+}
+
+- (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component {
+    return 100;
 }
 
 @end

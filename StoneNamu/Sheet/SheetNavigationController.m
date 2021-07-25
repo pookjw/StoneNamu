@@ -29,7 +29,8 @@
     UISheetPresentationController *pc = [[UISheetPresentationController alloc] initWithPresentedViewController:presented presentingViewController:presenting];
     
     pc.detents = @[
-        [UISheetPresentationControllerDetent mediumDetent]
+        [UISheetPresentationControllerDetent mediumDetent],
+        [UISheetPresentationControllerDetent largeDetent]
     ];
     pc.prefersGrabberVisible = YES;
     
