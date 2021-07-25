@@ -93,8 +93,6 @@
     CardOptionsSectionModel *sortSectionModel = [[CardOptionsSectionModel alloc] initWithType:CardOptionsSectionModelTypeSort];
     
     [snapshot appendSectionsWithIdentifiers:@[cardSectionModel, sortSectionModel]];
-    [cardSectionModel release];
-    [sortSectionModel release];
     
     @autoreleasepool {
         [snapshot appendItemsWithIdentifiers:@[
@@ -118,6 +116,9 @@
         ]
                    intoSectionWithIdentifier:sortSectionModel];
     }
+    
+    [cardSectionModel release];
+    [sortSectionModel release];
     
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
         [self.dataSource applySnapshot:snapshot animatingDifferences:YES];

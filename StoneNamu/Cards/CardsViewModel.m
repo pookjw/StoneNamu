@@ -63,7 +63,6 @@
     
     CardsSectionModel *sectionModel = [[CardsSectionModel alloc] initWithType:CardsSectionModelTypeCards];
     [snapshot appendSectionsWithIdentifiers:@[sectionModel]];
-    [sectionModel release];
     
     NSMutableArray<CardsItemModel *> *itemModels = [@[] mutableCopy];
     
@@ -74,6 +73,7 @@
     }
     
     [snapshot appendItemsWithIdentifiers:[[itemModels copy] autorelease] intoSectionWithIdentifier:sectionModel];
+    [sectionModel release];
     
     [itemModels release];
     
