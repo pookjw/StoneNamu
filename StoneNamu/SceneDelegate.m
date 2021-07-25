@@ -29,6 +29,8 @@
     self.window = window;
     [window release];
     
+    [self.window setTintColor:UIColor.redColor];
+    
     CardOptionsViewController *cardOptionsViewController = [CardOptionsViewController new];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:cardOptionsViewController];
     self.cardOptionsViewController = cardOptionsViewController;
