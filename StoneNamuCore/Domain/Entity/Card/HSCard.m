@@ -77,7 +77,14 @@
     hsCard->_classId = [(NSNumber *)dic[@"classId"] integerValue];
     hsCard->_multiClassIds = [dic[@"multiClassIds"] retain];
     hsCard->_cardSetId = [(NSNumber *)dic[@"cardSetId"] integerValue];
-    hsCard->_rarityId = [(NSNumber *)dic[@"rarityId"] integerValue];
+    
+    id rarityId = dic[@"rarityId"];
+    if ([rarityId isEqual:[NSNull null]]) {
+        hsCard->_rarityId = HSCardRarityNull;
+    } else {
+        hsCard->_rarityId = [(NSNumber *)rarityId integerValue];
+    }
+    
     hsCard->_artistName = [dic[@"artistName"] retain];
     hsCard->_health = [(NSNumber *)dic[@"health"] integerValue];
     hsCard->_attack = [(NSNumber *)dic[@"attack"] integerValue];
@@ -87,7 +94,14 @@
     hsCard->_image = [[NSURL URLWithString:dic[@"image"]] retain];
     hsCard->_imageGold = [[NSURL URLWithString:dic[@"imageGold"]] retain];
     hsCard->_flavorText = [dic[@"flavorText"] retain];
-    hsCard->_cropImage = [[NSURL URLWithString:dic[@"cropImage"]] retain];
+    
+    id cropImage = dic[@"cropImage"];
+    if ([cropImage isEqual:[NSNull null]]) {
+        hsCard->_cropImage = nil;
+    } else {
+        hsCard->_cropImage = [[NSURL URLWithString:(NSString *)cropImage] retain];
+    }
+
     hsCard->_childIds = [dic[@"childIds"] retain];
     
     return hsCard;

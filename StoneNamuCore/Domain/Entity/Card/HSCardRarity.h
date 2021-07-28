@@ -8,6 +8,7 @@
 #import <Foundation/Foundation.h>
 
 typedef NS_ENUM(NSUInteger, HSCardRarity) {
+    HSCardRarityNull = 0,
     HSCardRarityFree = 2,
     HSCardRarityCommon = 1,
     HSCardRarityRare = 3,

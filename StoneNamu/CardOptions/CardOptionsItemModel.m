@@ -9,6 +9,7 @@
 #import "BlizzardHSAPIKeys.h"
 #import "HSCardSet.h"
 #import "HSCardClass.h"
+#import "HSCardCollectible.h"
 
 NSString * NSStringFromCardOptionsItemModelType(CardOptionsItemModelType type) {
     switch (type) {
@@ -60,6 +61,7 @@ NSString * NSStringFromCardOptionsItemModelType(CardOptionsItemModelType type) {
     
     if (self) {
         _type = type;
+        [self setDefaultValue];
     }
     
     return self;
@@ -115,40 +117,23 @@ NSString * NSStringFromCardOptionsItemModelType(CardOptionsItemModelType type) {
 
 - (NSArray<PickerItemModel *> * _Nullable)pickerDataSource {
     switch (self.type) {
-        case CardOptionsItemModelTypeSet: {
-            NSComparator comparator = ^NSComparisonResult(PickerItemModel *lhs, PickerItemModel *rhs) {
-                HSCardSet lhsSet = HSCardSetFromNSString(lhs.identity);
-                HSCardSet rhsSet = HSCardSetFromNSString(rhs.identity);
-                
-                if (lhsSet > rhsSet) {
-                    return NSOrderedDescending;
-                } else if (lhsSet < rhsSet) {
-                    return NSOrderedAscending;
-                } else {
-                    return NSOrderedSame;
-                }
-            };
+        case CardOptionsItemModelTypeSet:
             return [self pickerItemModelsFromDic:hsCardSetsWithLocalizable()
-                                      comparator:comparator];
-        }
+                                       converter:^NSUInteger(NSString * key) {
+                return HSCardSetFromNSString(key);
+            }];
         case CardOptionsItemModelTypeClass: {
-            NSComparator comparator = ^NSComparisonResult(PickerItemModel *lhs, PickerItemModel *rhs) {
-                HSCardClass lhsClass = HSCardClassFromNSString(lhs.identity);
-                HSCardClass rhsClass = HSCardClassFromNSString(rhs.identity);
-                
-                if (lhsClass > rhsClass) {
-                    return NSOrderedDescending;
-                } else if (lhsClass < rhsClass) {
-                    return NSOrderedAscending;
-                } else {
-                    return NSOrderedSame;
-                }
-            };
             return [self pickerItemModelsFromDic:hsCardClassesWithLocalizable()
-                                      comparator:comparator];
+                                       converter:^NSUInteger(NSString * key) {
+                return HSCardClassFromNSString(key);
+            }];
         }
-        case CardOptionsItemModelTypeCollectible:
-            return @[];
+        case CardOptionsItemModelTypeCollectible: {
+            return [self pickerItemModelsFromDic:hsCardCollectiblesWithLocalizable()
+                                       converter:^NSUInteger(NSString * key) {
+                return HSCardCollectibleFromNSString(key);
+            }];
+        }
         case CardOptionsItemModelTypeRarity:
             return @[];
         case CardOptionsItemModelTypeType:
@@ -219,10 +204,14 @@ NSString * NSStringFromCardOptionsItemModelType(CardOptionsItemModelType type) {
     }
 }
 
+- (void)setDefaultValue {
+    
+}
+
 #pragma mark Helper
 
 - (NSArray<PickerItemModel *> *)pickerItemModelsFromDic:(NSDictionary<NSString *, NSString *> *)dic
-                                             comparator:(NSComparator)comparator {
+                                             converter:(NSUInteger (^)(NSString *))converter {
     NSMutableArray<PickerItemModel *> *arr = [@[] mutableCopy];
     
     [dic enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSString * _Nonnull obj, BOOL * _Nonnull stop) {
@@ -232,6 +221,19 @@ NSString * NSStringFromCardOptionsItemModelType(CardOptionsItemModelType type) {
         [arr addObject:itemModel];
         [itemModel release];
     }];
+    
+    NSComparator comparator = ^NSComparisonResult(PickerItemModel *lhsModel, PickerItemModel *rhsModel) {
+        NSUInteger lhs = converter(lhsModel.identity);
+        NSUInteger rhs = converter(rhsModel.identity);
+        
+        if (lhs > rhs) {
+            return NSOrderedDescending;
+        } else if (lhs < rhs) {
+            return NSOrderedAscending;
+        } else {
+            return NSOrderedSame;
+        }
+    };
     
     [arr sortUsingComparator:comparator];
     
