@@ -118,6 +118,7 @@
 		4F449EBF26B197C7007CE04A /* HSCardMinionType.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCardMinionType.m; sourceTree = "<group>"; };
 		4F449EC426B19974007CE04A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/HSCardMinionType.strings; sourceTree = "<group>"; };
 		4F449EC626B19975007CE04A /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/HSCardMinionType.strings; sourceTree = "<group>"; };
+		4F449EC726B19AAE007CE04A /* HSCardKeyword.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardKeyword.h; sourceTree = "<group>"; };
 		4F4976D026ABE6B600860809 /* CardsViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardsViewModel.h; sourceTree = "<group>"; };
 		4F4976D126ABE6B600860809 /* CardsViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardsViewModel.m; sourceTree = "<group>"; };
 		4F4976D426ABE72C00860809 /* CardsSectionModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardsSectionModel.h; sourceTree = "<group>"; };
@@ -461,6 +462,7 @@
 				4F449EBC26B19445007CE04A /* HSCardType.m */,
 				4F449EBE26B19630007CE04A /* HSCardMinionType.h */,
 				4F449EBF26B197C7007CE04A /* HSCardMinionType.m */,
+				4F449EC726B19AAE007CE04A /* HSCardKeyword.h */,
 			);
 			path = Card;
 			sourceTree = "<group>";
