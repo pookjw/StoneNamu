@@ -15,3 +15,9 @@ typedef NS_ENUM(NSUInteger, HSCardRarity) {
     HSCardRarityEpic = 4,
     HSCardRarityLegendary = 5
 };
+
+NSString * NSStringFromHSCardRarity(HSCardRarity);
+HSCardRarity HSCardRarityFromNSString(NSString *);
+
+NSArray<NSString *> *hsCardRarities(void);
+NSDictionary<NSString *, NSString *> * hsCardRaritiesWithLocalizable(void);

@@ -8,12 +8,13 @@
 #import <Foundation/Foundation.h>
 #import "HSCardClass.h"
 #import "HSCardRarity.h"
+#import "HSCardCollectible.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface HSCard : NSObject
 @property (readonly) NSInteger cardId;
-@property (readonly) BOOL collectible;
+@property (readonly) HSCardCollectible collectible;
 @property (readonly, retain) NSString *slug;
 @property (readonly) HSCardClass classId;
 @property (readonly, retain) NSArray<NSNumber *> *multiClassIds;
