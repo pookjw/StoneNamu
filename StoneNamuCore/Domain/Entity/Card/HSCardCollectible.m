@@ -30,8 +30,8 @@ HSCardCollectible HSCardCollectibleFromNSString(NSString * key) {
 
 NSArray<NSString *> *hsCardCollectibles(void) {
     return @[
-        @"1",
-        @"0"
+        NSStringFromHSCardCollectible(HSCardCollectibleYES),
+        NSStringFromHSCardCollectible(HSCardCollectibleNO)
     ];
 }
 
