@@ -7,9 +7,7 @@
 
 #import <Foundation/Foundation.h>
 
-typedef NS_ENUM(NSUInteger, BlizzardHSAPILocale) {
-    BlizzardHSAPILocaleEnUS,
-    BlizzardHSAPILocaleKoKR
-};
+typedef NSString * BlizzardHSAPILocale NS_STRING_ENUM;
 
-NSString *NSStringFromLocale(BlizzardHSAPILocale);
+static BlizzardHSAPILocale const BlizzardHSAPILocaleEnUS = @"en_US";
+static BlizzardHSAPILocale const BlizzardHSAPILocaleKoKR = @"ko_KR";

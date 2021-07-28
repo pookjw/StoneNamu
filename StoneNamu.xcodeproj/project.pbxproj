@@ -14,7 +14,6 @@
 		4F34385C26A36FBA001161FE /* StoneNamuCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4F34384826A36FBA001161FE /* StoneNamuCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4F34386426A36FED001161FE /* HSCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA05F6F26A30940000E93BC /* HSCard.m */; };
 		4F34386526A3700C001161FE /* BlizzardAPIRegionHost.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE097CD26A3496F00BF3A6D /* BlizzardAPIRegionHost.m */; };
-		4F34386626A3700E001161FE /* BlizzardHSAPILocale.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE097CF26A349B800BF3A6D /* BlizzardHSAPILocale.m */; };
 		4F34386726A37022001161FE /* HSCardRepositoryImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA05F7526A309C7000E93BC /* HSCardRepositoryImpl.m */; };
 		4F34386826A37029001161FE /* BlizzardTokenAPIImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F34383D26A36501001161FE /* BlizzardTokenAPIImpl.m */; };
 		4F34386926A37031001161FE /* BlizzardHSAPIImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA56BED26A213B2002D9FA0 /* BlizzardHSAPIImpl.m */; };
@@ -25,7 +24,6 @@
 		4F4976E626ABFE2100860809 /* CardOptionsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4976E526ABFE2100860809 /* CardOptionsViewModel.m */; };
 		4F4976E926ABFF5E00860809 /* CardOptionsSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4976E826ABFF5E00860809 /* CardOptionsSectionModel.m */; };
 		4F4976EC26ABFF6900860809 /* CardOptionsItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4976EB26ABFF6900860809 /* CardOptionsItemModel.m */; };
-		4F4976EE26AC03AB00860809 /* BlizzardHSAPIKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4976ED26AC03AB00860809 /* BlizzardHSAPIKeys.m */; };
 		4F57DE9D26AD7B53000E4163 /* PickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F57DE9C26AD7B53000E4163 /* PickerViewController.m */; };
 		4F57DEA126AD7DB3000E4163 /* SheetNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F57DEA026AD7DB3000E4163 /* SheetNavigationController.m */; };
 		4F57DEA526AD96D3000E4163 /* HSCardSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F57DEA426AD96D3000E4163 /* HSCardSet.m */; };
@@ -106,7 +104,6 @@
 		4F4976E826ABFF5E00860809 /* CardOptionsSectionModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardOptionsSectionModel.m; sourceTree = "<group>"; };
 		4F4976EA26ABFF6900860809 /* CardOptionsItemModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardOptionsItemModel.h; sourceTree = "<group>"; };
 		4F4976EB26ABFF6900860809 /* CardOptionsItemModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardOptionsItemModel.m; sourceTree = "<group>"; };
-		4F4976ED26AC03AB00860809 /* BlizzardHSAPIKeys.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlizzardHSAPIKeys.m; sourceTree = "<group>"; };
 		4F57DE9B26AD7B53000E4163 /* PickerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PickerViewController.h; sourceTree = "<group>"; };
 		4F57DE9C26AD7B53000E4163 /* PickerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PickerViewController.m; sourceTree = "<group>"; };
 		4F57DE9F26AD7DB3000E4163 /* SheetNavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SheetNavigationController.h; sourceTree = "<group>"; };
@@ -149,7 +146,6 @@
 		4FE097CA26A33C7500BF3A6D /* HSCardClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardClass.h; sourceTree = "<group>"; };
 		4FE097CC26A3409500BF3A6D /* BlizzardHSAPIKeys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlizzardHSAPIKeys.h; sourceTree = "<group>"; };
 		4FE097CD26A3496F00BF3A6D /* BlizzardAPIRegionHost.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlizzardAPIRegionHost.m; sourceTree = "<group>"; };
-		4FE097CF26A349B800BF3A6D /* BlizzardHSAPILocale.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlizzardHSAPILocale.m; sourceTree = "<group>"; };
 		4FF676CD26AAFC6A00477272 /* CardsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardsViewController.h; sourceTree = "<group>"; };
 		4FF676CE26AAFC6A00477272 /* CardsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardsViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -410,9 +406,7 @@
 				4FE097C326A329B400BF3A6D /* BlizzardAPIRegionHost.h */,
 				4FE097CD26A3496F00BF3A6D /* BlizzardAPIRegionHost.m */,
 				4FA56BF226A216C1002D9FA0 /* BlizzardHSAPILocale.h */,
-				4FE097CF26A349B800BF3A6D /* BlizzardHSAPILocale.m */,
 				4FE097CC26A3409500BF3A6D /* BlizzardHSAPIKeys.h */,
-				4F4976ED26AC03AB00860809 /* BlizzardHSAPIKeys.m */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -581,10 +575,8 @@
 				4FAA89DD26A426E700572BB4 /* FetchHSCardUseCaseImpl.m in Sources */,
 				4FAA89E126A42A1500572BB4 /* BlizzardHSRepositoryImpl.m in Sources */,
 				4F34386426A36FED001161FE /* HSCard.m in Sources */,
-				4F34386626A3700E001161FE /* BlizzardHSAPILocale.m in Sources */,
 				4F57DEA526AD96D3000E4163 /* HSCardSet.m in Sources */,
 				4F34386926A37031001161FE /* BlizzardHSAPIImpl.m in Sources */,
-				4F4976EE26AC03AB00860809 /* BlizzardHSAPIKeys.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -165,7 +165,7 @@
     if ((view) && ([view isKindOfClass:[PickerItemView class]])) {
         pickerItemView = (PickerItemView *)view;
     } else {
-        pickerItemView = [[[PickerItemView alloc] initWithFrame:CGRectMake(0, 0, self.pickerView.frame.size.width, 0)] autorelease];
+        pickerItemView = [[PickerItemView new] autorelease];
     }
     
     if (self.showEmptyRow) {

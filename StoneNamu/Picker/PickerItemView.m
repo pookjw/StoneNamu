@@ -37,8 +37,8 @@
     return height1 + height2 + margin;
 }
 
-- (instancetype)initWithFrame:(CGRect)frame {
-    self = [super initWithFrame:frame];
+- (instancetype)init {
+    self = [super init];
     
     if (self) {
         [self configureViews];

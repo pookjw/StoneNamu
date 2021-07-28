@@ -12,31 +12,31 @@
 NSString * NSStringFromCardOptionsItemModelType(CardOptionsItemModelType type) {
     switch (type) {
         case CardOptionsItemModelTypeSet:
-            return NSStringFromOptionType(BlizzardHSAPIOptionTypeSet);
+            return BlizzardHSAPIOptionTypeSet;
         case CardOptionsItemModelTypeClass:
-            return NSStringFromOptionType(BlizzardHSAPIOptionTypeClass);
+            return BlizzardHSAPIOptionTypeClass;
         case CardOptionsItemModelTypeManaCost:
-            return NSStringFromOptionType(BlizzardHSAPIOptionTypeManaCost);
+            return BlizzardHSAPIOptionTypeManaCost;
         case CardOptionsItemModelTypeAttack:
-            return NSStringFromOptionType(BlizzardHSAPIOptionTypeAttack);
+            return BlizzardHSAPIOptionTypeAttack;
         case CardOptionsItemModelTypeHealth:
-            return NSStringFromOptionType(BlizzardHSAPIOptionTypeHealth);
+            return BlizzardHSAPIOptionTypeHealth;
         case CardOptionsItemModelTypeCollectible:
-            return NSStringFromOptionType(BlizzardHSAPIOptionTypeCollectible);
+            return BlizzardHSAPIOptionTypeCollectible;
         case CardOptionsItemModelTypeRarity:
-            return NSStringFromOptionType(BlizzardHSAPIOptionTypeRarity);
+            return BlizzardHSAPIOptionTypeRarity;
         case CardOptionsItemModelTypeType:
-            return NSStringFromOptionType(BlizzardHSAPIOptionTypeType);
+            return BlizzardHSAPIOptionTypeType;
         case CardOptionsItemModelTypeMinionType:
-            return NSStringFromOptionType(BlizzardHSAPIOptionTypeMinionType);
+            return BlizzardHSAPIOptionTypeMinionType;
         case CardOptionsItemModelTypeKeyword:
-            return NSStringFromOptionType(BlizzardHSAPIOptionTypeKeyword);
+            return BlizzardHSAPIOptionTypeKeyword;
         case CardOptionsItemModelTypeTextFilter:
-            return NSStringFromOptionType(BlizzardHSAPIOptionTypeTextFilter);
+            return BlizzardHSAPIOptionTypeTextFilter;
         case CardOptionsItemModelTypeGameMode:
-            return NSStringFromOptionType(BlizzardHSAPIOptionTypeGameMode);
+            return BlizzardHSAPIOptionTypeGameMode;
         case CardOptionsItemModelTypeSort:
-            return NSStringFromOptionType(BlizzardHSAPIOptionTypeSort);
+            return BlizzardHSAPIOptionTypeSort;
         default:
             return @"";
     }
