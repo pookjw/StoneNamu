@@ -104,13 +104,8 @@
         
         UIListContentConfiguration *configuration = [UIListContentConfiguration subtitleCellConfiguration];
         
-        if (![itemModel.card.name isEqual:[NSNull null]]) {
-            configuration.text = itemModel.card.name;
-        }
-        
-        if (![itemModel.card.artistName isEqual:[NSNull null]]) {
-            configuration.secondaryText = itemModel.card.artistName;
-        }
+        configuration.text = itemModel.card.name;
+        configuration.secondaryText = itemModel.card.artistName;
         
         cell.contentConfiguration = configuration;
     }];

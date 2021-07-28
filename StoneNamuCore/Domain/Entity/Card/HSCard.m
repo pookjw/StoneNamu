@@ -85,11 +85,24 @@
         hsCard->_rarityId = [(NSNumber *)rarityId integerValue];
     }
     
-    hsCard->_artistName = [dic[@"artistName"] retain];
+    id artistName = dic[@"artistName"];
+    if ([artistName isEqual:[NSNull null]]) {
+        hsCard->_artistName = nil;
+    } else {
+        hsCard->_artistName = [artistName retain];
+    }
+    
     hsCard->_health = [(NSNumber *)dic[@"health"] integerValue];
     hsCard->_attack = [(NSNumber *)dic[@"attack"] integerValue];
     hsCard->_manaCost = [(NSNumber *)dic[@"manaCost"] integerValue];
-    hsCard->_name = [dic[@"name"] retain];
+    
+    id name = dic[@"name"];
+    if ([name isEqual:[NSNull null]]) {
+        hsCard->_name = nil;
+    } else {
+        hsCard->_name = [name retain];
+    }
+    
     hsCard->_text = [dic[@"text"] retain];
     hsCard->_image = [[NSURL URLWithString:dic[@"image"]] retain];
     hsCard->_imageGold = [[NSURL URLWithString:dic[@"imageGold"]] retain];

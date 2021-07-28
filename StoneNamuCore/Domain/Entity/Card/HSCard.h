@@ -19,11 +19,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly, retain) NSArray<NSNumber *> *multiClassIds;
 @property (readonly) NSInteger cardSetId;
 @property (readonly) HSCardRarity rarityId;
-@property (readonly, retain) NSString *artistName;
+@property (readonly, retain) NSString * _Nullable artistName;
 @property (readonly) NSInteger health;
 @property (readonly) NSInteger attack;
 @property (readonly) NSInteger manaCost;
-@property (readonly, retain) NSString *name;
+@property (readonly, retain) NSString * _Nullable name;
 @property (readonly, retain) NSString *text;
 @property (readonly, retain) NSURL *image;
 @property (readonly, retain) NSURL * _Nullable imageGold;
