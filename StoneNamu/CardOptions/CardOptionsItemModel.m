@@ -207,6 +207,21 @@ NSString * NSStringFromCardOptionsItemModelType(CardOptionsItemModelType type) {
         [itemModel release];
     }];
     
+    NSComparator comparator = ^NSComparisonResult(PickerItemModel *lhs, PickerItemModel *rhs) {
+        HSCardSet lhsSet = HSCardSetFromNSString(lhs.identity);
+        HSCardSet rhsSet = HSCardSetFromNSString(rhs.identity);
+        
+        if (lhsSet > rhsSet) {
+            return NSOrderedDescending;
+        } else if (lhsSet < rhsSet) {
+            return NSOrderedAscending;
+        } else {
+            return NSOrderedSame;
+        }
+    };
+    
+    [arr sortUsingComparator:comparator];
+    
     NSArray<PickerItemModel *> *result = [[arr copy] autorelease];
     [arr release];
     return result;
