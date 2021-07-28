@@ -8,6 +8,7 @@
 #import "CardOptionsItemModel.h"
 #import "BlizzardHSAPIKeys.h"
 #import "HSCardSet.h"
+#import "HSCardClass.h"
 
 NSString * NSStringFromCardOptionsItemModelType(CardOptionsItemModelType type) {
     switch (type) {
@@ -41,10 +42,6 @@ NSString * NSStringFromCardOptionsItemModelType(CardOptionsItemModelType type) {
             return @"";
     }
 }
-
-@interface CardOptionsItemModel ()
-@property (readonly, nonatomic) NSArray<PickerItemModel *> *hsCardSetsPickerItemModels;
-@end
 
 @implementation CardOptionsItemModel
 
@@ -118,10 +115,38 @@ NSString * NSStringFromCardOptionsItemModelType(CardOptionsItemModelType type) {
 
 - (NSArray<PickerItemModel *> * _Nullable)pickerDataSource {
     switch (self.type) {
-        case CardOptionsItemModelTypeSet:
-            return self.hsCardSetsPickerItemModels;
-        case CardOptionsItemModelTypeClass:
-            return @[];
+        case CardOptionsItemModelTypeSet: {
+            NSComparator comparator = ^NSComparisonResult(PickerItemModel *lhs, PickerItemModel *rhs) {
+                HSCardSet lhsSet = HSCardSetFromNSString(lhs.identity);
+                HSCardSet rhsSet = HSCardSetFromNSString(rhs.identity);
+                
+                if (lhsSet > rhsSet) {
+                    return NSOrderedDescending;
+                } else if (lhsSet < rhsSet) {
+                    return NSOrderedAscending;
+                } else {
+                    return NSOrderedSame;
+                }
+            };
+            return [self pickerItemModelsFromDic:hsCardSetsWithLocalizable()
+                                      comparator:comparator];
+        }
+        case CardOptionsItemModelTypeClass: {
+            NSComparator comparator = ^NSComparisonResult(PickerItemModel *lhs, PickerItemModel *rhs) {
+                HSCardClass lhsClass = HSCardClassFromNSString(lhs.identity);
+                HSCardClass rhsClass = HSCardClassFromNSString(rhs.identity);
+                
+                if (lhsClass > rhsClass) {
+                    return NSOrderedDescending;
+                } else if (lhsClass < rhsClass) {
+                    return NSOrderedAscending;
+                } else {
+                    return NSOrderedSame;
+                }
+            };
+            return [self pickerItemModelsFromDic:hsCardClassesWithLocalizable()
+                                      comparator:comparator];
+        }
         case CardOptionsItemModelTypeCollectible:
             return @[];
         case CardOptionsItemModelTypeRarity:
@@ -196,29 +221,17 @@ NSString * NSStringFromCardOptionsItemModelType(CardOptionsItemModelType type) {
 
 #pragma mark Helper
 
-- (NSArray<PickerItemModel *> *)hsCardSetsPickerItemModels {
+- (NSArray<PickerItemModel *> *)pickerItemModelsFromDic:(NSDictionary<NSString *, NSString *> *)dic
+                                             comparator:(NSComparator)comparator {
     NSMutableArray<PickerItemModel *> *arr = [@[] mutableCopy];
     
-    [hsCardSetsWithLocalizable() enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSString * _Nonnull obj, BOOL * _Nonnull stop) {
+    [dic enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSString * _Nonnull obj, BOOL * _Nonnull stop) {
         PickerItemModel *itemModel = [[PickerItemModel alloc] initWithImage:[UIImage imageNamed:key]
                                                                       title:obj
                                                                    identity:key];
         [arr addObject:itemModel];
         [itemModel release];
     }];
-    
-    NSComparator comparator = ^NSComparisonResult(PickerItemModel *lhs, PickerItemModel *rhs) {
-        HSCardSet lhsSet = HSCardSetFromNSString(lhs.identity);
-        HSCardSet rhsSet = HSCardSetFromNSString(rhs.identity);
-        
-        if (lhsSet > rhsSet) {
-            return NSOrderedDescending;
-        } else if (lhsSet < rhsSet) {
-            return NSOrderedAscending;
-        } else {
-            return NSOrderedSame;
-        }
-    };
     
     [arr sortUsingComparator:comparator];
     

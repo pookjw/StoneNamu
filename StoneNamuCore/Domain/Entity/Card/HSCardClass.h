@@ -9,7 +9,7 @@
 
 typedef NS_ENUM(NSUInteger, HSCardClass) {
     HSCardClassNeutral = 12,
-    HSCardClassDarkKnight = 1,
+    HSCardClassDeathKnight = 1,
     HSCardClassDemonHunter = 14,
     HSCardClassDruid = 2,
     HSCardClassHunter = 3,
@@ -21,3 +21,9 @@ typedef NS_ENUM(NSUInteger, HSCardClass) {
     HSCardClassWarlock = 9,
     HSCardClassWarrior = 10,
 };
+
+NSString * NSStringFromHSCardClass(HSCardClass);
+HSCardClass HSCardClassFromNSString(NSString *);
+
+NSArray<NSString *> * hsCardClasses(void);
+NSDictionary<NSString *, NSString *>  * hsCardClassesWithLocalizable(void);
