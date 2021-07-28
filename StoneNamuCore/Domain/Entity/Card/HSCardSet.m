@@ -135,3 +135,53 @@ HSCardSet HSCardSetFromNSString(NSString * key) {
         return HSCardSetLegacy;
     }
 }
+
+NSArray<NSString *> * hsCardSets() {
+    return @[
+        NSStringFromHSCardSet(HSCardSetLegacy),
+        NSStringFromHSCardSet(HSCardSetNaxxramas),
+        NSStringFromHSCardSet(HSCardSetNaxxramas),
+        NSStringFromHSCardSet(HSCardSetBlackRockMountain),
+        NSStringFromHSCardSet(HSCardSetTheGrandTournament),
+        NSStringFromHSCardSet(HSCardSetLeagueOfExplorers),
+        NSStringFromHSCardSet(HSCardSetWhispersOfTheOldGods),
+        NSStringFromHSCardSet(HSCardSetOneNightInKarazhan),
+        NSStringFromHSCardSet(HSCardSetMeanStreetOfGadgetzan),
+        NSStringFromHSCardSet(HSCardSetJourneyToUngoro),
+        NSStringFromHSCardSet(HSCardSetKnightsOfTheFrozenThrone),
+        NSStringFromHSCardSet(HSCardSetKoboldsAndCatacombs),
+        NSStringFromHSCardSet(HSCardSetTheWitchwood),
+        NSStringFromHSCardSet(HSCardSetTheBoomsdayProject),
+        NSStringFromHSCardSet(HSCardSetRastakhansRumble),
+        NSStringFromHSCardSet(HSCardSetRiseOfShadows),
+        NSStringFromHSCardSet(HSCardSetSaviorsOfUldum),
+        NSStringFromHSCardSet(HSCardSetDescentOfDragons),
+        NSStringFromHSCardSet(HSCardSetGalakrondsAwakening),
+        NSStringFromHSCardSet(HSCardSetDemonHunderInitiate),
+        NSStringFromHSCardSet(HSCardSetCore),
+        NSStringFromHSCardSet(HSCardSetAshesOfOutland),
+        NSStringFromHSCardSet(HSCardSetScholomanceAcademy),
+        NSStringFromHSCardSet(HSCardSetMadnessAtTheDarkmoonFaire),
+        NSStringFromHSCardSet(HSCardSetForgedInTheBarrens),
+        NSStringFromHSCardSet(HSCardSetUnitedInStormWind),
+        NSStringFromHSCardSet(HSCardSetClassicCards),
+        NSStringFromHSCardSet(HSCardSetWildCards),
+        NSStringFromHSCardSet(HSCardSetStandardCards)
+    ];
+}
+
+NSDictionary<NSString *, NSString *> * hsCardSetsWithLocalizable() {
+    NSMutableDictionary<NSString *, NSString *> *dic = [@{} mutableCopy];
+    
+    [hsCardSets() enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        dic[obj] = NSLocalizedStringFromTableInBundle(obj,
+                                                      @"HSCardSet",
+                                                      [NSBundle bundleWithIdentifier:@"com.pookjw.StoneNamuCore"],
+                                                      @"");
+    }];
+    
+    NSDictionary<NSString *, NSString *> *result = [[dic copy] autorelease];
+    [dic release];
+    
+    return result;;
+}

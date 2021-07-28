@@ -7,7 +7,7 @@
 
 #import "CardOptionsItemModel.h"
 #import "BlizzardHSAPIKeys.h"
-#import "HSCardSetStore.h"
+#import "HSCardSet.h"
 
 NSString * NSStringFromCardOptionsItemModelType(CardOptionsItemModelType type) {
     switch (type) {
@@ -41,6 +41,10 @@ NSString * NSStringFromCardOptionsItemModelType(CardOptionsItemModelType type) {
             return @"";
     }
 }
+
+@interface CardOptionsItemModel ()
+@property (readonly, nonatomic) NSArray<PickerItemModel *> *hsCardSetsPickerItemModels;
+@end
 
 @implementation CardOptionsItemModel
 
@@ -115,7 +119,7 @@ NSString * NSStringFromCardOptionsItemModelType(CardOptionsItemModelType type) {
 - (NSArray<PickerItemModel *> * _Nullable)pickerDataSource {
     switch (self.type) {
         case CardOptionsItemModelTypeSet:
-            return HSCardSetStore.pickerItemModels;
+            return self.hsCardSetsPickerItemModels;
         case CardOptionsItemModelTypeClass:
             return @[];
         case CardOptionsItemModelTypeCollectible:
@@ -188,6 +192,24 @@ NSString * NSStringFromCardOptionsItemModelType(CardOptionsItemModelType type) {
         default:
             return nil;
     }
+}
+
+#pragma mark Helper
+
+- (NSArray<PickerItemModel *> *)hsCardSetsPickerItemModels {
+    NSMutableArray<PickerItemModel *> *arr = [@[] mutableCopy];
+    
+    [hsCardSetsWithLocalizable() enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSString * _Nonnull obj, BOOL * _Nonnull stop) {
+        PickerItemModel *itemModel = [[PickerItemModel alloc] initWithImage:[UIImage imageNamed:key]
+                                                                      title:obj
+                                                                   identity:key];
+        [arr addObject:itemModel];
+        [itemModel release];
+    }];
+    
+    NSArray<PickerItemModel *> *result = [[arr copy] autorelease];
+    [arr release];
+    return result;
 }
 
 @end

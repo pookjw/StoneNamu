@@ -42,6 +42,9 @@ typedef NS_ENUM(NSUInteger, HSCardSet) {
 NSString * NSStringFromHSCardSet(HSCardSet);
 HSCardSet HSCardSetFromNSString(NSString *);
 
+NSArray<NSString *> * hsCardSets(void);
+NSDictionary<NSString *, NSString *> * hsCardSetsWithLocalizable(void);
+
 /*
  legacy
  naxxramas : 12
