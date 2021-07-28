@@ -1,4 +1,4 @@
-/* 
+/*
   HSCardSet.strings
   StoneNamu
 
@@ -6,4 +6,60 @@
   
 */
 
-"TEST_LOCALIZABLE" = "Hi!";
+"legacy" = "고전";
+
+"naxxramas" = "낙스라마스의 저주";
+
+"goblins-vs-gnomes" = "고블린 대 노움";
+
+"blackrock-mountain" = "검은바위 산";
+
+"the-grand-tournament" = "대 마상시험";
+
+"league-of-explorers" = "탐험가 연맹";
+
+"whispers-of-the-old-gods" = "고대 신의 속삭임";
+
+"one-night-in-karazhan" = "한여름 밤의 카라잔";
+
+"mean-streets-of-gadgetzan" = "비열한 거리의 가젯잔";
+
+"journey-to-ungoro" = "운고로를 향한 여정";
+
+"knights-of-the-frozen-throne" = "얼어붙은 왕좌의 기사들";
+
+"kobolds-and-catacombs" = "코볼트와 지하 미궁";
+
+"the-witchwood" = "마녀숲";
+
+"the-boomsday-project" = "박사 붐의 폭심만만 프로젝트";
+
+"rastakhans-rumble" = "라스타칸의 대난투";
+
+"rise-of-shadows" = "어둠의 반격";
+
+"saviors-of-uldum" = "울둠의 구원자";
+
+"descent-of-dragons" = "용의 강림";
+
+"galakronds-awakening" = "갈라크론드의 부활";
+
+"demonhunter-initiate" = "수습 악마사냥꾼";
+
+"core" = "핵심";
+
+"ashes-of-outland" = "황폐한 아웃랜드";
+
+"scholomance-academy" = "스칼로맨스 아카데미";
+
+"madness-at-the-darkmoon-faire" = "광기의 다크문 축제";
+
+"forged-in-the-barrens" = "불모의 땅";
+
+"united-in-stormwind" = "스톰윈드";
+
+"classic-cards" = "오리지널";
+
+"wild" = "야생";
+
+"standard" = "정규";
