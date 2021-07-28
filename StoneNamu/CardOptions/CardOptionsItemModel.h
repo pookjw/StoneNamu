@@ -29,6 +29,7 @@ typedef NS_ENUM(NSUInteger, CardOptionsItemModelType) {
 typedef NS_ENUM(NSUInteger, CardOptionsItemModelValueSetType) {
     CardOptionsItemModelValueSetTypeTextField,
     CardOptionsItemModelValueSetTypePicker,
+    CardOptionsItemModelValueSetTypePickerWithEmptyRow,
     CardOptionsItemModelValueSetTypeStepper
 };
 

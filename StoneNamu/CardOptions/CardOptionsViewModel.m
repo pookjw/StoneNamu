@@ -72,7 +72,16 @@
             [NSNotificationCenter.defaultCenter postNotificationName:CardOptionsViewModelPresentPickerNotificationName
                                                               object:self
                                                             userInfo:@{
-                CardOptionsViewModelNotificationItemKey: itemModel
+                CardOptionsViewModelNotificationItemKey: itemModel,
+                CardOptionsViewModelPickerShowEmptyRowNotificationItemKey: [NSNumber numberWithBool:NO]
+            }];
+            break;
+        case CardOptionsItemModelValueSetTypePickerWithEmptyRow:
+            [NSNotificationCenter.defaultCenter postNotificationName:CardOptionsViewModelPresentPickerNotificationName
+                                                              object:self
+                                                            userInfo:@{
+                CardOptionsViewModelNotificationItemKey: itemModel,
+                CardOptionsViewModelPickerShowEmptyRowNotificationItemKey: [NSNumber numberWithBool:YES]
             }];
             break;
         default:

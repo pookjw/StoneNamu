@@ -173,11 +173,12 @@
 
 - (void)presentPickerEventReceived:(NSNotification *)notification {
     CardOptionsItemModel *itemModel = notification.userInfo[CardOptionsViewModelNotificationItemKey];
+    BOOL showEmptyRow = [(NSNumber *)notification.userInfo[CardOptionsViewModelPickerShowEmptyRowNotificationItemKey] boolValue];
     
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
         PickerViewController *vc = [[PickerViewController alloc] initWithDataSource:itemModel.pickerDataSource
                                                                               title:@"테스트"
-                                                                       showEmptyRow:YES
+                                                                       showEmptyRow:showEmptyRow
                                                                      doneCompletion:^(PickerItemModel * _Nullable pickerItemModel) {
             [self.viewModel updateItem:itemModel withValue:pickerItemModel.identity];
         }];

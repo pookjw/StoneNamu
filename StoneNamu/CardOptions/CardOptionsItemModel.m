@@ -83,9 +83,9 @@ NSString * NSStringFromCardOptionsItemModelType(CardOptionsItemModelType type) {
 - (CardOptionsItemModelValueSetType)valueSetType {
     switch (self.type) {
         case CardOptionsItemModelTypeSet:
-            return CardOptionsItemModelValueSetTypePicker;
+            return CardOptionsItemModelValueSetTypePickerWithEmptyRow;
         case CardOptionsItemModelTypeClass:
-            return CardOptionsItemModelValueSetTypePicker;
+            return CardOptionsItemModelValueSetTypePickerWithEmptyRow;
         case CardOptionsItemModelTypeManaCost:
             return CardOptionsItemModelValueSetTypeStepper;
         case CardOptionsItemModelTypeAttack:
@@ -95,19 +95,19 @@ NSString * NSStringFromCardOptionsItemModelType(CardOptionsItemModelType type) {
         case CardOptionsItemModelTypeCollectible:
             return CardOptionsItemModelValueSetTypePicker;
         case CardOptionsItemModelTypeRarity:
-            return CardOptionsItemModelValueSetTypePicker;
+            return CardOptionsItemModelValueSetTypePickerWithEmptyRow;
         case CardOptionsItemModelTypeType:
-            return CardOptionsItemModelValueSetTypePicker;
+            return CardOptionsItemModelValueSetTypePickerWithEmptyRow;
         case CardOptionsItemModelTypeMinionType:
-            return CardOptionsItemModelValueSetTypePicker;
+            return CardOptionsItemModelValueSetTypePickerWithEmptyRow;
         case CardOptionsItemModelTypeKeyword:
-            return CardOptionsItemModelValueSetTypePicker;
+            return CardOptionsItemModelValueSetTypePickerWithEmptyRow;
         case CardOptionsItemModelTypeTextFilter:
             return CardOptionsItemModelValueSetTypeTextField;
         case CardOptionsItemModelTypeGameMode:
             return CardOptionsItemModelValueSetTypeTextField;
         case CardOptionsItemModelTypeSort:
-            return CardOptionsItemModelValueSetTypePicker;
+            return CardOptionsItemModelValueSetTypePickerWithEmptyRow;
         default:
             return CardOptionsItemModelValueSetTypeTextField;
     }
