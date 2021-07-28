@@ -103,8 +103,15 @@
         CardsItemModel *itemModel = (CardsItemModel *)item;
         
         UIListContentConfiguration *configuration = [UIListContentConfiguration subtitleCellConfiguration];
-        configuration.text = itemModel.card.name;
-        configuration.secondaryText = itemModel.card.artistName;
+        
+        if (![itemModel.card.name isEqual:[NSNull null]]) {
+            configuration.text = itemModel.card.name;
+        }
+        
+        if (![itemModel.card.artistName isEqual:[NSNull null]]) {
+            configuration.secondaryText = itemModel.card.artistName;
+        }
+        
         cell.contentConfiguration = configuration;
     }];
     
