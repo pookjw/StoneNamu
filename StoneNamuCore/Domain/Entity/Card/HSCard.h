@@ -6,9 +6,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "HSCardSet.h"
 #import "HSCardClass.h"
 #import "HSCardRarity.h"
 #import "HSCardCollectible.h"
+#import "HSCardType.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -18,7 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly, retain) NSString *slug;
 @property (readonly) HSCardClass classId;
 @property (readonly, retain) NSArray<NSNumber *> *multiClassIds;
-@property (readonly) NSInteger cardSetId;
+@property (readonly) HSCardType cardTypeId;
+@property (readonly) HSCardSet cardSetId;
 @property (readonly) HSCardRarity rarityId;
 @property (readonly, retain) NSString * _Nullable artistName;
 @property (readonly) NSInteger health;

@@ -1,0 +1,15 @@
+/*
+  HSCardType.strings
+  StoneNamu
+
+  Created by Jinwoo Kim on 7/28/21.
+  
+*/
+
+"minion" = "하수인";
+
+"spell" = "주문";
+
+"weapon" = "무기";
+
+"hero" = "영웅";
