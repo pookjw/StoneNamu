@@ -10,6 +10,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface PickerItemView : UIView
++ (CGFloat)getHeightUsingWidth:(CGFloat)width;
 - (void)configureWithImage:(UIImage * _Nullable)image primaryText:(NSString *)primaryText secondaryText:(NSString * _Nullable)secondaryText;
 @end
 

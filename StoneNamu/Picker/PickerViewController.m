@@ -7,7 +7,6 @@
 
 #import "PickerViewController.h"
 #import "PickerItemView.h"
-#import "UIView+loadFromNib.h"
 
 @interface PickerViewController () <UIPickerViewDataSource, UIPickerViewDelegate>
 @property UIPickerView *pickerView;
@@ -166,7 +165,7 @@
     if ((view) && ([view isKindOfClass:[PickerItemView class]])) {
         pickerItemView = (PickerItemView *)view;
     } else {
-        pickerItemView = [PickerItemView loadFromNib];
+        pickerItemView = [[[PickerItemView alloc] initWithFrame:CGRectMake(0, 0, self.pickerView.frame.size.width, 0)] autorelease];
     }
     
     if (self.showEmptyRow) {
@@ -189,7 +188,7 @@
 }
 
 - (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component {
-    return 100;
+    return [PickerItemView getHeightUsingWidth:pickerView.frame.size.width];
 }
 
 @end

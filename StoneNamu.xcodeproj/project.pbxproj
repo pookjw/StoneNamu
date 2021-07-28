@@ -32,7 +32,6 @@
 		4F57DEAC26ADA6E3000E4163 /* PickerItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F57DEAB26ADA6E3000E4163 /* PickerItemModel.m */; };
 		4F57DEB526ADB0BC000E4163 /* HSCardSetStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F57DEB326ADB0BC000E4163 /* HSCardSetStore.m */; };
 		4F57DEB926ADC3CF000E4163 /* PickerItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F57DEB826ADC3CF000E4163 /* PickerItemView.m */; };
-		4F57DEBB26ADC832000E4163 /* PickerItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F57DEBA26ADC832000E4163 /* PickerItemView.xib */; };
 		4F57DEBE26ADC943000E4163 /* UIView+loadFromNib.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F57DEBD26ADC943000E4163 /* UIView+loadFromNib.m */; };
 		4FA56BAC26A21059002D9FA0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA56BAB26A21059002D9FA0 /* AppDelegate.m */; };
 		4FA56BAF26A21059002D9FA0 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA56BAE26A21059002D9FA0 /* SceneDelegate.m */; };
@@ -121,7 +120,6 @@
 		4F57DEB426ADB0BC000E4163 /* HSCardSetStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSCardSetStore.h; sourceTree = "<group>"; };
 		4F57DEB726ADC3CF000E4163 /* PickerItemView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PickerItemView.h; sourceTree = "<group>"; };
 		4F57DEB826ADC3CF000E4163 /* PickerItemView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PickerItemView.m; sourceTree = "<group>"; };
-		4F57DEBA26ADC832000E4163 /* PickerItemView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PickerItemView.xib; sourceTree = "<group>"; };
 		4F57DEBC26ADC943000E4163 /* UIView+loadFromNib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+loadFromNib.h"; sourceTree = "<group>"; };
 		4F57DEBD26ADC943000E4163 /* UIView+loadFromNib.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+loadFromNib.m"; sourceTree = "<group>"; };
 		4FA05F6B26A30639000E93BC /* BlizzardHSAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlizzardHSAPI.h; sourceTree = "<group>"; };
@@ -271,7 +269,6 @@
 				4F57DE9C26AD7B53000E4163 /* PickerViewController.m */,
 				4F57DEB726ADC3CF000E4163 /* PickerItemView.h */,
 				4F57DEB826ADC3CF000E4163 /* PickerItemView.m */,
-				4F57DEBA26ADC832000E4163 /* PickerItemView.xib */,
 				4F57DEAA26ADA6E3000E4163 /* PickerItemModel.h */,
 				4F57DEAB26ADA6E3000E4163 /* PickerItemModel.m */,
 			);
@@ -564,7 +561,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4FA56BB726A2105A002D9FA0 /* Assets.xcassets in Resources */,
-				4F57DEBB26ADC832000E4163 /* PickerItemView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
