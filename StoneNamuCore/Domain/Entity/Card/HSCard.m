@@ -76,6 +76,7 @@
     hsCard->_slug = [dic[@"slug"] retain];
     hsCard->_classId = [(NSNumber *)dic[@"classId"] integerValue];
     hsCard->_multiClassIds = [dic[@"multiClassIds"] retain];
+    hsCard->_minionTypeId = [(NSNumber *)dic[@"minionTypeId"] integerValue];
     hsCard->_cardTypeId = [(NSNumber *)dic[@"cardTypeId"] integerValue];
     hsCard->_cardSetId = [(NSNumber *)dic[@"cardSetId"] integerValue];
     

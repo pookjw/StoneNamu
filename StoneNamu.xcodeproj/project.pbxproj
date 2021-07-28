@@ -25,6 +25,8 @@
 		4F449EB126B19202007CE04A /* HSCardRarity.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4F449EB326B19202007CE04A /* HSCardRarity.strings */; };
 		4F449EB826B193DE007CE04A /* HSCardType.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4F449EBA26B193DE007CE04A /* HSCardType.strings */; };
 		4F449EBD26B19445007CE04A /* HSCardType.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F449EBC26B19445007CE04A /* HSCardType.m */; };
+		4F449EC026B197C7007CE04A /* HSCardMinionType.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F449EBF26B197C7007CE04A /* HSCardMinionType.m */; };
+		4F449EC326B19974007CE04A /* HSCardMinionType.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4F449EC526B19974007CE04A /* HSCardMinionType.strings */; };
 		4F4976D226ABE6B600860809 /* CardsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4976D126ABE6B600860809 /* CardsViewModel.m */; };
 		4F4976D626ABE72C00860809 /* CardsSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4976D526ABE72C00860809 /* CardsSectionModel.m */; };
 		4F4976D926ABE80700860809 /* CardsItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4976D826ABE80700860809 /* CardsItemModel.m */; };
@@ -112,6 +114,10 @@
 		4F449EB926B193DE007CE04A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/HSCardType.strings; sourceTree = "<group>"; };
 		4F449EBB26B193DF007CE04A /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/HSCardType.strings; sourceTree = "<group>"; };
 		4F449EBC26B19445007CE04A /* HSCardType.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCardType.m; sourceTree = "<group>"; };
+		4F449EBE26B19630007CE04A /* HSCardMinionType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardMinionType.h; sourceTree = "<group>"; };
+		4F449EBF26B197C7007CE04A /* HSCardMinionType.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCardMinionType.m; sourceTree = "<group>"; };
+		4F449EC426B19974007CE04A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/HSCardMinionType.strings; sourceTree = "<group>"; };
+		4F449EC626B19975007CE04A /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/HSCardMinionType.strings; sourceTree = "<group>"; };
 		4F4976D026ABE6B600860809 /* CardsViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardsViewModel.h; sourceTree = "<group>"; };
 		4F4976D126ABE6B600860809 /* CardsViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardsViewModel.m; sourceTree = "<group>"; };
 		4F4976D426ABE72C00860809 /* CardsSectionModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardsSectionModel.h; sourceTree = "<group>"; };
@@ -404,6 +410,7 @@
 				4FA8F3FD26B1430200D7D4C6 /* HSCardSet.strings */,
 				4F449EA026B17D08007CE04A /* HSCardClass.strings */,
 				4F449EBA26B193DE007CE04A /* HSCardType.strings */,
+				4F449EC526B19974007CE04A /* HSCardMinionType.strings */,
 			);
 			path = Localizables;
 			sourceTree = "<group>";
@@ -452,6 +459,8 @@
 				4F57DEA426AD96D3000E4163 /* HSCardSet.m */,
 				4F449EB526B19314007CE04A /* HSCardType.h */,
 				4F449EBC26B19445007CE04A /* HSCardType.m */,
+				4F449EBE26B19630007CE04A /* HSCardMinionType.h */,
+				4F449EBF26B197C7007CE04A /* HSCardMinionType.m */,
 			);
 			path = Card;
 			sourceTree = "<group>";
@@ -578,6 +587,7 @@
 				4F449EB826B193DE007CE04A /* HSCardType.strings in Resources */,
 				4F449EB126B19202007CE04A /* HSCardRarity.strings in Resources */,
 				4F449E9E26B17D08007CE04A /* HSCardClass.strings in Resources */,
+				4F449EC326B19974007CE04A /* HSCardMinionType.strings in Resources */,
 				4FA8F3FB26B1430200D7D4C6 /* HSCardSet.strings in Resources */,
 				4F449EA626B187CA007CE04A /* HSCardCollectible.strings in Resources */,
 			);
@@ -607,6 +617,7 @@
 			files = (
 				4F449EAE26B1908A007CE04A /* HSCardRarity.m in Sources */,
 				4F34386826A37029001161FE /* BlizzardTokenAPIImpl.m in Sources */,
+				4F449EC026B197C7007CE04A /* HSCardMinionType.m in Sources */,
 				4F449EBD26B19445007CE04A /* HSCardType.m in Sources */,
 				4F34386726A37022001161FE /* HSCardRepositoryImpl.m in Sources */,
 				4F34386526A3700C001161FE /* BlizzardAPIRegionHost.m in Sources */,
@@ -706,6 +717,15 @@
 				4F449EBB26B193DF007CE04A /* ko */,
 			);
 			name = HSCardType.strings;
+			sourceTree = "<group>";
+		};
+		4F449EC526B19974007CE04A /* HSCardMinionType.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4F449EC426B19974007CE04A /* en */,
+				4F449EC626B19975007CE04A /* ko */,
+			);
+			name = HSCardMinionType.strings;
 			sourceTree = "<group>";
 		};
 		4FA8F3FD26B1430200D7D4C6 /* HSCardSet.strings */ = {

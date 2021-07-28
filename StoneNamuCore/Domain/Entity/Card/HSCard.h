@@ -11,6 +11,7 @@
 #import "HSCardRarity.h"
 #import "HSCardCollectible.h"
 #import "HSCardType.h"
+#import "HSCardMinionType.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -20,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly, retain) NSString *slug;
 @property (readonly) HSCardClass classId;
 @property (readonly, retain) NSArray<NSNumber *> *multiClassIds;
+@property (readonly) HSCardMinionType minionTypeId;
 @property (readonly) HSCardType cardTypeId;
 @property (readonly) HSCardSet cardSetId;
 @property (readonly) HSCardRarity rarityId;

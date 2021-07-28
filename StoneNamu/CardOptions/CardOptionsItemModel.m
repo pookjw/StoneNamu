@@ -12,6 +12,7 @@
 #import "HSCardCollectible.h"
 #import "HSCardRarity.h"
 #import "HSCardType.h"
+#import "HSCardMinionType.h"
 
 NSString * NSStringFromCardOptionsItemModelType(CardOptionsItemModelType type) {
     switch (type) {
@@ -148,7 +149,10 @@ NSString * NSStringFromCardOptionsItemModelType(CardOptionsItemModelType type) {
                 return HSCardTypeFromNSString(key);
             }];
         case CardOptionsItemModelTypeMinionType:
-            return @[];
+            return [self pickerItemModelsFromDic:hsCardMinionTypesWithLocalizable()
+                                       converter:^NSUInteger(NSString * key) {
+                return HSCardMinionTypeFromNSString(key);
+            }];
         case CardOptionsItemModelTypeKeyword:
             return @[];
         case CardOptionsItemModelTypeSort:
