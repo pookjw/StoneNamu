@@ -37,6 +37,7 @@ static NSString * const BlizzardHSAPIAccessToken = @"access_token";
     }
     
     NSURL *url = components.URL;
+    NSLog(@"%@", url.absoluteString);
     [components release];
     
     NSURLSession *session = NSURLSession.sharedSession;

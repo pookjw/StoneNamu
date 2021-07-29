@@ -203,11 +203,31 @@
 - (void)presentStepperEventReceived:(NSNotification *)notification {
     CardOptionsItemModel *itemModel = notification.userInfo[CardOptionsViewModelNotificationItemKey];
     NSRange range = itemModel.stepperRange;
-//    [NSNumber num]
     
-//    [NSOperationQueue.mainQueue addOperationWithBlock:^{
-//        StepperViewController *vc = [[StepperViewController alloc] initWithRange:<#(NSRange)#> title:<#(nonnull NSString *)#> value:<#(NSUInteger)#>]
-//    }];
+    NSUInteger value;
+    if (itemModel.value) {
+        value = (NSUInteger)[itemModel.value integerValue];
+    } else {
+        value = 0;
+    }
+    
+    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+        StepperViewController *vc = [[StepperViewController alloc] initWithRange:range title:@"테스트 (번역)"
+                                                                           value:value
+                                                                 clearCompletion:^{
+            [self.viewModel updateItem:itemModel withValue:nil];
+        }
+                                                                  doneCompletion:^(NSUInteger value) {
+            [self.viewModel updateItem:itemModel withValue:[[NSNumber numberWithUnsignedInteger:value] stringValue]];
+        }];
+        SheetNavigationController *nvc = [[SheetNavigationController alloc] initWithRootViewController:vc];
+        [nvc loadViewIfNeeded];
+        
+        [self presentViewController:nvc animated:YES completion:^{}];
+        
+        [vc release];
+        [nvc release];
+    }];
 }
 
 #pragma mark UICollectionViewDelegate

@@ -17,18 +17,6 @@
 
 @implementation PickerViewController
 
-- (instancetype)init {
-    self = [super init];
-    
-    if (self) {
-        self.dataSource = @[];
-        _showEmptyRow = NO;
-        self.doneCompletion = ^(PickerItemModel * _){};
-    }
-    
-    return self;
-}
-
 - (void)dealloc {
     [_dataSource release];
     [_doneCompletion release];

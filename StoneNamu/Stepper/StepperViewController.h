@@ -8,11 +8,16 @@
 #import <UIKit/UIKit.h>
 
 typedef void (^StepperViewControllerDoneCompletion)(NSUInteger);
+typedef void (^StepperViewControllerClearCompletion)(void);
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface StepperViewController : UIViewController
-- (instancetype)initWithRange:(NSRange)range title:(NSString *)title value:(NSUInteger)value;
+- (instancetype)initWithRange:(NSRange)range
+                        title:(NSString *)title
+                        value:(NSUInteger)value
+              clearCompletion:(StepperViewControllerClearCompletion)clearCompletion
+               doneCompletion:(StepperViewControllerDoneCompletion)doneCompletion;
 @end
 
 NS_ASSUME_NONNULL_END
