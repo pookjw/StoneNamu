@@ -58,7 +58,9 @@
     
     if ((self.showEmptyRow) && (found)) {
         index += 1;
-    } else {
+    }
+    
+    if (!found) {
         NSLog(@"No identity found: %@", identity);
     }
     
