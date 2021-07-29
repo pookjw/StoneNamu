@@ -39,6 +39,7 @@
 		4F57DEA526AD96D3000E4163 /* HSCardSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F57DEA426AD96D3000E4163 /* HSCardSet.m */; };
 		4F57DEAC26ADA6E3000E4163 /* PickerItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F57DEAB26ADA6E3000E4163 /* PickerItemModel.m */; };
 		4F57DEB926ADC3CF000E4163 /* PickerItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F57DEB826ADC3CF000E4163 /* PickerItemView.m */; };
+		4F6A139C26B251EE0089A13A /* HSCardKeyword.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F6A139B26B251EE0089A13A /* HSCardKeyword.m */; };
 		4FA56BAC26A21059002D9FA0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA56BAB26A21059002D9FA0 /* AppDelegate.m */; };
 		4FA56BAF26A21059002D9FA0 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA56BAE26A21059002D9FA0 /* SceneDelegate.m */; };
 		4FA56BB726A2105A002D9FA0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4FA56BB626A2105A002D9FA0 /* Assets.xcassets */; };
@@ -143,6 +144,7 @@
 		4F57DEAB26ADA6E3000E4163 /* PickerItemModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PickerItemModel.m; sourceTree = "<group>"; };
 		4F57DEB726ADC3CF000E4163 /* PickerItemView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PickerItemView.h; sourceTree = "<group>"; };
 		4F57DEB826ADC3CF000E4163 /* PickerItemView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PickerItemView.m; sourceTree = "<group>"; };
+		4F6A139B26B251EE0089A13A /* HSCardKeyword.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCardKeyword.m; sourceTree = "<group>"; };
 		4FA05F6B26A30639000E93BC /* BlizzardHSAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlizzardHSAPI.h; sourceTree = "<group>"; };
 		4FA05F6E26A30940000E93BC /* HSCard.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCard.h; sourceTree = "<group>"; };
 		4FA05F6F26A30940000E93BC /* HSCard.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCard.m; sourceTree = "<group>"; };
@@ -463,6 +465,7 @@
 				4F449EBE26B19630007CE04A /* HSCardMinionType.h */,
 				4F449EBF26B197C7007CE04A /* HSCardMinionType.m */,
 				4F449EC726B19AAE007CE04A /* HSCardKeyword.h */,
+				4F6A139B26B251EE0089A13A /* HSCardKeyword.m */,
 			);
 			path = Card;
 			sourceTree = "<group>";
@@ -621,6 +624,7 @@
 				4F34386826A37029001161FE /* BlizzardTokenAPIImpl.m in Sources */,
 				4F449EC026B197C7007CE04A /* HSCardMinionType.m in Sources */,
 				4F449EBD26B19445007CE04A /* HSCardType.m in Sources */,
+				4F6A139C26B251EE0089A13A /* HSCardKeyword.m in Sources */,
 				4F34386726A37022001161FE /* HSCardRepositoryImpl.m in Sources */,
 				4F34386526A3700C001161FE /* BlizzardAPIRegionHost.m in Sources */,
 				4F449E9B26B178C4007CE04A /* HSCardClass.m in Sources */,
