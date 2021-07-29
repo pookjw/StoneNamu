@@ -7,13 +7,7 @@
 
 #import "CardOptionsItemModel.h"
 #import "BlizzardHSAPIKeys.h"
-#import "HSCardSet.h"
-#import "HSCardClass.h"
-#import "HSCardCollectible.h"
-#import "HSCardRarity.h"
-#import "HSCardType.h"
-#import "HSCardMinionType.h"
-#import "HSCardKeyword.h"
+#import "HSCard.h"
 
 NSString * NSStringFromCardOptionsItemModelType(CardOptionsItemModelType type) {
     switch (type) {
@@ -111,7 +105,7 @@ NSString * NSStringFromCardOptionsItemModelType(CardOptionsItemModelType type) {
         case CardOptionsItemModelTypeTextFilter:
             return CardOptionsItemModelValueSetTypeTextField;
         case CardOptionsItemModelTypeGameMode:
-            return CardOptionsItemModelValueSetTypeTextField;
+            return CardOptionsItemModelValueSetTypePicker;
         case CardOptionsItemModelTypeSort:
             return CardOptionsItemModelValueSetTypePickerWithEmptyRow;
         default:
@@ -158,6 +152,11 @@ NSString * NSStringFromCardOptionsItemModelType(CardOptionsItemModelType type) {
             return [self pickerItemModelsFromDic:hsCardKeywordsWithLocalizable()
                                        converter:^NSUInteger(NSString * key) {
                 return HSCardKeywordFromNSString(key);
+            }];
+        case CardOptionsItemModelTypeGameMode:
+            return [self pickerItemModelsFromDic:hsCardGameModesWithLocalizable()
+                                       converter:^NSUInteger(NSString * key) {
+                return HSCardGameModeFromNSString(key);
             }];
         case CardOptionsItemModelTypeSort:
             return @[];

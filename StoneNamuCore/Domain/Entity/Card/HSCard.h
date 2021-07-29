@@ -12,11 +12,13 @@
 #import "HSCardCollectible.h"
 #import "HSCardType.h"
 #import "HSCardMinionType.h"
+#import "HSCardKeyword.h"
+#import "HSCardGameMode.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface HSCard : NSObject
-@property (readonly) NSInteger cardId;
+@property (readonly) NSUInteger cardId;
 @property (readonly) HSCardCollectible collectible;
 @property (readonly, retain) NSString *slug;
 @property (readonly) HSCardClass classId;
@@ -26,9 +28,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly) HSCardSet cardSetId;
 @property (readonly) HSCardRarity rarityId;
 @property (readonly, retain) NSString * _Nullable artistName;
-@property (readonly) NSInteger health;
-@property (readonly) NSInteger attack;
-@property (readonly) NSInteger manaCost;
+@property (readonly) NSUInteger health;
+@property (readonly) NSUInteger attack;
+@property (readonly) NSUInteger manaCost;
 @property (readonly, retain) NSString * _Nullable name;
 @property (readonly, retain) NSString *text;
 @property (readonly, retain) NSURL *image;
@@ -36,6 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly, retain) NSString *flavorText;
 @property (readonly, retain) NSURL * _Nullable cropImage;
 @property (readonly, retain) NSArray<NSNumber *> *childIds;
+@property (readonly) NSArray<NSNumber *> *gameModes;
 + (HSCard * _Nullable)hsCardFromJSONData:(NSData *)data error:(NSError **)error;
 + (NSArray<HSCard *> *)hsCardsFromJSONData:(NSData *)data error:(NSError **)error;
 @end

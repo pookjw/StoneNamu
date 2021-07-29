@@ -1,0 +1,15 @@
+/*
+  HSCardGameMode.strings
+  StoneNamu
+
+  Created by Jinwoo Kim on 7/29/21.
+  
+*/
+
+"constructed" = "대전";
+
+"battlegrounds" = "전장";
+
+"duels" = "결투";
+
+"arena" = "투기장";

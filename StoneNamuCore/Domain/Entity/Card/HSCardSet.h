@@ -79,6 +79,8 @@ NSDictionary<NSString *, NSString *> * hsCardSetsWithLocalizable(void);
 
 /*
  gameModes
- duels
- arena
+ constructed // 대전
+ battlegrounds // 전장
+ duels // 결투
+ arena // 투기장
  */

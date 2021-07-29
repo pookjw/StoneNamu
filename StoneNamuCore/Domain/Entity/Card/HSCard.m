@@ -20,6 +20,7 @@
     [_flavorText release];
     [_cropImage release];
     [_childIds release];
+    [_gameModes release];
     [super dealloc];
 }
 
@@ -118,6 +119,30 @@
     }
 
     hsCard->_childIds = [dic[@"childIds"] retain];
+    
+    // Game Modes
+    NSMutableArray<NSNumber *> *gameModes = [@[] mutableCopy];
+    NSDictionary *battlegrounds = dic[@"battlegrounds"];
+    NSDictionary *duels = dic[@"duels"];
+    
+    if (battlegrounds.count > 0) {
+        [gameModes addObject:[NSNumber numberWithUnsignedInteger:HSCardGameModeBattlegrounds]];
+    } else if (duels.count > 0) {
+        if ([(NSNumber *)duels[@"relevant"] boolValue]) {
+            [gameModes addObject:[NSNumber numberWithUnsignedInteger:HSCardGameModeDuels]];
+        }
+        if ([(NSNumber *)duels[@"constructed"] boolValue]) {
+            [gameModes addObject:[NSNumber numberWithUnsignedInteger:HSCardGameModeConstructed]];
+        }
+    }
+    
+    if (gameModes.count == 0) {
+        [gameModes addObject:[NSNumber numberWithUnsignedInteger:HSCardGameModeConstructed]];
+    }
+    
+    hsCard->_gameModes = [gameModes copy];
+    [gameModes release];
+    //
     
     return hsCard;
 }
