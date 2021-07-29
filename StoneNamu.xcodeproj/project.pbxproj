@@ -47,6 +47,7 @@
 		4F6A13B226B273640089A13A /* StepperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F6A13B126B273640089A13A /* StepperViewController.m */; };
 		4F9DFBB126B2FD0C002AACDE /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4F9DFBB326B2FD0C002AACDE /* Localizable.strings */; };
 		4F9DFBB726B2FD2E002AACDE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4F9DFBB926B2FD2E002AACDE /* InfoPlist.strings */; };
+		4F9DFBBD26B30764002AACDE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4F9DFBBC26B30764002AACDE /* LaunchScreen.storyboard */; };
 		4FA56BAC26A21059002D9FA0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA56BAB26A21059002D9FA0 /* AppDelegate.m */; };
 		4FA56BAF26A21059002D9FA0 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA56BAE26A21059002D9FA0 /* SceneDelegate.m */; };
 		4FA56BB726A2105A002D9FA0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4FA56BB626A2105A002D9FA0 /* Assets.xcassets */; };
@@ -166,6 +167,7 @@
 		4F9DFBB426B2FD0E002AACDE /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4F9DFBB826B2FD2E002AACDE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4F9DFBBA26B2FD2F002AACDE /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		4F9DFBBC26B30764002AACDE /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4FA05F6B26A30639000E93BC /* BlizzardHSAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlizzardHSAPI.h; sourceTree = "<group>"; };
 		4FA05F6E26A30940000E93BC /* HSCard.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCard.h; sourceTree = "<group>"; };
 		4FA05F6F26A30940000E93BC /* HSCard.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCard.m; sourceTree = "<group>"; };
@@ -374,6 +376,7 @@
 				4FA56BAB26A21059002D9FA0 /* AppDelegate.m */,
 				4FA56BAD26A21059002D9FA0 /* SceneDelegate.h */,
 				4FA56BAE26A21059002D9FA0 /* SceneDelegate.m */,
+				4F9DFBBC26B30764002AACDE /* LaunchScreen.storyboard */,
 				4F9DFBB926B2FD2E002AACDE /* InfoPlist.strings */,
 				4F9DFBB326B2FD0C002AACDE /* Localizable.strings */,
 				4F57DEB226ADB09D000E4163 /* Store */,
@@ -651,6 +654,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4FA56BB726A2105A002D9FA0 /* Assets.xcassets in Resources */,
+				4F9DFBBD26B30764002AACDE /* LaunchScreen.storyboard in Resources */,
 				4F9DFBB726B2FD2E002AACDE /* InfoPlist.strings in Resources */,
 				4F9DFBB126B2FD0C002AACDE /* Localizable.strings in Resources */,
 			);
