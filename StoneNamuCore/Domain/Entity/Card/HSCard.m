@@ -71,20 +71,20 @@
 + (HSCard *)hsCardFromDic:(NSDictionary *)dic {
     HSCard *hsCard = [[HSCard new] autorelease];
     
-    hsCard->_cardId = [(NSNumber *)dic[@"id"] integerValue];
+    hsCard->_cardId = [(NSNumber *)dic[@"id"] unsignedIntegerValue];
     hsCard->_collectible = [(NSNumber *)dic[@"collectible"] boolValue];
     hsCard->_slug = [dic[@"slug"] retain];
-    hsCard->_classId = [(NSNumber *)dic[@"classId"] integerValue];
+    hsCard->_classId = [(NSNumber *)dic[@"classId"] unsignedIntegerValue];
     hsCard->_multiClassIds = [dic[@"multiClassIds"] retain];
-    hsCard->_minionTypeId = [(NSNumber *)dic[@"minionTypeId"] integerValue];
-    hsCard->_cardTypeId = [(NSNumber *)dic[@"cardTypeId"] integerValue];
-    hsCard->_cardSetId = [(NSNumber *)dic[@"cardSetId"] integerValue];
+    hsCard->_minionTypeId = [(NSNumber *)dic[@"minionTypeId"] unsignedIntegerValue];
+    hsCard->_cardTypeId = [(NSNumber *)dic[@"cardTypeId"] unsignedIntegerValue];
+    hsCard->_cardSetId = [(NSNumber *)dic[@"cardSetId"] unsignedIntegerValue];
     
     id rarityId = dic[@"rarityId"];
     if ([rarityId isEqual:[NSNull null]]) {
         hsCard->_rarityId = HSCardRarityNull;
     } else {
-        hsCard->_rarityId = [(NSNumber *)rarityId integerValue];
+        hsCard->_rarityId = [(NSNumber *)rarityId unsignedIntegerValue];
     }
     
     id artistName = dic[@"artistName"];
@@ -94,9 +94,9 @@
         hsCard->_artistName = [artistName retain];
     }
     
-    hsCard->_health = [(NSNumber *)dic[@"health"] integerValue];
-    hsCard->_attack = [(NSNumber *)dic[@"attack"] integerValue];
-    hsCard->_manaCost = [(NSNumber *)dic[@"manaCost"] integerValue];
+    hsCard->_health = [(NSNumber *)dic[@"health"] unsignedIntegerValue];
+    hsCard->_attack = [(NSNumber *)dic[@"attack"] unsignedIntegerValue];
+    hsCard->_manaCost = [(NSNumber *)dic[@"manaCost"] unsignedIntegerValue];
     
     id name = dic[@"name"];
     if ([name isEqual:[NSNull null]]) {
