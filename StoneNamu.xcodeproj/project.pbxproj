@@ -43,6 +43,7 @@
 		4F6A139F26B256150089A13A /* HSCardKeyword.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4F6A13A126B256150089A13A /* HSCardKeyword.strings */; };
 		4F6A13A526B267D60089A13A /* HSCardGameMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F6A13A426B267D60089A13A /* HSCardGameMode.m */; };
 		4F6A13A826B26DD70089A13A /* HSCardGameMode.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4F6A13AA26B26DD70089A13A /* HSCardGameMode.strings */; };
+		4F6A13AE26B26F0E0089A13A /* HSCardSort.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F6A13AD26B26F0E0089A13A /* HSCardSort.m */; };
 		4FA56BAC26A21059002D9FA0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA56BAB26A21059002D9FA0 /* AppDelegate.m */; };
 		4FA56BAF26A21059002D9FA0 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA56BAE26A21059002D9FA0 /* SceneDelegate.m */; };
 		4FA56BB726A2105A002D9FA0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4FA56BB626A2105A002D9FA0 /* Assets.xcassets */; };
@@ -154,6 +155,8 @@
 		4F6A13A426B267D60089A13A /* HSCardGameMode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCardGameMode.m; sourceTree = "<group>"; };
 		4F6A13A926B26DD70089A13A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/HSCardGameMode.strings; sourceTree = "<group>"; };
 		4F6A13AB26B26DDA0089A13A /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/HSCardGameMode.strings; sourceTree = "<group>"; };
+		4F6A13AC26B26EFD0089A13A /* HSCardSort.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardSort.h; sourceTree = "<group>"; };
+		4F6A13AD26B26F0E0089A13A /* HSCardSort.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCardSort.m; sourceTree = "<group>"; };
 		4FA05F6B26A30639000E93BC /* BlizzardHSAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlizzardHSAPI.h; sourceTree = "<group>"; };
 		4FA05F6E26A30940000E93BC /* HSCard.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCard.h; sourceTree = "<group>"; };
 		4FA05F6F26A30940000E93BC /* HSCard.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCard.m; sourceTree = "<group>"; };
@@ -479,6 +482,8 @@
 				4F6A139B26B251EE0089A13A /* HSCardKeyword.m */,
 				4F6A13A326B267BF0089A13A /* HSCardGameMode.h */,
 				4F6A13A426B267D60089A13A /* HSCardGameMode.m */,
+				4F6A13AC26B26EFD0089A13A /* HSCardSort.h */,
+				4F6A13AD26B26F0E0089A13A /* HSCardSort.m */,
 			);
 			path = Card;
 			sourceTree = "<group>";
@@ -639,6 +644,7 @@
 				4F449EAE26B1908A007CE04A /* HSCardRarity.m in Sources */,
 				4F34386826A37029001161FE /* BlizzardTokenAPIImpl.m in Sources */,
 				4F449EC026B197C7007CE04A /* HSCardMinionType.m in Sources */,
+				4F6A13AE26B26F0E0089A13A /* HSCardSort.m in Sources */,
 				4F449EBD26B19445007CE04A /* HSCardType.m in Sources */,
 				4F6A139C26B251EE0089A13A /* HSCardKeyword.m in Sources */,
 				4F34386726A37022001161FE /* HSCardRepositoryImpl.m in Sources */,

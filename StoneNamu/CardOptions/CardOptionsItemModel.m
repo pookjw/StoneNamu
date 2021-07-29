@@ -159,7 +159,10 @@ NSString * NSStringFromCardOptionsItemModelType(CardOptionsItemModelType type) {
                 return HSCardGameModeFromNSString(key);
             }];
         case CardOptionsItemModelTypeSort:
-            return @[];
+            return [self pickerItemModelsFromDic:hsCardSortsWithLocalizable()
+                                       converter:^NSUInteger(NSString * key) {
+                return HSCardSortFromNSString(key);
+            }];
         default:
             return nil;
     }

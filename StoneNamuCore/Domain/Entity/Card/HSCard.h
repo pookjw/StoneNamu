@@ -14,6 +14,7 @@
 #import "HSCardMinionType.h"
 #import "HSCardKeyword.h"
 #import "HSCardGameMode.h"
+#import "HSCardSort.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
