@@ -1,0 +1,47 @@
+/* 
+  Localizable.strings
+  StoneNamu
+
+  Created by Jinwoo Kim on 7/30/21.
+  
+*/
+
+"APP_NAME" = "돌나무";
+
+"ERROR_ALERT_TITLE" = "오류!";
+
+"DISMISS" = "확인";
+
+"DONE" = "완료";
+
+"CANCEL" = "취소";
+
+"CLEAR" = "초기화";
+
+"ALL" = "모두";
+
+"CARD_SET" = "확장팩";
+
+"CARD_CLASS" = "직업";
+
+"CARD_MANA_COST" = "비용";
+
+"CARD_ATTACK" = "공격력";
+
+"CARD_HEALTH" = "체력";
+
+"CARD_COLLECTIBLE" = "수집가능성";
+
+"CARD_RARITY" = "등급";
+
+"CARD_TYPE" = "종류";
+
+"CARD_MINION_TYPE" = "하수인 종류";
+
+"CARD_KEYWORD" = "키워드";
+
+"CARD_TEXT_FILTER" = "글자";
+
+"CARD_GAME_MODE" = "게임 모드";
+
+"CARD_SORT" = "결과 정렬";

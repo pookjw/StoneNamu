@@ -184,43 +184,38 @@ NSString * NSStringFromCardOptionsItemModelType(CardOptionsItemModelType type) {
 - (NSString *)text {
     switch (self.type) {
         case CardOptionsItemModelTypeSet:
-            return @"확장팩 (번역)";
+            return NSLocalizedString(@"CARD_SET", @"");
         case CardOptionsItemModelTypeClass:
-            return @"직업 (번역)";
+            return NSLocalizedString(@"CARD_CLASS", @"");
         case CardOptionsItemModelTypeManaCost:
-            return @"카드 비용 (번역)";
+            return NSLocalizedString(@"CARD_MANA_COST", @"");
         case CardOptionsItemModelTypeAttack:
-            return @"하수인 공격력 (번역)";
+            return NSLocalizedString(@"CARD_ATTACK", @"");
         case CardOptionsItemModelTypeHealth:
-            return @"하수인 체력 (번역)";
+            return NSLocalizedString(@"CARD_HEALTH", @"");
         case CardOptionsItemModelTypeCollectible:
-            return @"수집 가능 (번역)";
+            return NSLocalizedString(@"CARD_COLLECTIBLE", @"");
         case CardOptionsItemModelTypeRarity:
-            return @"카드 등급 (번역)";
+            return NSLocalizedString(@"CARD_RARITY", @"");
         case CardOptionsItemModelTypeType:
-            return @"카드 종류 (번역)";
+            return NSLocalizedString(@"CARD_TYPE", @"");
         case CardOptionsItemModelTypeMinionType:
-            return @"하수인 종류 (번역)";
+            return NSLocalizedString(@"CARD_MINION_TYPE", @"");
         case CardOptionsItemModelTypeKeyword:
-            return @"카드 키워드 (번역)";
+            return NSLocalizedString(@"CARD_KEYWORD", @"");
         case CardOptionsItemModelTypeTextFilter:
-            return @"카드 텍스트 (번역)";
+            return NSLocalizedString(@"CARD_TEXT_FILTER", @"");
         case CardOptionsItemModelTypeGameMode:
-            return @"게임 모드 (번역)";
+            return NSLocalizedString(@"CARD_GAME_MODE", @"");
         case CardOptionsItemModelTypeSort:
-            return @"결과 정렬 (번역)";
+            return NSLocalizedString(@"CARD_SORT", @"");
         default:
             return @"";
     }
 }
 
-- (NSString *)secondaryText {
-    switch (self.type) {
-        case CardOptionsItemModelTypeKeyword:
-            return @"예시: 죽음의 메아리, 전투의 함성... (번역)";
-        default:
-            return nil;
-    }
+- (NSString * _Nullable)secondaryText {
+    return nil;
 }
 
 - (void)setDefaultValue {

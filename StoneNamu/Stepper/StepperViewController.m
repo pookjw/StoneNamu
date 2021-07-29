@@ -94,17 +94,17 @@
 }
 
 - (void)configureBarButtonItems {
-    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"취소 (번역)"
+    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"CANCEL", @"")
                                                                      style:UIBarButtonItemStylePlain
                                                                     target:self
                                                                     action:@selector(cancelButtonTriggered:)];
     
-    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"완료 (번역)"
+    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"DONE", @"")
                                                                    style:UIBarButtonItemStylePlain
                                                                   target:self
                                                                   action:@selector(doneButtonTriggered:)];
     
-    UIBarButtonItem *clearButton = [[UIBarButtonItem alloc] initWithTitle:@"초기화 (번역)"
+    UIBarButtonItem *clearButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"CLEAR", @"")
                                                                     style:UIBarButtonItemStylePlain
                                                                    target:self
                                                                    action:@selector(clearButtonTriggered:)];

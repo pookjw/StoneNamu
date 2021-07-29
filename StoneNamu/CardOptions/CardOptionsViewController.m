@@ -35,7 +35,7 @@
 
 - (void)setAttributes {
     self.view.backgroundColor = UIColor.systemBackgroundColor;
-    self.title = @"StoneNamu (번역)";
+    self.title = NSLocalizedString(@"APP_NAME", @"");
 }
 
 - (void)configureFetchButton {
@@ -153,11 +153,11 @@
             textField.text = itemModel.value;
         }];
         
-        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"취소 (번역)"
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"CANCEL", @"")
                                                                style:UIAlertActionStyleCancel
                                                              handler:^(UIAlertAction * _Nonnull action) {}];
         
-        UIAlertAction *doneAction = [UIAlertAction actionWithTitle:@"완료 (번역)"
+        UIAlertAction *doneAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"DONE", @"")
                                                              style:UIAlertActionStyleDefault
                                                            handler:^(UIAlertAction * _Nonnull action) {
             

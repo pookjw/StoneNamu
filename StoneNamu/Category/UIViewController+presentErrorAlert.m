@@ -10,15 +10,15 @@
 @implementation UIViewController (presentErrorAlert)
 
 - (void)presentErrorAlertWithError:(NSError *)error {
-    UIAlertController *vc = [UIAlertController alertControllerWithTitle:@"ERROR! (번역)"
+    UIAlertController *vc = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"ERROR_ALERT_TITLE", @"")
                                                                 message:error.localizedDescription
                                                          preferredStyle:UIAlertControllerStyleAlert];
     
-    UIAlertAction *doneAction = [UIAlertAction actionWithTitle:@"확인 (번역)"
+    UIAlertAction *dismissAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"DISMISS", "")
                                                          style:UIAlertActionStyleDefault
                                                        handler:^(UIAlertAction * _Nonnull action) {}];
     
-    [vc addAction:doneAction];
+    [vc addAction:dismissAction];
     [self presentViewController:vc animated:YES completion:^{}];
 }
 

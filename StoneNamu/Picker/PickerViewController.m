@@ -92,7 +92,7 @@
 }
 
 - (void)configureCancelButton {
-    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"취소 (번역)"
+    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"CANCEL", @"")
                                                                      style:UIBarButtonItemStylePlain
                                                                     target:self
                                                                     action:@selector(cancelButtonTriggered:)];
@@ -106,7 +106,7 @@
 }
 
 - (void)configureDoneButton {
-    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"완료 (번역)"
+    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"DONE", @"")
                                                                    style:UIBarButtonItemStylePlain
                                                                   target:self
                                                                   action:@selector(doneButtonTriggered:)];
@@ -161,7 +161,7 @@
     if (self.showEmptyRow) {
         if (row == 0) {
             [pickerItemView configureWithImage:nil
-                                   primaryText:@"(비어 있음 번역)"
+                                   primaryText:NSLocalizedString(@"ALL", @"")
                                  secondaryText:nil];
         } else {
             [pickerItemView configureWithImage:self.dataSource[row - 1].image
