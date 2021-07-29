@@ -107,7 +107,7 @@ NSString * NSStringFromCardOptionsItemModelType(CardOptionsItemModelType type) {
         case CardOptionsItemModelTypeGameMode:
             return CardOptionsItemModelValueSetTypePicker;
         case CardOptionsItemModelTypeSort:
-            return CardOptionsItemModelValueSetTypePickerWithEmptyRow;
+            return CardOptionsItemModelValueSetTypePicker;
         default:
             return CardOptionsItemModelValueSetTypeTextField;
     }
@@ -224,7 +224,20 @@ NSString * NSStringFromCardOptionsItemModelType(CardOptionsItemModelType type) {
 }
 
 - (void)setDefaultValue {
-    
+    switch (self.type) {
+        case CardOptionsItemModelTypeCollectible:
+            self.value = NSStringFromHSCardCollectible(HSCardCollectibleYES);
+            break;
+        case CardOptionsItemModelTypeGameMode:
+            self.value = NSStringFromHSCardGameMode(HSCardGameModeConstructed);
+            break;
+        case CardOptionsItemModelTypeSort:
+            self.value = NSStringFromHSCardSort(HSCardSortNameAsc);
+            break;
+        default:
+            self.value = nil;
+            break;
+    }
 }
 
 #pragma mark Helper
