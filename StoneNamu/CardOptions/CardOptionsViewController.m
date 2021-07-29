@@ -10,6 +10,7 @@
 #import "CardsViewController.h"
 #import "SheetNavigationController.h"
 #import "PickerViewController.h"
+#import "StepperViewController.h"
 
 @interface CardOptionsViewController () <UICollectionViewDelegate>
 @property (assign) UICollectionView *collectionView;
@@ -133,6 +134,11 @@
                                            selector:@selector(presentPickerEventReceived:)
                                                name:CardOptionsViewModelPresentPickerNotificationName
                                              object:self.viewModel];
+    
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(presentStepperEventReceived:)
+                                               name:CardOptionsViewModelPresentStepperNotificationName
+                                             object:self.viewModel];
 }
 
 - (void)presentTextFieldEventReceived:(NSNotification *)notification {
@@ -192,6 +198,16 @@
         [vc release];
         [nvc release];
     }];
+}
+
+- (void)presentStepperEventReceived:(NSNotification *)notification {
+    CardOptionsItemModel *itemModel = notification.userInfo[CardOptionsViewModelNotificationItemKey];
+    NSRange range = itemModel.stepperRange;
+//    [NSNumber num]
+    
+//    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+//        StepperViewController *vc = [[StepperViewController alloc] initWithRange:<#(NSRange)#> title:<#(nonnull NSString *)#> value:<#(NSUInteger)#>]
+//    }];
 }
 
 #pragma mark UICollectionViewDelegate

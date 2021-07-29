@@ -44,6 +44,7 @@
 		4F6A13A526B267D60089A13A /* HSCardGameMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F6A13A426B267D60089A13A /* HSCardGameMode.m */; };
 		4F6A13A826B26DD70089A13A /* HSCardGameMode.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4F6A13AA26B26DD70089A13A /* HSCardGameMode.strings */; };
 		4F6A13AE26B26F0E0089A13A /* HSCardSort.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F6A13AD26B26F0E0089A13A /* HSCardSort.m */; };
+		4F6A13B226B273640089A13A /* StepperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F6A13B126B273640089A13A /* StepperViewController.m */; };
 		4FA56BAC26A21059002D9FA0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA56BAB26A21059002D9FA0 /* AppDelegate.m */; };
 		4FA56BAF26A21059002D9FA0 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA56BAE26A21059002D9FA0 /* SceneDelegate.m */; };
 		4FA56BB726A2105A002D9FA0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4FA56BB626A2105A002D9FA0 /* Assets.xcassets */; };
@@ -157,6 +158,8 @@
 		4F6A13AB26B26DDA0089A13A /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/HSCardGameMode.strings; sourceTree = "<group>"; };
 		4F6A13AC26B26EFD0089A13A /* HSCardSort.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardSort.h; sourceTree = "<group>"; };
 		4F6A13AD26B26F0E0089A13A /* HSCardSort.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCardSort.m; sourceTree = "<group>"; };
+		4F6A13B026B273640089A13A /* StepperViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StepperViewController.h; sourceTree = "<group>"; };
+		4F6A13B126B273640089A13A /* StepperViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StepperViewController.m; sourceTree = "<group>"; };
 		4FA05F6B26A30639000E93BC /* BlizzardHSAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlizzardHSAPI.h; sourceTree = "<group>"; };
 		4FA05F6E26A30940000E93BC /* HSCard.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCard.h; sourceTree = "<group>"; };
 		4FA05F6F26A30940000E93BC /* HSCard.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCard.m; sourceTree = "<group>"; };
@@ -295,6 +298,15 @@
 			path = Store;
 			sourceTree = "<group>";
 		};
+		4F6A13AF26B2733D0089A13A /* Stepper */ = {
+			isa = PBXGroup;
+			children = (
+				4F6A13B026B273640089A13A /* StepperViewController.h */,
+				4F6A13B126B273640089A13A /* StepperViewController.m */,
+			);
+			path = Stepper;
+			sourceTree = "<group>";
+		};
 		4F95AED726AD6A810075D2D9 /* Picker */ = {
 			isa = PBXGroup;
 			children = (
@@ -360,8 +372,9 @@
 				4F182BCB26AC23330028115C /* Category */,
 				4F4976E026ABFC9A00860809 /* CardOptions */,
 				4F4976D326ABE6EF00860809 /* Cards */,
-				4F95AED726AD6A810075D2D9 /* Picker */,
 				4F57DE9E26AD7D98000E4163 /* Sheet */,
+				4F95AED726AD6A810075D2D9 /* Picker */,
+				4F6A13AF26B2733D0089A13A /* Stepper */,
 				4FA56BB626A2105A002D9FA0 /* Assets.xcassets */,
 				4FA56BBB26A2105A002D9FA0 /* Info.plist */,
 				4FA56BBC26A2105A002D9FA0 /* main.m */,
@@ -687,6 +700,7 @@
 				4F4976D226ABE6B600860809 /* CardsViewModel.m in Sources */,
 				4FA56BAF26A21059002D9FA0 /* SceneDelegate.m in Sources */,
 				4F4976D626ABE72C00860809 /* CardsSectionModel.m in Sources */,
+				4F6A13B226B273640089A13A /* StepperViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

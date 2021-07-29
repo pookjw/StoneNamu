@@ -84,6 +84,13 @@
                 CardOptionsViewModelPickerShowEmptyRowNotificationItemKey: [NSNumber numberWithBool:YES]
             }];
             break;
+        case CardOptionsItemModelValueSetTypeStepper: {
+            [NSNotificationCenter.defaultCenter postNotificationName:CardOptionsViewModelPresentStepperNotificationName
+                                                              object:self
+                                                            userInfo:@{
+                CardOptionsViewModelNotificationItemKey: itemModel
+            }];
+        }
         default:
             break;
     }

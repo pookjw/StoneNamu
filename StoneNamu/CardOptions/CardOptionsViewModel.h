@@ -14,8 +14,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 static NSString * const CardOptionsViewModelPresentTextFieldNotificationName = @"CardOptionsViewModelPresentTextFieldNotificationName";
 static NSString * const CardOptionsViewModelPresentPickerNotificationName = @"CardOptionsViewModelPresentPickerNotificationName";
-static NSString * const CardOptionsViewModelNotificationItemKey = @"item";
-static NSString * const CardOptionsViewModelPickerShowEmptyRowNotificationItemKey = @"showEmptyRow";
+static NSString * const CardOptionsViewModelPresentStepperNotificationName = @"CardOptionsViewModelPresentStepperNotificationName";
+static NSString * const CardOptionsViewModelNotificationItemKey = @"CardOptionsViewModelNotificationItemKey";
+static NSString * const CardOptionsViewModelPickerShowEmptyRowNotificationItemKey = @"CardOptionsViewModelPickerShowEmptyRowNotificationItemKey";
 
 typedef UICollectionViewDiffableDataSource<CardOptionsSectionModel *, CardOptionsItemModel *> CardOptionsDataSource;
 
