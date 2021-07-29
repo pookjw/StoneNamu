@@ -6,6 +6,6 @@
   
 */
 
-"collectible_yes" = "수집가능";
+"collectible_yes" = "Collectible";
 
-"collectible_no" = "수집불가";
+"collectible_no" = "Not Collectible";

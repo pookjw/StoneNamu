@@ -6,84 +6,84 @@
   
 */
 
-"adapt" = "적응";
+"adapt" = "Adapt";
 
-"battlecry" = "전투의 함성";
+"battlecry" = "Battlecry";
 
-"charge" = "돌진";
+"charge" = "Charge";
 
-"combo" = "연계";
+"combo" = "Combo";
 
-"corrupt" = "타락";
+"corrupt" = "Corrupt";
 
-"counter" = "차단";
+"counter" = "Counter";
 
-"deathrattle" = "죽음의 메아리";
+"deathrattle" = "Deathrattle";
 
-"discover" = "발견";
+"discover" = "Discover";
 
-"divine-shield" = "천상의 보호막";
+"divine-shield" = "Divine Shield";
 
-"echo" = "잔상";
+"echo" = "Echo";
 
-"freeze" = "빙결";
+"freeze" = "Freeze";
 
-"frenzy" = "광폭";
+"frenzy" = "Frenzy";
 
-"immune" = "면역";
+"immune" = "Immune";
 
-"inspire" = "격려";
+"inspire" = "Inspire";
 
-"empower" = "기원";
+"empower" = "Invoke";
 
-"evilzug" = "졸개";
+"evilzug" = "Lackey";
 
-"lifesteal" = "생명력 흡수";
+"lifesteal" = "Lifesteal";
 
-"modular" = "합체";
+"modular" = "Magnetic";
 
-"mega-windfury" = "광풍";
+"mega-windfury" = "Mega-Windfury";
 
-"spellpowernature" = "자연 주문 공격력";
+"spellpowernature" = "Nature Spell Damage";
 
-"outcast" = "추방자";
+"outcast" = "Outcast";
 
-"overkill" = "압살";
+"overkill" = "Overkill";
 
-"overload" = "과부하";
+"overload" = "Overload";
 
-"poisonous" = "독성";
+"poisonous" = "Poisonous";
 
-"quest" = "퀘스트";
+"quest" = "Quest";
 
-"questline" = "퀘스트 전개";
+"questline" = "Questline";
 
-"reborn" = "환생";
+"reborn" = "Reborn";
 
-"recruit" = "소집";
+"recruit" = "Recruit";
 
-"rush" = "소집";
+"rush" = "Rush";
 
-"secret" = "비밀";
+"secret" = "Secret";
 
-"sidequest" = "부가 퀘스트";
+"sidequest" = "Sidequest";
 
-"silence" = "침묵";
+"silence" = "Silence";
 
-"spare-part" = "예비 부품";
+"spare-part" = "Spare Parts";
 
-"spellpower" = "주문 공격력";
+"spellpower" = "Spell Damage";
 
-"spellburst" = "주문폭주";
+"spellburst" = "Spellburst";
 
-"startofgamekeyword" = "개전";
+"startofgamekeyword" = "Start of Game";
 
-"stealth" = "은신";
+"stealth" = "Stealth";
 
-"taunt" = "도발";
+"taunt" = "Taunt";
 
-"trade" = "교환성";
+"trade" = "Tradeable";
 
-"twinspell" = "이중 주문";
+"twinspell" = "Twinspell";
 
-"windfury" = "질풍";
+"windfury" = "Windfury";

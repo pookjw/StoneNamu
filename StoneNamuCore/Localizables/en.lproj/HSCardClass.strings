@@ -6,26 +6,26 @@
   
 */
 
-"neutral" = "중립";
+"neutral" = "Neutral";
 
-"deathknight" = "죽음의 기사";
+"deathknight" = "Dark Knight";
 
-"demonhunter" = "악마사냥꾼";
+"demonhunter" = "Demon Hunter";
 
-"druid" = "드루이드";
+"druid" = "Druid";
 
-"hunter" = "사냥꾼";
+"hunter" = "Hunter";
 
-"mage" = "마법사";
+"mage" = "Mage";
 
-"paladin" = "성기사";
+"paladin" = "Paladin";
 
-"priest" = "사제";
+"priest" = "Priest";
 
-"rogue" = "도적";
+"rogue" = "Rogue";
 
-"shaman" = "주술사";
+"shaman" = "Shaman";
 
-"warlock" = "흑마법사";
+"warlock" = "Warlock";
 
-"warrior" = "전사";
+"warrior" = "Warrior";

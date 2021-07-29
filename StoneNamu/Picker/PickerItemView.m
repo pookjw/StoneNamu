@@ -107,7 +107,7 @@
     [secondaryLabel release];
 }
 
-- (void)configureWithImage:(UIImage * _Nullable)image primaryText:(NSString *)primaryText secondaryText:(NSString *)secondaryText {
+- (void)configureWithImage:(UIImage * _Nullable)image primaryText:(NSString *)primaryText secondaryText:(NSString * _Nullable)secondaryText {
     self.imageView.image = image;
     self.primaryLabel.text = primaryText;
     self.secondaryLabel.text = secondaryText;
@@ -118,6 +118,12 @@
     } else {
         [self.imageViewAspectLayout setActive:NO];
         [self.imageViewWidthLayout setActive:YES];
+    }
+    
+    if (secondaryText) {
+        self.secondaryLabel.hidden = NO;
+    } else {
+        self.secondaryLabel.hidden = YES;
     }
 }
 

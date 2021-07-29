@@ -6,20 +6,20 @@
   
 */
 
-"beast" = "야수";
+"beast" = "Beast";
 
-"demon" = "악마";
+"demon" = "Demon";
 
-"dragon" = "용족";
+"dragon" = "Dragon";
 
-"elemental" = "정령";
+"elemental" = "Elemental";
 
-"mech" = "기계";
+"mech" = "Mech";
 
-"murloc" = "멀록";
+"murloc" = "Murloc";
 
-"pirate" = "해적";
+"pirate" = "Pirate";
 
-"quilboar" = "가시멧돼지";
+"quilboar" = "Quilboar";
 
-"totem" = "토템";
+"totem" = "Totem";

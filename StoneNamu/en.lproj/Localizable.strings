@@ -1,7 +1,47 @@
-/* 
+/*
   Localizable.strings
   StoneNamu
 
   Created by Jinwoo Kim on 7/30/21.
   
 */
+
+"APP_NAME" = "StoneNamu";
+
+"ERROR_ALERT_TITLE" = "ERROR!";
+
+"DISMISS" = "OK";
+
+"DONE" = "Done";
+
+"CANCEL" = "Cancel";
+
+"CLEAR" = "Clear";
+
+"ALL" = "All";
+
+"CARD_SET" = "Set";
+
+"CARD_CLASS" = "Class";
+
+"CARD_MANA_COST" = "Cost";
+
+"CARD_ATTACK" = "Attack";
+
+"CARD_HEALTH" = "Health";
+
+"CARD_COLLECTIBLE" = "Collectible";
+
+"CARD_RARITY" = "Rarity";
+
+"CARD_TYPE" = "Type";
+
+"CARD_MINION_TYPE" = "Minion Type";
+
+"CARD_KEYWORD" = "Keyword";
+
+"CARD_TEXT_FILTER" = "Text";
+
+"CARD_GAME_MODE" = "Game Mode";
+
+"CARD_SORT" = "Sorting Results";

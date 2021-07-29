@@ -145,8 +145,8 @@
     CardOptionsItemModel *itemModel = notification.userInfo[CardOptionsViewModelNotificationItemKey];
     
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
-        UIAlertController *vc = [UIAlertController alertControllerWithTitle:@"테스트"
-                                                                    message:@"테스트"
+        UIAlertController *vc = [UIAlertController alertControllerWithTitle:itemModel.text
+                                                                    message:nil
                                                              preferredStyle:UIAlertControllerStyleAlert];
         
         [vc addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
@@ -183,7 +183,7 @@
     
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
         PickerViewController *vc = [[PickerViewController alloc] initWithDataSource:itemModel.pickerDataSource
-                                                                              title:@"테스트"
+                                                                              title:itemModel.text
                                                                        showEmptyRow:showEmptyRow
                                                                      doneCompletion:^(PickerItemModel * _Nullable pickerItemModel) {
             [self.viewModel updateItem:itemModel withValue:pickerItemModel.identity];
@@ -212,7 +212,8 @@
     }
     
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
-        StepperViewController *vc = [[StepperViewController alloc] initWithRange:range title:@"테스트 (번역)"
+        StepperViewController *vc = [[StepperViewController alloc] initWithRange:range
+                                                                           title:itemModel.text
                                                                            value:value
                                                                  clearCompletion:^{
             [self.viewModel updateItem:itemModel withValue:nil];

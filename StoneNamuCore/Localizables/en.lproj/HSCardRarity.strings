@@ -6,12 +6,12 @@
   
 */
 
-"free" = "무료";
+"free" = "Free";
 
-"common" = "일반";
+"common" = "Common";
 
-"rare" = "희귀";
+"rare" = "Rare";
 
-"epic" = "특급";
+"epic" = "Epic";
 
-"legendary" = "전설";
+"legendary" = "Legendary";

@@ -6,10 +6,10 @@
   
 */
 
-"minion" = "하수인";
+"minion" = "Minion";
 
-"spell" = "주문";
+"spell" = "Spell";
 
-"weapon" = "무기";
+"weapon" = "Weapon";
 
-"hero" = "영웅";
+"hero" = "Hero";

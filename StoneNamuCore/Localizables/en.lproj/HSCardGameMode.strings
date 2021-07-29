@@ -6,10 +6,10 @@
   
 */
 
-"constructed" = "대전";
+"constructed" = "Constructed";
 
-"battlegrounds" = "전장";
+"battlegrounds" = "Battlegrounds";
 
-"duels" = "결투";
+"duels" = "Duels";
 
-"arena" = "투기장";
+"arena" = "Arena";
