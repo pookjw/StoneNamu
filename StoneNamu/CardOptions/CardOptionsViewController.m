@@ -114,7 +114,7 @@
         
         if (itemModel.value) {
             cell.accessories = @[
-                [[[UICellAccessoryLabel alloc] initWithText:itemModel.value] autorelease]
+                [[[UICellAccessoryLabel alloc] initWithText:itemModel.accessoryText] autorelease]
             ];
         } else {
             cell.accessories = @[];

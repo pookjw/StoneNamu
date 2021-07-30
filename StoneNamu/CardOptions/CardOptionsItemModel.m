@@ -218,6 +218,31 @@ NSString * NSStringFromCardOptionsItemModelType(CardOptionsItemModelType type) {
     return nil;
 }
 
+- (NSString * _Nullable)accessoryText {
+    switch (self.type) {
+        case CardOptionsItemModelTypeSet:
+            return hsCardSetsWithLocalizable()[self.value];
+        case CardOptionsItemModelTypeClass:
+            return hsCardClassesWithLocalizable()[self.value];
+        case CardOptionsItemModelTypeCollectible:
+            return hsCardCollectiblesWithLocalizable()[self.value];
+        case CardOptionsItemModelTypeRarity:
+            return hsCardRaritiesWithLocalizable()[self.value];
+        case CardOptionsItemModelTypeType:
+            return hsCardTypesWithLocalizable()[self.value];
+        case CardOptionsItemModelTypeMinionType:
+            return hsCardMinionTypesWithLocalizable()[self.value];
+        case CardOptionsItemModelTypeKeyword:
+            return hsCardKeywordsWithLocalizable()[self.value];
+        case CardOptionsItemModelTypeGameMode:
+            return hsCardGameModesWithLocalizable()[self.value];
+        case CardOptionsItemModelTypeSort:
+            return hsCardSortsWithLocalizable()[self.value];
+        default:
+            return self.value;
+    }
+}
+
 - (void)setDefaultValue {
     switch (self.type) {
         case CardOptionsItemModelTypeCollectible:

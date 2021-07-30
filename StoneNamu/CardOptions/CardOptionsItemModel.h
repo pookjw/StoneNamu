@@ -43,6 +43,7 @@ NSString * NSStringFromCardOptionsItemModelType(CardOptionsItemModelType);
 @property (readonly, nonatomic) NSRange stepperRange;
 @property (readonly, nonatomic) NSString *text;
 @property (readonly, nonatomic) NSString * _Nullable secondaryText;
+@property (readonly, nonatomic) NSString * _Nullable accessoryText;
 - (instancetype)initWithType:(CardOptionsItemModelType)type;
 @end
 
