@@ -79,10 +79,10 @@
     pickerView.translatesAutoresizingMaskIntoConstraints = NO;
     
     [NSLayoutConstraint activateConstraints:@[
-        [pickerView.topAnchor constraintEqualToAnchor:self.view.topAnchor],
-        [pickerView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor],
-        [pickerView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor],
-        [pickerView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor]
+        [pickerView.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor],
+        [pickerView.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor],
+        [pickerView.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor],
+        [pickerView.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor]
     ]];
     
     pickerView.dataSource = self;
