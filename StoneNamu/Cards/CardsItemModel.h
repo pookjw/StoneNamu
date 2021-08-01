@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CardsItemModel : NSObject
-@property (readonly, retain) HSCard *card;
+@property (readonly, copy) HSCard *card;
 - (instancetype)initWithCard:(HSCard *)card;
 @end
 

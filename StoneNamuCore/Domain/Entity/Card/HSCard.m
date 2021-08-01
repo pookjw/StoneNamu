@@ -34,6 +34,37 @@
     return (self.cardId == toCompare.cardId) && ([self.slug isEqualToString:toCompare.slug]);
 }
 
+- (id)copyWithZone:(NSZone *)zone {
+    id copy = [[[self class] alloc] init];
+    
+    if (copy) {
+        HSCard *_copy = (HSCard *)copy;
+        _copy->_cardId = self->_cardId;
+        _copy->_collectible = self->_collectible;
+        _copy->_slug = [self->_slug copyWithZone:zone];
+        _copy->_classId = self->_classId;
+        _copy->_multiClassIds = [self->_multiClassIds copyWithZone:zone];
+        _copy->_minionTypeId = self->_minionTypeId;
+        _copy->_cardTypeId = self->_cardTypeId;
+        _copy->_cardSetId = self->_cardSetId;
+        _copy->_rarityId = self->_rarityId;
+        _copy->_artistName = [self->_artistName copyWithZone:zone];
+        _copy->_health = self->_health;
+        _copy->_attack = self->_attack;
+        _copy->_manaCost = self->_manaCost;
+        _copy->_name = [self->_name copyWithZone:zone];
+        _copy->_text = [self->_text copyWithZone:zone];
+        _copy->_image = [self->_image copyWithZone:zone];
+        _copy->_imageGold = [self->_imageGold copyWithZone:zone];
+        _copy->_flavorText = [self->_flavorText copyWithZone:zone];
+        _copy->_cropImage = [self->_cropImage copyWithZone:zone];
+        _copy->_childIds = [self->_childIds copyWithZone:zone];
+        _copy->_gameModes = [self->_gameModes copyWithZone:zone];
+    }
+    
+    return copy;
+}
+
 + (HSCard * _Nullable)hsCardFromJSONData:(NSData *)data error:(NSError **)error {
     NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data
                                                         options:NSJSONReadingMutableContainers

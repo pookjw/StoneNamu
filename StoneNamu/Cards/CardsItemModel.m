@@ -13,7 +13,7 @@
     self = [self init];
     
     if (self) {
-        _card = card;
+        _card = [card copy];
         [_card retain];
     }
     

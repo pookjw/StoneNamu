@@ -18,7 +18,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface HSCard : NSObject
+@interface HSCard : NSObject <NSCopying>
 @property (readonly) NSUInteger cardId;
 @property (readonly) HSCardCollectible collectible;
 @property (readonly, retain) NSString *slug;
