@@ -6,8 +6,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CardOptionsSectionModel.h"
-#import "CardOptionsItemModel.h"
+#import "CardOptionSectionModel.h"
+#import "CardOptionItemModel.h"
 #import "PickerItemModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -18,14 +18,14 @@ static NSString * const CardOptionsViewModelPresentStepperNotificationName = @"C
 static NSString * const CardOptionsViewModelNotificationItemKey = @"CardOptionsViewModelNotificationItemKey";
 static NSString * const CardOptionsViewModelPickerShowEmptyRowNotificationItemKey = @"CardOptionsViewModelPickerShowEmptyRowNotificationItemKey";
 
-typedef UICollectionViewDiffableDataSource<CardOptionsSectionModel *, CardOptionsItemModel *> CardOptionsDataSource;
+typedef UICollectionViewDiffableDataSource<CardOptionSectionModel *, CardOptionItemModel *> CardOptionsDataSource;
 
 @interface CardOptionsViewModel : NSObject
 @property (readonly, retain) CardOptionsDataSource *dataSource;
 @property (readonly, nonatomic) NSDictionary<NSString *, id> *options;
 - (instancetype)initWithDataSource:(CardOptionsDataSource *)dataSource;
 - (void)handleSelectionForIndexPath:(NSIndexPath *)indexPath;
-- (void)updateItem:(CardOptionsItemModel *)itemModel withValue:(NSString * _Nullable)value;
+- (void)updateItem:(CardOptionItemModel *)itemModel withValue:(NSString * _Nullable)value;
 @end
 
 NS_ASSUME_NONNULL_END

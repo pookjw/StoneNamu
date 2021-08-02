@@ -1,48 +1,48 @@
 //
-//  CardOptionsItemModel.m
+//  CardOptionItemModel.m
 //  StoneNamu
 //
 //  Created by Jinwoo Kim on 7/24/21.
 //
 
-#import "CardOptionsItemModel.h"
+#import "CardOptionItemModel.h"
 #import "BlizzardHSAPIKeys.h"
 #import "HSCard.h"
 
-NSString * NSStringFromCardOptionsItemModelType(CardOptionsItemModelType type) {
+NSString * NSStringFromCardOptionItemModelType(CardOptionItemModelType type) {
     switch (type) {
-        case CardOptionsItemModelTypeSet:
+        case CardOptionItemModelTypeSet:
             return BlizzardHSAPIOptionTypeSet;
-        case CardOptionsItemModelTypeClass:
+        case CardOptionItemModelTypeClass:
             return BlizzardHSAPIOptionTypeClass;
-        case CardOptionsItemModelTypeManaCost:
+        case CardOptionItemModelTypeManaCost:
             return BlizzardHSAPIOptionTypeManaCost;
-        case CardOptionsItemModelTypeAttack:
+        case CardOptionItemModelTypeAttack:
             return BlizzardHSAPIOptionTypeAttack;
-        case CardOptionsItemModelTypeHealth:
+        case CardOptionItemModelTypeHealth:
             return BlizzardHSAPIOptionTypeHealth;
-        case CardOptionsItemModelTypeCollectible:
+        case CardOptionItemModelTypeCollectible:
             return BlizzardHSAPIOptionTypeCollectible;
-        case CardOptionsItemModelTypeRarity:
+        case CardOptionItemModelTypeRarity:
             return BlizzardHSAPIOptionTypeRarity;
-        case CardOptionsItemModelTypeType:
+        case CardOptionItemModelTypeType:
             return BlizzardHSAPIOptionTypeType;
-        case CardOptionsItemModelTypeMinionType:
+        case CardOptionItemModelTypeMinionType:
             return BlizzardHSAPIOptionTypeMinionType;
-        case CardOptionsItemModelTypeKeyword:
+        case CardOptionItemModelTypeKeyword:
             return BlizzardHSAPIOptionTypeKeyword;
-        case CardOptionsItemModelTypeTextFilter:
+        case CardOptionItemModelTypeTextFilter:
             return BlizzardHSAPIOptionTypeTextFilter;
-        case CardOptionsItemModelTypeGameMode:
+        case CardOptionItemModelTypeGameMode:
             return BlizzardHSAPIOptionTypeGameMode;
-        case CardOptionsItemModelTypeSort:
+        case CardOptionItemModelTypeSort:
             return BlizzardHSAPIOptionTypeSort;
         default:
             return @"";
     }
 }
 
-@implementation CardOptionsItemModel
+@implementation CardOptionItemModel
 
 - (instancetype)init {
     self = [super init];
@@ -54,7 +54,7 @@ NSString * NSStringFromCardOptionsItemModelType(CardOptionsItemModelType type) {
     return self;
 }
 
-- (instancetype)initWithType:(CardOptionsItemModelType)type {
+- (instancetype)initWithType:(CardOptionItemModelType)type {
     self = [self init];
     
     if (self) {
@@ -71,94 +71,94 @@ NSString * NSStringFromCardOptionsItemModelType(CardOptionsItemModelType type) {
 }
 
 - (BOOL)isEqual:(id)object {
-    if (![object isKindOfClass:[CardOptionsItemModel class]]) {
+    if (![object isKindOfClass:[CardOptionItemModel class]]) {
         return NO;
     }
     
-    CardOptionsItemModel *toCompare = (CardOptionsItemModel *)object;
+    CardOptionItemModel *toCompare = (CardOptionItemModel *)object;
     
     return (self.type == toCompare.type) && ([self.value isEqualToString:toCompare.value]);
 }
 
-- (CardOptionsItemModelValueSetType)valueSetType {
+- (CardOptionItemModelValueSetType)valueSetType {
     switch (self.type) {
-        case CardOptionsItemModelTypeSet:
-            return CardOptionsItemModelValueSetTypePickerWithEmptyRow;
-        case CardOptionsItemModelTypeClass:
-            return CardOptionsItemModelValueSetTypePickerWithEmptyRow;
-        case CardOptionsItemModelTypeManaCost:
-            return CardOptionsItemModelValueSetTypeStepper;
-        case CardOptionsItemModelTypeAttack:
-            return CardOptionsItemModelValueSetTypeStepper;
-        case CardOptionsItemModelTypeHealth:
-            return CardOptionsItemModelValueSetTypeStepper;
-        case CardOptionsItemModelTypeCollectible:
-            return CardOptionsItemModelValueSetTypePicker;
-        case CardOptionsItemModelTypeRarity:
-            return CardOptionsItemModelValueSetTypePickerWithEmptyRow;
-        case CardOptionsItemModelTypeType:
-            return CardOptionsItemModelValueSetTypePickerWithEmptyRow;
-        case CardOptionsItemModelTypeMinionType:
-            return CardOptionsItemModelValueSetTypePickerWithEmptyRow;
-        case CardOptionsItemModelTypeKeyword:
-            return CardOptionsItemModelValueSetTypePickerWithEmptyRow;
-        case CardOptionsItemModelTypeTextFilter:
-            return CardOptionsItemModelValueSetTypeTextField;
-        case CardOptionsItemModelTypeGameMode:
-            return CardOptionsItemModelValueSetTypePicker;
-        case CardOptionsItemModelTypeSort:
-            return CardOptionsItemModelValueSetTypePicker;
+        case CardOptionItemModelTypeSet:
+            return CardOptionItemModelValueSetTypePickerWithEmptyRow;
+        case CardOptionItemModelTypeClass:
+            return CardOptionItemModelValueSetTypePickerWithEmptyRow;
+        case CardOptionItemModelTypeManaCost:
+            return CardOptionItemModelValueSetTypeStepper;
+        case CardOptionItemModelTypeAttack:
+            return CardOptionItemModelValueSetTypeStepper;
+        case CardOptionItemModelTypeHealth:
+            return CardOptionItemModelValueSetTypeStepper;
+        case CardOptionItemModelTypeCollectible:
+            return CardOptionItemModelValueSetTypePicker;
+        case CardOptionItemModelTypeRarity:
+            return CardOptionItemModelValueSetTypePickerWithEmptyRow;
+        case CardOptionItemModelTypeType:
+            return CardOptionItemModelValueSetTypePickerWithEmptyRow;
+        case CardOptionItemModelTypeMinionType:
+            return CardOptionItemModelValueSetTypePickerWithEmptyRow;
+        case CardOptionItemModelTypeKeyword:
+            return CardOptionItemModelValueSetTypePickerWithEmptyRow;
+        case CardOptionItemModelTypeTextFilter:
+            return CardOptionItemModelValueSetTypeTextField;
+        case CardOptionItemModelTypeGameMode:
+            return CardOptionItemModelValueSetTypePicker;
+        case CardOptionItemModelTypeSort:
+            return CardOptionItemModelValueSetTypePicker;
         default:
-            return CardOptionsItemModelValueSetTypeTextField;
+            return CardOptionItemModelValueSetTypeTextField;
     }
 }
 
 - (NSArray<PickerItemModel *> * _Nullable)pickerDataSource {
     switch (self.type) {
-        case CardOptionsItemModelTypeSet:
+        case CardOptionItemModelTypeSet:
             return [self pickerItemModelsFromDic:hsCardSetsWithLocalizable()
                                        converter:^NSUInteger(NSString * key) {
                 return HSCardSetFromNSString(key);
             }];
-        case CardOptionsItemModelTypeClass: {
+        case CardOptionItemModelTypeClass: {
             return [self pickerItemModelsFromDic:hsCardClassesWithLocalizable()
                                        converter:^NSUInteger(NSString * key) {
                 return HSCardClassFromNSString(key);
             }];
         }
-        case CardOptionsItemModelTypeCollectible: {
+        case CardOptionItemModelTypeCollectible: {
             return [self pickerItemModelsFromDic:hsCardCollectiblesWithLocalizable()
                                        converter:^NSUInteger(NSString * key) {
                 return HSCardCollectibleFromNSString(key);
             }];
         }
-        case CardOptionsItemModelTypeRarity: {
+        case CardOptionItemModelTypeRarity: {
             return [self pickerItemModelsFromDic:hsCardRaritiesWithLocalizable()
                                        converter:^NSUInteger(NSString * key) {
                 return HSCardRarityFromNSString(key);
             }];
         }
-        case CardOptionsItemModelTypeType:
+        case CardOptionItemModelTypeType:
             return [self pickerItemModelsFromDic:hsCardTypesWithLocalizable()
                                        converter:^NSUInteger(NSString * key) {
                 return HSCardTypeFromNSString(key);
             }];
-        case CardOptionsItemModelTypeMinionType:
+        case CardOptionItemModelTypeMinionType:
             return [self pickerItemModelsFromDic:hsCardMinionTypesWithLocalizable()
                                        converter:^NSUInteger(NSString * key) {
                 return HSCardMinionTypeFromNSString(key);
             }];
-        case CardOptionsItemModelTypeKeyword:
+        case CardOptionItemModelTypeKeyword:
             return [self pickerItemModelsFromDic:hsCardKeywordsWithLocalizable()
                                        converter:^NSUInteger(NSString * key) {
                 return HSCardKeywordFromNSString(key);
             }];
-        case CardOptionsItemModelTypeGameMode:
+        case CardOptionItemModelTypeGameMode:
             return [self pickerItemModelsFromDic:hsCardGameModesWithLocalizable()
                                        converter:^NSUInteger(NSString * key) {
                 return HSCardGameModeFromNSString(key);
             }];
-        case CardOptionsItemModelTypeSort:
+        case CardOptionItemModelTypeSort:
             return [self pickerItemModelsFromDic:hsCardSortsWithLocalizable()
                                        converter:^NSUInteger(NSString * key) {
                 return HSCardSortFromNSString(key);
@@ -170,11 +170,11 @@ NSString * NSStringFromCardOptionsItemModelType(CardOptionsItemModelType type) {
 
 - (NSRange)stepperRange {
     switch (self.type) {
-        case CardOptionsItemModelTypeManaCost:
+        case CardOptionItemModelTypeManaCost:
             return NSMakeRange(0, 50);
-        case CardOptionsItemModelTypeAttack:
+        case CardOptionItemModelTypeAttack:
             return NSMakeRange(0, 50);
-        case CardOptionsItemModelTypeHealth:
+        case CardOptionItemModelTypeHealth:
             return NSMakeRange(0, 50);
         default:
             return NSMakeRange(0, 0);
@@ -183,31 +183,31 @@ NSString * NSStringFromCardOptionsItemModelType(CardOptionsItemModelType type) {
 
 - (NSString *)text {
     switch (self.type) {
-        case CardOptionsItemModelTypeSet:
+        case CardOptionItemModelTypeSet:
             return NSLocalizedString(@"CARD_SET", @"");
-        case CardOptionsItemModelTypeClass:
+        case CardOptionItemModelTypeClass:
             return NSLocalizedString(@"CARD_CLASS", @"");
-        case CardOptionsItemModelTypeManaCost:
+        case CardOptionItemModelTypeManaCost:
             return NSLocalizedString(@"CARD_MANA_COST", @"");
-        case CardOptionsItemModelTypeAttack:
+        case CardOptionItemModelTypeAttack:
             return NSLocalizedString(@"CARD_ATTACK", @"");
-        case CardOptionsItemModelTypeHealth:
+        case CardOptionItemModelTypeHealth:
             return NSLocalizedString(@"CARD_HEALTH", @"");
-        case CardOptionsItemModelTypeCollectible:
+        case CardOptionItemModelTypeCollectible:
             return NSLocalizedString(@"CARD_COLLECTIBLE", @"");
-        case CardOptionsItemModelTypeRarity:
+        case CardOptionItemModelTypeRarity:
             return NSLocalizedString(@"CARD_RARITY", @"");
-        case CardOptionsItemModelTypeType:
+        case CardOptionItemModelTypeType:
             return NSLocalizedString(@"CARD_TYPE", @"");
-        case CardOptionsItemModelTypeMinionType:
+        case CardOptionItemModelTypeMinionType:
             return NSLocalizedString(@"CARD_MINION_TYPE", @"");
-        case CardOptionsItemModelTypeKeyword:
+        case CardOptionItemModelTypeKeyword:
             return NSLocalizedString(@"CARD_KEYWORD", @"");
-        case CardOptionsItemModelTypeTextFilter:
+        case CardOptionItemModelTypeTextFilter:
             return NSLocalizedString(@"CARD_TEXT_FILTER", @"");
-        case CardOptionsItemModelTypeGameMode:
+        case CardOptionItemModelTypeGameMode:
             return NSLocalizedString(@"CARD_GAME_MODE", @"");
-        case CardOptionsItemModelTypeSort:
+        case CardOptionItemModelTypeSort:
             return NSLocalizedString(@"CARD_SORT", @"");
         default:
             return @"";
@@ -220,23 +220,23 @@ NSString * NSStringFromCardOptionsItemModelType(CardOptionsItemModelType type) {
 
 - (NSString * _Nullable)accessoryText {
     switch (self.type) {
-        case CardOptionsItemModelTypeSet:
+        case CardOptionItemModelTypeSet:
             return hsCardSetsWithLocalizable()[self.value];
-        case CardOptionsItemModelTypeClass:
+        case CardOptionItemModelTypeClass:
             return hsCardClassesWithLocalizable()[self.value];
-        case CardOptionsItemModelTypeCollectible:
+        case CardOptionItemModelTypeCollectible:
             return hsCardCollectiblesWithLocalizable()[self.value];
-        case CardOptionsItemModelTypeRarity:
+        case CardOptionItemModelTypeRarity:
             return hsCardRaritiesWithLocalizable()[self.value];
-        case CardOptionsItemModelTypeType:
+        case CardOptionItemModelTypeType:
             return hsCardTypesWithLocalizable()[self.value];
-        case CardOptionsItemModelTypeMinionType:
+        case CardOptionItemModelTypeMinionType:
             return hsCardMinionTypesWithLocalizable()[self.value];
-        case CardOptionsItemModelTypeKeyword:
+        case CardOptionItemModelTypeKeyword:
             return hsCardKeywordsWithLocalizable()[self.value];
-        case CardOptionsItemModelTypeGameMode:
+        case CardOptionItemModelTypeGameMode:
             return hsCardGameModesWithLocalizable()[self.value];
-        case CardOptionsItemModelTypeSort:
+        case CardOptionItemModelTypeSort:
             return hsCardSortsWithLocalizable()[self.value];
         default:
             return self.value;
@@ -245,13 +245,13 @@ NSString * NSStringFromCardOptionsItemModelType(CardOptionsItemModelType type) {
 
 - (void)setDefaultValue {
     switch (self.type) {
-        case CardOptionsItemModelTypeCollectible:
+        case CardOptionItemModelTypeCollectible:
             self.value = NSStringFromHSCardCollectible(HSCardCollectibleYES);
             break;
-        case CardOptionsItemModelTypeGameMode:
+        case CardOptionItemModelTypeGameMode:
             self.value = NSStringFromHSCardGameMode(HSCardGameModeConstructed);
             break;
-        case CardOptionsItemModelTypeSort:
+        case CardOptionItemModelTypeSort:
             self.value = NSStringFromHSCardSort(HSCardSortNameAsc);
             break;
         default:

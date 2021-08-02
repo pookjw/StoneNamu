@@ -41,13 +41,13 @@
 
 - (NSDictionary<NSString *,id> *)options {
     NSDiffableDataSourceSnapshot *snapshot = self.dataSource.snapshot;
-    NSArray<CardOptionsItemModel *> *itemModels = snapshot.itemIdentifiers;
+    NSArray<CardOptionItemModel *> *itemModels = snapshot.itemIdentifiers;
     
     NSMutableDictionary *dic = [@{} mutableCopy];
     
-    for (CardOptionsItemModel *itemModel in itemModels) {
+    for (CardOptionItemModel *itemModel in itemModels) {
         if ((itemModel.value) && (![itemModel.value isEqualToString:@""])) {
-            dic[NSStringFromCardOptionsItemModelType(itemModel.type)] = itemModel.value;
+            dic[NSStringFromCardOptionItemModelType(itemModel.type)] = itemModel.value;
         }
     }
     
@@ -58,17 +58,17 @@
 }
 
 - (void)handleSelectionForIndexPath:(NSIndexPath *)indexPath {
-    CardOptionsItemModel *itemModel = [self.dataSource itemIdentifierForIndexPath:indexPath];
+    CardOptionItemModel *itemModel = [self.dataSource itemIdentifierForIndexPath:indexPath];
     
     switch (itemModel.valueSetType) {
-        case CardOptionsItemModelValueSetTypeTextField:
+        case CardOptionItemModelValueSetTypeTextField:
             [NSNotificationCenter.defaultCenter postNotificationName:CardOptionsViewModelPresentTextFieldNotificationName
                                                               object:self
                                                             userInfo:@{
                 CardOptionsViewModelNotificationItemKey: itemModel
             }];
             break;
-        case CardOptionsItemModelValueSetTypePicker:
+        case CardOptionItemModelValueSetTypePicker:
             [NSNotificationCenter.defaultCenter postNotificationName:CardOptionsViewModelPresentPickerNotificationName
                                                               object:self
                                                             userInfo:@{
@@ -76,7 +76,7 @@
                 CardOptionsViewModelPickerShowEmptyRowNotificationItemKey: [NSNumber numberWithBool:NO]
             }];
             break;
-        case CardOptionsItemModelValueSetTypePickerWithEmptyRow:
+        case CardOptionItemModelValueSetTypePickerWithEmptyRow:
             [NSNotificationCenter.defaultCenter postNotificationName:CardOptionsViewModelPresentPickerNotificationName
                                                               object:self
                                                             userInfo:@{
@@ -84,7 +84,7 @@
                 CardOptionsViewModelPickerShowEmptyRowNotificationItemKey: [NSNumber numberWithBool:YES]
             }];
             break;
-        case CardOptionsItemModelValueSetTypeStepper: {
+        case CardOptionItemModelValueSetTypeStepper: {
             [NSNotificationCenter.defaultCenter postNotificationName:CardOptionsViewModelPresentStepperNotificationName
                                                               object:self
                                                             userInfo:@{
@@ -96,7 +96,7 @@
     }
 }
 
-- (void)updateItem:(CardOptionsItemModel *)itemModel withValue:(NSString * _Nullable)value {
+- (void)updateItem:(CardOptionItemModel *)itemModel withValue:(NSString * _Nullable)value {
     [itemModel retain];
     [value retain];
     
@@ -118,30 +118,30 @@
     
     [snapshot deleteAllItems];
     
-    CardOptionsSectionModel *cardSectionModel = [[CardOptionsSectionModel alloc] initWithType:CardOptionsSectionModelTypeCard];
-    CardOptionsSectionModel *sortSectionModel = [[CardOptionsSectionModel alloc] initWithType:CardOptionsSectionModelTypeSort];
+    CardOptionSectionModel *cardSectionModel = [[CardOptionSectionModel alloc] initWithType:CardOptionSectionModelTypeCard];
+    CardOptionSectionModel *sortSectionModel = [[CardOptionSectionModel alloc] initWithType:CardOptionSectionModelTypeSort];
     
     [snapshot appendSectionsWithIdentifiers:@[cardSectionModel, sortSectionModel]];
     
     @autoreleasepool {
         [snapshot appendItemsWithIdentifiers:@[
-            [[[CardOptionsItemModel alloc] initWithType:CardOptionsItemModelTypeSet] autorelease],
-            [[[CardOptionsItemModel alloc] initWithType:CardOptionsItemModelTypeClass] autorelease],
-            [[[CardOptionsItemModel alloc] initWithType:CardOptionsItemModelTypeManaCost] autorelease],
-            [[[CardOptionsItemModel alloc] initWithType:CardOptionsItemModelTypeAttack] autorelease],
-            [[[CardOptionsItemModel alloc] initWithType:CardOptionsItemModelTypeHealth] autorelease],
-            [[[CardOptionsItemModel alloc] initWithType:CardOptionsItemModelTypeCollectible] autorelease],
-            [[[CardOptionsItemModel alloc] initWithType:CardOptionsItemModelTypeRarity] autorelease],
-            [[[CardOptionsItemModel alloc] initWithType:CardOptionsItemModelTypeType] autorelease],
-            [[[CardOptionsItemModel alloc] initWithType:CardOptionsItemModelTypeMinionType] autorelease],
-            [[[CardOptionsItemModel alloc] initWithType:CardOptionsItemModelTypeKeyword] autorelease],
-            [[[CardOptionsItemModel alloc] initWithType:CardOptionsItemModelTypeTextFilter] autorelease],
-            [[[CardOptionsItemModel alloc] initWithType:CardOptionsItemModelTypeGameMode] autorelease]
+            [[[CardOptionItemModel alloc] initWithType:CardOptionItemModelTypeSet] autorelease],
+            [[[CardOptionItemModel alloc] initWithType:CardOptionItemModelTypeClass] autorelease],
+            [[[CardOptionItemModel alloc] initWithType:CardOptionItemModelTypeManaCost] autorelease],
+            [[[CardOptionItemModel alloc] initWithType:CardOptionItemModelTypeAttack] autorelease],
+            [[[CardOptionItemModel alloc] initWithType:CardOptionItemModelTypeHealth] autorelease],
+            [[[CardOptionItemModel alloc] initWithType:CardOptionItemModelTypeCollectible] autorelease],
+            [[[CardOptionItemModel alloc] initWithType:CardOptionItemModelTypeRarity] autorelease],
+            [[[CardOptionItemModel alloc] initWithType:CardOptionItemModelTypeType] autorelease],
+            [[[CardOptionItemModel alloc] initWithType:CardOptionItemModelTypeMinionType] autorelease],
+            [[[CardOptionItemModel alloc] initWithType:CardOptionItemModelTypeKeyword] autorelease],
+            [[[CardOptionItemModel alloc] initWithType:CardOptionItemModelTypeTextFilter] autorelease],
+            [[[CardOptionItemModel alloc] initWithType:CardOptionItemModelTypeGameMode] autorelease]
         ]
                    intoSectionWithIdentifier:cardSectionModel];
         
         [snapshot appendItemsWithIdentifiers:@[
-            [[[CardOptionsItemModel alloc] initWithType:CardOptionsItemModelTypeSort] autorelease]
+            [[[CardOptionItemModel alloc] initWithType:CardOptionItemModelTypeSort] autorelease]
         ]
                    intoSectionWithIdentifier:sortSectionModel];
     }

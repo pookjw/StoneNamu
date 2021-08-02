@@ -103,10 +103,10 @@
 - (UICollectionViewCellRegistration *)makeCellRegistration {
     UICollectionViewCellRegistration *cellRegistration = [UICollectionViewCellRegistration registrationWithCellClass:[UICollectionViewListCell class]
                                                                                                 configurationHandler:^(__kindof UICollectionViewListCell * _Nonnull cell, NSIndexPath * _Nonnull indexPath, id  _Nonnull item) {
-        if (![item isKindOfClass:[CardOptionsItemModel class]]) {
+        if (![item isKindOfClass:[CardOptionItemModel class]]) {
             return;
         }
-        CardOptionsItemModel *itemModel = (CardOptionsItemModel *)item;
+        CardOptionItemModel *itemModel = (CardOptionItemModel *)item;
         
         UIListContentConfiguration *configuration = [UIListContentConfiguration subtitleCellConfiguration];
         configuration.text = itemModel.text;
@@ -143,7 +143,7 @@
 }
 
 - (void)presentTextFieldEventReceived:(NSNotification *)notification {
-    CardOptionsItemModel *itemModel = notification.userInfo[CardOptionsViewModelNotificationItemKey];
+    CardOptionItemModel *itemModel = notification.userInfo[CardOptionsViewModelNotificationItemKey];
     
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
         UIAlertController *vc = [UIAlertController alertControllerWithTitle:itemModel.text
@@ -179,7 +179,7 @@
 }
 
 - (void)presentPickerEventReceived:(NSNotification *)notification {
-    CardOptionsItemModel *itemModel = notification.userInfo[CardOptionsViewModelNotificationItemKey];
+    CardOptionItemModel *itemModel = notification.userInfo[CardOptionsViewModelNotificationItemKey];
     BOOL showEmptyRow = [(NSNumber *)notification.userInfo[CardOptionsViewModelPickerShowEmptyRowNotificationItemKey] boolValue];
     
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
@@ -202,7 +202,7 @@
 }
 
 - (void)presentStepperEventReceived:(NSNotification *)notification {
-    CardOptionsItemModel *itemModel = notification.userInfo[CardOptionsViewModelNotificationItemKey];
+    CardOptionItemModel *itemModel = notification.userInfo[CardOptionsViewModelNotificationItemKey];
     NSRange range = itemModel.stepperRange;
     
     NSUInteger value;

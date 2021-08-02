@@ -32,8 +32,8 @@
 		4F4976D926ABE80700860809 /* CardItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4976D826ABE80700860809 /* CardItemModel.m */; };
 		4F4976E326ABFCB300860809 /* CardOptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4976E226ABFCB300860809 /* CardOptionsViewController.m */; };
 		4F4976E626ABFE2100860809 /* CardOptionsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4976E526ABFE2100860809 /* CardOptionsViewModel.m */; };
-		4F4976E926ABFF5E00860809 /* CardOptionsSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4976E826ABFF5E00860809 /* CardOptionsSectionModel.m */; };
-		4F4976EC26ABFF6900860809 /* CardOptionsItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4976EB26ABFF6900860809 /* CardOptionsItemModel.m */; };
+		4F4976E926ABFF5E00860809 /* CardOptionSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4976E826ABFF5E00860809 /* CardOptionSectionModel.m */; };
+		4F4976EC26ABFF6900860809 /* CardOptionItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4976EB26ABFF6900860809 /* CardOptionItemModel.m */; };
 		4F57DE9D26AD7B53000E4163 /* PickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F57DE9C26AD7B53000E4163 /* PickerViewController.m */; };
 		4F57DEA126AD7DB3000E4163 /* SheetNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F57DEA026AD7DB3000E4163 /* SheetNavigationController.m */; };
 		4F57DEA526AD96D3000E4163 /* HSCardSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F57DEA426AD96D3000E4163 /* HSCardSet.m */; };
@@ -140,10 +140,10 @@
 		4F4976E226ABFCB300860809 /* CardOptionsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardOptionsViewController.m; sourceTree = "<group>"; };
 		4F4976E426ABFE2100860809 /* CardOptionsViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardOptionsViewModel.h; sourceTree = "<group>"; };
 		4F4976E526ABFE2100860809 /* CardOptionsViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardOptionsViewModel.m; sourceTree = "<group>"; };
-		4F4976E726ABFF5E00860809 /* CardOptionsSectionModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardOptionsSectionModel.h; sourceTree = "<group>"; };
-		4F4976E826ABFF5E00860809 /* CardOptionsSectionModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardOptionsSectionModel.m; sourceTree = "<group>"; };
-		4F4976EA26ABFF6900860809 /* CardOptionsItemModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardOptionsItemModel.h; sourceTree = "<group>"; };
-		4F4976EB26ABFF6900860809 /* CardOptionsItemModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardOptionsItemModel.m; sourceTree = "<group>"; };
+		4F4976E726ABFF5E00860809 /* CardOptionSectionModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardOptionSectionModel.h; sourceTree = "<group>"; };
+		4F4976E826ABFF5E00860809 /* CardOptionSectionModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardOptionSectionModel.m; sourceTree = "<group>"; };
+		4F4976EA26ABFF6900860809 /* CardOptionItemModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardOptionItemModel.h; sourceTree = "<group>"; };
+		4F4976EB26ABFF6900860809 /* CardOptionItemModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardOptionItemModel.m; sourceTree = "<group>"; };
 		4F57DE9B26AD7B53000E4163 /* PickerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PickerViewController.h; sourceTree = "<group>"; };
 		4F57DE9C26AD7B53000E4163 /* PickerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PickerViewController.m; sourceTree = "<group>"; };
 		4F57DE9F26AD7DB3000E4163 /* SheetNavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SheetNavigationController.h; sourceTree = "<group>"; };
@@ -292,10 +292,10 @@
 				4F4976E226ABFCB300860809 /* CardOptionsViewController.m */,
 				4F4976E426ABFE2100860809 /* CardOptionsViewModel.h */,
 				4F4976E526ABFE2100860809 /* CardOptionsViewModel.m */,
-				4F4976E726ABFF5E00860809 /* CardOptionsSectionModel.h */,
-				4F4976E826ABFF5E00860809 /* CardOptionsSectionModel.m */,
-				4F4976EA26ABFF6900860809 /* CardOptionsItemModel.h */,
-				4F4976EB26ABFF6900860809 /* CardOptionsItemModel.m */,
+				4F4976E726ABFF5E00860809 /* CardOptionSectionModel.h */,
+				4F4976E826ABFF5E00860809 /* CardOptionSectionModel.m */,
+				4F4976EA26ABFF6900860809 /* CardOptionItemModel.h */,
+				4F4976EB26ABFF6900860809 /* CardOptionItemModel.m */,
 			);
 			path = CardOptions;
 			sourceTree = "<group>";
@@ -715,9 +715,9 @@
 				4F57DE9D26AD7B53000E4163 /* PickerViewController.m in Sources */,
 				4F182BD126AC23600028115C /* UIViewController+presentErrorAlert.m in Sources */,
 				4FA9047A26B6E26A00CD6147 /* CardContentView.m in Sources */,
-				4F4976E926ABFF5E00860809 /* CardOptionsSectionModel.m in Sources */,
+				4F4976E926ABFF5E00860809 /* CardOptionSectionModel.m in Sources */,
 				4F4976E626ABFE2100860809 /* CardOptionsViewModel.m in Sources */,
-				4F4976EC26ABFF6900860809 /* CardOptionsItemModel.m in Sources */,
+				4F4976EC26ABFF6900860809 /* CardOptionItemModel.m in Sources */,
 				4FA56BBD26A2105A002D9FA0 /* main.m in Sources */,
 				4F57DEAC26ADA6E3000E4163 /* PickerItemModel.m in Sources */,
 				4F4976E326ABFCB300860809 /* CardOptionsViewController.m in Sources */,
