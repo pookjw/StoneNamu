@@ -19,7 +19,7 @@
 @implementation PickerItemView
 
 + (CGFloat)getHeightUsingWidth:(CGFloat)width {
-    NSString *string = @"a";
+    NSString *string = @"";
     
     CGRect rect1 = [string boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX)
                                         options:NSStringDrawingUsesLineFragmentOrigin
