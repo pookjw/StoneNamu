@@ -54,7 +54,12 @@ static NSString * const UIImageViewAsyncImageCategorySessionTaskKey = @"UIImageV
     } else {
         NSURLSessionTask *sessionTask = [NSURLSession.sharedSession dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
             
-            if ((data) && ([self.currentURL isEqual:url])) {
+            if (error) {
+                [NSOperationQueue.mainQueue addOperationWithBlock:^{
+                    [self removeActivityIndicator];
+                    self.image = nil;
+                }];
+            } else if ((data) && ([self.currentURL isEqual:url])) {
                 UIImage *image = [UIImage imageWithData:data];
                 [NSOperationQueue.mainQueue addOperationWithBlock:^{
                     [self.dataCacheUseCase createDataCache:data identity:url.absoluteString];
@@ -70,6 +75,7 @@ static NSString * const UIImageViewAsyncImageCategorySessionTaskKey = @"UIImageV
 
 - (void)showActivityIndicator {
     if (self.activityIndicator) {
+        self.activityIndicator.hidden = NO;
         [self.activityIndicator startAnimating];
         return;
     }
@@ -88,7 +94,8 @@ static NSString * const UIImageViewAsyncImageCategorySessionTaskKey = @"UIImageV
 
 - (void)removeActivityIndicator {
     if (self.activityIndicator == nil) return;
-    [self.activityIndicator removeFromSuperview];
+    self.activityIndicator.hidden = YES;
+    [self.activityIndicator stopAnimating];
 }
 
 - (void)configureDataCacheUseCase {
