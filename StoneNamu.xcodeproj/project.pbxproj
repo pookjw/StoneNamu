@@ -39,6 +39,16 @@
 		4F57DEA526AD96D3000E4163 /* HSCardSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F57DEA426AD96D3000E4163 /* HSCardSet.m */; };
 		4F57DEAC26ADA6E3000E4163 /* PickerItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F57DEAB26ADA6E3000E4163 /* PickerItemModel.m */; };
 		4F57DEB926ADC3CF000E4163 /* PickerItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F57DEB826ADC3CF000E4163 /* PickerItemView.m */; };
+		4F646A5C26B7CA8000BEDB38 /* CardsCollectionViewCompositionalLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F646A5B26B7CA8000BEDB38 /* CardsCollectionViewCompositionalLayout.m */; };
+		4F646A5F26B7D05E00BEDB38 /* UIImageView+setAsyncImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F646A5E26B7D05E00BEDB38 /* UIImageView+setAsyncImage.m */; };
+		4F646A6326B7D73400BEDB38 /* DataCacheModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4F646A6126B7D73400BEDB38 /* DataCacheModel.xcdatamodeld */; };
+		4F646A6726B7D7E100BEDB38 /* DataCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F646A6526B7D7E100BEDB38 /* DataCache.m */; };
+		4F646A7126B7DFB500BEDB38 /* CoreDataStackImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F646A6F26B7DFB500BEDB38 /* CoreDataStackImpl.h */; };
+		4F646A7226B7DFB500BEDB38 /* CoreDataStackImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F646A7026B7DFB500BEDB38 /* CoreDataStackImpl.m */; };
+		4F646A7626B7E8C100BEDB38 /* DataCacheRepositoryImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F646A7426B7E8C100BEDB38 /* DataCacheRepositoryImpl.h */; };
+		4F646A7726B7E8C100BEDB38 /* DataCacheRepositoryImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F646A7526B7E8C100BEDB38 /* DataCacheRepositoryImpl.m */; };
+		4F646A7B26B7F08500BEDB38 /* DataCacheUseCaseImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F646A7926B7F08500BEDB38 /* DataCacheUseCaseImpl.h */; };
+		4F646A7C26B7F08500BEDB38 /* DataCacheUseCaseImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F646A7A26B7F08500BEDB38 /* DataCacheUseCaseImpl.m */; };
 		4F6A139C26B251EE0089A13A /* HSCardKeyword.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F6A139B26B251EE0089A13A /* HSCardKeyword.m */; };
 		4F6A139F26B256150089A13A /* HSCardKeyword.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4F6A13A126B256150089A13A /* HSCardKeyword.strings */; };
 		4F6A13A526B267D60089A13A /* HSCardGameMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F6A13A426B267D60089A13A /* HSCardGameMode.m */; };
@@ -55,9 +65,9 @@
 		4FA8F3FB26B1430200D7D4C6 /* HSCardSet.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4FA8F3FD26B1430200D7D4C6 /* HSCardSet.strings */; };
 		4FA9047A26B6E26A00CD6147 /* CardContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA9047926B6E26A00CD6147 /* CardContentView.m */; };
 		4FA9047D26B6E2A000CD6147 /* CardContentConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA9047C26B6E2A000CD6147 /* CardContentConfiguration.m */; };
-		4FAA89D826A4266500572BB4 /* FetchHSCardUseCase.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FAA89D626A4266500572BB4 /* FetchHSCardUseCase.h */; };
-		4FAA89DC26A426E700572BB4 /* FetchHSCardUseCaseImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FAA89DA26A426E700572BB4 /* FetchHSCardUseCaseImpl.h */; };
-		4FAA89DD26A426E700572BB4 /* FetchHSCardUseCaseImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA89DB26A426E700572BB4 /* FetchHSCardUseCaseImpl.m */; };
+		4FAA89D826A4266500572BB4 /* HSCardUseCase.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FAA89D626A4266500572BB4 /* HSCardUseCase.h */; };
+		4FAA89DC26A426E700572BB4 /* HSCardUseCaseImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FAA89DA26A426E700572BB4 /* HSCardUseCaseImpl.h */; };
+		4FAA89DD26A426E700572BB4 /* HSCardUseCaseImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA89DB26A426E700572BB4 /* HSCardUseCaseImpl.m */; };
 		4FAA89E026A42A1500572BB4 /* BlizzardHSRepositoryImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FAA89DE26A42A1500572BB4 /* BlizzardHSRepositoryImpl.h */; };
 		4FAA89E126A42A1500572BB4 /* BlizzardHSRepositoryImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA89DF26A42A1500572BB4 /* BlizzardHSRepositoryImpl.m */; };
 		4FAA89E626A4333C00572BB4 /* FetchHSCardUseCaseTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA89E526A4333C00572BB4 /* FetchHSCardUseCaseTest.m */; };
@@ -154,6 +164,22 @@
 		4F57DEAB26ADA6E3000E4163 /* PickerItemModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PickerItemModel.m; sourceTree = "<group>"; };
 		4F57DEB726ADC3CF000E4163 /* PickerItemView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PickerItemView.h; sourceTree = "<group>"; };
 		4F57DEB826ADC3CF000E4163 /* PickerItemView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PickerItemView.m; sourceTree = "<group>"; };
+		4F646A5A26B7CA8000BEDB38 /* CardsCollectionViewCompositionalLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardsCollectionViewCompositionalLayout.h; sourceTree = "<group>"; };
+		4F646A5B26B7CA8000BEDB38 /* CardsCollectionViewCompositionalLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardsCollectionViewCompositionalLayout.m; sourceTree = "<group>"; };
+		4F646A5D26B7D05E00BEDB38 /* UIImageView+setAsyncImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImageView+setAsyncImage.h"; sourceTree = "<group>"; };
+		4F646A5E26B7D05E00BEDB38 /* UIImageView+setAsyncImage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+setAsyncImage.m"; sourceTree = "<group>"; };
+		4F646A6226B7D73400BEDB38 /* DataCacheModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataCacheModel.xcdatamodel; sourceTree = "<group>"; };
+		4F646A6426B7D7E100BEDB38 /* DataCache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataCache.h; sourceTree = "<group>"; };
+		4F646A6526B7D7E100BEDB38 /* DataCache.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DataCache.m; sourceTree = "<group>"; };
+		4F646A6E26B7DB1E00BEDB38 /* CoreDataStack.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreDataStack.h; sourceTree = "<group>"; };
+		4F646A6F26B7DFB500BEDB38 /* CoreDataStackImpl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreDataStackImpl.h; sourceTree = "<group>"; };
+		4F646A7026B7DFB500BEDB38 /* CoreDataStackImpl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CoreDataStackImpl.m; sourceTree = "<group>"; };
+		4F646A7326B7E7B900BEDB38 /* DataCacheRepository.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataCacheRepository.h; sourceTree = "<group>"; };
+		4F646A7426B7E8C100BEDB38 /* DataCacheRepositoryImpl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataCacheRepositoryImpl.h; sourceTree = "<group>"; };
+		4F646A7526B7E8C100BEDB38 /* DataCacheRepositoryImpl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DataCacheRepositoryImpl.m; sourceTree = "<group>"; };
+		4F646A7826B7EF9100BEDB38 /* DataCacheUseCase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataCacheUseCase.h; sourceTree = "<group>"; };
+		4F646A7926B7F08500BEDB38 /* DataCacheUseCaseImpl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataCacheUseCaseImpl.h; sourceTree = "<group>"; };
+		4F646A7A26B7F08500BEDB38 /* DataCacheUseCaseImpl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DataCacheUseCaseImpl.m; sourceTree = "<group>"; };
 		4F6A139B26B251EE0089A13A /* HSCardKeyword.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCardKeyword.m; sourceTree = "<group>"; };
 		4F6A13A026B256150089A13A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/HSCardKeyword.strings; sourceTree = "<group>"; };
 		4F6A13A226B256170089A13A /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/HSCardKeyword.strings; sourceTree = "<group>"; };
@@ -194,9 +220,9 @@
 		4FA9047B26B6E2A000CD6147 /* CardContentConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardContentConfiguration.h; sourceTree = "<group>"; };
 		4FA9047C26B6E2A000CD6147 /* CardContentConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardContentConfiguration.m; sourceTree = "<group>"; };
 		4FA99F1426A42412009AF904 /* StoneNamu.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = StoneNamu.entitlements; sourceTree = "<group>"; };
-		4FAA89D626A4266500572BB4 /* FetchHSCardUseCase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FetchHSCardUseCase.h; sourceTree = "<group>"; };
-		4FAA89DA26A426E700572BB4 /* FetchHSCardUseCaseImpl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FetchHSCardUseCaseImpl.h; sourceTree = "<group>"; };
-		4FAA89DB26A426E700572BB4 /* FetchHSCardUseCaseImpl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FetchHSCardUseCaseImpl.m; sourceTree = "<group>"; };
+		4FAA89D626A4266500572BB4 /* HSCardUseCase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardUseCase.h; sourceTree = "<group>"; };
+		4FAA89DA26A426E700572BB4 /* HSCardUseCaseImpl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardUseCaseImpl.h; sourceTree = "<group>"; };
+		4FAA89DB26A426E700572BB4 /* HSCardUseCaseImpl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCardUseCaseImpl.m; sourceTree = "<group>"; };
 		4FAA89DE26A42A1500572BB4 /* BlizzardHSRepositoryImpl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlizzardHSRepositoryImpl.h; sourceTree = "<group>"; };
 		4FAA89DF26A42A1500572BB4 /* BlizzardHSRepositoryImpl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlizzardHSRepositoryImpl.m; sourceTree = "<group>"; };
 		4FAA89E226A42A2100572BB4 /* BlizzardHSRepository.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlizzardHSRepository.h; sourceTree = "<group>"; };
@@ -242,6 +268,8 @@
 			children = (
 				4F182BCF26AC23600028115C /* UIViewController+presentErrorAlert.h */,
 				4F182BD026AC23600028115C /* UIViewController+presentErrorAlert.m */,
+				4F646A5D26B7D05E00BEDB38 /* UIImageView+setAsyncImage.h */,
+				4F646A5E26B7D05E00BEDB38 /* UIImageView+setAsyncImage.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -281,6 +309,8 @@
 				4FA9047C26B6E2A000CD6147 /* CardContentConfiguration.m */,
 				4FA9047826B6E26A00CD6147 /* CardContentView.h */,
 				4FA9047926B6E26A00CD6147 /* CardContentView.m */,
+				4F646A5A26B7CA8000BEDB38 /* CardsCollectionViewCompositionalLayout.h */,
+				4F646A5B26B7CA8000BEDB38 /* CardsCollectionViewCompositionalLayout.m */,
 			);
 			path = Cards;
 			sourceTree = "<group>";
@@ -316,6 +346,33 @@
 			path = Store;
 			sourceTree = "<group>";
 		};
+		4F646A6026B7D71800BEDB38 /* Cache */ = {
+			isa = PBXGroup;
+			children = (
+				4F646A6126B7D73400BEDB38 /* DataCacheModel.xcdatamodeld */,
+				4F646A6426B7D7E100BEDB38 /* DataCache.h */,
+				4F646A6526B7D7E100BEDB38 /* DataCache.m */,
+			);
+			path = Cache;
+			sourceTree = "<group>";
+		};
+		4F646A6826B7D8A100BEDB38 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+		4F646A6D26B7D9B100BEDB38 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				4F646A6E26B7DB1E00BEDB38 /* CoreDataStack.h */,
+				4F646A6F26B7DFB500BEDB38 /* CoreDataStackImpl.h */,
+				4F646A7026B7DFB500BEDB38 /* CoreDataStackImpl.m */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
 		4F6A13AF26B2733D0089A13A /* Stepper */ = {
 			isa = PBXGroup;
 			children = (
@@ -345,6 +402,8 @@
 				4FAA89DF26A42A1500572BB4 /* BlizzardHSRepositoryImpl.m */,
 				4FA05F7426A309C7000E93BC /* HSCardRepositoryImpl.h */,
 				4FA05F7526A309C7000E93BC /* HSCardRepositoryImpl.m */,
+				4F646A7426B7E8C100BEDB38 /* DataCacheRepositoryImpl.h */,
+				4F646A7526B7E8C100BEDB38 /* DataCacheRepositoryImpl.m */,
 			);
 			path = RepoImpl;
 			sourceTree = "<group>";
@@ -354,6 +413,7 @@
 			children = (
 				4FAA89E226A42A2100572BB4 /* BlizzardHSRepository.h */,
 				4FA05F7326A30991000E93BC /* HSCardRepository.h */,
+				4F646A7326B7E7B900BEDB38 /* DataCacheRepository.h */,
 			);
 			path = RepoIntf;
 			sourceTree = "<group>";
@@ -406,8 +466,9 @@
 		4FA56BE926A212E2002D9FA0 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				4FA05F6C26A308FF000E93BC /* RepoImpl */,
+				4F646A6D26B7D9B100BEDB38 /* CoreData */,
 				4FA56BF026A213BC002D9FA0 /* API */,
+				4FA05F6C26A308FF000E93BC /* RepoImpl */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -425,6 +486,7 @@
 		4FA56BEB26A212ED002D9FA0 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				4F646A6826B7D8A100BEDB38 /* Category */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -445,6 +507,7 @@
 		4FA56BF126A216A8002D9FA0 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
+				4F646A6026B7D71800BEDB38 /* Cache */,
 				4FE097C126A3288500BF3A6D /* API */,
 				4FE097C226A3288A00BF3A6D /* Card */,
 			);
@@ -469,9 +532,12 @@
 		4FAA89D526A4260C00572BB4 /* UseCase */ = {
 			isa = PBXGroup;
 			children = (
-				4FAA89D626A4266500572BB4 /* FetchHSCardUseCase.h */,
-				4FAA89DA26A426E700572BB4 /* FetchHSCardUseCaseImpl.h */,
-				4FAA89DB26A426E700572BB4 /* FetchHSCardUseCaseImpl.m */,
+				4FAA89D626A4266500572BB4 /* HSCardUseCase.h */,
+				4FAA89DA26A426E700572BB4 /* HSCardUseCaseImpl.h */,
+				4FAA89DB26A426E700572BB4 /* HSCardUseCaseImpl.m */,
+				4F646A7826B7EF9100BEDB38 /* DataCacheUseCase.h */,
+				4F646A7926B7F08500BEDB38 /* DataCacheUseCaseImpl.h */,
+				4F646A7A26B7F08500BEDB38 /* DataCacheUseCaseImpl.m */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -529,10 +595,13 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4FAA89DC26A426E700572BB4 /* FetchHSCardUseCaseImpl.h in Headers */,
+				4FAA89DC26A426E700572BB4 /* HSCardUseCaseImpl.h in Headers */,
+				4F646A7B26B7F08500BEDB38 /* DataCacheUseCaseImpl.h in Headers */,
+				4F646A7126B7DFB500BEDB38 /* CoreDataStackImpl.h in Headers */,
 				4F34385826A36FBA001161FE /* StoneNamuCore.h in Headers */,
-				4FAA89D826A4266500572BB4 /* FetchHSCardUseCase.h in Headers */,
+				4FAA89D826A4266500572BB4 /* HSCardUseCase.h in Headers */,
 				4FAA89E026A42A1500572BB4 /* BlizzardHSRepositoryImpl.h in Headers */,
+				4F646A7626B7E8C100BEDB38 /* DataCacheRepositoryImpl.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -678,17 +747,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				4F6A13A526B267D60089A13A /* HSCardGameMode.m in Sources */,
+				4F646A7726B7E8C100BEDB38 /* DataCacheRepositoryImpl.m in Sources */,
 				4F449EAE26B1908A007CE04A /* HSCardRarity.m in Sources */,
 				4F34386826A37029001161FE /* BlizzardTokenAPIImpl.m in Sources */,
 				4F449EC026B197C7007CE04A /* HSCardMinionType.m in Sources */,
 				4F6A13AE26B26F0E0089A13A /* HSCardSort.m in Sources */,
 				4F449EBD26B19445007CE04A /* HSCardType.m in Sources */,
 				4F6A139C26B251EE0089A13A /* HSCardKeyword.m in Sources */,
+				4F646A7C26B7F08500BEDB38 /* DataCacheUseCaseImpl.m in Sources */,
 				4F34386726A37022001161FE /* HSCardRepositoryImpl.m in Sources */,
 				4F34386526A3700C001161FE /* BlizzardAPIRegionHost.m in Sources */,
+				4F646A7226B7DFB500BEDB38 /* CoreDataStackImpl.m in Sources */,
 				4F449E9B26B178C4007CE04A /* HSCardClass.m in Sources */,
-				4FAA89DD26A426E700572BB4 /* FetchHSCardUseCaseImpl.m in Sources */,
+				4FAA89DD26A426E700572BB4 /* HSCardUseCaseImpl.m in Sources */,
 				4FAA89E126A42A1500572BB4 /* BlizzardHSRepositoryImpl.m in Sources */,
+				4F646A6726B7D7E100BEDB38 /* DataCache.m in Sources */,
+				4F646A6326B7D73400BEDB38 /* DataCacheModel.xcdatamodeld in Sources */,
 				4F34386426A36FED001161FE /* HSCard.m in Sources */,
 				4F449EAC26B1884E007CE04A /* HSCardCollectible.m in Sources */,
 				4F57DEA526AD96D3000E4163 /* HSCardSet.m in Sources */,
@@ -710,6 +784,7 @@
 			files = (
 				4FF676CF26AAFC6A00477272 /* CardsViewController.m in Sources */,
 				4F57DEA126AD7DB3000E4163 /* SheetNavigationController.m in Sources */,
+				4F646A5C26B7CA8000BEDB38 /* CardsCollectionViewCompositionalLayout.m in Sources */,
 				4FA56BAC26A21059002D9FA0 /* AppDelegate.m in Sources */,
 				4F57DEB926ADC3CF000E4163 /* PickerItemView.m in Sources */,
 				4F57DE9D26AD7B53000E4163 /* PickerViewController.m in Sources */,
@@ -725,6 +800,7 @@
 				4F4976D226ABE6B600860809 /* CardsViewModel.m in Sources */,
 				4FA9047D26B6E2A000CD6147 /* CardContentConfiguration.m in Sources */,
 				4FA56BAF26A21059002D9FA0 /* SceneDelegate.m in Sources */,
+				4F646A5F26B7D05E00BEDB38 /* UIImageView+setAsyncImage.m in Sources */,
 				4F4976D626ABE72C00860809 /* CardSectionModel.m in Sources */,
 				4F6A13B226B273640089A13A /* StepperViewController.m in Sources */,
 			);
@@ -1154,6 +1230,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		4F646A6126B7D73400BEDB38 /* DataCacheModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				4F646A6226B7D73400BEDB38 /* DataCacheModel.xcdatamodel */,
+			);
+			currentVersion = 4F646A6226B7D73400BEDB38 /* DataCacheModel.xcdatamodel */;
+			path = DataCacheModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 4FA56B9F26A21059002D9FA0 /* Project object */;
 }

@@ -6,10 +6,10 @@
 //
 
 #import "CardsViewModel.h"
-#import "FetchHSCardUseCaseImpl.h"
+#import "HSCardUseCaseImpl.h"
 
 @interface CardsViewModel ()
-@property (retain) id<FetchHSCardUseCase> fetchHSCardUseCase;
+@property (retain) id<HSCardUseCase> fetchHSCardUseCase;
 @property (retain) NSOperationQueue *queue;
 @end
 
@@ -22,7 +22,7 @@
         _dataSource = dataSource;
         [_dataSource retain];
         
-        FetchHSCardUseCaseImpl *hsCardUseCase = [FetchHSCardUseCaseImpl new];
+        HSCardUseCaseImpl *hsCardUseCase = [HSCardUseCaseImpl new];
         self.fetchHSCardUseCase = hsCardUseCase;
         [hsCardUseCase release];
         

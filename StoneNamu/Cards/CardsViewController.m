@@ -9,6 +9,7 @@
 #import "UIViewController+presentErrorAlert.h"
 #import "CardsViewModel.h"
 #import "CardContentConfiguration.h"
+#import "CardsCollectionViewCompositionalLayout.h"
 
 @interface CardsViewController ()
 @property (retain) UICollectionView *collectionView;
@@ -53,11 +54,16 @@
 }
 
 - (void)configureCollectionView {
-    UICollectionLayoutListConfiguration *layoutConfiguration = [[UICollectionLayoutListConfiguration alloc] initWithAppearance:UICollectionLayoutListAppearanceInsetGrouped];
-    UICollectionViewCompositionalLayout *layout = [UICollectionViewCompositionalLayout layoutWithListConfiguration:layoutConfiguration];
-    [layoutConfiguration release];
+//    UICollectionLayoutListConfiguration *layoutConfiguration = [[UICollectionLayoutListConfiguration alloc] initWithAppearance:UICollectionLayoutListAppearanceInsetGrouped];
+//    UICollectionViewCompositionalLayout *layout = [UICollectionViewCompositionalLayout layoutWithListConfiguration:layoutConfiguration];
+//    [layoutConfiguration release];
     
-    UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
+    CardsCollectionViewCompositionalLayout *layout = [[CardsCollectionViewCompositionalLayout alloc] init];
+    
+    UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:layout];
+    
+    [layout release];
+    
     self.collectionView = collectionView;
     [self.view addSubview:collectionView];
     
@@ -97,7 +103,7 @@
 }
 
 - (UICollectionViewCellRegistration *)makeCellRegistration {
-    UICollectionViewCellRegistration *cellRegistration = [UICollectionViewCellRegistration registrationWithCellClass:[UICollectionViewListCell class]
+    UICollectionViewCellRegistration *cellRegistration = [UICollectionViewCellRegistration registrationWithCellClass:[UICollectionViewCell class]
                                                                                                 configurationHandler:^(__kindof UICollectionViewCell * _Nonnull cell, NSIndexPath * _Nonnull indexPath, id  _Nonnull item) {
         if (![item isKindOfClass:[CardItemModel class]]) {
             return;

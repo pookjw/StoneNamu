@@ -7,9 +7,10 @@
 
 #import "CardContentView.h"
 #import "CardContentConfiguration.h"
+#import "UIImageView+setAsyncImage.h"
 
 @interface CardContentView ()
-@property (retain) UILabel *label;
+@property (retain) UIImageView *imageView;
 @end
 
 @implementation CardContentView
@@ -20,18 +21,18 @@
     self = [super init];
     
     if (self) {
-        UILabel *label = [UILabel new];
-        self.label = label;
-        [self addSubview:label];
-        label.translatesAutoresizingMaskIntoConstraints = NO;
+        UIImageView *imageView = [UIImageView new];
+        self.imageView = imageView;
+        self.imageView.contentMode = UIViewContentModeScaleAspectFit;
+        [self addSubview:imageView];
+        imageView.translatesAutoresizingMaskIntoConstraints = NO;
         [NSLayoutConstraint activateConstraints:@[
-            [label.topAnchor constraintEqualToAnchor:self.topAnchor],
-            [label.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
-            [label.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
-            [label.bottomAnchor constraintEqualToAnchor:self.bottomAnchor]
+            [imageView.topAnchor constraintEqualToAnchor:self.topAnchor],
+            [imageView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
+            [imageView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
+            [imageView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor]
         ]];
-        label.font = [UIFont systemFontOfSize:50];
-        [label release];
+        [imageView release];
     }
     
     return self;
@@ -39,7 +40,7 @@
 
 - (void)dealloc {
     [configuration release];
-    [_label release];
+    [_imageView release];
     [super dealloc];
 }
 
@@ -47,11 +48,11 @@
     [self->configuration release];
     CardContentConfiguration *cardContent = (CardContentConfiguration *)configuration;
     self->configuration = [cardContent copy];
-    [self updateWithText:cardContent.hsCard.name];
-}
-
-- (void)updateWithText:(NSString *)text {
-    self.label.text = text;
+    
+//    NSData *data = [[NSData alloc] initWithContentsOfURL:cardContent.hsCard.image];
+//    UIImage *image = [UIImage imageWithData:data];
+//    self.imageView.image = image;
+    [self.imageView setAsyncImageWithURL:cardContent.hsCard.image indicator:YES];
 }
 
 @end

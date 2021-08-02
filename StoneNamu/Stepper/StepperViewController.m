@@ -28,7 +28,7 @@
     
     if (self) {
         self.range = range;
-        self.title = title;
+        self.navigationItem.title = title;
         self.initialValue = value;
         self.clearCompletion = clearCompletion;
         self.doneCompletion = doneCompletion;

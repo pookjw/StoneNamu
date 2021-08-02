@@ -1,11 +1,11 @@
 //
-//  FetchHSCardUseCaseImpl.m
+//  HSCardUseCaseImpl.m
 //  StoneNamuCore
 //
 //  Created by Jinwoo Kim on 7/18/21.
 //
 
-#import "FetchHSCardUseCaseImpl.h"
+#import "HSCardUseCaseImpl.h"
 #import "HSCardRepositoryImpl.h"
 #import "BlizzardHSAPIKeys.h"
 #import "BlizzardHSAPILocale.h"
@@ -14,11 +14,11 @@
  TODO : Get RegionHost or LocaleKey from Persistent Data Layer
  */
 
-@interface FetchHSCardUseCaseImpl ()
+@interface HSCardUseCaseImpl ()
 @property (retain) id<HSCardRepository> hsCardRepository;
 @end
 
-@implementation FetchHSCardUseCaseImpl
+@implementation HSCardUseCaseImpl
 
 - (instancetype)init {
     self = [super init];

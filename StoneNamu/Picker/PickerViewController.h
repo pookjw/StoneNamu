@@ -13,7 +13,10 @@ typedef void (^PickerViewControllerDoneCompletion)(PickerItemModel * _Nullable);
 NS_ASSUME_NONNULL_BEGIN
 
 @interface PickerViewController : UIViewController
-- (instancetype)initWithDataSource:(NSArray<PickerItemModel *> *)dataSource title:(NSString *)title showEmptyRow:(BOOL)showEmptyRow doneCompletion:(PickerViewControllerDoneCompletion)doneCompletion;
+- (instancetype)initWithDataSource:(NSArray<PickerItemModel *> *)dataSource
+                             title:(NSString *)title
+                      showEmptyRow:(BOOL)showEmptyRow
+                    doneCompletion:(PickerViewControllerDoneCompletion)doneCompletion;
 - (void)selectIdentity:(NSString *)identity animated:(BOOL)animated;
 @end
 

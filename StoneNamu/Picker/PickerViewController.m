@@ -29,7 +29,7 @@
     
     if (self) {
         self.dataSource = dataSource;
-        self.title = title;
+        self.navigationItem.title = title;
         _showEmptyRow = showEmptyRow;
         self.doneCompletion = doneCompletion;
     }

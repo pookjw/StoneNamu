@@ -36,7 +36,7 @@
 
 - (void)setAttributes {
     self.view.backgroundColor = UIColor.systemBackgroundColor;
-    self.title = NSLocalizedString(@"APP_NAME", @"");
+    self.navigationItem.title = NSLocalizedString(@"APP_NAME", @"");
 }
 
 - (void)configureFetchButton {
@@ -60,7 +60,7 @@
     UICollectionViewCompositionalLayout *layout = [UICollectionViewCompositionalLayout layoutWithListConfiguration:layoutConfiguration];
     [layoutConfiguration release];
     
-    UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
+    UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:layout];
     self.collectionView = collectionView;
     [self.view addSubview:collectionView];
     

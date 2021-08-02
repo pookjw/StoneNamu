@@ -6,16 +6,16 @@
 //
 
 #import <XCTest/XCTest.h>
-#import "FetchHSCardUseCaseImpl.h"
+#import "HSCardUseCaseImpl.h"
 
 @interface FetchHSCardUseCaseTest : XCTestCase
-@property (retain) id<FetchHSCardUseCase> useCase;
+@property (retain) id<HSCardUseCase> useCase;
 @end
 
 @implementation FetchHSCardUseCaseTest
 
 - (void)setUp {
-    FetchHSCardUseCaseImpl *useCase = [FetchHSCardUseCaseImpl new];
+    HSCardUseCaseImpl *useCase = [HSCardUseCaseImpl new];
     self.useCase = useCase;
     [useCase release];
 }
