@@ -97,6 +97,7 @@
     primaryLabel.adjustsFontForContentSizeCategory = YES;
     primaryLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleTitle3];
     primaryLabel.textAlignment = NSTextAlignmentCenter;
+    primaryLabel.adjustsFontSizeToFitWidth = YES;
     
     UILabel *secondaryLabel = [UILabel new];
     self.secondaryLabel = secondaryLabel;
@@ -104,6 +105,7 @@
     secondaryLabel.adjustsFontForContentSizeCategory = YES;
     secondaryLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
     secondaryLabel.textAlignment = NSTextAlignmentCenter;
+    secondaryLabel.adjustsFontSizeToFitWidth = YES;
     
     [imageView release];
     [stackView release];
