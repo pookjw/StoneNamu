@@ -18,24 +18,24 @@
 }
 
 - (void)setAttributes {
-//    self.modalPresentationStyle = UIModalPresentationCustom;
-//    self.transitioningDelegate = self;
+    self.modalPresentationStyle = UIModalPresentationCustom;
+    self.transitioningDelegate = self;
 }
 
 #pragma mark UIViewControllerTransitioningDelegate
 
-//- (UIPresentationController *)presentationControllerForPresentedViewController:(UIViewController *)presented presentingViewController:(UIViewController *)presenting sourceViewController:(UIViewController *)source {
-//
-//    UISheetPresentationController *pc = [[UISheetPresentationController alloc] initWithPresentedViewController:presented presentingViewController:presenting];
-//
-//    pc.detents = @[
-//        [UISheetPresentationControllerDetent mediumDetent],
-//        [UISheetPresentationControllerDetent largeDetent]
-//    ];
-//    pc.prefersGrabberVisible = YES;
-//
-//    [pc autorelease];
-//    return pc;
-//}
+- (UIPresentationController *)presentationControllerForPresentedViewController:(UIViewController *)presented presentingViewController:(UIViewController *)presenting sourceViewController:(UIViewController *)source {
+
+    UISheetPresentationController *pc = [[UISheetPresentationController alloc] initWithPresentedViewController:presented presentingViewController:presenting];
+
+    pc.detents = @[
+        [UISheetPresentationControllerDetent mediumDetent],
+        [UISheetPresentationControllerDetent largeDetent]
+    ];
+    pc.prefersGrabberVisible = YES;
+
+    [pc autorelease];
+    return pc;
+}
 
 @end
