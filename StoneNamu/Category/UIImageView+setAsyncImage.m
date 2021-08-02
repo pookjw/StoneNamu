@@ -35,6 +35,7 @@ static NSString * const UIImageViewAsyncImageCategorySessionTaskKey = @"UIImageV
 
 - (void)setAsyncImageWithURL:(NSURL * _Nullable)url indicator:(BOOL)indicator {
     [self.sessionTask cancel];
+    [self configureDataCacheUseCase];
     
     self.currentURL = url;
     NSData * _Nullable cachedData = [[self.dataCacheUseCase dataCachesWithIdentity:url.absoluteString] lastObject];

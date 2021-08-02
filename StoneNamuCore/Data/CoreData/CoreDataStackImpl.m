@@ -36,6 +36,7 @@ static NSMutableDictionary<NSString *, NSPersistentContainer *> * _Nullable kSto
 
 - (void)saveChanges {
     if (!self.mainContext.hasChanges) {
+        NSLog(@"Nothing to save!");
         return;
     }
     
