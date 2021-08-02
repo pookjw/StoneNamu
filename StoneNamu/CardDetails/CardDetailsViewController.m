@@ -56,6 +56,8 @@
 }
 
 - (void)dismissViewControllerAnimated:(BOOL)flag completion:(void (^)(void))completion {
+    self.presentationController.dynamicAnimating = self.sourceImageView.hidden;
+    
     [super dismissViewControllerAnimated:flag completion:^{
         completion();
         self.sourceImageView.hidden = NO;

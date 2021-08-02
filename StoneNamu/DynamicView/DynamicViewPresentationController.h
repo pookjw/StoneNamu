@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface DynamicViewPresentationController : UIPresentationController
 @property CGRect departureRect;
 @property CGRect destinationRect;
+@property BOOL dynamicAnimating;
 - (instancetype)initWithPresentedViewController:(UIViewController *)presentedViewController
                        presentingViewController:(UIViewController *)presentingViewController
                                     dynamicView:(UIView *)dynamicView

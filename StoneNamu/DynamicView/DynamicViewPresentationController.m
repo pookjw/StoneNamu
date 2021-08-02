@@ -25,6 +25,7 @@
         self.dynamicView = dynamicView;
         self.departureRect = departureRect;
         self.destinationRect = destinationRect;
+        self.dynamicAnimating = YES;
     }
     
     return self;
@@ -82,18 +83,26 @@
 }
 
 - (void)animateDynamicViewPresenting:(BOOL)presenting {
-    CGRect departure = presenting ? self.departureRect : self.destinationRect;
-    CGRect destination = presenting ? self.destinationRect : self.departureRect;
-    
-    [self.dynamicView removeFromSuperview];
-    [self.containerView addSubview:self.dynamicView];
-    self.dynamicView.translatesAutoresizingMaskIntoConstraints = YES;
-    self.dynamicView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin;
-    self.dynamicView.frame = departure;
-    
-    [self.presentedViewController.transitionCoordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> _Nonnull context) {
-        self.dynamicView.frame = destination;
-    } completion:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {}];
+    if (self.dynamicAnimating) {
+        CGRect departure = presenting ? self.departureRect : self.destinationRect;
+        CGRect destination = presenting ? self.destinationRect : self.departureRect;
+        
+        [self.dynamicView removeFromSuperview];
+        [self.containerView addSubview:self.dynamicView];
+        self.dynamicView.translatesAutoresizingMaskIntoConstraints = YES;
+        self.dynamicView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin;
+        self.dynamicView.frame = departure;
+        
+        [self.presentedViewController.transitionCoordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> _Nonnull context) {
+            self.dynamicView.frame = destination;
+        } completion:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {}];
+    } else {
+        CGFloat destination = presenting ? 1 : 0;
+        self.dynamicView.alpha = 1 - destination;
+        [self.presentedViewController.transitionCoordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> _Nonnull context) {
+            self.dynamicView.alpha = destination;
+        } completion:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {}];
+    }
 }
 
 @end
