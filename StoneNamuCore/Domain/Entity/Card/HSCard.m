@@ -35,7 +35,7 @@
 }
 
 - (id)copyWithZone:(NSZone *)zone {
-    id copy = [[[self class] alloc] init];
+    id copy = [[self class] new];
     
     if (copy) {
         HSCard *_copy = (HSCard *)copy;

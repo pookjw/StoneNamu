@@ -9,7 +9,7 @@
 #import "PickerItemView.h"
 
 @interface PickerViewController () <UIPickerViewDataSource, UIPickerViewDelegate>
-@property UIPickerView *pickerView;
+@property (retain) UIPickerView *pickerView;
 @property (retain) NSArray<PickerItemModel *> *dataSource;
 @property (readonly) BOOL showEmptyRow;
 @property (copy) PickerViewControllerDoneCompletion doneCompletion;
@@ -18,6 +18,7 @@
 @implementation PickerViewController
 
 - (void)dealloc {
+    [_pickerView release];
     [_dataSource release];
     [_doneCompletion release];
     [super dealloc];

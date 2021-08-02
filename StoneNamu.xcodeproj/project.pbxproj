@@ -53,6 +53,8 @@
 		4FA56BB726A2105A002D9FA0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4FA56BB626A2105A002D9FA0 /* Assets.xcassets */; };
 		4FA56BBD26A2105A002D9FA0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA56BBC26A2105A002D9FA0 /* main.m */; };
 		4FA8F3FB26B1430200D7D4C6 /* HSCardSet.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4FA8F3FD26B1430200D7D4C6 /* HSCardSet.strings */; };
+		4FA9047A26B6E26A00CD6147 /* CardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA9047926B6E26A00CD6147 /* CardView.m */; };
+		4FA9047D26B6E2A000CD6147 /* CardContentConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA9047C26B6E2A000CD6147 /* CardContentConfiguration.m */; };
 		4FAA89D826A4266500572BB4 /* FetchHSCardUseCase.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FAA89D626A4266500572BB4 /* FetchHSCardUseCase.h */; };
 		4FAA89DC26A426E700572BB4 /* FetchHSCardUseCaseImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FAA89DA26A426E700572BB4 /* FetchHSCardUseCaseImpl.h */; };
 		4FAA89DD26A426E700572BB4 /* FetchHSCardUseCaseImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA89DB26A426E700572BB4 /* FetchHSCardUseCaseImpl.m */; };
@@ -187,6 +189,10 @@
 		4FA56BF226A216C1002D9FA0 /* BlizzardHSAPILocale.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlizzardHSAPILocale.h; sourceTree = "<group>"; };
 		4FA8F3FC26B1430200D7D4C6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/HSCardSet.strings; sourceTree = "<group>"; };
 		4FA8F3FF26B1441B00D7D4C6 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/HSCardSet.strings; sourceTree = "<group>"; };
+		4FA9047826B6E26A00CD6147 /* CardView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardView.h; sourceTree = "<group>"; };
+		4FA9047926B6E26A00CD6147 /* CardView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardView.m; sourceTree = "<group>"; };
+		4FA9047B26B6E2A000CD6147 /* CardContentConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardContentConfiguration.h; sourceTree = "<group>"; };
+		4FA9047C26B6E2A000CD6147 /* CardContentConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardContentConfiguration.m; sourceTree = "<group>"; };
 		4FA99F1426A42412009AF904 /* StoneNamu.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = StoneNamu.entitlements; sourceTree = "<group>"; };
 		4FAA89D626A4266500572BB4 /* FetchHSCardUseCase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FetchHSCardUseCase.h; sourceTree = "<group>"; };
 		4FAA89DA26A426E700572BB4 /* FetchHSCardUseCaseImpl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FetchHSCardUseCaseImpl.h; sourceTree = "<group>"; };
@@ -271,6 +277,10 @@
 				4F4976D526ABE72C00860809 /* CardsSectionModel.m */,
 				4F4976D726ABE80700860809 /* CardsItemModel.h */,
 				4F4976D826ABE80700860809 /* CardsItemModel.m */,
+				4FA9047B26B6E2A000CD6147 /* CardContentConfiguration.h */,
+				4FA9047C26B6E2A000CD6147 /* CardContentConfiguration.m */,
+				4FA9047826B6E26A00CD6147 /* CardView.h */,
+				4FA9047926B6E26A00CD6147 /* CardView.m */,
 			);
 			path = Cards;
 			sourceTree = "<group>";
@@ -704,6 +714,7 @@
 				4F57DEB926ADC3CF000E4163 /* PickerItemView.m in Sources */,
 				4F57DE9D26AD7B53000E4163 /* PickerViewController.m in Sources */,
 				4F182BD126AC23600028115C /* UIViewController+presentErrorAlert.m in Sources */,
+				4FA9047A26B6E26A00CD6147 /* CardView.m in Sources */,
 				4F4976E926ABFF5E00860809 /* CardOptionsSectionModel.m in Sources */,
 				4F4976E626ABFE2100860809 /* CardOptionsViewModel.m in Sources */,
 				4F4976EC26ABFF6900860809 /* CardOptionsItemModel.m in Sources */,
@@ -712,6 +723,7 @@
 				4F4976E326ABFCB300860809 /* CardOptionsViewController.m in Sources */,
 				4F4976D926ABE80700860809 /* CardsItemModel.m in Sources */,
 				4F4976D226ABE6B600860809 /* CardsViewModel.m in Sources */,
+				4FA9047D26B6E2A000CD6147 /* CardContentConfiguration.m in Sources */,
 				4FA56BAF26A21059002D9FA0 /* SceneDelegate.m in Sources */,
 				4F4976D626ABE72C00860809 /* CardsSectionModel.m in Sources */,
 				4F6A13B226B273640089A13A /* StepperViewController.m in Sources */,
@@ -847,7 +859,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -879,7 +891,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1068,7 +1080,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = P53D29U9LJ;
 				INFOPLIST_FILE = StoneNamu/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1090,7 +1102,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = P53D29U9LJ;
 				INFOPLIST_FILE = StoneNamu/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

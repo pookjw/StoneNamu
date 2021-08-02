@@ -8,9 +8,10 @@
 #import "CardsViewController.h"
 #import "UIViewController+presentErrorAlert.h"
 #import "CardsViewModel.h"
+#import "CardContentConfiguration.h"
 
 @interface CardsViewController ()
-@property (assign) UICollectionView *collectionView;
+@property (retain) UICollectionView *collectionView;
 @property (readonly, copy) NSDictionary<NSString *, id> * _Nullable options;
 @property (retain) CardsViewModel *viewModel;
 @end
@@ -38,6 +39,7 @@
 }
 
 - (void)dealloc {
+    [_collectionView release];
     [_options release];
     [_viewModel release];
     [super dealloc];
@@ -102,12 +104,11 @@
         }
         CardsItemModel *itemModel = (CardsItemModel *)item;
         
-        UIListContentConfiguration *configuration = [UIListContentConfiguration subtitleCellConfiguration];
-        
-        configuration.text = itemModel.card.name;
-        configuration.secondaryText = itemModel.card.artistName;
+        CardContentConfiguration *configuration = [CardContentConfiguration new];
+        configuration.hsCard = itemModel.card;
         
         cell.contentConfiguration = configuration;
+        [configuration release];
     }];
     
     return cellRegistration;

@@ -8,12 +8,12 @@
 #import "PickerItemView.h"
 
 @interface PickerItemView ()
-@property UIImageView *imageView;
+@property (retain) UIImageView *imageView;
 @property (retain) NSLayoutConstraint *imageViewAspectLayout;
 @property (retain) NSLayoutConstraint *imageViewWidthLayout;
-@property UIStackView *stackView;
-@property UILabel *primaryLabel;
-@property UILabel *secondaryLabel;
+@property (retain) UIStackView *stackView;
+@property (retain) UILabel *primaryLabel;
+@property (retain) UILabel *secondaryLabel;
 @end
 
 @implementation PickerItemView
@@ -48,8 +48,12 @@
 }
 
 - (void)dealloc {
+    [_imageView release];
     [_imageViewAspectLayout release];
     [_imageViewWidthLayout release];
+    [_stackView release];
+    [_primaryLabel release];
+    [_secondaryLabel release];
     [super dealloc];
 }
 

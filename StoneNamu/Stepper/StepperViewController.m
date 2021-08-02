@@ -8,9 +8,9 @@
 #import "StepperViewController.h"
 
 @interface StepperViewController ()
-@property UIStackView *stackView;
-@property UILabel *label;
-@property UIStepper *stepper;
+@property (retain) UIStackView *stackView;
+@property (retain) UILabel *label;
+@property (retain) UIStepper *stepper;
 @property NSRange range;
 @property NSUInteger initialValue;
 @property (copy) StepperViewControllerClearCompletion clearCompletion;
@@ -38,6 +38,9 @@
 }
 
 - (void)dealloc {
+    [_stackView release];
+    [_label release];
+    [_stepper release];
     [_clearCompletion release];
     [_doneCompletion release];
     [super dealloc];

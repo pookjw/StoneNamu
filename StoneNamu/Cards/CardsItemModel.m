@@ -14,7 +14,6 @@
     
     if (self) {
         _card = [card copy];
-        [_card retain];
     }
     
     return self;

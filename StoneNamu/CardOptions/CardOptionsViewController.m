@@ -13,13 +13,14 @@
 #import "StepperViewController.h"
 
 @interface CardOptionsViewController () <UICollectionViewDelegate>
-@property (assign) UICollectionView *collectionView;
+@property (retain) UICollectionView *collectionView;
 @property (retain) CardOptionsViewModel *viewModel;
 @end
 
 @implementation CardOptionsViewController
 
 - (void)dealloc {
+    [_collectionView release];
     [_viewModel release];
     [super dealloc];
 }
