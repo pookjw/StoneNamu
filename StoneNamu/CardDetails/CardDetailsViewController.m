@@ -12,6 +12,7 @@
 @interface CardDetailsViewController () <UIViewControllerTransitioningDelegate>
 @property (retain) UIImageView *sourceImageView;
 @property (nonatomic) CGRect sourceImageViewRect;
+@property (retain) DynamicViewPresentationController *presentationController;
 
 @property (retain) UIImageView *primaryImageView;
 @property (copy) HSCard *hsCard;
@@ -32,6 +33,7 @@
 
 - (void)dealloc {
     [_sourceImageView release];
+    [_presentationController release];
     [_primaryImageView release];
     [_hsCard release];
     [super dealloc];
@@ -58,6 +60,11 @@
         completion();
         self.sourceImageView.hidden = NO;
     }];
+}
+
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+    self.presentationController.destinationRect = self.primaryImageView.frame;
 }
 
 - (void)setAttributes {
@@ -103,6 +110,8 @@
                                                                                                            dynamicView:self.primaryImageView
                                                                                                          departureRect:self.sourceImageViewRect
                                                                                                        destinationRect:CGRectMake(0, 0, 800, 800)];
+    
+    self.presentationController = pc;
     
     return [pc autorelease];
 }

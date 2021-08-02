@@ -10,8 +10,6 @@
 @interface DynamicViewPresentationController ()
 @property (retain) UIVisualEffectView *visualEffectView;
 @property (retain) UIView *dynamicView;
-@property CGRect departureRect;
-@property CGRect destinationRect;
 @end
 
 @implementation DynamicViewPresentationController
