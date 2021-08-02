@@ -1,6 +1,6 @@
 //
-//  CardView.h
-//  CardView
+//  CardContentView.h
+//  StoneNamu
 //
 //  Created by Jinwoo Kim on 8/1/21.
 //
@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CardView : UIView <UIContentView>
+@interface CardContentView : UIView <UIContentView>
 
 @end
 

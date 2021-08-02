@@ -1,5 +1,5 @@
 //
-//  CardsItemModel.h
+//  CardItemModel.h
 //  StoneNamu
 //
 //  Created by Jinwoo Kim on 7/24/21.
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CardsItemModel : NSObject
+@interface CardItemModel : NSObject
 @property (readonly, copy) HSCard *card;
 - (instancetype)initWithCard:(HSCard *)card;
 @end

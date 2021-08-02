@@ -7,7 +7,7 @@
 
 #import <UIKit/UIKit.h>
 #import "HSCard.h"
-#import "CardView.h"
+#import "CardContentView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

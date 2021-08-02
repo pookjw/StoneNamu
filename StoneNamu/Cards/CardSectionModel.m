@@ -1,13 +1,13 @@
 //
-//  CardsSectionModel.m
+//  CardSectionModel.m
 //  StoneNamu
 //
 //  Created by Jinwoo Kim on 7/24/21.
 //
 
-#import "CardsSectionModel.h"
+#import "CardSectionModel.h"
 
-@implementation CardsSectionModel
+@implementation CardSectionModel
 
 - (instancetype)initWithType:(CardsSectionModelType)type {
     self = [self init];
@@ -20,11 +20,11 @@
 }
 
 - (BOOL)isEqual:(id)object {
-    if (![object isKindOfClass:[CardsSectionModel class]]) {
+    if (![object isKindOfClass:[CardSectionModel class]]) {
         return NO;
     }
     
-    CardsSectionModel *toCompare = (CardsSectionModel *)object;
+    CardSectionModel *toCompare = (CardSectionModel *)object;
     
     return self.type == toCompare.type;
 }

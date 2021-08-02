@@ -1,18 +1,18 @@
 //
-//  CardView.m
-//  CardView
+//  CardContentView.m
+//  StoneNamu
 //
 //  Created by Jinwoo Kim on 8/1/21.
 //
 
-#import "CardView.h"
+#import "CardContentView.h"
 #import "CardContentConfiguration.h"
 
-@interface CardView ()
+@interface CardContentView ()
 @property (retain) UILabel *label;
 @end
 
-@implementation CardView
+@implementation CardContentView
 
 @synthesize configuration;
 

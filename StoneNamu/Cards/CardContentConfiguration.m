@@ -6,7 +6,7 @@
 //
 
 #import "CardContentConfiguration.h"
-#import "CardView.h"
+#import "CardContentView.h"
 
 @interface CardContentConfiguration ()
 @end
@@ -30,7 +30,7 @@
 }
 
 - (nonnull __kindof UIView<UIContentView> *)makeContentView {
-    CardView *cardView = [[CardView new] autorelease];
+    CardContentView *cardView = [[CardContentView new] autorelease];
     cardView.configuration = self;
     return cardView;
 }

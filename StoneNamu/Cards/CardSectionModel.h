@@ -1,5 +1,5 @@
 //
-//  CardsSectionModel.h
+//  CardSectionModel.h
 //  StoneNamu
 //
 //  Created by Jinwoo Kim on 7/24/21.
@@ -13,7 +13,7 @@ typedef NS_ENUM(NSUInteger, CardsSectionModelType) {
     CardsSectionModelTypeCards
 };
 
-@interface CardsSectionModel : NSObject
+@interface CardSectionModel : NSObject
 @property (readonly) CardsSectionModelType type;
 - (instancetype)initWithType:(CardsSectionModelType)type;
 @end

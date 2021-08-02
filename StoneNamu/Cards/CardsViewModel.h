@@ -6,8 +6,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CardsSectionModel.h"
-#import "CardsItemModel.h"
+#import "CardSectionModel.h"
+#import "CardItemModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -15,7 +15,7 @@ static NSString * const CardsViewModelErrorNotificationName = @"CardsViewModelEr
 
 static NSString * const CardsViewModelNotificationErrorKey = @"error";
 
-typedef UICollectionViewDiffableDataSource<CardsSectionModel *, CardsItemModel *> CardsDataSource;
+typedef UICollectionViewDiffableDataSource<CardSectionModel *, CardItemModel *> CardsDataSource;
 
 @interface CardsViewModel : NSObject
 @property (readonly, retain) CardsDataSource *dataSource;

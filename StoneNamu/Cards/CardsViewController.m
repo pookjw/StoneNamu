@@ -99,10 +99,10 @@
 - (UICollectionViewCellRegistration *)makeCellRegistration {
     UICollectionViewCellRegistration *cellRegistration = [UICollectionViewCellRegistration registrationWithCellClass:[UICollectionViewListCell class]
                                                                                                 configurationHandler:^(__kindof UICollectionViewCell * _Nonnull cell, NSIndexPath * _Nonnull indexPath, id  _Nonnull item) {
-        if (![item isKindOfClass:[CardsItemModel class]]) {
+        if (![item isKindOfClass:[CardItemModel class]]) {
             return;
         }
-        CardsItemModel *itemModel = (CardsItemModel *)item;
+        CardItemModel *itemModel = (CardItemModel *)item;
         
         CardContentConfiguration *configuration = [CardContentConfiguration new];
         configuration.hsCard = itemModel.card;

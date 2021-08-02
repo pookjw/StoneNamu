@@ -1,13 +1,13 @@
 //
-//  CardsItemModel.m
+//  CardItemModel.m
 //  StoneNamu
 //
 //  Created by Jinwoo Kim on 7/24/21.
 //
 
-#import "CardsItemModel.h"
+#import "CardItemModel.h"
 
-@implementation CardsItemModel
+@implementation CardItemModel
 
 - (instancetype)initWithCard:(HSCard *)card {
     self = [self init];
@@ -25,11 +25,11 @@
 }
 
 - (BOOL)isEqual:(id)object {
-    if (![object isKindOfClass:[CardsItemModel class]]) {
+    if (![object isKindOfClass:[CardItemModel class]]) {
         return NO;
     }
     
-    CardsItemModel *toCompare = (CardsItemModel *)object;
+    CardItemModel *toCompare = (CardItemModel *)object;
     
     return self.card == toCompare.card;
 }
