@@ -121,7 +121,18 @@ NSString * NSStringFromCardOptionItemModelType(CardOptionItemModelType type) {
                 return HSCardSetFromNSString(key);
             }];
         case CardOptionItemModelTypeClass: {
-            return [self pickerItemModelsFromDic:hsCardClassesWithLocalizable()
+            NSMutableDictionary *filteredDic = [@{} mutableCopy];
+            
+            [hsCardClassesWithLocalizable() enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSString * _Nonnull obj, BOOL * _Nonnull stop) {
+                if (![key isEqualToString:NSStringFromHSCardClass(HSCardClassDeathKnight)]) {
+                    filteredDic[key] = obj;
+                }
+            }];
+            
+            NSDictionary<NSString *, NSString *> *result = [[filteredDic copy] autorelease];
+            [filteredDic release];
+            
+            return [self pickerItemModelsFromDic:result
                                        converter:^NSUInteger(NSString * key) {
                 return HSCardClassFromNSString(key);
             }];
