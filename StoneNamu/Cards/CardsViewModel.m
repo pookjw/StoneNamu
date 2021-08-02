@@ -43,6 +43,18 @@
     [super dealloc];
 }
 
+- (void)handleSelectionForIndexPath:(NSIndexPath *)indexPath {
+    CardItemModel *itemModel = [self.dataSource itemIdentifierForIndexPath:indexPath];
+    HSCard *hsCard = itemModel.card;
+    
+    [NSNotificationCenter.defaultCenter postNotificationName:CardsViewModelPresentDetailNotificationName
+                                                      object:self
+                                                    userInfo:@{
+        CardsViewModelPresentDetailNotificationHSCardKey: hsCard,
+        CardsViewModelPresentDetailNotificationIndexPathKey: indexPath
+    }];
+}
+
 -(void)requestDataSourceWithOptions:(NSDictionary<NSString *,id> * _Nullable)options {
     [self.fetchHSCardUseCase fetchWithOptions:options completionHandler:^(NSArray<HSCard *> * _Nullable cards, NSError * _Nullable error) {
         
@@ -83,7 +95,7 @@
 - (void)postError:(NSError *)error {
     [NSNotificationCenter.defaultCenter postNotificationName:CardsViewModelErrorNotificationName
                                                       object:self
-                                                    userInfo:@{CardsViewModelNotificationErrorKey: error}];
+                                                    userInfo:@{CardsViewModelErrorNotificationErrorKey: error}];
 }
 
 @end

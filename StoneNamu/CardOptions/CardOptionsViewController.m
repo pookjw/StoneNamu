@@ -143,7 +143,7 @@
 }
 
 - (void)presentTextFieldEventReceived:(NSNotification *)notification {
-    CardOptionItemModel *itemModel = notification.userInfo[CardOptionsViewModelNotificationItemKey];
+    CardOptionItemModel *itemModel = notification.userInfo[CardOptionsViewModelPresentNotificationItemKey];
     
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
         UIAlertController *vc = [UIAlertController alertControllerWithTitle:itemModel.text
@@ -179,8 +179,8 @@
 }
 
 - (void)presentPickerEventReceived:(NSNotification *)notification {
-    CardOptionItemModel *itemModel = notification.userInfo[CardOptionsViewModelNotificationItemKey];
-    BOOL showEmptyRow = [(NSNumber *)notification.userInfo[CardOptionsViewModelPickerShowEmptyRowNotificationItemKey] boolValue];
+    CardOptionItemModel *itemModel = notification.userInfo[CardOptionsViewModelPresentNotificationItemKey];
+    BOOL showEmptyRow = [(NSNumber *)notification.userInfo[CardOptionsViewModelPresentPickerNotificationShowEmptyRowKey] boolValue];
     
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
         PickerViewController *vc = [[PickerViewController alloc] initWithDataSource:itemModel.pickerDataSource
@@ -202,7 +202,7 @@
 }
 
 - (void)presentStepperEventReceived:(NSNotification *)notification {
-    CardOptionItemModel *itemModel = notification.userInfo[CardOptionsViewModelNotificationItemKey];
+    CardOptionItemModel *itemModel = notification.userInfo[CardOptionsViewModelPresentNotificationItemKey];
     NSRange range = itemModel.stepperRange;
     
     NSUInteger value;

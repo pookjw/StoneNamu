@@ -9,9 +9,12 @@
 #import "UIViewController+presentErrorAlert.h"
 #import "CardsViewModel.h"
 #import "CardContentConfiguration.h"
+#import "CardContentView.h"
 #import "CardsCollectionViewCompositionalLayout.h"
+#import "CardDetailsViewController.h"
+#import "CardDetailsViewControllerDelegate.h"
 
-@interface CardsViewController ()
+@interface CardsViewController () <UICollectionViewDelegate, CardDetailsViewControllerDelegate>
 @property (retain) UICollectionView *collectionView;
 @property (readonly, copy) NSDictionary<NSString *, id> * _Nullable options;
 @property (retain) CardsViewModel *viewModel;
@@ -54,14 +57,8 @@
 }
 
 - (void)configureCollectionView {
-//    UICollectionLayoutListConfiguration *layoutConfiguration = [[UICollectionLayoutListConfiguration alloc] initWithAppearance:UICollectionLayoutListAppearanceInsetGrouped];
-//    UICollectionViewCompositionalLayout *layout = [UICollectionViewCompositionalLayout layoutWithListConfiguration:layoutConfiguration];
-//    [layoutConfiguration release];
-    
     CardsCollectionViewCompositionalLayout *layout = [[CardsCollectionViewCompositionalLayout alloc] init];
-    
     UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:layout];
-    
     [layout release];
     
     self.collectionView = collectionView;
@@ -76,6 +73,7 @@
     ]];
     
     collectionView.backgroundColor = UIColor.systemBackgroundColor;
+    collectionView.delegate = self;
     
     [collectionView release];
 }
@@ -125,10 +123,15 @@
                                            selector:@selector(errorEventReceived:)
                                                name:CardsViewModelErrorNotificationName
                                              object:self.viewModel];
+    
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(presentDetailReceived:)
+                                               name:CardsViewModelPresentDetailNotificationName
+                                             object:self.viewModel];
 }
 
 - (void)errorEventReceived:(NSNotification *)notification {
-    NSError * _Nullable error = notification.userInfo[CardsViewModelNotificationErrorKey];
+    NSError * _Nullable error = notification.userInfo[CardsViewModelErrorNotificationErrorKey];
     
     if (error) {
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
@@ -137,6 +140,55 @@
     } else {
         NSLog(@"No error found but the notification was posted: %@", notification.userInfo);
     }
+}
+
+- (void)presentDetailReceived:(NSNotification *)notification {
+    HSCard * _Nullable hsCard = notification.userInfo[CardsViewModelPresentDetailNotificationHSCardKey];
+    NSIndexPath * _Nullable indexPath = notification.userInfo[CardsViewModelPresentDetailNotificationIndexPathKey];
+    
+    if (!(hsCard && indexPath)) return;
+    
+    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+        UICollectionViewCell * _Nullable cell = [self.collectionView cellForItemAtIndexPath:indexPath];
+        
+        if (!cell) return;
+        
+        CardContentView *contentView = (CardContentView *)cell.contentView;
+        
+        if (![contentView isKindOfClass:[CardContentView class]]) return;
+        
+        CardDetailsViewController *vc = [[CardDetailsViewController alloc] initWithCardImageView:contentView.imageView];
+        [vc autorelease];
+        vc.delegate = self;
+        [vc loadViewIfNeeded];
+        [self presentViewController:vc animated:YES completion:^{}];
+    }];
+}
+
+#pragma mark - UICollectionViewDelegate
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    [self.viewModel handleSelectionForIndexPath:indexPath];
+}
+
+#pragma mark - CardDetailsViewControllerDelegate
+
+- (void)cardDetailsViewControllerDidDismiss:(CardDetailsViewController *)viewController cardImageView:(UIImageView *)cardImageView {
+    NSIndexPath *indexPath = self.collectionView.indexPathsForSelectedItems.firstObject;
+    UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
+    
+    CardContentView *contentView = (CardContentView *)cell.contentView;
+    
+    if (![contentView isKindOfClass:[CardContentView class]]) return;
+    
+    [contentView addSubview:cardImageView];
+    cardImageView.translatesAutoresizingMaskIntoConstraints = NO;
+    [NSLayoutConstraint activateConstraints:@[
+        [cardImageView.topAnchor constraintEqualToAnchor:contentView.topAnchor],
+        [cardImageView.trailingAnchor constraintEqualToAnchor:contentView.trailingAnchor],
+        [cardImageView.leadingAnchor constraintEqualToAnchor:contentView.leadingAnchor],
+        [cardImageView.bottomAnchor constraintEqualToAnchor:contentView.bottomAnchor]
+    ]];
 }
 
 @end

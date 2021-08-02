@@ -10,7 +10,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CardContentView : UIView <UIContentView>
-
+@property (readonly, retain) UIImageView *imageView;
 @end
 
 NS_ASSUME_NONNULL_END

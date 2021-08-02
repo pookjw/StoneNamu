@@ -9,10 +9,6 @@
 #import "CardContentConfiguration.h"
 #import "UIImageView+setAsyncImage.h"
 
-@interface CardContentView ()
-@property (retain) UIImageView *imageView;
-@end
-
 @implementation CardContentView
 
 @synthesize configuration;
@@ -22,7 +18,7 @@
     
     if (self) {
         UIImageView *imageView = [UIImageView new];
-        self.imageView = imageView;
+        _imageView = [imageView retain];
         self.imageView.contentMode = UIViewContentModeScaleAspectFit;
         [self addSubview:imageView];
         imageView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -49,9 +45,6 @@
     CardContentConfiguration *cardContent = (CardContentConfiguration *)configuration;
     self->configuration = [cardContent copy];
     
-//    NSData *data = [[NSData alloc] initWithContentsOfURL:cardContent.hsCard.image];
-//    UIImage *image = [UIImage imageWithData:data];
-//    self.imageView.image = image;
     [self.imageView setAsyncImageWithURL:cardContent.hsCard.image indicator:YES];
 }
 
