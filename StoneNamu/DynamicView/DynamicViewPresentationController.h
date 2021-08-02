@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithPresentedViewController:(UIViewController *)presentedViewController
                        presentingViewController:(UIViewController *)presentingViewController
                                     dynamicView:(UIView *)dynamicView
+                                  departureRect:(CGRect)departureRect
                                 destinationRect:(CGRect)destinationRect;
 
 @end

@@ -46,6 +46,7 @@
     self->configuration = [cardContent copy];
     
     [self.imageView setAsyncImageWithURL:cardContent.hsCard.image indicator:YES];
+    self.imageView.hidden = NO;
 }
 
 @end

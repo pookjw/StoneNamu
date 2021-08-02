@@ -37,6 +37,7 @@
 }
 
 - (void)dealloc {
+    [_presentingDetailCell release];
     [_dataSource release];
     [_fetchHSCardUseCase release];
     [_queue release];

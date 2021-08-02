@@ -6,13 +6,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CardDetailsViewControllerDelegate.h"
+#import "HSCard.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CardDetailsViewController : UIViewController
-@property (assign) id<CardDetailsViewControllerDelegate> delegate;
-- (instancetype)initWithCardImageView:(UIImageView *)cardImageView;
+- (instancetype)initWithHSCard:(HSCard *)hsCard sourceImageView:(UIImageView *)sourceImageView;
 @end
 
 NS_ASSUME_NONNULL_END

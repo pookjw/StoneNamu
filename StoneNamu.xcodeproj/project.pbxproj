@@ -233,7 +233,6 @@
 		4FB0ECE726B82AEE0020EE6C /* CardDetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardDetailsViewController.m; sourceTree = "<group>"; };
 		4FB0ECE926B82B100020EE6C /* DynamicViewPresentationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DynamicViewPresentationController.h; sourceTree = "<group>"; };
 		4FB0ECEA26B82B100020EE6C /* DynamicViewPresentationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DynamicViewPresentationController.m; sourceTree = "<group>"; };
-		4FB0ED1226B845E80020EE6C /* CardDetailsViewControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardDetailsViewControllerDelegate.h; sourceTree = "<group>"; };
 		4FE097C326A329B400BF3A6D /* BlizzardAPIRegionHost.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlizzardAPIRegionHost.h; sourceTree = "<group>"; };
 		4FE097C626A331FE00BF3A6D /* HSCardRarity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardRarity.h; sourceTree = "<group>"; };
 		4FE097CA26A33C7500BF3A6D /* HSCardClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardClass.h; sourceTree = "<group>"; };
@@ -564,7 +563,6 @@
 			children = (
 				4FB0ECE626B82AEE0020EE6C /* CardDetailsViewController.h */,
 				4FB0ECE726B82AEE0020EE6C /* CardDetailsViewController.m */,
-				4FB0ED1226B845E80020EE6C /* CardDetailsViewControllerDelegate.h */,
 			);
 			path = CardDetails;
 			sourceTree = "<group>";

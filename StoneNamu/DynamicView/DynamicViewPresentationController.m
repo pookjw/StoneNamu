@@ -10,8 +10,8 @@
 @interface DynamicViewPresentationController ()
 @property (retain) UIVisualEffectView *visualEffectView;
 @property (retain) UIView *dynamicView;
+@property CGRect departureRect;
 @property CGRect destinationRect;
-@property CGRect originalRect;
 @end
 
 @implementation DynamicViewPresentationController
@@ -19,11 +19,13 @@
 - (instancetype)initWithPresentedViewController:(UIViewController *)presentedViewController
                        presentingViewController:(UIViewController *)presentingViewController
                                     dynamicView:(UIView *)dynamicView
+                                  departureRect:(CGRect)departureRect
                                 destinationRect:(CGRect)destinationRect {
     self = [self initWithPresentedViewController:presentedViewController presentingViewController:presentingViewController];
     
     if (self) {
         self.dynamicView = dynamicView;
+        self.departureRect = departureRect;
         self.destinationRect = destinationRect;
     }
     
@@ -39,7 +41,6 @@
 - (void)presentationTransitionWillBegin {
     [super presentationTransitionWillBegin];
     [self configureVisualEffectView];
-    [self configureDynamicViewRect];
     [self animateVisualEffectViewPresenting:YES];
     [self animateDynamicViewPresenting:YES];
 }
@@ -71,16 +72,7 @@
         [visualEffectView.bottomAnchor constraintEqualToAnchor:self.containerView.bottomAnchor]
     ]];
     
-    UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(triggeredVisualEffectViewGesgure:)];
-    [visualEffectView addGestureRecognizer:gesture];
-    visualEffectView.userInteractionEnabled = YES;
-    
     [visualEffectView release];
-    [gesture release];
-}
-
-- (void)triggeredVisualEffectViewGesgure:(UITapGestureRecognizer *)sender {
-    [self.presentedViewController dismissViewControllerAnimated:YES completion:^{}];
 }
 
 - (void)animateVisualEffectViewPresenting:(BOOL)presenting {
@@ -91,21 +83,15 @@
     } completion:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {}];
 }
 
-- (void)configureDynamicViewRect {
-    UIWindow *window = self.dynamicView.window;
-    self.originalRect = [self.dynamicView.superview convertRect:self.dynamicView.frame toView:window];
-}
-
 - (void)animateDynamicViewPresenting:(BOOL)presenting {
-    if (presenting) {
-        [self.dynamicView removeFromSuperview];
-        [self.containerView addSubview:self.dynamicView];
-        self.dynamicView.translatesAutoresizingMaskIntoConstraints = YES;
-        self.dynamicView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin;
-        self.dynamicView.frame = self.originalRect;
-    }
+    CGRect departure = presenting ? self.departureRect : self.destinationRect;
+    CGRect destination = presenting ? self.destinationRect : self.departureRect;
     
-    CGRect destination = presenting ? self.destinationRect : self.originalRect;
+    [self.dynamicView removeFromSuperview];
+    [self.containerView addSubview:self.dynamicView];
+    self.dynamicView.translatesAutoresizingMaskIntoConstraints = YES;
+    self.dynamicView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin;
+    self.dynamicView.frame = departure;
     
     [self.presentedViewController.transitionCoordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> _Nonnull context) {
         self.dynamicView.frame = destination;

@@ -12,9 +12,8 @@
 #import "CardContentView.h"
 #import "CardsCollectionViewCompositionalLayout.h"
 #import "CardDetailsViewController.h"
-#import "CardDetailsViewControllerDelegate.h"
 
-@interface CardsViewController () <UICollectionViewDelegate, CardDetailsViewControllerDelegate>
+@interface CardsViewController () <UICollectionViewDelegate>
 @property (retain) UICollectionView *collectionView;
 @property (readonly, copy) NSDictionary<NSString *, id> * _Nullable options;
 @property (retain) CardsViewModel *viewModel;
@@ -157,9 +156,9 @@
         
         if (![contentView isKindOfClass:[CardContentView class]]) return;
         
-        CardDetailsViewController *vc = [[CardDetailsViewController alloc] initWithCardImageView:contentView.imageView];
+        self.viewModel.presentingDetailCell = cell;
+        CardDetailsViewController *vc = [[CardDetailsViewController alloc] initWithHSCard:hsCard sourceImageView:contentView.imageView];
         [vc autorelease];
-        vc.delegate = self;
         [vc loadViewIfNeeded];
         [self presentViewController:vc animated:YES completion:^{}];
     }];
@@ -168,27 +167,8 @@
 #pragma mark - UICollectionViewDelegate
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    [collectionView deselectItemAtIndexPath:indexPath animated:NO];
     [self.viewModel handleSelectionForIndexPath:indexPath];
-}
-
-#pragma mark - CardDetailsViewControllerDelegate
-
-- (void)cardDetailsViewControllerDidDismiss:(CardDetailsViewController *)viewController cardImageView:(UIImageView *)cardImageView {
-    NSIndexPath *indexPath = self.collectionView.indexPathsForSelectedItems.firstObject;
-    UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
-    
-    CardContentView *contentView = (CardContentView *)cell.contentView;
-    
-    if (![contentView isKindOfClass:[CardContentView class]]) return;
-    
-    [contentView addSubview:cardImageView];
-    cardImageView.translatesAutoresizingMaskIntoConstraints = NO;
-    [NSLayoutConstraint activateConstraints:@[
-        [cardImageView.topAnchor constraintEqualToAnchor:contentView.topAnchor],
-        [cardImageView.trailingAnchor constraintEqualToAnchor:contentView.trailingAnchor],
-        [cardImageView.leadingAnchor constraintEqualToAnchor:contentView.leadingAnchor],
-        [cardImageView.bottomAnchor constraintEqualToAnchor:contentView.bottomAnchor]
-    ]];
 }
 
 @end
