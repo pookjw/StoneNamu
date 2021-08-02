@@ -36,12 +36,6 @@ static NSString * const UIImageViewAsyncImageCategorySessionTaskKey = @"UIImageV
 - (void)setAsyncImageWithURL:(NSURL * _Nullable)url indicator:(BOOL)indicator {
     [self.sessionTask cancel];
     
-    if (indicator) {
-        [self showActivityIndicator];
-    } else {
-        [self removeActivityIndicator];
-    }
-    
     self.currentURL = url;
     NSData * _Nullable cachedData = [[self.dataCacheUseCase dataCachesWithIdentity:url.absoluteString] lastObject];
     
@@ -52,6 +46,12 @@ static NSString * const UIImageViewAsyncImageCategorySessionTaskKey = @"UIImageV
             self.image = image;
         }];
     } else {
+        if (indicator) {
+            [self showActivityIndicator];
+        } else {
+            [self removeActivityIndicator];
+        }
+        
         NSURLSessionTask *sessionTask = [NSURLSession.sharedSession dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
             
             if (error) {
