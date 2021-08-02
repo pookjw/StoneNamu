@@ -59,12 +59,12 @@
 
 - (NSDictionary *)addLocalKeyIfNeeded:(NSDictionary * _Nullable)options {
     if (options == nil) {
-        return @{BlizzardHSAPIOptionTypeLocale: BlizzardHSAPILocaleEnUS};
+        return @{BlizzardHSAPIOptionTypeLocale: BlizzardHSAPILocaleKoKR};
     } else if ([options.allKeys containsObject:BlizzardHSAPIOptionTypeLocale]) {
         return options;
     } else {
         NSMutableDictionary *mutableOptions = [options mutableCopy];
-        mutableOptions[BlizzardHSAPIOptionTypeLocale] = BlizzardHSAPILocaleEnUS;
+        mutableOptions[BlizzardHSAPIOptionTypeLocale] = BlizzardHSAPILocaleKoKR;
         NSDictionary *result = [[mutableOptions copy] autorelease];
         [mutableOptions release];
         return result;
