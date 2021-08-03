@@ -8,9 +8,11 @@
 #import <CoreData/CoreData.h>
 #import "DataCache.h"
 
+typedef void (^DataCacheRepositoryFetchWithIdentityCompletion)(NSArray<DataCache *> *);
+
 @protocol DataCacheRepository <NSObject>
 - (void)saveChanges;
-- (NSArray<DataCache *> *)dataCachesWithIdentity:(NSString *)identity;
+- (void)dataCachesWithIdentity:(NSString *)identity completion:(DataCacheRepositoryFetchWithIdentityCompletion)completion;
 - (void)removeAllDataCaches;
 - (DataCache *)createDataCache;
 @end

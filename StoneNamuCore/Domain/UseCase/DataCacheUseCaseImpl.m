@@ -31,21 +31,22 @@
     [super dealloc];
 }
 
-- (NSArray<NSData *> *)dataCachesWithIdentity:(NSString *)identity {
-    NSArray<DataCache *> *dataCaches = [self.dataCacheRepository dataCachesWithIdentity:identity];
-    
-    NSMutableArray<NSData *> *mutable = [@[] mutableCopy];
-    
-    for (DataCache *dataCache in dataCaches) {
-        if (dataCache.data) {
-            [mutable addObject:dataCache.data];
+- (void)dataCachesWithIdentity:(NSString *)identity completion:(DataCacheUseCaseFetchWithIdentityCompletion)completion {
+    [self.dataCacheRepository dataCachesWithIdentity:identity completion:^(NSArray<DataCache *> * dataCaches) {
+        
+        NSMutableArray<NSData *> *mutable = [@[] mutableCopy];
+        
+        for (DataCache *dataCache in dataCaches) {
+            if (dataCache.data) {
+                [mutable addObject:dataCache.data];
+            }
         }
-    }
-    
-    NSArray *results = [[mutable copy] autorelease];
-    [mutable release];
-    
-    return results;
+        
+        NSArray *results = [[mutable copy] autorelease];
+        [mutable release];
+        
+        completion(results);
+    }];
 }
 
 - (void)removeAllDataCaches {

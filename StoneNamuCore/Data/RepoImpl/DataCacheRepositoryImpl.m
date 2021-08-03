@@ -36,21 +36,23 @@
     [self.coreDataStack saveChanges];
 }
 
-- (NSArray<DataCache *> *)dataCachesWithIdentity:(NSString *)identity {
-    NSManagedObjectContext *mainContext = self.coreDataStack.mainContext;
-    NSFetchRequest *fetchRequest = DataCache._fetchRequest;
-    
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K = %@" argumentArray:@[@"identity", identity]];
-    fetchRequest.predicate = predicate;
-    
-    NSError * _Nullable error = nil;
-    NSArray<DataCache *> *results = [mainContext executeFetchRequest:fetchRequest error:&error];
-    
-    if (error) {
-        NSLog(@"%@", error.localizedDescription);
-    }
-    
-    return results;
+- (void)dataCachesWithIdentity:(NSString *)identity completion:(DataCacheRepositoryFetchWithIdentityCompletion)completion {
+    [self.coreDataStack.queue addOperationWithBlock:^{
+        NSManagedObjectContext *mainContext = self.coreDataStack.context;
+        NSFetchRequest *fetchRequest = DataCache._fetchRequest;
+        
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K = %@" argumentArray:@[@"identity", identity]];
+        fetchRequest.predicate = predicate;
+        
+        NSError * _Nullable error = nil;
+        NSArray<DataCache *> *results = [mainContext executeFetchRequest:fetchRequest error:&error];
+        
+        if (error) {
+            NSLog(@"%@", error.localizedDescription);
+        }
+        
+        completion(results);
+    }];
 }
 
 - (void)removeAllDataCaches {
@@ -59,7 +61,7 @@
     batchDelete.affectedStores = self.coreDataStack.storeContainer.persistentStoreCoordinator.persistentStores;
     
     NSError * _Nullable error = nil;
-    [self.coreDataStack.mainContext executeRequest:batchDelete error:&error];
+    [self.coreDataStack.context executeRequest:batchDelete error:&error];
     [batchDelete release];
     
     if (error) {
@@ -68,7 +70,7 @@
 }
 
 - (DataCache *)createDataCache {
-    DataCache *dataCache = [[[DataCache alloc] initWithContext:self.coreDataStack.mainContext] autorelease];
+    DataCache *dataCache = [[[DataCache alloc] initWithContext:self.coreDataStack.context] autorelease];
     return dataCache;
 }
 

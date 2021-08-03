@@ -9,8 +9,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void (^DataCacheUseCaseFetchWithIdentityCompletion)(NSArray<NSData *> *);
+
 @protocol DataCacheUseCase <NSObject>
-- (NSArray<NSData *> *)dataCachesWithIdentity:(NSString *)identity;
+- (void)dataCachesWithIdentity:(NSString *)identity completion:(DataCacheUseCaseFetchWithIdentityCompletion)completion;
 - (void)removeAllDataCaches;
 - (void)createDataCache:(NSData *)data identity:(NSString *)identity;
 @end

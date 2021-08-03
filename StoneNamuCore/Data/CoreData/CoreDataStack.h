@@ -10,7 +10,8 @@
 static NSString * const CoreDataStackDidChangeNotificationName = @"CoreDataStackDidChangeNotificationName";
 
 @protocol CoreDataStack <NSObject>
-@property (readonly, nonatomic, assign) NSManagedObjectContext *mainContext;
-@property (readonly, assign) NSPersistentContainer *storeContainer;
+@property (readonly, retain) NSManagedObjectContext *context;
+@property (readonly, retain) NSPersistentContainer *storeContainer;
+@property (readonly, retain) NSOperationQueue *queue;
 - (void)saveChanges;
 @end

@@ -43,40 +43,52 @@ static NSString * const UIImageViewAsyncImageCategorySessionTaskKey = @"UIImageV
     
     self.image = nil;
     self.currentURL = url;
-    NSData * _Nullable cachedData = [[self.dataCacheUseCase dataCachesWithIdentity:url.absoluteString] lastObject];
     
-    if (cachedData) {
-        UIImage *image = [UIImage imageWithData:cachedData];
-        [NSOperationQueue.mainQueue addOperationWithBlock:^{
-            [self removeActivityIndicator];
-            self.image = image;
-        }];
-    } else {
-        if (indicator) {
-            [self showActivityIndicator];
-        } else {
-            [self removeActivityIndicator];
-        }
+    NSString *identity = url.absoluteString;
+    
+    // Fetch Cahce Data from another background thread...
+    [self.dataCacheUseCase dataCachesWithIdentity:identity completion:^(NSArray<NSData *> * _Nonnull cachedDatas) {
+        NSData * _Nullable cachedData = cachedDatas.lastObject;
         
-        NSURLSessionTask *sessionTask = [NSURLSession.sharedSession dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-            
-            if (error) {
+        if (cachedData) {
+            // if cached data was found...
+            if ([self.currentURL isEqual:url]) {
+                UIImage *image = [UIImage imageWithData:cachedData];
                 [NSOperationQueue.mainQueue addOperationWithBlock:^{
-                    [self removeActivityIndicator];
-                    self.image = nil;
-                }];
-            } else if ((data) && ([self.currentURL isEqual:url])) {
-                UIImage *image = [UIImage imageWithData:data];
-                [NSOperationQueue.mainQueue addOperationWithBlock:^{
-                    [self.dataCacheUseCase createDataCache:data identity:url.absoluteString];
                     [self removeActivityIndicator];
                     self.image = image;
                 }];
             }
-        }];
-        [sessionTask resume];
-        self.sessionTask = sessionTask;
-    }
+        } else {
+            // if not found, download from server
+            [NSOperationQueue.mainQueue addOperationWithBlock:^{
+                if (indicator) {
+                    [self showActivityIndicator];
+                } else {
+                    [self removeActivityIndicator];
+                }
+            }];
+            
+            NSURLSessionTask *sessionTask = [NSURLSession.sharedSession dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+                
+                if (error) {
+                    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+                        [self removeActivityIndicator];
+                        self.image = nil;
+                    }];
+                } else if ((data) && ([self.currentURL isEqual:url])) {
+                    UIImage *image = [UIImage imageWithData:data];
+                    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+                        [self.dataCacheUseCase createDataCache:data identity:url.absoluteString];
+                        [self removeActivityIndicator];
+                        self.image = image;
+                    }];
+                }
+            }];
+            [sessionTask resume];
+            self.sessionTask = sessionTask;
+        }
+    }];
 }
 
 - (void)showActivityIndicator {

@@ -8,39 +8,51 @@
 #import "CoreDataStackImpl.h"
 
 static NSMutableDictionary<NSString *, NSPersistentContainer *> * _Nullable kStoreContainers = nil;
+static NSMutableDictionary<NSString *, NSOperationQueue *> * _Nullable kOperationQueues = nil;
 
 @interface CoreDataStackImpl () {
+    NSManagedObjectContext *_context;
     NSPersistentContainer *_storeContainer;
+    NSOperationQueue *_queue;
 }
 
 @end
 
 @implementation CoreDataStackImpl
 
+@synthesize context = _context;
 @synthesize storeContainer = _storeContainer;
+@synthesize queue = _queue;
 
 - (instancetype)initWithModelName:(NSString *)modelName storeContainerClass:(Class)storeContainerClass {
     self = [self init];
     
     if (self) {
         [self configureStoreContainerWithModelName:modelName class:storeContainerClass];
+        _context = [self.storeContainer.newBackgroundContext retain];
+        [self configureQueueWithModelName:modelName];
         [self bind];
     }
     
     return self;
 }
 
-- (NSManagedObjectContext *)mainContext {
-    return self.storeContainer.viewContext;
+- (void)dealloc {
+    [_context release];
+    [_storeContainer release];
+    [_queue release];
+    [super dealloc];
 }
 
 - (void)saveChanges {
-    if (!self.mainContext.hasChanges) {
-        NSLog(@"Nothing to save!");
-        return;
-    }
-    
-    [self.mainContext save:nil];
+    [self.queue addOperationWithBlock:^{
+        if (!self.context.hasChanges) {
+            NSLog(@"Nothing to save!");
+            return;
+        }
+        
+        [self.context save:nil];
+    }];
 }
 
 - (void)configureStoreContainerWithModelName:(NSString *)modelName class:(Class)class {
@@ -49,7 +61,7 @@ static NSMutableDictionary<NSString *, NSPersistentContainer *> * _Nullable kSto
     }
     
     if (kStoreContainers[modelName]) {
-        _storeContainer = kStoreContainers[modelName];
+        _storeContainer = [kStoreContainers[modelName] retain];
         return;
     }
     
@@ -67,14 +79,29 @@ static NSMutableDictionary<NSString *, NSPersistentContainer *> * _Nullable kSto
     }];
     
     kStoreContainers[modelName] = container;
-    _storeContainer = container;
+    _storeContainer = [container retain];
+}
+
+- (void)configureQueueWithModelName:(NSString *)modelName {
+    if (kOperationQueues == nil) {
+        kOperationQueues = [@{} mutableCopy];
+    }
+    
+    if (kOperationQueues[modelName]) {
+        _queue = [kOperationQueues[modelName] retain];
+    }
+    
+    NSOperationQueue *queue = [NSOperationQueue new];
+    queue.qualityOfService = NSQualityOfServiceUserInitiated;
+    kOperationQueues[modelName] = queue;
+    _queue = [queue retain];
 }
 
 - (void)bind {
     [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(didReceiveChangeEvent:)
                                                name:NSManagedObjectContextDidSaveNotification
-                                             object:self.mainContext];
+                                             object:self.context];
     
     [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(didReceiveChangeEvent:)
