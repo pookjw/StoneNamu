@@ -193,6 +193,7 @@
 		4F6A13AD26B26F0E0089A13A /* HSCardSort.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCardSort.m; sourceTree = "<group>"; };
 		4F6A13B026B273640089A13A /* StepperViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StepperViewController.h; sourceTree = "<group>"; };
 		4F6A13B126B273640089A13A /* StepperViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StepperViewController.m; sourceTree = "<group>"; };
+		4F6F1B7726B940E700649F77 /* DynamicViewPresentationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DynamicViewPresentationController.h; sourceTree = "<group>"; };
 		4F9DFBB226B2FD0C002AACDE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4F9DFBB426B2FD0E002AACDE /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4F9DFBB826B2FD2E002AACDE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -231,7 +232,6 @@
 		4FAA89E526A4333C00572BB4 /* FetchHSCardUseCaseTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FetchHSCardUseCaseTest.m; sourceTree = "<group>"; };
 		4FB0ECE626B82AEE0020EE6C /* CardDetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardDetailsViewController.h; sourceTree = "<group>"; };
 		4FB0ECE726B82AEE0020EE6C /* CardDetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardDetailsViewController.m; sourceTree = "<group>"; };
-		4FB0ECE926B82B100020EE6C /* DynamicViewPresentationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DynamicViewPresentationController.h; sourceTree = "<group>"; };
 		4FB0ECEA26B82B100020EE6C /* DynamicViewPresentationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DynamicViewPresentationController.m; sourceTree = "<group>"; };
 		4FE097C326A329B400BF3A6D /* BlizzardAPIRegionHost.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlizzardAPIRegionHost.h; sourceTree = "<group>"; };
 		4FE097C626A331FE00BF3A6D /* HSCardRarity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardRarity.h; sourceTree = "<group>"; };
@@ -570,7 +570,7 @@
 		4FB0ECEC26B833FD0020EE6C /* DynamicView */ = {
 			isa = PBXGroup;
 			children = (
-				4FB0ECE926B82B100020EE6C /* DynamicViewPresentationController.h */,
+				4F6F1B7726B940E700649F77 /* DynamicViewPresentationController.h */,
 				4FB0ECEA26B82B100020EE6C /* DynamicViewPresentationController.m */,
 			);
 			path = DynamicView;

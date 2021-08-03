@@ -11,9 +11,6 @@
 
 @interface CardDetailsViewController () <UIViewControllerTransitioningDelegate>
 @property (retain) UIImageView *sourceImageView;
-@property (nonatomic) CGRect sourceImageViewRect;
-@property (retain) DynamicViewPresentationController *presentationController;
-
 @property (retain) UIImageView *primaryImageView;
 @property (copy) HSCard *hsCard;
 @end
@@ -33,7 +30,6 @@
 
 - (void)dealloc {
     [_sourceImageView release];
-    [_presentationController release];
     [_primaryImageView release];
     [_hsCard release];
     [super dealloc];
@@ -43,30 +39,6 @@
     [super viewDidLoad];
     [self setAttributes];
     [self configurePrimaryImageView];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    self.sourceImageView.hidden = YES;
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    
-}
-
-- (void)dismissViewControllerAnimated:(BOOL)flag completion:(void (^)(void))completion {
-    [self updatePC];
-    
-    [super dismissViewControllerAnimated:flag completion:^{
-        completion();
-        self.sourceImageView.hidden = NO;
-    }];
-}
-
-- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
-    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
-    [self updatePC];
 }
 
 - (void)setAttributes {
@@ -99,27 +71,13 @@
     [primaryImageView release];
 }
 
-- (CGRect)sourceImageViewRect {
-    UIWindow *window = self.sourceImageView.window;
-    CGRect rect = [self.sourceImageView.superview convertRect:self.sourceImageView.frame toView:window];
-    return rect;
-}
-
-- (void)updatePC {
-    self.presentationController.departureRect = self.sourceImageViewRect;
-    self.presentationController.destinationRect = self.primaryImageView.frame;
-    self.presentationController.dynamicAnimating = self.sourceImageView.hidden;
-}
-
 #pragma mark - UIViewControllerTransitioningDelegate
 - (UIPresentationController *)presentationControllerForPresentedViewController:(UIViewController *)presented presentingViewController:(UIViewController *)presenting sourceViewController:(UIViewController *)source {
     DynamicViewPresentationController *pc = [[DynamicViewPresentationController alloc] initWithPresentedViewController:presented
                                                                                               presentingViewController:presenting
-                                                                                                           dynamicView:self.primaryImageView
-                                                                                                         departureRect:self.sourceImageViewRect
+                                                                                                            sourceView:self.sourceImageView
+                                                                                                            targetView:self.primaryImageView
                                                                                                        destinationRect:CGRectMake(0, 0, 800, 800)];
-    
-    self.presentationController = pc;
     
     return [pc autorelease];
 }
