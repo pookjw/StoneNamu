@@ -56,7 +56,7 @@
 }
 
 - (void)dismissViewControllerAnimated:(BOOL)flag completion:(void (^)(void))completion {
-    self.presentationController.dynamicAnimating = self.sourceImageView.hidden;
+    [self updatePC];
     
     [super dismissViewControllerAnimated:flag completion:^{
         completion();
@@ -66,8 +66,7 @@
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
-    self.presentationController.departureRect = self.sourceImageViewRect;
-    self.presentationController.destinationRect = self.primaryImageView.frame;
+    [self updatePC];
 }
 
 - (void)setAttributes {
@@ -104,6 +103,12 @@
     UIWindow *window = self.sourceImageView.window;
     CGRect rect = [self.sourceImageView.superview convertRect:self.sourceImageView.frame toView:window];
     return rect;
+}
+
+- (void)updatePC {
+    self.presentationController.departureRect = self.sourceImageViewRect;
+    self.presentationController.destinationRect = self.primaryImageView.frame;
+    self.presentationController.dynamicAnimating = self.sourceImageView.hidden;
 }
 
 #pragma mark - UIViewControllerTransitioningDelegate
