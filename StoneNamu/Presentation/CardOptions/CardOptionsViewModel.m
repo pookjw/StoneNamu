@@ -103,7 +103,13 @@
     [self.queue addOperationWithBlock:^{
         NSDiffableDataSourceSnapshot *snapshot = self.dataSource.snapshot;
         itemModel.value = value;
-        [snapshot reconfigureItemsWithIdentifiers:@[itemModel]];
+        
+        if (@available(iOS 15.0, *)) {
+            [snapshot reconfigureItemsWithIdentifiers:@[itemModel]];
+        } else {
+            [snapshot reloadItemsWithIdentifiers:@[itemModel]];
+        }
+        
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
             [self.dataSource applySnapshot:snapshot animatingDifferences:YES];
         }];

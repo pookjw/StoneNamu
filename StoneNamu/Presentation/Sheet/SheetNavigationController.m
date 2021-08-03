@@ -18,23 +18,29 @@
 }
 
 - (void)setAttributes {
-    self.modalPresentationStyle = UIModalPresentationCustom;
-    self.transitioningDelegate = self;
+    if (@available(iOS 15.0, *)) {
+        self.modalPresentationStyle = UIModalPresentationCustom;
+        self.transitioningDelegate = self;
+    }
 }
 
 #pragma mark UIViewControllerTransitioningDelegate
 
 - (UIPresentationController *)presentationControllerForPresentedViewController:(UIViewController *)presented presentingViewController:(UIViewController *)presenting sourceViewController:(UIViewController *)source {
 
-    UISheetPresentationController *pc = [[UISheetPresentationController alloc] initWithPresentedViewController:presented presentingViewController:presenting];
+    if (@available(iOS 15.0, *)) {
+        UISheetPresentationController *pc = [[UISheetPresentationController alloc] initWithPresentedViewController:presented presentingViewController:presenting];
 
-    pc.detents = @[
-        [UISheetPresentationControllerDetent mediumDetent]
-    ];
-    pc.prefersGrabberVisible = YES;
+        pc.detents = @[
+            [UISheetPresentationControllerDetent mediumDetent]
+        ];
+        pc.prefersGrabberVisible = YES;
 
-    [pc autorelease];
-    return pc;
+        [pc autorelease];
+        return pc;
+    } else {
+        return nil;
+    }
 }
 
 @end
