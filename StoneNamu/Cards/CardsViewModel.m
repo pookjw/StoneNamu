@@ -7,15 +7,20 @@
 
 #import "CardsViewModel.h"
 #import "HSCardUseCaseImpl.h"
+#import "BlizzardHSAPIKeys.h"
 
 @interface CardsViewModel ()
 @property (retain) id<HSCardUseCase> fetchHSCardUseCase;
+@property (retain) NSNumber * _Nullable pageCount;
+@property (retain) NSNumber *page;
+@property (nonatomic, readonly) BOOL canLoadMore;
+@property BOOL isFetching;
 @property (retain) NSOperationQueue *queue;
 @end
 
 @implementation CardsViewModel
 
-- (instancetype)initWithDataSource:(CardsDataSource *)dataSource options:(NSDictionary<NSString *, id> *)options {
+- (instancetype)initWithDataSource:(CardsDataSource *)dataSource {
     self = [self init];
     
     if (self) {
@@ -28,18 +33,63 @@
         
         NSOperationQueue *queue = [NSOperationQueue new];
         queue.qualityOfService = NSQualityOfServiceUserInitiated;
+        self.pageCount = nil;
+        self.page = [NSNumber numberWithUnsignedInt:1];
+        self.isFetching = NO;
         _queue = queue;
-        
-        [self requestDataSourceWithOptions:options];
     }
     
     return self;
+}
+
+- (void)requestDataSourceWithOptions:(NSDictionary<NSString *,id> * _Nullable)options {
+    if (self.isFetching) return;
+    if (!self.canLoadMore) return;
+    
+    self.isFetching = YES;
+    
+    NSMutableDictionary *mutableDic = [options mutableCopy];
+    
+    if (self.pageCount) {
+        // Next page
+        NSNumber *nextPage = [NSNumber numberWithUnsignedInt:[self.page unsignedIntValue] + 1];
+        mutableDic[BlizzardHSAPIOptionTypePage] = [nextPage stringValue];
+    } else {
+        // Initial data
+        mutableDic[BlizzardHSAPIOptionTypePage] = [self.page stringValue];
+    }
+    
+    NSDictionary *finalDic = [[mutableDic copy] autorelease];
+    [mutableDic release];
+    
+    [self.fetchHSCardUseCase fetchWithOptions:finalDic completionHandler:^(NSArray<HSCard *> * _Nullable cards, NSNumber *pageCount, NSNumber *page, NSError * _Nullable error) {
+        
+        if (error) {
+            [self postError:error];
+        }
+        
+        [self.queue addOperationWithBlock:^{
+            self.pageCount = pageCount;
+            self.page = page;
+            self.isFetching = NO;
+            [self updateDataSourceWithCards:cards];
+        }];
+    }];
+}
+
+- (BOOL)canLoadMore {
+    if (self.pageCount == nil) {
+        return YES;
+    }
+    return ![self.pageCount isEqual:self.page];
 }
 
 - (void)dealloc {
     [_presentingDetailCell release];
     [_dataSource release];
     [_fetchHSCardUseCase release];
+    [_pageCount release];
+    [_page release];
     [_queue release];
     [super dealloc];
 }
@@ -56,26 +106,21 @@
     }];
 }
 
--(void)requestDataSourceWithOptions:(NSDictionary<NSString *,id> * _Nullable)options {
-    [self.fetchHSCardUseCase fetchWithOptions:options completionHandler:^(NSArray<HSCard *> * _Nullable cards, NSError * _Nullable error) {
-        
-        if (error) {
-            [self postError:error];
-        }
-        
-        [self.queue addOperationWithBlock:^{
-            [self updateDataSourceWithCards:cards];
-        }];
-    }];
-}
-
 - (void)updateDataSourceWithCards:(NSArray<HSCard *> *)cards {
     NSDiffableDataSourceSnapshot *snapshot = self.dataSource.snapshot;
     
-    [snapshot deleteAllItems];
+    CardSectionModel * _Nullable sectionModel = nil;
     
-    CardSectionModel *sectionModel = [[CardSectionModel alloc] initWithType:CardsSectionModelTypeCards];
-    [snapshot appendSectionsWithIdentifiers:@[sectionModel]];
+    for (CardSectionModel *tmp in snapshot.sectionIdentifiers) {
+        if (tmp.type == CardsSectionModelTypeCards) {
+            sectionModel = tmp;
+        }
+    }
+    
+    if (sectionModel == nil) {
+        sectionModel = [[[CardSectionModel alloc] initWithType:CardsSectionModelTypeCards] autorelease];
+        [snapshot appendSectionsWithIdentifiers:@[sectionModel]];
+    }
     
     NSMutableArray<CardItemModel *> *itemModels = [@[] mutableCopy];
     
@@ -86,7 +131,6 @@
     }
     
     [snapshot appendItemsWithIdentifiers:[[itemModels copy] autorelease] intoSectionWithIdentifier:sectionModel];
-    [sectionModel release];
     
     [itemModels release];
     

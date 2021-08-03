@@ -78,8 +78,9 @@
 }
 
 - (void)configureViewModel {
-    CardsViewModel *viewModel = [[CardsViewModel alloc] initWithDataSource:[self makeDataSource] options:self.options];
+    CardsViewModel *viewModel = [[CardsViewModel alloc] initWithDataSource:[self makeDataSource]];
     self.viewModel = viewModel;
+    [viewModel requestDataSourceWithOptions:self.options];
     [viewModel release];
 }
 
@@ -169,6 +170,18 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     [collectionView deselectItemAtIndexPath:indexPath animated:NO];
     [self.viewModel handleSelectionForIndexPath:indexPath];
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    if (![self.collectionView isEqual:scrollView]) return;
+    
+    CGSize contentSize = self.collectionView.contentSize;
+    CGPoint contentOffset = self.collectionView.contentOffset;
+    CGRect bounds = self.collectionView.bounds;
+    
+    if ((contentOffset.y + bounds.size.height) >= (contentSize.height)) {
+        [self.viewModel requestDataSourceWithOptions:self.options];
+    }
 }
 
 @end

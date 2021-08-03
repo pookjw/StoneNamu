@@ -8,7 +8,7 @@
 #import <Foundation/Foundation.h>
 #import "HSCard.h"
 
-typedef void (^HSCardUseCaseCardsCompletion)(NSArray<HSCard *> * _Nullable, NSError * _Nullable);
+typedef void (^HSCardUseCaseCardsCompletion)(NSArray<HSCard *> * _Nullable, NSNumber * _Nullable, NSNumber * _Nullable, NSError * _Nullable);
 typedef void (^HSCardUseCaseCardCompletion)(HSCard * _Nullable, NSError * _Nullable);
 
 NS_ASSUME_NONNULL_BEGIN

@@ -40,7 +40,7 @@ static NSString * const BlizzardHSCardAPIBasePath = @"/hearthstone/cards";
     BlizzardHSRepositoryCompletion hsAPICompletion = ^(NSData *data, NSURLResponse *response, NSError *error) {
         
         if (error) {
-            completion(nil, error);
+            completion(nil, nil, nil, error);
             return;
         }
         
@@ -49,12 +49,14 @@ static NSString * const BlizzardHSCardAPIBasePath = @"/hearthstone/cards";
                                                             options:NSJSONReadingMutableContainers
                                                               error:&error];
         if (parseError) {
-            completion(nil, parseError);
+            completion(nil, nil, nil, parseError);
         }
         
         NSArray<HSCard *> *hsCards = [HSCard hsCardsFromDic:dic];
+        NSNumber * _Nullable pageCount = dic[@"pageCount"];
+        NSNumber * _Nullable page = dic[@"page"];
         
-        completion(hsCards, nil);
+        completion(hsCards, pageCount, page, nil);
     };
     
     [self.blizzardHSRepository getAtRegion:regionHost

@@ -9,7 +9,7 @@
 #import "HSCard.h"
 #import "BlizzardAPIRegionHost.h"
 
-typedef void (^HSCardRepositoryCardsCompletion)(NSArray<HSCard *> * _Nullable, NSError * _Nullable);
+typedef void (^HSCardRepositoryCardsCompletion)(NSArray<HSCard *> * _Nullable, NSNumber * _Nullable, NSNumber * _Nullable, NSError * _Nullable);
 typedef void (^HSCardRepositoryCardCompletion)(HSCard * _Nullable, NSError * _Nullable);
 
 NS_ASSUME_NONNULL_BEGIN
