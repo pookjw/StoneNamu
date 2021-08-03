@@ -127,7 +127,7 @@ static NSString * const UIImageViewAsyncImageCategorySessionTaskKey = @"UIImageV
 - (void)loadImageWithFade:(UIImage *)image {
     self.image = image;
     self.alpha = 0;
-    [UIView animateWithDuration:0.5 animations:^{
+    [UIView animateWithDuration:0.3 animations:^{
         self.alpha = 1;
     }];
 }
