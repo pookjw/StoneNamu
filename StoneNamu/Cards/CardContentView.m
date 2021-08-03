@@ -9,6 +9,10 @@
 #import "CardContentConfiguration.h"
 #import "UIImageView+setAsyncImage.h"
 
+@interface CardContentView ()
+@property (copy) HSCard *hsCard;
+@end
+
 @implementation CardContentView
 
 @synthesize configuration;
@@ -37,6 +41,7 @@
 - (void)dealloc {
     [configuration release];
     [_imageView release];
+    [_hsCard release];
     [super dealloc];
 }
 
@@ -45,8 +50,11 @@
     CardContentConfiguration *cardContent = (CardContentConfiguration *)configuration;
     self->configuration = [cardContent copy];
     
-    [self.imageView setAsyncImageWithURL:cardContent.hsCard.image indicator:YES];
-    self.imageView.hidden = NO;
+    if (![self.hsCard isEqual:cardContent.hsCard]) {
+        self.hsCard = cardContent.hsCard;
+        [self.imageView setAsyncImageWithURL:cardContent.hsCard.image indicator:YES];
+        self.imageView.hidden = NO;
+    }
 }
 
 @end

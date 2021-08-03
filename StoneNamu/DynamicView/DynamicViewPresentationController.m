@@ -99,9 +99,9 @@
 }
 
 - (void)animateDynamicViewPresenting:(BOOL)presenting {
-    BOOL dynamicAnimating = self.sourceView.hidden;
+    BOOL dynamicAnimating = (self.sourceView.hidden && !self.targetView.hidden) || presenting;
     
-    if (dynamicAnimating || presenting) {
+    if (dynamicAnimating) {
         CGRect departure = presenting ? self.sourceViewRect : self.targetViewRect;
         CGRect destination = presenting ? self.destinationRect : self.sourceViewRect;
         
