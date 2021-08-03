@@ -1,13 +1,13 @@
 //
-//  DynamicViewPresentationController.m
-//  DynamicViewPresentationController
+//  DynamicPresentationController.m
+//  DynamicPresentationController
 //
 //  Created by Jinwoo Kim on 8/2/21.
 //
 
-#import "DynamicViewPresentationController.h"
+#import "DynamicPresentationController.h"
 
-@interface DynamicViewPresentationController ()
+@interface DynamicPresentationController ()
 @property CGRect destinationRect;
 @property (nonatomic) CGRect sourceViewRect;
 @property (nonatomic) CGRect targetViewRect;
@@ -16,7 +16,7 @@
 @property (retain) UIView *targetView;
 @end
 
-@implementation DynamicViewPresentationController
+@implementation DynamicPresentationController
 
 - (instancetype)initWithPresentedViewController:(UIViewController *)presentedViewController
                        presentingViewController:(UIViewController *)presentingViewController

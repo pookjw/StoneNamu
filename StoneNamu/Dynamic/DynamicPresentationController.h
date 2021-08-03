@@ -1,6 +1,6 @@
 //
-//  DynamicViewPresentationController.h
-//  DynamicViewPresentationController
+//  DynamicPresentationController.h
+//  DynamicPresentationController
 //
 //  Created by Jinwoo Kim on 8/2/21.
 //
@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface DynamicViewPresentationController : UIPresentationController
+@interface DynamicPresentationController : UIPresentationController
 - (instancetype)initWithPresentedViewController:(UIViewController *)presentedViewController
                        presentingViewController:(UIViewController *)presentingViewController
                                      sourceView:(UIView *)sourceView

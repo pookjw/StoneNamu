@@ -6,7 +6,7 @@
 //
 
 #import "CardDetailsViewController.h"
-#import "DynamicViewPresentationController.h"
+#import "DynamicPresentationController.h"
 #import "UIImageView+setAsyncImage.h"
 
 @interface CardDetailsViewController () <UIViewControllerTransitioningDelegate>
@@ -75,7 +75,7 @@
 
 #pragma mark - UIViewControllerTransitioningDelegate
 - (UIPresentationController *)presentationControllerForPresentedViewController:(UIViewController *)presented presentingViewController:(UIViewController *)presenting sourceViewController:(UIViewController *)source {
-    DynamicViewPresentationController *pc = [[DynamicViewPresentationController alloc] initWithPresentedViewController:presented
+    DynamicPresentationController *pc = [[DynamicPresentationController alloc] initWithPresentedViewController:presented
                                                                                               presentingViewController:presenting
                                                                                                             sourceView:self.sourceImageView
                                                                                                             targetView:self.primaryImageView

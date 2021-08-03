@@ -72,7 +72,7 @@
 		4FAA89E126A42A1500572BB4 /* BlizzardHSRepositoryImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA89DF26A42A1500572BB4 /* BlizzardHSRepositoryImpl.m */; };
 		4FAA89E626A4333C00572BB4 /* FetchHSCardUseCaseTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA89E526A4333C00572BB4 /* FetchHSCardUseCaseTest.m */; };
 		4FB0ECE826B82AEE0020EE6C /* CardDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FB0ECE726B82AEE0020EE6C /* CardDetailsViewController.m */; };
-		4FB0ECEB26B82B100020EE6C /* DynamicViewPresentationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FB0ECEA26B82B100020EE6C /* DynamicViewPresentationController.m */; };
+		4FB0ECEB26B82B100020EE6C /* DynamicPresentationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FB0ECEA26B82B100020EE6C /* DynamicPresentationController.m */; };
 		4FF676CF26AAFC6A00477272 /* CardsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF676CE26AAFC6A00477272 /* CardsViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -193,7 +193,7 @@
 		4F6A13AD26B26F0E0089A13A /* HSCardSort.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCardSort.m; sourceTree = "<group>"; };
 		4F6A13B026B273640089A13A /* StepperViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StepperViewController.h; sourceTree = "<group>"; };
 		4F6A13B126B273640089A13A /* StepperViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StepperViewController.m; sourceTree = "<group>"; };
-		4F6F1B7726B940E700649F77 /* DynamicViewPresentationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DynamicViewPresentationController.h; sourceTree = "<group>"; };
+		4F6F1B7726B940E700649F77 /* DynamicPresentationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DynamicPresentationController.h; sourceTree = "<group>"; };
 		4F9DFBB226B2FD0C002AACDE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4F9DFBB426B2FD0E002AACDE /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4F9DFBB826B2FD2E002AACDE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -232,7 +232,7 @@
 		4FAA89E526A4333C00572BB4 /* FetchHSCardUseCaseTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FetchHSCardUseCaseTest.m; sourceTree = "<group>"; };
 		4FB0ECE626B82AEE0020EE6C /* CardDetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardDetailsViewController.h; sourceTree = "<group>"; };
 		4FB0ECE726B82AEE0020EE6C /* CardDetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardDetailsViewController.m; sourceTree = "<group>"; };
-		4FB0ECEA26B82B100020EE6C /* DynamicViewPresentationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DynamicViewPresentationController.m; sourceTree = "<group>"; };
+		4FB0ECEA26B82B100020EE6C /* DynamicPresentationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DynamicPresentationController.m; sourceTree = "<group>"; };
 		4FE097C326A329B400BF3A6D /* BlizzardAPIRegionHost.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlizzardAPIRegionHost.h; sourceTree = "<group>"; };
 		4FE097C626A331FE00BF3A6D /* HSCardRarity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardRarity.h; sourceTree = "<group>"; };
 		4FE097CA26A33C7500BF3A6D /* HSCardClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardClass.h; sourceTree = "<group>"; };
@@ -463,7 +463,7 @@
 				4F57DE9E26AD7D98000E4163 /* Sheet */,
 				4F95AED726AD6A810075D2D9 /* Picker */,
 				4F6A13AF26B2733D0089A13A /* Stepper */,
-				4FB0ECEC26B833FD0020EE6C /* DynamicView */,
+				4FB0ECEC26B833FD0020EE6C /* Dynamic */,
 				4FA56BB626A2105A002D9FA0 /* Assets.xcassets */,
 				4FA56BBB26A2105A002D9FA0 /* Info.plist */,
 				4FA56BBC26A2105A002D9FA0 /* main.m */,
@@ -567,13 +567,13 @@
 			path = CardDetails;
 			sourceTree = "<group>";
 		};
-		4FB0ECEC26B833FD0020EE6C /* DynamicView */ = {
+		4FB0ECEC26B833FD0020EE6C /* Dynamic */ = {
 			isa = PBXGroup;
 			children = (
-				4F6F1B7726B940E700649F77 /* DynamicViewPresentationController.h */,
-				4FB0ECEA26B82B100020EE6C /* DynamicViewPresentationController.m */,
+				4F6F1B7726B940E700649F77 /* DynamicPresentationController.h */,
+				4FB0ECEA26B82B100020EE6C /* DynamicPresentationController.m */,
 			);
-			path = DynamicView;
+			path = Dynamic;
 			sourceTree = "<group>";
 		};
 		4FE097C126A3288500BF3A6D /* API */ = {
@@ -823,7 +823,7 @@
 				4FA56BBD26A2105A002D9FA0 /* main.m in Sources */,
 				4F57DEAC26ADA6E3000E4163 /* PickerItemModel.m in Sources */,
 				4F4976E326ABFCB300860809 /* CardOptionsViewController.m in Sources */,
-				4FB0ECEB26B82B100020EE6C /* DynamicViewPresentationController.m in Sources */,
+				4FB0ECEB26B82B100020EE6C /* DynamicPresentationController.m in Sources */,
 				4F4976D926ABE80700860809 /* CardItemModel.m in Sources */,
 				4F4976D226ABE6B600860809 /* CardsViewModel.m in Sources */,
 				4FA9047D26B6E2A000CD6147 /* CardContentConfiguration.m in Sources */,
