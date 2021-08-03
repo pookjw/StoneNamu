@@ -68,7 +68,7 @@ NSString * NSStringFromHSCardSet(HSCardSet set) {
         case HSCardSetStandardCards:
             return @"standard";
         default:
-            return @"";
+            return @"legacy";
     }
 }
 
