@@ -69,23 +69,28 @@ static NSString * const UIImageViewAsyncImageCategorySessionTaskKey = @"UIImageV
                 }
             }];
             
-            NSURLSessionTask *sessionTask = [NSURLSession.sharedSession dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+            NSURLSession *sharedSession = NSURLSession.sharedSession;
+            NSURLSessionTask *sessionTask = [sharedSession dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
                 
                 if (error) {
                     [NSOperationQueue.mainQueue addOperationWithBlock:^{
                         [self removeActivityIndicator];
                         self.image = nil;
                     }];
-                } else if ((data) && ([self.currentURL isEqual:url])) {
-                    UIImage *image = [UIImage imageWithData:data];
-                    [NSOperationQueue.mainQueue addOperationWithBlock:^{
-                        [self.dataCacheUseCase createDataCache:data identity:url.absoluteString];
-                        [self removeActivityIndicator];
-                        [self loadImageWithFade:image];
-                    }];
+                } else if (data) {
+                    [self.dataCacheUseCase createDataCache:data identity:url.absoluteString];
+                    
+                    if ([self.currentURL isEqual:url]) {
+                        UIImage *image = [UIImage imageWithData:data];
+                        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+                            [self removeActivityIndicator];
+                            [self loadImageWithFade:image];
+                        }];
+                    }
                 }
             }];
             [sessionTask resume];
+            [sharedSession finishTasksAndInvalidate];
             self.sessionTask = sessionTask;
         }
     }];
