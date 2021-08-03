@@ -140,7 +140,7 @@ NSArray<NSString *> * hsCardSets() {
     return @[
         NSStringFromHSCardSet(HSCardSetLegacy),
         NSStringFromHSCardSet(HSCardSetNaxxramas),
-        NSStringFromHSCardSet(HSCardSetNaxxramas),
+        NSStringFromHSCardSet(HSCardSetGoblinsVsGnomes),
         NSStringFromHSCardSet(HSCardSetBlackRockMountain),
         NSStringFromHSCardSet(HSCardSetTheGrandTournament),
         NSStringFromHSCardSet(HSCardSetLeagueOfExplorers),
