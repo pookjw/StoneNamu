@@ -28,11 +28,6 @@ static NSString * const UIImageViewAsyncImageCategorySessionTaskKey = @"UIImageV
     [super dealloc];
 }
 
-- (void)removeFromSuperview {
-    [self.sessionTask cancel];
-    [super removeFromSuperview];
-}
-
 - (void)setAsyncImageWithURL:(NSURL * _Nullable)url indicator:(BOOL)indicator {
     if ([url isEqual:self.currentURL]) {
         return;
