@@ -56,7 +56,7 @@ static NSString * const UIImageViewAsyncImageCategorySessionTaskKey = @"UIImageV
                 UIImage *image = [UIImage imageWithData:cachedData];
                 [NSOperationQueue.mainQueue addOperationWithBlock:^{
                     [self removeActivityIndicator];
-                    self.image = image;
+                    [self loadImageWithFade:image];
                 }];
             }
         } else {
@@ -81,7 +81,7 @@ static NSString * const UIImageViewAsyncImageCategorySessionTaskKey = @"UIImageV
                     [NSOperationQueue.mainQueue addOperationWithBlock:^{
                         [self.dataCacheUseCase createDataCache:data identity:url.absoluteString];
                         [self removeActivityIndicator];
-                        self.image = image;
+                        [self loadImageWithFade:image];
                     }];
                 }
             }];
@@ -122,6 +122,14 @@ static NSString * const UIImageViewAsyncImageCategorySessionTaskKey = @"UIImageV
         self.dataCacheUseCase = dataCacheUseCase;
         [dataCacheUseCase release];
     }
+}
+
+- (void)loadImageWithFade:(UIImage *)image {
+    self.image = image;
+    self.alpha = 0;
+    [UIView animateWithDuration:0.5 animations:^{
+        self.alpha = 1;
+    }];
 }
 
 //
