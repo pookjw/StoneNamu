@@ -77,7 +77,7 @@
                                                                                               presentingViewController:presenting
                                                                                                             sourceView:self.sourceImageView
                                                                                                             targetView:self.primaryImageView
-                                                                                                       destinationRect:CGRectMake(0, 0, 800, 800)];
+                                                                                                       destinationRect:CGRectMake(30, 70, 400, 400)];
     
     return [pc autorelease];
 }
