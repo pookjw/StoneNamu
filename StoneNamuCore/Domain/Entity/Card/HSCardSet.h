@@ -17,7 +17,7 @@ typedef NS_ENUM(NSUInteger, HSCardSet) {
     HSCardSetWhispersOfTheOldGods = 21,
     HSCardSetOneNightInKarazhan = 23,
     HSCardSetMeanStreetOfGadgetzan = 25,
-    HSCardSetJourneyToUngoro = 157,
+    HSCardSetJourneyToUngoro = 27,
     HSCardSetKnightsOfTheFrozenThrone = 1001,
     HSCardSetKoboldsAndCatacombs = 1004,
     HSCardSetTheWitchwood = 1125,
