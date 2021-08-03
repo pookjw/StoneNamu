@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithPresentedViewController:(UIViewController *)presentedViewController
                        presentingViewController:(UIViewController *)presentingViewController
                                      sourceView:(UIView *)sourceView
-                                    targetView:(UIView *)targetView
+                                     targetView:(UIView *)targetView
                                 destinationRect:(CGRect)destinationRect;
 @end
 
