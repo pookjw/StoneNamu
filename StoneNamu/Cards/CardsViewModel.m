@@ -24,8 +24,7 @@
     self = [self init];
     
     if (self) {
-        _dataSource = dataSource;
-        [_dataSource retain];
+        _dataSource = [dataSource retain];
         
         HSCardUseCaseImpl *hsCardUseCase = [HSCardUseCaseImpl new];
         self.fetchHSCardUseCase = hsCardUseCase;
@@ -50,7 +49,7 @@
     
     NSMutableDictionary *mutableDic = [options mutableCopy];
     
-    if (self.pageCount) {
+    if (self.pageCount != nil) {
         // Next page
         NSNumber *nextPage = [NSNumber numberWithUnsignedInt:[self.page unsignedIntValue] + 1];
         mutableDic[BlizzardHSAPIOptionTypePage] = [nextPage stringValue];
@@ -85,7 +84,6 @@
 }
 
 - (void)dealloc {
-    [_presentingDetailCell release];
     [_dataSource release];
     [_fetchHSCardUseCase release];
     [_pageCount release];

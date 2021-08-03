@@ -110,7 +110,6 @@
         
         UIListContentConfiguration *configuration = [UIListContentConfiguration subtitleCellConfiguration];
         configuration.text = itemModel.text;
-        configuration.secondaryText = itemModel.secondaryText;
         cell.contentConfiguration = configuration;
         
         if (itemModel.value) {

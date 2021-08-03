@@ -225,10 +225,6 @@ NSString * NSStringFromCardOptionItemModelType(CardOptionItemModelType type) {
     }
 }
 
-- (NSString * _Nullable)secondaryText {
-    return nil;
-}
-
 - (NSString * _Nullable)accessoryText {
     switch (self.type) {
         case CardOptionItemModelTypeSet:

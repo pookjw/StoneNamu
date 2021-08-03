@@ -157,7 +157,6 @@
         
         if (![contentView isKindOfClass:[CardContentView class]]) return;
         
-        self.viewModel.presentingDetailCell = cell;
         CardDetailsViewController *vc = [[CardDetailsViewController alloc] initWithHSCard:hsCard sourceImageView:contentView.imageView];
         [vc autorelease];
         [vc loadViewIfNeeded];
