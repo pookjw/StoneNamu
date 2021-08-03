@@ -37,6 +37,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    NSLog(@"%@", self.hsCard.slug);
+    
     [self setAttributes];
     [self configurePrimaryImageView];
 }

@@ -65,28 +65,7 @@
     return copy;
 }
 
-+ (HSCard * _Nullable)hsCardFromJSONData:(NSData *)data error:(NSError **)error {
-    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data
-                                                        options:NSJSONReadingMutableContainers
-                                                          error:error];
-    
-    if (*error) {
-        return nil;
-    }
-    
-    HSCard *hsCard = [HSCard hsCardFromDic:dic];
-    return hsCard;
-}
-
-+ (NSArray<HSCard *> *)hsCardsFromJSONData:(NSData *)data error:(NSError **)error {
-    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data
-                                                        options:NSJSONReadingMutableContainers
-                                                          error:error];
-    
-    if (*error) {
-        return @[];
-    }
-    
++ (NSArray<HSCard *> *)hsCardsFromDic:(NSDictionary *)dic {
     NSArray *cards = dic[@"cards"];
     NSMutableArray *hsCards = [[@[] mutableCopy] autorelease];
     
@@ -139,7 +118,13 @@
     
     hsCard->_text = [dic[@"text"] retain];
     hsCard->_image = [[NSURL URLWithString:dic[@"image"]] retain];
-    hsCard->_imageGold = [[NSURL URLWithString:dic[@"imageGold"]] retain];
+    
+    if ([dic[@"imageGold"] isKindOfClass:[NSString class]] && [(NSString *)dic[@"imageGold"] isEqualToString:@""]) {
+        hsCard->_imageGold = nil;
+    } else {
+        hsCard->_imageGold = [[NSURL URLWithString:dic[@"imageGold"]] retain];
+    }
+
     hsCard->_flavorText = [dic[@"flavorText"] retain];
     
     id cropImage = dic[@"cropImage"];

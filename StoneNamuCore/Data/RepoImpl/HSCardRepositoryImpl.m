@@ -44,12 +44,15 @@ static NSString * const BlizzardHSCardAPIBasePath = @"/hearthstone/cards";
             return;
         }
         
-        NSError * _Nullable hsCardError = nil;
-        NSArray<HSCard *> *hsCards = [HSCard hsCardsFromJSONData:data error:&hsCardError];
-        
-        if (hsCardError) {
-            completion(nil, hsCardError);
+        NSError * _Nullable parseError = nil;
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data
+                                                            options:NSJSONReadingMutableContainers
+                                                              error:&error];
+        if (parseError) {
+            completion(nil, parseError);
         }
+        
+        NSArray<HSCard *> *hsCards = [HSCard hsCardsFromDic:dic];
         
         completion(hsCards, nil);
     };
@@ -72,12 +75,15 @@ static NSString * const BlizzardHSCardAPIBasePath = @"/hearthstone/cards";
             return;
         }
         
-        NSError * _Nullable hsCardError = nil;
-        HSCard *hsCard = [HSCard hsCardFromJSONData:data error:&error];
-        
-        if (hsCardError) {
-            completion(nil, hsCardError);
+        NSError * _Nullable parseError = nil;
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data
+                                                            options:NSJSONReadingMutableContainers
+                                                              error:&error];
+        if (parseError) {
+            completion(nil, parseError);
         }
+        
+        HSCard *hsCard = [HSCard hsCardFromDic:dic];
         
         completion(hsCard, nil);
     };

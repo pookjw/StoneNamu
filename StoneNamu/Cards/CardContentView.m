@@ -52,7 +52,12 @@
     
     if (![self.hsCard isEqual:cardContent.hsCard]) {
         self.hsCard = cardContent.hsCard;
-        [self.imageView setAsyncImageWithURL:cardContent.hsCard.image indicator:YES];
+        
+        if (cardContent.hsCard.imageGold) {
+            [self.imageView setAsyncImageWithURL:cardContent.hsCard.imageGold indicator:YES];
+        } else {
+            [self.imageView setAsyncImageWithURL:cardContent.hsCard.image indicator:YES];
+        }
         self.imageView.hidden = NO;
     }
 }

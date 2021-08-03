@@ -40,8 +40,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly, retain) NSURL * _Nullable cropImage;
 @property (readonly, retain) NSArray<NSNumber *> *childIds;
 @property (readonly, retain) NSArray<NSNumber *> *gameModes;
-+ (HSCard * _Nullable)hsCardFromJSONData:(NSData *)data error:(NSError **)error;
-+ (NSArray<HSCard *> *)hsCardsFromJSONData:(NSData *)data error:(NSError **)error;
++ (HSCard * _Nullable)hsCardFromDic:(NSDictionary *)dic;
++ (NSArray<HSCard *> *)hsCardsFromDic:(NSDictionary *)dic;
 @end
 
 NS_ASSUME_NONNULL_END
