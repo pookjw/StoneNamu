@@ -32,10 +32,13 @@
         
         NSOperationQueue *queue = [NSOperationQueue new];
         queue.qualityOfService = NSQualityOfServiceUserInitiated;
+        queue.maxConcurrentOperationCount = 1;
+        self.queue = queue;
+        [queue release];
+        
         self.pageCount = nil;
         self.page = [NSNumber numberWithUnsignedInt:1];
         self.isFetching = NO;
-        _queue = queue;
     }
     
     return self;

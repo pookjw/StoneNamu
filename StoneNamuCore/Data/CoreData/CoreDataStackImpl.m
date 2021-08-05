@@ -93,6 +93,7 @@ static NSMutableDictionary<NSString *, NSOperationQueue *> * _Nullable kOperatio
     
     NSOperationQueue *queue = [NSOperationQueue new];
     queue.qualityOfService = NSQualityOfServiceUserInitiated;
+    queue.maxConcurrentOperationCount = 1;
     kOperationQueues[modelName] = queue;
     _queue = [queue retain];
 }

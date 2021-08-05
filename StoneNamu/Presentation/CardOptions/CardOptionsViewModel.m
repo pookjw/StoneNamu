@@ -23,11 +23,14 @@
         
         NSOperationQueue *queue = [NSOperationQueue new];
         queue.qualityOfService = NSQualityOfServiceUserInitiated;
-        _queue = queue;
+        queue.maxConcurrentOperationCount = 1;
+        self.queue = queue;
         
         [queue addOperationWithBlock:^{
             [self configureSnapshot];
         }];
+        
+        [queue release];
     }
     
     return self;
