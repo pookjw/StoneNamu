@@ -47,3 +47,9 @@
 "CARD_SORT" = "결과 정렬";
 
 "CARD_NAME" = "이름";
+
+"CARD_FLAVOR_TEXT" = "문구";
+
+"CARD_DESCRIPTION" = "설명";
+
+"CARD_ARTIST" = "작가";

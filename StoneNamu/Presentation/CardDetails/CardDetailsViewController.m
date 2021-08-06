@@ -11,6 +11,7 @@
 #import "CardDetailsLayoutCompactViewController.h"
 #import "CardDetailsLayoutRegularViewController.h"
 #import "CardDetailsViewModel.h"
+#import "CardDetailsContentConfiguration.h"
 
 @interface CardDetailsViewController () <UIViewControllerTransitioningDelegate>
 @property (retain) UIImageView *sourceImageView;
@@ -62,12 +63,17 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self updateLayoutViewControllerWithSizeClass:self.traitCollection.horizontalSizeClass];
+    [self updateLayoutViewControllerWithTraitCollection:self.traitCollection];
+    [self updateCollectionViewWhenDidAppear];
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
 }
 
 - (void)willTransitionToTraitCollection:(UITraitCollection *)newCollection withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
     [super willTransitionToTraitCollection:newCollection withTransitionCoordinator:coordinator];
-    [self updateLayoutViewControllerWithSizeClass:newCollection.horizontalSizeClass];
+    [self updateLayoutViewControllerWithTraitCollection:newCollection];
 }
 
 - (UIViewController<CardDetailsLayoutProtocol> * _Nullable)currentLayoutViewController {
@@ -86,6 +92,7 @@
 - (void)setAttributes {
     self.modalPresentationStyle = UIModalPresentationCustom;
     self.transitioningDelegate = self;
+    self.modalPresentationCapturesStatusBarAppearance = YES;
     self.view.backgroundColor = UIColor.clearColor;
     
     UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(triggeredViewTapGesgure:)];
@@ -117,6 +124,22 @@
 - (void)configureCollectionView {
     UICollectionLayoutListConfiguration *layoutConfiguration = [[UICollectionLayoutListConfiguration alloc] initWithAppearance:UICollectionLayoutListAppearanceInsetGrouped];
     layoutConfiguration.backgroundColor = UIColor.clearColor;
+    layoutConfiguration.showsSeparators = YES;
+    
+    if (@available(iOS 14.5, *)) {
+        UIListSeparatorConfiguration *separatorConfiguration = [[UIListSeparatorConfiguration alloc] initWithListAppearance:UICollectionLayoutListAppearanceInsetGrouped];
+        
+        if (@available(iOS 15.0, *)) {
+            UIVibrancyEffect *effect = [UIVibrancyEffect effectForBlurEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleDark] style:UIVibrancyEffectStyleSeparator];
+            separatorConfiguration.visualEffect = effect;
+        } else {
+            separatorConfiguration.color = [UIColor.whiteColor colorWithAlphaComponent:0.5];
+        }
+        
+        layoutConfiguration.separatorConfiguration = separatorConfiguration;
+        [separatorConfiguration release];
+    }
+    
     UICollectionViewCompositionalLayout *layout = [UICollectionViewCompositionalLayout layoutWithListConfiguration:layoutConfiguration];
     [layoutConfiguration release];
     
@@ -124,8 +147,14 @@
     self.collectionView = collectionView;
     
     self.collectionView.backgroundColor = UIColor.clearColor;
+    self.collectionView.alpha = 0;
     
     [collectionView release];
+}
+
+- (void)updateCollectionViewWhenDidAppear {
+    self.collectionView.alpha = 1;
+    [self.collectionView.collectionViewLayout invalidateLayout];
 }
 
 - (void)configureLayoutViewControllers {
@@ -157,7 +186,7 @@
     
     self.layoutViewControllers = @[compactViewController, regularViewController];
     
-    [self updateLayoutViewControllerWithSizeClass:self.view.traitCollection.horizontalSizeClass];
+    [self updateLayoutViewControllerWithTraitCollection:self.view.traitCollection];
     
     [compactViewController release];
     [regularViewController release];
@@ -172,7 +201,7 @@
     [viewModel release];
 }
 
-- (void)updateLayoutViewControllerWithSizeClass:(UIUserInterfaceSizeClass)sizeClass {
+- (void)updateLayoutViewControllerWithTraitCollection:(UITraitCollection *)trailtCollection {
     for (UIViewController<CardDetailsLayoutProtocol> *tmp in self.layoutViewControllers) {
         [tmp cardDetailsLayoutRemovePrimaryImageView];
         [tmp cardDetailsLayoutRemoveCollectionView];
@@ -180,6 +209,7 @@
     }
     
     UIViewController<CardDetailsLayoutProtocol> *targetLayoutViewController;
+    UIUserInterfaceSizeClass sizeClass = trailtCollection.horizontalSizeClass;
     
     switch (sizeClass) {
         case UIUserInterfaceSizeClassCompact:
@@ -223,17 +253,14 @@
         }
         CardDetailsItemModel *itemModel = (CardDetailsItemModel *)item;
         
-        UIListContentConfiguration *configuration = [UIListContentConfiguration subtitleCellConfiguration];
-        configuration.text = itemModel.text;
+        CardDetailsContentConfiguration *configuration = [[CardDetailsContentConfiguration alloc] initWithLeadingText:itemModel.primaryText trailingText:itemModel.secondaryText];
         cell.contentConfiguration = configuration;
         
-        if (itemModel.accessoryText) {
-            cell.accessories = @[
-                [[[UICellAccessoryLabel alloc] initWithText:itemModel.accessoryText] autorelease]
-            ];
-        } else {
-            cell.accessories = @[];
-        }
+        UIBackgroundConfiguration *backgroundConfiguration = [UIBackgroundConfiguration listGroupedCellConfiguration];
+        backgroundConfiguration.backgroundColor = UIColor.clearColor;
+        cell.backgroundConfiguration = backgroundConfiguration;
+        
+        [configuration release];
     }];
     
     return cellRegistration;

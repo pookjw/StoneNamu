@@ -50,9 +50,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self setAttributes];
     [self configureCollectionView];
     [self configureViewModel];
     [self bind];
+}
+
+- (void)setAttributes {
+    
 }
 
 - (void)configureCollectionView {

@@ -24,8 +24,8 @@ typedef NS_ENUM(NSUInteger, CardDetailsItemModelType) {
 
 @interface CardDetailsItemModel : NSObject
 @property (readonly) CardDetailsItemModelType type;
-@property (readonly, nonatomic) NSString * _Nullable text;
-@property (readonly, nonatomic) NSString * _Nullable accessoryText;
+@property (readonly, nonatomic) NSString * _Nullable primaryText;
+@property (readonly, nonatomic) NSString * _Nullable secondaryText;
 - (instancetype)initWithType:(CardDetailsItemModelType)type value:(NSString * _Nullable)value;
 @end
 

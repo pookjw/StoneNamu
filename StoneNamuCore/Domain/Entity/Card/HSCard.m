@@ -99,7 +99,7 @@
     }
     
     id artistName = dic[@"artistName"];
-    if ([artistName isEqual:[NSNull null]]) {
+    if ([artistName isEqual:[NSNull null]] || ([(NSString *)artistName isEqualToString:@""])) {
         hsCard->_artistName = nil;
     } else {
         hsCard->_artistName = [artistName retain];

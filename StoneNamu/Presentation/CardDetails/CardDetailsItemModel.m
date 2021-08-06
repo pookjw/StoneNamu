@@ -39,16 +39,34 @@
     return self.type == toCompare.type;
 }
 
-- (NSString * _Nullable)text {
+- (NSString * _Nullable)primaryText {
     switch (self.type) {
         case CardDetailsItemModelTypeName:
             return NSLocalizedString(@"CARD_NAME", @"");
+        case CardDetailsItemModelTypeFlavorText:
+            return NSLocalizedString(@"CARD_FLAVOR_TEXT", @"");
+        case CardDetailsItemModelTypeText:
+            return NSLocalizedString(@"CARD_DESCRIPTION", @"");
+        case CardDetailsItemModelTypeType:
+            return NSLocalizedString(@"CARD_TYPE", @"");
+        case CardDetailsItemModelTypeRarity:
+            return NSLocalizedString(@"CARD_RARITY", @"");
+        case CardDetailsItemModelTypeSet:
+            return NSLocalizedString(@"CARD_SET", @"");
+        case CardDetailsItemModelTypeClass:
+            return NSLocalizedString(@"CARD_CLASS", @"");
+        case CardDetailsItemModelTypeArtist:
+            return NSLocalizedString(@"CARD_ARTIST", @"");
+        case CardDetailsItemModelTypeCollectible:
+            return NSLocalizedString(@"CARD_COLLECTIBLE", @"");
+        case CardDetailsItemModelTypeChildren:
+            return nil;
         default:
             return nil;
     }
 }
 
-- (NSString * _Nullable)accessoryText {
+- (NSString * _Nullable)secondaryText {
     return self.value;
 }
 

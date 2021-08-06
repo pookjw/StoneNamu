@@ -21,18 +21,7 @@
     self = [super init];
     
     if (self) {
-        UIImageView *imageView = [UIImageView new];
-        _imageView = [imageView retain];
-        self.imageView.contentMode = UIViewContentModeScaleAspectFit;
-        [self addSubview:imageView];
-        imageView.translatesAutoresizingMaskIntoConstraints = NO;
-        [NSLayoutConstraint activateConstraints:@[
-            [imageView.topAnchor constraintEqualToAnchor:self.topAnchor],
-            [imageView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
-            [imageView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
-            [imageView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor]
-        ]];
-        [imageView release];
+        [self configureImageView];
     }
     
     return self;
@@ -43,6 +32,21 @@
     [_imageView release];
     [_hsCard release];
     [super dealloc];
+}
+
+- (void)configureImageView {
+    UIImageView *imageView = [UIImageView new];
+    _imageView = [imageView retain];
+    self.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [self addSubview:imageView];
+    imageView.translatesAutoresizingMaskIntoConstraints = NO;
+    [NSLayoutConstraint activateConstraints:@[
+        [imageView.topAnchor constraintEqualToAnchor:self.topAnchor],
+        [imageView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
+        [imageView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
+        [imageView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor]
+    ]];
+    [imageView release];
 }
 
 - (void)setConfiguration:(id<UIContentConfiguration>)configuration {

@@ -47,3 +47,9 @@
 "CARD_SORT" = "Sorting Results";
 
 "CARD_NAME" = "Name";
+
+"CARD_FLAVOR_TEXT" = "Flavor Text";
+
+"CARD_DESCRIPTION" = "Description";
+
+"CARD_ARTIST" = "Artist";
