@@ -52,7 +52,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSLog(@"%@", self.hsCard.slug);
+    NSLog(@"hsCard.slug: %@", self.hsCard.slug);
     
     [self setAttributes];
     [self configurePrimaryImageView];
