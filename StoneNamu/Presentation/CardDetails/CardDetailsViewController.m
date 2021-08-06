@@ -153,7 +153,9 @@
 }
 
 - (void)updateCollectionViewWhenDidAppear {
-    self.collectionView.alpha = 1;
+    [UIView animateWithDuration:0.2 animations:^{
+        self.collectionView.alpha = 1;
+    }];
     [self.collectionView.collectionViewLayout invalidateLayout];
 }
 
