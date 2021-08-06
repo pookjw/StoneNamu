@@ -10,9 +10,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CardDetailsBasicContentConfiguration : NSObject <UIContentConfiguration>
-@property (copy) NSString *leadingText;
-@property (copy) NSString *trailingText;
-- (instancetype)initWithLeadingText:(NSString *)leadingText trailingText:(NSString *)trailingText;
+@property (copy) NSString * _Nullable leadingText;
+@property (copy) NSString * _Nullable trailingText;
+- (instancetype)initWithLeadingText:(NSString * _Nullable)leadingText trailingText:(NSString * _Nullable)trailingText;
 @end
 
 NS_ASSUME_NONNULL_END

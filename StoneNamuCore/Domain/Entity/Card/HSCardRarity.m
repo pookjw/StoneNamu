@@ -42,6 +42,7 @@ HSCardRarity HSCardRarityFromNSString(NSString * key) {
 
 NSArray<NSString *> *hsCardRarities(void) {
     return @[
+        NSStringFromHSCardRarity(HSCardRarityNull),
         NSStringFromHSCardRarity(HSCardRarityFree),
         NSStringFromHSCardRarity(HSCardRarityCommon),
         NSStringFromHSCardRarity(HSCardRarityRare),

@@ -136,8 +136,19 @@
     CardDetailsBasicContentConfiguration *content = (CardDetailsBasicContentConfiguration *)configuration;
     self->configuration = [content copy];
     
-    self.leadingLabel.text = content.leadingText.clearedHTML;
-    self.trailingLabel.text = content.trailingText.clearedHTML;
+    NSString * _Nullable clearedLeadingText = content.leadingText.clearedHTML;
+    if ((clearedLeadingText == nil) || ([clearedLeadingText isEqualToString:@""])) {
+        self.leadingLabel.text = NSLocalizedString(@"EMPTY", @"");
+    } else {
+        self.leadingLabel.text = clearedLeadingText;
+    }
+    
+    NSString * _Nullable clearedTrailingText = content.trailingText.clearedHTML;
+    if ((clearedTrailingText == nil) || ([clearedTrailingText isEqualToString:@""])) {
+        self.trailingLabel.text = NSLocalizedString(@"EMPTY", @"");
+    } else {
+        self.trailingLabel.text = clearedTrailingText;
+    }
 }
 
 @end

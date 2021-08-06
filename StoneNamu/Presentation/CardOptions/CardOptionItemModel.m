@@ -117,60 +117,58 @@ NSString * NSStringFromCardOptionItemModelType(CardOptionItemModelType type) {
     switch (self.type) {
         case CardOptionItemModelTypeSet:
             return [self pickerItemModelsFromDic:hsCardSetsWithLocalizable()
+                                     filterArray:nil
                                        converter:^NSUInteger(NSString * key) {
                 return HSCardSetFromNSString(key);
             }];
         case CardOptionItemModelTypeClass: {
-            NSMutableDictionary *filteredDic = [@{} mutableCopy];
-            
-            [hsCardClassesWithLocalizable() enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSString * _Nonnull obj, BOOL * _Nonnull stop) {
-                if (![key isEqualToString:NSStringFromHSCardClass(HSCardClassDeathKnight)]) {
-                    filteredDic[key] = obj;
-                }
-            }];
-            
-            NSDictionary<NSString *, NSString *> *result = [[filteredDic copy] autorelease];
-            [filteredDic release];
-            
-            return [self pickerItemModelsFromDic:result
+            return [self pickerItemModelsFromDic:hsCardClassesWithLocalizable()
+                                     filterArray:@[NSStringFromHSCardClass(HSCardClassDeathKnight)]
                                        converter:^NSUInteger(NSString * key) {
                 return HSCardClassFromNSString(key);
             }];
         }
         case CardOptionItemModelTypeCollectible: {
             return [self pickerItemModelsFromDic:hsCardCollectiblesWithLocalizable()
+                                     filterArray:nil
                                        converter:^NSUInteger(NSString * key) {
                 return HSCardCollectibleFromNSString(key);
             }];
         }
         case CardOptionItemModelTypeRarity: {
             return [self pickerItemModelsFromDic:hsCardRaritiesWithLocalizable()
+                                     filterArray:@[NSStringFromHSCardRarity(HSCardRarityNull)]
                                        converter:^NSUInteger(NSString * key) {
                 return HSCardRarityFromNSString(key);
             }];
         }
         case CardOptionItemModelTypeType:
             return [self pickerItemModelsFromDic:hsCardTypesWithLocalizable()
+                                     filterArray:nil
                                        converter:^NSUInteger(NSString * key) {
                 return HSCardTypeFromNSString(key);
             }];
         case CardOptionItemModelTypeMinionType:
             return [self pickerItemModelsFromDic:hsCardMinionTypesWithLocalizable()
+                                     filterArray:nil
                                        converter:^NSUInteger(NSString * key) {
                 return HSCardMinionTypeFromNSString(key);
             }];
         case CardOptionItemModelTypeKeyword:
             return [self pickerItemModelsFromDic:hsCardKeywordsWithLocalizable()
+                                     filterArray:nil
                                        converter:^NSUInteger(NSString * key) {
                 return HSCardKeywordFromNSString(key);
             }];
         case CardOptionItemModelTypeGameMode:
             return [self pickerItemModelsFromDic:hsCardGameModesWithLocalizable()
+                                     filterArray:nil
                                        converter:^NSUInteger(NSString * key) {
                 return HSCardGameModeFromNSString(key);
             }];
         case CardOptionItemModelTypeSort:
             return [self pickerItemModelsFromDic:hsCardSortsWithLocalizable()
+                                     filterArray:nil
                                        converter:^NSUInteger(NSString * key) {
                 return HSCardSortFromNSString(key);
             }];
@@ -270,15 +268,19 @@ NSString * NSStringFromCardOptionItemModelType(CardOptionItemModelType type) {
 #pragma mark Helper
 
 - (NSArray<PickerItemModel *> *)pickerItemModelsFromDic:(NSDictionary<NSString *, NSString *> *)dic
-                                             converter:(NSUInteger (^)(NSString *))converter {
+                                            filterArray:(NSArray<NSString *> * _Nullable)filterArray
+                                              converter:(NSUInteger (^)(NSString *))converter {
+    
     NSMutableArray<PickerItemModel *> *arr = [@[] mutableCopy];
     
     [dic enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSString * _Nonnull obj, BOOL * _Nonnull stop) {
-        PickerItemModel *itemModel = [[PickerItemModel alloc] initWithImage:[UIImage imageNamed:key]
-                                                                      title:obj
-                                                                   identity:key];
-        [arr addObject:itemModel];
-        [itemModel release];
+        if (![filterArray containsObject:key]) {
+            PickerItemModel *itemModel = [[PickerItemModel alloc] initWithImage:[UIImage imageNamed:key]
+                                                                          title:obj
+                                                                       identity:key];
+            [arr addObject:itemModel];
+            [itemModel release];
+        }
     }];
     
     NSComparator comparator = ^NSComparisonResult(PickerItemModel *lhsModel, PickerItemModel *rhsModel) {

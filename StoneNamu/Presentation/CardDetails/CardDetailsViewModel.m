@@ -61,16 +61,10 @@
             [[[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeRarity value:hsCardRaritiesWithLocalizable()[NSStringFromHSCardRarity(hsCard.rarityId)]] autorelease],
             [[[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeSet value:hsCardSetsWithLocalizable()[NSStringFromHSCardSet(hsCard.cardSetId)]] autorelease],
             [[[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeClass value:hsCardClassesWithLocalizable()[NSStringFromHSCardClass(hsCard.classId)]] autorelease],
-            [[[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeCollectible value:hsCardCollectiblesWithLocalizable()[NSStringFromHSCardCollectible(hsCard.collectible)]] autorelease]
+            [[[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeCollectible value:hsCardCollectiblesWithLocalizable()[NSStringFromHSCardCollectible(hsCard.collectible)]] autorelease],
+            [[[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeArtist value:hsCard.artistName] autorelease]
         ]
                    intoSectionWithIdentifier:sectionModelDetail];
-        
-        if (hsCard.artistName) {
-            [snapshot appendItemsWithIdentifiers:@[
-                [[[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeArtist value:hsCard.artistName] autorelease]
-            ]
-                       intoSectionWithIdentifier:sectionModelDetail];
-        }
         
         //
         

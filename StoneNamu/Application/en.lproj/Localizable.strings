@@ -53,3 +53,5 @@
 "CARD_DESCRIPTION" = "Description";
 
 "CARD_ARTIST" = "Artist";
+
+"EMPTY" = "(Empty)";
