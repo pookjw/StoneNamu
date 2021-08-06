@@ -1,14 +1,14 @@
 //
-//  CardDetailsContentConfiguration.m
-//  CardDetailsContentConfiguration
+//  CardDetailsBasicContentConfiguration.m
+//  CardDetailsBasicContentConfiguration
 //
 //  Created by Jinwoo Kim on 8/6/21.
 //
 
-#import "CardDetailsContentConfiguration.h"
+#import "CardDetailsBasicContentConfiguration.h"
 #import "CardDetailsBasicContentView.h"
 
-@implementation CardDetailsContentConfiguration
+@implementation CardDetailsBasicContentConfiguration
 
 - (instancetype)initWithLeadingText:(NSString *)leadingText trailingText:(NSString *)trailingText {
     self = [self init];
@@ -31,7 +31,7 @@
     id copy = [[self class] new];
     
     if (copy) {
-        CardDetailsContentConfiguration *_copy = (CardDetailsContentConfiguration *)copy;
+        CardDetailsBasicContentConfiguration *_copy = (CardDetailsBasicContentConfiguration *)copy;
         
         _copy.leadingText = self.leadingText;
         _copy.trailingText = self.trailingText;

@@ -6,7 +6,7 @@
 //
 
 #import "CardDetailsBasicContentView.h"
-#import "CardDetailsContentConfiguration.h"
+#import "CardDetailsBasicContentConfiguration.h"
 #import "NSString+clearedHTML.h"
 
 @interface CardDetailsBasicContentView ()
@@ -133,7 +133,7 @@
 
 - (void)setConfiguration:(id<UIContentConfiguration>)configuration {
     [self->configuration release];
-    CardDetailsContentConfiguration *content = (CardDetailsContentConfiguration *)configuration;
+    CardDetailsBasicContentConfiguration *content = (CardDetailsBasicContentConfiguration *)configuration;
     self->configuration = [content copy];
     
     self.leadingLabel.text = content.leadingText.clearedHTML;

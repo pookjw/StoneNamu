@@ -11,7 +11,7 @@
 #import "CardDetailsLayoutCompactViewController.h"
 #import "CardDetailsLayoutRegularViewController.h"
 #import "CardDetailsViewModel.h"
-#import "CardDetailsContentConfiguration.h"
+#import "CardDetailsBasicContentConfiguration.h"
 
 @interface CardDetailsViewController () <UIViewControllerTransitioningDelegate>
 @property (retain) UIImageView *sourceImageView;
@@ -146,8 +146,10 @@
     UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:layout];
     self.collectionView = collectionView;
     
-    self.collectionView.backgroundColor = UIColor.clearColor;
-    self.collectionView.alpha = 0;
+    collectionView.backgroundColor = UIColor.clearColor;
+    collectionView.alpha = 0;
+    
+    collectionView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
     
     [collectionView release];
 }
@@ -255,7 +257,7 @@
         }
         CardDetailsItemModel *itemModel = (CardDetailsItemModel *)item;
         
-        CardDetailsContentConfiguration *configuration = [[CardDetailsContentConfiguration alloc] initWithLeadingText:itemModel.primaryText trailingText:itemModel.secondaryText];
+        CardDetailsBasicContentConfiguration *configuration = [[CardDetailsBasicContentConfiguration alloc] initWithLeadingText:itemModel.primaryText trailingText:itemModel.secondaryText];
         cell.contentConfiguration = configuration;
         
         UIBackgroundConfiguration *backgroundConfiguration = [UIBackgroundConfiguration listGroupedCellConfiguration];

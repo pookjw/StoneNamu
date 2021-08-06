@@ -1,6 +1,6 @@
 //
-//  CardDetailsContentConfiguration.h
-//  CardDetailsContentConfiguration
+//  CardDetailsBasicContentConfiguration.h
+//  CardDetailsBasicContentConfiguration
 //
 //  Created by Jinwoo Kim on 8/6/21.
 //
@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CardDetailsContentConfiguration : NSObject <UIContentConfiguration>
+@interface CardDetailsBasicContentConfiguration : NSObject <UIContentConfiguration>
 @property (copy) NSString *leadingText;
 @property (copy) NSString *trailingText;
 - (instancetype)initWithLeadingText:(NSString *)leadingText trailingText:(NSString *)trailingText;
