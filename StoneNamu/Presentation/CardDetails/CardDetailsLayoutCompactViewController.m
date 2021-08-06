@@ -10,6 +10,7 @@
 @interface CardDetailsLayoutCompactViewController ()
 @property (retain) UIView *primaryImageViewContainerView;
 @property (retain) UIView *collectionViewContainerView;
+@property (retain) CAGradientLayer *gradientLayer;
 @property (retain) UIImageView * _Nullable primaryImageView;
 @property (retain) UICollectionView * _Nullable collectionView;
 @end
@@ -29,6 +30,7 @@
 - (void)dealloc {
     [_primaryImageViewContainerView release];
     [_collectionViewContainerView release];
+    [_gradientLayer release];
     [_primaryImageView release];
     [_collectionView release];
     [super dealloc];
@@ -37,6 +39,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self configureContainerViews];
+}
+
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    [self updateGradientLayer];
 }
 
 - (void)configureContainerViews {
@@ -74,7 +81,25 @@
     ]];
     collectionViewContainerView.backgroundColor = UIColor.clearColor;
     
+    CAGradientLayer *gradientLayer = [CAGradientLayer new];
+    self.gradientLayer = gradientLayer;
+    gradientLayer.colors = @[
+        (id)[UIColor.whiteColor colorWithAlphaComponent:0].CGColor,
+        (id)UIColor.whiteColor.CGColor
+    ];
+    gradientLayer.startPoint = CGPointMake(0, 0);
+    gradientLayer.endPoint = CGPointMake(0, 0.05);
+    self.collectionViewContainerView.layer.mask = gradientLayer;
+    [gradientLayer release];
+    
     [collectionViewContainerView release];
+}
+
+- (void)updateGradientLayer {
+    [CATransaction begin];
+    [CATransaction setDisableActions:YES];
+    self.gradientLayer.frame = self.collectionViewContainerView.bounds;
+    [CATransaction commit];
 }
 
 - (CGRect)estimatedPrimaryImageRectUsingWindow:(UIWindow *)window safeAreaInsets:(UIEdgeInsets)safeAreaInsets {
