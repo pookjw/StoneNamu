@@ -29,8 +29,4 @@
     return result;
 }
 
-- (NSString *)removingBoldAttr {
-    return [[self stringByReplacingOccurrencesOfString:@"<b>" withString:@""] stringByReplacingOccurrencesOfString:@"</b>" withString:@""];
-}
-
 @end

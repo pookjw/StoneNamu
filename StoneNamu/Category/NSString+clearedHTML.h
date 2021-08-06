@@ -11,7 +11,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSString (clearedHTML)
 @property (nonatomic, readonly) NSString *clearedHTML;
-@property (nonatomic, readonly) NSString *removingBoldAttr;
 @end
 
 NS_ASSUME_NONNULL_END
