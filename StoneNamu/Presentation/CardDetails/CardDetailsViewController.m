@@ -61,10 +61,18 @@
     [self configureViewModel];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [self.transitionCoordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {}
+                                                completion:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
+        [self updateCollectionViewAttributes];
+    }];
+}
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self updateLayoutViewControllerWithTraitCollection:self.traitCollection];
-    [self updateCollectionViewWhenDidAppear];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -154,7 +162,7 @@
     [collectionView release];
 }
 
-- (void)updateCollectionViewWhenDidAppear {
+- (void)updateCollectionViewAttributes {
     [UIView animateWithDuration:0.2 animations:^{
         self.collectionView.alpha = 1;
     }];
