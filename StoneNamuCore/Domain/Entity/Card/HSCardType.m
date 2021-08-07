@@ -17,6 +17,8 @@ NSString * NSStringFromHSCardType(HSCardType type) {
             return @"weapon";
         case HSCardTypeHero:
             return @"hero";
+        case HSCardTypeHeroPower:
+            return @"hero-power"; // this keyword is not for Blizzard Official API
         default:
             return @"";
     }
@@ -31,6 +33,8 @@ HSCardType HSCardTypeFromNSString(NSString * key) {
         return HSCardTypeWeapon;
     } else if ([key isEqualToString:@"hero"]) {
         return HSCardTypeHero;
+    } else if ([key isEqualToString:@"hero-power"]) {
+        return HSCardTypeHeroPower;
     } else {
         return HSCardTypeMinion;
     }
@@ -41,7 +45,8 @@ NSArray<NSString *> *hsCardTypesCollectibles(void) {
         NSStringFromHSCardType(HSCardTypeMinion),
         NSStringFromHSCardType(HSCardTypeSpell),
         NSStringFromHSCardType(HSCardTypeWeapon),
-        NSStringFromHSCardType(HSCardTypeHero)
+        NSStringFromHSCardType(HSCardTypeHero),
+        NSStringFromHSCardType(HSCardTypeHeroPower)
     ];
 }
 

@@ -144,7 +144,7 @@ NSString * NSStringFromCardOptionItemModelType(CardOptionItemModelType type) {
         }
         case CardOptionItemModelTypeType:
             return [self pickerItemModelsFromDic:hsCardTypesWithLocalizable()
-                                     filterArray:nil
+                                     filterArray:@[NSStringFromHSCardType(HSCardTypeHeroPower)]
                                        converter:^NSUInteger(NSString * key) {
                 return HSCardTypeFromNSString(key);
             }];

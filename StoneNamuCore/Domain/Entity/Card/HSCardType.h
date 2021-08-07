@@ -11,7 +11,8 @@ typedef NS_ENUM(NSUInteger, HSCardType) {
     HSCardTypeMinion = 4,
     HSCardTypeSpell = 5,
     HSCardTypeWeapon = 7,
-    HSCardTypeHero = 3
+    HSCardTypeHero = 3,
+    HSCardTypeHeroPower = 10
 };
 
 NSString * NSStringFromHSCardType(HSCardType);
