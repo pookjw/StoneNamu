@@ -6,12 +6,12 @@
 //
 
 #import "HSCardRepositoryImpl.h"
-#import "BlizzardHSRepositoryImpl.h"
+#import "BlizzardAPIRepositoryImpl.h"
 
 static NSString * const BlizzardHSCardAPIBasePath = @"/hearthstone/cards";
 
 @interface HSCardRepositoryImpl ()
-@property (retain) id<BlizzardHSRepository> blizzardHSRepository;
+@property (retain) id<BlizzardAPIRepository> blizzardHSRepository;
 @end
 
 @implementation HSCardRepositoryImpl
@@ -20,7 +20,7 @@ static NSString * const BlizzardHSCardAPIBasePath = @"/hearthstone/cards";
     self = [super init];
     
     if (self) {
-        BlizzardHSRepositoryImpl *blizzardHSRepository = [BlizzardHSRepositoryImpl new];
+        BlizzardAPIRepositoryImpl *blizzardHSRepository = [BlizzardAPIRepositoryImpl new];
         self.blizzardHSRepository = blizzardHSRepository;
         [blizzardHSRepository release];
     }
@@ -37,7 +37,7 @@ static NSString * const BlizzardHSCardAPIBasePath = @"/hearthstone/cards";
                withOptions:(NSDictionary<NSString *, id> * _Nullable)options
          completionHandler:(HSCardRepositoryCardsCompletion)completion
 {
-    BlizzardHSRepositoryCompletion hsAPICompletion = ^(NSData *data, NSURLResponse *response, NSError *error) {
+    BlizzardAPIRepositoryCompletion hsAPICompletion = ^(NSData *data, NSURLResponse *response, NSError *error) {
         
         if (error) {
             completion(nil, nil, nil, error);
@@ -70,7 +70,7 @@ static NSString * const BlizzardHSCardAPIBasePath = @"/hearthstone/cards";
                withOptions:(NSDictionary<NSString *, id> * _Nullable)options
          completionHandler:(HSCardRepositoryCardCompletion)completion {
     
-    BlizzardHSRepositoryCompletion hsAPICompletion = ^(NSData *data, NSURLResponse *response, NSError *error) {
+    BlizzardAPIRepositoryCompletion hsAPICompletion = ^(NSData *data, NSURLResponse *response, NSError *error) {
         
         if (error) {
             completion(nil, error);

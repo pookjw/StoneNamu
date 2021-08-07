@@ -1,20 +1,20 @@
 //
-//  BlizzardHSRepositoryImpl.m
+//  BlizzardAPIRepositoryImpl.m
 //  StoneNamuCore
 //
 //  Created by Jinwoo Kim on 7/18/21.
 //
 
-#import "BlizzardHSRepositoryImpl.h"
+#import "BlizzardAPIRepositoryImpl.h"
 #import "BlizzardTokenAPIImpl.h"
-#import "BlizzardHSAPIImpl.h"
+#import "BlizzardAPIImpl.h"
 
-@interface BlizzardHSRepositoryImpl ()
+@interface BlizzardAPIRepositoryImpl ()
 @property (retain) id<BlizzardTokenAPI> blizzardTokenAPI;
-@property (retain) id<BlizzardHSAPI> blizzardHSAPI;
+@property (retain) id<BlizzardAPI> blizzardHSAPI;
 @end
 
-@implementation BlizzardHSRepositoryImpl
+@implementation BlizzardAPIRepositoryImpl
 
 - (instancetype)init {
     self = [super init];
@@ -24,7 +24,7 @@
         self.blizzardTokenAPI = blizzardTokenAPI;
         [blizzardTokenAPI release];
         
-        BlizzardHSAPIImpl *blizzardHSAPI = [BlizzardHSAPIImpl new];
+        BlizzardAPIImpl *blizzardHSAPI = [BlizzardAPIImpl new];
         self.blizzardHSAPI = blizzardHSAPI;
         [blizzardHSAPI release];
     }
@@ -41,9 +41,9 @@
 - (void)getAtRegion:(BlizzardAPIRegionHost)regionHost
                path:(NSString *)path
             options:(NSDictionary<NSString *, id> * _Nullable)options
-  completionHandler:(BlizzardHSRepositoryCompletion)completion {
+  completionHandler:(BlizzardAPIRepositoryCompletion)completion {
     
-    BlizzardHSAPICompletion hsAPICompletion = ^(NSData *data, NSURLResponse *response, NSError *error) {
+    BlizzardAPICompletion hsAPICompletion = ^(NSData *data, NSURLResponse *response, NSError *error) {
         completion(data, response, error);
     };
     

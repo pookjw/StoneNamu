@@ -1,21 +1,21 @@
 //
-//  BlizzardHSAPIImpl.m
+//  BlizzardAPIImpl.m
 //  StoneNamuCore
 //
 //  Created by Jinwoo Kim on 7/17/21.
 //
 
-#import "BlizzardHSAPIImpl.h"
+#import "BlizzardAPIImpl.h"
 
 static NSString * const BlizzardHSAPIAccessToken = @"access_token";
 
-@implementation BlizzardHSAPIImpl
+@implementation BlizzardAPIImpl
 
 - (void)getAtRegion:(BlizzardAPIRegionHost)regionHost
                path:(NSString *)path
         accessToken:(NSString *)accessToken
             options:(NSDictionary<NSString *, id> * _Nullable)options
-  completionHandler:(BlizzardHSAPICompletion)completion
+  completionHandler:(BlizzardAPICompletion)completion
 {
     NSURLComponents *components = [NSURLComponents new];
     
