@@ -104,6 +104,8 @@
         return cell;
     }];
     
+    [dataSource autorelease];
+    
     return dataSource;
 }
 
