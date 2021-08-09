@@ -90,6 +90,7 @@
     [_hsCardUseCase release];
     [_pageCount release];
     [_page release];
+    [_queue cancelAllOperations];
     [_queue release];
     [super dealloc];
 }

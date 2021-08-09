@@ -40,6 +40,7 @@ static NSMutableDictionary<NSString *, NSOperationQueue *> * _Nullable kOperatio
 - (void)dealloc {
     [_context release];
     [_storeContainer release];
+    [_queue cancelAllOperations];
     [_queue release];
     [super dealloc];
 }
