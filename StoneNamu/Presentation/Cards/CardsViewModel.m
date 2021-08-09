@@ -10,7 +10,7 @@
 #import "BlizzardHSAPIKeys.h"
 
 @interface CardsViewModel ()
-@property (retain) id<HSCardUseCase> fetchHSCardUseCase;
+@property (retain) id<HSCardUseCase> hsCardUseCase;
 @property (retain) NSNumber * _Nullable pageCount;
 @property (retain) NSNumber *page;
 @property (nonatomic, readonly) BOOL canLoadMore;
@@ -27,12 +27,11 @@
         _dataSource = [dataSource retain];
         
         HSCardUseCaseImpl *hsCardUseCase = [HSCardUseCaseImpl new];
-        self.fetchHSCardUseCase = hsCardUseCase;
+        self.hsCardUseCase = hsCardUseCase;
         [hsCardUseCase release];
         
         NSOperationQueue *queue = [NSOperationQueue new];
         queue.qualityOfService = NSQualityOfServiceUserInitiated;
-        queue.maxConcurrentOperationCount = 1;
         self.queue = queue;
         [queue release];
         
@@ -64,13 +63,13 @@
     NSDictionary *finalDic = [[mutableDic copy] autorelease];
     [mutableDic release];
     
-    [self.fetchHSCardUseCase fetchWithOptions:finalDic completionHandler:^(NSArray<HSCard *> * _Nullable cards, NSNumber *pageCount, NSNumber *page, NSError * _Nullable error) {
+    [self.hsCardUseCase fetchWithOptions:finalDic completionHandler:^(NSArray<HSCard *> * _Nullable cards, NSNumber *pageCount, NSNumber *page, NSError * _Nullable error) {
         
         if (error) {
             [self postError:error];
         }
         
-        [self.queue addOperationWithBlock:^{
+        [self.queue addBarrierBlock:^{
             self.pageCount = pageCount;
             self.page = page;
             self.isFetching = NO;
@@ -88,7 +87,7 @@
 
 - (void)dealloc {
     [_dataSource release];
-    [_fetchHSCardUseCase release];
+    [_hsCardUseCase release];
     [_pageCount release];
     [_page release];
     [_queue release];

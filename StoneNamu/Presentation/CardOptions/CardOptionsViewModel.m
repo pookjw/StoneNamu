@@ -23,10 +23,9 @@
         
         NSOperationQueue *queue = [NSOperationQueue new];
         queue.qualityOfService = NSQualityOfServiceUserInitiated;
-        queue.maxConcurrentOperationCount = 1;
         self.queue = queue;
         
-        [queue addOperationWithBlock:^{
+        [queue addBarrierBlock:^{
             [self configureSnapshot];
         }];
         
@@ -103,7 +102,7 @@
     [itemModel retain];
     [value retain];
     
-    [self.queue addOperationWithBlock:^{
+    [self.queue addBarrierBlock:^{
         NSDiffableDataSourceSnapshot *snapshot = self.dataSource.snapshot;
         itemModel.value = value;
         

@@ -12,8 +12,9 @@
 #import "CardDetailsLayoutRegularViewController.h"
 #import "CardDetailsViewModel.h"
 #import "CardDetailsBasicContentConfiguration.h"
+#import "CardDetailsChildrenContentConfiguration.h"
 
-@interface CardDetailsViewController () <UIViewControllerTransitioningDelegate>
+@interface CardDetailsViewController () <UIViewControllerTransitioningDelegate, CardDetailsChildrenContentConfigurationDelegate>
 @property (retain) UIImageView *sourceImageView;
 @property (retain) UIImageView *primaryImageView;
 @property (retain) UICollectionView *collectionView;
@@ -61,18 +62,10 @@
     [self configureViewModel];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
-    [self.transitionCoordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {}
-                                                completion:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
-        [self updateCollectionViewAttributes];
-    }];
-}
-
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self updateLayoutViewControllerWithTraitCollection:self.traitCollection];
+    [self updateCollectionViewAttributes];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -102,10 +95,6 @@
     self.transitioningDelegate = self;
     self.modalPresentationCapturesStatusBarAppearance = YES;
     self.view.backgroundColor = UIColor.clearColor;
-    
-    UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(triggeredViewTapGesgure:)];
-    [self.view addGestureRecognizer:gesture];
-    [gesture release];
 }
 
 - (void)triggeredViewTapGesgure:(UITapGestureRecognizer *)sender {
@@ -124,7 +113,10 @@
         [primaryImageView setAsyncImageWithURL:self.hsCard.image indicator:YES];
     }
 
-    primaryImageView.userInteractionEnabled = NO;
+    primaryImageView.userInteractionEnabled = YES;
+    UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(triggeredViewTapGesgure:)];
+    [primaryImageView addGestureRecognizer:gesture];
+    [gesture release];
     
     [primaryImageView release];
 }
@@ -263,22 +255,40 @@
         if (![item isKindOfClass:[CardDetailsItemModel class]]) {
             return;
         }
+        //
+        
         CardDetailsItemModel *itemModel = (CardDetailsItemModel *)item;
         
-        CardDetailsBasicContentConfiguration *configuration = [[CardDetailsBasicContentConfiguration alloc] initWithLeadingText:itemModel.primaryText trailingText:itemModel.secondaryText];
-        cell.contentConfiguration = configuration;
+        switch (itemModel.type) {
+            case CardDetailsItemModelTypeChildren: {
+                NSArray<HSCard *> *childCards = (itemModel.childCards == nil) ? @[] : itemModel.childCards;
+                CardDetailsChildrenContentConfiguration *configuration = [[CardDetailsChildrenContentConfiguration alloc] initwithChildCards:childCards];
+                configuration.delegate = self;
+                cell.contentConfiguration = configuration;
+                [configuration release];
+                break;
+            }
+            default: {
+                CardDetailsBasicContentConfiguration *configuration = [[CardDetailsBasicContentConfiguration alloc] initWithLeadingText:itemModel.primaryText trailingText:itemModel.secondaryText];
+                cell.contentConfiguration = configuration;
+                [configuration release];
+                break;
+            }
+        }
+        
+        
+        //
         
         UIBackgroundConfiguration *backgroundConfiguration = [UIBackgroundConfiguration listGroupedCellConfiguration];
         backgroundConfiguration.backgroundColor = UIColor.clearColor;
         cell.backgroundConfiguration = backgroundConfiguration;
-        
-        [configuration release];
     }];
     
     return cellRegistration;
 }
 
 #pragma mark - UIViewControllerTransitioningDelegate
+
 - (UIPresentationController *)presentationControllerForPresentedViewController:(UIViewController *)presented presentingViewController:(UIViewController *)presenting sourceViewController:(UIViewController *)source {
     
     CGRect destinationRect = [self.currentLayoutViewController estimatedPrimaryImageRectUsingWindow:source.view.window
@@ -293,6 +303,15 @@
     [pc autorelease];
     
     return pc;
+}
+
+#pragma mark - CardDetailsChildrenContentConfigurationDelegate
+
+- (void)cardDetailsChildrenContentConfigurationDidTapImageView:(UIImageView *)imageView hsCard:(HSCard *)hsCard {
+    CardDetailsViewController *vc = [[CardDetailsViewController alloc] initWithHSCard:hsCard sourceImageView:imageView];
+    [vc autorelease];
+    [vc loadViewIfNeeded];
+    [self presentViewController:vc animated:YES completion:^{}];
 }
 
 @end

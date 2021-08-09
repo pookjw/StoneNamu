@@ -6,6 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "HSCard.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -26,7 +27,9 @@ typedef NS_ENUM(NSUInteger, CardDetailsItemModelType) {
 @property (readonly) CardDetailsItemModelType type;
 @property (readonly, nonatomic) NSString * _Nullable primaryText;
 @property (readonly, nonatomic) NSString * _Nullable secondaryText;
+@property (readonly, nonatomic, copy) NSArray<HSCard *> * _Nullable childCards;
 - (instancetype)initWithType:(CardDetailsItemModelType)type value:(NSString * _Nullable)value;
+- (instancetype)initWithType:(CardDetailsItemModelType)type childCards:(NSArray<HSCard *> *)childCards;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -37,7 +37,7 @@
 }
 
 - (void)dataCachesWithIdentity:(NSString *)identity completion:(DataCacheRepositoryFetchWithIdentityCompletion)completion {
-    [self.coreDataStack.queue addOperationWithBlock:^{
+    [self.coreDataStack.queue addBarrierBlock:^{
         NSManagedObjectContext *mainContext = self.coreDataStack.context;
         NSFetchRequest *fetchRequest = DataCache._fetchRequest;
         

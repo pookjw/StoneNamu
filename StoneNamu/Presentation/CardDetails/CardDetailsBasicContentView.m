@@ -133,8 +133,8 @@
 
 - (void)setConfiguration:(id<UIContentConfiguration>)configuration {
     [self->configuration release];
-    CardDetailsBasicContentConfiguration *content = (CardDetailsBasicContentConfiguration *)configuration;
-    self->configuration = [content copy];
+    CardDetailsBasicContentConfiguration *content = [(CardDetailsBasicContentConfiguration *)configuration copy];
+    self->configuration = content;
     
     NSString * _Nullable clearedLeadingText = content.leadingText.clearedHTML;
     if ((clearedLeadingText == nil) || ([clearedLeadingText isEqualToString:@""])) {

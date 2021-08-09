@@ -55,6 +55,14 @@
 		4F6A13A826B26DD70089A13A /* HSCardGameMode.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4F6A13AA26B26DD70089A13A /* HSCardGameMode.strings */; };
 		4F6A13AE26B26F0E0089A13A /* HSCardSort.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F6A13AD26B26F0E0089A13A /* HSCardSort.m */; };
 		4F6A13B226B273640089A13A /* StepperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F6A13B126B273640089A13A /* StepperViewController.m */; };
+		4F74711726C1678F001C45C4 /* CardDetailsChildrenContentConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F74711626C1678F001C45C4 /* CardDetailsChildrenContentConfiguration.m */; };
+		4F74711A26C1698B001C45C4 /* CardDetailsChildrenContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F74711926C1698B001C45C4 /* CardDetailsChildrenContentView.m */; };
+		4F74711E26C16BD4001C45C4 /* CardDetailsChildrenContentCollectionViewCompositionalLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F74711D26C16BD4001C45C4 /* CardDetailsChildrenContentCollectionViewCompositionalLayout.m */; };
+		4F74712126C16BDF001C45C4 /* CardDetailsChildrenContentViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F74712026C16BDF001C45C4 /* CardDetailsChildrenContentViewModel.m */; };
+		4F74712626C170CA001C45C4 /* CardDetailsChildrenContentSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F74712526C170CA001C45C4 /* CardDetailsChildrenContentSectionModel.m */; };
+		4F74712926C170E5001C45C4 /* CardDetailsChildrenContentItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F74712826C170E5001C45C4 /* CardDetailsChildrenContentItemModel.m */; };
+		4F74712C26C175FE001C45C4 /* CardDetailsChildrenContentImageConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F74712B26C175FE001C45C4 /* CardDetailsChildrenContentImageConfiguration.m */; };
+		4F74712F26C1760C001C45C4 /* CardDetailsChildrenContentImageContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F74712E26C1760C001C45C4 /* CardDetailsChildrenContentImageContentView.m */; };
 		4F98E25226B9935B0067846F /* CardDetailsLayoutCompactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F98E25126B9935B0067846F /* CardDetailsLayoutCompactViewController.m */; };
 		4F98E25526B993650067846F /* CardDetailsLayoutRegularViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F98E25426B993650067846F /* CardDetailsLayoutRegularViewController.m */; };
 		4F98E25826B9A9760067846F /* CardDetailsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F98E25726B9A9760067846F /* CardDetailsViewModel.m */; };
@@ -202,6 +210,23 @@
 		4F6A13B026B273640089A13A /* StepperViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StepperViewController.h; sourceTree = "<group>"; };
 		4F6A13B126B273640089A13A /* StepperViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StepperViewController.m; sourceTree = "<group>"; };
 		4F6F1B7726B940E700649F77 /* DynamicPresentationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DynamicPresentationController.h; sourceTree = "<group>"; };
+		4F74711526C1678F001C45C4 /* CardDetailsChildrenContentConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardDetailsChildrenContentConfiguration.h; sourceTree = "<group>"; };
+		4F74711626C1678F001C45C4 /* CardDetailsChildrenContentConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardDetailsChildrenContentConfiguration.m; sourceTree = "<group>"; };
+		4F74711826C1698B001C45C4 /* CardDetailsChildrenContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardDetailsChildrenContentView.h; sourceTree = "<group>"; };
+		4F74711926C1698B001C45C4 /* CardDetailsChildrenContentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardDetailsChildrenContentView.m; sourceTree = "<group>"; };
+		4F74711B26C16A26001C45C4 /* CardDetailsChildrenContentConfigurationDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardDetailsChildrenContentConfigurationDelegate.h; sourceTree = "<group>"; };
+		4F74711C26C16BD4001C45C4 /* CardDetailsChildrenContentCollectionViewCompositionalLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardDetailsChildrenContentCollectionViewCompositionalLayout.h; sourceTree = "<group>"; };
+		4F74711D26C16BD4001C45C4 /* CardDetailsChildrenContentCollectionViewCompositionalLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardDetailsChildrenContentCollectionViewCompositionalLayout.m; sourceTree = "<group>"; };
+		4F74711F26C16BDF001C45C4 /* CardDetailsChildrenContentViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardDetailsChildrenContentViewModel.h; sourceTree = "<group>"; };
+		4F74712026C16BDF001C45C4 /* CardDetailsChildrenContentViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardDetailsChildrenContentViewModel.m; sourceTree = "<group>"; };
+		4F74712426C170CA001C45C4 /* CardDetailsChildrenContentSectionModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardDetailsChildrenContentSectionModel.h; sourceTree = "<group>"; };
+		4F74712526C170CA001C45C4 /* CardDetailsChildrenContentSectionModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardDetailsChildrenContentSectionModel.m; sourceTree = "<group>"; };
+		4F74712726C170E5001C45C4 /* CardDetailsChildrenContentItemModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardDetailsChildrenContentItemModel.h; sourceTree = "<group>"; };
+		4F74712826C170E5001C45C4 /* CardDetailsChildrenContentItemModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardDetailsChildrenContentItemModel.m; sourceTree = "<group>"; };
+		4F74712A26C175FE001C45C4 /* CardDetailsChildrenContentImageConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardDetailsChildrenContentImageConfiguration.h; sourceTree = "<group>"; };
+		4F74712B26C175FE001C45C4 /* CardDetailsChildrenContentImageConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardDetailsChildrenContentImageConfiguration.m; sourceTree = "<group>"; };
+		4F74712D26C1760C001C45C4 /* CardDetailsChildrenContentImageContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardDetailsChildrenContentImageContentView.h; sourceTree = "<group>"; };
+		4F74712E26C1760C001C45C4 /* CardDetailsChildrenContentImageContentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardDetailsChildrenContentImageContentView.m; sourceTree = "<group>"; };
 		4F98E24F26B9934B0067846F /* CardDetailsLayoutProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardDetailsLayoutProtocol.h; sourceTree = "<group>"; };
 		4F98E25026B9935B0067846F /* CardDetailsLayoutCompactViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardDetailsLayoutCompactViewController.h; sourceTree = "<group>"; };
 		4F98E25126B9935B0067846F /* CardDetailsLayoutCompactViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardDetailsLayoutCompactViewController.m; sourceTree = "<group>"; };
@@ -605,6 +630,23 @@
 				4FEB414026BD6133009D8594 /* CardDetailsBasicContentConfiguration.m */,
 				4FEB413C26BD6116009D8594 /* CardDetailsBasicContentView.h */,
 				4FEB413D26BD6116009D8594 /* CardDetailsBasicContentView.m */,
+				4F74711B26C16A26001C45C4 /* CardDetailsChildrenContentConfigurationDelegate.h */,
+				4F74711526C1678F001C45C4 /* CardDetailsChildrenContentConfiguration.h */,
+				4F74711626C1678F001C45C4 /* CardDetailsChildrenContentConfiguration.m */,
+				4F74711826C1698B001C45C4 /* CardDetailsChildrenContentView.h */,
+				4F74711926C1698B001C45C4 /* CardDetailsChildrenContentView.m */,
+				4F74711F26C16BDF001C45C4 /* CardDetailsChildrenContentViewModel.h */,
+				4F74712026C16BDF001C45C4 /* CardDetailsChildrenContentViewModel.m */,
+				4F74712426C170CA001C45C4 /* CardDetailsChildrenContentSectionModel.h */,
+				4F74712526C170CA001C45C4 /* CardDetailsChildrenContentSectionModel.m */,
+				4F74712726C170E5001C45C4 /* CardDetailsChildrenContentItemModel.h */,
+				4F74712826C170E5001C45C4 /* CardDetailsChildrenContentItemModel.m */,
+				4F74712A26C175FE001C45C4 /* CardDetailsChildrenContentImageConfiguration.h */,
+				4F74712B26C175FE001C45C4 /* CardDetailsChildrenContentImageConfiguration.m */,
+				4F74712D26C1760C001C45C4 /* CardDetailsChildrenContentImageContentView.h */,
+				4F74712E26C1760C001C45C4 /* CardDetailsChildrenContentImageContentView.m */,
+				4F74711C26C16BD4001C45C4 /* CardDetailsChildrenContentCollectionViewCompositionalLayout.h */,
+				4F74711D26C16BD4001C45C4 /* CardDetailsChildrenContentCollectionViewCompositionalLayout.m */,
 			);
 			path = CardDetails;
 			sourceTree = "<group>";
@@ -850,14 +892,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F74711726C1678F001C45C4 /* CardDetailsChildrenContentConfiguration.m in Sources */,
 				4F98E25526B993650067846F /* CardDetailsLayoutRegularViewController.m in Sources */,
 				4FF676CF26AAFC6A00477272 /* CardsViewController.m in Sources */,
 				4F57DEA126AD7DB3000E4163 /* SheetNavigationController.m in Sources */,
 				4F646A5C26B7CA8000BEDB38 /* CardsCollectionViewCompositionalLayout.m in Sources */,
 				4FA56BAC26A21059002D9FA0 /* AppDelegate.m in Sources */,
 				4F57DEB926ADC3CF000E4163 /* PickerItemView.m in Sources */,
+				4F74711A26C1698B001C45C4 /* CardDetailsChildrenContentView.m in Sources */,
 				4F57DE9D26AD7B53000E4163 /* PickerViewController.m in Sources */,
 				4F182BD126AC23600028115C /* UIViewController+presentErrorAlert.m in Sources */,
+				4F74711E26C16BD4001C45C4 /* CardDetailsChildrenContentCollectionViewCompositionalLayout.m in Sources */,
+				4F74712126C16BDF001C45C4 /* CardDetailsChildrenContentViewModel.m in Sources */,
+				4F74712C26C175FE001C45C4 /* CardDetailsChildrenContentImageConfiguration.m in Sources */,
 				4F98E25226B9935B0067846F /* CardDetailsLayoutCompactViewController.m in Sources */,
 				4FB0ECE826B82AEE0020EE6C /* CardDetailsViewController.m in Sources */,
 				4FA9047A26B6E26A00CD6147 /* CardContentView.m in Sources */,
@@ -866,11 +913,13 @@
 				4F4976EC26ABFF6900860809 /* CardOptionItemModel.m in Sources */,
 				4FA56BBD26A2105A002D9FA0 /* main.m in Sources */,
 				4F57DEAC26ADA6E3000E4163 /* PickerItemModel.m in Sources */,
+				4F74712926C170E5001C45C4 /* CardDetailsChildrenContentItemModel.m in Sources */,
 				4FEB413E26BD6116009D8594 /* CardDetailsBasicContentView.m in Sources */,
 				4F4976E326ABFCB300860809 /* CardOptionsViewController.m in Sources */,
 				4FB0ECEB26B82B100020EE6C /* DynamicPresentationController.m in Sources */,
 				4F4976D926ABE80700860809 /* CardItemModel.m in Sources */,
 				4F4976D226ABE6B600860809 /* CardsViewModel.m in Sources */,
+				4F74712626C170CA001C45C4 /* CardDetailsChildrenContentSectionModel.m in Sources */,
 				4FEB414126BD6133009D8594 /* CardDetailsBasicContentConfiguration.m in Sources */,
 				4FA9047D26B6E2A000CD6147 /* CardContentConfiguration.m in Sources */,
 				4F98E25E26B9AB110067846F /* CardDetailsItemModel.m in Sources */,
@@ -881,6 +930,7 @@
 				4F98E25826B9A9760067846F /* CardDetailsViewModel.m in Sources */,
 				4F4976D626ABE72C00860809 /* CardSectionModel.m in Sources */,
 				4F6A13B226B273640089A13A /* StepperViewController.m in Sources */,
+				4F74712F26C1760C001C45C4 /* CardDetailsChildrenContentImageContentView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

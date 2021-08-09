@@ -1,19 +1,19 @@
 //
-//  CardContentView.m
-//  StoneNamu
+//  CardDetailsChildrenContentImageContentView.m
+//  CardDetailsChildrenContentImageContentView
 //
-//  Created by Jinwoo Kim on 8/1/21.
+//  Created by Jinwoo Kim on 8/9/21.
 //
 
-#import "CardContentView.h"
-#import "CardContentConfiguration.h"
+#import "CardDetailsChildrenContentImageContentView.h"
 #import "UIImageView+setAsyncImage.h"
+#import "CardDetailsChildrenContentImageConfiguration.h"
 
-@interface CardContentView ()
+@interface CardDetailsChildrenContentImageContentView ()
 @property (copy) HSCard *hsCard;
 @end
 
-@implementation CardContentView
+@implementation CardDetailsChildrenContentImageContentView
 
 @synthesize configuration;
 
@@ -21,6 +21,7 @@
     self = [super init];
     
     if (self) {
+        [self setAttributes];
         [self configureImageView];
     }
     
@@ -32,6 +33,10 @@
     [_imageView release];
     [_hsCard release];
     [super dealloc];
+}
+
+- (void)setAttributes {
+    self.backgroundColor = UIColor.clearColor;
 }
 
 - (void)configureImageView {
@@ -51,13 +56,13 @@
 }
 
 - (void)setConfiguration:(id<UIContentConfiguration>)configuration {
-    [self->configuration release];
-    CardContentConfiguration *cardContent = [(CardContentConfiguration *)configuration copy];
-    self->configuration = cardContent;
+    [self.configuration release];
+    CardDetailsChildrenContentImageConfiguration *content = [(CardDetailsChildrenContentImageConfiguration *)configuration copy];
+    self->configuration = content;
     
-    if (![self.hsCard isEqual:cardContent.hsCard]) {
-        self.hsCard = cardContent.hsCard;
-        [self.imageView setAsyncImageWithURL:cardContent.hsCard.image indicator:YES];
+    if (![self.hsCard isEqual:content.hsCard]) {
+        self.hsCard = content.hsCard;
+        [self.imageView setAsyncImageWithURL:content.hsCard.image indicator:YES];
         self.imageView.hidden = NO;
     }
 }

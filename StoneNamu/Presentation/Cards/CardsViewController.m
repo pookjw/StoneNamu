@@ -68,7 +68,7 @@
     self.collectionView = collectionView;
     [self.view addSubview:collectionView];
     
-    [collectionView setTranslatesAutoresizingMaskIntoConstraints:NO];
+    collectionView.translatesAutoresizingMaskIntoConstraints = NO;
     [NSLayoutConstraint activateConstraints:@[
         [collectionView.topAnchor constraintEqualToAnchor:self.view.topAnchor],
         [collectionView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor],

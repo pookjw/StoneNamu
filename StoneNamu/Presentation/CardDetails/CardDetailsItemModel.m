@@ -19,6 +19,19 @@
     if (self) {
         self->_type = type;
         self.value = value;
+        self->_childCards = nil;
+    }
+    
+    return self;
+}
+
+- (instancetype)initWithType:(CardDetailsItemModelType)type childCards:(NSArray<HSCard *> *)childCards {
+    self = [self init];
+    
+    if (self) {
+        self->_type = type;
+        self.value = nil;
+        self->_childCards = [childCards copy];
     }
     
     return self;
@@ -26,6 +39,7 @@
 
 - (void)dealloc {
     [_value release];
+    [_childCards release];
     [super dealloc];
 }
 
