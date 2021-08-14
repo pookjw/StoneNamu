@@ -219,11 +219,11 @@
     [vc release];
 }
 
-- (void)presentActionSheetFromView:(UIView *)view withInfo:(NSDictionary<NSString *, NSURL *> *)info {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"PNAMU", @"")
+- (void)presentActionSheetFromView:(UIView *)view withSocialInfo:(NSDictionary<NSString *, NSURL *> *)socialInfo title:(NSString *)title {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title
                                                                    message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
-    [info enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSURL * _Nonnull obj, BOOL * _Nonnull stop) {
+    [socialInfo enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSURL * _Nonnull obj, BOOL * _Nonnull stop) {
         UIAlertAction *action = [UIAlertAction actionWithTitle:key
                                                          style:UIAlertActionStyleDefault
                                                        handler:^(UIAlertAction * _Nonnull action) {
@@ -264,7 +264,7 @@
         case PrefsItemModelTypePnamuContributor: {
             UICollectionViewCell * _Nullable cell = [collectionView cellForItemAtIndexPath:indexPath];
             if (cell) {
-                [self presentActionSheetFromView:cell withInfo:itemModel.socialInfo];
+                [self presentActionSheetFromView:cell withSocialInfo:itemModel.socialInfo title:itemModel.primaryText];
             }
             [collectionView deselectItemAtIndexPath:indexPath animated:YES];
             break;
@@ -327,7 +327,7 @@
                     }]];
                 }];
                 
-                UIMenu *menu = [UIMenu menuWithTitle:NSLocalizedString(@"PNAMU", @"")
+                UIMenu *menu = [UIMenu menuWithTitle:itemModel.primaryText
                                             children:children];
                 [children release];
                 
