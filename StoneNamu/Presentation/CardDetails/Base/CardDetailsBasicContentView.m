@@ -133,22 +133,24 @@
 
 - (void)setConfiguration:(id<UIContentConfiguration>)configuration {
     [self->configuration release];
-    CardDetailsBasicContentConfiguration *content = [(CardDetailsBasicContentConfiguration *)configuration copy];
-    self->configuration = content;
+    CardDetailsBasicContentConfiguration *content = (CardDetailsBasicContentConfiguration *)configuration;
+    self->configuration = [content copy];
     
-    NSString * _Nullable clearedLeadingText = content.leadingText.clearedHTML;
-    if ((clearedLeadingText == nil) || ([clearedLeadingText isEqualToString:@""])) {
-        self.leadingLabel.text = NSLocalizedString(@"EMPTY", @"");
-    } else {
-        self.leadingLabel.text = clearedLeadingText;
-    }
-    
-    NSString * _Nullable clearedTrailingText = content.trailingText.clearedHTML;
-    if ((clearedTrailingText == nil) || ([clearedTrailingText isEqualToString:@""])) {
-        self.trailingLabel.text = NSLocalizedString(@"EMPTY", @"");
-    } else {
-        self.trailingLabel.text = clearedTrailingText;
-    }
+    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+        NSString * _Nullable clearedLeadingText = content.leadingText.clearedHTML;
+        if ((clearedLeadingText == nil) || ([clearedLeadingText isEqualToString:@""])) {
+            self.leadingLabel.text = NSLocalizedString(@"EMPTY", @"");
+        } else {
+            self.leadingLabel.text = clearedLeadingText;
+        }
+        
+        NSString * _Nullable clearedTrailingText = content.trailingText.clearedHTML;
+        if ((clearedTrailingText == nil) || ([clearedTrailingText isEqualToString:@""])) {
+            self.trailingLabel.text = NSLocalizedString(@"EMPTY", @"");
+        } else {
+            self.trailingLabel.text = clearedTrailingText;
+        }
+    }];
 }
 
 @end

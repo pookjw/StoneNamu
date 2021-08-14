@@ -8,6 +8,7 @@
 #import "DataCacheRepositoryImpl.h"
 #import "CoreDataStackImpl.h"
 #import "DataCache.h"
+#import "NSManagedObject+_fetchRequest.h"
 
 @interface DataCacheRepositoryImpl ()
 @property (retain) id<CoreDataStack> coreDataStack;
@@ -38,20 +39,21 @@
 
 - (void)dataCachesWithIdentity:(NSString *)identity completion:(DataCacheRepositoryFetchWithIdentityCompletion)completion {
     [self.coreDataStack.queue addBarrierBlock:^{
-        NSManagedObjectContext *mainContext = self.coreDataStack.context;
+        NSManagedObjectContext *context = self.coreDataStack.context;
         NSFetchRequest *fetchRequest = DataCache._fetchRequest;
         
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K = %@" argumentArray:@[@"identity", identity]];
         fetchRequest.predicate = predicate;
         
         NSError * _Nullable error = nil;
-        NSArray<DataCache *> *results = [mainContext executeFetchRequest:fetchRequest error:&error];
+        NSArray<DataCache *> *results = [context executeFetchRequest:fetchRequest error:&error];
         
         if (error) {
-            NSLog(@"%@", error.localizedDescription);
+            completion(nil, error);
+            return;
         }
         
-        completion(results);
+        completion(results, nil);
     }];
 }
 
@@ -70,8 +72,8 @@
 }
 
 - (DataCache *)createDataCache {
-    DataCache *dataCache = [[[DataCache alloc] initWithContext:self.coreDataStack.context] autorelease];
-    return dataCache;
+    DataCache *dataCache = [[DataCache alloc] initWithContext:self.coreDataStack.context];
+    return [dataCache autorelease];
 }
 
 @end

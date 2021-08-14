@@ -11,6 +11,7 @@
 #import "SheetNavigationController.h"
 #import "PickerViewController.h"
 #import "StepperViewController.h"
+#import "PrefsViewController.h"
 
 @interface CardOptionsViewController () <UICollectionViewDelegate>
 @property (retain) UICollectionView *collectionView;
@@ -29,6 +30,7 @@
     [super viewDidLoad];
     [self setAttributes];
     [self configureFetchButton];
+    [self configurePrefsButton];
     [self configureCollectionView];
     [self configureViewModel];
     [self bind];
@@ -49,9 +51,27 @@
     [fetchButton release];
 }
 
+- (void)configurePrefsButton {
+    UIBarButtonItem *prefsButton = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"gearshape"]
+                                                                    style:UIBarButtonItemStylePlain
+                                                                   target:self
+                                                                   action:@selector(prefsButtonTriggered:)];
+    
+    self.navigationItem.leftBarButtonItems = @[prefsButton];
+    [prefsButton release];
+}
+
 - (void)fetchButtonTriggered:(UIBarButtonItem *)sender {
     CardsViewController *vc = [[CardsViewController alloc] initWithOptions:self.viewModel.options];
     [self.navigationController pushViewController:vc animated:YES];
+    [vc release];
+}
+
+- (void)prefsButtonTriggered:(UIBarButtonItem *)sender {
+    PrefsViewController *vc = [PrefsViewController new];
+    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:vc];
+    [self presentViewController:nvc animated:YES completion:^{}];
+    [nvc release];
     [vc release];
 }
 

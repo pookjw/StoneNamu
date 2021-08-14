@@ -40,3 +40,19 @@ NSString *NSStringForOAuthFromRegionHost(BlizzardAPIRegionHost regionHost) {
             return @"us.battle.net";
     }
 }
+
+BlizzardAPIRegionHost BlizzardAPIRegionHostFromNSStringForAPI(NSString * key) {
+    if ([key isEqualToString:@"us.api.blizzard.com"]) {
+        return BlizzardAPIRegionHostUS;
+    } else if ([key isEqualToString:@"eu.api.blizzard.com"]) {
+        return BlizzardAPIRegionHostEU;
+    } else if ([key isEqualToString:@"kr.api.blizzard.com"]) {
+        return BlizzardAPIRegionHostKR;
+    } else if ([key isEqualToString:@"tw.api.blizzard.com"]) {
+        return BlizzardAPIRegionHostTW;
+    } else if ([key isEqualToString:@"gateway.battlenet.com.cn"]) {
+        return BlizzardAPIRegionHostTW;
+    } else {
+        return BlizzardAPIRegionHostUS;
+    }
+}

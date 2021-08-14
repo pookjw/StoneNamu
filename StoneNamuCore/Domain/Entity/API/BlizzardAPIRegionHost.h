@@ -17,3 +17,5 @@ typedef NS_ENUM(NSUInteger, BlizzardAPIRegionHost) {
 
 NSString *NSStringForAPIFromRegionHost(BlizzardAPIRegionHost);
 NSString *NSStringForOAuthFromRegionHost(BlizzardAPIRegionHost);
+
+BlizzardAPIRegionHost BlizzardAPIRegionHostFromNSStringForAPI(NSString *);

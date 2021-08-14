@@ -5,10 +5,12 @@
 //  Created by Jinwoo Kim on 8/2/21.
 //
 
-#import <CoreData/CoreData.h>
+#import <Foundation/Foundation.h>
 #import "DataCache.h"
 
-typedef void (^DataCacheRepositoryFetchWithIdentityCompletion)(NSArray<DataCache *> *);
+NS_ASSUME_NONNULL_BEGIN
+
+typedef void (^DataCacheRepositoryFetchWithIdentityCompletion)(NSArray<DataCache *> * _Nullable, NSError * _Nullable);
 
 @protocol DataCacheRepository <NSObject>
 - (void)saveChanges;
@@ -16,3 +18,5 @@ typedef void (^DataCacheRepositoryFetchWithIdentityCompletion)(NSArray<DataCache
 - (void)removeAllDataCaches;
 - (DataCache *)createDataCache;
 @end
+
+NS_ASSUME_NONNULL_END

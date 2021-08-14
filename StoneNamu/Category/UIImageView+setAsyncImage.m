@@ -42,7 +42,13 @@ static NSString * const UIImageViewAsyncImageCategorySessionTaskKey = @"UIImageV
     NSString *identity = url.absoluteString;
     
     // Fetch Cahce Data from another background thread...
-    [self.dataCacheUseCase dataCachesWithIdentity:identity completion:^(NSArray<NSData *> * _Nonnull cachedDatas) {
+    [self.dataCacheUseCase dataCachesWithIdentity:identity completion:^(NSArray<NSData *> * _Nonnull cachedDatas, NSError * _Nullable error) {
+        
+        if (error) {
+            NSLog(@"%@", error.localizedDescription);
+            return;
+        }
+        
         NSData * _Nullable cachedData = cachedDatas.lastObject;
         
         if (cachedData) {

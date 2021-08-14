@@ -12,7 +12,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface DataCache : NSManagedObject
 @property (assign) NSString * _Nullable identity;
 @property (assign) NSData * _Nullable data;
-+ (NSFetchRequest<DataCache *> *)_fetchRequest;
 @end
 
 NS_ASSUME_NONNULL_END

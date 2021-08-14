@@ -12,8 +12,4 @@
 @dynamic identity;
 @dynamic data;
 
-+ (NSFetchRequest<DataCache *> *)_fetchRequest {
-    return [NSFetchRequest<DataCache *> fetchRequestWithEntityName:@"DataCache"];
-}
-
 @end

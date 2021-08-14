@@ -32,7 +32,12 @@
 }
 
 - (void)dataCachesWithIdentity:(NSString *)identity completion:(DataCacheUseCaseFetchWithIdentityCompletion)completion {
-    [self.dataCacheRepository dataCachesWithIdentity:identity completion:^(NSArray<DataCache *> * dataCaches) {
+    [self.dataCacheRepository dataCachesWithIdentity:identity completion:^(NSArray<DataCache *> * _Nullable dataCaches, NSError * _Nullable error) {
+        
+        if (error) {
+            completion(nil, error);
+            return;
+        }
         
         NSMutableArray<NSData *> *mutable = [@[] mutableCopy];
         
@@ -45,7 +50,7 @@
         NSArray *results = [[mutable copy] autorelease];
         [mutable release];
         
-        completion(results);
+        completion(results, nil);
     }];
 }
 
