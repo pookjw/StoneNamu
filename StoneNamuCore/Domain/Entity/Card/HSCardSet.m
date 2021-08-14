@@ -183,5 +183,5 @@ NSDictionary<NSString *, NSString *> * hsCardSetsWithLocalizable() {
     NSDictionary<NSString *, NSString *> *result = [[dic copy] autorelease];
     [dic release];
     
-    return result;;
+    return result;
 }

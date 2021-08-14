@@ -98,5 +98,5 @@ NSDictionary<NSString *, NSString *>  * hsCardClassesWithLocalizable(void) {
     NSDictionary<NSString *, NSString *> *result = [[dic copy] autorelease];
     [dic release];
     
-    return result;;
+    return result;
 }

@@ -19,3 +19,6 @@ NSString *NSStringForAPIFromRegionHost(BlizzardAPIRegionHost);
 NSString *NSStringForOAuthFromRegionHost(BlizzardAPIRegionHost);
 
 BlizzardAPIRegionHost BlizzardAPIRegionHostFromNSStringForAPI(NSString *);
+
+NSArray<NSString *> *blizzardHSAPIRegionsForAPI(void);
+NSDictionary<NSString *, NSString *> *blizzardHSAPIRegionsForAPIWithLocalizable(void);

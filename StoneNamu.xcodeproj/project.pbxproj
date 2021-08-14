@@ -12,6 +12,9 @@
 		4F03F55E26C7A15700FC9155 /* PrefsModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4F03F55C26C7A15700FC9155 /* PrefsModel.xcdatamodeld */; };
 		4F03F56426C7A6AF00FC9155 /* PrefsUseCaseImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F03F56226C7A6AF00FC9155 /* PrefsUseCaseImpl.h */; };
 		4F03F56526C7A6AF00FC9155 /* PrefsUseCaseImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F03F56326C7A6AF00FC9155 /* PrefsUseCaseImpl.m */; };
+		4F03F56826C7B2C900FC9155 /* BlizzardHSAPILocale.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4F03F56A26C7B2C900FC9155 /* BlizzardHSAPILocale.strings */; };
+		4F03F56D26C7B3CF00FC9155 /* BlizzardHSAPILocale.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F03F56C26C7B3CF00FC9155 /* BlizzardHSAPILocale.m */; };
+		4F03F57026C7B47C00FC9155 /* BlizzardAPIRegionHost.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4F03F57226C7B47C00FC9155 /* BlizzardAPIRegionHost.strings */; };
 		4F182BD126AC23600028115C /* UIViewController+presentErrorAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F182BD026AC23600028115C /* UIViewController+presentErrorAlert.m */; };
 		4F34385026A36FBA001161FE /* StoneNamuCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F34384826A36FBA001161FE /* StoneNamuCore.framework */; };
 		4F34385826A36FBA001161FE /* StoneNamuCore.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F34384A26A36FBA001161FE /* StoneNamuCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -147,6 +150,11 @@
 		4F03F56126C7A64400FC9155 /* PrefsUseCase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefsUseCase.h; sourceTree = "<group>"; };
 		4F03F56226C7A6AF00FC9155 /* PrefsUseCaseImpl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefsUseCaseImpl.h; sourceTree = "<group>"; };
 		4F03F56326C7A6AF00FC9155 /* PrefsUseCaseImpl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrefsUseCaseImpl.m; sourceTree = "<group>"; };
+		4F03F56926C7B2C900FC9155 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/BlizzardHSAPILocale.strings; sourceTree = "<group>"; };
+		4F03F56B26C7B2CA00FC9155 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/BlizzardHSAPILocale.strings; sourceTree = "<group>"; };
+		4F03F56C26C7B3CF00FC9155 /* BlizzardHSAPILocale.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlizzardHSAPILocale.m; sourceTree = "<group>"; };
+		4F03F57126C7B47C00FC9155 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/BlizzardAPIRegionHost.strings; sourceTree = "<group>"; };
+		4F03F57326C7B47D00FC9155 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/BlizzardAPIRegionHost.strings; sourceTree = "<group>"; };
 		4F182BCF26AC23600028115C /* UIViewController+presentErrorAlert.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+presentErrorAlert.h"; sourceTree = "<group>"; };
 		4F182BD026AC23600028115C /* UIViewController+presentErrorAlert.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+presentErrorAlert.m"; sourceTree = "<group>"; };
 		4F34383726A36492001161FE /* BlizzardTokenAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlizzardTokenAPI.h; sourceTree = "<group>"; };
@@ -615,6 +623,8 @@
 				4F449EC526B19974007CE04A /* HSCardMinionType.strings */,
 				4F6A13A126B256150089A13A /* HSCardKeyword.strings */,
 				4F6A13AA26B26DD70089A13A /* HSCardGameMode.strings */,
+				4F03F57226C7B47C00FC9155 /* BlizzardAPIRegionHost.strings */,
+				4F03F56A26C7B2C900FC9155 /* BlizzardHSAPILocale.strings */,
 			);
 			path = Localizables;
 			sourceTree = "<group>";
@@ -758,6 +768,7 @@
 				4FE097C326A329B400BF3A6D /* BlizzardAPIRegionHost.h */,
 				4FE097CD26A3496F00BF3A6D /* BlizzardAPIRegionHost.m */,
 				4FA56BF226A216C1002D9FA0 /* BlizzardHSAPILocale.h */,
+				4F03F56C26C7B3CF00FC9155 /* BlizzardHSAPILocale.m */,
 				4FE097CC26A3409500BF3A6D /* BlizzardHSAPIKeys.h */,
 			);
 			path = API;
@@ -918,6 +929,8 @@
 			files = (
 				4F449EB826B193DE007CE04A /* HSCardType.strings in Resources */,
 				4F449EB126B19202007CE04A /* HSCardRarity.strings in Resources */,
+				4F03F56826C7B2C900FC9155 /* BlizzardHSAPILocale.strings in Resources */,
+				4F03F57026C7B47C00FC9155 /* BlizzardAPIRegionHost.strings in Resources */,
 				4F6A13A826B26DD70089A13A /* HSCardGameMode.strings in Resources */,
 				4F449E9E26B17D08007CE04A /* HSCardClass.strings in Resources */,
 				4F6A139F26B256150089A13A /* HSCardKeyword.strings in Resources */,
@@ -978,6 +991,7 @@
 				4F449EAC26B1884E007CE04A /* HSCardCollectible.m in Sources */,
 				4F57DEA526AD96D3000E4163 /* HSCardSet.m in Sources */,
 				4F34386926A37031001161FE /* BlizzardAPIImpl.m in Sources */,
+				4F03F56D26C7B3CF00FC9155 /* BlizzardHSAPILocale.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1057,6 +1071,24 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		4F03F56A26C7B2C900FC9155 /* BlizzardHSAPILocale.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4F03F56926C7B2C900FC9155 /* en */,
+				4F03F56B26C7B2CA00FC9155 /* ko */,
+			);
+			name = BlizzardHSAPILocale.strings;
+			sourceTree = "<group>";
+		};
+		4F03F57226C7B47C00FC9155 /* BlizzardAPIRegionHost.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4F03F57126C7B47C00FC9155 /* en */,
+				4F03F57326C7B47D00FC9155 /* ko */,
+			);
+			name = BlizzardAPIRegionHost.strings;
+			sourceTree = "<group>";
+		};
 		4F449EA026B17D08007CE04A /* HSCardClass.strings */ = {
 			isa = PBXVariantGroup;
 			children = (

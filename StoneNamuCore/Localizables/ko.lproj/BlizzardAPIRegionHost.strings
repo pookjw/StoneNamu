@@ -1,0 +1,17 @@
+/* 
+  BlizzardAPIRegionHost.strings
+  StoneNamu
+
+  Created by Jinwoo Kim on 8/14/21.
+  
+*/
+
+"us.api.blizzard.com" = "아메리카";
+
+"eu.api.blizzard.com" = "유럽";
+
+"kr.api.blizzard.com" = "한국";
+
+"tw.api.blizzard.com" = "대만";
+
+"gateway.battlenet.com.cn" = "중국";

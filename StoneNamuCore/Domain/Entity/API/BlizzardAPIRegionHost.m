@@ -56,3 +56,29 @@ BlizzardAPIRegionHost BlizzardAPIRegionHostFromNSStringForAPI(NSString * key) {
         return BlizzardAPIRegionHostUS;
     }
 }
+
+NSArray<NSString *> *blizzardHSAPIRegionsForAPI(void) {
+    return @[
+        NSStringForAPIFromRegionHost(BlizzardAPIRegionHostUS),
+        NSStringForAPIFromRegionHost(BlizzardAPIRegionHostEU),
+        NSStringForAPIFromRegionHost(BlizzardAPIRegionHostKR),
+        NSStringForAPIFromRegionHost(BlizzardAPIRegionHostTW),
+        NSStringForAPIFromRegionHost(BlizzardAPIRegionHostCN)
+    ];
+}
+
+NSDictionary<NSString *, NSString *> *blizzardHSAPIRegionsForAPIWithLocalizable(void) {
+    NSMutableDictionary<NSString *, NSString *> *dic = [@{} mutableCopy];
+    
+    [blizzardHSAPIRegionsForAPI() enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        dic[obj] = NSLocalizedStringFromTableInBundle(obj,
+                                                      @"BlizzardAPIRegionHost",
+                                                      [NSBundle bundleWithIdentifier:@"com.pookjw.StoneNamuCore"],
+                                                      @"");
+    }];
+    
+    NSDictionary<NSString *, NSString *> *result = [[dic copy] autorelease];
+    [dic release];
+    
+    return result;
+}
