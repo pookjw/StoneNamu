@@ -22,6 +22,7 @@ static Pnamu const PnamuYouTube= @"https://www.youtube.com/c/Pnamu";
 typedef UICollectionViewDiffableDataSource<PrefsSectionModel *, PrefsItemModel *> PrefsDataSource;
 
 @interface PrefsViewModel : NSObject
+@property (retain) NSIndexPath * _Nullable contextMenuIndexPath;
 @property (readonly, retain) PrefsDataSource *dataSource;
 - (instancetype)initWithDataSource:(PrefsDataSource *)dataSource;
 - (NSString * _Nullable)headerTextFromIndexPath:(NSIndexPath *)indexPath;

@@ -17,6 +17,7 @@
 @property (retain) PrefsViewModel *viewModel;
 @property (retain) UICollectionViewSupplementaryRegistration *headerCellRegistration;
 @property (retain) UICollectionViewSupplementaryRegistration *footerCellRegistration;
+@property (retain) UIViewController * _Nullable contextViewController;
 @end
 
 @implementation PrefsViewController
@@ -26,6 +27,7 @@
     [_viewModel release];
     [_headerCellRegistration release];
     [_footerCellRegistration release];
+    [_contextViewController release];
     [super dealloc];
 }
 
@@ -202,39 +204,18 @@
     [vc release];
 }
 
-- (void)presentPnamuActionSheetFromView:(UIView *)view {
+- (void)presentActionSheetFromView:(UIView *)view withInfo:(NSDictionary<NSString *, NSURL *> *)info {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"PNAMU", @"")
                                                                    message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"CANCEL", @"")
-                                                           style:UIAlertActionStyleCancel
-                                                         handler:^(UIAlertAction * _Nonnull action) {}];
-    
-    UIAlertAction *twitterAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"TWITTER", @"")
-                                                            style:UIAlertActionStyleDefault
-                                                          handler:^(UIAlertAction * _Nonnull action) {
-        NSURL *url = [NSURL URLWithString:PnamuTwitter];
-        [UIApplication.sharedApplication openURL:url options:@{} completionHandler:^(BOOL success) {}];
+    [info enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSURL * _Nonnull obj, BOOL * _Nonnull stop) {
+        UIAlertAction *action = [UIAlertAction actionWithTitle:key
+                                                         style:UIAlertActionStyleDefault
+                                                       handler:^(UIAlertAction * _Nonnull action) {
+            [UIApplication.sharedApplication openURL:obj options:@{} completionHandler:^(BOOL success) {}];
+        }];
+        [alert addAction:action];
     }];
-    
-    UIAlertAction *twitchAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"TWITCH", @"")
-                                                           style:UIAlertActionStyleDefault
-                                                         handler:^(UIAlertAction * _Nonnull action) {
-        NSURL *url = [NSURL URLWithString:PnamuTwitch];
-        [UIApplication.sharedApplication openURL:url options:@{} completionHandler:^(BOOL success) {}];
-    }];
-    
-    UIAlertAction *youTubeAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"YOUTUBE", @"")
-                                                            style:UIAlertActionStyleDefault
-                                                          handler:^(UIAlertAction * _Nonnull action) {
-        NSURL *url = [NSURL URLWithString:PnamuYouTube];
-        [UIApplication.sharedApplication openURL:url options:@{} completionHandler:^(BOOL success) {}];
-    }];
-    
-    [alert addAction:cancelAction];
-    [alert addAction:twitterAction];
-    [alert addAction:twitchAction];
-    [alert addAction:youTubeAction];
     
     //
     
@@ -263,12 +244,12 @@
             [self pushToRegionViewController];
             break;
         case PrefsItemModelTypeJinwooKimContributor:
-            [self presentWebViewControllerWithURL:[NSURL URLWithString:PookjwGitHub]];
+            [self presentWebViewControllerWithURL:itemModel.singleWebPageURL];
             break;
         case PrefsItemModelTypePnamuContributor: {
             UICollectionViewCell * _Nullable cell = [collectionView cellForItemAtIndexPath:indexPath];
             if (cell) {
-                [self presentPnamuActionSheetFromView:cell];
+                [self presentActionSheetFromView:cell withInfo:itemModel.socialInfo];
             }
             [collectionView deselectItemAtIndexPath:indexPath animated:YES];
             break;
@@ -277,6 +258,91 @@
             [collectionView deselectItemAtIndexPath:indexPath animated:YES];
             break;
     }
+}
+
+- (UIContextMenuConfiguration *)collectionView:(UICollectionView *)collectionView contextMenuConfigurationForItemAtIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point {
+    PrefsItemModel * _Nullable itemModel = [self.viewModel.dataSource itemIdentifierForIndexPath:indexPath];
+    if (itemModel == nil) return nil;
+    
+    switch (itemModel.type) {
+        case PrefsItemModelTypeLocaleSelection: {
+            self.viewModel.contextMenuIndexPath = indexPath;
+            UIContextMenuConfiguration *configuration = [UIContextMenuConfiguration configurationWithIdentifier:nil
+                                                                                                previewProvider:^UIViewController * _Nullable{
+                PrefsLocaleViewController *vc = [PrefsLocaleViewController new];
+                self.contextViewController = vc;
+                return [vc autorelease];
+            }
+                                                                                                 actionProvider:nil];
+            return configuration;
+        }
+        case PrefsItemModelTypeRegionSelection: {
+            self.viewModel.contextMenuIndexPath = indexPath;
+            UIContextMenuConfiguration *configuration = [UIContextMenuConfiguration configurationWithIdentifier:nil
+                                                                                                previewProvider:^UIViewController * _Nullable{
+                PrefsRegionViewController *vc = [PrefsRegionViewController new];
+                self.contextViewController = vc;
+                return [vc autorelease];
+            }
+                                                                                                 actionProvider:nil];
+            return configuration;
+        }
+        case PrefsItemModelTypeJinwooKimContributor: {
+            self.viewModel.contextMenuIndexPath = indexPath;
+            UIContextMenuConfiguration *configuration = [UIContextMenuConfiguration configurationWithIdentifier:nil
+                                                                                                previewProvider:^UIViewController * _Nullable{
+                SFSafariViewController *vc = [[SFSafariViewController alloc] initWithURL:itemModel.singleWebPageURL];
+                self.contextViewController = vc;
+                return [vc autorelease];
+            }
+                                                                                                 actionProvider:nil];
+            return configuration;
+        }
+        case PrefsItemModelTypePnamuContributor: {
+            UIContextMenuConfiguration *configuration = [UIContextMenuConfiguration configurationWithIdentifier:nil
+                                                                                                previewProvider:nil
+                                                                                                 actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> * _Nonnull suggestedActions) {
+                NSMutableArray *children = [@[] mutableCopy];
+                [itemModel.socialInfo enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSURL * _Nonnull obj, BOOL * _Nonnull stop) {
+                    [children addObject:[UIAction actionWithTitle:key image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                        [UIApplication.sharedApplication openURL:obj options:@{} completionHandler:^(BOOL success){}];
+                    }]];
+                }];
+                
+                UIMenu *menu = [UIMenu menuWithTitle:NSLocalizedString(@"PNAMU", @"")
+                                            children:children];
+                [children release];
+                
+                return menu;
+            }];
+            return configuration;
+        }
+        default:
+            return nil;
+    }
+}
+
+- (void)collectionView:(UICollectionView *)collectionView willPerformPreviewActionForMenuWithConfiguration:(UIContextMenuConfiguration *)configuration animator:(id<UIContextMenuInteractionCommitAnimating>)animator {
+    NSIndexPath * _Nullable indexPath = self.viewModel.contextMenuIndexPath;
+    
+    if (indexPath) {
+        [collectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionLeft];
+        self.viewModel.contextMenuIndexPath = nil;
+    }
+    
+    if (self.contextViewController == nil) return;
+    
+    [animator addAnimations:^{
+        if ([self.contextViewController isKindOfClass:[SFSafariViewController class]]) {
+            [self presentViewController:self.contextViewController animated:YES completion:^{}];
+        } else {
+            [self.navigationController pushViewController:self.contextViewController animated:YES];
+        }
+    }];
+    
+    [animator addCompletion:^{
+        self.contextViewController = nil;
+    }];
 }
 
 @end

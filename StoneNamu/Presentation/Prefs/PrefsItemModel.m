@@ -77,4 +77,26 @@
     return YES;
 }
 
+- (NSDictionary<NSString *,NSURL *> * _Nullable)socialInfo {
+    switch (self.type) {
+        case PrefsItemModelTypePnamuContributor:
+            return @{
+                NSLocalizedString(@"TWITTER", @""): [NSURL URLWithString:@"https://twitter.com/Pnamu"],
+                NSLocalizedString(@"TWITCH", @""): [NSURL URLWithString:@"https://www.twitch.tv/Pnamu"],
+                NSLocalizedString(@"YOUTUBE", @""): [NSURL URLWithString:@"https://www.youtube.com/c/Pnamu"]
+            };
+        default:
+            return nil;
+    }
+}
+
+- (NSURL * _Nullable)singleWebPageURL {
+    switch (self.type) {
+        case PrefsItemModelTypeJinwooKimContributor:
+            return [NSURL URLWithString:@"https://github.com/pookjw"];
+        default:
+            return nil;
+    }
+}
+
 @end

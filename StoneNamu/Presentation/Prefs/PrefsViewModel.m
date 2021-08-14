@@ -21,6 +21,7 @@
     self = [self init];
     
     if (self) {
+        self.contextMenuIndexPath = nil;
         self->_dataSource = dataSource;
         [dataSource retain];
         
@@ -41,6 +42,7 @@
 }
 
 - (void)dealloc {
+    [_contextMenuIndexPath release];
     [_dataSource release];
     [_queue release];
     [_prefsUseCase release];
