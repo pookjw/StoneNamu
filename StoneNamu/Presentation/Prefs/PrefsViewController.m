@@ -35,6 +35,7 @@
     [super viewDidLoad];
     [self setAttributes];
     [self configureCollectionView];
+    [self configureRightBarButtons];
     [self configureViewModel];
 }
 
@@ -76,6 +77,20 @@
     collectionView.delegate = self;
     
     [collectionView release];
+}
+
+- (void)configureRightBarButtons {
+    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"DONE", @"")
+                                                                   style:UIBarButtonItemStyleDone
+                                                                  target:self
+                                                                  action:@selector(doneButtonTriggered:)];
+    
+    self.navigationItem.rightBarButtonItems = @[doneButton];
+    [doneButton release];
+}
+
+- (void)doneButtonTriggered:(UIBarButtonItem *)sender {
+    [self dismissViewControllerAnimated:YES completion:^{}];
 }
 
 - (void)configureViewModel {
