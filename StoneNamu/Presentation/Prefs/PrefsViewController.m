@@ -276,6 +276,9 @@
 }
 
 - (UIContextMenuConfiguration *)collectionView:(UICollectionView *)collectionView contextMenuConfigurationForItemAtIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point {
+    self.contextViewController = nil;
+    self.viewModel.contextMenuIndexPath = nil;
+    
     PrefsItemModel * _Nullable itemModel = [self.viewModel.dataSource itemIdentifierForIndexPath:indexPath];
     if (itemModel == nil) return nil;
     
