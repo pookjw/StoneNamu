@@ -56,8 +56,18 @@
     [self bind];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self configureNavigation];
+}
+
 - (void)setAttributes {
     
+}
+
+- (void)configureNavigation {
+    self.title = NSLocalizedString(@"CARDS", @"");
+    self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
 }
 
 - (void)configureCollectionView {

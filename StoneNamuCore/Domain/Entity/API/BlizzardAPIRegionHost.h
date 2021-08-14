@@ -1,5 +1,5 @@
 //
-//  BlizzardHSAPIRegionHost.h
+//  BlizzardAPIRegionHost.h
 //  StoneNamuCore
 //
 //  Created by Jinwoo Kim on 7/18/21.

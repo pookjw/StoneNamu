@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface Prefs : NSManagedObject
 @property (assign) NSString * _Nullable locale;
 @property (assign) NSString * _Nullable apiRegionHost;
+@property (class, readonly, nonatomic) NSString *alternativeLocale;
+@property (class, readonly, nonatomic) NSString *alternativeAPIRegionHost;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -55,3 +55,31 @@
 "CARD_ARTIST" = "Artist";
 
 "EMPTY" = "(Empty)";
+
+"CARDS" = "Cards";
+
+"PREFERENCES" = "Settings";
+
+"SEARCH" = "Search";
+
+"LOCALE" = "Language";
+
+"REGION" = "Server";
+
+"CONTRIBUTORS" = "Contributors";
+
+"JINWOO_KIM" = "Jinwoo Kim";
+
+"JINWOO_KIM_DESCRIPTION" = "Developer";
+
+"PNAMU" = "Pnamu";
+
+"PNAMU_DESCRIPTION" = "Icon Designer, Beta Tester";
+
+"AUTO" = "(Auto)";
+
+"TWITTER" = "Twitter";
+
+"TWITCH" = "Twitch";
+
+"YOUTUBE" = "YouTube";

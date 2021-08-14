@@ -108,7 +108,7 @@
 }
 
 - (void)updateDataSourceWithCards:(NSArray<HSCard *> *)cards {
-    NSDiffableDataSourceSnapshot *snapshot = self.dataSource.snapshot;
+    NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
     
     CardSectionModel * _Nullable sectionModel = nil;
     
@@ -135,7 +135,10 @@
     
     [itemModels release];
     
-    [self.dataSource applySnapshot:snapshot animatingDifferences:YES];
+    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+        [self.dataSource applySnapshot:snapshot animatingDifferences:YES];
+        [snapshot release];
+    }];
 }
 
 - (void)postError:(NSError *)error {

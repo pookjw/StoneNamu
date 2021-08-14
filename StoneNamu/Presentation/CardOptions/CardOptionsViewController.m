@@ -36,9 +36,19 @@
     [self bind];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self configureNavigation];
+}
+
 - (void)setAttributes {
     self.view.backgroundColor = UIColor.systemBackgroundColor;
-    self.navigationItem.title = NSLocalizedString(@"APP_NAME", @"");
+}
+
+- (void)configureNavigation {
+    self.title = NSLocalizedString(@"APP_NAME", @"");
+    self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAlways;
+    self.navigationController.navigationBar.prefersLargeTitles = YES;
 }
 
 - (void)configureFetchButton {

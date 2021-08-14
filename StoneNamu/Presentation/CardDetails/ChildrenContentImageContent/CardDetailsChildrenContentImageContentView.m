@@ -56,7 +56,7 @@
 }
 
 - (void)setConfiguration:(id<UIContentConfiguration>)configuration {
-    [self.configuration release];
+    [self->configuration release];
     CardDetailsChildrenContentImageConfiguration *content = [(CardDetailsChildrenContentImageConfiguration *)configuration copy];
     self->configuration = content;
     

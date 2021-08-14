@@ -62,20 +62,33 @@
 
 - (void)addLocalKeyIfNeeded:(NSDictionary * _Nullable)options completion:(void (^)(NSDictionary *, NSNumber *))completion {
     [self.prefsUseCase fetchWithCompletion:^(Prefs * _Nullable prefs, NSError * _Nullable error) {
+        
+        // Get preferences
+        NSString *locale;
+        NSString *apiRegionHost;
+        
+        if (prefs.locale) {
+            locale = prefs.locale;
+        } else {
+            locale = Prefs.alternativeLocale;
+        }
+        if (prefs.apiRegionHost) {
+            apiRegionHost = prefs.apiRegionHost;
+        } else {
+            apiRegionHost = Prefs.alternativeAPIRegionHost;
+        }
+        
+        // Fill options
         if (options == nil) {
-            if (prefs) {
-                completion(@{BlizzardHSAPIOptionTypeLocale: prefs.locale}, [NSNumber numberWithUnsignedInteger:BlizzardAPIRegionHostFromNSStringForAPI(prefs.apiRegionHost)]);
-            } else {
-                completion(@{BlizzardHSAPIOptionTypeLocale: BlizzardHSAPILocaleEnUS}, [NSNumber numberWithUnsignedInteger:BlizzardAPIRegionHostUS]);
-            }
+            completion(@{BlizzardHSAPIOptionTypeLocale: locale}, [NSNumber numberWithUnsignedInteger:BlizzardAPIRegionHostFromNSStringForAPI(apiRegionHost)]);
         } else if ([options.allKeys containsObject:BlizzardHSAPIOptionTypeLocale]) {
-            completion(options, [NSNumber numberWithUnsignedInteger:BlizzardAPIRegionHostFromNSStringForAPI(prefs.apiRegionHost)]);
+            completion(options, [NSNumber numberWithUnsignedInteger:BlizzardAPIRegionHostFromNSStringForAPI(apiRegionHost)]);
         } else {
             NSMutableDictionary *mutableOptions = [options mutableCopy];
-            mutableOptions[BlizzardHSAPIOptionTypeLocale] = prefs.locale;
+            mutableOptions[BlizzardHSAPIOptionTypeLocale] = locale;
             NSDictionary *result = [[mutableOptions copy] autorelease];
             [mutableOptions release];
-            completion(result, [NSNumber numberWithUnsignedInteger:BlizzardAPIRegionHostFromNSStringForAPI(prefs.apiRegionHost)]);
+            completion(result, [NSNumber numberWithUnsignedInteger:BlizzardAPIRegionHostFromNSStringForAPI(apiRegionHost)]);
         }
     }];
 }

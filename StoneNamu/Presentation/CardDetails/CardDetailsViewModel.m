@@ -45,7 +45,7 @@
 
 - (void)requestDataSourceWithCard:(HSCard *)hsCard {
     [self.queue addBarrierBlock:^{
-        NSDiffableDataSourceSnapshot *snapshot = self.dataSource.snapshot;
+        NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
         
         [snapshot deleteAllItems];
         
@@ -56,33 +56,36 @@
         
         //
         
-        [snapshot appendItemsWithIdentifiers:@[
-            [[[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeName value:hsCard.name] autorelease],
-            [[[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeFlavorText value:hsCard.flavorText] autorelease],
-            [[[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeText value:hsCard.text] autorelease]
-        ]
-                   intoSectionWithIdentifier:sectionModelBase];
-        
-        [snapshot appendItemsWithIdentifiers:@[
-            [[[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeType value:hsCardTypesWithLocalizable()[NSStringFromHSCardType(hsCard.cardTypeId)]] autorelease],
-            [[[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeRarity value:hsCardRaritiesWithLocalizable()[NSStringFromHSCardRarity(hsCard.rarityId)]] autorelease],
-            [[[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeSet value:hsCardSetsWithLocalizable()[NSStringFromHSCardSet(hsCard.cardSetId)]] autorelease],
-            [[[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeClass value:hsCardClassesWithLocalizable()[NSStringFromHSCardClass(hsCard.classId)]] autorelease],
-            [[[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeCollectible value:hsCardCollectiblesWithLocalizable()[NSStringFromHSCardCollectible(hsCard.collectible)]] autorelease],
-            [[[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeArtist value:hsCard.artistName] autorelease]
-        ]
-                   intoSectionWithIdentifier:sectionModelDetail];
+        @autoreleasepool {
+            [snapshot appendItemsWithIdentifiers:@[
+                [[[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeName value:hsCard.name] autorelease],
+                [[[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeFlavorText value:hsCard.flavorText] autorelease],
+                [[[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeText value:hsCard.text] autorelease]
+            ]
+                       intoSectionWithIdentifier:sectionModelBase];
+            
+            [snapshot appendItemsWithIdentifiers:@[
+                [[[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeType value:hsCardTypesWithLocalizable()[NSStringFromHSCardType(hsCard.cardTypeId)]] autorelease],
+                [[[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeRarity value:hsCardRaritiesWithLocalizable()[NSStringFromHSCardRarity(hsCard.rarityId)]] autorelease],
+                [[[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeSet value:hsCardSetsWithLocalizable()[NSStringFromHSCardSet(hsCard.cardSetId)]] autorelease],
+                [[[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeClass value:hsCardClassesWithLocalizable()[NSStringFromHSCardClass(hsCard.classId)]] autorelease],
+                [[[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeCollectible value:hsCardCollectiblesWithLocalizable()[NSStringFromHSCardCollectible(hsCard.collectible)]] autorelease],
+                [[[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeArtist value:hsCard.artistName] autorelease]
+            ]
+                       intoSectionWithIdentifier:sectionModelDetail];
+        };
         
         //
         
         [sectionModelBase release];
         [sectionModelDetail release];
         
-        [self.dataSource applySnapshot:snapshot animatingDifferences:YES];
-        
-        //
-        
-        [self loadChildCardsWithHSCard:hsCard];
+        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+            [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
+                [self loadChildCardsWithHSCard:hsCard];
+            }];
+            [snapshot release];
+        }];
     }];
 }
 

@@ -8,8 +8,6 @@
 #import "PrefsRepositoryImpl.h"
 #import "CoreDataStackImpl.h"
 #import "NSManagedObject+_fetchRequest.h"
-#import "BlizzardAPIRegionHost.h"
-#import "BlizzardHSAPILocale.h"
 
 @interface PrefsRepositoryImpl ()
 @property (retain) id<CoreDataStack> coreDataStack;
@@ -87,52 +85,7 @@
 
 - (Prefs *)makeNewPrefs {
     Prefs *prefs = [[Prefs alloc] initWithContext:self.coreDataStack.context];
-    
-    NSLocale *locale = NSLocale.currentLocale;
-    NSString * _Nullable countryCode = locale.countryCode;
-    NSString *language = locale.languageCode;
-    NSString *localeIdentifier = locale.localeIdentifier;
-    
-    if ([countryCode isEqualToString:@"US"]) {
-        prefs.apiRegionHost = NSStringForAPIFromRegionHost(BlizzardAPIRegionHostUS);
-    } else if ([countryCode isEqualToString:@"EU"]) {
-        prefs.apiRegionHost = NSStringForAPIFromRegionHost(BlizzardAPIRegionHostEU);
-    } else if ([countryCode isEqualToString:@"KR"]) {
-        prefs.apiRegionHost = NSStringForAPIFromRegionHost(BlizzardAPIRegionHostKR);
-    } else if ([countryCode isEqualToString:@"TW"]) {
-        prefs.apiRegionHost = NSStringForAPIFromRegionHost(BlizzardAPIRegionHostTW);
-    } else if ([countryCode isEqualToString:@"CN"]) {
-        prefs.apiRegionHost = NSStringForAPIFromRegionHost(BlizzardAPIRegionHostCN);
-    } else {
-        prefs.apiRegionHost = NSStringForAPIFromRegionHost(BlizzardAPIRegionHostUS);
-    }
-    
-    if ([language isEqualToString:@"en"]) {
-        prefs.locale = BlizzardHSAPILocaleEnUS;
-    } else if ([language isEqualToString:@"fr"]) {
-        prefs.locale = BlizzardHSAPILocaleFrFR;
-    } else if ([language isEqualToString:@"de"]) {
-        prefs.locale = BlizzardHSAPILocaleDeDE;
-    } else if ([language isEqualToString:@"it"]) {
-        prefs.locale = BlizzardHSAPILocaleItIT;
-    } else if ([language isEqualToString:@"ja"]) {
-        prefs.locale = BlizzardHSAPILocaleJaJP;
-    } else if ([language isEqualToString:@"ko"]) {
-        prefs.locale = BlizzardHSAPILocaleKoKR;
-    } else if ([language isEqualToString:@"pl"]) {
-        prefs.locale = BlizzardHSAPILocalePlPL;
-    } else if ([language isEqualToString:@"ru"]) {
-        prefs.locale = BlizzardHSAPILocaleRuRU;
-    } else if ([localeIdentifier isEqualToString:@"zh_CN"]) {
-        prefs.locale = BlizzardHSAPILocaleZhCN;
-    } else if ([language isEqualToString:@"es"]) {
-        prefs.locale = BlizzardHSAPILocaleKoKR;
-    } else if ([localeIdentifier isEqualToString:@"zh_TW"]) {
-        prefs.locale = BlizzardHSAPILocaleZhTW;
-    } else {
-        prefs.locale = BlizzardHSAPILocaleEnUS;
-    }
-    
+    [self saveChanges];
     return [prefs autorelease];
 }
 

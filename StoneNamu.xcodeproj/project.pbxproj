@@ -15,7 +15,13 @@
 		4F03F56826C7B2C900FC9155 /* BlizzardHSAPILocale.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4F03F56A26C7B2C900FC9155 /* BlizzardHSAPILocale.strings */; };
 		4F03F56D26C7B3CF00FC9155 /* BlizzardHSAPILocale.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F03F56C26C7B3CF00FC9155 /* BlizzardHSAPILocale.m */; };
 		4F03F57026C7B47C00FC9155 /* BlizzardAPIRegionHost.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4F03F57226C7B47C00FC9155 /* BlizzardAPIRegionHost.strings */; };
+		4F03F57626C7B62200FC9155 /* PrefsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F03F57526C7B62200FC9155 /* PrefsViewModel.m */; };
+		4F03F57926C7B62C00FC9155 /* PrefsSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F03F57826C7B62C00FC9155 /* PrefsSectionModel.m */; };
+		4F03F57C26C7B63600FC9155 /* PrefsItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F03F57B26C7B63600FC9155 /* PrefsItemModel.m */; };
 		4F182BD126AC23600028115C /* UIViewController+presentErrorAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F182BD026AC23600028115C /* UIViewController+presentErrorAlert.m */; };
+		4F1B98A626C8235B004E1603 /* PrefsLocaleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1B98A526C8235B004E1603 /* PrefsLocaleViewController.m */; };
+		4F1B98A926C82382004E1603 /* PrefsRegionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1B98A826C82382004E1603 /* PrefsRegionViewController.m */; };
+		4F1B98AC26C824D9004E1603 /* UIViewController+animatedForSelectedIndexPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1B98AB26C824D9004E1603 /* UIViewController+animatedForSelectedIndexPath.m */; };
 		4F34385026A36FBA001161FE /* StoneNamuCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F34384826A36FBA001161FE /* StoneNamuCore.framework */; };
 		4F34385826A36FBA001161FE /* StoneNamuCore.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F34384A26A36FBA001161FE /* StoneNamuCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4F34385B26A36FBA001161FE /* StoneNamuCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F34384826A36FBA001161FE /* StoneNamuCore.framework */; };
@@ -155,8 +161,20 @@
 		4F03F56C26C7B3CF00FC9155 /* BlizzardHSAPILocale.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlizzardHSAPILocale.m; sourceTree = "<group>"; };
 		4F03F57126C7B47C00FC9155 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/BlizzardAPIRegionHost.strings; sourceTree = "<group>"; };
 		4F03F57326C7B47D00FC9155 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/BlizzardAPIRegionHost.strings; sourceTree = "<group>"; };
+		4F03F57426C7B62200FC9155 /* PrefsViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefsViewModel.h; sourceTree = "<group>"; };
+		4F03F57526C7B62200FC9155 /* PrefsViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrefsViewModel.m; sourceTree = "<group>"; };
+		4F03F57726C7B62C00FC9155 /* PrefsSectionModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefsSectionModel.h; sourceTree = "<group>"; };
+		4F03F57826C7B62C00FC9155 /* PrefsSectionModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrefsSectionModel.m; sourceTree = "<group>"; };
+		4F03F57A26C7B63600FC9155 /* PrefsItemModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefsItemModel.h; sourceTree = "<group>"; };
+		4F03F57B26C7B63600FC9155 /* PrefsItemModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrefsItemModel.m; sourceTree = "<group>"; };
 		4F182BCF26AC23600028115C /* UIViewController+presentErrorAlert.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+presentErrorAlert.h"; sourceTree = "<group>"; };
 		4F182BD026AC23600028115C /* UIViewController+presentErrorAlert.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+presentErrorAlert.m"; sourceTree = "<group>"; };
+		4F1B98A426C8235B004E1603 /* PrefsLocaleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefsLocaleViewController.h; sourceTree = "<group>"; };
+		4F1B98A526C8235B004E1603 /* PrefsLocaleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrefsLocaleViewController.m; sourceTree = "<group>"; };
+		4F1B98A726C82382004E1603 /* PrefsRegionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefsRegionViewController.h; sourceTree = "<group>"; };
+		4F1B98A826C82382004E1603 /* PrefsRegionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrefsRegionViewController.m; sourceTree = "<group>"; };
+		4F1B98AA26C824D9004E1603 /* UIViewController+animatedForSelectedIndexPath.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+animatedForSelectedIndexPath.h"; sourceTree = "<group>"; };
+		4F1B98AB26C824D9004E1603 /* UIViewController+animatedForSelectedIndexPath.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+animatedForSelectedIndexPath.m"; sourceTree = "<group>"; };
 		4F34383726A36492001161FE /* BlizzardTokenAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlizzardTokenAPI.h; sourceTree = "<group>"; };
 		4F34383C26A36501001161FE /* BlizzardTokenAPIImpl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlizzardTokenAPIImpl.h; sourceTree = "<group>"; };
 		4F34383D26A36501001161FE /* BlizzardTokenAPIImpl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlizzardTokenAPIImpl.m; sourceTree = "<group>"; };
@@ -355,12 +373,32 @@
 			children = (
 				4F182BCF26AC23600028115C /* UIViewController+presentErrorAlert.h */,
 				4F182BD026AC23600028115C /* UIViewController+presentErrorAlert.m */,
+				4F1B98AA26C824D9004E1603 /* UIViewController+animatedForSelectedIndexPath.h */,
+				4F1B98AB26C824D9004E1603 /* UIViewController+animatedForSelectedIndexPath.m */,
 				4F646A5D26B7D05E00BEDB38 /* UIImageView+setAsyncImage.h */,
 				4F646A5E26B7D05E00BEDB38 /* UIImageView+setAsyncImage.m */,
 				4FEB414626BD7BDF009D8594 /* NSString+clearedHTML.h */,
 				4FEB414726BD7BDF009D8594 /* NSString+clearedHTML.m */,
 			);
 			path = Category;
+			sourceTree = "<group>";
+		};
+		4F1B98A226C8231F004E1603 /* Locale */ = {
+			isa = PBXGroup;
+			children = (
+				4F1B98A426C8235B004E1603 /* PrefsLocaleViewController.h */,
+				4F1B98A526C8235B004E1603 /* PrefsLocaleViewController.m */,
+			);
+			path = Locale;
+			sourceTree = "<group>";
+		};
+		4F1B98A326C82328004E1603 /* Region */ = {
+			isa = PBXGroup;
+			children = (
+				4F1B98A726C82382004E1603 /* PrefsRegionViewController.h */,
+				4F1B98A826C82382004E1603 /* PrefsRegionViewController.m */,
+			);
+			path = Region;
 			sourceTree = "<group>";
 		};
 		4F34384926A36FBA001161FE /* StoneNamuCore */ = {
@@ -656,7 +694,14 @@
 		4FB0ECE526B82AD40020EE6C /* CardDetails */ = {
 			isa = PBXGroup;
 			children = (
-				4FC6CDF026C18AE0006F0BED /* Main */,
+				4FB0ECE626B82AEE0020EE6C /* CardDetailsViewController.h */,
+				4FB0ECE726B82AEE0020EE6C /* CardDetailsViewController.m */,
+				4F98E25626B9A9760067846F /* CardDetailsViewModel.h */,
+				4F98E25726B9A9760067846F /* CardDetailsViewModel.m */,
+				4F98E25926B9AA280067846F /* CardDetailsSectionModel.h */,
+				4F98E25A26B9AA280067846F /* CardDetailsSectionModel.m */,
+				4F98E25C26B9AB110067846F /* CardDetailsItemModel.h */,
+				4F98E25D26B9AB110067846F /* CardDetailsItemModel.m */,
 				4FC6CDF126C18AEE006F0BED /* Layout */,
 				4FC6CDF226C18AF7006F0BED /* Base */,
 				4FC6CDF326C18B03006F0BED /* ChildrenContent */,
@@ -679,6 +724,14 @@
 			children = (
 				4FB850F526C18BAE00E3C89D /* PrefsViewController.h */,
 				4FB850F626C18BAE00E3C89D /* PrefsViewController.m */,
+				4F03F57426C7B62200FC9155 /* PrefsViewModel.h */,
+				4F03F57526C7B62200FC9155 /* PrefsViewModel.m */,
+				4F03F57726C7B62C00FC9155 /* PrefsSectionModel.h */,
+				4F03F57826C7B62C00FC9155 /* PrefsSectionModel.m */,
+				4F03F57A26C7B63600FC9155 /* PrefsItemModel.h */,
+				4F03F57B26C7B63600FC9155 /* PrefsItemModel.m */,
+				4F1B98A226C8231F004E1603 /* Locale */,
+				4F1B98A326C82328004E1603 /* Region */,
 			);
 			path = Prefs;
 			sourceTree = "<group>";
@@ -691,21 +744,6 @@
 				4FB850FD26C18D9300E3C89D /* Prefs.m */,
 			);
 			path = Prefs;
-			sourceTree = "<group>";
-		};
-		4FC6CDF026C18AE0006F0BED /* Main */ = {
-			isa = PBXGroup;
-			children = (
-				4FB0ECE626B82AEE0020EE6C /* CardDetailsViewController.h */,
-				4FB0ECE726B82AEE0020EE6C /* CardDetailsViewController.m */,
-				4F98E25626B9A9760067846F /* CardDetailsViewModel.h */,
-				4F98E25726B9A9760067846F /* CardDetailsViewModel.m */,
-				4F98E25926B9AA280067846F /* CardDetailsSectionModel.h */,
-				4F98E25A26B9AA280067846F /* CardDetailsSectionModel.m */,
-				4F98E25C26B9AB110067846F /* CardDetailsItemModel.h */,
-				4F98E25D26B9AB110067846F /* CardDetailsItemModel.m */,
-			);
-			path = Main;
 			sourceTree = "<group>";
 		};
 		4FC6CDF126C18AEE006F0BED /* Layout */ = {
@@ -1008,10 +1046,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				4F74711726C1678F001C45C4 /* CardDetailsChildrenContentConfiguration.m in Sources */,
+				4F1B98A626C8235B004E1603 /* PrefsLocaleViewController.m in Sources */,
 				4F98E25526B993650067846F /* CardDetailsLayoutRegularViewController.m in Sources */,
 				4FF676CF26AAFC6A00477272 /* CardsViewController.m in Sources */,
 				4F57DEA126AD7DB3000E4163 /* SheetNavigationController.m in Sources */,
 				4F646A5C26B7CA8000BEDB38 /* CardsCollectionViewCompositionalLayout.m in Sources */,
+				4F03F57C26C7B63600FC9155 /* PrefsItemModel.m in Sources */,
 				4FA56BAC26A21059002D9FA0 /* AppDelegate.m in Sources */,
 				4F57DEB926ADC3CF000E4163 /* PickerItemView.m in Sources */,
 				4F74711A26C1698B001C45C4 /* CardDetailsChildrenContentView.m in Sources */,
@@ -1024,15 +1064,18 @@
 				4FB0ECE826B82AEE0020EE6C /* CardDetailsViewController.m in Sources */,
 				4FA9047A26B6E26A00CD6147 /* CardContentView.m in Sources */,
 				4F4976E926ABFF5E00860809 /* CardOptionSectionModel.m in Sources */,
+				4F1B98A926C82382004E1603 /* PrefsRegionViewController.m in Sources */,
 				4F4976E626ABFE2100860809 /* CardOptionsViewModel.m in Sources */,
 				4F4976EC26ABFF6900860809 /* CardOptionItemModel.m in Sources */,
 				4FA56BBD26A2105A002D9FA0 /* main.m in Sources */,
 				4F57DEAC26ADA6E3000E4163 /* PickerItemModel.m in Sources */,
 				4F74712926C170E5001C45C4 /* CardDetailsChildrenContentItemModel.m in Sources */,
+				4F03F57926C7B62C00FC9155 /* PrefsSectionModel.m in Sources */,
 				4FEB413E26BD6116009D8594 /* CardDetailsBasicContentView.m in Sources */,
 				4F4976E326ABFCB300860809 /* CardOptionsViewController.m in Sources */,
 				4FB0ECEB26B82B100020EE6C /* DynamicPresentationController.m in Sources */,
 				4F4976D926ABE80700860809 /* CardItemModel.m in Sources */,
+				4F03F57626C7B62200FC9155 /* PrefsViewModel.m in Sources */,
 				4F4976D226ABE6B600860809 /* CardsViewModel.m in Sources */,
 				4F74712626C170CA001C45C4 /* CardDetailsChildrenContentSectionModel.m in Sources */,
 				4FEB414126BD6133009D8594 /* CardDetailsBasicContentConfiguration.m in Sources */,
@@ -1045,6 +1088,7 @@
 				4FEB414826BD7BDF009D8594 /* NSString+clearedHTML.m in Sources */,
 				4F98E25826B9A9760067846F /* CardDetailsViewModel.m in Sources */,
 				4F4976D626ABE72C00860809 /* CardSectionModel.m in Sources */,
+				4F1B98AC26C824D9004E1603 /* UIViewController+animatedForSelectedIndexPath.m in Sources */,
 				4F6A13B226B273640089A13A /* StepperViewController.m in Sources */,
 				4F74712F26C1760C001C45C4 /* CardDetailsChildrenContentImageContentView.m in Sources */,
 			);

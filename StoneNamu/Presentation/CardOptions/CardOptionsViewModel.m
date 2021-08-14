@@ -123,7 +123,7 @@
 }
 
 - (void)configureSnapshot {
-    NSDiffableDataSourceSnapshot *snapshot = self.dataSource.snapshot;
+    NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
     
     [snapshot deleteAllItems];
     
@@ -160,6 +160,7 @@
     
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
         [self.dataSource applySnapshot:snapshot animatingDifferences:YES];
+        [snapshot release];
     }];
 }
 

@@ -37,7 +37,7 @@
 
 - (void)requestChildCards:(NSArray<HSCard *> *)childCards {
     [self.queue addBarrierBlock:^{
-        NSDiffableDataSourceSnapshot *snapshot = self.dataSource.snapshot;
+        NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
         
         [snapshot deleteAllItems];
         
@@ -61,7 +61,10 @@
         [sectionModel release];
         [itemModels release];
         
-        [self.dataSource applySnapshot:snapshot animatingDifferences:YES];
+        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+            [self.dataSource applySnapshot:snapshot animatingDifferences:YES];
+            [snapshot release];
+        }];
     }];
 }
 

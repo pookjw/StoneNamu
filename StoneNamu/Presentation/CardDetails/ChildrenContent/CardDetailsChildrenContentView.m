@@ -128,7 +128,7 @@
 }
 
 - (void)setConfiguration:(id<UIContentConfiguration>)configuration {
-    [self.configuration release];
+    [self->configuration release];
     CardDetailsChildrenContentConfiguration *content = [(CardDetailsChildrenContentConfiguration *)configuration copy];
     self->configuration = content;
     

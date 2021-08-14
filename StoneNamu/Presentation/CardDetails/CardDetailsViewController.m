@@ -255,6 +255,7 @@
         if (![item isKindOfClass:[CardDetailsItemModel class]]) {
             return;
         }
+        
         //
         
         CardDetailsItemModel *itemModel = (CardDetailsItemModel *)item;
