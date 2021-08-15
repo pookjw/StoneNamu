@@ -23,6 +23,7 @@
 @implementation PrefsViewController
 
 - (void)dealloc {
+    [NSNotificationCenter.defaultCenter removeObserver:self];
     [_collectionView release];
     [_viewModel release];
     [_headerCellRegistration release];

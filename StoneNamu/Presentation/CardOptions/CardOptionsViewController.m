@@ -21,6 +21,7 @@
 @implementation CardOptionsViewController
 
 - (void)dealloc {
+    [NSNotificationCenter.defaultCenter removeObserver:self];
     [_collectionView release];
     [_viewModel release];
     [super dealloc];

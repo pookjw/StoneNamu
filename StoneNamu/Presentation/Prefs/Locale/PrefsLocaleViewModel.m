@@ -39,6 +39,7 @@
 }
 
 - (void)dealloc {
+    [NSNotificationCenter.defaultCenter removeObserver:self];
     [_dataSource release];
     [_queue release];
     [_prefsUseCase release];

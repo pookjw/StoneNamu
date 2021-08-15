@@ -39,6 +39,7 @@ static NSMutableDictionary<NSString *, NSOperationQueue *> * _Nullable kOperatio
 }
 
 - (void)dealloc {
+    [NSNotificationCenter.defaultCenter removeObserver:self];
     [_context release];
     [_storeContainer release];
     [_queue cancelAllOperations];
@@ -91,7 +92,6 @@ static NSMutableDictionary<NSString *, NSOperationQueue *> * _Nullable kOperatio
     
     if (kContexts[modelName] == nil) {
         kContexts[modelName] = self.storeContainer.newBackgroundContext;
-        _context = kContexts[modelName];
     }
     
     _context = [kContexts[modelName] retain];
