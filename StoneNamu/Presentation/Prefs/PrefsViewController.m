@@ -235,6 +235,11 @@
         [alert addAction:action];
     }];
     
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"CANCEL", @"")
+                                                           style:UIAlertActionStyleCancel
+                                                         handler:^(UIAlertAction * _Nonnull action) {}];
+    [alert addAction:cancelAction];
+    
     //
     
     UIPopoverPresentationController *pc = [alert popoverPresentationController];
