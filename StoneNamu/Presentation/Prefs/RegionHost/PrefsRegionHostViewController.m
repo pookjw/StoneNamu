@@ -81,7 +81,7 @@
         return cell;
     }];
     
-    return dataSource;
+    return [dataSource autorelease];
 }
 
 - (UICollectionViewCellRegistration *)makeCellRegistration {
