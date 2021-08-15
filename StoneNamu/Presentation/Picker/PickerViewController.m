@@ -165,14 +165,26 @@
                                    primaryText:NSLocalizedString(@"ALL", @"")
                                  secondaryText:nil];
         } else {
+#if DEBUG
             [pickerItemView configureWithImage:self.dataSource[row - 1].image
                                    primaryText:self.dataSource[row - 1].title
                                  secondaryText:self.dataSource[row - 1].identity];
+#else
+            [pickerItemView configureWithImage:self.dataSource[row - 1].image
+                                   primaryText:self.dataSource[row - 1].title
+                                 secondaryText:nil];
+#endif
         }
     } else {
+#if DEBUG
         [pickerItemView configureWithImage:self.dataSource[row].image
                                primaryText:self.dataSource[row].title
                              secondaryText:self.dataSource[row].identity];
+#else
+        [pickerItemView configureWithImage:self.dataSource[row].image
+                               primaryText:self.dataSource[row].title
+                             secondaryText:nil];
+#endif
     }
     
     return pickerItemView;
