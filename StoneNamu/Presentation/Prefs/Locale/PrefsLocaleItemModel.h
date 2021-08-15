@@ -12,8 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface PrefsLocaleItemModel : NSObject
 @property (readonly) BlizzardHSAPILocale _Nullable locale;
-@property (readonly) NSString * _Nullable primaryText;
-@property (readonly) NSString * _Nullable secondaryText;
+@property (readonly, nonatomic) NSString * _Nullable primaryText;
+@property (readonly, nonatomic) NSString * _Nullable secondaryText;
 @property BOOL isSelected;
 - (instancetype)initWithLocale:(BlizzardHSAPILocale _Nullable)locale isSelected:(BOOL)isSelected;
 @end

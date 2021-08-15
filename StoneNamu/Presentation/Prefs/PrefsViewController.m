@@ -9,7 +9,7 @@
 #import "PrefsViewController.h"
 #import "PrefsViewModel.h"
 #import "PrefsLocaleViewController.h"
-#import "PrefsRegionViewController.h"
+#import "PrefsRegionHostViewController.h"
 #import "UIViewController+animatedForSelectedIndexPath.h"
 
 @interface PrefsViewController () <UICollectionViewDelegate>
@@ -208,8 +208,8 @@
     [vc release];
 }
 
-- (void)pushToRegionViewController {
-    PrefsRegionViewController *vc = [PrefsRegionViewController new];
+- (void)pushToRegionHostViewController {
+    PrefsRegionHostViewController *vc = [PrefsRegionHostViewController new];
     [self.navigationController pushViewController:vc animated:YES];
     [vc release];
 }
@@ -257,7 +257,7 @@
             [self pushToLocaleViewController];
             break;
         case PrefsItemModelTypeRegionSelection:
-            [self pushToRegionViewController];
+            [self pushToRegionHostViewController];
             break;
         case PrefsItemModelTypeJinwooKimContributor:
             [self presentWebViewControllerWithURL:itemModel.singleWebPageURL];
@@ -299,7 +299,7 @@
             self.viewModel.contextMenuIndexPath = indexPath;
             UIContextMenuConfiguration *configuration = [UIContextMenuConfiguration configurationWithIdentifier:nil
                                                                                                 previewProvider:^UIViewController * _Nullable{
-                PrefsRegionViewController *vc = [PrefsRegionViewController new];
+                PrefsRegionHostViewController *vc = [PrefsRegionHostViewController new];
                 self.contextViewController = vc;
                 return [vc autorelease];
             }

@@ -32,7 +32,17 @@
         return NO;
     }
     
-    return (self.locale == toCompare.locale) && (self.isSelected == toCompare.isSelected);
+    BOOL isLocaleEqual;
+    
+    if ([self.locale isEqualToString:toCompare.locale]) {
+        isLocaleEqual = YES;
+    } else if ((self.locale == nil) && (toCompare.locale == nil)) {
+        isLocaleEqual = YES;
+    } else {
+        isLocaleEqual = NO;
+    }
+    
+    return (isLocaleEqual) && (self.isSelected == toCompare.isSelected);
 }
 
 - (NSString * _Nullable)primaryText {

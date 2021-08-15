@@ -20,7 +20,7 @@
 		4F03F57C26C7B63600FC9155 /* PrefsItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F03F57B26C7B63600FC9155 /* PrefsItemModel.m */; };
 		4F182BD126AC23600028115C /* UIViewController+presentErrorAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F182BD026AC23600028115C /* UIViewController+presentErrorAlert.m */; };
 		4F1B98A626C8235B004E1603 /* PrefsLocaleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1B98A526C8235B004E1603 /* PrefsLocaleViewController.m */; };
-		4F1B98A926C82382004E1603 /* PrefsRegionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1B98A826C82382004E1603 /* PrefsRegionViewController.m */; };
+		4F1B98A926C82382004E1603 /* PrefsRegionHostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1B98A826C82382004E1603 /* PrefsRegionHostViewController.m */; };
 		4F1B98AC26C824D9004E1603 /* UIViewController+animatedForSelectedIndexPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1B98AB26C824D9004E1603 /* UIViewController+animatedForSelectedIndexPath.m */; };
 		4F34385026A36FBA001161FE /* StoneNamuCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F34384826A36FBA001161FE /* StoneNamuCore.framework */; };
 		4F34385826A36FBA001161FE /* StoneNamuCore.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F34384A26A36FBA001161FE /* StoneNamuCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -111,6 +111,9 @@
 		4FF3E0B526C97D95002B20EA /* PrefsLocaleViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF3E0B426C97D95002B20EA /* PrefsLocaleViewModel.m */; };
 		4FF3E0B826C97DA4002B20EA /* PrefsLocaleSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF3E0B726C97DA4002B20EA /* PrefsLocaleSectionModel.m */; };
 		4FF3E0BB26C97DAC002B20EA /* PrefsLocaleItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF3E0BA26C97DAC002B20EA /* PrefsLocaleItemModel.m */; };
+		4FF3E0C226C9901F002B20EA /* PrefsRegionHostViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF3E0BE26C9901F002B20EA /* PrefsRegionHostViewModel.m */; };
+		4FF3E0C326C9901F002B20EA /* PrefsRegionHostSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF3E0BF26C9901F002B20EA /* PrefsRegionHostSectionModel.m */; };
+		4FF3E0C426C9901F002B20EA /* PrefsRegionHostItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF3E0C126C9901F002B20EA /* PrefsRegionHostItemModel.m */; };
 		4FF676CF26AAFC6A00477272 /* CardsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF676CE26AAFC6A00477272 /* CardsViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -174,8 +177,8 @@
 		4F182BD026AC23600028115C /* UIViewController+presentErrorAlert.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+presentErrorAlert.m"; sourceTree = "<group>"; };
 		4F1B98A426C8235B004E1603 /* PrefsLocaleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefsLocaleViewController.h; sourceTree = "<group>"; };
 		4F1B98A526C8235B004E1603 /* PrefsLocaleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrefsLocaleViewController.m; sourceTree = "<group>"; };
-		4F1B98A726C82382004E1603 /* PrefsRegionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefsRegionViewController.h; sourceTree = "<group>"; };
-		4F1B98A826C82382004E1603 /* PrefsRegionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrefsRegionViewController.m; sourceTree = "<group>"; };
+		4F1B98A726C82382004E1603 /* PrefsRegionHostViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefsRegionHostViewController.h; sourceTree = "<group>"; };
+		4F1B98A826C82382004E1603 /* PrefsRegionHostViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrefsRegionHostViewController.m; sourceTree = "<group>"; };
 		4F1B98AA26C824D9004E1603 /* UIViewController+animatedForSelectedIndexPath.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+animatedForSelectedIndexPath.h"; sourceTree = "<group>"; };
 		4F1B98AB26C824D9004E1603 /* UIViewController+animatedForSelectedIndexPath.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+animatedForSelectedIndexPath.m"; sourceTree = "<group>"; };
 		4F34383726A36492001161FE /* BlizzardTokenAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlizzardTokenAPI.h; sourceTree = "<group>"; };
@@ -346,6 +349,12 @@
 		4FF3E0B726C97DA4002B20EA /* PrefsLocaleSectionModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrefsLocaleSectionModel.m; sourceTree = "<group>"; };
 		4FF3E0B926C97DAC002B20EA /* PrefsLocaleItemModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefsLocaleItemModel.h; sourceTree = "<group>"; };
 		4FF3E0BA26C97DAC002B20EA /* PrefsLocaleItemModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrefsLocaleItemModel.m; sourceTree = "<group>"; };
+		4FF3E0BC26C9901F002B20EA /* PrefsRegionHostViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefsRegionHostViewModel.h; sourceTree = "<group>"; };
+		4FF3E0BD26C9901F002B20EA /* PrefsRegionHostItemModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefsRegionHostItemModel.h; sourceTree = "<group>"; };
+		4FF3E0BE26C9901F002B20EA /* PrefsRegionHostViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsRegionHostViewModel.m; sourceTree = "<group>"; };
+		4FF3E0BF26C9901F002B20EA /* PrefsRegionHostSectionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsRegionHostSectionModel.m; sourceTree = "<group>"; };
+		4FF3E0C026C9901F002B20EA /* PrefsRegionHostSectionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefsRegionHostSectionModel.h; sourceTree = "<group>"; };
+		4FF3E0C126C9901F002B20EA /* PrefsRegionHostItemModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsRegionHostItemModel.m; sourceTree = "<group>"; };
 		4FF676CD26AAFC6A00477272 /* CardsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardsViewController.h; sourceTree = "<group>"; };
 		4FF676CE26AAFC6A00477272 /* CardsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardsViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -407,13 +416,19 @@
 			path = Locale;
 			sourceTree = "<group>";
 		};
-		4F1B98A326C82328004E1603 /* Region */ = {
+		4F1B98A326C82328004E1603 /* RegionHost */ = {
 			isa = PBXGroup;
 			children = (
-				4F1B98A726C82382004E1603 /* PrefsRegionViewController.h */,
-				4F1B98A826C82382004E1603 /* PrefsRegionViewController.m */,
+				4F1B98A726C82382004E1603 /* PrefsRegionHostViewController.h */,
+				4F1B98A826C82382004E1603 /* PrefsRegionHostViewController.m */,
+				4FF3E0BC26C9901F002B20EA /* PrefsRegionHostViewModel.h */,
+				4FF3E0BE26C9901F002B20EA /* PrefsRegionHostViewModel.m */,
+				4FF3E0C026C9901F002B20EA /* PrefsRegionHostSectionModel.h */,
+				4FF3E0BF26C9901F002B20EA /* PrefsRegionHostSectionModel.m */,
+				4FF3E0BD26C9901F002B20EA /* PrefsRegionHostItemModel.h */,
+				4FF3E0C126C9901F002B20EA /* PrefsRegionHostItemModel.m */,
 			);
-			path = Region;
+			path = RegionHost;
 			sourceTree = "<group>";
 		};
 		4F34384926A36FBA001161FE /* StoneNamuCore */ = {
@@ -746,7 +761,7 @@
 				4F03F57A26C7B63600FC9155 /* PrefsItemModel.h */,
 				4F03F57B26C7B63600FC9155 /* PrefsItemModel.m */,
 				4F1B98A226C8231F004E1603 /* Locale */,
-				4F1B98A326C82328004E1603 /* Region */,
+				4F1B98A326C82328004E1603 /* RegionHost */,
 			);
 			path = Prefs;
 			sourceTree = "<group>";
@@ -1067,8 +1082,10 @@
 				4F57DEA126AD7DB3000E4163 /* SheetNavigationController.m in Sources */,
 				4F646A5C26B7CA8000BEDB38 /* CardsCollectionViewCompositionalLayout.m in Sources */,
 				4F03F57C26C7B63600FC9155 /* PrefsItemModel.m in Sources */,
+				4FF3E0C326C9901F002B20EA /* PrefsRegionHostSectionModel.m in Sources */,
 				4FA56BAC26A21059002D9FA0 /* AppDelegate.m in Sources */,
 				4F57DEB926ADC3CF000E4163 /* PickerItemView.m in Sources */,
+				4FF3E0C226C9901F002B20EA /* PrefsRegionHostViewModel.m in Sources */,
 				4F74711A26C1698B001C45C4 /* CardDetailsChildrenContentView.m in Sources */,
 				4F57DE9D26AD7B53000E4163 /* PickerViewController.m in Sources */,
 				4F182BD126AC23600028115C /* UIViewController+presentErrorAlert.m in Sources */,
@@ -1080,13 +1097,14 @@
 				4FB0ECE826B82AEE0020EE6C /* CardDetailsViewController.m in Sources */,
 				4FA9047A26B6E26A00CD6147 /* CardContentView.m in Sources */,
 				4F4976E926ABFF5E00860809 /* CardOptionSectionModel.m in Sources */,
-				4F1B98A926C82382004E1603 /* PrefsRegionViewController.m in Sources */,
+				4F1B98A926C82382004E1603 /* PrefsRegionHostViewController.m in Sources */,
 				4F4976E626ABFE2100860809 /* CardOptionsViewModel.m in Sources */,
 				4F4976EC26ABFF6900860809 /* CardOptionItemModel.m in Sources */,
 				4FA56BBD26A2105A002D9FA0 /* main.m in Sources */,
 				4F57DEAC26ADA6E3000E4163 /* PickerItemModel.m in Sources */,
 				4F74712926C170E5001C45C4 /* CardDetailsChildrenContentItemModel.m in Sources */,
 				4F03F57926C7B62C00FC9155 /* PrefsSectionModel.m in Sources */,
+				4FF3E0C426C9901F002B20EA /* PrefsRegionHostItemModel.m in Sources */,
 				4FEB413E26BD6116009D8594 /* CardDetailsBasicContentView.m in Sources */,
 				4F4976E326ABFCB300860809 /* CardOptionsViewController.m in Sources */,
 				4FB0ECEB26B82B100020EE6C /* DynamicPresentationController.m in Sources */,
