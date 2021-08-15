@@ -28,8 +28,17 @@
     [self configureViewModel];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self configureNavigation];
+}
+
 - (void)setAttributes {
     self.view.backgroundColor = UIColor.systemBackgroundColor;
+}
+
+- (void)configureNavigation {
+    self.title = NSLocalizedString(@"REGION", @"");
 }
 
 - (void)configureCollectionView {
