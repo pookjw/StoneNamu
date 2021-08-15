@@ -120,58 +120,67 @@ NSString * NSStringFromCardOptionItemModelType(CardOptionItemModelType type) {
                                      filterArray:nil
                                        converter:^NSUInteger(NSString * key) {
                 return HSCardSetFromNSString(key);
-            }];
+            }
+                                       ascending:NO];
         case CardOptionItemModelTypeClass: {
             return [self pickerItemModelsFromDic:hsCardClassesWithLocalizable()
                                      filterArray:@[NSStringFromHSCardClass(HSCardClassDeathKnight)]
                                        converter:^NSUInteger(NSString * key) {
                 return HSCardClassFromNSString(key);
-            }];
+            }
+                                       ascending:YES];
         }
         case CardOptionItemModelTypeCollectible: {
             return [self pickerItemModelsFromDic:hsCardCollectiblesWithLocalizable()
                                      filterArray:nil
                                        converter:^NSUInteger(NSString * key) {
                 return HSCardCollectibleFromNSString(key);
-            }];
+            }
+                                       ascending:YES];
         }
         case CardOptionItemModelTypeRarity: {
             return [self pickerItemModelsFromDic:hsCardRaritiesWithLocalizable()
                                      filterArray:@[NSStringFromHSCardRarity(HSCardRarityNull)]
                                        converter:^NSUInteger(NSString * key) {
                 return HSCardRarityFromNSString(key);
-            }];
+            }
+                                       ascending:YES];
         }
         case CardOptionItemModelTypeType:
             return [self pickerItemModelsFromDic:hsCardTypesWithLocalizable()
                                      filterArray:@[NSStringFromHSCardType(HSCardTypeHeroPower)]
                                        converter:^NSUInteger(NSString * key) {
                 return HSCardTypeFromNSString(key);
-            }];
+            }
+                                       ascending:YES];
         case CardOptionItemModelTypeMinionType:
             return [self pickerItemModelsFromDic:hsCardMinionTypesWithLocalizable()
                                      filterArray:nil
                                        converter:^NSUInteger(NSString * key) {
                 return HSCardMinionTypeFromNSString(key);
-            }];
+            }
+                                       ascending:YES];
         case CardOptionItemModelTypeKeyword:
             return [self pickerItemModelsFromDic:hsCardKeywordsWithLocalizable()
                                      filterArray:nil
                                        converter:^NSUInteger(NSString * key) {
                 return HSCardKeywordFromNSString(key);
-            }];
+            }
+                                       ascending:YES];
         case CardOptionItemModelTypeGameMode:
             return [self pickerItemModelsFromDic:hsCardGameModesWithLocalizable()
                                      filterArray:nil
                                        converter:^NSUInteger(NSString * key) {
                 return HSCardGameModeFromNSString(key);
-            }];
+            }
+                                       ascending:YES];
         case CardOptionItemModelTypeSort:
             return [self pickerItemModelsFromDic:hsCardSortsWithLocalizable()
                                      filterArray:nil
                                        converter:^NSUInteger(NSString * key) {
                 return HSCardSortFromNSString(key);
-            }];
+            }
+                                       ascending:YES];
         default:
             return nil;
     }
@@ -269,7 +278,8 @@ NSString * NSStringFromCardOptionItemModelType(CardOptionItemModelType type) {
 
 - (NSArray<PickerItemModel *> *)pickerItemModelsFromDic:(NSDictionary<NSString *, NSString *> *)dic
                                             filterArray:(NSArray<NSString *> * _Nullable)filterArray
-                                              converter:(NSUInteger (^)(NSString *))converter {
+                                              converter:(NSUInteger (^)(NSString *))converter
+                                              ascending:(BOOL)ascending{
     
     NSMutableArray<PickerItemModel *> *arr = [@[] mutableCopy];
     
@@ -287,12 +297,22 @@ NSString * NSStringFromCardOptionItemModelType(CardOptionItemModelType type) {
         NSUInteger lhs = converter(lhsModel.identity);
         NSUInteger rhs = converter(rhsModel.identity);
         
-        if (lhs > rhs) {
-            return NSOrderedDescending;
-        } else if (lhs < rhs) {
-            return NSOrderedAscending;
+        if (ascending) {
+            if (lhs > rhs) {
+                return NSOrderedDescending;
+            } else if (lhs < rhs) {
+                return NSOrderedAscending;
+            } else {
+                return NSOrderedSame;
+            }
         } else {
-            return NSOrderedSame;
+            if (lhs > rhs) {
+                return NSOrderedAscending;
+            } else if (lhs < rhs) {
+                return NSOrderedDescending;
+            } else {
+                return NSOrderedSame;
+            }
         }
     };
     
