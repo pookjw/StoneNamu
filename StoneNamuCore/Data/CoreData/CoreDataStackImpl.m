@@ -8,6 +8,7 @@
 #import "CoreDataStackImpl.h"
 
 static NSMutableDictionary<NSString *, NSPersistentContainer *> * _Nullable kStoreContainers = nil;
+static NSMutableDictionary<NSString *, NSManagedObjectContext *> * _Nullable kContexts = nil;
 static NSMutableDictionary<NSString *, NSOperationQueue *> * _Nullable kOperationQueues = nil;
 
 @interface CoreDataStackImpl () {
@@ -29,7 +30,7 @@ static NSMutableDictionary<NSString *, NSOperationQueue *> * _Nullable kOperatio
     
     if (self) {
         [self configureStoreContainerWithModelName:modelName class:storeContainerClass];
-        _context = [self.storeContainer.newBackgroundContext retain];
+        [self configureContextWithModelName:modelName];
         [self configureQueueWithModelName:modelName];
         [self bind];
     }
@@ -81,6 +82,19 @@ static NSMutableDictionary<NSString *, NSOperationQueue *> * _Nullable kOperatio
     
     kStoreContainers[modelName] = container;
     _storeContainer = [container retain];
+}
+
+- (void)configureContextWithModelName:(NSString *)modelName {
+    if (kContexts == nil) {
+        kContexts = [@{} mutableCopy];
+    }
+    
+    if (kContexts[modelName] == nil) {
+        kContexts[modelName] = self.storeContainer.newBackgroundContext;
+        _context = kContexts[modelName];
+    }
+    
+    _context = [kContexts[modelName] retain];
 }
 
 - (void)configureQueueWithModelName:(NSString *)modelName {

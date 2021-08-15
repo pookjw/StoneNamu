@@ -108,6 +108,9 @@
 		4FEB413E26BD6116009D8594 /* CardDetailsBasicContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FEB413D26BD6116009D8594 /* CardDetailsBasicContentView.m */; };
 		4FEB414126BD6133009D8594 /* CardDetailsBasicContentConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FEB414026BD6133009D8594 /* CardDetailsBasicContentConfiguration.m */; };
 		4FEB414826BD7BDF009D8594 /* NSString+clearedHTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FEB414726BD7BDF009D8594 /* NSString+clearedHTML.m */; };
+		4FF3E0B526C97D95002B20EA /* PrefsLocaleViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF3E0B426C97D95002B20EA /* PrefsLocaleViewModel.m */; };
+		4FF3E0B826C97DA4002B20EA /* PrefsLocaleSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF3E0B726C97DA4002B20EA /* PrefsLocaleSectionModel.m */; };
+		4FF3E0BB26C97DAC002B20EA /* PrefsLocaleItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF3E0BA26C97DAC002B20EA /* PrefsLocaleItemModel.m */; };
 		4FF676CF26AAFC6A00477272 /* CardsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF676CE26AAFC6A00477272 /* CardsViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -337,6 +340,12 @@
 		4FEB414026BD6133009D8594 /* CardDetailsBasicContentConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardDetailsBasicContentConfiguration.m; sourceTree = "<group>"; };
 		4FEB414626BD7BDF009D8594 /* NSString+clearedHTML.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+clearedHTML.h"; sourceTree = "<group>"; };
 		4FEB414726BD7BDF009D8594 /* NSString+clearedHTML.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+clearedHTML.m"; sourceTree = "<group>"; };
+		4FF3E0B326C97D95002B20EA /* PrefsLocaleViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefsLocaleViewModel.h; sourceTree = "<group>"; };
+		4FF3E0B426C97D95002B20EA /* PrefsLocaleViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrefsLocaleViewModel.m; sourceTree = "<group>"; };
+		4FF3E0B626C97DA4002B20EA /* PrefsLocaleSectionModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefsLocaleSectionModel.h; sourceTree = "<group>"; };
+		4FF3E0B726C97DA4002B20EA /* PrefsLocaleSectionModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrefsLocaleSectionModel.m; sourceTree = "<group>"; };
+		4FF3E0B926C97DAC002B20EA /* PrefsLocaleItemModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefsLocaleItemModel.h; sourceTree = "<group>"; };
+		4FF3E0BA26C97DAC002B20EA /* PrefsLocaleItemModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrefsLocaleItemModel.m; sourceTree = "<group>"; };
 		4FF676CD26AAFC6A00477272 /* CardsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardsViewController.h; sourceTree = "<group>"; };
 		4FF676CE26AAFC6A00477272 /* CardsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardsViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -388,6 +397,12 @@
 			children = (
 				4F1B98A426C8235B004E1603 /* PrefsLocaleViewController.h */,
 				4F1B98A526C8235B004E1603 /* PrefsLocaleViewController.m */,
+				4FF3E0B326C97D95002B20EA /* PrefsLocaleViewModel.h */,
+				4FF3E0B426C97D95002B20EA /* PrefsLocaleViewModel.m */,
+				4FF3E0B626C97DA4002B20EA /* PrefsLocaleSectionModel.h */,
+				4FF3E0B726C97DA4002B20EA /* PrefsLocaleSectionModel.m */,
+				4FF3E0B926C97DAC002B20EA /* PrefsLocaleItemModel.h */,
+				4FF3E0BA26C97DAC002B20EA /* PrefsLocaleItemModel.m */,
 			);
 			path = Locale;
 			sourceTree = "<group>";
@@ -1061,6 +1076,7 @@
 				4F74712126C16BDF001C45C4 /* CardDetailsChildrenContentViewModel.m in Sources */,
 				4F74712C26C175FE001C45C4 /* CardDetailsChildrenContentImageConfiguration.m in Sources */,
 				4F98E25226B9935B0067846F /* CardDetailsLayoutCompactViewController.m in Sources */,
+				4FF3E0BB26C97DAC002B20EA /* PrefsLocaleItemModel.m in Sources */,
 				4FB0ECE826B82AEE0020EE6C /* CardDetailsViewController.m in Sources */,
 				4FA9047A26B6E26A00CD6147 /* CardContentView.m in Sources */,
 				4F4976E926ABFF5E00860809 /* CardOptionSectionModel.m in Sources */,
@@ -1075,6 +1091,7 @@
 				4F4976E326ABFCB300860809 /* CardOptionsViewController.m in Sources */,
 				4FB0ECEB26B82B100020EE6C /* DynamicPresentationController.m in Sources */,
 				4F4976D926ABE80700860809 /* CardItemModel.m in Sources */,
+				4FF3E0B526C97D95002B20EA /* PrefsLocaleViewModel.m in Sources */,
 				4F03F57626C7B62200FC9155 /* PrefsViewModel.m in Sources */,
 				4F4976D226ABE6B600860809 /* CardsViewModel.m in Sources */,
 				4F74712626C170CA001C45C4 /* CardDetailsChildrenContentSectionModel.m in Sources */,
@@ -1086,6 +1103,7 @@
 				4F98E25B26B9AA280067846F /* CardDetailsSectionModel.m in Sources */,
 				4F646A5F26B7D05E00BEDB38 /* UIImageView+setAsyncImage.m in Sources */,
 				4FEB414826BD7BDF009D8594 /* NSString+clearedHTML.m in Sources */,
+				4FF3E0B826C97DA4002B20EA /* PrefsLocaleSectionModel.m in Sources */,
 				4F98E25826B9A9760067846F /* CardDetailsViewModel.m in Sources */,
 				4F4976D626ABE72C00860809 /* CardSectionModel.m in Sources */,
 				4F1B98AC26C824D9004E1603 /* UIViewController+animatedForSelectedIndexPath.m in Sources */,

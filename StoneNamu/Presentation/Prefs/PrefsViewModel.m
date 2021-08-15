@@ -35,7 +35,6 @@
         [prefsUseCase release];
         
         [self requestDataSource];
-        [self observePrefs];
     }
     
     return self;
@@ -122,7 +121,12 @@
                         [self loadPrefs:prefs];
                     }
                 }];
+                
+                [self.queue addBarrierBlock:^{
+                    [self observePrefs];
+                }];
             }];
+            
             [snapshot release];
         }];
     }];
@@ -167,7 +171,7 @@
         //
         
         if (prefs.locale) {
-            localeItemModel.accessoryText = blizzardHSAPIRegionsForAPIWithLocalizable()[prefs.locale];
+            localeItemModel.accessoryText = blizzardHSAPILocalesWithLocalizable()[prefs.locale];
         } else {
             localeItemModel.accessoryText = NSLocalizedString(@"AUTO", @"");
         }
@@ -197,6 +201,7 @@
             [self.dataSource applySnapshot:snapshot animatingDifferences:YES];
             [snapshot release];
         }];
+        
         [prefs release];
     }];
 }

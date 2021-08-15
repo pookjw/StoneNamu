@@ -21,6 +21,8 @@
         PrefsRepositoryImpl *prefsRepository = [PrefsRepositoryImpl new];
         self.prefsRepository = prefsRepository;
         [prefsRepository release];
+        
+        [self startObserving];
     }
     
     return self;

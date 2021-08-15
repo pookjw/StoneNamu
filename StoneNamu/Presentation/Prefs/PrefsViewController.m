@@ -118,6 +118,7 @@
 
 - (UICollectionViewCellRegistration *)makeCellRegistration {
     UICollectionViewCellRegistration *cellRegistration = [UICollectionViewCellRegistration registrationWithCellClass:[UICollectionViewListCell class] configurationHandler:^(__kindof UICollectionViewListCell * _Nonnull cell, NSIndexPath * _Nonnull indexPath, id  _Nonnull item) {
+        
         if (![item isKindOfClass:[PrefsItemModel class]]) {
             return;
         }
