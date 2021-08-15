@@ -51,7 +51,7 @@ BlizzardAPIRegionHost BlizzardAPIRegionHostFromNSStringForAPI(NSString * key) {
     } else if ([key isEqualToString:@"tw.api.blizzard.com"]) {
         return BlizzardAPIRegionHostTW;
     } else if ([key isEqualToString:@"gateway.battlenet.com.cn"]) {
-        return BlizzardAPIRegionHostTW;
+        return BlizzardAPIRegionHostCN;
     } else {
         return BlizzardAPIRegionHostUS;
     }
