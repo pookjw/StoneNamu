@@ -6,6 +6,7 @@
 //
 
 #import "PrefsSectionModel.h"
+#import "NSBundle+BuildInfo.h"
 
 @implementation PrefsSectionModel
 
@@ -44,8 +45,12 @@
 
 - (NSString * _Nullable)footerText {
     switch (self.type) {
-        case PrefsSectionModelContributors:
-            return nil;
+        case PrefsSectionModelContributors: {
+            NSString *appName = NSLocalizedString(@"APP_NAME", @"");
+            NSString *version = NSBundle.mainBundle.releaseVersionString;
+            NSString *build = NSBundle.mainBundle.buildVersionString;
+            return [NSString stringWithFormat:@"%@ (%@-%@)", appName, version, build];
+        }
         default:
             return nil;
     }

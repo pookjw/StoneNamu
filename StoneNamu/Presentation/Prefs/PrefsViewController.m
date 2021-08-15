@@ -196,6 +196,7 @@
         
         UIListContentConfiguration *configuration = [UIListContentConfiguration groupedFooterConfiguration];
         configuration.text = text;
+        configuration.textProperties.alignment = UIListContentTextAlignmentCenter;
         
         supplementaryView.contentConfiguration = configuration;
     }];

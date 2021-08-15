@@ -114,6 +114,7 @@
 		4FF3E0C226C9901F002B20EA /* PrefsRegionHostViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF3E0BE26C9901F002B20EA /* PrefsRegionHostViewModel.m */; };
 		4FF3E0C326C9901F002B20EA /* PrefsRegionHostSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF3E0BF26C9901F002B20EA /* PrefsRegionHostSectionModel.m */; };
 		4FF3E0C426C9901F002B20EA /* PrefsRegionHostItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF3E0C126C9901F002B20EA /* PrefsRegionHostItemModel.m */; };
+		4FF3E0C726C998E6002B20EA /* NSBundle+BuildInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF3E0C626C998E6002B20EA /* NSBundle+BuildInfo.m */; };
 		4FF676CF26AAFC6A00477272 /* CardsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF676CE26AAFC6A00477272 /* CardsViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -355,6 +356,8 @@
 		4FF3E0BF26C9901F002B20EA /* PrefsRegionHostSectionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsRegionHostSectionModel.m; sourceTree = "<group>"; };
 		4FF3E0C026C9901F002B20EA /* PrefsRegionHostSectionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefsRegionHostSectionModel.h; sourceTree = "<group>"; };
 		4FF3E0C126C9901F002B20EA /* PrefsRegionHostItemModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsRegionHostItemModel.m; sourceTree = "<group>"; };
+		4FF3E0C526C998E6002B20EA /* NSBundle+BuildInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSBundle+BuildInfo.h"; sourceTree = "<group>"; };
+		4FF3E0C626C998E6002B20EA /* NSBundle+BuildInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+BuildInfo.m"; sourceTree = "<group>"; };
 		4FF676CD26AAFC6A00477272 /* CardsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardsViewController.h; sourceTree = "<group>"; };
 		4FF676CE26AAFC6A00477272 /* CardsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardsViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -397,6 +400,8 @@
 				4F646A5E26B7D05E00BEDB38 /* UIImageView+setAsyncImage.m */,
 				4FEB414626BD7BDF009D8594 /* NSString+clearedHTML.h */,
 				4FEB414726BD7BDF009D8594 /* NSString+clearedHTML.m */,
+				4FF3E0C526C998E6002B20EA /* NSBundle+BuildInfo.h */,
+				4FF3E0C626C998E6002B20EA /* NSBundle+BuildInfo.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1076,6 +1081,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4F74711726C1678F001C45C4 /* CardDetailsChildrenContentConfiguration.m in Sources */,
+				4FF3E0C726C998E6002B20EA /* NSBundle+BuildInfo.m in Sources */,
 				4F1B98A626C8235B004E1603 /* PrefsLocaleViewController.m in Sources */,
 				4F98E25526B993650067846F /* CardDetailsLayoutRegularViewController.m in Sources */,
 				4FF676CF26AAFC6A00477272 /* CardsViewController.m in Sources */,
