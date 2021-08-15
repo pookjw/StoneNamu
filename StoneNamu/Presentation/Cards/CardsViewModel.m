@@ -24,6 +24,7 @@
     self = [self init];
     
     if (self) {
+        _contextMenuIndexPath = nil;
         _dataSource = [dataSource retain];
         
         HSCardUseCaseImpl *hsCardUseCase = [HSCardUseCaseImpl new];
@@ -86,6 +87,7 @@
 }
 
 - (void)dealloc {
+    [_contextMenuIndexPath release];
     [_dataSource release];
     [_hsCardUseCase release];
     [_pageCount release];

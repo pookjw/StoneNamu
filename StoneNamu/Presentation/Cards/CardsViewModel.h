@@ -21,6 +21,7 @@ static NSString * const CardsViewModelPresentDetailNotificationIndexPathKey = @"
 typedef UICollectionViewDiffableDataSource<CardSectionModel *, CardItemModel *> CardsDataSource;
 
 @interface CardsViewModel : NSObject
+@property (retain) NSIndexPath * _Nullable contextMenuIndexPath;
 @property (readonly, retain) CardsDataSource *dataSource;
 - (instancetype)initWithDataSource:(CardsDataSource *)dataSource;
 - (void)requestDataSourceWithOptions:(NSDictionary<NSString *,id> * _Nullable)options;

@@ -333,7 +333,7 @@
             UIContextMenuConfiguration *configuration = [UIContextMenuConfiguration configurationWithIdentifier:nil
                                                                                                 previewProvider:nil
                                                                                                  actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> * _Nonnull suggestedActions) {
-                NSMutableArray *children = [@[] mutableCopy];
+                NSMutableArray<UIAction *> *children = [@[] mutableCopy];
                 [itemModel.socialInfo enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSURL * _Nonnull obj, BOOL * _Nonnull stop) {
                     [children addObject:[UIAction actionWithTitle:key image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
                         [UIApplication.sharedApplication openURL:obj options:@{} completionHandler:^(BOOL success){}];

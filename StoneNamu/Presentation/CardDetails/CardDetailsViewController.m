@@ -13,8 +13,9 @@
 #import "CardDetailsViewModel.h"
 #import "CardDetailsBasicContentConfiguration.h"
 #import "CardDetailsChildrenContentConfiguration.h"
+#import "PhotosService.h"
 
-@interface CardDetailsViewController () <UIViewControllerTransitioningDelegate, CardDetailsChildrenContentConfigurationDelegate>
+@interface CardDetailsViewController () <UIViewControllerTransitioningDelegate, UIContextMenuInteractionDelegate, CardDetailsChildrenContentConfigurationDelegate>
 @property (retain) UIImageView *sourceImageView;
 @property (retain) UIImageView *primaryImageView;
 @property (retain) UICollectionView *collectionView;
@@ -22,6 +23,7 @@
 @property (retain) UIViewController<CardDetailsLayoutProtocol> *regularViewController;
 @property (retain) NSArray<UIViewController<CardDetailsLayoutProtocol> *> *layoutViewControllers;
 @property (assign, nonatomic) UIViewController<CardDetailsLayoutProtocol> * _Nullable currentLayoutViewController;
+@property (retain) UIContextMenuInteraction *primaryImageViewInteraction;
 @property (copy) HSCard *hsCard;
 @property (retain) CardDetailsViewModel *viewModel;
 @end
@@ -46,6 +48,7 @@
     [_compactViewController release];
     [_regularViewController release];
     [_layoutViewControllers release];
+    [_primaryImageViewInteraction release];
     [_hsCard release];
     [_viewModel release];
     [super dealloc];
@@ -112,11 +115,22 @@
     } else {
         [primaryImageView setAsyncImageWithURL:self.hsCard.image indicator:YES];
     }
-
+    
+    //
+    
     primaryImageView.userInteractionEnabled = YES;
     UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(triggeredViewTapGesgure:)];
     [primaryImageView addGestureRecognizer:gesture];
     [gesture release];
+    
+    //
+    
+    UIContextMenuInteraction *interaction = [[UIContextMenuInteraction alloc] initWithDelegate:self];
+    self.primaryImageViewInteraction = interaction;
+    [primaryImageView addInteraction:interaction];
+    [interaction release];
+    
+    //
     
     [primaryImageView release];
 }
@@ -237,7 +251,7 @@
     UICollectionViewCellRegistration *cellRegistration = [self makeCellRegistration];
     
     CardDetailsDataSource *dataSource = [[CardDetailsDataSource alloc] initWithCollectionView:self.collectionView
-                                                                     cellProvider:^UICollectionViewCell * _Nullable(UICollectionView * _Nonnull collectionView, NSIndexPath * _Nonnull indexPath, id  _Nonnull itemIdentifier) {
+                                                                                 cellProvider:^UICollectionViewCell * _Nullable(UICollectionView * _Nonnull collectionView, NSIndexPath * _Nonnull indexPath, id  _Nonnull itemIdentifier) {
         
         UICollectionViewCell *cell = [collectionView dequeueConfiguredReusableCellWithRegistration:cellRegistration
                                                                                       forIndexPath:indexPath
@@ -304,6 +318,29 @@
     [pc autorelease];
     
     return pc;
+}
+
+#pragma mark UIContextMenuInteractionDelegate
+
+- (nullable UIContextMenuConfiguration *)contextMenuInteraction:(nonnull UIContextMenuInteraction *)interaction configurationForMenuAtLocation:(CGPoint)location {
+    UIContextMenuConfiguration *configuration = [UIContextMenuConfiguration configurationWithIdentifier:nil
+                                                                                        previewProvider:nil
+                                                                                         actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> * _Nonnull suggestedActions) {
+        
+        UIAction *saveAction = [UIAction actionWithTitle:NSLocalizedString(@"SAVE", @"")
+                                                   image:[UIImage systemImageNamed:@"square.and.arrow.down"]
+                                              identifier:nil
+                                                 handler:^(__kindof UIAction * _Nonnull action) {
+            [PhotosService.sharedInstance saveImageURL:self.hsCard.image fromViewController:self completionHandler:^(BOOL success, NSError * _Nonnull error) {}];
+        }];
+        
+        UIMenu *menu = [UIMenu menuWithTitle:self.hsCard.name
+                                    children:@[saveAction]];
+        
+        return menu;
+    }];
+    
+    return configuration;
 }
 
 #pragma mark - CardDetailsChildrenContentConfigurationDelegate

@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 typedef UICollectionViewDiffableDataSource<CardDetailsChildrenContentSectionModel *, CardDetailsChildrenContentItemModel *> CardDetailsChildrenContentDataSource;
 
 @interface CardDetailsChildrenContentViewModel : NSObject
+@property (retain) NSIndexPath * _Nullable contextMenuIndexPath;
 @property (readonly, retain) CardDetailsChildrenContentDataSource *dataSource;
 - (instancetype)initWithDataSource:(CardDetailsChildrenContentDataSource *)dataSource;
 - (void)requestChildCards:(NSArray<HSCard *> *)childCards;

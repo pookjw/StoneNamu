@@ -12,6 +12,7 @@
 #import "CardContentView.h"
 #import "CardsCollectionViewCompositionalLayout.h"
 #import "CardDetailsViewController.h"
+#import "PhotosService.h"
 
 @interface CardsViewController () <UICollectionViewDelegate>
 @property (retain) UICollectionView *collectionView;
@@ -197,6 +198,46 @@
     if ((contentOffset.y + bounds.size.height) >= (contentSize.height)) {
         [self.viewModel requestDataSourceWithOptions:self.options];
     }
+}
+
+- (UIContextMenuConfiguration *)collectionView:(UICollectionView *)collectionView contextMenuConfigurationForItemAtIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point {
+    self.viewModel.contextMenuIndexPath = nil;
+    
+    CardItemModel * _Nullable itemModel = [self.viewModel.dataSource itemIdentifierForIndexPath:indexPath];
+    if (itemModel == nil) return nil;
+    
+    self.viewModel.contextMenuIndexPath = indexPath;
+    
+    UIContextMenuConfiguration *configuration = [UIContextMenuConfiguration configurationWithIdentifier:nil
+                                                                                        previewProvider:nil
+                                                                                         actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> * _Nonnull suggestedActions) {
+        
+        UIAction *saveAction = [UIAction actionWithTitle:NSLocalizedString(@"SAVE", @"")
+                                                   image:[UIImage systemImageNamed:@"square.and.arrow.down"]
+                                              identifier:nil
+                                                 handler:^(__kindof UIAction * _Nonnull action) {
+            [PhotosService.sharedInstance saveImageURL:itemModel.card.image fromViewController:self completionHandler:^(BOOL success, NSError * _Nonnull error) {}];
+        }];
+        
+        UIMenu *menu = [UIMenu menuWithTitle:itemModel.card.name
+                                    children:@[saveAction]];
+        
+        return menu;
+    }];
+    
+    return configuration;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView willPerformPreviewActionForMenuWithConfiguration:(UIContextMenuConfiguration *)configuration animator:(id<UIContextMenuInteractionCommitAnimating>)animator {
+    NSIndexPath * _Nullable indexPath = self.viewModel.contextMenuIndexPath;
+    
+    if (indexPath == nil) {
+        return;
+    }
+    
+    self.viewModel.contextMenuIndexPath = nil;
+    
+    [self.viewModel handleSelectionForIndexPath:indexPath];
 }
 
 @end

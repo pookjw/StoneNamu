@@ -115,6 +115,8 @@
 		4FF3E0C326C9901F002B20EA /* PrefsRegionHostSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF3E0BF26C9901F002B20EA /* PrefsRegionHostSectionModel.m */; };
 		4FF3E0C426C9901F002B20EA /* PrefsRegionHostItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF3E0C126C9901F002B20EA /* PrefsRegionHostItemModel.m */; };
 		4FF3E0C726C998E6002B20EA /* NSBundle+BuildInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF3E0C626C998E6002B20EA /* NSBundle+BuildInfo.m */; };
+		4FF3E0CB26C9AE15002B20EA /* PhotosService.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF3E0CA26C9AE15002B20EA /* PhotosService.m */; };
+		4FF3E0CE26C9B84C002B20EA /* UIView+viewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF3E0CD26C9B84C002B20EA /* UIView+viewController.m */; };
 		4FF676CF26AAFC6A00477272 /* CardsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF676CE26AAFC6A00477272 /* CardsViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -358,6 +360,10 @@
 		4FF3E0C126C9901F002B20EA /* PrefsRegionHostItemModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsRegionHostItemModel.m; sourceTree = "<group>"; };
 		4FF3E0C526C998E6002B20EA /* NSBundle+BuildInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSBundle+BuildInfo.h"; sourceTree = "<group>"; };
 		4FF3E0C626C998E6002B20EA /* NSBundle+BuildInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+BuildInfo.m"; sourceTree = "<group>"; };
+		4FF3E0C926C9AE15002B20EA /* PhotosService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhotosService.h; sourceTree = "<group>"; };
+		4FF3E0CA26C9AE15002B20EA /* PhotosService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhotosService.m; sourceTree = "<group>"; };
+		4FF3E0CC26C9B84C002B20EA /* UIView+viewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+viewController.h"; sourceTree = "<group>"; };
+		4FF3E0CD26C9B84C002B20EA /* UIView+viewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+viewController.m"; sourceTree = "<group>"; };
 		4FF676CD26AAFC6A00477272 /* CardsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardsViewController.h; sourceTree = "<group>"; };
 		4FF676CE26AAFC6A00477272 /* CardsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardsViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -402,6 +408,8 @@
 				4FEB414726BD7BDF009D8594 /* NSString+clearedHTML.m */,
 				4FF3E0C526C998E6002B20EA /* NSBundle+BuildInfo.h */,
 				4FF3E0C626C998E6002B20EA /* NSBundle+BuildInfo.m */,
+				4FF3E0CC26C9B84C002B20EA /* UIView+viewController.h */,
+				4FF3E0CD26C9B84C002B20EA /* UIView+viewController.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -555,6 +563,7 @@
 		4F98E25F26B9BA9A0067846F /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				4FF3E0C826C9AE06002B20EA /* Service */,
 				4FA56BB626A2105A002D9FA0 /* Assets.xcassets */,
 				4FA56BBC26A2105A002D9FA0 /* main.m */,
 				4FA56BAA26A21059002D9FA0 /* AppDelegate.h */,
@@ -874,6 +883,15 @@
 			path = Card;
 			sourceTree = "<group>";
 		};
+		4FF3E0C826C9AE06002B20EA /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				4FF3E0C926C9AE15002B20EA /* PhotosService.h */,
+				4FF3E0CA26C9AE15002B20EA /* PhotosService.m */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1097,6 +1115,7 @@
 				4F182BD126AC23600028115C /* UIViewController+presentErrorAlert.m in Sources */,
 				4F74711E26C16BD4001C45C4 /* CardDetailsChildrenContentCollectionViewCompositionalLayout.m in Sources */,
 				4F74712126C16BDF001C45C4 /* CardDetailsChildrenContentViewModel.m in Sources */,
+				4FF3E0CE26C9B84C002B20EA /* UIView+viewController.m in Sources */,
 				4F74712C26C175FE001C45C4 /* CardDetailsChildrenContentImageConfiguration.m in Sources */,
 				4F98E25226B9935B0067846F /* CardDetailsLayoutCompactViewController.m in Sources */,
 				4FF3E0BB26C97DAC002B20EA /* PrefsLocaleItemModel.m in Sources */,
@@ -1128,6 +1147,7 @@
 				4F646A5F26B7D05E00BEDB38 /* UIImageView+setAsyncImage.m in Sources */,
 				4FEB414826BD7BDF009D8594 /* NSString+clearedHTML.m in Sources */,
 				4FF3E0B826C97DA4002B20EA /* PrefsLocaleSectionModel.m in Sources */,
+				4FF3E0CB26C9AE15002B20EA /* PhotosService.m in Sources */,
 				4F98E25826B9A9760067846F /* CardDetailsViewModel.m in Sources */,
 				4F4976D626ABE72C00860809 /* CardSectionModel.m in Sources */,
 				4F1B98AC26C824D9004E1603 /* UIViewController+animatedForSelectedIndexPath.m in Sources */,
