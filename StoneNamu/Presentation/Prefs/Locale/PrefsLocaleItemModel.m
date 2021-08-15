@@ -45,7 +45,11 @@
 }
 
 - (NSString * _Nullable)secondaryText {
-    return @"Test";
+    if (self.locale == nil) {
+        return NSLocalizedString(@"CARD_LANGUAGE_AUTO_DESCRIPTION", @"");
+    } else {
+        return nil;
+    }
 }
 
 @end

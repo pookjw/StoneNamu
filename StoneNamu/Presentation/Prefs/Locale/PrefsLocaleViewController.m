@@ -87,6 +87,7 @@
         UIListContentConfiguration *configuration = [UIListContentConfiguration subtitleCellConfiguration];
         configuration.text = itemModel.primaryText;
         configuration.secondaryText = itemModel.secondaryText;
+        configuration.secondaryTextProperties.numberOfLines = 0;
         cell.contentConfiguration = configuration;
         
         //
