@@ -23,10 +23,10 @@
     [attr removeAttribute:NSForegroundColorAttributeName range:totalRange];
     [attr removeAttribute:NSFontAttributeName range:totalRange];
     
-    NSString *result = attr.string;
+    NSString *result = [attr.string copy];
     [attr release];
     
-    return result;
+    return [result autorelease];
 }
 
 @end
