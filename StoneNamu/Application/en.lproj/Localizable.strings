@@ -68,9 +68,11 @@
 
 "CONTRIBUTORS" = "Contributors";
 
-"JINWOO_KIM" = "Jinwoo Kim";
+"DATA" = "Data";
 
-"JINWOO_KIM_DESCRIPTION" = "Developer";
+"POOKJW" = "Jinwoo Kim";
+
+"POOKJW_DESCRIPTION" = "Developer";
 
 "PNAMU" = "Pnamu";
 
@@ -85,3 +87,5 @@
 "TWITCH" = "Twitch";
 
 "YOUTUBE" = "YouTube";
+
+"DELETE_ALL_CACHES" = "Delete All Caches";

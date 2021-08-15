@@ -15,7 +15,7 @@ typedef void (^DataCacheRepositoryFetchWithIdentityCompletion)(NSArray<DataCache
 @protocol DataCacheRepository <NSObject>
 - (void)saveChanges;
 - (void)dataCachesWithIdentity:(NSString *)identity completion:(DataCacheRepositoryFetchWithIdentityCompletion)completion;
-- (void)removeAllDataCaches;
+- (void)deleteAllDataCaches;
 - (DataCache *)createDataCache;
 @end
 

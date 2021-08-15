@@ -9,10 +9,12 @@
 #import "PrefsUseCaseImpl.h"
 #import "BlizzardAPIRegionHost.h"
 #import "BlizzardHSAPILocale.h"
+#import "DataCacheUseCaseImpl.h"
 
 @interface PrefsViewModel ()
 @property (retain) NSOperationQueue *queue;
 @property (retain) id<PrefsUseCase> prefsUseCase;
+@property (retain) id<DataCacheUseCase> dataCacheUseCase;
 @end
 
 @implementation PrefsViewModel
@@ -34,6 +36,10 @@
         self.prefsUseCase = prefsUseCase;
         [prefsUseCase release];
         
+        DataCacheUseCaseImpl *dataCacheUseCase = [DataCacheUseCaseImpl new];
+        self.dataCacheUseCase = dataCacheUseCase;
+        [dataCacheUseCase release];
+        
         [self requestDataSource];
     }
     
@@ -45,6 +51,7 @@
     [_dataSource release];
     [_queue release];
     [_prefsUseCase release];
+    [_dataCacheUseCase release];
     [super dealloc];
 }
 
@@ -82,6 +89,10 @@
     }
 }
 
+- (void)deleteAllCahces {
+    [self.dataCacheUseCase deleteAllDataCaches];
+}
+
 - (void)requestDataSource {
     [self.queue addBarrierBlock:^{
         NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
@@ -91,9 +102,10 @@
         //
         
         PrefsSectionModel *searchPrefSection = [[PrefsSectionModel alloc] initWithType:PrefsSectionModelTypeSearchPrefSelection];
+        PrefsSectionModel *dataSection = [[PrefsSectionModel alloc] initWithType:PrefsSectionModelTypeData];
         PrefsSectionModel *contributorsSection = [[PrefsSectionModel alloc] initWithType:PrefsSectionModelContributors];
         
-        [snapshot appendSectionsWithIdentifiers:@[searchPrefSection, contributorsSection]];
+        [snapshot appendSectionsWithIdentifiers:@[searchPrefSection, dataSection, contributorsSection]];
         
         //
         
@@ -105,13 +117,19 @@
                        intoSectionWithIdentifier:searchPrefSection];
             
             [snapshot appendItemsWithIdentifiers:@[
-                [[[PrefsItemModel alloc] initWithType:PrefsItemModelTypeJinwooKimContributor] autorelease],
+                [[[PrefsItemModel alloc] initWithType:PrefsItemModelTypeDeleteAllCaches] autorelease]
+            ]
+                       intoSectionWithIdentifier:dataSection];
+            
+            [snapshot appendItemsWithIdentifiers:@[
+                [[[PrefsItemModel alloc] initWithType:PrefsItemModelTypePookjwContributor] autorelease],
                 [[[PrefsItemModel alloc] initWithType:PrefsItemModelTypePnamuContributor] autorelease]
             ]
                        intoSectionWithIdentifier:contributorsSection];
         };
         
         [searchPrefSection release];
+        [dataSection release];
         [contributorsSection release];
         
         [NSOperationQueue.mainQueue addOperationWithBlock:^{

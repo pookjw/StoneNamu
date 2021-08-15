@@ -57,18 +57,20 @@
     }];
 }
 
-- (void)removeAllDataCaches {
-    NSFetchRequest *fetchRequest = DataCache._fetchRequest;
-    NSBatchDeleteRequest *batchDelete = [[NSBatchDeleteRequest alloc] initWithFetchRequest:fetchRequest];
-    batchDelete.affectedStores = self.coreDataStack.storeContainer.persistentStoreCoordinator.persistentStores;
-    
-    NSError * _Nullable error = nil;
-    [self.coreDataStack.context executeRequest:batchDelete error:&error];
-    [batchDelete release];
-    
-    if (error) {
-        NSLog(@"%@", error.localizedDescription);
-    }
+- (void)deleteAllDataCaches {
+    [self.coreDataStack.queue addBarrierBlock:^{
+        NSFetchRequest *fetchRequest = DataCache._fetchRequest;
+        NSBatchDeleteRequest *batchDelete = [[NSBatchDeleteRequest alloc] initWithFetchRequest:fetchRequest];
+        batchDelete.affectedStores = self.coreDataStack.storeContainer.persistentStoreCoordinator.persistentStores;
+        
+        NSError * _Nullable error = nil;
+        [self.coreDataStack.storeContainer.persistentStoreCoordinator executeRequest:batchDelete withContext:self.coreDataStack.context error:&error];
+        [batchDelete release];
+        
+        if (error) {
+            NSLog(@"%@", error.localizedDescription);
+        }
+    }];
 }
 
 - (DataCache *)createDataCache {

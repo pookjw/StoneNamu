@@ -68,9 +68,11 @@
 
 "CONTRIBUTORS" = "기여자";
 
-"JINWOO_KIM" = "김진우";
+"DATA" = "데이터";
 
-"JINWOO_KIM_DESCRIPTION" = "개발자";
+"POOKJW" = "김진우";
+
+"POOKJW_DESCRIPTION" = "개발자";
 
 "PNAMU" = "Pnamu";
 
@@ -85,3 +87,5 @@
 "TWITCH" = "트위치";
 
 "YOUTUBE" = "유튜브";
+
+"DELETE_ALL_CACHES" = "모든 캐시 삭제";

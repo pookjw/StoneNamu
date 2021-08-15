@@ -13,7 +13,7 @@ typedef void (^DataCacheUseCaseFetchWithIdentityCompletion)(NSArray<NSData *> * 
 
 @protocol DataCacheUseCase <NSObject>
 - (void)dataCachesWithIdentity:(NSString *)identity completion:(DataCacheUseCaseFetchWithIdentityCompletion)completion;
-- (void)removeAllDataCaches;
+- (void)deleteAllDataCaches;
 - (void)createDataCache:(NSData *)data identity:(NSString *)identity;
 @end
 

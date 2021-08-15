@@ -40,7 +40,9 @@
             return [UIImage systemImageNamed:@"textformat"];
         case PrefsItemModelTypeRegionSelection:
             return [UIImage systemImageNamed:@"globe"];
-        case PrefsItemModelTypeJinwooKimContributor:
+        case PrefsItemModelTypeDeleteAllCaches:
+            return [UIImage systemImageNamed:@"trash"];
+        case PrefsItemModelTypePookjwContributor:
             return [UIImage imageNamed:@"pookjw"];
         case PrefsItemModelTypePnamuContributor:
             return [UIImage imageNamed:@"pnamu"];
@@ -53,8 +55,10 @@
             return NSLocalizedString(@"LOCALE", @"");
         case PrefsItemModelTypeRegionSelection:
             return NSLocalizedString(@"REGION", @"");
-        case PrefsItemModelTypeJinwooKimContributor:
-            return NSLocalizedString(@"JINWOO_KIM", @"");
+        case PrefsItemModelTypeDeleteAllCaches:
+            return NSLocalizedString(@"DELETE_ALL_CACHES", @"");
+        case PrefsItemModelTypePookjwContributor:
+            return NSLocalizedString(@"POOKJW", @"");
         case PrefsItemModelTypePnamuContributor:
             return NSLocalizedString(@"PNAMU", @"");
         default:
@@ -64,8 +68,8 @@
 
 - (NSString * _Nullable)secondaryText {
     switch (self.type) {
-        case PrefsItemModelTypeJinwooKimContributor:
-            return NSLocalizedString(@"JINWOO_KIM_DESCRIPTION", @"");
+        case PrefsItemModelTypePookjwContributor:
+            return NSLocalizedString(@"POOKJW_DESCRIPTION", @"");
         case PrefsItemModelTypePnamuContributor:
             return NSLocalizedString(@"PNAMU_DESCRIPTION", @"");
         default:
@@ -73,7 +77,17 @@
     }
 }
 
+- (UIListContentTextAlignment)primaryTextAlignment {
+    return UIListContentTextAlignmentNatural;
+}
+
 - (BOOL)hasDisclosure {
+    switch (self.type) {
+        case PrefsItemModelTypeDeleteAllCaches:
+            return NO;
+        default:
+            return YES;
+    }
     return YES;
 }
 
@@ -92,7 +106,7 @@
 
 - (NSURL * _Nullable)singleWebPageURL {
     switch (self.type) {
-        case PrefsItemModelTypeJinwooKimContributor:
+        case PrefsItemModelTypePookjwContributor:
             return [NSURL URLWithString:@"https://github.com/pookjw"];
         default:
             return nil;

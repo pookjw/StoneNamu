@@ -33,6 +33,8 @@
     switch (self.type) {
         case PrefsSectionModelTypeSearchPrefSelection:
             return NSLocalizedString(@"SEARCH", @"");
+        case PrefsSectionModelTypeData:
+            return NSLocalizedString(@"DATA", @"");
         case PrefsSectionModelContributors:
             return NSLocalizedString(@"CONTRIBUTORS", @"");
         default:

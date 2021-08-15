@@ -128,6 +128,7 @@
         UIListContentConfiguration *configuration = [UIListContentConfiguration cellConfiguration];
         configuration.image = itemModel.primaryImage;
         configuration.text = itemModel.primaryText;
+        configuration.textProperties.alignment = itemModel.primaryTextAlignment;
         configuration.secondaryText = itemModel.secondaryText;
         configuration.imageProperties.maximumSize = CGSizeMake(50, 50);
         configuration.imageProperties.cornerRadius = 25;
@@ -259,7 +260,11 @@
         case PrefsItemModelTypeRegionSelection:
             [self pushToRegionHostViewController];
             break;
-        case PrefsItemModelTypeJinwooKimContributor:
+        case PrefsItemModelTypeDeleteAllCaches:
+            [self.viewModel deleteAllCahces];
+            [collectionView deselectItemAtIndexPath:indexPath animated:YES];
+            break;
+        case PrefsItemModelTypePookjwContributor:
             [self presentWebViewControllerWithURL:itemModel.singleWebPageURL];
             break;
         case PrefsItemModelTypePnamuContributor: {
@@ -306,7 +311,7 @@
                                                                                                  actionProvider:nil];
             return configuration;
         }
-        case PrefsItemModelTypeJinwooKimContributor: {
+        case PrefsItemModelTypePookjwContributor: {
             self.viewModel.contextMenuIndexPath = indexPath;
             UIContextMenuConfiguration *configuration = [UIContextMenuConfiguration configurationWithIdentifier:nil
                                                                                                 previewProvider:^UIViewController * _Nullable{

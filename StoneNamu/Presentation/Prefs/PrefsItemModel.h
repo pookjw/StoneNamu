@@ -12,7 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 typedef NS_ENUM(NSUInteger, PrefsItemModelType) {
     PrefsItemModelTypeLocaleSelection,
     PrefsItemModelTypeRegionSelection,
-    PrefsItemModelTypeJinwooKimContributor,
+    PrefsItemModelTypeDeleteAllCaches,
+    PrefsItemModelTypePookjwContributor,
     PrefsItemModelTypePnamuContributor
 };
 
@@ -22,6 +23,7 @@ typedef NS_ENUM(NSUInteger, PrefsItemModelType) {
 @property (readonly, nonatomic) NSString * _Nullable primaryText;
 @property (readonly, nonatomic) NSString * _Nullable secondaryText;
 @property (copy) NSString * _Nullable accessoryText;
+@property (readonly, nonatomic) UIListContentTextAlignment primaryTextAlignment;
 @property (readonly, nonatomic) BOOL hasDisclosure;
 @property (readonly, nonatomic) NSDictionary<NSString *, NSURL *> * _Nullable socialInfo;
 @property (readonly, nonatomic) NSURL * _Nullable singleWebPageURL;

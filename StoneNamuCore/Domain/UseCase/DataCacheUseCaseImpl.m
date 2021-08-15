@@ -54,8 +54,8 @@
     }];
 }
 
-- (void)removeAllDataCaches {
-    [self.dataCacheRepository removeAllDataCaches];
+- (void)deleteAllDataCaches {
+    [self.dataCacheRepository deleteAllDataCaches];
 }
 
 - (void)createDataCache:(NSData *)data identity:(NSString *)identity {

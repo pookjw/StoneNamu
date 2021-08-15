@@ -19,6 +19,7 @@ typedef UICollectionViewDiffableDataSource<PrefsSectionModel *, PrefsItemModel *
 - (instancetype)initWithDataSource:(PrefsDataSource *)dataSource;
 - (NSString * _Nullable)headerTextFromIndexPath:(NSIndexPath *)indexPath;
 - (NSString * _Nullable)footerTextFromIndexPath:(NSIndexPath *)indexPath;
+- (void)deleteAllCahces;
 @end
 
 NS_ASSUME_NONNULL_END
