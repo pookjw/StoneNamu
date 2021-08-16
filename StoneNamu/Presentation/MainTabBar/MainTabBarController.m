@@ -12,9 +12,11 @@
 #import "MainSplitViewController.h"
 #import "CardOptionsViewController.h"
 #import "UIView+scrollToTopForRecursiveView.h"
+#import "DecksViewController.h"
 
 @interface MainTabBarController () <UITabBarControllerDelegate>
 @property (retain) CardsSplitViewController *cardsSplitViewController;
+@property (retain) MainSplitViewController *decksSplitViewController;
 @property (retain) MainSplitViewController *prefsSplitViewController;
 @end
 
@@ -22,6 +24,7 @@
 
 - (void)dealloc {
     [_cardsSplitViewController release];
+    [_decksSplitViewController release];
     [_prefsSplitViewController release];
     [super dealloc];
 }
@@ -38,21 +41,32 @@
 
 - (void)configureViewControllers {
     CardsViewController *cardsViewController = [CardsViewController new];
+    DecksViewController *decksViewController = [DecksViewController new];
     PrefsViewController *prefsViewController = [PrefsViewController new];
     
     [cardsViewController loadViewIfNeeded];
+    [decksViewController loadViewIfNeeded];
     [prefsViewController loadViewIfNeeded];
     
     UINavigationController *cardsPrimaryNavigationController = [UINavigationController new];
-    UINavigationController *prefsPrimaryNavigationController = [[UINavigationController alloc] initWithRootViewController:prefsViewController];
     UINavigationController *cardsSecondaryNavigationController = [UINavigationController new];
+    UINavigationController *decksPrimaryNavigationController = [[UINavigationController alloc] initWithRootViewController:decksViewController];
+    UINavigationController *decksSecondaryNavigationController = [UINavigationController new];
+    UINavigationController *prefsPrimaryNavigationController = [[UINavigationController alloc] initWithRootViewController:prefsViewController];
     UINavigationController *prefsSecondaryNavigationController = [UINavigationController new];
+    
     CardsSplitViewController *cardsSplitViewController = [CardsSplitViewController new];
+    MainSplitViewController *decksSplitViewController = [MainSplitViewController new];
     MainSplitViewController *prefsSplitViewController = [MainSplitViewController new];
     self.cardsSplitViewController = cardsSplitViewController;
+    self.decksSplitViewController = decksSplitViewController;
     self.prefsSplitViewController = prefsSplitViewController;
     
+    cardsPrimaryNavigationController.view.backgroundColor = UIColor.systemBackgroundColor;
     cardsSecondaryNavigationController.view.backgroundColor = UIColor.systemBackgroundColor;
+    decksPrimaryNavigationController.view.backgroundColor = UIColor.systemBackgroundColor;
+    decksSecondaryNavigationController.view.backgroundColor = UIColor.systemBackgroundColor;
+    prefsPrimaryNavigationController.view.backgroundColor = UIColor.systemBackgroundColor;
     prefsSecondaryNavigationController.view.backgroundColor = UIColor.systemBackgroundColor;
     
     if (cardsSplitViewController.isCollapsed) {
@@ -69,32 +83,40 @@
         cardsSplitViewController.viewControllers = @[cardsPrimaryNavigationController, cardsSecondaryNavigationController];
     }
     
-    cardsSplitViewController.preferredDisplayMode = UISplitViewControllerDisplayModeOneBesideSecondary;
+    decksSplitViewController.viewControllers = @[decksPrimaryNavigationController, decksSecondaryNavigationController];
     prefsSplitViewController.viewControllers = @[prefsPrimaryNavigationController, prefsSecondaryNavigationController];
-    prefsSplitViewController.preferredDisplayMode = UISplitViewControllerDisplayModeOneBesideSecondary;
     
+    [cardsViewController release];
+    [decksViewController release];
+    [prefsViewController release];
     [cardsPrimaryNavigationController release];
     [prefsPrimaryNavigationController release];
+    [decksPrimaryNavigationController release];
+    [decksSecondaryNavigationController release];
     [cardsSecondaryNavigationController release];
     [prefsSecondaryNavigationController release];
-    [cardsViewController release];
-    [prefsViewController release];
     
     UITabBarItem *cardsTabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"CARDS", @"")
                                                                   image:[UIImage systemImageNamed:@"menucard"]
                                                           selectedImage:[UIImage systemImageNamed:@"menucard.fill"]];
+    UITabBarItem *decksTabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"DECKS", @"")
+                                                                  image:[UIImage systemImageNamed:@"books.vertical"]
+                                                          selectedImage:[UIImage systemImageNamed:@"books.vertical.fill"]];
     UITabBarItem *prefsTabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"PREFERENCES", @"")
                                                                   image:[UIImage systemImageNamed:@"gearshape"]
                                                           selectedImage:[UIImage systemImageNamed:@"gearshape.fill"]];
     cardsSplitViewController.tabBarItem = cardsTabBarItem;
+    decksSplitViewController.tabBarItem = decksTabBarItem;
     prefsSplitViewController.tabBarItem = prefsTabBarItem;
     
     [cardsTabBarItem release];
+    [decksTabBarItem release];
     [prefsTabBarItem release];
     
-    [self setViewControllers:@[cardsSplitViewController, prefsSplitViewController] animated:NO];
+    [self setViewControllers:@[cardsSplitViewController, decksSplitViewController, prefsSplitViewController] animated:NO];
     
     [cardsSplitViewController release];
+    [decksSplitViewController release];
     [prefsSplitViewController release];
 }
 

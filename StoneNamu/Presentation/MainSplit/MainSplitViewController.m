@@ -22,6 +22,14 @@
     return self;
 }
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+}
+
+- (void)setAttributes {
+    self.preferredDisplayMode = UISplitViewControllerDisplayModeOneBesideSecondary;
+}
+
 #pragma mark UISplitViewControllerDelegate
 
 - (BOOL)splitViewController:(UISplitViewController *)splitViewController showDetailViewController:(UIViewController *)vc sender:(id)sender {
