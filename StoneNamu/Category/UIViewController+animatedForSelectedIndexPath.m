@@ -22,7 +22,9 @@
                 }
             }];
         } else {
-            [collectionView deselectItemAtIndexPath:indexPath animated:YES];
+            if (self.splitViewController.isCollapsed) {
+                [collectionView deselectItemAtIndexPath:indexPath animated:YES];
+            }
         }
     }
 }

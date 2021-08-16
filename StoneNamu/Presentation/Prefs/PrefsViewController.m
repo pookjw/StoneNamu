@@ -354,7 +354,7 @@
         if ([self.contextViewController isKindOfClass:[SFSafariViewController class]]) {
             [self presentViewController:self.contextViewController animated:YES completion:^{}];
         } else {
-            [self.navigationController pushViewController:self.contextViewController animated:YES];
+            [self.splitViewController showDetailViewController:self.contextViewController sender:nil];
         }
     }];
     
