@@ -329,6 +329,7 @@
 
 - (UIPresentationController *)presentationControllerForPresentedViewController:(UIViewController *)presented presentingViewController:(UIViewController *)presenting sourceViewController:(UIViewController *)source {
     
+    [self updateLayoutViewControllerWithTraitCollection:source.view.window.traitCollection];
     CGRect destinationRect = [self.currentLayoutViewController estimatedPrimaryImageRectUsingWindow:source.view.window
                                                                                      safeAreaInsets:source.view.superview.safeAreaInsets];
     
