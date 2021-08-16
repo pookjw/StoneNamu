@@ -157,7 +157,7 @@
     [content.delegate cardDetailsChildrenContentConfigurationDidTapImageView:contentView.imageView hsCard:itemModel.hsCard];
 }
 
-- (NSArray<UIDragItem *> *)dragItemsFromIndexPath:(NSIndexPath *)indexPath {
+- (NSArray<UIDragItem *> *)makeDragItemsFromIndexPath:(NSIndexPath *)indexPath {
     UICollectionViewCell * _Nullable cell = [self.collectionView cellForItemAtIndexPath:indexPath];
     CardDetailsChildrenContentImageContentView *contentView = (CardDetailsChildrenContentImageContentView *)cell.contentView;
     
@@ -223,11 +223,11 @@
 #pragma mark UICollectionViewDragDelegate
 
 - (NSArray<UIDragItem *> *)collectionView:(UICollectionView *)collectionView itemsForBeginningDragSession:(id<UIDragSession>)session atIndexPath:(NSIndexPath *)indexPath {
-    return [self dragItemsFromIndexPath:indexPath];
+    return [self makeDragItemsFromIndexPath:indexPath];
 }
 
 - (NSArray<UIDragItem *> *)collectionView:(UICollectionView *)collectionView itemsForAddingToDragSession:(id<UIDragSession>)session atIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point {
-    return [self dragItemsFromIndexPath:indexPath];
+    return [self makeDragItemsFromIndexPath:indexPath];
 }
 
 @end

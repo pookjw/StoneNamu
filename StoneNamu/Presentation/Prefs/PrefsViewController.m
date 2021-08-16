@@ -194,13 +194,13 @@
 
 - (void)pushToLocaleViewController {
     PrefsLocaleViewController *vc = [PrefsLocaleViewController new];
-    [self.navigationController pushViewController:vc animated:YES];
+    [self.splitViewController showDetailViewController:vc sender:nil];
     [vc release];
 }
 
 - (void)pushToRegionHostViewController {
     PrefsRegionHostViewController *vc = [PrefsRegionHostViewController new];
-    [self.navigationController pushViewController:vc animated:YES];
+    [self.splitViewController showDetailViewController:vc sender:nil];
     [vc release];
 }
 

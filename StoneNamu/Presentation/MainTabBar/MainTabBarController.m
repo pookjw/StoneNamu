@@ -8,17 +8,18 @@
 #import "MainTabBarController.h"
 #import "CardsViewController.h"
 #import "PrefsViewController.h"
+#import "MainSplitViewController.h"
 
 @interface MainTabBarController ()
-@property (retain) UINavigationController *cardsNavigationController;
-@property (retain) UINavigationController *prefsNavigationController;
+@property (retain) MainSplitViewController *cardsSplitViewController;
+@property (retain) MainSplitViewController *prefsSplitViewController;
 @end
 
 @implementation MainTabBarController
 
 - (void)dealloc {
-    [_cardsNavigationController release];
-    [_prefsNavigationController release];
+    [_cardsSplitViewController release];
+    [_prefsSplitViewController release];
     [super dealloc];
 }
 
@@ -30,12 +31,27 @@
 - (void)configureViewControllers {
     CardsViewController *cardsViewController = [CardsViewController new];
     PrefsViewController *prefsViewController = [PrefsViewController new];
+    UINavigationController *cardsPrimaryNavigationController = [[UINavigationController alloc] initWithRootViewController:cardsViewController];
+    UINavigationController *prefsPrimaryNavigationController = [[UINavigationController alloc] initWithRootViewController:prefsViewController];
+    UINavigationController *cardsSecondaryNavigationController = [UINavigationController new];
+    UINavigationController *prefsSecondaryNavigationController = [UINavigationController new];
+    MainSplitViewController *cardsSplitViewController = [MainSplitViewController new];
+    MainSplitViewController *prefsSplitViewController = [MainSplitViewController new];
+    self.cardsSplitViewController = cardsSplitViewController;
+    self.prefsSplitViewController = prefsSplitViewController;
     
-    UINavigationController *cardsNavigationController = [[UINavigationController alloc] initWithRootViewController:cardsViewController];
-    UINavigationController *prefsNavigationController = [[UINavigationController alloc] initWithRootViewController:prefsViewController];
-    self.cardsNavigationController = cardsNavigationController;
-    self.prefsNavigationController = prefsNavigationController;
+    cardsSecondaryNavigationController.view.backgroundColor = UIColor.systemBackgroundColor;
+    prefsSecondaryNavigationController.view.backgroundColor = UIColor.systemBackgroundColor;
     
+    cardsSplitViewController.viewControllers = @[cardsPrimaryNavigationController, cardsSecondaryNavigationController];
+    cardsSplitViewController.preferredDisplayMode = UISplitViewControllerDisplayModeOneBesideSecondary;
+    prefsSplitViewController.viewControllers = @[prefsPrimaryNavigationController, prefsSecondaryNavigationController];
+    prefsSplitViewController.preferredDisplayMode = UISplitViewControllerDisplayModeOneBesideSecondary;
+    
+    [cardsPrimaryNavigationController release];
+    [prefsPrimaryNavigationController release];
+    [cardsSecondaryNavigationController release];
+    [prefsSecondaryNavigationController release];
     [cardsViewController release];
     [prefsViewController release];
     
@@ -45,17 +61,16 @@
     UITabBarItem *prefsTabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"PREFERENCES", @"")
                                                                   image:[UIImage systemImageNamed:@"gearshape"]
                                                           selectedImage:[UIImage systemImageNamed:@"gearshape.fill"]];
-    cardsNavigationController.tabBarItem = cardsTabBarItem;
-    prefsNavigationController.tabBarItem = prefsTabBarItem;
+    cardsSplitViewController.tabBarItem = cardsTabBarItem;
+    prefsSplitViewController.tabBarItem = prefsTabBarItem;
     
     [cardsTabBarItem release];
     [prefsTabBarItem release];
     
-    [self setViewControllers:@[cardsNavigationController, prefsNavigationController] animated:NO];
+    [self setViewControllers:@[cardsSplitViewController, prefsSplitViewController] animated:NO];
     
-    
-    [cardsNavigationController release];
-    [prefsNavigationController release];
+    [cardsSplitViewController release];
+    [prefsSplitViewController release];
 }
 
 @end
