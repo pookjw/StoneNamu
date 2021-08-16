@@ -42,7 +42,6 @@ static NSMutableDictionary<NSString *, NSOperationQueue *> * _Nullable kOperatio
     [NSNotificationCenter.defaultCenter removeObserver:self];
     [_context release];
     [_storeContainer release];
-    [_queue cancelAllOperations];
     [_queue release];
     [super dealloc];
 }

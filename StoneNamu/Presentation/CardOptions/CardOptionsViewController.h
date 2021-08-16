@@ -13,6 +13,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface CardOptionsViewController : UIViewController
 @property (weak) id<CardOptionsViewControllerDelegate> delegate;
 - (instancetype)initWithOptions:(NSDictionary<NSString *, NSString *> *)options;
+- (void)setCancelButtonHidden:(BOOL)hidden;
 @end
-
 NS_ASSUME_NONNULL_END

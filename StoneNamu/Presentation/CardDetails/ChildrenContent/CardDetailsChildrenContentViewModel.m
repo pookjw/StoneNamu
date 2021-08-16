@@ -32,7 +32,6 @@
 - (void)dealloc {
     [_contextMenuIndexPath release];
     [_dataSource release];
-    [_queue cancelAllOperations];
     [_queue release];
     [super dealloc];
 }

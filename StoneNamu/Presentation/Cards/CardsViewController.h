@@ -6,11 +6,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CardOptionsViewControllerDelegate.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CardsViewController : UIViewController
+@interface CardsViewController : UIViewController <CardOptionsViewControllerDelegate>
 - (instancetype)initWithOptions:(NSDictionary<NSString *, id> *)options;
+- (NSDictionary<NSString *, NSString *> * _Nullable)setOptionsBarButtonItemHidden:(BOOL)hidden;
 @end
 
 NS_ASSUME_NONNULL_END

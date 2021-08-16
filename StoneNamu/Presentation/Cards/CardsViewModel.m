@@ -61,7 +61,6 @@
     [_hsCardUseCase release];
     [_pageCount release];
     [_page release];
-    [_queue cancelAllOperations];
     [_queue release];
     [_options release];
     [_prefsUseCase release];

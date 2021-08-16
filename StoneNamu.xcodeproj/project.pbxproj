@@ -120,6 +120,7 @@
 		4FF3E0D226CA6FB9002B20EA /* MainTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF3E0D126CA6FB9002B20EA /* MainTabBarController.m */; };
 		4FF3E0D726CA7F81002B20EA /* NSSemaphoreCondition.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF3E0D626CA7F81002B20EA /* NSSemaphoreCondition.m */; };
 		4FF3E0DB26CA947D002B20EA /* MainSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF3E0DA26CA947D002B20EA /* MainSplitViewController.m */; };
+		4FF3E0DF26CA9C82002B20EA /* CardsSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF3E0DE26CA9C82002B20EA /* CardsSplitViewController.m */; };
 		4FF676CF26AAFC6A00477272 /* CardsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF676CE26AAFC6A00477272 /* CardsViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -374,6 +375,8 @@
 		4FF3E0D626CA7F81002B20EA /* NSSemaphoreCondition.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NSSemaphoreCondition.m; sourceTree = "<group>"; };
 		4FF3E0D926CA947D002B20EA /* MainSplitViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainSplitViewController.h; sourceTree = "<group>"; };
 		4FF3E0DA26CA947D002B20EA /* MainSplitViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainSplitViewController.m; sourceTree = "<group>"; };
+		4FF3E0DD26CA9C82002B20EA /* CardsSplitViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardsSplitViewController.h; sourceTree = "<group>"; };
+		4FF3E0DE26CA9C82002B20EA /* CardsSplitViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardsSplitViewController.m; sourceTree = "<group>"; };
 		4FF676CD26AAFC6A00477272 /* CardsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardsViewController.h; sourceTree = "<group>"; };
 		4FF676CE26AAFC6A00477272 /* CardsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardsViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -491,6 +494,7 @@
 				4FA9047926B6E26A00CD6147 /* CardContentView.m */,
 				4F646A5A26B7CA8000BEDB38 /* CardsCollectionViewCompositionalLayout.h */,
 				4F646A5B26B7CA8000BEDB38 /* CardsCollectionViewCompositionalLayout.m */,
+				4FF3E0DC26CA9C6C002B20EA /* Split */,
 			);
 			path = Cards;
 			sourceTree = "<group>";
@@ -933,6 +937,15 @@
 			path = MainSplit;
 			sourceTree = "<group>";
 		};
+		4FF3E0DC26CA9C6C002B20EA /* Split */ = {
+			isa = PBXGroup;
+			children = (
+				4FF3E0DD26CA9C82002B20EA /* CardsSplitViewController.h */,
+				4FF3E0DE26CA9C82002B20EA /* CardsSplitViewController.m */,
+			);
+			path = Split;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1186,6 +1199,7 @@
 				4FF3E0D726CA7F81002B20EA /* NSSemaphoreCondition.m in Sources */,
 				4FB850F726C18BAE00E3C89D /* PrefsViewController.m in Sources */,
 				4FA56BAF26A21059002D9FA0 /* SceneDelegate.m in Sources */,
+				4FF3E0DF26CA9C82002B20EA /* CardsSplitViewController.m in Sources */,
 				4F98E25B26B9AA280067846F /* CardDetailsSectionModel.m in Sources */,
 				4FF3E0DB26CA947D002B20EA /* MainSplitViewController.m in Sources */,
 				4F646A5F26B7D05E00BEDB38 /* UIImageView+setAsyncImage.m in Sources */,

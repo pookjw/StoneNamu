@@ -8,10 +8,12 @@
 #import "MainTabBarController.h"
 #import "CardsViewController.h"
 #import "PrefsViewController.h"
+#import "CardsSplitViewController.h"
 #import "MainSplitViewController.h"
+#import "CardOptionsViewController.h"
 
 @interface MainTabBarController ()
-@property (retain) MainSplitViewController *cardsSplitViewController;
+@property (retain) CardsSplitViewController *cardsSplitViewController;
 @property (retain) MainSplitViewController *prefsSplitViewController;
 @end
 
@@ -31,11 +33,15 @@
 - (void)configureViewControllers {
     CardsViewController *cardsViewController = [CardsViewController new];
     PrefsViewController *prefsViewController = [PrefsViewController new];
-    UINavigationController *cardsPrimaryNavigationController = [[UINavigationController alloc] initWithRootViewController:cardsViewController];
+    
+    [cardsViewController loadViewIfNeeded];
+    [prefsViewController loadViewIfNeeded];
+    
+    UINavigationController *cardsPrimaryNavigationController = [UINavigationController new];
     UINavigationController *prefsPrimaryNavigationController = [[UINavigationController alloc] initWithRootViewController:prefsViewController];
     UINavigationController *cardsSecondaryNavigationController = [UINavigationController new];
     UINavigationController *prefsSecondaryNavigationController = [UINavigationController new];
-    MainSplitViewController *cardsSplitViewController = [MainSplitViewController new];
+    CardsSplitViewController *cardsSplitViewController = [CardsSplitViewController new];
     MainSplitViewController *prefsSplitViewController = [MainSplitViewController new];
     self.cardsSplitViewController = cardsSplitViewController;
     self.prefsSplitViewController = prefsSplitViewController;
@@ -43,7 +49,20 @@
     cardsSecondaryNavigationController.view.backgroundColor = UIColor.systemBackgroundColor;
     prefsSecondaryNavigationController.view.backgroundColor = UIColor.systemBackgroundColor;
     
-    cardsSplitViewController.viewControllers = @[cardsPrimaryNavigationController, cardsSecondaryNavigationController];
+    if (cardsSplitViewController.isCollapsed) {
+        cardsPrimaryNavigationController.viewControllers = @[cardsViewController];
+        cardsSecondaryNavigationController.viewControllers = @[];
+        cardsSplitViewController.viewControllers = @[cardsPrimaryNavigationController, cardsSecondaryNavigationController];
+    } else {
+        NSDictionary<NSString *, NSString *> *options = [cardsViewController setOptionsBarButtonItemHidden:YES];
+        CardOptionsViewController *cardOptionsViewController = [[CardOptionsViewController alloc] initWithOptions:options];
+        [cardOptionsViewController setCancelButtonHidden:YES];
+        cardOptionsViewController.delegate = cardsViewController;
+        cardsPrimaryNavigationController.viewControllers = @[cardOptionsViewController];
+        cardsSecondaryNavigationController.viewControllers = @[cardsViewController];
+        cardsSplitViewController.viewControllers = @[cardsPrimaryNavigationController, cardsSecondaryNavigationController];
+    }
+    
     cardsSplitViewController.preferredDisplayMode = UISplitViewControllerDisplayModeOneBesideSecondary;
     prefsSplitViewController.viewControllers = @[prefsPrimaryNavigationController, prefsSecondaryNavigationController];
     prefsSplitViewController.preferredDisplayMode = UISplitViewControllerDisplayModeOneBesideSecondary;

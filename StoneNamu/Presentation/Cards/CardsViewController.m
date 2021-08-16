@@ -17,8 +17,9 @@
 #import "CardOptionsViewControllerDelegate.h"
 #import "SheetNavigationController.h"
 
-@interface CardsViewController () <UICollectionViewDelegate, UICollectionViewDragDelegate, CardOptionsViewControllerDelegate>
+@interface CardsViewController () <UICollectionViewDelegate, UICollectionViewDragDelegate>
 @property (retain) UICollectionView *collectionView;
+@property (retain) UIBarButtonItem *optionsBarButtonItem;
 @property (retain) CardsViewModel *viewModel;
 @end
 
@@ -38,8 +39,20 @@
 - (void)dealloc {
     [NSNotificationCenter.defaultCenter removeObserver:self];
     [_collectionView release];
+    [_optionsBarButtonItem release];
     [_viewModel release];
     [super dealloc];
+}
+
+- (NSDictionary<NSString *,NSString *> * _Nullable)setOptionsBarButtonItemHidden:(BOOL)hidden {
+    
+    if (hidden) {
+        self.navigationItem.leftBarButtonItems = @[];
+    } else {
+        self.navigationItem.leftBarButtonItems = @[self.optionsBarButtonItem];
+    }
+    
+    return self.viewModel.options;
 }
 
 - (void)viewDidLoad {
@@ -66,6 +79,7 @@
                                                                             target:self
                                                                             action:@selector(optionsBarButtonItemTriggered:)];
     
+    self.optionsBarButtonItem = optionsBarButtonItem;
     self.navigationItem.leftBarButtonItems = @[optionsBarButtonItem];
     
     [optionsBarButtonItem release];
@@ -283,7 +297,9 @@
 #pragma mark CardOptionsViewControllerDelegate
 
 - (void)cardOptionsViewController:(CardOptionsViewController *)viewController doneWithOptions:(NSDictionary<NSString *,NSString *> *)options {
-    [viewController dismissViewControllerAnimated:YES completion:^{}];
+    if (self.splitViewController.isCollapsed) {
+        [viewController dismissViewControllerAnimated:YES completion:^{}];
+    }
     self.viewModel.options = options;
     [self.viewModel requestDataSourceWithOptions:options reset:YES];
 }

@@ -39,7 +39,6 @@
 - (void)dealloc {
     [_dataSource release];
     [_hsCardUseCase release];
-    [_queue cancelAllOperations];
     [_queue release];
     [_hsCard release];
     [super dealloc];

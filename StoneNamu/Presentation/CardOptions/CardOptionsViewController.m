@@ -13,6 +13,7 @@
 
 @interface CardOptionsViewController () <UICollectionViewDelegate>
 @property (retain) UICollectionView *collectionView;
+@property (retain) UIBarButtonItem *cancelButton;
 @property (retain) CardOptionsViewModel *viewModel;
 @end
 
@@ -32,8 +33,17 @@
 - (void)dealloc {
     [NSNotificationCenter.defaultCenter removeObserver:self];
     [_collectionView release];
+    [_cancelButton release];
     [_viewModel release];
     [super dealloc];
+}
+
+- (void)setCancelButtonHidden:(BOOL)hidden {
+    if (hidden) {
+        self.navigationItem.leftBarButtonItems = @[];
+    } else {
+        self.navigationItem.leftBarButtonItems = @[self.cancelButton];
+    }
 }
 
 - (void)viewDidLoad {
@@ -65,6 +75,7 @@
                                                                     target:self
                                                                     action:@selector(cancelButtonTriggered:)];
     
+    self.cancelButton = cancelButton;
     self.navigationItem.leftBarButtonItems = @[cancelButton];
     [cancelButton release];
 }

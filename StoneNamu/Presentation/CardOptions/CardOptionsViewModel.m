@@ -35,7 +35,6 @@
 
 - (void)dealloc {
     [_dataSource release];
-    [_queue cancelAllOperations];
     [_queue release];
     [super dealloc];
 }

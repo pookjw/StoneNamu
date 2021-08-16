@@ -8,7 +8,6 @@
 #import "MainSplitViewController.h"
 
 @interface MainSplitViewController () <UISplitViewControllerDelegate>
-
 @end
 
 @implementation MainSplitViewController
@@ -67,7 +66,7 @@
         return [secondaryNavigationController autorelease];
     }
     
-    NSRange range = NSMakeRange(1, primaryNavigationControllersCount);
+    NSRange range = NSMakeRange(1, primaryNavigationControllersCount - 1);
     NSArray<UIViewController *> *secondaryViewControllers = [primaryNavigationController.viewControllers subarrayWithRange:range];
     
     primaryNavigationController.viewControllers = @[primaryNavigationController.viewControllers[0]];

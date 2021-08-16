@@ -40,36 +40,45 @@
 - (void)dataCachesWithIdentity:(NSString *)identity completion:(DataCacheRepositoryFetchWithIdentityCompletion)completion {
     [self.coreDataStack.queue addBarrierBlock:^{
         NSManagedObjectContext *context = self.coreDataStack.context;
-        NSFetchRequest *fetchRequest = DataCache._fetchRequest;
         
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K = %@" argumentArray:@[@"identity", identity]];
-        fetchRequest.predicate = predicate;
-        
-        NSError * _Nullable error = nil;
-        NSArray<DataCache *> *results = [context executeFetchRequest:fetchRequest error:&error];
-        
-        if (error) {
-            completion(nil, error);
-            return;
-        }
-        
-        completion(results, nil);
+        [context performBlockAndWait:^{
+            @autoreleasepool {
+                NSFetchRequest *fetchRequest = DataCache._fetchRequest;
+                
+                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K = %@" argumentArray:@[@"identity", identity]];
+                fetchRequest.predicate = predicate;
+                
+                NSError * _Nullable error = nil;
+                NSArray<DataCache *> *results = [context executeFetchRequest:fetchRequest error:&error];
+                
+                if (error) {
+                    completion(nil, error);
+                    return;
+                }
+                
+                completion(results, nil);
+            }
+        }];
     }];
 }
 
 - (void)deleteAllDataCaches {
     [self.coreDataStack.queue addBarrierBlock:^{
-        NSFetchRequest *fetchRequest = DataCache._fetchRequest;
-        NSBatchDeleteRequest *batchDelete = [[NSBatchDeleteRequest alloc] initWithFetchRequest:fetchRequest];
-        batchDelete.affectedStores = self.coreDataStack.storeContainer.persistentStoreCoordinator.persistentStores;
+        NSManagedObjectContext *context = self.coreDataStack.context;
         
-        NSError * _Nullable error = nil;
-        [self.coreDataStack.storeContainer.persistentStoreCoordinator executeRequest:batchDelete withContext:self.coreDataStack.context error:&error];
-        [batchDelete release];
-        
-        if (error) {
-            NSLog(@"%@", error.localizedDescription);
-        }
+        [context performBlockAndWait:^{
+            NSFetchRequest *fetchRequest = DataCache._fetchRequest;
+            NSBatchDeleteRequest *batchDelete = [[NSBatchDeleteRequest alloc] initWithFetchRequest:fetchRequest];
+            batchDelete.affectedStores = self.coreDataStack.storeContainer.persistentStoreCoordinator.persistentStores;
+            
+            NSError * _Nullable error = nil;
+            [self.coreDataStack.storeContainer.persistentStoreCoordinator executeRequest:batchDelete withContext:context error:&error];
+            [batchDelete release];
+            
+            if (error) {
+                NSLog(@"%@", error.localizedDescription);
+            }
+        }];
     }];
 }
 
