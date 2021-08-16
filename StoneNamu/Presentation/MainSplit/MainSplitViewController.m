@@ -63,6 +63,7 @@
     
     if (primaryNavigationControllersCount <= 1) {
         UINavigationController *secondaryNavigationController = [UINavigationController new];
+        secondaryNavigationController.view.backgroundColor = UIColor.systemBackgroundColor;
         return [secondaryNavigationController autorelease];
     }
     
