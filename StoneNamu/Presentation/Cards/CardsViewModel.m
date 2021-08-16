@@ -81,7 +81,13 @@
     
     self.isFetching = YES;
     
-    NSMutableDictionary *mutableDic = [options mutableCopy];
+    NSMutableDictionary *mutableDic;
+    
+    if (options) {
+        mutableDic = [options mutableCopy];
+    } else {
+        mutableDic = [@{} mutableCopy];
+    }
     
     if (self.pageCount != nil) {
         // Next page
@@ -111,8 +117,8 @@
 }
 
 - (void)resetDataSource {
-    self.page = @1;
     self.pageCount = nil;
+    self.page = [NSNumber numberWithUnsignedInt:1];
     NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
     [snapshot deleteAllItems];
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
