@@ -11,8 +11,9 @@
 #import "CardsSplitViewController.h"
 #import "MainSplitViewController.h"
 #import "CardOptionsViewController.h"
+#import "UIView+scrollToTopForRecursiveView.h"
 
-@interface MainTabBarController ()
+@interface MainTabBarController () <UITabBarControllerDelegate>
 @property (retain) CardsSplitViewController *cardsSplitViewController;
 @property (retain) MainSplitViewController *prefsSplitViewController;
 @end
@@ -27,7 +28,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self setAttributes];
     [self configureViewControllers];
+}
+
+- (void)setAttributes {
+    self.delegate = self;
 }
 
 - (void)configureViewControllers {
@@ -90,6 +96,60 @@
     
     [cardsSplitViewController release];
     [prefsSplitViewController release];
+}
+
+- (void)makeFirstPageForNavigationController:(UINavigationController *)navigationController {
+    if (navigationController.viewControllers.count < 1) return;
+    
+    UIViewController *firstViewController = navigationController.viewControllers[0];
+    [navigationController setViewControllers:@[firstViewController] animated:YES];
+}
+
+#pragma mark UITabBarControllerDelegate
+
+- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
+    // if not selected
+    if (![viewController isEqual:tabBarController.selectedViewController]) {
+        return YES;
+    }
+    
+    if ([viewController isKindOfClass:[UISplitViewController class]]) {
+        UISplitViewController *splitViewController = (UISplitViewController *)viewController;
+        
+        if (splitViewController.viewControllers.count < 1) {
+            return YES;
+        }
+        
+        UIViewController *firstViewController = splitViewController.viewControllers[0];
+        
+        if ([firstViewController isKindOfClass:[UINavigationController class]]) {
+            // same
+            UINavigationController *navigationController = (UINavigationController *)firstViewController;
+            
+            if (navigationController.viewControllers.count == 1) {
+                UIViewController *firstViewController = navigationController.viewControllers[0];
+                [firstViewController.view scrollToTopWithRecursiveAnimated:YES];
+            } else {
+                [self makeFirstPageForNavigationController:navigationController];
+            }
+        } else {
+            [firstViewController.view scrollToTopWithRecursiveAnimated:YES];
+        }
+    } else if ([viewController isKindOfClass:[UINavigationController class]]) {
+        // same
+        UINavigationController *navigationController = (UINavigationController *)viewController;
+        
+        if (navigationController.viewControllers.count == 1) {
+            UIViewController *firstViewController = navigationController.viewControllers[0];
+            [firstViewController.view scrollToTopWithRecursiveAnimated:YES];
+        } else {
+            [self makeFirstPageForNavigationController:navigationController];
+        }
+    } else {
+        [viewController.view scrollToTopWithRecursiveAnimated:YES];
+    }
+    
+    return YES;
 }
 
 @end

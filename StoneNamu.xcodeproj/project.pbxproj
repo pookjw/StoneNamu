@@ -122,6 +122,8 @@
 		4FF3E0DB26CA947D002B20EA /* MainSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF3E0DA26CA947D002B20EA /* MainSplitViewController.m */; };
 		4FF3E0DF26CA9C82002B20EA /* CardsSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF3E0DE26CA9C82002B20EA /* CardsSplitViewController.m */; };
 		4FF676CF26AAFC6A00477272 /* CardsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF676CE26AAFC6A00477272 /* CardsViewController.m */; };
+		4FFDD65026CAC0F7008E5B45 /* UIScrollView+scrollToTop.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FFDD64F26CAC0F7008E5B45 /* UIScrollView+scrollToTop.m */; };
+		4FFDD65326CAC274008E5B45 /* UIView+scrollToTopForRecursiveView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FFDD65226CAC274008E5B45 /* UIView+scrollToTopForRecursiveView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -379,6 +381,10 @@
 		4FF3E0DE26CA9C82002B20EA /* CardsSplitViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardsSplitViewController.m; sourceTree = "<group>"; };
 		4FF676CD26AAFC6A00477272 /* CardsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardsViewController.h; sourceTree = "<group>"; };
 		4FF676CE26AAFC6A00477272 /* CardsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardsViewController.m; sourceTree = "<group>"; };
+		4FFDD64E26CAC0F7008E5B45 /* UIScrollView+scrollToTop.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+scrollToTop.h"; sourceTree = "<group>"; };
+		4FFDD64F26CAC0F7008E5B45 /* UIScrollView+scrollToTop.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+scrollToTop.m"; sourceTree = "<group>"; };
+		4FFDD65126CAC274008E5B45 /* UIView+scrollToTopForRecursiveView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+scrollToTopForRecursiveView.h"; sourceTree = "<group>"; };
+		4FFDD65226CAC274008E5B45 /* UIView+scrollToTopForRecursiveView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+scrollToTopForRecursiveView.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -423,6 +429,10 @@
 				4FF3E0C626C998E6002B20EA /* NSBundle+BuildInfo.m */,
 				4FF3E0CC26C9B84C002B20EA /* UIView+viewController.h */,
 				4FF3E0CD26C9B84C002B20EA /* UIView+viewController.m */,
+				4FFDD64E26CAC0F7008E5B45 /* UIScrollView+scrollToTop.h */,
+				4FFDD64F26CAC0F7008E5B45 /* UIScrollView+scrollToTop.m */,
+				4FFDD65126CAC274008E5B45 /* UIView+scrollToTopForRecursiveView.h */,
+				4FFDD65226CAC274008E5B45 /* UIView+scrollToTopForRecursiveView.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1181,6 +1191,7 @@
 				4F4976E626ABFE2100860809 /* CardOptionsViewModel.m in Sources */,
 				4F4976EC26ABFF6900860809 /* CardOptionItemModel.m in Sources */,
 				4FA56BBD26A2105A002D9FA0 /* main.m in Sources */,
+				4FFDD65326CAC274008E5B45 /* UIView+scrollToTopForRecursiveView.m in Sources */,
 				4F57DEAC26ADA6E3000E4163 /* PickerItemModel.m in Sources */,
 				4F74712926C170E5001C45C4 /* CardDetailsChildrenContentItemModel.m in Sources */,
 				4F03F57926C7B62C00FC9155 /* PrefsSectionModel.m in Sources */,
@@ -1197,6 +1208,7 @@
 				4FA9047D26B6E2A000CD6147 /* CardContentConfiguration.m in Sources */,
 				4F98E25E26B9AB110067846F /* CardDetailsItemModel.m in Sources */,
 				4FF3E0D726CA7F81002B20EA /* NSSemaphoreCondition.m in Sources */,
+				4FFDD65026CAC0F7008E5B45 /* UIScrollView+scrollToTop.m in Sources */,
 				4FB850F726C18BAE00E3C89D /* PrefsViewController.m in Sources */,
 				4FA56BAF26A21059002D9FA0 /* SceneDelegate.m in Sources */,
 				4FF3E0DF26CA9C82002B20EA /* CardsSplitViewController.m in Sources */,
