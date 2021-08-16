@@ -331,7 +331,7 @@
     
     [self updateLayoutViewControllerWithTraitCollection:source.view.window.traitCollection];
     CGRect destinationRect = [self.currentLayoutViewController estimatedPrimaryImageRectUsingWindow:source.view.window
-                                                                                     safeAreaInsets:source.view.superview.safeAreaInsets];
+                                                                                     safeAreaInsets:source.view.window.safeAreaInsets];
     
     DynamicPresentationController *pc = [[DynamicPresentationController alloc] initWithPresentedViewController:presented
                                                                                       presentingViewController:presenting
