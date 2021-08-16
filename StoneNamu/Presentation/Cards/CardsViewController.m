@@ -14,7 +14,7 @@
 #import "CardDetailsViewController.h"
 #import "PhotosService.h"
 
-@interface CardsViewController () <UICollectionViewDelegate>
+@interface CardsViewController () <UICollectionViewDelegate, UICollectionViewDragDelegate>
 @property (retain) UICollectionView *collectionView;
 @property (readonly, copy) NSDictionary<NSString *, id> * _Nullable options;
 @property (retain) CardsViewModel *viewModel;
@@ -90,6 +90,7 @@
     
     collectionView.backgroundColor = UIColor.systemBackgroundColor;
     collectionView.delegate = self;
+    collectionView.dragDelegate = self;
     
     [collectionView release];
 }
@@ -168,7 +169,7 @@
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
         UICollectionViewCell * _Nullable cell = [self.collectionView cellForItemAtIndexPath:indexPath];
         
-        if (!cell) return;
+        if (cell == nil) return;
         
         CardContentView *contentView = (CardContentView *)cell.contentView;
         
@@ -179,6 +180,21 @@
         [vc loadViewIfNeeded];
         [self presentViewController:vc animated:YES completion:^{}];
     }];
+}
+
+- (NSArray<UIDragItem *> *)dragItemsFromIndexPath:(NSIndexPath *)indexPath {
+    UICollectionViewCell * _Nullable cell = [self.collectionView cellForItemAtIndexPath:indexPath];
+    CardContentView *contentView = (CardContentView *)cell.contentView;
+    
+    UIImage * _Nullable image;
+    
+    if ([contentView isKindOfClass:[CardContentView class]]) {
+        image = contentView.imageView.image;
+    } else {
+        image = nil;
+    }
+    
+    return [self.viewModel makeDragItemFromIndexPath:indexPath image:image];
 }
 
 #pragma mark - UICollectionViewDelegate
@@ -238,6 +254,16 @@
     self.viewModel.contextMenuIndexPath = nil;
     
     [self.viewModel handleSelectionForIndexPath:indexPath];
+}
+
+#pragma mark UICollectionViewDragDelegate
+
+- (NSArray<UIDragItem *> *)collectionView:(UICollectionView *)collectionView itemsForBeginningDragSession:(id<UIDragSession>)session atIndexPath:(NSIndexPath *)indexPath {
+    return [self dragItemsFromIndexPath:indexPath];
+}
+
+- (NSArray<UIDragItem *> *)collectionView:(UICollectionView *)collectionView itemsForAddingToDragSession:(id<UIDragSession>)session atIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point {
+    return [self dragItemsFromIndexPath:indexPath];
 }
 
 @end

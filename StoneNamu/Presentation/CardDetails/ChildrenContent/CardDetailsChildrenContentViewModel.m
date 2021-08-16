@@ -36,6 +36,27 @@
     [super dealloc];
 }
 
+- (NSArray<UIDragItem *> *)makeDragItemFromIndexPath:(NSIndexPath *)indexPath image:(UIImage *)image {
+    CardDetailsChildrenContentItemModel * _Nullable itemModel = [self.dataSource itemIdentifierForIndexPath:indexPath];
+    
+    if (itemModel == nil) return @[];
+    
+    NSItemProvider *itemProvider;
+    
+    if (image) {
+        itemProvider = [[NSItemProvider alloc] initWithObject:image];
+    } else {
+        itemProvider = [NSItemProvider new];
+    }
+    
+    UIDragItem *dragItem = [[UIDragItem alloc] initWithItemProvider:itemProvider];
+    [itemProvider release];
+    
+    dragItem.localObject = itemModel.hsCard;
+    
+    return @[dragItem];
+}
+
 - (void)requestChildCards:(NSArray<HSCard *> *)childCards {
     [self.queue addBarrierBlock:^{
         NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
@@ -67,10 +88,6 @@
             [snapshot release];
         }];
     }];
-}
-
-- (CardDetailsChildrenContentItemModel * _Nullable)itemModelOfIndexPath:(NSIndexPath *)indexPath {
-    return [self.dataSource itemIdentifierForIndexPath:indexPath];
 }
 
 @end

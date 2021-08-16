@@ -19,7 +19,7 @@ typedef UICollectionViewDiffableDataSource<CardDetailsChildrenContentSectionMode
 @property (readonly, retain) CardDetailsChildrenContentDataSource *dataSource;
 - (instancetype)initWithDataSource:(CardDetailsChildrenContentDataSource *)dataSource;
 - (void)requestChildCards:(NSArray<HSCard *> *)childCards;
-- (CardDetailsChildrenContentItemModel * _Nullable)itemModelOfIndexPath:(NSIndexPath *)indexPath;
+- (NSArray<UIDragItem *> *)makeDragItemFromIndexPath:(NSIndexPath *)indexPath image:(UIImage * _Nullable)image;
 @end
 
 NS_ASSUME_NONNULL_END

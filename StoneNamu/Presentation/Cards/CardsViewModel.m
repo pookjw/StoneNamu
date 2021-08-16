@@ -109,6 +109,27 @@
     }];
 }
 
+- (NSArray<UIDragItem *> *)makeDragItemFromIndexPath:(NSIndexPath *)indexPath image:(UIImage * _Nullable)image {
+    CardItemModel * _Nullable itemModel = [self.dataSource itemIdentifierForIndexPath:indexPath];
+    
+    if (itemModel == nil) return @[];
+    
+    NSItemProvider *itemProvider;
+    
+    if (image) {
+        itemProvider = [[NSItemProvider alloc] initWithObject:image];
+    } else {
+        itemProvider = [NSItemProvider new];
+    }
+    
+    UIDragItem *dragItem = [[UIDragItem alloc] initWithItemProvider:itemProvider];
+    [itemProvider release];
+    
+    dragItem.localObject = itemModel.card;
+    
+    return @[dragItem];
+}
+
 - (void)updateDataSourceWithCards:(NSArray<HSCard *> *)cards {
     NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
     

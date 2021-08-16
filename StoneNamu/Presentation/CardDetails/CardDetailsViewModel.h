@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 typedef UICollectionViewDiffableDataSource<CardDetailsSectionModel *, CardDetailsItemModel *> CardDetailsDataSource;
 
 @interface CardDetailsViewModel : NSObject
+@property (readonly, copy) HSCard * _Nullable hsCard;
 @property (readonly, retain) CardDetailsDataSource *dataSource;
 - (instancetype)initWithDataSource:(CardDetailsDataSource *)dataSource;
 - (void)requestDataSourceWithCard:(HSCard *)hsCard;

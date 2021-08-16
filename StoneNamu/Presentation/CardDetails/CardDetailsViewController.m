@@ -15,14 +15,14 @@
 #import "CardDetailsChildrenContentConfiguration.h"
 #import "PhotosService.h"
 
-@interface CardDetailsViewController () <UIViewControllerTransitioningDelegate, UIContextMenuInteractionDelegate, CardDetailsChildrenContentConfigurationDelegate>
+@interface CardDetailsViewController () <UIViewControllerTransitioningDelegate, UIContextMenuInteractionDelegate, UIDragInteractionDelegate, CardDetailsChildrenContentConfigurationDelegate>
 @property (retain) UIImageView *sourceImageView;
 @property (retain) UIImageView *primaryImageView;
 @property (retain) UICollectionView *collectionView;
 @property (retain) UIViewController<CardDetailsLayoutProtocol> *compactViewController;
 @property (retain) UIViewController<CardDetailsLayoutProtocol> *regularViewController;
 @property (retain) NSArray<UIViewController<CardDetailsLayoutProtocol> *> *layoutViewControllers;
-@property (assign, nonatomic) UIViewController<CardDetailsLayoutProtocol> * _Nullable currentLayoutViewController;
+@property (assign, nonatomic, readonly) UIViewController<CardDetailsLayoutProtocol> * _Nullable currentLayoutViewController;
 @property (retain) UIContextMenuInteraction *primaryImageViewInteraction;
 @property (copy) HSCard *hsCard;
 @property (retain) CardDetailsViewModel *viewModel;
@@ -129,6 +129,12 @@
     self.primaryImageViewInteraction = interaction;
     [primaryImageView addInteraction:interaction];
     [interaction release];
+    
+    //
+    
+    UIDragInteraction *dragInteraction = [[UIDragInteraction alloc] initWithDelegate:self];
+    [primaryImageView addInteraction:dragInteraction];
+    [dragInteraction release];
     
     //
     
@@ -302,6 +308,23 @@
     return cellRegistration;
 }
 
+- (NSArray<UIDragItem *> *)makeDragItemsForPrimaryImageView {
+    NSItemProvider *itemProvider;
+    
+    if (self.primaryImageView.image) {
+        itemProvider = [[NSItemProvider alloc] initWithObject:self.primaryImageView.image];
+    } else {
+        itemProvider = [NSItemProvider new];
+    }
+    
+    UIDragItem *dragItem = [[UIDragItem alloc] initWithItemProvider:itemProvider];
+    [itemProvider release];
+    
+    dragItem.localObject = self.viewModel.hsCard;
+    
+    return @[dragItem];
+}
+
 #pragma mark - UIViewControllerTransitioningDelegate
 
 - (UIPresentationController *)presentationControllerForPresentedViewController:(UIViewController *)presented presentingViewController:(UIViewController *)presenting sourceViewController:(UIViewController *)source {
@@ -341,6 +364,16 @@
     }];
     
     return configuration;
+}
+
+#pragma mark UIDragInteractionDelegate
+
+- (NSArray<UIDragItem *> *)dragInteraction:(UIDragInteraction *)interaction itemsForBeginningSession:(id<UIDragSession>)session {
+    return [self makeDragItemsForPrimaryImageView];
+}
+
+- (NSArray<UIDragItem *> *)dragInteraction:(UIDragInteraction *)interaction itemsForAddingToSession:(id<UIDragSession>)session withTouchAtPoint:(CGPoint)point {
+    return [self makeDragItemsForPrimaryImageView];
 }
 
 #pragma mark - CardDetailsChildrenContentConfigurationDelegate

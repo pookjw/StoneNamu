@@ -40,11 +40,16 @@
     [_hsCardUseCase release];
     [_queue cancelAllOperations];
     [_queue release];
+    [_hsCard release];
     [super dealloc];
 }
 
 - (void)requestDataSourceWithCard:(HSCard *)hsCard {
     [self.queue addBarrierBlock:^{
+        [self->_hsCard release];
+        self->_hsCard = nil;
+        self->_hsCard = [hsCard copy];
+        
         NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
         
         [snapshot deleteAllItems];
