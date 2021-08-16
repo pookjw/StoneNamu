@@ -63,6 +63,7 @@
     
     CardsViewController *cardsViewController = primaryNavigationController.viewControllers[0];
     if (![cardsViewController isKindOfClass:[CardsViewController class]]) return nil;
+    [cardsViewController.presentedViewController dismissViewControllerAnimated:NO completion:^{}];
     NSDictionary<NSString *, NSString *> *options = [cardsViewController setOptionsBarButtonItemHidden:YES];
     
     UINavigationController *secondaryNavigationController = [UINavigationController new];
