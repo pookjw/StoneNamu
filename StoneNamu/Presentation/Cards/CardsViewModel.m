@@ -9,6 +9,7 @@
 #import "HSCardUseCaseImpl.h"
 #import "BlizzardHSAPIKeys.h"
 #import "NSSemaphoreCondition.h"
+#import "PrefsUseCaseImpl.h"
 
 @interface CardsViewModel ()
 @property (retain) id<HSCardUseCase> hsCardUseCase;
@@ -17,6 +18,7 @@
 @property (nonatomic, readonly) BOOL canLoadMore;
 @property BOOL isFetching;
 @property (retain) NSOperationQueue *queue;
+@property (retain) id<PrefsUseCase> prefsUseCase;
 @end
 
 @implementation CardsViewModel
@@ -37,14 +39,33 @@
         self.queue = queue;
         [queue release];
         
+        PrefsUseCaseImpl *prefsUseCase = [PrefsUseCaseImpl new];
+        self.prefsUseCase = prefsUseCase;
+        [prefsUseCase release];
+        
         self.options = nil;
         
         self.pageCount = nil;
         self.page = [NSNumber numberWithUnsignedInt:1];
         self.isFetching = NO;
+        
+        [self observePrefsChange];
     }
     
     return self;
+}
+
+- (void)dealloc {
+    [_contextMenuIndexPath release];
+    [_dataSource release];
+    [_hsCardUseCase release];
+    [_pageCount release];
+    [_page release];
+    [_queue cancelAllOperations];
+    [_queue release];
+    [_options release];
+    [_prefsUseCase release];
+    [super dealloc];
 }
 
 - (void)requestDataSourceWithOptions:(NSDictionary<NSString *,id> * _Nullable)options reset:(BOOL)reset {
@@ -105,18 +126,6 @@
         return YES;
     }
     return ![self.pageCount isEqual:self.page];
-}
-
-- (void)dealloc {
-    [_contextMenuIndexPath release];
-    [_dataSource release];
-    [_hsCardUseCase release];
-    [_pageCount release];
-    [_page release];
-    [_queue cancelAllOperations];
-    [_queue release];
-    [_options release];
-    [super dealloc];
 }
 
 - (void)handleSelectionForIndexPath:(NSIndexPath *)indexPath {
@@ -198,6 +207,17 @@
     [NSNotificationCenter.defaultCenter postNotificationName:CardsViewModelErrorNotificationName
                                                       object:self
                                                     userInfo:@{CardsViewModelErrorNotificationErrorKey: error}];
+}
+
+- (void)observePrefsChange {
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(prefsChangedReceived:)
+                                               name:PrefsUseCaseObserveDataNotificationName
+                                             object:self.prefsUseCase];
+}
+
+- (void)prefsChangedReceived:(NSNotification *)notification {
+    [self requestDataSourceWithOptions:self.options reset:YES];
 }
 
 @end
