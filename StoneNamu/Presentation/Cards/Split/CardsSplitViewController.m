@@ -67,6 +67,7 @@
     NSDictionary<NSString *, NSString *> *options = [cardsViewController setOptionsBarButtonItemHidden:YES];
     
     UINavigationController *secondaryNavigationController = [UINavigationController new];
+    secondaryNavigationController.view.backgroundColor = UIColor.systemBackgroundColor;
     CardOptionsViewController *cardOptionsViewController = [[CardOptionsViewController alloc] initWithOptions:options];
     [cardOptionsViewController setCancelButtonHidden:YES];
     

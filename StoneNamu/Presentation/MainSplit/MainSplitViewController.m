@@ -72,6 +72,7 @@
     primaryNavigationController.viewControllers = @[primaryNavigationController.viewControllers[0]];
     
     UINavigationController *secondaryNavigationController = [UINavigationController new];
+    secondaryNavigationController.view.backgroundColor = UIColor.systemBackgroundColor;
     secondaryNavigationController.viewControllers = secondaryViewControllers;
     
     return [secondaryNavigationController autorelease];
