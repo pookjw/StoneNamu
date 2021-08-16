@@ -42,6 +42,39 @@ NSString * NSStringFromCardOptionItemModelType(CardOptionItemModelType type) {
     }
 }
 
+CardOptionItemModelType CardOptionItemModelTypeFromNSString(NSString * key) {
+    if ([key isEqualToString:BlizzardHSAPIOptionTypeSet]) {
+        return CardOptionItemModelTypeSet;
+    } else if ([key isEqualToString:BlizzardHSAPIOptionTypeClass]) {
+        return CardOptionItemModelTypeClass;
+    } else if ([key isEqualToString:BlizzardHSAPIOptionTypeManaCost]) {
+        return CardOptionItemModelTypeManaCost;
+    } else if ([key isEqualToString:BlizzardHSAPIOptionTypeAttack]) {
+        return CardOptionItemModelTypeAttack;
+    } else if ([key isEqualToString:BlizzardHSAPIOptionTypeHealth]) {
+        return CardOptionItemModelTypeHealth;
+    } else if ([key isEqualToString:BlizzardHSAPIOptionTypeCollectible]) {
+        return CardOptionItemModelTypeCollectible;
+    } else if ([key isEqualToString:BlizzardHSAPIOptionTypeRarity]) {
+        return CardOptionItemModelTypeRarity;
+    } else if ([key isEqualToString:BlizzardHSAPIOptionTypeType]) {
+        return CardOptionItemModelTypeType;
+    } else if ([key isEqualToString:BlizzardHSAPIOptionTypeMinionType]) {
+        return CardOptionItemModelTypeMinionType;
+    } else if ([key isEqualToString:BlizzardHSAPIOptionTypeKeyword]) {
+        return CardOptionItemModelTypeKeyword;
+    } else if ([key isEqualToString:BlizzardHSAPIOptionTypeTextFilter]) {
+        return CardOptionItemModelTypeTextFilter;
+    } else if ([key isEqualToString:BlizzardHSAPIOptionTypeGameMode]) {
+        return CardOptionItemModelTypeGameMode;
+    } else if ([key isEqualToString:BlizzardHSAPIOptionTypeSort]) {
+        return CardOptionItemModelTypeSort;
+    } else {
+        NSLog(@"unknown key: @%@", key);
+        return CardOptionItemModelTypeSet;
+    }
+}
+
 @implementation CardOptionItemModel
 
 - (instancetype)init {
@@ -59,7 +92,7 @@ NSString * NSStringFromCardOptionItemModelType(CardOptionItemModelType type) {
     
     if (self) {
         _type = type;
-        [self setDefaultValue];
+        self.value = self.defaultValue;
     }
     
     return self;
@@ -257,20 +290,16 @@ NSString * NSStringFromCardOptionItemModelType(CardOptionItemModelType type) {
     }
 }
 
-- (void)setDefaultValue {
+- (NSString * _Nullable)defaultValue {
     switch (self.type) {
         case CardOptionItemModelTypeCollectible:
-            self.value = NSStringFromHSCardCollectible(HSCardCollectibleYES);
-            break;
+            return NSStringFromHSCardCollectible(HSCardCollectibleYES);
         case CardOptionItemModelTypeGameMode:
-            self.value = NSStringFromHSCardGameMode(HSCardGameModeConstructed);
-            break;
+            return NSStringFromHSCardGameMode(HSCardGameModeConstructed);
         case CardOptionItemModelTypeSort:
-            self.value = NSStringFromHSCardSort(HSCardSortNameAsc);
-            break;
+            return NSStringFromHSCardSort(HSCardSortNameAsc);
         default:
-            self.value = nil;
-            break;
+            return nil;
     }
 }
 

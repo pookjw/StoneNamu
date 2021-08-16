@@ -6,16 +6,17 @@
 //
 
 #import "SceneDelegate.h"
-#import "CardOptionsViewController.h"
+#import "MainTabBarController.h"
 
 @interface SceneDelegate ()
-@property (assign) CardOptionsViewController *cardOptionsViewController;
+@property (retain) MainTabBarController *tabBarController;
 @end
 
 @implementation SceneDelegate
 
 - (void)dealloc {
     [_window release];
+    [_tabBarController release];
     [super dealloc];
 }
 
@@ -31,14 +32,12 @@
     
     [self.window setTintColor:UIColor.redColor];
     
-    CardOptionsViewController *cardOptionsViewController = [CardOptionsViewController new];
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:cardOptionsViewController];
-    self.cardOptionsViewController = cardOptionsViewController;
+    MainTabBarController *tabBarController = [MainTabBarController new];
+    self.tabBarController = tabBarController;
     
-    [cardOptionsViewController release];
-    self.window.rootViewController = navigationController;
-    [navigationController release];
-    [navigationController loadViewIfNeeded];
+    [tabBarController loadViewIfNeeded];
+    self.window.rootViewController = tabBarController;
+    [tabBarController release];
     [self.window makeKeyAndVisible];
 }
 

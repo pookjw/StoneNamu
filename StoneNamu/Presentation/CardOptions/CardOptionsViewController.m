@@ -7,11 +7,9 @@
 
 #import "CardOptionsViewController.h"
 #import "CardOptionsViewModel.h"
-#import "CardsViewController.h"
 #import "SheetNavigationController.h"
 #import "PickerViewController.h"
 #import "StepperViewController.h"
-#import "PrefsViewController.h"
 
 @interface CardOptionsViewController () <UICollectionViewDelegate>
 @property (retain) UICollectionView *collectionView;
@@ -19,6 +17,17 @@
 @end
 
 @implementation CardOptionsViewController
+
+- (instancetype)initWithOptions:(NSDictionary<NSString *,NSString *> *)options {
+    self = [self init];
+    
+    if (self) {
+        [self loadViewIfNeeded];
+        [self.viewModel updateDataSourceWithOptions:options];
+    }
+    
+    return self;
+}
 
 - (void)dealloc {
     [NSNotificationCenter.defaultCenter removeObserver:self];
@@ -30,8 +39,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setAttributes];
-    [self configureFetchButton];
-    [self configurePrefsButton];
+    [self configureLeftBarButtonItems];
+    [self configureRightBarButtonItems];
     [self configureCollectionView];
     [self configureViewModel];
     [self bind];
@@ -47,14 +56,22 @@
 }
 
 - (void)configureNavigation {
-    self.title = NSLocalizedString(@"APP_NAME", @"");
-    self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAlways;
-    self.navigationController.navigationBar.prefersLargeTitles = YES;
+    self.title = NSLocalizedString(@"CARD_OPTIONS_TITLE", @"");
 }
 
-- (void)configureFetchButton {
-    UIBarButtonItem *fetchButton = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"play.fill"]
-                                                                    style:UIBarButtonItemStylePlain
+- (void)configureLeftBarButtonItems {
+    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"CANCEL", @"")
+                                                                     style:UIBarButtonItemStylePlain
+                                                                    target:self
+                                                                    action:@selector(cancelButtonTriggered:)];
+    
+    self.navigationItem.leftBarButtonItems = @[cancelButton];
+    [cancelButton release];
+}
+
+- (void)configureRightBarButtonItems {
+    UIBarButtonItem *fetchButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"DONE", @"")
+                                                                    style:UIBarButtonItemStyleDone
                                                                    target:self
                                                                    action:@selector(fetchButtonTriggered:)];
     
@@ -62,28 +79,12 @@
     [fetchButton release];
 }
 
-- (void)configurePrefsButton {
-    UIBarButtonItem *prefsButton = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"gearshape"]
-                                                                    style:UIBarButtonItemStylePlain
-                                                                   target:self
-                                                                   action:@selector(prefsButtonTriggered:)];
-    
-    self.navigationItem.leftBarButtonItems = @[prefsButton];
-    [prefsButton release];
+- (void)cancelButtonTriggered:(UIBarButtonItem *)sender {
+    [self dismissViewControllerAnimated:YES completion:^{}];
 }
 
 - (void)fetchButtonTriggered:(UIBarButtonItem *)sender {
-    CardsViewController *vc = [[CardsViewController alloc] initWithOptions:self.viewModel.options];
-    [self.navigationController pushViewController:vc animated:YES];
-    [vc release];
-}
-
-- (void)prefsButtonTriggered:(UIBarButtonItem *)sender {
-    PrefsViewController *vc = [PrefsViewController new];
-    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:vc];
-    [self presentViewController:nvc animated:YES completion:^{}];
-    [nvc release];
-    [vc release];
+    [self.delegate cardOptionsViewController:self doneWithOptions:self.viewModel.options];
 }
 
 - (void)configureCollectionView {

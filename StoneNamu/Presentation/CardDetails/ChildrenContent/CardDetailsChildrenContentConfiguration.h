@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CardDetailsChildrenContentConfiguration : NSObject <UIContentConfiguration>
 @property (readonly, copy) NSArray<HSCard *> *childCards;
-@property (retain) id<CardDetailsChildrenContentConfigurationDelegate> delegate;
+@property (weak) id<CardDetailsChildrenContentConfigurationDelegate> delegate;
 - (instancetype)initwithChildCards:(NSArray<HSCard *> *)childCards;
 @end
 

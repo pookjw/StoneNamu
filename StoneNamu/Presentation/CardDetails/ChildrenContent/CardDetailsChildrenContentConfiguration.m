@@ -22,7 +22,6 @@
 
 - (void)dealloc {
     [_childCards release];
-    [_delegate release];
     [super dealloc];
 }
 

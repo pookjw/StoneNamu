@@ -6,6 +6,7 @@
 //
 
 #import "CardDetailsChildrenContentViewModel.h"
+#import "NSSemaphoreCondition.h"
 
 @interface CardDetailsChildrenContentViewModel ()
 @property (retain) NSOperationQueue *queue;
@@ -83,10 +84,16 @@
         [sectionModel release];
         [itemModels release];
         
+        NSSemaphoreCondition *semaphore = [NSSemaphoreCondition new];
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
-            [self.dataSource applySnapshot:snapshot animatingDifferences:YES];
+            [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
+                [semaphore signal];
+            }];
             [snapshot release];
         }];
+        
+        [semaphore wait];
+        [semaphore release];
     }];
 }
 

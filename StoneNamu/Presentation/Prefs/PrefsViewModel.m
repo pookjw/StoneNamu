@@ -10,6 +10,7 @@
 #import "BlizzardAPIRegionHost.h"
 #import "BlizzardHSAPILocale.h"
 #import "DataCacheUseCaseImpl.h"
+#import "NSSemaphoreCondition.h"
 
 @interface PrefsViewModel ()
 @property (retain) NSOperationQueue *queue;
@@ -133,8 +134,11 @@
         [dataSection release];
         [contributorsSection release];
         
+        NSSemaphoreCondition *semaphore = [NSSemaphoreCondition new];
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
             [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
+                [semaphore signal];
+                
                 [self.prefsUseCase fetchWithCompletion:^(Prefs * _Nullable prefs, NSError * _Nullable error) {
                     if (prefs) {
                         [self loadPrefs:prefs];
@@ -148,6 +152,9 @@
             
             [snapshot release];
         }];
+        
+        [semaphore wait];
+        [semaphore release];
     }];
 }
 
@@ -216,12 +223,18 @@
         }
         [willReloaded release];
         
+        [prefs release];
+        
+        NSSemaphoreCondition *semaphore = [NSSemaphoreCondition new];
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
-            [self.dataSource applySnapshot:snapshot animatingDifferences:YES];
+            [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
+                [semaphore signal];
+            }];
             [snapshot release];
         }];
         
-        [prefs release];
+        [semaphore wait];
+        [semaphore release];
     }];
 }
 

@@ -54,7 +54,12 @@ static NSMutableDictionary<NSString *, NSOperationQueue *> * _Nullable kOperatio
             return;
         }
         
-        [self.context save:nil];
+        NSError * _Nullable error = nil;
+        [self.context save:&error];
+        
+        if (error) {
+            NSLog(@"%@", error.localizedDescription);
+        }
     }];
 }
 

@@ -117,6 +117,8 @@
 		4FF3E0C726C998E6002B20EA /* NSBundle+BuildInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF3E0C626C998E6002B20EA /* NSBundle+BuildInfo.m */; };
 		4FF3E0CB26C9AE15002B20EA /* PhotosService.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF3E0CA26C9AE15002B20EA /* PhotosService.m */; };
 		4FF3E0CE26C9B84C002B20EA /* UIView+viewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF3E0CD26C9B84C002B20EA /* UIView+viewController.m */; };
+		4FF3E0D226CA6FB9002B20EA /* MainTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF3E0D126CA6FB9002B20EA /* MainTabBarController.m */; };
+		4FF3E0D726CA7F81002B20EA /* NSSemaphoreCondition.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF3E0D626CA7F81002B20EA /* NSSemaphoreCondition.m */; };
 		4FF676CF26AAFC6A00477272 /* CardsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF676CE26AAFC6A00477272 /* CardsViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -364,6 +366,11 @@
 		4FF3E0CA26C9AE15002B20EA /* PhotosService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhotosService.m; sourceTree = "<group>"; };
 		4FF3E0CC26C9B84C002B20EA /* UIView+viewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+viewController.h"; sourceTree = "<group>"; };
 		4FF3E0CD26C9B84C002B20EA /* UIView+viewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+viewController.m"; sourceTree = "<group>"; };
+		4FF3E0D026CA6FB9002B20EA /* MainTabBarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainTabBarController.h; sourceTree = "<group>"; };
+		4FF3E0D126CA6FB9002B20EA /* MainTabBarController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainTabBarController.m; sourceTree = "<group>"; };
+		4FF3E0D326CA732F002B20EA /* CardOptionsViewControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardOptionsViewControllerDelegate.h; sourceTree = "<group>"; };
+		4FF3E0D526CA7F81002B20EA /* NSSemaphoreCondition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSSemaphoreCondition.h; sourceTree = "<group>"; };
+		4FF3E0D626CA7F81002B20EA /* NSSemaphoreCondition.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NSSemaphoreCondition.m; sourceTree = "<group>"; };
 		4FF676CD26AAFC6A00477272 /* CardsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardsViewController.h; sourceTree = "<group>"; };
 		4FF676CE26AAFC6A00477272 /* CardsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardsViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -490,6 +497,7 @@
 			children = (
 				4F4976E126ABFCB300860809 /* CardOptionsViewController.h */,
 				4F4976E226ABFCB300860809 /* CardOptionsViewController.m */,
+				4FF3E0D326CA732F002B20EA /* CardOptionsViewControllerDelegate.h */,
 				4F4976E426ABFE2100860809 /* CardOptionsViewModel.h */,
 				4F4976E526ABFE2100860809 /* CardOptionsViewModel.m */,
 				4F4976E726ABFF5E00860809 /* CardOptionSectionModel.h */,
@@ -563,6 +571,7 @@
 		4F98E25F26B9BA9A0067846F /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				4FF3E0D426CA7F69002B20EA /* Util */,
 				4FF3E0C826C9AE06002B20EA /* Service */,
 				4FA56BB626A2105A002D9FA0 /* Assets.xcassets */,
 				4FA56BBC26A2105A002D9FA0 /* main.m */,
@@ -580,6 +589,7 @@
 		4F98E26026B9BAAA0067846F /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				4FF3E0CF26CA6FA0002B20EA /* MainTabBar */,
 				4FB850F426C18B9900E3C89D /* Prefs */,
 				4F4976E026ABFC9A00860809 /* CardOptions */,
 				4F4976D326ABE6EF00860809 /* Cards */,
@@ -892,6 +902,24 @@
 			path = Service;
 			sourceTree = "<group>";
 		};
+		4FF3E0CF26CA6FA0002B20EA /* MainTabBar */ = {
+			isa = PBXGroup;
+			children = (
+				4FF3E0D026CA6FB9002B20EA /* MainTabBarController.h */,
+				4FF3E0D126CA6FB9002B20EA /* MainTabBarController.m */,
+			);
+			path = MainTabBar;
+			sourceTree = "<group>";
+		};
+		4FF3E0D426CA7F69002B20EA /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				4FF3E0D526CA7F81002B20EA /* NSSemaphoreCondition.h */,
+				4FF3E0D626CA7F81002B20EA /* NSSemaphoreCondition.m */,
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1120,6 +1148,7 @@
 				4F98E25226B9935B0067846F /* CardDetailsLayoutCompactViewController.m in Sources */,
 				4FF3E0BB26C97DAC002B20EA /* PrefsLocaleItemModel.m in Sources */,
 				4FB0ECE826B82AEE0020EE6C /* CardDetailsViewController.m in Sources */,
+				4FF3E0D226CA6FB9002B20EA /* MainTabBarController.m in Sources */,
 				4FA9047A26B6E26A00CD6147 /* CardContentView.m in Sources */,
 				4F4976E926ABFF5E00860809 /* CardOptionSectionModel.m in Sources */,
 				4F1B98A926C82382004E1603 /* PrefsRegionHostViewController.m in Sources */,
@@ -1141,6 +1170,7 @@
 				4FEB414126BD6133009D8594 /* CardDetailsBasicContentConfiguration.m in Sources */,
 				4FA9047D26B6E2A000CD6147 /* CardContentConfiguration.m in Sources */,
 				4F98E25E26B9AB110067846F /* CardDetailsItemModel.m in Sources */,
+				4FF3E0D726CA7F81002B20EA /* NSSemaphoreCondition.m in Sources */,
 				4FB850F726C18BAE00E3C89D /* PrefsViewController.m in Sources */,
 				4FA56BAF26A21059002D9FA0 /* SceneDelegate.m in Sources */,
 				4F98E25B26B9AA280067846F /* CardDetailsSectionModel.m in Sources */,

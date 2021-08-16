@@ -8,6 +8,7 @@
 #import "CardsViewModel.h"
 #import "HSCardUseCaseImpl.h"
 #import "BlizzardHSAPIKeys.h"
+#import "NSSemaphoreCondition.h"
 
 @interface CardsViewModel ()
 @property (retain) id<HSCardUseCase> hsCardUseCase;
@@ -36,6 +37,8 @@
         self.queue = queue;
         [queue release];
         
+        self.options = nil;
+        
         self.pageCount = nil;
         self.page = [NSNumber numberWithUnsignedInt:1];
         self.isFetching = NO;
@@ -44,9 +47,16 @@
     return self;
 }
 
-- (void)requestDataSourceWithOptions:(NSDictionary<NSString *,id> * _Nullable)options {
-    if (self.isFetching) return;
-    if (!self.canLoadMore) return;
+- (void)requestDataSourceWithOptions:(NSDictionary<NSString *,id> * _Nullable)options reset:(BOOL)reset {
+    
+    if (reset) {
+        [self resetDataSource];
+    } else {
+        if (self.isFetching) return;
+        if (!self.canLoadMore) return;
+    }
+    
+    //
     
     self.isFetching = YES;
     
@@ -79,6 +89,17 @@
     }];
 }
 
+- (void)resetDataSource {
+    self.page = @1;
+    self.pageCount = nil;
+    NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
+    [snapshot deleteAllItems];
+    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+        [self.dataSource applySnapshot:snapshot animatingDifferences:NO];
+        [snapshot release];
+    }];
+}
+
 - (BOOL)canLoadMore {
     if (self.pageCount == nil) {
         return YES;
@@ -94,6 +115,7 @@
     [_page release];
     [_queue cancelAllOperations];
     [_queue release];
+    [_options release];
     [super dealloc];
 }
 
@@ -131,36 +153,44 @@
 }
 
 - (void)updateDataSourceWithCards:(NSArray<HSCard *> *)cards {
-    NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
-    
-    CardSectionModel * _Nullable sectionModel = nil;
-    
-    for (CardSectionModel *tmp in snapshot.sectionIdentifiers) {
-        if (tmp.type == CardsSectionModelTypeCards) {
-            sectionModel = tmp;
+    [self.queue addBarrierBlock:^{
+        NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
+        
+        CardSectionModel * _Nullable sectionModel = nil;
+        
+        for (CardSectionModel *tmp in snapshot.sectionIdentifiers) {
+            if (tmp.type == CardsSectionModelTypeCards) {
+                sectionModel = tmp;
+            }
         }
-    }
-    
-    if (sectionModel == nil) {
-        sectionModel = [[[CardSectionModel alloc] initWithType:CardsSectionModelTypeCards] autorelease];
-        [snapshot appendSectionsWithIdentifiers:@[sectionModel]];
-    }
-    
-    NSMutableArray<CardItemModel *> *itemModels = [@[] mutableCopy];
-    
-    for (HSCard *card in cards) {
-        CardItemModel *itemModel = [[CardItemModel alloc] initWithCard:card];
-        [itemModels addObject:itemModel];
-        [itemModel release];
-    }
-    
-    [snapshot appendItemsWithIdentifiers:[[itemModels copy] autorelease] intoSectionWithIdentifier:sectionModel];
-    
-    [itemModels release];
-    
-    [NSOperationQueue.mainQueue addOperationWithBlock:^{
-        [self.dataSource applySnapshot:snapshot animatingDifferences:YES];
-        [snapshot release];
+        
+        if (sectionModel == nil) {
+            sectionModel = [[[CardSectionModel alloc] initWithType:CardsSectionModelTypeCards] autorelease];
+            [snapshot appendSectionsWithIdentifiers:@[sectionModel]];
+        }
+        
+        NSMutableArray<CardItemModel *> *itemModels = [@[] mutableCopy];
+        
+        for (HSCard *card in cards) {
+            CardItemModel *itemModel = [[CardItemModel alloc] initWithCard:card];
+            [itemModels addObject:itemModel];
+            [itemModel release];
+        }
+        
+        [snapshot appendItemsWithIdentifiers:[[itemModels copy] autorelease] intoSectionWithIdentifier:sectionModel];
+        
+        [itemModels release];
+        
+        NSSemaphoreCondition *semaphore = [NSSemaphoreCondition new];
+        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+            [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
+                [semaphore signal];
+            }];
+            [snapshot release];
+        }];
+        
+        [semaphore wait];
+        [semaphore release];
     }];
 }
 

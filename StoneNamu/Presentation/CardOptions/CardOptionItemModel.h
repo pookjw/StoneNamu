@@ -34,10 +34,12 @@ typedef NS_ENUM(NSUInteger, CardOptionItemModelValueSetType) {
 };
 
 NSString * NSStringFromCardOptionItemModelType(CardOptionItemModelType);
+CardOptionItemModelType CardOptionItemModelTypeFromNSString(NSString *);
 
 @interface CardOptionItemModel : NSObject
 @property (readonly) CardOptionItemModelType type;
 @property (copy) NSString * _Nullable value;
+@property (readonly, nonatomic) NSString * _Nullable defaultValue;
 @property (readonly, nonatomic) CardOptionItemModelValueSetType valueSetType;
 @property (readonly, nonatomic) NSArray<PickerItemModel *> * _Nullable pickerDataSource;
 @property (readonly, nonatomic) NSRange stepperRange;

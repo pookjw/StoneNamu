@@ -39,6 +39,7 @@
 
 - (void)configureNavigation {
     self.title = NSLocalizedString(@"REGION", @"");
+    self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
 }
 
 - (void)configureCollectionView {

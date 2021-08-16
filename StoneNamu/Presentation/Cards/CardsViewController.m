@@ -13,30 +13,23 @@
 #import "CardsCollectionViewCompositionalLayout.h"
 #import "CardDetailsViewController.h"
 #import "PhotosService.h"
+#import "CardOptionsViewController.h"
+#import "CardOptionsViewControllerDelegate.h"
+#import "SheetNavigationController.h"
 
-@interface CardsViewController () <UICollectionViewDelegate, UICollectionViewDragDelegate>
+@interface CardsViewController () <UICollectionViewDelegate, UICollectionViewDragDelegate, CardOptionsViewControllerDelegate>
 @property (retain) UICollectionView *collectionView;
-@property (readonly, copy) NSDictionary<NSString *, id> * _Nullable options;
 @property (retain) CardsViewModel *viewModel;
 @end
 
 @implementation CardsViewController
 
-- (instancetype)init {
-    self = [super init];
-    
-    if (self) {
-        _options = nil;
-    }
-    
-    return self;
-}
-
 - (instancetype)initWithOptions:(NSDictionary<NSString *,id> *)options {
     self = [self init];
     
     if (self) {
-        _options = [options copy];
+        [self loadViewIfNeeded];
+        self.viewModel.options = options;
     }
     
     return self;
@@ -45,7 +38,6 @@
 - (void)dealloc {
     [NSNotificationCenter.defaultCenter removeObserver:self];
     [_collectionView release];
-    [_options release];
     [_viewModel release];
     [super dealloc];
 }
@@ -53,6 +45,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setAttributes];
+    [self configureLeftBarButtonItems];
     [self configureCollectionView];
     [self configureViewModel];
     [self bind];
@@ -65,6 +58,27 @@
 
 - (void)setAttributes {
     
+}
+
+- (void)configureLeftBarButtonItems {
+    UIBarButtonItem *optionsBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"magnifyingglass"]
+                                                                             style:UIBarButtonItemStylePlain
+                                                                            target:self
+                                                                            action:@selector(optionsBarButtonItemTriggered:)];
+    
+    self.navigationItem.leftBarButtonItems = @[optionsBarButtonItem];
+    
+    [optionsBarButtonItem release];
+}
+
+- (void)optionsBarButtonItemTriggered:(UIBarButtonItem *)sender {
+    CardOptionsViewController *vc = [[CardOptionsViewController alloc] initWithOptions:self.viewModel.options];
+    vc.delegate = self;
+    SheetNavigationController *nvc = [[SheetNavigationController alloc] initWithRootViewController:vc];
+    nvc.supportsLargeDetent = YES;
+    [self presentViewController:nvc animated:YES completion:^{}];
+    [vc release];
+    [nvc release];
 }
 
 - (void)configureNavigation {
@@ -98,7 +112,7 @@
 - (void)configureViewModel {
     CardsViewModel *viewModel = [[CardsViewModel alloc] initWithDataSource:[self makeDataSource]];
     self.viewModel = viewModel;
-    [viewModel requestDataSourceWithOptions:self.options];
+    [viewModel requestDataSourceWithOptions:self.viewModel.options reset:YES];
     [viewModel release];
 }
 
@@ -212,7 +226,7 @@
     CGRect bounds = self.collectionView.bounds;
     
     if ((contentOffset.y + bounds.size.height) >= (contentSize.height)) {
-        [self.viewModel requestDataSourceWithOptions:self.options];
+        [self.viewModel requestDataSourceWithOptions:self.viewModel.options reset:NO];
     }
 }
 
@@ -264,6 +278,14 @@
 
 - (NSArray<UIDragItem *> *)collectionView:(UICollectionView *)collectionView itemsForAddingToDragSession:(id<UIDragSession>)session atIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point {
     return [self dragItemsFromIndexPath:indexPath];
+}
+
+#pragma mark CardOptionsViewControllerDelegate
+
+- (void)cardOptionsViewController:(CardOptionsViewController *)viewController doneWithOptions:(NSDictionary<NSString *,NSString *> *)options {
+    [viewController dismissViewControllerAnimated:YES completion:^{}];
+    self.viewModel.options = options;
+    [self.viewModel requestDataSourceWithOptions:options reset:YES];
 }
 
 @end

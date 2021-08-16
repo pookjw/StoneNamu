@@ -91,3 +91,5 @@
 "DELETE_ALL_CACHES" = "모든 캐시 삭제";
 
 "SAVE" = "저장";
+
+"CARD_OPTIONS_TITLE" = "필터";

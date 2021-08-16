@@ -6,11 +6,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CardOptionsViewControllerDelegate.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CardOptionsViewController : UIViewController
-
+@property (weak) id<CardOptionsViewControllerDelegate> delegate;
+- (instancetype)initWithOptions:(NSDictionary<NSString *, NSString *> *)options;
 @end
 
 NS_ASSUME_NONNULL_END

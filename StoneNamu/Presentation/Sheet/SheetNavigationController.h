@@ -10,6 +10,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface SheetNavigationController : UINavigationController
+@property BOOL supportsLargeDetent;
 @end
 
 NS_ASSUME_NONNULL_END

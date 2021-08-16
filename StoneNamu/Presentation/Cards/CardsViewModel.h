@@ -23,8 +23,9 @@ typedef UICollectionViewDiffableDataSource<CardSectionModel *, CardItemModel *> 
 @interface CardsViewModel : NSObject
 @property (retain) NSIndexPath * _Nullable contextMenuIndexPath;
 @property (readonly, retain) CardsDataSource *dataSource;
+@property (copy) NSDictionary<NSString *, id> * _Nullable options;
 - (instancetype)initWithDataSource:(CardsDataSource *)dataSource;
-- (void)requestDataSourceWithOptions:(NSDictionary<NSString *,id> * _Nullable)options;
+- (void)requestDataSourceWithOptions:(NSDictionary<NSString *,id> * _Nullable)options reset:(BOOL)reset;
 - (void)handleSelectionForIndexPath:(NSIndexPath *)indexPath;
 - (NSArray<UIDragItem *> *)makeDragItemFromIndexPath:(NSIndexPath *)indexPath image:(UIImage * _Nullable)image;
 @end

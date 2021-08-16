@@ -7,6 +7,7 @@
 
 #import "CardOptionsViewModel.h"
 #import "BlizzardHSAPIKeys.h"
+#import "NSSemaphoreCondition.h"
 
 @interface CardOptionsViewModel ()
 @property (retain) NSOperationQueue *queue;
@@ -24,12 +25,9 @@
         NSOperationQueue *queue = [NSOperationQueue new];
         queue.qualityOfService = NSQualityOfServiceUserInitiated;
         self.queue = queue;
-        
-        [queue addBarrierBlock:^{
-            [self configureSnapshot];
-        }];
-        
         [queue release];
+        
+        [self configureSnapshot];
     }
     
     return self;
@@ -58,6 +56,46 @@
     [dic release];
     
     return result;
+}
+
+- (void)updateDataSourceWithOptions:(NSDictionary<NSString *,NSString *> * _Nullable)options {
+    [self.queue addBarrierBlock:^{
+        NSDictionary<NSString *, NSString *> *nonnullOptions;
+        
+        if (options) {
+            nonnullOptions = [options copy];
+        } else {
+            nonnullOptions = [@{} retain];
+        }
+        
+        //
+        
+        NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
+        NSArray<CardOptionItemModel *> *itemModels = snapshot.itemIdentifiers;
+        
+        for (CardOptionItemModel *itemModel in itemModels) {
+            NSString *key = NSStringFromCardOptionItemModelType(itemModel.type);
+            NSString * _Nullable value = nonnullOptions[key];
+            itemModel.value = value;
+            
+            if (itemModel.value == nil) {
+                itemModel.value = itemModel.defaultValue;
+            }
+        }
+        
+        if (@available(iOS 15.0, *)) {
+            [snapshot reconfigureItemsWithIdentifiers:itemModels];
+        } else {
+            [snapshot reloadItemsWithIdentifiers:itemModels];
+        }
+        
+        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+            [self.dataSource applySnapshot:snapshot animatingDifferences:YES];
+            [snapshot release];
+        }];
+        
+        [nonnullOptions release];
+    }];
 }
 
 - (void)handleSelectionForIndexPath:(NSIndexPath *)indexPath {
@@ -123,44 +161,53 @@
 }
 
 - (void)configureSnapshot {
-    NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
-    
-    [snapshot deleteAllItems];
-    
-    CardOptionSectionModel *cardSectionModel = [[CardOptionSectionModel alloc] initWithType:CardOptionSectionModelTypeCard];
-    CardOptionSectionModel *sortSectionModel = [[CardOptionSectionModel alloc] initWithType:CardOptionSectionModelTypeSort];
-    
-    [snapshot appendSectionsWithIdentifiers:@[cardSectionModel, sortSectionModel]];
-    
-    @autoreleasepool {
-        [snapshot appendItemsWithIdentifiers:@[
-            [[[CardOptionItemModel alloc] initWithType:CardOptionItemModelTypeSet] autorelease],
-            [[[CardOptionItemModel alloc] initWithType:CardOptionItemModelTypeClass] autorelease],
-            [[[CardOptionItemModel alloc] initWithType:CardOptionItemModelTypeManaCost] autorelease],
-            [[[CardOptionItemModel alloc] initWithType:CardOptionItemModelTypeAttack] autorelease],
-            [[[CardOptionItemModel alloc] initWithType:CardOptionItemModelTypeHealth] autorelease],
-            [[[CardOptionItemModel alloc] initWithType:CardOptionItemModelTypeCollectible] autorelease],
-            [[[CardOptionItemModel alloc] initWithType:CardOptionItemModelTypeRarity] autorelease],
-            [[[CardOptionItemModel alloc] initWithType:CardOptionItemModelTypeType] autorelease],
-            [[[CardOptionItemModel alloc] initWithType:CardOptionItemModelTypeMinionType] autorelease],
-            [[[CardOptionItemModel alloc] initWithType:CardOptionItemModelTypeKeyword] autorelease],
-            [[[CardOptionItemModel alloc] initWithType:CardOptionItemModelTypeTextFilter] autorelease],
-            [[[CardOptionItemModel alloc] initWithType:CardOptionItemModelTypeGameMode] autorelease]
-        ]
-                   intoSectionWithIdentifier:cardSectionModel];
+    [self.queue addBarrierBlock:^{
+        NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
         
-        [snapshot appendItemsWithIdentifiers:@[
-            [[[CardOptionItemModel alloc] initWithType:CardOptionItemModelTypeSort] autorelease]
-        ]
-                   intoSectionWithIdentifier:sortSectionModel];
-    }
-    
-    [cardSectionModel release];
-    [sortSectionModel release];
-    
-    [NSOperationQueue.mainQueue addOperationWithBlock:^{
-        [self.dataSource applySnapshot:snapshot animatingDifferences:YES];
-        [snapshot release];
+        [snapshot deleteAllItems];
+        
+        CardOptionSectionModel *cardSectionModel = [[CardOptionSectionModel alloc] initWithType:CardOptionSectionModelTypeCard];
+        CardOptionSectionModel *sortSectionModel = [[CardOptionSectionModel alloc] initWithType:CardOptionSectionModelTypeSort];
+        
+        [snapshot appendSectionsWithIdentifiers:@[cardSectionModel, sortSectionModel]];
+        
+        @autoreleasepool {
+            [snapshot appendItemsWithIdentifiers:@[
+                [[[CardOptionItemModel alloc] initWithType:CardOptionItemModelTypeSet] autorelease],
+                [[[CardOptionItemModel alloc] initWithType:CardOptionItemModelTypeClass] autorelease],
+                [[[CardOptionItemModel alloc] initWithType:CardOptionItemModelTypeManaCost] autorelease],
+                [[[CardOptionItemModel alloc] initWithType:CardOptionItemModelTypeAttack] autorelease],
+                [[[CardOptionItemModel alloc] initWithType:CardOptionItemModelTypeHealth] autorelease],
+                [[[CardOptionItemModel alloc] initWithType:CardOptionItemModelTypeCollectible] autorelease],
+                [[[CardOptionItemModel alloc] initWithType:CardOptionItemModelTypeRarity] autorelease],
+                [[[CardOptionItemModel alloc] initWithType:CardOptionItemModelTypeType] autorelease],
+                [[[CardOptionItemModel alloc] initWithType:CardOptionItemModelTypeMinionType] autorelease],
+                [[[CardOptionItemModel alloc] initWithType:CardOptionItemModelTypeKeyword] autorelease],
+                [[[CardOptionItemModel alloc] initWithType:CardOptionItemModelTypeTextFilter] autorelease],
+                [[[CardOptionItemModel alloc] initWithType:CardOptionItemModelTypeGameMode] autorelease]
+            ]
+                       intoSectionWithIdentifier:cardSectionModel];
+            
+            [snapshot appendItemsWithIdentifiers:@[
+                [[[CardOptionItemModel alloc] initWithType:CardOptionItemModelTypeSort] autorelease]
+            ]
+                       intoSectionWithIdentifier:sortSectionModel];
+        }
+        
+        [cardSectionModel release];
+        [sortSectionModel release];
+        
+        NSSemaphoreCondition *semaphore = [NSSemaphoreCondition new];
+        
+        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+            [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
+                [semaphore signal];
+            }];
+            [snapshot release];
+        }];
+        
+        [semaphore wait];
+        [semaphore release];
     }];
 }
 

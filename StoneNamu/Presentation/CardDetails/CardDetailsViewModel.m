@@ -8,6 +8,7 @@
 #import "CardDetailsViewModel.h"
 #import "HSCardUseCaseImpl.h"
 #import "BlizzardHSAPIKeys.h"
+#import "NSSemaphoreCondition.h"
 
 @interface CardDetailsViewModel ()
 @property (retain) NSOperationQueue *queue;
@@ -85,12 +86,17 @@
         [sectionModelBase release];
         [sectionModelDetail release];
         
+        NSSemaphoreCondition *semaphore = [NSSemaphoreCondition new];
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
             [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
+                [semaphore signal];
                 [self loadChildCardsWithHSCard:hsCard];
             }];
             [snapshot release];
         }];
+        
+        [semaphore wait];
+        [semaphore release];
     }];
 }
 
@@ -105,8 +111,7 @@
     }
     
     [self.queue addOperationWithBlock:^{
-        NSCondition *condition = [NSCondition new];
-        NSInteger __block count = -((NSInteger)childIds.count);
+        NSSemaphoreCondition *semaphore = [[NSSemaphoreCondition alloc] initWithValue:-((NSInteger)childIds.count) + 1];
         NSMutableArray *childCards = [@[] mutableCopy];
         
         for (NSNumber *childId in childIds) {
@@ -117,18 +122,15 @@
                     [childCards addObject:childCard];
                 }
                 
-                count += 1;
-                [condition signal];
+                [semaphore signal];
             }];
         }
         
-        while (count != 0) {
-            [condition wait];
-        }
+        [semaphore wait];
         
         NSArray<HSCard *> *results = [childCards copy];
         [childIds release];
-        [condition release];
+        [semaphore release];
         [childCards release];
         
         [self updateDataSourceWithChildCards:results];

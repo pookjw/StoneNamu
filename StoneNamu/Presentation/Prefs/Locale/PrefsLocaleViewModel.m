@@ -8,6 +8,7 @@
 #import "PrefsLocaleViewModel.h"
 #import "PrefsUseCaseImpl.h"
 #import "BlizzardHSAPILocale.h"
+#import "NSSemaphoreCondition.h"
 
 @interface PrefsLocaleViewModel ()
 @property (retain) NSOperationQueue *queue;
@@ -87,8 +88,11 @@
         
         [sectionModel release];
         
+        NSSemaphoreCondition *semaphore = [NSSemaphoreCondition new];
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
             [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
+                [semaphore signal];
+                
                 [self.prefsUseCase fetchWithCompletion:^(Prefs * _Nullable prefs, NSError * _Nullable error) {
                     if (prefs) {
                         [self loadPrefs:prefs];
@@ -102,6 +106,9 @@
             
             [snapshot release];
         }];
+        
+        [semaphore wait];
+        [semaphore release];
     }];
 }
 
@@ -148,12 +155,18 @@
             }
         }
         
+        [prefs release];
+        
+        NSSemaphoreCondition *semaphore = [NSSemaphoreCondition new];
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
+            [semaphore signal];
+            
             [self.dataSource applySnapshot:snapshot animatingDifferences:YES];
             [snapshot release];
         }];
         
-        [prefs release];
+        [semaphore wait];
+        [semaphore release];
     }];
 }
 
