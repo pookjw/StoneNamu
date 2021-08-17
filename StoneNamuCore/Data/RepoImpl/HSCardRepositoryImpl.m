@@ -34,8 +34,8 @@ static NSString * const BlizzardHSCardAPIBasePath = @"/hearthstone/cards";
 }
 
 - (void)fetchCardsAtRegion:(BlizzardAPIRegionHost)regionHost
-               withOptions:(NSDictionary<NSString *, id> * _Nullable)options
-         completionHandler:(HSCardRepositoryCardsCompletion)completion
+               withOptions:(NSDictionary<NSString *, NSString *> * _Nullable)options
+         completionHandler:(HSCardRepositoryFetchCardsCompletion)completion
 {
     BlizzardAPIRepositoryCompletion hsAPICompletion = ^(NSData *data, NSURLResponse *response, NSError *error) {
         
@@ -50,6 +50,7 @@ static NSString * const BlizzardHSCardAPIBasePath = @"/hearthstone/cards";
                                                               error:&error];
         if (parseError) {
             completion(nil, nil, nil, parseError);
+            return;
         }
         
         NSArray<HSCard *> *hsCards = [HSCard hsCardsFromDic:dic];
@@ -68,7 +69,7 @@ static NSString * const BlizzardHSCardAPIBasePath = @"/hearthstone/cards";
 - (void)fetchCardAtRegion:(BlizzardAPIRegionHost)regionHost
               withIdOrSlug:(NSString *)idOrSlug
                withOptions:(NSDictionary<NSString *, id> * _Nullable)options
-         completionHandler:(HSCardRepositoryCardCompletion)completion {
+         completionHandler:(HSCardRepositoryFetchCardCompletion)completion {
     
     BlizzardAPIRepositoryCompletion hsAPICompletion = ^(NSData *data, NSURLResponse *response, NSError *error) {
         
@@ -83,6 +84,7 @@ static NSString * const BlizzardHSCardAPIBasePath = @"/hearthstone/cards";
                                                               error:&error];
         if (parseError) {
             completion(nil, parseError);
+            return;
         }
         
         HSCard *hsCard = [HSCard hsCardFromDic:dic];

@@ -38,22 +38,27 @@
 - (void)fetchWithCompletion:(PrefsRepositoryFetchWithCompletion)completion {
     [self.coreDataStack.queue addBarrierBlock:^{
         NSManagedObjectContext *context = self.coreDataStack.context;
-        NSFetchRequest *fetchRequest = Prefs._fetchRequest;
         
-        NSError * _Nullable error = nil;
-        NSArray<Prefs *> *results = [context executeFetchRequest:fetchRequest error:&error];
-        
-        if (error) {
-            completion(nil, error);
-            return;
-        }
-        
-        if (results.count == 0) {
-            Prefs *prefs = [self makeNewPrefs];
-            completion(prefs, error);
-        } else {
-            completion(results.lastObject, error);
-        }
+        [context performBlockAndWait:^{
+            @autoreleasepool {
+                NSFetchRequest *fetchRequest = Prefs._fetchRequest;
+                
+                NSError * _Nullable error = nil;
+                NSArray<Prefs *> *results = [context executeFetchRequest:fetchRequest error:&error];
+                
+                if (error) {
+                    completion(nil, error);
+                    return;
+                }
+                
+                if (results.count == 0) {
+                    Prefs *prefs = [self makeNewPrefs];
+                    completion(prefs, error);
+                } else {
+                    completion(results.lastObject, error);
+                }
+            }
+        }];
     }];
 }
 
@@ -62,19 +67,13 @@
 }
 
 - (void)startObserving {
-    [self postNotification];
-    
     [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(changesReceived:)
-                                               name:NSManagedObjectContextDidSaveNotification
-                                             object:self.coreDataStack.context];
+                                               name:CoreDataStackDidChangeNotificationName
+                                             object:self.coreDataStack];
 }
 
 - (void)changesReceived:(NSNotification *)notification {
-    [self postNotification];
-}
-
-- (void)postNotification {
     [self fetchWithCompletion:^(Prefs * _Nullable prefs, NSError * _Nullable error) {
         if (prefs) {
             [NSNotificationCenter.defaultCenter postNotificationName:PrefsRepositoryObserveDataNotificationName

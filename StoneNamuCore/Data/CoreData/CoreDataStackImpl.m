@@ -53,12 +53,16 @@ static NSMutableDictionary<NSString *, NSOperationQueue *> * _Nullable kOperatio
             return;
         }
         
-        NSError * _Nullable error = nil;
-        [self.context save:&error];
-        
-        if (error) {
-            NSLog(@"%@", error.localizedDescription);
-        }
+        [self.context performBlockAndWait:^{
+            @autoreleasepool {
+                NSError * _Nullable error = nil;
+                [self.context save:&error];
+                
+                if (error) {
+                    NSLog(@"%@", error.localizedDescription);
+                }
+            }
+        }];
     }];
 }
 

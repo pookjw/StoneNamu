@@ -21,25 +21,25 @@ NS_ASSUME_NONNULL_BEGIN
 @interface HSCard : NSObject <NSCopying>
 @property (readonly) NSUInteger cardId;
 @property (readonly) HSCardCollectible collectible;
-@property (readonly, retain) NSString *slug;
+@property (readonly, copy) NSString *slug;
 @property (readonly) HSCardClass classId;
-@property (readonly, retain) NSArray<NSNumber *> *multiClassIds;
+@property (readonly, copy) NSArray<NSNumber *> *multiClassIds;
 @property (readonly) HSCardMinionType minionTypeId;
 @property (readonly) HSCardType cardTypeId;
 @property (readonly) HSCardSet cardSetId;
 @property (readonly) HSCardRarity rarityId;
-@property (readonly, retain) NSString * _Nullable artistName;
+@property (readonly, copy) NSString * _Nullable artistName;
 @property (readonly) NSUInteger health;
 @property (readonly) NSUInteger attack;
 @property (readonly) NSUInteger manaCost;
-@property (readonly, retain) NSString * _Nullable name;
-@property (readonly, retain) NSString *text;
-@property (readonly, retain) NSURL *image;
-@property (readonly, retain) NSURL * _Nullable imageGold;
-@property (readonly, retain) NSString *flavorText;
-@property (readonly, retain) NSURL * _Nullable cropImage;
-@property (readonly, retain) NSArray<NSNumber *> *childIds;
-@property (readonly, retain) NSArray<NSNumber *> *gameModes;
+@property (readonly, copy) NSString * _Nullable name;
+@property (readonly, copy) NSString *text;
+@property (readonly, copy) NSURL *image;
+@property (readonly, copy) NSURL * _Nullable imageGold;
+@property (readonly, copy) NSString *flavorText;
+@property (readonly, copy) NSURL * _Nullable cropImage;
+@property (readonly, copy) NSArray<NSNumber *> *childIds;
+@property (readonly, copy) NSArray<NSNumber *> *gameModes;
 + (HSCard * _Nullable)hsCardFromDic:(NSDictionary *)dic;
 + (NSArray<HSCard *> *)hsCardsFromDic:(NSDictionary *)dic;
 @end

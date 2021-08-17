@@ -80,11 +80,11 @@
 }
 
 + (HSCard *)hsCardFromDic:(NSDictionary *)dic {
-    HSCard *hsCard = [[HSCard new] autorelease];
+    HSCard *hsCard = [HSCard new];
     
     hsCard->_cardId = [(NSNumber *)dic[@"id"] unsignedIntegerValue];
     hsCard->_collectible = [(NSNumber *)dic[@"collectible"] boolValue];
-    hsCard->_slug = [dic[@"slug"] retain];
+    hsCard->_slug = [dic[@"slug"] copy];
     
     id classId = dic[@"classId"];
     if ([classId isEqual:[NSNull null]]) {
@@ -94,7 +94,7 @@
         hsCard->_classId = [(NSNumber *)classId unsignedIntegerValue];
     }
     
-    hsCard->_multiClassIds = [dic[@"multiClassIds"] retain];
+    hsCard->_multiClassIds = [dic[@"multiClassIds"] copy];
     hsCard->_minionTypeId = [(NSNumber *)dic[@"minionTypeId"] unsignedIntegerValue];
     hsCard->_cardTypeId = [(NSNumber *)dic[@"cardTypeId"] unsignedIntegerValue];
     hsCard->_cardSetId = [(NSNumber *)dic[@"cardSetId"] unsignedIntegerValue];
@@ -110,7 +110,7 @@
     if ([artistName isEqual:[NSNull null]] || ([(NSString *)artistName isEqualToString:@""])) {
         hsCard->_artistName = nil;
     } else {
-        hsCard->_artistName = [artistName retain];
+        hsCard->_artistName = [artistName copy];
     }
     
     hsCard->_health = [(NSNumber *)dic[@"health"] unsignedIntegerValue];
@@ -121,28 +121,28 @@
     if ([name isEqual:[NSNull null]]) {
         hsCard->_name = nil;
     } else {
-        hsCard->_name = [name retain];
+        hsCard->_name = [name copy];
     }
     
-    hsCard->_text = [dic[@"text"] retain];
-    hsCard->_image = [[NSURL URLWithString:dic[@"image"]] retain];
+    hsCard->_text = [dic[@"text"] copy];
+    hsCard->_image = [[NSURL URLWithString:dic[@"image"]] copy];
     
     if ([dic[@"imageGold"] isKindOfClass:[NSString class]] && [(NSString *)dic[@"imageGold"] isEqualToString:@""]) {
         hsCard->_imageGold = nil;
     } else {
-        hsCard->_imageGold = [[NSURL URLWithString:dic[@"imageGold"]] retain];
+        hsCard->_imageGold = [[NSURL URLWithString:dic[@"imageGold"]] copy];
     }
 
-    hsCard->_flavorText = [dic[@"flavorText"] retain];
+    hsCard->_flavorText = [dic[@"flavorText"] copy];
     
     id cropImage = dic[@"cropImage"];
     if ([cropImage isEqual:[NSNull null]]) {
         hsCard->_cropImage = nil;
     } else {
-        hsCard->_cropImage = [[NSURL URLWithString:(NSString *)cropImage] retain];
+        hsCard->_cropImage = [[NSURL URLWithString:(NSString *)cropImage] copy];
     }
 
-    hsCard->_childIds = [dic[@"childIds"] retain];
+    hsCard->_childIds = [dic[@"childIds"] copy];
     
     // Game Modes
     NSMutableArray<NSNumber *> *gameModes = [@[] mutableCopy];
@@ -166,9 +166,10 @@
     
     hsCard->_gameModes = [gameModes copy];
     [gameModes release];
+    
     //
     
-    return hsCard;
+    return [hsCard autorelease];
 }
 
 @end

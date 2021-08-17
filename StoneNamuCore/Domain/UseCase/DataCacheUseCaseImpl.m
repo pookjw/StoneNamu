@@ -58,8 +58,8 @@
     [self.dataCacheRepository deleteAllDataCaches];
 }
 
-- (void)createDataCache:(NSData *)data identity:(NSString *)identity {
-    DataCache *dataCache = [self.dataCacheRepository createDataCache];
+- (void)makeDataCache:(NSData *)data identity:(NSString *)identity {
+    DataCache *dataCache = [self.dataCacheRepository makeDataCache];
     dataCache.data = data;
     dataCache.identity = identity;
     [self.dataCacheRepository saveChanges];

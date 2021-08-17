@@ -81,7 +81,7 @@
                 if (error) {
                     completionHandler(NO, error);
                 } else if (data) {
-                    [self.dataCacheUseCase createDataCache:data identity:url.absoluteString];
+                    [self.dataCacheUseCase makeDataCache:data identity:url.absoluteString];
                     UIImage *image = [UIImage imageWithData:data];
                     [self saveImage:image fromViewController:viewController completionHandler:completionHandler];
                 } else {

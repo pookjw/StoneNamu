@@ -9,21 +9,21 @@
 #import "HSCard.h"
 #import "BlizzardAPIRegionHost.h"
 
-typedef void (^HSCardRepositoryCardsCompletion)(NSArray<HSCard *> * _Nullable, NSNumber * _Nullable, NSNumber * _Nullable, NSError * _Nullable);
-typedef void (^HSCardRepositoryCardCompletion)(HSCard * _Nullable, NSError * _Nullable);
-
 NS_ASSUME_NONNULL_BEGIN
+
+typedef void (^HSCardRepositoryFetchCardsCompletion)(NSArray<HSCard *> * _Nullable, NSNumber * _Nullable, NSNumber * _Nullable, NSError * _Nullable);
+typedef void (^HSCardRepositoryFetchCardCompletion)(HSCard * _Nullable, NSError * _Nullable);
 
 @protocol HSCardRepository <NSObject>
 
 - (void)fetchCardsAtRegion:(BlizzardAPIRegionHost)regionHost
-               withOptions:(NSDictionary<NSString *, id> * _Nullable)options
-         completionHandler:(HSCardRepositoryCardsCompletion)completion;
+               withOptions:(NSDictionary<NSString *, NSString *> * _Nullable)options
+         completionHandler:(HSCardRepositoryFetchCardsCompletion)completion;
 
 - (void)fetchCardAtRegion:(BlizzardAPIRegionHost)regionHost
               withIdOrSlug:(NSString *)idOrSlug
-               withOptions:(NSDictionary<NSString *, id> * _Nullable)options
-         completionHandler:(HSCardRepositoryCardCompletion)completion;
+               withOptions:(NSDictionary<NSString *, NSString *> * _Nullable)options
+         completionHandler:(HSCardRepositoryFetchCardCompletion)completion;
 
 @end
 

@@ -67,22 +67,24 @@
         NSManagedObjectContext *context = self.coreDataStack.context;
         
         [context performBlockAndWait:^{
-            NSFetchRequest *fetchRequest = DataCache._fetchRequest;
-            NSBatchDeleteRequest *batchDelete = [[NSBatchDeleteRequest alloc] initWithFetchRequest:fetchRequest];
-            batchDelete.affectedStores = self.coreDataStack.storeContainer.persistentStoreCoordinator.persistentStores;
-            
-            NSError * _Nullable error = nil;
-            [self.coreDataStack.storeContainer.persistentStoreCoordinator executeRequest:batchDelete withContext:context error:&error];
-            [batchDelete release];
-            
-            if (error) {
-                NSLog(@"%@", error.localizedDescription);
+            @autoreleasepool {
+                NSFetchRequest *fetchRequest = DataCache._fetchRequest;
+                NSBatchDeleteRequest *batchDelete = [[NSBatchDeleteRequest alloc] initWithFetchRequest:fetchRequest];
+                batchDelete.affectedStores = self.coreDataStack.storeContainer.persistentStoreCoordinator.persistentStores;
+                
+                NSError * _Nullable error = nil;
+                [self.coreDataStack.storeContainer.persistentStoreCoordinator executeRequest:batchDelete withContext:context error:&error];
+                [batchDelete release];
+                
+                if (error) {
+                    NSLog(@"%@", error.localizedDescription);
+                }
             }
         }];
     }];
 }
 
-- (DataCache *)createDataCache {
+- (DataCache *)makeDataCache {
     DataCache *dataCache = [[DataCache alloc] initWithContext:self.coreDataStack.context];
     return [dataCache autorelease];
 }
