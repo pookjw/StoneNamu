@@ -62,6 +62,10 @@
     self.decksSplitViewController = decksSplitViewController;
     self.prefsSplitViewController = prefsSplitViewController;
     
+    [cardsSplitViewController loadViewIfNeeded];
+    [decksSplitViewController loadViewIfNeeded];
+    [prefsSplitViewController loadViewIfNeeded];
+    
     cardsPrimaryNavigationController.view.backgroundColor = UIColor.systemBackgroundColor;
     cardsSecondaryNavigationController.view.backgroundColor = UIColor.systemBackgroundColor;
     decksPrimaryNavigationController.view.backgroundColor = UIColor.systemBackgroundColor;
