@@ -82,6 +82,8 @@
 
 "CARD_LANGUAGE_AUTO_DESCRIPTION" = "시스템 설정에 따라 자동으로 결정합니다.";
 
+"SERVER_AUTO_DESCRIPTION" = "시스템 설정에 따라 자동으로 결정합니다.";
+
 "TWITTER" = "트위터";
 
 "TWITCH" = "트위치";

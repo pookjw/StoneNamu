@@ -60,7 +60,7 @@
 
 - (NSString * _Nullable)secondaryText {
     if (self.regionHost == nil) {
-        return NSLocalizedString(@"CARD_LANGUAGE_AUTO_DESCRIPTION", @"");
+        return NSLocalizedString(@"SERVER_AUTO_DESCRIPTION", @"");
     } else {
         return nil;
     }

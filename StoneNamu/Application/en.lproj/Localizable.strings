@@ -82,6 +82,8 @@
 
 "CARD_LANGUAGE_AUTO_DESCRIPTION" = "Card Language will be automatically selected from system settings.";
 
+"SERVER_AUTO_DESCRIPTION" = "Server will be automatically selected from system settings.";
+
 "TWITTER" = "Twitter";
 
 "TWITCH" = "Twitch";
