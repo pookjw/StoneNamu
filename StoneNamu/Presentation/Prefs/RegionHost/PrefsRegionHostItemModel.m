@@ -42,7 +42,11 @@
         isRegionHostEqual = NO;
     }
     
-    return (isRegionHostEqual) && (self.isSelected == toCompare.isSelected);
+    return (isRegionHostEqual);
+}
+
+- (NSUInteger)hash {
+    return self.regionHost.hash;
 }
 
 - (NSString * _Nullable)primaryText {

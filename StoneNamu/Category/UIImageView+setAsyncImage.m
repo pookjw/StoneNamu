@@ -80,6 +80,7 @@ static NSString * const UIImageViewAsyncImageCategorySessionTaskKey = @"UIImageV
                     }];
                 } else if (data) {
                     [self.dataCacheUseCase makeDataCache:data identity:url.absoluteString];
+                    [self.dataCacheUseCase saveChanges];
                     
                     if ([self.currentURL isEqual:url]) {
                         UIImage *image = [UIImage imageWithData:data];

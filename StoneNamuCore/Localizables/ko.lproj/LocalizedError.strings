@@ -1,0 +1,13 @@
+/* 
+  LocalizedError.strings
+  StoneNamu
+
+  Created by Jinwoo Kim on 8/19/21.
+  
+*/
+
+"DATA_IS_CORRUPTED" = "데이터가 잘못 되었습니다.";
+
+"INVALID_HSCARD" = "올바르지 않은 하스스톤 카드 데이터 입니다.";
+
+"INVALID_HSDECK" = "올바르지 않은 하스스톤 덱 데이터 입니다.";

@@ -28,3 +28,6 @@ static BlizzardHSAPIOptionType const BlizzardHSAPIOptionTypeTextFilter = @"textF
 static BlizzardHSAPIOptionType const BlizzardHSAPIOptionTypeGameMode = @"gameMode";
 static BlizzardHSAPIOptionType const BlizzardHSAPIOptionTypeSort = @"sort";
 static BlizzardHSAPIOptionType const BlizzardHSAPIOptionTypePage = @"page";
+
+static BlizzardHSAPIOptionType const BlizzardHSAPIOptionTypeIds = @"ids";
+static BlizzardHSAPIOptionType const BlizzardHSAPIOptionTypeCode = @"code";

@@ -33,7 +33,7 @@ static NSString * const BlizzardHSDeckAPIBasePath = @"/hearthstone/deck";
     [super dealloc];
 }
 
-- (void)fetchDeckAtRegion:(BlizzardAPIRegionHost)regionHost withOptions:(NSDictionary<NSString *,NSString *> *)options completion:(HSDeckRepositoryFetchDeckFromCardIdsCompletion)completion {
+- (void)fetchDeckAtRegion:(BlizzardAPIRegionHost)regionHost withOptions:(NSDictionary<NSString *,NSString *> *)options completion:(HSDeckRepositoryFetchDeckCompletion)completion {
     
     BlizzardAPIRepositoryCompletion hsAPICompletion = ^(NSData *data, NSURLResponse *response, NSError *error) {
         
@@ -51,9 +51,10 @@ static NSString * const BlizzardHSDeckAPIBasePath = @"/hearthstone/deck";
             return;
         }
         
-        HSDeck *hsDeck = [HSDeck hsDeckFromDic:dic];
+        NSError * _Nullable deckError = nil;
+        HSDeck *hsDeck = [HSDeck hsDeckFromDic:dic error:&deckError];
         
-        completion(hsDeck, nil);
+        completion(hsDeck, deckError);
     };
     
     [self.blizzardHSRepository getAtRegion:regionHost

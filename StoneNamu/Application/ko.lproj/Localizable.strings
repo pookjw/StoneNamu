@@ -95,3 +95,11 @@
 "CARD_OPTIONS_TITLE" = "필터";
 
 "DECKS" = "덱";
+
+"CREATE_NEW_DECK" = "새로운 덱 만들기";
+
+"LOAD_FROM_DECK_CODE" = "덱코드에서 불러오기";
+
+"PLEASE_ENTER_DECK_CODE" = "덱코드를 입력해 주세요.";
+
+"FETCH" = "불러오기";

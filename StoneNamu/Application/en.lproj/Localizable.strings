@@ -95,3 +95,11 @@
 "CARD_OPTIONS_TITLE" = "Filter";
 
 "DECKS" = "Decks";
+
+"CREATE_NEW_DECK" = "Create New Deck";
+
+"LOAD_FROM_DECK_CODE" = "Load From Deck Code";
+
+"PLEASE_ENTER_DECK_CODE" = "Please enter deck code below.";
+
+"FETCH" = "Fetch";

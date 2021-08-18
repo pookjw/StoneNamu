@@ -8,6 +8,7 @@
 #import "Prefs.h"
 #import "BlizzardAPIRegionHost.h"
 #import "BlizzardHSAPILocale.h"
+#import "BlizzardHSAPIKeys.h"
 
 @implementation Prefs
 
@@ -62,6 +63,28 @@
         return NSStringForAPIFromRegionHost(BlizzardAPIRegionHostCN);
     } else {
         return NSStringForAPIFromRegionHost(BlizzardAPIRegionHostUS);
+    }
+}
+
+- (NSDictionary *)addLocalKeyIfNeedToOptions:(NSDictionary * _Nullable)options {
+    NSString *locale;
+    
+    if (self.locale) {
+        locale = self.locale;
+    } else {
+        locale = [self class].alternativeLocale;
+    }
+    
+    if (options == nil) {
+        return @{BlizzardHSAPIOptionTypeLocale: locale};
+    } else if ([options.allKeys containsObject:BlizzardHSAPIOptionTypeLocale]) {
+        return options;
+    } else {
+        NSMutableDictionary *mutableOptions = [options mutableCopy];
+        mutableOptions[BlizzardHSAPIOptionTypeLocale] = locale;
+        NSDictionary *result = [mutableOptions copy];
+        [mutableOptions release];
+        return [result autorelease];
     }
 }
 

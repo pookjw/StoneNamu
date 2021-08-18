@@ -28,6 +28,11 @@
     return self;
 }
 
+- (void)dealloc {
+    [_localDeckRepository release];
+    [super dealloc];
+}
+
 - (void)deleteLocalDeck:(nonnull LocalDeck *)localDeck {
     [self.localDeckRepository deleteLocalDeck:localDeck];
 }
@@ -36,8 +41,30 @@
     [self.localDeckRepository fetchWithCompletion:completion];
 }
 
+- (void)fetchWithObjectId:(NSManagedObjectID *)objectId completion:(LocalDeckUseCaseFetchWithObjectIdCompletion)completion {
+    [self.localDeckRepository fetchWithObjectId:objectId completion:completion];
+}
+
 - (nonnull LocalDeck *)makeLocalDeck {
     return [self.localDeckRepository makeLocalDeck];
+}
+
+- (LocalDeck *)makeLocalDeckFromHSDeck:(HSDeck *)hsDeck {
+    LocalDeck *localDeck = [self makeLocalDeck];
+    
+    NSMutableArray<NSNumber *> *cards = [@[] mutableCopy];
+    [hsDeck.cards enumerateObjectsUsingBlock:^(HSCard * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [cards addObject:[NSNumber numberWithUnsignedInteger:obj.cardId]];
+    }];
+    localDeck.cards = cards;
+    [cards release];
+    
+    localDeck.isWild = [NSNumber numberWithBool:[hsDeck.format isEqualToString:HSDeckFormatWild]];
+    localDeck.classId = [NSNumber numberWithUnsignedInteger:hsDeck.classId];
+    localDeck.deckCode = [[hsDeck.deckCode copy] autorelease];
+    localDeck.name = nil;
+    
+    return localDeck;
 }
 
 - (void)saveChanges {
@@ -52,13 +79,9 @@
 }
 
 - (void)changesReceived:(NSNotification *)notification {
-    NSArray<LocalDeck *> * _Nullable decks = notification.userInfo[LocalDeckRepositoryLocalDeckNotificationItemKey];
-    
-    if (decks) {
-        [NSNotificationCenter.defaultCenter postNotificationName:LocalDeckUseCaseObserveDataNotificationName
-                                                          object:self
-                                                        userInfo:@{LocalDeckUseCaseLocalDeckNotificationItemKey: decks}];
-    }
+    [NSNotificationCenter.defaultCenter postNotificationName:LocalDeckUseCaseObserveDataNotificationName
+                                                      object:self
+                                                    userInfo:nil];
 }
 
 @end

@@ -9,32 +9,42 @@
 
 @implementation LocalDeck
 
+@dynamic cardsData;
 @dynamic isWild;
 @dynamic classId;
 @dynamic deckCode;
 @dynamic name;
-@dynamic identity;
 
-+ (NSString *)makeRandomIdentity {
-    NSUUID *uuid = [NSUUID new];
-    NSString *identity = [uuid.UUIDString copy];
-    [uuid release];
-    return [identity autorelease];
+- (NSArray<NSNumber *> * _Nullable)cards {
+    if (self.cardsData == nil) {
+        return nil;
+    }
+    
+    NSError * _Nullable error = nil;
+    
+    NSArray<NSNumber *> *cards = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSArray<NSNumber *> class] fromData:self.cardsData error:&error];
+    
+    if (error) {
+        NSLog(@"%@", error.localizedDescription);
+        return nil;
+    }
+    
+    return cards;
 }
 
-- (BOOL)isEqual:(id)object {
-    LocalDeck *toCompare = (LocalDeck *)object;
+- (void)setCards:(NSArray<NSNumber *> * _Nullable)cards {
+    NSError * _Nullable error = nil;
+    NSArray<NSNumber *> *cardsCopy = [cards copy];
     
-    if (![toCompare isKindOfClass:[LocalDeck class]]) {
-        return NO;
+    NSData *cardsData = [NSKeyedArchiver archivedDataWithRootObject:cardsCopy requiringSecureCoding:YES error:&error];
+    [cardsCopy release];
+    
+    if (error) {
+        NSLog(@"%@", error.localizedDescription);
+        return;
     }
     
-    if ((self.identity == nil) && (toCompare.identity)) {
-        NSLog(@"nil comparison!!!");
-        return NO;
-    }
-    
-    return [self.identity isEqualToString:toCompare.identity];
+    self.cardsData = cardsData;
 }
 
 @end

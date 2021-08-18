@@ -29,4 +29,8 @@
     return self.type == toCompare.type;
 }
 
+- (NSUInteger)hash {
+    return self.type;
+}
+
 @end

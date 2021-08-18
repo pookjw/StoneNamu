@@ -163,7 +163,7 @@
     
     dragItem.localObject = itemModel.card;
     
-    return @[dragItem];
+    return @[[dragItem autorelease]];
 }
 
 - (void)updateDataSourceWithCards:(NSArray<HSCard *> *)cards {

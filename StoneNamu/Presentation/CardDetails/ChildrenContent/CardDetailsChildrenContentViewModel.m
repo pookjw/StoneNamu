@@ -54,7 +54,7 @@
     
     dragItem.localObject = itemModel.hsCard;
     
-    return @[dragItem];
+    return @[[dragItem autorelease]];
 }
 
 - (void)requestChildCards:(NSArray<HSCard *> *)childCards {

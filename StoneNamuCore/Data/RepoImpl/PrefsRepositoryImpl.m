@@ -53,6 +53,7 @@
                 
                 if (results.count == 0) {
                     Prefs *prefs = [self makeNewPrefs];
+                    [self saveChanges];
                     completion(prefs, error);
                 } else {
                     completion(results.lastObject, error);
@@ -85,7 +86,6 @@
 
 - (Prefs *)makeNewPrefs {
     Prefs *prefs = [[Prefs alloc] initWithContext:self.coreDataStack.context];
-    [self saveChanges];
     return [prefs autorelease];
 }
 

@@ -62,8 +62,10 @@
     DataCache *dataCache = [self.dataCacheRepository makeDataCache];
     dataCache.data = data;
     dataCache.identity = identity;
-    [self.dataCacheRepository saveChanges];
 }
 
+- (void)saveChanges {
+    [self.dataCacheRepository saveChanges];
+}
 
 @end

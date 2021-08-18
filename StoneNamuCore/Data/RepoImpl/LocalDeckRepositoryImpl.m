@@ -67,10 +67,21 @@
     }];
 }
 
+- (void)fetchWithObjectId:(NSManagedObjectID *)objectId completion:(LocalDeckRepositoryFetchWithObjectIdCompletion)completion {
+    [self.coreDataStack.queue addBarrierBlock:^{
+        NSManagedObjectContext *context = self.coreDataStack.context;
+        
+        [context performBlockAndWait:^{
+            @autoreleasepool {
+                LocalDeck * _Nullable localDeck = [context objectWithID:objectId];
+                completion(localDeck);
+            }
+        }];
+    }];
+}
+
 - (nonnull LocalDeck *)makeLocalDeck {
     LocalDeck *localDeck = [[LocalDeck alloc] initWithContext:self.coreDataStack.context];
-    localDeck.identity = [LocalDeck makeRandomIdentity];
-    [self saveChanges];
     return [localDeck autorelease];
 }
 
@@ -86,11 +97,9 @@
 }
 
 - (void)changesReceived:(NSNotification *)notification {
-    [self fetchWithCompletion:^(NSArray<LocalDeck *> * _Nullable decks, NSError * _Nullable error) {
-        [NSNotificationCenter.defaultCenter postNotificationName:LocalDeckRepositoryObserveDataNotificationName
-                                                          object:self
-                                                        userInfo:@{LocalDeckRepositoryLocalDeckNotificationItemKey: decks}];
-    }];
+    [NSNotificationCenter.defaultCenter postNotificationName:LocalDeckRepositoryObserveDataNotificationName
+                                                      object:self
+                                                    userInfo:nil];
 }
 
 @end

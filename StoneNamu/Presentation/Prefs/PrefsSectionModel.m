@@ -30,6 +30,10 @@
     return self.type == toCompare.type;
 }
 
+- (NSUInteger)hash {
+    return self.type;
+}
+
 - (NSString * _Nullable )headerText {
     switch (self.type) {
         case PrefsSectionModelTypeSearchPrefSelection:

@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (assign) NSString * _Nullable apiRegionHost;
 @property (class, readonly, nonatomic) NSString *alternativeLocale;
 @property (class, readonly, nonatomic) NSString *alternativeAPIRegionHost;
+- (NSDictionary *)addLocalKeyIfNeedToOptions:(NSDictionary * _Nullable)options;
 @end
 
 NS_ASSUME_NONNULL_END

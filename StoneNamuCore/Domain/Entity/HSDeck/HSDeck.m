@@ -6,6 +6,7 @@
 //
 
 #import "HSDeck.h"
+#import "StoneNamuCoreErrors.h"
 
 @implementation HSDeck
 
@@ -26,8 +27,27 @@
     return [self.deckCode isEqualToString:toCompare.deckCode];
 }
 
-+ (HSDeck * _Nullable)hsDeckFromDic:(NSDictionary *)dic {
+- (id)copyWithZone:(NSZone *)zone {
+    id copy = [[self class] new];
+    
+    if (copy) {
+        HSDeck *_copy = (HSDeck *)copy;
+        _copy->_deckCode = [self.deckCode copyWithZone:zone];
+        _copy->_format = [self.format copyWithZone:zone];
+        _copy->_classId = self.classId;
+        _copy->_cards = [self.cards copyWithZone:zone];
+    }
+    
+    return copy;
+}
+
++ (HSDeck * _Nullable)hsDeckFromDic:(NSDictionary *)dic error:(NSError ** _Nullable)error {
     HSDeck *hsDeck = [HSDeck new];
+    
+    if (dic[@"deckCode"] == nil) {
+        *error = InvalidHSDeckError();
+        return nil;
+    }
     
     hsDeck->_deckCode = [dic[@"deckCode"] copy];
     hsDeck->_format = [dic[@"format"] copy];

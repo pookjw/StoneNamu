@@ -78,7 +78,7 @@
                 [[[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeArtist value:hsCard.artistName] autorelease]
             ]
                        intoSectionWithIdentifier:sectionModelDetail];
-        };
+        }
         
         //
         
@@ -117,7 +117,9 @@
             [self.hsCardUseCase fetchWithIdOrSlug:[childId stringValue]
                                       withOptions:nil
                                 completionHandler:^(HSCard * _Nullable childCard, NSError * _Nullable error) {
-                if (childCard) {
+                if (error) {
+                    NSLog(@"%@", error.localizedDescription);
+                } else if (childCard) {
                     [childCards addObject:childCard];
                 }
                 

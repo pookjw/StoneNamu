@@ -1,0 +1,13 @@
+/* 
+  LocalizedError.strings
+  StoneNamu
+
+  Created by Jinwoo Kim on 8/19/21.
+  
+*/
+
+"DATA_IS_CORRUPTED" = "Data is corrupted.";
+
+"INVALID_HSCARD" = "Invalid Hearthstone card!";
+
+"INVALID_HSDECK" = "Invalid Hearthstone deck!";

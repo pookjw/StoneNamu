@@ -42,7 +42,7 @@
 
 - (void)fetchWithOptions:(NSDictionary<NSString *, id> * _Nullable)options
        completionHandler:(HSCardUseCaseCardsCompletion)completion {
-    [self addLocalKeyIfNeeded:options completion:^(NSDictionary *finalOptions, NSNumber *region) {
+    [self fetchPrefsWithOptions:options completion:^(NSDictionary *finalOptions, NSNumber *region) {
         [self.hsCardRepository fetchCardsAtRegion:region.unsignedIntegerValue
                                       withOptions:finalOptions
                                 completionHandler:completion];
@@ -52,7 +52,7 @@
 - (void)fetchWithIdOrSlug:(NSString *)idOrSlug
               withOptions:(NSDictionary<NSString *, id> * _Nullable)options
         completionHandler:(HSCardUseCaseCardCompletion)completion {
-    [self addLocalKeyIfNeeded:options completion:^(NSDictionary *finalOptions, NSNumber *region) {
+    [self fetchPrefsWithOptions:options completion:^(NSDictionary *finalOptions, NSNumber *region) {
         [self.hsCardRepository fetchCardAtRegion:region.unsignedIntegerValue
                                     withIdOrSlug:idOrSlug
                                      withOptions:finalOptions
@@ -60,36 +60,18 @@
     }];
 }
 
-- (void)addLocalKeyIfNeeded:(NSDictionary * _Nullable)options completion:(void (^)(NSDictionary *, NSNumber *))completion {
+- (void)fetchPrefsWithOptions:(NSDictionary * _Nullable)options completion:(void (^)(NSDictionary *, NSNumber *))completion {
     [self.prefsUseCase fetchWithCompletion:^(Prefs * _Nullable prefs, NSError * _Nullable error) {
         
-        // Get preferences
-        NSString *locale;
         NSString *apiRegionHost;
         
-        if (prefs.locale) {
-            locale = prefs.locale;
-        } else {
-            locale = Prefs.alternativeLocale;
-        }
         if (prefs.apiRegionHost) {
             apiRegionHost = prefs.apiRegionHost;
         } else {
             apiRegionHost = Prefs.alternativeAPIRegionHost;
         }
         
-        // Fill options
-        if (options == nil) {
-            completion(@{BlizzardHSAPIOptionTypeLocale: locale}, [NSNumber numberWithUnsignedInteger:BlizzardAPIRegionHostFromNSStringForAPI(apiRegionHost)]);
-        } else if ([options.allKeys containsObject:BlizzardHSAPIOptionTypeLocale]) {
-            completion(options, [NSNumber numberWithUnsignedInteger:BlizzardAPIRegionHostFromNSStringForAPI(apiRegionHost)]);
-        } else {
-            NSMutableDictionary *mutableOptions = [options mutableCopy];
-            mutableOptions[BlizzardHSAPIOptionTypeLocale] = locale;
-            NSDictionary *result = [[mutableOptions copy] autorelease];
-            [mutableOptions release];
-            completion(result, [NSNumber numberWithUnsignedInteger:BlizzardAPIRegionHostFromNSStringForAPI(apiRegionHost)]);
-        }
+        completion([prefs addLocalKeyIfNeedToOptions:options], [NSNumber numberWithUnsignedInteger:BlizzardAPIRegionHostFromNSStringForAPI(apiRegionHost)]);
     }];
 }
 

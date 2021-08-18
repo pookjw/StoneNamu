@@ -7,6 +7,7 @@
 
 #import "PhotosService.h"
 #import "DataCacheUseCaseImpl.h"
+#import "StoneNamuCoreErrors.h"
 
 @interface PhotosService ()
 @property (retain) PHPhotoLibrary *phPhotoLibrary;
@@ -82,10 +83,11 @@
                     completionHandler(NO, error);
                 } else if (data) {
                     [self.dataCacheUseCase makeDataCache:data identity:url.absoluteString];
+                    [self.dataCacheUseCase saveChanges];
                     UIImage *image = [UIImage imageWithData:data];
                     [self saveImage:image fromViewController:viewController completionHandler:completionHandler];
                 } else {
-                    NSError *error = [[NSError alloc] initWithDomain:@"com.pookjw.StoneNamu.DataNil" code:100 userInfo:nil];
+                    NSError *error = DataCorruptionError();
                     completionHandler(NO, error);
                     [error autorelease];
                 }

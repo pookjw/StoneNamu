@@ -34,6 +34,10 @@
     return self.type == toCompare.type;
 }
 
+- (NSUInteger)hash {
+    return self.type;
+}
+
 - (UIImage * _Nullable)primaryImage {
     switch (self.type) {
         case PrefsItemModelTypeLocaleSelection:

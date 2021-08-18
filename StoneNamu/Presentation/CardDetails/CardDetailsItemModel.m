@@ -53,6 +53,10 @@
     return self.type == toCompare.type;
 }
 
+- (NSUInteger)hash {
+    return self.type;
+}
+
 - (NSString * _Nullable)primaryText {
     switch (self.type) {
         case CardDetailsItemModelTypeName:

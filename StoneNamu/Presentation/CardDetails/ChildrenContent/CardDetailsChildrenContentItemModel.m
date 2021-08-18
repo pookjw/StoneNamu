@@ -31,7 +31,11 @@
     
     CardDetailsChildrenContentItemModel *toCompare = (CardDetailsChildrenContentItemModel *)object;
     
-    return self.hsCard == toCompare.hsCard;
+    return [self.hsCard isEqual:toCompare.hsCard];
+}
+
+- (NSUInteger)hash {
+    return self.hsCard.hash;
 }
 
 @end

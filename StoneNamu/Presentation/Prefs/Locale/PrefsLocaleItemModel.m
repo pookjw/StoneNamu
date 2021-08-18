@@ -42,7 +42,11 @@
         isLocaleEqual = NO;
     }
     
-    return (isLocaleEqual) && (self.isSelected == toCompare.isSelected);
+    return (isLocaleEqual);
+}
+
+- (NSUInteger)hash {
+    return self.locale.hash;
 }
 
 - (NSString * _Nullable)primaryText {

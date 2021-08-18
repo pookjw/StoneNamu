@@ -128,7 +128,7 @@
                 [[[PrefsItemModel alloc] initWithType:PrefsItemModelTypePnamuContributor] autorelease]
             ]
                        intoSectionWithIdentifier:contributorsSection];
-        };
+        }
         
         [searchPrefSection release];
         [dataSection release];

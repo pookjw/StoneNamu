@@ -87,9 +87,10 @@ static NSString * const BlizzardHSCardAPIBasePath = @"/hearthstone/cards";
             return;
         }
         
-        HSCard *hsCard = [HSCard hsCardFromDic:dic];
+        NSError * _Nullable cardError = nil;
+        HSCard *hsCard = [HSCard hsCardFromDic:dic error:&cardError];
         
-        completion(hsCard, nil);
+        completion(hsCard, cardError);
     };
     
     [self.blizzardHSRepository getAtRegion:regionHost

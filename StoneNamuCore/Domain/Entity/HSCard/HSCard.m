@@ -6,6 +6,7 @@
 //
 
 #import "HSCard.h"
+#import "StoneNamuCoreErrors.h"
 
 @implementation HSCard
 
@@ -32,6 +33,10 @@
     HSCard *toCompare = (HSCard *)object;
     
     return (self.cardId == toCompare.cardId) && ([self.slug isEqualToString:toCompare.slug]);
+}
+
+- (NSUInteger)hash {
+    return self.cardId ^ self.slug.hash;
 }
 
 - (id)copyWithZone:(NSZone *)zone {
@@ -71,16 +76,23 @@
     
     for (NSDictionary *card in cards) {
         @autoreleasepool {
-            HSCard *hsCard = [HSCard hsCardFromDic:card];
-            [hsCards addObject:hsCard];
+            HSCard *hsCard = [HSCard hsCardFromDic:card error:nil];
+            if (hsCard) {
+                [hsCards addObject:hsCard];
+            }
         }
     }
     
     return hsCards;
 }
 
-+ (HSCard *)hsCardFromDic:(NSDictionary *)dic {
++ (HSCard * _Nullable)hsCardFromDic:(NSDictionary *)dic error:(NSError ** _Nullable)error; {
     HSCard *hsCard = [HSCard new];
+    
+    if (dic[@"id"] == nil) {
+        *error = InvalidHSCardError();
+        return nil;
+    }
     
     hsCard->_cardId = [(NSNumber *)dic[@"id"] unsignedIntegerValue];
     hsCard->_collectible = [(NSNumber *)dic[@"collectible"] boolValue];

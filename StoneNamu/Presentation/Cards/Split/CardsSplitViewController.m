@@ -84,7 +84,7 @@
     primaryNavigationController.viewControllers = @[cardOptionsViewController];
     secondaryNavigationController.viewControllers = @[cardsViewController];
     
-    return secondaryNavigationController;
+    return [secondaryNavigationController autorelease];
 }
 
 - (UISplitViewControllerColumn)splitViewController:(UISplitViewController *)svc topColumnForCollapsingToProposedTopColumn:(UISplitViewControllerColumn)proposedTopColumn {

@@ -113,6 +113,10 @@ CardOptionItemModelType CardOptionItemModelTypeFromNSString(NSString * key) {
     return (self.type == toCompare.type) && ([self.value isEqualToString:toCompare.value]);
 }
 
+- (NSUInteger)hash {
+    return self.type;
+}
+
 - (CardOptionItemModelValueSetType)valueSetType {
     switch (self.type) {
         case CardOptionItemModelTypeSet:

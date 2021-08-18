@@ -31,7 +31,11 @@
     
     CardItemModel *toCompare = (CardItemModel *)object;
     
-    return self.card == toCompare.card;
+    return [self.card isEqual:toCompare.card];
+}
+
+- (NSUInteger)hash {
+    return self.card.hash;
 }
 
 @end
