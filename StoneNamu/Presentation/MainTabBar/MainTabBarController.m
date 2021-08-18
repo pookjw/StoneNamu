@@ -97,8 +97,8 @@
     [prefsSecondaryNavigationController release];
     
     UITabBarItem *cardsTabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"CARDS", @"")
-                                                                  image:[UIImage systemImageNamed:@"menucard"]
-                                                          selectedImage:[UIImage systemImageNamed:@"menucard.fill"]];
+                                                                  image:[UIImage systemImageNamed:@"text.book.closed"]
+                                                          selectedImage:[UIImage systemImageNamed:@"text.book.closed.fill"]];
     UITabBarItem *decksTabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"DECKS", @"")
                                                                   image:[UIImage systemImageNamed:@"books.vertical"]
                                                           selectedImage:[UIImage systemImageNamed:@"books.vertical.fill"]];
