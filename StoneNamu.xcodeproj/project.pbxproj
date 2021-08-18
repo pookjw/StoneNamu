@@ -716,10 +716,10 @@
 			children = (
 				4FAA89E226A42A2100572BB4 /* BlizzardAPIRepository.h */,
 				4FA05F7326A30991000E93BC /* HSCardRepository.h */,
+				4FFDD67D26CAD868008E5B45 /* HSDeckRepository.h */,
 				4F646A7326B7E7B900BEDB38 /* DataCacheRepository.h */,
 				4FB8510426C18EDB00E3C89D /* PrefsRepository.h */,
 				4FFDD66A26CACB79008E5B45 /* LocalDeckRepository.h */,
-				4FFDD67D26CAD868008E5B45 /* HSDeckRepository.h */,
 			);
 			path = RepoIntf;
 			sourceTree = "<group>";

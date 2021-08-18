@@ -78,6 +78,10 @@
                 
                 if (error) {
                     NSLog(@"%@", error.localizedDescription);
+                } else {
+                    [NSNotificationCenter.defaultCenter postNotificationName:DataCacheRepositoryDeleteAllNotificationName
+                                                                      object:self
+                                                                    userInfo:nil];
                 }
             }
         }];

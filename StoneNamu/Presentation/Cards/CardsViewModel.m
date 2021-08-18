@@ -10,6 +10,7 @@
 #import "BlizzardHSAPIKeys.h"
 #import "NSSemaphoreCondition.h"
 #import "PrefsUseCaseImpl.h"
+#import "DataCacheUseCaseImpl.h"
 
 @interface CardsViewModel ()
 @property (retain) id<HSCardUseCase> hsCardUseCase;
@@ -19,6 +20,7 @@
 @property BOOL isFetching;
 @property (retain) NSOperationQueue *queue;
 @property (retain) id<PrefsUseCase> prefsUseCase;
+@property (retain) id<DataCacheUseCase> dataCacheUseCase;
 @end
 
 @implementation CardsViewModel
@@ -43,6 +45,10 @@
         self.prefsUseCase = prefsUseCase;
         [prefsUseCase release];
         
+        DataCacheUseCaseImpl *dataCacheUseCase = [DataCacheUseCaseImpl new];
+        self.dataCacheUseCase = dataCacheUseCase;
+        [dataCacheUseCase release];
+        
         self.options = nil;
         
         self.pageCount = nil;
@@ -50,6 +56,7 @@
         self.isFetching = NO;
         
         [self observePrefsChange];
+        [self observeDataCachesDeleted];
     }
     
     return self;
@@ -64,6 +71,7 @@
     [_queue release];
     [_options release];
     [_prefsUseCase release];
+    [_dataCacheUseCase release];
     [super dealloc];
 }
 
@@ -216,12 +224,23 @@
 
 - (void)observePrefsChange {
     [NSNotificationCenter.defaultCenter addObserver:self
-                                           selector:@selector(prefsChangedReceived:)
+                                           selector:@selector(prefsChangedEventReceived:)
                                                name:PrefsUseCaseObserveDataNotificationName
                                              object:self.prefsUseCase];
 }
 
-- (void)prefsChangedReceived:(NSNotification *)notification {
+- (void)prefsChangedEventReceived:(NSNotification *)notification {
+    [self requestDataSourceWithOptions:self.options reset:YES];
+}
+
+- (void)observeDataCachesDeleted {
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(dataCacheDeletedEventReceived:)
+                                               name:DataCacheUseCaseDeleteAllNotificationName
+                                             object:nil];
+}
+
+- (void)dataCacheDeletedEventReceived:(NSNotification *)notification {
     [self requestDataSourceWithOptions:self.options reset:YES];
 }
 

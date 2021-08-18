@@ -21,6 +21,8 @@
         DataCacheRepositoryImpl *dataCacheRepository = [DataCacheRepositoryImpl new];
         self.dataCacheRepository = dataCacheRepository;
         [dataCacheRepository release];
+        
+        [self startObserving];
     }
     
     return self;
@@ -66,6 +68,19 @@
 
 - (void)saveChanges {
     [self.dataCacheRepository saveChanges];
+}
+
+- (void)startObserving {
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(deleteAllEventReceived:)
+                                               name:DataCacheRepositoryDeleteAllNotificationName
+                                             object:self.dataCacheRepository];
+}
+
+- (void)deleteAllEventReceived:(NSNotification *)notification {
+    [NSNotificationCenter.defaultCenter postNotificationName:DataCacheUseCaseDeleteAllNotificationName
+                                                      object:self
+                                                    userInfo:nil];
 }
 
 @end

@@ -31,7 +31,6 @@
 }
 
 - (void)dealloc {
-    [NSNotificationCenter.defaultCenter removeObserver:self];
     [_collectionView release];
     [_cancelButton release];
     [_viewModel release];
