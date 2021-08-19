@@ -6,7 +6,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <CoreData/CoreData.h>
 #import "LocalDeck.h"
 #import "HSDeck.h"
 #import "DecksSectionModel.h"
@@ -14,7 +13,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef void (^DecksViewModelFetchDeckCodeCompletion)(NSManagedObjectID * _Nullable, HSDeck * _Nullable, NSError * _Nullable);
+typedef void (^DecksViewModelFetchDeckCodeCompletion)(LocalDeck * _Nullable, HSDeck * _Nullable, NSError * _Nullable);
+typedef void (^DecksViewModelMakeLocalDeckCompletion)(LocalDeck *);
 
 typedef UICollectionViewDiffableDataSource<DecksSectionModel *, DecksItemModel *> DecksDataSource;
 
@@ -22,8 +22,8 @@ typedef UICollectionViewDiffableDataSource<DecksSectionModel *, DecksItemModel *
 @property (retain) DecksDataSource *dataSource;
 - (instancetype)initWithDataSource:(DecksDataSource *)dataSource;
 - (void)fetchDeckCode:(NSString *)deckCode completion:(DecksViewModelFetchDeckCodeCompletion)completion;
-
-- (void)testFetchUsingObjectId:(NSManagedObjectID *)objectId;
+- (void)makeLocalDeckWithCompletion:(DecksViewModelMakeLocalDeckCompletion)completion;
+- (NSIndexPath * _Nullable)indexPathForLocalDeck:(LocalDeck *)localDeck;
 @end
 
 NS_ASSUME_NONNULL_END

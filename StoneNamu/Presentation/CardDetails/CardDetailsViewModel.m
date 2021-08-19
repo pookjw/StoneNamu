@@ -111,7 +111,7 @@
     
     [self.queue addOperationWithBlock:^{
         NSSemaphoreCondition *semaphore = [[NSSemaphoreCondition alloc] initWithValue:-((NSInteger)childIds.count) + 1];
-        NSMutableArray *childCards = [@[] mutableCopy];
+        NSMutableArray<HSCard *> *childCards = [@[] mutableCopy];
         
         for (NSNumber *childId in childIds) {
             [self.hsCardUseCase fetchWithIdOrSlug:[childId stringValue]
@@ -120,7 +120,9 @@
                 if (error) {
                     NSLog(@"%@", error.localizedDescription);
                 } else if (childCard) {
-                    [childCards addObject:childCard];
+                    HSCard *copyCard = [childCard copy];
+                    [childCards addObject:copyCard];
+                    [copyCard release];
                 }
                 
                 [semaphore signal];
@@ -128,10 +130,10 @@
         }
         
         [semaphore wait];
+        [semaphore release];
         
         NSArray<HSCard *> *results = [childCards copy];
         [childIds release];
-        [semaphore release];
         [childCards release];
         
         [self updateDataSourceWithChildCards:results];

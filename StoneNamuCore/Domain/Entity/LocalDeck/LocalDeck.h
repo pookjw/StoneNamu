@@ -6,6 +6,7 @@
 //
 
 #import <CoreData/CoreData.h>
+#import "HSDeck.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -17,6 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (assign) NSString * _Nullable name;
 
 @property (assign, nonatomic) NSArray<NSNumber *> * _Nullable cards;
+
+- (void)setValuesAsHSDeck:(HSDeck *)hsDeck;
 @end
 
 NS_ASSUME_NONNULL_END

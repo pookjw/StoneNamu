@@ -6,11 +6,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LocalDeck.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface DeckDetailsViewController : UIViewController
-
+- (instancetype)initWithLocalDeck:(LocalDeck *)localDeck;
 @end
 
 NS_ASSUME_NONNULL_END

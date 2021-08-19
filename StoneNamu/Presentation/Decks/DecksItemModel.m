@@ -9,19 +9,19 @@
 
 @implementation DecksItemModel
 
-- (instancetype)initWithType:(DecksItemModelType)type objectId:(NSManagedObjectID *)objectId {
+- (instancetype)initWithType:(DecksItemModelType)type localDeck:(LocalDeck *)localDeck {
     self = [self init];
     
     if (self) {
         self->_type = type;
-        self->_objectId = [objectId copy];
+        self->_localDeck = [localDeck retain];
     }
     
     return self;
 }
 
 - (void)dealloc {
-    [_objectId release];
+    [_localDeck release];
     [super dealloc];
 }
 
@@ -32,11 +32,11 @@
         return NO;
     }
     
-    return (self.type == toCompare.type) && ([self.objectId isEqual:toCompare.objectId]);
+    return (self.type == toCompare.type) && ([self.localDeck isEqual:toCompare.localDeck]);
 }
 
 - (NSUInteger)hash {
-    return self.type ^ self.objectId.hash;
+    return self.type ^ self.localDeck.hash;
 }
 
 @end

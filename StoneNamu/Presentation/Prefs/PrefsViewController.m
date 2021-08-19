@@ -347,7 +347,7 @@
     NSIndexPath * _Nullable indexPath = self.viewModel.contextMenuIndexPath;
     
     if (indexPath) {
-        [collectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionLeft];
+        [collectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionNone];
         self.viewModel.contextMenuIndexPath = nil;
     }
     

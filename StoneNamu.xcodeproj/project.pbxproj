@@ -37,6 +37,9 @@
 		4F34386826A37029001161FE /* BlizzardTokenAPIImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F34383D26A36501001161FE /* BlizzardTokenAPIImpl.m */; };
 		4F34386926A37031001161FE /* BlizzardAPIImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA56BED26A213B2002D9FA0 /* BlizzardAPIImpl.m */; };
 		4F414B0126CED5480003A0CF /* NSSemaphoreCondition.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF3E0D626CA7F81002B20EA /* NSSemaphoreCondition.m */; };
+		4F414B0426CEF31D0003A0CF /* DeckDetailsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F414B0326CEF31D0003A0CF /* DeckDetailsViewModel.m */; };
+		4F414B0726CEF9F80003A0CF /* DeckDetailsSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F414B0626CEF9F80003A0CF /* DeckDetailsSectionModel.m */; };
+		4F414B0A26CEFA5E0003A0CF /* DeckDetailsItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F414B0926CEFA5E0003A0CF /* DeckDetailsItemModel.m */; };
 		4F449E9B26B178C4007CE04A /* HSCardClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F449E9A26B178C4007CE04A /* HSCardClass.m */; };
 		4F449E9E26B17D08007CE04A /* HSCardClass.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4F449EA026B17D08007CE04A /* HSCardClass.strings */; };
 		4F449EA626B187CA007CE04A /* HSCardCollectible.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4F449EA826B187CA007CE04A /* HSCardCollectible.strings */; };
@@ -228,6 +231,12 @@
 		4F34384826A36FBA001161FE /* StoneNamuCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StoneNamuCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F34384A26A36FBA001161FE /* StoneNamuCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoneNamuCore.h; sourceTree = "<group>"; };
 		4F34384F26A36FBA001161FE /* StoneNamuCoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StoneNamuCoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4F414B0226CEF31D0003A0CF /* DeckDetailsViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckDetailsViewModel.h; sourceTree = "<group>"; };
+		4F414B0326CEF31D0003A0CF /* DeckDetailsViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckDetailsViewModel.m; sourceTree = "<group>"; };
+		4F414B0526CEF9F80003A0CF /* DeckDetailsSectionModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckDetailsSectionModel.h; sourceTree = "<group>"; };
+		4F414B0626CEF9F80003A0CF /* DeckDetailsSectionModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckDetailsSectionModel.m; sourceTree = "<group>"; };
+		4F414B0826CEFA5E0003A0CF /* DeckDetailsItemModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckDetailsItemModel.h; sourceTree = "<group>"; };
+		4F414B0926CEFA5E0003A0CF /* DeckDetailsItemModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckDetailsItemModel.m; sourceTree = "<group>"; };
 		4F449E9A26B178C4007CE04A /* HSCardClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCardClass.m; sourceTree = "<group>"; };
 		4F449E9F26B17D08007CE04A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/HSCardClass.strings; sourceTree = "<group>"; };
 		4F449EA126B17D09007CE04A /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/HSCardClass.strings; sourceTree = "<group>"; };
@@ -1066,6 +1075,12 @@
 			children = (
 				4FFDD65926CAC5B3008E5B45 /* DeckDetailsViewController.h */,
 				4FFDD65A26CAC5B3008E5B45 /* DeckDetailsViewController.m */,
+				4F414B0226CEF31D0003A0CF /* DeckDetailsViewModel.h */,
+				4F414B0326CEF31D0003A0CF /* DeckDetailsViewModel.m */,
+				4F414B0526CEF9F80003A0CF /* DeckDetailsSectionModel.h */,
+				4F414B0626CEF9F80003A0CF /* DeckDetailsSectionModel.m */,
+				4F414B0826CEFA5E0003A0CF /* DeckDetailsItemModel.h */,
+				4F414B0926CEFA5E0003A0CF /* DeckDetailsItemModel.m */,
 			);
 			path = DeckDetails;
 			sourceTree = "<group>";
@@ -1341,10 +1356,12 @@
 				4F182BD126AC23600028115C /* UIViewController+presentErrorAlert.m in Sources */,
 				4F74711E26C16BD4001C45C4 /* CardDetailsChildrenContentCollectionViewCompositionalLayout.m in Sources */,
 				4F74712126C16BDF001C45C4 /* CardDetailsChildrenContentViewModel.m in Sources */,
+				4F414B0A26CEFA5E0003A0CF /* DeckDetailsItemModel.m in Sources */,
 				4FF3E0CE26C9B84C002B20EA /* UIView+viewController.m in Sources */,
 				4F74712C26C175FE001C45C4 /* CardDetailsChildrenContentImageConfiguration.m in Sources */,
 				4F98E25226B9935B0067846F /* CardDetailsLayoutCompactViewController.m in Sources */,
 				4FF3E0BB26C97DAC002B20EA /* PrefsLocaleItemModel.m in Sources */,
+				4F414B0726CEF9F80003A0CF /* DeckDetailsSectionModel.m in Sources */,
 				4FB0ECE826B82AEE0020EE6C /* CardDetailsViewController.m in Sources */,
 				4FF3E0D226CA6FB9002B20EA /* MainTabBarController.m in Sources */,
 				4FA9047A26B6E26A00CD6147 /* CardContentView.m in Sources */,
@@ -1377,6 +1394,7 @@
 				4FB850F726C18BAE00E3C89D /* PrefsViewController.m in Sources */,
 				4FA56BAF26A21059002D9FA0 /* SceneDelegate.m in Sources */,
 				4FF3E0DF26CA9C82002B20EA /* CardsSplitViewController.m in Sources */,
+				4F414B0426CEF31D0003A0CF /* DeckDetailsViewModel.m in Sources */,
 				4F98E25B26B9AA280067846F /* CardDetailsSectionModel.m in Sources */,
 				4FF3E0DB26CA947D002B20EA /* MainSplitViewController.m in Sources */,
 				4F646A5F26B7D05E00BEDB38 /* UIImageView+setAsyncImage.m in Sources */,

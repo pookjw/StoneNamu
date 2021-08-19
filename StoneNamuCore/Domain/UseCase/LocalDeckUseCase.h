@@ -25,7 +25,6 @@ static NSString * const LocalDeckUseCaseDeleteAllNotificationName = @"LocalDeckU
 - (void)deleteLocalDeck:(LocalDeck *)localDeck;
 - (void)deleteAllLocalDecks;
 - (LocalDeck *)makeLocalDeck;
-- (LocalDeck *)makeLocalDeckFromHSDeck:(HSDeck *)hsDeck;
 @end
 
 NS_ASSUME_NONNULL_END

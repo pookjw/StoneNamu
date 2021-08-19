@@ -18,7 +18,7 @@
                 [collectionView deselectItemAtIndexPath:indexPath animated:YES];
             } completion:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
                 if (context.isCancelled) {
-                    [collectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionLeft];
+                    [collectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionNone];
                 }
             }];
         } else {

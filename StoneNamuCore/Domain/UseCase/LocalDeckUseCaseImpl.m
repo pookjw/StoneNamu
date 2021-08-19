@@ -53,24 +53,6 @@
     return [self.localDeckRepository makeLocalDeck];
 }
 
-- (LocalDeck *)makeLocalDeckFromHSDeck:(HSDeck *)hsDeck {
-    LocalDeck *localDeck = [self makeLocalDeck];
-    
-    NSMutableArray<NSNumber *> *cards = [@[] mutableCopy];
-    [hsDeck.cards enumerateObjectsUsingBlock:^(HSCard * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        [cards addObject:[NSNumber numberWithUnsignedInteger:obj.cardId]];
-    }];
-    localDeck.cards = cards;
-    [cards release];
-    
-    localDeck.isWild = [NSNumber numberWithBool:[hsDeck.format isEqualToString:HSDeckFormatWild]];
-    localDeck.classId = [NSNumber numberWithUnsignedInteger:hsDeck.classId];
-    localDeck.deckCode = [[hsDeck.deckCode copy] autorelease];
-    localDeck.name = nil;
-    
-    return localDeck;
-}
-
 - (void)saveChanges {
     [self.localDeckRepository saveChanges];
 }

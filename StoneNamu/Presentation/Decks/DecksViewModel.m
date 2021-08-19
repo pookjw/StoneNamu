@@ -37,9 +37,10 @@
         [localDeckUseCase fetchWithCompletion:^(NSArray<LocalDeck *> * _Nullable localDeck, NSError * _Nullable error) {
             [self requestDataSourceWithLocalDecks:localDeck];
         }];
-        [self startLocalDeckObserving];
         
         [localDeckUseCase release];
+        
+        [self startLocalDeckObserving];
     }
     
     return self;
@@ -62,17 +63,73 @@
         }
         
         if (hsDeck) {
-            LocalDeck *localDeck = [self.localDeckUseCase makeLocalDeckFromHSDeck:hsDeck];
-            [self.localDeckUseCase saveChanges];
-            completion(localDeck.objectID, hsDeck, error);
+            [hsDeck retain];
+            [self makeLocalDeckWithHSDeck:hsDeck completion:^(LocalDeck * _Nonnull localDeck) {
+                completion(localDeck, [hsDeck autorelease], error);
+            }];
         }
     }];
 }
 
-- (void)testFetchUsingObjectId:(NSManagedObjectID *)objectId {
-    [self.localDeckUseCase fetchWithObjectId:objectId completion:^(LocalDeck * _Nullable localDeck) {
-        NSLog(@"LocalDeck result: %@", localDeck);
+/**
+ Use this method to make a new LocalDeck object.
+ This method also makes new DecksItemModel into NSDiffableDataSourceSnapshot immediately. It's handy for select cell item on UICollectionView when LocalDeck is created.
+ */
+- (void)makeLocalDeckWithCompletion:(DecksViewModelMakeLocalDeckCompletion)completion {
+    [self makeLocalDeckWithHSDeck:nil completion:completion];
+}
+
+- (void)makeLocalDeckWithHSDeck:(HSDeck * _Nullable)hsDeck completion:(DecksViewModelMakeLocalDeckCompletion)completion {
+    HSDeck * _Nullable copyHSDeck = [hsDeck copy];
+    
+    [self.queue addBarrierBlock:^{
+        NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
+        
+        DecksSectionModel * _Nullable sectionModel = nil;
+        
+        for (DecksSectionModel *tmpSectionModel in snapshot.sectionIdentifiers) {
+            if (tmpSectionModel.type == DecksSectionModelTypeNoName) {
+                sectionModel = tmpSectionModel;
+                break;
+            }
+        }
+        
+        if (sectionModel == nil) {
+            [snapshot release];
+            return;
+        }
+        
+        LocalDeck *localDeck = [self.localDeckUseCase makeLocalDeck];
+        
+        if (copyHSDeck) {
+            [localDeck setValuesAsHSDeck:copyHSDeck];
+        }
+        [copyHSDeck release];
+        
+        DecksItemModel *itemModel = [[DecksItemModel alloc] initWithType:DecksItemModelTypeDeck localDeck:localDeck];
+        
+        [snapshot appendItemsWithIdentifiers:@[itemModel] intoSectionWithIdentifier:sectionModel];
+        [itemModel release];
+        
+        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+            [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
+                [snapshot release];
+                [self.localDeckUseCase saveChanges];
+                completion(localDeck);
+            }];
+        }];
     }];
+}
+
+- (NSIndexPath * _Nullable)indexPathForLocalDeck:(LocalDeck *)localDeck {
+    for (DecksItemModel *itemModel in self.dataSource.snapshot.itemIdentifiers) {
+        if ([itemModel.localDeck isEqual:localDeck]) {
+            NSIndexPath *indexPath = [self.dataSource indexPathForItemIdentifier:itemModel];
+            return indexPath;
+        }
+    }
+    
+    return nil;
 }
 
 - (void)requestDataSourceWithLocalDecks:(NSArray<LocalDeck *> *)localDecks {
@@ -89,7 +146,7 @@
         NSMutableArray<DecksItemModel *> *itemModels = [@[] mutableCopy];
         
         for (LocalDeck *localDeck in localDecks) {
-            DecksItemModel *itemModel = [[DecksItemModel alloc] initWithType:DecksItemModelTypeDeck objectId:localDeck.objectID];
+            DecksItemModel *itemModel = [[DecksItemModel alloc] initWithType:DecksItemModelTypeDeck localDeck:localDeck];
             [itemModels addObject:itemModel];
             [itemModel release];
         }

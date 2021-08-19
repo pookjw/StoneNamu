@@ -47,4 +47,18 @@
     self.cardsData = cardsData;
 }
 
+- (void)setValuesAsHSDeck:(HSDeck *)hsDeck {
+    NSMutableArray<NSNumber *> *cards = [@[] mutableCopy];
+    [hsDeck.cards enumerateObjectsUsingBlock:^(HSCard * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [cards addObject:[NSNumber numberWithUnsignedInteger:obj.cardId]];
+    }];
+    self.cards = cards;
+    [cards release];
+    
+    self.isWild = [NSNumber numberWithBool:[hsDeck.format isEqualToString:HSDeckFormatWild]];
+    self.classId = [NSNumber numberWithUnsignedInteger:hsDeck.classId];
+    self.deckCode = [[hsDeck.deckCode copy] autorelease];
+    self.name = nil;
+}
+
 @end

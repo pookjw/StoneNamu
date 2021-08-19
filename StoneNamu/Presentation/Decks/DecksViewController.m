@@ -9,6 +9,7 @@
 #import "DecksViewModel.h"
 #import "DeckDetailsViewController.h"
 #import "UIViewController+presentErrorAlert.h"
+#import "UIViewController+animatedForSelectedIndexPath.h"
 
 @interface DecksViewController () <UICollectionViewDelegate>
 @property (retain) UICollectionView *collectionView;
@@ -33,6 +34,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self configureNavigation];
+    [self animatedForSelectedIndexPathWithCollectionView:self.collectionView];
 }
 
 - (void)setAttributes {
@@ -49,7 +51,11 @@
                             image:[UIImage systemImageNamed:@"plus.square"]
                        identifier:nil
                           handler:^(__kindof UIAction * _Nonnull action) {
-            
+            [self.viewModel makeLocalDeckWithCompletion:^(LocalDeck * _Nonnull localDeck) {
+                [NSOperationQueue.mainQueue addOperationWithBlock:^{
+                    [self presentDeckDetailsWithLocalDeck:localDeck];
+                }];
+            }];
         }],
         
         [UIAction actionWithTitle:NSLocalizedString(@"LOAD_FROM_DECK_CODE", @"")
@@ -123,7 +129,7 @@
         DecksItemModel *itemModel = (DecksItemModel *)item;
         
         UIListContentConfiguration *configuration = [UIListContentConfiguration subtitleCellConfiguration];
-        configuration.text = [NSString stringWithFormat:@"%lu", itemModel.objectId.hash];
+        configuration.text = [NSString stringWithFormat:@"%lu", itemModel.localDeck.hash];
         configuration.secondaryTextProperties.numberOfLines = 0;
         cell.contentConfiguration = configuration;
     }];
@@ -147,13 +153,13 @@
                                                           style:UIAlertActionStyleDefault
                                                         handler:^(UIAlertAction * _Nonnull action) {
         UITextField * _Nullable textField = alert.textFields.firstObject;
-        if (textField && textField.text) {
-            [self.viewModel fetchDeckCode:textField.text completion:^(NSManagedObjectID * _Nonnull objectId, HSDeck * _Nullable hsDeck, NSError * _Nullable error) {
+        if (textField.text) {
+            [self.viewModel fetchDeckCode:textField.text completion:^(LocalDeck * _Nonnull localDeck, HSDeck * _Nullable hsDeck, NSError * _Nullable error) {
                 [NSOperationQueue.mainQueue addOperationWithBlock:^{
                     if (error) {
                         [self presentErrorAlertWithError:error];
                     } else {
-                        [self presentDeckDetailsWithObjectId:objectId hsDeck:hsDeck];
+                        [self presentDeckDetailsWithLocalDeck:localDeck];
                     }
                 }];
             }];
@@ -166,15 +172,20 @@
     [self presentViewController:alert animated:YES completion:^{}];
 }
 
-- (void)presentDeckDetailsWithObjectId:(NSManagedObjectID * _Nullable)objectId hsDeck:(HSDeck * _Nullable)hsDeck {
+- (void)presentDeckDetailsWithLocalDeck:(LocalDeck *)localDeck {
+    NSIndexPath *indexPath = [self.viewModel indexPathForLocalDeck:localDeck];
+    [self.collectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionNone];
     
+    DeckDetailsViewController *vc = [[DeckDetailsViewController alloc] initWithLocalDeck:localDeck];
+    [self.splitViewController showDetailViewController:vc sender:nil];
+    [vc release];
 }
 
 #pragma mark UICollectionViewDelegate
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     DecksItemModel *itemModel = [self.viewModel.dataSource itemIdentifierForIndexPath:indexPath];
-    [self.viewModel testFetchUsingObjectId:itemModel.objectId];
+    [self presentDeckDetailsWithLocalDeck:itemModel.localDeck];
 }
 
 @end
