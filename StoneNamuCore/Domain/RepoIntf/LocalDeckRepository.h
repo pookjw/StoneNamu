@@ -15,11 +15,14 @@ typedef void (^LocalDeckRepositoryFetchWithObjectIdCompletion)(LocalDeck * _Null
 
 static NSString * const LocalDeckRepositoryObserveDataNotificationName = @"LocalDeckRepositoryObserveDataNotificationName";
 
+static NSString * const LocalDeckRepositoryDeleteAllNotificationName = @"LocalDeckRepositoryDeleteAllNotificationName";
+
 @protocol LocalDeckRepository <NSObject>
 - (void)saveChanges;
 - (void)fetchWithCompletion:(LocalDeckRepositoryFetchWithCompletion)completion;
 - (void)fetchWithObjectId:(NSManagedObjectID *)objectId completion:(LocalDeckRepositoryFetchWithObjectIdCompletion)completion;
 - (void)deleteLocalDeck:(LocalDeck *)localDeck;
+- (void)deleteAllLocalDecks;
 - (LocalDeck *)makeLocalDeck;
 @end
 

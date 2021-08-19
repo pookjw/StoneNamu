@@ -257,6 +257,10 @@
             [self.viewModel deleteAllCahces];
             [collectionView deselectItemAtIndexPath:indexPath animated:YES];
             break;
+        case PrefsItemModelTypeDeleteAllLocalDecks:
+            [self.viewModel deleteAllLocalDecks];
+            [collectionView deselectItemAtIndexPath:indexPath animated:YES];
+            break;
         case PrefsItemModelTypePookjwContributor:
             [self presentWebViewControllerWithURL:itemModel.singleWebPageURL];
             break;

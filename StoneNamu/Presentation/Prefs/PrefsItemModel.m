@@ -46,6 +46,8 @@
             return [UIImage systemImageNamed:@"globe"];
         case PrefsItemModelTypeDeleteAllCaches:
             return [UIImage systemImageNamed:@"trash"];
+        case PrefsItemModelTypeDeleteAllLocalDecks:
+            return [UIImage systemImageNamed:@"trash"];
         case PrefsItemModelTypePookjwContributor:
             return [UIImage imageNamed:@"pookjw"];
         case PrefsItemModelTypePnamuContributor:
@@ -61,6 +63,8 @@
             return NSLocalizedString(@"REGION", @"");
         case PrefsItemModelTypeDeleteAllCaches:
             return NSLocalizedString(@"DELETE_ALL_CACHES", @"");
+        case PrefsItemModelTypeDeleteAllLocalDecks:
+            return @"Remove All LocalDecks";
         case PrefsItemModelTypePookjwContributor:
             return NSLocalizedString(@"POOKJW", @"");
         case PrefsItemModelTypePnamuContributor:
@@ -88,6 +92,8 @@
 - (BOOL)hasDisclosure {
     switch (self.type) {
         case PrefsItemModelTypeDeleteAllCaches:
+            return NO;
+        case PrefsItemModelTypeDeleteAllLocalDecks:
             return NO;
         default:
             return YES;

@@ -87,8 +87,8 @@
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
             [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
                 [semaphore signal];
+                [snapshot release];
             }];
-            [snapshot release];
         }];
         
         [semaphore wait];

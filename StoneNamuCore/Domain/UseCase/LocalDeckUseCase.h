@@ -16,11 +16,14 @@ typedef void (^LocalDeckUseCaseFetchWithObjectIdCompletion)(LocalDeck * _Nullabl
 
 static NSString * const LocalDeckUseCaseObserveDataNotificationName = @"LocalDeckUseCaseObserveDataNotificationName";
 
+static NSString * const LocalDeckUseCaseDeleteAllNotificationName = @"LocalDeckUseCaseDeleteAllNotificationName";
+
 @protocol LocalDeckUseCase <NSObject>
 - (void)saveChanges;
 - (void)fetchWithCompletion:(LocalDeckUseCaseFetchWithCompletion)completion;
 - (void)fetchWithObjectId:(NSManagedObjectID *)objectId completion:(LocalDeckUseCaseFetchWithObjectIdCompletion)completion;
 - (void)deleteLocalDeck:(LocalDeck *)localDeck;
+- (void)deleteAllLocalDecks;
 - (LocalDeck *)makeLocalDeck;
 - (LocalDeck *)makeLocalDeckFromHSDeck:(HSDeck *)hsDeck;
 @end

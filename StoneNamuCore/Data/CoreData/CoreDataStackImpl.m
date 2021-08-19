@@ -6,6 +6,7 @@
 //
 
 #import "CoreDataStackImpl.h"
+#import "NSSemaphoreCondition.h"
 
 static NSMutableDictionary<NSString *, NSPersistentContainer *> * _Nullable kStoreContainers = nil;
 static NSMutableDictionary<NSString *, NSManagedObjectContext *> * _Nullable kContexts = nil;
@@ -81,12 +82,18 @@ static NSMutableDictionary<NSString *, NSOperationQueue *> * _Nullable kOperatio
     NSPersistentContainer *container = [class persistentContainerWithName:modelName managedObjectModel:model];
     [model release];
     
+    NSSemaphoreCondition *semaphore = [NSSemaphoreCondition new];
+    
     [container loadPersistentStoresWithCompletionHandler:^(NSPersistentStoreDescription * _Nonnull description, NSError * _Nullable error) {
+        [semaphore signal];
         
         if (error) {
             NSLog(@"%@", error.localizedDescription);
         }
     }];
+    
+    [semaphore wait];
+    [semaphore release];
     
     kStoreContainers[modelName] = container;
     _storeContainer = [container retain];
@@ -97,11 +104,15 @@ static NSMutableDictionary<NSString *, NSOperationQueue *> * _Nullable kOperatio
         kContexts = [@{} mutableCopy];
     }
     
-    if (kContexts[modelName] == nil) {
-        kContexts[modelName] = self.storeContainer.newBackgroundContext;
+    if (kContexts[modelName]) {
+        _context = [kContexts[modelName] retain];
+        return;
     }
     
-    _context = [kContexts[modelName] retain];
+    NSManagedObjectContext *context = self.storeContainer.newBackgroundContext;
+    kContexts[modelName] = context;
+    _context = [context retain];
+    [context release];
 }
 
 - (void)configureQueueWithModelName:(NSString *)modelName {
@@ -111,12 +122,14 @@ static NSMutableDictionary<NSString *, NSOperationQueue *> * _Nullable kOperatio
     
     if (kOperationQueues[modelName]) {
         _queue = [kOperationQueues[modelName] retain];
+        return;
     }
     
     NSOperationQueue *queue = [NSOperationQueue new];
     queue.qualityOfService = NSQualityOfServiceUserInitiated;
     kOperationQueues[modelName] = queue;
     _queue = [queue retain];
+    [queue release];
 }
 
 - (void)bind {
@@ -125,10 +138,12 @@ static NSMutableDictionary<NSString *, NSOperationQueue *> * _Nullable kOperatio
                                                name:NSManagedObjectContextDidSaveNotification
                                              object:self.context];
     
-    [NSNotificationCenter.defaultCenter addObserver:self
-                                           selector:@selector(didReceiveChangeEvent:)
-                                               name:NSPersistentCloudKitContainerEventChangedNotification
-                                             object:self.storeContainer];
+    if ([self.storeContainer isKindOfClass:[NSPersistentCloudKitContainer class]]) {
+        [NSNotificationCenter.defaultCenter addObserver:self
+                                               selector:@selector(didReceiveChangeEvent:)
+                                                   name:NSPersistentCloudKitContainerEventChangedNotification
+                                                 object:self.storeContainer];
+    }
 }
 
 - (void)didReceiveChangeEvent:(NSNotification *)notification {

@@ -11,11 +11,13 @@
 #import "BlizzardHSAPILocale.h"
 #import "DataCacheUseCaseImpl.h"
 #import "NSSemaphoreCondition.h"
+#import "LocalDeckUseCaseImpl.h"
 
 @interface PrefsViewModel ()
 @property (retain) NSOperationQueue *queue;
 @property (retain) id<PrefsUseCase> prefsUseCase;
 @property (retain) id<DataCacheUseCase> dataCacheUseCase;
+@property (retain) id<LocalDeckUseCase> localDeckUseCase;
 @end
 
 @implementation PrefsViewModel
@@ -41,6 +43,10 @@
         self.dataCacheUseCase = dataCacheUseCase;
         [dataCacheUseCase release];
         
+        LocalDeckUseCaseImpl *localDeckUseCase = [LocalDeckUseCaseImpl new];
+        self.localDeckUseCase = localDeckUseCase;
+        [localDeckUseCase release];
+        
         [self requestDataSource];
     }
     
@@ -53,6 +59,7 @@
     [_queue release];
     [_prefsUseCase release];
     [_dataCacheUseCase release];
+    [_localDeckUseCase release];
     [super dealloc];
 }
 
@@ -94,6 +101,10 @@
     [self.dataCacheUseCase deleteAllDataCaches];
 }
 
+- (void)deleteAllLocalDecks {
+    [self.localDeckUseCase deleteAllLocalDecks];
+}
+
 - (void)requestDataSource {
     [self.queue addBarrierBlock:^{
         NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
@@ -118,7 +129,8 @@
                        intoSectionWithIdentifier:searchPrefSection];
             
             [snapshot appendItemsWithIdentifiers:@[
-                [[[PrefsItemModel alloc] initWithType:PrefsItemModelTypeDeleteAllCaches] autorelease]
+                [[[PrefsItemModel alloc] initWithType:PrefsItemModelTypeDeleteAllCaches] autorelease],
+                [[[PrefsItemModel alloc] initWithType:PrefsItemModelTypeDeleteAllLocalDecks] autorelease]
             ]
                        intoSectionWithIdentifier:dataSection];
             
@@ -137,6 +149,7 @@
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
             [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
                 [semaphore signal];
+                [snapshot release];
                 
                 [self.prefsUseCase fetchWithCompletion:^(Prefs * _Nullable prefs, NSError * _Nullable error) {
                     if (prefs) {
@@ -148,8 +161,6 @@
                     [self observePrefs];
                 }];
             }];
-            
-            [snapshot release];
         }];
         
         [semaphore wait];
@@ -228,8 +239,8 @@
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
             [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
                 [semaphore signal];
+                [snapshot release];
             }];
-            [snapshot release];
         }];
         
         [semaphore wait];

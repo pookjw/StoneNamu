@@ -82,6 +82,8 @@
             }
         }
         
+        [nonnullOptions release];
+        
         if (@available(iOS 15.0, *)) {
             [snapshot reconfigureItemsWithIdentifiers:itemModels];
         } else {
@@ -89,11 +91,10 @@
         }
         
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
-            [self.dataSource applySnapshot:snapshot animatingDifferences:YES];
-            [snapshot release];
+            [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
+                [snapshot release];
+            }];
         }];
-        
-        [nonnullOptions release];
     }];
 }
 
@@ -201,8 +202,8 @@
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
             [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
                 [semaphore signal];
+                [snapshot release];
             }];
-            [snapshot release];
         }];
         
         [semaphore wait];

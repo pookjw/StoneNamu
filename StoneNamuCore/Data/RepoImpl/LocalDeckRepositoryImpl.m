@@ -45,6 +45,32 @@
     }];
 }
 
+- (void)deleteAllLocalDecks {
+    [self.coreDataStack.queue addBarrierBlock:^{
+        NSManagedObjectContext *context = self.coreDataStack.context;
+        
+        [context performBlockAndWait:^{
+            @autoreleasepool {
+                NSFetchRequest *fetchRequest = LocalDeck._fetchRequest;
+                NSBatchDeleteRequest *batchDelete = [[NSBatchDeleteRequest alloc] initWithFetchRequest:fetchRequest];
+                batchDelete.affectedStores = self.coreDataStack.storeContainer.persistentStoreCoordinator.persistentStores;
+                
+                NSError * _Nullable error = nil;
+                [self.coreDataStack.storeContainer.persistentStoreCoordinator executeRequest:batchDelete withContext:context error:&error];
+                [batchDelete release];
+                
+                if (error) {
+                    NSLog(@"%@", error.localizedDescription);
+                } else {
+                    [NSNotificationCenter.defaultCenter postNotificationName:LocalDeckRepositoryDeleteAllNotificationName
+                                                                      object:self
+                                                                    userInfo:nil];
+                }
+            }
+        }];
+    }];
+}
+
 - (void)fetchWithCompletion:(nonnull LocalDeckRepositoryFetchWithCompletion)completion {
     [self.coreDataStack.queue addBarrierBlock:^{
         NSManagedObjectContext *context = self.coreDataStack.context;

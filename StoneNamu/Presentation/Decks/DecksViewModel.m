@@ -37,6 +37,7 @@
         [localDeckUseCase fetchWithCompletion:^(NSArray<LocalDeck *> * _Nullable localDeck, NSError * _Nullable error) {
             [self requestDataSourceWithLocalDecks:localDeck];
         }];
+        [self startLocalDeckObserving];
         
         [localDeckUseCase release];
     }
@@ -102,7 +103,6 @@
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
             [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
                 [snapshot release];
-                [self startLocalDeckObserving];
             }];
         }];
     }];
@@ -113,6 +113,11 @@
                                            selector:@selector(localDeckChangesReceived:)
                                                name:LocalDeckUseCaseObserveDataNotificationName
                                              object:self.localDeckUseCase];
+    
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(localDeckChangesReceived:)
+                                               name:LocalDeckUseCaseDeleteAllNotificationName
+                                             object:nil];
 }
 
 - (void)localDeckChangesReceived:(NSNotification *)notification {

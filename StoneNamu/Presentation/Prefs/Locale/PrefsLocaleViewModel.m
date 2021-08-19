@@ -91,6 +91,7 @@
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
             [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
                 [semaphore signal];
+                [snapshot release];
                 
                 [self.prefsUseCase fetchWithCompletion:^(Prefs * _Nullable prefs, NSError * _Nullable error) {
                     if (prefs) {
@@ -102,8 +103,6 @@
                     [self observePrefs];
                 }];
             }];
-            
-            [snapshot release];
         }];
         
         [semaphore wait];
@@ -158,10 +157,10 @@
         
         NSSemaphoreCondition *semaphore = [NSSemaphoreCondition new];
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
-            [semaphore signal];
-            
-            [self.dataSource applySnapshot:snapshot animatingDifferences:YES];
-            [snapshot release];
+            [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
+                [semaphore signal];
+                [snapshot release];
+            }];
         }];
         
         [semaphore wait];

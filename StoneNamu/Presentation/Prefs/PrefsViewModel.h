@@ -20,6 +20,7 @@ typedef UICollectionViewDiffableDataSource<PrefsSectionModel *, PrefsItemModel *
 - (NSString * _Nullable)headerTextFromIndexPath:(NSIndexPath *)indexPath;
 - (NSString * _Nullable)footerTextFromIndexPath:(NSIndexPath *)indexPath;
 - (void)deleteAllCahces;
+- (void)deleteAllLocalDecks;
 @end
 
 NS_ASSUME_NONNULL_END

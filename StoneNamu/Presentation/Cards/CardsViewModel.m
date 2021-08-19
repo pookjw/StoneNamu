@@ -129,8 +129,9 @@
     NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
     [snapshot deleteAllItems];
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
-        [self.dataSource applySnapshot:snapshot animatingDifferences:NO];
-        [snapshot release];
+        [self.dataSource applySnapshot:snapshot animatingDifferences:NO completion:^{
+            [snapshot release];
+        }];
     }];
 }
 
@@ -207,8 +208,8 @@
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
             [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
                 [semaphore signal];
+                [snapshot release];
             }];
-            [snapshot release];
         }];
         
         [semaphore wait];

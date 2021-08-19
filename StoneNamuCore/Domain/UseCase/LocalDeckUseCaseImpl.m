@@ -37,6 +37,10 @@
     [self.localDeckRepository deleteLocalDeck:localDeck];
 }
 
+- (void)deleteAllLocalDecks {
+    [self.localDeckRepository deleteAllLocalDecks];
+}
+
 - (void)fetchWithCompletion:(nonnull LocalDeckUseCaseFetchWithCompletion)completion {
     [self.localDeckRepository fetchWithCompletion:completion];
 }
@@ -76,10 +80,21 @@
                                            selector:@selector(changesReceived:)
                                                name:LocalDeckRepositoryObserveDataNotificationName
                                              object:self.localDeckRepository];
+    
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(deleteAllEventReceived:)
+                                               name:LocalDeckRepositoryDeleteAllNotificationName
+                                             object:self.localDeckRepository];
 }
 
 - (void)changesReceived:(NSNotification *)notification {
     [NSNotificationCenter.defaultCenter postNotificationName:LocalDeckUseCaseObserveDataNotificationName
+                                                      object:self
+                                                    userInfo:nil];
+}
+
+- (void)deleteAllEventReceived:(NSNotification *)notification {
+    [NSNotificationCenter.defaultCenter postNotificationName:LocalDeckUseCaseDeleteAllNotificationName
                                                       object:self
                                                     userInfo:nil];
 }

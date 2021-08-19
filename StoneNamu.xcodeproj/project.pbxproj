@@ -36,6 +36,7 @@
 		4F34386726A37022001161FE /* HSCardRepositoryImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA05F7526A309C7000E93BC /* HSCardRepositoryImpl.m */; };
 		4F34386826A37029001161FE /* BlizzardTokenAPIImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F34383D26A36501001161FE /* BlizzardTokenAPIImpl.m */; };
 		4F34386926A37031001161FE /* BlizzardAPIImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA56BED26A213B2002D9FA0 /* BlizzardAPIImpl.m */; };
+		4F414B0126CED5480003A0CF /* NSSemaphoreCondition.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF3E0D626CA7F81002B20EA /* NSSemaphoreCondition.m */; };
 		4F449E9B26B178C4007CE04A /* HSCardClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F449E9A26B178C4007CE04A /* HSCardClass.m */; };
 		4F449E9E26B17D08007CE04A /* HSCardClass.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4F449EA026B17D08007CE04A /* HSCardClass.strings */; };
 		4F449EA626B187CA007CE04A /* HSCardCollectible.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4F449EA826B187CA007CE04A /* HSCardCollectible.strings */; };
@@ -126,7 +127,6 @@
 		4FF3E0CB26C9AE15002B20EA /* PhotosService.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF3E0CA26C9AE15002B20EA /* PhotosService.m */; };
 		4FF3E0CE26C9B84C002B20EA /* UIView+viewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF3E0CD26C9B84C002B20EA /* UIView+viewController.m */; };
 		4FF3E0D226CA6FB9002B20EA /* MainTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF3E0D126CA6FB9002B20EA /* MainTabBarController.m */; };
-		4FF3E0D726CA7F81002B20EA /* NSSemaphoreCondition.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF3E0D626CA7F81002B20EA /* NSSemaphoreCondition.m */; };
 		4FF3E0DB26CA947D002B20EA /* MainSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF3E0DA26CA947D002B20EA /* MainSplitViewController.m */; };
 		4FF3E0DF26CA9C82002B20EA /* CardsSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF3E0DE26CA9C82002B20EA /* CardsSplitViewController.m */; };
 		4FF676CF26AAFC6A00477272 /* CardsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF676CE26AAFC6A00477272 /* CardsViewController.m */; };
@@ -532,6 +532,8 @@
 			children = (
 				4F2438F826CD9E8A0041BB84 /* StoneNamuCoreErrors.h */,
 				4F2438F926CD9E8A0041BB84 /* StoneNamuCoreErrors.m */,
+				4FF3E0D526CA7F81002B20EA /* NSSemaphoreCondition.h */,
+				4FF3E0D626CA7F81002B20EA /* NSSemaphoreCondition.m */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -1022,8 +1024,6 @@
 		4FF3E0D426CA7F69002B20EA /* Util */ = {
 			isa = PBXGroup;
 			children = (
-				4FF3E0D526CA7F81002B20EA /* NSSemaphoreCondition.h */,
-				4FF3E0D626CA7F81002B20EA /* NSSemaphoreCondition.m */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -1289,6 +1289,7 @@
 				4F34386526A3700C001161FE /* BlizzardAPIRegionHost.m in Sources */,
 				4FB8510326C18DE200E3C89D /* NSManagedObject+_fetchRequest.m in Sources */,
 				4FFDD66926CACB30008E5B45 /* LocalDeckModel.xcdatamodeld in Sources */,
+				4F414B0126CED5480003A0CF /* NSSemaphoreCondition.m in Sources */,
 				4FFDD66326CAC9B4008E5B45 /* LocalDeck.m in Sources */,
 				4FFDD68126CADB2D008E5B45 /* HSCardHero.m in Sources */,
 				4F646A7226B7DFB500BEDB38 /* CoreDataStackImpl.m in Sources */,
@@ -1370,7 +1371,6 @@
 				4FEB414126BD6133009D8594 /* CardDetailsBasicContentConfiguration.m in Sources */,
 				4FA9047D26B6E2A000CD6147 /* CardContentConfiguration.m in Sources */,
 				4F98E25E26B9AB110067846F /* CardDetailsItemModel.m in Sources */,
-				4FF3E0D726CA7F81002B20EA /* NSSemaphoreCondition.m in Sources */,
 				4FFDD65026CAC0F7008E5B45 /* UIScrollView+scrollToTop.m in Sources */,
 				4FFDD65826CAC419008E5B45 /* DecksViewController.m in Sources */,
 				4F2438F026CD8DE40041BB84 /* DecksItemModel.m in Sources */,

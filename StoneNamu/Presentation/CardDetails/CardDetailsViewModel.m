@@ -89,9 +89,9 @@
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
             [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
                 [semaphore signal];
+                [snapshot release];
                 [self loadChildCardsWithHSCard:hsCard];
             }];
-            [snapshot release];
         }];
         
         [semaphore wait];

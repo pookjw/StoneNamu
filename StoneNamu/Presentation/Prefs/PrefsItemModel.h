@@ -13,6 +13,7 @@ typedef NS_ENUM(NSUInteger, PrefsItemModelType) {
     PrefsItemModelTypeLocaleSelection,
     PrefsItemModelTypeRegionSelection,
     PrefsItemModelTypeDeleteAllCaches,
+    PrefsItemModelTypeDeleteAllLocalDecks,
     PrefsItemModelTypePookjwContributor,
     PrefsItemModelTypePnamuContributor
 };
