@@ -50,13 +50,46 @@
                                                                         action:nil];
     self.addBarButtonItem = addBarButtonItem;
     
+    //
+    
+    NSDictionary<NSString *, NSString *> *hsCardClasses = hsCardClassesWithTenClassesWithLocalizable();
+    NSArray<NSString *> *hsCardClassesKeys = [hsCardClasses.allKeys sortedArrayUsingComparator:^NSComparisonResult(NSString *obj1, NSString *obj2) {
+        HSCardClass class1 = HSCardClassFromNSString(obj1);
+        HSCardClass class2 = HSCardClassFromNSString(obj2);
+        
+        if (class1 > class2) {
+            return NSOrderedDescending;
+        } else if (class1 < class2) {
+            return NSOrderedAscending;
+        } else {
+            return NSOrderedSame;
+        }
+    }];
+    
+    NSMutableArray<UIAction *> *classSelectionActions = [@[] mutableCopy];
+    
+    for (NSString *key in hsCardClassesKeys) {
+        @autoreleasepool {
+            UIAction *action = [UIAction actionWithTitle:hsCardClasses[key]
+                                                   image:nil
+                                              identifier:nil
+                                                 handler:^(__kindof UIAction * _Nonnull action) {
+                [self.viewModel makeLocalDeckWithClass:HSCardClassFromNSString(key) completion:^(LocalDeck * _Nonnull localDeck) {
+                    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+                        [self presentDeckDetailsWithLocalDeck:localDeck];
+                    }];
+                }];
+            }];
+            [classSelectionActions addObject:action];
+        }
+    }
+    
+    UIMenu *classSelectionMenu = [UIMenu menuWithTitle:NSLocalizedString(@"CREATE_NEW_DECK", @"")
+                                              children:classSelectionActions];
+    [classSelectionActions release];
+    
     addBarButtonItem.menu = [UIMenu menuWithChildren:@[
-        [UIAction actionWithTitle:NSLocalizedString(@"CREATE_NEW_DECK", "")
-                            image:[UIImage systemImageNamed:@"plus.square"]
-                       identifier:nil
-                          handler:^(__kindof UIAction * _Nonnull action) {
-            [self presentClassSelectionAndMakeLocalDeck];
-        }],
+        classSelectionMenu,
         
         [UIAction actionWithTitle:NSLocalizedString(@"LOAD_FROM_DECK_CODE", @"")
                             image:[UIImage systemImageNamed:@"arrow.down.square"]
@@ -129,59 +162,12 @@
         DecksItemModel *itemModel = (DecksItemModel *)item;
         
         UIListContentConfiguration *configuration = [UIListContentConfiguration subtitleCellConfiguration];
-        configuration.text = [NSString stringWithFormat:@"%lu", itemModel.localDeck.hash];
+        configuration.text = NSStringFromHSCardClass(itemModel.localDeck.classId.unsignedIntegerValue);
         configuration.secondaryTextProperties.numberOfLines = 0;
         cell.contentConfiguration = configuration;
     }];
     
     return cellRegistration;
-}
-
-- (void)presentClassSelectionAndMakeLocalDeck {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"SELECT_CLASS_MESSAGE", @"")
-                                                                   message:nil
-                                                            preferredStyle:UIAlertControllerStyleActionSheet];
-    
-    NSDictionary<NSString *, NSString *> *hsCardClasses = hsCardClassesWithTenClassesWithLocalizable();
-    NSArray<NSString *> *hsCardClassesKeys = [hsCardClasses.allKeys sortedArrayUsingComparator:^NSComparisonResult(NSString *obj1, NSString *obj2) {
-        HSCardClass class1 = HSCardClassFromNSString(obj1);
-        HSCardClass class2 = HSCardClassFromNSString(obj2);
-        
-        if (class1 > class2) {
-            return NSOrderedDescending;
-        } else if (class1 < class2) {
-            return NSOrderedAscending;
-        } else {
-            return NSOrderedSame;
-        }
-    }];
-    
-    for (NSString *key in hsCardClassesKeys) {
-        NSString *localizable = hsCardClasses[key];
-        UIAlertAction *action = [UIAlertAction actionWithTitle:localizable
-                                                         style:UIAlertActionStyleDefault
-                                                       handler:^(UIAlertAction * _Nonnull action) {
-            [self.viewModel makeLocalDeckWithClass:HSCardClassFromNSString(key) completion:^(LocalDeck * _Nonnull localDeck) {
-                [NSOperationQueue.mainQueue addOperationWithBlock:^{
-                    [self presentDeckDetailsWithLocalDeck:localDeck];
-                }];
-            }];
-        }];
-        
-        [alert addAction:action];
-    }
-    
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"CANCEL", @"")
-                                                           style:UIAlertActionStyleCancel
-                                                         handler:^(UIAlertAction * _Nonnull action) {}];
-    [alert addAction:cancelAction];
-    
-    //
-    
-    UIPopoverPresentationController *pc = [alert popoverPresentationController];
-    pc.barButtonItem = self.addBarButtonItem;
-    
-    [self presentViewController:alert animated:YES completion:^{}];
 }
 
 - (void)presentTextFieldAndFetchDeckCode {
