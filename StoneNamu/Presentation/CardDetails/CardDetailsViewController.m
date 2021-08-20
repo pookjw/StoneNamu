@@ -309,20 +309,7 @@
 }
 
 - (NSArray<UIDragItem *> *)makeDragItemsForPrimaryImageView {
-    NSItemProvider *itemProvider;
-    
-    if (self.primaryImageView.image) {
-        itemProvider = [[NSItemProvider alloc] initWithObject:self.primaryImageView.image];
-    } else {
-        itemProvider = [NSItemProvider new];
-    }
-    
-    UIDragItem *dragItem = [[UIDragItem alloc] initWithItemProvider:itemProvider];
-    [itemProvider release];
-    
-    dragItem.localObject = self.viewModel.hsCard;
-    
-    return @[dragItem];
+    return [self.viewModel makeDragItemFromImage:self.primaryImageView.image];
 }
 
 #pragma mark - UIViewControllerTransitioningDelegate

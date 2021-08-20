@@ -8,7 +8,7 @@
 #import "DeckDetailsViewController.h"
 #import "DeckDetailsViewModel.h"
 
-@interface DeckDetailsViewController () <UICollectionViewDelegate>
+@interface DeckDetailsViewController () <UICollectionViewDelegate, UICollectionViewDragDelegate, UICollectionViewDropDelegate>
 @property (retain) UICollectionView *collectionView;
 @property (retain) DeckDetailsViewModel *viewModel;
 @end
@@ -73,6 +73,8 @@
     
     collectionView.backgroundColor = UIColor.systemBackgroundColor;
     collectionView.delegate = self;
+    collectionView.dragDelegate = self;
+    collectionView.dropDelegate = self;
     
     [collectionView release];
 }
@@ -116,5 +118,27 @@
 }
 
 #pragma mark UICollectionViewDelegate
+
+#pragma mark UICollectionViewDragDelegate
+
+- (NSArray<UIDragItem *> *)collectionView:(UICollectionView *)collectionView itemsForBeginningDragSession:(id<UIDragSession>)session atIndexPath:(NSIndexPath *)indexPath {
+    return [self.viewModel makeDragItemFromIndexPath:indexPath];
+}
+
+- (NSArray<UIDragItem *> *)collectionView:(UICollectionView *)collectionView itemsForAddingToDragSession:(id<UIDragSession>)session atIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point {
+    return [self.viewModel makeDragItemFromIndexPath:indexPath];
+}
+
+#pragma mark UICollectionViewDropDelegate
+
+- (BOOL)collectionView:(UICollectionView *)collectionView canHandleDropSession:(id<UIDropSession>)session {
+    return [session canLoadObjectsOfClass:[HSCard class]];
+}
+
+- (void)collectionView:(UICollectionView *)collectionView performDropWithCoordinator:(id<UICollectionViewDropCoordinator>)coordinator {
+    [coordinator.session loadObjectsOfClass:[HSCard class] completion:^(NSArray<__kindof id<NSItemProviderReading>> * _Nonnull objects) {
+        NSLog(@"%@", [objects.firstObject name]);
+    }];
+}
 
 @end

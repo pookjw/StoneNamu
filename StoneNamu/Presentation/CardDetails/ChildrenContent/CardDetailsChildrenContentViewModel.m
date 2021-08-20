@@ -41,20 +41,20 @@
     
     if (itemModel == nil) return @[];
     
-    NSItemProvider *itemProvider;
-    
     if (image) {
-        itemProvider = [[NSItemProvider alloc] initWithObject:image];
+        NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithObject:image];
+        [itemProvider registerObject:itemModel.hsCard visibility:NSItemProviderRepresentationVisibilityOwnProcess];
+        UIDragItem *dragItem = [[UIDragItem alloc] initWithItemProvider:itemProvider];
+        [itemProvider release];
+        
+        return @[[dragItem autorelease]];
     } else {
-        itemProvider = [NSItemProvider new];
+        NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithObject:itemModel.hsCard];
+        UIDragItem *dragItem = [[UIDragItem alloc] initWithItemProvider:itemProvider];
+        [itemProvider release];
+        
+        return @[[dragItem autorelease]];
     }
-    
-    UIDragItem *dragItem = [[UIDragItem alloc] initWithItemProvider:itemProvider];
-    [itemProvider release];
-    
-    dragItem.localObject = itemModel.hsCard;
-    
-    return @[[dragItem autorelease]];
 }
 
 - (void)requestChildCards:(NSArray<HSCard *> *)childCards {

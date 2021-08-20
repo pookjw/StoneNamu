@@ -57,6 +57,27 @@
     [_hsCardUseCase release];
     [super dealloc];
 }
+- (void)addHSCard:(HSCard *)hsCard {
+    
+}
+
+- (void)removeHSCard:(HSCard *)hsCard {
+    
+}
+
+- (NSArray<UIDragItem *> *)makeDragItemFromIndexPath:(NSIndexPath *)indexPath {
+    DeckDetailsItemModel * _Nullable itemModel = [self.dataSource itemIdentifierForIndexPath:indexPath];
+    
+    if (itemModel == nil) return @[];
+    
+    NSItemProvider *itemProvider = [NSItemProvider new];
+    UIDragItem *dragItem = [[UIDragItem alloc] initWithItemProvider:itemProvider];
+    [itemProvider release];
+    
+    dragItem.localObject = itemModel.hsCard;
+    
+    return @[[dragItem autorelease]];
+}
 
 - (void)requestDataSourcdWithLocalDeck:(LocalDeck *)localDeck {
     [localDeck retain];

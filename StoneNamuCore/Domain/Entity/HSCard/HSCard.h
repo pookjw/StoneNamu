@@ -16,9 +16,11 @@
 #import "HSCardGameMode.h"
 #import "HSCardSort.h"
 
+#define kHSCardType @"kHSCardType"
+
 NS_ASSUME_NONNULL_BEGIN
 
-@interface HSCard : NSObject <NSCopying>
+@interface HSCard : NSObject <NSCopying, NSCoding, NSSecureCoding, NSItemProviderWriting, NSItemProviderReading>
 @property (readonly) NSUInteger cardId;
 @property (readonly) HSCardCollectible collectible;
 @property (readonly, copy) NSString *slug;

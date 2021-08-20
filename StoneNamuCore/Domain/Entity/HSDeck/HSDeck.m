@@ -27,20 +27,6 @@
     return [self.deckCode isEqualToString:toCompare.deckCode];
 }
 
-- (id)copyWithZone:(NSZone *)zone {
-    id copy = [[self class] new];
-    
-    if (copy) {
-        HSDeck *_copy = (HSDeck *)copy;
-        _copy->_deckCode = [self.deckCode copyWithZone:zone];
-        _copy->_format = [self.format copyWithZone:zone];
-        _copy->_classId = self.classId;
-        _copy->_cards = [self.cards copyWithZone:zone];
-    }
-    
-    return copy;
-}
-
 + (HSDeck * _Nullable)hsDeckFromDic:(NSDictionary *)dic error:(NSError ** _Nullable)error {
     HSDeck *hsDeck = [HSDeck new];
     
@@ -60,6 +46,22 @@
     hsDeck->_cards = [[HSCard hsCardsFromDic:dic] copy];
     
     return [hsDeck autorelease];
+}
+
+#pragma mark NSCopying
+
+- (id)copyWithZone:(NSZone *)zone {
+    id copy = [[self class] new];
+    
+    if (copy) {
+        HSDeck *_copy = (HSDeck *)copy;
+        _copy->_deckCode = [self.deckCode copyWithZone:zone];
+        _copy->_format = [self.format copyWithZone:zone];
+        _copy->_classId = self.classId;
+        _copy->_cards = [self.cards copyWithZone:zone];
+    }
+    
+    return copy;
 }
 
 @end

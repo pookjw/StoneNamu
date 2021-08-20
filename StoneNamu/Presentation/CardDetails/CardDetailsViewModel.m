@@ -99,6 +99,23 @@
     }];
 }
 
+- (NSArray<UIDragItem *> *)makeDragItemFromImage:(UIImage * _Nullable)image {
+    if (image) {
+        NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithObject:image];
+        [itemProvider registerObject:self.hsCard visibility:NSItemProviderRepresentationVisibilityOwnProcess];
+        UIDragItem *dragItem = [[UIDragItem alloc] initWithItemProvider:itemProvider];
+        [itemProvider release];
+        
+        return @[[dragItem autorelease]];
+    } else {
+        NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithObject:self.hsCard];
+        UIDragItem *dragItem = [[UIDragItem alloc] initWithItemProvider:itemProvider];
+        [itemProvider release];
+        
+        return @[[dragItem autorelease]];
+    }
+}
+
 - (void)loadChildCardsWithHSCard:(HSCard *)hsCard {
     // won't be leaked
     #ifndef __clang_analyzer__

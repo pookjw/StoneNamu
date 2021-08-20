@@ -39,37 +39,6 @@
     return self.cardId ^ self.slug.hash;
 }
 
-- (id)copyWithZone:(NSZone *)zone {
-    id copy = [[self class] new];
-    
-    if (copy) {
-        HSCard *_copy = (HSCard *)copy;
-        _copy->_cardId = self->_cardId;
-        _copy->_collectible = self->_collectible;
-        _copy->_slug = [self->_slug copyWithZone:zone];
-        _copy->_classId = self->_classId;
-        _copy->_multiClassIds = [self->_multiClassIds copyWithZone:zone];
-        _copy->_minionTypeId = self->_minionTypeId;
-        _copy->_cardTypeId = self->_cardTypeId;
-        _copy->_cardSetId = self->_cardSetId;
-        _copy->_rarityId = self->_rarityId;
-        _copy->_artistName = [self->_artistName copyWithZone:zone];
-        _copy->_health = self->_health;
-        _copy->_attack = self->_attack;
-        _copy->_manaCost = self->_manaCost;
-        _copy->_name = [self->_name copyWithZone:zone];
-        _copy->_text = [self->_text copyWithZone:zone];
-        _copy->_image = [self->_image copyWithZone:zone];
-        _copy->_imageGold = [self->_imageGold copyWithZone:zone];
-        _copy->_flavorText = [self->_flavorText copyWithZone:zone];
-        _copy->_cropImage = [self->_cropImage copyWithZone:zone];
-        _copy->_childIds = [self->_childIds copyWithZone:zone];
-        _copy->_gameModes = [self->_gameModes copyWithZone:zone];
-    }
-    
-    return copy;
-}
-
 + (NSArray<HSCard *> *)hsCardsFromDic:(NSDictionary *)dic {
     NSArray *cards = dic[@"cards"];
     NSMutableArray *hsCards = [[@[] mutableCopy] autorelease];
@@ -103,7 +72,6 @@
     
     id classId = dic[@"classId"];
     if ([classId isEqual:[NSNull null]]) {
-        NSLog(@"Noti!!!%@", hsCard->_slug);
         hsCard->_classId = HSCardClassNeutral;
     } else {
         hsCard->_classId = [(NSNumber *)classId unsignedIntegerValue];
@@ -185,6 +153,139 @@
     //
     
     return [hsCard autorelease];
+}
+
+#pragma mark NSCopying
+
+- (id)copyWithZone:(NSZone *)zone {
+    id copy = [[self class] new];
+    
+    if (copy) {
+        HSCard *_copy = (HSCard *)copy;
+        _copy->_cardId = self->_cardId;
+        _copy->_collectible = self->_collectible;
+        _copy->_slug = [self->_slug copyWithZone:zone];
+        _copy->_classId = self->_classId;
+        _copy->_multiClassIds = [self->_multiClassIds copyWithZone:zone];
+        _copy->_minionTypeId = self->_minionTypeId;
+        _copy->_cardTypeId = self->_cardTypeId;
+        _copy->_cardSetId = self->_cardSetId;
+        _copy->_rarityId = self->_rarityId;
+        _copy->_artistName = [self->_artistName copyWithZone:zone];
+        _copy->_health = self->_health;
+        _copy->_attack = self->_attack;
+        _copy->_manaCost = self->_manaCost;
+        _copy->_name = [self->_name copyWithZone:zone];
+        _copy->_text = [self->_text copyWithZone:zone];
+        _copy->_image = [self->_image copyWithZone:zone];
+        _copy->_imageGold = [self->_imageGold copyWithZone:zone];
+        _copy->_flavorText = [self->_flavorText copyWithZone:zone];
+        _copy->_cropImage = [self->_cropImage copyWithZone:zone];
+        _copy->_childIds = [self->_childIds copyWithZone:zone];
+        _copy->_gameModes = [self->_gameModes copyWithZone:zone];
+    }
+    
+    return copy;
+}
+
+#pragma mark NSCoding
+
+- (instancetype)initWithCoder:(NSCoder *)coder {
+    id object = [[self class] new];
+    
+    if (object) {
+        HSCard *cardObject = (HSCard *)object;
+        cardObject->_cardId = [coder decodeIntegerForKey:@"cardId"];
+        cardObject->_collectible = [coder decodeIntegerForKey:@"collectible"];
+        cardObject->_slug = [[coder decodeObjectOfClass:[NSString class] forKey:@"slug"] copy];
+        cardObject->_classId = [coder decodeIntegerForKey:@"classId"];
+        cardObject->_multiClassIds = [[coder decodeObjectOfClass:[NSArray<NSNumber *> class] forKey:@"multiClassIds"] copy];
+        cardObject->_minionTypeId = [coder decodeIntegerForKey:@"minionTypeId"];
+        cardObject->_cardTypeId = [coder decodeIntegerForKey:@"cardTypeId"];
+        cardObject->_cardSetId = [coder decodeIntegerForKey:@"cardSetId"];
+        cardObject->_rarityId = [coder decodeIntegerForKey:@"rarityId"];
+        cardObject->_artistName = [[coder decodeObjectOfClass:[NSString class] forKey:@"artistName"] copy];
+        cardObject->_health = [coder decodeIntegerForKey:@"health"];
+        cardObject->_attack = [coder decodeIntegerForKey:@"attack"];
+        cardObject->_manaCost = [coder decodeIntegerForKey:@"manaCost"];
+        cardObject->_name = [[coder decodeObjectOfClass:[NSString class] forKey:@"name"] copy];
+        cardObject->_text = [[coder decodeObjectOfClass:[NSString class] forKey:@"text"] copy];
+        cardObject->_image = [[coder decodeObjectOfClass:[NSURL class] forKey:@"image"] copy];
+        cardObject->_imageGold = [[coder decodeObjectOfClass:[NSURL class] forKey:@"imageGold"] copy];
+        cardObject->_flavorText = [[coder decodeObjectOfClass:[NSString class] forKey:@"flavorText"] copy];
+        cardObject->_cropImage = [[coder decodeObjectOfClass:[NSURL class] forKey:@"cropImage"] copy];
+        cardObject->_childIds = [[coder decodeObjectOfClass:[NSArray<NSNumber *> class] forKey:@"childIds"] copy];
+        cardObject->_gameModes = [[coder decodeObjectOfClass:[NSArray<NSNumber *> class] forKey:@"gameModes"] copy];
+    }
+    
+    return object;
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder {
+    [coder encodeInteger:self.cardId forKey:@"cardId"];
+    [coder encodeInteger:self.collectible forKey:@"collectible"];
+    [coder encodeObject:self.slug forKey:@"slug"];
+    [coder encodeInteger:self.classId forKey:@"classId"];
+    [coder encodeObject:self.multiClassIds forKey:@"multiClassIds"];
+    [coder encodeInteger:self.minionTypeId forKey:@"minionTypeId"];
+    [coder encodeInteger:self.cardTypeId forKey:@"cardTypeId"];
+    [coder encodeInteger:self.cardSetId forKey:@"cardSetId"];
+    [coder encodeObject:self.artistName forKey:@"artistName"];
+    [coder encodeInteger:self.health forKey:@"health"];
+    [coder encodeInteger:self.attack forKey:@"attack"];
+    [coder encodeInteger:self.manaCost forKey:@"manaCost"];
+    [coder encodeObject:self.name forKey:@"name"];
+    [coder encodeObject:self.text forKey:@"text"];
+    [coder encodeObject:self.image forKey:@"image"];
+    [coder encodeObject:self.imageGold forKey:@"imageGold"];
+    [coder encodeObject:self.flavorText forKey:@"flavorText"];
+    [coder encodeObject:self.cropImage forKey:@"cropImage"];
+    [coder encodeObject:self.childIds forKey:@"childIds"];
+    [coder encodeObject:self.gameModes forKey:@"gameModes"];
+}
+
+#pragma mark NSSecureCoding
+
++ (BOOL)supportsSecureCoding {
+    return YES;
+}
+
+#pragma mark NSItemProviderWriting
+
+- (nullable NSProgress *)loadDataWithTypeIdentifier:(nonnull NSString *)typeIdentifier forItemProviderCompletionHandler:(nonnull void (^)(NSData * _Nullable, NSError * _Nullable))completionHandler {
+    NSOperationQueue *queue = [NSOperationQueue new];
+    queue.qualityOfService = NSQualityOfServiceUserInitiated;
+    [queue addOperationWithBlock:^{
+        NSError * _Nullable error = nil;
+        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self requiringSecureCoding:YES error:&error];
+        completionHandler(data, error);
+    }];
+    
+    [queue autorelease];
+    return nil;
+}
+
++ (NSArray<NSString *> *)writableTypeIdentifiersForItemProvider {
+    return @[kHSCardType];
+}
+
+- (NSArray<NSString *> *)writableTypeIdentifiersForItemProvider {
+    return @[kHSCardType];
+}
+
+#pragma mark NSItemProviderReading
+
++ (instancetype)objectWithItemProviderData:(NSData *)data typeIdentifier:(NSString *)typeIdentifier error:(NSError * _Nullable *)outError {
+    NSSet *objectClasses = [NSSet setWithArray:@[NSNumber.class, NSArray.class, NSString.class, NSURL.class, HSCard.class]];
+    return [NSKeyedUnarchiver unarchivedObjectOfClasses:objectClasses fromData:data error:outError];
+}
+
++ (NSArray<NSString *> *)readableTypeIdentifiersForItemProvider {
+    return @[kHSCardType];
+}
+
+- (NSItemProviderRepresentationVisibility)itemProviderVisibilityForRepresentationWithTypeIdentifier:(NSString *)typeIdentifier {
+    return NSItemProviderRepresentationVisibilityOwnProcess;
 }
 
 @end
