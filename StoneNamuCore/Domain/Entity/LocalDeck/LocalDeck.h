@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (assign) NSString * _Nullable deckCode;
 @property (assign) NSString * _Nullable name;
 
-@property (assign, nonatomic) NSArray<NSNumber *> * _Nullable cards;
+@property (assign, nonatomic) NSArray<NSNumber *> *cards;
 
 - (void)setValuesAsHSDeck:(HSDeck *)hsDeck;
 @end

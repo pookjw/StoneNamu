@@ -18,7 +18,7 @@ typedef UICollectionViewDiffableDataSource<DeckDetailsSectionModel *, DeckDetail
 @property (retain) DecksDetailsDataSource *dataSource;
 - (instancetype)initWithDataSource:(DecksDetailsDataSource *)dataSource;
 - (void)requestDataSourcdWithLocalDeck:(LocalDeck *)localDeck;
-- (void)addHSCard:(HSCard *)hsCard;
+- (void)addHSCards:(NSArray<HSCard *> *)hsCards;
 - (void)removeHSCard:(HSCard *)hsCard;
 - (NSArray<UIDragItem *> *)makeDragItemFromIndexPath:(NSIndexPath *)indexPath;
 @end

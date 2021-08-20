@@ -137,7 +137,7 @@
 
 - (void)collectionView:(UICollectionView *)collectionView performDropWithCoordinator:(id<UICollectionViewDropCoordinator>)coordinator {
     [coordinator.session loadObjectsOfClass:[HSCard class] completion:^(NSArray<__kindof id<NSItemProviderReading>> * _Nonnull objects) {
-        NSLog(@"%@", [objects.firstObject name]);
+        [self.viewModel addHSCards:objects];
     }];
 }
 

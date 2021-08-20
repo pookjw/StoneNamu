@@ -57,28 +57,57 @@
     [_hsCardUseCase release];
     [super dealloc];
 }
-- (void)addHSCard:(HSCard *)hsCard {
-//    HSCard *copyHSCard = [hsCard copy];
-//    
-//    [self.queue addBarrierBlock:^{
-//        NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
-//        
-//        DeckDetailsSectionModel * _Nullable cardsSectionModel = nil;
-//        
-//        for (DeckDetailsSectionModel *tmp in snapshot.sectionIdentifiers) {
-//            if (tmp.type == DeckDetailsSectionModelTypeCards) {
-//                cardsSectionModel = tmp;
-//                break;
-//            }
-//        }
-//        
-//        if (cardsSectionModel == nil) {
-//            [copyHSCard release];
-//            return;
-//        }
-//        
-//        [copyHSCard release];
-//    }];
+- (void)addHSCards:(NSArray<HSCard *> *)hsCards {
+    NSArray<HSCard *> *copyHSCards = [hsCards copy];
+
+    [self.queue addBarrierBlock:^{
+        NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
+
+        DeckDetailsSectionModel * _Nullable cardsSectionModel = nil;
+
+        for (DeckDetailsSectionModel *tmp in snapshot.sectionIdentifiers) {
+            if (tmp.type == DeckDetailsSectionModelTypeCards) {
+                cardsSectionModel = tmp;
+                break;
+            }
+        }
+
+        if (cardsSectionModel == nil) {
+            [copyHSCards release];
+            return;
+        }
+        
+        //
+        
+        NSMutableArray<DeckDetailsItemModel *> *cardsItemModels = [@[] mutableCopy];
+        
+        for (HSCard *hsCard in copyHSCards) {
+            if (![hsCard isKindOfClass:[HSCard class]]) continue;
+            DeckDetailsItemModel *cardItemModel = [[DeckDetailsItemModel alloc] initWithType:DeckDetailsItemModelTypeCard];
+            cardItemModel.hsCard = hsCard;
+            [cardsItemModels addObject:cardItemModel];
+            [cardItemModel release];
+        }
+        
+        [snapshot appendItemsWithIdentifiers:cardsItemModels intoSectionWithIdentifier:cardsSectionModel];
+        [cardsItemModels release];
+
+        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+            [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
+                [snapshot release];
+                
+                NSMutableArray<NSNumber *> *mutableCardIds = [self.localDeck.cards mutableCopy];
+                for (HSCard *hsCard in copyHSCards) {
+                    [mutableCardIds addObject:[NSNumber numberWithUnsignedInteger:hsCard.cardId]];
+                }
+                self.localDeck.cards = mutableCardIds;
+                [mutableCardIds release];
+                [self.localDeckUseCase saveChanges];
+                
+                [copyHSCards release];
+            }];
+        }];
+    }];
 }
 
 - (void)removeHSCard:(HSCard *)hsCard {
@@ -100,7 +129,7 @@
 }
 
 - (void)requestDataSourcdWithLocalDeck:(LocalDeck *)localDeck {
-    [localDeck retain];
+    self.localDeck = localDeck;
     
     [self.queue addBarrierBlock:^{
         if (localDeck.deckCode) {
@@ -142,13 +171,11 @@
             [cardIds release];
             [hsCards release];
             
-            [self updateDataSourceWithHSCards:hsCards];
+            [self updateDataSourceWithHSCards:results];
             [results autorelease];
         } else {
             [self updateDataSourceWithHSCards:@[]];
         }
-        
-        [localDeck release];
     }];
 }
 

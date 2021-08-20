@@ -15,9 +15,9 @@
 @dynamic deckCode;
 @dynamic name;
 
-- (NSArray<NSNumber *> * _Nullable)cards {
+- (NSArray<NSNumber *> *)cards {
     if (self.cardsData == nil) {
-        return nil;
+        return @[];
     }
     
     NSError * _Nullable error = nil;
@@ -26,13 +26,13 @@
     
     if (error) {
         NSLog(@"%@", error.localizedDescription);
-        return nil;
+        return @[];
     }
     
     return cards;
 }
 
-- (void)setCards:(NSArray<NSNumber *> * _Nullable)cards {
+- (void)setCards:(NSArray<NSNumber *> *)cards {
     NSError * _Nullable error = nil;
     NSArray<NSNumber *> *cardsCopy = [cards copy];
     
