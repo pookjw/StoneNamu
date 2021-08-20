@@ -58,7 +58,27 @@
     [super dealloc];
 }
 - (void)addHSCard:(HSCard *)hsCard {
-    
+//    HSCard *copyHSCard = [hsCard copy];
+//    
+//    [self.queue addBarrierBlock:^{
+//        NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
+//        
+//        DeckDetailsSectionModel * _Nullable cardsSectionModel = nil;
+//        
+//        for (DeckDetailsSectionModel *tmp in snapshot.sectionIdentifiers) {
+//            if (tmp.type == DeckDetailsSectionModelTypeCards) {
+//                cardsSectionModel = tmp;
+//                break;
+//            }
+//        }
+//        
+//        if (cardsSectionModel == nil) {
+//            [copyHSCard release];
+//            return;
+//        }
+//        
+//        [copyHSCard release];
+//    }];
 }
 
 - (void)removeHSCard:(HSCard *)hsCard {
@@ -125,7 +145,7 @@
             [self updateDataSourceWithHSCards:hsCards];
             [results autorelease];
         } else {
-            
+            [self updateDataSourceWithHSCards:@[]];
         }
         
         [localDeck release];
@@ -172,7 +192,42 @@
 }
 
 - (void)updateDataSourceWithHSCards:(NSArray<HSCard *> *)hsCards {
+    NSArray<HSCard *> *copyHSCards = [hsCards copy];
     
+    [self.queue addBarrierBlock:^{
+        NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
+        
+        [snapshot deleteAllItems];
+        
+        //
+        
+        DeckDetailsSectionModel *cardsSectionModel = [[DeckDetailsSectionModel alloc] initWithType:DeckDetailsSectionModelTypeCards];
+        [snapshot appendSectionsWithIdentifiers:@[cardsSectionModel]];
+        
+        NSMutableArray<DeckDetailsItemModel *> *cardItemModels = [@[] mutableCopy];
+        
+        for (HSCard *hsCard in copyHSCards) {
+            DeckDetailsItemModel *cardItemModel = [[DeckDetailsItemModel alloc] initWithType:DeckDetailsItemModelTypeCard];
+            cardItemModel.hsCard = hsCard;
+            [cardItemModels addObject:cardItemModel];
+            [cardItemModel release];
+        }
+        
+        [snapshot appendItemsWithIdentifiers:cardItemModels intoSectionWithIdentifier:cardsSectionModel];
+        
+        [cardsSectionModel release];
+        [cardItemModels release];
+        
+        //
+        
+        [copyHSCards release];
+        
+        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+            [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
+                [snapshot release];
+            }];
+        }];
+    }];
 }
 
 @end

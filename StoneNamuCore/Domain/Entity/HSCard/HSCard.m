@@ -191,7 +191,7 @@
 #pragma mark NSCoding
 
 - (instancetype)initWithCoder:(NSCoder *)coder {
-    id object = [[self class] new];
+    id object = [self init];
     
     if (object) {
         HSCard *cardObject = (HSCard *)object;
@@ -253,7 +253,7 @@
 #pragma mark NSItemProviderWriting
 
 - (nullable NSProgress *)loadDataWithTypeIdentifier:(nonnull NSString *)typeIdentifier forItemProviderCompletionHandler:(nonnull void (^)(NSData * _Nullable, NSError * _Nullable))completionHandler {
-    NSOperationQueue *queue = [NSOperationQueue new];
+    NSOperationQueue *queue = [[NSOperationQueue new] autorelease];
     queue.qualityOfService = NSQualityOfServiceUserInitiated;
     [queue addOperationWithBlock:^{
         NSError * _Nullable error = nil;
@@ -261,7 +261,6 @@
         completionHandler(data, error);
     }];
     
-    [queue autorelease];
     return nil;
 }
 

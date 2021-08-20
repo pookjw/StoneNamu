@@ -100,20 +100,24 @@
 }
 
 - (NSArray<UIDragItem *> *)makeDragItemFromImage:(UIImage * _Nullable)image {
+    UIDragItem *dragItem;
+    
     if (image) {
         NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithObject:image];
-        [itemProvider registerObject:self.hsCard visibility:NSItemProviderRepresentationVisibilityOwnProcess];
-        UIDragItem *dragItem = [[UIDragItem alloc] initWithItemProvider:itemProvider];
+        HSCard *copyHSCard = [self.hsCard copy];
+        [itemProvider registerObject:copyHSCard visibility:NSItemProviderRepresentationVisibilityOwnProcess];
+        [copyHSCard release];
+        dragItem = [[UIDragItem alloc] initWithItemProvider:itemProvider];
         [itemProvider release];
-        
-        return @[[dragItem autorelease]];
     } else {
-        NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithObject:self.hsCard];
-        UIDragItem *dragItem = [[UIDragItem alloc] initWithItemProvider:itemProvider];
+        HSCard *copyHSCard = [self.hsCard copy];
+        NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithObject:copyHSCard];
+        [copyHSCard release];
+        dragItem = [[UIDragItem alloc] initWithItemProvider:itemProvider];
         [itemProvider release];
-        
-        return @[[dragItem autorelease]];
     }
+    
+    return @[[dragItem autorelease]];
 }
 
 - (void)loadChildCardsWithHSCard:(HSCard *)hsCard {

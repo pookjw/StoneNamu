@@ -23,7 +23,7 @@
     
     if (copy) {
         CardContentConfiguration *_copy = (CardContentConfiguration *)copy;
-        _copy->_hsCard = [self->_hsCard copyWithZone:zone];
+        _copy->_hsCard = [self.hsCard copyWithZone:zone];
     }
     
     return copy;

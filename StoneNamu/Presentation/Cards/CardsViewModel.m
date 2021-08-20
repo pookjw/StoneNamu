@@ -159,20 +159,24 @@
     
     if (itemModel == nil) return @[];
     
+    UIDragItem *dragItem;
+    
     if (image) {
         NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithObject:image];
-        [itemProvider registerObject:itemModel.card visibility:NSItemProviderRepresentationVisibilityOwnProcess];
-        UIDragItem *dragItem = [[UIDragItem alloc] initWithItemProvider:itemProvider];
+        HSCard *copyHSCard = [itemModel.card copy];
+        [itemProvider registerObject:copyHSCard visibility:NSItemProviderRepresentationVisibilityOwnProcess];
+        [copyHSCard release];
+        dragItem = [[UIDragItem alloc] initWithItemProvider:itemProvider];
         [itemProvider release];
-        
-        return @[[dragItem autorelease]];
     } else {
-        NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithObject:itemModel.card];
-        UIDragItem *dragItem = [[UIDragItem alloc] initWithItemProvider:itemProvider];
+        HSCard *copyHSCard = [itemModel.card copy];
+        NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithObject:copyHSCard];
+        [copyHSCard release];
+        dragItem = [[UIDragItem alloc] initWithItemProvider:itemProvider];
         [itemProvider release];
-        
-        return @[[dragItem autorelease]];
     }
+    
+    return @[[dragItem autorelease]];
 }
 
 - (void)updateDataSourceWithCards:(NSArray<HSCard *> *)cards {
