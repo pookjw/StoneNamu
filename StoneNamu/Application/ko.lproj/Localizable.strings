@@ -107,3 +107,5 @@
 "FETCH" = "불러오기";
 
 "DECK_DETAIL" = "덱 상세";
+
+"SELECT_CLASS_MESSAGE" = "직업을 선택해 주세요.";

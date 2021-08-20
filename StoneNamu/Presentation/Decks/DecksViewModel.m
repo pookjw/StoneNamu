@@ -75,8 +75,40 @@
  Use this method to make a new LocalDeck object.
  This method also makes new DecksItemModel into NSDiffableDataSourceSnapshot immediately. It's handy for select cell item on UICollectionView when LocalDeck is created.
  */
-- (void)makeLocalDeckWithCompletion:(DecksViewModelMakeLocalDeckCompletion)completion {
-    [self makeLocalDeckWithHSDeck:nil completion:completion];
+- (void)makeLocalDeckWithClass:(HSCardClass)hsCardClass completion:(DecksViewModelMakeLocalDeckCompletion)completion {
+    [self.queue addBarrierBlock:^{
+        NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
+        
+        DecksSectionModel * _Nullable sectionModel = nil;
+        
+        for (DecksSectionModel *tmpSectionModel in snapshot.sectionIdentifiers) {
+            if (tmpSectionModel.type == DecksSectionModelTypeNoName) {
+                sectionModel = tmpSectionModel;
+                break;
+            }
+        }
+        
+        if (sectionModel == nil) {
+            [snapshot release];
+            return;
+        }
+        
+        LocalDeck *localDeck = [self.localDeckUseCase makeLocalDeck];
+        localDeck.classId = [NSNumber numberWithUnsignedInteger:hsCardClass];
+        
+        DecksItemModel *itemModel = [[DecksItemModel alloc] initWithType:DecksItemModelTypeDeck localDeck:localDeck];
+        
+        [snapshot appendItemsWithIdentifiers:@[itemModel] intoSectionWithIdentifier:sectionModel];
+        [itemModel release];
+        
+        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+            [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
+                [snapshot release];
+                [self.localDeckUseCase saveChanges];
+                completion(localDeck);
+            }];
+        }];
+    }];
 }
 
 - (void)makeLocalDeckWithHSDeck:(HSDeck * _Nullable)hsDeck completion:(DecksViewModelMakeLocalDeckCompletion)completion {

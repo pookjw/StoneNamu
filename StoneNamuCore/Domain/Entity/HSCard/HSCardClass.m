@@ -85,10 +85,41 @@ NSArray<NSString *> * hsCardClasses(void) {
     ];
 }
 
+NSArray<NSString *> * hsCardClassesWithTenClasses(void) {
+    return @[
+        NSStringFromHSCardClass(HSCardClassDemonHunter),
+        NSStringFromHSCardClass(HSCardClassDruid),
+        NSStringFromHSCardClass(HSCardClassHunter),
+        NSStringFromHSCardClass(HSCardClassMage),
+        NSStringFromHSCardClass(HSCardClassPaladin),
+        NSStringFromHSCardClass(HSCardClassPriest),
+        NSStringFromHSCardClass(HSCardClassRogue),
+        NSStringFromHSCardClass(HSCardClassShaman),
+        NSStringFromHSCardClass(HSCardClassWarlock),
+        NSStringFromHSCardClass(HSCardClassWarrior)
+    ];
+}
+
 NSDictionary<NSString *, NSString *>  * hsCardClassesWithLocalizable(void) {
     NSMutableDictionary<NSString *, NSString *> *dic = [@{} mutableCopy];
     
     [hsCardClasses() enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        dic[obj] = NSLocalizedStringFromTableInBundle(obj,
+                                                      @"HSCardClass",
+                                                      [NSBundle bundleWithIdentifier:@"com.pookjw.StoneNamuCore"],
+                                                      @"");
+    }];
+    
+    NSDictionary<NSString *, NSString *> *result = [[dic copy] autorelease];
+    [dic release];
+    
+    return result;
+}
+
+NSDictionary<NSString *, NSString *>  * hsCardClassesWithTenClassesWithLocalizable(void) {
+    NSMutableDictionary<NSString *, NSString *> *dic = [@{} mutableCopy];
+    
+    [hsCardClassesWithTenClasses() enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         dic[obj] = NSLocalizedStringFromTableInBundle(obj,
                                                       @"HSCardClass",
                                                       [NSBundle bundleWithIdentifier:@"com.pookjw.StoneNamuCore"],

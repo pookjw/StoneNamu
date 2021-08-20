@@ -13,7 +13,7 @@
     self = [self init];
     
     if (self) {
-        self->_hsCards = @[];
+        self->_hsCard = nil;
         self->_type = type;
     }
     
@@ -21,12 +21,12 @@
 }
 
 - (void)dealloc {
-    [_hsCards release];
+    [_hsCard release];
     [super dealloc];
 }
 
 - (NSUInteger)hash {
-    return self.hsCards.hash;
+    return self.type ^ self.hsCard.hash;
 }
 
 @end

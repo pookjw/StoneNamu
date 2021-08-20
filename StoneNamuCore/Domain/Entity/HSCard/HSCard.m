@@ -90,7 +90,10 @@
     HSCard *hsCard = [HSCard new];
     
     if (dic[@"id"] == nil) {
-        *error = InvalidHSCardError();
+        if (error) {
+            *error = InvalidHSCardError();
+        }
+        [hsCard release];
         return nil;
     }
     

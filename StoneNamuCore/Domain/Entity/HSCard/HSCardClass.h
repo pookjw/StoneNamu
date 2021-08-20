@@ -26,4 +26,7 @@ NSString * NSStringFromHSCardClass(HSCardClass);
 HSCardClass HSCardClassFromNSString(NSString *);
 
 NSArray<NSString *> * hsCardClasses(void);
+NSArray<NSString *> * hsCardClassesWithTenClasses(void);
+
 NSDictionary<NSString *, NSString *> * hsCardClassesWithLocalizable(void);
+NSDictionary<NSString *, NSString *> * hsCardClassesWithTenClassesWithLocalizable(void);

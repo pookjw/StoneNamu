@@ -11,12 +11,12 @@
 NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSUInteger, DeckDetailsItemModelType) {
-    DeckDetailsItemModelTypeCards
+    DeckDetailsItemModelTypeCard
 };
 
 @interface DeckDetailsItemModel : NSObject
 @property (readonly) DeckDetailsItemModelType type;
-@property (copy) NSArray<HSCard *> * _Nullable hsCards;
+@property (copy) HSCard * _Nullable hsCard;
 - (instancetype)initWithType:(DeckDetailsItemModelType)type;
 @end
 

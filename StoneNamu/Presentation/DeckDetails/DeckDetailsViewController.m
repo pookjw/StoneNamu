@@ -106,12 +106,7 @@
         DeckDetailsItemModel *itemModel = (DeckDetailsItemModel *)item;
         
         UIListContentConfiguration *configuration = [UIListContentConfiguration subtitleCellConfiguration];
-        NSMutableArray *texts = [@[] mutableCopy];
-        for (HSCard *hsCard in itemModel.hsCards) {
-            [texts addObject:hsCard.name];
-        }
-        configuration.text = [texts componentsJoinedByString:@"\n"];
-        [texts release];
+        configuration.text = itemModel.hsCard.name;
         
         configuration.secondaryTextProperties.numberOfLines = 0;
         cell.contentConfiguration = configuration;

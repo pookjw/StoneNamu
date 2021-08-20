@@ -45,7 +45,10 @@
     HSDeck *hsDeck = [HSDeck new];
     
     if (dic[@"deckCode"] == nil) {
-        *error = InvalidHSDeckError();
+        if (error) {
+            *error = InvalidHSDeckError();
+        }
+        [hsDeck release];
         return nil;
     }
     

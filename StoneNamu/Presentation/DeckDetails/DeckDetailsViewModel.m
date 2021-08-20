@@ -124,14 +124,19 @@
         DeckDetailsSectionModel *cardsSectionModel = [[DeckDetailsSectionModel alloc] initWithType:DeckDetailsSectionModelTypeCards];
         [snapshot appendSectionsWithIdentifiers:@[cardsSectionModel]];
         
-        DeckDetailsItemModel *cardsItemModel = [[DeckDetailsItemModel alloc] initWithType:DeckDetailsItemModelTypeCards];
-        cardsItemModel.hsCards = hsDeck.cards;
+        NSMutableArray<DeckDetailsItemModel *> *cardItemModels = [@[] mutableCopy];
         
-        [snapshot appendItemsWithIdentifiers:@[cardsItemModel]
-                   intoSectionWithIdentifier:cardsSectionModel];
+        for (HSCard *hsCard in hsDeck.cards) {
+            DeckDetailsItemModel *cardItemModel = [[DeckDetailsItemModel alloc] initWithType:DeckDetailsItemModelTypeCard];
+            cardItemModel.hsCard = hsCard;
+            [cardItemModels addObject:cardItemModel];
+            [cardItemModel release];
+        }
+        
+        [snapshot appendItemsWithIdentifiers:cardItemModels intoSectionWithIdentifier:cardsSectionModel];
         
         [cardsSectionModel release];
-        [cardsItemModel release];
+        [cardItemModels release];
         
         //
         
