@@ -16,10 +16,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (assign) NSNumber * _Nullable classId;
 @property (assign) NSString * _Nullable deckCode;
 @property (assign) NSString * _Nullable name;
+@property (assign) NSDate * _Nullable timestamp;
 
 @property (assign, nonatomic) NSArray<NSNumber *> *cards;
 
 - (void)setValuesAsHSDeck:(HSDeck *)hsDeck;
+- (void)updateTimestamp;
 @end
 
 NS_ASSUME_NONNULL_END

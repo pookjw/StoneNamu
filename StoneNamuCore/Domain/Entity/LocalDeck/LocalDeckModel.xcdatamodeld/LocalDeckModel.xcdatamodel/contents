@@ -7,8 +7,9 @@
         <attribute name="identity" optional="YES" attributeType="String"/>
         <attribute name="isWild" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
     </entity>
     <elements>
-        <element name="LocalDeck" positionX="-45" positionY="0" width="128" height="119"/>
+        <element name="LocalDeck" positionX="-45" positionY="0" width="128" height="134"/>
     </elements>
 </model>

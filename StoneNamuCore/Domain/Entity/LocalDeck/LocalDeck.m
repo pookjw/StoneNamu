@@ -14,6 +14,7 @@
 @dynamic classId;
 @dynamic deckCode;
 @dynamic name;
+@dynamic timestamp;
 
 - (NSArray<NSNumber *> *)cards {
     if (self.cardsData == nil) {
@@ -59,6 +60,10 @@
     self.classId = [NSNumber numberWithUnsignedInteger:hsDeck.classId];
     self.deckCode = [[hsDeck.deckCode copy] autorelease];
     self.name = nil;
+}
+
+- (void)updateTimestamp {
+    self.timestamp = [NSDate new];
 }
 
 @end

@@ -103,6 +103,7 @@
                 self.localDeck.cards = mutableCardIds;
                 [mutableCardIds release];
                 self.localDeck.deckCode = nil;
+                [self.localDeck updateTimestamp];
                 [self.localDeckUseCase saveChanges];
                 
                 [copyHSCards release];
@@ -146,6 +147,7 @@
                 self.localDeck.cards = mutableCards;
                 [mutableCards release];
                 self.localDeck.deckCode = nil;
+                [self.localDeck updateTimestamp];
                 [self.localDeckUseCase saveChanges];
                 
                 [copyHSCard release];

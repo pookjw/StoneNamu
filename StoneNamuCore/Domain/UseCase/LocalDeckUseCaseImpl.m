@@ -50,7 +50,9 @@
 }
 
 - (nonnull LocalDeck *)makeLocalDeck {
-    return [self.localDeckRepository makeLocalDeck];
+    LocalDeck *localDeck = [self.localDeckRepository makeLocalDeck];
+    [localDeck updateTimestamp];
+    return localDeck;
 }
 
 - (void)saveChanges {
