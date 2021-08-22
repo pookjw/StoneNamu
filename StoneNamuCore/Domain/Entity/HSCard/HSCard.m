@@ -155,6 +155,11 @@
     return [hsCard autorelease];
 }
 
++ (NSSet<Class> *)unarchvingClasses {
+    NSSet *objectClasses = [NSSet setWithArray:@[NSNumber.class, NSArray.class, NSString.class, NSURL.class, HSCard.class]];
+    return objectClasses;
+}
+
 #pragma mark NSCopying
 
 - (id)copyWithZone:(NSZone *)zone {
@@ -275,8 +280,7 @@
 #pragma mark NSItemProviderReading
 
 + (instancetype)objectWithItemProviderData:(NSData *)data typeIdentifier:(NSString *)typeIdentifier error:(NSError * _Nullable *)outError {
-    NSSet *objectClasses = [NSSet setWithArray:@[NSNumber.class, NSArray.class, NSString.class, NSURL.class, HSCard.class]];
-    return [NSKeyedUnarchiver unarchivedObjectOfClasses:objectClasses fromData:data error:outError];
+    return [NSKeyedUnarchiver unarchivedObjectOfClasses:HSCard.unarchvingClasses fromData:data error:outError];
 }
 
 + (NSArray<NSString *> *)readableTypeIdentifiersForItemProvider {

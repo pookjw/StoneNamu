@@ -42,6 +42,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly, copy) NSURL * _Nullable cropImage;
 @property (readonly, copy) NSArray<NSNumber *> *childIds;
 @property (readonly, copy) NSArray<NSNumber *> *gameModes;
+
+@property (class, readonly, nonatomic) NSSet<Class> *unarchvingClasses;
 + (HSCard * _Nullable)hsCardFromDic:(NSDictionary *)dic error:(NSError ** _Nullable)error;
 + (NSArray<HSCard *> *)hsCardsFromDic:(NSDictionary *)dic;
 @end
