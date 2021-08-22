@@ -107,3 +107,5 @@
 "FETCH" = "Fetch";
 
 "DECK_DETAIL" = "Deck Detail";
+
+"DECKCODE_FETCH_ERROR" = "Unable to get deck code.";

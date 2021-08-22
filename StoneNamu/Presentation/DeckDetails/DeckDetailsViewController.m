@@ -7,9 +7,11 @@
 
 #import "DeckDetailsViewController.h"
 #import "DeckDetailsViewModel.h"
+#import "UIViewController+presentErrorAlert.h"
 
 @interface DeckDetailsViewController () <UICollectionViewDelegate, UICollectionViewDragDelegate, UICollectionViewDropDelegate>
 @property (retain) UICollectionView *collectionView;
+@property (retain) UIBarButtonItem *exportBarButtonItem;
 @property (retain) DeckDetailsViewModel *viewModel;
 @end
 
@@ -28,6 +30,7 @@
 
 - (void)dealloc {
     [_collectionView release];
+    [_exportBarButtonItem release];
     [_viewModel release];
     [super dealloc];
 }
@@ -35,6 +38,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setAttributes];
+    [self configureRightBarButtonItems];
     [self configureCollectionView];
     [self configureViewModel];
 }
@@ -53,8 +57,35 @@
     self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
 }
 
+- (void)configureRightBarButtonItems {
+    UIBarButtonItem *exportBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"square.and.arrow.up"]
+                                                                            style:UIBarButtonItemStylePlain
+                                                                           target:self
+                                                                           action:@selector(exportBarButtonItemTriggered:)];
+    self.exportBarButtonItem = exportBarButtonItem;
+    
+    self.navigationItem.rightBarButtonItems = @[exportBarButtonItem];
+    
+    [exportBarButtonItem release];
+}
+
+- (void)exportBarButtonItemTriggered:(UIBarButtonItem *)sender {
+    [self.viewModel exportDeckCodeWithCompletion:^(NSString * _Nullable deckCode, NSError * _Nullable error) {
+        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+            if (error) {
+                [self presentErrorAlertWithError:error];
+            } else {
+                UIActivityViewController *activity = [[UIActivityViewController alloc] initWithActivityItems:@[deckCode] applicationActivities:nil];
+                activity.popoverPresentationController.barButtonItem = self.exportBarButtonItem;
+                [self presentViewController:activity animated:YES completion:^{}];
+            }
+        }];
+    }];
+}
+
 - (void)configureCollectionView {
     UICollectionLayoutListConfiguration *layoutConfiguration = [[UICollectionLayoutListConfiguration alloc] initWithAppearance:UICollectionLayoutListAppearanceInsetGrouped];
+    layoutConfiguration.trailingSwipeActionsConfigurationProvider = [self makeTrailingSwipeProvider];
     
     UICollectionViewCompositionalLayout *layout = [UICollectionViewCompositionalLayout layoutWithListConfiguration:layoutConfiguration];
     [layoutConfiguration release];
@@ -115,6 +146,23 @@
     }];
     
     return cellRegistration;
+}
+
+- (UICollectionLayoutListSwipeActionsConfigurationProvider)makeTrailingSwipeProvider {
+    UICollectionLayoutListSwipeActionsConfigurationProvider provider = ^UISwipeActionsConfiguration *(NSIndexPath *indexPath) {
+        UIContextualAction *action = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive
+                                                                             title:nil
+                                                                           handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
+            [self.viewModel removeAtIndexPath:indexPath];
+        }];
+        
+        action.image = [UIImage systemImageNamed:@"trash"];
+        
+        UISwipeActionsConfiguration *configuration = [UISwipeActionsConfiguration configurationWithActions:@[action]];
+        return configuration;
+    };
+    
+    return [[provider copy] autorelease];
 }
 
 #pragma mark UICollectionViewDelegate

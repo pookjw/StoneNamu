@@ -14,13 +14,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef UICollectionViewDiffableDataSource<DeckDetailsSectionModel *, DeckDetailsItemModel *> DecksDetailsDataSource;
 
+typedef void (^DeckDetailsViewModelExportDeckCodeCompletion)(NSString * _Nullable, NSError * _Nullable);
+
 @interface DeckDetailsViewModel : NSObject
 @property (retain) DecksDetailsDataSource *dataSource;
 - (instancetype)initWithDataSource:(DecksDetailsDataSource *)dataSource;
 - (void)requestDataSourcdWithLocalDeck:(LocalDeck *)localDeck;
 - (void)addHSCards:(NSArray<HSCard *> *)hsCards;
-- (void)removeHSCard:(HSCard *)hsCard;
+- (void)removeAtIndexPath:(NSIndexPath *)indexPath;
 - (NSArray<UIDragItem *> *)makeDragItemFromIndexPath:(NSIndexPath *)indexPath;
+- (void)exportDeckCodeWithCompletion:(DeckDetailsViewModelExportDeckCodeCompletion)completion;
 @end
 
 NS_ASSUME_NONNULL_END

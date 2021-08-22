@@ -102,6 +102,7 @@
                 }
                 self.localDeck.cards = mutableCardIds;
                 [mutableCardIds release];
+                self.localDeck.deckCode = nil;
                 [self.localDeckUseCase saveChanges];
                 
                 [copyHSCards release];
@@ -110,8 +111,47 @@
     }];
 }
 
-- (void)removeHSCard:(HSCard *)hsCard {
+- (void)removeAtIndexPath:(NSIndexPath *)indexPath {
+    HSCard * _Nullable hsCard = [self.dataSource itemIdentifierForIndexPath:indexPath].hsCard;
     
+    if (hsCard) {
+        [self removeHSCard:hsCard];
+    }
+}
+
+- (void)removeHSCard:(HSCard *)hsCard {
+    HSCard *copyHSCard = [hsCard copy];
+    
+    [self.queue addBarrierBlock:^{
+        NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
+        
+        for (DeckDetailsItemModel *itemModel in snapshot.itemIdentifiers) {
+            if ([itemModel.hsCard isEqual:copyHSCard]) {
+                [snapshot deleteItemsWithIdentifiers:@[itemModel]];
+            }
+        }
+        
+        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+            [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
+                [snapshot release];
+                
+                NSMutableArray<NSNumber *> *mutableCards = [self.localDeck.cards mutableCopy];
+                
+                [mutableCards enumerateObjectsUsingBlock:^(NSNumber * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    if ([obj isEqualToNumber:[NSNumber numberWithUnsignedInteger:copyHSCard.cardId]]) {
+                        [mutableCards removeObject:obj];
+                    }
+                }];
+                
+                self.localDeck.cards = mutableCards;
+                [mutableCards release];
+                self.localDeck.deckCode = nil;
+                [self.localDeckUseCase saveChanges];
+                
+                [copyHSCard release];
+            }];
+        }];
+    }];
 }
 
 - (NSArray<UIDragItem *> *)makeDragItemFromIndexPath:(NSIndexPath *)indexPath {
@@ -126,6 +166,18 @@
     dragItem.localObject = itemModel.hsCard;
     
     return @[[dragItem autorelease]];
+}
+
+- (void)exportDeckCodeWithCompletion:(DeckDetailsViewModelExportDeckCodeCompletion)completion {
+    [self.hsDeckUseCase fetchDeckByCardList:self.localDeck.cards completion:^(HSDeck * _Nullable hsDeck, NSError * _Nullable error) {
+        if (hsDeck.deckCode) {
+            self.localDeck.deckCode = hsDeck.deckCode;
+            completion(hsDeck.deckCode, error);
+        } else {
+            NSError *error = [NSError errorWithDomain:@"com.pookjw.StoneNamy" code:105 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"DECKCODE_FETCH_ERROR", @"")}];
+            completion(nil, error);
+        }
+    }];
 }
 
 - (void)requestDataSourcdWithLocalDeck:(LocalDeck *)localDeck {
