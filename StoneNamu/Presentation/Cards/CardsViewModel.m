@@ -11,6 +11,7 @@
 #import "NSSemaphoreCondition.h"
 #import "PrefsUseCaseImpl.h"
 #import "DataCacheUseCaseImpl.h"
+#import "DragItemService.h"
 
 @interface CardsViewModel ()
 @property (retain) id<HSCardUseCase> hsCardUseCase;
@@ -159,24 +160,9 @@
     
     if (itemModel == nil) return @[];
     
-    UIDragItem *dragItem;
+    UIDragItem *dragItem = [DragItemService.sharedInstance makeDragItemsFromHSCard:itemModel.card image:image];
     
-    if (image) {
-        NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithObject:image];
-        HSCard *copyHSCard = [itemModel.card copy];
-        [itemProvider registerObject:copyHSCard visibility:NSItemProviderRepresentationVisibilityOwnProcess];
-        [copyHSCard release];
-        dragItem = [[UIDragItem alloc] initWithItemProvider:itemProvider];
-        [itemProvider release];
-    } else {
-        HSCard *copyHSCard = [itemModel.card copy];
-        NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithObject:copyHSCard];
-        [copyHSCard release];
-        dragItem = [[UIDragItem alloc] initWithItemProvider:itemProvider];
-        [itemProvider release];
-    }
-    
-    return @[[dragItem autorelease]];
+    return @[dragItem];
 }
 
 - (void)updateDataSourceWithCards:(NSArray<HSCard *> *)cards {

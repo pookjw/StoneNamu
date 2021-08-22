@@ -9,6 +9,7 @@
 #import "HSCardUseCaseImpl.h"
 #import "BlizzardHSAPIKeys.h"
 #import "NSSemaphoreCondition.h"
+#import "DragItemService.h"
 
 @interface CardDetailsViewModel ()
 @property (retain) NSOperationQueue *queue;
@@ -100,24 +101,9 @@
 }
 
 - (NSArray<UIDragItem *> *)makeDragItemFromImage:(UIImage * _Nullable)image {
-    UIDragItem *dragItem;
+    UIDragItem *dragItem = [DragItemService.sharedInstance makeDragItemsFromHSCard:self.hsCard image:image];
     
-    if (image) {
-        NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithObject:image];
-        HSCard *copyHSCard = [self.hsCard copy];
-        [itemProvider registerObject:copyHSCard visibility:NSItemProviderRepresentationVisibilityOwnProcess];
-        [copyHSCard release];
-        dragItem = [[UIDragItem alloc] initWithItemProvider:itemProvider];
-        [itemProvider release];
-    } else {
-        HSCard *copyHSCard = [self.hsCard copy];
-        NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithObject:copyHSCard];
-        [copyHSCard release];
-        dragItem = [[UIDragItem alloc] initWithItemProvider:itemProvider];
-        [itemProvider release];
-    }
-    
-    return @[[dragItem autorelease]];
+    return @[dragItem];
 }
 
 - (void)loadChildCardsWithHSCard:(HSCard *)hsCard {

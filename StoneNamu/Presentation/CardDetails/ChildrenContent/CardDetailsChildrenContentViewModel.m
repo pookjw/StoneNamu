@@ -7,6 +7,7 @@
 
 #import "CardDetailsChildrenContentViewModel.h"
 #import "NSSemaphoreCondition.h"
+#import "DragItemService.h"
 
 @interface CardDetailsChildrenContentViewModel ()
 @property (retain) NSOperationQueue *queue;
@@ -41,24 +42,9 @@
     
     if (itemModel == nil) return @[];
     
-    UIDragItem *dragItem;
+    UIDragItem *dragItem = [DragItemService.sharedInstance makeDragItemsFromHSCard:itemModel.hsCard image:image];
     
-    if (image) {
-        NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithObject:image];
-        HSCard *copyHSCard = [itemModel.hsCard copy];
-        [itemProvider registerObject:copyHSCard visibility:NSItemProviderRepresentationVisibilityOwnProcess];
-        [copyHSCard release];
-        dragItem = [[UIDragItem alloc] initWithItemProvider:itemProvider];
-        [itemProvider release];
-    } else {
-        HSCard *copyHSCard = [itemModel.hsCard copy];
-        NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithObject:copyHSCard];
-        [copyHSCard release];
-        dragItem = [[UIDragItem alloc] initWithItemProvider:itemProvider];
-        [itemProvider release];
-    }
-    
-    return @[[dragItem autorelease]];
+    return @[dragItem];
 }
 
 - (void)requestChildCards:(NSArray<HSCard *> *)childCards {
