@@ -94,6 +94,7 @@
         
         [snapshot appendItemsWithIdentifiers:cardsItemModels intoSectionWithIdentifier:cardsSectionModel];
         [cardsItemModels release];
+        [self sortSnapshot:snapshot sectionModel:cardsSectionModel];
 
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
             [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
@@ -276,26 +277,7 @@
         
         //
         
-        [snapshot sortItemsWithSectionIdentifiers:@[cardsSectionModel] usingComparator:^NSComparisonResult(DeckDetailsItemModel *obj1, DeckDetailsItemModel *obj2) {
-            HSCard *obj1Card = obj1.hsCard;
-            HSCard *obj2Card = obj2.hsCard;
-            
-            if (obj1Card.manaCost < obj2Card.manaCost) {
-                return NSOrderedAscending;
-            } else if (obj1Card.manaCost > obj2Card.manaCost) {
-                return NSOrderedDescending;
-            } else {
-                if ((obj1Card.name == nil) && (obj2Card.name == nil)) {
-                    return NSOrderedSame;
-                } else if ((obj1Card.name == nil) && (obj2Card.name != nil)) {
-                    return NSOrderedAscending;
-                } else if ((obj1Card.name != nil) && (obj2Card.name == nil)) {
-                    return NSOrderedDescending;
-                } else {
-                    return [obj1Card.name compare:obj2Card.name];
-                }
-            }
-        }];
+        [self sortSnapshot:snapshot sectionModel:cardsSectionModel];
         
         //
         
@@ -312,6 +294,29 @@
                 [copyHSCards release];
             }];
         }];
+    }];
+}
+
+- (void)sortSnapshot:(NSDiffableDataSourceSnapshot *)snapshot sectionModel:(DeckDetailsSectionModel *)sectionModel {
+    [snapshot sortItemsWithSectionIdentifiers:@[sectionModel] usingComparator:^NSComparisonResult(DeckDetailsItemModel *obj1, DeckDetailsItemModel *obj2) {
+        HSCard *obj1Card = obj1.hsCard;
+        HSCard *obj2Card = obj2.hsCard;
+        
+        if (obj1Card.manaCost < obj2Card.manaCost) {
+            return NSOrderedAscending;
+        } else if (obj1Card.manaCost > obj2Card.manaCost) {
+            return NSOrderedDescending;
+        } else {
+            if ((obj1Card.name == nil) && (obj2Card.name == nil)) {
+                return NSOrderedSame;
+            } else if ((obj1Card.name == nil) && (obj2Card.name != nil)) {
+                return NSOrderedAscending;
+            } else if ((obj1Card.name != nil) && (obj2Card.name == nil)) {
+                return NSOrderedDescending;
+            } else {
+                return [obj1Card.name compare:obj2Card.name];
+            }
+        }
     }];
 }
 

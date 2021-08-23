@@ -78,7 +78,7 @@
         [context performBlockAndWait:^{
             @autoreleasepool {
                 NSFetchRequest *fetchRequest = LocalDeck._fetchRequest;
-                NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"timestamp" ascending:YES];
+                NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"timestamp" ascending:NO];
                 fetchRequest.sortDescriptors = @[sortDescriptor];
                 [sortDescriptor release];
                 
