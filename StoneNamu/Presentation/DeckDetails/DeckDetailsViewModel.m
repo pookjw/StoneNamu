@@ -175,12 +175,14 @@
 
 - (void)exportDeckCodeWithCompletion:(DeckDetailsViewModelExportDeckCodeCompletion)completion {
     [self.hsDeckUseCase fetchDeckByCardList:self.localDeck.cards completion:^(HSDeck * _Nullable hsDeck, NSError * _Nullable error) {
-        if (hsDeck.deckCode) {
+        if (error) {
+            [self postErrorOccuredNotification:error];
+        } else if (hsDeck.deckCode) {
             self.localDeck.deckCode = hsDeck.deckCode;
-            completion(hsDeck.deckCode, error);
+            completion(hsDeck.deckCode);
         } else {
             NSError *error = [NSError errorWithDomain:@"com.pookjw.StoneNamy" code:105 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"DECKCODE_FETCH_ERROR", @"")}];
-            completion(nil, error);
+            [self postErrorOccuredNotification:error];
         }
     }];
 }
@@ -351,6 +353,12 @@
     [NSNotificationCenter.defaultCenter postNotificationName:DeckDetailsViewModelDidChangeLocalDeckNameNoficationName
                                                       object:self
                                                     userInfo:@{DeckDetailsViewModelDidChangeLocalDeckNameItemKey: name}];
+}
+
+- (void)postErrorOccuredNotification:(NSError *)error {
+    [NSNotificationCenter.defaultCenter postNotificationName:DeckDetailsViewModelErrorOccuredNoficiationName
+                                                      object:self
+                                                    userInfo:@{DeckDetailsViewModelErrorOccuredItemKey: error}];
 }
 
 @end

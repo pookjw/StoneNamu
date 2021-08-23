@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef UICollectionViewDiffableDataSource<DeckDetailsSectionModel *, DeckDetailsItemModel *> DecksDetailsDataSource;
 
-typedef void (^DeckDetailsViewModelExportDeckCodeCompletion)(NSString * _Nullable, NSError * _Nullable);
+typedef void (^DeckDetailsViewModelExportDeckCodeCompletion)(NSString * _Nullable);
 
 static NSString * const DeckDetailsViewModelShouldDismissNotificationName = @"DeckDetailsViewModelShouldDismissNotificationName";
 
@@ -23,6 +23,9 @@ static NSString * const DeckDetailsViewModelHasAnyCardsItemKey = @"DeckDetailsVi
 
 static NSString * const DeckDetailsViewModelDidChangeLocalDeckNameNoficationName = @"DeckDetailsViewModelDidChangeLocalDeckNameNoficationName";
 static NSString * const DeckDetailsViewModelDidChangeLocalDeckNameItemKey = @"DeckDetailsViewModelDidChangeLocalDeckNameItemKey";
+
+static NSString * const DeckDetailsViewModelErrorOccuredNoficiationName = @"DeckDetailsViewModelErrorOccuredNoficiationName";
+static NSString * const DeckDetailsViewModelErrorOccuredItemKey = @"DeckDetailsViewModelErrorOccuredItemKey";
 
 @interface DeckDetailsViewModel : NSObject
 @property (readonly, retain) LocalDeck *localDeck;

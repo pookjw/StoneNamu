@@ -85,11 +85,9 @@
 }
 
 - (void)exportBarButtonItemTriggered:(UIBarButtonItem *)sender {
-    [self.viewModel exportDeckCodeWithCompletion:^(NSString * _Nullable deckCode, NSError * _Nullable error) {
+    [self.viewModel exportDeckCodeWithCompletion:^(NSString * _Nullable deckCode) {
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
-            if (error) {
-                [self presentErrorAlertWithError:error];
-            } else {
+            if (deckCode) {
                 UIActivityViewController *activity = [[UIActivityViewController alloc] initWithActivityItems:@[deckCode] applicationActivities:nil];
                 activity.popoverPresentationController.barButtonItem = self.exportBarButtonItem;
                 [self presentViewController:activity animated:YES completion:^{}];
@@ -220,6 +218,11 @@
                                            selector:@selector(didChangeLocalDeckNameReceived:)
                                                name:DeckDetailsViewModelDidChangeLocalDeckNameNoficationName
                                              object:self.viewModel];
+    
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(errorOccuredReceived:)
+                                               name:DeckDetailsViewModelErrorOccuredNoficiationName
+                                             object:self.viewModel];
 }
 
 - (void)shouldDismissReceived:(NSNotification *)notification {
@@ -243,6 +246,17 @@
         self.title = name;
         [name release];
     }];
+}
+
+- (void)errorOccuredReceived:(NSNotification *)notification {
+    NSError *error = [(NSError *)notification.userInfo[DeckDetailsViewModelErrorOccuredItemKey] copy];
+    
+    if (error) {
+        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+            [self presentErrorAlertWithError:error];
+            [error release];
+        }];
+    }
 }
 
 #pragma mark UICollectionViewDelegate
