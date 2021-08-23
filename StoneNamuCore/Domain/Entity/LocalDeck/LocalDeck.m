@@ -64,7 +64,7 @@
 }
 
 - (void)updateTimestamp {
-    self.timestamp = [NSDate new];
+    self.timestamp = [[NSDate new] autorelease];
 }
 
 @end

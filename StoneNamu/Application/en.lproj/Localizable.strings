@@ -106,6 +106,6 @@
 
 "FETCH" = "Fetch";
 
-"DECK_DETAIL" = "Deck Detail";
-
 "DECKCODE_FETCH_ERROR" = "Unable to get deck code.";
+
+"EDIT_DECK_NAME_TITLE" = "Edit Deck name";

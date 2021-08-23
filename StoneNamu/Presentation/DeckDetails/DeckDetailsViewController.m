@@ -12,6 +12,7 @@
 @interface DeckDetailsViewController () <UICollectionViewDelegate, UICollectionViewDragDelegate, UICollectionViewDropDelegate>
 @property (retain) UICollectionView *collectionView;
 @property (retain) UIBarButtonItem *exportBarButtonItem;
+@property (retain) UIBarButtonItem *editBarButtonItem;
 @property (retain) DeckDetailsViewModel *viewModel;
 @end
 
@@ -32,6 +33,8 @@
     [_collectionView release];
     [_exportBarButtonItem release];
     [_viewModel release];
+    [_exportBarButtonItem release];
+    [_editBarButtonItem release];
     [super dealloc];
 }
 
@@ -54,7 +57,6 @@
 }
 
 - (void)configureNavigation {
-    self.title = NSLocalizedString(@"DECK_DETAIL", @"");
     self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
 }
 
@@ -66,9 +68,20 @@
     self.exportBarButtonItem = exportBarButtonItem;
     exportBarButtonItem.enabled = NO;
     
-    self.navigationItem.rightBarButtonItems = @[exportBarButtonItem];
+    //
+    
+    UIBarButtonItem *editBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"pencil"]
+                                                                          style:UIBarButtonItemStylePlain
+                                                                         target:self
+                                                                         action:@selector(editBarButtonItemTriggered:)];
+    self.editBarButtonItem = editBarButtonItem;
+    
+    //
+    
+    self.navigationItem.rightBarButtonItems = @[exportBarButtonItem, editBarButtonItem];
     
     [exportBarButtonItem release];
+    [editBarButtonItem release];
 }
 
 - (void)exportBarButtonItemTriggered:(UIBarButtonItem *)sender {
@@ -83,6 +96,31 @@
             }
         }];
     }];
+}
+
+- (void)editBarButtonItemTriggered:(UIBarButtonItem *)sender {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"EDIT_DECK_NAME_TITLE", @"")
+                                                                   message:nil
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    
+    [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.text = self.viewModel.localDeck.name;
+    }];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"CANCEL", @"")
+                                                           style:UIAlertActionStyleCancel
+                                                         handler:^(UIAlertAction * _Nonnull action) {}];
+    
+    UIAlertAction *doneAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"DONE", @"")
+                                                         style:UIAlertActionStyleDefault
+                                                       handler:^(UIAlertAction * _Nonnull action) {
+        [self.viewModel updateDeckName:alert.textFields.firstObject.text];
+    }];
+    
+    [alert addAction:cancelAction];
+    [alert addAction:doneAction];
+    
+    [self presentViewController:alert animated:YES completion:^{}];
 }
 
 - (void)configureCollectionView {
@@ -177,6 +215,11 @@
                                            selector:@selector(hasAnyCardsReceived:)
                                                name:DeckDetailsViewModelHasAnyCardsNotificationName
                                              object:self.viewModel];
+    
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(didChangeLocalDeckNameReceived:)
+                                               name:DeckDetailsViewModelDidChangeLocalDeckNameNoficationName
+                                             object:self.viewModel];
 }
 
 - (void)shouldDismissReceived:(NSNotification *)notification {
@@ -190,6 +233,15 @@
     
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
         self.exportBarButtonItem.enabled = hasCards;
+    }];
+}
+
+- (void)didChangeLocalDeckNameReceived:(NSNotification *)noficiation {
+    NSString *name = [noficiation.userInfo[DeckDetailsViewModelDidChangeLocalDeckNameItemKey] copy];
+    
+    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+        self.title = name;
+        [name release];
     }];
 }
 

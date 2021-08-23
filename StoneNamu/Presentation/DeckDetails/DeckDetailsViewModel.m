@@ -10,10 +10,9 @@
 #import "LocalDeckUseCaseImpl.h"
 #import "HSCardUseCaseImpl.h"
 #import "NSSemaphoreCondition.h"
-#import "NSDiffableDataSourceSnapshot+sort.h""
+#import "NSDiffableDataSourceSnapshot+sort.h"
 
 @interface DeckDetailsViewModel ()
-@property (retain) LocalDeck *localDeck;
 @property (retain) NSOperationQueue *queue;
 @property (retain) id<HSDeckUseCase> hsDeckUseCase;
 @property (retain) id<LocalDeckUseCase> localDeckUseCase;
@@ -77,6 +76,7 @@
 
         if (cardsSectionModel == nil) {
             [copyHSCards release];
+            [snapshot release];
             return;
         }
         
@@ -185,8 +185,14 @@
     }];
 }
 
+- (void)updateDeckName:(NSString *)name {
+    self.localDeck.name = name;
+    [self.localDeckUseCase saveChanges];
+}
+
 - (void)requestDataSourcdWithLocalDeck:(LocalDeck *)localDeck {
-    self.localDeck = localDeck;
+    [self->_localDeck release];
+    self->_localDeck = [localDeck retain];
     
     [self.queue addBarrierBlock:^{
         if (localDeck.deckCode) {
@@ -207,6 +213,8 @@
         } else {
             [self updateDataSourceWithHSCards:@[]];
         }
+        
+        [self postDidChangeLocalDeckNameNotification:localDeck.name];
     }];
 }
 
@@ -337,6 +345,12 @@
     [NSNotificationCenter.defaultCenter postNotificationName:DeckDetailsViewModelHasAnyCardsNotificationName
                                                       object:self
                                                     userInfo:@{DeckDetailsViewModelHasAnyCardsItemKey: [NSNumber numberWithBool:hasCards]}];
+}
+
+- (void)postDidChangeLocalDeckNameNotification:(NSString *)name {
+    [NSNotificationCenter.defaultCenter postNotificationName:DeckDetailsViewModelDidChangeLocalDeckNameNoficationName
+                                                      object:self
+                                                    userInfo:@{DeckDetailsViewModelDidChangeLocalDeckNameItemKey: name}];
 }
 
 @end

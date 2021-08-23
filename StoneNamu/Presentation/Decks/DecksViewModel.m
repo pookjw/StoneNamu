@@ -185,6 +185,11 @@
         }
         
         [snapshot appendItemsWithIdentifiers:itemModels intoSectionWithIdentifier:sectionModel];
+        if (@available(iOS 15.0, *)) {
+            [snapshot reconfigureItemsWithIdentifiers:itemModels];
+        } else {
+            [snapshot reloadItemsWithIdentifiers:itemModels];
+        }
         [itemModels release];
         [sectionModel release];
         

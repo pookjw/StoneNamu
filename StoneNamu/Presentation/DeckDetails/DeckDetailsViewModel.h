@@ -17,10 +17,15 @@ typedef UICollectionViewDiffableDataSource<DeckDetailsSectionModel *, DeckDetail
 typedef void (^DeckDetailsViewModelExportDeckCodeCompletion)(NSString * _Nullable, NSError * _Nullable);
 
 static NSString * const DeckDetailsViewModelShouldDismissNotificationName = @"DeckDetailsViewModelShouldDismissNotificationName";
+
 static NSString * const DeckDetailsViewModelHasAnyCardsNotificationName = @"DeckDetailsViewModelHasAnyCardsNotificationName";
 static NSString * const DeckDetailsViewModelHasAnyCardsItemKey = @"DeckDetailsViewModelHasAnyCardsItemKey";
 
+static NSString * const DeckDetailsViewModelDidChangeLocalDeckNameNoficationName = @"DeckDetailsViewModelDidChangeLocalDeckNameNoficationName";
+static NSString * const DeckDetailsViewModelDidChangeLocalDeckNameItemKey = @"DeckDetailsViewModelDidChangeLocalDeckNameItemKey";
+
 @interface DeckDetailsViewModel : NSObject
+@property (readonly, retain) LocalDeck *localDeck;
 @property (retain) DecksDetailsDataSource *dataSource;
 - (instancetype)initWithDataSource:(DecksDetailsDataSource *)dataSource;
 - (void)requestDataSourcdWithLocalDeck:(LocalDeck *)localDeck;
@@ -28,6 +33,7 @@ static NSString * const DeckDetailsViewModelHasAnyCardsItemKey = @"DeckDetailsVi
 - (void)removeAtIndexPath:(NSIndexPath *)indexPath;
 - (NSArray<UIDragItem *> *)makeDragItemFromIndexPath:(NSIndexPath *)indexPath;
 - (void)exportDeckCodeWithCompletion:(DeckDetailsViewModelExportDeckCodeCompletion)completion;
+- (void)updateDeckName:(NSString *)name;
 @end
 
 NS_ASSUME_NONNULL_END

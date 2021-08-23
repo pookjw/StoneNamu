@@ -106,6 +106,6 @@
 
 "FETCH" = "불러오기";
 
-"DECK_DETAIL" = "덱 상세";
-
 "DECKCODE_FETCH_ERROR" = "덱코드를 불러올 수 없습니다.";
+
+"EDIT_DECK_NAME_TITLE" = "덱 이름 수정";
