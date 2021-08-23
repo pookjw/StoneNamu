@@ -25,6 +25,16 @@
     [super dealloc];
 }
 
+- (BOOL)isEqual:(id)object {
+    DeckDetailsItemModel *toCompare = (DeckDetailsItemModel *)object;
+    
+    if (![toCompare isKindOfClass:[DeckDetailsItemModel class]]) {
+        return NO;
+    }
+    
+    return [self.hsCard isEqual:toCompare.hsCard];
+}
+
 - (NSUInteger)hash {
     return self.type ^ self.hsCard.hash;
 }

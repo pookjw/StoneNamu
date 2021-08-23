@@ -29,7 +29,12 @@ static NSString * const UIImageViewAsyncImageCategorySessionTaskKey = @"UIImageV
 }
 
 - (void)setAsyncImageWithURL:(NSURL * _Nullable)url indicator:(BOOL)indicator {
+    [self setAsyncImageWithURL:url indicator:indicator completion:^(UIImage * _Nullable image, NSError * _Nullable error) {}];
+}
+
+- (void)setAsyncImageWithURL:(NSURL *)url indicator:(BOOL)indicator completion:(UIImageViewSetAsyncImageCompletion)completion {
     if ([url isEqual:self.currentURL]) {
+        completion(self.image, nil);
         return;
     }
     
@@ -46,6 +51,7 @@ static NSString * const UIImageViewAsyncImageCategorySessionTaskKey = @"UIImageV
         
         if (error) {
             NSLog(@"%@", error.localizedDescription);
+            completion(nil, error);
             return;
         }
         
@@ -58,7 +64,10 @@ static NSString * const UIImageViewAsyncImageCategorySessionTaskKey = @"UIImageV
                 [NSOperationQueue.mainQueue addOperationWithBlock:^{
                     [self removeActivityIndicator];
                     [self loadImageWithFade:image];
+                    completion(image, nil);
                 }];
+            } else {
+                
             }
         } else {
             // if not found, download from server
@@ -78,6 +87,7 @@ static NSString * const UIImageViewAsyncImageCategorySessionTaskKey = @"UIImageV
                         [self removeActivityIndicator];
                         self.image = nil;
                     }];
+                    completion(nil, error);
                 } else if (data) {
                     [self.dataCacheUseCase makeDataCache:data identity:url.absoluteString];
                     [self.dataCacheUseCase saveChanges];
@@ -87,6 +97,7 @@ static NSString * const UIImageViewAsyncImageCategorySessionTaskKey = @"UIImageV
                         [NSOperationQueue.mainQueue addOperationWithBlock:^{
                             [self removeActivityIndicator];
                             [self loadImageWithFade:image];
+                            completion(image, nil);
                         }];
                     }
                 }

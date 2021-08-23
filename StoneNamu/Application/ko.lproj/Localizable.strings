@@ -109,3 +109,7 @@
 "DECKCODE_FETCH_ERROR" = "덱코드를 불러올 수 없습니다.";
 
 "EDIT_DECK_NAME_TITLE" = "덱 이름 수정";
+
+"DECK_ADD_CARD_ERROR_NO_MORE_THAN_THIRTY_CARDS" = "덱에 30장이 넘는 카드는 추가할 수 없습니다!";
+
+"DECK_ADD_CARD_ERROR_CANNOT_ADD_SINGLE_CARD_MORE_THAN_TWO" = "한 종류의 카드는 두 장이 넘어갈 수 없습니다!";

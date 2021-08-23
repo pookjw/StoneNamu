@@ -19,6 +19,16 @@
     return self;
 }
 
+- (BOOL)isEqual:(id)object {
+    DeckDetailsSectionModel *toCompare = (DeckDetailsSectionModel *)object;
+    
+    if (![toCompare isKindOfClass:[DeckDetailsSectionModel class]]) {
+        return NO;
+    }
+    
+    return self.type == toCompare.type;
+}
+
 - (NSUInteger)hash {
     return self.type;
 }

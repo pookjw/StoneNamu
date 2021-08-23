@@ -9,8 +9,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void (^UIImageViewSetAsyncImageCompletion)(UIImage * _Nullable, NSError * _Nullable);
+
 @interface UIImageView (setAsyncImage)
 - (void)setAsyncImageWithURL:(NSURL * _Nullable)url indicator:(BOOL)indicator;
+- (void)setAsyncImageWithURL:(NSURL * _Nullable)url indicator:(BOOL)indicator completion:(UIImageViewSetAsyncImageCompletion)completion;
 @end
 
 NS_ASSUME_NONNULL_END

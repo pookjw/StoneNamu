@@ -13,7 +13,10 @@
     for (id sectionIdentifier in sectionIdentifiers) {
         NSMutableArray *tmpItemIdentifiers = [[self itemIdentifiersInSectionWithIdentifier:sectionIdentifier] mutableCopy];
         
-        if (tmpItemIdentifiers.count < 2) return;
+        if (tmpItemIdentifiers.count < 2) {
+            [tmpItemIdentifiers release];
+            return;
+        }
         
         for (NSUInteger a = 0; a < tmpItemIdentifiers.count; a++) {
             for (NSUInteger b = a + 1; b < tmpItemIdentifiers.count; b++) {
@@ -50,13 +53,18 @@
                 }
             }
         }
+        
+        [tmpItemIdentifiers release];
     }
 }
 
 - (void)sortSectionsUsingComparator:(NSComparator NS_NOESCAPE)cmptr {
     NSMutableArray *tmpSectionIdentifiers = [self.sectionIdentifiers mutableCopy];
     
-    if (tmpSectionIdentifiers.count < 2) return;
+    if (tmpSectionIdentifiers.count < 2) {
+        [tmpSectionIdentifiers release];
+        return;
+    }
     
     for (NSUInteger a = 0; a < tmpSectionIdentifiers.count; a++) {
         for (NSUInteger b = a + 1; b < tmpSectionIdentifiers.count; b++) {
@@ -93,6 +101,8 @@
             }
         }
     }
+    
+    [tmpSectionIdentifiers release];
 }
 
 @end

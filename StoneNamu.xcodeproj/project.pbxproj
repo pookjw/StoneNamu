@@ -88,6 +88,11 @@
 		4F74712926C170E5001C45C4 /* CardDetailsChildrenContentItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F74712826C170E5001C45C4 /* CardDetailsChildrenContentItemModel.m */; };
 		4F74712C26C175FE001C45C4 /* CardDetailsChildrenContentImageConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F74712B26C175FE001C45C4 /* CardDetailsChildrenContentImageConfiguration.m */; };
 		4F74712F26C1760C001C45C4 /* CardDetailsChildrenContentImageContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F74712E26C1760C001C45C4 /* CardDetailsChildrenContentImageContentView.m */; };
+		4F90709926D35FA000BA7614 /* DeckDetailsCardContentConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F90709826D35FA000BA7614 /* DeckDetailsCardContentConfiguration.m */; };
+		4F90709C26D3606300BA7614 /* DeckDetailsCardContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F90709B26D3606300BA7614 /* DeckDetailsCardContentView.m */; };
+		4F90709E26D360CC00BA7614 /* MyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F90709D26D360CC00BA7614 /* MyView.xib */; };
+		4F9070A126D3803800BA7614 /* UIImage+averageColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F9070A026D3803800BA7614 /* UIImage+averageColor.m */; };
+		4F9070A426D3836600BA7614 /* UIColor+invertedColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F9070A326D3836600BA7614 /* UIColor+invertedColor.m */; };
 		4F98E25226B9935B0067846F /* CardDetailsLayoutCompactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F98E25126B9935B0067846F /* CardDetailsLayoutCompactViewController.m */; };
 		4F98E25526B993650067846F /* CardDetailsLayoutRegularViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F98E25426B993650067846F /* CardDetailsLayoutRegularViewController.m */; };
 		4F98E25826B9A9760067846F /* CardDetailsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F98E25726B9A9760067846F /* CardDetailsViewModel.m */; };
@@ -331,6 +336,15 @@
 		4F74712B26C175FE001C45C4 /* CardDetailsChildrenContentImageConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardDetailsChildrenContentImageConfiguration.m; sourceTree = "<group>"; };
 		4F74712D26C1760C001C45C4 /* CardDetailsChildrenContentImageContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardDetailsChildrenContentImageContentView.h; sourceTree = "<group>"; };
 		4F74712E26C1760C001C45C4 /* CardDetailsChildrenContentImageContentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardDetailsChildrenContentImageContentView.m; sourceTree = "<group>"; };
+		4F90709726D35FA000BA7614 /* DeckDetailsCardContentConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckDetailsCardContentConfiguration.h; sourceTree = "<group>"; };
+		4F90709826D35FA000BA7614 /* DeckDetailsCardContentConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckDetailsCardContentConfiguration.m; sourceTree = "<group>"; };
+		4F90709A26D3606300BA7614 /* DeckDetailsCardContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckDetailsCardContentView.h; sourceTree = "<group>"; };
+		4F90709B26D3606300BA7614 /* DeckDetailsCardContentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckDetailsCardContentView.m; sourceTree = "<group>"; };
+		4F90709D26D360CC00BA7614 /* MyView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyView.xib; sourceTree = "<group>"; };
+		4F90709F26D3803800BA7614 /* UIImage+averageColor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+averageColor.h"; sourceTree = "<group>"; };
+		4F9070A026D3803800BA7614 /* UIImage+averageColor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+averageColor.m"; sourceTree = "<group>"; };
+		4F9070A226D3836600BA7614 /* UIColor+invertedColor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+invertedColor.h"; sourceTree = "<group>"; };
+		4F9070A326D3836600BA7614 /* UIColor+invertedColor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIColor+invertedColor.m"; sourceTree = "<group>"; };
 		4F98E24F26B9934B0067846F /* CardDetailsLayoutProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardDetailsLayoutProtocol.h; sourceTree = "<group>"; };
 		4F98E25026B9935B0067846F /* CardDetailsLayoutCompactViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardDetailsLayoutCompactViewController.h; sourceTree = "<group>"; };
 		4F98E25126B9935B0067846F /* CardDetailsLayoutCompactViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardDetailsLayoutCompactViewController.m; sourceTree = "<group>"; };
@@ -510,6 +524,10 @@
 				4FFDD65226CAC274008E5B45 /* UIView+scrollToTopForRecursiveView.m */,
 				4F4C5E2026D31F0E00E3349B /* NSDiffableDataSourceSnapshot+sort.h */,
 				4F4C5E2126D31F0E00E3349B /* NSDiffableDataSourceSnapshot+sort.m */,
+				4F90709F26D3803800BA7614 /* UIImage+averageColor.h */,
+				4F9070A026D3803800BA7614 /* UIImage+averageColor.m */,
+				4F9070A226D3836600BA7614 /* UIColor+invertedColor.h */,
+				4F9070A326D3836600BA7614 /* UIColor+invertedColor.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1091,6 +1109,11 @@
 				4F414B0626CEF9F80003A0CF /* DeckDetailsSectionModel.m */,
 				4F414B0826CEFA5E0003A0CF /* DeckDetailsItemModel.h */,
 				4F414B0926CEFA5E0003A0CF /* DeckDetailsItemModel.m */,
+				4F90709726D35FA000BA7614 /* DeckDetailsCardContentConfiguration.h */,
+				4F90709826D35FA000BA7614 /* DeckDetailsCardContentConfiguration.m */,
+				4F90709A26D3606300BA7614 /* DeckDetailsCardContentView.h */,
+				4F90709B26D3606300BA7614 /* DeckDetailsCardContentView.m */,
+				4F90709D26D360CC00BA7614 /* MyView.xib */,
 			);
 			path = DeckDetails;
 			sourceTree = "<group>";
@@ -1285,6 +1308,7 @@
 				4FA56BB726A2105A002D9FA0 /* Assets.xcassets in Resources */,
 				4F9DFBBD26B30764002AACDE /* LaunchScreen.storyboard in Resources */,
 				4F9DFBB726B2FD2E002AACDE /* InfoPlist.strings in Resources */,
+				4F90709E26D360CC00BA7614 /* MyView.xib in Resources */,
 				4F9DFBB126B2FD0C002AACDE /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1378,6 +1402,7 @@
 				4FA9047A26B6E26A00CD6147 /* CardContentView.m in Sources */,
 				4F4976E926ABFF5E00860809 /* CardOptionSectionModel.m in Sources */,
 				4F1B98A926C82382004E1603 /* PrefsRegionHostViewController.m in Sources */,
+				4F9070A426D3836600BA7614 /* UIColor+invertedColor.m in Sources */,
 				4F4976E626ABFE2100860809 /* CardOptionsViewModel.m in Sources */,
 				4F4976EC26ABFF6900860809 /* CardOptionItemModel.m in Sources */,
 				4FA56BBD26A2105A002D9FA0 /* main.m in Sources */,
@@ -1395,6 +1420,7 @@
 				4FF3E0B526C97D95002B20EA /* PrefsLocaleViewModel.m in Sources */,
 				4F03F57626C7B62200FC9155 /* PrefsViewModel.m in Sources */,
 				4F4976D226ABE6B600860809 /* CardsViewModel.m in Sources */,
+				4F9070A126D3803800BA7614 /* UIImage+averageColor.m in Sources */,
 				4F74712626C170CA001C45C4 /* CardDetailsChildrenContentSectionModel.m in Sources */,
 				4F2438ED26CD8CCF0041BB84 /* DecksSectionModel.m in Sources */,
 				4FEB414126BD6133009D8594 /* CardDetailsBasicContentConfiguration.m in Sources */,
@@ -1416,7 +1442,9 @@
 				4F98E25826B9A9760067846F /* CardDetailsViewModel.m in Sources */,
 				4F4976D626ABE72C00860809 /* CardSectionModel.m in Sources */,
 				4F1B98AC26C824D9004E1603 /* UIViewController+animatedForSelectedIndexPath.m in Sources */,
+				4F90709C26D3606300BA7614 /* DeckDetailsCardContentView.m in Sources */,
 				4F6A13B226B273640089A13A /* StepperViewController.m in Sources */,
+				4F90709926D35FA000BA7614 /* DeckDetailsCardContentConfiguration.m in Sources */,
 				4F74712F26C1760C001C45C4 /* CardDetailsChildrenContentImageContentView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1684,7 +1712,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -1744,7 +1772,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;

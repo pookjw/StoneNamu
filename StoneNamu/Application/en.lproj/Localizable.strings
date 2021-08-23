@@ -109,3 +109,7 @@
 "DECKCODE_FETCH_ERROR" = "Unable to get deck code.";
 
 "EDIT_DECK_NAME_TITLE" = "Edit Deck name";
+
+"DECK_ADD_CARD_ERROR_NO_MORE_THAN_THIRTY_CARDS" = "You cannot add cards to your deck more than 30 cards.";
+
+"DECK_ADD_CARD_ERROR_CANNOT_ADD_SINGLE_CARD_MORE_THAN_TWO" = "You cannot add a single card more than two.";

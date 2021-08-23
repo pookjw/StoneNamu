@@ -129,11 +129,12 @@
     [self.queue addBarrierBlock:^{
         NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
         
-        for (DeckDetailsItemModel *itemModel in snapshot.itemIdentifiers) {
-            if ([itemModel.hsCard isEqual:copyHSCard]) {
-                [snapshot deleteItemsWithIdentifiers:@[itemModel]];
+        [snapshot.itemIdentifiers enumerateObjectsUsingBlock:^(DeckDetailsItemModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if ([obj.hsCard isEqual:copyHSCard]) {
+                [snapshot deleteItemsWithIdentifiers:@[obj]];
+                *stop = YES;
             }
-        }
+        }];
         
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
             [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
@@ -142,8 +143,9 @@
                 NSMutableArray<NSNumber *> *mutableCards = [self.localDeck.cards mutableCopy];
                 
                 [mutableCards enumerateObjectsUsingBlock:^(NSNumber * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                    if ([obj isEqualToNumber:[NSNumber numberWithUnsignedInteger:copyHSCard.cardId]]) {
+                    if (obj.unsignedIntegerValue == copyHSCard.cardId) {
                         [mutableCards removeObject:obj];
+                        *stop = YES;
                     }
                 }];
                 
@@ -230,9 +232,7 @@
             if (error) {
                 NSLog(@"%@", error.localizedDescription);
             } else if (hsCard) {
-                HSCard *copyCard = [hsCard copy];
-                [hsCards addObject:copyCard];
-                [copyCard release];
+                [hsCards addObject:hsCard];
             }
             
             [semaphore signal];
@@ -242,12 +242,8 @@
     [semaphore wait];
     [semaphore release];
     
-    NSArray<HSCard *> *results = [hsCards copy];
-    [copyCardIds release];
+    [self updateDataSourceWithHSCards:hsCards];
     [hsCards release];
-    
-    [self updateDataSourceWithHSCards:results];
-    [results autorelease];
 }
 
 - (void)updateDataSourceWithHSDeck:(HSDeck *)hsDeck {

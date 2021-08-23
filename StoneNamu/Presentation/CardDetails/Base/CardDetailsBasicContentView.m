@@ -122,8 +122,8 @@
                                                                           constant:-margin];
     betweenConstraint.active = YES;
     
-    [leadingLabel setContentCompressionResistancePriority:750 forAxis:UILayoutConstraintAxisHorizontal];
-    [trailingLabel setContentCompressionResistancePriority:749 forAxis:UILayoutConstraintAxisHorizontal];
+    [leadingLabel setContentCompressionResistancePriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
+    [trailingLabel setContentCompressionResistancePriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
     
     //
     

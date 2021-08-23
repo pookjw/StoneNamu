@@ -9,6 +9,9 @@
 #import "HSCard.h"
 #import "HSDeckFormat.h"
 
+#define HSDECK_MAX_TOTAL_CARDS 30
+#define HSDECK_MAX_SINGLE_CARD 2
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface HSDeck : NSObject <NSCopying>

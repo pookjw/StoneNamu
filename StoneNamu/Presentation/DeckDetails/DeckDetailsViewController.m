@@ -8,6 +8,7 @@
 #import "DeckDetailsViewController.h"
 #import "DeckDetailsViewModel.h"
 #import "UIViewController+presentErrorAlert.h"
+#import "DeckDetailsCardContentConfiguration.h"
 
 @interface DeckDetailsViewController () <UICollectionViewDelegate, UICollectionViewDragDelegate, UICollectionViewDropDelegate>
 @property (retain) UICollectionView *collectionView;
@@ -176,11 +177,9 @@
         
         DeckDetailsItemModel *itemModel = (DeckDetailsItemModel *)item;
         
-        UIListContentConfiguration *configuration = [UIListContentConfiguration subtitleCellConfiguration];
-        configuration.text = itemModel.hsCard.name;
-        
-        configuration.secondaryTextProperties.numberOfLines = 0;
+        DeckDetailsCardContentConfiguration *configuration = [[DeckDetailsCardContentConfiguration alloc] initWithHSCard:itemModel.hsCard count:999];
         cell.contentConfiguration = configuration;
+        [configuration release];
     }];
     
     return cellRegistration;
