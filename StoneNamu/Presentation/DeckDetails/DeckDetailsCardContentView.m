@@ -8,15 +8,15 @@
 #import "DeckDetailsCardContentView.h"
 #import "UIImageView+setAsyncImage.h"
 #import "DeckDetailsCardContentConfiguration.h"
-#import "UIImage+averageColor.h"
-#import "UIColor+invertedColor.h"
 
 @interface DeckDetailsCardContentView ()
 @property (retain) HSCard *hsCard;
+@property NSUInteger count;
 @property (retain) UIImageView *imageView;
+@property (retain) UILabel *manaCostLabel;
 @property (retain) UILabel *nameLabel;
+@property (retain) UILabel *countLabel;
 @property (retain) CAGradientLayer *imageViewGradientLayer;
-@property (retain) CAGradientLayer *nameLabelGradientLayer;
 @end
 
 @implementation DeckDetailsCardContentView
@@ -29,7 +29,9 @@
     if (self) {
         [self setAttributes];
         [self configureNameLabel];
+        [self configureManaCostLabel];
         [self configureImageView];
+        [self configureCountLabel];
     }
     
     return self;
@@ -39,9 +41,10 @@
     [configuration release];
     [_hsCard release];
     [_imageView release];
+    [_manaCostLabel release];
     [_nameLabel release];
+    [_countLabel release];
     [_imageViewGradientLayer release];
-    [_nameLabelGradientLayer release];
     [super dealloc];
 }
 
@@ -51,17 +54,24 @@
 }
 
 - (void)setAttributes {
-    self.backgroundColor = UIColor.clearColor;
+    self.backgroundColor = UIColor.blackColor;
 }
 
 - (void)configureNameLabel {
     UILabel *nameLabel = [UILabel new];
     self.nameLabel = nameLabel;
     
-    nameLabel.backgroundColor = UIColor.whiteColor;
-    nameLabel.textColor = UIColor.blackColor;
+    nameLabel.backgroundColor = UIColor.clearColor;
+    nameLabel.textColor = nil;
     nameLabel.adjustsFontSizeToFitWidth = YES;
     nameLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleTitle2];
+    nameLabel.minimumScaleFactor = 0.1;
+    
+    nameLabel.layer.shadowColor = UIColor.blackColor.CGColor;
+    nameLabel.layer.shadowRadius = 5.0;
+    nameLabel.layer.shadowOpacity = 1.0;
+    nameLabel.layer.shadowOffset = CGSizeMake(0, 0);
+    nameLabel.layer.masksToBounds = YES;
     
     [self addSubview:nameLabel];
     nameLabel.translatesAutoresizingMaskIntoConstraints = NO;
@@ -81,8 +91,6 @@
     
     [NSLayoutConstraint activateConstraints:@[
         [nameLabel.topAnchor constraintEqualToAnchor:self.topAnchor],
-        [nameLabel.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
-        [nameLabel.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
         [nameLabel.heightAnchor constraintEqualToConstant:height]
     ]];
     
@@ -92,20 +100,45 @@
     
     //
     
-    CAGradientLayer *nameLabelGradientLayer = [CAGradientLayer new];
-    self.nameLabelGradientLayer = nameLabelGradientLayer;
-    nameLabelGradientLayer.colors = @[
-        (id)[UIColor.whiteColor colorWithAlphaComponent:0].CGColor,
-        (id)UIColor.whiteColor.CGColor
-    ];
-    nameLabelGradientLayer.startPoint = CGPointMake(1, 0);
-    nameLabelGradientLayer.endPoint = CGPointMake(0, 0);
-    nameLabel.layer.mask = nameLabelGradientLayer;
-    [nameLabelGradientLayer release];
+    [nameLabel release];
+}
+
+- (void)configureManaCostLabel {
+    UILabel *manaCostLabel = [UILabel new];
+    self.manaCostLabel = manaCostLabel;
+    
+    manaCostLabel.backgroundColor = UIColor.systemGray2Color;
+    manaCostLabel.textColor = UIColor.whiteColor;
+    manaCostLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleTitle2];
+    manaCostLabel.textAlignment = NSTextAlignmentCenter;
+    
+    [self addSubview:manaCostLabel];
+    manaCostLabel.translatesAutoresizingMaskIntoConstraints = NO;
     
     //
     
-    [nameLabel release];
+    NSString *string = @"99";
+    
+    CGRect rect = [string boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX)
+                                        options:NSStringDrawingUsesLineFragmentOrigin
+                                     attributes:@{NSFontAttributeName: manaCostLabel.font}
+                                        context:nil];
+    CGFloat margin = 10;
+    CGFloat width = rect.size.width + margin;
+    
+    //
+    
+    [NSLayoutConstraint activateConstraints:@[
+        [manaCostLabel.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
+        [manaCostLabel.topAnchor constraintEqualToAnchor:self.topAnchor],
+        [manaCostLabel.trailingAnchor constraintEqualToAnchor:self.nameLabel.leadingAnchor constant:-10],
+        [manaCostLabel.bottomAnchor constraintEqualToAnchor:self.bottomAnchor],
+        [manaCostLabel.widthAnchor constraintEqualToConstant:width]
+    ]];
+    
+    //
+    
+    [manaCostLabel release];
 }
 
 - (void)configureImageView {
@@ -119,20 +152,9 @@
     
     [NSLayoutConstraint activateConstraints:@[
         [imageView.centerYAnchor constraintEqualToAnchor:self.nameLabel.centerYAnchor],
-        [imageView.trailingAnchor constraintEqualToAnchor:self.nameLabel.trailingAnchor],
+//        [imageView.leadingAnchor constraintEqualToAnchor:self.nameLabel.trailingAnchor],
         [imageView.heightAnchor constraintEqualToAnchor:self.nameLabel.heightAnchor]
     ]];
-    
-    [self bringSubviewToFront:self.nameLabel];
-    
-    NSLayoutConstraint *leadingLayout = [NSLayoutConstraint constraintWithItem:imageView
-                                                                     attribute:NSLayoutAttributeLeading
-                                                                     relatedBy:NSLayoutRelationGreaterThanOrEqual
-                                                                        toItem:self.nameLabel
-                                                                     attribute:NSLayoutAttributeLeading
-                                                                    multiplier:1
-                                                                      constant:0];
-    leadingLayout.active = YES;
 
     NSLayoutConstraint *aspectLayout = [NSLayoutConstraint constraintWithItem:imageView
                                                                     attribute:NSLayoutAttributeWidth
@@ -145,6 +167,10 @@
     
     //
     
+    [self bringSubviewToFront:self.nameLabel];
+    
+    //
+    
     CAGradientLayer *imageViewGradientLayer = [CAGradientLayer new];
     self.imageViewGradientLayer = imageViewGradientLayer;
     imageViewGradientLayer.colors = @[
@@ -152,7 +178,7 @@
         (id)UIColor.whiteColor.CGColor
     ];
     imageViewGradientLayer.startPoint = CGPointMake(0, 0);
-    imageViewGradientLayer.endPoint = CGPointMake(0.6, 0);
+    imageViewGradientLayer.endPoint = CGPointMake(0.8, 0);
     imageView.layer.mask = imageViewGradientLayer;
     [imageViewGradientLayer release];
     
@@ -161,10 +187,57 @@
     [imageView release];
 }
 
+- (void)configureCountLabel {
+    UILabel *countLabel = [UILabel new];
+    self.countLabel = countLabel;
+    
+    //
+    
+    countLabel.backgroundColor = UIColor.systemGrayColor;
+    countLabel.textColor = UIColor.whiteColor;
+    countLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleTitle2];
+    countLabel.textAlignment = NSTextAlignmentCenter;
+    
+    [self addSubview:countLabel];
+    countLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    //
+    
+    NSString *integerString = @"9";
+    CGRect integerRect = [integerString boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX)
+                                        options:NSStringDrawingUsesLineFragmentOrigin
+                                     attributes:@{NSFontAttributeName: countLabel.font}
+                                        context:nil];
+    
+    NSString *starString = @"★";
+    CGRect starRect = [starString boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX)
+                                        options:NSStringDrawingUsesLineFragmentOrigin
+                                     attributes:@{NSFontAttributeName: countLabel.font}
+                                        context:nil];
+    CGFloat margin = 10;
+    CGFloat width = MAX(integerRect.size.width, starRect.size.width) + margin;
+    
+    //
+    
+    [NSLayoutConstraint activateConstraints:@[
+        [countLabel.topAnchor constraintEqualToAnchor:self.topAnchor],
+        [countLabel.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
+        [countLabel.bottomAnchor constraintEqualToAnchor:self.bottomAnchor],
+        [countLabel.leadingAnchor constraintEqualToAnchor:self.imageView.trailingAnchor],
+        [countLabel.leadingAnchor constraintEqualToAnchor:self.nameLabel.trailingAnchor],
+        [countLabel.widthAnchor constraintEqualToConstant:width]
+    ]];
+    
+    //
+    
+    [countLabel release];
+}
+
 - (void)setConfiguration:(id<UIContentConfiguration>)configuration {
     [self->configuration release];
     DeckDetailsCardContentConfiguration *contentConfig = [(DeckDetailsCardContentConfiguration *)configuration copy];
     self->configuration = contentConfig;
+    self.count = contentConfig.count;
     
     if (![self.hsCard isEqual:contentConfig.hsCard]) {
         self.hsCard = contentConfig.hsCard;
@@ -175,10 +248,42 @@
 - (void)updateView {
     self.nameLabel.text = self.hsCard.name;
     
+    //
+    
+    switch (self.hsCard.rarityId) {
+        case HSCardRarityCommon:
+            self.nameLabel.textColor = UIColor.whiteColor;
+            break;
+        case HSCardRarityRare:
+            self.nameLabel.textColor = UIColor.systemBlueColor;
+            break;
+        case HSCardRarityEpic:
+            self.nameLabel.textColor = UIColor.systemPurpleColor;
+            break;
+        case HSCardRarityLegendary:
+            self.nameLabel.textColor = UIColor.systemOrangeColor;
+            break;
+        default:
+            self.nameLabel.textColor = UIColor.systemGrayColor;
+            break;
+    }
+    
+    //
+    
+    self.manaCostLabel.text = [NSString stringWithFormat:@"%lu", self.hsCard.manaCost];
+    
+    //
+    
+    if ((self.hsCard.rarityId == HSCardRarityLegendary) && (self.count == 1)) {
+        self.countLabel.text = @"★";
+    } else {
+        self.countLabel.text = [NSString stringWithFormat:@"%lu", self.count];
+    }
+    
+    //
+    
     void (^asyncImageCompletion)(UIImage * _Nullable, NSError * _Nullable) = ^(UIImage * _Nullable image, NSError * _Nullable error) {
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
-            self.backgroundColor = image.averageColor;
-            self.nameLabel.textColor = self.backgroundColor.invertedColor;
             [self updateGradientLayer];
         }];
     };
@@ -194,7 +299,6 @@
     [CATransaction begin];
     [CATransaction setDisableActions:YES];
     self.imageViewGradientLayer.frame = self.imageView.bounds;
-    self.nameLabelGradientLayer.frame = self.nameLabel.bounds;
     [CATransaction commit];
 }
 

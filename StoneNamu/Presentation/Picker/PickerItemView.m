@@ -69,7 +69,7 @@
     ]];
     NSLayoutConstraint *imageViewWidthLayout = [imageView.widthAnchor constraintEqualToConstant:0];
     self.imageViewWidthLayout = imageViewWidthLayout;
-    imageViewWidthLayout.priority = UILayoutPriorityDefaultLow;
+    imageViewWidthLayout.priority = UILayoutPriorityDefaultHigh;
     NSLayoutConstraint *imageViewAspectLayout = [NSLayoutConstraint constraintWithItem:imageView
                                                                              attribute:NSLayoutAttributeHeight
                                                                              relatedBy:NSLayoutRelationEqual

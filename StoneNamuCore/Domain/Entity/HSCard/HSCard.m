@@ -235,6 +235,7 @@
     [coder encodeInteger:self.minionTypeId forKey:@"minionTypeId"];
     [coder encodeInteger:self.cardTypeId forKey:@"cardTypeId"];
     [coder encodeInteger:self.cardSetId forKey:@"cardSetId"];
+    [coder encodeInteger:self.rarityId forKey:@"rarityId"];
     [coder encodeObject:self.artistName forKey:@"artistName"];
     [coder encodeInteger:self.health forKey:@"health"];
     [coder encodeInteger:self.attack forKey:@"attack"];

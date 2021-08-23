@@ -15,6 +15,7 @@
     
     if (self) {
         self->_hsCard = [hsCard copy];
+        self->_count = count;
     }
     
     return self;
@@ -31,6 +32,7 @@
     if (copy) {
         DeckDetailsCardContentConfiguration *_copy = (DeckDetailsCardContentConfiguration *)copy;
         _copy->_hsCard = [self.hsCard copy];
+        _copy->_count = self.count;
     }
     
     return copy;
