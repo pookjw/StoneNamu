@@ -16,6 +16,10 @@ typedef UICollectionViewDiffableDataSource<DeckDetailsSectionModel *, DeckDetail
 
 typedef void (^DeckDetailsViewModelExportDeckCodeCompletion)(NSString * _Nullable, NSError * _Nullable);
 
+static NSString * const DeckDetailsViewModelShouldDismissNotificationName = @"DeckDetailsViewModelShouldDismissNotificationName";
+static NSString * const DeckDetailsViewModelHasAnyCardsNotificationName = @"DeckDetailsViewModelHasAnyCardsNotificationName";
+static NSString * const DeckDetailsViewModelHasAnyCardsItemKey = @"DeckDetailsViewModelHasAnyCardsItemKey";
+
 @interface DeckDetailsViewModel : NSObject
 @property (retain) DecksDetailsDataSource *dataSource;
 - (instancetype)initWithDataSource:(DecksDetailsDataSource *)dataSource;

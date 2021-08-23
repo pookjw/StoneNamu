@@ -41,6 +41,7 @@
     [self configureRightBarButtonItems];
     [self configureCollectionView];
     [self configureViewModel];
+    [self bind];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -63,6 +64,7 @@
                                                                            target:self
                                                                            action:@selector(exportBarButtonItemTriggered:)];
     self.exportBarButtonItem = exportBarButtonItem;
+    exportBarButtonItem.enabled = NO;
     
     self.navigationItem.rightBarButtonItems = @[exportBarButtonItem];
     
@@ -163,6 +165,32 @@
     };
     
     return [[provider copy] autorelease];
+}
+
+- (void)bind {
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(shouldDismissReceived:)
+                                               name:DeckDetailsViewModelShouldDismissNotificationName
+                                             object:self.viewModel];
+    
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(hasAnyCardsReceived:)
+                                               name:DeckDetailsViewModelHasAnyCardsNotificationName
+                                             object:self.viewModel];
+}
+
+- (void)shouldDismissReceived:(NSNotification *)notification {
+    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+        [self.navigationController popViewControllerAnimated:YES];
+    }];
+}
+
+- (void)hasAnyCardsReceived:(NSNotification *)notification {
+    BOOL hasCards = [(NSNumber *)notification.userInfo[DeckDetailsViewModelHasAnyCardsItemKey] boolValue];
+    
+    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+        self.exportBarButtonItem.enabled = hasCards;
+    }];
 }
 
 #pragma mark UICollectionViewDelegate

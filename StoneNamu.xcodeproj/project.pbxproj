@@ -58,6 +58,7 @@
 		4F4976E926ABFF5E00860809 /* CardOptionSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4976E826ABFF5E00860809 /* CardOptionSectionModel.m */; };
 		4F4976EC26ABFF6900860809 /* CardOptionItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4976EB26ABFF6900860809 /* CardOptionItemModel.m */; };
 		4F4C5E1F26D3015D00E3349B /* DragItemService.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4C5E1E26D3015D00E3349B /* DragItemService.m */; };
+		4F4C5E2226D31F0E00E3349B /* NSDiffableDataSourceSnapshot+sort.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4C5E2126D31F0E00E3349B /* NSDiffableDataSourceSnapshot+sort.m */; };
 		4F57DE9D26AD7B53000E4163 /* PickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F57DE9C26AD7B53000E4163 /* PickerViewController.m */; };
 		4F57DEA126AD7DB3000E4163 /* SheetNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F57DEA026AD7DB3000E4163 /* SheetNavigationController.m */; };
 		4F57DEA526AD96D3000E4163 /* HSCardSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F57DEA426AD96D3000E4163 /* HSCardSet.m */; };
@@ -273,6 +274,8 @@
 		4F4976EB26ABFF6900860809 /* CardOptionItemModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardOptionItemModel.m; sourceTree = "<group>"; };
 		4F4C5E1D26D3015D00E3349B /* DragItemService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DragItemService.h; sourceTree = "<group>"; };
 		4F4C5E1E26D3015D00E3349B /* DragItemService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DragItemService.m; sourceTree = "<group>"; };
+		4F4C5E2026D31F0E00E3349B /* NSDiffableDataSourceSnapshot+sort.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSDiffableDataSourceSnapshot+sort.h"; sourceTree = "<group>"; };
+		4F4C5E2126D31F0E00E3349B /* NSDiffableDataSourceSnapshot+sort.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSDiffableDataSourceSnapshot+sort.m"; sourceTree = "<group>"; };
 		4F57DE9B26AD7B53000E4163 /* PickerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PickerViewController.h; sourceTree = "<group>"; };
 		4F57DE9C26AD7B53000E4163 /* PickerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PickerViewController.m; sourceTree = "<group>"; };
 		4F57DE9F26AD7DB3000E4163 /* SheetNavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SheetNavigationController.h; sourceTree = "<group>"; };
@@ -505,6 +508,8 @@
 				4FFDD64F26CAC0F7008E5B45 /* UIScrollView+scrollToTop.m */,
 				4FFDD65126CAC274008E5B45 /* UIView+scrollToTopForRecursiveView.h */,
 				4FFDD65226CAC274008E5B45 /* UIView+scrollToTopForRecursiveView.m */,
+				4F4C5E2026D31F0E00E3349B /* NSDiffableDataSourceSnapshot+sort.h */,
+				4F4C5E2126D31F0E00E3349B /* NSDiffableDataSourceSnapshot+sort.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1363,6 +1368,7 @@
 				4F74712126C16BDF001C45C4 /* CardDetailsChildrenContentViewModel.m in Sources */,
 				4F414B0A26CEFA5E0003A0CF /* DeckDetailsItemModel.m in Sources */,
 				4FF3E0CE26C9B84C002B20EA /* UIView+viewController.m in Sources */,
+				4F4C5E2226D31F0E00E3349B /* NSDiffableDataSourceSnapshot+sort.m in Sources */,
 				4F74712C26C175FE001C45C4 /* CardDetailsChildrenContentImageConfiguration.m in Sources */,
 				4F98E25226B9935B0067846F /* CardDetailsLayoutCompactViewController.m in Sources */,
 				4FF3E0BB26C97DAC002B20EA /* PrefsLocaleItemModel.m in Sources */,
