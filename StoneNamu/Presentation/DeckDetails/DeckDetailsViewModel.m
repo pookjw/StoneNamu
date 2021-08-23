@@ -60,10 +60,20 @@
     [_hsCardUseCase release];
     [super dealloc];
 }
+
 - (void)addHSCards:(NSArray<HSCard *> *)hsCards {
     NSArray<HSCard *> *copyHSCards = [hsCards copy];
 
     [self.queue addBarrierBlock:^{
+        if (([self totalCardsInSnapshot:self.dataSource.snapshot] + copyHSCards.count) > HSDECK_MAX_TOTAL_CARDS) {
+            [copyHSCards release];
+            NSError *error = [NSError errorWithDomain:@"com.pookjw.StoneNamu"
+                                                 code:109
+                                             userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"DECK_ADD_CARD_ERROR_NO_MORE_THAN_THIRTY_CARDS", @"")}];
+            [self postErrorOccuredNotification:error];
+            return;
+        }
+        
         NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
 
         DeckDetailsSectionModel * _Nullable cardsSectionModel = nil;
@@ -90,15 +100,22 @@
             
             [snapshot.itemIdentifiers enumerateObjectsUsingBlock:^(DeckDetailsItemModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 if ([obj.hsCard isEqual:hsCard]) {
-                    DeckDetailsItemModel *copy = [obj copy];
-                    copy.hsCardCount += 1;
                     
-                    /*
-                     if hsCardCount is changed, isEqual ans hash value will be changed. So reload or reconfigure won't work.
-                     */
-                    [snapshot deleteItemsWithIdentifiers:@[obj]];
-                    [snapshot appendItemsWithIdentifiers:@[copy] intoSectionWithIdentifier:cardsSectionModel];
-                    [copy release];
+                    if ((obj.hsCard.rarityId == HSCardRarityLegendary) && (obj.hsCardCount >= HSDECK_MAX_SINGLE_LEGENDARY_CARD)) {
+                        NSLog(@"Duplicated legenday card was detected!");
+                    } else if (obj.hsCardCount >= HSDECK_MAX_SINGLE_CARD) {
+                        NSLog(@"Duplicated card was detected!");
+                    } else {
+                        DeckDetailsItemModel *copy = [obj copy];
+                        copy.hsCardCount += 1;
+                        
+                        /*
+                         if hsCardCount is changed, isEqual ans hash value will be changed. So reload or reconfigure won't work.
+                         */
+                        [snapshot deleteItemsWithIdentifiers:@[obj]];
+                        [snapshot appendItemsWithIdentifiers:@[copy] intoSectionWithIdentifier:cardsSectionModel];
+                        [copy release];
+                    }
                     
                     isDuplicated = YES;
                     *stop = YES;
@@ -113,6 +130,15 @@
                 [cardItemModel release];
             }
         }
+        
+        if (cardsItemModels.count == 0) {
+            [copyHSCards release];
+            [cardsItemModels release];
+            [snapshot release];
+            return;
+        }
+        
+        //
         
         [snapshot appendItemsWithIdentifiers:cardsItemModels intoSectionWithIdentifier:cardsSectionModel];
         [cardsItemModels release];
@@ -172,6 +198,16 @@
 
 - (void)increaseAtIndexPath:(NSIndexPath *)indexPath {
     [self.queue addBarrierBlock:^{
+        if (([self totalCardsInSnapshot:self.dataSource.snapshot]) >= HSDECK_MAX_TOTAL_CARDS) {
+            NSError *error = [NSError errorWithDomain:@"com.pookjw.StoneNamu"
+                                                 code:109
+                                             userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"DECK_ADD_CARD_ERROR_NO_MORE_THAN_THIRTY_CARDS", @"")}];
+            [self postErrorOccuredNotification:error];
+            return;
+        }
+        
+        //
+        
         DeckDetailsItemModel *itemModel = [self.dataSource itemIdentifierForIndexPath:indexPath];
         
         if ((itemModel.hsCard.rarityId == HSCardRarityLegendary) && (itemModel.hsCardCount >= HSDECK_MAX_SINGLE_LEGENDARY_CARD)) {
@@ -449,6 +485,16 @@
             }
         }
     }];
+}
+
+- (NSUInteger)totalCardsInSnapshot:(NSDiffableDataSourceSnapshot *)snapshot {
+    NSUInteger __block result = 0;
+    
+    [snapshot.itemIdentifiers enumerateObjectsUsingBlock:^(DeckDetailsItemModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        result += obj.hsCardCount;
+    }];
+    
+    return result;
 }
 
 - (void)startLocalDeckObserving {
