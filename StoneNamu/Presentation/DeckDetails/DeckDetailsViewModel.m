@@ -63,7 +63,7 @@
 
 - (void)addHSCards:(NSArray<HSCard *> *)hsCards {
     NSArray<HSCard *> *copyHSCards = [hsCards copy];
-
+    
     [self.queue addBarrierBlock:^{
         if (([self totalCardsInSnapshot:self.dataSource.snapshot] + copyHSCards.count) > HSDECK_MAX_TOTAL_CARDS) {
             [copyHSCards release];
@@ -75,16 +75,16 @@
         }
         
         NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
-
+        
         DeckDetailsSectionModel * _Nullable cardsSectionModel = nil;
-
+        
         for (DeckDetailsSectionModel *tmp in snapshot.sectionIdentifiers) {
             if (tmp.type == DeckDetailsSectionModelTypeCards) {
                 cardsSectionModel = tmp;
                 break;
             }
         }
-
+        
         if (cardsSectionModel == nil) {
             [copyHSCards release];
             [snapshot release];
@@ -143,7 +143,7 @@
         [snapshot appendItemsWithIdentifiers:cardsItemModels intoSectionWithIdentifier:cardsSectionModel];
         [cardsItemModels release];
         [self sortSnapshot:snapshot sectionModel:cardsSectionModel];
-
+        
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
             [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
                 [snapshot release];
@@ -198,16 +198,6 @@
 
 - (void)increaseAtIndexPath:(NSIndexPath *)indexPath {
     [self.queue addBarrierBlock:^{
-        if (([self totalCardsInSnapshot:self.dataSource.snapshot]) >= HSDECK_MAX_TOTAL_CARDS) {
-            NSError *error = [NSError errorWithDomain:@"com.pookjw.StoneNamu"
-                                                 code:109
-                                             userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"DECK_ADD_CARD_ERROR_NO_MORE_THAN_THIRTY_CARDS", @"")}];
-            [self postErrorOccuredNotification:error];
-            return;
-        }
-        
-        //
-        
         DeckDetailsItemModel *itemModel = [self.dataSource itemIdentifierForIndexPath:indexPath];
         
         if ((itemModel.hsCard.rarityId == HSCardRarityLegendary) && (itemModel.hsCardCount >= HSDECK_MAX_SINGLE_LEGENDARY_CARD)) {
@@ -225,7 +215,18 @@
         }
         
         NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
-            
+        
+        if (([self totalCardsInSnapshot:snapshot]) >= HSDECK_MAX_TOTAL_CARDS) {
+            NSError *error = [NSError errorWithDomain:@"com.pookjw.StoneNamu"
+                                                 code:109
+                                             userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"DECK_ADD_CARD_ERROR_NO_MORE_THAN_THIRTY_CARDS", @"")}];
+            [self postErrorOccuredNotification:error];
+            [snapshot release];
+            return;
+        }
+        
+        //
+        
         DeckDetailsSectionModel *sectionModel;
         if (@available(iOS 15.0, *)) {
             sectionModel = [self.dataSource sectionIdentifierForIndex:indexPath.section];
@@ -271,7 +272,7 @@
         }
         
         NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
-            
+        
         DeckDetailsSectionModel *sectionModel;
         if (@available(iOS 15.0, *)) {
             sectionModel = [self.dataSource sectionIdentifierForIndex:indexPath.section];
@@ -321,11 +322,9 @@
     
     if (itemModel == nil) return @[];
     
-    NSItemProvider *itemProvider = [NSItemProvider new];
+    NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithObject:itemModel.hsCard];
     UIDragItem *dragItem = [[UIDragItem alloc] initWithItemProvider:itemProvider];
     [itemProvider release];
-    
-    dragItem.localObject = itemModel.hsCard;
     
     return @[[dragItem autorelease]];
 }
