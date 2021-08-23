@@ -237,15 +237,19 @@
     [self->configuration release];
     DeckDetailsCardContentConfiguration *contentConfig = [(DeckDetailsCardContentConfiguration *)configuration copy];
     self->configuration = contentConfig;
-    self.count = contentConfig.count;
     
     if (![self.hsCard isEqual:contentConfig.hsCard]) {
         self.hsCard = contentConfig.hsCard;
-        [self updateView];
+        self.count = contentConfig.count;
+        [self updateViewFromHSCard];
+        [self updateCount];
+    } else if (self.count != contentConfig.count) {
+        self.count = contentConfig.count;
+        [self updateCount];
     }
 }
 
-- (void)updateView {
+- (void)updateViewFromHSCard {
     self.nameLabel.text = self.hsCard.name;
     
     //
@@ -274,14 +278,6 @@
     
     //
     
-    if ((self.hsCard.rarityId == HSCardRarityLegendary) && (self.count == 1)) {
-        self.countLabel.text = @"★";
-    } else {
-        self.countLabel.text = [NSString stringWithFormat:@"%lu", self.count];
-    }
-    
-    //
-    
     void (^asyncImageCompletion)(UIImage * _Nullable, NSError * _Nullable) = ^(UIImage * _Nullable image, NSError * _Nullable error) {
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
             [self updateGradientLayer];
@@ -292,6 +288,14 @@
         [self.imageView setAsyncImageWithURL:self.hsCard.cropImage indicator:NO completion:asyncImageCompletion];
     } else {
         [self.imageView setAsyncImageWithURL:self.hsCard.image indicator:NO completion:asyncImageCompletion];
+    }
+}
+
+- (void)updateCount {
+    if ((self.hsCard.rarityId == HSCardRarityLegendary) && (self.count == 1)) {
+        self.countLabel.text = @"★";
+    } else {
+        self.countLabel.text = [NSString stringWithFormat:@"%lu", self.count];
     }
 }
 

@@ -88,6 +88,7 @@
 		4F74712926C170E5001C45C4 /* CardDetailsChildrenContentItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F74712826C170E5001C45C4 /* CardDetailsChildrenContentItemModel.m */; };
 		4F74712C26C175FE001C45C4 /* CardDetailsChildrenContentImageConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F74712B26C175FE001C45C4 /* CardDetailsChildrenContentImageConfiguration.m */; };
 		4F74712F26C1760C001C45C4 /* CardDetailsChildrenContentImageContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F74712E26C1760C001C45C4 /* CardDetailsChildrenContentImageContentView.m */; };
+		4F8F976226D45C290024FC06 /* NSMutableArray+removeSingle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8F976126D45C290024FC06 /* NSMutableArray+removeSingle.m */; };
 		4F90709926D35FA000BA7614 /* DeckDetailsCardContentConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F90709826D35FA000BA7614 /* DeckDetailsCardContentConfiguration.m */; };
 		4F90709C26D3606300BA7614 /* DeckDetailsCardContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F90709B26D3606300BA7614 /* DeckDetailsCardContentView.m */; };
 		4F90709E26D360CC00BA7614 /* MyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F90709D26D360CC00BA7614 /* MyView.xib */; };
@@ -336,6 +337,8 @@
 		4F74712B26C175FE001C45C4 /* CardDetailsChildrenContentImageConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardDetailsChildrenContentImageConfiguration.m; sourceTree = "<group>"; };
 		4F74712D26C1760C001C45C4 /* CardDetailsChildrenContentImageContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardDetailsChildrenContentImageContentView.h; sourceTree = "<group>"; };
 		4F74712E26C1760C001C45C4 /* CardDetailsChildrenContentImageContentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardDetailsChildrenContentImageContentView.m; sourceTree = "<group>"; };
+		4F8F976026D45C290024FC06 /* NSMutableArray+removeSingle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+removeSingle.h"; sourceTree = "<group>"; };
+		4F8F976126D45C290024FC06 /* NSMutableArray+removeSingle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+removeSingle.m"; sourceTree = "<group>"; };
 		4F90709726D35FA000BA7614 /* DeckDetailsCardContentConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckDetailsCardContentConfiguration.h; sourceTree = "<group>"; };
 		4F90709826D35FA000BA7614 /* DeckDetailsCardContentConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckDetailsCardContentConfiguration.m; sourceTree = "<group>"; };
 		4F90709A26D3606300BA7614 /* DeckDetailsCardContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckDetailsCardContentView.h; sourceTree = "<group>"; };
@@ -528,6 +531,8 @@
 				4F9070A026D3803800BA7614 /* UIImage+averageColor.m */,
 				4F9070A226D3836600BA7614 /* UIColor+invertedColor.h */,
 				4F9070A326D3836600BA7614 /* UIColor+invertedColor.m */,
+				4F8F976026D45C290024FC06 /* NSMutableArray+removeSingle.h */,
+				4F8F976126D45C290024FC06 /* NSMutableArray+removeSingle.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1405,6 +1410,7 @@
 				4F9070A426D3836600BA7614 /* UIColor+invertedColor.m in Sources */,
 				4F4976E626ABFE2100860809 /* CardOptionsViewModel.m in Sources */,
 				4F4976EC26ABFF6900860809 /* CardOptionItemModel.m in Sources */,
+				4F8F976226D45C290024FC06 /* NSMutableArray+removeSingle.m in Sources */,
 				4FA56BBD26A2105A002D9FA0 /* main.m in Sources */,
 				4FFDD65326CAC274008E5B45 /* UIView+scrollToTopForRecursiveView.m in Sources */,
 				4F57DEAC26ADA6E3000E4163 /* PickerItemModel.m in Sources */,

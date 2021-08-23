@@ -11,6 +11,7 @@
 #import "HSCardUseCaseImpl.h"
 #import "NSSemaphoreCondition.h"
 #import "NSDiffableDataSourceSnapshot+sort.h"
+#import "NSMutableArray+removeSingle.h"
 
 @interface DeckDetailsViewModel ()
 @property (retain) NSOperationQueue *queue;
@@ -85,11 +86,32 @@
         NSMutableArray<DeckDetailsItemModel *> *cardsItemModels = [@[] mutableCopy];
         
         for (HSCard *hsCard in copyHSCards) {
-            if (![hsCard isKindOfClass:[HSCard class]]) continue;
-            DeckDetailsItemModel *cardItemModel = [[DeckDetailsItemModel alloc] initWithType:DeckDetailsItemModelTypeCard];
-            cardItemModel.hsCard = hsCard;
-            [cardsItemModels addObject:cardItemModel];
-            [cardItemModel release];
+            BOOL __block isDuplicated = NO;
+            
+            [snapshot.itemIdentifiers enumerateObjectsUsingBlock:^(DeckDetailsItemModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                if ([obj.hsCard isEqual:hsCard]) {
+                    DeckDetailsItemModel *copy = [obj copy];
+                    copy.hsCardCount += 1;
+                    
+                    /*
+                     if hsCardCount is changed, isEqual ans hash value will be changed. So reload or reconfigure won't work.
+                     */
+                    [snapshot deleteItemsWithIdentifiers:@[obj]];
+                    [snapshot appendItemsWithIdentifiers:@[copy] intoSectionWithIdentifier:cardsSectionModel];
+                    [copy release];
+                    
+                    isDuplicated = YES;
+                    *stop = YES;
+                }
+            }];
+            
+            if (!isDuplicated) {
+                DeckDetailsItemModel *cardItemModel = [[DeckDetailsItemModel alloc] initWithType:DeckDetailsItemModelTypeCard];
+                cardItemModel.hsCard = hsCard;
+                cardItemModel.hsCardCount = 1;
+                [cardsItemModels addObject:cardItemModel];
+                [cardItemModel release];
+            }
         }
         
         [snapshot appendItemsWithIdentifiers:cardsItemModels intoSectionWithIdentifier:cardsSectionModel];
@@ -116,14 +138,6 @@
     }];
 }
 
-- (void)removeAtIndexPath:(NSIndexPath *)indexPath {
-    HSCard * _Nullable hsCard = [self.dataSource itemIdentifierForIndexPath:indexPath].hsCard;
-    
-    if (hsCard) {
-        [self removeHSCard:hsCard];
-    }
-}
-
 - (void)removeHSCard:(HSCard *)hsCard {
     HSCard *copyHSCard = [hsCard copy];
     
@@ -142,13 +156,7 @@
                 [snapshot release];
                 
                 NSMutableArray<NSNumber *> *mutableCards = [self.localDeck.cards mutableCopy];
-                
-                [mutableCards enumerateObjectsUsingBlock:^(NSNumber * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                    if (obj.unsignedIntegerValue == copyHSCard.cardId) {
-                        [mutableCards removeObject:obj];
-                        *stop = YES;
-                    }
-                }];
+                [mutableCards removeSingleObject:[NSNumber numberWithUnsignedInteger:copyHSCard.cardId]];
                 
                 self.localDeck.cards = mutableCards;
                 [mutableCards release];
@@ -160,6 +168,116 @@
             }];
         }];
     }];
+}
+
+- (void)increaseAtIndexPath:(NSIndexPath *)indexPath {
+    [self.queue addBarrierBlock:^{
+        DeckDetailsItemModel *itemModel = [self.dataSource itemIdentifierForIndexPath:indexPath];
+        
+        if ((itemModel.hsCard.rarityId == HSCardRarityLegendary) && (itemModel.hsCardCount >= HSDECK_MAX_SINGLE_LEGENDARY_CARD)) {
+            NSError *error = [NSError errorWithDomain:@"com.pookjw.StoneNamu"
+                                                 code:107
+                                             userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"DECK_ADD_CARD_ERROR_CANNOT_ADD_SINGLE_LAGENDARY_CARD_MORE_THAN_TWO", @"")}];
+            [self postErrorOccuredNotification:error];
+            return;
+        } else if (itemModel.hsCardCount >= HSDECK_MAX_SINGLE_CARD) {
+            NSError *error = [NSError errorWithDomain:@"com.pookjw.StoneNamu"
+                                                 code:108
+                                             userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"DECK_ADD_CARD_ERROR_CANNOT_ADD_SINGLE_CARD_MORE_THAN_TWO", @"")}];
+            [self postErrorOccuredNotification:error];
+            return;
+        }
+        
+        NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
+            
+        DeckDetailsSectionModel *sectionModel;
+        if (@available(iOS 15.0, *)) {
+            sectionModel = [self.dataSource sectionIdentifierForIndex:indexPath.section];
+        } else {
+            sectionModel = [snapshot sectionIdentifierForSectionContainingItemIdentifier:itemModel];
+        }
+        
+        //
+        
+        DeckDetailsItemModel *copy = [itemModel copy];
+        copy.hsCardCount += 1;
+        
+        [snapshot deleteItemsWithIdentifiers:@[itemModel]];
+        [snapshot appendItemsWithIdentifiers:@[copy] intoSectionWithIdentifier:sectionModel];
+        
+        [self sortSnapshot:snapshot sectionModel:sectionModel];
+        
+        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+            [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
+                [snapshot release];
+                
+                NSMutableArray *localDeckCards = [self.localDeck.cards mutableCopy];
+                [localDeckCards addObject:[NSNumber numberWithUnsignedInteger:copy.hsCard.cardId]];
+                self.localDeck.cards = localDeckCards;
+                self.localDeck.deckCode = nil;
+                [self.localDeck updateTimestamp];
+                [localDeckCards release];
+                [copy release];
+                
+                [self.localDeckUseCase saveChanges];
+            }];
+        }];
+    }];
+}
+
+- (void)decreaseAtIndexPath:(NSIndexPath *)indexPath {
+    [self.queue addBarrierBlock:^{
+        DeckDetailsItemModel *itemModel = [self.dataSource itemIdentifierForIndexPath:indexPath];
+        
+        if (itemModel.hsCardCount <= 1) {
+            [self removeAtIndexPath:indexPath];
+            return;
+        }
+        
+        NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
+            
+        DeckDetailsSectionModel *sectionModel;
+        if (@available(iOS 15.0, *)) {
+            sectionModel = [self.dataSource sectionIdentifierForIndex:indexPath.section];
+        } else {
+            sectionModel = [snapshot sectionIdentifierForSectionContainingItemIdentifier:itemModel];
+        }
+        
+        //
+        
+        DeckDetailsItemModel *copy = [itemModel copy];
+        copy.hsCardCount -= 1;
+        
+        [snapshot deleteItemsWithIdentifiers:@[itemModel]];
+        [snapshot appendItemsWithIdentifiers:@[copy] intoSectionWithIdentifier:sectionModel];
+        
+        [self sortSnapshot:snapshot sectionModel:sectionModel];
+        
+        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+            [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
+                [snapshot release];
+                
+                NSMutableArray *localDeckCards = [self.localDeck.cards mutableCopy];
+                [localDeckCards removeSingleObject:[NSNumber numberWithUnsignedInteger:copy.hsCard.cardId]];
+                
+                self.localDeck.cards = localDeckCards;
+                self.localDeck.deckCode = nil;
+                [self.localDeck updateTimestamp];
+                [localDeckCards release];
+                [copy release];
+                
+                [self.localDeckUseCase saveChanges];
+            }];
+        }];
+    }];
+}
+
+- (void)removeAtIndexPath:(NSIndexPath *)indexPath {
+    HSCard * _Nullable hsCard = [self.dataSource itemIdentifierForIndexPath:indexPath].hsCard;
+    
+    if (hsCard) {
+        [self removeHSCard:hsCard];
+    }
 }
 
 - (NSArray<UIDragItem *> *)makeDragItemFromIndexPath:(NSIndexPath *)indexPath {
@@ -242,6 +360,7 @@
     
     [semaphore wait];
     [semaphore release];
+    [copyCardIds release];
     
     [self updateDataSourceWithHSCards:hsCards];
     [hsCards release];
@@ -267,10 +386,22 @@
         NSMutableArray<DeckDetailsItemModel *> *cardItemModels = [@[] mutableCopy];
         
         for (HSCard *hsCard in copyHSCards) {
-            DeckDetailsItemModel *cardItemModel = [[DeckDetailsItemModel alloc] initWithType:DeckDetailsItemModelTypeCard];
-            cardItemModel.hsCard = hsCard;
-            [cardItemModels addObject:cardItemModel];
-            [cardItemModel release];
+            BOOL __block isDuplicated = NO;
+            [cardItemModels enumerateObjectsUsingBlock:^(DeckDetailsItemModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                if ([obj.hsCard isEqual:hsCard]) {
+                    isDuplicated = YES;
+                    obj.hsCardCount += 1;
+                    *stop = YES;
+                }
+            }];
+            
+            if (!isDuplicated) {
+                DeckDetailsItemModel *cardItemModel = [[DeckDetailsItemModel alloc] initWithType:DeckDetailsItemModelTypeCard];
+                cardItemModel.hsCard = hsCard;
+                cardItemModel.hsCardCount = 1;
+                [cardItemModels addObject:cardItemModel];
+                [cardItemModel release];
+            }
         }
         
         [snapshot appendItemsWithIdentifiers:cardItemModels intoSectionWithIdentifier:cardsSectionModel];

@@ -177,7 +177,7 @@
         
         DeckDetailsItemModel *itemModel = (DeckDetailsItemModel *)item;
         
-        DeckDetailsCardContentConfiguration *configuration = [[DeckDetailsCardContentConfiguration alloc] initWithHSCard:itemModel.hsCard count:1];
+        DeckDetailsCardContentConfiguration *configuration = [[DeckDetailsCardContentConfiguration alloc] initWithHSCard:itemModel.hsCard count:itemModel.hsCardCount];
         cell.contentConfiguration = configuration;
         [configuration release];
     }];
@@ -187,15 +187,40 @@
 
 - (UICollectionLayoutListSwipeActionsConfigurationProvider)makeTrailingSwipeProvider {
     UICollectionLayoutListSwipeActionsConfigurationProvider provider = ^UISwipeActionsConfiguration *(NSIndexPath *indexPath) {
-        UIContextualAction *action = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive
+        UIContextualAction *decrementAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal
+                                                                                  title:nil
+                                                                                handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
+            [self.viewModel decreaseAtIndexPath:indexPath];
+        }];
+        
+        decrementAction.image = [UIImage systemImageNamed:@"minus"];
+        decrementAction.backgroundColor = UIColor.systemOrangeColor;
+        
+        //
+        
+        UIContextualAction *incrementAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal
+                                                                                  title:nil
+                                                                                handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
+            [self.viewModel increaseAtIndexPath:indexPath];
+        }];
+        
+        incrementAction.image = [UIImage systemImageNamed:@"plus"];
+        incrementAction.backgroundColor = UIColor.systemGreenColor;
+        
+        //
+        
+        UIContextualAction *removeAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive
                                                                              title:nil
                                                                            handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
             [self.viewModel removeAtIndexPath:indexPath];
         }];
         
-        action.image = [UIImage systemImageNamed:@"trash"];
+        removeAction.image = [UIImage systemImageNamed:@"trash"];
         
-        UISwipeActionsConfiguration *configuration = [UISwipeActionsConfiguration configurationWithActions:@[action]];
+        //
+        
+        UISwipeActionsConfiguration *configuration = [UISwipeActionsConfiguration configurationWithActions:@[removeAction, incrementAction, decrementAction]];
+        configuration.performsFirstActionWithFullSwipe = NO;
         return configuration;
     };
     

@@ -13,7 +13,8 @@
     self = [self init];
     
     if (self) {
-        self->_hsCard = nil;
+        self.hsCard = nil;
+        self.hsCardCount = 0;
         self->_type = type;
     }
     
@@ -25,6 +26,19 @@
     [super dealloc];
 }
 
+- (id)copyWithZone:(NSZone *)zone {
+    id copy = [[self class] new];
+    
+    if (copy) {
+        DeckDetailsItemModel *_copy = (DeckDetailsItemModel *)copy;
+        _copy->_hsCard = [self.hsCard copyWithZone:zone];
+        _copy->_hsCardCount = self.hsCardCount;
+        _copy->_type = self.type;
+    }
+    
+    return copy;
+}
+
 - (BOOL)isEqual:(id)object {
     DeckDetailsItemModel *toCompare = (DeckDetailsItemModel *)object;
     
@@ -32,11 +46,11 @@
         return NO;
     }
     
-    return [self.hsCard isEqual:toCompare.hsCard];
+    return ([self.hsCard isEqual:toCompare.hsCard]) && (self.hsCardCount == toCompare.hsCardCount);
 }
 
 - (NSUInteger)hash {
-    return self.type ^ self.hsCard.hash;
+    return self.type ^ self.hsCard.hash ^ self.hsCardCount;
 }
 
 @end

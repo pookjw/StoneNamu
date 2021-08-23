@@ -33,7 +33,11 @@ static NSString * const DeckDetailsViewModelErrorOccuredItemKey = @"DeckDetailsV
 - (instancetype)initWithDataSource:(DecksDetailsDataSource *)dataSource;
 - (void)requestDataSourcdWithLocalDeck:(LocalDeck *)localDeck;
 - (void)addHSCards:(NSArray<HSCard *> *)hsCards;
+
+- (void)increaseAtIndexPath:(NSIndexPath *)indexPath;
+- (void)decreaseAtIndexPath:(NSIndexPath *)indexPath;
 - (void)removeAtIndexPath:(NSIndexPath *)indexPath;
+
 - (NSArray<UIDragItem *> *)makeDragItemFromIndexPath:(NSIndexPath *)indexPath;
 - (void)exportDeckCodeWithCompletion:(DeckDetailsViewModelExportDeckCodeCompletion)completion;
 - (void)updateDeckName:(NSString *)name;
