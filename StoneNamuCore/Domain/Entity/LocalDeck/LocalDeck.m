@@ -6,6 +6,7 @@
 //
 
 #import "LocalDeck.h"
+#import "HSCardHero.h"
 
 @implementation LocalDeck
 
@@ -59,7 +60,7 @@
     self.isWild = [NSNumber numberWithBool:[hsDeck.format isEqualToString:HSDeckFormatWild]];
     self.classId = [NSNumber numberWithUnsignedInteger:hsDeck.classId];
     self.deckCode = [[hsDeck.deckCode copy] autorelease];
-    self.name = nil;
+    self.name = hsCardClassesWithLocalizable()[NSStringFromHSCardClass(hsDeck.classId)];
 }
 
 - (void)updateTimestamp {

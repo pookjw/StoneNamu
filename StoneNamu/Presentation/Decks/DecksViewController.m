@@ -162,7 +162,7 @@
         DecksItemModel *itemModel = (DecksItemModel *)item;
         
         UIListContentConfiguration *configuration = [UIListContentConfiguration subtitleCellConfiguration];
-        configuration.text = NSStringFromHSCardClass(itemModel.localDeck.classId.unsignedIntegerValue);
+        configuration.text = itemModel.localDeck.name;
         configuration.secondaryTextProperties.numberOfLines = 0;
         cell.contentConfiguration = configuration;
     }];

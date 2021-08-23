@@ -94,6 +94,7 @@
         }
         
         LocalDeck *localDeck = [self.localDeckUseCase makeLocalDeck];
+        localDeck.name = hsCardClassesWithLocalizable()[NSStringFromHSCardClass(hsCardClass)];
         localDeck.classId = [NSNumber numberWithUnsignedInteger:hsCardClass];
         
         DecksItemModel *itemModel = [[DecksItemModel alloc] initWithType:DecksItemModelTypeDeck localDeck:localDeck];
