@@ -177,7 +177,7 @@
         
         DeckDetailsItemModel *itemModel = (DeckDetailsItemModel *)item;
         
-        DeckDetailsCardContentConfiguration *configuration = [[DeckDetailsCardContentConfiguration alloc] initWithHSCard:itemModel.hsCard count:itemModel.hsCardCount];
+        DeckDetailsCardContentConfiguration *configuration = [[DeckDetailsCardContentConfiguration alloc] initWithHSCard:itemModel.hsCard hsCardCount:itemModel.hsCardCount];
         cell.contentConfiguration = configuration;
         [configuration release];
     }];

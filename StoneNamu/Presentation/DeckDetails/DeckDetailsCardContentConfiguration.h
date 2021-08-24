@@ -12,8 +12,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface DeckDetailsCardContentConfiguration : NSObject <UIContentConfiguration>
 @property (readonly, copy) HSCard *hsCard;
-@property (readonly) NSUInteger count;
-- (instancetype)initWithHSCard:(HSCard *)hsCard count:(NSUInteger)count;
+@property (readonly) NSUInteger hsCardCount;
+@property (readonly) BOOL isDarkMode;
+- (instancetype)initWithHSCard:(HSCard *)hsCard hsCardCount:(NSUInteger)hsCardCount;
 @end
 
 NS_ASSUME_NONNULL_END

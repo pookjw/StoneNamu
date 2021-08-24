@@ -8,13 +8,14 @@
 #import "DeckDetailsCardContentView.h"
 #import "UIImageView+setAsyncImage.h"
 #import "DeckDetailsCardContentConfiguration.h"
+#import "InsetsLabel.h"
 
 @interface DeckDetailsCardContentView ()
-@property (retain) HSCard *hsCard;
-@property NSUInteger count;
+@property (readonly, nonatomic) HSCard *hsCard;
+@property (readonly, nonatomic) NSUInteger hsCardCount;
 @property (retain) UIImageView *imageView;
 @property (retain) UILabel *manaCostLabel;
-@property (retain) UILabel *nameLabel;
+@property (retain) InsetsLabel *nameLabel;
 @property (retain) UILabel *countLabel;
 @property (retain) CAGradientLayer *imageViewGradientLayer;
 @end
@@ -39,7 +40,6 @@
 
 - (void)dealloc {
     [configuration release];
-    [_hsCard release];
     [_imageView release];
     [_manaCostLabel release];
     [_nameLabel release];
@@ -54,13 +54,14 @@
 }
 
 - (void)setAttributes {
-    self.backgroundColor = UIColor.blackColor;
+    self.backgroundColor = nil;
 }
 
 - (void)configureNameLabel {
-    UILabel *nameLabel = [UILabel new];
+    InsetsLabel *nameLabel = [InsetsLabel new];
     self.nameLabel = nameLabel;
     
+    nameLabel.contentInsets = UIEdgeInsetsMake(15, 15, 15, 15);
     nameLabel.backgroundColor = UIColor.clearColor;
     nameLabel.textColor = nil;
     nameLabel.adjustsFontSizeToFitWidth = YES;
@@ -68,8 +69,8 @@
     nameLabel.minimumScaleFactor = 0.1;
     
     nameLabel.layer.shadowColor = UIColor.blackColor.CGColor;
-    nameLabel.layer.shadowRadius = 5.0;
-    nameLabel.layer.shadowOpacity = 1.0;
+    nameLabel.layer.shadowRadius = 3.0;
+    nameLabel.layer.shadowOpacity = 0.5;
     nameLabel.layer.shadowOffset = CGSizeMake(0, 0);
     nameLabel.layer.masksToBounds = YES;
     
@@ -131,7 +132,7 @@
     [NSLayoutConstraint activateConstraints:@[
         [manaCostLabel.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
         [manaCostLabel.topAnchor constraintEqualToAnchor:self.topAnchor],
-        [manaCostLabel.trailingAnchor constraintEqualToAnchor:self.nameLabel.leadingAnchor constant:-10],
+        [manaCostLabel.trailingAnchor constraintEqualToAnchor:self.nameLabel.leadingAnchor],
         [manaCostLabel.bottomAnchor constraintEqualToAnchor:self.bottomAnchor],
         [manaCostLabel.widthAnchor constraintEqualToConstant:width]
     ]];
@@ -234,19 +235,36 @@
 }
 
 - (void)setConfiguration:(id<UIContentConfiguration>)configuration {
-    [self->configuration release];
-    DeckDetailsCardContentConfiguration *contentConfig = [(DeckDetailsCardContentConfiguration *)configuration copy];
-    self->configuration = contentConfig;
+    DeckDetailsCardContentConfiguration *oldContentConfig = (DeckDetailsCardContentConfiguration *)self.configuration;
+    DeckDetailsCardContentConfiguration *newContentConfig = [(DeckDetailsCardContentConfiguration *)configuration copy];
+    self->configuration = newContentConfig;
     
-    if (![self.hsCard isEqual:contentConfig.hsCard]) {
-        self.hsCard = contentConfig.hsCard;
-        self.count = contentConfig.count;
+    if (![newContentConfig.hsCard isEqual:oldContentConfig.hsCard]) {
         [self updateViewFromHSCard];
         [self updateCount];
-    } else if (self.count != contentConfig.count) {
-        self.count = contentConfig.count;
+    } else if (newContentConfig.hsCardCount != oldContentConfig.hsCardCount) {
         [self updateCount];
     }
+    
+    [oldContentConfig release];
+}
+
+- (HSCard * _Nullable)hsCard {
+    if (![self.configuration isKindOfClass:[DeckDetailsCardContentConfiguration class]]) {
+        return nil;
+    }
+    
+    DeckDetailsCardContentConfiguration *contentConfiguration = (DeckDetailsCardContentConfiguration *)self.configuration;
+    return contentConfiguration.hsCard;
+}
+
+- (NSUInteger)hsCardCount {
+    if (![self.configuration isKindOfClass:[DeckDetailsCardContentConfiguration class]]) {
+        return 0;
+    }
+    
+    DeckDetailsCardContentConfiguration *contentConfiguration = (DeckDetailsCardContentConfiguration *)self.configuration;
+    return contentConfiguration.hsCardCount;
 }
 
 - (void)updateViewFromHSCard {
@@ -256,7 +274,7 @@
     
     switch (self.hsCard.rarityId) {
         case HSCardRarityCommon:
-            self.nameLabel.textColor = UIColor.whiteColor;
+            self.nameLabel.textColor = nil;
             break;
         case HSCardRarityRare:
             self.nameLabel.textColor = UIColor.systemBlueColor;
@@ -292,10 +310,10 @@
 }
 
 - (void)updateCount {
-    if ((self.hsCard.rarityId == HSCardRarityLegendary) && (self.count == 1)) {
+    if ((self.hsCard.rarityId == HSCardRarityLegendary) && (self.hsCardCount == 1)) {
         self.countLabel.text = @"★";
     } else {
-        self.countLabel.text = [NSString stringWithFormat:@"%lu", self.count];
+        self.countLabel.text = [NSString stringWithFormat:@"%lu", self.hsCardCount];
     }
 }
 

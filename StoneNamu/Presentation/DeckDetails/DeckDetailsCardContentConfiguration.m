@@ -10,12 +10,13 @@
 
 @implementation DeckDetailsCardContentConfiguration
 
-- (instancetype)initWithHSCard:(HSCard *)hsCard count:(NSUInteger)count {
+- (instancetype)initWithHSCard:(HSCard *)hsCard hsCardCount:(NSUInteger)count {
     self = [self init];
     
     if (self) {
         self->_hsCard = [hsCard copy];
-        self->_count = count;
+        self->_hsCardCount = count;
+        self->_isDarkMode = NO;
     }
     
     return self;
@@ -32,7 +33,8 @@
     if (copy) {
         DeckDetailsCardContentConfiguration *_copy = (DeckDetailsCardContentConfiguration *)copy;
         _copy->_hsCard = [self.hsCard copy];
-        _copy->_count = self.count;
+        _copy->_hsCardCount = self.hsCardCount;
+        _copy->_isDarkMode = self.isDarkMode;
     }
     
     return copy;
@@ -44,7 +46,8 @@
     return [contentView autorelease];
 }
 
-- (nonnull instancetype)updatedConfigurationForState:(nonnull id<UIConfigurationState>)state { 
+- (nonnull instancetype)updatedConfigurationForState:(nonnull id<UIConfigurationState>)state {
+    self->_isDarkMode = (state.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark);
     return self;
 }
 

@@ -10,7 +10,7 @@
 #import "UIImageView+setAsyncImage.h"
 
 @interface CardContentView ()
-@property (copy) HSCard *hsCard;
+@property (readonly, nonatomic) HSCard * _Nullable hsCard;
 @end
 
 @implementation CardContentView
@@ -30,7 +30,6 @@
 - (void)dealloc {
     [configuration release];
     [_imageView release];
-    [_hsCard release];
     [super dealloc];
 }
 
@@ -51,15 +50,25 @@
 }
 
 - (void)setConfiguration:(id<UIContentConfiguration>)configuration {
-    [self->configuration release];
-    CardContentConfiguration *cardContent = [(CardContentConfiguration *)configuration copy];
-    self->configuration = cardContent;
+    CardContentConfiguration *oldContentConfig = (CardContentConfiguration *)self.configuration;
+    CardContentConfiguration *newContentConfig = [(CardContentConfiguration *)configuration copy];
+    self->configuration = newContentConfig;
     
-    if (![self.hsCard isEqual:cardContent.hsCard]) {
-        self.hsCard = cardContent.hsCard;
-        [self.imageView setAsyncImageWithURL:cardContent.hsCard.image indicator:YES];
+    if (![newContentConfig.hsCard isEqual:oldContentConfig.hsCard]) {
+        [self.imageView setAsyncImageWithURL:newContentConfig.hsCard.image indicator:YES];
         self.imageView.hidden = NO;
     }
+    
+    [oldContentConfig release];
+}
+
+- (HSCard * _Nullable)hsCard {
+    if (![self.configuration isKindOfClass:[CardContentConfiguration class]]) {
+        return nil;
+    }
+    
+    CardContentConfiguration *contentConfiguration = (CardContentConfiguration *)self.configuration;
+    return contentConfiguration.hsCard;
 }
 
 @end

@@ -89,9 +89,9 @@
 		4F74712C26C175FE001C45C4 /* CardDetailsChildrenContentImageConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F74712B26C175FE001C45C4 /* CardDetailsChildrenContentImageConfiguration.m */; };
 		4F74712F26C1760C001C45C4 /* CardDetailsChildrenContentImageContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F74712E26C1760C001C45C4 /* CardDetailsChildrenContentImageContentView.m */; };
 		4F8F976226D45C290024FC06 /* NSMutableArray+removeSingle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8F976126D45C290024FC06 /* NSMutableArray+removeSingle.m */; };
+		4F8F976526D469700024FC06 /* InsetsLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8F976426D469700024FC06 /* InsetsLabel.m */; };
 		4F90709926D35FA000BA7614 /* DeckDetailsCardContentConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F90709826D35FA000BA7614 /* DeckDetailsCardContentConfiguration.m */; };
 		4F90709C26D3606300BA7614 /* DeckDetailsCardContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F90709B26D3606300BA7614 /* DeckDetailsCardContentView.m */; };
-		4F90709E26D360CC00BA7614 /* MyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F90709D26D360CC00BA7614 /* MyView.xib */; };
 		4F9070A126D3803800BA7614 /* UIImage+averageColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F9070A026D3803800BA7614 /* UIImage+averageColor.m */; };
 		4F9070A426D3836600BA7614 /* UIColor+invertedColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F9070A326D3836600BA7614 /* UIColor+invertedColor.m */; };
 		4F98E25226B9935B0067846F /* CardDetailsLayoutCompactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F98E25126B9935B0067846F /* CardDetailsLayoutCompactViewController.m */; };
@@ -339,11 +339,12 @@
 		4F74712E26C1760C001C45C4 /* CardDetailsChildrenContentImageContentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardDetailsChildrenContentImageContentView.m; sourceTree = "<group>"; };
 		4F8F976026D45C290024FC06 /* NSMutableArray+removeSingle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+removeSingle.h"; sourceTree = "<group>"; };
 		4F8F976126D45C290024FC06 /* NSMutableArray+removeSingle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+removeSingle.m"; sourceTree = "<group>"; };
+		4F8F976326D469700024FC06 /* InsetsLabel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InsetsLabel.h; sourceTree = "<group>"; };
+		4F8F976426D469700024FC06 /* InsetsLabel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InsetsLabel.m; sourceTree = "<group>"; };
 		4F90709726D35FA000BA7614 /* DeckDetailsCardContentConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckDetailsCardContentConfiguration.h; sourceTree = "<group>"; };
 		4F90709826D35FA000BA7614 /* DeckDetailsCardContentConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckDetailsCardContentConfiguration.m; sourceTree = "<group>"; };
 		4F90709A26D3606300BA7614 /* DeckDetailsCardContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckDetailsCardContentView.h; sourceTree = "<group>"; };
 		4F90709B26D3606300BA7614 /* DeckDetailsCardContentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckDetailsCardContentView.m; sourceTree = "<group>"; };
-		4F90709D26D360CC00BA7614 /* MyView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyView.xib; sourceTree = "<group>"; };
 		4F90709F26D3803800BA7614 /* UIImage+averageColor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+averageColor.h"; sourceTree = "<group>"; };
 		4F9070A026D3803800BA7614 /* UIImage+averageColor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+averageColor.m"; sourceTree = "<group>"; };
 		4F9070A226D3836600BA7614 /* UIColor+invertedColor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+invertedColor.h"; sourceTree = "<group>"; };
@@ -1118,7 +1119,8 @@
 				4F90709826D35FA000BA7614 /* DeckDetailsCardContentConfiguration.m */,
 				4F90709A26D3606300BA7614 /* DeckDetailsCardContentView.h */,
 				4F90709B26D3606300BA7614 /* DeckDetailsCardContentView.m */,
-				4F90709D26D360CC00BA7614 /* MyView.xib */,
+				4F8F976326D469700024FC06 /* InsetsLabel.h */,
+				4F8F976426D469700024FC06 /* InsetsLabel.m */,
 			);
 			path = DeckDetails;
 			sourceTree = "<group>";
@@ -1313,7 +1315,6 @@
 				4FA56BB726A2105A002D9FA0 /* Assets.xcassets in Resources */,
 				4F9DFBBD26B30764002AACDE /* LaunchScreen.storyboard in Resources */,
 				4F9DFBB726B2FD2E002AACDE /* InfoPlist.strings in Resources */,
-				4F90709E26D360CC00BA7614 /* MyView.xib in Resources */,
 				4F9DFBB126B2FD0C002AACDE /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1403,6 +1404,7 @@
 				4FF3E0BB26C97DAC002B20EA /* PrefsLocaleItemModel.m in Sources */,
 				4F414B0726CEF9F80003A0CF /* DeckDetailsSectionModel.m in Sources */,
 				4FB0ECE826B82AEE0020EE6C /* CardDetailsViewController.m in Sources */,
+				4F8F976526D469700024FC06 /* InsetsLabel.m in Sources */,
 				4FF3E0D226CA6FB9002B20EA /* MainTabBarController.m in Sources */,
 				4FA9047A26B6E26A00CD6147 /* CardContentView.m in Sources */,
 				4F4976E926ABFF5E00860809 /* CardOptionSectionModel.m in Sources */,
@@ -1602,7 +1604,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 15;
+				CURRENT_PROJECT_VERSION = 16;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = P53D29U9LJ;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -1634,7 +1636,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 15;
+				CURRENT_PROJECT_VERSION = 16;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = P53D29U9LJ;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -1830,7 +1832,7 @@
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CODE_SIGN_ENTITLEMENTS = StoneNamu/StoneNamu.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 15;
+				CURRENT_PROJECT_VERSION = 16;
 				DEVELOPMENT_TEAM = P53D29U9LJ;
 				INFOPLIST_FILE = StoneNamu/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -1853,7 +1855,7 @@
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CODE_SIGN_ENTITLEMENTS = StoneNamu/StoneNamu.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 15;
+				CURRENT_PROJECT_VERSION = 16;
 				DEVELOPMENT_TEAM = P53D29U9LJ;
 				INFOPLIST_FILE = StoneNamu/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
