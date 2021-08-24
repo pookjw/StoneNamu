@@ -108,7 +108,7 @@
     UILabel *manaCostLabel = [UILabel new];
     self.manaCostLabel = manaCostLabel;
     
-    manaCostLabel.backgroundColor = UIColor.systemGray2Color;
+    manaCostLabel.backgroundColor = UIColor.systemBlueColor;
     manaCostLabel.textColor = UIColor.whiteColor;
     manaCostLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleTitle2];
     manaCostLabel.textAlignment = NSTextAlignmentCenter;
