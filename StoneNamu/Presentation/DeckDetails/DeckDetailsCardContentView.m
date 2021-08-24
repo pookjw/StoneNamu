@@ -62,11 +62,11 @@
     InsetsLabel *nameLabel = [InsetsLabel new];
     self.nameLabel = nameLabel;
     
-    nameLabel.contentInsets = UIEdgeInsetsMake(15, 15, 15, 15);
+    nameLabel.contentInsets = UIEdgeInsetsMake(10, 10, 10, 10);
     nameLabel.backgroundColor = UIColor.clearColor;
     nameLabel.textColor = nil;
     nameLabel.adjustsFontSizeToFitWidth = YES;
-    nameLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleTitle2];
+    nameLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleTitle3];
     nameLabel.minimumScaleFactor = 0.1;
     
     nameLabel.layer.shadowRadius = 2.0;
@@ -85,7 +85,7 @@
                                         options:NSStringDrawingUsesLineFragmentOrigin
                                      attributes:@{NSFontAttributeName: nameLabel.font}
                                         context:nil];
-    CGFloat margin = 30;
+    CGFloat margin = nameLabel.contentInsets.top + nameLabel.contentInsets.bottom;
     CGFloat height = rect.size.height + margin;
     
     //
