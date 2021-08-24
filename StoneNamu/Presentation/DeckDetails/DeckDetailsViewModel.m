@@ -209,7 +209,7 @@
         } else if (itemModel.hsCardCount >= HSDECK_MAX_SINGLE_CARD) {
             NSError *error = [NSError errorWithDomain:@"com.pookjw.StoneNamu"
                                                  code:108
-                                             userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"DECK_ADD_CARD_ERROR_CANNOT_ADD_SINGLE_CARD_MORE_THAN_TWO", @"")}];
+                                             userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"DECK_ADD_CARD_ERROR_CANNOT_ADD_SINGLE_CARD_MORE_THAN_ONE", @"")}];
             [self postErrorOccuredNotification:error];
             return;
         }

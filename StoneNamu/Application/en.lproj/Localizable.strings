@@ -112,6 +112,6 @@
 
 "DECK_ADD_CARD_ERROR_NO_MORE_THAN_THIRTY_CARDS" = "You cannot add cards to your deck more than 30 cards.";
 
-"DECK_ADD_CARD_ERROR_CANNOT_ADD_SINGLE_CARD_MORE_THAN_TWO" = "You cannot add a single card more than two.";
+"DECK_ADD_CARD_ERROR_CANNOT_ADD_SINGLE_CARD_MORE_THAN_ONE" = "You cannot add a single card more than one.";
 
 "DECK_ADD_CARD_ERROR_CANNOT_ADD_SINGLE_LAGENDARY_CARD_MORE_THAN_TWO" = "You cannot add legendary card more than two.";
