@@ -685,6 +685,15 @@
 			path = Stepper;
 			sourceTree = "<group>";
 		};
+		4F8F976626D47EF10024FC06 /* InsetLabel */ = {
+			isa = PBXGroup;
+			children = (
+				4F8F976326D469700024FC06 /* InsetsLabel.h */,
+				4F8F976426D469700024FC06 /* InsetsLabel.m */,
+			);
+			path = InsetLabel;
+			sourceTree = "<group>";
+		};
 		4F95AED726AD6A810075D2D9 /* Picker */ = {
 			isa = PBXGroup;
 			children = (
@@ -731,6 +740,7 @@
 				4F6A13AF26B2733D0089A13A /* Stepper */,
 				4FFDD65426CAC3EE008E5B45 /* Decks */,
 				4FFDD65526CAC404008E5B45 /* DeckDetails */,
+				4F8F976626D47EF10024FC06 /* InsetLabel */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -1119,8 +1129,6 @@
 				4F90709826D35FA000BA7614 /* DeckDetailsCardContentConfiguration.m */,
 				4F90709A26D3606300BA7614 /* DeckDetailsCardContentView.h */,
 				4F90709B26D3606300BA7614 /* DeckDetailsCardContentView.m */,
-				4F8F976326D469700024FC06 /* InsetsLabel.h */,
-				4F8F976426D469700024FC06 /* InsetsLabel.m */,
 			);
 			path = DeckDetails;
 			sourceTree = "<group>";
