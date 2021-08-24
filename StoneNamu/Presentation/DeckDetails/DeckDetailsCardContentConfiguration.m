@@ -47,7 +47,7 @@
 }
 
 - (nonnull instancetype)updatedConfigurationForState:(nonnull id<UIConfigurationState>)state {
-    self->_isDarkMode = (state.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark);
+    self->_isDarkMode = (state.traitCollection.userInterfaceStyle != UIUserInterfaceStyleLight);
     return self;
 }
 

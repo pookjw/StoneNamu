@@ -13,6 +13,7 @@
 @interface DeckDetailsCardContentView ()
 @property (readonly, nonatomic) HSCard *hsCard;
 @property (readonly, nonatomic) NSUInteger hsCardCount;
+@property (readonly, nonatomic) BOOL isDarkMode;
 @property (retain) UIImageView *imageView;
 @property (retain) UILabel *manaCostLabel;
 @property (retain) InsetsLabel *nameLabel;
@@ -68,9 +69,8 @@
     nameLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleTitle2];
     nameLabel.minimumScaleFactor = 0.1;
     
-    nameLabel.layer.shadowColor = UIColor.blackColor.CGColor;
-    nameLabel.layer.shadowRadius = 3.0;
-    nameLabel.layer.shadowOpacity = 0.5;
+    nameLabel.layer.shadowRadius = 2.0;
+    nameLabel.layer.shadowOpacity = 1;
     nameLabel.layer.shadowOffset = CGSizeMake(0, 0);
     nameLabel.layer.masksToBounds = YES;
     
@@ -246,6 +246,8 @@
         [self updateCount];
     }
     
+    [self updateNameLabelShadowColor];
+    
     [oldContentConfig release];
 }
 
@@ -265,6 +267,15 @@
     
     DeckDetailsCardContentConfiguration *contentConfiguration = (DeckDetailsCardContentConfiguration *)self.configuration;
     return contentConfiguration.hsCardCount;
+}
+
+- (BOOL)isDarkMode {
+    if (![self.configuration isKindOfClass:[DeckDetailsCardContentConfiguration class]]) {
+        return NO;
+    }
+    
+    DeckDetailsCardContentConfiguration *contentConfiguration = (DeckDetailsCardContentConfiguration *)self.configuration;
+    return contentConfiguration.isDarkMode;
 }
 
 - (void)updateViewFromHSCard {
@@ -322,6 +333,10 @@
     [CATransaction setDisableActions:YES];
     self.imageViewGradientLayer.frame = self.imageView.bounds;
     [CATransaction commit];
+}
+
+- (void)updateNameLabelShadowColor {
+    self.nameLabel.layer.shadowColor = self.isDarkMode ? UIColor.blackColor.CGColor : UIColor.whiteColor.CGColor;
 }
 
 @end
