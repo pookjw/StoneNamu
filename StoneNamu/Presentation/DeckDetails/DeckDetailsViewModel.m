@@ -142,7 +142,8 @@
         
         [snapshot appendItemsWithIdentifiers:cardsItemModels intoSectionWithIdentifier:cardsSectionModel];
         [cardsItemModels release];
-        [self sortSnapshot:snapshot sectionModel:cardsSectionModel];
+        [self addCostGraphItemToSnapshot:snapshot];
+        [self sortSnapshot:snapshot];
         
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
             [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
@@ -242,7 +243,8 @@
         [snapshot deleteItemsWithIdentifiers:@[itemModel]];
         [snapshot appendItemsWithIdentifiers:@[copy] intoSectionWithIdentifier:sectionModel];
         
-        [self sortSnapshot:snapshot sectionModel:sectionModel];
+        [self addCostGraphItemToSnapshot:snapshot];
+        [self sortSnapshot:snapshot];
         
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
             [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
@@ -288,7 +290,8 @@
         [snapshot deleteItemsWithIdentifiers:@[itemModel]];
         [snapshot appendItemsWithIdentifiers:@[copy] intoSectionWithIdentifier:sectionModel];
         
-        [self sortSnapshot:snapshot sectionModel:sectionModel];
+        [self addCostGraphItemToSnapshot:snapshot];
+        [self sortSnapshot:snapshot];
         
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
             [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
@@ -443,7 +446,8 @@
         
         //
         
-        [self sortSnapshot:snapshot sectionModel:cardsSectionModel];
+        [self addCostGraphItemToSnapshot:snapshot];
+        [self sortSnapshot:snapshot];
         
         //
         
@@ -463,27 +467,81 @@
     }];
 }
 
-- (void)sortSnapshot:(NSDiffableDataSourceSnapshot *)snapshot sectionModel:(DeckDetailsSectionModel *)sectionModel {
-    [snapshot sortItemsWithSectionIdentifiers:@[sectionModel] usingComparator:^NSComparisonResult(DeckDetailsItemModel *obj1, DeckDetailsItemModel *obj2) {
-        HSCard *obj1Card = obj1.hsCard;
-        HSCard *obj2Card = obj2.hsCard;
-        
-        if (obj1Card.manaCost < obj2Card.manaCost) {
+- (void)sortSnapshot:(NSDiffableDataSourceSnapshot *)snapshot {
+    [snapshot sortSectionsUsingComparator:^NSComparisonResult(DeckDetailsSectionModel *obj1, DeckDetailsSectionModel *obj2) {
+        if (obj1.type < obj2.type) {
             return NSOrderedAscending;
-        } else if (obj1Card.manaCost > obj2Card.manaCost) {
+        } else if (obj1.type > obj2.type) {
             return NSOrderedDescending;
         } else {
-            if ((obj1Card.name == nil) && (obj2Card.name == nil)) {
-                return NSOrderedSame;
-            } else if ((obj1Card.name == nil) && (obj2Card.name != nil)) {
-                return NSOrderedAscending;
-            } else if ((obj1Card.name != nil) && (obj2Card.name == nil)) {
-                return NSOrderedDescending;
-            } else {
-                return [obj1Card.name compare:obj2Card.name];
-            }
+            return NSOrderedSame;
         }
     }];
+    
+    //
+    
+    for (DeckDetailsSectionModel *sectionModel in snapshot.sectionIdentifiers) {
+        [snapshot sortItemsWithSectionIdentifiers:@[sectionModel] usingComparator:^NSComparisonResult(DeckDetailsItemModel *obj1, DeckDetailsItemModel *obj2) {
+            HSCard *obj1Card = obj1.hsCard;
+            HSCard *obj2Card = obj2.hsCard;
+            
+            if (obj1Card.manaCost < obj2Card.manaCost) {
+                return NSOrderedAscending;
+            } else if (obj1Card.manaCost > obj2Card.manaCost) {
+                return NSOrderedDescending;
+            } else {
+                if ((obj1Card.name == nil) && (obj2Card.name == nil)) {
+                    return NSOrderedSame;
+                } else if ((obj1Card.name == nil) && (obj2Card.name != nil)) {
+                    return NSOrderedAscending;
+                } else if ((obj1Card.name != nil) && (obj2Card.name == nil)) {
+                    return NSOrderedDescending;
+                } else {
+                    return [obj1Card.name compare:obj2Card.name];
+                }
+            }
+        }];
+    }
+}
+
+- (void)addCostGraphItemToSnapshot:(NSDiffableDataSourceSnapshot *)snapshot {
+    NSMutableDictionary<NSNumber *, NSNumber *> *manaDictionary = [@{} mutableCopy];
+    
+    for (DeckDetailsItemModel *itemModel in snapshot.itemIdentifiers) {
+        if (itemModel.type != DeckDetailsItemModelTypeCard) continue;
+        
+        @autoreleasepool {
+            NSNumber *manaCost = [NSNumber numberWithUnsignedInteger:itemModel.hsCard.manaCost];
+            NSNumber *count = [NSNumber numberWithUnsignedInteger:itemModel.hsCardCount];
+            
+            if (manaDictionary[manaCost] == nil) {
+                manaDictionary[manaCost] = count;
+            } else {
+                NSNumber *newCount = [NSNumber numberWithUnsignedInteger:manaDictionary[manaCost].unsignedIntegerValue + count.unsignedIntegerValue];
+                manaDictionary[manaCost] = newCount;
+            }
+        }
+    }
+    
+    //
+    
+    [snapshot.sectionIdentifiers enumerateObjectsUsingBlock:^(DeckDetailsSectionModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (obj.type == DeckDetailsSectionModelTypeCostGraph) {
+            [snapshot deleteSectionsWithIdentifiers:@[obj]];
+            *stop = YES;
+        }
+    }];
+    
+    DeckDetailsSectionModel *sectionModel = [[DeckDetailsSectionModel alloc] initWithType:DeckDetailsSectionModelTypeCostGraph];
+    [snapshot appendSectionsWithIdentifiers:@[sectionModel]];
+    
+    DeckDetailsItemModel *itemModel = [[DeckDetailsItemModel alloc] initWithType:DeckDetailsItemModelTypeCostGraph];
+    itemModel.manaDictionary = manaDictionary;
+    [manaDictionary release];
+    
+    [snapshot appendItemsWithIdentifiers:@[itemModel] intoSectionWithIdentifier:sectionModel];
+    [sectionModel release];
+    [itemModel release];
 }
 
 - (NSUInteger)totalCardsInSnapshot:(NSDiffableDataSourceSnapshot *)snapshot {

@@ -16,6 +16,7 @@
         self.hsCard = nil;
         self.hsCardCount = 0;
         self->_type = type;
+        self.manaDictionary = nil;
     }
     
     return self;
@@ -23,6 +24,7 @@
 
 - (void)dealloc {
     [_hsCard release];
+    [_manaDictionary release];
     [super dealloc];
 }
 
@@ -34,6 +36,7 @@
         _copy->_hsCard = [self.hsCard copyWithZone:zone];
         _copy->_hsCardCount = self.hsCardCount;
         _copy->_type = self.type;
+        _copy->_manaDictionary = [self.manaDictionary copyWithZone:zone];
     }
     
     return copy;
@@ -46,11 +49,13 @@
         return NO;
     }
     
-    return ([self.hsCard isEqual:toCompare.hsCard]) && (self.hsCardCount == toCompare.hsCardCount);
+    return ([self.hsCard isEqual:toCompare.hsCard] || ((self.hsCard == nil) && (toCompare.hsCard == nil))) &&
+    (self.hsCardCount == toCompare.hsCardCount) &&
+    ([self.manaDictionary isEqualToDictionary:toCompare.manaDictionary] || ((self.manaDictionary == nil) && (toCompare.manaDictionary == nil)));
 }
 
 - (NSUInteger)hash {
-    return self.type ^ self.hsCard.hash ^ self.hsCardCount;
+    return self.type ^ self.hsCard.hash ^ self.hsCardCount ^ self.manaDictionary.hash;
 }
 
 @end

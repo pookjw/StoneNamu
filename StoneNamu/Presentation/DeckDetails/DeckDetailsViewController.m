@@ -9,6 +9,7 @@
 #import "DeckDetailsViewModel.h"
 #import "UIViewController+presentErrorAlert.h"
 #import "DeckDetailsCardContentConfiguration.h"
+#import "DeckDetailsManaCostGraphContentConfiguration.h"
 
 @interface DeckDetailsViewController () <UICollectionViewDelegate, UICollectionViewDragDelegate, UICollectionViewDropDelegate>
 @property (retain) UICollectionView *collectionView;
@@ -177,9 +178,23 @@
         
         DeckDetailsItemModel *itemModel = (DeckDetailsItemModel *)item;
         
-        DeckDetailsCardContentConfiguration *configuration = [[DeckDetailsCardContentConfiguration alloc] initWithHSCard:itemModel.hsCard hsCardCount:itemModel.hsCardCount];
-        cell.contentConfiguration = configuration;
-        [configuration release];
+        switch (itemModel.type) {
+            case DeckDetailsItemModelTypeCostGraph: {
+                DeckDetailsManaCostGraphContentConfiguration *configuration = [[DeckDetailsManaCostGraphContentConfiguration alloc] initWithManaDictionary:itemModel.manaDictionary];
+                cell.contentConfiguration = configuration;
+                [configuration release];
+                break;
+            }
+            case DeckDetailsItemModelTypeCard: {
+                DeckDetailsCardContentConfiguration *configuration = [[DeckDetailsCardContentConfiguration alloc] initWithHSCard:itemModel.hsCard
+                                                                                                                     hsCardCount:itemModel.hsCardCount];
+                cell.contentConfiguration = configuration;
+                [configuration release];
+                break;
+            }
+            default:
+                break;
+        }
     }];
     
     return cellRegistration;

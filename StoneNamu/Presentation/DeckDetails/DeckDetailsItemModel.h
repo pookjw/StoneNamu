@@ -11,6 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSUInteger, DeckDetailsItemModelType) {
+    DeckDetailsItemModelTypeCostGraph,
     DeckDetailsItemModelTypeCard
 };
 
@@ -18,6 +19,7 @@ typedef NS_ENUM(NSUInteger, DeckDetailsItemModelType) {
 @property (readonly) DeckDetailsItemModelType type;
 @property (copy) HSCard * _Nullable hsCard;
 @property NSUInteger hsCardCount;
+@property (copy) NSDictionary<NSNumber *, NSNumber *> * _Nullable manaDictionary;
 - (instancetype)initWithType:(DeckDetailsItemModelType)type;
 @end
 

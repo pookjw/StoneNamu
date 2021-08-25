@@ -90,6 +90,9 @@
 		4F74712F26C1760C001C45C4 /* CardDetailsChildrenContentImageContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F74712E26C1760C001C45C4 /* CardDetailsChildrenContentImageContentView.m */; };
 		4F8F976226D45C290024FC06 /* NSMutableArray+removeSingle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8F976126D45C290024FC06 /* NSMutableArray+removeSingle.m */; };
 		4F8F976526D469700024FC06 /* InsetsLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8F976426D469700024FC06 /* InsetsLabel.m */; };
+		4F8F976926D47F360024FC06 /* DeckDetailsManaCostGraphContentConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8F976826D47F360024FC06 /* DeckDetailsManaCostGraphContentConfiguration.m */; };
+		4F8F976C26D47F560024FC06 /* DeckDetailsManaCostGraphContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8F976B26D47F560024FC06 /* DeckDetailsManaCostGraphContentView.m */; };
+		4F8F976E26D481890024FC06 /* MyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F8F976D26D481890024FC06 /* MyView.xib */; };
 		4F90709926D35FA000BA7614 /* DeckDetailsCardContentConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F90709826D35FA000BA7614 /* DeckDetailsCardContentConfiguration.m */; };
 		4F90709C26D3606300BA7614 /* DeckDetailsCardContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F90709B26D3606300BA7614 /* DeckDetailsCardContentView.m */; };
 		4F9070A126D3803800BA7614 /* UIImage+averageColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F9070A026D3803800BA7614 /* UIImage+averageColor.m */; };
@@ -341,6 +344,11 @@
 		4F8F976126D45C290024FC06 /* NSMutableArray+removeSingle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+removeSingle.m"; sourceTree = "<group>"; };
 		4F8F976326D469700024FC06 /* InsetsLabel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InsetsLabel.h; sourceTree = "<group>"; };
 		4F8F976426D469700024FC06 /* InsetsLabel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InsetsLabel.m; sourceTree = "<group>"; };
+		4F8F976726D47F360024FC06 /* DeckDetailsManaCostGraphContentConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckDetailsManaCostGraphContentConfiguration.h; sourceTree = "<group>"; };
+		4F8F976826D47F360024FC06 /* DeckDetailsManaCostGraphContentConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckDetailsManaCostGraphContentConfiguration.m; sourceTree = "<group>"; };
+		4F8F976A26D47F560024FC06 /* DeckDetailsManaCostGraphContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckDetailsManaCostGraphContentView.h; sourceTree = "<group>"; };
+		4F8F976B26D47F560024FC06 /* DeckDetailsManaCostGraphContentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckDetailsManaCostGraphContentView.m; sourceTree = "<group>"; };
+		4F8F976D26D481890024FC06 /* MyView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyView.xib; sourceTree = "<group>"; };
 		4F90709726D35FA000BA7614 /* DeckDetailsCardContentConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckDetailsCardContentConfiguration.h; sourceTree = "<group>"; };
 		4F90709826D35FA000BA7614 /* DeckDetailsCardContentConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckDetailsCardContentConfiguration.m; sourceTree = "<group>"; };
 		4F90709A26D3606300BA7614 /* DeckDetailsCardContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckDetailsCardContentView.h; sourceTree = "<group>"; };
@@ -1129,6 +1137,11 @@
 				4F90709826D35FA000BA7614 /* DeckDetailsCardContentConfiguration.m */,
 				4F90709A26D3606300BA7614 /* DeckDetailsCardContentView.h */,
 				4F90709B26D3606300BA7614 /* DeckDetailsCardContentView.m */,
+				4F8F976726D47F360024FC06 /* DeckDetailsManaCostGraphContentConfiguration.h */,
+				4F8F976826D47F360024FC06 /* DeckDetailsManaCostGraphContentConfiguration.m */,
+				4F8F976A26D47F560024FC06 /* DeckDetailsManaCostGraphContentView.h */,
+				4F8F976B26D47F560024FC06 /* DeckDetailsManaCostGraphContentView.m */,
+				4F8F976D26D481890024FC06 /* MyView.xib */,
 			);
 			path = DeckDetails;
 			sourceTree = "<group>";
@@ -1323,6 +1336,7 @@
 				4FA56BB726A2105A002D9FA0 /* Assets.xcassets in Resources */,
 				4F9DFBBD26B30764002AACDE /* LaunchScreen.storyboard in Resources */,
 				4F9DFBB726B2FD2E002AACDE /* InfoPlist.strings in Resources */,
+				4F8F976E26D481890024FC06 /* MyView.xib in Resources */,
 				4F9DFBB126B2FD0C002AACDE /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1397,6 +1411,7 @@
 				4F03F57C26C7B63600FC9155 /* PrefsItemModel.m in Sources */,
 				4FF3E0C326C9901F002B20EA /* PrefsRegionHostSectionModel.m in Sources */,
 				4FA56BAC26A21059002D9FA0 /* AppDelegate.m in Sources */,
+				4F8F976C26D47F560024FC06 /* DeckDetailsManaCostGraphContentView.m in Sources */,
 				4F57DEB926ADC3CF000E4163 /* PickerItemView.m in Sources */,
 				4FF3E0C226C9901F002B20EA /* PrefsRegionHostViewModel.m in Sources */,
 				4F74711A26C1698B001C45C4 /* CardDetailsChildrenContentView.m in Sources */,
@@ -1426,6 +1441,7 @@
 				4F57DEAC26ADA6E3000E4163 /* PickerItemModel.m in Sources */,
 				4F74712926C170E5001C45C4 /* CardDetailsChildrenContentItemModel.m in Sources */,
 				4FC094FD26CD77C400A7D373 /* DecksViewModel.m in Sources */,
+				4F8F976926D47F360024FC06 /* DeckDetailsManaCostGraphContentConfiguration.m in Sources */,
 				4F03F57926C7B62C00FC9155 /* PrefsSectionModel.m in Sources */,
 				4FF3E0C426C9901F002B20EA /* PrefsRegionHostItemModel.m in Sources */,
 				4FEB413E26BD6116009D8594 /* CardDetailsBasicContentView.m in Sources */,
