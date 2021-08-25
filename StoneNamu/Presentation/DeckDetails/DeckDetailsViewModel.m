@@ -26,7 +26,7 @@
     self = [self init];
     
     if (self) {
-        self.dataSource = dataSource;
+        self->_dataSource = [dataSource retain];
         
         NSOperationQueue *queue = [NSOperationQueue new];
         queue.qualityOfService = NSQualityOfServiceUserInitiated;
@@ -172,18 +172,21 @@
         NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
         
         [snapshot.itemIdentifiers enumerateObjectsUsingBlock:^(DeckDetailsItemModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            if ([obj.hsCard isEqual:copyHSCard]) {
+            if ((obj.type == DeckDetailsItemModelTypeCard) && [obj.hsCard isEqual:copyHSCard]) {
                 [snapshot deleteItemsWithIdentifiers:@[obj]];
                 *stop = YES;
             }
         }];
+        
+        [self addCostGraphItemToSnapshot:snapshot];
+        [self sortSnapshot:snapshot];
         
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
             [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
                 [snapshot release];
                 
                 NSMutableArray<NSNumber *> *mutableCards = [self.localDeck.cards mutableCopy];
-                [mutableCards removeSingleObject:[NSNumber numberWithUnsignedInteger:copyHSCard.cardId]];
+                [mutableCards removeObject:[NSNumber numberWithUnsignedInteger:copyHSCard.cardId]];
                 
                 self.localDeck.cards = mutableCards;
                 [mutableCards release];
@@ -526,16 +529,17 @@
     //
     
     [snapshot.sectionIdentifiers enumerateObjectsUsingBlock:^(DeckDetailsSectionModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if (obj.type == DeckDetailsSectionModelTypeCostGraph) {
+        if (obj.type == DeckDetailsSectionModelTypeGraph) {
             [snapshot deleteSectionsWithIdentifiers:@[obj]];
-            *stop = YES;
         }
     }];
     
-    DeckDetailsSectionModel *sectionModel = [[DeckDetailsSectionModel alloc] initWithType:DeckDetailsSectionModelTypeCostGraph];
+    DeckDetailsSectionModel *sectionModel = [[DeckDetailsSectionModel alloc] initWithType:DeckDetailsSectionModelTypeGraph];
     [snapshot appendSectionsWithIdentifiers:@[sectionModel]];
     
-    DeckDetailsItemModel *itemModel = [[DeckDetailsItemModel alloc] initWithType:DeckDetailsItemModelTypeCostGraph];
+    //
+    
+    DeckDetailsItemModel *itemModel = [[DeckDetailsItemModel alloc] initWithType:DeckDetailsItemModelTypeCost];
     itemModel.manaDictionary = manaDictionary;
     [manaDictionary release];
     

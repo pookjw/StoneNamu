@@ -29,7 +29,7 @@ static NSString * const DeckDetailsViewModelErrorOccuredItemKey = @"DeckDetailsV
 
 @interface DeckDetailsViewModel : NSObject
 @property (readonly, retain) LocalDeck *localDeck;
-@property (retain) DecksDetailsDataSource *dataSource;
+@property (readonly, retain) DecksDetailsDataSource *dataSource;
 - (instancetype)initWithDataSource:(DecksDetailsDataSource *)dataSource;
 - (void)requestDataSourcdWithLocalDeck:(LocalDeck *)localDeck;
 - (void)addHSCards:(NSArray<HSCard *> *)hsCards;

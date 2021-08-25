@@ -77,11 +77,14 @@
     collectionView.translatesAutoresizingMaskIntoConstraints = NO;
     [NSLayoutConstraint activateConstraints:@[
         [collectionView.topAnchor constraintEqualToAnchor:self.visualEffectView.contentView.topAnchor],
-        [collectionView.bottomAnchor constraintEqualToAnchor:self.visualEffectView.contentView.bottomAnchor],
         [collectionView.leadingAnchor constraintEqualToAnchor:self.visualEffectView.contentView.leadingAnchor],
         [collectionView.trailingAnchor constraintEqualToAnchor:self.visualEffectView.contentView.trailingAnchor],
         [collectionView.heightAnchor constraintEqualToConstant:CardDetailsChildrenContentViewHeight]
     ]];
+    
+    NSLayoutConstraint *bottomLayout = [collectionView.bottomAnchor constraintEqualToAnchor:self.visualEffectView.contentView.bottomAnchor];
+    bottomLayout.priority = UILayoutPriorityDefaultHigh;
+    bottomLayout.active = YES;
     
     collectionView.backgroundColor = UIColor.clearColor;
     collectionView.delegate = self;

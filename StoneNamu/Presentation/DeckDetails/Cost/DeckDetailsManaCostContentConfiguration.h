@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface DeckDetailsManaCostGraphContentConfiguration : NSObject <UIContentConfiguration>
+@interface DeckDetailsManaCostContentConfiguration : NSObject <UIContentConfiguration>
 @property (readonly, copy) NSDictionary<NSNumber *, NSNumber *> *manaDictionary;
 - (instancetype)initWithManaDictionary:(NSDictionary<NSNumber *, NSNumber *> *)manaDictionary;
 @end

@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface DeckDetailsManaCostGraphContentView : UIView <UIContentView>
+@interface DeckDetailsManaCostContentView : UIView <UIContentView>
 
 @end
 

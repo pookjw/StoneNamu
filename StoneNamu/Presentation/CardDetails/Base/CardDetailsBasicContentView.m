@@ -8,12 +8,13 @@
 #import "CardDetailsBasicContentView.h"
 #import "CardDetailsBasicContentConfiguration.h"
 #import "NSString+clearedHTML.h"
+#import "InsetsLabel.h"
 
 @interface CardDetailsBasicContentView ()
 @property (retain) UIVisualEffectView *visualEffectView;
 @property (retain) UIVisualEffectView *vibrancyView;
-@property (retain) UILabel *leadingLabel;
-@property (retain) UILabel *trailingLabel;
+@property (retain) InsetsLabel *leadingLabel;
+@property (retain) InsetsLabel *trailingLabel;
 @end
 
 @implementation CardDetailsBasicContentView
@@ -50,9 +51,12 @@
     [NSLayoutConstraint activateConstraints:@[
         [visualEffectView.topAnchor constraintEqualToAnchor:self.topAnchor],
         [visualEffectView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
-        [visualEffectView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
-        [visualEffectView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor]
+        [visualEffectView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor]
     ]];
+    
+    NSLayoutConstraint *bottomLayout = [visualEffectView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor];
+    bottomLayout.priority = UILayoutPriorityDefaultHigh;
+    bottomLayout.active = YES;
     
     [visualEffectView release];
 }
@@ -77,15 +81,18 @@
 - (void)configureLabels {
     CGFloat margin = 15;
     
-    UILabel *leadingLabel = [UILabel new];
+    InsetsLabel *leadingLabel = [InsetsLabel new];
     self.leadingLabel = leadingLabel;
     
     [self.vibrancyView.contentView addSubview:leadingLabel];
+    
+    leadingLabel.contentInsets = UIEdgeInsetsMake(margin, margin, margin, 0);
+    
     leadingLabel.translatesAutoresizingMaskIntoConstraints = NO;
     [NSLayoutConstraint activateConstraints:@[
-        [leadingLabel.topAnchor constraintEqualToAnchor:self.vibrancyView.contentView.topAnchor constant:margin],
-        [leadingLabel.leadingAnchor constraintEqualToAnchor:self.vibrancyView.contentView.leadingAnchor constant:margin],
-        [leadingLabel.bottomAnchor constraintEqualToAnchor:self.vibrancyView.contentView.bottomAnchor constant:-margin]
+        [leadingLabel.topAnchor constraintEqualToAnchor:self.vibrancyView.contentView.topAnchor],
+        [leadingLabel.leadingAnchor constraintEqualToAnchor:self.vibrancyView.contentView.leadingAnchor],
+        [leadingLabel.bottomAnchor constraintEqualToAnchor:self.vibrancyView.contentView.bottomAnchor]
     ]];
     
     leadingLabel.numberOfLines = 0;
@@ -95,15 +102,18 @@
     
     //
     
-    UILabel *trailingLabel = [UILabel new];
+    InsetsLabel *trailingLabel = [InsetsLabel new];
     self.trailingLabel = trailingLabel;
     
     [self.vibrancyView.contentView addSubview:trailingLabel];
+    
+    trailingLabel.contentInsets = UIEdgeInsetsMake(margin, 0, margin, margin);
+    
     trailingLabel.translatesAutoresizingMaskIntoConstraints = NO;
     [NSLayoutConstraint activateConstraints:@[
-        [trailingLabel.topAnchor constraintEqualToAnchor:self.vibrancyView.contentView.topAnchor constant:margin],
-        [trailingLabel.trailingAnchor constraintEqualToAnchor:self.vibrancyView.contentView.trailingAnchor constant:-margin],
-        [trailingLabel.bottomAnchor constraintEqualToAnchor:self.vibrancyView.contentView.bottomAnchor constant:-margin]
+        [trailingLabel.topAnchor constraintEqualToAnchor:self.vibrancyView.contentView.topAnchor],
+        [trailingLabel.trailingAnchor constraintEqualToAnchor:self.vibrancyView.contentView.trailingAnchor],
+        [trailingLabel.bottomAnchor constraintEqualToAnchor:self.vibrancyView.contentView.bottomAnchor]
     ]];
     
     trailingLabel.numberOfLines = 0;

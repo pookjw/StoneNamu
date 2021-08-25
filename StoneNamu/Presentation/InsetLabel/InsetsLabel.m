@@ -15,16 +15,15 @@
     [self.layer displayIfNeeded];
 }
 
+- (CGSize)intrinsicContentSize {
+    CGSize size = [super intrinsicContentSize];
+    size.width += self.contentInsets.left + self.contentInsets.right;
+    size.height += self.contentInsets.top + self.contentInsets.bottom;
+    return size;
+}
+
 - (void)drawTextInRect:(CGRect)rect {
-    CGRect newRect = rect;
-    UIEdgeInsets contentInsets = self.contentInsets;
-    
-    newRect.size.width -= (contentInsets.left + contentInsets.right);
-    newRect.size.height -= (contentInsets.top + contentInsets.bottom);
-    newRect.origin.x = contentInsets.left;
-    newRect.origin.y = contentInsets.top;
-    
-    return [super drawTextInRect:newRect];
+    return [super drawTextInRect:UIEdgeInsetsInsetRect(rect, self.contentInsets)];
 }
 
 @end

@@ -1,14 +1,14 @@
 //
-//  DeckDetailsManaCostGraphContentConfiguration.m
-//  DeckDetailsManaCostGraphContentConfiguration
+//  DeckDetailsManaCostContentConfiguration.m
+//  DeckDetailsManaCostContentConfiguration
 //
 //  Created by Jinwoo Kim on 8/24/21.
 //
 
-#import "DeckDetailsManaCostGraphContentConfiguration.h"
-#import "DeckDetailsManaCostGraphContentView.h"
+#import "DeckDetailsManaCostContentConfiguration.h"
+#import "DeckDetailsManaCostContentView.h"
 
-@implementation DeckDetailsManaCostGraphContentConfiguration
+@implementation DeckDetailsManaCostContentConfiguration
 
 - (instancetype)initWithManaDictionary:(NSDictionary<NSNumber *,NSNumber *> *)manaDictionary {
     self = [self init];
@@ -29,7 +29,7 @@
     id copy = [[self class] new];
     
     if (copy) {
-        DeckDetailsManaCostGraphContentConfiguration *_copy = (DeckDetailsManaCostGraphContentConfiguration *)copy;
+        DeckDetailsManaCostContentConfiguration *_copy = (DeckDetailsManaCostContentConfiguration *)copy;
         _copy->_manaDictionary = [self.manaDictionary copyWithZone:zone];
     }
     
@@ -37,7 +37,7 @@
 }
 
 - (nonnull __kindof UIView<UIContentView> *)makeContentView {
-    DeckDetailsManaCostGraphContentView *contentView = [DeckDetailsManaCostGraphContentView new];
+    DeckDetailsManaCostContentView *contentView = [DeckDetailsManaCostContentView new];
     contentView.configuration = self;
     return [contentView autorelease];
 }
