@@ -156,7 +156,7 @@
         }
         [copyHSDeck release];
         
-        if (copyTitle) {
+        if ((copyTitle != nil) && (![copyTitle isEqualToString:@""])) {
             localDeck.name = copyTitle;
         }
         [copyTitle release];
@@ -235,11 +235,7 @@
         }
         
         [snapshot appendItemsWithIdentifiers:itemModels intoSectionWithIdentifier:sectionModel];
-        if (@available(iOS 15.0, *)) {
-            [snapshot reconfigureItemsWithIdentifiers:itemModels];
-        } else {
-            [snapshot reloadItemsWithIdentifiers:itemModels];
-        }
+        [snapshot reloadItemsWithIdentifiers:itemModels];
         [itemModels release];
         [sectionModel release];
         

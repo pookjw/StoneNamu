@@ -185,6 +185,12 @@
             [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
                 textField.text = deckCode;
                 textField.placeholder = NSLocalizedString(@"ENTER_DECK_CODE_HERE", @"");
+                
+#if DEBUG
+                if (deckCode == nil) {
+                    textField.text = @"AAEBAa0GHuUE9xPDFoO7ArW7Are7Ati7AtHBAt/EAonNAvDPAujQApDTApeHA+aIA/yjA5mpA/KsA5GxA5O6A9fOA/vRA/bWA+LeA/vfA/jjA6iKBMGfBJegBKGgBAAA";
+                }
+#endif
             }];
             
             UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"CANCEL", @"")
