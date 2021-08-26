@@ -46,6 +46,16 @@
 
 - (void)configureCollectionView {
     UICollectionLayoutListConfiguration *layoutConfiguration = [[UICollectionLayoutListConfiguration alloc] initWithAppearance:UICollectionLayoutListAppearancePlain];
+    layoutConfiguration.backgroundColor = UIColor.clearColor;
+    
+    if (@available(iOS 14.5, *)) {
+        UIListSeparatorConfiguration *separatorConfiguration = [[UIListSeparatorConfiguration alloc] initWithListAppearance:UICollectionLayoutListAppearancePlain];
+        separatorConfiguration.topSeparatorInsets = NSDirectionalEdgeInsetsZero;
+        separatorConfiguration.bottomSeparatorInsets = NSDirectionalEdgeInsetsZero;
+        layoutConfiguration.separatorConfiguration = separatorConfiguration;
+        [separatorConfiguration release];
+    }
+    
     UICollectionViewCompositionalLayout *layout = [UICollectionViewCompositionalLayout layoutWithListConfiguration:layoutConfiguration];
     [layoutConfiguration release];
     
@@ -102,6 +112,10 @@
         
         DeckDetailsManaCostGraphContentConfiguration *configuration = [[DeckDetailsManaCostGraphContentConfiguration alloc] initWithCost:itemModel.cardManaCost percentage:itemModel.percentage];
         cell.contentConfiguration = configuration;
+        
+        UIBackgroundConfiguration *backgroundConfiguration = [UIBackgroundConfiguration listPlainCellConfiguration];
+        backgroundConfiguration.backgroundColor = UIColor.clearColor;
+        cell.backgroundConfiguration = backgroundConfiguration;
         
         [configuration release];
     }];

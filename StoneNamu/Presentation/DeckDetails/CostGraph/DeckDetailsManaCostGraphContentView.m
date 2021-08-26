@@ -16,6 +16,7 @@
 @property (retain) UIProgressView *progressView;
 @property (readonly, nonatomic) NSNumber *cardManaCost;
 @property (readonly, nonatomic) NSNumber *percentage;
+@property (readonly, nonatomic) BOOL isDarkMode;
 @end
 
 @implementation DeckDetailsManaCostGraphContentView
@@ -66,7 +67,7 @@
 }
 
 - (void)setAttributes {
-    self.backgroundColor = UIColor.clearColor;
+    self.backgroundColor = nil;
 }
 
 - (void)configureCostLabel {
@@ -105,7 +106,6 @@
     
     progressView.backgroundColor = UIColor.clearColor;
     progressView.trackTintColor = UIColor.clearColor;
-    progressView.tintColor = UIColor.systemGrayColor;
     progressView.progressViewStyle = UIProgressViewStyleBar;
     
     [self addSubview:progressView];
@@ -130,9 +130,7 @@
         [self updateCostLabel];
     }
     
-    if ((oldContentConfig == nil) || (![newContentConfig.percentage isEqualToNumber:oldContentConfig.percentage])) {
-        [self updateProgressLabel];
-    }
+    [self updateProgressLabel];
     
     [oldContentConfig release];
 }
@@ -153,12 +151,27 @@
     return contentConfig.percentage;
 }
 
+- (BOOL)isDarkMode {
+    if (![self.configuration isKindOfClass:[DeckDetailsManaCostGraphContentConfiguration class]]) {
+        return NO;
+    }
+    
+    DeckDetailsManaCostGraphContentConfiguration *contentConfiguration = (DeckDetailsManaCostGraphContentConfiguration *)self.configuration;
+    return contentConfiguration.isDarkMode;
+}
+
 - (void)updateCostLabel {
     self.costLabel.text = self.cardManaCost.stringValue;
 }
 
 - (void)updateProgressLabel {
     self.progressView.progress = self.percentage.floatValue;
+    
+    if (self.isDarkMode) {
+        self.progressView.tintColor = UIColor.systemGray2Color;
+    } else {
+        self.progressView.tintColor = UIColor.systemGrayColor;
+    }
 }
 
 @end

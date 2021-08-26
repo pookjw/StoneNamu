@@ -197,8 +197,6 @@
     
     //
     
-    countLabel.backgroundColor = UIColor.systemGrayColor;
-    countLabel.textColor = UIColor.whiteColor;
     countLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleTitle2];
     countLabel.textAlignment = NSTextAlignmentCenter;
     
@@ -244,11 +242,9 @@
     
     if (![newContentConfig.hsCard isEqual:oldContentConfig.hsCard]) {
         [self updateViewFromHSCard];
-        [self updateCount];
-    } else if (newContentConfig.hsCardCount != oldContentConfig.hsCardCount) {
-        [self updateCount];
     }
     
+    [self updateCountLabel];
     [self updateNameLabelShadowColor];
     
     [oldContentConfig release];
@@ -323,11 +319,19 @@
     }
 }
 
-- (void)updateCount {
+- (void)updateCountLabel {
     if ((self.hsCard.rarityId == HSCardRarityLegendary) && (self.hsCardCount == 1)) {
         self.countLabel.text = @"★";
+        self.countLabel.textColor = UIColor.systemOrangeColor;
     } else {
         self.countLabel.text = [NSString stringWithFormat:@"%lu", self.hsCardCount];
+        self.countLabel.textColor = UIColor.whiteColor;
+    }
+    
+    if (self.isDarkMode) {
+        self.countLabel.backgroundColor = UIColor.systemGray2Color;
+    } else {
+        self.countLabel.backgroundColor = UIColor.systemGrayColor;
     }
 }
 

@@ -16,6 +16,7 @@
     if (self) {
         self->_cardManaCost = [cost copy];
         self->_percentage = [percentage copy];
+        self->_isDarkMode = NO;
     }
     
     return self;
@@ -34,6 +35,7 @@
         DeckDetailsManaCostGraphContentConfiguration *_copy = (DeckDetailsManaCostGraphContentConfiguration *)copy;
         _copy->_cardManaCost = [self.cardManaCost copy];
         _copy->_percentage = [self.percentage copy];
+        _copy->_isDarkMode = self.isDarkMode;
     }
     
     return copy;
@@ -45,7 +47,8 @@
     return [contentView autorelease];
 }
 
-- (nonnull instancetype)updatedConfigurationForState:(nonnull id<UIConfigurationState>)state { 
+- (nonnull instancetype)updatedConfigurationForState:(nonnull id<UIConfigurationState>)state {
+    self->_isDarkMode = (state.traitCollection.userInterfaceStyle != UIUserInterfaceStyleLight);
     return self;
 }
 
