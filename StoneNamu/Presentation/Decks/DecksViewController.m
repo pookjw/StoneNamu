@@ -171,38 +171,52 @@
 }
 
 - (void)presentTextFieldAndFetchDeckCode {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"LOAD_FROM_DECK_CODE", @"")
-                                                                   message:NSLocalizedString(@"PLEASE_ENTER_DECK_CODE", @"")
-                                                            preferredStyle:UIAlertControllerStyleAlert];
-    [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-        textField.text = @"AAEBAa0GHuUE9xPDFoO7ArW7Are7Ati7AtHBAt/EAonNAvDPAujQApDTApeHA+aIA/yjA5mpA/KsA5GxA5O6A9fOA/vRA/bWA+LeA/vfA/jjA6iKBMGfBJegBKGgBAAA";
-    }];
-    
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"CANCEL", @"")
-                                                           style:UIAlertActionStyleCancel
-                                                         handler:^(UIAlertAction * _Nonnull action) {}];
-    
-    UIAlertAction *fetchButton = [UIAlertAction actionWithTitle:NSLocalizedString(@"FETCH", @"")
-                                                          style:UIAlertActionStyleDefault
-                                                        handler:^(UIAlertAction * _Nonnull action) {
-        UITextField * _Nullable textField = alert.textFields.firstObject;
-        if (textField.text) {
-            [self.viewModel fetchDeckCode:textField.text completion:^(LocalDeck * _Nonnull localDeck, HSDeck * _Nullable hsDeck, NSError * _Nullable error) {
-                [NSOperationQueue.mainQueue addOperationWithBlock:^{
-                    if (error) {
-                        [self presentErrorAlertWithError:error];
-                    } else {
-                        [self presentDeckDetailsWithLocalDeck:localDeck];
-                    }
-                }];
+    [self.viewModel parseClipboardForDeckCodeWithCompletion:^(NSString * _Nullable title, NSString * _Nullable deckCode) {
+        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"LOAD_FROM_DECK_CODE", @"")
+                                                                           message:NSLocalizedString(@"PLEASE_ENTER_DECK_CODE", @"")
+                                                                    preferredStyle:UIAlertControllerStyleAlert];
+            
+            [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+                textField.text = title;
+                textField.placeholder = NSLocalizedString(@"ENTER_DECK_TITLE_HERE", @"");
             }];
-        }
+            
+            [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+                textField.text = deckCode;
+                textField.placeholder = NSLocalizedString(@"ENTER_DECK_CODE_HERE", @"");
+            }];
+            
+            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"CANCEL", @"")
+                                                                   style:UIAlertActionStyleCancel
+                                                                 handler:^(UIAlertAction * _Nonnull action) {}];
+            
+            UIAlertAction *fetchButton = [UIAlertAction actionWithTitle:NSLocalizedString(@"FETCH", @"")
+                                                                  style:UIAlertActionStyleDefault
+                                                                handler:^(UIAlertAction * _Nonnull action) {
+                UITextField * _Nullable firstTextField = alert.textFields[0];
+                UITextField * _Nullable secondTextField = alert.textFields[1];
+                if (secondTextField.text) {
+                    [self.viewModel fetchDeckCode:secondTextField.text
+                                            title:firstTextField.text
+                                       completion:^(LocalDeck * _Nonnull localDeck, HSDeck * _Nullable hsDeck, NSError * _Nullable error) {
+                        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+                            if (error) {
+                                [self presentErrorAlertWithError:error];
+                            } else {
+                                [self presentDeckDetailsWithLocalDeck:localDeck];
+                            }
+                        }];
+                    }];
+                }
+            }];
+            
+            [alert addAction:cancelAction];
+            [alert addAction:fetchButton];
+            
+            [self presentViewController:alert animated:YES completion:^{}];
+        }];
     }];
-    
-    [alert addAction:cancelAction];
-    [alert addAction:fetchButton];
-    
-    [self presentViewController:alert animated:YES completion:^{}];
 }
 
 - (void)presentDeckDetailsWithLocalDeck:(LocalDeck *)localDeck {

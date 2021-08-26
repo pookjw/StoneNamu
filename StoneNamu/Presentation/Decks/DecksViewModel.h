@@ -15,14 +15,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef void (^DecksViewModelFetchDeckCodeCompletion)(LocalDeck * _Nullable, HSDeck * _Nullable, NSError * _Nullable);
 typedef void (^DecksViewModelMakeLocalDeckCompletion)(LocalDeck *);
+typedef void (^DecksViewModelParseClipboardCompletion)(NSString * _Nullable, NSString * _Nullable);
 
 typedef UICollectionViewDiffableDataSource<DecksSectionModel *, DecksItemModel *> DecksDataSource;
 
 @interface DecksViewModel : NSObject
 @property (retain) DecksDataSource *dataSource;
 - (instancetype)initWithDataSource:(DecksDataSource *)dataSource;
-- (void)fetchDeckCode:(NSString *)deckCode completion:(DecksViewModelFetchDeckCodeCompletion)completion;
+- (void)fetchDeckCode:(NSString *)deckCode title:(NSString * _Nullable)title completion:(DecksViewModelFetchDeckCodeCompletion)completion;
 - (void)makeLocalDeckWithClass:(HSCardClass)hsCardClass completion:(DecksViewModelMakeLocalDeckCompletion)completion;
+- (void)parseClipboardForDeckCodeWithCompletion:(DecksViewModelParseClipboardCompletion)completion;
 - (NSIndexPath * _Nullable)indexPathForLocalDeck:(LocalDeck *)localDeck;
 @end
 

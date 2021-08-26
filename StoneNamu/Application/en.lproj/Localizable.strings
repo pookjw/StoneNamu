@@ -102,7 +102,7 @@
 
 "LOAD_FROM_DECK_CODE" = "Load From Deck Code";
 
-"PLEASE_ENTER_DECK_CODE" = "Please enter deck code below.";
+"PLEASE_ENTER_DECK_CODE" = "Please enter deck title and code below.";
 
 "FETCH" = "Fetch";
 
@@ -115,3 +115,7 @@
 "DECK_ADD_CARD_ERROR_CANNOT_ADD_SINGLE_CARD_MORE_THAN_TWO" = "You cannot add a single card more than two.";
 
 "DECK_ADD_CARD_ERROR_CANNOT_ADD_SINGLE_LAGENDARY_CARD_MORE_THAN_ONE" = "You cannot add legendary card more than one.";
+
+"ENTER_DECK_TITLE_HERE" = "Enter deck title here...";
+
+"ENTER_DECK_CODE_HERE" = "Enter deck code here...";

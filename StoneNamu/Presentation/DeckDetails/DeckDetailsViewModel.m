@@ -301,7 +301,7 @@
                 [snapshot release];
                 
                 NSMutableArray *localDeckCards = [self.localDeck.cards mutableCopy];
-                [localDeckCards removeSingleObject:[NSNumber numberWithUnsignedInteger:copy.hsCard.cardId]];
+                [localDeckCards removeSingleObject:copy.hsCard];
                 
                 self.localDeck.cards = localDeckCards;
                 self.localDeck.deckCode = nil;

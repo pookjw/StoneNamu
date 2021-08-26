@@ -182,7 +182,7 @@
 }
 
 - (void)updateNameLabel {
-    self.nameLabel.text = hsCardClassesWithLocalizable()[NSStringFromHSCardClass(self.localDeck.classId.unsignedIntegerValue)];
+    self.nameLabel.text = self.localDeck.name;
 }
 
 - (void)updateImageView {

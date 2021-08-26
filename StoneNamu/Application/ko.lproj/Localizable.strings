@@ -115,3 +115,7 @@
 "DECK_ADD_CARD_ERROR_CANNOT_ADD_SINGLE_CARD_MORE_THAN_TWO" = "한 종류의 카드는 두 장이 넘어갈 수 없습니다!";
 
 "DECK_ADD_CARD_ERROR_CANNOT_ADD_SINGLE_LAGENDARY_CARD_MORE_THAN_ONE" = "전설 카드는 두 장 이상 넣읗 수 없습니다!";
+
+"ENTER_DECK_TITLE_HERE" = "제목을 입력해 주세요...";
+
+"ENTER_DECK_CODE_HERE" = "덱코드를 입력해 주세요...";

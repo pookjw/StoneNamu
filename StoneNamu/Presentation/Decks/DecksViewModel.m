@@ -54,17 +54,23 @@
     [super dealloc];
 }
 
-- (void)fetchDeckCode:(NSString *)deckCode completion:(DecksViewModelFetchDeckCodeCompletion)completion {
+- (void)fetchDeckCode:(NSString *)deckCode
+                title:(NSString * _Nullable)title
+           completion:(DecksViewModelFetchDeckCodeCompletion)completion {
+    
+    NSString * _Nullable copyTitle = [title copy];
+    
     [self.hsDeckUseCase fetchDeckByDeckCode:deckCode completion:^(HSDeck * _Nullable hsDeck, NSError * _Nullable error) {
         if (error) {
             NSLog(@"%@", error.localizedDescription);
             completion(nil, nil, error);
+            [copyTitle release];
             return;
         }
         
         if (hsDeck) {
             [hsDeck retain];
-            [self makeLocalDeckWithHSDeck:hsDeck completion:^(LocalDeck * _Nonnull localDeck) {
+            [self makeLocalDeckWithHSDeck:hsDeck title:[copyTitle autorelease] completion:^(LocalDeck * _Nonnull localDeck) {
                 completion(localDeck, [hsDeck autorelease], error);
             }];
         }
@@ -119,8 +125,11 @@
     }];
 }
 
-- (void)makeLocalDeckWithHSDeck:(HSDeck * _Nullable)hsDeck completion:(DecksViewModelMakeLocalDeckCompletion)completion {
+- (void)makeLocalDeckWithHSDeck:(HSDeck * _Nullable)hsDeck
+                          title:(NSString *)title
+                     completion:(DecksViewModelMakeLocalDeckCompletion)completion {
     HSDeck * _Nullable copyHSDeck = [hsDeck copy];
+    NSString * _Nullable copyTitle = [title copy];
     
     [self.queue addBarrierBlock:^{
         NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
@@ -136,6 +145,7 @@
         
         if (sectionModel == nil) {
             [snapshot release];
+            [copyTitle release];
             return;
         }
         
@@ -145,6 +155,11 @@
             [localDeck setValuesAsHSDeck:copyHSDeck];
         }
         [copyHSDeck release];
+        
+        if (copyTitle) {
+            localDeck.name = copyTitle;
+        }
+        [copyTitle release];
         
         DecksItemModel *itemModel = [[DecksItemModel alloc] initWithType:DecksItemModelTypeDeck localDeck:localDeck];
         
@@ -165,6 +180,27 @@
                 completion(localDeck);
             }];
         }];
+    }];
+}
+
+- (void)parseClipboardForDeckCodeWithCompletion:(DecksViewModelParseClipboardCompletion)completion {
+    [self.queue addBarrierBlock:^{
+        NSString *text = UIPasteboard.generalPasteboard.string;
+        
+        NSString * __block _Nullable title = nil;
+        NSString * __block _Nullable deckCode = nil;
+        
+        //
+        
+        for (NSString *tmp in [text componentsSeparatedByString:@"\n"]) {
+            if ([tmp hasPrefix:@"###"]) {
+                title = [tmp componentsSeparatedByString:@"### "].lastObject;
+            } else if ([tmp hasPrefix:@"AAECA"]) {
+                deckCode = tmp;
+            }
+        }
+        
+        completion(title, deckCode);
     }];
 }
 
