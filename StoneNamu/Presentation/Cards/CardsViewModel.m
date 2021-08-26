@@ -50,7 +50,11 @@
         self.dataCacheUseCase = dataCacheUseCase;
         [dataCacheUseCase release];
         
-        self.options = nil;
+        self.options = @{
+            BlizzardHSAPIOptionTypeCollectible: NSStringFromHSCardCollectible(HSCardCollectibleYES),
+            BlizzardHSAPIOptionTypeGameMode: NSStringFromHSCardGameMode(HSCardGameModeConstructed),
+            BlizzardHSAPIOptionTypeSort: NSStringFromHSCardSort(HSCardSortManaCostAsc)
+        };
         
         self.pageCount = nil;
         self.page = [NSNumber numberWithUnsignedInt:1];

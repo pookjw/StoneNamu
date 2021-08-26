@@ -301,7 +301,7 @@ CardOptionItemModelType CardOptionItemModelTypeFromNSString(NSString * key) {
         case CardOptionItemModelTypeGameMode:
             return NSStringFromHSCardGameMode(HSCardGameModeConstructed);
         case CardOptionItemModelTypeSort:
-            return NSStringFromHSCardSort(HSCardSortNameAsc);
+            return NSStringFromHSCardSort(HSCardSortManaCostAsc);
         default:
             return nil;
     }
