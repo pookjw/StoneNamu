@@ -16,31 +16,30 @@
 @dynamic apiRegionHost;
 
 + (NSString *)alternativeLocale {
-    NSLocale *locale = NSLocale.currentLocale;
-    NSString *language = locale.languageCode;
-    NSString *localeIdentifier = locale.localeIdentifier;
+    NSString *language = NSLocale.preferredLanguages[0];
+    NSString *localeIdentifier = NSLocale.currentLocale.localeIdentifier;
 
-    if ([language isEqualToString:@"en"]) {
+    if ([language containsString:@"en"]) {
         return BlizzardHSAPILocaleEnUS;
-    } else if ([language isEqualToString:@"fr"]) {
+    } else if ([language containsString:@"fr"]) {
         return BlizzardHSAPILocaleFrFR;
-    } else if ([language isEqualToString:@"de"]) {
+    } else if ([language containsString:@"de"]) {
         return BlizzardHSAPILocaleDeDE;
-    } else if ([language isEqualToString:@"it"]) {
+    } else if ([language containsString:@"it"]) {
         return BlizzardHSAPILocaleItIT;
-    } else if ([language isEqualToString:@"ja"]) {
+    } else if ([language containsString:@"ja"]) {
         return BlizzardHSAPILocaleJaJP;
-    } else if ([language isEqualToString:@"ko"]) {
+    } else if ([language containsString:@"ko"]) {
         return BlizzardHSAPILocaleKoKR;
-    } else if ([language isEqualToString:@"pl"]) {
+    } else if ([language containsString:@"pl"]) {
         return BlizzardHSAPILocalePlPL;
-    } else if ([language isEqualToString:@"ru"]) {
+    } else if ([language containsString:@"ru"]) {
         return BlizzardHSAPILocaleRuRU;
-    } else if ([localeIdentifier isEqualToString:@"zh_CN"]) {
+    } else if ([localeIdentifier containsString:@"zh_CN"]) {
         return BlizzardHSAPILocaleZhCN;
-    } else if ([language isEqualToString:@"es"]) {
+    } else if ([language containsString:@"es"]) {
         return BlizzardHSAPILocaleKoKR;
-    } else if ([localeIdentifier isEqualToString:@"zh_TW"]) {
+    } else if ([localeIdentifier containsString:@"zh_TW"]) {
         return BlizzardHSAPILocaleZhTW;
     } else {
         return BlizzardHSAPILocaleEnUS;
