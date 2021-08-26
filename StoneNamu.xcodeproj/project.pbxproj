@@ -101,7 +101,6 @@
 		4F8F976526D469700024FC06 /* InsetsLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8F976426D469700024FC06 /* InsetsLabel.m */; };
 		4F8F976926D47F360024FC06 /* DeckDetailsManaCostContentConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8F976826D47F360024FC06 /* DeckDetailsManaCostContentConfiguration.m */; };
 		4F8F976C26D47F560024FC06 /* DeckDetailsManaCostContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8F976B26D47F560024FC06 /* DeckDetailsManaCostContentView.m */; };
-		4F8F976E26D481890024FC06 /* MyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F8F976D26D481890024FC06 /* MyView.xib */; };
 		4F90709926D35FA000BA7614 /* DeckDetailsCardContentConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F90709826D35FA000BA7614 /* DeckDetailsCardContentConfiguration.m */; };
 		4F90709C26D3606300BA7614 /* DeckDetailsCardContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F90709B26D3606300BA7614 /* DeckDetailsCardContentView.m */; };
 		4F9070A126D3803800BA7614 /* UIImage+averageColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F9070A026D3803800BA7614 /* UIImage+averageColor.m */; };
@@ -375,7 +374,6 @@
 		4F8F976826D47F360024FC06 /* DeckDetailsManaCostContentConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckDetailsManaCostContentConfiguration.m; sourceTree = "<group>"; };
 		4F8F976A26D47F560024FC06 /* DeckDetailsManaCostContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckDetailsManaCostContentView.h; sourceTree = "<group>"; };
 		4F8F976B26D47F560024FC06 /* DeckDetailsManaCostContentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckDetailsManaCostContentView.m; sourceTree = "<group>"; };
-		4F8F976D26D481890024FC06 /* MyView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyView.xib; sourceTree = "<group>"; };
 		4F90709726D35FA000BA7614 /* DeckDetailsCardContentConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckDetailsCardContentConfiguration.h; sourceTree = "<group>"; };
 		4F90709826D35FA000BA7614 /* DeckDetailsCardContentConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckDetailsCardContentConfiguration.m; sourceTree = "<group>"; };
 		4F90709A26D3606300BA7614 /* DeckDetailsCardContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckDetailsCardContentView.h; sourceTree = "<group>"; };
@@ -797,7 +795,6 @@
 		4F98E25F26B9BA9A0067846F /* Application */ = {
 			isa = PBXGroup;
 			children = (
-				4FF3E0D426CA7F69002B20EA /* Util */,
 				4FF3E0C826C9AE06002B20EA /* Service */,
 				4FA56BB626A2105A002D9FA0 /* Assets.xcassets */,
 				4FA56BBC26A2105A002D9FA0 /* main.m */,
@@ -1163,13 +1160,6 @@
 			path = MainTabBar;
 			sourceTree = "<group>";
 		};
-		4FF3E0D426CA7F69002B20EA /* Util */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Util;
-			sourceTree = "<group>";
-		};
 		4FF3E0D826CA944B002B20EA /* MainSplit */ = {
 			isa = PBXGroup;
 			children = (
@@ -1218,7 +1208,6 @@
 				4F066CAC26D6DC3100991A98 /* Card */,
 				4F066CAD26D6DC3800991A98 /* Cost */,
 				4F066CAE26D6DC4600991A98 /* CostGraph */,
-				4F8F976D26D481890024FC06 /* MyView.xib */,
 			);
 			path = DeckDetails;
 			sourceTree = "<group>";
@@ -1413,7 +1402,6 @@
 				4FA56BB726A2105A002D9FA0 /* Assets.xcassets in Resources */,
 				4F9DFBBD26B30764002AACDE /* LaunchScreen.storyboard in Resources */,
 				4F9DFBB726B2FD2E002AACDE /* InfoPlist.strings in Resources */,
-				4F8F976E26D481890024FC06 /* MyView.xib in Resources */,
 				4F9DFBB126B2FD0C002AACDE /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
