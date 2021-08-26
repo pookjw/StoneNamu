@@ -8,6 +8,8 @@
 	<array>
 		<string>iCloud.com.pookjw.StoneNamu</string>
 	</array>
+	<key>com.apple.security.app-sandbox</key>
+	<true/>
 	<key>com.apple.developer.icloud-services</key>
 	<array>
 		<string>CloudKit</string>
