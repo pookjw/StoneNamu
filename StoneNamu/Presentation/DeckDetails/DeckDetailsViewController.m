@@ -201,7 +201,16 @@
 }
 
 - (UICollectionLayoutListSwipeActionsConfigurationProvider)makeTrailingSwipeProvider {
-    UICollectionLayoutListSwipeActionsConfigurationProvider provider = ^UISwipeActionsConfiguration *(NSIndexPath *indexPath) {
+    UICollectionLayoutListSwipeActionsConfigurationProvider provider = ^UISwipeActionsConfiguration * _Nullable(NSIndexPath *indexPath) {
+        
+        DeckDetailsItemModel *itemModel = [self.viewModel.dataSource itemIdentifierForIndexPath:indexPath];
+        
+        if (itemModel.type != DeckDetailsItemModelTypeCard) {
+            return nil;
+        }
+        
+        //
+        
         UIContextualAction *decrementAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal
                                                                                   title:nil
                                                                                 handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {

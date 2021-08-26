@@ -326,7 +326,13 @@
 - (NSArray<UIDragItem *> *)makeDragItemFromIndexPath:(NSIndexPath *)indexPath {
     DeckDetailsItemModel * _Nullable itemModel = [self.dataSource itemIdentifierForIndexPath:indexPath];
     
-    if (itemModel == nil) return @[];
+    if (itemModel == nil) {
+        return @[];
+    }
+
+    if (itemModel.type != DeckDetailsItemModelTypeCard) {
+        return @[];
+    }
     
     NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithObject:itemModel.hsCard];
     UIDragItem *dragItem = [[UIDragItem alloc] initWithItemProvider:itemProvider];
