@@ -8,7 +8,6 @@
 #import "DeckDetailsViewModel.h"
 #import "HSDeckUseCaseImpl.h"
 #import "LocalDeckUseCaseImpl.h"
-#import "HSCardUseCaseImpl.h"
 #import "NSSemaphoreCondition.h"
 #import "NSDiffableDataSourceSnapshot+sort.h"
 #import "NSMutableArray+removeSingle.h"
@@ -18,7 +17,6 @@
 @property (retain) NSOperationQueue *queue;
 @property (retain) id<HSDeckUseCase> hsDeckUseCase;
 @property (retain) id<LocalDeckUseCase> localDeckUseCase;
-@property (retain) id<HSCardUseCase> hsCardUseCase;
 @property (retain) id<DataCacheUseCase> dataCacheUseCase;
 @end
 
@@ -43,10 +41,6 @@
         self.localDeckUseCase = localDeckUseCase;
         [localDeckUseCase release];
         
-        HSCardUseCaseImpl *hsCardUseCase = [HSCardUseCaseImpl new];
-        self.hsCardUseCase = hsCardUseCase;
-        [hsCardUseCase release];
-        
         DataCacheUseCaseImpl *dataCacheUseCase = [DataCacheUseCaseImpl new];
         self.dataCacheUseCase = dataCacheUseCase;
         [dataCacheUseCase release];
@@ -63,7 +57,6 @@
     [_localDeck release];
     [_hsDeckUseCase release];
     [_localDeckUseCase release];
-    [_hsCardUseCase release];
     [_dataCacheUseCase release];
     [super dealloc];
 }
@@ -156,12 +149,12 @@
             [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
                 [snapshot release];
                 
-                NSMutableArray<NSNumber *> *mutableCardIds = [self.localDeck.cards mutableCopy];
+                NSMutableArray<HSCard *> *mutableCards = [self.localDeck.cards mutableCopy];
                 for (HSCard *hsCard in copyHSCards) {
-                    [mutableCardIds addObject:[NSNumber numberWithUnsignedInteger:hsCard.cardId]];
+                    [mutableCards addObject:hsCard];
                 }
-                self.localDeck.cards = mutableCardIds;
-                [mutableCardIds release];
+                self.localDeck.cards = mutableCards;
+                [mutableCards release];
                 self.localDeck.deckCode = nil;
                 [self.localDeck updateTimestamp];
                 [self.localDeckUseCase saveChanges];
@@ -192,8 +185,8 @@
             [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
                 [snapshot release];
                 
-                NSMutableArray<NSNumber *> *mutableCards = [self.localDeck.cards mutableCopy];
-                [mutableCards removeObject:[NSNumber numberWithUnsignedInteger:copyHSCard.cardId]];
+                NSMutableArray<HSCard *> *mutableCards = [self.localDeck.cards mutableCopy];
+                [mutableCards removeObject:copyHSCard];
                 
                 self.localDeck.cards = mutableCards;
                 [mutableCards release];
@@ -349,7 +342,7 @@
 }
 
 - (void)exportDeckCodeWithCompletion:(DeckDetailsViewModelExportDeckCodeCompletion)completion {
-    [self.hsDeckUseCase fetchDeckByCardList:self.localDeck.cards
+    [self.hsDeckUseCase fetchDeckByCardList:self.localDeck.cardIds
                                     classId:self.localDeck.classId.unsignedIntegerValue
                                  completion:^(HSDeck * _Nullable hsDeck, NSError * _Nullable error) {
         if (error) {
@@ -391,7 +384,7 @@
                 [self updateDataSourceWithHSDeck:hsDeck];
             }];
         } else if (localDeck.cards) {
-            [self updateDataSourceWithCardIds:localDeck.cards];
+            [self updateDataSourceWithHSCards:localDeck.cards];;
         } else {
             [self updateDataSourceWithHSCards:@[]];
         }
@@ -400,30 +393,30 @@
     }];
 }
 
-- (void)updateDataSourceWithCardIds:(NSArray<NSNumber *> *)cardIds {
-    NSArray<NSNumber *> *copyCardIds = [cardIds copy];
-    NSSemaphoreCondition *semaphore = [[NSSemaphoreCondition alloc] initWithValue:-(copyCardIds.count) + 1];
-    NSMutableArray<HSCard *> *hsCards = [@[] mutableCopy];
-    
-    for (NSNumber *cardId in copyCardIds) {
-        [self.hsCardUseCase fetchWithIdOrSlug:cardId.stringValue withOptions:nil completionHandler:^(HSCard * _Nullable hsCard, NSError * _Nullable error) {
-            if (error) {
-                NSLog(@"%@", error.localizedDescription);
-            } else if (hsCard) {
-                [hsCards addObject:hsCard];
-            }
-            
-            [semaphore signal];
-        }];
-    }
-    
-    [semaphore wait];
-    [semaphore release];
-    [copyCardIds release];
-    
-    [self updateDataSourceWithHSCards:hsCards];
-    [hsCards release];
-}
+//- (void)updateDataSourceWithCardIds:(NSArray<NSNumber *> *)cardIds {
+//    NSArray<NSNumber *> *copyCardIds = [cardIds copy];
+//    NSSemaphoreCondition *semaphore = [[NSSemaphoreCondition alloc] initWithValue:-(copyCardIds.count) + 1];
+//    NSMutableArray<HSCard *> *hsCards = [@[] mutableCopy];
+//
+//    for (NSNumber *cardId in copyCardIds) {
+//        [self.hsCardUseCase fetchWithIdOrSlug:cardId.stringValue withOptions:nil completionHandler:^(HSCard * _Nullable hsCard, NSError * _Nullable error) {
+//            if (error) {
+//                NSLog(@"%@", error.localizedDescription);
+//            } else if (hsCard) {
+//                [hsCards addObject:hsCard];
+//            }
+//
+//            [semaphore signal];
+//        }];
+//    }
+//
+//    [semaphore wait];
+//    [semaphore release];
+//    [copyCardIds release];
+//    
+//    [self updateDataSourceWithHSCards:hsCards];
+//    [hsCards release];
+//}
 
 - (void)updateDataSourceWithHSDeck:(HSDeck *)hsDeck {
     [self updateDataSourceWithHSCards:hsDeck.cards];

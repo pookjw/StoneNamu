@@ -17,14 +17,14 @@
 @dynamic name;
 @dynamic timestamp;
 
-- (NSArray<NSNumber *> *)cards {
+- (NSArray<HSCard *> *)cards {
     if (self.cardsData == nil) {
         return @[];
     }
     
     NSError * _Nullable error = nil;
     
-    NSArray<NSNumber *> *cards = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSArray<NSNumber *> class] fromData:self.cardsData error:&error];
+    NSArray<HSCard *> *cards = [NSKeyedUnarchiver unarchivedObjectOfClasses:HSCard.unarchvingClasses fromData:self.cardsData error:&error];
     
     if (error) {
         NSLog(@"%@", error.localizedDescription);
@@ -49,10 +49,25 @@
     self.cardsData = cardsData;
 }
 
+- (NSArray<NSNumber *> *)cardIds {
+    NSMutableArray<NSNumber *> *mutable = [@[] mutableCopy];
+    
+    for (HSCard *hsCard in self.cards) {
+        @autoreleasepool {
+            [mutable addObject:[NSNumber numberWithUnsignedInteger:hsCard.cardId]];
+        }
+    }
+    
+    NSArray<NSNumber *> *result = [mutable copy];
+    [mutable release];
+    
+    return [result autorelease];
+}
+
 - (void)setValuesAsHSDeck:(HSDeck *)hsDeck {
-    NSMutableArray<NSNumber *> *cards = [@[] mutableCopy];
+    NSMutableArray<HSCard *> *cards = [@[] mutableCopy];
     [hsDeck.cards enumerateObjectsUsingBlock:^(HSCard * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        [cards addObject:[NSNumber numberWithUnsignedInteger:obj.cardId]];
+        [cards addObject:obj];
     }];
     self.cards = cards;
     [cards release];

@@ -7,6 +7,7 @@
 
 #import <CoreData/CoreData.h>
 #import "HSDeck.h"
+#import "HSCard.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -18,7 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (assign) NSString * _Nullable name;
 @property (assign) NSDate * _Nullable timestamp;
 
-@property (assign, nonatomic) NSArray<NSNumber *> *cards;
+@property (assign, nonatomic) NSArray<HSCard *> *cards;
+@property (readonly, nonatomic) NSArray<NSNumber *> *cardIds;
 
 - (void)setValuesAsHSDeck:(HSDeck *)hsDeck;
 - (void)updateTimestamp;

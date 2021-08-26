@@ -10,6 +10,8 @@
 #import "DeckDetailsCardContentConfiguration.h"
 #import "InsetsLabel.h"
 
+#define IS_SHADOW_ENABLED_CARD_VIEW 0
+
 @interface DeckDetailsCardContentView ()
 @property (readonly, nonatomic) HSCard *hsCard;
 @property (readonly, nonatomic) NSUInteger hsCardCount;
@@ -69,10 +71,12 @@
     nameLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleTitle3];
     nameLabel.minimumScaleFactor = 0.1;
     
+#if IS_SHADOW_ENABLED_CARD_VIEW
     nameLabel.layer.shadowRadius = 2.0;
     nameLabel.layer.shadowOpacity = 1;
     nameLabel.layer.shadowOffset = CGSizeMake(0, 0);
     nameLabel.layer.masksToBounds = YES;
+#endif
     
     [self addSubview:nameLabel];
     nameLabel.translatesAutoresizingMaskIntoConstraints = NO;
@@ -335,7 +339,9 @@
 }
 
 - (void)updateNameLabelShadowColor {
+#if IS_SHADOW_ENABLED_CARD_VIEW
     self.nameLabel.layer.shadowColor = self.isDarkMode ? UIColor.blackColor.CGColor : UIColor.whiteColor.CGColor;
+#endif
 }
 
 @end
