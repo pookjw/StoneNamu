@@ -213,8 +213,8 @@
         //
         
         UIContextualAction *decrementAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal
-                                                                                  title:nil
-                                                                                handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
+                                                                                      title:nil
+                                                                                    handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
             [self.viewModel decreaseAtIndexPath:indexPath];
         }];
         
@@ -224,8 +224,8 @@
         //
         
         UIContextualAction *incrementAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal
-                                                                                  title:nil
-                                                                                handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
+                                                                                      title:nil
+                                                                                    handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
             [self.viewModel increaseAtIndexPath:indexPath];
         }];
         
@@ -235,8 +235,8 @@
         //
         
         UIContextualAction *removeAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive
-                                                                             title:nil
-                                                                           handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
+                                                                                   title:nil
+                                                                                 handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
             [self.viewModel removeAtIndexPath:indexPath];
         }];
         
@@ -312,6 +312,14 @@
     }
 }
 
+- (void)presentCardDetailsVCWithHSCard:(HSCard *)hsCard {
+    if (hsCard == nil) return;
+    
+    CardDetailsViewController *vc = [[CardDetailsViewController alloc] initWithHSCard:hsCard sourceImageView:nil];
+    [vc loadViewIfNeeded];
+    [self presentViewController:vc animated:YES completion:^{}];
+}
+
 #pragma mark UICollectionViewDelegate
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -325,9 +333,78 @@
     
     //
     
-    CardDetailsViewController *vc = [[CardDetailsViewController alloc] initWithHSCard:itemModel.hsCard sourceImageView:nil];
-    [vc loadViewIfNeeded];
-    [self presentViewController:vc animated:YES completion:^{}];
+    [self presentCardDetailsVCWithHSCard:itemModel.hsCard];
+}
+
+- (UIContextMenuConfiguration *)collectionView:(UICollectionView *)collectionView contextMenuConfigurationForItemAtIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point {
+    self.viewModel.contextMenuIndexPath = indexPath;
+    
+    DeckDetailsItemModel * _Nullable itemModel = [self.viewModel.dataSource itemIdentifierForIndexPath:indexPath];
+    if (itemModel == nil) return nil;
+    
+    switch (itemModel.type) {
+        case DeckDetailsItemModelTypeCard: {
+            UIContextMenuConfiguration *configuration = [UIContextMenuConfiguration configurationWithIdentifier:nil
+                                                                                                previewProvider:nil
+                                                                                                 actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> * _Nonnull suggestedActions) {
+                
+                UIAction *incrementAction = [UIAction actionWithTitle:NSLocalizedString(@"INCREASE_CARD_COUNT", @"")
+                                                                image:[UIImage systemImageNamed:@"plus"]
+                                                           identifier:nil
+                                                              handler:^(__kindof UIAction * _Nonnull action) {
+                    [self.viewModel increaseAtIndexPath:indexPath];
+                }];
+                
+                UIAction *decrementAction = [UIAction actionWithTitle:NSLocalizedString(@"DECREASE_CARD_COUNT", @"")
+                                                                image:[UIImage systemImageNamed:@"minus"]
+                                                           identifier:nil
+                                                              handler:^(__kindof UIAction * _Nonnull action) {
+                    [self.viewModel decreaseAtIndexPath:indexPath];
+                }];
+                
+                UIAction *deleteAction = [UIAction actionWithTitle:NSLocalizedString(@"DELETE", @"")
+                                                             image:[UIImage systemImageNamed:@"trash"]
+                                                        identifier:nil
+                                                           handler:^(__kindof UIAction * _Nonnull action) {
+                    [self.viewModel removeAtIndexPath:indexPath];
+                }];
+                
+                UIMenu *menu = [UIMenu menuWithChildren:@[incrementAction, decrementAction, deleteAction]];
+                
+                return menu;
+            }];
+            
+            return configuration;
+        }
+        default: {
+            return nil;
+        }
+    }
+}
+
+- (void)collectionView:(UICollectionView *)collectionView willPerformPreviewActionForMenuWithConfiguration:(UIContextMenuConfiguration *)configuration animator:(id<UIContextMenuInteractionCommitAnimating>)animator {
+    NSIndexPath * _Nullable indexPath = self.viewModel.contextMenuIndexPath;
+    
+    if (indexPath == nil) {
+        return;
+    }
+    
+    DeckDetailsItemModel * _Nullable itemModel = [self.viewModel.dataSource itemIdentifierForIndexPath:indexPath];
+    
+    switch (itemModel.type) {
+        case DeckDetailsItemModelTypeCard: {
+            [animator addAnimations:^{
+                [self presentCardDetailsVCWithHSCard:itemModel.hsCard];
+            }];
+            break;
+        }
+        default:
+            break;
+    }
+    
+    [animator addCompletion:^{
+        self.viewModel.contextMenuIndexPath = nil;
+    }];
 }
 
 #pragma mark UICollectionViewDragDelegate

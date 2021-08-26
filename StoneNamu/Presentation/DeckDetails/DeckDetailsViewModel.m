@@ -26,6 +26,7 @@
     self = [self init];
     
     if (self) {
+        self.contextMenuIndexPath = nil;
         self->_dataSource = [dataSource retain];
         
         NSOperationQueue *queue = [NSOperationQueue new];
@@ -52,6 +53,7 @@
 }
 
 - (void)dealloc {
+    [_contextMenuIndexPath release];
     [_queue release];
     [_dataSource release];
     [_localDeck release];
@@ -253,8 +255,8 @@
             [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
                 [snapshot release];
                 
-                NSMutableArray *localDeckCards = [self.localDeck.cards mutableCopy];
-                [localDeckCards addObject:[NSNumber numberWithUnsignedInteger:copy.hsCard.cardId]];
+                NSMutableArray<HSCard *> *localDeckCards = [self.localDeck.cards mutableCopy];
+                [localDeckCards addObject:copy.hsCard];
                 self.localDeck.cards = localDeckCards;
                 self.localDeck.deckCode = nil;
                 [self.localDeck updateTimestamp];
@@ -300,7 +302,7 @@
             [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
                 [snapshot release];
                 
-                NSMutableArray *localDeckCards = [self.localDeck.cards mutableCopy];
+                NSMutableArray<HSCard *> *localDeckCards = [self.localDeck.cards mutableCopy];
                 [localDeckCards removeSingleObject:copy.hsCard];
                 
                 self.localDeck.cards = localDeckCards;
@@ -362,6 +364,7 @@
 
 - (void)updateDeckName:(NSString *)name {
     self.localDeck.name = name;
+    [self.localDeck updateTimestamp];
     [self.localDeckUseCase saveChanges];
 }
 
@@ -494,28 +497,27 @@
     
     //
     
-    for (DeckDetailsSectionModel *sectionModel in snapshot.sectionIdentifiers) {
-        [snapshot sortItemsWithSectionIdentifiers:@[sectionModel] usingComparator:^NSComparisonResult(DeckDetailsItemModel *obj1, DeckDetailsItemModel *obj2) {
-            HSCard *obj1Card = obj1.hsCard;
-            HSCard *obj2Card = obj2.hsCard;
-            
-            if (obj1Card.manaCost < obj2Card.manaCost) {
+    [snapshot sortItemsWithSectionIdentifiers:snapshot.sectionIdentifiers
+                              usingComparator:^NSComparisonResult(DeckDetailsItemModel *obj1, DeckDetailsItemModel *obj2) {
+        HSCard *obj1Card = obj1.hsCard;
+        HSCard *obj2Card = obj2.hsCard;
+        
+        if (obj1Card.manaCost < obj2Card.manaCost) {
+            return NSOrderedAscending;
+        } else if (obj1Card.manaCost > obj2Card.manaCost) {
+            return NSOrderedDescending;
+        } else {
+            if ((obj1Card.name == nil) && (obj2Card.name == nil)) {
+                return NSOrderedSame;
+            } else if ((obj1Card.name == nil) && (obj2Card.name != nil)) {
                 return NSOrderedAscending;
-            } else if (obj1Card.manaCost > obj2Card.manaCost) {
+            } else if ((obj1Card.name != nil) && (obj2Card.name == nil)) {
                 return NSOrderedDescending;
             } else {
-                if ((obj1Card.name == nil) && (obj2Card.name == nil)) {
-                    return NSOrderedSame;
-                } else if ((obj1Card.name == nil) && (obj2Card.name != nil)) {
-                    return NSOrderedAscending;
-                } else if ((obj1Card.name != nil) && (obj2Card.name == nil)) {
-                    return NSOrderedDescending;
-                } else {
-                    return [obj1Card.name compare:obj2Card.name];
-                }
+                return [obj1Card.name compare:obj2Card.name];
             }
-        }];
-    }
+        }
+    }];
 }
 
 - (void)addCostGraphItemToSnapshot:(NSDiffableDataSourceSnapshot *)snapshot {

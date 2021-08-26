@@ -28,6 +28,7 @@ static NSString * const DeckDetailsViewModelErrorOccuredNoficiationName = @"Deck
 static NSString * const DeckDetailsViewModelErrorOccuredItemKey = @"DeckDetailsViewModelErrorOccuredItemKey";
 
 @interface DeckDetailsViewModel : NSObject
+@property (retain) NSIndexPath * _Nullable contextMenuIndexPath;
 @property (readonly, retain) LocalDeck *localDeck;
 @property (readonly, retain) DecksDetailsDataSource *dataSource;
 - (instancetype)initWithDataSource:(DecksDetailsDataSource *)dataSource;

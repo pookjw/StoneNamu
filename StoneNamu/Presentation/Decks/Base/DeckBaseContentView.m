@@ -151,8 +151,9 @@
     DeckBaseContentConfiguration *newContentConfig = [(DeckBaseContentConfiguration *)configuration copy];
     self->configuration = newContentConfig;
     
+    [self updateNameLabel];
+    
     if (![newContentConfig.localDeck isEqual:oldContentConfig.localDeck]) {
-        [self updateNameLabel];
         [self updateImageView];
     }
     

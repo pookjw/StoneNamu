@@ -119,3 +119,9 @@
 "ENTER_DECK_TITLE_HERE" = "제목을 입력해 주세요...";
 
 "ENTER_DECK_CODE_HERE" = "덱코드를 입력해 주세요...";
+
+"DELETE" = "삭제";
+
+"INCREASE_CARD_COUNT" = "카드 장수 증가";
+
+"DECREASE_CARD_COUNT" = "카드 장수 감소";

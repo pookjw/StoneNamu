@@ -8,6 +8,7 @@
 #import "DecksViewModel.h"
 #import "HSDeckUseCaseImpl.h"
 #import "LocalDeckUseCaseImpl.h"
+#import "NSDiffableDataSourceSnapshot+sort.h"
 
 @interface DecksViewModel ()
 @property (retain) NSOperationQueue *queue;
@@ -106,14 +107,8 @@
         DecksItemModel *itemModel = [[DecksItemModel alloc] initWithType:DecksItemModelTypeDeck localDeck:localDeck];
         
         [snapshot appendItemsWithIdentifiers:@[itemModel] intoSectionWithIdentifier:sectionModel];
-        
-        // make first item
-        DecksItemModel *firstItemModel = snapshot.itemIdentifiers.firstObject;
-        if (![itemModel isEqual:firstItemModel]) {
-            [snapshot moveItemWithIdentifier:itemModel beforeItemWithIdentifier:firstItemModel];
-        }
-        
         [itemModel release];
+        [self sortSnapshot:snapshot];
         
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
             [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
@@ -164,14 +159,8 @@
         DecksItemModel *itemModel = [[DecksItemModel alloc] initWithType:DecksItemModelTypeDeck localDeck:localDeck];
         
         [snapshot appendItemsWithIdentifiers:@[itemModel] intoSectionWithIdentifier:sectionModel];
-        
-        // make first item
-        DecksItemModel *firstItemModel = snapshot.itemIdentifiers.firstObject;
-        if (![itemModel isEqual:firstItemModel]) {
-            [snapshot moveItemWithIdentifier:itemModel beforeItemWithIdentifier:firstItemModel];
-        }
-        
         [itemModel release];
+        [self sortSnapshot:snapshot];
         
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
             [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
@@ -235,9 +224,10 @@
         }
         
         [snapshot appendItemsWithIdentifiers:itemModels intoSectionWithIdentifier:sectionModel];
-        [snapshot reloadItemsWithIdentifiers:itemModels];
         [itemModels release];
         [sectionModel release];
+        
+        [self sortSnapshot:snapshot];
         
         //
         
@@ -246,6 +236,13 @@
                 [snapshot release];
             }];
         }];
+    }];
+}
+
+- (void)sortSnapshot:(NSDiffableDataSourceSnapshot *)snapshot {
+    [snapshot sortItemsWithSectionIdentifiers:snapshot.sectionIdentifiers
+                              usingComparator:^NSComparisonResult(DecksItemModel *obj1, DecksItemModel *obj2) {
+        return [obj2.localDeck.timestamp compare:obj1.localDeck.timestamp];
     }];
 }
 

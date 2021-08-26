@@ -119,3 +119,9 @@
 "ENTER_DECK_TITLE_HERE" = "Enter deck title here...";
 
 "ENTER_DECK_CODE_HERE" = "Enter deck code here...";
+
+"DELETE" = "Delete";
+
+"INCREASE_CARD_COUNT" = "Increase Card Count";
+
+"DECREASE_CARD_COUNT" = "Decrease Card Count";

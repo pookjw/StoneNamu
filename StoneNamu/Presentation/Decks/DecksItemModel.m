@@ -32,7 +32,9 @@
         return NO;
     }
     
-    return (self.type == toCompare.type) && ([self.localDeck isEqual:toCompare.localDeck]);
+    return (self.type == toCompare.type) &&
+    ([self.localDeck isEqual:toCompare.localDeck]) &&
+    (((self.localDeck.name == nil) && (toCompare.localDeck.name == nil)) || [self.localDeck.name isEqualToString:toCompare.localDeck.name]);
 }
 
 - (NSUInteger)hash {
