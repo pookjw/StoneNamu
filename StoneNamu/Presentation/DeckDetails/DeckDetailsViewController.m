@@ -10,6 +10,7 @@
 #import "UIViewController+presentErrorAlert.h"
 #import "DeckDetailsCardContentConfiguration.h"
 #import "DeckDetailsManaCostContentConfiguration.h"
+#import "CardDetailsViewController.h"
 
 @interface DeckDetailsViewController () <UICollectionViewDelegate, UICollectionViewDragDelegate, UICollectionViewDropDelegate>
 @property (retain) UICollectionView *collectionView;
@@ -275,7 +276,11 @@
 
 - (void)shouldDismissReceived:(NSNotification *)notification {
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
-        [self.navigationController popViewControllerAnimated:YES];
+        if (self.splitViewController.isCollapsed) {
+            [self.navigationController popViewControllerAnimated:YES];
+        } else {
+            self.navigationController.viewControllers = @[];
+        }
     }];
 }
 
@@ -308,6 +313,22 @@
 }
 
 #pragma mark UICollectionViewDelegate
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    [collectionView deselectItemAtIndexPath:indexPath animated:YES];
+    
+    DeckDetailsItemModel * _Nullable itemModel = [self.viewModel.dataSource itemIdentifierForIndexPath:indexPath];
+    
+    if ((itemModel == nil) || (itemModel.type != DeckDetailsItemModelTypeCard)) {
+        return;
+    }
+    
+    //
+    
+    CardDetailsViewController *vc = [[CardDetailsViewController alloc] initWithHSCard:itemModel.hsCard sourceImageView:nil];
+    [vc loadViewIfNeeded];
+    [self presentViewController:vc animated:YES completion:^{}];
+}
 
 #pragma mark UICollectionViewDragDelegate
 

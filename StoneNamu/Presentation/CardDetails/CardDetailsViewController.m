@@ -16,7 +16,7 @@
 #import "PhotosService.h"
 
 @interface CardDetailsViewController () <UIViewControllerTransitioningDelegate, UIContextMenuInteractionDelegate, UIDragInteractionDelegate, CardDetailsChildrenContentConfigurationDelegate>
-@property (retain) UIImageView *sourceImageView;
+@property (retain) UIImageView * _Nullable sourceImageView;
 @property (retain) UIImageView *primaryImageView;
 @property (retain) UICollectionView *collectionView;
 @property (retain) UIViewController<CardDetailsLayoutProtocol> *compactViewController;
@@ -30,7 +30,7 @@
 
 @implementation CardDetailsViewController
 
-- (instancetype)initWithHSCard:(HSCard *)hsCard sourceImageView:(UIImageView *)sourceImageView {
+- (instancetype)initWithHSCard:(HSCard *)hsCard sourceImageView:(UIImageView * _Nullable)sourceImageView {
     self = [self init];
     
     if (self) {

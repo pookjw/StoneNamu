@@ -12,12 +12,14 @@
 #import "NSSemaphoreCondition.h"
 #import "NSDiffableDataSourceSnapshot+sort.h"
 #import "NSMutableArray+removeSingle.h"
+#import "DataCacheUseCaseImpl.h"
 
 @interface DeckDetailsViewModel ()
 @property (retain) NSOperationQueue *queue;
 @property (retain) id<HSDeckUseCase> hsDeckUseCase;
 @property (retain) id<LocalDeckUseCase> localDeckUseCase;
 @property (retain) id<HSCardUseCase> hsCardUseCase;
+@property (retain) id<DataCacheUseCase> dataCacheUseCase;
 @end
 
 @implementation DeckDetailsViewModel
@@ -45,7 +47,11 @@
         self.hsCardUseCase = hsCardUseCase;
         [hsCardUseCase release];
         
-        [self startLocalDeckObserving];
+        DataCacheUseCaseImpl *dataCacheUseCase = [DataCacheUseCaseImpl new];
+        self.dataCacheUseCase = dataCacheUseCase;
+        [dataCacheUseCase release];
+        
+        [self startObserving];
     }
     
     return self;
@@ -58,6 +64,7 @@
     [_hsDeckUseCase release];
     [_localDeckUseCase release];
     [_hsCardUseCase release];
+    [_dataCacheUseCase release];
     [super dealloc];
 }
 
@@ -564,7 +571,7 @@
     return result;
 }
 
-- (void)startLocalDeckObserving {
+- (void)startObserving {
     [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(localDeckChangesReceived:)
                                                name:LocalDeckUseCaseObserveDataNotificationName
@@ -573,6 +580,11 @@
     [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(localDeckDeleteAllReceived:)
                                                name:LocalDeckUseCaseDeleteAllNotificationName
+                                             object:nil];
+    
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(dataCacheDeleteAllReceived:)
+                                               name:DataCacheUseCaseDeleteAllNotificationName
                                              object:nil];
 }
 
@@ -583,6 +595,12 @@
 }
 
 - (void)localDeckDeleteAllReceived:(NSNotification *)notification {
+    [NSNotificationCenter.defaultCenter postNotificationName:DeckDetailsViewModelShouldDismissNotificationName
+                                                      object:self
+                                                    userInfo:nil];
+}
+
+- (void)dataCacheDeleteAllReceived:(NSNotification *)notification {
     [NSNotificationCenter.defaultCenter postNotificationName:DeckDetailsViewModelShouldDismissNotificationName
                                                       object:self
                                                     userInfo:nil];

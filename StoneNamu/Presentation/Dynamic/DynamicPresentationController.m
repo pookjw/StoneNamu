@@ -20,8 +20,8 @@
 
 - (instancetype)initWithPresentedViewController:(UIViewController *)presentedViewController
                        presentingViewController:(UIViewController *)presentingViewController
-                                     sourceView:(UIView *)sourceView
-                                    targetView:(UIView *)targetView
+                                     sourceView:(UIView * _Nullable)sourceView
+                                     targetView:(UIView *)targetView
                                 destinationRect:(CGRect)destinationRect {
     self = [self initWithPresentedViewController:presentedViewController presentingViewController:presentingViewController];
     
@@ -99,7 +99,7 @@
 }
 
 - (void)animateDynamicViewPresenting:(BOOL)presenting {
-    BOOL dynamicAnimating = (self.sourceView.hidden && !self.targetView.hidden) || presenting;
+    BOOL dynamicAnimating = ((self.sourceView.hidden && !self.targetView.hidden) || presenting) && (self.sourceView != nil);
     
     if (dynamicAnimating) {
         CGRect departure = presenting ? self.sourceViewRect : self.targetViewRect;
