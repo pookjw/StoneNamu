@@ -118,7 +118,7 @@
     [prefsTabBarItem release];
     
     [self setViewControllers:@[cardsSplitViewController, decksSplitViewController, prefsSplitViewController] animated:NO];
-    self.selectedViewController = decksSplitViewController;
+    self.selectedViewController = cardsSplitViewController;
     
     [cardsSplitViewController release];
     [decksSplitViewController release];
