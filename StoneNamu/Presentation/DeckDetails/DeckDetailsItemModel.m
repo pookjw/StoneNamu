@@ -57,7 +57,6 @@
 
 - (NSUInteger)hash {
     return self.type ^ self.hsCard.hash ^ self.hsCardCount ^ self.manaDictionary.hash;
-//    return self.type ^ self.hsCard.hash;
 }
 
 @end

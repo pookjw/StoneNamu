@@ -44,6 +44,11 @@ static NSString * const UIImageViewAsyncImageCategorySessionTaskKey = @"UIImageV
     self.image = nil;
     self.currentURL = url;
     
+    if (url == nil) {
+        completion(nil, nil);
+        return;
+    }
+    
     NSString *identity = url.absoluteString;
     
     // Fetch Cahce Data from another background thread...

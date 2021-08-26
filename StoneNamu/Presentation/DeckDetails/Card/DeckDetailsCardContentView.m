@@ -147,13 +147,12 @@
     self.imageView = imageView;
     
     imageView.backgroundColor = UIColor.clearColor;
-    imageView.contentMode = UIViewContentModeScaleAspectFill;
+    imageView.contentMode = UIViewContentModeScaleToFill;
     imageView.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview:imageView];
     
     [NSLayoutConstraint activateConstraints:@[
         [imageView.centerYAnchor constraintEqualToAnchor:self.nameLabel.centerYAnchor],
-//        [imageView.leadingAnchor constraintEqualToAnchor:self.nameLabel.trailingAnchor],
         [imageView.heightAnchor constraintEqualToAnchor:self.nameLabel.heightAnchor]
     ]];
 

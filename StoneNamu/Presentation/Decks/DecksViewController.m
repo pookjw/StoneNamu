@@ -10,6 +10,7 @@
 #import "DeckDetailsViewController.h"
 #import "UIViewController+presentErrorAlert.h"
 #import "UIViewController+animatedForSelectedIndexPath.h"
+#import "DeckBaseContentConfiguration.h"
 
 @interface DecksViewController () <UICollectionViewDelegate>
 @property (retain) UICollectionView *collectionView;
@@ -161,10 +162,9 @@
         
         DecksItemModel *itemModel = (DecksItemModel *)item;
         
-        UIListContentConfiguration *configuration = [UIListContentConfiguration subtitleCellConfiguration];
-        configuration.text = itemModel.localDeck.name;
-        configuration.secondaryTextProperties.numberOfLines = 0;
+        DeckBaseContentConfiguration *configuration = [[DeckBaseContentConfiguration alloc] initWithLocalDeck:itemModel.localDeck];
         cell.contentConfiguration = configuration;
+        [configuration release];
     }];
     
     return cellRegistration;

@@ -100,6 +100,13 @@
         DecksItemModel *itemModel = [[DecksItemModel alloc] initWithType:DecksItemModelTypeDeck localDeck:localDeck];
         
         [snapshot appendItemsWithIdentifiers:@[itemModel] intoSectionWithIdentifier:sectionModel];
+        
+        // make first item
+        DecksItemModel *firstItemModel = snapshot.itemIdentifiers.firstObject;
+        if (![itemModel isEqual:firstItemModel]) {
+            [snapshot moveItemWithIdentifier:itemModel beforeItemWithIdentifier:firstItemModel];
+        }
+        
         [itemModel release];
         
         [NSOperationQueue.mainQueue addOperationWithBlock:^{

@@ -38,6 +38,8 @@
 }
 
 - (void)dataCachesWithIdentity:(NSString *)identity completion:(DataCacheRepositoryFetchWithIdentityCompletion)completion {
+    if (identity == nil) return;
+    
     [self.coreDataStack.queue addBarrierBlock:^{
         NSManagedObjectContext *context = self.coreDataStack.context;
         
