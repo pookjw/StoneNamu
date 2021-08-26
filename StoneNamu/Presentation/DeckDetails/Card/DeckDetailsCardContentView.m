@@ -147,7 +147,7 @@
     self.imageView = imageView;
     
     imageView.backgroundColor = UIColor.clearColor;
-    imageView.contentMode = UIViewContentModeScaleToFill;
+    imageView.contentMode = UIViewContentModeScaleAspectFill;
     imageView.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview:imageView];
     
