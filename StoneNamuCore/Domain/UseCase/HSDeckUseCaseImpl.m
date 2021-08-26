@@ -40,9 +40,12 @@
     [super dealloc];
 }
 
-- (void)fetchDeckByCardList:(nonnull NSArray<NSNumber *> *)cardList completion:(nonnull HSDeckUseCaseFetchDeckByCardListCompletion)completion {
+- (void)fetchDeckByCardList:(nonnull NSArray<NSNumber *> *)cardList
+                    classId:(HSCardClass)classId
+                 completion:(nonnull HSDeckUseCaseFetchDeckByCardListCompletion)completion {
     NSString *strList = [cardList componentsJoinedByString:@","];
-    NSDictionary *options = @{BlizzardHSAPIOptionTypeIds: strList};
+    NSDictionary *options = @{BlizzardHSAPIOptionTypeIds: strList,
+                              BlizzardHSAPIOptionTypeHero: [NSNumber numberWithUnsignedInteger:HSCardHeroFromHSCardClass(classId)].stringValue};
     [self fetchPrefsOptions:options completion:^(NSDictionary *finalOptions, NSNumber *region) {
         [self.hsDeckRepository fetchDeckAtRegion:region.unsignedIntegerValue
                                      withOptions:finalOptions

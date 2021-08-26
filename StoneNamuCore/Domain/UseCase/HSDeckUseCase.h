@@ -19,6 +19,7 @@ typedef void (^HSDeckUseCaseFetchDeckByCardListCompletion)(HSDeck * _Nullable, N
 - (void)fetchDeckByDeckCode:(NSString *)deckCode
                  completion:(HSDeckUseCaseFetchDeckByDeckCodeCompletion)completion;
 - (void)fetchDeckByCardList:(NSArray<NSNumber *> *)cardList
+                    classId:(HSCardClass)classId
                  completion:(HSDeckUseCaseFetchDeckByCardListCompletion)completion;
 
 @end

@@ -349,11 +349,16 @@
 }
 
 - (void)exportDeckCodeWithCompletion:(DeckDetailsViewModelExportDeckCodeCompletion)completion {
-    [self.hsDeckUseCase fetchDeckByCardList:self.localDeck.cards completion:^(HSDeck * _Nullable hsDeck, NSError * _Nullable error) {
+    [self.hsDeckUseCase fetchDeckByCardList:self.localDeck.cards
+                                    classId:self.localDeck.classId.unsignedIntegerValue
+                                 completion:^(HSDeck * _Nullable hsDeck, NSError * _Nullable error) {
         if (error) {
             [self postErrorOccuredNotification:error];
         } else if (hsDeck.deckCode) {
             self.localDeck.deckCode = hsDeck.deckCode;
+            self.localDeck.classId = [NSNumber numberWithUnsignedInteger:hsDeck.classId];
+            [self.localDeck updateTimestamp];
+            [self.localDeckUseCase saveChanges];
             completion(hsDeck.deckCode);
         } else {
             NSError *error = [NSError errorWithDomain:@"com.pookjw.StoneNamy" code:105 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"DECKCODE_FETCH_ERROR", @"")}];
