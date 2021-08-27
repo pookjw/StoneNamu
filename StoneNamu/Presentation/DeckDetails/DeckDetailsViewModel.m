@@ -350,8 +350,7 @@
         if (error) {
             [self postErrorOccuredNotification:error];
         } else if (hsDeck.deckCode) {
-            self.localDeck.deckCode = hsDeck.deckCode;
-            self.localDeck.classId = [NSNumber numberWithUnsignedInteger:hsDeck.classId];
+            [self.localDeck setValuesAsHSDeck:hsDeck];
             [self.localDeck updateTimestamp];
             [self.localDeckUseCase saveChanges];
             completion(hsDeck.deckCode);

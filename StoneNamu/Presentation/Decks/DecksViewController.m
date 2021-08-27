@@ -77,7 +77,7 @@
                                               identifier:nil
                                                  handler:^(__kindof UIAction * _Nonnull action) {
                 [self.viewModel makeLocalDeckWithClass:HSCardClassFromNSString(key)
-                                               cardSet:HSCardSetStandardCards
+                                            deckFormat:HSDeckFormatStandard
                                             completion:^(LocalDeck * _Nonnull localDeck) {
                     [NSOperationQueue.mainQueue addOperationWithBlock:^{
                         [self presentDeckDetailsWithLocalDeck:localDeck];
@@ -90,7 +90,7 @@
                                               identifier:nil
                                                  handler:^(__kindof UIAction * _Nonnull action) {
                 [self.viewModel makeLocalDeckWithClass:HSCardClassFromNSString(key)
-                                               cardSet:HSCardSetWildCards
+                                            deckFormat:HSDeckFormatWild
                                             completion:^(LocalDeck * _Nonnull localDeck) {
                     [NSOperationQueue.mainQueue addOperationWithBlock:^{
                         [self presentDeckDetailsWithLocalDeck:localDeck];

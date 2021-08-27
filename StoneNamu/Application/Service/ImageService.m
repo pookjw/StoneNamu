@@ -20,6 +20,10 @@
     return sharedInstance;
 }
 
+- (UIImage * _Nullable)imageOfDeckFormat:(HSDeckFormat)deckFormat {
+    return [UIImage imageNamed:deckFormat];
+}
+
 - (UIImage * _Nullable)imageOfCardSet:(HSCardSet)cardSet {
     return [UIImage imageNamed:NSStringFromHSCardSet(cardSet)];
 }

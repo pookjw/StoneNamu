@@ -23,7 +23,7 @@ typedef UICollectionViewDiffableDataSource<DecksSectionModel *, DecksItemModel *
 @property (retain) DecksDataSource *dataSource;
 - (instancetype)initWithDataSource:(DecksDataSource *)dataSource;
 - (void)fetchDeckCode:(NSString *)deckCode title:(NSString * _Nullable)title completion:(DecksViewModelFetchDeckCodeCompletion)completion;
-- (void)makeLocalDeckWithClass:(HSCardClass)hsCardClass cardSet:(HSCardSet)cardSet completion:(DecksViewModelMakeLocalDeckCompletion)completion;
+- (void)makeLocalDeckWithClass:(HSCardClass)hsCardClass deckFormat:(HSDeckFormat)deckFormat completion:(DecksViewModelMakeLocalDeckCompletion)completion;
 - (void)parseClipboardForDeckCodeWithCompletion:(DecksViewModelParseClipboardCompletion)completion;
 - (NSIndexPath * _Nullable)indexPathForLocalDeck:(LocalDeck *)localDeck;
 @end

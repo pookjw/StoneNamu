@@ -183,10 +183,10 @@
     DeckBaseContentConfiguration *newContentConfig = [(DeckBaseContentConfiguration *)configuration copy];
     self->configuration = newContentConfig;
     
+    [self updateCardSetImageView];
     [self updateNameLabel];
     
     if (![newContentConfig.localDeck isEqual:oldContentConfig.localDeck]) {
-        [self updateCardSetImageView];
         [self updateHeroImageView];
     }
     
@@ -219,9 +219,9 @@
     UIEdgeInsets inset = UIEdgeInsetsMake(-8, -8, -8, -8);
     
     if (self.localDeck.isWild.boolValue) {
-        self.cardSetImageView.image = [[ImageService.sharedInstance imageOfCardSet:HSCardSetWildCards] imageWithAlignmentRectInsets:inset];
+        self.cardSetImageView.image = [[ImageService.sharedInstance imageOfDeckFormat:HSDeckFormatWild] imageWithAlignmentRectInsets:inset];
     } else {
-        self.cardSetImageView.image = [[ImageService.sharedInstance imageOfCardSet:HSCardSetStandardCards] imageWithAlignmentRectInsets:inset];
+        self.cardSetImageView.image = [[ImageService.sharedInstance imageOfDeckFormat:HSDeckFormatStandard] imageWithAlignmentRectInsets:inset];
     }
 }
 

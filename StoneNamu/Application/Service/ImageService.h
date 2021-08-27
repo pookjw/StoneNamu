@@ -8,12 +8,14 @@
 #import <UIKit/UIKit.h>
 #import "HSCardSet.h"
 #import "HSCardClass.h"
+#import "HSDeckFormat.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ImageService : NSObject
 @property (class, readonly, nonatomic) ImageService *sharedInstance;
 - (UIImage * _Nullable)imageOfCardSet:(HSCardSet)cardSet;
+- (UIImage * _Nullable)imageOfDeckFormat:(HSDeckFormat)deckFormat;
 - (UIImage * _Nullable)portraitImageOfClassId:(HSCardClass)classId;
 @end
 
