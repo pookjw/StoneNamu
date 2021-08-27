@@ -18,6 +18,7 @@
 @interface CardDetailsViewController () <UIViewControllerTransitioningDelegate, UIContextMenuInteractionDelegate, UIDragInteractionDelegate, CardDetailsChildrenContentConfigurationDelegate>
 @property (retain) UIImageView * _Nullable sourceImageView;
 @property (retain) UIImageView *primaryImageView;
+@property (retain) UIButton *closeButton;
 @property (retain) UICollectionView *collectionView;
 @property (retain) UIViewController<CardDetailsLayoutProtocol> *compactViewController;
 @property (retain) UIViewController<CardDetailsLayoutProtocol> *regularViewController;
@@ -45,6 +46,7 @@
     [_sourceImageView release];
     [_primaryImageView release];
     [_collectionView release];
+    [_closeButton release];
     [_compactViewController release];
     [_regularViewController release];
     [_layoutViewControllers release];
@@ -60,6 +62,7 @@
     
     [self setAttributes];
     [self configurePrimaryImageView];
+    [self configureCloseButton];
     [self configureCollectionView];
     [self configureLayoutViewControllers];
     [self configureViewModel];
@@ -68,7 +71,13 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self updateLayoutViewControllerWithTraitCollection:self.traitCollection];
+    [self updateCloseButtonAttributes];
     [self updateCollectionViewAttributes];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    self.closeButton.alpha = 0;
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -100,14 +109,11 @@
     self.view.backgroundColor = UIColor.clearColor;
 }
 
-- (void)triggeredViewTapGesgure:(UITapGestureRecognizer *)sender {
-    [self dismissViewControllerAnimated:YES completion:^{}];
-}
-
 - (void)configurePrimaryImageView {
     UIImageView *primaryImageView = [UIImageView new];
     self.primaryImageView = primaryImageView;
     
+    primaryImageView.userInteractionEnabled = YES;
     primaryImageView.contentMode = UIViewContentModeScaleAspectFit;
     
     if (self.sourceImageView.image) {
@@ -115,13 +121,6 @@
     } else {
         [primaryImageView setAsyncImageWithURL:self.hsCard.image indicator:YES];
     }
-    
-    //
-    
-    primaryImageView.userInteractionEnabled = YES;
-    UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(triggeredViewTapGesgure:)];
-    [primaryImageView addGestureRecognizer:gesture];
-    [gesture release];
     
     //
     
@@ -139,6 +138,22 @@
     //
     
     [primaryImageView release];
+}
+
+- (void)configureCloseButton {
+    UIButtonConfiguration *configuration = UIButtonConfiguration.tintedButtonConfiguration;
+    configuration.image = [UIImage systemImageNamed:@"xmark"];
+    configuration.cornerStyle = UIButtonConfigurationCornerStyleCapsule;
+    
+    UIAction *action = [UIAction actionWithHandler:^(__kindof UIAction * _Nonnull action) {
+        [self dismissViewControllerAnimated:YES completion:^{}];
+    }];
+    
+    UIButton *closeButton = [UIButton buttonWithConfiguration:configuration primaryAction:action];
+    self.closeButton = closeButton;
+    
+    closeButton.tintColor = UIColor.whiteColor;
+    closeButton.alpha = 0;
 }
 
 - (void)configureCollectionView {
@@ -172,6 +187,12 @@
     collectionView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
     
     [collectionView release];
+}
+
+- (void)updateCloseButtonAttributes {
+    [UIView animateWithDuration:0.2 animations:^{
+        self.closeButton.alpha = 1;
+    }];
 }
 
 - (void)updateCollectionViewAttributes {
@@ -228,6 +249,7 @@
 - (void)updateLayoutViewControllerWithTraitCollection:(UITraitCollection *)trailtCollection {
     for (UIViewController<CardDetailsLayoutProtocol> *tmp in self.layoutViewControllers) {
         [tmp cardDetailsLayoutRemovePrimaryImageView];
+        [tmp cardDetailsLayoutRemoveCloseButton];
         [tmp cardDetailsLayoutRemoveCollectionView];
         tmp.view.hidden = YES;
     }
@@ -248,6 +270,7 @@
     }
     
     [targetLayoutViewController cardDetailsLayoutAddPrimaryImageView:self.primaryImageView];
+    [targetLayoutViewController cardDetailsLayoutAddCloseButton:self.closeButton];
     [targetLayoutViewController cardDetailsLayoutAddCollectionView:self.collectionView];
     
     targetLayoutViewController.view.hidden = NO;

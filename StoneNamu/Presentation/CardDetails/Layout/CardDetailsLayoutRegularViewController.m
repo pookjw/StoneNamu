@@ -9,8 +9,10 @@
 
 @interface CardDetailsLayoutRegularViewController ()
 @property (retain) UIView *primaryImageViewContainerView;
+@property (retain) UIView *closeButtonContainerView;
 @property (retain) UIView *collectionViewContainerView;
 @property (retain) UIImageView * _Nullable primaryImageView;
+@property (retain) UIButton * _Nullable closeButton;
 @property (retain) UICollectionView * _Nullable collectionView;
 @end
 
@@ -28,8 +30,10 @@
 
 - (void)dealloc {
     [_primaryImageViewContainerView release];
+    [_closeButtonContainerView release];
     [_collectionViewContainerView release];
     [_primaryImageView release];
+    [_closeButton release];
     [_collectionView release];
     [super dealloc];
 }
@@ -37,6 +41,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self configureContainerViews];
+}
+
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    [self updateCollectionViewInsets];
 }
 
 - (void)configureContainerViews {
@@ -62,6 +71,22 @@
     
     //
     
+    UIView *closeButtonContainerView = [UIView new];
+    self.closeButtonContainerView = closeButtonContainerView;
+    [self.view addSubview:closeButtonContainerView];
+    closeButtonContainerView.translatesAutoresizingMaskIntoConstraints = NO;
+    [NSLayoutConstraint activateConstraints:@[
+        [closeButtonContainerView.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor],
+        [closeButtonContainerView.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor],
+        [closeButtonContainerView.widthAnchor constraintEqualToConstant:80],
+        [closeButtonContainerView.heightAnchor constraintEqualToConstant:80]
+    ]];
+    closeButtonContainerView.backgroundColor = UIColor.clearColor;
+    
+    [closeButtonContainerView release];
+    
+    //
+    
     UIView *collectionViewContainerView = [UIView new];
     self.collectionViewContainerView = collectionViewContainerView;
     [self.view addSubview:collectionViewContainerView];
@@ -75,6 +100,10 @@
     collectionViewContainerView.backgroundColor = UIColor.clearColor;
     
     [collectionViewContainerView release];
+    
+    //
+    
+    [self.view bringSubviewToFront:closeButtonContainerView];
 }
 
 - (CGRect)estimatedPrimaryImageRectUsingWindow:(UIWindow *)window safeAreaInsets:(UIEdgeInsets)safeAreaInsets {
@@ -102,6 +131,23 @@
     ]];
 }
 
+- (void)cardDetailsLayoutAddCloseButton:(UIButton *)closeButton {
+    self.closeButton = closeButton;
+    
+    if (closeButton.superview) {
+        [closeButton removeFromSuperview];
+    }
+    
+    [self.closeButtonContainerView addSubview:closeButton];
+    closeButton.translatesAutoresizingMaskIntoConstraints = NO;
+    [NSLayoutConstraint activateConstraints:@[
+        [closeButton.topAnchor constraintEqualToAnchor:self.closeButtonContainerView.layoutMarginsGuide.topAnchor],
+        [closeButton.trailingAnchor constraintEqualToAnchor:self.closeButtonContainerView.layoutMarginsGuide.trailingAnchor],
+        [closeButton.leadingAnchor constraintEqualToAnchor:self.closeButtonContainerView.layoutMarginsGuide.leadingAnchor],
+        [closeButton.bottomAnchor constraintEqualToAnchor:self.closeButtonContainerView.layoutMarginsGuide.bottomAnchor]
+    ]];
+}
+
 - (void)cardDetailsLayoutAddCollectionView:(UICollectionView *)collectionView {
     self.collectionView = collectionView;
     
@@ -117,6 +163,8 @@
         [collectionView.leadingAnchor constraintEqualToAnchor:self.collectionViewContainerView.leadingAnchor],
         [collectionView.bottomAnchor constraintEqualToAnchor:self.collectionViewContainerView.bottomAnchor]
     ]];
+    
+    [self updateCollectionViewInsets];
 }
 
 - (void)cardDetailsLayoutRemovePrimaryImageView {
@@ -125,6 +173,17 @@
 
 - (void)cardDetailsLayoutRemoveCollectionView {
     [self.collectionView removeFromSuperview];
+}
+
+- (void)cardDetailsLayoutRemoveCloseButton {
+    [self.closeButton removeFromSuperview];
+}
+
+- (void)updateCollectionViewInsets {
+    if ([self.collectionView.superview isEqual:self.collectionViewContainerView]) {
+        self.collectionView.contentInset = UIEdgeInsetsMake(self.closeButton.frame.origin.y + self.closeButton.frame.size.height,
+                                                            0, 0, 0);
+    }
 }
 
 @end

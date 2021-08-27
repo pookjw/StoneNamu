@@ -9,9 +9,11 @@
 
 @interface CardDetailsLayoutCompactViewController ()
 @property (retain) UIView *primaryImageViewContainerView;
+@property (retain) UIView *closeButtonContainerView;
 @property (retain) UIView *collectionViewContainerView;
 @property (retain) CAGradientLayer *gradientLayer;
 @property (retain) UIImageView * _Nullable primaryImageView;
+@property (retain) UIButton * _Nullable closeButton;
 @property (retain) UICollectionView * _Nullable collectionView;
 @end
 
@@ -22,6 +24,8 @@
     
     if (self) {
         self.primaryImageView = nil;
+        self.closeButton = nil;
+        self.collectionView = nil;
     }
     
     return self;
@@ -29,9 +33,11 @@
 
 - (void)dealloc {
     [_primaryImageViewContainerView release];
+    [_closeButtonContainerView release];
     [_collectionViewContainerView release];
     [_gradientLayer release];
     [_primaryImageView release];
+    [_closeButton release];
     [_collectionView release];
     [super dealloc];
 }
@@ -69,6 +75,22 @@
     
     //
     
+    UIView *closeButtonContainerView = [UIView new];
+    self.closeButtonContainerView = closeButtonContainerView;
+    [self.view addSubview:closeButtonContainerView];
+    closeButtonContainerView.translatesAutoresizingMaskIntoConstraints = NO;
+    [NSLayoutConstraint activateConstraints:@[
+        [closeButtonContainerView.topAnchor constraintEqualToAnchor:primaryImageViewContainerView.topAnchor],
+        [closeButtonContainerView.trailingAnchor constraintEqualToAnchor:primaryImageViewContainerView.trailingAnchor],
+        [closeButtonContainerView.widthAnchor constraintEqualToConstant:80],
+        [closeButtonContainerView.heightAnchor constraintEqualToConstant:80]
+    ]];
+    closeButtonContainerView.backgroundColor = UIColor.clearColor;
+    
+    [closeButtonContainerView release];
+    
+    //
+    
     UIView *collectionViewContainerView = [UIView new];
     self.collectionViewContainerView = collectionViewContainerView;
     [self.view addSubview:collectionViewContainerView];
@@ -93,6 +115,10 @@
     [gradientLayer release];
     
     [collectionViewContainerView release];
+    
+    //
+    
+    [self.view bringSubviewToFront:closeButtonContainerView];
 }
 
 - (void)updateGradientLayer {
@@ -144,12 +170,33 @@
     ]];
 }
 
+- (void)cardDetailsLayoutAddCloseButton:(UIButton *)closeButton {
+    self.closeButton = closeButton;
+    
+    if (closeButton.superview) {
+        [closeButton removeFromSuperview];
+    }
+    
+    [self.closeButtonContainerView addSubview:closeButton];
+    closeButton.translatesAutoresizingMaskIntoConstraints = NO;
+    [NSLayoutConstraint activateConstraints:@[
+        [closeButton.topAnchor constraintEqualToAnchor:self.closeButtonContainerView.layoutMarginsGuide.topAnchor],
+        [closeButton.trailingAnchor constraintEqualToAnchor:self.closeButtonContainerView.layoutMarginsGuide.trailingAnchor],
+        [closeButton.leadingAnchor constraintEqualToAnchor:self.closeButtonContainerView.layoutMarginsGuide.leadingAnchor],
+        [closeButton.bottomAnchor constraintEqualToAnchor:self.closeButtonContainerView.layoutMarginsGuide.bottomAnchor]
+    ]];
+}
+
 - (void)cardDetailsLayoutRemovePrimaryImageView {
     [self.primaryImageView removeFromSuperview];
 }
 
 - (void)cardDetailsLayoutRemoveCollectionView {
     [self.collectionView removeFromSuperview];
+}
+
+- (void)cardDetailsLayoutRemoveCloseButton {
+    [self.closeButton removeFromSuperview];
 }
 
 @end

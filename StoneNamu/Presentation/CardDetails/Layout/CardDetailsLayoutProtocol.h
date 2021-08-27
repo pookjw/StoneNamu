@@ -13,8 +13,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (CGRect)estimatedPrimaryImageRectUsingWindow:(UIWindow *)window safeAreaInsets:(UIEdgeInsets)safeAreaInsets;
 - (void)cardDetailsLayoutAddPrimaryImageView:(UIImageView *)primaryImageView;
 - (void)cardDetailsLayoutAddCollectionView:(UICollectionView *)collectionView;
+- (void)cardDetailsLayoutAddCloseButton:(UIButton *)closeButton;
 - (void)cardDetailsLayoutRemovePrimaryImageView;
 - (void)cardDetailsLayoutRemoveCollectionView;
+- (void)cardDetailsLayoutRemoveCloseButton;
 @end
 
 NS_ASSUME_NONNULL_END
