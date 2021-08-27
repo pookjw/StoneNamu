@@ -8,6 +8,7 @@
 #import "CardOptionItemModel.h"
 #import "BlizzardHSAPIKeys.h"
 #import "HSCard.h"
+#import "ImageService.h"
 
 NSString * NSStringFromCardOptionItemModelType(CardOptionItemModelType type) {
     switch (type) {
@@ -155,6 +156,9 @@ CardOptionItemModelType CardOptionItemModelTypeFromNSString(NSString * key) {
         case CardOptionItemModelTypeSet:
             return [self pickerItemModelsFromDic:hsCardSetsWithLocalizable()
                                      filterArray:nil
+                                     imageSource:^UIImage * _Nullable(NSString * key) {
+                return [ImageService.sharedInstance imageOfCardSet:HSCardSetFromNSString(key)];
+            }
                                        converter:^NSUInteger(NSString * key) {
                 return HSCardSetFromNSString(key);
             }
@@ -162,6 +166,9 @@ CardOptionItemModelType CardOptionItemModelTypeFromNSString(NSString * key) {
         case CardOptionItemModelTypeClass: {
             return [self pickerItemModelsFromDic:hsCardClassesWithLocalizable()
                                      filterArray:@[NSStringFromHSCardClass(HSCardClassDeathKnight)]
+                                     imageSource:^UIImage * _Nullable(NSString * key) {
+                return nil;
+            }
                                        converter:^NSUInteger(NSString * key) {
                 return HSCardClassFromNSString(key);
             }
@@ -170,6 +177,9 @@ CardOptionItemModelType CardOptionItemModelTypeFromNSString(NSString * key) {
         case CardOptionItemModelTypeCollectible: {
             return [self pickerItemModelsFromDic:hsCardCollectiblesWithLocalizable()
                                      filterArray:nil
+                                     imageSource:^UIImage * _Nullable(NSString * key) {
+                return nil;
+            }
                                        converter:^NSUInteger(NSString * key) {
                 return HSCardCollectibleFromNSString(key);
             }
@@ -178,6 +188,9 @@ CardOptionItemModelType CardOptionItemModelTypeFromNSString(NSString * key) {
         case CardOptionItemModelTypeRarity: {
             return [self pickerItemModelsFromDic:hsCardRaritiesWithLocalizable()
                                      filterArray:@[NSStringFromHSCardRarity(HSCardRarityNull)]
+                                     imageSource:^UIImage * _Nullable(NSString * key) {
+                return nil;
+            }
                                        converter:^NSUInteger(NSString * key) {
                 return HSCardRarityFromNSString(key);
             }
@@ -186,6 +199,9 @@ CardOptionItemModelType CardOptionItemModelTypeFromNSString(NSString * key) {
         case CardOptionItemModelTypeType:
             return [self pickerItemModelsFromDic:hsCardTypesWithLocalizable()
                                      filterArray:@[NSStringFromHSCardType(HSCardTypeHeroPower)]
+                                     imageSource:^UIImage * _Nullable(NSString * key) {
+                return nil;
+            }
                                        converter:^NSUInteger(NSString * key) {
                 return HSCardTypeFromNSString(key);
             }
@@ -193,6 +209,9 @@ CardOptionItemModelType CardOptionItemModelTypeFromNSString(NSString * key) {
         case CardOptionItemModelTypeMinionType:
             return [self pickerItemModelsFromDic:hsCardMinionTypesWithLocalizable()
                                      filterArray:nil
+                                     imageSource:^UIImage * _Nullable(NSString * key) {
+                return nil;
+            }
                                        converter:^NSUInteger(NSString * key) {
                 return HSCardMinionTypeFromNSString(key);
             }
@@ -200,6 +219,9 @@ CardOptionItemModelType CardOptionItemModelTypeFromNSString(NSString * key) {
         case CardOptionItemModelTypeKeyword:
             return [self pickerItemModelsFromDic:hsCardKeywordsWithLocalizable()
                                      filterArray:nil
+                                     imageSource:^UIImage * _Nullable(NSString * key) {
+                return nil;
+            }
                                        converter:^NSUInteger(NSString * key) {
                 return HSCardKeywordFromNSString(key);
             }
@@ -207,6 +229,9 @@ CardOptionItemModelType CardOptionItemModelTypeFromNSString(NSString * key) {
         case CardOptionItemModelTypeGameMode:
             return [self pickerItemModelsFromDic:hsCardGameModesWithLocalizable()
                                      filterArray:nil
+                                     imageSource:^UIImage * _Nullable(NSString * key) {
+                return nil;
+            }
                                        converter:^NSUInteger(NSString * key) {
                 return HSCardGameModeFromNSString(key);
             }
@@ -214,6 +239,9 @@ CardOptionItemModelType CardOptionItemModelTypeFromNSString(NSString * key) {
         case CardOptionItemModelTypeSort:
             return [self pickerItemModelsFromDic:hsCardSortsWithLocalizable()
                                      filterArray:nil
+                                     imageSource:^UIImage * _Nullable(NSString * key) {
+                return nil;
+            }
                                        converter:^NSUInteger(NSString * key) {
                 return HSCardSortFromNSString(key);
             }
@@ -311,6 +339,7 @@ CardOptionItemModelType CardOptionItemModelTypeFromNSString(NSString * key) {
 
 - (NSArray<PickerItemModel *> *)pickerItemModelsFromDic:(NSDictionary<NSString *, NSString *> *)dic
                                             filterArray:(NSArray<NSString *> * _Nullable)filterArray
+                                            imageSource:(UIImage * _Nullable (^)(NSString *))imageSource
                                               converter:(NSUInteger (^)(NSString *))converter
                                               ascending:(BOOL)ascending{
     
@@ -318,7 +347,7 @@ CardOptionItemModelType CardOptionItemModelTypeFromNSString(NSString * key) {
     
     [dic enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSString * _Nonnull obj, BOOL * _Nonnull stop) {
         if (![filterArray containsObject:key]) {
-            PickerItemModel *itemModel = [[PickerItemModel alloc] initWithImage:[UIImage imageNamed:key]
+            PickerItemModel *itemModel = [[PickerItemModel alloc] initWithImage:imageSource(key)
                                                                           title:obj
                                                                        identity:key];
             [arr addObject:itemModel];

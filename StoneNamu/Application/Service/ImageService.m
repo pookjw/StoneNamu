@@ -1,23 +1,27 @@
 //
-//  HeroPortraitService.m
-//  HeroPortraitService
+//  ImageService.m
+//  ImageService
 //
 //  Created by Jinwoo Kim on 8/26/21.
 //
 
-#import "HeroPortraitService.h"
+#import "ImageService.h"
 
-@implementation HeroPortraitService
+@implementation ImageService
 
-+ (HeroPortraitService *)sharedInstance {
-    static HeroPortraitService *sharedInstance = nil;
++ (ImageService *)sharedInstance {
+    static ImageService *sharedInstance = nil;
     static dispatch_once_t onceToken;
     
     dispatch_once(&onceToken, ^{
-        sharedInstance = [HeroPortraitService new];
+        sharedInstance = [ImageService new];
     });
     
     return sharedInstance;
+}
+
+- (UIImage * _Nullable)imageOfCardSet:(HSCardSet)cardSet {
+    return [UIImage imageNamed:NSStringFromHSCardSet(cardSet)];
 }
 
 - (UIImage * _Nullable)portraitImageOfClassId:(HSCardClass)classId {

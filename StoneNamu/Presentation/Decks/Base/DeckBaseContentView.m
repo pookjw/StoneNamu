@@ -9,6 +9,7 @@
 #import "DeckBaseContentConfiguration.h"
 #import "InsetsLabel.h"
 #import "DeckBaseContentViewModel.h"
+#import "ImageService.h"
 
 #define IS_SHADOW_ENABLED_BASE_VIEW 0
 
@@ -59,6 +60,7 @@
     
     cardSetImageView.backgroundColor = UIColor.clearColor;
     cardSetImageView.translatesAutoresizingMaskIntoConstraints = NO;
+    cardSetImageView.contentMode = UIViewContentModeScaleAspectFit;
     [self addSubview:cardSetImageView];
     
     [NSLayoutConstraint activateConstraints:@[
@@ -83,7 +85,7 @@
     InsetsLabel *nameLabel = [InsetsLabel new];
     self.nameLabel = nameLabel;
     
-    UIEdgeInsets contentInsets = UIEdgeInsetsMake(15, 15, 15, 15);
+    UIEdgeInsets contentInsets = UIEdgeInsetsMake(15, 0, 15, 15);
     nameLabel.contentInsets = contentInsets;
     nameLabel.backgroundColor = UIColor.clearColor;
     nameLabel.textColor = nil;
@@ -214,10 +216,12 @@
 }
 
 - (void)updateCardSetImageView {
+    UIEdgeInsets inset = UIEdgeInsetsMake(-8, -8, -8, -8);
+    
     if (self.localDeck.isWild.boolValue) {
-        self.cardSetImageView.image = [UIImage imageNamed:NSStringFromHSCardSet(HSCardSetWildCards)];
+        self.cardSetImageView.image = [[ImageService.sharedInstance imageOfCardSet:HSCardSetWildCards] imageWithAlignmentRectInsets:inset];
     } else {
-        self.cardSetImageView.image = [UIImage imageNamed:NSStringFromHSCardSet(HSCardSetStandardCards)];
+        self.cardSetImageView.image = [[ImageService.sharedInstance imageOfCardSet:HSCardSetStandardCards] imageWithAlignmentRectInsets:inset];
     }
 }
 

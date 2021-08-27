@@ -6,12 +6,12 @@
 //
 
 #import "DeckBaseContentViewModel.h"
-#import "HeroPortraitService.h"
+#import "ImageService.h"
 
 @implementation DeckBaseContentViewModel
 
 - (UIImage * _Nullable)portraitImageOfClassId:(HSCardClass)classId {
-    return [HeroPortraitService.sharedInstance portraitImageOfClassId:classId];
+    return [ImageService.sharedInstance portraitImageOfClassId:classId];
 }
 
 @end
