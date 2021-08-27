@@ -546,18 +546,25 @@
         }
     }];
     
-    DeckDetailsSectionModel *sectionModel = [[DeckDetailsSectionModel alloc] initWithType:DeckDetailsSectionModelTypeGraph];
-    [snapshot appendSectionsWithIdentifiers:@[sectionModel]];
-    
     //
     
-    DeckDetailsItemModel *itemModel = [[DeckDetailsItemModel alloc] initWithType:DeckDetailsItemModelTypeCost];
-    itemModel.manaDictionary = manaDictionary;
-    [manaDictionary release];
-    
-    [snapshot appendItemsWithIdentifiers:@[itemModel] intoSectionWithIdentifier:sectionModel];
-    [sectionModel release];
-    [itemModel release];
+    if (manaDictionary.count == 0) {
+        [manaDictionary release];
+        return;
+    } else {
+        DeckDetailsSectionModel *sectionModel = [[DeckDetailsSectionModel alloc] initWithType:DeckDetailsSectionModelTypeGraph];
+        [snapshot appendSectionsWithIdentifiers:@[sectionModel]];
+        
+        //
+        
+        DeckDetailsItemModel *itemModel = [[DeckDetailsItemModel alloc] initWithType:DeckDetailsItemModelTypeCost];
+        itemModel.manaDictionary = manaDictionary;
+        [manaDictionary release];
+        
+        [snapshot appendItemsWithIdentifiers:@[itemModel] intoSectionWithIdentifier:sectionModel];
+        [sectionModel release];
+        [itemModel release];
+    }
 }
 
 - (NSUInteger)totalCardsInSnapshot:(NSDiffableDataSourceSnapshot *)snapshot {
