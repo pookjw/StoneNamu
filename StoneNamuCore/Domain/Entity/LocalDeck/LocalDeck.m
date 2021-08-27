@@ -65,12 +65,11 @@
 }
 
 - (void)setValuesAsHSDeck:(HSDeck *)hsDeck {
-    NSMutableArray<HSCard *> *cards = [@[] mutableCopy];
-    [hsDeck.cards enumerateObjectsUsingBlock:^(HSCard * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        [cards addObject:obj];
-    }];
-    self.cards = cards;
-    [cards release];
+    if (hsDeck.cards.count > 0) {
+        self.cards = hsDeck.cards;
+    } else {
+        NSLog(@"card in HSDeck is empty!");
+    }
     
     self.isWild = [NSNumber numberWithBool:[hsDeck.format isEqualToString:HSDeckFormatWild]];
     self.classId = [NSNumber numberWithUnsignedInteger:hsDeck.classId];
