@@ -82,7 +82,9 @@
  Use this method to make a new LocalDeck object.
  This method also makes new DecksItemModel into NSDiffableDataSourceSnapshot immediately. It's handy for select cell item on UICollectionView when LocalDeck is created.
  */
-- (void)makeLocalDeckWithClass:(HSCardClass)hsCardClass completion:(DecksViewModelMakeLocalDeckCompletion)completion {
+- (void)makeLocalDeckWithClass:(HSCardClass)hsCardClass
+                       cardSet:(HSCardSet)cardSet
+                    completion:(DecksViewModelMakeLocalDeckCompletion)completion {
     [self.queue addBarrierBlock:^{
         NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
         
@@ -101,6 +103,7 @@
         }
         
         LocalDeck *localDeck = [self.localDeckUseCase makeLocalDeck];
+        localDeck.isWild = [NSNumber numberWithBool:(cardSet == HSCardSetWildCards)];
         localDeck.name = hsCardClassesWithLocalizable()[NSStringFromHSCardClass(hsCardClass)];
         localDeck.classId = [NSNumber numberWithUnsignedInteger:hsCardClass];
         

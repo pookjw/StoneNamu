@@ -67,30 +67,57 @@
         }
     }];
     
-    NSMutableArray<UIAction *> *classSelectionActions = [@[] mutableCopy];
+    NSMutableArray<UIAction *> *createStandardDeckActions = [@[] mutableCopy];
+    NSMutableArray<UIAction *> *createWildDeckActions = [@[] mutableCopy];
     
     for (NSString *key in hsCardClassesKeys) {
         @autoreleasepool {
-            UIAction *action = [UIAction actionWithTitle:hsCardClasses[key]
+            UIAction *standardAction = [UIAction actionWithTitle:hsCardClasses[key]
                                                    image:nil
                                               identifier:nil
                                                  handler:^(__kindof UIAction * _Nonnull action) {
-                [self.viewModel makeLocalDeckWithClass:HSCardClassFromNSString(key) completion:^(LocalDeck * _Nonnull localDeck) {
+                [self.viewModel makeLocalDeckWithClass:HSCardClassFromNSString(key)
+                                               cardSet:HSCardSetStandardCards
+                                            completion:^(LocalDeck * _Nonnull localDeck) {
                     [NSOperationQueue.mainQueue addOperationWithBlock:^{
                         [self presentDeckDetailsWithLocalDeck:localDeck];
                     }];
                 }];
             }];
-            [classSelectionActions addObject:action];
+            
+            UIAction *wildAction = [UIAction actionWithTitle:hsCardClasses[key]
+                                                   image:nil
+                                              identifier:nil
+                                                 handler:^(__kindof UIAction * _Nonnull action) {
+                [self.viewModel makeLocalDeckWithClass:HSCardClassFromNSString(key)
+                                               cardSet:HSCardSetWildCards
+                                            completion:^(LocalDeck * _Nonnull localDeck) {
+                    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+                        [self presentDeckDetailsWithLocalDeck:localDeck];
+                    }];
+                }];
+            }];
+            
+            [createStandardDeckActions addObject:standardAction];
+            [createWildDeckActions addObject:wildAction];
         }
     }
     
-    UIMenu *classSelectionMenu = [UIMenu menuWithTitle:NSLocalizedString(@"CREATE_NEW_DECK", @"")
-                                              children:classSelectionActions];
-    [classSelectionActions release];
+    UIMenu *createDeckMenu = [UIMenu menuWithTitle:NSLocalizedString(@"CREATE_NEW_DECK", @"")
+                                              children:@[
+        
+        [UIMenu menuWithTitle:hsCardSetsWithLocalizable()[NSStringFromHSCardSet(HSCardSetStandardCards)]
+                     children:createStandardDeckActions],
+        
+        [UIMenu menuWithTitle:hsCardSetsWithLocalizable()[NSStringFromHSCardSet(HSCardSetWildCards)]
+                     children:createWildDeckActions]
+    ]];
+    
+    [createStandardDeckActions release];
+    [createWildDeckActions release];
     
     addBarButtonItem.menu = [UIMenu menuWithChildren:@[
-        classSelectionMenu,
+        createDeckMenu,
         
         [UIAction actionWithTitle:NSLocalizedString(@"LOAD_FROM_DECK_CODE", @"")
                             image:[UIImage systemImageNamed:@"arrow.down.square"]

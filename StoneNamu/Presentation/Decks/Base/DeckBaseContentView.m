@@ -13,8 +13,9 @@
 #define IS_SHADOW_ENABLED_BASE_VIEW 0
 
 @interface DeckBaseContentView ()
+@property (retain) UIImageView *cardSetImageView;
 @property (retain) InsetsLabel *nameLabel;
-@property (retain) UIImageView *imageView;
+@property (retain) UIImageView *heroImageView;
 @property (retain) CAGradientLayer *imageViewGradientLayer;
 @property (readonly, nonatomic) LocalDeck * _Nullable localDeck;
 @property (retain) DeckBaseContentViewModel *viewModel;
@@ -28,8 +29,9 @@
     self = [super init];
     
     if (self) {
+        [self configureCardSetImageView];
         [self configureNameLabel];
-        [self configureImageView];
+        [self configureHeroImageView];
         [self configureViewModel];
     }
     
@@ -38,8 +40,9 @@
 
 - (void)dealloc {
     [configuration release];
+    [_cardSetImageView release];
     [_nameLabel release];
-    [_imageView release];
+    [_heroImageView release];
     [_imageViewGradientLayer release];
     [_viewModel release];
     [super dealloc];
@@ -48,6 +51,32 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     [self updateGradientLayer];
+}
+
+- (void)configureCardSetImageView {
+    UIImageView *cardSetImageView = [UIImageView new];
+    self.cardSetImageView = cardSetImageView;
+    
+    cardSetImageView.backgroundColor = UIColor.clearColor;
+    cardSetImageView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self addSubview:cardSetImageView];
+    
+    [NSLayoutConstraint activateConstraints:@[
+        [cardSetImageView.topAnchor constraintEqualToAnchor:self.topAnchor],
+        [cardSetImageView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
+        [cardSetImageView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor]
+    ]];
+    
+    NSLayoutConstraint *aspectRatio = [NSLayoutConstraint constraintWithItem:cardSetImageView
+                                                                   attribute:NSLayoutAttributeWidth
+                                                                   relatedBy:NSLayoutRelationEqual
+                                                                      toItem:cardSetImageView
+                                                                   attribute:NSLayoutAttributeHeight
+                                                                  multiplier:1
+                                                                    constant:0];
+    aspectRatio.active = YES;
+    
+    [cardSetImageView release];
 }
 
 - (void)configureNameLabel {
@@ -82,9 +111,10 @@
     nameLabel.translatesAutoresizingMaskIntoConstraints = NO;
     [NSLayoutConstraint activateConstraints:@[
         [nameLabel.topAnchor constraintEqualToAnchor:self.topAnchor],
-        [nameLabel.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
+        [nameLabel.leadingAnchor constraintEqualToAnchor:self.cardSetImageView.trailingAnchor],
         [nameLabel.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
-        [nameLabel.heightAnchor constraintEqualToConstant:rect.size.height + contentInsets.top + contentInsets.bottom]
+        [nameLabel.heightAnchor constraintEqualToConstant:rect.size.height + contentInsets.top + contentInsets.bottom],
+        [self.cardSetImageView.heightAnchor constraintEqualToAnchor:nameLabel.heightAnchor]
     ]];
     
     NSLayoutConstraint *bottomLayout = [nameLabel.bottomAnchor constraintEqualToAnchor:self.bottomAnchor];
@@ -94,25 +124,25 @@
     [nameLabel release];
 }
 
-- (void)configureImageView {
-    UIImageView *imageView = [UIImageView new];
-    self.imageView = imageView;
+- (void)configureHeroImageView {
+    UIImageView *heroImageView = [UIImageView new];
+    self.heroImageView = heroImageView;
     
-    imageView.backgroundColor = UIColor.clearColor;
-    imageView.contentMode = UIViewContentModeScaleAspectFill;
-    imageView.translatesAutoresizingMaskIntoConstraints = NO;
-    [self addSubview:imageView];
+    heroImageView.backgroundColor = UIColor.clearColor;
+    heroImageView.contentMode = UIViewContentModeScaleAspectFill;
+    heroImageView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self addSubview:heroImageView];
     
     [NSLayoutConstraint activateConstraints:@[
-        [imageView.centerYAnchor constraintEqualToAnchor:self.nameLabel.centerYAnchor],
-        [imageView.heightAnchor constraintEqualToAnchor:self.nameLabel.heightAnchor],
-        [imageView.trailingAnchor constraintEqualToAnchor:self.nameLabel.trailingAnchor]
+        [heroImageView.centerYAnchor constraintEqualToAnchor:self.nameLabel.centerYAnchor],
+        [heroImageView.heightAnchor constraintEqualToAnchor:self.nameLabel.heightAnchor],
+        [heroImageView.trailingAnchor constraintEqualToAnchor:self.nameLabel.trailingAnchor]
     ]];
     
-    NSLayoutConstraint *aspectLayout = [NSLayoutConstraint constraintWithItem:imageView
+    NSLayoutConstraint *aspectLayout = [NSLayoutConstraint constraintWithItem:heroImageView
                                                                     attribute:NSLayoutAttributeWidth
                                                                     relatedBy:NSLayoutRelationEqual
-                                                                       toItem:imageView
+                                                                       toItem:heroImageView
                                                                     attribute:NSLayoutAttributeHeight
                                                                    multiplier:243 / 64
                                                                      constant:0];
@@ -132,12 +162,12 @@
     ];
     imageViewGradientLayer.startPoint = CGPointMake(0, 0);
     imageViewGradientLayer.endPoint = CGPointMake(0.8, 0);
-    imageView.layer.mask = imageViewGradientLayer;
+    heroImageView.layer.mask = imageViewGradientLayer;
     [imageViewGradientLayer release];
     
     //
     
-    [imageView release];
+    [heroImageView release];
 }
 
 - (void)configureViewModel {
@@ -154,7 +184,8 @@
     [self updateNameLabel];
     
     if (![newContentConfig.localDeck isEqual:oldContentConfig.localDeck]) {
-        [self updateImageView];
+        [self updateCardSetImageView];
+        [self updateHeroImageView];
     }
     
     [self updateNameLabelShadowColor];
@@ -182,19 +213,27 @@
     return contentConfiguration.isDarkMode;
 }
 
+- (void)updateCardSetImageView {
+    if (self.localDeck.isWild.boolValue) {
+        self.cardSetImageView.image = [UIImage imageNamed:NSStringFromHSCardSet(HSCardSetWildCards)];
+    } else {
+        self.cardSetImageView.image = [UIImage imageNamed:NSStringFromHSCardSet(HSCardSetStandardCards)];
+    }
+}
+
 - (void)updateNameLabel {
     self.nameLabel.text = self.localDeck.name;
 }
 
-- (void)updateImageView {
-    self.imageView.image = [self.viewModel portraitImageOfClassId:self.localDeck.classId.unsignedIntegerValue];
+- (void)updateHeroImageView {
+    self.heroImageView.image = [self.viewModel portraitImageOfClassId:self.localDeck.classId.unsignedIntegerValue];
     [self updateGradientLayer];
 }
 
 - (void)updateGradientLayer {
     [CATransaction begin];
     [CATransaction setDisableActions:YES];
-    self.imageViewGradientLayer.frame = self.imageView.bounds;
+    self.imageViewGradientLayer.frame = self.heroImageView.bounds;
     [CATransaction commit];
 }
 
