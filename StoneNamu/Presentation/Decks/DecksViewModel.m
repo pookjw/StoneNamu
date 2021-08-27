@@ -176,7 +176,7 @@
 }
 
 - (void)parseClipboardForDeckCodeWithCompletion:(DecksViewModelParseClipboardCompletion)completion {
-    [self.queue addBarrierBlock:^{
+    [self.queue addOperationWithBlock:^{
         NSString *text = UIPasteboard.generalPasteboard.string;
         
         NSString * __block _Nullable title = nil;
