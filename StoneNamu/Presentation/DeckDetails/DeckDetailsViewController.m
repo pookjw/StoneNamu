@@ -11,6 +11,7 @@
 #import "DeckDetailsCardContentConfiguration.h"
 #import "DeckDetailsManaCostContentConfiguration.h"
 #import "CardDetailsViewController.h"
+#import "UIViewController+SpinnerView.h"
 
 @interface DeckDetailsViewController () <UICollectionViewDelegate, UICollectionViewDragDelegate, UICollectionViewDropDelegate>
 @property (retain) UICollectionView *collectionView;
@@ -90,14 +91,18 @@
 }
 
 - (void)exportBarButtonItemTriggered:(UIBarButtonItem *)sender {
+    [self addSpinnerView];
+    
     [self.viewModel exportDeckCodeWithCompletion:^(NSString * _Nullable deckCode) {
-        if (deckCode) {
-            [NSOperationQueue.mainQueue addOperationWithBlock:^{
+        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+            [self removeAllSpinnerview];
+            
+            if (deckCode) {
                 UIActivityViewController *activity = [[UIActivityViewController alloc] initWithActivityItems:@[deckCode] applicationActivities:nil];
                 activity.popoverPresentationController.barButtonItem = self.exportBarButtonItem;
                 [self presentViewController:activity animated:YES completion:^{}];
-            }];
-        }
+            }
+        }];
     }];
 }
 
