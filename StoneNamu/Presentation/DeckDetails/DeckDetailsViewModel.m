@@ -171,8 +171,8 @@
         //
         
         [self addCostGraphItemToSnapshot:snapshot];
-        [self sortSnapshot:snapshot];
         [self updateCardsSectionHeaderTitleFromSnapshot:snapshot];
+        [self sortSnapshot:snapshot];
         
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
             [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
@@ -209,8 +209,8 @@
         }];
         
         [self addCostGraphItemToSnapshot:snapshot];
-        [self sortSnapshot:snapshot];
         [self updateCardsSectionHeaderTitleFromSnapshot:snapshot];
+        [self sortSnapshot:snapshot];
         
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
             [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
@@ -266,8 +266,8 @@
         [snapshot appendItemsWithIdentifiers:@[copy] intoSectionWithIdentifier:sectionModel];
         
         [self addCostGraphItemToSnapshot:snapshot];
-        [self sortSnapshot:snapshot];
         [self updateCardsSectionHeaderTitleFromSnapshot:snapshot];
+        [self sortSnapshot:snapshot];
         
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
             [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
@@ -311,8 +311,8 @@
         [snapshot appendItemsWithIdentifiers:@[copy] intoSectionWithIdentifier:sectionModel];
         
         [self addCostGraphItemToSnapshot:snapshot];
-        [self sortSnapshot:snapshot];
         [self updateCardsSectionHeaderTitleFromSnapshot:snapshot];
+        [self sortSnapshot:snapshot];
         
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
             [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
@@ -378,7 +378,7 @@
             [self.localDeckUseCase saveChanges];
             completion(hsDeck.deckCode);
         } else {
-            NSError *error = [NSError errorWithDomain:@"com.pookjw.StoneNamy" code:105 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"DECKCODE_FETCH_ERROR", @"")}];
+            NSError *error = [NSError errorWithDomain:@"com.pookjw.StoneNamu" code:105 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"DECKCODE_FETCH_ERROR", @"")}];
             [self postErrorOccuredNotification:error];
         }
     }];
@@ -395,7 +395,7 @@
     return sectionModel.headerText;
 }
 
-- (void)requestDataSourcdWithLocalDeck:(LocalDeck *)localDeck {
+- (void)requestDataSourceWithLocalDeck:(LocalDeck *)localDeck {
     [self->_localDeck release];
     self->_localDeck = [localDeck retain];
     
@@ -492,8 +492,8 @@
             //
             
             [self addCostGraphItemToSnapshot:snapshot];
-            [self sortSnapshot:snapshot];
             [self updateCardsSectionHeaderTitleFromSnapshot:snapshot];
+            [self sortSnapshot:snapshot];
             
             //
             
@@ -605,10 +605,6 @@
             if (sectionModel.type == DeckDetailsSectionModelTypeCards) {
                 NSString *headerText = [NSString stringWithFormat:NSLocalizedString(@"CARD_COUNT", @""), [self totalCardsInSnapshot:snapshot], HSDECK_MAX_TOTAL_CARDS];
                 sectionModel.headerText = headerText;
-                
-                if ([self.dataSource.snapshot.sectionIdentifiers containsObject:sectionModel]) {
-                    [snapshot reloadSectionsWithIdentifiers:@[sectionModel]];
-                }
             }
         }
     }
@@ -642,9 +638,11 @@
 }
 
 - (void)localDeckChangesReceived:(NSNotification *)notification {
-    [self.localDeckUseCase fetchWithObjectId:self.localDeck.objectID completion:^(LocalDeck * _Nullable localDeck) {
-        [self requestDataSourcdWithLocalDeck:localDeck];
-    }];
+    if (self.localDeck.objectID) {
+        [self.localDeckUseCase fetchWithObjectId:self.localDeck.objectID completion:^(LocalDeck * _Nullable localDeck) {
+            [self requestDataSourceWithLocalDeck:localDeck];
+        }];
+    }
 }
 
 - (void)localDeckDeleteAllReceived:(NSNotification *)notification {
@@ -672,9 +670,17 @@
 }
 
 - (void)postDidChangeLocalDeckNameNotification:(NSString *)name {
+    NSMutableDictionary *userInfo = [@{} mutableCopy];
+    
+    if (name) {
+        userInfo[DeckDetailsViewModelDidChangeLocalDeckNameItemKey] = name;
+    }
+    
     [NSNotificationCenter.defaultCenter postNotificationName:DeckDetailsViewModelDidChangeLocalDeckNameNoficationName
                                                       object:self
-                                                    userInfo:@{DeckDetailsViewModelDidChangeLocalDeckNameItemKey: name}];
+                                                    userInfo:userInfo];
+    
+    [userInfo release];
 }
 
 - (void)postErrorOccuredNotification:(NSError *)error {

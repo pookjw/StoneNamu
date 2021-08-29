@@ -32,11 +32,12 @@
         return NO;
     }
     
-    return self.type == toCompare.type;
+    return (self.type == toCompare.type) &&
+    (((self.headerText == nil) && (toCompare.headerText == nil)) || [self.headerText isEqualToString:toCompare.headerText]);
 }
 
 - (NSUInteger)hash {
-    return self.type;
+    return self.type ^ self.headerText.hash;
 }
 
 @end

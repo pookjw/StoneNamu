@@ -323,7 +323,7 @@
     
     [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(applyingSnapshotToDataSourceWasDoneReceived:)
-                                               name:DeckDetailsViewModelDidChangeLocalDeckNameNoficationName
+                                               name:DeckDetailsViewModelApplyingSnapshotToDataSourceWasDoneNotificationName
                                              object:self.viewModel];
 }
 
