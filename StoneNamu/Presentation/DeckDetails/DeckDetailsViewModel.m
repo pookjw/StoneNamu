@@ -177,6 +177,7 @@
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
             [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
                 [snapshot release];
+                [self postApplyingSnapshotToDataSourceWasDoneNotification];
                 
                 NSMutableArray<HSCard *> *mutableCards = [self.localDeck.cards mutableCopy];
                 for (HSCard *hsCard in copyHSCards) {
@@ -214,6 +215,7 @@
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
             [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
                 [snapshot release];
+                [self postApplyingSnapshotToDataSourceWasDoneNotification];
                 
                 NSMutableArray<HSCard *> *mutableCards = [self.localDeck.cards mutableCopy];
                 [mutableCards removeObject:copyHSCard];
@@ -270,6 +272,7 @@
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
             [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
                 [snapshot release];
+                [self postApplyingSnapshotToDataSourceWasDoneNotification];
                 
                 NSMutableArray<HSCard *> *localDeckCards = [self.localDeck.cards mutableCopy];
                 [localDeckCards addObject:copy.hsCard];
@@ -314,6 +317,7 @@
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
             [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
                 [snapshot release];
+                [self postApplyingSnapshotToDataSourceWasDoneNotification];
                 
                 NSMutableArray<HSCard *> *localDeckCards = [self.localDeck.cards mutableCopy];
                 [localDeckCards removeSingleObject:copy.hsCard];
@@ -502,6 +506,7 @@
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
             [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
                 [snapshot release];
+                [self postApplyingSnapshotToDataSourceWasDoneNotification];
                 
                 [self postHasAnyCardsNotification:(copyHSCards.count > 0)];
                 [copyHSCards release];
@@ -658,6 +663,12 @@
     [NSNotificationCenter.defaultCenter postNotificationName:DeckDetailsViewModelHasAnyCardsNotificationName
                                                       object:self
                                                     userInfo:@{DeckDetailsViewModelHasAnyCardsItemKey: [NSNumber numberWithBool:hasCards]}];
+}
+
+- (void)postApplyingSnapshotToDataSourceWasDoneNotification {
+    [NSNotificationCenter.defaultCenter postNotificationName:DeckDetailsViewModelApplyingSnapshotToDataSourceWasDoneNotificationName
+                                                      object:self
+                                                    userInfo:nil];
 }
 
 - (void)postDidChangeLocalDeckNameNotification:(NSString *)name {

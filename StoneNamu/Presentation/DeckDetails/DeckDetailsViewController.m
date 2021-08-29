@@ -28,6 +28,7 @@
     
     if (self) {
         [self loadViewIfNeeded];
+        [self addSpinnerView];
         [self.viewModel requestDataSourcdWithLocalDeck:localDeck];
     }
     
@@ -319,6 +320,11 @@
                                            selector:@selector(errorOccuredReceived:)
                                                name:DeckDetailsViewModelErrorOccuredNoficiationName
                                              object:self.viewModel];
+    
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(applyingSnapshotToDataSourceWasDoneReceived:)
+                                               name:DeckDetailsViewModelDidChangeLocalDeckNameNoficationName
+                                             object:self.viewModel];
 }
 
 - (void)shouldDismissReceived:(NSNotification *)notification {
@@ -357,6 +363,12 @@
             [error release];
         }];
     }
+}
+
+- (void)applyingSnapshotToDataSourceWasDoneReceived:(NSNotification *)notification {
+    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+        [self removeAllSpinnerview];
+    }];
 }
 
 - (void)presentCardDetailsVCWithHSCard:(HSCard *)hsCard {

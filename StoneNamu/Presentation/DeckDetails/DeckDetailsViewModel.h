@@ -27,6 +27,8 @@ static NSString * const DeckDetailsViewModelDidChangeLocalDeckNameItemKey = @"De
 static NSString * const DeckDetailsViewModelErrorOccuredNoficiationName = @"DeckDetailsViewModelErrorOccuredNoficiationName";
 static NSString * const DeckDetailsViewModelErrorOccuredItemKey = @"DeckDetailsViewModelErrorOccuredItemKey";
 
+static NSString * const DeckDetailsViewModelApplyingSnapshotToDataSourceWasDoneNotificationName = @"DeckDetailsViewModelApplyingSnapshotToDataSourceWasDoneNotificationName";
+
 @interface DeckDetailsViewModel : NSObject
 @property (retain) NSIndexPath * _Nullable contextMenuIndexPath;
 @property (readonly, retain) LocalDeck *localDeck;
