@@ -34,7 +34,7 @@ static NSString * const DeckDetailsViewModelApplyingSnapshotToDataSourceWasDoneN
 @property (readonly, retain) LocalDeck *localDeck;
 @property (readonly, retain) DecksDetailsDataSource *dataSource;
 - (instancetype)initWithDataSource:(DecksDetailsDataSource *)dataSource;
-- (void)requestDataSourcdWithLocalDeck:(LocalDeck *)localDeck;
+- (void)requestDataSourceWithLocalDeck:(LocalDeck *)localDeck;
 - (void)addHSCards:(NSArray<HSCard *> *)hsCards;
 
 - (void)increaseAtIndexPath:(NSIndexPath *)indexPath;

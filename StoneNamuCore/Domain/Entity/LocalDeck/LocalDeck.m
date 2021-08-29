@@ -74,7 +74,10 @@
     self.format = hsDeck.format;
     self.classId = [NSNumber numberWithUnsignedInteger:hsDeck.classId];
     self.deckCode = [[hsDeck.deckCode copy] autorelease];
-    self.name = hsCardClassesWithLocalizable()[NSStringFromHSCardClass(hsDeck.classId)];
+    
+    if (self.name == nil) {
+        self.name = hsCardClassesWithLocalizable()[NSStringFromHSCardClass(hsDeck.classId)];
+    }
 }
 
 - (void)updateTimestamp {

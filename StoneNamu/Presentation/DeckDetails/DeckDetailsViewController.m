@@ -29,7 +29,7 @@
     if (self) {
         [self loadViewIfNeeded];
         [self addSpinnerView];
-        [self.viewModel requestDataSourcdWithLocalDeck:localDeck];
+        [self.viewModel requestDataSourceWithLocalDeck:localDeck];
     }
     
     return self;
