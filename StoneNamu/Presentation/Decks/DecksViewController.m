@@ -12,6 +12,7 @@
 #import "UIViewController+animatedForSelectedIndexPath.h"
 #import "DeckBaseContentConfiguration.h"
 #import "ImageService.h"
+#import "UIViewController+SpinnerView.h"
 
 @interface DecksViewController () <UICollectionViewDelegate, UITextFieldDelegate>
 @property (retain) UICollectionView *collectionView;
@@ -263,10 +264,14 @@
                 UITextField * _Nullable firstTextField = alert.textFields[0];
                 UITextField * _Nullable secondTextField = alert.textFields[1];
                 if ((secondTextField.text != nil) && (![secondTextField.text isEqualToString:@""])) {
+                    [self addSpinnerView];
+                    
                     [self.viewModel fetchDeckCode:secondTextField.text
                                             title:firstTextField.text
                                        completion:^(LocalDeck * _Nonnull localDeck, HSDeck * _Nullable hsDeck, NSError * _Nullable error) {
                         [NSOperationQueue.mainQueue addOperationWithBlock:^{
+                            [self removeAllSpinnerview];
+                            
                             if (error) {
                                 [self presentErrorAlertWithError:error];
                             } else {
