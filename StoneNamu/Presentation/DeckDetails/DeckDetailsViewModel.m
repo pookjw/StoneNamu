@@ -234,11 +234,7 @@
         //
         
         DeckDetailsSectionModel *sectionModel;
-        if (@available(iOS 15.0, *)) {
-            sectionModel = [self.dataSource sectionIdentifierForIndex:indexPath.section];
-        } else {
-            sectionModel = [snapshot sectionIdentifierForSectionContainingItemIdentifier:itemModel];
-        }
+        sectionModel = [self.dataSource sectionIdentifierForIndex:indexPath.section];
         
         //
         
@@ -281,11 +277,7 @@
         NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
         
         DeckDetailsSectionModel *sectionModel;
-        if (@available(iOS 15.0, *)) {
-            sectionModel = [self.dataSource sectionIdentifierForIndex:indexPath.section];
-        } else {
-            sectionModel = [snapshot sectionIdentifierForSectionContainingItemIdentifier:itemModel];
-        }
+        sectionModel = [self.dataSource sectionIdentifierForIndex:indexPath.section];
         
         //
         

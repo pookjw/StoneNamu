@@ -128,13 +128,11 @@
     UICollectionLayoutListConfiguration *layoutConfiguration = [[UICollectionLayoutListConfiguration alloc] initWithAppearance:UICollectionLayoutListAppearanceInsetGrouped];
     layoutConfiguration.trailingSwipeActionsConfigurationProvider = [self makeTrailingSwipeProvider];
     
-    if (@available(iOS 14.5, *)) {
-        UIListSeparatorConfiguration *separatorConfiguration = [[UIListSeparatorConfiguration alloc] initWithListAppearance:UICollectionLayoutListAppearancePlain];
-        separatorConfiguration.topSeparatorInsets = NSDirectionalEdgeInsetsZero;
-        separatorConfiguration.bottomSeparatorInsets = NSDirectionalEdgeInsetsZero;
-        layoutConfiguration.separatorConfiguration = separatorConfiguration;
-        [separatorConfiguration release];
-    }
+    UIListSeparatorConfiguration *separatorConfiguration = [[UIListSeparatorConfiguration alloc] initWithListAppearance:UICollectionLayoutListAppearancePlain];
+    separatorConfiguration.topSeparatorInsets = NSDirectionalEdgeInsetsZero;
+    separatorConfiguration.bottomSeparatorInsets = NSDirectionalEdgeInsetsZero;
+    layoutConfiguration.separatorConfiguration = separatorConfiguration;
+    [separatorConfiguration release];
     
     UICollectionViewCompositionalLayout *layout = [UICollectionViewCompositionalLayout layoutWithListConfiguration:layoutConfiguration];
     [layoutConfiguration release];

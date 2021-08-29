@@ -64,37 +64,13 @@
 }
 
 - (NSString * _Nullable)headerTextFromIndexPath:(NSIndexPath *)indexPath {
-    if (@available(iOS 15.0, *)) {
-        PrefsSectionModel * _Nullable sectionModel = [self.dataSource sectionIdentifierForIndex:indexPath.section];
-        return sectionModel.headerText;
-    } else {
-        NSArray<PrefsSectionModel *> *sectionModels = self.dataSource.snapshot.sectionIdentifiers;
-        
-        if (sectionModels.count <= indexPath.section) {
-            return nil;
-        }
-        
-        PrefsSectionModel *sectionModel = sectionModels[indexPath.section];
-        
-        return sectionModel.headerText;
-    }
+    PrefsSectionModel * _Nullable sectionModel = [self.dataSource sectionIdentifierForIndex:indexPath.section];
+    return sectionModel.headerText;
 }
 
 - (NSString * _Nullable)footerTextFromIndexPath:(NSIndexPath *)indexPath {
-    if (@available(iOS 15.0, *)) {
-        PrefsSectionModel * _Nullable sectionModel = [self.dataSource sectionIdentifierForIndex:indexPath.section];
-        return sectionModel.footerText;
-    } else {
-        NSArray<PrefsSectionModel *> *sectionModels = self.dataSource.snapshot.sectionIdentifiers;
-        
-        if (sectionModels.count <= indexPath.section) {
-            return nil;
-        }
-        
-        PrefsSectionModel *sectionModel = sectionModels[indexPath.section];
-        
-        return sectionModel.footerText;
-    }
+    PrefsSectionModel * _Nullable sectionModel = [self.dataSource sectionIdentifierForIndex:indexPath.section];
+    return sectionModel.footerText;
 }
 
 - (void)deleteAllCahces {
@@ -226,11 +202,7 @@
             [willReloaded addObject:regionItemModel];
         }
         
-        if (@available(iOS 15.0, *)) {
-            [snapshot reconfigureItemsWithIdentifiers:willReloaded];
-        } else {
-            [snapshot reloadItemsWithIdentifiers:willReloaded];
-        }
+        [snapshot reconfigureItemsWithIdentifiers:willReloaded];
         [willReloaded release];
         
         [prefs release];

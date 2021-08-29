@@ -28,38 +28,32 @@
 }
 
 - (void)setAttributes {
-    if (@available(iOS 15.0, *)) {
-        self.modalPresentationStyle = UIModalPresentationCustom;
-        self.transitioningDelegate = self;
-    }
+    self.modalPresentationStyle = UIModalPresentationCustom;
+    self.transitioningDelegate = self;
 }
 
 #pragma mark UIViewControllerTransitioningDelegate
 
 - (UIPresentationController *)presentationControllerForPresentedViewController:(UIViewController *)presented presentingViewController:(UIViewController *)presenting sourceViewController:(UIViewController *)source {
-
-    if (@available(iOS 15.0, *)) {
-        UISheetPresentationController *pc = [[UISheetPresentationController alloc] initWithPresentedViewController:presented presentingViewController:presenting];
-
-        if (self.supportsLargeDetent) {
-            pc.detents = @[
-                [UISheetPresentationControllerDetent largeDetent],
-                [UISheetPresentationControllerDetent mediumDetent]
-            ];
-        } else {
-            pc.detents = @[
-                [UISheetPresentationControllerDetent mediumDetent]
-            ];
-        }
-        
-        pc.prefersGrabberVisible = YES;
-        pc.selectedDetentIdentifier = UISheetPresentationControllerDetentIdentifierMedium;
-
-        [pc autorelease];
-        return pc;
+    
+    UISheetPresentationController *pc = [[UISheetPresentationController alloc] initWithPresentedViewController:presented presentingViewController:presenting];
+    
+    if (self.supportsLargeDetent) {
+        pc.detents = @[
+            [UISheetPresentationControllerDetent largeDetent],
+            [UISheetPresentationControllerDetent mediumDetent]
+        ];
     } else {
-        return nil;
+        pc.detents = @[
+            [UISheetPresentationControllerDetent mediumDetent]
+        ];
     }
+    
+    pc.prefersGrabberVisible = YES;
+    pc.selectedDetentIdentifier = UISheetPresentationControllerDetentIdentifierMedium;
+    
+    [pc autorelease];
+    return pc;
 }
 
 @end

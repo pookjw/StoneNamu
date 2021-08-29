@@ -83,12 +83,7 @@
         }
         
         [nonnullOptions release];
-        
-        if (@available(iOS 15.0, *)) {
-            [snapshot reconfigureItemsWithIdentifiers:itemModels];
-        } else {
-            [snapshot reloadItemsWithIdentifiers:itemModels];
-        }
+        [snapshot reconfigureItemsWithIdentifiers:itemModels];
         
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
             [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
@@ -145,11 +140,7 @@
         NSDiffableDataSourceSnapshot *snapshot = self.dataSource.snapshot;
         itemModel.value = value;
         
-        if (@available(iOS 15.0, *)) {
-            [snapshot reconfigureItemsWithIdentifiers:@[itemModel]];
-        } else {
-            [snapshot reloadItemsWithIdentifiers:@[itemModel]];
-        }
+        [snapshot reconfigureItemsWithIdentifiers:@[itemModel]];
         
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
             [self.dataSource applySnapshot:snapshot animatingDifferences:YES];

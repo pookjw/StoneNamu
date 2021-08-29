@@ -161,19 +161,13 @@
     layoutConfiguration.backgroundColor = UIColor.clearColor;
     layoutConfiguration.showsSeparators = YES;
     
-    if (@available(iOS 14.5, *)) {
-        UIListSeparatorConfiguration *separatorConfiguration = [[UIListSeparatorConfiguration alloc] initWithListAppearance:UICollectionLayoutListAppearanceInsetGrouped];
-        
-        if (@available(iOS 15.0, *)) {
-            UIVibrancyEffect *effect = [UIVibrancyEffect effectForBlurEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleDark] style:UIVibrancyEffectStyleSeparator];
-            separatorConfiguration.visualEffect = effect;
-        } else {
-            separatorConfiguration.color = [UIColor.whiteColor colorWithAlphaComponent:0.5];
-        }
-        
-        layoutConfiguration.separatorConfiguration = separatorConfiguration;
-        [separatorConfiguration release];
-    }
+    UIListSeparatorConfiguration *separatorConfiguration = [[UIListSeparatorConfiguration alloc] initWithListAppearance:UICollectionLayoutListAppearanceInsetGrouped];
+    
+    UIVibrancyEffect *effect = [UIVibrancyEffect effectForBlurEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleDark] style:UIVibrancyEffectStyleSeparator];
+    separatorConfiguration.visualEffect = effect;
+    
+    layoutConfiguration.separatorConfiguration = separatorConfiguration;
+    [separatorConfiguration release];
     
     UICollectionViewCompositionalLayout *layout = [UICollectionViewCompositionalLayout layoutWithListConfiguration:layoutConfiguration];
     [layoutConfiguration release];

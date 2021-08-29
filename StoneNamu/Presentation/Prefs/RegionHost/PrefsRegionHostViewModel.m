@@ -145,12 +145,7 @@
             }
             
             itemModel.isSelected = isSelected;
-            
-            if (@available(iOS 15.0, *)) {
-                [snapshot reconfigureItemsWithIdentifiers:@[itemModel]];
-            } else {
-                [snapshot reloadItemsWithIdentifiers:@[itemModel]];
-            }
+            [snapshot reconfigureItemsWithIdentifiers:@[itemModel]];
         }
         
         [prefs release];
