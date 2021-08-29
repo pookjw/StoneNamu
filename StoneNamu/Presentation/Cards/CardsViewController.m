@@ -16,6 +16,7 @@
 #import "CardOptionsViewController.h"
 #import "CardOptionsViewControllerDelegate.h"
 #import "SheetNavigationController.h"
+#import "UIViewController+SpinnerView.h"
 
 @interface CardsViewController () <UICollectionViewDelegate, UICollectionViewDragDelegate>
 @property (retain) UICollectionView *collectionView;
@@ -125,6 +126,7 @@
 - (void)configureViewModel {
     CardsViewModel *viewModel = [[CardsViewModel alloc] initWithDataSource:[self makeDataSource]];
     self.viewModel = viewModel;
+    [self addSpinnerView];
     [viewModel requestDataSourceWithOptions:self.viewModel.options reset:YES];
     [viewModel release];
 }
@@ -173,6 +175,11 @@
                                            selector:@selector(presentDetailReceived:)
                                                name:CardsViewModelPresentDetailNotificationName
                                              object:self.viewModel];
+    
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(applyingSnapshotWasDone:)
+                                               name:CardsViewModelApplyingSnapshotToDataSourceWasDoneNotificationName
+                                             object:self.viewModel];
 }
 
 - (void)errorEventReceived:(NSNotification *)notification {
@@ -209,6 +216,12 @@
     }];
 }
 
+- (void)applyingSnapshotWasDone:(NSNotification *)notification {
+    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+        [self removeAllSpinnerview];
+    }];
+}
+
 - (NSArray<UIDragItem *> *)makeDragItemsFromIndexPath:(NSIndexPath *)indexPath {
     UICollectionViewCell * _Nullable cell = [self.collectionView cellForItemAtIndexPath:indexPath];
     CardContentView *contentView = (CardContentView *)cell.contentView;
@@ -239,7 +252,11 @@
     CGRect bounds = self.collectionView.bounds;
     
     if ((contentOffset.y + bounds.size.height) >= (contentSize.height)) {
-        [self.viewModel requestDataSourceWithOptions:self.viewModel.options reset:NO];
+        BOOL requested = [self.viewModel requestDataSourceWithOptions:self.viewModel.options reset:NO];
+        
+        if (requested) {
+            [self addSpinnerView];
+        }
     }
 }
 
@@ -299,6 +316,7 @@
     if (self.splitViewController.isCollapsed) {
         [viewController dismissViewControllerAnimated:YES completion:^{}];
     }
+    [self addSpinnerView];
     self.viewModel.options = options;
     [self.viewModel requestDataSourceWithOptions:options reset:YES];
 }

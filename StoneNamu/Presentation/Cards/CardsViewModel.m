@@ -80,13 +80,13 @@
     [super dealloc];
 }
 
-- (void)requestDataSourceWithOptions:(NSDictionary<NSString *,id> * _Nullable)options reset:(BOOL)reset {
+- (BOOL)requestDataSourceWithOptions:(NSDictionary<NSString *,id> * _Nullable)options reset:(BOOL)reset {
     
     if (reset) {
         [self resetDataSource];
     } else {
-        if (self.isFetching) return;
-        if (!self.canLoadMore) return;
+        if (self.isFetching) return NO;
+        if (!self.canLoadMore) return NO;
     }
     
     //
@@ -126,6 +126,8 @@
             [self updateDataSourceWithCards:cards];
         }];
     }];
+    
+    return YES;
 }
 
 - (void)resetDataSource {
@@ -136,6 +138,7 @@
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
         [self.dataSource applySnapshot:snapshot animatingDifferences:NO completion:^{
             [snapshot release];
+            [self postApplyingSnapshotWasDone];
         }];
     }];
 }
@@ -203,6 +206,7 @@
             [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
                 [semaphore signal];
                 [snapshot release];
+                [self postApplyingSnapshotWasDone];
             }];
         }];
         
@@ -215,6 +219,12 @@
     [NSNotificationCenter.defaultCenter postNotificationName:CardsViewModelErrorNotificationName
                                                       object:self
                                                     userInfo:@{CardsViewModelErrorNotificationErrorKey: error}];
+}
+
+- (void)postApplyingSnapshotWasDone {
+    [NSNotificationCenter.defaultCenter postNotificationName:CardsViewModelApplyingSnapshotToDataSourceWasDoneNotificationName
+                                                      object:self
+                                                    userInfo:nil];
 }
 
 - (void)observePrefsChange {

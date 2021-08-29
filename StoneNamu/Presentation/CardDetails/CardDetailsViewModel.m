@@ -116,6 +116,10 @@
         return;
     }
     
+    [NSNotificationCenter.defaultCenter postNotificationName:CardDetailsViewModelStartFetchingChildCardsNotificationName
+                                                      object:self
+                                                    userInfo:nil];
+    
     [self.queue addOperationWithBlock:^{
         NSSemaphoreCondition *semaphore = [[NSSemaphoreCondition alloc] initWithValue:-((NSInteger)childIds.count) + 1];
         NSMutableArray<HSCard *> *childCards = [@[] mutableCopy];
@@ -151,7 +155,7 @@
 - (void)updateDataSourceWithChildCards:(NSArray<HSCard *> *)childCards {
     [childCards retain];
     [self.queue addBarrierBlock:^{
-        NSDiffableDataSourceSnapshot *snapshot = self.dataSource.snapshot;
+        NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
         
         CardDetailsSectionModel *sectionModelChildren = [[CardDetailsSectionModel alloc] initWithType:CardDetailsSectionModelTypeChildren];
         
@@ -169,7 +173,12 @@
         [childCards release];
         [childCardsItem release];
         
-        [self.dataSource applySnapshot:snapshot animatingDifferences:YES];
+        [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
+            [snapshot release];
+            [NSNotificationCenter.defaultCenter postNotificationName:CardDetailsViewModelStartFetchedChildCardsNotificationName
+                                                              object:self
+                                                            userInfo:nil];
+        }];
     }];
 }
 

@@ -15,6 +15,7 @@
 #import "CardDetailsChildrenContentConfiguration.h"
 #import "PhotosService.h"
 #import "UIScrollView+scrollToTop.h"
+#import "UIViewController+SpinnerView.h"
 
 @interface CardDetailsViewController () <UIViewControllerTransitioningDelegate, UIContextMenuInteractionDelegate, UIDragInteractionDelegate, CardDetailsChildrenContentConfigurationDelegate>
 @property (retain) UIImageView * _Nullable sourceImageView;
@@ -67,6 +68,7 @@
     [self configureCollectionView];
     [self configureLayoutViewControllers];
     [self configureViewModel];
+    [self bind];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -240,6 +242,30 @@
     [viewModel requestDataSourceWithCard:self.hsCard];
     
     [viewModel release];
+}
+
+- (void)bind {
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(startFetchingChildCardsReceived:)
+                                               name:CardDetailsViewModelStartFetchingChildCardsNotificationName
+                                             object:self.viewModel];
+    
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(fetchedChildCardsReceived:)
+                                               name:CardDetailsViewModelStartFetchedChildCardsNotificationName
+                                             object:self.viewModel];
+}
+
+- (void)startFetchingChildCardsReceived:(NSNotification *)notification {
+    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+        [self addSpinnerView];
+    }];
+}
+
+- (void)fetchedChildCardsReceived:(NSNotification *)notification {
+    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+        [self removeAllSpinnerview];
+    }];
 }
 
 - (void)updateLayoutViewControllerWithTraitCollection:(UITraitCollection *)trailtCollection {

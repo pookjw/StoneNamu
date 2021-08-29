@@ -18,6 +18,8 @@ static NSString * const CardsViewModelPresentDetailNotificationName = @"CardsVie
 static NSString * const CardsViewModelPresentDetailNotificationHSCardKey = @"CardsViewModelPresentDetailNotificationHSCardKey";
 static NSString * const CardsViewModelPresentDetailNotificationIndexPathKey = @"CardsViewModelPresentDetailNotificationIndexPathKey";
 
+static NSString * const CardsViewModelApplyingSnapshotToDataSourceWasDoneNotificationName = @"CardsViewModelApplyingSnapshotToDataSourceWasDoneNotificationName";
+
 typedef UICollectionViewDiffableDataSource<CardSectionModel *, CardItemModel *> CardsDataSource;
 
 @interface CardsViewModel : NSObject
@@ -25,7 +27,7 @@ typedef UICollectionViewDiffableDataSource<CardSectionModel *, CardItemModel *> 
 @property (readonly, retain) CardsDataSource *dataSource;
 @property (copy) NSDictionary<NSString *, id> * _Nullable options;
 - (instancetype)initWithDataSource:(CardsDataSource *)dataSource;
-- (void)requestDataSourceWithOptions:(NSDictionary<NSString *,id> * _Nullable)options reset:(BOOL)reset;
+- (BOOL)requestDataSourceWithOptions:(NSDictionary<NSString *,id> * _Nullable)options reset:(BOOL)reset;
 - (void)handleSelectionForIndexPath:(NSIndexPath *)indexPath;
 - (NSArray<UIDragItem *> *)makeDragItemFromIndexPath:(NSIndexPath *)indexPath image:(UIImage * _Nullable)image;
 @end
