@@ -245,6 +245,7 @@
 - (void)presentStepperEventReceived:(NSNotification *)notification {
     CardOptionItemModel *itemModel = notification.userInfo[CardOptionsViewModelPresentNotificationItemKey];
     NSRange range = itemModel.stepperRange;
+    BOOL showPlusMarkWhenReachedToMax = itemModel.showPlusMarkWhenReachedToMaxOnStepper;
     
     NSUInteger value;
     if (itemModel.value) {
@@ -263,6 +264,8 @@
                                                                   doneCompletion:^(NSUInteger value) {
             [self.viewModel updateItem:itemModel withValue:[[NSNumber numberWithUnsignedInteger:value] stringValue]];
         }];
+        
+        vc.showPlusMarkWhenReachedToMax = showPlusMarkWhenReachedToMax;
         SheetNavigationController *nvc = [[SheetNavigationController alloc] initWithRootViewController:vc];
         [nvc loadViewIfNeeded];
         

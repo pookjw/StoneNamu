@@ -27,6 +27,7 @@
     self = [self init];
     
     if (self) {
+        self.showPlusMarkWhenReachedToMax = NO;
         self.range = range;
         self.navigationItem.title = title;
         self.initialValue = value;
@@ -93,7 +94,15 @@
 }
 
 - (void)stepperValueChanged:(UIStepper *)sender {
-    self.label.text = [NSString stringWithFormat:@"%lu", (NSUInteger)sender.value];
+    if (self.showPlusMarkWhenReachedToMax) {
+        if ((NSUInteger)sender.value == (self.range.location + self.range.length)) {
+            self.label.text = [NSString stringWithFormat:@"%lu+", (NSUInteger)sender.value];
+        } else {
+            self.label.text = [NSString stringWithFormat:@"%lu", (NSUInteger)sender.value];
+        }
+    } else {
+        self.label.text = [NSString stringWithFormat:@"%lu", (NSUInteger)sender.value];
+    }
 }
 
 - (void)configureBarButtonItems {

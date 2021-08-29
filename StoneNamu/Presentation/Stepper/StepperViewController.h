@@ -13,6 +13,7 @@ typedef void (^StepperViewControllerClearCompletion)(void);
 NS_ASSUME_NONNULL_BEGIN
 
 @interface StepperViewController : UIViewController
+@property BOOL showPlusMarkWhenReachedToMax;
 - (instancetype)initWithRange:(NSRange)range
                         title:(NSString *)title
                         value:(NSUInteger)value

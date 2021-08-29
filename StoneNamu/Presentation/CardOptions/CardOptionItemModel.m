@@ -254,13 +254,26 @@ CardOptionItemModelType CardOptionItemModelTypeFromNSString(NSString * key) {
 - (NSRange)stepperRange {
     switch (self.type) {
         case CardOptionItemModelTypeManaCost:
-            return NSMakeRange(0, 50);
+            return NSMakeRange(0, 10);
         case CardOptionItemModelTypeAttack:
-            return NSMakeRange(0, 50);
+            return NSMakeRange(0, 10);
         case CardOptionItemModelTypeHealth:
-            return NSMakeRange(0, 50);
+            return NSMakeRange(0, 10);
         default:
             return NSMakeRange(0, 0);
+    }
+}
+
+- (BOOL)showPlusMarkWhenReachedToMaxOnStepper {
+    switch (self.type) {
+        case CardOptionItemModelTypeManaCost:
+            return YES;
+        case CardOptionItemModelTypeAttack:
+            return YES;
+        case CardOptionItemModelTypeHealth:
+            return YES;
+        default:
+            return NO;
     }
 }
 

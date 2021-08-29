@@ -43,6 +43,7 @@ CardOptionItemModelType CardOptionItemModelTypeFromNSString(NSString *);
 @property (readonly, nonatomic) CardOptionItemModelValueSetType valueSetType;
 @property (readonly, nonatomic) NSArray<PickerItemModel *> * _Nullable pickerDataSource;
 @property (readonly, nonatomic) NSRange stepperRange;
+@property (readonly, nonatomic) BOOL showPlusMarkWhenReachedToMaxOnStepper;
 @property (readonly, nonatomic) NSString *text;
 @property (readonly, nonatomic) NSString * _Nullable accessoryText;
 - (instancetype)initWithType:(CardOptionItemModelType)type;
