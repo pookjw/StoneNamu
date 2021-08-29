@@ -122,6 +122,8 @@
 
 "DECK_ADD_CARD_ERROR_CANNOT_ADD_HERO_PORTRAIT_CARD" = "You cannot add a hero portrait card.";
 
+"DECK_EXPORT_ERROR_CARDS_ARE_NOT_FILLED" = "Please fill %lu cards to export deck code! (Current : %lu)";
+
 "ENTER_DECK_TITLE_HERE" = "Enter deck title here...";
 
 "ENTER_DECK_CODE_HERE" = "Enter deck code here...";
@@ -132,4 +134,4 @@
 
 "DECREASE_CARD_COUNT" = "Decrease Card Count";
 
-"CARD_COUNT" = "Cards: %lu/%lu";
+"CARD_COUNT" = "Cards : %lu/%lu";

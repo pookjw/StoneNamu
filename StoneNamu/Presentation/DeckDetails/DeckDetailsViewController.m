@@ -91,13 +91,13 @@
 
 - (void)exportBarButtonItemTriggered:(UIBarButtonItem *)sender {
     [self.viewModel exportDeckCodeWithCompletion:^(NSString * _Nullable deckCode) {
-        [NSOperationQueue.mainQueue addOperationWithBlock:^{
-            if (deckCode) {
+        if (deckCode) {
+            [NSOperationQueue.mainQueue addOperationWithBlock:^{
                 UIActivityViewController *activity = [[UIActivityViewController alloc] initWithActivityItems:@[deckCode] applicationActivities:nil];
                 activity.popoverPresentationController.barButtonItem = self.exportBarButtonItem;
                 [self presentViewController:activity animated:YES completion:^{}];
-            }
-        }];
+            }];
+        }
     }];
 }
 

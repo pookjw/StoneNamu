@@ -122,6 +122,8 @@
 
 "DECK_ADD_CARD_ERROR_CANNOT_ADD_HERO_PORTRAIT_CARD" = "영웅 초상화 카드는 추가할 수 없습니다.";
 
+"DECK_EXPORT_ERROR_CARDS_ARE_NOT_FILLED" = "덱코드를 추출하기 위해서는 %lu의 카드가 필요합니다. (현재 : %lu)";
+
 "ENTER_DECK_TITLE_HERE" = "제목을 입력해 주세요...";
 
 "ENTER_DECK_CODE_HERE" = "덱코드를 입력해 주세요...";
@@ -132,4 +134,4 @@
 
 "DECREASE_CARD_COUNT" = "카드 장수 감소";
 
-"CARD_COUNT" = "카드 개수: %lu/%lu";
+"CARD_COUNT" = "카드 개수 : %lu/%lu";
