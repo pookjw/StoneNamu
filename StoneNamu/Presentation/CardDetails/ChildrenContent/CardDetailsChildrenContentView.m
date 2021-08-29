@@ -175,7 +175,7 @@
     return [self.viewModel makeDragItemFromIndexPath:indexPath image:image];
 }
 
-#pragma mark UICollectionViewDelegate
+#pragma mark - UICollectionViewDelegate
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     [self presentNestedCardDetailsViewControllerFromIndexPath:indexPath];
@@ -223,7 +223,7 @@
     }];
 }
 
-#pragma mark UICollectionViewDragDelegate
+#pragma mark - UICollectionViewDragDelegate
 
 - (NSArray<UIDragItem *> *)collectionView:(UICollectionView *)collectionView itemsForBeginningDragSession:(id<UIDragSession>)session atIndexPath:(NSIndexPath *)indexPath {
     return [self makeDragItemsFromIndexPath:indexPath];

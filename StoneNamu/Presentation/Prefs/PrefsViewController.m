@@ -235,7 +235,7 @@
     [self presentViewController:alert animated:YES completion:^{}];
 }
 
-#pragma mark UICollectionViewDelegate
+#pragma mark - UICollectionViewDelegate
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     PrefsItemModel * _Nullable itemModel = [self.viewModel.dataSource itemIdentifierForIndexPath:indexPath];

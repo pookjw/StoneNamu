@@ -335,7 +335,7 @@ CardOptionItemModelType CardOptionItemModelTypeFromNSString(NSString * key) {
     }
 }
 
-#pragma mark Helper
+#pragma mark - Helper
 
 - (NSArray<PickerItemModel *> *)pickerItemModelsFromDic:(NSDictionary<NSString *, NSString *> *)dic
                                             filterArray:(NSArray<NSString *> * _Nullable)filterArray

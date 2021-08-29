@@ -362,7 +362,7 @@
     [self presentViewController:vc animated:YES completion:^{}];
 }
 
-#pragma mark UICollectionViewDelegate
+#pragma mark - UICollectionViewDelegate
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
     DeckDetailsItemModel * _Nullable itemModel = [self.viewModel.dataSource itemIdentifierForIndexPath:indexPath];
@@ -463,7 +463,7 @@
     }];
 }
 
-#pragma mark UICollectionViewDragDelegate
+#pragma mark - UICollectionViewDragDelegate
 
 - (NSArray<UIDragItem *> *)collectionView:(UICollectionView *)collectionView itemsForBeginningDragSession:(id<UIDragSession>)session atIndexPath:(NSIndexPath *)indexPath {
     return [self.viewModel makeDragItemFromIndexPath:indexPath];
@@ -473,7 +473,7 @@
     return [self.viewModel makeDragItemFromIndexPath:indexPath];
 }
 
-#pragma mark UICollectionViewDropDelegate
+#pragma mark - UICollectionViewDropDelegate
 
 - (BOOL)collectionView:(UICollectionView *)collectionView canHandleDropSession:(id<UIDropSession>)session {
     return [session canLoadObjectsOfClass:[HSCard class]];

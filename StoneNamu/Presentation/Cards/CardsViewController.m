@@ -300,7 +300,7 @@
     [self.viewModel handleSelectionForIndexPath:indexPath];
 }
 
-#pragma mark UICollectionViewDragDelegate
+#pragma mark - UICollectionViewDragDelegate
 
 - (NSArray<UIDragItem *> *)collectionView:(UICollectionView *)collectionView itemsForBeginningDragSession:(id<UIDragSession>)session atIndexPath:(NSIndexPath *)indexPath {
     return [self makeDragItemsFromIndexPath:indexPath];
@@ -310,7 +310,7 @@
     return [self makeDragItemsFromIndexPath:indexPath];
 }
 
-#pragma mark CardOptionsViewControllerDelegate
+#pragma mark - CardOptionsViewControllerDelegate
 
 - (void)cardOptionsViewController:(CardOptionsViewController *)viewController doneWithOptions:(NSDictionary<NSString *,NSString *> *)options {
     if (self.splitViewController.isCollapsed) {

@@ -16,8 +16,9 @@
 #import "PhotosService.h"
 #import "UIScrollView+scrollToTop.h"
 #import "UIViewController+SpinnerView.h"
+#import "NSIndexPath+identifier.h"
 
-@interface CardDetailsViewController () <UIViewControllerTransitioningDelegate, UIContextMenuInteractionDelegate, UIDragInteractionDelegate, CardDetailsChildrenContentConfigurationDelegate>
+@interface CardDetailsViewController () <UICollectionViewDelegate, UIViewControllerTransitioningDelegate, UIContextMenuInteractionDelegate, UIDragInteractionDelegate, CardDetailsChildrenContentConfigurationDelegate>
 @property (retain) UIImageView * _Nullable sourceImageView;
 @property (retain) UIImageView *primaryImageView;
 @property (retain) UIButton *closeButton;
@@ -178,6 +179,7 @@
     UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:layout];
     self.collectionView = collectionView;
     
+    collectionView.delegate = self;
     collectionView.backgroundColor = UIColor.clearColor;
     collectionView.alpha = 0;
     
@@ -359,6 +361,52 @@
     return [self.viewModel makeDragItemFromImage:self.primaryImageView.image];
 }
 
+- (UITargetedPreview *)targetedPreviewWithClearBackgroundFromIdentifier:(NSString *)identifier {
+    NSIndexPath *indexPath = [NSIndexPath indexPathFromString:identifier];
+    UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
+    
+    UIPreviewParameters *parameters = [UIPreviewParameters new];
+    parameters.backgroundColor = UIColor.clearColor;
+    
+    return [[[UITargetedPreview alloc] initWithView:cell parameters:parameters] autorelease];
+}
+
+#pragma mark - UICollectionViewDelegate
+
+- (UIContextMenuConfiguration *)collectionView:(UICollectionView *)collectionView contextMenuConfigurationForItemAtIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point {
+    
+    CardDetailsItemModel * _Nullable itemModel = [self.viewModel.dataSource itemIdentifierForIndexPath:indexPath];
+    if (itemModel == nil) return nil;
+    if (itemModel.secondaryText == nil) return nil;
+    if ([itemModel.secondaryText isEqualToString:@""]) return nil;
+    
+    UIContextMenuConfiguration *configuration = [UIContextMenuConfiguration configurationWithIdentifier:indexPath.identifier
+                                                                                        previewProvider:nil
+                                                                                         actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> * _Nonnull suggestedActions) {
+        UIAction *copyAction = [UIAction actionWithTitle:NSLocalizedString(@"COPY", @"")
+                                                   image:[UIImage systemImageNamed:@"doc.on.doc"]
+                                              identifier:nil
+                                                 handler:^(__kindof UIAction * _Nonnull action) {
+            
+            UIPasteboard.generalPasteboard.string = itemModel.secondaryText;
+            }];
+        
+        UIMenu *menu = [UIMenu menuWithChildren:@[copyAction]];
+        
+        return menu;
+    }];
+    
+    return configuration;
+}
+
+- (UITargetedPreview *)collectionView:(UICollectionView *)collectionView previewForHighlightingContextMenuWithConfiguration:(UIContextMenuConfiguration *)configuration {
+    return [self targetedPreviewWithClearBackgroundFromIdentifier:(NSString *)configuration.identifier];
+}
+
+- (UITargetedPreview *)collectionView:(UICollectionView *)collectionView previewForDismissingContextMenuWithConfiguration:(UIContextMenuConfiguration *)configuration {
+    return [self targetedPreviewWithClearBackgroundFromIdentifier:(NSString *)configuration.identifier];
+}
+
 #pragma mark - UIViewControllerTransitioningDelegate
 
 - (UIPresentationController *)presentationControllerForPresentedViewController:(UIViewController *)presented presentingViewController:(UIViewController *)presenting sourceViewController:(UIViewController *)source {
@@ -378,7 +426,7 @@
     return pc;
 }
 
-#pragma mark UIContextMenuInteractionDelegate
+#pragma mark - UIContextMenuInteractionDelegate
 
 - (nullable UIContextMenuConfiguration *)contextMenuInteraction:(nonnull UIContextMenuInteraction *)interaction configurationForMenuAtLocation:(CGPoint)location {
     UIContextMenuConfiguration *configuration = [UIContextMenuConfiguration configurationWithIdentifier:nil
@@ -401,7 +449,7 @@
     return configuration;
 }
 
-#pragma mark UIDragInteractionDelegate
+#pragma mark - UIDragInteractionDelegate
 
 - (NSArray<UIDragItem *> *)dragInteraction:(UIDragInteraction *)interaction itemsForBeginningSession:(id<UIDragSession>)session {
     return [self makeDragItemsForPrimaryImageView];

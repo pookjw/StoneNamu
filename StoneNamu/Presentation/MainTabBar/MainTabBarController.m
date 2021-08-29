@@ -132,7 +132,7 @@
     [navigationController setViewControllers:@[firstViewController] animated:YES];
 }
 
-#pragma mark UITabBarControllerDelegate
+#pragma mark - UITabBarControllerDelegate
 
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
     // if not selected

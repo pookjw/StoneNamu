@@ -34,7 +34,7 @@
     self.preferredDisplayMode = UISplitViewControllerDisplayModeOneBesideSecondary;
 }
 
-#pragma mark UISplitViewControllerDelegate
+#pragma mark - UISplitViewControllerDelegate
 
 - (BOOL)splitViewController:(UISplitViewController *)splitViewController showDetailViewController:(UIViewController *)vc sender:(id)sender {
     return NO;

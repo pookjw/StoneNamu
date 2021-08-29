@@ -101,6 +101,7 @@
 		4F8754B226DB6F60000CE351 /* HSDeckFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8754B126DB6F60000CE351 /* HSDeckFormat.m */; };
 		4F8754B626DB8773000CE351 /* SpinnerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8754B526DB8773000CE351 /* SpinnerView.m */; };
 		4F8754B926DB87DC000CE351 /* UIViewController+SpinnerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8754B826DB87DC000CE351 /* UIViewController+SpinnerView.m */; };
+		4F8754BC26DB91D7000CE351 /* NSIndexPath+identifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8754BB26DB91D7000CE351 /* NSIndexPath+identifier.m */; };
 		4F8F976226D45C290024FC06 /* NSMutableArray+removeSingle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8F976126D45C290024FC06 /* NSMutableArray+removeSingle.m */; };
 		4F8F976526D469700024FC06 /* InsetsLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8F976426D469700024FC06 /* InsetsLabel.m */; };
 		4F8F976926D47F360024FC06 /* DeckDetailsManaCostContentConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8F976826D47F360024FC06 /* DeckDetailsManaCostContentConfiguration.m */; };
@@ -377,6 +378,8 @@
 		4F8754B526DB8773000CE351 /* SpinnerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SpinnerView.m; sourceTree = "<group>"; };
 		4F8754B726DB87DC000CE351 /* UIViewController+SpinnerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+SpinnerView.h"; sourceTree = "<group>"; };
 		4F8754B826DB87DC000CE351 /* UIViewController+SpinnerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+SpinnerView.m"; sourceTree = "<group>"; };
+		4F8754BA26DB91D7000CE351 /* NSIndexPath+identifier.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSIndexPath+identifier.h"; sourceTree = "<group>"; };
+		4F8754BB26DB91D7000CE351 /* NSIndexPath+identifier.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSIndexPath+identifier.m"; sourceTree = "<group>"; };
 		4F8F976026D45C290024FC06 /* NSMutableArray+removeSingle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+removeSingle.h"; sourceTree = "<group>"; };
 		4F8F976126D45C290024FC06 /* NSMutableArray+removeSingle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+removeSingle.m"; sourceTree = "<group>"; };
 		4F8F976326D469700024FC06 /* InsetsLabel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InsetsLabel.h; sourceTree = "<group>"; };
@@ -632,6 +635,8 @@
 				4F8F976126D45C290024FC06 /* NSMutableArray+removeSingle.m */,
 				4F8754B726DB87DC000CE351 /* UIViewController+SpinnerView.h */,
 				4F8754B826DB87DC000CE351 /* UIViewController+SpinnerView.m */,
+				4F8754BA26DB91D7000CE351 /* NSIndexPath+identifier.h */,
+				4F8754BB26DB91D7000CE351 /* NSIndexPath+identifier.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1565,6 +1570,7 @@
 				4FF3E0DF26CA9C82002B20EA /* CardsSplitViewController.m in Sources */,
 				4F414B0426CEF31D0003A0CF /* DeckDetailsViewModel.m in Sources */,
 				4F98E25B26B9AA280067846F /* CardDetailsSectionModel.m in Sources */,
+				4F8754BC26DB91D7000CE351 /* NSIndexPath+identifier.m in Sources */,
 				4F68198526D74B2A00033AEE /* ImageService.m in Sources */,
 				4FF3E0DB26CA947D002B20EA /* MainSplitViewController.m in Sources */,
 				4F646A5F26B7D05E00BEDB38 /* UIImageView+setAsyncImage.m in Sources */,

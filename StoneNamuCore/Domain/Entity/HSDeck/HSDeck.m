@@ -48,7 +48,7 @@
     return [hsDeck autorelease];
 }
 
-#pragma mark NSCopying
+#pragma mark - NSCopying
 
 - (id)copyWithZone:(NSZone *)zone {
     id copy = [[self class] new];

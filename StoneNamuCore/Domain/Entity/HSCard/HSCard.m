@@ -168,7 +168,7 @@
     return objectClasses;
 }
 
-#pragma mark NSCopying
+#pragma mark - NSCopying
 
 - (id)copyWithZone:(NSZone *)zone {
     id copy = [[self class] new];
@@ -202,7 +202,7 @@
     return copy;
 }
 
-#pragma mark NSCoding
+#pragma mark - NSCoding
 
 - (instancetype)initWithCoder:(NSCoder *)coder {
     id object = [self init];
@@ -261,13 +261,13 @@
     [coder encodeInteger:self.parentId forKey:@"parentId"];
 }
 
-#pragma mark NSSecureCoding
+#pragma mark - NSSecureCoding
 
 + (BOOL)supportsSecureCoding {
     return YES;
 }
 
-#pragma mark NSItemProviderWriting
+#pragma mark - NSItemProviderWriting
 
 - (nullable NSProgress *)loadDataWithTypeIdentifier:(nonnull NSString *)typeIdentifier forItemProviderCompletionHandler:(nonnull void (^)(NSData * _Nullable, NSError * _Nullable))completionHandler {
     NSOperationQueue *queue = [[NSOperationQueue new] autorelease];
@@ -289,7 +289,7 @@
     return @[kHSCardType];
 }
 
-#pragma mark NSItemProviderReading
+#pragma mark - NSItemProviderReading
 
 + (instancetype)objectWithItemProviderData:(NSData *)data typeIdentifier:(NSString *)typeIdentifier error:(NSError * _Nullable *)outError {
     return [NSKeyedUnarchiver unarchivedObjectOfClasses:HSCard.unarchvingClasses fromData:data error:outError];

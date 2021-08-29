@@ -133,7 +133,7 @@
     [self dismissViewControllerAnimated:YES completion:^{}];
 }
 
-#pragma mark UIPickerViewDataSource
+#pragma mark - UIPickerViewDataSource
 
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
     return 1;
@@ -147,7 +147,7 @@
     }
 }
 
-#pragma mark UIPickerViewDelegate
+#pragma mark - UIPickerViewDelegate
 
 - (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view {
     
