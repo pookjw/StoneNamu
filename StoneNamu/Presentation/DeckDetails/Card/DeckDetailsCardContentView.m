@@ -86,11 +86,11 @@
     NSString *string = @"";
     
     CGRect rect = [string boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX)
-                                        options:NSStringDrawingUsesLineFragmentOrigin
-                                     attributes:@{NSFontAttributeName: nameLabel.font}
-                                        context:nil];
+                                       options:NSStringDrawingUsesLineFragmentOrigin
+                                    attributes:@{NSFontAttributeName: nameLabel.font}
+                                       context:nil];
     CGFloat margin = nameLabel.contentInsets.top + nameLabel.contentInsets.bottom;
-    CGFloat height = rect.size.height + margin;
+    CGFloat height = ceil(rect.size.height + margin);
     
     //
     
@@ -125,11 +125,11 @@
     NSString *string = @"99";
     
     CGRect rect = [string boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX)
-                                        options:NSStringDrawingUsesLineFragmentOrigin
-                                     attributes:@{NSFontAttributeName: manaCostLabel.font}
-                                        context:nil];
+                                       options:NSStringDrawingUsesLineFragmentOrigin
+                                    attributes:@{NSFontAttributeName: manaCostLabel.font}
+                                       context:nil];
     CGFloat margin = 10;
-    CGFloat width = rect.size.width + margin;
+    CGFloat width = ceil(rect.size.width + margin);
     
     //
     
@@ -207,17 +207,17 @@
     
     NSString *integerString = @"9";
     CGRect integerRect = [integerString boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX)
-                                        options:NSStringDrawingUsesLineFragmentOrigin
-                                     attributes:@{NSFontAttributeName: countLabel.font}
-                                        context:nil];
+                                                     options:NSStringDrawingUsesLineFragmentOrigin
+                                                  attributes:@{NSFontAttributeName: countLabel.font}
+                                                     context:nil];
     
     NSString *starString = @"★";
     CGRect starRect = [starString boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX)
-                                        options:NSStringDrawingUsesLineFragmentOrigin
-                                     attributes:@{NSFontAttributeName: countLabel.font}
-                                        context:nil];
+                                               options:NSStringDrawingUsesLineFragmentOrigin
+                                            attributes:@{NSFontAttributeName: countLabel.font}
+                                               context:nil];
     CGFloat margin = 10;
-    CGFloat width = MAX(integerRect.size.width, starRect.size.width) + margin;
+    CGFloat width = ceil(MAX(integerRect.size.width, starRect.size.width) + margin);
     
     //
     

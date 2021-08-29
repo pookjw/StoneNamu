@@ -6,6 +6,7 @@
 //
 
 #import "DeckDetailsManaCostContentViewModel.h"
+#import "NSDiffableDataSourceSnapshot+sort.h"
 
 @interface DeckDetailsManaCostContentViewModel ()
 @property (retain) NSOperationQueue *queue;
@@ -47,41 +48,75 @@
         
         //
         
-        NSUInteger __block highestCost = 0;
-        
-        [copyManaDictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber * _Nonnull key, NSNumber * _Nonnull obj, BOOL * _Nonnull stop) {
-            highestCost = MAX(highestCost, obj.unsignedIntegerValue);
-        }];
+        NSMutableDictionary<NSNumber *, NSNumber *> *manaDictionaryWithPlus = [@{} mutableCopy];
         
         for (NSUInteger i = 0; i < DeckDetailsManaCostContentViewModelCountOfData; i++) {
-            @autoreleasepool {
-                DeckDetailsManaCostContentItemModel *itemModel = [[DeckDetailsManaCostContentItemModel alloc] initWithType:DeckDetailsManaCostContentItemModelTypeCostGraph];
-                NSNumber *cardManaCost = [NSNumber numberWithUnsignedInteger:i];
-                
-                itemModel.cardManaCost = cardManaCost;
-                
-                if ((copyManaDictionary[cardManaCost] == nil) || (highestCost == 0)) {
-                    itemModel.percentage = [NSNumber numberWithFloat:0.f];
-                } else {
-                    itemModel.percentage = [NSNumber numberWithFloat:(copyManaDictionary[cardManaCost].floatValue / highestCost)];
-                }
-                
-                [snapshot appendItemsWithIdentifiers:@[itemModel] intoSectionWithIdentifier:sectionModel];
-                
-                [itemModel release];
-            }
+            manaDictionaryWithPlus[[NSNumber numberWithUnsignedInteger:i]] = @0;
         }
         
+        [copyManaDictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber * _Nonnull key, NSNumber * _Nonnull obj, BOOL * _Nonnull stop) {
+            NSUInteger maxCost = DeckDetailsManaCostContentViewModelCountOfData - 1;
+            
+            if (key.unsignedIntegerValue >= maxCost) {
+                NSNumber *maxCostNumber = [NSNumber numberWithUnsignedInteger:maxCost];
+                
+                if (manaDictionaryWithPlus[maxCostNumber]) {
+                    NSUInteger old = manaDictionaryWithPlus[maxCostNumber].unsignedIntegerValue;
+                    NSUInteger new = old + obj.unsignedIntegerValue;
+                    manaDictionaryWithPlus[maxCostNumber] = [NSNumber numberWithUnsignedInteger:new];
+                } else {
+                    manaDictionaryWithPlus[maxCostNumber] = obj;
+                }
+            } else {
+                manaDictionaryWithPlus[key] = obj;
+            }
+        }];
+        
         [copyManaDictionary release];
+        
+        //
+        
+        NSUInteger __block highestCostCount = 0;
+        
+        [manaDictionaryWithPlus enumerateKeysAndObjectsUsingBlock:^(NSNumber * _Nonnull key, NSNumber * _Nonnull obj, BOOL * _Nonnull stop) {
+            highestCostCount = MAX(highestCostCount, obj.unsignedIntegerValue);
+        }];
+        
+        [manaDictionaryWithPlus enumerateKeysAndObjectsUsingBlock:^(NSNumber * _Nonnull key, NSNumber * _Nonnull obj, BOOL * _Nonnull stop) {
+            DeckDetailsManaCostContentItemModel *itemModel = [[DeckDetailsManaCostContentItemModel alloc] initWithType:DeckDetailsManaCostContentItemModelTypeCostGraph];
+            itemModel.cardManaCost = key;
+            
+            if (highestCostCount == 0) {
+                itemModel.percentage = [NSNumber numberWithFloat:0.f];
+            } else {
+                itemModel.percentage = [NSNumber numberWithFloat:(obj.floatValue / (float)highestCostCount)];
+            }
+            
+            [snapshot appendItemsWithIdentifiers:@[itemModel] intoSectionWithIdentifier:sectionModel];
+            [itemModel release];
+        }];
+        
+        [manaDictionaryWithPlus release];
         [sectionModel release];
         
         //
         
+        [self sortSnapshot:snapshot];
+        
+        //
+        
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
-            [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
+            [self.dataSource applySnapshot:snapshot animatingDifferences:NO completion:^{
                 [snapshot release];
             }];
         }];
+    }];
+}
+
+- (void)sortSnapshot:(NSDiffableDataSourceSnapshot *)snapshot {
+    [snapshot sortItemsWithSectionIdentifiers:snapshot.sectionIdentifiers
+                              usingComparator:^NSComparisonResult(DeckDetailsManaCostContentItemModel *obj1, DeckDetailsManaCostContentItemModel *obj2) {
+        return [obj1.cardManaCost compare:obj2.cardManaCost];
     }];
 }
 

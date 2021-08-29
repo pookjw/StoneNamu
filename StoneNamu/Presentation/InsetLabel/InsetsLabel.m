@@ -17,8 +17,8 @@
 
 - (CGSize)intrinsicContentSize {
     CGSize size = [super intrinsicContentSize];
-    size.width += self.contentInsets.left + self.contentInsets.right;
-    size.height += self.contentInsets.top + self.contentInsets.bottom;
+    size.width += (self.contentInsets.left + self.contentInsets.right);
+    size.height += (self.contentInsets.top + self.contentInsets.bottom);
     return size;
 }
 

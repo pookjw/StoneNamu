@@ -8,6 +8,7 @@
 #import "DeckDetailsManaCostGraphContentView.h"
 #import "InsetsLabel.h"
 #import "DeckDetailsManaCostGraphContentConfiguration.h"
+#import "DeckDetailsManaCostContentViewModel.h"
 
 @interface DeckDetailsManaCostGraphContentView ()
 @property (class, readonly, nonatomic) UIFont *costLabelFont;
@@ -27,9 +28,9 @@
     NSString *string = @"10+";
     
     CGRect rect = [string boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX)
-                                        options:NSStringDrawingUsesLineFragmentOrigin
-                                     attributes:@{NSFontAttributeName: DeckDetailsManaCostGraphContentView.costLabelFont}
-                                        context:nil];
+                                       options:NSStringDrawingUsesLineFragmentOrigin
+                                    attributes:@{NSFontAttributeName: DeckDetailsManaCostGraphContentView.costLabelFont}
+                                       context:nil];
     
     UIEdgeInsets costLabelInsets = DeckDetailsManaCostGraphContentView.costLabelInsets;
     
@@ -89,8 +90,8 @@
     [NSLayoutConstraint activateConstraints:@[
         [costLabel.topAnchor constraintEqualToAnchor:self.topAnchor],
         [costLabel.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
-        [costLabel.widthAnchor constraintEqualToConstant:preferredRect.size.width],
-        [costLabel.heightAnchor constraintEqualToConstant:preferredRect.size.height]
+        [costLabel.widthAnchor constraintEqualToConstant:ceil(preferredRect.size.width)],
+        [costLabel.heightAnchor constraintEqualToConstant:ceil(preferredRect.size.height)]
     ]];
     
     NSLayoutConstraint *bottomLayout = [costLabel.bottomAnchor constraintEqualToAnchor:self.bottomAnchor];
@@ -161,7 +162,11 @@
 }
 
 - (void)updateCostLabel {
-    self.costLabel.text = self.cardManaCost.stringValue;
+    if (self.cardManaCost.unsignedIntegerValue == (DeckDetailsManaCostContentViewModelCountOfData - 1)) {
+        self.costLabel.text = [NSString stringWithFormat:@"%@+", self.cardManaCost.stringValue];
+    } else {
+        self.costLabel.text = self.cardManaCost.stringValue;
+    }
 }
 
 - (void)updateProgressLabel {

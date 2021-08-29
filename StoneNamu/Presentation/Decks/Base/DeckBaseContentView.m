@@ -115,7 +115,7 @@
         [nameLabel.topAnchor constraintEqualToAnchor:self.topAnchor],
         [nameLabel.leadingAnchor constraintEqualToAnchor:self.cardSetImageView.trailingAnchor],
         [nameLabel.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
-        [nameLabel.heightAnchor constraintEqualToConstant:rect.size.height + contentInsets.top + contentInsets.bottom],
+        [nameLabel.heightAnchor constraintEqualToConstant:ceil(rect.size.height + contentInsets.top + contentInsets.bottom)],
         [self.cardSetImageView.heightAnchor constraintEqualToAnchor:nameLabel.heightAnchor]
     ]];
     

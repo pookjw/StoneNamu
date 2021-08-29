@@ -66,7 +66,7 @@
         [collectionView.topAnchor constraintEqualToAnchor:self.topAnchor],
         [collectionView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
         [collectionView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
-        [collectionView.heightAnchor constraintEqualToConstant:DeckDetailsManaCostGraphContentView.preferredCostLabelRect.size.height * DeckDetailsManaCostContentViewModelCountOfData]
+        [collectionView.heightAnchor constraintEqualToConstant:ceil(DeckDetailsManaCostGraphContentView.preferredCostLabelRect.size.height) * DeckDetailsManaCostContentViewModelCountOfData]
     ]];
     
     NSLayoutConstraint *bottomLayout = [collectionView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor];
