@@ -50,6 +50,7 @@
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     [self updateGradientLayer];
+    [self updateCollectionViewInsets];
 }
 
 - (void)configureContainerViews {
@@ -128,6 +129,13 @@
     [CATransaction commit];
 }
 
+- (void)updateCollectionViewInsets {
+    if ([self.collectionView.superview isEqual:self.collectionViewContainerView]) {
+        self.collectionView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    }
+}
+
+
 - (CGRect)estimatedPrimaryImageRectUsingWindow:(UIWindow *)window safeAreaInsets:(UIEdgeInsets)safeAreaInsets {
     CGFloat x = safeAreaInsets.left;
     CGFloat y = safeAreaInsets.top;
@@ -142,7 +150,7 @@
     if (primaryImageView.superview) {
         [primaryImageView removeFromSuperview];
     }
-
+    
     [self.primaryImageViewContainerView addSubview:primaryImageView];
     primaryImageView.translatesAutoresizingMaskIntoConstraints = NO;
     [NSLayoutConstraint activateConstraints:@[

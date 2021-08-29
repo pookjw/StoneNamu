@@ -14,6 +14,7 @@
 #import "CardDetailsBasicContentConfiguration.h"
 #import "CardDetailsChildrenContentConfiguration.h"
 #import "PhotosService.h"
+#import "UIScrollView+scrollToTop.h"
 
 @interface CardDetailsViewController () <UIViewControllerTransitioningDelegate, UIContextMenuInteractionDelegate, UIDragInteractionDelegate, CardDetailsChildrenContentConfigurationDelegate>
 @property (retain) UIImageView * _Nullable sourceImageView;
@@ -194,6 +195,7 @@
         self.collectionView.alpha = 1;
     }];
     [self.collectionView.collectionViewLayout invalidateLayout];
+    [self.collectionView scrollToTopAnimated:YES];
 }
 
 - (void)configureLayoutViewControllers {
@@ -268,6 +270,8 @@
     [targetLayoutViewController cardDetailsLayoutAddCollectionView:self.collectionView];
     
     targetLayoutViewController.view.hidden = NO;
+    
+    [self.collectionView.collectionViewLayout invalidateLayout];
 }
 
 - (CardDetailsDataSource *)makeDataSource {

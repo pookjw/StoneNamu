@@ -120,7 +120,7 @@
     if (primaryImageView.superview) {
         [primaryImageView removeFromSuperview];
     }
-
+    
     [self.primaryImageViewContainerView addSubview:primaryImageView];
     primaryImageView.translatesAutoresizingMaskIntoConstraints = NO;
     [NSLayoutConstraint activateConstraints:@[
