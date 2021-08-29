@@ -124,9 +124,9 @@
 
 "DECK_EXPORT_ERROR_CARDS_ARE_NOT_FILLED" = "Please fill %lu cards to export deck code! (Current : %lu)";
 
-"ENTER_DECK_TITLE_HERE" = "Enter deck title here...";
+"ENTER_DECK_TITLE_HERE" = "Enter deck title here... (optional)";
 
-"ENTER_DECK_CODE_HERE" = "Enter deck code here...";
+"ENTER_DECK_CODE_HERE" = "Enter deck code here... (required)";
 
 "DELETE" = "Delete";
 

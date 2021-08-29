@@ -124,9 +124,9 @@
 
 "DECK_EXPORT_ERROR_CARDS_ARE_NOT_FILLED" = "덱코드를 추출하기 위해서는 %lu의 카드가 필요합니다. (현재 : %lu)";
 
-"ENTER_DECK_TITLE_HERE" = "제목을 입력해 주세요...";
+"ENTER_DECK_TITLE_HERE" = "제목을 입력해 주세요... (선택)";
 
-"ENTER_DECK_CODE_HERE" = "덱코드를 입력해 주세요...";
+"ENTER_DECK_CODE_HERE" = "덱코드를 입력해 주세요... (필수)";
 
 "DELETE" = "삭제";
 

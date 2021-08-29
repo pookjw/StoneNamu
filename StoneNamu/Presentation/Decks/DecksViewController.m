@@ -12,10 +12,12 @@
 #import "UIViewController+animatedForSelectedIndexPath.h"
 #import "DeckBaseContentConfiguration.h"
 
-@interface DecksViewController () <UICollectionViewDelegate>
+@interface DecksViewController () <UICollectionViewDelegate, UITextFieldDelegate>
 @property (retain) UICollectionView *collectionView;
 @property (retain) UIBarButtonItem *addBarButtonItem;
 @property (retain) DecksViewModel *viewModel;
+@property (weak) UITextField * _Nullable deckCodeTextField;
+@property (weak) UIAlertAction * _Nullable deckCodeAlertAction;
 @end
 
 @implementation DecksViewController
@@ -230,6 +232,8 @@
             
             [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
                 textField.text = deckCode;
+                self.deckCodeTextField = textField;
+                textField.delegate = self;
                 textField.placeholder = NSLocalizedString(@"ENTER_DECK_CODE_HERE", @"");
                 
 #if DEBUG
@@ -248,7 +252,7 @@
                                                                 handler:^(UIAlertAction * _Nonnull action) {
                 UITextField * _Nullable firstTextField = alert.textFields[0];
                 UITextField * _Nullable secondTextField = alert.textFields[1];
-                if (secondTextField.text) {
+                if ((secondTextField.text != nil) && (![secondTextField.text isEqualToString:@""])) {
                     [self.viewModel fetchDeckCode:secondTextField.text
                                             title:firstTextField.text
                                        completion:^(LocalDeck * _Nonnull localDeck, HSDeck * _Nullable hsDeck, NSError * _Nullable error) {
@@ -262,6 +266,13 @@
                     }];
                 }
             }];
+            self.deckCodeAlertAction = fetchButton;
+            
+            if ((self.deckCodeTextField.text == nil) || ([self.deckCodeTextField.text isEqualToString:@""])) {
+                fetchButton.enabled = NO;
+            } else {
+                fetchButton.enabled = YES;
+            }
             
             [alert addAction:cancelAction];
             [alert addAction:fetchButton];
@@ -285,6 +296,20 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     DecksItemModel *itemModel = [self.viewModel.dataSource itemIdentifierForIndexPath:indexPath];
     [self presentDeckDetailsWithLocalDeck:itemModel.localDeck];
+}
+
+#pragma mark UITextFieldDelegate
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    
+    if ([textField isEqual:self.deckCodeTextField]) {
+        if (([string isEqualToString:@""]) && (textField.text.length == range.length)) {
+            self.deckCodeAlertAction.enabled = NO;
+        } else {
+            self.deckCodeAlertAction.enabled = YES;
+        }
+    }
+    return YES;
 }
 
 @end
