@@ -217,12 +217,7 @@
 
 - (void)updateCardSetImageView {
     UIEdgeInsets inset = UIEdgeInsetsMake(-8, -8, -8, -8);
-    
-    if (self.localDeck.isWild.boolValue) {
-        self.cardSetImageView.image = [[ImageService.sharedInstance imageOfDeckFormat:HSDeckFormatWild] imageWithAlignmentRectInsets:inset];
-    } else {
-        self.cardSetImageView.image = [[ImageService.sharedInstance imageOfDeckFormat:HSDeckFormatStandard] imageWithAlignmentRectInsets:inset];
-    }
+    self.cardSetImageView.image = [[ImageService.sharedInstance imageOfDeckFormat:self.localDeck.format] imageWithAlignmentRectInsets:inset];
 }
 
 - (void)updateNameLabel {

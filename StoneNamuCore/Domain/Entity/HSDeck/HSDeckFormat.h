@@ -9,5 +9,9 @@
 
 typedef NSString * HSDeckFormat NS_STRING_ENUM;
 
-static HSDeckFormat const HSDeckFormatWild = @"wild";
 static HSDeckFormat const HSDeckFormatStandard = @"standard";
+static HSDeckFormat const HSDeckFormatWild = @"wild";
+static HSDeckFormat const HSDeckFormatClassic = @"classic";
+
+NSArray<NSString *> * hsDeckFormats(void);
+NSDictionary<NSString *, NSString *> * hsDeckFormatsWithLocalizable(void);

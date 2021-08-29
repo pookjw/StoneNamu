@@ -11,7 +11,7 @@
 @implementation LocalDeck
 
 @dynamic cardsData;
-@dynamic isWild;
+@dynamic format;
 @dynamic classId;
 @dynamic deckCode;
 @dynamic name;
@@ -71,7 +71,7 @@
         NSLog(@"card in HSDeck is empty!");
     }
     
-    self.isWild = [NSNumber numberWithBool:[hsDeck.format isEqualToString:HSDeckFormatWild]];
+    self.format = hsDeck.format;
     self.classId = [NSNumber numberWithUnsignedInteger:hsDeck.classId];
     self.deckCode = [[hsDeck.deckCode copy] autorelease];
     self.name = hsCardClassesWithLocalizable()[NSStringFromHSCardClass(hsDeck.classId)];

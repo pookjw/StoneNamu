@@ -85,22 +85,51 @@ NSArray<NSString *> * hsCardClasses(void) {
     ];
 }
 
-NSArray<NSString *> * hsCardClassesWithTenClasses(void) {
-    return @[
-        NSStringFromHSCardClass(HSCardClassDemonHunter),
-        NSStringFromHSCardClass(HSCardClassDruid),
-        NSStringFromHSCardClass(HSCardClassHunter),
-        NSStringFromHSCardClass(HSCardClassMage),
-        NSStringFromHSCardClass(HSCardClassPaladin),
-        NSStringFromHSCardClass(HSCardClassPriest),
-        NSStringFromHSCardClass(HSCardClassRogue),
-        NSStringFromHSCardClass(HSCardClassShaman),
-        NSStringFromHSCardClass(HSCardClassWarlock),
-        NSStringFromHSCardClass(HSCardClassWarrior)
-    ];
+NSArray<NSString *> * hsCardClassesForFormat(HSDeckFormat format) {
+    if ([format isEqualToString:HSDeckFormatStandard]) {
+        return @[
+            NSStringFromHSCardClass(HSCardClassDemonHunter),
+            NSStringFromHSCardClass(HSCardClassDruid),
+            NSStringFromHSCardClass(HSCardClassHunter),
+            NSStringFromHSCardClass(HSCardClassMage),
+            NSStringFromHSCardClass(HSCardClassPaladin),
+            NSStringFromHSCardClass(HSCardClassPriest),
+            NSStringFromHSCardClass(HSCardClassRogue),
+            NSStringFromHSCardClass(HSCardClassShaman),
+            NSStringFromHSCardClass(HSCardClassWarlock),
+            NSStringFromHSCardClass(HSCardClassWarrior)
+        ];
+    } else if ([format isEqualToString:HSDeckFormatWild]) {
+        return @[
+            NSStringFromHSCardClass(HSCardClassDemonHunter),
+            NSStringFromHSCardClass(HSCardClassDruid),
+            NSStringFromHSCardClass(HSCardClassHunter),
+            NSStringFromHSCardClass(HSCardClassMage),
+            NSStringFromHSCardClass(HSCardClassPaladin),
+            NSStringFromHSCardClass(HSCardClassPriest),
+            NSStringFromHSCardClass(HSCardClassRogue),
+            NSStringFromHSCardClass(HSCardClassShaman),
+            NSStringFromHSCardClass(HSCardClassWarlock),
+            NSStringFromHSCardClass(HSCardClassWarrior)
+        ];
+    } else if ([format isEqualToString:HSDeckFormatClassic]) {
+        return @[
+            NSStringFromHSCardClass(HSCardClassDruid),
+            NSStringFromHSCardClass(HSCardClassHunter),
+            NSStringFromHSCardClass(HSCardClassMage),
+            NSStringFromHSCardClass(HSCardClassPaladin),
+            NSStringFromHSCardClass(HSCardClassPriest),
+            NSStringFromHSCardClass(HSCardClassRogue),
+            NSStringFromHSCardClass(HSCardClassShaman),
+            NSStringFromHSCardClass(HSCardClassWarlock),
+            NSStringFromHSCardClass(HSCardClassWarrior)
+        ];
+    } else {
+        return @[];
+    }
 }
 
-NSDictionary<NSString *, NSString *>  * hsCardClassesWithLocalizable(void) {
+NSDictionary<NSString *, NSString *> * hsCardClassesWithLocalizable(void) {
     NSMutableDictionary<NSString *, NSString *> *dic = [@{} mutableCopy];
     
     [hsCardClasses() enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -116,10 +145,10 @@ NSDictionary<NSString *, NSString *>  * hsCardClassesWithLocalizable(void) {
     return result;
 }
 
-NSDictionary<NSString *, NSString *>  * hsCardClassesWithTenClassesWithLocalizable(void) {
+NSDictionary<NSString *, NSString *> * hsCardClassesWithLocalizableForFormat(HSDeckFormat format) {
     NSMutableDictionary<NSString *, NSString *> *dic = [@{} mutableCopy];
     
-    [hsCardClassesWithTenClasses() enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    [hsCardClassesForFormat(format) enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         dic[obj] = NSLocalizedStringFromTableInBundle(obj,
                                                       @"HSCardClass",
                                                       [NSBundle bundleWithIdentifier:@"com.pookjw.StoneNamuCore"],

@@ -4,8 +4,8 @@
         <attribute name="cardsData" optional="YES" attributeType="Binary" customClassName="NSArray"/>
         <attribute name="classId" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="deckCode" optional="YES" attributeType="String"/>
+        <attribute name="format" optional="YES" attributeType="String"/>
         <attribute name="identity" optional="YES" attributeType="String"/>
-        <attribute name="isWild" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
     </entity>

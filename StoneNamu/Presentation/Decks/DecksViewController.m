@@ -53,26 +53,15 @@
     
     //
     
-    NSDictionary<NSString *, NSString *> *hsCardClasses = hsCardClassesWithTenClassesWithLocalizable();
-    NSArray<NSString *> *hsCardClassesKeys = [hsCardClasses.allKeys sortedArrayUsingComparator:^NSComparisonResult(NSString *obj1, NSString *obj2) {
-        HSCardClass class1 = HSCardClassFromNSString(obj1);
-        HSCardClass class2 = HSCardClassFromNSString(obj2);
-        
-        if (class1 > class2) {
-            return NSOrderedDescending;
-        } else if (class1 < class2) {
-            return NSOrderedAscending;
-        } else {
-            return NSOrderedSame;
-        }
-    }];
-    
     NSMutableArray<UIAction *> *createStandardDeckActions = [@[] mutableCopy];
     NSMutableArray<UIAction *> *createWildDeckActions = [@[] mutableCopy];
+    NSMutableArray<UIAction *> *createClassicDeckActions = [@[] mutableCopy];
     
-    for (NSString *key in hsCardClassesKeys) {
+    NSDictionary<NSString *, NSString *> *localizable = hsCardClassesWithLocalizable();
+    
+    for (NSString *key in hsCardClassesForFormat(HSDeckFormatStandard)) {
         @autoreleasepool {
-            UIAction *standardAction = [UIAction actionWithTitle:hsCardClasses[key]
+            UIAction *standardAction = [UIAction actionWithTitle:localizable[key]
                                                    image:nil
                                               identifier:nil
                                                  handler:^(__kindof UIAction * _Nonnull action) {
@@ -85,7 +74,13 @@
                 }];
             }];
             
-            UIAction *wildAction = [UIAction actionWithTitle:hsCardClasses[key]
+            [createStandardDeckActions addObject:standardAction];
+        }
+    }
+    
+    for (NSString *key in hsCardClassesForFormat(HSDeckFormatWild)) {
+        @autoreleasepool {
+            UIAction *wildAction = [UIAction actionWithTitle:localizable[key]
                                                    image:nil
                                               identifier:nil
                                                  handler:^(__kindof UIAction * _Nonnull action) {
@@ -98,23 +93,47 @@
                 }];
             }];
             
-            [createStandardDeckActions addObject:standardAction];
             [createWildDeckActions addObject:wildAction];
         }
     }
     
+    for (NSString *key in hsCardClassesForFormat(HSDeckFormatClassic)) {
+        @autoreleasepool {
+            UIAction *classicAction = [UIAction actionWithTitle:localizable[key]
+                                                   image:nil
+                                              identifier:nil
+                                                 handler:^(__kindof UIAction * _Nonnull action) {
+                [self.viewModel makeLocalDeckWithClass:HSCardClassFromNSString(key)
+                                            deckFormat:HSDeckFormatClassic
+                                            completion:^(LocalDeck * _Nonnull localDeck) {
+                    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+                        [self presentDeckDetailsWithLocalDeck:localDeck];
+                    }];
+                }];
+            }];
+            
+            [createClassicDeckActions addObject:classicAction];
+        }
+    }
+    
+    //
+    
     UIMenu *createDeckMenu = [UIMenu menuWithTitle:NSLocalizedString(@"CREATE_NEW_DECK", @"")
                                               children:@[
         
-        [UIMenu menuWithTitle:hsCardSetsWithLocalizable()[NSStringFromHSCardSet(HSCardSetStandardCards)]
+        [UIMenu menuWithTitle:hsDeckFormatsWithLocalizable()[HSDeckFormatStandard]
                      children:createStandardDeckActions],
         
-        [UIMenu menuWithTitle:hsCardSetsWithLocalizable()[NSStringFromHSCardSet(HSCardSetWildCards)]
-                     children:createWildDeckActions]
+        [UIMenu menuWithTitle:hsDeckFormatsWithLocalizable()[HSDeckFormatWild]
+                     children:createWildDeckActions],
+        
+        [UIMenu menuWithTitle:hsDeckFormatsWithLocalizable()[HSDeckFormatClassic]
+                     children:createClassicDeckActions]
     ]];
     
     [createStandardDeckActions release];
     [createWildDeckActions release];
+    [createClassicDeckActions release];
     
     addBarButtonItem.menu = [UIMenu menuWithChildren:@[
         createDeckMenu,

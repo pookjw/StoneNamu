@@ -21,7 +21,15 @@
 }
 
 - (UIImage * _Nullable)imageOfDeckFormat:(HSDeckFormat)deckFormat {
-    return [UIImage imageNamed:deckFormat];
+    if ([deckFormat isEqualToString:HSDeckFormatStandard]) {
+        return [UIImage imageNamed:HSDeckFormatStandard];
+    } else if ([deckFormat isEqualToString:HSDeckFormatWild]) {
+        return [UIImage imageNamed:HSDeckFormatWild];
+    } else if ([deckFormat isEqualToString:HSDeckFormatClassic]) {
+        return [UIImage imageNamed:@"classic-cards"];
+    } else {
+        return nil;
+    }
 }
 
 - (UIImage * _Nullable)imageOfCardSet:(HSCardSet)cardSet {

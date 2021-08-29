@@ -103,7 +103,7 @@
         }
         
         LocalDeck *localDeck = [self.localDeckUseCase makeLocalDeck];
-        localDeck.isWild = [NSNumber numberWithBool:(deckFormat == HSDeckFormatWild)];
+        localDeck.format = deckFormat;
         localDeck.name = hsCardClassesWithLocalizable()[NSStringFromHSCardClass(hsCardClass)];
         localDeck.classId = [NSNumber numberWithUnsignedInteger:hsCardClass];
         

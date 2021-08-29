@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface LocalDeck : NSManagedObject
 @property (assign) NSData * _Nullable cardsData;
-@property (assign) NSNumber * _Nullable isWild;
+@property (assign) NSString * _Nullable format;
 @property (assign) NSNumber * _Nullable classId;
 @property (assign) NSString * _Nullable deckCode;
 @property (assign) NSString * _Nullable name;

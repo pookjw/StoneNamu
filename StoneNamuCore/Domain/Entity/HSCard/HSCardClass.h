@@ -6,6 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "HSDeckFormat.h"
 
 typedef NS_ENUM(NSUInteger, HSCardClass) {
     HSCardClassNeutral = 12,
@@ -26,7 +27,6 @@ NSString * NSStringFromHSCardClass(HSCardClass);
 HSCardClass HSCardClassFromNSString(NSString *);
 
 NSArray<NSString *> * hsCardClasses(void);
-NSArray<NSString *> * hsCardClassesWithTenClasses(void);
-
+NSArray<NSString *> * hsCardClassesForFormat(HSDeckFormat);
 NSDictionary<NSString *, NSString *> * hsCardClassesWithLocalizable(void);
-NSDictionary<NSString *, NSString *> * hsCardClassesWithTenClassesWithLocalizable(void);
+NSDictionary<NSString *, NSString *> * hsCardClassesWithLocalizableForFormat(HSDeckFormat);
