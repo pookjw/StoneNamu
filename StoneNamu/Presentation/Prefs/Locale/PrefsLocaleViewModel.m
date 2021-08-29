@@ -9,10 +9,12 @@
 #import "PrefsUseCaseImpl.h"
 #import "BlizzardHSAPILocale.h"
 #import "NSSemaphoreCondition.h"
+#import "DataCacheUseCaseImpl.h"
 
 @interface PrefsLocaleViewModel ()
 @property (retain) NSOperationQueue *queue;
 @property (retain) id<PrefsUseCase> prefsUseCase;
+@property (retain) id<DataCacheUseCase> dataCacheUseCase;
 @end
 
 @implementation PrefsLocaleViewModel
@@ -33,6 +35,10 @@
         self.prefsUseCase = prefsUseCase;
         [prefsUseCase release];
         
+        DataCacheUseCaseImpl *dataCacheUseCase = [DataCacheUseCaseImpl new];
+        self.dataCacheUseCase = dataCacheUseCase;
+        [dataCacheUseCase release];
+        
         [self requestDataSource];
     }
     
@@ -43,6 +49,7 @@
     [_dataSource release];
     [_queue release];
     [_prefsUseCase release];
+    [_dataCacheUseCase release];
     [super dealloc];
 }
 
@@ -54,6 +61,7 @@
             if (prefs) {
                 prefs.locale = itemModel.locale;
                 [self.prefsUseCase saveChanges];
+                [self.dataCacheUseCase deleteAllDataCaches];
             }
         }];
     }
