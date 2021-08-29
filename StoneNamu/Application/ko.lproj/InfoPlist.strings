@@ -6,6 +6,6 @@
   
 */
 
-"CFBundleDisplayName" = "돌나무";
+"CFBundleDisplayName" = "스톤나무";
 
 "NSPhotoLibraryAddUsageDescription" = "사진 저장을 위해 사진 권한을 허용해 주세요.";
