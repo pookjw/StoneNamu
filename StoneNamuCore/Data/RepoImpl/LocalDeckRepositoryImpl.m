@@ -98,14 +98,19 @@
 
 - (void)fetchWithObjectId:(NSManagedObjectID *)objectId completion:(LocalDeckRepositoryFetchWithObjectIdCompletion)completion {
     [self.coreDataStack.queue addBarrierBlock:^{
-        NSManagedObjectContext *context = self.coreDataStack.context;
-        
-        [context performBlockAndWait:^{
-            @autoreleasepool {
-                LocalDeck * _Nullable localDeck = [context objectWithID:objectId];
-                completion(localDeck);
-            }
-        }];
+        if (objectId) {
+            NSManagedObjectContext *context = self.coreDataStack.context;
+            
+            [context performBlockAndWait:^{
+                @autoreleasepool {
+                    LocalDeck * _Nullable localDeck = [context objectWithID:objectId];
+                    completion(localDeck);
+                }
+            }];
+        } else {
+            NSLog(@"objectId is nil!");
+            completion(nil);
+        }
     }];
 }
 
