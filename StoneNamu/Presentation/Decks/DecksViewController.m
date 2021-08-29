@@ -171,6 +171,7 @@
 
 - (void)configureCollectionView {
     UICollectionLayoutListConfiguration *layoutConfiguration = [[UICollectionLayoutListConfiguration alloc] initWithAppearance:UICollectionLayoutListAppearanceInsetGrouped];
+    layoutConfiguration.trailingSwipeActionsConfigurationProvider = [self makeTrailingSwipeProvider];
     
     UICollectionViewCompositionalLayout *layout = [UICollectionViewCompositionalLayout layoutWithListConfiguration:layoutConfiguration];
     [layoutConfiguration release];
@@ -227,6 +228,25 @@
     }];
     
     return cellRegistration;
+}
+
+- (UICollectionLayoutListSwipeActionsConfigurationProvider)makeTrailingSwipeProvider {
+    UICollectionLayoutListSwipeActionsConfigurationProvider provider = ^UISwipeActionsConfiguration * _Nullable(NSIndexPath *indexPath) {
+        
+        UIContextualAction *deleteAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive
+                                                                                   title:nil
+                                                                                 handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
+            [self.viewModel deleteLocalDeckFromIndexPath:indexPath];
+        }];
+        
+        deleteAction.image = [UIImage systemImageNamed:@"trash"];
+        
+        UISwipeActionsConfiguration *configuration = [UISwipeActionsConfiguration configurationWithActions:@[deleteAction]];
+        configuration.performsFirstActionWithFullSwipe = NO;
+        return configuration;
+    };
+    
+    return [[provider copy] autorelease];
 }
 
 - (void)presentTextFieldAndFetchDeckCode {

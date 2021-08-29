@@ -175,6 +175,45 @@
     }];
 }
 
+- (void)deleteLocalDeckFromIndexPath:(NSIndexPath *)indexPath {
+    NSIndexPath *copyIndexPath = [indexPath copy];
+    
+    [self.queue addBarrierBlock:^{
+        DecksItemModel * _Nullable itemModel = [self.dataSource itemIdentifierForIndexPath:copyIndexPath];
+        [copyIndexPath release];
+        if (itemModel == nil) return;
+        
+        switch (itemModel.type) {
+            case DecksItemModelTypeDeck:
+                [self deleteLocalDeck:itemModel.localDeck];
+                break;
+            default:
+                break;
+        }
+    }];
+}
+
+- (void)deleteLocalDeck:(LocalDeck *)localDeck {
+    [localDeck retain];
+    
+    [self.queue addBarrierBlock:^{
+        NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
+        
+        [snapshot.itemIdentifiers enumerateObjectsUsingBlock:^(DecksItemModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if ([obj.localDeck isEqual:localDeck]) {
+                [snapshot deleteItemsWithIdentifiers:@[obj]];
+            }
+        }];
+        
+        [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
+            [snapshot release];
+            
+            [self.localDeckUseCase deleteLocalDeck:localDeck];
+            [localDeck release];
+        }];
+    }];
+}
+
 - (void)parseClipboardForDeckCodeWithCompletion:(DecksViewModelParseClipboardCompletion)completion {
     [self.queue addOperationWithBlock:^{
         NSString *text = UIPasteboard.generalPasteboard.string;

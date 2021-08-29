@@ -290,7 +290,7 @@
         DeckDetailsItemModel *itemModel = [self.dataSource itemIdentifierForIndexPath:indexPath];
         
         if (itemModel.hsCardCount <= 1) {
-            [self removeAtIndexPath:indexPath];
+            [self deleteAtIndexPath:indexPath];
             return;
         }
         
@@ -330,7 +330,7 @@
     }];
 }
 
-- (void)removeAtIndexPath:(NSIndexPath *)indexPath {
+- (void)deleteAtIndexPath:(NSIndexPath *)indexPath {
     HSCard * _Nullable hsCard = [self.dataSource itemIdentifierForIndexPath:indexPath].hsCard;
     
     if (hsCard) {

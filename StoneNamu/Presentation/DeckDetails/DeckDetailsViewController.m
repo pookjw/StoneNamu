@@ -281,17 +281,17 @@
         
         //
         
-        UIContextualAction *removeAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive
+        UIContextualAction *deleteAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive
                                                                                    title:nil
                                                                                  handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
-            [self.viewModel removeAtIndexPath:indexPath];
+            [self.viewModel deleteAtIndexPath:indexPath];
         }];
         
-        removeAction.image = [UIImage systemImageNamed:@"trash"];
+        deleteAction.image = [UIImage systemImageNamed:@"trash"];
         
         //
         
-        UISwipeActionsConfiguration *configuration = [UISwipeActionsConfiguration configurationWithActions:@[removeAction, incrementAction, decrementAction]];
+        UISwipeActionsConfiguration *configuration = [UISwipeActionsConfiguration configurationWithActions:@[deleteAction, incrementAction, decrementAction]];
         configuration.performsFirstActionWithFullSwipe = NO;
         return configuration;
     };
@@ -426,7 +426,7 @@
                                                              image:[UIImage systemImageNamed:@"trash"]
                                                         identifier:nil
                                                            handler:^(__kindof UIAction * _Nonnull action) {
-                    [self.viewModel removeAtIndexPath:indexPath];
+                    [self.viewModel deleteAtIndexPath:indexPath];
                 }];
                 deleteAction.attributes = UIMenuElementAttributesDestructive;
                 
