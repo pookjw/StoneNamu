@@ -95,16 +95,42 @@
         
         //
         
+        BOOL __block hasError = NO;
+        
         for (HSCard *hsCard in copyHSCards) {
+            if ((hsCard.classId != self.localDeck.classId.unsignedIntegerValue) && (hsCard.classId != HSCardClassNeutral)) {
+                [self postClassDoesNotMatchNotification];
+                hasError = YES;
+                break;
+            }
+            
+            if (hsCard.collectible == HSCardCollectibleNO) {
+                [self postNotCollectibleCardNotification];
+                hasError = YES;
+                break;
+            }
+            
+            if ([hsCardHeroes() containsObject:[NSNumber numberWithUnsignedInteger:hsCard.parentId]]) {
+                [self postCannotAddHeroPortraitCardNotification];
+                hasError = YES;
+                break;
+            }
+            
+            //
+            
             BOOL __block isDuplicated = NO;
             
             [snapshot.itemIdentifiers enumerateObjectsUsingBlock:^(DeckDetailsItemModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 if ([obj.hsCard isEqual:hsCard]) {
                     
                     if ((obj.hsCard.rarityId == HSCardRarityLegendary) && (obj.hsCardCount >= HSDECK_MAX_SINGLE_LEGENDARY_CARD)) {
-                        NSLog(@"Duplicated legenday card was detected!");
+                        [self postMaxSingleLegendaryCardErrorNotification];
+                        hasError = YES;
+                        *stop = YES;
                     } else if (obj.hsCardCount >= HSDECK_MAX_SINGLE_CARD) {
-                        NSLog(@"Duplicated card was detected!");
+                        [self postMaxSingleCardErrorNotification];
+                        hasError = YES;
+                        *stop = YES;
                     } else {
                         DeckDetailsItemModel *copy = [obj copy];
                         copy.hsCardCount += 1;
@@ -122,6 +148,10 @@
                 }
             }];
             
+            if (hasError) {
+                break;
+            }
+            
             if (!isDuplicated) {
                 DeckDetailsItemModel *cardItemModel = [[DeckDetailsItemModel alloc] initWithType:DeckDetailsItemModelTypeCard];
                 cardItemModel.hsCard = hsCard;
@@ -129,6 +159,14 @@
                 [snapshot appendItemsWithIdentifiers:@[cardItemModel] intoSectionWithIdentifier:cardsSectionModel];
                 [cardItemModel release];
             }
+        }
+        
+        //
+        
+        if (hasError) {
+            [copyHSCards release];
+            [snapshot release];
+            return;
         }
         
         //
@@ -196,26 +234,17 @@
         DeckDetailsItemModel *itemModel = [self.dataSource itemIdentifierForIndexPath:indexPath];
         
         if ((itemModel.hsCard.rarityId == HSCardRarityLegendary) && (itemModel.hsCardCount >= HSDECK_MAX_SINGLE_LEGENDARY_CARD)) {
-            NSError *error = [NSError errorWithDomain:@"com.pookjw.StoneNamu"
-                                                 code:107
-                                             userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"DECK_ADD_CARD_ERROR_CANNOT_ADD_SINGLE_LAGENDARY_CARD_MORE_THAN_ONE", @"")}];
-            [self postErrorOccuredNotification:error];
+            [self postMaxSingleLegendaryCardErrorNotification];
             return;
         } else if (itemModel.hsCardCount >= HSDECK_MAX_SINGLE_CARD) {
-            NSError *error = [NSError errorWithDomain:@"com.pookjw.StoneNamu"
-                                                 code:108
-                                             userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"DECK_ADD_CARD_ERROR_CANNOT_ADD_SINGLE_CARD_MORE_THAN_TWO", @"")}];
-            [self postErrorOccuredNotification:error];
+            [self postMaxSingleCardErrorNotification];
             return;
         }
         
         NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
         
         if (([self totalCardsInSnapshot:snapshot]) >= HSDECK_MAX_TOTAL_CARDS) {
-            NSError *error = [NSError errorWithDomain:@"com.pookjw.StoneNamu"
-                                                 code:109
-                                             userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"DECK_ADD_CARD_ERROR_NO_MORE_THAN_THIRTY_CARDS", @"")}];
-            [self postErrorOccuredNotification:error];
+            [self postMaxTotalCardErrorNotification];
             [snapshot release];
             return;
         }
@@ -609,6 +638,48 @@
     [NSNotificationCenter.defaultCenter postNotificationName:DeckDetailsViewModelErrorOccuredNoficiationName
                                                       object:self
                                                     userInfo:@{DeckDetailsViewModelErrorOccuredItemKey: error}];
+}
+
+- (void)postMaxSingleLegendaryCardErrorNotification {
+    NSError *error = [NSError errorWithDomain:@"com.pookjw.StoneNamu"
+                                         code:107
+                                     userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"DECK_ADD_CARD_ERROR_CANNOT_ADD_SINGLE_LAGENDARY_CARD_MORE_THAN_ONE", @"")}];
+    [self postErrorOccuredNotification:error];
+}
+
+- (void)postMaxSingleCardErrorNotification {
+    NSError *error = [NSError errorWithDomain:@"com.pookjw.StoneNamu"
+                                         code:108
+                                     userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"DECK_ADD_CARD_ERROR_CANNOT_ADD_SINGLE_CARD_MORE_THAN_TWO", @"")}];
+    [self postErrorOccuredNotification:error];
+}
+
+- (void)postMaxTotalCardErrorNotification {
+    NSError *error = [NSError errorWithDomain:@"com.pookjw.StoneNamu"
+                                         code:109
+                                     userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"DECK_ADD_CARD_ERROR_NO_MORE_THAN_THIRTY_CARDS", @"")}];
+    [self postErrorOccuredNotification:error];
+}
+
+- (void)postClassDoesNotMatchNotification {
+    NSError *error = [NSError errorWithDomain:@"com.pookjw.StoneNamu"
+                                         code:110
+                                     userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"DECK_ADD_CARD_ERROR_CANNOT_ADD_DIFFERENT_CLASS_CARD", @"")}];
+    [self postErrorOccuredNotification:error];
+}
+
+- (void)postNotCollectibleCardNotification {
+    NSError *error = [NSError errorWithDomain:@"com.pookjw.StoneNamu"
+                                         code:111
+                                     userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"DECK_ADD_CARD_ERROR_CANNOT_ADD_NOT_COLLECTIBLE_CARD", @"")}];
+    [self postErrorOccuredNotification:error];
+}
+
+- (void)postCannotAddHeroPortraitCardNotification {
+    NSError *error = [NSError errorWithDomain:@"com.pookjw.StoneNamu"
+                                         code:112
+                                     userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"DECK_ADD_CARD_ERROR_CANNOT_ADD_HERO_PORTRAIT_CARD", @"")}];
+    [self postErrorOccuredNotification:error];
 }
 
 @end

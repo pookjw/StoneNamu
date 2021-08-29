@@ -62,3 +62,18 @@ HSCardClass HSCardClassFromHSCardHero(HSCardHero key) {
             return 0;
     }
 }
+
+NSArray<NSNumber *> * hsCardHeroes(void) {
+    return @[
+        [NSNumber numberWithUnsignedInteger:HSCardHeroDemonHunter],
+        [NSNumber numberWithUnsignedInteger:HSCardHeroDruid],
+        [NSNumber numberWithUnsignedInteger:HSCardHeroHunter],
+        [NSNumber numberWithUnsignedInteger:HSCardHeroMage],
+        [NSNumber numberWithUnsignedInteger:HSCardHeroPaladin],
+        [NSNumber numberWithUnsignedInteger:HSCardHeroPriest],
+        [NSNumber numberWithUnsignedInteger:HSCardHeroRogue],
+        [NSNumber numberWithUnsignedInteger:HSCardHeroShaman],
+        [NSNumber numberWithUnsignedInteger:HSCardHeroWarlock],
+        [NSNumber numberWithUnsignedInteger:HSCardHeroWarrior]
+    ];
+}

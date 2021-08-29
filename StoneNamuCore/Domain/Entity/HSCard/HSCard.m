@@ -152,6 +152,14 @@
     
     //
     
+    if (dic[@"parentId"]) {
+        hsCard->_parentId = [(NSNumber *)dic[@"parentId"] unsignedIntegerValue];
+    } else {
+        hsCard->_parentId = 0;
+    }
+    
+    //
+    
     return [hsCard autorelease];
 }
 
@@ -188,6 +196,7 @@
         _copy->_cropImage = [self->_cropImage copyWithZone:zone];
         _copy->_childIds = [self->_childIds copyWithZone:zone];
         _copy->_gameModes = [self->_gameModes copyWithZone:zone];
+        _copy->_parentId = self->_parentId;
     }
     
     return copy;
@@ -221,6 +230,7 @@
         cardObject->_cropImage = [[coder decodeObjectOfClass:[NSURL class] forKey:@"cropImage"] copy];
         cardObject->_childIds = [[coder decodeObjectOfClass:[NSArray<NSNumber *> class] forKey:@"childIds"] copy];
         cardObject->_gameModes = [[coder decodeObjectOfClass:[NSArray<NSNumber *> class] forKey:@"gameModes"] copy];
+        cardObject->_parentId = [coder decodeIntegerForKey:@"parentId"];
     }
     
     return object;
@@ -248,6 +258,7 @@
     [coder encodeObject:self.cropImage forKey:@"cropImage"];
     [coder encodeObject:self.childIds forKey:@"childIds"];
     [coder encodeObject:self.gameModes forKey:@"gameModes"];
+    [coder encodeInteger:self.parentId forKey:@"parentId"];
 }
 
 #pragma mark NSSecureCoding

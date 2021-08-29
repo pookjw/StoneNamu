@@ -116,6 +116,12 @@
 
 "DECK_ADD_CARD_ERROR_CANNOT_ADD_SINGLE_LAGENDARY_CARD_MORE_THAN_ONE" = "You cannot add legendary card more than one.";
 
+"DECK_ADD_CARD_ERROR_CANNOT_ADD_DIFFERENT_CLASS_CARD" = "You cannot add a different class of card.";
+
+"DECK_ADD_CARD_ERROR_CANNOT_ADD_NOT_COLLECTIBLE_CARD" = "You cannot add a not collectible card.";
+
+"DECK_ADD_CARD_ERROR_CANNOT_ADD_HERO_PORTRAIT_CARD" = "You cannot add a hero portrait card.";
+
 "ENTER_DECK_TITLE_HERE" = "Enter deck title here...";
 
 "ENTER_DECK_CODE_HERE" = "Enter deck code here...";

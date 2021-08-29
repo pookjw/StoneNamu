@@ -23,3 +23,5 @@ typedef NS_ENUM(NSUInteger, HSCardHero) {
 
 HSCardHero HSCardHeroFromHSCardClass(HSCardClass);
 HSCardClass HSCardClassFromHSCardHero(HSCardHero);
+
+NSArray<NSNumber *> * hsCardHeroes(void);
