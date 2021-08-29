@@ -16,6 +16,7 @@ typedef NS_ENUM(NSUInteger, DeckDetailsSectionModelType) {
 
 @interface DeckDetailsSectionModel : NSObject
 @property (readonly) DeckDetailsSectionModelType type;
+@property (copy) NSString * _Nullable headerText;
 - (instancetype)initWithType:(DeckDetailsSectionModelType)type;
 @end
 

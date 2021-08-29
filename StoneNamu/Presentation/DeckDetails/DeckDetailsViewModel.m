@@ -173,6 +173,7 @@
         
         [self addCostGraphItemToSnapshot:snapshot];
         [self sortSnapshot:snapshot];
+        [self updateCardsSectionHeaderTitleFromSnapshot:snapshot];
         
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
             [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
@@ -209,6 +210,7 @@
         
         [self addCostGraphItemToSnapshot:snapshot];
         [self sortSnapshot:snapshot];
+        [self updateCardsSectionHeaderTitleFromSnapshot:snapshot];
         
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
             [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
@@ -264,6 +266,7 @@
         
         [self addCostGraphItemToSnapshot:snapshot];
         [self sortSnapshot:snapshot];
+        [self updateCardsSectionHeaderTitleFromSnapshot:snapshot];
         
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
             [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
@@ -307,6 +310,7 @@
         
         [self addCostGraphItemToSnapshot:snapshot];
         [self sortSnapshot:snapshot];
+        [self updateCardsSectionHeaderTitleFromSnapshot:snapshot];
         
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
             [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
@@ -375,6 +379,11 @@
     self.localDeck.name = name;
     [self.localDeck updateTimestamp];
     [self.localDeckUseCase saveChanges];
+}
+
+- (NSString * _Nullable)headerTextForIndexPath:(NSIndexPath *)indexPath {
+    DeckDetailsSectionModel *sectionModel = [self.dataSource sectionIdentifierForIndex:indexPath.section];
+    return sectionModel.headerText;
 }
 
 - (void)requestDataSourcdWithLocalDeck:(LocalDeck *)localDeck {
@@ -474,6 +483,7 @@
         
         [self addCostGraphItemToSnapshot:snapshot];
         [self sortSnapshot:snapshot];
+        [self updateCardsSectionHeaderTitleFromSnapshot:snapshot];
         
         //
         
@@ -574,6 +584,21 @@
         [snapshot appendItemsWithIdentifiers:@[itemModel] intoSectionWithIdentifier:sectionModel];
         [sectionModel release];
         [itemModel release];
+    }
+}
+
+- (void)updateCardsSectionHeaderTitleFromSnapshot:(NSDiffableDataSourceSnapshot *)snapshot {
+    for (DeckDetailsSectionModel *sectionModel in snapshot.sectionIdentifiers) {
+        @autoreleasepool {
+            if (sectionModel.type == DeckDetailsSectionModelTypeCards) {
+                NSString *headerText = [NSString stringWithFormat:NSLocalizedString(@"CARD_COUNT", @""), [self totalCardsInSnapshot:snapshot], HSDECK_MAX_TOTAL_CARDS];
+                sectionModel.headerText = headerText;
+                
+                if ([self.dataSource.snapshot.sectionIdentifiers containsObject:sectionModel]) {
+                    [snapshot reloadSectionsWithIdentifiers:@[sectionModel]];
+                }
+            }
+        }
     }
 }
 

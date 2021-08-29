@@ -14,6 +14,7 @@
 
 @interface DeckDetailsViewController () <UICollectionViewDelegate, UICollectionViewDragDelegate, UICollectionViewDropDelegate>
 @property (retain) UICollectionView *collectionView;
+@property (retain) UICollectionViewSupplementaryRegistration *headerCellRegistration;
 @property (retain) UIBarButtonItem *exportBarButtonItem;
 @property (retain) UIBarButtonItem *editBarButtonItem;
 @property (retain) DeckDetailsViewModel *viewModel;
@@ -34,6 +35,7 @@
 
 - (void)dealloc {
     [_collectionView release];
+    [_headerCellRegistration release];
     [_exportBarButtonItem release];
     [_viewModel release];
     [_exportBarButtonItem release];
@@ -126,6 +128,7 @@
 
 - (void)configureCollectionView {
     UICollectionLayoutListConfiguration *layoutConfiguration = [[UICollectionLayoutListConfiguration alloc] initWithAppearance:UICollectionLayoutListAppearanceInsetGrouped];
+    layoutConfiguration.headerMode = UICollectionLayoutListHeaderModeSupplementary;
     layoutConfiguration.trailingSwipeActionsConfigurationProvider = [self makeTrailingSwipeProvider];
     
     UIListSeparatorConfiguration *separatorConfiguration = [[UIListSeparatorConfiguration alloc] initWithListAppearance:UICollectionLayoutListAppearancePlain];
@@ -173,6 +176,8 @@
         return cell;
     }];
     
+    dataSource.supplementaryViewProvider = [self makeSupplementaryViewProvider];
+    
     return [dataSource autorelease];
 }
 
@@ -205,6 +210,37 @@
     }];
     
     return cellRegistration;
+}
+
+- (UICollectionViewDiffableDataSourceSupplementaryViewProvider)makeSupplementaryViewProvider {
+    self.headerCellRegistration = [self makeHeaderCellRegistration];
+    
+    UICollectionViewDiffableDataSourceSupplementaryViewProvider provider = ^UICollectionReusableView * _Nullable(UICollectionView * _Nonnull collectionView, NSString * _Nonnull elementKind, NSIndexPath * _Nonnull indexPath) {
+        
+        if ([elementKind isEqualToString:UICollectionElementKindSectionHeader]) {
+            return [collectionView dequeueConfiguredReusableSupplementaryViewWithRegistration:self.headerCellRegistration forIndexPath:indexPath];
+        } else {
+            return nil;
+        }
+    };
+    
+    return [[provider copy] autorelease];
+}
+
+- (UICollectionViewSupplementaryRegistration *)makeHeaderCellRegistration {
+    UICollectionViewSupplementaryRegistration *registration = [UICollectionViewSupplementaryRegistration registrationWithSupplementaryClass:[UICollectionViewListCell class]
+                                                                                                                                elementKind:UICollectionElementKindSectionHeader
+                                                                                                                       configurationHandler:^(__kindof UICollectionViewListCell * _Nonnull supplementaryView, NSString * _Nonnull elementKind, NSIndexPath * _Nonnull indexPath) {
+        
+        
+        
+        UIListContentConfiguration *configuration = [UIListContentConfiguration groupedHeaderConfiguration];
+        configuration.text = [self.viewModel headerTextForIndexPath:indexPath];
+        
+        supplementaryView.contentConfiguration = configuration;
+    }];
+    
+    return registration;
 }
 
 - (UICollectionLayoutListSwipeActionsConfigurationProvider)makeTrailingSwipeProvider {

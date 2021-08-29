@@ -131,3 +131,5 @@
 "INCREASE_CARD_COUNT" = "Increase Card Count";
 
 "DECREASE_CARD_COUNT" = "Decrease Card Count";
+
+"CARD_COUNT" = "Cards: %lu/%lu";

@@ -96,8 +96,6 @@
         return cell;
     }];
     
-    self.headerCellRegistration = [self makeHeaderCellRegistration];
-    self.footerCellRegistration = [self makeFooterCellRegistration];
     dataSource.supplementaryViewProvider = [self makeSupplementaryViewProvider];
     
     return [dataSource autorelease];
@@ -144,6 +142,9 @@
 }
 
 - (UICollectionViewDiffableDataSourceSupplementaryViewProvider)makeSupplementaryViewProvider {
+    self.headerCellRegistration = [self makeHeaderCellRegistration];
+    self.footerCellRegistration = [self makeFooterCellRegistration];
+    
     UICollectionViewDiffableDataSourceSupplementaryViewProvider provider = ^UICollectionReusableView * _Nullable(UICollectionView * _Nonnull collectionView, NSString * _Nonnull elementKind, NSIndexPath * _Nonnull indexPath) {
         
         if ([elementKind isEqualToString:UICollectionElementKindSectionHeader]) {

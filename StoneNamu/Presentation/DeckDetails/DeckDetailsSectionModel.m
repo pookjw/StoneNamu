@@ -13,10 +13,16 @@
     self = [self init];
     
     if (self) {
+        self.headerText = nil;
         self->_type = type;
     }
     
     return self;
+}
+
+- (void)dealloc {
+    [_headerText release];
+    [super dealloc];
 }
 
 - (BOOL)isEqual:(id)object {

@@ -42,6 +42,7 @@ static NSString * const DeckDetailsViewModelErrorOccuredItemKey = @"DeckDetailsV
 - (NSArray<UIDragItem *> *)makeDragItemFromIndexPath:(NSIndexPath *)indexPath;
 - (void)exportDeckCodeWithCompletion:(DeckDetailsViewModelExportDeckCodeCompletion)completion;
 - (void)updateDeckName:(NSString *)name;
+- (NSString * _Nullable)headerTextForIndexPath:(NSIndexPath *)indexPath;
 @end
 
 NS_ASSUME_NONNULL_END

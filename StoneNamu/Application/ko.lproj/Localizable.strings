@@ -131,3 +131,5 @@
 "INCREASE_CARD_COUNT" = "카드 장수 증가";
 
 "DECREASE_CARD_COUNT" = "카드 장수 감소";
+
+"CARD_COUNT" = "카드 개수: %lu/%lu";

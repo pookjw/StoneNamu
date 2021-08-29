@@ -40,7 +40,7 @@
 - (nonnull __kindof UIView<UIContentView> *)makeContentView {
     DeckBaseContentView *contentView = [DeckBaseContentView new];
     contentView.configuration = self;
-    return contentView;
+    return [contentView autorelease];
 }
 
 - (nonnull instancetype)updatedConfigurationForState:(nonnull id<UIConfigurationState>)state {
