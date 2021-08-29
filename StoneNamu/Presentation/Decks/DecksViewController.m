@@ -11,6 +11,7 @@
 #import "UIViewController+presentErrorAlert.h"
 #import "UIViewController+animatedForSelectedIndexPath.h"
 #import "DeckBaseContentConfiguration.h"
+#import "ImageService.h"
 
 @interface DecksViewController () <UICollectionViewDelegate, UITextFieldDelegate>
 @property (retain) UICollectionView *collectionView;
@@ -124,12 +125,21 @@
                                               children:@[
         
         [UIMenu menuWithTitle:hsDeckFormatsWithLocalizable()[HSDeckFormatStandard]
+                        image:[ImageService.sharedInstance imageOfDeckFormat:HSDeckFormatStandard]
+                   identifier:nil
+                      options:UIMenuOptionsSingleSelection
                      children:createStandardDeckActions],
         
         [UIMenu menuWithTitle:hsDeckFormatsWithLocalizable()[HSDeckFormatWild]
+                        image:[ImageService.sharedInstance imageOfDeckFormat:HSDeckFormatWild]
+                   identifier:nil
+                      options:UIMenuOptionsSingleSelection
                      children:createWildDeckActions],
         
         [UIMenu menuWithTitle:hsDeckFormatsWithLocalizable()[HSDeckFormatClassic]
+                        image:[ImageService.sharedInstance imageOfDeckFormat:HSDeckFormatClassic]
+                   identifier:nil
+                      options:UIMenuOptionsSingleSelection
                      children:createClassicDeckActions]
     ]];
     

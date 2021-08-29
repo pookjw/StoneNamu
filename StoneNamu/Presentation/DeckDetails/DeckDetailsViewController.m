@@ -423,6 +423,7 @@
                                                            handler:^(__kindof UIAction * _Nonnull action) {
                     [self.viewModel removeAtIndexPath:indexPath];
                 }];
+                deleteAction.attributes = UIMenuElementAttributesDestructive;
                 
                 UIMenu *menu = [UIMenu menuWithChildren:@[incrementAction, decrementAction, deleteAction]];
                 
