@@ -157,10 +157,10 @@
         
         [snapshot deleteAllItems];
         
-        CardOptionSectionModel *cardSectionModel = [[CardOptionSectionModel alloc] initWithType:CardOptionSectionModelTypeCard];
-        CardOptionSectionModel *sortSectionModel = [[CardOptionSectionModel alloc] initWithType:CardOptionSectionModelTypeSort];
+        CardOptionSectionModel *majorSectionModel = [[CardOptionSectionModel alloc] initWithType:CardOptionSectionModelTypeMajor];
+        CardOptionSectionModel *minorSectionModel = [[CardOptionSectionModel alloc] initWithType:CardOptionSectionModelTypeMinor];
         
-        [snapshot appendSectionsWithIdentifiers:@[cardSectionModel, sortSectionModel]];
+        [snapshot appendSectionsWithIdentifiers:@[majorSectionModel, minorSectionModel]];
         
         @autoreleasepool {
             [snapshot appendItemsWithIdentifiers:@[
@@ -174,19 +174,19 @@
                 [[[CardOptionItemModel alloc] initWithType:CardOptionItemModelTypeType] autorelease],
                 [[[CardOptionItemModel alloc] initWithType:CardOptionItemModelTypeMinionType] autorelease],
                 [[[CardOptionItemModel alloc] initWithType:CardOptionItemModelTypeKeyword] autorelease],
-                [[[CardOptionItemModel alloc] initWithType:CardOptionItemModelTypeTextFilter] autorelease],
-                [[[CardOptionItemModel alloc] initWithType:CardOptionItemModelTypeGameMode] autorelease]
+                [[[CardOptionItemModel alloc] initWithType:CardOptionItemModelTypeTextFilter] autorelease]
             ]
-                       intoSectionWithIdentifier:cardSectionModel];
+                       intoSectionWithIdentifier:majorSectionModel];
             
             [snapshot appendItemsWithIdentifiers:@[
+                [[[CardOptionItemModel alloc] initWithType:CardOptionItemModelTypeGameMode] autorelease],
                 [[[CardOptionItemModel alloc] initWithType:CardOptionItemModelTypeSort] autorelease]
             ]
-                       intoSectionWithIdentifier:sortSectionModel];
+                       intoSectionWithIdentifier:minorSectionModel];
         }
         
-        [cardSectionModel release];
-        [sortSectionModel release];
+        [majorSectionModel release];
+        [minorSectionModel release];
         
         NSSemaphoreCondition *semaphore = [NSSemaphoreCondition new];
         

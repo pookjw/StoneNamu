@@ -10,8 +10,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSUInteger, CardOptionSectionModelType) {
-    CardOptionSectionModelTypeCard,
-    CardOptionSectionModelTypeSort
+    CardOptionSectionModelTypeMajor,
+    CardOptionSectionModelTypeMinor
 };
 
 @interface CardOptionSectionModel : NSObject
