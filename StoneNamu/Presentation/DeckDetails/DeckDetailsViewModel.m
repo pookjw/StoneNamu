@@ -95,8 +95,6 @@
         
         //
         
-        NSMutableArray<DeckDetailsItemModel *> *cardsItemModels = [@[] mutableCopy];
-        
         for (HSCard *hsCard in copyHSCards) {
             BOOL __block isDuplicated = NO;
             
@@ -128,22 +126,13 @@
                 DeckDetailsItemModel *cardItemModel = [[DeckDetailsItemModel alloc] initWithType:DeckDetailsItemModelTypeCard];
                 cardItemModel.hsCard = hsCard;
                 cardItemModel.hsCardCount = 1;
-                [cardsItemModels addObject:cardItemModel];
+                [snapshot appendItemsWithIdentifiers:@[cardItemModel] intoSectionWithIdentifier:cardsSectionModel];
                 [cardItemModel release];
             }
         }
         
-        if (cardsItemModels.count == 0) {
-            [copyHSCards release];
-            [cardsItemModels release];
-            [snapshot release];
-            return;
-        }
-        
         //
         
-        [snapshot appendItemsWithIdentifiers:cardsItemModels intoSectionWithIdentifier:cardsSectionModel];
-        [cardsItemModels release];
         [self addCostGraphItemToSnapshot:snapshot];
         [self sortSnapshot:snapshot];
         
