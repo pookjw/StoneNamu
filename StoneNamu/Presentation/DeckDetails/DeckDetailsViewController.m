@@ -13,6 +13,8 @@
 #import "CardDetailsViewController.h"
 #import "UIViewController+SpinnerView.h"
 
+#define CardsSectionHeaderViewTag 300
+
 @interface DeckDetailsViewController () <UICollectionViewDelegate, UICollectionViewDragDelegate, UICollectionViewDropDelegate>
 @property (retain) UICollectionView *collectionView;
 @property (retain) UICollectionViewSupplementaryRegistration *headerCellRegistration;
@@ -244,6 +246,7 @@
         configuration.text = [self.viewModel headerTextForIndexPath:indexPath];
         
         supplementaryView.contentConfiguration = configuration;
+        supplementaryView.tag = CardsSectionHeaderViewTag;
     }];
     
     return registration;
@@ -366,8 +369,12 @@
 }
 
 - (void)applyingSnapshotToDataSourceWasDoneReceived:(NSNotification *)notification {
+    NSString * _Nullable headerText = [notification.userInfo[DeckDetailsViewModelApplyingSnapshotToDataSourceWasDoneCardsHeaderTextKey] copy];
+    
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
         [self removeAllSpinnerview];
+        [self updateSectionHeaderViewWithHeaderText:headerText];
+        [headerText release];
     }];
 }
 
@@ -377,6 +384,14 @@
     CardDetailsViewController *vc = [[CardDetailsViewController alloc] initWithHSCard:hsCard sourceImageView:nil];
     [vc loadViewIfNeeded];
     [self presentViewController:vc animated:YES completion:^{}];
+}
+
+- (void)updateSectionHeaderViewWithHeaderText:(NSString *)headerText {
+    UICollectionViewListCell *cell = [self.collectionView viewWithTag:300];
+    UIListContentConfiguration *configuration = [UIListContentConfiguration groupedHeaderConfiguration];
+    configuration.text = headerText;
+    
+    cell.contentConfiguration = configuration;
 }
 
 #pragma mark - UICollectionViewDelegate

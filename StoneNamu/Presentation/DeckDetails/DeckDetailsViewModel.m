@@ -664,9 +664,23 @@
 }
 
 - (void)postApplyingSnapshotToDataSourceWasDoneNotification {
+    NSString * _Nullable __block headerText = nil;
+    
+    [self.dataSource.snapshot.sectionIdentifiers enumerateObjectsUsingBlock:^(DeckDetailsSectionModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (obj.type == DeckDetailsSectionModelTypeCards) {
+            headerText = obj.headerText;
+        }
+    }];
+    
+    NSDictionary * _Nullable userInfo = nil;
+    
+    if (headerText != nil) {
+        userInfo = @{DeckDetailsViewModelApplyingSnapshotToDataSourceWasDoneCardsHeaderTextKey: headerText};
+    }
+    
     [NSNotificationCenter.defaultCenter postNotificationName:DeckDetailsViewModelApplyingSnapshotToDataSourceWasDoneNotificationName
                                                       object:self
-                                                    userInfo:nil];
+                                                    userInfo:userInfo];
 }
 
 - (void)postDidChangeLocalDeckNameNotification:(NSString *)name {
