@@ -18,6 +18,7 @@
 #import "DeckAddCardsViewModel.h"
 #import "DeckDetailsViewController.h"
 #import "CardDetailsViewController.h"
+#import "UIViewController+targetedPreviewWithClearBackgroundForView.h"
 
 @interface DeckAddCardsViewController () <UICollectionViewDelegate, UICollectionViewDragDelegate, UIDropInteractionDelegate, UIContextMenuInteractionDelegate>
 @property (retain) DeckAddCardsViewModel *viewModel;
@@ -494,6 +495,14 @@
             self.contextViewController = nil;
         }];
     }
+}
+
+- (UITargetedPreview *)contextMenuInteraction:(UIContextMenuInteraction *)interaction previewForHighlightingMenuWithConfiguration:(UIContextMenuConfiguration *)configuration {
+    return [self targetedPreviewWithClearBackgroundForView:self.deckDetailsButton];
+}
+
+- (UITargetedPreview *)contextMenuInteraction:(UIContextMenuInteraction *)interaction previewForDismissingMenuWithConfiguration:(UIContextMenuConfiguration *)configuration {
+    return [self targetedPreviewWithClearBackgroundForView:self.deckDetailsButton];
 }
 
 @end

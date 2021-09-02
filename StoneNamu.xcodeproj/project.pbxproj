@@ -119,6 +119,7 @@
 		4F8FFF4F26E0EE9000FA6586 /* DeckAddCardOptionItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8FFF4726E0EE9000FA6586 /* DeckAddCardOptionItemModel.m */; };
 		4F8FFF5026E0EE9000FA6586 /* DeckAddCardOptionSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8FFF4826E0EE9000FA6586 /* DeckAddCardOptionSectionModel.m */; };
 		4F8FFF5126E0EE9000FA6586 /* DeckAddCardOptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8FFF4B26E0EE9000FA6586 /* DeckAddCardOptionsViewController.m */; };
+		4F8FFF5426E1347100FA6586 /* UIViewController+targetedPreviewWithClearBackgroundForView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8FFF5326E1347100FA6586 /* UIViewController+targetedPreviewWithClearBackgroundForView.m */; };
 		4F90709926D35FA000BA7614 /* DeckDetailsCardContentConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F90709826D35FA000BA7614 /* DeckDetailsCardContentConfiguration.m */; };
 		4F90709C26D3606300BA7614 /* DeckDetailsCardContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F90709B26D3606300BA7614 /* DeckDetailsCardContentView.m */; };
 		4F9070A126D3803800BA7614 /* UIImage+averageColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F9070A026D3803800BA7614 /* UIImage+averageColor.m */; };
@@ -428,6 +429,8 @@
 		4F8FFF4B26E0EE9000FA6586 /* DeckAddCardOptionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeckAddCardOptionsViewController.m; sourceTree = "<group>"; };
 		4F8FFF4C26E0EE9000FA6586 /* DeckAddCardOptionsViewControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeckAddCardOptionsViewControllerDelegate.h; sourceTree = "<group>"; };
 		4F8FFF4D26E0EE9000FA6586 /* DeckAddCardOptionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeckAddCardOptionsViewController.h; sourceTree = "<group>"; };
+		4F8FFF5226E1347100FA6586 /* UIViewController+targetedPreviewWithClearBackgroundForView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+targetedPreviewWithClearBackgroundForView.h"; sourceTree = "<group>"; };
+		4F8FFF5326E1347100FA6586 /* UIViewController+targetedPreviewWithClearBackgroundForView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+targetedPreviewWithClearBackgroundForView.m"; sourceTree = "<group>"; };
 		4F90709726D35FA000BA7614 /* DeckDetailsCardContentConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckDetailsCardContentConfiguration.h; sourceTree = "<group>"; };
 		4F90709826D35FA000BA7614 /* DeckDetailsCardContentConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckDetailsCardContentConfiguration.m; sourceTree = "<group>"; };
 		4F90709A26D3606300BA7614 /* DeckDetailsCardContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckDetailsCardContentView.h; sourceTree = "<group>"; };
@@ -675,6 +678,8 @@
 				4F8754B826DB87DC000CE351 /* UIViewController+SpinnerView.m */,
 				4F8754BA26DB91D7000CE351 /* NSIndexPath+identifier.h */,
 				4F8754BB26DB91D7000CE351 /* NSIndexPath+identifier.m */,
+				4F8FFF5226E1347100FA6586 /* UIViewController+targetedPreviewWithClearBackgroundForView.h */,
+				4F8FFF5326E1347100FA6586 /* UIViewController+targetedPreviewWithClearBackgroundForView.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1672,6 +1677,7 @@
 				4FB850F726C18BAE00E3C89D /* PrefsViewController.m in Sources */,
 				4FA56BAF26A21059002D9FA0 /* SceneDelegate.m in Sources */,
 				4FF3E0DF26CA9C82002B20EA /* CardsSplitViewController.m in Sources */,
+				4F8FFF5426E1347100FA6586 /* UIViewController+targetedPreviewWithClearBackgroundForView.m in Sources */,
 				4F414B0426CEF31D0003A0CF /* DeckDetailsViewModel.m in Sources */,
 				4F98E25B26B9AA280067846F /* CardDetailsSectionModel.m in Sources */,
 				4F8754BC26DB91D7000CE351 /* NSIndexPath+identifier.m in Sources */,

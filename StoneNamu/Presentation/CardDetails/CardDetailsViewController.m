@@ -17,6 +17,7 @@
 #import "UIScrollView+scrollToTop.h"
 #import "UIViewController+SpinnerView.h"
 #import "NSIndexPath+identifier.h"
+#import "UIViewController+targetedPreviewWithClearBackgroundForView.h"
 
 @interface CardDetailsViewController () <UICollectionViewDelegate, UIViewControllerTransitioningDelegate, UIContextMenuInteractionDelegate, UIDragInteractionDelegate, CardDetailsChildrenContentConfigurationDelegate>
 @property (retain) UIImageView * _Nullable sourceImageView;
@@ -373,10 +374,7 @@
     NSIndexPath *indexPath = [NSIndexPath indexPathFromString:identifier];
     UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
     
-    UIPreviewParameters *parameters = [UIPreviewParameters new];
-    parameters.backgroundColor = UIColor.clearColor;
-    
-    return [[[UITargetedPreview alloc] initWithView:cell parameters:parameters] autorelease];
+    return [self targetedPreviewWithClearBackgroundForView:cell];
 }
 
 #pragma mark - UICollectionViewDelegate
