@@ -60,7 +60,7 @@
             if (key.unsignedIntegerValue >= maxCost) {
                 NSNumber *maxCostNumber = [NSNumber numberWithUnsignedInteger:maxCost];
                 
-                if (manaDictionaryWithPlus[maxCostNumber]) {
+                if (manaDictionaryWithPlus[maxCostNumber] != nil) {
                     NSUInteger old = manaDictionaryWithPlus[maxCostNumber].unsignedIntegerValue;
                     NSUInteger new = old + obj.unsignedIntegerValue;
                     manaDictionaryWithPlus[maxCostNumber] = [NSNumber numberWithUnsignedInteger:new];
@@ -106,9 +106,9 @@
         //
         
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
-            [self.dataSource applySnapshot:snapshot animatingDifferences:NO completion:^{
-                [snapshot release];
-            }];
+            // if dataSource deallocated before calling completion, snapshot won't be released; so need to call autorelease.
+            [snapshot autorelease];
+            [self.dataSource applySnapshot:snapshot animatingDifferences:NO];
         }];
     }];
 }

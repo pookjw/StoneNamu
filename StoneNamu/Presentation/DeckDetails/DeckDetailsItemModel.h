@@ -20,6 +20,8 @@ typedef NS_ENUM(NSUInteger, DeckDetailsItemModelType) {
 @property (copy) HSCard * _Nullable hsCard;
 @property NSUInteger hsCardCount;
 @property (copy) NSDictionary<NSNumber *, NSNumber *> * _Nullable manaDictionary;
++ (instancetype)new NS_UNAVAILABLE;
+- (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithType:(DeckDetailsItemModelType)type;
 @end
 

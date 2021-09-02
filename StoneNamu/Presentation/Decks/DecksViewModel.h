@@ -21,6 +21,8 @@ typedef UICollectionViewDiffableDataSource<DecksSectionModel *, DecksItemModel *
 
 @interface DecksViewModel : NSObject
 @property (retain) DecksDataSource *dataSource;
++ (instancetype)new NS_UNAVAILABLE;
+- (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithDataSource:(DecksDataSource *)dataSource;
 - (void)fetchDeckCode:(NSString *)deckCode title:(NSString * _Nullable)title completion:(DecksViewModelFetchDeckCodeCompletion)completion;
 - (void)makeLocalDeckWithClass:(HSCardClass)hsCardClass deckFormat:(HSDeckFormat)deckFormat completion:(DecksViewModelMakeLocalDeckCompletion)completion;

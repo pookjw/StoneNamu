@@ -16,6 +16,8 @@ typedef UICollectionViewDiffableDataSource<PrefsSectionModel *, PrefsItemModel *
 @interface PrefsViewModel : NSObject
 @property (retain) NSIndexPath * _Nullable contextMenuIndexPath;
 @property (readonly, retain) PrefsDataSource *dataSource;
++ (instancetype)new NS_UNAVAILABLE;
+- (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithDataSource:(PrefsDataSource *)dataSource;
 - (NSString * _Nullable)headerTextFromIndexPath:(NSIndexPath *)indexPath;
 - (NSString * _Nullable)footerTextFromIndexPath:(NSIndexPath *)indexPath;

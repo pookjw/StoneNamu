@@ -93,7 +93,6 @@ CardOptionItemModelType CardOptionItemModelTypeFromNSString(NSString * key) {
     
     if (self) {
         _type = type;
-        self.value = self.defaultValue;
     }
     
     return self;
@@ -332,19 +331,6 @@ CardOptionItemModelType CardOptionItemModelTypeFromNSString(NSString * key) {
             return hsCardSortsWithLocalizable()[self.value];
         default:
             return self.value;
-    }
-}
-
-- (NSString * _Nullable)defaultValue {
-    switch (self.type) {
-        case CardOptionItemModelTypeCollectible:
-            return NSStringFromHSCardCollectible(HSCardCollectibleYES);
-        case CardOptionItemModelTypeGameMode:
-            return NSStringFromHSCardGameMode(HSCardGameModeConstructed);
-        case CardOptionItemModelTypeSort:
-            return NSStringFromHSCardSort(HSCardSortManaCostAsc);
-        default:
-            return nil;
     }
 }
 

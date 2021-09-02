@@ -8,11 +8,13 @@
 #import <CoreData/CoreData.h>
 #import "LocalDeck.h"
 #import "HSDeck.h"
+#import "HSCard.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 typedef void (^LocalDeckUseCaseFetchWithCompletion)(NSArray<LocalDeck *> * _Nullable, NSError * _Nullable);
 typedef void (^LocalDeckUseCaseFetchWithObjectIdCompletion)(LocalDeck * _Nullable);
+typedef void (^LocalDeckUseCaseFetchWithValidation)(NSError * _Nullable);
 
 static NSString * const LocalDeckUseCaseObserveDataNotificationName = @"LocalDeckUseCaseObserveDataNotificationName";
 
@@ -24,6 +26,11 @@ static NSString * const LocalDeckUseCaseDeleteAllNotificationName = @"LocalDeckU
 - (void)fetchWithObjectId:(NSManagedObjectID *)objectId completion:(LocalDeckUseCaseFetchWithObjectIdCompletion)completion;
 - (void)deleteLocalDeck:(LocalDeck *)localDeck;
 - (void)deleteAllLocalDecks;
+
+- (void)addHSCards:(NSArray<HSCard *> *)hsCards toLocalDeck:(LocalDeck *)localDeck validation:(LocalDeckUseCaseFetchWithValidation)validation;
+- (void)deleteHSCards:(NSSet<HSCard *> *)hsCards toLocalDeck:(LocalDeck *)localDeck validation:(LocalDeckUseCaseFetchWithValidation)validation;
+- (void)increaseHSCards:(NSSet<HSCard *> *)hsCards toLocalDeck:(LocalDeck *)localDeck validation:(LocalDeckUseCaseFetchWithValidation)validation;
+- (void)decreaseHSCards:(NSSet<HSCard *> *)hsCards toLocalDeck:(LocalDeck *)localDeck validation:(LocalDeckUseCaseFetchWithValidation)validation;
 - (LocalDeck *)makeLocalDeck;
 @end
 

@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CardDetailsChildrenContentImageConfiguration : NSObject <UIContentConfiguration>
 @property (readonly, copy) HSCard *hsCard;
++ (instancetype)new NS_UNAVAILABLE;
+- (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithHSCard:(HSCard *)hsCard;
 @end
 

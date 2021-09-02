@@ -15,6 +15,8 @@ typedef NS_ENUM(NSUInteger, CardsSectionModelType) {
 
 @interface CardSectionModel : NSObject
 @property (readonly) CardsSectionModelType type;
++ (instancetype)new NS_UNAVAILABLE;
+- (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithType:(CardsSectionModelType)type;
 @end
 

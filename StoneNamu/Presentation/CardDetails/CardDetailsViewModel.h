@@ -20,6 +20,8 @@ typedef UICollectionViewDiffableDataSource<CardDetailsSectionModel *, CardDetail
 @interface CardDetailsViewModel : NSObject
 @property (readonly, copy) HSCard * _Nullable hsCard;
 @property (readonly, retain) CardDetailsDataSource *dataSource;
++ (instancetype)new NS_UNAVAILABLE;
+- (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithDataSource:(CardDetailsDataSource *)dataSource;
 - (void)requestDataSourceWithCard:(HSCard *)hsCard;
 - (NSArray<UIDragItem *> *)makeDragItemFromImage:(UIImage * _Nullable)image;

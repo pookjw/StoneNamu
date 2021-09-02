@@ -112,18 +112,6 @@
 
 "EDIT_DECK_NAME_TITLE" = "Edit Deck name";
 
-"DECK_ADD_CARD_ERROR_NO_MORE_THAN_THIRTY_CARDS" = "You cannot add cards to your deck more than 30 cards.";
-
-"DECK_ADD_CARD_ERROR_CANNOT_ADD_SINGLE_CARD_MORE_THAN_TWO" = "You cannot add a single card more than two.";
-
-"DECK_ADD_CARD_ERROR_CANNOT_ADD_SINGLE_LAGENDARY_CARD_MORE_THAN_ONE" = "You cannot add legendary card more than one.";
-
-"DECK_ADD_CARD_ERROR_CANNOT_ADD_DIFFERENT_CLASS_CARD" = "You cannot add a different class of card.";
-
-"DECK_ADD_CARD_ERROR_CANNOT_ADD_NOT_COLLECTIBLE_CARD" = "You cannot add a not collectible card.";
-
-"DECK_ADD_CARD_ERROR_CANNOT_ADD_HERO_PORTRAIT_CARD" = "You cannot add a hero portrait card.";
-
 "DECK_EXPORT_ERROR_CARDS_ARE_NOT_FILLED" = "Please fill %lu cards to export deck code! (Current : %lu)";
 
 "ENTER_DECK_TITLE_HERE" = "Enter deck title here... (optional)";

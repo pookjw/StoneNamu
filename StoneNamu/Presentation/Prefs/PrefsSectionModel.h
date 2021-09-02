@@ -19,6 +19,8 @@ typedef NS_ENUM(NSUInteger, PrefsSectionModelType) {
 @property (readonly) PrefsSectionModelType type;
 @property (readonly, nonatomic) NSString * _Nullable headerText;
 @property (readonly, nonatomic) NSString * _Nullable footerText;
++ (instancetype)new NS_UNAVAILABLE;
+- (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithType:(PrefsSectionModelType)type;
 @end
 

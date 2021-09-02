@@ -5,6 +5,8 @@
 //  Created by Jinwoo Kim on 8/17/21.
 //
 
+#define CardsSectionHeaderViewTag 300
+
 #import "DeckDetailsViewController.h"
 #import "DeckDetailsViewModel.h"
 #import "UIViewController+presentErrorAlert.h"
@@ -12,25 +14,26 @@
 #import "DeckDetailsManaCostContentConfiguration.h"
 #import "CardDetailsViewController.h"
 #import "UIViewController+SpinnerView.h"
-
-#define CardsSectionHeaderViewTag 300
+#import "DeckAddCardsViewController.h"
 
 @interface DeckDetailsViewController () <UICollectionViewDelegate, UICollectionViewDragDelegate, UICollectionViewDropDelegate>
 @property (retain) UICollectionView *collectionView;
 @property (retain) UICollectionViewSupplementaryRegistration *headerCellRegistration;
 @property (retain) UIBarButtonItem *exportBarButtonItem;
-@property (retain) UIBarButtonItem *editBarButtonItem;
+@property (retain) UIBarButtonItem *addCardsBarButtonItem;
+@property (retain) UIBarButtonItem *doneBarButtonItem;
 @property (retain) DeckDetailsViewModel *viewModel;
 @end
 
 @implementation DeckDetailsViewController
 
-- (instancetype)initWithLocalDeck:(LocalDeck *)localDeck {
+- (instancetype)initWithLocalDeck:(LocalDeck *)localDeck presentEditorIfNoCards:(BOOL)shouldPresentDeckEditor; {
     self = [self init];
     
     if (self) {
         [self loadViewIfNeeded];
         [self addSpinnerView];
+        self.viewModel.shouldPresentDeckEditor = shouldPresentDeckEditor;
         [self.viewModel requestDataSourceWithLocalDeck:localDeck];
     }
     
@@ -43,7 +46,8 @@
     [_exportBarButtonItem release];
     [_viewModel release];
     [_exportBarButtonItem release];
-    [_editBarButtonItem release];
+    [_addCardsBarButtonItem release];
+    [_doneBarButtonItem release];
     [super dealloc];
 }
 
@@ -51,6 +55,7 @@
     [super viewDidLoad];
     [self setAttributes];
     [self configureRightBarButtonItems];
+    [self setRightBarButtons:DeckDetailsViewControllerBarButtonTypeAddCards | DeckDetailsViewControllerBarButtonTypeExport];
     [self configureCollectionView];
     [self configureViewModel];
     [self bind];
@@ -59,6 +64,29 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self configureNavigation];
+}
+
+- (void)setRightBarButtons:(DeckDetailsViewControllertBarButtonType)type {
+    NSMutableArray<UIBarButtonItem *> *rightBarButtomItems = [@[] mutableCopy];
+    
+    if (type & DeckDetailsViewControllerBarButtonTypeDone) {
+        [rightBarButtomItems addObject:self.doneBarButtonItem];
+    }
+    
+    if (type & DeckDetailsViewControllerBarButtonTypeExport) {
+        [rightBarButtomItems addObject:self.exportBarButtonItem];
+    }
+    
+    if (type & DeckDetailsViewControllerBarButtonTypeAddCards) {
+        [rightBarButtomItems addObject:self.addCardsBarButtonItem];
+    }
+    
+    self.navigationItem.rightBarButtonItems = rightBarButtomItems;
+    [rightBarButtomItems release];
+}
+
+- (void)addHSCardsToLocalDeck:(NSArray<HSCard *> *)hsCards {
+    [self.viewModel addHSCards:hsCards];
 }
 
 - (void)setAttributes {
@@ -79,18 +107,25 @@
     
     //
     
-    UIBarButtonItem *editBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"pencil"]
-                                                                          style:UIBarButtonItemStylePlain
-                                                                         target:self
-                                                                         action:@selector(editBarButtonItemTriggered:)];
-    self.editBarButtonItem = editBarButtonItem;
+    UIBarButtonItem *addCardsBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"plus"]
+                                                                              style:UIBarButtonItemStylePlain
+                                                                             target:self
+                                                                             action:@selector(addCardsBarButtonItemTriggered:)];
+    self.addCardsBarButtonItem = addCardsBarButtonItem;
     
     //
     
-    self.navigationItem.rightBarButtonItems = @[exportBarButtonItem, editBarButtonItem];
+    UIBarButtonItem *doneBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"DONE", @"")
+                                                                          style:UIBarButtonItemStyleDone
+                                                                         target:self
+                                                                         action:@selector(doneBarButtonItemTriggered:)];
+    self.doneBarButtonItem = doneBarButtonItem;
+    
+    //
     
     [exportBarButtonItem release];
-    [editBarButtonItem release];
+    [addCardsBarButtonItem release];
+    [doneBarButtonItem release];
 }
 
 - (void)exportBarButtonItemTriggered:(UIBarButtonItem *)sender {
@@ -109,29 +144,12 @@
     }];
 }
 
-- (void)editBarButtonItemTriggered:(UIBarButtonItem *)sender {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"EDIT_DECK_NAME_TITLE", @"")
-                                                                   message:nil
-                                                            preferredStyle:UIAlertControllerStyleAlert];
-    
-    [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-        textField.text = self.viewModel.localDeck.name;
-    }];
-    
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"CANCEL", @"")
-                                                           style:UIAlertActionStyleCancel
-                                                         handler:^(UIAlertAction * _Nonnull action) {}];
-    
-    UIAlertAction *doneAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"DONE", @"")
-                                                         style:UIAlertActionStyleDefault
-                                                       handler:^(UIAlertAction * _Nonnull action) {
-        [self.viewModel updateDeckName:alert.textFields.firstObject.text];
-    }];
-    
-    [alert addAction:cancelAction];
-    [alert addAction:doneAction];
-    
-    [self presentViewController:alert animated:YES completion:^{}];
+- (void)addCardsBarButtonItemTriggered:(UIBarButtonItem *)sender {
+    [self presentDeckAddCardsViewController];
+}
+
+- (void)doneBarButtonItemTriggered:(UIBarButtonItem *)sender {
+    [self dismissViewControllerAnimated:YES completion:^{}];
 }
 
 - (void)configureCollectionView {
@@ -240,13 +258,26 @@
                                                                                                                                 elementKind:UICollectionElementKindSectionHeader
                                                                                                                        configurationHandler:^(__kindof UICollectionViewListCell * _Nonnull supplementaryView, NSString * _Nonnull elementKind, NSIndexPath * _Nonnull indexPath) {
         
+        DeckDetailsSectionModel *sectionModel = [self.viewModel.dataSource sectionIdentifierForIndex:indexPath.section];
+        NSString * _Nullable headerText = nil;
+        NSUInteger tag = 0;
         
+        switch (sectionModel.type) {
+            case DeckDetailsSectionModelTypeCards:
+                headerText = sectionModel.headerText;
+                tag = CardsSectionHeaderViewTag;
+                break;
+            default:
+                break;
+        }
+        
+        //
         
         UIListContentConfiguration *configuration = [UIListContentConfiguration groupedHeaderConfiguration];
-        configuration.text = [self.viewModel headerTextForIndexPath:indexPath];
+        configuration.text = headerText;
         
         supplementaryView.contentConfiguration = configuration;
-        supplementaryView.tag = CardsSectionHeaderViewTag;
+        supplementaryView.tag = tag;
     }];
     
     return registration;
@@ -310,11 +341,6 @@
                                              object:self.viewModel];
     
     [NSNotificationCenter.defaultCenter addObserver:self
-                                           selector:@selector(hasAnyCardsReceived:)
-                                               name:DeckDetailsViewModelHasAnyCardsNotificationName
-                                             object:self.viewModel];
-    
-    [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(didChangeLocalDeckNameReceived:)
                                                name:DeckDetailsViewModelDidChangeLocalDeckNameNoficationName
                                              object:self.viewModel];
@@ -340,14 +366,6 @@
     }];
 }
 
-- (void)hasAnyCardsReceived:(NSNotification *)notification {
-    BOOL hasCards = [(NSNumber *)notification.userInfo[DeckDetailsViewModelHasAnyCardsItemKey] boolValue];
-    
-    [NSOperationQueue.mainQueue addOperationWithBlock:^{
-        self.exportBarButtonItem.enabled = hasCards;
-    }];
-}
-
 - (void)didChangeLocalDeckNameReceived:(NSNotification *)noficiation {
     NSString *name = [noficiation.userInfo[DeckDetailsViewModelDidChangeLocalDeckNameItemKey] copy];
     
@@ -362,28 +380,50 @@
     
     if (error) {
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
-            [self presentErrorAlertWithError:error];
+            BOOL shouldPresent;
+            
+            if (self.delegate != nil) {
+                shouldPresent = [self.delegate deckDetailsViewController:self shouldPresentErrorAlertWithError:[[error retain] autorelease]];
+            } else {
+                shouldPresent = YES;
+            }
+            
+            if (shouldPresent) {
+                [self presentErrorAlertWithError:error];
+            }
+            
             [error release];
         }];
     }
 }
 
 - (void)applyingSnapshotToDataSourceWasDoneReceived:(NSNotification *)notification {
+    BOOL hasCards = [(NSNumber *)notification.userInfo[DeckDetailsViewModelApplyingSnapshotToDataSourceWasDoneHasAnyCardsItemKey] boolValue];
     NSString * _Nullable headerText = [notification.userInfo[DeckDetailsViewModelApplyingSnapshotToDataSourceWasDoneCardsHeaderTextKey] copy];
     
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
         [self removeAllSpinnerview];
+        [self dealWithDataSourceHasCards:hasCards];
         [self updateSectionHeaderViewWithHeaderText:headerText];
         [headerText release];
     }];
 }
 
-- (void)presentCardDetailsVCWithHSCard:(HSCard *)hsCard {
+- (void)presentCardDetailsViewControllerWithHSCard:(HSCard *)hsCard {
     if (hsCard == nil) return;
     
     CardDetailsViewController *vc = [[CardDetailsViewController alloc] initWithHSCard:hsCard sourceImageView:nil];
     [vc loadViewIfNeeded];
     [self presentViewController:vc animated:YES completion:^{}];
+}
+
+- (void)presentDeckAddCardsViewController {
+    DeckAddCardsViewController *vc = [[DeckAddCardsViewController alloc] initWithLocalDeck:self.viewModel.localDeck];
+    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:vc];
+    nvc.modalPresentationStyle = UIModalPresentationFullScreen;
+    [self presentViewController:nvc animated:YES completion:^{}];
+    [vc release];
+    [nvc release];
 }
 
 - (void)updateSectionHeaderViewWithHeaderText:(NSString *)headerText {
@@ -392,6 +432,17 @@
     configuration.text = headerText;
     
     cell.contentConfiguration = configuration;
+}
+
+- (void)dealWithDataSourceHasCards:(BOOL)hasCards {
+    self.exportBarButtonItem.enabled = hasCards;
+    
+    if (hasCards) {
+        self.viewModel.shouldPresentDeckEditor = NO;
+    } else if (self.viewModel.shouldPresentDeckEditor == YES) {
+        self.viewModel.shouldPresentDeckEditor = NO;
+        [self presentDeckAddCardsViewController];
+    }
 }
 
 #pragma mark - UICollectionViewDelegate
@@ -420,7 +471,7 @@
     
     //
     
-    [self presentCardDetailsVCWithHSCard:itemModel.hsCard];
+    [self presentCardDetailsViewControllerWithHSCard:itemModel.hsCard];
 }
 
 - (UIContextMenuConfiguration *)collectionView:(UICollectionView *)collectionView contextMenuConfigurationForItemAtIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point {
@@ -482,7 +533,7 @@
     switch (itemModel.type) {
         case DeckDetailsItemModelTypeCard: {
             [animator addAnimations:^{
-                [self presentCardDetailsVCWithHSCard:itemModel.hsCard];
+                [self presentCardDetailsViewControllerWithHSCard:itemModel.hsCard];
             }];
             break;
         }
@@ -513,7 +564,7 @@
 
 - (void)collectionView:(UICollectionView *)collectionView performDropWithCoordinator:(id<UICollectionViewDropCoordinator>)coordinator {
     [coordinator.session loadObjectsOfClass:[HSCard class] completion:^(NSArray<__kindof id<NSItemProviderReading>> * _Nonnull objects) {
-        [self.viewModel addHSCards:objects];
+        [self addHSCardsToLocalDeck:objects];
     }];
 }
 

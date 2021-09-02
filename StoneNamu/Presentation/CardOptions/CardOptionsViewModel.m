@@ -76,10 +76,6 @@
             NSString *key = NSStringFromCardOptionItemModelType(itemModel.type);
             NSString * _Nullable value = nonnullOptions[key];
             itemModel.value = value;
-            
-            if (itemModel.value == nil) {
-                itemModel.value = itemModel.defaultValue;
-            }
         }
         
         [nonnullOptions release];

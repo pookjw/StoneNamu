@@ -13,6 +13,8 @@ typedef void (^PickerViewControllerDoneCompletion)(PickerItemModel * _Nullable);
 NS_ASSUME_NONNULL_BEGIN
 
 @interface PickerViewController : UIViewController
++ (instancetype)new NS_UNAVAILABLE;
+- (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithDataSource:(NSArray<PickerItemModel *> *)dataSource
                              title:(NSString *)title
                       showEmptyRow:(BOOL)showEmptyRow

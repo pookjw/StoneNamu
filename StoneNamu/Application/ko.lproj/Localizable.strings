@@ -112,18 +112,6 @@
 
 "EDIT_DECK_NAME_TITLE" = "덱 이름 수정";
 
-"DECK_ADD_CARD_ERROR_NO_MORE_THAN_THIRTY_CARDS" = "덱에 30장이 넘는 카드는 추가할 수 없습니다!";
-
-"DECK_ADD_CARD_ERROR_CANNOT_ADD_SINGLE_CARD_MORE_THAN_TWO" = "한 종류의 카드는 두 장이 넘어갈 수 없습니다!";
-
-"DECK_ADD_CARD_ERROR_CANNOT_ADD_SINGLE_LAGENDARY_CARD_MORE_THAN_ONE" = "전설 카드는 두 장 이상 넣읗 수 없습니다!";
-
-"DECK_ADD_CARD_ERROR_CANNOT_ADD_DIFFERENT_CLASS_CARD" = "다른 직업의 카드는 추가할 수 없습니다.";
-
-"DECK_ADD_CARD_ERROR_CANNOT_ADD_NOT_COLLECTIBLE_CARD" = "수집 불가능한 카드는 추가할 수 없습니다.";
-
-"DECK_ADD_CARD_ERROR_CANNOT_ADD_HERO_PORTRAIT_CARD" = "영웅 초상화 카드는 추가할 수 없습니다.";
-
 "DECK_EXPORT_ERROR_CARDS_ARE_NOT_FILLED" = "덱코드를 추출하기 위해서는 %lu의 카드가 필요합니다. (현재 : %lu)";
 
 "ENTER_DECK_TITLE_HERE" = "제목을 입력해 주세요... (선택)";

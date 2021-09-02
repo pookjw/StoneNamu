@@ -17,10 +17,6 @@ typedef UICollectionViewDiffableDataSource<DeckDetailsSectionModel *, DeckDetail
 typedef void (^DeckDetailsViewModelExportDeckCodeCompletion)(NSString * _Nullable);
 
 static NSString * const DeckDetailsViewModelShouldDismissNotificationName = @"DeckDetailsViewModelShouldDismissNotificationName";
-
-static NSString * const DeckDetailsViewModelHasAnyCardsNotificationName = @"DeckDetailsViewModelHasAnyCardsNotificationName";
-static NSString * const DeckDetailsViewModelHasAnyCardsItemKey = @"DeckDetailsViewModelHasAnyCardsItemKey";
-
 static NSString * const DeckDetailsViewModelDidChangeLocalDeckNameNoficationName = @"DeckDetailsViewModelDidChangeLocalDeckNameNoficationName";
 static NSString * const DeckDetailsViewModelDidChangeLocalDeckNameItemKey = @"DeckDetailsViewModelDidChangeLocalDeckNameItemKey";
 
@@ -28,12 +24,16 @@ static NSString * const DeckDetailsViewModelErrorOccuredNoficiationName = @"Deck
 static NSString * const DeckDetailsViewModelErrorOccuredItemKey = @"DeckDetailsViewModelErrorOccuredItemKey";
 
 static NSString * const DeckDetailsViewModelApplyingSnapshotToDataSourceWasDoneNotificationName = @"DeckDetailsViewModelApplyingSnapshotToDataSourceWasDoneNotificationName";
+static NSString * const DeckDetailsViewModelApplyingSnapshotToDataSourceWasDoneHasAnyCardsItemKey = @"DeckDetailsViewModelApplyingSnapshotToDataSourceWasDoneHasAnyCardsItemKey";
 static NSString * const DeckDetailsViewModelApplyingSnapshotToDataSourceWasDoneCardsHeaderTextKey = @"DeckDetailsViewModelApplyingSnapshotToDataSourceWasDoneCardsHeaderTextKey";
 
 @interface DeckDetailsViewModel : NSObject
 @property (retain) NSIndexPath * _Nullable contextMenuIndexPath;
 @property (readonly, retain) LocalDeck *localDeck;
 @property (readonly, retain) DecksDetailsDataSource *dataSource;
+@property BOOL shouldPresentDeckEditor;
++ (instancetype)new NS_UNAVAILABLE;
+- (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithDataSource:(DecksDetailsDataSource *)dataSource;
 - (void)requestDataSourceWithLocalDeck:(LocalDeck *)localDeck;
 - (void)addHSCards:(NSArray<HSCard *> *)hsCards;
@@ -45,7 +45,6 @@ static NSString * const DeckDetailsViewModelApplyingSnapshotToDataSourceWasDoneC
 - (NSArray<UIDragItem *> *)makeDragItemFromIndexPath:(NSIndexPath *)indexPath;
 - (void)exportDeckCodeWithCompletion:(DeckDetailsViewModelExportDeckCodeCompletion)completion;
 - (void)updateDeckName:(NSString *)name;
-- (NSString * _Nullable)headerTextForIndexPath:(NSIndexPath *)indexPath;
 @end
 
 NS_ASSUME_NONNULL_END

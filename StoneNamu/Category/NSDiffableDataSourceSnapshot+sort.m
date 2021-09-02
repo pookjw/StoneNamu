@@ -15,7 +15,7 @@
         
         if (tmpItemIdentifiers.count < 2) {
             [tmpItemIdentifiers release];
-            return;
+            continue;
         }
         
         for (NSUInteger a = 0; a < tmpItemIdentifiers.count; a++) {

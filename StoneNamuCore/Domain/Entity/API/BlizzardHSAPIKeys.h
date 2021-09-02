@@ -32,3 +32,5 @@ static BlizzardHSAPIOptionType const BlizzardHSAPIOptionTypePage = @"page";
 static BlizzardHSAPIOptionType const BlizzardHSAPIOptionTypeIds = @"ids";
 static BlizzardHSAPIOptionType const BlizzardHSAPIOptionTypeCode = @"code";
 static BlizzardHSAPIOptionType const BlizzardHSAPIOptionTypeHero = @"hero";
+
+NSDictionary<BlizzardHSAPIOptionType, NSString *> *BlizzardHSAPIDefaultOptions(void);

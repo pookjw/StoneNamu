@@ -23,6 +23,8 @@ typedef UICollectionViewDiffableDataSource<CardOptionSectionModel *, CardOptionI
 @interface CardOptionsViewModel : NSObject
 @property (readonly, retain) CardOptionsDataSource *dataSource;
 @property (readonly, nonatomic) NSDictionary<NSString *, NSString *> *options;
++ (instancetype)new NS_UNAVAILABLE;
+- (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithDataSource:(CardOptionsDataSource *)dataSource;
 - (void)updateDataSourceWithOptions:(NSDictionary<NSString *, NSString *> * _Nullable)options;
 - (void)handleSelectionForIndexPath:(NSIndexPath *)indexPath;

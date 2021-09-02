@@ -15,6 +15,8 @@ typedef NS_ENUM(NSUInteger, DeckDetailsManaCostContentSectionModelType) {
 
 @interface DeckDetailsManaCostContentSectionModel : NSObject
 @property (readonly) DeckDetailsManaCostContentSectionModelType type;
++ (instancetype)new NS_UNAVAILABLE;
+- (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithType:(DeckDetailsManaCostContentSectionModelType)type;
 @end
 

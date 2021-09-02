@@ -15,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly, nonatomic) NSString * _Nullable primaryText;
 @property (readonly, nonatomic) NSString * _Nullable secondaryText;
 @property BOOL isSelected;
++ (instancetype)new NS_UNAVAILABLE;
+- (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithLocale:(BlizzardHSAPILocale _Nullable)locale isSelected:(BOOL)isSelected;
 @end
 

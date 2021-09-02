@@ -110,12 +110,11 @@
         
         DeckDetailsManaCostGraphContentConfiguration *configuration = [[DeckDetailsManaCostGraphContentConfiguration alloc] initWithCost:itemModel.cardManaCost percentage:itemModel.percentage];
         cell.contentConfiguration = configuration;
+        [configuration release];
         
         UIBackgroundConfiguration *backgroundConfiguration = [UIBackgroundConfiguration listPlainCellConfiguration];
         backgroundConfiguration.backgroundColor = UIColor.clearColor;
         cell.backgroundConfiguration = backgroundConfiguration;
-        
-        [configuration release];
     }];
     
     return cellRegistration;

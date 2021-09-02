@@ -15,6 +15,8 @@ typedef NS_ENUM(NSUInteger, PrefsLocaleSectionModelType) {
 
 @interface PrefsLocaleSectionModel : NSObject
 @property (readonly) PrefsLocaleSectionModelType type;
++ (instancetype)new NS_UNAVAILABLE;
+- (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithType:(PrefsLocaleSectionModelType)type;
 @end
 

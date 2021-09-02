@@ -28,6 +28,8 @@ typedef NS_ENUM(NSUInteger, PrefsItemModelType) {
 @property (readonly, nonatomic) BOOL hasDisclosure;
 @property (readonly, nonatomic) NSDictionary<NSString *, NSURL *> * _Nullable socialInfo;
 @property (readonly, nonatomic) NSURL * _Nullable singleWebPageURL;
++ (instancetype)new NS_UNAVAILABLE;
+- (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithType:(PrefsItemModelType)type;
 @end
 

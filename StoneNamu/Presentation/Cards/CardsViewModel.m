@@ -50,12 +50,6 @@
         self.dataCacheUseCase = dataCacheUseCase;
         [dataCacheUseCase release];
         
-        self.options = @{
-            BlizzardHSAPIOptionTypeCollectible: NSStringFromHSCardCollectible(HSCardCollectibleYES),
-            BlizzardHSAPIOptionTypeGameMode: NSStringFromHSCardGameMode(HSCardGameModeConstructed),
-            BlizzardHSAPIOptionTypeSort: NSStringFromHSCardSort(HSCardSortManaCostAsc)
-        };
-        
         self.pageCount = nil;
         self.page = [NSNumber numberWithUnsignedInt:1];
         self.isFetching = NO;
@@ -93,13 +87,14 @@
     
     self.isFetching = YES;
     
-    NSMutableDictionary *mutableDic;
-    
-    if (options) {
-        mutableDic = [options mutableCopy];
+    if (options == nil) {
+        [self->_options release];
+        self->_options = [BlizzardHSAPIDefaultOptions() copy];
     } else {
-        mutableDic = [@{} mutableCopy];
+        self->_options = [options copy];
     }
+    
+    NSMutableDictionary *mutableDic = [self.options mutableCopy];
     
     if (self.pageCount != nil) {
         // Next page

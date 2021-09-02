@@ -321,7 +321,7 @@
     NSIndexPath *indexPath = [self.viewModel indexPathForLocalDeck:localDeck];
     [self.collectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionNone];
     
-    DeckDetailsViewController *vc = [[DeckDetailsViewController alloc] initWithLocalDeck:localDeck];
+    DeckDetailsViewController *vc = [[DeckDetailsViewController alloc] initWithLocalDeck:localDeck presentEditorIfNoCards:YES];
     [self.splitViewController showDetailViewController:vc sender:nil];
     [vc release];
 }

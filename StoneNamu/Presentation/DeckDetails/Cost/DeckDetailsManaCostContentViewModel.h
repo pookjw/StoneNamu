@@ -16,7 +16,9 @@ typedef UICollectionViewDiffableDataSource<DeckDetailsManaCostContentSectionMode
 static NSUInteger DeckDetailsManaCostContentViewModelCountOfData = 11;
 
 @interface DeckDetailsManaCostContentViewModel : NSObject
-@property (retain) DeckDetailsManaCostContentDataSource *dataSource;
+@property (readonly, retain) DeckDetailsManaCostContentDataSource *dataSource;
++ (instancetype)new NS_UNAVAILABLE;
+- (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithDataSource:(DeckDetailsManaCostContentDataSource *)dataSource;
 - (void)requestDataSourceWithManaDictionary:(NSDictionary<NSNumber *, NSNumber *> *)manaDictionary;
 @end

@@ -11,6 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface DeckDetailsManaCostContentConfiguration : NSObject <UIContentConfiguration>
 @property (readonly, copy) NSDictionary<NSNumber *, NSNumber *> *manaDictionary;
++ (instancetype)new NS_UNAVAILABLE;
+- (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithManaDictionary:(NSDictionary<NSNumber *, NSNumber *> *)manaDictionary;
 @end
 

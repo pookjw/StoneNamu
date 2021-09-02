@@ -15,6 +15,8 @@ typedef NS_ENUM(NSUInteger, PrefsRegionHostSectionModelType) {
 
 @interface PrefsRegionHostSectionModel : NSObject
 @property (readonly) PrefsRegionHostSectionModelType type;
++ (instancetype)new NS_UNAVAILABLE;
+- (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithType:(PrefsRegionHostSectionModelType)type;
 @end
 

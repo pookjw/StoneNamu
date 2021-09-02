@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface StepperViewController : UIViewController
 @property BOOL showPlusMarkWhenReachedToMax;
++ (instancetype)new NS_UNAVAILABLE;
+- (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithRange:(NSRange)range
                         title:(NSString *)title
                         value:(NSUInteger)value

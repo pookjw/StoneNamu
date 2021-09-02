@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly, copy) UIImage * _Nullable image;
 @property (readonly, copy) NSString *title;
 @property (readonly, copy) NSString *identity;
++ (instancetype)new NS_UNAVAILABLE;
+- (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithImage:(UIImage * _Nullable)image title:(NSString *)title identity:(NSString *)identity;
 @end
 

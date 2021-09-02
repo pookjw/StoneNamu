@@ -35,8 +35,8 @@
     }
     
     return (self.type == toCompare.type) &&
-    (((self.cardManaCost == nil) && (toCompare.cardManaCost)) || ([self.cardManaCost isEqualToNumber:toCompare.cardManaCost])) &&
-    (((self.percentage == nil) && (toCompare.percentage)) || ([self.percentage isEqualToNumber:toCompare.percentage]));
+    (((self.cardManaCost == nil) && (toCompare.cardManaCost == nil)) || ([self.cardManaCost isEqualToNumber:toCompare.cardManaCost])) &&
+    (((self.percentage == nil) && (toCompare.percentage == nil)) || ([self.percentage isEqualToNumber:toCompare.percentage]));
 }
 
 - (NSUInteger)hash {

@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly, copy) HSCard *hsCard;
 @property (readonly) NSUInteger hsCardCount;
 @property (readonly) BOOL isDarkMode;
++ (instancetype)new NS_UNAVAILABLE;
+- (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithHSCard:(HSCard *)hsCard hsCardCount:(NSUInteger)hsCardCount;
 @end
 

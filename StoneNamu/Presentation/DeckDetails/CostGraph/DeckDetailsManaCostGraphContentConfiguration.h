@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly, copy) NSNumber *cardManaCost;
 @property (readonly, copy) NSNumber *percentage;
 @property (readonly) BOOL isDarkMode;
++ (instancetype)new NS_UNAVAILABLE;
+- (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithCost:(NSNumber *)cost percentage:(NSNumber *)percentage;
 @end
 

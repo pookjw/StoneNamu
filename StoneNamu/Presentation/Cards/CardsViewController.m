@@ -7,7 +7,6 @@
 
 #import "CardsViewController.h"
 #import "UIViewController+presentErrorAlert.h"
-#import "CardsViewModel.h"
 #import "CardContentConfiguration.h"
 #import "CardContentView.h"
 #import "CardsCollectionViewCompositionalLayout.h"
@@ -18,24 +17,12 @@
 #import "SheetNavigationController.h"
 #import "UIViewController+SpinnerView.h"
 
-@interface CardsViewController () <UICollectionViewDelegate, UICollectionViewDragDelegate>
+@interface CardsViewController () <UICollectionViewDragDelegate>
 @property (retain) UICollectionView *collectionView;
 @property (retain) UIBarButtonItem *optionsBarButtonItem;
-@property (retain) CardsViewModel *viewModel;
 @end
 
 @implementation CardsViewController
-
-- (instancetype)initWithOptions:(NSDictionary<NSString *,id> *)options {
-    self = [self init];
-    
-    if (self) {
-        [self loadViewIfNeeded];
-        self.viewModel.options = options;
-    }
-    
-    return self;
-}
 
 - (void)dealloc {
     [_collectionView release];
@@ -67,6 +54,11 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self configureNavigation];
+}
+
+- (void)requestDataSourceWithOptions:(NSDictionary<NSString *,NSString *> * _Nullable)options {
+    [self addSpinnerView];
+    [self.viewModel requestDataSourceWithOptions:options reset:YES];
 }
 
 - (void)setAttributes {
@@ -125,9 +117,7 @@
 
 - (void)configureViewModel {
     CardsViewModel *viewModel = [[CardsViewModel alloc] initWithDataSource:[self makeDataSource]];
-    self.viewModel = viewModel;
-    [self addSpinnerView];
-    [viewModel requestDataSourceWithOptions:self.viewModel.options reset:YES];
+    self->_viewModel = [viewModel retain];
     [viewModel release];
 }
 
@@ -317,7 +307,6 @@
         [viewController dismissViewControllerAnimated:YES completion:^{}];
     }
     [self addSpinnerView];
-    self.viewModel.options = options;
     [self.viewModel requestDataSourceWithOptions:options reset:YES];
 }
 

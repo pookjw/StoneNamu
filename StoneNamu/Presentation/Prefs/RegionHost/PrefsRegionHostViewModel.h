@@ -15,6 +15,8 @@ typedef UICollectionViewDiffableDataSource<PrefsRegionHostSectionModel *, PrefsR
 
 @interface PrefsRegionHostViewModel : NSObject
 @property (readonly, retain) PrefsRegionHostDataSource *dataSource;
++ (instancetype)new NS_UNAVAILABLE;
+- (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithDataSource:(PrefsRegionHostDataSource *)dataSource;
 - (void)updateRegionHostFromIndexPath:(NSIndexPath *)indexPath;
 @end

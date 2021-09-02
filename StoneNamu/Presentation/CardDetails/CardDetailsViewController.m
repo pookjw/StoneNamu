@@ -145,18 +145,26 @@
 }
 
 - (void)configureCloseButton {
-    UIButtonConfiguration *configuration = UIButtonConfiguration.tintedButtonConfiguration;
-    configuration.image = [UIImage systemImageNamed:@"xmark"];
-    configuration.cornerStyle = UIButtonConfigurationCornerStyleCapsule;
+    UIBackgroundConfiguration *backgroundConfiguration = [UIBackgroundConfiguration clearConfiguration];
+    UIVisualEffectView *blurView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
+    backgroundConfiguration.customView = blurView;
+    backgroundConfiguration.backgroundColor = UIColor.clearColor;
+    [blurView release];
+    backgroundConfiguration.visualEffect = [UIVibrancyEffect effectForBlurEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleDark]];
+    
+    UIButtonConfiguration *buttonConfiguration = UIButtonConfiguration.tintedButtonConfiguration;
+    buttonConfiguration.image = [UIImage systemImageNamed:@"xmark"];
+    buttonConfiguration.cornerStyle = UIButtonConfigurationCornerStyleCapsule;
+    buttonConfiguration.baseForegroundColor = UIColor.whiteColor;
+    buttonConfiguration.background = backgroundConfiguration;
     
     UIAction *action = [UIAction actionWithHandler:^(__kindof UIAction * _Nonnull action) {
         [self dismissViewControllerAnimated:YES completion:^{}];
     }];
     
-    UIButton *closeButton = [UIButton buttonWithConfiguration:configuration primaryAction:action];
+    UIButton *closeButton = [UIButton buttonWithConfiguration:buttonConfiguration primaryAction:action];
     self.closeButton = closeButton;
     
-    closeButton.tintColor = UIColor.whiteColor;
     closeButton.alpha = 0;
 }
 
