@@ -10,6 +10,8 @@
 @implementation UIViewController (animatedForSelectedIndexPath)
 
 - (void)animatedForSelectedIndexPathWithCollectionView:(UICollectionView *)collectionView {
+    if (!self.splitViewController.isCollapsed) return;
+    
     for (NSIndexPath *indexPath in collectionView.indexPathsForSelectedItems) {
         id<UIViewControllerTransitionCoordinator> coordinator = self.transitionCoordinator;
         
@@ -22,9 +24,7 @@
                 }
             }];
         } else {
-            if (self.splitViewController.isCollapsed) {
-                [collectionView deselectItemAtIndexPath:indexPath animated:YES];
-            }
+            [collectionView deselectItemAtIndexPath:indexPath animated:YES];
         }
     }
 }
