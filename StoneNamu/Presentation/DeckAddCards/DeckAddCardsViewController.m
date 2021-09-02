@@ -19,12 +19,13 @@
 #import "DeckDetailsViewController.h"
 #import "CardDetailsViewController.h"
 
-@interface DeckAddCardsViewController () <UICollectionViewDelegate, UICollectionViewDragDelegate, UIDropInteractionDelegate>
+@interface DeckAddCardsViewController () <UICollectionViewDelegate, UICollectionViewDragDelegate, UIDropInteractionDelegate, UIContextMenuInteractionDelegate>
 @property (retain) DeckAddCardsViewModel *viewModel;
 @property (retain) UICollectionView *collectionView;
 @property (retain) UIButton *deckDetailsButton;
 @property (retain) UIBarButtonItem *doneBarButton;
 @property (retain) UIBarButtonItem *optionsBarButtonItem;
+@property (retain) UIViewController * _Nullable contextViewController;
 @end
 
 @implementation DeckAddCardsViewController
@@ -33,6 +34,7 @@
     self = [self init];
     
     if (self) {
+        self.contextViewController = nil;
         [self loadViewIfNeeded];
         self.viewModel.localDeck = localDeck;
         [self.viewModel requestDataSourceWithOptions:nil reset:YES];
@@ -48,6 +50,7 @@
     [_doneBarButton release];
     [_optionsBarButtonItem release];
     [_viewModel release];
+    [_contextViewController release];
     [super dealloc];
 }
 
@@ -220,7 +223,7 @@
 
     [NSLayoutConstraint activateConstraints:@[
         [deckDetailsButton.bottomAnchor constraintEqualToAnchor:self.view.layoutMarginsGuide.bottomAnchor],
-        [deckDetailsButton.trailingAnchor constraintEqualToAnchor:self.view.layoutMarginsGuide.trailingAnchor]
+        [deckDetailsButton.centerXAnchor constraintEqualToAnchor:self.view.layoutMarginsGuide.centerXAnchor]
     ]];
 
     //
@@ -228,6 +231,12 @@
     UIDropInteraction *dropInteraction = [[UIDropInteraction alloc] initWithDelegate:self];
     [deckDetailsButton addInteraction:dropInteraction];
     [dropInteraction release];
+    
+    //
+    
+    UIContextMenuInteraction *contextMenuInteraction = [[UIContextMenuInteraction alloc] initWithDelegate:self];
+    [deckDetailsButton addInteraction:contextMenuInteraction];
+    [contextMenuInteraction release];
 
     //
 
@@ -236,15 +245,15 @@
 
 - (UIButtonConfiguration *)makeDeckDetailButtonConfiguration {
     UIBackgroundConfiguration *backgroundConfiguration = [UIBackgroundConfiguration clearConfiguration];
-    UIVisualEffectView *blurView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
-    backgroundConfiguration.customView = blurView;
-    backgroundConfiguration.backgroundColor = UIColor.clearColor;
-    [blurView release];
-    backgroundConfiguration.visualEffect = [UIVibrancyEffect effectForBlurEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleDark]];
-
+    UIView *backgroundView = [UIView new];
+    backgroundView.backgroundColor = [UIColor.tintColor colorWithAlphaComponent:0.5];
+    backgroundConfiguration.customView = backgroundView;
+    [backgroundView release];
+    backgroundConfiguration.visualEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
+    
     //
     
-    UIButtonConfiguration *buttonConfiguration = UIButtonConfiguration.tintedButtonConfiguration;
+    UIButtonConfiguration *buttonConfiguration = UIButtonConfiguration.plainButtonConfiguration;
     buttonConfiguration.cornerStyle = UIButtonConfigurationCornerStyleCapsule;
     buttonConfiguration.baseForegroundColor = UIColor.whiteColor;
     buttonConfiguration.background = backgroundConfiguration;
@@ -339,18 +348,22 @@
 }
 
 - (void)presentDeckDetailsViewController {
+    [self presentViewController:[self makeDeckDetailsViewController] animated:YES completion:^{}];
+}
+
+- (SheetNavigationController *)makeDeckDetailsViewController {
     DeckDetailsViewController *vc = [[DeckDetailsViewController alloc] initWithLocalDeck:self.viewModel.localDeck presentEditorIfNoCards:NO];
     [vc setRightBarButtons:DeckDetailsViewControllerBarButtonTypeDone];
     SheetNavigationController *nvc = [[SheetNavigationController alloc] initWithRootViewController:vc];
     [vc release];
-    [self presentViewController:nvc animated:YES completion:^{}];
-    [nvc release];
+    return [nvc autorelease];
 }
 
 - (void)updateDeckDetailButtonText {
     UIButtonConfiguration *buttonConfiguration = [self makeDeckDetailButtonConfiguration];
     NSAttributedString *title = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%lu / %d", self.viewModel.countOfLocalDeckCards, HSDECK_MAX_TOTAL_CARDS]
-                                                                attributes:@{NSFontAttributeName: [UIFont preferredFontForTextStyle:UIFontTextStyleTitle1]}];
+                                                                attributes:@{NSFontAttributeName: [UIFont preferredFontForTextStyle:UIFontTextStyleTitle2],
+                                                                             NSForegroundColorAttributeName: UIColor.whiteColor}];
     buttonConfiguration.attributedTitle = title;
     [title release];
     
@@ -456,6 +469,31 @@
     }
     [self addSpinnerView];
     [self.viewModel requestDataSourceWithOptions:options reset:YES];
+}
+
+#pragma mark - UIContextMenuInteractionDelegate
+
+- (nullable UIContextMenuConfiguration *)contextMenuInteraction:(nonnull UIContextMenuInteraction *)interaction configurationForMenuAtLocation:(CGPoint)location {
+    UIContextMenuConfiguration *configuration = [UIContextMenuConfiguration configurationWithIdentifier:nil
+                                                                                        previewProvider:^UIViewController * _Nullable{
+        self.contextViewController = [self makeDeckDetailsViewController];
+        return self.contextViewController;
+    }
+                                                                                         actionProvider:nil];
+    
+    return configuration;
+}
+
+- (void)contextMenuInteraction:(UIContextMenuInteraction *)interaction willPerformPreviewActionForMenuWithConfiguration:(UIContextMenuConfiguration *)configuration animator:(id<UIContextMenuInteractionCommitAnimating>)animator {
+    if (self.contextViewController != nil) {
+        [animator addAnimations:^{
+            [self presentViewController:self.contextViewController animated:YES completion:^{}];
+        }];
+        
+        [animator addCompletion:^{
+            self.contextViewController = nil;
+        }];
+    }
 }
 
 @end
