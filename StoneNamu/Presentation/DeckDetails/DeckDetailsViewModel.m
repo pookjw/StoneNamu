@@ -324,15 +324,13 @@
     [self->_localDeck release];
     self->_localDeck = [localDeck retain];
     
-    [self.queue addBarrierBlock:^{
-        if (localDeck.cards) {
-            [self updateDataSourceWithHSCards:localDeck.cards];;
-        } else {
-            [self updateDataSourceWithHSCards:@[]];
-        }
-        
-        [self postDidChangeLocalDeckNameNotification:localDeck.name];
-    }];
+    if (localDeck.cards) {
+        [self updateDataSourceWithHSCards:localDeck.cards];;
+    } else {
+        [self updateDataSourceWithHSCards:@[]];
+    }
+    
+    [self postDidChangeLocalDeckNameNotification:localDeck.name];
 }
 
 - (void)updateDataSourceWithHSCards:(NSArray<HSCard *> *)hsCards {
