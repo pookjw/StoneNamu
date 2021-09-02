@@ -7,18 +7,47 @@
 
 #import "DeckAddCardSplitViewController.h"
 #import "DeckAddCardsViewController.h"
-#import "DeckAddCardOptionsViewController.h"
+#import "DeckDetailsViewController.h"
 
 @interface DeckAddCardSplitViewController () <UISplitViewControllerDelegate>
 @end
 
 @implementation DeckAddCardSplitViewController
 
-- (instancetype)init {
-    self = [super init];
+- (instancetype)initWithLocalDeck:(LocalDeck *)localDeck {
+    self = [self init];
     
     if (self) {
         self.delegate = self;
+        [self loadViewIfNeeded];
+        self.modalPresentationStyle = UIModalPresentationFullScreen;
+        
+        DeckAddCardsViewController *deckAddCardsViewController = [[DeckAddCardsViewController alloc] initWithLocalDeck:localDeck];
+        [deckAddCardsViewController loadViewIfNeeded];
+        
+        UINavigationController *primaryNavigationController = [UINavigationController new];
+        UINavigationController *secondaryNavigationController = [UINavigationController new];
+        
+        primaryNavigationController.view.backgroundColor = UIColor.systemBackgroundColor;
+        secondaryNavigationController.view.backgroundColor = UIColor.systemBackgroundColor;
+        
+        if (self.isCollapsed) {
+            primaryNavigationController.viewControllers = @[deckAddCardsViewController];
+            secondaryNavigationController.viewControllers = @[];
+            self.viewControllers = @[primaryNavigationController, secondaryNavigationController];
+        } else {
+            LocalDeck *localDeck = [deckAddCardsViewController setDeckDetailsButtonHidden:YES];
+            DeckDetailsViewController *deckDetailsViewController = [[DeckDetailsViewController alloc] initWithLocalDeck:localDeck presentEditorIfNoCards:NO];
+            [deckDetailsViewController setRightBarButtons:0];
+            primaryNavigationController.viewControllers = @[deckDetailsViewController];
+            secondaryNavigationController.viewControllers = @[deckAddCardsViewController];
+            self.viewControllers = @[primaryNavigationController, secondaryNavigationController];
+            [deckDetailsViewController release];
+        }
+        
+        [deckAddCardsViewController release];
+        [primaryNavigationController release];
+        [secondaryNavigationController release];
     }
     
     return self;
@@ -50,13 +79,13 @@
     
     if (secondaryNavigationController.viewControllers.count < 1) return NO;
     
-    DeckAddCardsViewController *cardViewController = (DeckAddCardsViewController *)secondaryNavigationController.viewControllers[0];
-    if (![cardViewController isKindOfClass:[DeckAddCardsViewController class]]) {
+    DeckAddCardsViewController *deckAddCardsViewController = (DeckAddCardsViewController *)secondaryNavigationController.viewControllers[0];
+    if (![deckAddCardsViewController isKindOfClass:[DeckAddCardsViewController class]]) {
         return NO;
     }
     
-    [cardViewController setOptionsBarButtonItemHidden:NO];
-    primaryNavigationController.viewControllers = @[cardViewController];
+    [deckAddCardsViewController setDeckDetailsButtonHidden:NO];
+    primaryNavigationController.viewControllers = @[deckAddCardsViewController];
     secondaryNavigationController.viewControllers = @[];
     
     return YES;
@@ -71,19 +100,30 @@
     NSUInteger primaryNavigationControllersCount = primaryNavigationController.viewControllers.count;
     if (primaryNavigationControllersCount == 0) return nil;
     
-    DeckAddCardsViewController *cardsViewController = primaryNavigationController.viewControllers[0];
-    if (![cardsViewController isKindOfClass:[DeckAddCardsViewController class]]) return nil;
-    [cardsViewController.presentedViewController dismissViewControllerAnimated:NO completion:^{}];
-    NSDictionary<NSString *, NSString *> *options = [cardsViewController setOptionsBarButtonItemHidden:YES];
+    DeckAddCardsViewController *deckAddCardsViewController = primaryNavigationController.viewControllers[0];
+    if (![deckAddCardsViewController isKindOfClass:[DeckAddCardsViewController class]]) return nil;
+    
+    //
+    
+    UINavigationController *presentedNavigationController = (UINavigationController *)deckAddCardsViewController.presentedViewController;
+    if ([presentedNavigationController isKindOfClass:[UINavigationController class]] &&
+        [presentedNavigationController.viewControllers.lastObject isKindOfClass:[DeckDetailsViewController class]]) {
+        [presentedNavigationController dismissViewControllerAnimated:NO completion:^{}];
+    }
+    
+    //
+    
+    LocalDeck *localDeck = [deckAddCardsViewController setDeckDetailsButtonHidden:YES];
     
     UINavigationController *secondaryNavigationController = [UINavigationController new];
     secondaryNavigationController.view.backgroundColor = UIColor.systemBackgroundColor;
-    DeckAddCardOptionsViewController *cardOptionsViewController = [[DeckAddCardOptionsViewController alloc] initWithOptions:options];
-    [cardOptionsViewController setCancelButtonHidden:YES];
+    DeckDetailsViewController *deckDetailsViewController = [[DeckDetailsViewController alloc] initWithLocalDeck:localDeck presentEditorIfNoCards:NO];
+    [deckDetailsViewController setRightBarButtons:0];
     
-    cardOptionsViewController.delegate = cardsViewController;
-    primaryNavigationController.viewControllers = @[cardOptionsViewController];
-    secondaryNavigationController.viewControllers = @[cardsViewController];
+    primaryNavigationController.viewControllers = @[deckDetailsViewController];
+    secondaryNavigationController.viewControllers = @[deckAddCardsViewController];
+    
+    [deckDetailsViewController release];
     
     return [secondaryNavigationController autorelease];
 }

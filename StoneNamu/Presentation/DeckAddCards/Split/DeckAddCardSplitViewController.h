@@ -6,11 +6,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LocalDeck.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface DeckAddCardSplitViewController : UISplitViewController
-
++ (instancetype)new NS_UNAVAILABLE;
+- (instancetype)init NS_UNAVAILABLE;
+- (instancetype)initWithLocalDeck:(LocalDeck *)localDeck;
 @end
 
 NS_ASSUME_NONNULL_END

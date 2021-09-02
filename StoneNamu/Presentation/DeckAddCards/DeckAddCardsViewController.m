@@ -50,15 +50,9 @@
     [super dealloc];
 }
 
-- (NSDictionary<NSString *,NSString *> * _Nullable)setOptionsBarButtonItemHidden:(BOOL)hidden {
-    
-    if (hidden) {
-        self.navigationItem.leftBarButtonItems = @[];
-    } else {
-        self.navigationItem.leftBarButtonItems = @[self.optionsBarButtonItem];
-    }
-    
-    return self.viewModel.options;
+- (LocalDeck * _Nullable)setDeckDetailsButtonHidden:(BOOL)hidden {
+    self.deckDetailsButton.hidden = hidden;
+    return self.viewModel.localDeck;
 }
 
 - (void)viewDidLoad {

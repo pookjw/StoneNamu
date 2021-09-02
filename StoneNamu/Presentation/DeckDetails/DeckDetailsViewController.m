@@ -14,7 +14,7 @@
 #import "DeckDetailsManaCostContentConfiguration.h"
 #import "CardDetailsViewController.h"
 #import "UIViewController+SpinnerView.h"
-#import "DeckAddCardsViewController.h"
+#import "DeckAddCardSplitViewController.h"
 
 @interface DeckDetailsViewController () <UICollectionViewDelegate, UICollectionViewDragDelegate, UICollectionViewDropDelegate>
 @property (retain) UICollectionView *collectionView;
@@ -455,12 +455,9 @@
 }
 
 - (void)presentDeckAddCardsViewController {
-    DeckAddCardsViewController *vc = [[DeckAddCardsViewController alloc] initWithLocalDeck:self.viewModel.localDeck];
-    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:vc];
-    nvc.modalPresentationStyle = UIModalPresentationFullScreen;
-    [self presentViewController:nvc animated:YES completion:^{}];
+    DeckAddCardSplitViewController *vc = [[DeckAddCardSplitViewController alloc] initWithLocalDeck:self.viewModel.localDeck];
+    [self presentViewController:vc animated:YES completion:^{}];
     [vc release];
-    [nvc release];
 }
 
 - (void)updateSectionHeaderViewWithHeaderText:(NSString *)headerText {

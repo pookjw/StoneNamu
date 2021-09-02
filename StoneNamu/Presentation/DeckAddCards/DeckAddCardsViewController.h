@@ -12,7 +12,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface DeckAddCardsViewController : UIViewController <DeckAddCardOptionsViewControllerDelegate>
-- (NSDictionary<NSString *, NSString *> * _Nullable)setOptionsBarButtonItemHidden:(BOOL)hidden;
+- (LocalDeck * _Nullable)setDeckDetailsButtonHidden:(BOOL)hidden;
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithLocalDeck:(LocalDeck *)localDeck;

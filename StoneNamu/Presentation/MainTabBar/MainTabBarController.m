@@ -40,16 +40,12 @@
 }
 
 - (void)configureViewControllers {
-    CardsViewController *cardsViewController = [CardsViewController new];
     DecksViewController *decksViewController = [DecksViewController new];
     PrefsViewController *prefsViewController = [PrefsViewController new];
     
-    [cardsViewController loadViewIfNeeded];
     [decksViewController loadViewIfNeeded];
     [prefsViewController loadViewIfNeeded];
     
-    UINavigationController *cardsPrimaryNavigationController = [UINavigationController new];
-    UINavigationController *cardsSecondaryNavigationController = [UINavigationController new];
     UINavigationController *decksPrimaryNavigationController = [[UINavigationController alloc] initWithRootViewController:decksViewController];
     UINavigationController *decksSecondaryNavigationController = [UINavigationController new];
     UINavigationController *prefsPrimaryNavigationController = [[UINavigationController alloc] initWithRootViewController:prefsViewController];
@@ -66,38 +62,19 @@
     [decksSplitViewController loadViewIfNeeded];
     [prefsSplitViewController loadViewIfNeeded];
     
-    cardsPrimaryNavigationController.view.backgroundColor = UIColor.systemBackgroundColor;
-    cardsSecondaryNavigationController.view.backgroundColor = UIColor.systemBackgroundColor;
     decksPrimaryNavigationController.view.backgroundColor = UIColor.systemBackgroundColor;
     decksSecondaryNavigationController.view.backgroundColor = UIColor.systemBackgroundColor;
     prefsPrimaryNavigationController.view.backgroundColor = UIColor.systemBackgroundColor;
     prefsSecondaryNavigationController.view.backgroundColor = UIColor.systemBackgroundColor;
     
-    if (cardsSplitViewController.isCollapsed) {
-        cardsPrimaryNavigationController.viewControllers = @[cardsViewController];
-        cardsSecondaryNavigationController.viewControllers = @[];
-        cardsSplitViewController.viewControllers = @[cardsPrimaryNavigationController, cardsSecondaryNavigationController];
-    } else {
-        NSDictionary<NSString *, NSString *> *options = [cardsViewController setOptionsBarButtonItemHidden:YES];
-        CardOptionsViewController *cardOptionsViewController = [[CardOptionsViewController alloc] initWithOptions:options];
-        [cardOptionsViewController setCancelButtonHidden:YES];
-        cardOptionsViewController.delegate = cardsViewController;
-        cardsPrimaryNavigationController.viewControllers = @[cardOptionsViewController];
-        cardsSecondaryNavigationController.viewControllers = @[cardsViewController];
-        cardsSplitViewController.viewControllers = @[cardsPrimaryNavigationController, cardsSecondaryNavigationController];
-    }
-    
     decksSplitViewController.viewControllers = @[decksPrimaryNavigationController, decksSecondaryNavigationController];
     prefsSplitViewController.viewControllers = @[prefsPrimaryNavigationController, prefsSecondaryNavigationController];
     
-    [cardsViewController release];
     [decksViewController release];
     [prefsViewController release];
-    [cardsPrimaryNavigationController release];
     [prefsPrimaryNavigationController release];
     [decksPrimaryNavigationController release];
     [decksSecondaryNavigationController release];
-    [cardsSecondaryNavigationController release];
     [prefsSecondaryNavigationController release];
     
     UITabBarItem *cardsTabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"CARDS", @"")

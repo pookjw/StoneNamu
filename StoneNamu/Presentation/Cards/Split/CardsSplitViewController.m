@@ -19,6 +19,35 @@
     
     if (self) {
         self.delegate = self;
+        [self loadViewIfNeeded];
+        
+        CardsViewController *cardsViewController = [CardsViewController new];
+        [cardsViewController loadViewIfNeeded];
+        
+        UINavigationController *cardsPrimaryNavigationController = [UINavigationController new];
+        UINavigationController *cardsSecondaryNavigationController = [UINavigationController new];
+        
+        cardsPrimaryNavigationController.view.backgroundColor = UIColor.systemBackgroundColor;
+        cardsSecondaryNavigationController.view.backgroundColor = UIColor.systemBackgroundColor;
+        
+        if (self.isCollapsed) {
+            cardsPrimaryNavigationController.viewControllers = @[cardsViewController];
+            cardsSecondaryNavigationController.viewControllers = @[];
+            self.viewControllers = @[cardsPrimaryNavigationController, cardsSecondaryNavigationController];
+        } else {
+            NSDictionary<NSString *, NSString *> *options = [cardsViewController setOptionsBarButtonItemHidden:YES];
+            CardOptionsViewController *cardOptionsViewController = [[CardOptionsViewController alloc] initWithOptions:options];
+            [cardOptionsViewController setCancelButtonHidden:YES];
+            cardOptionsViewController.delegate = cardsViewController;
+            cardsPrimaryNavigationController.viewControllers = @[cardOptionsViewController];
+            cardsSecondaryNavigationController.viewControllers = @[cardsViewController];
+            self.viewControllers = @[cardsPrimaryNavigationController, cardsSecondaryNavigationController];
+            [cardOptionsViewController release];
+        }
+        
+        [cardsViewController release];
+        [cardsPrimaryNavigationController release];
+        [cardsSecondaryNavigationController release];
     }
     
     return self;
@@ -73,7 +102,17 @@
     
     CardsViewController *cardsViewController = primaryNavigationController.viewControllers[0];
     if (![cardsViewController isKindOfClass:[CardsViewController class]]) return nil;
-    [cardsViewController.presentedViewController dismissViewControllerAnimated:NO completion:^{}];
+    
+    //
+    
+    UINavigationController *presentedNavigationController = (UINavigationController *)cardsViewController.presentedViewController;
+    if ([presentedNavigationController isKindOfClass:[UINavigationController class]] &&
+        [presentedNavigationController.viewControllers.lastObject isKindOfClass:[CardOptionsViewController class]]) {
+        [presentedNavigationController dismissViewControllerAnimated:NO completion:^{}];
+    }
+    
+    //
+    
     NSDictionary<NSString *, NSString *> *options = [cardsViewController setOptionsBarButtonItemHidden:YES];
     
     UINavigationController *secondaryNavigationController = [UINavigationController new];
