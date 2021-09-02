@@ -10,7 +10,7 @@
 @implementation UIViewController (targetedPreviewWithClearBackgroundForView)
 
 - (UITargetedPreview *)targetedPreviewWithClearBackgroundForView:(UIView *)view {
-    UIPreviewParameters *parameters = [UIPreviewParameters new];
+    UIPreviewParameters *parameters = [[UIPreviewParameters new] autorelease];
     parameters.backgroundColor = UIColor.clearColor;
     
     return [[[UITargetedPreview alloc] initWithView:view parameters:parameters] autorelease];
