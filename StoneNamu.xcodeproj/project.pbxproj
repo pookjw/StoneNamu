@@ -108,6 +108,7 @@
 		4F8F976526D469700024FC06 /* InsetsLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8F976426D469700024FC06 /* InsetsLabel.m */; };
 		4F8F976926D47F360024FC06 /* DeckDetailsManaCostContentConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8F976826D47F360024FC06 /* DeckDetailsManaCostContentConfiguration.m */; };
 		4F8F976C26D47F560024FC06 /* DeckDetailsManaCostContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8F976B26D47F560024FC06 /* DeckDetailsManaCostContentView.m */; };
+		4F8FFF2626E0B66700FA6586 /* DeckAddCardsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8FFF2526E0B66700FA6586 /* DeckAddCardsViewModel.m */; };
 		4F90709926D35FA000BA7614 /* DeckDetailsCardContentConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F90709826D35FA000BA7614 /* DeckDetailsCardContentConfiguration.m */; };
 		4F90709C26D3606300BA7614 /* DeckDetailsCardContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F90709B26D3606300BA7614 /* DeckDetailsCardContentView.m */; };
 		4F9070A126D3803800BA7614 /* UIImage+averageColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F9070A026D3803800BA7614 /* UIImage+averageColor.m */; };
@@ -394,6 +395,8 @@
 		4F8F976826D47F360024FC06 /* DeckDetailsManaCostContentConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckDetailsManaCostContentConfiguration.m; sourceTree = "<group>"; };
 		4F8F976A26D47F560024FC06 /* DeckDetailsManaCostContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckDetailsManaCostContentView.h; sourceTree = "<group>"; };
 		4F8F976B26D47F560024FC06 /* DeckDetailsManaCostContentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckDetailsManaCostContentView.m; sourceTree = "<group>"; };
+		4F8FFF2426E0B66700FA6586 /* DeckAddCardsViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckAddCardsViewModel.h; sourceTree = "<group>"; };
+		4F8FFF2526E0B66700FA6586 /* DeckAddCardsViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckAddCardsViewModel.m; sourceTree = "<group>"; };
 		4F90709726D35FA000BA7614 /* DeckDetailsCardContentConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckDetailsCardContentConfiguration.h; sourceTree = "<group>"; };
 		4F90709826D35FA000BA7614 /* DeckDetailsCardContentConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckDetailsCardContentConfiguration.m; sourceTree = "<group>"; };
 		4F90709A26D3606300BA7614 /* DeckDetailsCardContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckDetailsCardContentView.h; sourceTree = "<group>"; };
@@ -750,6 +753,8 @@
 			children = (
 				4F4DD75026DFA4DA00893E2B /* DeckAddCardsViewController.h */,
 				4F4DD75126DFA4DA00893E2B /* DeckAddCardsViewController.m */,
+				4F8FFF2426E0B66700FA6586 /* DeckAddCardsViewModel.h */,
+				4F8FFF2526E0B66700FA6586 /* DeckAddCardsViewModel.m */,
 			);
 			path = DeckAddCards;
 			sourceTree = "<group>";
@@ -803,13 +808,13 @@
 			path = Stepper;
 			sourceTree = "<group>";
 		};
-		4F8754B326DB875D000CE351 /* SpinnerView */ = {
+		4F8754B326DB875D000CE351 /* Spinner */ = {
 			isa = PBXGroup;
 			children = (
 				4F8754B426DB8773000CE351 /* SpinnerView.h */,
 				4F8754B526DB8773000CE351 /* SpinnerView.m */,
 			);
-			path = SpinnerView;
+			path = Spinner;
 			sourceTree = "<group>";
 		};
 		4F8F976626D47EF10024FC06 /* InsetLabel */ = {
@@ -868,7 +873,7 @@
 				4FFDD65526CAC404008E5B45 /* DeckDetails */,
 				4F4DD74F26DFA4C400893E2B /* DeckAddCards */,
 				4F8F976626D47EF10024FC06 /* InsetLabel */,
-				4F8754B326DB875D000CE351 /* SpinnerView */,
+				4F8754B326DB875D000CE351 /* Spinner */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -1549,6 +1554,7 @@
 				4FF3E0D226CA6FB9002B20EA /* MainTabBarController.m in Sources */,
 				4FA9047A26B6E26A00CD6147 /* CardContentView.m in Sources */,
 				4F4976E926ABFF5E00860809 /* CardOptionSectionModel.m in Sources */,
+				4F8FFF2626E0B66700FA6586 /* DeckAddCardsViewModel.m in Sources */,
 				4F1B98A926C82382004E1603 /* PrefsRegionHostViewController.m in Sources */,
 				4F9070A426D3836600BA7614 /* UIColor+invertedColor.m in Sources */,
 				4F4976E626ABFE2100860809 /* CardOptionsViewModel.m in Sources */,

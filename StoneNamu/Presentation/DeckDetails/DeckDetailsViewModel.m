@@ -69,7 +69,7 @@
     
     [self.localDeckUseCase addHSCards:copyHSCards toLocalDeck:self.localDeck validation:^(NSError * _Nullable error) {
         if (error != nil) {
-            [self postErrorOccuredNotification:error];
+            [self postErrorOccurredNotification:error];
         } else {
             
             NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
@@ -138,100 +138,96 @@
 - (void)increaseAtIndexPath:(NSIndexPath *)indexPath {
     NSIndexPath *copyIndexPath = [indexPath copy];
     
-    [self.queue addBarrierBlock:^{
-        DeckDetailsItemModel *itemModel = [self.dataSource itemIdentifierForIndexPath:copyIndexPath];
-        HSCard *copyHSCard = [itemModel.hsCard copy];
-        
-        [self.localDeckUseCase increaseHSCards:[NSSet setWithArray:@[copyHSCard]] toLocalDeck:self.localDeck validation:^(NSError * _Nullable error) {
-            if (error != nil) {
-                [self postErrorOccuredNotification:error];
-            } else {
-                
-                NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
-                
-                //
-                
-                DeckDetailsSectionModel *sectionModel = [self.dataSource sectionIdentifierForIndex:copyIndexPath.section];
-                DeckDetailsItemModel *itemModel = [self.dataSource itemIdentifierForIndexPath:copyIndexPath];
-                
-                //
-                
-                DeckDetailsItemModel *copy = [itemModel copy];
-                copy.hsCardCount += 1;
-                
-                [snapshot deleteItemsWithIdentifiers:@[itemModel]];
-                [snapshot appendItemsWithIdentifiers:@[copy] intoSectionWithIdentifier:sectionModel];
-                [copy release];
-                
-                [self addCostGraphItemToSnapshot:snapshot];
-                [self updateCardsSectionHeaderTitleFromSnapshot:snapshot];
-                [self sortSnapshot:snapshot];
-                
-                [NSOperationQueue.mainQueue addOperationWithBlock:^{
-                    [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
-                        [snapshot release];
-                        [self postApplyingSnapshotToDataSourceWasDoneNotification];
-                    }];
-                }];
-            }
+    DeckDetailsItemModel *itemModel = [self.dataSource itemIdentifierForIndexPath:copyIndexPath];
+    HSCard *copyHSCard = [itemModel.hsCard copy];
+    
+    [self.localDeckUseCase increaseHSCards:[NSSet setWithArray:@[copyHSCard]] toLocalDeck:self.localDeck validation:^(NSError * _Nullable error) {
+        if (error != nil) {
+            [self postErrorOccurredNotification:error];
+        } else {
             
-            [copyIndexPath release];
-        }];
+            NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
+            
+            //
+            
+            DeckDetailsSectionModel *sectionModel = [self.dataSource sectionIdentifierForIndex:copyIndexPath.section];
+            DeckDetailsItemModel *itemModel = [self.dataSource itemIdentifierForIndexPath:copyIndexPath];
+            
+            //
+            
+            DeckDetailsItemModel *copy = [itemModel copy];
+            copy.hsCardCount += 1;
+            
+            [snapshot deleteItemsWithIdentifiers:@[itemModel]];
+            [snapshot appendItemsWithIdentifiers:@[copy] intoSectionWithIdentifier:sectionModel];
+            [copy release];
+            
+            [self addCostGraphItemToSnapshot:snapshot];
+            [self updateCardsSectionHeaderTitleFromSnapshot:snapshot];
+            [self sortSnapshot:snapshot];
+            
+            [NSOperationQueue.mainQueue addOperationWithBlock:^{
+                [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
+                    [snapshot release];
+                    [self postApplyingSnapshotToDataSourceWasDoneNotification];
+                }];
+            }];
+        }
         
-        [copyHSCard release];
+        [copyIndexPath release];
     }];
+    
+    [copyHSCard release];
 }
 
 - (void)decreaseAtIndexPath:(NSIndexPath *)indexPath {
     NSIndexPath *copyIndexPath = [indexPath copy];
     
-    [self.queue addBarrierBlock:^{
-        DeckDetailsItemModel *itemModel = [self.dataSource itemIdentifierForIndexPath:copyIndexPath];
-        
-        if (itemModel.hsCardCount <= 1) {
-            [self deleteAtIndexPath:copyIndexPath];
-            [copyIndexPath release];
-            return;
+    DeckDetailsItemModel *itemModel = [self.dataSource itemIdentifierForIndexPath:copyIndexPath];
+    
+    if (itemModel.hsCardCount <= 1) {
+        [self deleteAtIndexPath:copyIndexPath];
+        [copyIndexPath release];
+        return;
+    }
+    
+    HSCard *copyHSCard = [itemModel.hsCard copy];
+    
+    [self.localDeckUseCase decreaseHSCards:[NSSet setWithArray:@[copyHSCard]] toLocalDeck:self.localDeck validation:^(NSError * _Nullable error) {
+        if (error != nil) {
+            [self postErrorOccurredNotification:error];
+        } else {
+            
+            NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
+            
+            DeckDetailsSectionModel *sectionModel = [self.dataSource sectionIdentifierForIndex:copyIndexPath.section];
+            DeckDetailsItemModel *itemModel = [self.dataSource itemIdentifierForIndexPath:copyIndexPath];
+            
+            //
+            
+            DeckDetailsItemModel *copy = [itemModel copy];
+            copy.hsCardCount -= 1;
+            
+            [snapshot deleteItemsWithIdentifiers:@[itemModel]];
+            [snapshot appendItemsWithIdentifiers:@[copy] intoSectionWithIdentifier:sectionModel];
+            [copy release];
+            
+            [self addCostGraphItemToSnapshot:snapshot];
+            [self updateCardsSectionHeaderTitleFromSnapshot:snapshot];
+            [self sortSnapshot:snapshot];
+            
+            [NSOperationQueue.mainQueue addOperationWithBlock:^{
+                [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
+                    [snapshot release];
+                    [self postApplyingSnapshotToDataSourceWasDoneNotification];
+                }];
+            }];
         }
         
-        HSCard *copyHSCard = [itemModel.hsCard copy];
-        
-        [self.localDeckUseCase decreaseHSCards:[NSSet setWithArray:@[copyHSCard]] toLocalDeck:self.localDeck validation:^(NSError * _Nullable error) {
-            if (error != nil) {
-                [self postErrorOccuredNotification:error];
-            } else {
-                
-                NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
-                
-                DeckDetailsSectionModel *sectionModel = [self.dataSource sectionIdentifierForIndex:copyIndexPath.section];
-                DeckDetailsItemModel *itemModel = [self.dataSource itemIdentifierForIndexPath:copyIndexPath];
-                
-                //
-                
-                DeckDetailsItemModel *copy = [itemModel copy];
-                copy.hsCardCount -= 1;
-                
-                [snapshot deleteItemsWithIdentifiers:@[itemModel]];
-                [snapshot appendItemsWithIdentifiers:@[copy] intoSectionWithIdentifier:sectionModel];
-                [copy release];
-                
-                [self addCostGraphItemToSnapshot:snapshot];
-                [self updateCardsSectionHeaderTitleFromSnapshot:snapshot];
-                [self sortSnapshot:snapshot];
-                
-                [NSOperationQueue.mainQueue addOperationWithBlock:^{
-                    [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
-                        [snapshot release];
-                        [self postApplyingSnapshotToDataSourceWasDoneNotification];
-                    }];
-                }];
-            }
-            
-            [copyIndexPath release];
-        }];
-        
-        [copyHSCard release];
+        [copyIndexPath release];
     }];
+    
+    [copyHSCard release];
 }
 
 - (void)deleteAtIndexPath:(NSIndexPath *)indexPath {
@@ -245,35 +241,33 @@
 - (void)deleteHSCard:(HSCard *)hsCard {
     HSCard *copyHSCard = [hsCard copy];
     
-    [self.queue addBarrierBlock:^{
-        [self.localDeckUseCase deleteHSCards:[NSSet setWithArray:@[hsCard]] toLocalDeck:self.localDeck validation:^(NSError * _Nullable error) {
-            if (error != nil) {
-                [self postErrorOccuredNotification:error];
-            } else {
-                
-                NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
-                
-                [snapshot.itemIdentifiers enumerateObjectsUsingBlock:^(DeckDetailsItemModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                    if ((obj.type == DeckDetailsItemModelTypeCard) && [copyHSCard isEqual:obj.hsCard]) {
-                        [snapshot deleteItemsWithIdentifiers:@[obj]];
-                        *stop = YES;
-                    }
-                }];
-                
-                [self addCostGraphItemToSnapshot:snapshot];
-                [self updateCardsSectionHeaderTitleFromSnapshot:snapshot];
-                [self sortSnapshot:snapshot];
-                
-                [NSOperationQueue.mainQueue addOperationWithBlock:^{
-                    [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
-                        [snapshot release];
-                        [self postApplyingSnapshotToDataSourceWasDoneNotification];
-                    }];
-                }];
-            }
+    [self.localDeckUseCase deleteHSCards:[NSSet setWithArray:@[hsCard]] toLocalDeck:self.localDeck validation:^(NSError * _Nullable error) {
+        if (error != nil) {
+            [self postErrorOccurredNotification:error];
+        } else {
             
-            [copyHSCard release];
-        }];
+            NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
+            
+            [snapshot.itemIdentifiers enumerateObjectsUsingBlock:^(DeckDetailsItemModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                if ((obj.type == DeckDetailsItemModelTypeCard) && [copyHSCard isEqual:obj.hsCard]) {
+                    [snapshot deleteItemsWithIdentifiers:@[obj]];
+                    *stop = YES;
+                }
+            }];
+            
+            [self addCostGraphItemToSnapshot:snapshot];
+            [self updateCardsSectionHeaderTitleFromSnapshot:snapshot];
+            [self sortSnapshot:snapshot];
+            
+            [NSOperationQueue.mainQueue addOperationWithBlock:^{
+                [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
+                    [snapshot release];
+                    [self postApplyingSnapshotToDataSourceWasDoneNotification];
+                }];
+            }];
+        }
+        
+        [copyHSCard release];
     }];
 }
 
@@ -306,7 +300,7 @@
                                     classId:self.localDeck.classId.unsignedIntegerValue
                                  completion:^(HSDeck * _Nullable hsDeck, NSError * _Nullable error) {
         if (error) {
-            [self postErrorOccuredNotification:error];
+            [self postErrorOccurredNotification:error];
         } else if (hsDeck.deckCode) {
             [self.localDeck setValuesAsHSDeck:hsDeck];
             [self.localDeck updateTimestamp];
@@ -314,7 +308,7 @@
             completion(hsDeck.deckCode);
         } else {
             NSError *error = [NSError errorWithDomain:@"com.pookjw.StoneNamu" code:105 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"DECKCODE_FETCH_ERROR", @"")}];
-            [self postErrorOccuredNotification:error];
+            [self postErrorOccurredNotification:error];
         }
     }];
 }
@@ -597,10 +591,10 @@
     [userInfo release];
 }
 
-- (void)postErrorOccuredNotification:(NSError *)error {
-    [NSNotificationCenter.defaultCenter postNotificationName:DeckDetailsViewModelErrorOccuredNoficiationName
+- (void)postErrorOccurredNotification:(NSError *)error {
+    [NSNotificationCenter.defaultCenter postNotificationName:DeckDetailsViewModelErrorOccurredNoficiationName
                                                       object:self
-                                                    userInfo:@{DeckDetailsViewModelErrorOccuredItemKey: error}];
+                                                    userInfo:@{DeckDetailsViewModelErrorOccurredItemKey: error}];
 }
 
 - (void)postCardsAreNotFilledNotification {
@@ -610,7 +604,7 @@
     NSError *error = [NSError errorWithDomain:@"com.pookjw.StoneNamu"
                                          code:113
                                      userInfo:@{NSLocalizedDescriptionKey: message}];
-    [self postErrorOccuredNotification:error];
+    [self postErrorOccurredNotification:error];
 }
 
 @end

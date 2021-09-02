@@ -20,8 +20,8 @@ static NSString * const DeckDetailsViewModelShouldDismissNotificationName = @"De
 static NSString * const DeckDetailsViewModelDidChangeLocalDeckNameNoficationName = @"DeckDetailsViewModelDidChangeLocalDeckNameNoficationName";
 static NSString * const DeckDetailsViewModelDidChangeLocalDeckNameItemKey = @"DeckDetailsViewModelDidChangeLocalDeckNameItemKey";
 
-static NSString * const DeckDetailsViewModelErrorOccuredNoficiationName = @"DeckDetailsViewModelErrorOccuredNoficiationName";
-static NSString * const DeckDetailsViewModelErrorOccuredItemKey = @"DeckDetailsViewModelErrorOccuredItemKey";
+static NSString * const DeckDetailsViewModelErrorOccurredNoficiationName = @"DeckDetailsViewModelErrorOccurredNoficiationName";
+static NSString * const DeckDetailsViewModelErrorOccurredItemKey = @"DeckDetailsViewModelErrorOccurredItemKey";
 
 static NSString * const DeckDetailsViewModelApplyingSnapshotToDataSourceWasDoneNotificationName = @"DeckDetailsViewModelApplyingSnapshotToDataSourceWasDoneNotificationName";
 static NSString * const DeckDetailsViewModelApplyingSnapshotToDataSourceWasDoneHasAnyCardsItemKey = @"DeckDetailsViewModelApplyingSnapshotToDataSourceWasDoneHasAnyCardsItemKey";

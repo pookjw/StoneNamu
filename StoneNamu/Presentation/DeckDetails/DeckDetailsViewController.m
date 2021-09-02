@@ -346,8 +346,8 @@
                                              object:self.viewModel];
     
     [NSNotificationCenter.defaultCenter addObserver:self
-                                           selector:@selector(errorOccuredReceived:)
-                                               name:DeckDetailsViewModelErrorOccuredNoficiationName
+                                           selector:@selector(errorOccurredReceived:)
+                                               name:DeckDetailsViewModelErrorOccurredNoficiationName
                                              object:self.viewModel];
     
     [NSNotificationCenter.defaultCenter addObserver:self
@@ -375,8 +375,8 @@
     }];
 }
 
-- (void)errorOccuredReceived:(NSNotification *)notification {
-    NSError *error = [(NSError *)notification.userInfo[DeckDetailsViewModelErrorOccuredItemKey] copy];
+- (void)errorOccurredReceived:(NSNotification *)notification {
+    NSError *error = [(NSError *)notification.userInfo[DeckDetailsViewModelErrorOccurredItemKey] copy];
     
     if (error) {
         [NSOperationQueue.mainQueue addOperationWithBlock:^{

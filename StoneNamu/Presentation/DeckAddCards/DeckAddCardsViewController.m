@@ -9,12 +9,12 @@
 #import "SheetNavigationController.h"
 #import "DeckDetailsViewController.h"
 #import "UIViewController+presentErrorAlert.h"
-#import "BlizzardHSAPIKeys.h"
+#import "DeckAddCardsViewModel.h"
 
-@interface DeckAddCardsViewController () <DeckDetailsViewControllerDelegate>
+@interface DeckAddCardsViewController () <UIDropInteractionDelegate>
 @property (retain) UIBarButtonItem *doneBarButton;
 @property (retain) UIButton *deckDetailsButton;
-@property (retain) LocalDeck *localDeck;
+@property (retain) DeckAddCardsViewModel *viewModel2;
 @end
 
 @implementation DeckAddCardsViewController
@@ -23,8 +23,8 @@
     self = [self init];
     
     if (self) {
-        self.localDeck = localDeck;
         [self loadViewIfNeeded];
+        self.viewModel2.localDeck = localDeck;
         [self requestDataSourceWithClassCards];
     }
     
@@ -34,7 +34,7 @@
 - (void)dealloc {
     [_doneBarButton release];
     [_deckDetailsButton release];
-    [_localDeck release];
+    [_viewModel2 release];
     [super dealloc];
 }
 
@@ -42,33 +42,11 @@
     [super viewDidLoad];
     [self configureDeckDetailsButton];
     [self configureRightBarButtonItems];
+    [self configureViewModel2];
 }
 
 - (void)requestDataSourceWithClassCards {
-    NSMutableDictionary<NSString *, NSString *> *options = [BlizzardHSAPIDefaultOptions() mutableCopy];
-    options[BlizzardHSAPIOptionTypeClass] = NSStringFromHSCardClass(self.localDeck.classId.unsignedIntegerValue);
-    
-    HSCardSet cardSet;
-    if ([self.localDeck.format isEqualToString:HSDeckFormatStandard]) {
-        cardSet = HSCardSetStandardCards;
-    } else if ([self.localDeck.format isEqualToString:HSDeckFormatWild]) {
-        cardSet = HSCardSetWildCards;
-    } else if ([self.localDeck.format isEqualToString:HSDeckFormatClassic]) {
-        cardSet = HSCardSetClassicCards;
-    } else {
-        cardSet = HSCardSetWildCards;
-    }
-    options[BlizzardHSAPIOptionTypeSet] = NSStringFromHSCardSet(cardSet);
-    
-    [self requestDataSourceWithOptions:options];
-    [options release];
-}
-
-- (void)requestDataSourceWithNeurtalCards {
-    NSMutableDictionary<NSString *, NSString *> *options = [BlizzardHSAPIDefaultOptions() mutableCopy];
-    options[BlizzardHSAPIOptionTypeClass] = NSStringFromHSCardClass(HSCardClassNeutral);
-    [self requestDataSourceWithOptions:options];
-    [options release];
+    [self requestDataSourceWithOptions:[self.viewModel2 optionsForLocalDeckClassId]];
 }
 
 - (void)configureDeckDetailsButton {
@@ -103,6 +81,14 @@
         [deckDetailsButton.heightAnchor constraintEqualToConstant:80]
     ]];
     
+    //
+    
+    UIDropInteraction *dropInteraction = [[UIDropInteraction alloc] initWithDelegate:self];
+    [deckDetailsButton addInteraction:dropInteraction];
+    [dropInteraction release];
+    
+    //
+    
     [deckDetailsButton release];
 }
 
@@ -121,10 +107,15 @@
     [self dismissViewControllerAnimated:YES completion:^{}];
 }
 
+- (void)configureViewModel2 {
+    DeckAddCardsViewModel *viewModel2 = [DeckAddCardsViewModel new];
+    self.viewModel2 = viewModel2;
+    [viewModel2 release];
+}
+
 - (void)presentDeckDetailsViewController {
-    DeckDetailsViewController *vc = [[DeckDetailsViewController alloc] initWithLocalDeck:self.localDeck presentEditorIfNoCards:NO];
+    DeckDetailsViewController *vc = [[DeckDetailsViewController alloc] initWithLocalDeck:self.viewModel2.localDeck presentEditorIfNoCards:NO];
     [vc setRightBarButtons:DeckDetailsViewControllerBarButtonTypeDone];
-    vc.delegate = self;
     SheetNavigationController *nvc = [[SheetNavigationController alloc] initWithRootViewController:vc];
     [vc release];
     [self presentViewController:nvc animated:YES completion:^{}];
@@ -136,13 +127,24 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     CardItemModel *itemModel = [self.viewModel.dataSource itemIdentifierForIndexPath:indexPath];
     HSCard *hsCard = itemModel.card;
-    
+    [self.viewModel2 addHSCards:@[hsCard]];
 }
 
-#pragma mark - DeckDetailsViewControllerDelegate
+#pragma mark - UIDropInteractionDelegate
 
-- (BOOL)deckDetailsViewController:(DeckDetailsViewController *)viewController shouldPresentErrorAlertWithError:(NSError *)error {
-    return YES;
+- (BOOL)dropInteraction:(UIDropInteraction *)interaction canHandleSession:(id<UIDropSession>)session {
+    BOOL canHandleSession = [session canLoadObjectsOfClass:[HSCard class]];
+    return canHandleSession;
+}
+
+- (void)dropInteraction:(UIDropInteraction *)interaction performDrop:(id<UIDropSession>)session {
+    [session loadObjectsOfClass:[HSCard class] completion:^(NSArray<__kindof id<NSItemProviderReading>> * _Nonnull objects) {
+        [self.viewModel2 addHSCards:objects];
+    }];
+}
+
+- (UIDropProposal *)dropInteraction:(UIDropInteraction *)interaction sessionDidUpdate:(id<UIDropSession>)session {
+    return [[[UIDropProposal alloc] initWithDropOperation:UIDropOperationMove] autorelease];
 }
 
 @end

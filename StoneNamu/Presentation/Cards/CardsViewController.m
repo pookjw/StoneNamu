@@ -303,7 +303,8 @@
 #pragma mark - CardOptionsViewControllerDelegate
 
 - (void)cardOptionsViewController:(CardOptionsViewController *)viewController doneWithOptions:(NSDictionary<NSString *,NSString *> *)options {
-    if (self.splitViewController.isCollapsed) {
+//    if (self.splitViewController.isCollapsed) {
+    if ([self.navigationItem.leftBarButtonItems containsObject:self.optionsBarButtonItem]) {
         [viewController dismissViewControllerAnimated:YES completion:^{}];
     }
     [self addSpinnerView];
