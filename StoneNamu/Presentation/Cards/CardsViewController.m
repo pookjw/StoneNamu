@@ -16,8 +16,10 @@
 #import "CardOptionsViewControllerDelegate.h"
 #import "SheetNavigationController.h"
 #import "UIViewController+SpinnerView.h"
+#import "CardsViewModel.h"
 
-@interface CardsViewController () <UICollectionViewDragDelegate>
+@interface CardsViewController () <UICollectionViewDelegate, UICollectionViewDragDelegate>
+@property (retain) CardsViewModel *viewModel;
 @property (retain) UICollectionView *collectionView;
 @property (retain) UIBarButtonItem *optionsBarButtonItem;
 @end
@@ -54,11 +56,6 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self configureNavigation];
-}
-
-- (void)requestDataSourceWithOptions:(NSDictionary<NSString *,NSString *> * _Nullable)options {
-    [self addSpinnerView];
-    [self.viewModel requestDataSourceWithOptions:options reset:YES];
 }
 
 - (void)setAttributes {
@@ -117,7 +114,8 @@
 
 - (void)configureViewModel {
     CardsViewModel *viewModel = [[CardsViewModel alloc] initWithDataSource:[self makeDataSource]];
-    self->_viewModel = [viewModel retain];
+    self.viewModel = viewModel;
+    [viewModel requestDataSourceWithOptions:nil reset:YES];
     [viewModel release];
 }
 

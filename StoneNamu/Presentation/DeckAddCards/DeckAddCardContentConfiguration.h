@@ -1,6 +1,6 @@
 //
-//  CardContentConfiguration.h
-//  CardContentConfiguration
+//  DeckAddCardContentConfiguration.h
+//  DeckAddCardContentConfiguration
 //
 //  Created by Jinwoo Kim on 8/1/21.
 //
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CardContentConfiguration : NSObject <UIContentConfiguration>
+@interface DeckAddCardContentConfiguration : NSObject <UIContentConfiguration>
 @property (copy) HSCard *hsCard;
 @end
 

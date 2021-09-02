@@ -1,16 +1,18 @@
 //
 //  DeckAddCardsViewController.h
-//  DeckAddCardsViewController
+//  StoneNamu
 //
-//  Created by Jinwoo Kim on 9/1/21.
+//  Created by Jinwoo Kim on 7/23/21.
 //
 
-#import "CardsViewController.h"
+#import <UIKit/UIKit.h>
+#import "DeckAddCardOptionsViewControllerDelegate.h"
 #import "LocalDeck.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface DeckAddCardsViewController : CardsViewController
+@interface DeckAddCardsViewController : UIViewController <DeckAddCardOptionsViewControllerDelegate>
+- (NSDictionary<NSString *, NSString *> * _Nullable)setOptionsBarButtonItemHidden:(BOOL)hidden;
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithLocalDeck:(LocalDeck *)localDeck;

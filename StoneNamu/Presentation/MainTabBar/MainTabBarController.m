@@ -47,7 +47,6 @@
     [cardsViewController loadViewIfNeeded];
     [decksViewController loadViewIfNeeded];
     [prefsViewController loadViewIfNeeded];
-    [cardsViewController requestDataSourceWithOptions:nil];
     
     UINavigationController *cardsPrimaryNavigationController = [UINavigationController new];
     UINavigationController *cardsSecondaryNavigationController = [UINavigationController new];
