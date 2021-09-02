@@ -16,6 +16,10 @@
 
 "CANCEL" = "Cancel";
 
+"YES" = "Yes";
+
+"NO" = "No";
+
 "CLEAR" = "Clear";
 
 "ALL" = "All";
@@ -112,7 +116,7 @@
 
 "EDIT_DECK_NAME_TITLE" = "Edit Deck name";
 
-"DECK_EXPORT_ERROR_CARDS_ARE_NOT_FILLED" = "Please fill %lu cards to export deck code! (Current : %lu)";
+"DECK_EXPORT_ERROR_CARDS_ARE_NOT_FILLED" = "Please fill total %lu cards to export deck code! (Current : %lu)";
 
 "ENTER_DECK_TITLE_HERE" = "Enter deck title here... (optional)";
 
@@ -125,3 +129,7 @@
 "DECREASE_CARD_COUNT" = "Decrease Card Count";
 
 "CARD_COUNT" = "Cards : %lu/%lu";
+
+"DECK_ADD_CARDS_NOT_FULL_TITLE" = "Cards are not full.";
+
+"DECK_ADD_CARDS_NOT_FULL_DESCRIPTION" = "To complete a deck, you need total %lu cards but you have %lu cards. Are you sure to close this screen?";

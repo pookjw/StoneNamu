@@ -104,7 +104,28 @@
 }
 
 - (void)doneBarButtonTriggered:(UIBarButtonItem *)sender {
-    [self dismissViewControllerAnimated:YES completion:^{}];
+    if (self.viewModel.isLocalDeckCardFull) {
+        [self dismissViewControllerAnimated:YES completion:^{}];
+    } else {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"DECK_ADD_CARDS_NOT_FULL_TITLE", @"")
+                                                                       message:[NSString stringWithFormat:NSLocalizedString(@"DECK_ADD_CARDS_NOT_FULL_DESCRIPTION", @""), HSDECK_MAX_TOTAL_CARDS, self.viewModel.countOfLocalDeckCards]
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"NO", @"")
+                                                               style:UIAlertActionStyleCancel
+                                                             handler:^(UIAlertAction * _Nonnull action) {}];
+        
+        UIAlertAction *dismissAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"YES", @"")
+                                                                style:UIAlertActionStyleDefault
+                                                              handler:^(UIAlertAction * _Nonnull action) {
+            [self dismissViewControllerAnimated:YES completion:^{}];
+        }];
+        
+        [alert addAction:cancelAction];
+        [alert addAction:dismissAction];
+        
+        [self presentViewController:alert animated:YES completion:^{}];
+    }
 }
 
 - (void)optionsBarButtonItemTriggered:(UIBarButtonItem *)sender {

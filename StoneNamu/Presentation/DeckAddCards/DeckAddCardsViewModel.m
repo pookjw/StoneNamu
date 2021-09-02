@@ -83,6 +83,14 @@
     [super dealloc];
 }
 
+- (BOOL)isLocalDeckCardFull {
+    return (self.countOfLocalDeckCards >= HSDECK_MAX_TOTAL_CARDS);
+}
+
+- (NSUInteger)countOfLocalDeckCards {
+    return self.localDeck.cards.count;
+}
+
 - (BOOL)requestDataSourceWithOptions:(NSDictionary<NSString *,id> * _Nullable)options reset:(BOOL)reset {
     
     if (reset) {

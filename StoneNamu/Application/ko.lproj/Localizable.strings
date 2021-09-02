@@ -16,6 +16,10 @@
 
 "CANCEL" = "취소";
 
+"YES" = "응";
+
+"NO" = "아니";
+
 "CLEAR" = "초기화";
 
 "ALL" = "모두";
@@ -80,9 +84,9 @@
 
 "AUTO" = "(자동)";
 
-"CARD_LANGUAGE_AUTO_DESCRIPTION" = "시스템 설정에 따라 자동으로 결정합니다.";
+"CARD_LANGUAGE_AUTO_DESCRIPTION" = "시스템 설정에 따라 자동으로 결정해요.";
 
-"SERVER_AUTO_DESCRIPTION" = "시스템 설정에 따라 자동으로 결정합니다.";
+"SERVER_AUTO_DESCRIPTION" = "시스템 설정에 따라 자동으로 결정해요.";
 
 "TWITTER" = "트위터";
 
@@ -108,11 +112,11 @@
 
 "FETCH" = "불러오기";
 
-"DECKCODE_FETCH_ERROR" = "덱코드를 불러올 수 없습니다.";
+"DECKCODE_FETCH_ERROR" = "덱코드를 불러올 수 없어요.";
 
 "EDIT_DECK_NAME_TITLE" = "덱 이름 수정";
 
-"DECK_EXPORT_ERROR_CARDS_ARE_NOT_FILLED" = "덱코드를 추출하기 위해서는 %lu의 카드가 필요합니다. (현재 : %lu)";
+"DECK_EXPORT_ERROR_CARDS_ARE_NOT_FILLED" = "덱코드를 추출하기 위해서는 총 %lu의 카드가 필요해요. (현재 : %lu)";
 
 "ENTER_DECK_TITLE_HERE" = "제목을 입력해 주세요... (선택)";
 
@@ -125,3 +129,7 @@
 "DECREASE_CARD_COUNT" = "카드 장수 감소";
 
 "CARD_COUNT" = "카드 개수 : %lu/%lu";
+
+"DECK_ADD_CARDS_NOT_FULL_TITLE" = "카드를 꽉 채우시지 않으셨어요.";
+
+"DECK_ADD_CARDS_NOT_FULL_DESCRIPTION" = "덱을 완성하려면 %lu장의 카드를 채우셔야 하는데, %lu장만 채우셨어요. 정말로 이 화면을 닫으시겠어요?";
