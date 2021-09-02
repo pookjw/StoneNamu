@@ -14,8 +14,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSUInteger, DeckDetailsViewControllertBarButtonType) {
     DeckDetailsViewControllerBarButtonTypeAddCards = 1 << 0,
-    DeckDetailsViewControllerBarButtonTypeExport = 1 << 1,
-    DeckDetailsViewControllerBarButtonTypeDone = 1 << 2
+    DeckDetailsViewControllertBarButtonTypeEditName = 1 << 1,
+    DeckDetailsViewControllerBarButtonTypeExport = 1 << 2,
+    DeckDetailsViewControllerBarButtonTypeDone = 1 << 3
 };
 
 @interface DeckDetailsViewController : UIViewController

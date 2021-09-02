@@ -21,6 +21,7 @@
 @property (retain) UICollectionViewSupplementaryRegistration *headerCellRegistration;
 @property (retain) UIBarButtonItem *exportBarButtonItem;
 @property (retain) UIBarButtonItem *addCardsBarButtonItem;
+@property (retain) UIBarButtonItem *editBarButtonItem;
 @property (retain) UIBarButtonItem *doneBarButtonItem;
 @property (retain) DeckDetailsViewModel *viewModel;
 @end
@@ -47,6 +48,7 @@
     [_viewModel release];
     [_exportBarButtonItem release];
     [_addCardsBarButtonItem release];
+    [_editBarButtonItem release];
     [_doneBarButtonItem release];
     [super dealloc];
 }
@@ -55,7 +57,7 @@
     [super viewDidLoad];
     [self setAttributes];
     [self configureRightBarButtonItems];
-    [self setRightBarButtons:DeckDetailsViewControllerBarButtonTypeAddCards | DeckDetailsViewControllerBarButtonTypeExport];
+    [self setRightBarButtons:DeckDetailsViewControllerBarButtonTypeAddCards | DeckDetailsViewControllertBarButtonTypeEditName | DeckDetailsViewControllerBarButtonTypeExport];
     [self configureCollectionView];
     [self configureViewModel];
     [self bind];
@@ -81,6 +83,10 @@
         [rightBarButtomItems addObject:self.addCardsBarButtonItem];
     }
     
+    if (type & DeckDetailsViewControllertBarButtonTypeEditName) {
+        [rightBarButtomItems addObject:self.editBarButtonItem];
+    }
+    
     self.navigationItem.rightBarButtonItems = rightBarButtomItems;
     [rightBarButtomItems release];
 }
@@ -104,6 +110,7 @@
                                                                            action:@selector(exportBarButtonItemTriggered:)];
     self.exportBarButtonItem = exportBarButtonItem;
     exportBarButtonItem.enabled = NO;
+    [exportBarButtonItem release];
     
     //
     
@@ -112,6 +119,16 @@
                                                                              target:self
                                                                              action:@selector(addCardsBarButtonItemTriggered:)];
     self.addCardsBarButtonItem = addCardsBarButtonItem;
+    [addCardsBarButtonItem release];
+    
+    //
+    
+    UIBarButtonItem *editBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"pencil"]
+                                                                          style:UIBarButtonItemStylePlain
+                                                                         target:self
+                                                                         action:@selector(editBarButtonItemTriggered:)];
+    self.editBarButtonItem = editBarButtonItem;
+    [editBarButtonItem release];
     
     //
     
@@ -120,11 +137,6 @@
                                                                          target:self
                                                                          action:@selector(doneBarButtonItemTriggered:)];
     self.doneBarButtonItem = doneBarButtonItem;
-    
-    //
-    
-    [exportBarButtonItem release];
-    [addCardsBarButtonItem release];
     [doneBarButtonItem release];
 }
 
@@ -146,6 +158,31 @@
 
 - (void)addCardsBarButtonItemTriggered:(UIBarButtonItem *)sender {
     [self presentDeckAddCardsViewController];
+}
+
+- (void)editBarButtonItemTriggered:(UIBarButtonItem *)sender {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"EDIT_DECK_NAME_TITLE", @"")
+                                                                   message:nil
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    
+    [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.text = self.viewModel.localDeck.name;
+    }];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"CANCEL", @"")
+                                                           style:UIAlertActionStyleCancel
+                                                         handler:^(UIAlertAction * _Nonnull action) {}];
+    
+    UIAlertAction *doneAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"DONE", @"")
+                                                         style:UIAlertActionStyleDefault
+                                                       handler:^(UIAlertAction * _Nonnull action) {
+        [self.viewModel updateDeckName:alert.textFields.firstObject.text];
+    }];
+    
+    [alert addAction:cancelAction];
+    [alert addAction:doneAction];
+    
+    [self presentViewController:alert animated:YES completion:^{}];
 }
 
 - (void)doneBarButtonItemTriggered:(UIBarButtonItem *)sender {

@@ -10,6 +10,7 @@
 #import "DeckDetailsViewController.h"
 #import "UIViewController+presentErrorAlert.h"
 #import "DeckAddCardsViewModel.h"
+#import "UIViewController+presentErrorAlert.h"
 
 @interface DeckAddCardsViewController () <UIDropInteractionDelegate>
 @property (retain) UIBarButtonItem *doneBarButton;
@@ -43,6 +44,7 @@
     [self configureDeckDetailsButton];
     [self configureRightBarButtonItems];
     [self configureViewModel2];
+    [self bind2];
 }
 
 - (void)requestDataSourceWithClassCards {
@@ -111,6 +113,24 @@
     DeckAddCardsViewModel *viewModel2 = [DeckAddCardsViewModel new];
     self.viewModel2 = viewModel2;
     [viewModel2 release];
+}
+
+- (void)bind2 {
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(errorOccurredReceived:)
+                                               name:DeckAddCardsViewModelErrorOccurredNotificationKey
+                                             object:self.viewModel2];
+}
+
+- (void)errorOccurredReceived:(NSNotification *)notification {
+    NSError * _Nullable error = [notification.userInfo[DeckAddCardsViewModelErrorOccurredErrorItemKey] copy];
+    
+    if (error != nil) {
+        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+            [self presentErrorAlertWithError:error];
+            [error release];
+        }];
+    }
 }
 
 - (void)presentDeckDetailsViewController {

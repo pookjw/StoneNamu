@@ -315,6 +315,7 @@
 
 - (void)updateDeckName:(NSString *)name {
     self.localDeck.name = name;
+    [self postDidChangeLocalDeckNameNotification:name];
     [self.localDeck updateTimestamp];
     [self.localDeckUseCase saveChanges];
 }
@@ -396,6 +397,8 @@
             [self updateCardsSectionHeaderTitleFromSnapshot:snapshot];
             [self sortSnapshot:snapshot];
         }
+        
+        [copyHSCards release];
         
         //
         
