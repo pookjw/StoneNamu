@@ -36,6 +36,7 @@
         [self loadViewIfNeeded];
         self.viewModel.localDeck = localDeck;
         [self.viewModel requestDataSourceWithOptions:nil reset:YES];
+        [self updateDeckDetailButtonText];
     }
     
     return self;
@@ -207,25 +208,11 @@
 }
 
 - (void)configureDeckDetailsButton {
-    UIBackgroundConfiguration *backgroundConfiguration = [UIBackgroundConfiguration clearConfiguration];
-    UIVisualEffectView *blurView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
-    backgroundConfiguration.customView = blurView;
-    backgroundConfiguration.backgroundColor = UIColor.clearColor;
-    [blurView release];
-    backgroundConfiguration.visualEffect = [UIVibrancyEffect effectForBlurEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleDark]];
-
-    UIButtonConfiguration *buttonConfiguration = UIButtonConfiguration.tintedButtonConfiguration;
-    buttonConfiguration.cornerStyle = UIButtonConfigurationCornerStyleCapsule;
-    buttonConfiguration.baseForegroundColor = UIColor.whiteColor;
-    buttonConfiguration.background = backgroundConfiguration;
-    // seems like UIVibrancyEffect doesn't work...
-    buttonConfiguration.image = [UIImage systemImageNamed:@"list.bullet"];
-
     UIAction *action = [UIAction actionWithHandler:^(__kindof UIAction * _Nonnull action) {
         [self presentDeckDetailsViewController];
     }];
 
-    UIButton *deckDetailsButton = [UIButton buttonWithConfiguration:buttonConfiguration primaryAction:action];
+    UIButton *deckDetailsButton = [UIButton buttonWithConfiguration:[self makeDeckDetailButtonConfiguration] primaryAction:action];
     self.deckDetailsButton = deckDetailsButton;
 
     [self.view addSubview:self.deckDetailsButton];
@@ -233,9 +220,7 @@
 
     [NSLayoutConstraint activateConstraints:@[
         [deckDetailsButton.bottomAnchor constraintEqualToAnchor:self.view.layoutMarginsGuide.bottomAnchor],
-        [deckDetailsButton.trailingAnchor constraintEqualToAnchor:self.view.layoutMarginsGuide.trailingAnchor],
-        [deckDetailsButton.widthAnchor constraintEqualToConstant:80],
-        [deckDetailsButton.heightAnchor constraintEqualToConstant:80]
+        [deckDetailsButton.trailingAnchor constraintEqualToAnchor:self.view.layoutMarginsGuide.trailingAnchor]
     ]];
 
     //
@@ -247,6 +232,27 @@
     //
 
     [deckDetailsButton release];
+}
+
+- (UIButtonConfiguration *)makeDeckDetailButtonConfiguration {
+    UIBackgroundConfiguration *backgroundConfiguration = [UIBackgroundConfiguration clearConfiguration];
+    UIVisualEffectView *blurView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
+    backgroundConfiguration.customView = blurView;
+    backgroundConfiguration.backgroundColor = UIColor.clearColor;
+    [blurView release];
+    backgroundConfiguration.visualEffect = [UIVibrancyEffect effectForBlurEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleDark]];
+
+    //
+    
+    UIButtonConfiguration *buttonConfiguration = UIButtonConfiguration.tintedButtonConfiguration;
+    buttonConfiguration.cornerStyle = UIButtonConfigurationCornerStyleCapsule;
+    buttonConfiguration.baseForegroundColor = UIColor.whiteColor;
+    buttonConfiguration.background = backgroundConfiguration;
+    // seems like UIVibrancyEffect doesn't work...
+    buttonConfiguration.image = [UIImage systemImageNamed:@"list.bullet"];
+    buttonConfiguration.imagePlacement = NSDirectionalRectEdgeTop;
+    
+    return buttonConfiguration;
 }
 
 - (void)bind {
@@ -261,8 +267,13 @@
                                              object:self.viewModel];
     
     [NSNotificationCenter.defaultCenter addObserver:self
-                                           selector:@selector(applyingSnapshotWasDone:)
+                                           selector:@selector(applyingSnapshotWasDoneReceived:)
                                                name:DeckAddCardsViewModelApplyingSnapshotToDataSourceWasDoneNotificationName
+                                             object:self.viewModel];
+    
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(localDeckHasChangedReceived:)
+                                               name:DeckAddCardsViewModelLocalDeckHasChangedNotificationName
                                              object:self.viewModel];
 }
 
@@ -300,9 +311,15 @@
     }];
 }
 
-- (void)applyingSnapshotWasDone:(NSNotification *)notification {
+- (void)applyingSnapshotWasDoneReceived:(NSNotification *)notification {
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
         [self removeAllSpinnerview];
+    }];
+}
+
+- (void)localDeckHasChangedReceived:(NSNotification *)notification {
+    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+        [self updateDeckDetailButtonText];
     }];
 }
 
@@ -328,6 +345,16 @@
     [vc release];
     [self presentViewController:nvc animated:YES completion:^{}];
     [nvc release];
+}
+
+- (void)updateDeckDetailButtonText {
+    UIButtonConfiguration *buttonConfiguration = [self makeDeckDetailButtonConfiguration];
+    NSAttributedString *title = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%lu / %d", self.viewModel.countOfLocalDeckCards, HSDECK_MAX_TOTAL_CARDS]
+                                                                attributes:@{NSFontAttributeName: [UIFont preferredFontForTextStyle:UIFontTextStyleTitle1]}];
+    buttonConfiguration.attributedTitle = title;
+    [title release];
+    
+    self.deckDetailsButton.configuration = buttonConfiguration;
 }
 
 #pragma mark - UICollectionViewDelegate

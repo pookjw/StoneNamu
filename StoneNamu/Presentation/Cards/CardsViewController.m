@@ -165,7 +165,7 @@
                                              object:self.viewModel];
     
     [NSNotificationCenter.defaultCenter addObserver:self
-                                           selector:@selector(applyingSnapshotWasDone:)
+                                           selector:@selector(applyingSnapshotWasDoneReceived:)
                                                name:CardsViewModelApplyingSnapshotToDataSourceWasDoneNotificationName
                                              object:self.viewModel];
 }
@@ -204,7 +204,7 @@
     }];
 }
 
-- (void)applyingSnapshotWasDone:(NSNotification *)notification {
+- (void)applyingSnapshotWasDoneReceived:(NSNotification *)notification {
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
         [self removeAllSpinnerview];
     }];

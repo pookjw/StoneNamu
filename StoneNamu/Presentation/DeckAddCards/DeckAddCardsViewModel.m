@@ -63,6 +63,7 @@
         
         [self observePrefsChange];
         [self observeDataCachesDeleted];
+        [self startObserving];
     }
     
     return self;
@@ -267,6 +268,7 @@
     if (self.localDeck != nil) {
         [self.localDeckUseCase fetchWithObjectId:self.localDeck.objectID completion:^(LocalDeck * _Nullable localDeck) {
             self.localDeck = localDeck;
+            [self postLocalDeckHasChanged];
         }];
     }
 }
@@ -279,6 +281,12 @@
 
 - (void)postApplyingSnapshotWasDone {
     [NSNotificationCenter.defaultCenter postNotificationName:DeckAddCardsViewModelApplyingSnapshotToDataSourceWasDoneNotificationName
+                                                      object:self
+                                                    userInfo:nil];
+}
+
+- (void)postLocalDeckHasChanged {
+    [NSNotificationCenter.defaultCenter postNotificationName:DeckAddCardsViewModelLocalDeckHasChangedNotificationName
                                                       object:self
                                                     userInfo:nil];
 }

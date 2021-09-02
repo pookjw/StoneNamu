@@ -21,6 +21,8 @@ static NSString * const DeckAddCardsViewModelPresentDetailNotificationIndexPathK
 
 static NSString * const DeckAddCardsViewModelApplyingSnapshotToDataSourceWasDoneNotificationName = @"DeckAddCardsViewModelApplyingSnapshotToDataSourceWasDoneNotificationName";
 
+static NSString * const DeckAddCardsViewModelLocalDeckHasChangedNotificationName = @"DeckAddCardsViewModelLocalDeckHasChangedNotificationName";
+
 typedef UICollectionViewDiffableDataSource<DeckAddCardSectionModel *, DeckAddCardItemModel *> CardsDataSource;
 
 @interface DeckAddCardsViewModel : NSObject

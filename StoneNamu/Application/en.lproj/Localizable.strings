@@ -128,8 +128,8 @@
 
 "DECREASE_CARD_COUNT" = "Decrease Card Count";
 
-"CARD_COUNT" = "Cards : %lu/%lu";
+"CARD_COUNT" = "Cards : %d/%lu";
 
 "DECK_ADD_CARDS_NOT_FULL_TITLE" = "Cards are not full.";
 
-"DECK_ADD_CARDS_NOT_FULL_DESCRIPTION" = "To complete a deck, you need total %lu cards but you have %lu cards. Are you sure to close this screen?";
+"DECK_ADD_CARDS_NOT_FULL_DESCRIPTION" = "To complete a deck, you need total %d cards but you have %lu cards. Are you sure to close this screen?";
