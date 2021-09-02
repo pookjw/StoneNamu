@@ -325,20 +325,7 @@
     self->_localDeck = [localDeck retain];
     
     [self.queue addBarrierBlock:^{
-        if (localDeck.deckCode) {
-            NSString *deckCode = [localDeck.deckCode copy];
-            [self.hsDeckUseCase fetchDeckByDeckCode:localDeck.deckCode completion:^(HSDeck * _Nullable hsDeck, NSError * _Nullable error) {
-                
-                [deckCode release];
-                
-                if (error) {
-                    NSLog(@"%@", error.localizedDescription);
-                    return;
-                }
-                
-                [self updateDataSourceWithHSDeck:hsDeck];
-            }];
-        } else if (localDeck.cards) {
+        if (localDeck.cards) {
             [self updateDataSourceWithHSCards:localDeck.cards];;
         } else {
             [self updateDataSourceWithHSCards:@[]];
@@ -346,10 +333,6 @@
         
         [self postDidChangeLocalDeckNameNotification:localDeck.name];
     }];
-}
-
-- (void)updateDataSourceWithHSDeck:(HSDeck *)hsDeck {
-    [self updateDataSourceWithHSCards:hsDeck.cards];
 }
 
 - (void)updateDataSourceWithHSCards:(NSArray<HSCard *> *)hsCards {
