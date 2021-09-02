@@ -6,8 +6,20 @@
   
 */
 
-"DATA_IS_CORRUPTED" = "데이터가 잘못 되었습니다.";
+"DATA_IS_CORRUPTED" = "데이터가 잘못 되었어요.";
 
-"INVALID_HSCARD" = "올바르지 않은 하스스톤 카드 데이터 입니다.";
+"INVALID_HSCARD" = "올바르지 않은 하스스톤 카드 데이터에요.";
 
-"INVALID_HSDECK" = "올바르지 않은 하스스톤 덱 데이터 입니다.";
+"INVALID_HSDECK" = "올바르지 않은 하스스톤 덱 데이터에요.";
+
+"DECK_ADD_CARD_ERROR_NO_MORE_THAN_THIRTY_CARDS" = "덱에 30장이 넘는 카드는 추가할 수 없어요!";
+
+"DECK_ADD_CARD_ERROR_CANNOT_ADD_SINGLE_CARD_MORE_THAN_TWO" = "한 종류의 카드는 두 장이 넘어갈 수 없어요!";
+
+"DECK_ADD_CARD_ERROR_CANNOT_ADD_SINGLE_LAGENDARY_CARD_MORE_THAN_ONE" = "전설 카드는 두 장 이상 넣읗 수 없어요!";
+
+"DECK_ADD_CARD_ERROR_CANNOT_ADD_DIFFERENT_CLASS_CARD" = "다른 직업의 카드는 추가할 수 없어요.";
+
+"DECK_ADD_CARD_ERROR_CANNOT_ADD_NOT_COLLECTIBLE_CARD" = "수집 불가능한 카드는 추가할 수 없어요.";
+
+"DECK_ADD_CARD_ERROR_CANNOT_ADD_HERO_PORTRAIT_CARD" = "영웅 초상화 카드는 추가할 수 없어요.";
