@@ -34,8 +34,12 @@
     [super dealloc];
 }
 
+- (NSOperationQueue *)queue {
+    return self.coreDataStack.queue;
+}
+
 - (void)deleteLocalDeck:(nonnull LocalDeck *)localDeck {
-    [self.coreDataStack.queue addBarrierBlock:^{
+    [self.queue addBarrierBlock:^{
         NSManagedObjectContext *context = self.coreDataStack.context;
         
         [context performBlockAndWait:^{
@@ -46,7 +50,7 @@
 }
 
 - (void)deleteAllLocalDecks {
-    [self.coreDataStack.queue addBarrierBlock:^{
+    [self.queue addBarrierBlock:^{
         NSManagedObjectContext *context = self.coreDataStack.context;
         
         [context performBlockAndWait:^{
@@ -72,7 +76,7 @@
 }
 
 - (void)fetchWithCompletion:(nonnull LocalDeckRepositoryFetchWithCompletion)completion {
-    [self.coreDataStack.queue addBarrierBlock:^{
+    [self.queue addBarrierBlock:^{
         NSManagedObjectContext *context = self.coreDataStack.context;
         
         [context performBlockAndWait:^{
@@ -97,7 +101,7 @@
 }
 
 - (void)refreshObject:(NSManagedObject *)object mergeChanges:(BOOL)flag completion:(nonnull LocalDeckRepositoryRefreshObjectCompletion)completion {
-    [self.coreDataStack.queue addBarrierBlock:^{
+    [self.queue addBarrierBlock:^{
         NSManagedObjectContext *context = self.coreDataStack.context;
         
         [context performBlockAndWait:^{

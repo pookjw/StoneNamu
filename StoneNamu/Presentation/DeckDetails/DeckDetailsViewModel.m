@@ -27,6 +27,7 @@
     
     if (self) {
         self.contextMenuIndexPath = nil;
+        self->_localDeck = nil;
         self->_dataSource = [dataSource retain];
         self.shouldPresentDeckEditor = YES;
         
@@ -493,9 +494,11 @@
 }
 
 - (void)localDeckChangesReceived:(NSNotification *)notification {
-    [self.localDeckUseCase refreshObject:self.localDeck mergeChanges:NO completion:^{
-        [self requestDataSourceWithLocalDeck:self.localDeck];
-    }];
+    if (self.localDeck != nil) {
+        [self.localDeckUseCase refreshObject:self.localDeck mergeChanges:NO completion:^{
+            [self requestDataSourceWithLocalDeck:self.localDeck];
+        }];
+    }
 }
 
 - (void)localDeckDeleteAllReceived:(NSNotification *)notification {

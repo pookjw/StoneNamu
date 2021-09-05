@@ -18,6 +18,7 @@ static NSString * const LocalDeckRepositoryObserveDataNotificationName = @"Local
 static NSString * const LocalDeckRepositoryDeleteAllNotificationName = @"LocalDeckRepositoryDeleteAllNotificationName";
 
 @protocol LocalDeckRepository <NSObject>
+@property (readonly, nonatomic) NSOperationQueue *queue;
 - (void)saveChanges;
 - (void)fetchWithCompletion:(LocalDeckRepositoryFetchWithCompletion)completion;
 - (void)refreshObject:(NSManagedObject *)object mergeChanges:(BOOL)flag completion:(LocalDeckRepositoryRefreshObjectCompletion)completion;

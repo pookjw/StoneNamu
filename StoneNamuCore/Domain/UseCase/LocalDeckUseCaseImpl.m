@@ -12,7 +12,6 @@
 #import "StoneNamuCoreErrors.h"
 
 @interface LocalDeckUseCaseImpl ()
-@property (retain) NSOperationQueue *queue;
 @property (retain) id<LocalDeckRepository> localDeckRepository;
 @end
 
@@ -21,13 +20,7 @@
 - (instancetype)init {
     self = [super init];
     
-    if (self) {
-        NSOperationQueue *queue = [NSOperationQueue new];
-        self.queue = queue;
-        queue.qualityOfService = NSQualityOfServiceUserInitiated;
-        [queue release];
-        
-        LocalDeckRepositoryImpl *localDeckRepository = [LocalDeckRepositoryImpl new];
+    if (self) {LocalDeckRepositoryImpl *localDeckRepository = [LocalDeckRepositoryImpl new];
         self.localDeckRepository = localDeckRepository;
         [localDeckRepository release];
         
@@ -38,7 +31,6 @@
 }
 
 - (void)dealloc {
-    [_queue release];
     [_localDeckRepository release];
     [super dealloc];
 }
@@ -72,7 +64,7 @@
 - (void)addHSCards:(NSArray<HSCard *> *)hsCards toLocalDeck:(LocalDeck *)localDeck validation:(LocalDeckUseCaseFetchWithValidation)validation {
     NSArray<HSCard *> *copyHSCards = [hsCards copy];
     
-    [self.queue addBarrierBlock:^{
+    [self.localDeckRepository.queue addBarrierBlock:^{
         NSArray<HSCard *> *localDeckHSCards = localDeck.cards;
         
         if ((localDeckHSCards.count + copyHSCards.count) > HSDECK_MAX_TOTAL_CARDS) {
@@ -152,7 +144,7 @@
 - (void)deleteHSCards:(NSSet<HSCard *> *)hsCards toLocalDeck:(LocalDeck *)localDeck validation:(LocalDeckUseCaseFetchWithValidation)validation {
     NSSet<HSCard *> *copyHSCards = [hsCards copy];
     
-    [self.queue addBarrierBlock:^{
+    [self.localDeckRepository.queue addBarrierBlock:^{
         validation(nil);
         
         NSMutableArray<HSCard *> *mutableCards = [localDeck.cards mutableCopy];
@@ -171,7 +163,7 @@
 - (void)increaseHSCards:(NSSet<HSCard *> *)hsCards toLocalDeck:(LocalDeck *)localDeck validation:(LocalDeckUseCaseFetchWithValidation)validation {
     NSSet<HSCard *> *copyHSCards = [hsCards copy];
     
-    [self.queue addBarrierBlock:^{
+    [self.localDeckRepository.queue addBarrierBlock:^{
         NSArray<HSCard *> *localDeckHSCards = localDeck.cards;
         
         for (HSCard *hsCard in copyHSCards) {
@@ -224,7 +216,7 @@
 - (void)decreaseHSCards:(NSSet<HSCard *> *)hsCards toLocalDeck:(LocalDeck *)localDeck validation:(LocalDeckUseCaseFetchWithValidation)validation {
     NSSet<HSCard *> *copyHSCards = [hsCards copy];
     
-    [self.queue addBarrierBlock:^{
+    [self.localDeckRepository.queue addBarrierBlock:^{
         validation(nil);
         
         NSMutableArray<HSCard *> *mutableLocalDeckHSCards = [localDeck.cards mutableCopy];
