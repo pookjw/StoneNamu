@@ -106,9 +106,8 @@
         
         [context performBlockAndWait:^{
             [context refreshObject:object mergeChanges:flag];
+            completion();
         }];
-        
-        completion();
     }];
 }
 

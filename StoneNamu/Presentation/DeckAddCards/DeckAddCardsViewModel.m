@@ -13,6 +13,7 @@
 #import "DataCacheUseCaseImpl.h"
 #import "DragItemService.h"
 #import "LocalDeckUseCaseImpl.h"
+#import "NSArray+countOfObject.h"
 
 @interface DeckAddCardsViewModel ()
 @property (retain) id<HSCardUseCase> hsCardUseCase;
@@ -224,14 +225,7 @@
         
         for (HSCard *card in cards) {
             @autoreleasepool {
-                NSUInteger __block count = 0;
-                
-                [localDeckCards enumerateObjectsUsingBlock:^(HSCard * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                    if ([card isEqual:obj]) {
-                        count += 1;
-                    }
-                }];
-                
+                NSUInteger count = [localDeckCards countOfObject:card];
                 DeckAddCardItemModel *itemModel = [[DeckAddCardItemModel alloc] initWithCard:card count:count];
                 [itemModels addObject:itemModel];
                 [itemModel release];
@@ -263,13 +257,7 @@
         NSArray<HSCard *> *localDeckCards = self.localDeck.cards;
         
         for (DeckAddCardItemModel *itemModel in snapshot.itemIdentifiers) {
-            NSUInteger __block count = 0;
-            
-            [localDeckCards enumerateObjectsUsingBlock:^(HSCard * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                if ([obj isEqual:itemModel.card]) {
-                    count += 1;
-                }
-            }];
+            NSUInteger count = [localDeckCards countOfObject:itemModel.card];
             
             if (itemModel.count != count) {
                 itemModel.count = count;
@@ -294,7 +282,7 @@
 
 - (void)localDeckChangesReceived:(NSNotification *)notification {
     if (self.localDeck != nil) {
-        [self.localDeckUseCase refreshObject:self.localDeck mergeChanges:NO completion:^{
+        [self.localDeckUseCase refreshObject:self.localDeck mergeChanges:YES completion:^{
             [self updateItemCountToDataSource];
             [self postLocalDeckHasChanged];
         }];

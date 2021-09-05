@@ -12,6 +12,7 @@
 #import "NSDiffableDataSourceSnapshot+sort.h"
 #import "NSMutableArray+removeSingle.h"
 #import "DataCacheUseCaseImpl.h"
+#import "NSArray+countOfObject.h"
 
 @interface DeckDetailsViewModel ()
 @property (retain) NSOperationQueue *queue;
@@ -317,46 +318,57 @@
     [self.queue addBarrierBlock:^{
         NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
         
-        [snapshot deleteAllItems];
-        
-        //
-        
-        if (copyHSCards.count > 0) {
-            DeckDetailsSectionModel *cardsSectionModel = [[DeckDetailsSectionModel alloc] initWithType:DeckDetailsSectionModelTypeCards];
-            [snapshot appendSectionsWithIdentifiers:@[cardsSectionModel]];
+        if (copyHSCards.count == 0) {
+            [snapshot deleteAllItems];
+        } else {
+            DeckDetailsSectionModel * __block _Nullable sectionModel = nil;
             
-            NSMutableArray<DeckDetailsItemModel *> *cardItemModels = [@[] mutableCopy];
-            
-            for (HSCard *hsCard in copyHSCards) {
-                BOOL __block isDuplicated = NO;
-                [cardItemModels enumerateObjectsUsingBlock:^(DeckDetailsItemModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                    if ([hsCard isEqual:obj.hsCard]) {
-                        isDuplicated = YES;
-                        obj.hsCardCount += 1;
-                        *stop = YES;
-                    }
-                }];
-                
-                if (!isDuplicated) {
-                    DeckDetailsItemModel *cardItemModel = [[DeckDetailsItemModel alloc] initWithType:DeckDetailsItemModelTypeCard];
-                    cardItemModel.hsCard = hsCard;
-                    cardItemModel.hsCardCount = 1;
-                    [cardItemModels addObject:cardItemModel];
-                    [cardItemModel release];
+            [snapshot.sectionIdentifiers enumerateObjectsUsingBlock:^(DeckDetailsSectionModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                if (obj.type == DeckDetailsSectionModelTypeCards) {
+                    sectionModel = obj;
+                    *stop = YES;
                 }
-            }
+            }];
             
-            [snapshot appendItemsWithIdentifiers:cardItemModels intoSectionWithIdentifier:cardsSectionModel];
-            [snapshot reconfigureItemsWithIdentifiers:cardItemModels];
-            [cardsSectionModel release];
-            [cardItemModels release];
+            if (sectionModel == nil) {
+                sectionModel = [[[DeckDetailsSectionModel alloc] initWithType:DeckDetailsSectionModelTypeCards] autorelease];
+                [snapshot appendSectionsWithIdentifiers:@[sectionModel]];
+            }
             
             //
             
-            [self addCostGraphItemToSnapshot:snapshot];
-            [self updateCardsSectionHeaderTitleFromSnapshot:snapshot];
-            [self sortSnapshot:snapshot];
+            NSMutableArray<HSCard *> *addedHSCards = [@[] mutableCopy];
+            
+            for (HSCard *hsCard in copyHSCards) {
+                if ([addedHSCards containsObject:hsCard]) continue;
+                [addedHSCards addObject:hsCard];
+                
+                BOOL exists = NO;
+                
+                [snapshot.itemIdentifiers enumerateObjectsUsingBlock:^(DeckDetailsItemModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    if ([hsCard isEqual:obj.hsCard]) {
+                        obj.hsCardCount = [copyHSCards countOfObject:hsCard];
+                        [snapshot reconfigureItemsWithIdentifiers:@[obj]];
+                    }
+                }];
+                
+                if (!exists) {
+                    DeckDetailsItemModel *itemModel = [[DeckDetailsItemModel alloc] initWithType:DeckDetailsItemModelTypeCard];
+                    itemModel.hsCard = hsCard;
+                    itemModel.hsCardCount = [copyHSCards countOfObject:hsCard];
+                    [snapshot appendItemsWithIdentifiers:@[itemModel] intoSectionWithIdentifier:sectionModel];
+                    [itemModel release];
+                }
+            }
+            
+            [addedHSCards release];
         }
+        
+        //
+        
+        [self addCostGraphItemToSnapshot:snapshot];
+        [self updateCardsSectionHeaderTitleFromSnapshot:snapshot];
+        [self sortSnapshot:snapshot];
         
         [copyHSCards release];
         
@@ -495,7 +507,7 @@
 
 - (void)localDeckChangesReceived:(NSNotification *)notification {
     if (self.localDeck != nil) {
-        [self.localDeckUseCase refreshObject:self.localDeck mergeChanges:NO completion:^{
+        [self.localDeckUseCase refreshObject:self.localDeck mergeChanges:YES completion:^{
             [self requestDataSourceWithLocalDeck:self.localDeck];
         }];
     }
