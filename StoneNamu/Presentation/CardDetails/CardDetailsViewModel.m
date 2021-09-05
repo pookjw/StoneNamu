@@ -62,20 +62,44 @@
         
         //
         
+        NSString * _Nullable cardClassValue = nil;
+        
+        if (hsCard.multiClassIds != nil) {
+            NSMutableArray *strings = [@[] mutableCopy];
+            
+            for (NSNumber *classId in hsCard.multiClassIds) {
+                [strings addObject:hsCardClassesWithLocalizable()[NSStringFromHSCardClass(classId.unsignedIntegerValue)]];
+            }
+            
+            cardClassValue = [strings componentsJoinedByString:@", "];
+            [strings release];
+        }
+        
+        if ((cardClassValue == nil) || ([cardClassValue isEqualToString:@""])) {
+            cardClassValue = hsCardClassesWithLocalizable()[NSStringFromHSCardClass(hsCard.classId)];
+        }
+        
         @autoreleasepool {
             [snapshot appendItemsWithIdentifiers:@[
                 [[[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeName value:hsCard.name] autorelease],
+                
                 [[[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeFlavorText value:hsCard.flavorText] autorelease],
+                
                 [[[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeText value:hsCard.text] autorelease]
             ]
                        intoSectionWithIdentifier:sectionModelBase];
             
             [snapshot appendItemsWithIdentifiers:@[
                 [[[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeType value:hsCardTypesWithLocalizable()[NSStringFromHSCardType(hsCard.cardTypeId)]] autorelease],
+                
                 [[[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeRarity value:hsCardRaritiesWithLocalizable()[NSStringFromHSCardRarity(hsCard.rarityId)]] autorelease],
+                
                 [[[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeSet value:hsCardSetsWithLocalizable()[NSStringFromHSCardSet(hsCard.cardSetId)]] autorelease],
-                [[[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeClass value:hsCardClassesWithLocalizable()[NSStringFromHSCardClass(hsCard.classId)]] autorelease],
+                
+                [[[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeClass value:cardClassValue] autorelease],
+                
                 [[[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeCollectible value:hsCardCollectiblesWithLocalizable()[NSStringFromHSCardCollectible(hsCard.collectible)]] autorelease],
+                
                 [[[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeArtist value:hsCard.artistName] autorelease]
             ]
                        intoSectionWithIdentifier:sectionModelDetail];

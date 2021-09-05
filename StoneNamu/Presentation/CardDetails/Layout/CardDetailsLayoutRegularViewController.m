@@ -43,11 +43,6 @@
     [self configureContainerViews];
 }
 
-- (void)viewDidLayoutSubviews {
-    [super viewDidLayoutSubviews];
-    [self updateCollectionViewInsets];
-}
-
 - (void)configureContainerViews {
     UIView *primaryImageViewContainerView = [UIView new];
     self.primaryImageViewContainerView = primaryImageViewContainerView;
@@ -163,8 +158,6 @@
         [collectionView.leadingAnchor constraintEqualToAnchor:self.collectionViewContainerView.leadingAnchor],
         [collectionView.bottomAnchor constraintEqualToAnchor:self.collectionViewContainerView.bottomAnchor]
     ]];
-    
-    [self updateCollectionViewInsets];
 }
 
 - (void)cardDetailsLayoutRemovePrimaryImageView {
@@ -179,7 +172,7 @@
     [self.closeButton removeFromSuperview];
 }
 
-- (void)updateCollectionViewInsets {
+- (void)cardDetailsLayoutUpdateCollectionViewInsets {
     if ([self.collectionView.superview isEqual:self.collectionViewContainerView]) {
         self.collectionView.contentInset = UIEdgeInsetsMake(self.closeButton.frame.origin.y + self.closeButton.frame.size.height,
                                                             0, 0, 0);

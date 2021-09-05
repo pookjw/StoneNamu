@@ -15,10 +15,6 @@ NS_ASSUME_NONNULL_BEGIN
 static NSString * const DeckAddCardsViewModelErrorNotificationName = @"DeckAddCardsViewModelErrorNotificationName";
 static NSString * const DeckAddCardsViewModelErrorNotificationErrorKey = @"DeckAddCardsViewModelErrorNotificationErrorKey";
 
-static NSString * const DeckAddCardsViewModelPresentDetailNotificationName = @"DeckAddCardsViewModelPresentDetailNotificationName";
-static NSString * const DeckAddCardsViewModelPresentDetailNotificationHSCardKey = @"DeckAddCardsViewModelPresentDetailNotificationHSCardKey";
-static NSString * const DeckAddCardsViewModelPresentDetailNotificationIndexPathKey = @"DeckAddCardsViewModelPresentDetailNotificationIndexPathKey";
-
 static NSString * const DeckAddCardsViewModelApplyingSnapshotToDataSourceWasDoneNotificationName = @"DeckAddCardsViewModelApplyingSnapshotToDataSourceWasDoneNotificationName";
 
 static NSString * const DeckAddCardsViewModelLocalDeckHasChangedNotificationName = @"DeckAddCardsViewModelLocalDeckHasChangedNotificationName";
@@ -36,7 +32,6 @@ typedef UICollectionViewDiffableDataSource<DeckAddCardSectionModel *, DeckAddCar
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithDataSource:(CardsDataSource *)dataSource;
 - (BOOL)requestDataSourceWithOptions:(NSDictionary<NSString *,id> * _Nullable)options reset:(BOOL)reset;
-- (void)handleSelectionForIndexPath:(NSIndexPath *)indexPath;
 - (NSArray<UIDragItem *> *)makeDragItemFromIndexPath:(NSIndexPath *)indexPath image:(UIImage * _Nullable)image;
 - (void)addHSCards:(NSArray<HSCard *> *)hsCards;
 @end

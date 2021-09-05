@@ -85,7 +85,11 @@
         NSArray<NSNumber *> *hsCardHeroesArray = hsCardHeroes();
         
         for (HSCard *hsCard in copyHSCards) {
-            if ((hsCard.classId != localDeck.classId.unsignedIntegerValue) && (hsCard.classId != HSCardClassNeutral)) {
+            if ((hsCard.classId != localDeck.classId.unsignedIntegerValue) &&
+                (![hsCard.multiClassIds containsObject:localDeck.classId]) &&
+                (hsCard.classId != HSCardClassNeutral))
+            {
+                
                 NSError *error = CannotAddDifferentClassCardError();
                 validation(error);
                 [copyHSCards release];

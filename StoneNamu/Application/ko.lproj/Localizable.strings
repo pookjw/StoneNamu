@@ -133,3 +133,11 @@
 "DECK_ADD_CARDS_NOT_FULL_TITLE" = "카드를 꽉 채우시지 않으셨어요.";
 
 "DECK_ADD_CARDS_NOT_FULL_DESCRIPTION" = "덱을 완성하려면 %d장의 카드를 채우셔야 하는데, %lu장만 채우셨어요. 정말로 이 화면을 닫으시겠어요?";
+
+"ADD_TO_DECK" = "덱에 추가";
+
+"ADD_CARDS" = "카드 추가";
+
+"EDIT_DECK_NAME" = "덱 이름 수정";
+
+"EXPORT_DECK_CODE" = "덱코드 내보내기";

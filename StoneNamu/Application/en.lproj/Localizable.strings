@@ -114,7 +114,7 @@
 
 "DECKCODE_FETCH_ERROR" = "Unable to get deck code.";
 
-"EDIT_DECK_NAME_TITLE" = "Edit Deck name";
+"EDIT_DECK_NAME_TITLE" = "Edit Deck Name";
 
 "DECK_EXPORT_ERROR_CARDS_ARE_NOT_FILLED" = "Please fill total %lu cards to export deck code! (Current : %lu)";
 
@@ -133,3 +133,11 @@
 "DECK_ADD_CARDS_NOT_FULL_TITLE" = "Cards are not full.";
 
 "DECK_ADD_CARDS_NOT_FULL_DESCRIPTION" = "To complete a deck, you need total %d cards but you have %lu cards. Are you sure to close this screen?";
+
+"ADD_TO_DECK" = "Add to deck";
+
+"ADD_CARDS" = "Add Cards";
+
+"EDIT_DECK_NAME" = "Edit Deck Name";
+
+"EXPORT_DECK_CODE" = "Export Deck Code";

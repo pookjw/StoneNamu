@@ -60,6 +60,42 @@
     return self.viewModel.localDeck;
 }
 
+- (void)setRightBarButtons:(DeckAddCardsViewControllerRightBarButtonType)type {
+    NSMutableArray<UIBarButtonItem *> *rightBarButtonItems = [@[] mutableCopy];
+    
+    if (type & DeckAddCardsViewControllerRightBarButtonTypeDone) {
+        [rightBarButtonItems addObject:self.doneBarButton];
+    }
+    
+    self.navigationItem.rightBarButtonItems = rightBarButtonItems;
+    [rightBarButtonItems release];
+}
+
+- (void)requestDismissWithPromptIfNeeded {
+    if (self.viewModel.isLocalDeckCardFull) {
+        [self dismissViewControllerAnimated:YES completion:^{}];
+    } else {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"DECK_ADD_CARDS_NOT_FULL_TITLE", @"")
+                                                                       message:[NSString stringWithFormat:NSLocalizedString(@"DECK_ADD_CARDS_NOT_FULL_DESCRIPTION", @""), HSDECK_MAX_TOTAL_CARDS, self.viewModel.countOfLocalDeckCards]
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"NO", @"")
+                                                               style:UIAlertActionStyleCancel
+                                                             handler:^(UIAlertAction * _Nonnull action) {}];
+        
+        UIAlertAction *dismissAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"YES", @"")
+                                                                style:UIAlertActionStyleDefault
+                                                              handler:^(UIAlertAction * _Nonnull action) {
+            [self dismissViewControllerAnimated:YES completion:^{}];
+        }];
+        
+        [alert addAction:cancelAction];
+        [alert addAction:dismissAction];
+        
+        [self presentViewController:alert animated:YES completion:^{}];
+    }
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setAttributes];
@@ -109,28 +145,7 @@
 }
 
 - (void)doneBarButtonTriggered:(UIBarButtonItem *)sender {
-    if (self.viewModel.isLocalDeckCardFull) {
-        [self dismissViewControllerAnimated:YES completion:^{}];
-    } else {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"DECK_ADD_CARDS_NOT_FULL_TITLE", @"")
-                                                                       message:[NSString stringWithFormat:NSLocalizedString(@"DECK_ADD_CARDS_NOT_FULL_DESCRIPTION", @""), HSDECK_MAX_TOTAL_CARDS, self.viewModel.countOfLocalDeckCards]
-                                                                preferredStyle:UIAlertControllerStyleAlert];
-        
-        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"NO", @"")
-                                                               style:UIAlertActionStyleCancel
-                                                             handler:^(UIAlertAction * _Nonnull action) {}];
-        
-        UIAlertAction *dismissAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"YES", @"")
-                                                                style:UIAlertActionStyleDefault
-                                                              handler:^(UIAlertAction * _Nonnull action) {
-            [self dismissViewControllerAnimated:YES completion:^{}];
-        }];
-        
-        [alert addAction:cancelAction];
-        [alert addAction:dismissAction];
-        
-        [self presentViewController:alert animated:YES completion:^{}];
-    }
+    [self requestDismissWithPromptIfNeeded];
 }
 
 - (void)optionsBarButtonItemTriggered:(UIBarButtonItem *)sender {
@@ -144,7 +159,7 @@
 }
 
 - (void)configureNavigation {
-    self.title = NSLocalizedString(@"CARDS", @"");
+    self.title = NSLocalizedString(@"ADD_CARDS", @"");
     self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
 }
 
@@ -201,9 +216,7 @@
         }
         DeckAddCardItemModel *itemModel = (DeckAddCardItemModel *)item;
         
-        DeckAddCardContentConfiguration *configuration = [DeckAddCardContentConfiguration new];
-        configuration.hsCard = itemModel.card;
-        
+        DeckAddCardContentConfiguration *configuration = [[DeckAddCardContentConfiguration alloc] initWithHSCard:itemModel.card count:itemModel.count];
         cell.contentConfiguration = configuration;
         [configuration release];
     }];
@@ -272,11 +285,6 @@
                                              object:self.viewModel];
     
     [NSNotificationCenter.defaultCenter addObserver:self
-                                           selector:@selector(presentDetailReceived:)
-                                               name:DeckAddCardsViewModelPresentDetailNotificationName
-                                             object:self.viewModel];
-    
-    [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(applyingSnapshotWasDoneReceived:)
                                                name:DeckAddCardsViewModelApplyingSnapshotToDataSourceWasDoneNotificationName
                                              object:self.viewModel];
@@ -297,28 +305,6 @@
     } else {
         NSLog(@"No error found but the notification was posted: %@", notification.userInfo);
     }
-}
-
-- (void)presentDetailReceived:(NSNotification *)notification {
-    HSCard * _Nullable hsCard = notification.userInfo[DeckAddCardsViewModelPresentDetailNotificationHSCardKey];
-    NSIndexPath * _Nullable indexPath = notification.userInfo[DeckAddCardsViewModelPresentDetailNotificationIndexPathKey];
-
-    if (!(hsCard && indexPath)) return;
-
-    [NSOperationQueue.mainQueue addOperationWithBlock:^{
-        UICollectionViewCell * _Nullable cell = [self.collectionView cellForItemAtIndexPath:indexPath];
-
-        if (cell == nil) return;
-
-        DeckAddCardContentView *contentView = (DeckAddCardContentView *)cell.contentView;
-
-        if (![contentView isKindOfClass:[DeckAddCardContentView class]]) return;
-
-        CardDetailsViewController *vc = [[CardDetailsViewController alloc] initWithHSCard:hsCard sourceImageView:contentView.imageView];
-        [vc autorelease];
-        [vc loadViewIfNeeded];
-        [self presentViewController:vc animated:YES completion:^{}];
-    }];
 }
 
 - (void)applyingSnapshotWasDoneReceived:(NSNotification *)notification {
@@ -348,13 +334,32 @@
     return [self.viewModel makeDragItemFromIndexPath:indexPath image:image];
 }
 
+- (void)presentCardDetailsViewControllerWithHSCard:(HSCard *)hsCard sourceImageView:(UIImageView *)imageView {
+    CardDetailsViewController *vc = [[CardDetailsViewController alloc] initWithHSCard:hsCard sourceImageView:imageView];
+    [vc loadViewIfNeeded];
+    [self presentViewController:vc animated:YES completion:^{}];
+    [vc release];
+}
+
+- (void)presentCardDetailsViewControllerFromIndexPath:(NSIndexPath *)indexPath {
+    UICollectionViewCell * _Nullable cell = [self.collectionView cellForItemAtIndexPath:indexPath];
+    if (cell == nil) return;
+    HSCard * _Nullable hsCard = [self.viewModel.dataSource itemIdentifierForIndexPath:indexPath].card;
+    if (hsCard == nil) return;
+    
+    DeckAddCardContentView *contentView = (DeckAddCardContentView *)cell.contentView;
+    if (![contentView isKindOfClass:[DeckAddCardContentView class]]) return;
+    
+    [self presentCardDetailsViewControllerWithHSCard:hsCard sourceImageView:contentView.imageView];
+}
+
 - (void)presentDeckDetailsViewController {
     [self presentViewController:[self makeDeckDetailsViewController] animated:YES completion:^{}];
 }
 
 - (SheetNavigationController *)makeDeckDetailsViewController {
     DeckDetailsViewController *vc = [[DeckDetailsViewController alloc] initWithLocalDeck:self.viewModel.localDeck presentEditorIfNoCards:NO];
-    [vc setRightBarButtons:DeckDetailsViewControllerBarButtonTypeDone];
+    [vc setRightBarButtons:DeckDetailsViewControllerRightBarButtonTypeDone];
     SheetNavigationController *nvc = [[SheetNavigationController alloc] initWithRootViewController:vc];
     [vc release];
     return [nvc autorelease];
@@ -375,7 +380,12 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     [collectionView deselectItemAtIndexPath:indexPath animated:NO];
-    [self.viewModel handleSelectionForIndexPath:indexPath];
+    
+    DeckAddCardItemModel * _Nullable itemModel = [self.viewModel.dataSource itemIdentifierForIndexPath:indexPath];
+    if (itemModel == nil) return;
+    
+    HSCard *hsCard = itemModel.card;
+    [self.viewModel addHSCards:@[hsCard]];
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
@@ -406,15 +416,16 @@
                                                                                         previewProvider:nil
                                                                                          actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> * _Nonnull suggestedActions) {
         
-        UIAction *saveAction = [UIAction actionWithTitle:NSLocalizedString(@"SAVE", @"")
-                                                   image:[UIImage systemImageNamed:@"square.and.arrow.down"]
-                                              identifier:nil
-                                                 handler:^(__kindof UIAction * _Nonnull action) {
-            [PhotosService.sharedInstance saveImageURL:itemModel.card.image fromViewController:self completionHandler:^(BOOL success, NSError * _Nonnull error) {}];
+        UIAction *addButton = [UIAction actionWithTitle:NSLocalizedString(@"ADD_TO_DECK", @"")
+                                                  image:[UIImage systemImageNamed:@"plus"]
+                                             identifier:nil
+                                                handler:^(__kindof UIAction * _Nonnull action) {
+            
+            [self.viewModel addHSCards:@[itemModel.card]];
         }];
         
         UIMenu *menu = [UIMenu menuWithTitle:itemModel.card.name
-                                    children:@[saveAction]];
+                                    children:@[addButton]];
         
         return menu;
     }];
@@ -431,7 +442,9 @@
     
     self.viewModel.contextMenuIndexPath = nil;
     
-    [self.viewModel handleSelectionForIndexPath:indexPath];
+    [animator addAnimations:^{
+        [self presentCardDetailsViewControllerFromIndexPath:indexPath];
+    }];
 }
 
 #pragma mark - UICollectionViewDragDelegate
@@ -464,10 +477,7 @@
 #pragma mark - DeckAddCardOptionsViewControllerDelegate
 
 - (void)deckAddCardOptionsViewController:(DeckAddCardOptionsViewController *)viewController doneWithOptions:(NSDictionary<NSString *,NSString *> *)options {
-    if (self.splitViewController.isCollapsed) {
-//    if ([self.navigationItem.leftBarButtonItems containsObject:self.optionsBarButtonItem]) {
-        [viewController dismissViewControllerAnimated:YES completion:^{}];
-    }
+    [viewController dismissViewControllerAnimated:YES completion:^{}];
     [self addSpinnerView];
     [self.viewModel requestDataSourceWithOptions:options reset:YES];
 }

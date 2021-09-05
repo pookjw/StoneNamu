@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)cardDetailsLayoutRemovePrimaryImageView;
 - (void)cardDetailsLayoutRemoveCollectionView;
 - (void)cardDetailsLayoutRemoveCloseButton;
+- (void)cardDetailsLayoutUpdateCollectionViewInsets;
 @end
 
 NS_ASSUME_NONNULL_END

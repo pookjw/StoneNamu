@@ -160,11 +160,6 @@
                                              object:self.viewModel];
     
     [NSNotificationCenter.defaultCenter addObserver:self
-                                           selector:@selector(presentDetailReceived:)
-                                               name:CardsViewModelPresentDetailNotificationName
-                                             object:self.viewModel];
-    
-    [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(applyingSnapshotWasDoneReceived:)
                                                name:CardsViewModelApplyingSnapshotToDataSourceWasDoneNotificationName
                                              object:self.viewModel];
@@ -180,28 +175,6 @@
     } else {
         NSLog(@"No error found but the notification was posted: %@", notification.userInfo);
     }
-}
-
-- (void)presentDetailReceived:(NSNotification *)notification {
-    HSCard * _Nullable hsCard = notification.userInfo[CardsViewModelPresentDetailNotificationHSCardKey];
-    NSIndexPath * _Nullable indexPath = notification.userInfo[CardsViewModelPresentDetailNotificationIndexPathKey];
-    
-    if (!(hsCard && indexPath)) return;
-    
-    [NSOperationQueue.mainQueue addOperationWithBlock:^{
-        UICollectionViewCell * _Nullable cell = [self.collectionView cellForItemAtIndexPath:indexPath];
-        
-        if (cell == nil) return;
-        
-        CardContentView *contentView = (CardContentView *)cell.contentView;
-        
-        if (![contentView isKindOfClass:[CardContentView class]]) return;
-        
-        CardDetailsViewController *vc = [[CardDetailsViewController alloc] initWithHSCard:hsCard sourceImageView:contentView.imageView];
-        [vc autorelease];
-        [vc loadViewIfNeeded];
-        [self presentViewController:vc animated:YES completion:^{}];
-    }];
 }
 
 - (void)applyingSnapshotWasDoneReceived:(NSNotification *)notification {
@@ -225,11 +198,30 @@
     return [self.viewModel makeDragItemFromIndexPath:indexPath image:image];
 }
 
+- (void)presentCardDetailsViewControllerWithHSCard:(HSCard *)hsCard sourceImageView:(UIImageView *)imageView {
+    CardDetailsViewController *vc = [[CardDetailsViewController alloc] initWithHSCard:hsCard sourceImageView:imageView];
+    [vc loadViewIfNeeded];
+    [self presentViewController:vc animated:YES completion:^{}];
+    [vc release];
+}
+
+- (void)presentCardDetailsViewControllerFromIndexPath:(NSIndexPath *)indexPath {
+    UICollectionViewCell * _Nullable cell = [self.collectionView cellForItemAtIndexPath:indexPath];
+    if (cell == nil) return;
+    HSCard * _Nullable hsCard = [self.viewModel.dataSource itemIdentifierForIndexPath:indexPath].card;
+    if (hsCard == nil) return;
+    
+    CardContentView *contentView = (CardContentView *)cell.contentView;
+    if (![contentView isKindOfClass:[CardContentView class]]) return;
+    
+    [self presentCardDetailsViewControllerWithHSCard:hsCard sourceImageView:contentView.imageView];
+}
+
 #pragma mark - UICollectionViewDelegate
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     [collectionView deselectItemAtIndexPath:indexPath animated:NO];
-    [self.viewModel handleSelectionForIndexPath:indexPath];
+    [self presentCardDetailsViewControllerFromIndexPath:indexPath];
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
@@ -285,7 +277,9 @@
     
     self.viewModel.contextMenuIndexPath = nil;
     
-    [self.viewModel handleSelectionForIndexPath:indexPath];
+    [animator addAnimations:^{
+        [self presentCardDetailsViewControllerFromIndexPath:indexPath];
+    }];
 }
 
 #pragma mark - UICollectionViewDragDelegate

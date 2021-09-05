@@ -19,9 +19,7 @@
 @interface DeckDetailsViewController () <UICollectionViewDelegate, UICollectionViewDragDelegate, UICollectionViewDropDelegate>
 @property (retain) UICollectionView *collectionView;
 @property (retain) UICollectionViewSupplementaryRegistration *headerCellRegistration;
-@property (retain) UIBarButtonItem *exportBarButtonItem;
-@property (retain) UIBarButtonItem *addCardsBarButtonItem;
-@property (retain) UIBarButtonItem *editBarButtonItem;
+@property (retain) UIBarButtonItem *menuBarButtonItem;
 @property (retain) UIBarButtonItem *doneBarButtonItem;
 @property (retain) DeckDetailsViewModel *viewModel;
 @end
@@ -44,11 +42,8 @@
 - (void)dealloc {
     [_collectionView release];
     [_headerCellRegistration release];
-    [_exportBarButtonItem release];
     [_viewModel release];
-    [_exportBarButtonItem release];
-    [_addCardsBarButtonItem release];
-    [_editBarButtonItem release];
+    [_menuBarButtonItem release];
     [_doneBarButtonItem release];
     [super dealloc];
 }
@@ -57,7 +52,7 @@
     [super viewDidLoad];
     [self setAttributes];
     [self configureRightBarButtonItems];
-    [self setRightBarButtons:DeckDetailsViewControllerBarButtonTypeAddCards | DeckDetailsViewControllertBarButtonTypeEditName | DeckDetailsViewControllerBarButtonTypeExport];
+    [self setRightBarButtons:DeckDetailsViewControllerRightBarButtonTypeMenu];
     [self configureCollectionView];
     [self configureViewModel];
     [self bind];
@@ -68,27 +63,19 @@
     [self configureNavigation];
 }
 
-- (void)setRightBarButtons:(DeckDetailsViewControllertBarButtonType)type {
-    NSMutableArray<UIBarButtonItem *> *rightBarButtomItems = [@[] mutableCopy];
+- (void)setRightBarButtons:(DeckDetailsViewControllerRightBarButtonType)type {
+    NSMutableArray<UIBarButtonItem *> *rightBarButtonItems = [@[] mutableCopy];
     
-    if (type & DeckDetailsViewControllerBarButtonTypeDone) {
-        [rightBarButtomItems addObject:self.doneBarButtonItem];
+    if (type & DeckDetailsViewControllerRightBarButtonTypeDone) {
+        [rightBarButtonItems addObject:self.doneBarButtonItem];
     }
     
-    if (type & DeckDetailsViewControllerBarButtonTypeExport) {
-        [rightBarButtomItems addObject:self.exportBarButtonItem];
+    if (type & DeckDetailsViewControllerRightBarButtonTypeMenu) {
+        [rightBarButtonItems addObject:self.menuBarButtonItem];
     }
     
-    if (type & DeckDetailsViewControllerBarButtonTypeAddCards) {
-        [rightBarButtomItems addObject:self.addCardsBarButtonItem];
-    }
-    
-    if (type & DeckDetailsViewControllertBarButtonTypeEditName) {
-        [rightBarButtomItems addObject:self.editBarButtonItem];
-    }
-    
-    self.navigationItem.rightBarButtonItems = rightBarButtomItems;
-    [rightBarButtomItems release];
+    self.navigationItem.rightBarButtonItems = rightBarButtonItems;
+    [rightBarButtonItems release];
 }
 
 - (void)addHSCardsToLocalDeck:(NSArray<HSCard *> *)hsCards {
@@ -104,31 +91,39 @@
 }
 
 - (void)configureRightBarButtonItems {
-    UIBarButtonItem *exportBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"square.and.arrow.up"]
-                                                                            style:UIBarButtonItemStylePlain
-                                                                           target:self
-                                                                           action:@selector(exportBarButtonItemTriggered:)];
-    self.exportBarButtonItem = exportBarButtonItem;
-    exportBarButtonItem.enabled = NO;
-    [exportBarButtonItem release];
     
-    //
-    
-    UIBarButtonItem *addCardsBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"plus"]
-                                                                              style:UIBarButtonItemStylePlain
-                                                                             target:self
-                                                                             action:@selector(addCardsBarButtonItemTriggered:)];
-    self.addCardsBarButtonItem = addCardsBarButtonItem;
-    [addCardsBarButtonItem release];
-    
-    //
-    
-    UIBarButtonItem *editBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"pencil"]
+    UIBarButtonItem *menuBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"ellipsis"]
                                                                           style:UIBarButtonItemStylePlain
                                                                          target:self
-                                                                         action:@selector(editBarButtonItemTriggered:)];
-    self.editBarButtonItem = editBarButtonItem;
-    [editBarButtonItem release];
+                                                                         action:nil];
+    self.menuBarButtonItem = menuBarButtonItem;
+    
+    UIMenu *menu = [UIMenu menuWithChildren:@[
+        [UIAction actionWithTitle:NSLocalizedString(@"ADD_CARDS", @"")
+                            image:[UIImage systemImageNamed:@"plus"]
+                       identifier:nil
+                          handler:^(__kindof UIAction * _Nonnull action) {
+            [self presentDeckAddCardsViewController];
+        }],
+        
+        [UIAction actionWithTitle:NSLocalizedString(@"EDIT_DECK_NAME", @"")
+                            image:[UIImage systemImageNamed:@"square.and.arrow.up"]
+                       identifier:nil
+                          handler:^(__kindof UIAction * _Nonnull action) {
+            [self presentEditLocalDeckNameAlert];
+        }],
+        
+        [UIAction actionWithTitle:NSLocalizedString(@"EXPORT_DECK_CODE", @"")
+                            image:[UIImage systemImageNamed:@"square.and.arrow.up"]
+                       identifier:nil
+                          handler:^(__kindof UIAction * _Nonnull action) {
+            [self exportDeckCodeAndShare];
+        }]
+    ]];
+    
+    menuBarButtonItem.menu = menu;
+    
+    [menuBarButtonItem release];
     
     //
     
@@ -140,27 +135,21 @@
     [doneBarButtonItem release];
 }
 
-- (void)exportBarButtonItemTriggered:(UIBarButtonItem *)sender {
-    [self addSpinnerView];
+- (void)doneBarButtonItemTriggered:(UIBarButtonItem *)sender {
+    BOOL shouldDismiss;
     
-    [self.viewModel exportDeckCodeWithCompletion:^(NSString * _Nullable deckCode) {
-        [NSOperationQueue.mainQueue addOperationWithBlock:^{
-            [self removeAllSpinnerview];
-            
-            if (deckCode) {
-                UIActivityViewController *activity = [[UIActivityViewController alloc] initWithActivityItems:@[deckCode] applicationActivities:nil];
-                activity.popoverPresentationController.barButtonItem = self.exportBarButtonItem;
-                [self presentViewController:activity animated:YES completion:^{}];
-            }
-        }];
-    }];
+    if ([self.delegate respondsToSelector:@selector(deckDetailsViewControllerShouldDismissWithDoneBarButtonItem:)]) {
+        shouldDismiss = [self.delegate deckDetailsViewControllerShouldDismissWithDoneBarButtonItem:self];
+    } else {
+        shouldDismiss = YES;
+    }
+    
+    if (shouldDismiss) {
+        [self dismissViewControllerAnimated:YES completion:^{}];
+    }
 }
 
-- (void)addCardsBarButtonItemTriggered:(UIBarButtonItem *)sender {
-    [self presentDeckAddCardsViewController];
-}
-
-- (void)editBarButtonItemTriggered:(UIBarButtonItem *)sender {
+- (void)presentEditLocalDeckNameAlert {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"EDIT_DECK_NAME_TITLE", @"")
                                                                    message:nil
                                                             preferredStyle:UIAlertControllerStyleAlert];
@@ -185,8 +174,20 @@
     [self presentViewController:alert animated:YES completion:^{}];
 }
 
-- (void)doneBarButtonItemTriggered:(UIBarButtonItem *)sender {
-    [self dismissViewControllerAnimated:YES completion:^{}];
+- (void)exportDeckCodeAndShare {
+    [self addSpinnerView];
+    
+    [self.viewModel exportDeckCodeWithCompletion:^(NSString * _Nullable deckCode) {
+        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+            [self removeAllSpinnerview];
+            
+            if (deckCode) {
+                UIActivityViewController *activity = [[UIActivityViewController alloc] initWithActivityItems:@[deckCode] applicationActivities:nil];
+                activity.popoverPresentationController.barButtonItem = self.menuBarButtonItem;
+                [self presentViewController:activity animated:YES completion:^{}];
+            }
+        }];
+    }];
 }
 
 - (void)configureCollectionView {
@@ -334,7 +335,12 @@
         UIContextualAction *decrementAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal
                                                                                       title:nil
                                                                                     handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
-            [self.viewModel decreaseAtIndexPath:indexPath];
+            
+            BOOL shouldComplete = [self.viewModel decreaseAtIndexPath:indexPath];
+            
+            if (shouldComplete) {
+                completionHandler(YES);
+            }
         }];
         
         decrementAction.image = [UIImage systemImageNamed:@"minus"];
@@ -346,6 +352,7 @@
                                                                                       title:nil
                                                                                     handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
             [self.viewModel increaseAtIndexPath:indexPath];
+            completionHandler(YES);
         }];
         
         incrementAction.image = [UIImage systemImageNamed:@"plus"];
@@ -419,7 +426,7 @@
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
             BOOL shouldPresent;
             
-            if (self.delegate != nil) {
+            if ([self.delegate respondsToSelector:@selector(deckDetailsViewController:shouldPresentErrorAlertWithError:)]) {
                 shouldPresent = [self.delegate deckDetailsViewController:self shouldPresentErrorAlertWithError:[[error retain] autorelease]];
             } else {
                 shouldPresent = YES;
@@ -469,8 +476,6 @@
 }
 
 - (void)dealWithDataSourceHasCards:(BOOL)hasCards {
-    self.exportBarButtonItem.enabled = hasCards;
-    
     if (hasCards) {
         self.viewModel.shouldPresentDeckEditor = NO;
     } else if (self.viewModel.shouldPresentDeckEditor == YES) {

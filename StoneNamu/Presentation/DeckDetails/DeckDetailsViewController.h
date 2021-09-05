@@ -12,11 +12,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef NS_ENUM(NSUInteger, DeckDetailsViewControllertBarButtonType) {
-    DeckDetailsViewControllerBarButtonTypeAddCards = 1 << 0,
-    DeckDetailsViewControllertBarButtonTypeEditName = 1 << 1,
-    DeckDetailsViewControllerBarButtonTypeExport = 1 << 2,
-    DeckDetailsViewControllerBarButtonTypeDone = 1 << 3
+typedef NS_ENUM(NSUInteger, DeckDetailsViewControllerRightBarButtonType) {
+    DeckDetailsViewControllerRightBarButtonTypeMenu = 1 << 0,
+    DeckDetailsViewControllerRightBarButtonTypeDone = 1 << 1
 };
 
 @interface DeckDetailsViewController : UIViewController
@@ -24,7 +22,7 @@ typedef NS_ENUM(NSUInteger, DeckDetailsViewControllertBarButtonType) {
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithLocalDeck:(LocalDeck *)localDeck presentEditorIfNoCards:(BOOL)shouldPresentDeckEditor;
-- (void)setRightBarButtons:(DeckDetailsViewControllertBarButtonType)type;
+- (void)setRightBarButtons:(DeckDetailsViewControllerRightBarButtonType)type;
 - (void)addHSCardsToLocalDeck:(NSArray<HSCard *> *)hsCards;
 @end
 

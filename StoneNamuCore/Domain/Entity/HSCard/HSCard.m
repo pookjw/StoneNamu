@@ -77,7 +77,13 @@
         hsCard->_classId = [(NSNumber *)classId unsignedIntegerValue];
     }
     
-    hsCard->_multiClassIds = [dic[@"multiClassIds"] copy];
+    id multiClassIds = dic[@"multiClassIds"];
+    if ([multiClassIds isEqual:[NSNull null]]) {
+        hsCard->_multiClassIds = nil;
+    } else {
+        hsCard->_multiClassIds = [dic[@"multiClassIds"] copy];
+    }
+    
     hsCard->_minionTypeId = [(NSNumber *)dic[@"minionTypeId"] unsignedIntegerValue];
     hsCard->_cardTypeId = [(NSNumber *)dic[@"cardTypeId"] unsignedIntegerValue];
     hsCard->_cardSetId = [(NSNumber *)dic[@"cardSetId"] unsignedIntegerValue];

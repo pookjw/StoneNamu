@@ -95,15 +95,8 @@
                 
                 [snapshot.itemIdentifiers enumerateObjectsUsingBlock:^(DeckDetailsItemModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
                     if ([hsCard isEqual:obj.hsCard]) {
-                        DeckDetailsItemModel *copy = [obj copy];
-                        copy.hsCardCount += 1;
-                        
-                        /*
-                         if hsCardCount is changed, isEqual and hash value will be changed. So reload or reconfigure won't work.
-                         */
-                        [snapshot deleteItemsWithIdentifiers:@[obj]];
-                        [snapshot appendItemsWithIdentifiers:@[copy] intoSectionWithIdentifier:cardsSectionModel];
-                        [copy release];
+                        obj.hsCardCount += 1;
+                        [snapshot reconfigureItemsWithIdentifiers:@[obj]];
                         
                         isDuplicated = YES;
                         *stop = YES;
@@ -147,20 +140,10 @@
         } else {
             
             NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
-            
-            //
-            
-            DeckDetailsSectionModel *sectionModel = [self.dataSource sectionIdentifierForIndex:copyIndexPath.section];
             DeckDetailsItemModel *itemModel = [self.dataSource itemIdentifierForIndexPath:copyIndexPath];
             
-            //
-            
-            DeckDetailsItemModel *copy = [itemModel copy];
-            copy.hsCardCount += 1;
-            
-            [snapshot deleteItemsWithIdentifiers:@[itemModel]];
-            [snapshot appendItemsWithIdentifiers:@[copy] intoSectionWithIdentifier:sectionModel];
-            [copy release];
+            itemModel.hsCardCount += 1;
+            [snapshot reconfigureItemsWithIdentifiers:@[itemModel]];
             
             [self addCostGraphItemToSnapshot:snapshot];
             [self updateCardsSectionHeaderTitleFromSnapshot:snapshot];
@@ -180,7 +163,7 @@
     [copyHSCard release];
 }
 
-- (void)decreaseAtIndexPath:(NSIndexPath *)indexPath {
+- (BOOL)decreaseAtIndexPath:(NSIndexPath *)indexPath {
     NSIndexPath *copyIndexPath = [indexPath copy];
     
     DeckDetailsItemModel *itemModel = [self.dataSource itemIdentifierForIndexPath:copyIndexPath];
@@ -188,7 +171,7 @@
     if (itemModel.hsCardCount <= 1) {
         [self deleteAtIndexPath:copyIndexPath];
         [copyIndexPath release];
-        return;
+        return NO;
     }
     
     HSCard *copyHSCard = [itemModel.hsCard copy];
@@ -199,18 +182,10 @@
         } else {
             
             NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
-            
-            DeckDetailsSectionModel *sectionModel = [self.dataSource sectionIdentifierForIndex:copyIndexPath.section];
             DeckDetailsItemModel *itemModel = [self.dataSource itemIdentifierForIndexPath:copyIndexPath];
             
-            //
-            
-            DeckDetailsItemModel *copy = [itemModel copy];
-            copy.hsCardCount -= 1;
-            
-            [snapshot deleteItemsWithIdentifiers:@[itemModel]];
-            [snapshot appendItemsWithIdentifiers:@[copy] intoSectionWithIdentifier:sectionModel];
-            [copy release];
+            itemModel.hsCardCount -= 1;
+            [snapshot reconfigureItemsWithIdentifiers:@[itemModel]];
             
             [self addCostGraphItemToSnapshot:snapshot];
             [self updateCardsSectionHeaderTitleFromSnapshot:snapshot];
@@ -228,6 +203,8 @@
     }];
     
     [copyHSCard release];
+    
+    return YES;
 }
 
 - (void)deleteAtIndexPath:(NSIndexPath *)indexPath {

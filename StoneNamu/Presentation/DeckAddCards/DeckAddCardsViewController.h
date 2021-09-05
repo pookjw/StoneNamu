@@ -11,11 +11,17 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef NS_ENUM(NSUInteger, DeckAddCardsViewControllerRightBarButtonType) {
+    DeckAddCardsViewControllerRightBarButtonTypeDone = 1 << 0
+};
+
 @interface DeckAddCardsViewController : UIViewController <DeckAddCardOptionsViewControllerDelegate>
-- (LocalDeck * _Nullable)setDeckDetailsButtonHidden:(BOOL)hidden;
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithLocalDeck:(LocalDeck *)localDeck;
+- (LocalDeck * _Nullable)setDeckDetailsButtonHidden:(BOOL)hidden;
+- (void)setRightBarButtons:(DeckAddCardsViewControllerRightBarButtonType)type;
+- (void)requestDismissWithPromptIfNeeded;
 @end
 
 NS_ASSUME_NONNULL_END

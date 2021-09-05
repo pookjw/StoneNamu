@@ -51,12 +51,11 @@
     
     return ([self.hsCard isEqual:toCompare.hsCard] || ((self.hsCard == nil) && (toCompare.hsCard == nil))) &&
     (self.type == toCompare.type) &&
-    (self.hsCardCount == toCompare.hsCardCount) &&
     ([self.manaDictionary isEqualToDictionary:toCompare.manaDictionary] || ((self.manaDictionary == nil) && (toCompare.manaDictionary == nil)));
 }
 
 - (NSUInteger)hash {
-    return self.type ^ self.hsCard.hash ^ self.hsCardCount ^ self.manaDictionary.hash;
+    return self.type ^ self.hsCard.hash ^ self.manaDictionary.hash;
 }
 
 @end

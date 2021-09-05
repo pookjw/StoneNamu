@@ -9,7 +9,7 @@
 #import "DeckAddCardsViewController.h"
 #import "DeckDetailsViewController.h"
 
-@interface DeckAddCardSplitViewController () <UISplitViewControllerDelegate>
+@interface DeckAddCardSplitViewController () <UISplitViewControllerDelegate, DeckDetailsViewControllerDelegate>
 @end
 
 @implementation DeckAddCardSplitViewController
@@ -20,7 +20,6 @@
     if (self) {
         self.delegate = self;
         [self loadViewIfNeeded];
-        self.modalPresentationStyle = UIModalPresentationFullScreen;
         
         DeckAddCardsViewController *deckAddCardsViewController = [[DeckAddCardsViewController alloc] initWithLocalDeck:localDeck];
         [deckAddCardsViewController loadViewIfNeeded];
@@ -32,15 +31,18 @@
         secondaryNavigationController.view.backgroundColor = UIColor.systemBackgroundColor;
         
         if (self.isCollapsed) {
+            [deckAddCardsViewController setRightBarButtons:DeckAddCardsViewControllerRightBarButtonTypeDone];
             primaryNavigationController.viewControllers = @[deckAddCardsViewController];
             secondaryNavigationController.viewControllers = @[];
             self.viewControllers = @[primaryNavigationController, secondaryNavigationController];
         } else {
             LocalDeck *localDeck = [deckAddCardsViewController setDeckDetailsButtonHidden:YES];
             DeckDetailsViewController *deckDetailsViewController = [[DeckDetailsViewController alloc] initWithLocalDeck:localDeck presentEditorIfNoCards:NO];
-            [deckDetailsViewController setRightBarButtons:0];
-            primaryNavigationController.viewControllers = @[deckDetailsViewController];
-            secondaryNavigationController.viewControllers = @[deckAddCardsViewController];
+            deckDetailsViewController.delegate = self;
+            [deckDetailsViewController setRightBarButtons:DeckDetailsViewControllerRightBarButtonTypeDone];
+            [deckAddCardsViewController setRightBarButtons:0];
+            primaryNavigationController.viewControllers = @[deckAddCardsViewController];
+            secondaryNavigationController.viewControllers = @[deckDetailsViewController];
             self.viewControllers = @[primaryNavigationController, secondaryNavigationController];
             [deckDetailsViewController release];
         }
@@ -53,14 +55,16 @@
     return self;
 }
 
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setAttributes];
 }
 
 - (void)setAttributes {
+    self.modalPresentationStyle = UIModalPresentationFullScreen;
     self.preferredDisplayMode = UISplitViewControllerDisplayModeOneBesideSecondary;
+    self.maximumPrimaryColumnWidth = CGFLOAT_MAX;
+    self.preferredPrimaryColumnWidthFraction = 0.6;
 }
 
 #pragma mark - UISplitViewControllerDelegate
@@ -79,12 +83,13 @@
     
     if (secondaryNavigationController.viewControllers.count < 1) return NO;
     
-    DeckAddCardsViewController *deckAddCardsViewController = (DeckAddCardsViewController *)secondaryNavigationController.viewControllers[0];
+    DeckAddCardsViewController *deckAddCardsViewController = (DeckAddCardsViewController *)primaryNavigationController.viewControllers[0];
     if (![deckAddCardsViewController isKindOfClass:[DeckAddCardsViewController class]]) {
         return NO;
     }
     
     [deckAddCardsViewController setDeckDetailsButtonHidden:NO];
+    [deckAddCardsViewController setRightBarButtons:DeckAddCardsViewControllerRightBarButtonTypeDone];
     primaryNavigationController.viewControllers = @[deckAddCardsViewController];
     secondaryNavigationController.viewControllers = @[];
     
@@ -118,10 +123,12 @@
     UINavigationController *secondaryNavigationController = [UINavigationController new];
     secondaryNavigationController.view.backgroundColor = UIColor.systemBackgroundColor;
     DeckDetailsViewController *deckDetailsViewController = [[DeckDetailsViewController alloc] initWithLocalDeck:localDeck presentEditorIfNoCards:NO];
-    [deckDetailsViewController setRightBarButtons:0];
+    deckDetailsViewController.delegate = self;
+    [deckDetailsViewController setRightBarButtons:DeckDetailsViewControllerRightBarButtonTypeDone];
+    [deckAddCardsViewController setRightBarButtons:0];
     
-    primaryNavigationController.viewControllers = @[deckDetailsViewController];
-    secondaryNavigationController.viewControllers = @[deckAddCardsViewController];
+    primaryNavigationController.viewControllers = @[deckAddCardsViewController];
+    secondaryNavigationController.viewControllers = @[deckDetailsViewController];
     
     [deckDetailsViewController release];
     
@@ -130,6 +137,22 @@
 
 - (UISplitViewControllerColumn)splitViewController:(UISplitViewController *)svc topColumnForCollapsingToProposedTopColumn:(UISplitViewControllerColumn)proposedTopColumn {
     return UISplitViewControllerColumnPrimary;
+}
+
+#pragma mark - DeckDetailsViewControllerDelegate
+
+- (BOOL)deckDetailsViewControllerShouldDismissWithDoneBarButtonItem:(DeckDetailsViewController *)viewController {
+    if (self.viewControllers.count < 1) return YES;
+    
+    UINavigationController *primaryNavigationController = self.viewControllers[0];
+    if (![primaryNavigationController isKindOfClass:[UINavigationController class]]) return YES;
+    if (primaryNavigationController.viewControllers.count < 1) return YES;
+    
+    DeckAddCardsViewController *deckAddCardsViewController = primaryNavigationController.viewControllers[0];
+    if (![deckAddCardsViewController isKindOfClass:[DeckAddCardsViewController class]]) return YES;
+    
+    [deckAddCardsViewController requestDismissWithPromptIfNeeded];
+    return NO;
 }
 
 @end

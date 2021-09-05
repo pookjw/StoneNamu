@@ -18,6 +18,7 @@
 #import "UIViewController+SpinnerView.h"
 #import "NSIndexPath+identifier.h"
 #import "UIViewController+targetedPreviewWithClearBackgroundForView.h"
+#import "UIImage+imageWithGrayScale.h"
 
 @interface CardDetailsViewController () <UICollectionViewDelegate, UIViewControllerTransitioningDelegate, UIContextMenuInteractionDelegate, UIDragInteractionDelegate, CardDetailsChildrenContentConfigurationDelegate>
 @property (retain) UIImageView * _Nullable sourceImageView;
@@ -78,6 +79,7 @@
     [self updateLayoutViewControllerWithTraitCollection:self.traitCollection];
     [self updateCloseButtonAttributes];
     [self updateCollectionViewAttributes];
+    [self.currentLayoutViewController cardDetailsLayoutUpdateCollectionViewInsets];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -92,6 +94,11 @@
 - (void)willTransitionToTraitCollection:(UITraitCollection *)newCollection withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
     [super willTransitionToTraitCollection:newCollection withTransitionCoordinator:coordinator];
     [self updateLayoutViewControllerWithTraitCollection:newCollection];
+}
+
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    [self.currentLayoutViewController cardDetailsLayoutUpdateCollectionViewInsets];
 }
 
 - (UIViewController<CardDetailsLayoutProtocol> * _Nullable)currentLayoutViewController {
@@ -121,10 +128,14 @@
     primaryImageView.userInteractionEnabled = YES;
     primaryImageView.contentMode = UIViewContentModeScaleAspectFit;
     
-    if (self.sourceImageView.image) {
-        primaryImageView.image = self.sourceImageView.image;
-    } else {
+    if (self.sourceImageView.image == nil) {
         [primaryImageView setAsyncImageWithURL:self.hsCard.image indicator:YES];
+    } else {
+        if ((self.sourceImageView.image.isGrayScaleApplied) && (self.sourceImageView.image.imageBeforeGrayScale != nil)) {
+            primaryImageView.image = self.sourceImageView.image.imageBeforeGrayScale;
+        } else {
+            primaryImageView.image = self.sourceImageView.image;
+        }
     }
     
     //
@@ -305,6 +316,7 @@
     [targetLayoutViewController cardDetailsLayoutAddPrimaryImageView:self.primaryImageView];
     [targetLayoutViewController cardDetailsLayoutAddCloseButton:self.closeButton];
     [targetLayoutViewController cardDetailsLayoutAddCollectionView:self.collectionView];
+    [targetLayoutViewController cardDetailsLayoutUpdateCollectionViewInsets];
     
     targetLayoutViewController.view.hidden = NO;
     

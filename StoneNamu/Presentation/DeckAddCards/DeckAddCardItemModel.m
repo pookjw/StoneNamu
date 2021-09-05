@@ -9,11 +9,12 @@
 
 @implementation DeckAddCardItemModel
 
-- (instancetype)initWithCard:(HSCard *)card {
+- (instancetype)initWithCard:(HSCard *)card count:(NSUInteger)count {
     self = [self init];
     
     if (self) {
-        _card = [card copy];
+        self->_card = [card copy];
+        self.count = count;
     }
     
     return self;
@@ -31,7 +32,7 @@
     
     DeckAddCardItemModel *toCompare = (DeckAddCardItemModel *)object;
     
-    return [self.card isEqual:toCompare.card];
+    return ([self.card isEqual:toCompare.card]);
 }
 
 - (NSUInteger)hash {

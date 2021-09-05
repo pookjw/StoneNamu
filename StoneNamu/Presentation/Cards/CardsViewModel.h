@@ -14,10 +14,6 @@ NS_ASSUME_NONNULL_BEGIN
 static NSString * const CardsViewModelErrorNotificationName = @"CardsViewModelErrorNotificationName";
 static NSString * const CardsViewModelErrorNotificationErrorKey = @"CardsViewModelErrorNotificationErrorKey";
 
-static NSString * const CardsViewModelPresentDetailNotificationName = @"CardsViewModelPresentDetailNotificationName";
-static NSString * const CardsViewModelPresentDetailNotificationHSCardKey = @"CardsViewModelPresentDetailNotificationHSCardKey";
-static NSString * const CardsViewModelPresentDetailNotificationIndexPathKey = @"CardsViewModelPresentDetailNotificationIndexPathKey";
-
 static NSString * const CardsViewModelApplyingSnapshotToDataSourceWasDoneNotificationName = @"CardsViewModelApplyingSnapshotToDataSourceWasDoneNotificationName";
 
 typedef UICollectionViewDiffableDataSource<CardSectionModel *, CardItemModel *> CardsDataSource;
@@ -30,7 +26,6 @@ typedef UICollectionViewDiffableDataSource<CardSectionModel *, CardItemModel *> 
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithDataSource:(CardsDataSource *)dataSource;
 - (BOOL)requestDataSourceWithOptions:(NSDictionary<NSString *,id> * _Nullable)options reset:(BOOL)reset;
-- (void)handleSelectionForIndexPath:(NSIndexPath *)indexPath;
 - (NSArray<UIDragItem *> *)makeDragItemFromIndexPath:(NSIndexPath *)indexPath image:(UIImage * _Nullable)image;
 @end
 

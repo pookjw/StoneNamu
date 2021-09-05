@@ -145,18 +145,6 @@
     return ![self.pageCount isEqual:self.page];
 }
 
-- (void)handleSelectionForIndexPath:(NSIndexPath *)indexPath {
-    CardItemModel *itemModel = [self.dataSource itemIdentifierForIndexPath:indexPath];
-    HSCard *hsCard = itemModel.card;
-    
-    [NSNotificationCenter.defaultCenter postNotificationName:CardsViewModelPresentDetailNotificationName
-                                                      object:self
-                                                    userInfo:@{
-        CardsViewModelPresentDetailNotificationHSCardKey: hsCard,
-        CardsViewModelPresentDetailNotificationIndexPathKey: indexPath
-    }];
-}
-
 - (NSArray<UIDragItem *> *)makeDragItemFromIndexPath:(NSIndexPath *)indexPath image:(UIImage * _Nullable)image {
     CardItemModel * _Nullable itemModel = [self.dataSource itemIdentifierForIndexPath:indexPath];
     

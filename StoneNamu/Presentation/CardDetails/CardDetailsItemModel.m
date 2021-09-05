@@ -8,7 +8,7 @@
 #import "CardDetailsItemModel.h"
 
 @interface CardDetailsItemModel ()
-@property (retain) NSString * _Nullable value;
+@property (copy) NSString * _Nullable value;
 @end
 
 @implementation CardDetailsItemModel

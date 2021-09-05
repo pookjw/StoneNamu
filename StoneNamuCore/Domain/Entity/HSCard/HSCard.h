@@ -25,7 +25,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly) HSCardCollectible collectible;
 @property (readonly, copy) NSString *slug;
 @property (readonly) HSCardClass classId;
-@property (readonly, copy) NSArray<NSNumber *> *multiClassIds;
+/**
+ multiClassIds can be nil, or empty array on old cards...
+ */
+@property (readonly, copy) NSArray<NSNumber *> * _Nullable multiClassIds;
 @property (readonly) HSCardMinionType minionTypeId;
 @property (readonly) HSCardType cardTypeId;
 @property (readonly) HSCardSet cardSetId;

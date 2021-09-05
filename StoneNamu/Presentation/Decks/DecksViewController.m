@@ -54,9 +54,15 @@
                                                                         target:self
                                                                         action:nil];
     self.addBarButtonItem = addBarButtonItem;
+    [self replaceMenuOfAddBarButtonItem];
     
     //
     
+    self.navigationItem.rightBarButtonItems = @[addBarButtonItem];
+    [addBarButtonItem release];
+}
+
+- (void)replaceMenuOfAddBarButtonItem {
     NSMutableArray<UIAction *> *createStandardDeckActions = [@[] mutableCopy];
     NSMutableArray<UIAction *> *createWildDeckActions = [@[] mutableCopy];
     NSMutableArray<UIAction *> *createClassicDeckActions = [@[] mutableCopy];
@@ -69,6 +75,9 @@
                                                    image:nil
                                               identifier:nil
                                                  handler:^(__kindof UIAction * _Nonnull action) {
+                
+                [self replaceMenuOfAddBarButtonItem];
+                
                 [self.viewModel makeLocalDeckWithClass:HSCardClassFromNSString(key)
                                             deckFormat:HSDeckFormatStandard
                                             completion:^(LocalDeck * _Nonnull localDeck) {
@@ -88,6 +97,9 @@
                                                    image:nil
                                               identifier:nil
                                                  handler:^(__kindof UIAction * _Nonnull action) {
+                
+                [self replaceMenuOfAddBarButtonItem];
+                
                 [self.viewModel makeLocalDeckWithClass:HSCardClassFromNSString(key)
                                             deckFormat:HSDeckFormatWild
                                             completion:^(LocalDeck * _Nonnull localDeck) {
@@ -107,6 +119,9 @@
                                                    image:nil
                                               identifier:nil
                                                  handler:^(__kindof UIAction * _Nonnull action) {
+                
+                [self replaceMenuOfAddBarButtonItem];
+                
                 [self.viewModel makeLocalDeckWithClass:HSCardClassFromNSString(key)
                                             deckFormat:HSDeckFormatClassic
                                             completion:^(LocalDeck * _Nonnull localDeck) {
@@ -148,7 +163,7 @@
     [createWildDeckActions release];
     [createClassicDeckActions release];
     
-    addBarButtonItem.menu = [UIMenu menuWithChildren:@[
+    self.addBarButtonItem.menu = [UIMenu menuWithChildren:@[
         createDeckMenu,
         
         [UIAction actionWithTitle:NSLocalizedString(@"LOAD_FROM_DECK_CODE", @"")
@@ -158,9 +173,6 @@
             [self presentTextFieldAndFetchDeckCode];
         }]
     ]];
-    
-    self.navigationItem.rightBarButtonItems = @[addBarButtonItem];
-    [addBarButtonItem release];
 }
 
 - (void)configureNavigation {

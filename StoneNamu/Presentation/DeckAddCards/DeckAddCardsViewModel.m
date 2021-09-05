@@ -184,18 +184,6 @@
     return ![self.pageCount isEqual:self.page];
 }
 
-- (void)handleSelectionForIndexPath:(NSIndexPath *)indexPath {
-    DeckAddCardItemModel *itemModel = [self.dataSource itemIdentifierForIndexPath:indexPath];
-    HSCard *hsCard = itemModel.card;
-    
-    [NSNotificationCenter.defaultCenter postNotificationName:DeckAddCardsViewModelPresentDetailNotificationName
-                                                      object:self
-                                                    userInfo:@{
-        DeckAddCardsViewModelPresentDetailNotificationHSCardKey: hsCard,
-        DeckAddCardsViewModelPresentDetailNotificationIndexPathKey: indexPath
-    }];
-}
-
 - (NSArray<UIDragItem *> *)makeDragItemFromIndexPath:(NSIndexPath *)indexPath image:(UIImage * _Nullable)image {
     DeckAddCardItemModel * _Nullable itemModel = [self.dataSource itemIdentifierForIndexPath:indexPath];
     
@@ -231,12 +219,23 @@
             [snapshot appendSectionsWithIdentifiers:@[sectionModel]];
         }
         
+        NSArray<HSCard *> *localDeckCards = self.localDeck.cards;
         NSMutableArray<DeckAddCardItemModel *> *itemModels = [@[] mutableCopy];
         
         for (HSCard *card in cards) {
-            DeckAddCardItemModel *itemModel = [[DeckAddCardItemModel alloc] initWithCard:card];
-            [itemModels addObject:itemModel];
-            [itemModel release];
+            @autoreleasepool {
+                NSUInteger __block count = 0;
+                
+                [localDeckCards enumerateObjectsUsingBlock:^(HSCard * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    if ([card isEqual:obj]) {
+                        count += 1;
+                    }
+                }];
+                
+                DeckAddCardItemModel *itemModel = [[DeckAddCardItemModel alloc] initWithCard:card count:count];
+                [itemModels addObject:itemModel];
+                [itemModel release];
+            }
         }
         
         [snapshot appendItemsWithIdentifiers:[[itemModels copy] autorelease] intoSectionWithIdentifier:sectionModel];
@@ -257,6 +256,35 @@
     }];
 }
 
+- (void)updateItemCountToDataSource {
+    [self.queue addBarrierBlock:^{
+        NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
+        
+        NSArray<HSCard *> *localDeckCards = self.localDeck.cards;
+        
+        for (DeckAddCardItemModel *itemModel in snapshot.itemIdentifiers) {
+            NSUInteger __block count = 0;
+            
+            [localDeckCards enumerateObjectsUsingBlock:^(HSCard * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                if ([obj isEqual:itemModel.card]) {
+                    count += 1;
+                }
+            }];
+            
+            if (itemModel.count != count) {
+                itemModel.count = count;
+                [snapshot reconfigureItemsWithIdentifiers:@[itemModel]];
+            }
+        }
+        
+        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+            [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
+                [snapshot release];
+            }];
+        }];
+    }];
+}
+
 - (void)startObserving {
     [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(localDeckChangesReceived:)
@@ -268,6 +296,7 @@
     if (self.localDeck != nil) {
         [self.localDeckUseCase fetchWithObjectId:self.localDeck.objectID completion:^(LocalDeck * _Nullable localDeck) {
             self.localDeck = localDeck;
+            [self updateItemCountToDataSource];
             [self postLocalDeckHasChanged];
         }];
     }
