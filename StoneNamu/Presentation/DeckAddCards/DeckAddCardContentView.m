@@ -94,7 +94,7 @@
     if (![newContentConfig.hsCard isEqual:oldContentConfig.hsCard]) {
         [self updateImageView];
     } else {
-        [self applyGrayScaleToImageViewIfNeeded];
+        [self updateGrayScaleToImageView];
     }
     [self updateCountLabel];
     
@@ -104,13 +104,13 @@
 - (void)updateImageView {
     [self.imageView setAsyncImageWithURL:self.hsCard.image indicator:YES completion:^(UIImage * _Nullable image, NSError * _Nullable error) {
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
-            [self applyGrayScaleToImageViewIfNeeded];
+            [self updateGrayScaleToImageView];
         }];
     }];
     self.imageView.hidden = NO;
 }
 
-- (void)applyGrayScaleToImageViewIfNeeded {
+- (void)updateGrayScaleToImageView {
     BOOL shouldApplyGrayScale;
     
     if ((self.hsCard.rarityId == HSCardRarityLegendary) && (self.count == HSDECK_MAX_SINGLE_LEGENDARY_CARD)) {
@@ -121,14 +121,18 @@
         shouldApplyGrayScale = NO;
     }
     
-    if (!shouldApplyGrayScale) return;
-    
-    //
-    
-    if (self.imageView.image.isGrayScaleApplied) return;
-    
-    UIImage *newImage = [self.imageView.image imageWithGrayScale];
-    self.imageView.image = newImage;
+    if (shouldApplyGrayScale) {
+        if (self.imageView.image.isGrayScaleApplied) return;
+        
+        UIImage *newImage = [self.imageView.image imageWithGrayScale];
+        self.imageView.image = newImage;
+    } else {
+        if (self.imageView.image.imageBeforeGrayScale) {
+            self.imageView.image = self.imageView.image.imageBeforeGrayScale;
+        } else {
+            
+        }
+    }
 }
 
 - (void)updateCountLabel {
