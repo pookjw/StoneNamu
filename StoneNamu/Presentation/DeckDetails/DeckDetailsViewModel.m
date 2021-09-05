@@ -346,6 +346,7 @@
             }
             
             [snapshot appendItemsWithIdentifiers:cardItemModels intoSectionWithIdentifier:cardsSectionModel];
+            [snapshot reconfigureItemsWithIdentifiers:cardItemModels];
             [cardsSectionModel release];
             [cardItemModels release];
             
@@ -492,11 +493,9 @@
 }
 
 - (void)localDeckChangesReceived:(NSNotification *)notification {
-    if (self.localDeck.objectID) {
-        [self.localDeckUseCase fetchWithObjectId:self.localDeck.objectID completion:^(LocalDeck * _Nullable localDeck) {
-            [self requestDataSourceWithLocalDeck:localDeck];
-        }];
-    }
+    [self.localDeckUseCase refreshObject:self.localDeck mergeChanges:NO completion:^{
+        [self requestDataSourceWithLocalDeck:self.localDeck];
+    }];
 }
 
 - (void)localDeckDeleteAllReceived:(NSNotification *)notification {

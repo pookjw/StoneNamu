@@ -55,8 +55,8 @@
     [self.localDeckRepository fetchWithCompletion:completion];
 }
 
-- (void)fetchWithObjectId:(NSManagedObjectID *)objectId completion:(LocalDeckUseCaseFetchWithObjectIdCompletion)completion {
-    [self.localDeckRepository fetchWithObjectId:objectId completion:completion];
+- (void)refreshObject:(NSManagedObject *)object mergeChanges:(BOOL)flag completion:(nonnull LocalDeckUseCaseRefreshObjectWithCompletion)completion {
+    [self.localDeckRepository refreshObject:object mergeChanges:flag completion:completion];
 }
 
 - (nonnull LocalDeck *)makeLocalDeck {

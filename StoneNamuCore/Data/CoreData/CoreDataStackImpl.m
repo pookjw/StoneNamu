@@ -112,7 +112,6 @@ static NSMutableDictionary<NSString *, NSOperationQueue *> * _Nullable kOperatio
     NSManagedObjectContext *context = self.storeContainer.newBackgroundContext;
     kContexts[modelName] = context;
     _context = [context retain];
-    [context release];
 }
 
 - (void)configureQueueWithModelName:(NSString *)modelName {

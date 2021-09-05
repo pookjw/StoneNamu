@@ -294,8 +294,7 @@
 
 - (void)localDeckChangesReceived:(NSNotification *)notification {
     if (self.localDeck != nil) {
-        [self.localDeckUseCase fetchWithObjectId:self.localDeck.objectID completion:^(LocalDeck * _Nullable localDeck) {
-            self.localDeck = localDeck;
+        [self.localDeckUseCase refreshObject:self.localDeck mergeChanges:NO completion:^{
             [self updateItemCountToDataSource];
             [self postLocalDeckHasChanged];
         }];

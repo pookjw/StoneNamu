@@ -96,21 +96,15 @@
     }];
 }
 
-- (void)fetchWithObjectId:(NSManagedObjectID *)objectId completion:(LocalDeckRepositoryFetchWithObjectIdCompletion)completion {
+- (void)refreshObject:(NSManagedObject *)object mergeChanges:(BOOL)flag completion:(nonnull LocalDeckRepositoryRefreshObjectCompletion)completion {
     [self.coreDataStack.queue addBarrierBlock:^{
-        if (objectId) {
-            NSManagedObjectContext *context = self.coreDataStack.context;
-            
-            [context performBlockAndWait:^{
-                @autoreleasepool {
-                    LocalDeck * _Nullable localDeck = [context objectWithID:objectId];
-                    completion(localDeck);
-                }
-            }];
-        } else {
-            NSLog(@"objectId is nil!");
-            completion(nil);
-        }
+        NSManagedObjectContext *context = self.coreDataStack.context;
+        
+        [context performBlockAndWait:^{
+            [context refreshObject:object mergeChanges:flag];
+        }];
+        
+        completion();
     }];
 }
 
