@@ -107,7 +107,7 @@
         }],
         
         [UIAction actionWithTitle:NSLocalizedString(@"EDIT_DECK_NAME", @"")
-                            image:[UIImage systemImageNamed:@"square.and.arrow.up"]
+                            image:[UIImage systemImageNamed:@"pencil"]
                        identifier:nil
                           handler:^(__kindof UIAction * _Nonnull action) {
             [self presentEditLocalDeckNameAlert];
