@@ -522,7 +522,7 @@
 
 - (void)localDeckChangesReceived:(NSNotification *)notification {
     if (self.localDeck != nil) {
-        [self.localDeckUseCase refreshObject:self.localDeck mergeChanges:YES completion:^{
+        [self.localDeckUseCase refreshObject:self.localDeck mergeChanges:NO completion:^{
             [self requestDataSourceWithLocalDeck:self.localDeck];
         }];
     }

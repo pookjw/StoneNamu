@@ -131,10 +131,7 @@
 }
 
 - (void)loadChildCardsWithHSCard:(HSCard *)hsCard {
-    // won't be leaked
-    #ifndef __clang_analyzer__
     NSArray<NSNumber *> *childIds = [hsCard.childIds copy];
-    #endif
     if (childIds.count == 0) {
         [childIds release];
         return;

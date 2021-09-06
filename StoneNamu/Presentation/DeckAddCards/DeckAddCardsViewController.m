@@ -251,10 +251,6 @@
     UIContextMenuInteraction *contextMenuInteraction = [[UIContextMenuInteraction alloc] initWithDelegate:self];
     [deckDetailsButton addInteraction:contextMenuInteraction];
     [contextMenuInteraction release];
-
-    //
-
-    [deckDetailsButton release];
 }
 
 - (UIButtonConfiguration *)makeDeckDetailButtonConfiguration {
