@@ -343,10 +343,12 @@
                 if ([addedHSCards containsObject:hsCard]) continue;
                 [addedHSCards addObject:hsCard];
                 
-                BOOL exists = NO;
+                BOOL __block exists = NO;
                 
                 [snapshot.itemIdentifiers enumerateObjectsUsingBlock:^(DeckDetailsItemModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                     if ([hsCard isEqual:obj.hsCard]) {
+                        exists = YES;
+                        *stop = YES;
                         obj.hsCardCount = [copyHSCards countOfObject:hsCard];
                         [snapshot reconfigureItemsWithIdentifiers:@[obj]];
                     }
@@ -362,6 +364,19 @@
             }
             
             [addedHSCards release];
+            
+            //
+            
+            NSMutableArray<DeckDetailsItemModel *> *willBeDeletedItems = [@[] mutableCopy];
+            
+            [snapshot.itemIdentifiers enumerateObjectsUsingBlock:^(DeckDetailsItemModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                if (![copyHSCards containsObject:obj.hsCard]) {
+                    [snapshot deleteItemsWithIdentifiers:@[obj]];
+                }
+            }];
+            
+            [snapshot deleteItemsWithIdentifiers:willBeDeletedItems];
+            [willBeDeletedItems release];
         }
         
         //
