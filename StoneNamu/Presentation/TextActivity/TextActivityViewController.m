@@ -69,7 +69,7 @@
 
 - (void)configureRightBarButtonItems {
     UIBarButtonItem *shareBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"SHARE", @"")
-                                                                           style:UIBarButtonItemStylePlain
+                                                                           style:UIBarButtonItemStyleDone
                                                                           target:self
                                                                           action:@selector(shareBarButtonTriggered:)];
     self.shareBarButtonItem = shareBarButtonItem;

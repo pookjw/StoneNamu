@@ -226,7 +226,7 @@
         for (NSString *tmp in [text componentsSeparatedByString:@"\n"]) {
             if ([tmp hasPrefix:@"###"]) {
                 title = [tmp componentsSeparatedByString:@"### "].lastObject;
-            } else if ([tmp hasPrefix:@"AAECA"]) {
+            } else if ([tmp hasPrefix:@"AA"]) {
                 deckCode = tmp;
             }
         }
