@@ -35,6 +35,24 @@
     return (self.cardId == toCompare.cardId) && ([self.slug isEqualToString:toCompare.slug]);
 }
 
+- (NSComparisonResult)compare:(HSCard *)other {
+    if (self.manaCost < other.manaCost) {
+        return NSOrderedAscending;
+    } else if (self.manaCost > other.manaCost) {
+        return NSOrderedDescending;
+    } else {
+        if ((self.name == nil) && (other.name == nil)) {
+            return NSOrderedSame;
+        } else if ((self.name == nil) && (other.name != nil)) {
+            return NSOrderedAscending;
+        } else if ((self.name != nil) && (other.name == nil)) {
+            return NSOrderedDescending;
+        } else {
+            return [self.name compare:other.name];
+        }
+    }
+}
+
 - (NSUInteger)hash {
     return self.cardId ^ self.slug.hash;
 }

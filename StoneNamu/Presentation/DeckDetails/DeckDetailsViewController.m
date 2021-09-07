@@ -15,6 +15,8 @@
 #import "CardDetailsViewController.h"
 #import "UIViewController+SpinnerView.h"
 #import "DeckAddCardSplitViewController.h"
+#import "FloatingMiniViewController.h"
+#import "TextActivityViewController.h"
 
 @interface DeckDetailsViewController () <UICollectionViewDelegate, UICollectionViewDragDelegate, UICollectionViewDropDelegate>
 @property (retain) UICollectionView *collectionView;
@@ -177,14 +179,21 @@
 - (void)exportDeckCodeAndShare {
     [self addSpinnerView];
     
-    [self.viewModel exportDeckCodeWithCompletion:^(NSString * _Nullable deckCode) {
+    [self.viewModel exportLocalizedDeckCodeWithCompletion:^(NSString * _Nullable string) {
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
             [self removeAllSpinnerview];
             
-            if (deckCode) {
-                UIActivityViewController *activity = [[UIActivityViewController alloc] initWithActivityItems:@[deckCode] applicationActivities:nil];
-                activity.popoverPresentationController.barButtonItem = self.menuBarButtonItem;
-                [self presentViewController:activity animated:YES completion:^{}];
+            if (string != nil) {
+//                UIActivityViewController *activity = [[UIActivityViewController alloc] initWithActivityItems:@[deckCode] applicationActivities:nil];
+//                activity.popoverPresentationController.barButtonItem = self.menuBarButtonItem;
+//                [self presentViewController:activity animated:YES completion:^{}];
+                TextActivityViewController *textVC = [[TextActivityViewController alloc] initWithText:string];
+                UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:textVC];
+                [textVC release];
+                FloatingMiniViewController *vc = [[FloatingMiniViewController alloc] initWithContentViewController:nvc sizeOfContentView:CGSizeMake(400, 300)];
+                [nvc release];
+                [self presentViewController:vc animated:YES completion:^{}];
+                [vc release];
             }
         }];
     }];

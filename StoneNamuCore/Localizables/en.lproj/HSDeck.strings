@@ -1,0 +1,15 @@
+/* 
+  HSDeck.strings
+  StoneNamu
+
+  Created by Jinwoo Kim on 9/6/21.
+  
+*/
+
+"CLASS" = "Class";
+
+"FORMAT" = "Format";
+
+"FOOTER_1" = "To use this deck, copy it to your clipboard and create a new deck in Hearthstone";
+
+"FOOTER_2" = "Generated from StoneNamu";

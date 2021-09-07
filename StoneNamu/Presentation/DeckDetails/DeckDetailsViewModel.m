@@ -268,7 +268,7 @@
     return @[[dragItem autorelease]];
 }
 
-- (void)exportDeckCodeWithCompletion:(DeckDetailsViewModelExportDeckCodeCompletion)completion {
+- (void)exportLocalizedDeckCodeWithCompletion:(DeckDetailsViewModelExportDeckCodeCompletion)completion {
     if (self.localDeck.cards.count < HSDECK_MAX_TOTAL_CARDS) {
         [self postCardsAreNotFilledNotification];
         completion(nil);
@@ -284,7 +284,7 @@
             [self.localDeck setValuesAsHSDeck:hsDeck];
             [self.localDeck updateTimestamp];
             [self.localDeckUseCase saveChanges];
-            completion(hsDeck.deckCode);
+            completion([hsDeck localizedDeckCodeWithTitle:self.localDeck.name]);
         } else {
             NSError *error = [NSError errorWithDomain:@"com.pookjw.StoneNamu" code:105 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"DECKCODE_FETCH_ERROR", @"")}];
             [self postErrorOccurredNotification:error];
@@ -416,21 +416,7 @@
         HSCard *obj1Card = obj1.hsCard;
         HSCard *obj2Card = obj2.hsCard;
         
-        if (obj1Card.manaCost < obj2Card.manaCost) {
-            return NSOrderedAscending;
-        } else if (obj1Card.manaCost > obj2Card.manaCost) {
-            return NSOrderedDescending;
-        } else {
-            if ((obj1Card.name == nil) && (obj2Card.name == nil)) {
-                return NSOrderedSame;
-            } else if ((obj1Card.name == nil) && (obj2Card.name != nil)) {
-                return NSOrderedAscending;
-            } else if ((obj1Card.name != nil) && (obj2Card.name == nil)) {
-                return NSOrderedDescending;
-            } else {
-                return [obj1Card.name compare:obj2Card.name];
-            }
-        }
+        return [obj1Card compare:obj2Card];
     }];
 }
 

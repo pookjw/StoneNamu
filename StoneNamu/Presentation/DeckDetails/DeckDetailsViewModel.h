@@ -43,7 +43,7 @@ static NSString * const DeckDetailsViewModelApplyingSnapshotToDataSourceWasDoneC
 - (void)deleteAtIndexPath:(NSIndexPath *)indexPath;
 
 - (NSArray<UIDragItem *> *)makeDragItemFromIndexPath:(NSIndexPath *)indexPath;
-- (void)exportDeckCodeWithCompletion:(DeckDetailsViewModelExportDeckCodeCompletion)completion;
+- (void)exportLocalizedDeckCodeWithCompletion:(DeckDetailsViewModelExportDeckCodeCompletion)completion;
 - (void)updateDeckName:(NSString *)name;
 @end
 

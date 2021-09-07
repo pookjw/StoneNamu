@@ -284,6 +284,9 @@
 - (void)sortSnapshot:(NSDiffableDataSourceSnapshot *)snapshot {
     [snapshot sortItemsWithSectionIdentifiers:snapshot.sectionIdentifiers
                               usingComparator:^NSComparisonResult(DecksItemModel *obj1, DecksItemModel *obj2) {
+        if ((obj1 == nil) || (obj2 == nil)) {
+            return NSOrderedSame;
+        }
         return [obj2.localDeck.timestamp compare:obj1.localDeck.timestamp];
     }];
 }

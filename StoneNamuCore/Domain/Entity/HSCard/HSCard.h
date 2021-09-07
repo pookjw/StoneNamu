@@ -50,6 +50,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (class, readonly, nonatomic) NSSet<Class> *unarchvingClasses;
 + (HSCard * _Nullable)hsCardFromDic:(NSDictionary *)dic error:(NSError ** _Nullable)error;
 + (NSArray<HSCard *> *)hsCardsFromDic:(NSDictionary *)dic;
+- (NSComparisonResult)compare:(HSCard *)other;
 @end
 
 NS_ASSUME_NONNULL_END

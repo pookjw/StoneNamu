@@ -7,6 +7,7 @@
 
 #import "HSDeck.h"
 #import "StoneNamuCoreErrors.h"
+#import "NSArray+countOfObject.h"
 
 @implementation HSDeck
 
@@ -46,6 +47,67 @@
     hsDeck->_cards = [[HSCard hsCardsFromDic:dic] copy];
     
     return [hsDeck autorelease];
+}
+
+- (NSString *)localizedDeckCodeWithTitle:(NSString *)title {
+    NSMutableString *result = [@"" mutableCopy];
+    NSString *classTitle = NSLocalizedStringFromTableInBundle(@"CLASS",
+                                                               @"HSDeck",
+                                                               [NSBundle bundleWithIdentifier:@"com.pookjw.StoneNamuCore"],
+                                                               @"");
+    NSString *formatTitle = NSLocalizedStringFromTableInBundle(@"FORMAT",
+                                                               @"HSDeck",
+                                                               [NSBundle bundleWithIdentifier:@"com.pookjw.StoneNamuCore"],
+                                                               @"");
+    NSString *footer1Title = NSLocalizedStringFromTableInBundle(@"FOOTER_1",
+                                                               @"HSDeck",
+                                                               [NSBundle bundleWithIdentifier:@"com.pookjw.StoneNamuCore"],
+                                                               @"");
+    NSString *footer2Title = NSLocalizedStringFromTableInBundle(@"FOOTER_2",
+                                                               @"HSDeck",
+                                                               [NSBundle bundleWithIdentifier:@"com.pookjw.StoneNamuCore"],
+                                                               @"");
+    
+    NSString *className = hsCardClassesWithLocalizable()[NSStringFromHSCardClass(self.classId)];
+    NSString *formatName = hsDeckFormatsWithLocalizable()[self.format];
+    
+    [result appendFormat:@"### %@\n", title];
+    [result appendFormat:@"# %@: %@\n", classTitle, className];
+    [result appendFormat:@"# %@: %@\n", formatTitle, formatName];
+    [result appendString:@"#\n"];
+    
+    //
+    
+    NSArray<HSCard *> *sortedCards = [self.cards sortedArrayUsingComparator:^NSComparisonResult(HSCard * _Nonnull obj1, HSCard * _Nonnull obj2) {
+        return [obj1 compare:obj2];
+    }];
+    NSMutableArray<HSCard *> *addedCards = [@[] mutableCopy];
+    
+    [sortedCards enumerateObjectsUsingBlock:^(HSCard * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([addedCards containsObject:obj]) {
+            return;
+        }
+        
+        NSUInteger count = [sortedCards countOfObject:obj];
+        NSUInteger cost = obj.manaCost;
+        NSString *name = obj.name;
+        [result appendFormat:@"# %lux (%lu) %@\n", count, cost, name];
+        [addedCards addObject:obj];
+    }];
+    
+    [addedCards release];
+    
+    //
+    
+    [result appendString:@"#\n"];
+    [result appendFormat:@"%@\n", self.deckCode];
+    [result appendString:@"#\n"];
+    [result appendFormat:@"# %@\n", footer1Title];
+    [result appendFormat:@"# %@", footer2Title];
+    
+    //
+    
+    return [result autorelease];
 }
 
 #pragma mark - NSCopying
