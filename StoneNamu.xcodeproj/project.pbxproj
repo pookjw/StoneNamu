@@ -96,6 +96,7 @@
 		4F6F181626E6064D00DC210B /* NSArray+countOfObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA7A7C526E539D7005BE434 /* NSArray+countOfObject.m */; };
 		4F6F181926E6069200DC210B /* HSDeck.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4F6F181B26E6069200DC210B /* HSDeck.strings */; };
 		4F6F182526E6693500DC210B /* FloatingMiniViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F6F182426E6693500DC210B /* FloatingMiniViewController.m */; };
+		4F73ABB226E88337000FD629 /* ZoomAnimatedTransitioning.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F73ABB126E88337000FD629 /* ZoomAnimatedTransitioning.m */; };
 		4F74711726C1678F001C45C4 /* CardDetailsChildrenContentConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F74711626C1678F001C45C4 /* CardDetailsChildrenContentConfiguration.m */; };
 		4F74711A26C1698B001C45C4 /* CardDetailsChildrenContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F74711926C1698B001C45C4 /* CardDetailsChildrenContentView.m */; };
 		4F74711E26C16BD4001C45C4 /* CardDetailsChildrenContentCollectionViewCompositionalLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F74711D26C16BD4001C45C4 /* CardDetailsChildrenContentCollectionViewCompositionalLayout.m */; };
@@ -384,6 +385,8 @@
 		4F6F182326E6693500DC210B /* FloatingMiniViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FloatingMiniViewController.h; sourceTree = "<group>"; };
 		4F6F182426E6693500DC210B /* FloatingMiniViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FloatingMiniViewController.m; sourceTree = "<group>"; };
 		4F6F1B7726B940E700649F77 /* DynamicPresentationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DynamicPresentationController.h; sourceTree = "<group>"; };
+		4F73ABB026E88337000FD629 /* ZoomAnimatedTransitioning.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZoomAnimatedTransitioning.h; sourceTree = "<group>"; };
+		4F73ABB126E88337000FD629 /* ZoomAnimatedTransitioning.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZoomAnimatedTransitioning.m; sourceTree = "<group>"; };
 		4F74711526C1678F001C45C4 /* CardDetailsChildrenContentConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardDetailsChildrenContentConfiguration.h; sourceTree = "<group>"; };
 		4F74711626C1678F001C45C4 /* CardDetailsChildrenContentConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardDetailsChildrenContentConfiguration.m; sourceTree = "<group>"; };
 		4F74711826C1698B001C45C4 /* CardDetailsChildrenContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardDetailsChildrenContentView.h; sourceTree = "<group>"; };
@@ -897,6 +900,15 @@
 			path = FloatingMini;
 			sourceTree = "<group>";
 		};
+		4F73ABAF26E88302000FD629 /* ZoomAnimatedTransitioning */ = {
+			isa = PBXGroup;
+			children = (
+				4F73ABB026E88337000FD629 /* ZoomAnimatedTransitioning.h */,
+				4F73ABB126E88337000FD629 /* ZoomAnimatedTransitioning.m */,
+			);
+			path = ZoomAnimatedTransitioning;
+			sourceTree = "<group>";
+		};
 		4F8754B326DB875D000CE351 /* Spinner */ = {
 			isa = PBXGroup;
 			children = (
@@ -990,6 +1002,7 @@
 				4F8F976626D47EF10024FC06 /* InsetLabel */,
 				4F8754B326DB875D000CE351 /* Spinner */,
 				4F6F182226E6691300DC210B /* FloatingMini */,
+				4F73ABAF26E88302000FD629 /* ZoomAnimatedTransitioning */,
 				4F3F1BC026E7C0E500ACF80A /* TextActivity */,
 			);
 			path = Presentation;
@@ -1665,6 +1678,7 @@
 				4F182BD126AC23600028115C /* UIViewController+presentErrorAlert.m in Sources */,
 				4F74711E26C16BD4001C45C4 /* CardDetailsChildrenContentCollectionViewCompositionalLayout.m in Sources */,
 				4F74712126C16BDF001C45C4 /* CardDetailsChildrenContentViewModel.m in Sources */,
+				4F73ABB226E88337000FD629 /* ZoomAnimatedTransitioning.m in Sources */,
 				4F414B0A26CEFA5E0003A0CF /* DeckDetailsItemModel.m in Sources */,
 				4FF3E0CE26C9B84C002B20EA /* UIView+viewController.m in Sources */,
 				4F4C5E2226D31F0E00E3349B /* NSDiffableDataSourceSnapshot+sort.m in Sources */,

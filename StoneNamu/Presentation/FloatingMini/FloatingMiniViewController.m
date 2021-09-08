@@ -7,8 +7,11 @@
 
 #import "FloatingMiniViewController.h"
 #import "UIView+removeAllSubviews.h"
+#import "ZoomAnimatedTransitioning.h"
 
-@interface FloatingMiniViewController ()
+@interface FloatingMiniViewController () <UIViewControllerTransitioningDelegate>
+@property (retain) ZoomAnimatedTransitioning *presentingController;
+@property (retain) ZoomAnimatedTransitioning *dismissingController;
 @property (retain) UIVisualEffectView *backgroundView;
 @property (retain) UIVisualEffectView *contentView;
 @property (retain) NSLayoutConstraint *contentViewWidthLayout;
@@ -42,6 +45,8 @@
     return self;
 }
 - (void)dealloc {
+    [_presentingController release];
+    [_dismissingController release];
     [_backgroundView release];
     [_contentView release];
     [_contentViewWidthLayout release];
@@ -55,6 +60,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setAttributes];
+    [self configurePresentationControllers];
     [self configureBackgroundView];
     [self configureContentView];
     [self bind];
@@ -67,7 +73,17 @@
 - (void)setAttributes {
     self.view.backgroundColor = UIColor.clearColor;
     self.modalPresentationCapturesStatusBarAppearance = YES;
-    self.modalPresentationStyle = UIModalPresentationOverFullScreen;
+    self.transitioningDelegate = self;
+}
+
+- (void)configurePresentationControllers {
+    ZoomAnimatedTransitioning *presentingController = [[ZoomAnimatedTransitioning alloc] initWithAnimateForPresenting:YES];
+    self.presentingController = presentingController;
+    [presentingController release];
+    
+    ZoomAnimatedTransitioning *dismissingController = [[ZoomAnimatedTransitioning alloc] initWithAnimateForPresenting:NO];
+    self.dismissingController = dismissingController;
+    [dismissingController release];
 }
 
 - (void)configureBackgroundView {
@@ -208,6 +224,16 @@
             
         }];
     }];
+}
+
+#pragma mark - UIViewControllerTransitioningDelegate
+
+- (id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
+    return self.presentingController;
+}
+
+- (id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
+    return self.dismissingController;
 }
 
 @end
