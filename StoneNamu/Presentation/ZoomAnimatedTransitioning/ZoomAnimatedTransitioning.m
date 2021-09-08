@@ -48,7 +48,7 @@
         //
         
         fromView.transform = CGAffineTransformIdentity;
-        toView.transform = CGAffineTransformMakeScale(2, 2);
+        toView.transform = CGAffineTransformMakeScale(1.2, 1.2);
         toView.alpha = 0.0;
         
         [UIView animateWithDuration:ZOOMANIMATEDTRANSITIONING_DURATION
@@ -69,7 +69,7 @@
                               delay:0
                             options:UIViewAnimationOptionCurveEaseOut
                          animations:^{
-            fromView.transform = CGAffineTransformMakeScale(2, 2);
+            fromView.transform = CGAffineTransformMakeScale(1.2, 1.2);
             fromView.alpha = 0;
             toView.transform = CGAffineTransformIdentity;
         } completion:^(BOOL finished) {
