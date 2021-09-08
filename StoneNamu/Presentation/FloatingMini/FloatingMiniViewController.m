@@ -60,13 +60,6 @@
     [self bind];
 }
 
-- (void)willTransitionToTraitCollection:(UITraitCollection *)newCollection withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
-    [super willTransitionToTraitCollection:newCollection withTransitionCoordinator:coordinator];
-    
-    BOOL isDarkMode = (newCollection.userInterfaceStyle != UIUserInterfaceStyleLight);
-    [self darkModeChanged:isDarkMode];
-}
-
 - (UIStatusBarStyle)preferredStatusBarStyle {
     return UIStatusBarStyleLightContent;
 }
@@ -94,16 +87,13 @@
 }
 
 - (void)configureContentView {
-    UIVisualEffectView *contentView = [UIVisualEffectView new];
+    UIVisualEffectView *contentView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleSystemChromeMaterial]];
     self.contentView = contentView;
     contentView.backgroundColor = UIColor.clearColor;
     contentView.layer.masksToBounds = YES;
     contentView.layer.cornerRadius = FLOATINGMINIVIEWCONTROLLER_CONTENTVIEW_CORNER_RADIUS;
     contentView.layer.cornerCurve = kCACornerCurveContinuous;
     contentView.translatesAutoresizingMaskIntoConstraints = NO;
-    
-    BOOL isDarkMode = (self.traitCollection.userInterfaceStyle != UIUserInterfaceStyleLight);
-    [self darkModeChanged:isDarkMode];
     
     [self.view addSubview:contentView];
     
@@ -163,14 +153,6 @@
         [viewController.view.bottomAnchor constraintEqualToAnchor:self.contentView.contentView.bottomAnchor],
         [viewController.view.trailingAnchor constraintEqualToAnchor:self.contentView.contentView.trailingAnchor]
     ]];
-}
-
-- (void)darkModeChanged:(BOOL)isDarkMode {
-    if (isDarkMode) {
-        self.contentView.effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
-    } else {
-        self.contentView.effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleExtraLight];
-    }
 }
 
 - (void)bind {
