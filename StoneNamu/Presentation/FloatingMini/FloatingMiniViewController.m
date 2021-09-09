@@ -119,17 +119,17 @@
     NSLayoutConstraint *heightLayout = [contentView.heightAnchor constraintLessThanOrEqualToConstant:200];
     self.contentViewHeightLayout = heightLayout;
     
-    NSLayoutConstraint *topLayout = [contentView.topAnchor constraintEqualToAnchor:self.view.layoutMarginsGuide.topAnchor constant:0];
+    NSLayoutConstraint *topLayout = [contentView.topAnchor constraintEqualToAnchor:self.view.layoutMarginsGuide.topAnchor constant:10];
     topLayout.priority = UILayoutPriorityDefaultHigh;
     
-    NSLayoutConstraint *leadingLayout = [contentView.leadingAnchor constraintEqualToAnchor:self.view.layoutMarginsGuide.leadingAnchor constant:0];
+    NSLayoutConstraint *leadingLayout = [contentView.leadingAnchor constraintEqualToAnchor:self.view.layoutMarginsGuide.leadingAnchor constant:10];
     leadingLayout.priority = UILayoutPriorityDefaultHigh;
     
-    NSLayoutConstraint *bottomLayout = [contentView.bottomAnchor constraintEqualToAnchor:self.view.layoutMarginsGuide.bottomAnchor constant:0];
+    NSLayoutConstraint *bottomLayout = [contentView.bottomAnchor constraintEqualToAnchor:self.view.layoutMarginsGuide.bottomAnchor constant:10];
     self.contentViewBottomLayout = bottomLayout;
     bottomLayout.priority = UILayoutPriorityDefaultHigh;
     
-    NSLayoutConstraint *trailingLayout = [contentView.trailingAnchor constraintEqualToAnchor:self.view.layoutMarginsGuide.trailingAnchor constant:0];
+    NSLayoutConstraint *trailingLayout = [contentView.trailingAnchor constraintEqualToAnchor:self.view.layoutMarginsGuide.trailingAnchor constant:10];
     trailingLayout.priority = UILayoutPriorityDefaultHigh;
     
     NSLayoutConstraint *centerXLayout = [contentView.centerXAnchor constraintEqualToAnchor:self.view.layoutMarginsGuide.centerXAnchor];
@@ -217,8 +217,8 @@
                               delay:0
                             options:curve << 16
                          animations:^{
-            self.contentViewCenterYLayout.constant = -height / 2;
-            self.contentViewBottomLayout.constant = -height;
+            self.contentViewCenterYLayout.constant = -(height + 10) / 2;
+            self.contentViewBottomLayout.constant = -(height + 10);
             [self.view layoutIfNeeded];
         } completion:^(BOOL finished) {
             

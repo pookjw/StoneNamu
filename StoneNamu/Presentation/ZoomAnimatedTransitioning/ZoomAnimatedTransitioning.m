@@ -7,7 +7,7 @@
 
 #import "ZoomAnimatedTransitioning.h"
 
-#define ZOOMANIMATEDTRANSITIONING_DURATION 0.5
+#define ZOOMANIMATEDTRANSITIONING_DURATION 0.3
 
 @interface ZoomAnimatedTransitioning ()
 @property BOOL animateForPresenting;
@@ -48,16 +48,17 @@
         //
         
         fromView.transform = CGAffineTransformIdentity;
-        toView.transform = CGAffineTransformMakeScale(1.2, 1.2);
+        toView.transform = CGAffineTransformMakeScale(1.3, 1.3);
         toView.alpha = 0.0;
         
         [UIView animateWithDuration:ZOOMANIMATEDTRANSITIONING_DURATION
                               delay:0
-                            options:UIViewAnimationOptionCurveEaseOut
+                            options:UIViewAnimationOptionCurveEaseInOut
                          animations:^{
             fromView.transform = CGAffineTransformMakeScale(0.9, 0.9);
-            toView.transform = CGAffineTransformIdentity;
             toView.alpha = 1;
+            toView.transform = CGAffineTransformIdentity;
+            toView.frame = [transitionContext finalFrameForViewController:toViewController];
         } completion:^(BOOL finished) {
             [transitionContext completeTransition:finished];
         }];
@@ -67,11 +68,12 @@
         
         [UIView animateWithDuration:ZOOMANIMATEDTRANSITIONING_DURATION
                               delay:0
-                            options:UIViewAnimationOptionCurveEaseOut
+                            options:UIViewAnimationOptionCurveEaseInOut
                          animations:^{
-            fromView.transform = CGAffineTransformMakeScale(1.2, 1.2);
+            fromView.transform = CGAffineTransformMakeScale(1.1, 1.1);
             fromView.alpha = 0;
             toView.transform = CGAffineTransformIdentity;
+            toView.frame = [transitionContext finalFrameForViewController:toViewController];
         } completion:^(BOOL finished) {
             [transitionContext completeTransition:finished];
         }];
