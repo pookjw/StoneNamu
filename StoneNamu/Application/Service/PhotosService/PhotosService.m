@@ -89,12 +89,10 @@
                 } else {
                     NSError *error = DataCorruptionError();
                     completionHandler(NO, error);
-                    [error autorelease];
                 }
             }];
             
             [sessionTask resume];
-            [sharedSession finishTasksAndInvalidate];
         }
     }];
 }

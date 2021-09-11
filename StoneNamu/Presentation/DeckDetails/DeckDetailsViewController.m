@@ -17,6 +17,7 @@
 #import "DeckAddCardSplitViewController.h"
 #import "FloatingMiniViewController.h"
 #import "TextActivityViewController.h"
+#import "DeckImageRenderService.h"
 
 @interface DeckDetailsViewController () <UICollectionViewDelegate, UICollectionViewDragDelegate, UICollectionViewDropDelegate>
 @property (retain) UICollectionView *collectionView;
@@ -115,6 +116,13 @@
             [self presentEditLocalDeckNameAlert];
         }],
         
+        [UIAction actionWithTitle:NSLocalizedString(@"SAVE_AS_IMAGE", @"")
+                            image:[UIImage systemImageNamed:@"photo"]
+                       identifier:nil
+                          handler:^(__kindof UIAction * _Nonnull action) {
+            [self saveDeckAsImage];
+        }],
+        
         [UIAction actionWithTitle:NSLocalizedString(@"EXPORT_DECK_CODE", @"")
                             image:[UIImage systemImageNamed:@"square.and.arrow.up"]
                        identifier:nil
@@ -176,6 +184,17 @@
     [self presentViewController:alert animated:YES completion:^{}];
 }
 
+- (void)saveDeckAsImage {
+    DeckImageRenderService *service = [DeckImageRenderService new];
+    [service imageFromLocalDeck:self.viewModel.localDeck completion:^(UIImage * _Nonnull image) {
+        UIActivityViewController *activity = [[UIActivityViewController alloc] initWithActivityItems:@[image] applicationActivities:nil];
+        activity.popoverPresentationController.barButtonItem = self.menuBarButtonItem;
+        [self presentViewController:activity animated:YES completion:^{}];
+        [activity release];
+        [service release];
+    }];
+}
+
 - (void)exportDeckCodeAndShare {
     [self addSpinnerView];
     
@@ -184,9 +203,6 @@
             [self removeAllSpinnerview];
             
             if (string != nil) {
-//                UIActivityViewController *activity = [[UIActivityViewController alloc] initWithActivityItems:@[deckCode] applicationActivities:nil];
-//                activity.popoverPresentationController.barButtonItem = self.menuBarButtonItem;
-//                [self presentViewController:activity animated:YES completion:^{}];
                 TextActivityViewController *textVC = [[TextActivityViewController alloc] initWithText:string];
                 UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:textVC];
                 [textVC release];

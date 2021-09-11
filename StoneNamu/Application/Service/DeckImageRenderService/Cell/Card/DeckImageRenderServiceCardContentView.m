@@ -1,19 +1,18 @@
 //
-//  DeckDetailsCardContentView.m
-//  DeckDetailsCardContentView
+//  DeckImageRenderServiceCardContentView.m
+//  DeckImageRenderServiceCardContentView
 //
-//  Created by Jinwoo Kim on 8/23/21.
+//  Created by Jinwoo Kim on 9/10/21.
 //
 
-#import "DeckDetailsCardContentView.h"
-#import "UIImageView+setAsyncImage.h"
-#import "DeckDetailsCardContentConfiguration.h"
+#import "DeckImageRenderServiceCardContentView.h"
+#import "DeckImageRenderServiceCardContentConfiguration.h"
 #import "InsetsLabel.h"
 
-@interface DeckDetailsCardContentView ()
-@property (readonly, nonatomic) HSCard *hsCard;
+@interface DeckImageRenderServiceCardContentView ()
+@property (readonly, nonatomic) HSCard * _Nullable hsCard;
+@property (readonly, nonatomic) UIImage * _Nullable hsCardImage;
 @property (readonly, nonatomic) NSUInteger hsCardCount;
-@property (readonly, nonatomic) BOOL isDarkMode;
 @property (retain) UIImageView *imageView;
 @property (retain) UILabel *manaCostLabel;
 @property (retain) InsetsLabel *nameLabel;
@@ -21,7 +20,7 @@
 @property (retain) CAGradientLayer *imageViewGradientLayer;
 @end
 
-@implementation DeckDetailsCardContentView
+@implementation DeckImageRenderServiceCardContentView
 
 @synthesize configuration;
 
@@ -55,7 +54,7 @@
 }
 
 - (void)setAttributes {
-    self.backgroundColor = nil;
+    self.backgroundColor = UIColor.clearColor;
 }
 
 - (void)configureNameLabel {
@@ -64,10 +63,16 @@
     
     nameLabel.contentInsets = UIEdgeInsetsMake(10, 10, 10, 10);
     nameLabel.backgroundColor = UIColor.clearColor;
-    nameLabel.textColor = nil;
+    nameLabel.textColor = UIColor.whiteColor;
     nameLabel.adjustsFontSizeToFitWidth = YES;
-    nameLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleTitle3];
+    nameLabel.font = [UIFont systemFontOfSize:18 weight:UIFontWeightRegular];
     nameLabel.minimumScaleFactor = 0.1;
+    
+    nameLabel.layer.shadowRadius = 2.0;
+    nameLabel.layer.shadowOpacity = 1;
+    nameLabel.layer.shadowOffset = CGSizeMake(0, 0);
+    nameLabel.layer.shadowColor = UIColor.blackColor.CGColor;
+    nameLabel.layer.masksToBounds = YES;
     
     [self addSubview:nameLabel];
     nameLabel.translatesAutoresizingMaskIntoConstraints = NO;
@@ -105,7 +110,7 @@
     
     manaCostLabel.backgroundColor = UIColor.systemBlueColor;
     manaCostLabel.textColor = UIColor.whiteColor;
-    manaCostLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleTitle2];
+    manaCostLabel.font = [UIFont systemFontOfSize:18 weight:UIFontWeightBold];
     manaCostLabel.textAlignment = NSTextAlignmentCenter;
     
     [self addSubview:manaCostLabel];
@@ -182,13 +187,15 @@
     [imageView release];
 }
 
+
 - (void)configureCountLabel {
     UILabel *countLabel = [UILabel new];
     self.countLabel = countLabel;
     
     //
     
-    countLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleTitle2];
+    countLabel.backgroundColor = UIColor.systemGray2Color;
+    countLabel.font = [UIFont systemFontOfSize:18 weight:UIFontWeightBold];
     countLabel.textAlignment = NSTextAlignmentCenter;
     
     [self addSubview:countLabel];
@@ -227,8 +234,8 @@
 }
 
 - (void)setConfiguration:(id<UIContentConfiguration>)configuration {
-    DeckDetailsCardContentConfiguration *oldContentConfig = (DeckDetailsCardContentConfiguration *)self.configuration;
-    DeckDetailsCardContentConfiguration *newContentConfig = [(DeckDetailsCardContentConfiguration *)configuration copy];
+    DeckImageRenderServiceCardContentConfiguration *oldContentConfig = (DeckImageRenderServiceCardContentConfiguration *)self.configuration;
+    DeckImageRenderServiceCardContentConfiguration *newContentConfig = [(DeckImageRenderServiceCardContentConfiguration *)configuration copy];
     self->configuration = newContentConfig;
     
     if (![newContentConfig.hsCard isEqual:oldContentConfig.hsCard]) {
@@ -241,30 +248,30 @@
 }
 
 - (HSCard * _Nullable)hsCard {
-    if (![self.configuration isKindOfClass:[DeckDetailsCardContentConfiguration class]]) {
+    if (![self.configuration isKindOfClass:[DeckImageRenderServiceCardContentConfiguration class]]) {
         return nil;
     }
     
-    DeckDetailsCardContentConfiguration *contentConfiguration = (DeckDetailsCardContentConfiguration *)self.configuration;
+    DeckImageRenderServiceCardContentConfiguration *contentConfiguration = (DeckImageRenderServiceCardContentConfiguration *)self.configuration;
     return contentConfiguration.hsCard;
 }
 
+- (UIImage *_Nullable)hsCardImage {
+    if (![self.configuration isKindOfClass:[DeckImageRenderServiceCardContentConfiguration class]]) {
+        return nil;
+    }
+    
+    DeckImageRenderServiceCardContentConfiguration *contentConfiguration = (DeckImageRenderServiceCardContentConfiguration *)self.configuration;
+    return contentConfiguration.hsCardImage;
+}
+
 - (NSUInteger)hsCardCount {
-    if (![self.configuration isKindOfClass:[DeckDetailsCardContentConfiguration class]]) {
+    if (![self.configuration isKindOfClass:[DeckImageRenderServiceCardContentConfiguration class]]) {
         return 0;
     }
     
-    DeckDetailsCardContentConfiguration *contentConfiguration = (DeckDetailsCardContentConfiguration *)self.configuration;
+    DeckImageRenderServiceCardContentConfiguration *contentConfiguration = (DeckImageRenderServiceCardContentConfiguration *)self.configuration;
     return contentConfiguration.hsCardCount;
-}
-
-- (BOOL)isDarkMode {
-    if (![self.configuration isKindOfClass:[DeckDetailsCardContentConfiguration class]]) {
-        return NO;
-    }
-    
-    DeckDetailsCardContentConfiguration *contentConfiguration = (DeckDetailsCardContentConfiguration *)self.configuration;
-    return contentConfiguration.isDarkMode;
 }
 
 - (void)updateViewFromHSCard {
@@ -274,7 +281,7 @@
     
     switch (self.hsCard.rarityId) {
         case HSCardRarityCommon:
-            self.nameLabel.textColor = nil;
+            self.nameLabel.textColor = UIColor.whiteColor;
             break;
         case HSCardRarityRare:
             self.nameLabel.textColor = UIColor.systemBlueColor;
@@ -296,17 +303,9 @@
     
     //
     
-    void (^asyncImageCompletion)(UIImage * _Nullable, NSError * _Nullable) = ^(UIImage * _Nullable image, NSError * _Nullable error) {
-        [NSOperationQueue.mainQueue addOperationWithBlock:^{
-            [self updateGradientLayer];
-        }];
-    };
-    
-    if (self.hsCard.cropImage) {
-        [self.imageView setAsyncImageWithURL:self.hsCard.cropImage indicator:NO completion:asyncImageCompletion];
-    } else {
-        [self.imageView setAsyncImageWithURL:self.hsCard.image indicator:NO completion:asyncImageCompletion];
-    }
+    self.imageView.image = self.hsCardImage;
+    NSLog(@"%@", self.hsCardImage);
+    [self updateGradientLayer];
 }
 
 - (void)updateCountLabel {
@@ -316,12 +315,6 @@
     } else {
         self.countLabel.text = [NSString stringWithFormat:@"%lu", self.hsCardCount];
         self.countLabel.textColor = UIColor.whiteColor;
-    }
-    
-    if (self.isDarkMode) {
-        self.countLabel.backgroundColor = UIColor.systemGray2Color;
-    } else {
-        self.countLabel.backgroundColor = UIColor.systemGrayColor;
     }
 }
 

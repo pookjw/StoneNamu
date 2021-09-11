@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface PhotosService : NSObject
 @property (class, readonly, nonatomic) PhotosService *sharedInstance;
++ (instancetype)new NS_UNAVAILABLE;
+- (instancetype)init NS_UNAVAILABLE;
 - (void)saveImage:(UIImage *)image fromViewController:(UIViewController *)viewController completionHandler:(void (^)(BOOL success, NSError *error))completionHandler;
 - (void)saveImageURL:(NSURL *)url fromViewController:(UIViewController *)viewController completionHandler:(void (^)(BOOL success, NSError *error))completionHandler;
 @end

@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ImageService : NSObject
 @property (class, readonly, nonatomic) ImageService *sharedInstance;
++ (instancetype)new NS_UNAVAILABLE;
+- (instancetype)init NS_UNAVAILABLE;
 - (UIImage * _Nullable)imageOfCardSet:(HSCardSet)cardSet;
 - (UIImage * _Nullable)imageOfDeckFormat:(HSDeckFormat)deckFormat;
 - (UIImage * _Nullable)portraitImageOfClassId:(HSCardClass)classId;

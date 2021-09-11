@@ -121,7 +121,7 @@
         [dataSection release];
         [contributorsSection release];
         
-        NSSemaphoreCondition *semaphore = [NSSemaphoreCondition new];
+        NSSemaphoreCondition *semaphore = [[NSSemaphoreCondition alloc] initWithValue:0];
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
             [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
                 [semaphore signal];
@@ -207,7 +207,7 @@
         
         [prefs release];
         
-        NSSemaphoreCondition *semaphore = [NSSemaphoreCondition new];
+        NSSemaphoreCondition *semaphore = [[NSSemaphoreCondition alloc] initWithValue:0];
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
             [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
                 [semaphore signal];

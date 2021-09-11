@@ -11,6 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSSemaphoreCondition : NSCondition
 @property (readonly) NSInteger value;
++ (instancetype)new NS_UNAVAILABLE;
+- (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithValue:(NSInteger)value;
 @end
 

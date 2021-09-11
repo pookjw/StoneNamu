@@ -82,7 +82,7 @@ static NSMutableDictionary<NSString *, NSOperationQueue *> * _Nullable kOperatio
     NSPersistentContainer *container = [class persistentContainerWithName:modelName managedObjectModel:model];
     [model release];
     
-    NSSemaphoreCondition *semaphore = [NSSemaphoreCondition new];
+    NSSemaphoreCondition *semaphore = [[NSSemaphoreCondition alloc] initWithValue:0];
     
     [container loadPersistentStoresWithCompletionHandler:^(NSPersistentStoreDescription * _Nonnull description, NSError * _Nullable error) {
         [semaphore signal];

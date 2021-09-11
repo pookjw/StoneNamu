@@ -37,7 +37,6 @@ static NSString * const BlizzardTokenAPIAuthorizationValue = @"Basic NDBjMjRlNDh
     NSURLSessionTask *task = [session dataTaskWithRequest:request completionHandler:completion];
     [request release];
     [task resume];
-    [session finishTasksAndInvalidate];
 }
 
 @end

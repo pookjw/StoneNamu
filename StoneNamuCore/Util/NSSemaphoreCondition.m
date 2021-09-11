@@ -9,16 +9,6 @@
 
 @implementation NSSemaphoreCondition
 
-- (instancetype)init {
-    self = [super init];
-    
-    if (self) {
-        self->_value = 0;
-    }
-    
-    return self;
-}
-
 - (instancetype)initWithValue:(NSInteger)value {
     self = [self init];
     

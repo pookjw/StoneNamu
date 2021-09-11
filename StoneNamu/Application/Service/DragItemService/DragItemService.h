@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface DragItemService : NSObject
 @property (class, readonly, nonatomic) DragItemService *sharedInstance;
++ (instancetype)new NS_UNAVAILABLE;
+- (instancetype)init NS_UNAVAILABLE;
 - (UIDragItem *)makeDragItemsFromHSCard:(HSCard *)hsCard image:(UIImage * _Nullable)image;
 @end
 

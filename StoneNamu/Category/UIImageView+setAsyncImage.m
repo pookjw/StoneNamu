@@ -71,8 +71,9 @@ static NSString * const UIImageViewAsyncImageCategorySessionTaskKey = @"UIImageV
                     [self loadImageWithFade:image];
                     completion(image, nil);
                 }];
+                return;
             } else {
-                
+                return;
             }
         } else {
             // if not found, download from server
@@ -108,7 +109,6 @@ static NSString * const UIImageViewAsyncImageCategorySessionTaskKey = @"UIImageV
                 }
             }];
             [sessionTask resume];
-            [sharedSession finishTasksAndInvalidate];
             self.sessionTask = sessionTask;
         }
     }];
