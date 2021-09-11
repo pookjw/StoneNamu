@@ -103,22 +103,12 @@
         introItemModel.classId = classId;
         introItemModel.totalArcaneDust = totalArcaneDust;
         introItemModel.deckName = deckName;
+        introItemModel.hsYearCurrent = hsYearCurrent();
+        introItemModel.deckFormat = deckFormat;
         
         [snapshot appendItemsWithIdentifiers:@[introItemModel] intoSectionWithIdentifier:introSectionModel];
         [introSectionModel release];
         [introItemModel release];
-        
-        //
-        
-        DeckImageRenderServiceSectionModel *infoSectionModel = [[DeckImageRenderServiceSectionModel alloc] initWithType:DeckImageRenderServiceSectionModelTypeInfo];
-        [snapshot appendSectionsWithIdentifiers:@[infoSectionModel]];
-
-        DeckImageRenderServiceItemModel *infoItemModel = [[DeckImageRenderServiceItemModel alloc] initWithType:DeckImageRenderServiceItemModelTypeInfo];
-        infoItemModel.hsYearCurrent = hsYearCurrent();
-        infoItemModel.deckFormat = deckFormat;
-        [snapshot appendItemsWithIdentifiers:@[infoItemModel] intoSectionWithIdentifier:infoSectionModel];
-        [infoSectionModel release];
-        [infoItemModel release];
         
         //
         

@@ -14,9 +14,15 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly) HSCardClass classId;
 @property (readonly, copy) NSNumber *totalArcaneDust;
 @property (readonly, copy) NSString *deckName;
+@property (readonly, copy) NSString * _Nullable hsYearCurrent;
+@property (readonly, copy) HSDeckFormat _Nullable deckFormat;
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
-- (instancetype)initWithClassId:(HSCardClass)classId totalArcaneDust:(NSNumber *)totalArcaneDust deckName:(NSString *)deckName;
+- (instancetype)initWithClassId:(HSCardClass)classId
+                totalArcaneDust:(NSNumber *)totalArcaneDust
+                       deckName:(NSString *)deckName
+                  hsYearCurrent:(NSString *)hsYearCurrent
+                     deckFormat:(HSDeckFormat)deckFormat;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -13,7 +13,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSUInteger, DeckImageRenderServiceItemModelType) {
     DeckImageRenderServiceItemModelTypeIntro,
-    DeckImageRenderServiceItemModelTypeInfo,
     DeckImageRenderServiceItemModelTypeCard,
     DeckImageRenderServiceItemModelTypeAbout
 };
@@ -25,8 +24,6 @@ typedef NS_ENUM(NSUInteger, DeckImageRenderServiceItemModelType) {
 @property HSCardClass classId;
 @property (copy) NSNumber * _Nullable totalArcaneDust;
 @property (copy) NSString * _Nullable deckName;
-
-#pragma mark - DeckImageRenderServiceItemModelTypeInfo
 @property (copy) NSString * _Nullable hsYearCurrent;
 @property (copy) HSDeckFormat _Nullable deckFormat;
 

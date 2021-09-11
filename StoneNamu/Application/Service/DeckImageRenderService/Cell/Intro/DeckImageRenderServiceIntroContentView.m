@@ -9,14 +9,19 @@
 #import "DeckImageRenderServiceIntroContentConfiguration.h"
 #import "ImageService.h"
 #import "InsetsLabel.h"
+#import "HSDeckFormat.h"
+#import "HSYear.h"
 
 @interface DeckImageRenderServiceIntroContentView ()
 @property (retain) UIImageView *heroImageView;
 @property (retain) UIStackView *primaryStackView;
+@property (retain) UIStackView *secondaryStackView;
 @property (retain) UIStackView *arcaneDustStackView;
 @property (retain) InsetsLabel *arcaneDustLabel;
 @property (retain) UIImageView *arcaneDustImageView;
 @property (retain) InsetsLabel *nameLabel;
+@property (retain) InsetsLabel *yearsLabel;
+@property (retain) InsetsLabel *deckFormatLabel;
 @end
 
 @implementation DeckImageRenderServiceIntroContentView
@@ -29,11 +34,14 @@
     if (self) {
         [self setAttributes];
         [self configureHeroImageView];
+        [self configureSecondaryStackView];
         [self configurePrimaryStackView];
         [self configureArcaneDustStackView];
         [self configureArcaneDustImageView];
         [self configureArcaneDustLabel];
         [self configureNameLabel];
+        [self configureYearsLabel];
+        [self configureDeckFormatLabel];
     }
     
     return self;
@@ -43,10 +51,13 @@
     [configuration release];
     [_heroImageView release];
     [_primaryStackView release];
+    [_secondaryStackView release];
     [_arcaneDustStackView release];
     [_arcaneDustLabel release];
     [_arcaneDustImageView release];
     [_nameLabel release];
+    [_yearsLabel release];
+    [_deckFormatLabel release];
     [super dealloc];
 }
 
@@ -74,19 +85,39 @@
     [heroImageView release];
 }
 
+- (void)configureSecondaryStackView {
+    UIStackView *secondaryStackView = [UIStackView new];
+    self.secondaryStackView = secondaryStackView;
+    
+    secondaryStackView.axis = UILayoutConstraintAxisHorizontal;
+    secondaryStackView.backgroundColor = [UIColor.blackColor colorWithAlphaComponent:0.7];
+    secondaryStackView.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    [self addSubview:secondaryStackView];
+    
+    [NSLayoutConstraint activateConstraints:@[
+        [secondaryStackView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
+        [secondaryStackView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
+        [secondaryStackView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor]
+    ]];
+    
+    [secondaryStackView release];
+}
+
 - (void)configurePrimaryStackView {
     UIStackView *primaryStackView = [UIStackView new];
     self.primaryStackView = primaryStackView;
     
     primaryStackView.axis = UILayoutConstraintAxisVertical;
-    primaryStackView.backgroundColor = [UIColor.blackColor colorWithAlphaComponent:0.4];
+    primaryStackView.alignment = UIStackViewAlignmentLeading;
+    primaryStackView.backgroundColor = [UIColor.blackColor colorWithAlphaComponent:0.7];
     primaryStackView.translatesAutoresizingMaskIntoConstraints = NO;
     
     [self addSubview:primaryStackView];
     
     [NSLayoutConstraint activateConstraints:@[
-        [primaryStackView.leadingAnchor constraintEqualToAnchor:self.heroImageView.leadingAnchor],
-        [primaryStackView.bottomAnchor constraintEqualToAnchor:self.heroImageView.bottomAnchor]
+        [primaryStackView.leadingAnchor constraintEqualToAnchor:self.secondaryStackView.leadingAnchor],
+        [primaryStackView.bottomAnchor constraintEqualToAnchor:self.secondaryStackView.topAnchor]
     ]];
     
     [primaryStackView release];
@@ -134,6 +165,8 @@
     InsetsLabel *arcaneDustLabel = [InsetsLabel new];
     self.arcaneDustLabel = arcaneDustLabel;
     
+    arcaneDustLabel.contentInsets = UIEdgeInsetsMake(5, 5, 5, 5);
+    arcaneDustLabel.font = [UIFont systemFontOfSize:14 weight:UIFontWeightRegular];
     arcaneDustLabel.backgroundColor = UIColor.clearColor;
     arcaneDustLabel.textColor = UIColor.whiteColor;
     
@@ -152,6 +185,8 @@
     InsetsLabel *nameLabel = [InsetsLabel new];
     self.nameLabel = nameLabel;
     
+    nameLabel.contentInsets = UIEdgeInsetsMake(0, 10, 0, 10);
+    nameLabel.font = [UIFont systemFontOfSize:20 weight:UIFontWeightBold];
     nameLabel.backgroundColor = UIColor.clearColor;
     nameLabel.textColor = UIColor.whiteColor;
     
@@ -159,6 +194,40 @@
     
     [nameLabel release];
 }
+
+- (void)configureYearsLabel {
+    InsetsLabel *yearsLabel = [InsetsLabel new];
+    self.yearsLabel = yearsLabel;
+    
+    yearsLabel.contentInsets = UIEdgeInsetsMake(10, 10, 10, 10);
+    yearsLabel.font = [UIFont systemFontOfSize:18 weight:UIFontWeightRegular];
+    yearsLabel.backgroundColor = UIColor.clearColor;
+    yearsLabel.textColor = UIColor.whiteColor;
+    yearsLabel.textAlignment = NSTextAlignmentLeft;
+    
+    [self.secondaryStackView addArrangedSubview:yearsLabel];
+    [yearsLabel setContentCompressionResistancePriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
+    
+    [yearsLabel release];
+}
+
+- (void)configureDeckFormatLabel {
+    InsetsLabel *deckFormatLabel = [InsetsLabel new];
+    self.deckFormatLabel = deckFormatLabel;
+    
+    deckFormatLabel.contentInsets = UIEdgeInsetsMake(10, 10, 10, 10);
+    deckFormatLabel.font = [UIFont systemFontOfSize:18 weight:UIFontWeightBold];
+    deckFormatLabel.backgroundColor = UIColor.clearColor;
+    deckFormatLabel.textColor = UIColor.whiteColor;
+    deckFormatLabel.textAlignment = NSTextAlignmentRight;
+    
+    [self.secondaryStackView addArrangedSubview:deckFormatLabel];
+    [deckFormatLabel setContentCompressionResistancePriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
+    
+    [deckFormatLabel release];
+}
+
+//
 
 - (void)setConfiguration:(id<UIContentConfiguration>)configuration {
     [self->configuration release];
@@ -170,6 +239,8 @@
     self.heroImageView.image = [ImageService.sharedInstance portraitImageOfClassId:newConfiguration.classId];
     self.nameLabel.text = newConfiguration.deckName;
     self.arcaneDustLabel.text = newConfiguration.totalArcaneDust.stringValue;
+    self.yearsLabel.text = hsYearsWithLocalizables()[newConfiguration.hsYearCurrent];
+    self.deckFormatLabel.text = hsDeckFormatsWithLocalizable()[newConfiguration.deckFormat];
 }
 
 @end

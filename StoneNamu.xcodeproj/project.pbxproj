@@ -168,8 +168,6 @@
 		4FC094FD26CD77C400A7D373 /* DecksViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC094FC26CD77C400A7D373 /* DecksViewModel.m */; };
 		4FCC22B126ECA3C4004997AA /* DeckImageRenderServiceIntroContentConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FCC22B026ECA3C4004997AA /* DeckImageRenderServiceIntroContentConfiguration.m */; };
 		4FCC22B426ECA4B7004997AA /* DeckImageRenderServiceIntroContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FCC22B326ECA4B7004997AA /* DeckImageRenderServiceIntroContentView.m */; };
-		4FCC22B826ECA8DA004997AA /* DeckImageRenderServiceInfoContentConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FCC22B726ECA8DA004997AA /* DeckImageRenderServiceInfoContentConfiguration.m */; };
-		4FCC22BB26ECA8E9004997AA /* DeckImageRenderServiceInfoContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FCC22BA26ECA8E9004997AA /* DeckImageRenderServiceInfoContentView.m */; };
 		4FCC22BE26ECA949004997AA /* HSYear.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4FCC22C026ECA949004997AA /* HSYear.strings */; };
 		4FCC22C426ECA99B004997AA /* HSYear.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FCC22C326ECA99B004997AA /* HSYear.m */; };
 		4FCC22C826ECAC81004997AA /* DeckImageRenderServiceAboutContentConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FCC22C726ECAC81004997AA /* DeckImageRenderServiceAboutContentConfiguration.m */; };
@@ -549,10 +547,6 @@
 		4FCC22B026ECA3C4004997AA /* DeckImageRenderServiceIntroContentConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckImageRenderServiceIntroContentConfiguration.m; sourceTree = "<group>"; };
 		4FCC22B226ECA4B7004997AA /* DeckImageRenderServiceIntroContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckImageRenderServiceIntroContentView.h; sourceTree = "<group>"; };
 		4FCC22B326ECA4B7004997AA /* DeckImageRenderServiceIntroContentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckImageRenderServiceIntroContentView.m; sourceTree = "<group>"; };
-		4FCC22B626ECA8DA004997AA /* DeckImageRenderServiceInfoContentConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckImageRenderServiceInfoContentConfiguration.h; sourceTree = "<group>"; };
-		4FCC22B726ECA8DA004997AA /* DeckImageRenderServiceInfoContentConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckImageRenderServiceInfoContentConfiguration.m; sourceTree = "<group>"; };
-		4FCC22B926ECA8E9004997AA /* DeckImageRenderServiceInfoContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckImageRenderServiceInfoContentView.h; sourceTree = "<group>"; };
-		4FCC22BA26ECA8E9004997AA /* DeckImageRenderServiceInfoContentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckImageRenderServiceInfoContentView.m; sourceTree = "<group>"; };
 		4FCC22BF26ECA949004997AA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/HSYear.strings; sourceTree = "<group>"; };
 		4FCC22C126ECA94A004997AA /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/HSYear.strings; sourceTree = "<group>"; };
 		4FCC22C226ECA993004997AA /* HSYear.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSYear.h; sourceTree = "<group>"; };
@@ -1380,17 +1374,6 @@
 			path = Intro;
 			sourceTree = "<group>";
 		};
-		4FCC22B526ECA8C0004997AA /* Info */ = {
-			isa = PBXGroup;
-			children = (
-				4FCC22B626ECA8DA004997AA /* DeckImageRenderServiceInfoContentConfiguration.h */,
-				4FCC22B726ECA8DA004997AA /* DeckImageRenderServiceInfoContentConfiguration.m */,
-				4FCC22B926ECA8E9004997AA /* DeckImageRenderServiceInfoContentView.h */,
-				4FCC22BA26ECA8E9004997AA /* DeckImageRenderServiceInfoContentView.m */,
-			);
-			path = Info;
-			sourceTree = "<group>";
-		};
 		4FCC22C526ECAC6D004997AA /* About */ = {
 			isa = PBXGroup;
 			children = (
@@ -1448,7 +1431,6 @@
 			isa = PBXGroup;
 			children = (
 				4FCC22AE26ECA3AD004997AA /* Intro */,
-				4FCC22B526ECA8C0004997AA /* Info */,
 				4FEC8A0426EB87990061BBF4 /* Card */,
 				4FCC22C526ECAC6D004997AA /* About */,
 			);
@@ -1805,7 +1787,6 @@
 			files = (
 				4F74711726C1678F001C45C4 /* CardDetailsChildrenContentConfiguration.m in Sources */,
 				4FF3E0C726C998E6002B20EA /* NSBundle+BuildInfo.m in Sources */,
-				4FCC22B826ECA8DA004997AA /* DeckImageRenderServiceInfoContentConfiguration.m in Sources */,
 				4F1B98A626C8235B004E1603 /* PrefsLocaleViewController.m in Sources */,
 				4F98E25526B993650067846F /* CardDetailsLayoutRegularViewController.m in Sources */,
 				4FF676CF26AAFC6A00477272 /* CardsViewController.m in Sources */,
@@ -1876,7 +1857,6 @@
 				4F8FFF4326E0E66A00FA6586 /* DeckAddCardSectionModel.m in Sources */,
 				4F4976E326ABFCB300860809 /* CardOptionsViewController.m in Sources */,
 				4FB0ECEB26B82B100020EE6C /* DynamicPresentationController.m in Sources */,
-				4FCC22BB26ECA8E9004997AA /* DeckImageRenderServiceInfoContentView.m in Sources */,
 				4F4976D926ABE80700860809 /* CardItemModel.m in Sources */,
 				4F066CBE26D71ACD00991A98 /* DeckBaseContentConfiguration.m in Sources */,
 				4FF3E0B526C97D95002B20EA /* PrefsLocaleViewModel.m in Sources */,

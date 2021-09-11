@@ -192,7 +192,7 @@
         [self presentViewController:activity animated:YES completion:^{}];
         [activity release];
         [service release];
-    }];
+    } testVC:self];
 }
 
 - (void)exportDeckCodeAndShare {
