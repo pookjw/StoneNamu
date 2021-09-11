@@ -16,14 +16,15 @@
 @property (retain) UIImageView *heroImageView;
 @property (retain) UIStackView *primaryStackView;
 @property (retain) UIStackView *secondaryStackView;
+@property (retain) UIStackView *topStackView;
+@property (retain) InsetsLabel *classLabel;
 @property (retain) UIStackView *arcaneDustStackView;
 @property (retain) InsetsLabel *arcaneDustLabel;
 @property (retain) UIImageView *arcaneDustImageView;
 @property (retain) InsetsLabel *nameLabel;
 @property (retain) InsetsLabel *yearsLabel;
 @property (retain) InsetsLabel *deckFormatLabel;
-@property (retain) UIView *gradientView;
-@property (retain) CAGradientLayer *gradientLayer;
+@property (retain) UIView *backgroundView;
 @end
 
 @implementation DeckImageRenderServiceIntroContentView
@@ -37,6 +38,8 @@
         [self setAttributes];
         [self configureHeroImageView];
         [self configurePrimaryStackView];
+        [self configureTopStackView];
+        [self configureClassLabel];
         [self configureArcaneDustStackView];
         [self configureArcaneDustImageView];
         [self configureArcaneDustLabel];
@@ -44,7 +47,7 @@
         [self configureSecondaryStackView];
         [self configureYearsLabel];
         [self configureDeckFormatLabel];
-        [self configureGradientView];
+        [self configureBackgroundView];
     }
     
     return self;
@@ -56,19 +59,15 @@
     [_primaryStackView release];
     [_secondaryStackView release];
     [_arcaneDustStackView release];
+    [_topStackView release];
+    [_classLabel release];
     [_arcaneDustLabel release];
     [_arcaneDustImageView release];
     [_nameLabel release];
     [_yearsLabel release];
     [_deckFormatLabel release];
-    [_gradientView release];
-    [_gradientLayer release];
+    [_backgroundView release];
     [super dealloc];
-}
-
-- (void)layoutSubviews {
-    [super layoutSubviews];
-    [self updateGradientLayer];
 }
 
 - (void)setAttributes {
@@ -92,6 +91,16 @@
         [heroImageView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor]
     ]];
     
+    NSLayoutConstraint *aspectRatio = [NSLayoutConstraint constraintWithItem:heroImageView
+                                                                   attribute:NSLayoutAttributeWidth
+                                                                   relatedBy:NSLayoutRelationEqual
+                                                                      toItem:heroImageView
+                                                                   attribute:NSLayoutAttributeHeight
+                                                                  multiplier:243 / 64
+                                                                    constant:0];
+    aspectRatio.priority = UILayoutPriorityDefaultHigh;
+    aspectRatio.active = YES;
+    
     [heroImageView release];
 }
 
@@ -100,7 +109,7 @@
     self.primaryStackView = primaryStackView;
     
     primaryStackView.axis = UILayoutConstraintAxisVertical;
-    primaryStackView.backgroundColor = [UIColor.blackColor colorWithAlphaComponent:0.7];
+    primaryStackView.backgroundColor = [UIColor.blackColor colorWithAlphaComponent:0.5];
     primaryStackView.translatesAutoresizingMaskIntoConstraints = NO;
     
     [self addSubview:primaryStackView];
@@ -114,15 +123,44 @@
     [primaryStackView release];
 }
 
+- (void)configureTopStackView {
+    UIStackView *topStackView = [UIStackView new];
+    self.topStackView = topStackView;
+    
+    topStackView.axis = UILayoutConstraintAxisHorizontal;
+    topStackView.backgroundColor = UIColor.clearColor;
+    
+    [self.primaryStackView addArrangedSubview:topStackView];
+    
+    [topStackView release];
+}
+
+- (void)configureClassLabel {
+    InsetsLabel *classLabel = [InsetsLabel new];
+    self.classLabel = classLabel;
+    
+    classLabel.contentInsets = UIEdgeInsetsMake(5, 10, 5, 5);
+    classLabel.font = [UIFont systemFontOfSize:14 weight:UIFontWeightRegular];
+    classLabel.backgroundColor = UIColor.clearColor;
+    classLabel.textColor = UIColor.whiteColor;
+    
+    [self.topStackView addArrangedSubview:classLabel];
+    
+    [classLabel setContentCompressionResistancePriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
+    
+    [classLabel release];
+}
+
 - (void)configureArcaneDustStackView {
     UIStackView *arcaneDustStackView = [UIStackView new];
     self.arcaneDustStackView = arcaneDustStackView;
     
     arcaneDustStackView.axis = UILayoutConstraintAxisHorizontal;
     arcaneDustStackView.backgroundColor = UIColor.clearColor;
-    arcaneDustStackView.translatesAutoresizingMaskIntoConstraints = NO;
     
-    [self.primaryStackView addArrangedSubview:arcaneDustStackView];
+    [self.topStackView addArrangedSubview:arcaneDustStackView];
+    
+    [arcaneDustStackView setContentCompressionResistancePriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
     
     [arcaneDustStackView release];
 }
@@ -156,7 +194,7 @@
     InsetsLabel *arcaneDustLabel = [InsetsLabel new];
     self.arcaneDustLabel = arcaneDustLabel;
     
-    arcaneDustLabel.contentInsets = UIEdgeInsetsMake(5, 5, 5, 5);
+    arcaneDustLabel.contentInsets = UIEdgeInsetsMake(5, 5, 5, 10);
     arcaneDustLabel.font = [UIFont systemFontOfSize:14 weight:UIFontWeightRegular];
     arcaneDustLabel.backgroundColor = UIColor.clearColor;
     arcaneDustLabel.textColor = UIColor.whiteColor;
@@ -231,44 +269,20 @@
     [deckFormatLabel release];
 }
 
-- (void)configureGradientView {
-    UIView *gradientView = [UIView new];
-    self.gradientView = gradientView;
+- (void)configureBackgroundView {
+    UIView *backgroundView = [UIView new];
+    self.backgroundView = backgroundView;
     
-    gradientView.backgroundColor = [UIColor.blackColor colorWithAlphaComponent:0.7];
-    gradientView.translatesAutoresizingMaskIntoConstraints = NO;
+    backgroundView.backgroundColor = [UIColor.blackColor colorWithAlphaComponent:0.5];
+    backgroundView.translatesAutoresizingMaskIntoConstraints = NO;
     
-    [self addSubview:gradientView];
+    [self addSubview:backgroundView];
     [NSLayoutConstraint activateConstraints:@[
-        [gradientView.topAnchor constraintEqualToAnchor:self.topAnchor],
-        [gradientView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
-        [gradientView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
-        [gradientView.bottomAnchor constraintEqualToAnchor:self.primaryStackView.topAnchor]
+        [backgroundView.topAnchor constraintEqualToAnchor:self.topAnchor],
+        [backgroundView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
+        [backgroundView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
+        [backgroundView.bottomAnchor constraintEqualToAnchor:self.primaryStackView.topAnchor]
     ]];
-    
-    //
-    
-    CAGradientLayer *gradientLayer = [CAGradientLayer new];
-    self.gradientLayer = gradientLayer;
-    gradientLayer.colors = @[
-        (id)[UIColor.whiteColor colorWithAlphaComponent:0].CGColor,
-        (id)UIColor.whiteColor.CGColor
-    ];
-    gradientLayer.startPoint = CGPointMake(0, 0);
-    gradientLayer.endPoint = CGPointMake(0, 1);
-    gradientView.layer.mask = gradientLayer;
-    [gradientLayer release];
-    
-    //
-    
-    [gradientView release];
-}
-
-- (void)updateGradientLayer {
-    [CATransaction begin];
-    [CATransaction setDisableActions:YES];
-    self.gradientLayer.frame = self.gradientView.bounds;
-    [CATransaction commit];
 }
 
 //
@@ -281,6 +295,7 @@
     //
     
     self.heroImageView.image = [ImageService.sharedInstance portraitImageOfClassId:newConfiguration.classId];
+    self.classLabel.text = hsCardClassesWithLocalizable()[NSStringFromHSCardClass(newConfiguration.classId)];
     self.nameLabel.text = newConfiguration.deckName;
     self.arcaneDustLabel.text = newConfiguration.totalArcaneDust.stringValue;
     self.yearsLabel.text = hsYearsWithLocalizables()[newConfiguration.hsYearCurrent];

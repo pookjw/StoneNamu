@@ -109,6 +109,9 @@
     
     UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, 300, 1) collectionViewLayout:layout];
     collectionView.backgroundColor = UIColor.blackColor;
+    collectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    collectionView.showsVerticalScrollIndicator = NO;
+    collectionView.showsHorizontalScrollIndicator = NO;
     self.collectionView = collectionView;
     
     [collectionView release];

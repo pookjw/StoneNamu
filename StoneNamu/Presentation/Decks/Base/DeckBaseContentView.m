@@ -11,8 +11,6 @@
 #import "DeckBaseContentViewModel.h"
 #import "ImageService.h"
 
-#define IS_SHADOW_ENABLED_BASE_VIEW 0
-
 @interface DeckBaseContentView ()
 @property (retain) UIImageView *cardSetImageView;
 @property (retain) InsetsLabel *nameLabel;
@@ -95,13 +93,6 @@
     nameLabel.adjustsFontSizeToFitWidth = YES;
     nameLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleTitle3];
     nameLabel.minimumScaleFactor = 0.1;
-    
-#if IS_SHADOW_ENABLED_BASE_VIEW
-    nameLabel.layer.shadowRadius = 2.0;
-    nameLabel.layer.shadowOpacity = 1;
-    nameLabel.layer.shadowOffset = CGSizeMake(0, 0);
-    nameLabel.layer.masksToBounds = YES;
-#endif
     
     NSString *string = @"";
     CGRect rect = [string boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX)
@@ -193,8 +184,6 @@
         [self updateHeroImageView];
     }
     
-    [self updateNameLabelShadowColor];
-    
     [oldContentConfig release];
 }
 
@@ -237,12 +226,6 @@
     [CATransaction setDisableActions:YES];
     self.imageViewGradientLayer.frame = self.heroImageView.bounds;
     [CATransaction commit];
-}
-
-- (void)updateNameLabelShadowColor {
-#if IS_SHADOW_ENABLED_BASE_VIEW
-    self.nameLabel.layer.shadowColor = self.isDarkMode ? UIColor.blackColor.CGColor : UIColor.whiteColor.CGColor;
-#endif
 }
 
 @end
