@@ -8,7 +8,10 @@
 #import "DeckImageRenderService.h"
 #import "UIView+imageRendered.h"
 #import "DeckImageRenderServiceModel.h"
+#import "DeckImageRenderServiceIntroContentConfiguration.h"
+#import "DeckImageRenderServiceInfoContentConfiguration.h"
 #import "DeckImageRenderServiceCardContentConfiguration.h"
+#import "DeckImageRenderServiceAboutContentConfiguration.h"
 #import "NSSemaphoreCondition.h"
 
 @interface DeckImageRenderService ()
@@ -44,6 +47,8 @@
 
 - (void)imageFromLocalDeck:(LocalDeck *)localDeck completion:(DeckImageRenderServiceCompletion)completion {
     [self.queue addBarrierBlock:^{
+        NSSemaphoreCondition *semaphore = [[NSSemaphoreCondition alloc] initWithValue:0];
+        
         [self.model updateDataSourceWithHSCards:localDeck.cards
                                        deckName:localDeck.name
                                         classId:localDeck.classId.unsignedIntegerValue
@@ -53,20 +58,21 @@
                 [self.collectionView layoutIfNeeded];
                 [self.collectionView.collectionViewLayout invalidateLayout];
                 self.collectionView.frame = CGRectMake(0, 0, 300, self.collectionView.contentSize.height);
-                
-                [self.queue addBarrierBlock:^{
-                    [NSOperationQueue.mainQueue addOperationWithBlock:^{
-                        UIImage *image = self.collectionView.imageRendered;
-                        completion(image);
-                    }];
-                }];
+                UIImage *image = self.collectionView.imageRendered;
+                [semaphore signal];
+                completion(image);
             }];
         }];
+        
+        [semaphore wait];
+        [semaphore release];
     }];
 }
 
 - (void)imageFromHSDeck:(HSDeck *)hsDeck completion:(DeckImageRenderServiceCompletion)completion {
     [self.queue addBarrierBlock:^{
+        NSSemaphoreCondition *semaphore = [[NSSemaphoreCondition alloc] initWithValue:0];
+        
         [self.model updateDataSourceWithHSCards:hsDeck.cards
                                        deckName:hsCardClassesWithLocalizable()[NSStringFromHSCardClass(hsDeck.classId)]
                                         classId:hsDeck.classId
@@ -76,15 +82,15 @@
                 [self.collectionView layoutIfNeeded];
                 [self.collectionView.collectionViewLayout invalidateLayout];
                 self.collectionView.frame = CGRectMake(0, 0, 300, self.collectionView.contentSize.height);
-                
-                [self.queue addBarrierBlock:^{
-                    [NSOperationQueue.mainQueue addOperationWithBlock:^{
-                        UIImage *image = self.collectionView.imageRendered;
-                        completion(image);
-                    }];
-                }];
+                UIImage *image = self.collectionView.imageRendered;
+                completion(image);
+                [semaphore signal];
+                completion(image);
             }];
         }];
+        
+        [semaphore wait];
+        [semaphore release];
     }];
 }
 
@@ -141,15 +147,18 @@
         
         switch (itemModel.type) {
             case DeckImageRenderServiceItemModelTypeIntro: {
-                UIListContentConfiguration *configuration = [UIListContentConfiguration cellConfiguration];
-                configuration.text = itemModel.deckName;
+                DeckImageRenderServiceIntroContentConfiguration *configuration = [[DeckImageRenderServiceIntroContentConfiguration alloc] initWithClassId:itemModel.classId
+                                                                                                                                          totalArcaneDust:itemModel.totalArcaneDust
+                                                                                                                                                 deckName:itemModel.deckName];
                 cell.contentConfiguration = configuration;
+                [configuration release];
                 break;
             }
             case DeckImageRenderServiceItemModelTypeInfo: {
-                UIListContentConfiguration *configuration = [UIListContentConfiguration cellConfiguration];
-                configuration.text = itemModel.deckFormat;
+                DeckImageRenderServiceInfoContentConfiguration *configuration = [[DeckImageRenderServiceInfoContentConfiguration alloc] initWithHSYearCurrent:itemModel.hsYearCurrent
+                                                                                                                                                   deckFormat:itemModel.deckFormat];
                 cell.contentConfiguration = configuration;
+                [configuration release];
                 break;
             }
             case DeckImageRenderServiceItemModelTypeCard: {
@@ -161,9 +170,9 @@
                 break;
             }
             case DeckImageRenderServiceItemModelTypeAbout: {
-                UIListContentConfiguration *configuration = [UIListContentConfiguration cellConfiguration];
-                configuration.text = @"StoneNamu";
+                DeckImageRenderServiceAboutContentConfiguration *configuration = [DeckImageRenderServiceAboutContentConfiguration new];
                 cell.contentConfiguration = configuration;
+                [configuration release];
                 break;
             }
             default:

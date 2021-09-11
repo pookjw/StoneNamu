@@ -27,6 +27,7 @@ typedef NS_ENUM(NSUInteger, DeckImageRenderServiceItemModelType) {
 @property (copy) NSString * _Nullable deckName;
 
 #pragma mark - DeckImageRenderServiceItemModelTypeInfo
+@property (copy) NSString * _Nullable hsYearCurrent;
 @property (copy) HSDeckFormat _Nullable deckFormat;
 
 #pragma mark - DeckImageRenderServiceItemModelTypeCard

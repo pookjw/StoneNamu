@@ -65,9 +65,12 @@
     
     [NSLayoutConstraint activateConstraints:@[
         [cardSetImageView.topAnchor constraintEqualToAnchor:self.topAnchor],
-        [cardSetImageView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
-        [cardSetImageView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor]
+        [cardSetImageView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor]
     ]];
+    
+    NSLayoutConstraint *bottomLayout = [cardSetImageView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor];
+    bottomLayout.priority = UILayoutPriorityDefaultHigh;
+    bottomLayout.active = YES;
     
     NSLayoutConstraint *aspectRatio = [NSLayoutConstraint constraintWithItem:cardSetImageView
                                                                    attribute:NSLayoutAttributeWidth

@@ -194,7 +194,7 @@
     
     //
     
-    countLabel.backgroundColor = UIColor.systemGray2Color;
+    countLabel.backgroundColor = UIColor.grayColor;
     countLabel.font = [UIFont systemFontOfSize:18 weight:UIFontWeightBold];
     countLabel.textAlignment = NSTextAlignmentCenter;
     
@@ -284,16 +284,16 @@
             self.nameLabel.textColor = UIColor.whiteColor;
             break;
         case HSCardRarityRare:
-            self.nameLabel.textColor = UIColor.systemBlueColor;
+            self.nameLabel.textColor = UIColor.blueColor;
             break;
         case HSCardRarityEpic:
-            self.nameLabel.textColor = UIColor.systemPurpleColor;
+            self.nameLabel.textColor = UIColor.purpleColor;
             break;
         case HSCardRarityLegendary:
-            self.nameLabel.textColor = UIColor.systemOrangeColor;
+            self.nameLabel.textColor = UIColor.orangeColor;
             break;
         default:
-            self.nameLabel.textColor = UIColor.systemGrayColor;
+            self.nameLabel.textColor = UIColor.grayColor;
             break;
     }
     
@@ -311,7 +311,7 @@
 - (void)updateCountLabel {
     if ((self.hsCard.rarityId == HSCardRarityLegendary) && (self.hsCardCount == 1)) {
         self.countLabel.text = @"★";
-        self.countLabel.textColor = UIColor.systemOrangeColor;
+        self.countLabel.textColor = UIColor.orangeColor;
     } else {
         self.countLabel.text = [NSString stringWithFormat:@"%lu", self.hsCardCount];
         self.countLabel.textColor = UIColor.whiteColor;

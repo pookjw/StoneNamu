@@ -22,6 +22,12 @@
     return self;
 }
 
+- (void)dealloc {
+    [_totalArcaneDust release];
+    [_deckName release];
+    [super dealloc];
+}
+
 - (nonnull id)copyWithZone:(nullable NSZone *)zone {
     id copy = [[self class] new];
     

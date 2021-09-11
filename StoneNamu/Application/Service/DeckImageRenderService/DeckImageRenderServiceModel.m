@@ -9,6 +9,7 @@
 #import "NSDiffableDataSourceSnapshot+sort.h"
 #import "DataCacheUseCaseImpl.h"
 #import "NSSemaphoreCondition.h"
+#import "HSYear.h"
 
 @interface DeckImageRenderServiceModel ()
 @property (retain) NSOperationQueue *queue;
@@ -113,6 +114,7 @@
         [snapshot appendSectionsWithIdentifiers:@[infoSectionModel]];
 
         DeckImageRenderServiceItemModel *infoItemModel = [[DeckImageRenderServiceItemModel alloc] initWithType:DeckImageRenderServiceItemModelTypeInfo];
+        infoItemModel.hsYearCurrent = hsYearCurrent();
         infoItemModel.deckFormat = deckFormat;
         [snapshot appendItemsWithIdentifiers:@[infoItemModel] intoSectionWithIdentifier:infoSectionModel];
         [infoSectionModel release];

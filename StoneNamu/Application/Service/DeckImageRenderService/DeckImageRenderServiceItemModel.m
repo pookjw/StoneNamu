@@ -27,6 +27,7 @@
 - (void)dealloc {
     [_totalArcaneDust release];
     [_deckName release];
+    [_hsYearCurrent release];
     [_deckFormat release];
     [_hsCard release];
     [_hsCardImage release];
