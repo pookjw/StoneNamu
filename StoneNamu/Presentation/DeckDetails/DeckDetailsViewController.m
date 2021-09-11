@@ -18,6 +18,7 @@
 #import "FloatingMiniViewController.h"
 #import "TextActivityViewController.h"
 #import "DeckImageRenderService.h"
+#import "PhotosService.h"
 
 @interface DeckDetailsViewController () <UICollectionViewDelegate, UICollectionViewDragDelegate, UICollectionViewDropDelegate>
 @property (retain) UICollectionView *collectionView;
@@ -185,14 +186,16 @@
 }
 
 - (void)saveDeckAsImage {
+    [self addSpinnerView];
+    
     DeckImageRenderService *service = [DeckImageRenderService new];
     [service imageFromLocalDeck:self.viewModel.localDeck completion:^(UIImage * _Nonnull image) {
-        UIActivityViewController *activity = [[UIActivityViewController alloc] initWithActivityItems:@[image] applicationActivities:nil];
-        activity.popoverPresentationController.barButtonItem = self.menuBarButtonItem;
-        [self presentViewController:activity animated:YES completion:^{}];
-        [activity release];
-        [service release];
-    } testVC:self];
+        [PhotosService.sharedInstance saveImage:image fromViewController:self completionHandler:^(BOOL success, NSError * _Nonnull error) {
+            [NSOperationQueue.mainQueue addOperationWithBlock:^{
+                [self removeAllSpinnerview];
+            }];
+        }];
+    }];
 }
 
 - (void)exportDeckCodeAndShare {

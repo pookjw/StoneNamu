@@ -44,7 +44,7 @@
     [super dealloc];
 }
 
-- (void)imageFromLocalDeck:(LocalDeck *)localDeck completion:(DeckImageRenderServiceCompletion)completion testVC:(UIViewController *)testVC {
+- (void)imageFromLocalDeck:(LocalDeck *)localDeck completion:(DeckImageRenderServiceCompletion)completion {
     [self.queue addBarrierBlock:^{
         NSSemaphoreCondition *semaphore = [[NSSemaphoreCondition alloc] initWithValue:0];
         
@@ -54,24 +54,12 @@
                                      deckFormat:localDeck.format
                                      completion:^(NSUInteger countOfCardItem){
             [NSOperationQueue.mainQueue addOperationWithBlock:^{
-//                [self.collectionView layoutIfNeeded];
-//                [self.collectionView.collectionViewLayout invalidateLayout];
-//                self.collectionView.frame = CGRectMake(0, 0, 300, self.collectionView.contentSize.height);
-//                UIImage *image = self.collectionView.imageRendered;
-//                [semaphore signal];
-//                completion(image);
-                
-                UIViewController *vc = [UIViewController new];
-                [vc.view addSubview:self.collectionView];
-                self.collectionView.translatesAutoresizingMaskIntoConstraints = NO;
-                [NSLayoutConstraint activateConstraints:@[
-                    [self.collectionView.topAnchor constraintEqualToAnchor:vc.view.topAnchor],
-                    [self.collectionView.leadingAnchor constraintEqualToAnchor:vc.view.leadingAnchor],
-                    [self.collectionView.trailingAnchor constraintEqualToAnchor:vc.view.trailingAnchor],
-                    [self.collectionView.bottomAnchor constraintEqualToAnchor:vc.view.bottomAnchor]
-                ]];
-                [testVC presentViewController:vc animated:YES completion:^{}];
-                [vc release];
+                [self.collectionView layoutIfNeeded];
+                [self.collectionView.collectionViewLayout invalidateLayout];
+                self.collectionView.frame = CGRectMake(0, 0, 300, self.collectionView.contentSize.height);
+                UIImage *image = self.collectionView.imageRendered;
+                [semaphore signal];
+                completion(image);
             }];
         }];
         

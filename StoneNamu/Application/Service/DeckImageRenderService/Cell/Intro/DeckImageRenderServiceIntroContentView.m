@@ -22,6 +22,8 @@
 @property (retain) InsetsLabel *nameLabel;
 @property (retain) InsetsLabel *yearsLabel;
 @property (retain) InsetsLabel *deckFormatLabel;
+@property (retain) UIView *gradientView;
+@property (retain) CAGradientLayer *gradientLayer;
 @end
 
 @implementation DeckImageRenderServiceIntroContentView
@@ -34,14 +36,15 @@
     if (self) {
         [self setAttributes];
         [self configureHeroImageView];
-        [self configureSecondaryStackView];
         [self configurePrimaryStackView];
         [self configureArcaneDustStackView];
         [self configureArcaneDustImageView];
         [self configureArcaneDustLabel];
         [self configureNameLabel];
+        [self configureSecondaryStackView];
         [self configureYearsLabel];
         [self configureDeckFormatLabel];
+        [self configureGradientView];
     }
     
     return self;
@@ -58,7 +61,14 @@
     [_nameLabel release];
     [_yearsLabel release];
     [_deckFormatLabel release];
+    [_gradientView release];
+    [_gradientLayer release];
     [super dealloc];
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    [self updateGradientLayer];
 }
 
 - (void)setAttributes {
@@ -85,39 +95,20 @@
     [heroImageView release];
 }
 
-- (void)configureSecondaryStackView {
-    UIStackView *secondaryStackView = [UIStackView new];
-    self.secondaryStackView = secondaryStackView;
-    
-    secondaryStackView.axis = UILayoutConstraintAxisHorizontal;
-    secondaryStackView.backgroundColor = [UIColor.blackColor colorWithAlphaComponent:0.7];
-    secondaryStackView.translatesAutoresizingMaskIntoConstraints = NO;
-    
-    [self addSubview:secondaryStackView];
-    
-    [NSLayoutConstraint activateConstraints:@[
-        [secondaryStackView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
-        [secondaryStackView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
-        [secondaryStackView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor]
-    ]];
-    
-    [secondaryStackView release];
-}
-
 - (void)configurePrimaryStackView {
     UIStackView *primaryStackView = [UIStackView new];
     self.primaryStackView = primaryStackView;
     
     primaryStackView.axis = UILayoutConstraintAxisVertical;
-    primaryStackView.alignment = UIStackViewAlignmentLeading;
     primaryStackView.backgroundColor = [UIColor.blackColor colorWithAlphaComponent:0.7];
     primaryStackView.translatesAutoresizingMaskIntoConstraints = NO;
     
     [self addSubview:primaryStackView];
     
     [NSLayoutConstraint activateConstraints:@[
-        [primaryStackView.leadingAnchor constraintEqualToAnchor:self.secondaryStackView.leadingAnchor],
-        [primaryStackView.bottomAnchor constraintEqualToAnchor:self.secondaryStackView.topAnchor]
+        [primaryStackView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
+        [primaryStackView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
+        [primaryStackView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor]
     ]];
     
     [primaryStackView release];
@@ -189,10 +180,23 @@
     nameLabel.font = [UIFont systemFontOfSize:20 weight:UIFontWeightBold];
     nameLabel.backgroundColor = UIColor.clearColor;
     nameLabel.textColor = UIColor.whiteColor;
+    nameLabel.textAlignment = NSTextAlignmentCenter;
     
     [self.primaryStackView addArrangedSubview:nameLabel];
     
     [nameLabel release];
+}
+
+- (void)configureSecondaryStackView {
+    UIStackView *secondaryStackView = [UIStackView new];
+    self.secondaryStackView = secondaryStackView;
+    
+    secondaryStackView.axis = UILayoutConstraintAxisHorizontal;
+    secondaryStackView.backgroundColor = UIColor.clearColor;
+    
+    [self.primaryStackView addArrangedSubview:secondaryStackView];
+    
+    [secondaryStackView release];
 }
 
 - (void)configureYearsLabel {
@@ -225,6 +229,46 @@
     [deckFormatLabel setContentCompressionResistancePriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
     
     [deckFormatLabel release];
+}
+
+- (void)configureGradientView {
+    UIView *gradientView = [UIView new];
+    self.gradientView = gradientView;
+    
+    gradientView.backgroundColor = [UIColor.blackColor colorWithAlphaComponent:0.7];
+    gradientView.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    [self addSubview:gradientView];
+    [NSLayoutConstraint activateConstraints:@[
+        [gradientView.topAnchor constraintEqualToAnchor:self.topAnchor],
+        [gradientView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
+        [gradientView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
+        [gradientView.bottomAnchor constraintEqualToAnchor:self.primaryStackView.topAnchor]
+    ]];
+    
+    //
+    
+    CAGradientLayer *gradientLayer = [CAGradientLayer new];
+    self.gradientLayer = gradientLayer;
+    gradientLayer.colors = @[
+        (id)[UIColor.whiteColor colorWithAlphaComponent:0].CGColor,
+        (id)UIColor.whiteColor.CGColor
+    ];
+    gradientLayer.startPoint = CGPointMake(0, 0);
+    gradientLayer.endPoint = CGPointMake(0, 1);
+    gradientView.layer.mask = gradientLayer;
+    [gradientLayer release];
+    
+    //
+    
+    [gradientView release];
+}
+
+- (void)updateGradientLayer {
+    [CATransaction begin];
+    [CATransaction setDisableActions:YES];
+    self.gradientLayer.frame = self.gradientView.bounds;
+    [CATransaction commit];
 }
 
 //
