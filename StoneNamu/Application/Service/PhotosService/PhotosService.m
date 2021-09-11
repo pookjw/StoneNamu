@@ -99,15 +99,15 @@
 
 - (void)askPopupAndOpenAppSettingsFromViewController:(UIViewController *)viewController {
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Need Photo Permission"
-                                                                       message:@"Please Allow Photo Permission"
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"NEED_PHOTO_PERMISSION", @"")
+                                                                       message:NSLocalizedString(@"PLEASE_ALLOW_PHOTO_PERMISSION", @"")
                                                                 preferredStyle:UIAlertControllerStyleAlert];
         
-        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
-                                                         style:UIAlertActionStyleCancel
-                                                       handler:^(UIAlertAction * _Nonnull action) {}];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"CANCEL", @"")
+                                                               style:UIAlertActionStyleCancel
+                                                             handler:^(UIAlertAction * _Nonnull action) {}];
         
-        UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"OK"
+        UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"")
                                                                 style:UIAlertActionStyleDefault
                                                               handler:^(UIAlertAction * _Nonnull action) {
             [self openAppSettings];

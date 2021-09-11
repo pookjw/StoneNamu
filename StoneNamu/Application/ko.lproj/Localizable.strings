@@ -147,3 +147,7 @@
 "EXPORT_DECK_CODE" = "덱코드 내보내기";
 
 "SAVE_AS_IMAGE" = "사진으로 저장";
+
+"NEED_PHOTO_PERMISSION" = "사진 권한이 필요해요.";
+
+"PLEASE_ALLOW_PHOTO_PERMISSION" = "설정 어플에서 사진 권한을 부여해 주세요.";

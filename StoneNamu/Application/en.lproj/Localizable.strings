@@ -147,3 +147,7 @@
 "EXPORT_DECK_CODE" = "Export Deck Code";
 
 "SAVE_AS_IMAGE" = "Save as image";
+
+"NEED_PHOTO_PERMISSION" = "Need Photo Permission";
+
+"PLEASE_ALLOW_PHOTO_PERMISSION" = "Please grant Photo Permission at Settings app.";
