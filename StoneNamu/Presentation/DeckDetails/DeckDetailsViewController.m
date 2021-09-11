@@ -193,6 +193,7 @@
         [PhotosService.sharedInstance saveImage:image fromViewController:self completionHandler:^(BOOL success, NSError * _Nonnull error) {
             [NSOperationQueue.mainQueue addOperationWithBlock:^{
                 [self removeAllSpinnerview];
+                [service release];
             }];
         }];
     }];
