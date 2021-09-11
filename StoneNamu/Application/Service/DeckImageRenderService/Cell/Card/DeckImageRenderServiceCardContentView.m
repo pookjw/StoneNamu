@@ -284,7 +284,7 @@
             self.nameLabel.textColor = UIColor.whiteColor;
             break;
         case HSCardRarityRare:
-            self.nameLabel.textColor = UIColor.blueColor;
+            self.nameLabel.textColor = UIColor.cyanColor;
             break;
         case HSCardRarityEpic:
             self.nameLabel.textColor = UIColor.purpleColor;
