@@ -137,6 +137,7 @@
     InsetsLabel *arcaneDustLabel = [InsetsLabel new];
     self.arcaneDustLabel = arcaneDustLabel;
     
+    arcaneDustLabel.contentInsets = UIEdgeInsetsMake(0, 0, 0, 10);
     arcaneDustLabel.font = [UIFont customFontWithType:UIFontCustomFontTypeGmarketSansMedium size:18];
     arcaneDustLabel.backgroundColor = UIColor.clearColor;
     arcaneDustLabel.textColor = UIColor.whiteColor;
