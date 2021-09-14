@@ -2,15 +2,21 @@
 //  DeckImageRenderServiceAboutContentView.m
 //  DeckImageRenderServiceAboutContentView
 //
-//  Created by Jinwoo Kim on 9/11/21.
+//  Created by Jinwoo Kim on 9/15/21.
 //
 
 #import "DeckImageRenderServiceAboutContentView.h"
 #import "DeckImageRenderServiceAboutContentConfiguration.h"
 #import "InsetsLabel.h"
+#import "HSYear.h"
+#import "UIFont+customFonts.h"
 
 @interface DeckImageRenderServiceAboutContentView ()
-@property (retain) InsetsLabel *aboutLabel;
+@property (retain) UIStackView *primaryStackView;
+@property (retain) InsetsLabel *deckYearLabel;
+@property (retain) UIStackView *arcaneDustStackView;
+@property (retain) InsetsLabel *arcaneDustLabel;
+@property (retain) UIImageView *arcaneDustImageView;
 @end
 
 @implementation DeckImageRenderServiceAboutContentView
@@ -22,7 +28,11 @@
     
     if (self) {
         [self setAttributes];
-        [self configureAboutLabel];
+        [self configurePrimaryStackView];
+        [self configureDeckYearLabel];
+        [self configureArcaneDustStackView];
+        [self configureArcaneDustImageView];
+        [self configureArcaneDustLabel];
     }
     
     return self;
@@ -30,7 +40,11 @@
 
 - (void)dealloc {
     [configuration release];
-    [_aboutLabel release];
+    [_primaryStackView release];
+    [_deckYearLabel release];
+    [_arcaneDustStackView release];
+    [_arcaneDustLabel release];
+    [_arcaneDustImageView release];
     [super dealloc];
 }
 
@@ -38,31 +52,114 @@
     self.backgroundColor = UIColor.clearColor;
 }
 
-- (void)configureAboutLabel {
-    InsetsLabel *aboutLabel = [InsetsLabel new];
-    self.aboutLabel = aboutLabel;
+- (void)configurePrimaryStackView {
+    UIStackView *primaryStackView = [UIStackView new];
+    self.primaryStackView = primaryStackView;
     
-    aboutLabel.contentInsets = UIEdgeInsetsMake(5, 5, 5, 5);
-    aboutLabel.font = [UIFont systemFontOfSize:18 weight:UIFontWeightBold];
-    aboutLabel.backgroundColor = UIColor.clearColor;
-    aboutLabel.textColor = UIColor.whiteColor;
-    aboutLabel.textAlignment = NSTextAlignmentCenter;
-    aboutLabel.text = NSLocalizedString(@"APP_NAME", @"");
+    primaryStackView.axis = UILayoutConstraintAxisHorizontal;
+    primaryStackView.backgroundColor = UIColor.clearColor;
     
-    [self addSubview:aboutLabel];
-    aboutLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    primaryStackView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self addSubview:primaryStackView];
     
     [NSLayoutConstraint activateConstraints:@[
-        [aboutLabel.topAnchor constraintEqualToAnchor:self.topAnchor],
-        [aboutLabel.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
-        [aboutLabel.trailingAnchor constraintEqualToAnchor:self.trailingAnchor]
+        [primaryStackView.topAnchor constraintEqualToAnchor:self.topAnchor],
+        [primaryStackView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
+        [primaryStackView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor]
     ]];
     
-    NSLayoutConstraint *bottomLayout = [aboutLabel.bottomAnchor constraintEqualToAnchor:self.bottomAnchor];
+    NSLayoutConstraint *bottomLayout = [primaryStackView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor];
     bottomLayout.priority = UILayoutPriorityDefaultHigh;
     bottomLayout.active = YES;
     
-    [aboutLabel release];
+    [primaryStackView release];
+}
+
+- (void)configureDeckYearLabel {
+    InsetsLabel *deckYearLabel = [InsetsLabel new];
+    self.deckYearLabel = deckYearLabel;
+    
+    deckYearLabel.contentInsets = UIEdgeInsetsMake(10, 10, 10, 10);
+    deckYearLabel.font = [UIFont customFontWithType:UIFontCustomFontTypeGmarketSansMedium size:15];
+    deckYearLabel.backgroundColor = UIColor.clearColor;
+    deckYearLabel.textColor = UIColor.whiteColor;
+    
+    [self.primaryStackView addArrangedSubview:deckYearLabel];
+    
+    [deckYearLabel setContentCompressionResistancePriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
+    
+    [deckYearLabel release];
+}
+
+- (void)configureArcaneDustStackView {
+    UIStackView *arcaneDustStackView = [UIStackView new];
+    self.arcaneDustStackView = arcaneDustStackView;
+    
+    arcaneDustStackView.axis = UILayoutConstraintAxisHorizontal;
+    arcaneDustStackView.backgroundColor = UIColor.clearColor;
+    
+    [self.primaryStackView addArrangedSubview:arcaneDustStackView];
+    
+    [arcaneDustStackView setContentCompressionResistancePriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
+    
+    [arcaneDustStackView release];
+}
+
+- (void)configureArcaneDustImageView {
+    UIImageView *arcaneDustImageView = [UIImageView new];
+    self.arcaneDustImageView = arcaneDustImageView;
+    
+    arcaneDustImageView.backgroundColor = UIColor.clearColor;
+    arcaneDustImageView.tintColor = UIColor.cyanColor;
+    arcaneDustImageView.contentMode = UIViewContentModeScaleToFill;
+    arcaneDustImageView.image = [[UIImage systemImageNamed:@"testtube.2"] imageWithAlignmentRectInsets:UIEdgeInsetsMake(-5, 0, -5, 0)];
+    
+    [self.arcaneDustStackView addArrangedSubview:arcaneDustImageView];
+    
+    NSLayoutConstraint *aspectRatio = [NSLayoutConstraint constraintWithItem:arcaneDustImageView
+                                                                   attribute:NSLayoutAttributeWidth
+                                                                   relatedBy:NSLayoutRelationEqual
+                                                                      toItem:arcaneDustImageView
+                                                                   attribute:NSLayoutAttributeHeight
+                                                                  multiplier:1
+                                                                    constant:0];
+    aspectRatio.active = YES;
+    
+    [arcaneDustImageView setContentCompressionResistancePriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
+    [arcaneDustImageView setContentCompressionResistancePriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisVertical];
+    
+    [arcaneDustImageView release];
+}
+
+- (void)configureArcaneDustLabel {
+    InsetsLabel *arcaneDustLabel = [InsetsLabel new];
+    self.arcaneDustLabel = arcaneDustLabel;
+    
+    arcaneDustLabel.contentInsets = UIEdgeInsetsMake(10, 10, 10, 10);
+    arcaneDustLabel.font = [UIFont customFontWithType:UIFontCustomFontTypeGmarketSansMedium size:15];
+    arcaneDustLabel.backgroundColor = UIColor.clearColor;
+    arcaneDustLabel.textColor = UIColor.whiteColor;
+    
+    [self.arcaneDustStackView addArrangedSubview:arcaneDustLabel];
+    
+    NSLayoutConstraint *heightLayout = [arcaneDustLabel.heightAnchor constraintEqualToAnchor:self.arcaneDustImageView.heightAnchor];
+    heightLayout.active = YES;
+    
+    [arcaneDustLabel setContentCompressionResistancePriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
+    [arcaneDustLabel setContentCompressionResistancePriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisVertical];
+    
+    [arcaneDustLabel release];
+}
+
+//
+
+- (void)setConfiguration:(id<UIContentConfiguration>)configuration {
+    [self->configuration release];
+    DeckImageRenderServiceAboutContentConfiguration *newConfiguration = [(DeckImageRenderServiceAboutContentConfiguration *)configuration copy];
+    self->configuration = newConfiguration;
+    
+    self.deckYearLabel.text = hsYearsWithLocalizables()[newConfiguration.hsYearCurrent];
+    self.arcaneDustLabel.text = newConfiguration.totalArcaneDust.stringValue;
 }
 
 @end

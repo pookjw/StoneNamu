@@ -156,7 +156,7 @@
                                                                     relatedBy:NSLayoutRelationEqual
                                                                        toItem:imageView
                                                                     attribute:NSLayoutAttributeHeight
-                                                                   multiplier:243 / 64
+                                                                   multiplier:243.0 / 64.0
                                                                      constant:0];
     aspectLayout.active = YES;
     

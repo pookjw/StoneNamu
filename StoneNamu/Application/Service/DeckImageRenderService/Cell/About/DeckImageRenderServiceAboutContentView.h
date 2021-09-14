@@ -2,7 +2,7 @@
 //  DeckImageRenderServiceAboutContentView.h
 //  DeckImageRenderServiceAboutContentView
 //
-//  Created by Jinwoo Kim on 9/11/21.
+//  Created by Jinwoo Kim on 9/15/21.
 //
 
 #import <UIKit/UIKit.h>

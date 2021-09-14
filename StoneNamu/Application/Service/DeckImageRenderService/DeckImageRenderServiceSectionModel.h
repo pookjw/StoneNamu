@@ -13,9 +13,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSUInteger, DeckImageRenderServiceSectionModelType) {
     DeckImageRenderServiceSectionModelTypeIntro,
-    DeckImageRenderServiceSectionModelTypeInfo,
     DeckImageRenderServiceSectionModelTypeCards,
-    DeckImageRenderServiceSectionModelTypeAbout
+    DeckImageRenderServiceSectionModelTypeAbout,
+    DeckImageRenderServiceSectionModelTypeAppName
 };
 
 @interface DeckImageRenderServiceSectionModel : NSObject

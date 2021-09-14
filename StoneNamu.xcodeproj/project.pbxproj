@@ -170,8 +170,14 @@
 		4FCC22B426ECA4B7004997AA /* DeckImageRenderServiceIntroContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FCC22B326ECA4B7004997AA /* DeckImageRenderServiceIntroContentView.m */; };
 		4FCC22BE26ECA949004997AA /* HSYear.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4FCC22C026ECA949004997AA /* HSYear.strings */; };
 		4FCC22C426ECA99B004997AA /* HSYear.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FCC22C326ECA99B004997AA /* HSYear.m */; };
-		4FCC22C826ECAC81004997AA /* DeckImageRenderServiceAboutContentConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FCC22C726ECAC81004997AA /* DeckImageRenderServiceAboutContentConfiguration.m */; };
-		4FCC22CB26ECAC98004997AA /* DeckImageRenderServiceAboutContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FCC22CA26ECAC98004997AA /* DeckImageRenderServiceAboutContentView.m */; };
+		4FCC22C826ECAC81004997AA /* DeckImageRenderServiceAppNameContentConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FCC22C726ECAC81004997AA /* DeckImageRenderServiceAppNameContentConfiguration.m */; };
+		4FCC22CB26ECAC98004997AA /* DeckImageRenderServiceAppNameContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FCC22CA26ECAC98004997AA /* DeckImageRenderServiceAppNameContentView.m */; };
+		4FDE8DF326F107ED00959B97 /* UIFont+customFonts.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FDE8DF226F107ED00959B97 /* UIFont+customFonts.m */; };
+		4FDE8DF426F10A2D00959B97 /* GmarketSansTTFMedium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4FDE8DEE26F107D200959B97 /* GmarketSansTTFMedium.ttf */; };
+		4FDE8DF526F10A2D00959B97 /* GmarketSansTTFLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4FDE8DF026F107D200959B97 /* GmarketSansTTFLight.ttf */; };
+		4FDE8DF626F10A2D00959B97 /* GmarketSansTTFBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4FDE8DEF26F107D200959B97 /* GmarketSansTTFBold.ttf */; };
+		4FDE8DFB26F113AB00959B97 /* DeckImageRenderServiceAboutContentConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FDE8DFA26F113AB00959B97 /* DeckImageRenderServiceAboutContentConfiguration.m */; };
+		4FDE8DFE26F113B500959B97 /* DeckImageRenderServiceAboutContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FDE8DFD26F113B500959B97 /* DeckImageRenderServiceAboutContentView.m */; };
 		4FEB413E26BD6116009D8594 /* CardDetailsBasicContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FEB413D26BD6116009D8594 /* CardDetailsBasicContentView.m */; };
 		4FEB414126BD6133009D8594 /* CardDetailsBasicContentConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FEB414026BD6133009D8594 /* CardDetailsBasicContentConfiguration.m */; };
 		4FEB414826BD7BDF009D8594 /* NSString+clearedHTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FEB414726BD7BDF009D8594 /* NSString+clearedHTML.m */; };
@@ -551,10 +557,19 @@
 		4FCC22C126ECA94A004997AA /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/HSYear.strings; sourceTree = "<group>"; };
 		4FCC22C226ECA993004997AA /* HSYear.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSYear.h; sourceTree = "<group>"; };
 		4FCC22C326ECA99B004997AA /* HSYear.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSYear.m; sourceTree = "<group>"; };
-		4FCC22C626ECAC81004997AA /* DeckImageRenderServiceAboutContentConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckImageRenderServiceAboutContentConfiguration.h; sourceTree = "<group>"; };
-		4FCC22C726ECAC81004997AA /* DeckImageRenderServiceAboutContentConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckImageRenderServiceAboutContentConfiguration.m; sourceTree = "<group>"; };
-		4FCC22C926ECAC98004997AA /* DeckImageRenderServiceAboutContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckImageRenderServiceAboutContentView.h; sourceTree = "<group>"; };
-		4FCC22CA26ECAC98004997AA /* DeckImageRenderServiceAboutContentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckImageRenderServiceAboutContentView.m; sourceTree = "<group>"; };
+		4FCC22C626ECAC81004997AA /* DeckImageRenderServiceAppNameContentConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckImageRenderServiceAppNameContentConfiguration.h; sourceTree = "<group>"; };
+		4FCC22C726ECAC81004997AA /* DeckImageRenderServiceAppNameContentConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckImageRenderServiceAppNameContentConfiguration.m; sourceTree = "<group>"; };
+		4FCC22C926ECAC98004997AA /* DeckImageRenderServiceAppNameContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckImageRenderServiceAppNameContentView.h; sourceTree = "<group>"; };
+		4FCC22CA26ECAC98004997AA /* DeckImageRenderServiceAppNameContentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckImageRenderServiceAppNameContentView.m; sourceTree = "<group>"; };
+		4FDE8DEE26F107D200959B97 /* GmarketSansTTFMedium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GmarketSansTTFMedium.ttf; sourceTree = "<group>"; };
+		4FDE8DEF26F107D200959B97 /* GmarketSansTTFBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GmarketSansTTFBold.ttf; sourceTree = "<group>"; };
+		4FDE8DF026F107D200959B97 /* GmarketSansTTFLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GmarketSansTTFLight.ttf; sourceTree = "<group>"; };
+		4FDE8DF126F107ED00959B97 /* UIFont+customFonts.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIFont+customFonts.h"; sourceTree = "<group>"; };
+		4FDE8DF226F107ED00959B97 /* UIFont+customFonts.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIFont+customFonts.m"; sourceTree = "<group>"; };
+		4FDE8DF926F113AB00959B97 /* DeckImageRenderServiceAboutContentConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckImageRenderServiceAboutContentConfiguration.h; sourceTree = "<group>"; };
+		4FDE8DFA26F113AB00959B97 /* DeckImageRenderServiceAboutContentConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckImageRenderServiceAboutContentConfiguration.m; sourceTree = "<group>"; };
+		4FDE8DFC26F113B500959B97 /* DeckImageRenderServiceAboutContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckImageRenderServiceAboutContentView.h; sourceTree = "<group>"; };
+		4FDE8DFD26F113B500959B97 /* DeckImageRenderServiceAboutContentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckImageRenderServiceAboutContentView.m; sourceTree = "<group>"; };
 		4FE097C326A329B400BF3A6D /* BlizzardAPIRegionHost.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlizzardAPIRegionHost.h; sourceTree = "<group>"; };
 		4FE097C626A331FE00BF3A6D /* HSCardRarity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardRarity.h; sourceTree = "<group>"; };
 		4FE097CA26A33C7500BF3A6D /* HSCardClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardClass.h; sourceTree = "<group>"; };
@@ -746,6 +761,8 @@
 				4F3F1BC526E7C21100ACF80A /* UIView+removeAllSubviews.m */,
 				4F7EC54226EB26BE00A7758D /* UIView+imageRendered.h */,
 				4F7EC54326EB26BE00A7758D /* UIView+imageRendered.m */,
+				4FDE8DF126F107ED00959B97 /* UIFont+customFonts.h */,
+				4FDE8DF226F107ED00959B97 /* UIFont+customFonts.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1053,6 +1070,7 @@
 			isa = PBXGroup;
 			children = (
 				4FF3E0C826C9AE06002B20EA /* Service */,
+				4FDE8DED26F107C400959B97 /* Resources */,
 				4FA56BB626A2105A002D9FA0 /* Assets.xcassets */,
 				4FA56BBC26A2105A002D9FA0 /* main.m */,
 				4FA56BAA26A21059002D9FA0 /* AppDelegate.h */,
@@ -1374,13 +1392,34 @@
 			path = Intro;
 			sourceTree = "<group>";
 		};
-		4FCC22C526ECAC6D004997AA /* About */ = {
+		4FCC22C526ECAC6D004997AA /* AppName */ = {
 			isa = PBXGroup;
 			children = (
-				4FCC22C626ECAC81004997AA /* DeckImageRenderServiceAboutContentConfiguration.h */,
-				4FCC22C726ECAC81004997AA /* DeckImageRenderServiceAboutContentConfiguration.m */,
-				4FCC22C926ECAC98004997AA /* DeckImageRenderServiceAboutContentView.h */,
-				4FCC22CA26ECAC98004997AA /* DeckImageRenderServiceAboutContentView.m */,
+				4FCC22C626ECAC81004997AA /* DeckImageRenderServiceAppNameContentConfiguration.h */,
+				4FCC22C726ECAC81004997AA /* DeckImageRenderServiceAppNameContentConfiguration.m */,
+				4FCC22C926ECAC98004997AA /* DeckImageRenderServiceAppNameContentView.h */,
+				4FCC22CA26ECAC98004997AA /* DeckImageRenderServiceAppNameContentView.m */,
+			);
+			path = AppName;
+			sourceTree = "<group>";
+		};
+		4FDE8DED26F107C400959B97 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				4FDE8DEF26F107D200959B97 /* GmarketSansTTFBold.ttf */,
+				4FDE8DF026F107D200959B97 /* GmarketSansTTFLight.ttf */,
+				4FDE8DEE26F107D200959B97 /* GmarketSansTTFMedium.ttf */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		4FDE8DF826F1130900959B97 /* About */ = {
+			isa = PBXGroup;
+			children = (
+				4FDE8DF926F113AB00959B97 /* DeckImageRenderServiceAboutContentConfiguration.h */,
+				4FDE8DFA26F113AB00959B97 /* DeckImageRenderServiceAboutContentConfiguration.m */,
+				4FDE8DFC26F113B500959B97 /* DeckImageRenderServiceAboutContentView.h */,
+				4FDE8DFD26F113B500959B97 /* DeckImageRenderServiceAboutContentView.m */,
 			);
 			path = About;
 			sourceTree = "<group>";
@@ -1432,7 +1471,8 @@
 			children = (
 				4FCC22AE26ECA3AD004997AA /* Intro */,
 				4FEC8A0426EB87990061BBF4 /* Card */,
-				4FCC22C526ECAC6D004997AA /* About */,
+				4FDE8DF826F1130900959B97 /* About */,
+				4FCC22C526ECAC6D004997AA /* AppName */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -1714,10 +1754,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4FDE8DF626F10A2D00959B97 /* GmarketSansTTFBold.ttf in Resources */,
 				4FA56BB726A2105A002D9FA0 /* Assets.xcassets in Resources */,
 				4F9DFBBD26B30764002AACDE /* LaunchScreen.storyboard in Resources */,
 				4F9DFBB726B2FD2E002AACDE /* InfoPlist.strings in Resources */,
+				4FDE8DF526F10A2D00959B97 /* GmarketSansTTFLight.ttf in Resources */,
 				4F9DFBB126B2FD0C002AACDE /* Localizable.strings in Resources */,
+				4FDE8DF426F10A2D00959B97 /* GmarketSansTTFMedium.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1807,17 +1850,19 @@
 				4F3F1BC326E7C12000ACF80A /* TextActivityViewController.m in Sources */,
 				4F74711A26C1698B001C45C4 /* CardDetailsChildrenContentView.m in Sources */,
 				4F57DE9D26AD7B53000E4163 /* PickerViewController.m in Sources */,
-				4FCC22CB26ECAC98004997AA /* DeckImageRenderServiceAboutContentView.m in Sources */,
+				4FDE8DFB26F113AB00959B97 /* DeckImageRenderServiceAboutContentConfiguration.m in Sources */,
+				4FCC22CB26ECAC98004997AA /* DeckImageRenderServiceAppNameContentView.m in Sources */,
 				4F182BD126AC23600028115C /* UIViewController+presentErrorAlert.m in Sources */,
 				4F74711E26C16BD4001C45C4 /* CardDetailsChildrenContentCollectionViewCompositionalLayout.m in Sources */,
 				4F74712126C16BDF001C45C4 /* CardDetailsChildrenContentViewModel.m in Sources */,
 				4F73ABB226E88337000FD629 /* ZoomAnimatedTransitioning.m in Sources */,
 				4F414B0A26CEFA5E0003A0CF /* DeckDetailsItemModel.m in Sources */,
-				4FCC22C826ECAC81004997AA /* DeckImageRenderServiceAboutContentConfiguration.m in Sources */,
+				4FCC22C826ECAC81004997AA /* DeckImageRenderServiceAppNameContentConfiguration.m in Sources */,
 				4FF3E0CE26C9B84C002B20EA /* UIView+viewController.m in Sources */,
 				4F4C5E2226D31F0E00E3349B /* NSDiffableDataSourceSnapshot+sort.m in Sources */,
 				4F74712C26C175FE001C45C4 /* CardDetailsChildrenContentImageConfiguration.m in Sources */,
 				4F8FFF4F26E0EE9000FA6586 /* DeckAddCardOptionItemModel.m in Sources */,
+				4FDE8DFE26F113B500959B97 /* DeckImageRenderServiceAboutContentView.m in Sources */,
 				4F98E25226B9935B0067846F /* CardDetailsLayoutCompactViewController.m in Sources */,
 				4F8FFF4226E0E66A00FA6586 /* DeckAddCardsViewController.m in Sources */,
 				4F8FFF5026E0EE9000FA6586 /* DeckAddCardOptionSectionModel.m in Sources */,
@@ -1849,6 +1894,7 @@
 				4FC094FD26CD77C400A7D373 /* DecksViewModel.m in Sources */,
 				4F8FFF3C26E0E66A00FA6586 /* DeckAddCardsViewModel.m in Sources */,
 				4F8F976926D47F360024FC06 /* DeckDetailsManaCostContentConfiguration.m in Sources */,
+				4FDE8DF326F107ED00959B97 /* UIFont+customFonts.m in Sources */,
 				4F03F57926C7B62C00FC9155 /* PrefsSectionModel.m in Sources */,
 				4FF3E0C426C9901F002B20EA /* PrefsRegionHostItemModel.m in Sources */,
 				4F8FFF5126E0EE9000FA6586 /* DeckAddCardOptionsViewController.m in Sources */,

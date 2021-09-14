@@ -101,9 +101,7 @@
         
         DeckImageRenderServiceItemModel *introItemModel = [[DeckImageRenderServiceItemModel alloc] initWithType:DeckImageRenderServiceItemModelTypeIntro];
         introItemModel.classId = classId;
-        introItemModel.totalArcaneDust = totalArcaneDust;
         introItemModel.deckName = deckName;
-        introItemModel.hsYearCurrent = hsYearCurrent();
         introItemModel.deckFormat = deckFormat;
         
         [snapshot appendItemsWithIdentifiers:@[introItemModel] intoSectionWithIdentifier:introSectionModel];
@@ -152,9 +150,22 @@
         DeckImageRenderServiceSectionModel *aboutSectionModel = [[DeckImageRenderServiceSectionModel alloc] initWithType:DeckImageRenderServiceSectionModelTypeAbout];
         [snapshot appendSectionsWithIdentifiers:@[aboutSectionModel]];
         DeckImageRenderServiceItemModel *aboutItemModel = [[DeckImageRenderServiceItemModel alloc] initWithType:DeckImageRenderServiceItemModelTypeAbout];
+        
+        aboutItemModel.totalArcaneDust = totalArcaneDust;
+        aboutItemModel.hsYearCurrent = hsYearCurrent();
+        
         [snapshot appendItemsWithIdentifiers:@[aboutItemModel] intoSectionWithIdentifier:aboutSectionModel];
         [aboutSectionModel release];
         [aboutItemModel release];
+        
+        //
+        
+        DeckImageRenderServiceSectionModel *appNameSectionModel = [[DeckImageRenderServiceSectionModel alloc] initWithType:DeckImageRenderServiceSectionModelTypeAppName];
+        [snapshot appendSectionsWithIdentifiers:@[appNameSectionModel]];
+        DeckImageRenderServiceItemModel *appNameItemModel = [[DeckImageRenderServiceItemModel alloc] initWithType:DeckImageRenderServiceItemModelTypeAppName];
+        [snapshot appendItemsWithIdentifiers:@[appNameItemModel] intoSectionWithIdentifier:appNameSectionModel];
+        [appNameSectionModel release];
+        [appNameItemModel release];
         
         //
         

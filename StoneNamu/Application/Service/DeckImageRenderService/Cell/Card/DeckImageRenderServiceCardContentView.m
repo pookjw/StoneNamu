@@ -8,6 +8,7 @@
 #import "DeckImageRenderServiceCardContentView.h"
 #import "DeckImageRenderServiceCardContentConfiguration.h"
 #import "InsetsLabel.h"
+#import "UIFont+customFonts.h"
 
 @interface DeckImageRenderServiceCardContentView ()
 @property (readonly, nonatomic) HSCard * _Nullable hsCard;
@@ -65,7 +66,7 @@
     nameLabel.backgroundColor = UIColor.clearColor;
     nameLabel.textColor = UIColor.whiteColor;
     nameLabel.adjustsFontSizeToFitWidth = YES;
-    nameLabel.font = [UIFont systemFontOfSize:18 weight:UIFontWeightRegular];
+    nameLabel.font = [UIFont customFontWithType:UIFontCustomFontTypeGmarketSansMedium size:18];
     nameLabel.minimumScaleFactor = 0.1;
     
     nameLabel.layer.shadowRadius = 2.0;
@@ -108,9 +109,12 @@
     UILabel *manaCostLabel = [UILabel new];
     self.manaCostLabel = manaCostLabel;
     
-    manaCostLabel.backgroundColor = UIColor.systemBlueColor;
+    manaCostLabel.backgroundColor = [UIColor colorWithRed:33.0 / 255.0
+                                                    green:109.0 / 255.0
+                                                     blue:217.0 / 255.0
+                                                    alpha:1.0];
     manaCostLabel.textColor = UIColor.whiteColor;
-    manaCostLabel.font = [UIFont systemFontOfSize:18 weight:UIFontWeightBold];
+    manaCostLabel.font = [UIFont customFontWithType:UIFontCustomFontTypeGmarketSansBold size:18];
     manaCostLabel.textAlignment = NSTextAlignmentCenter;
     
     [self addSubview:manaCostLabel];
@@ -161,7 +165,7 @@
                                                                     relatedBy:NSLayoutRelationEqual
                                                                        toItem:imageView
                                                                     attribute:NSLayoutAttributeHeight
-                                                                   multiplier:243 / 64
+                                                                   multiplier:243.0 / 64.0
                                                                      constant:0];
     aspectLayout.active = YES;
     
@@ -194,8 +198,15 @@
     
     //
     
-    countLabel.backgroundColor = UIColor.grayColor;
-    countLabel.font = [UIFont systemFontOfSize:18 weight:UIFontWeightBold];
+    countLabel.backgroundColor = [UIColor colorWithRed:19.0 / 255.0
+                                                 green:22.0 / 255.0
+                                                  blue:26.0 / 255.0
+                                                 alpha:1.0];
+    countLabel.textColor = [UIColor colorWithRed:255.0 / 255.0
+                                           green:191.0 / 255.0
+                                            blue:0 / 255.0
+                                           alpha:1.0];
+    countLabel.font = [UIFont customFontWithType:UIFontCustomFontTypeGmarketSansBold size:18];
     countLabel.textAlignment = NSTextAlignmentCenter;
     
     [self addSubview:countLabel];
@@ -311,10 +322,8 @@
 - (void)updateCountLabel {
     if ((self.hsCard.rarityId == HSCardRarityLegendary) && (self.hsCardCount == 1)) {
         self.countLabel.text = @"★";
-        self.countLabel.textColor = UIColor.orangeColor;
     } else {
         self.countLabel.text = [NSString stringWithFormat:@"%lu", self.hsCardCount];
-        self.countLabel.textColor = UIColor.whiteColor;
     }
 }
 

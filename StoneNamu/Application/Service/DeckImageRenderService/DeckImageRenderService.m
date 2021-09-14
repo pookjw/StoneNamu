@@ -11,6 +11,7 @@
 #import "DeckImageRenderServiceIntroContentConfiguration.h"
 #import "DeckImageRenderServiceCardContentConfiguration.h"
 #import "DeckImageRenderServiceAboutContentConfiguration.h"
+#import "DeckImageRenderServiceAppNameContentConfiguration.h"
 #import "NSSemaphoreCondition.h"
 
 @interface DeckImageRenderService ()
@@ -107,7 +108,8 @@
     UICollectionViewCompositionalLayout *layout = [UICollectionViewCompositionalLayout layoutWithListConfiguration:layoutConfiguration];
     [layoutConfiguration release];
     
-    UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, 300, 1) collectionViewLayout:layout];
+    // height will be 1313 when filled 30 cards with sigle cards
+    UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, 300, 1313) collectionViewLayout:layout];
     collectionView.backgroundColor = UIColor.blackColor;
     collectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     collectionView.showsVerticalScrollIndicator = NO;
@@ -150,9 +152,7 @@
         switch (itemModel.type) {
             case DeckImageRenderServiceItemModelTypeIntro: {
                 DeckImageRenderServiceIntroContentConfiguration *configuration = [[DeckImageRenderServiceIntroContentConfiguration alloc] initWithClassId:itemModel.classId
-                                                                                                                                          totalArcaneDust:itemModel.totalArcaneDust
                                                                                                                                                  deckName:itemModel.deckName
-                                                                                                                                            hsYearCurrent:itemModel.hsYearCurrent
                                                                                                                                                deckFormat:itemModel.deckFormat];
                 cell.contentConfiguration = configuration;
                 [configuration release];
@@ -167,7 +167,14 @@
                 break;
             }
             case DeckImageRenderServiceItemModelTypeAbout: {
-                DeckImageRenderServiceAboutContentConfiguration *configuration = [DeckImageRenderServiceAboutContentConfiguration new];
+                DeckImageRenderServiceAboutContentConfiguration *configuration = [[DeckImageRenderServiceAboutContentConfiguration alloc] initWithTotalArcaneDust:itemModel.totalArcaneDust
+                                                                                                                                                    hsYearCurrent:itemModel.hsYearCurrent];
+                cell.contentConfiguration = configuration;
+                [configuration release];
+                break;
+            }
+            case DeckImageRenderServiceItemModelTypeAppName: {
+                DeckImageRenderServiceAppNameContentConfiguration *configuration = [DeckImageRenderServiceAppNameContentConfiguration new];
                 cell.contentConfiguration = configuration;
                 [configuration release];
                 break;
