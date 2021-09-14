@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 typedef void (^DeckImageRenderServiceCompletion)(UIImage *);
 
 @interface DeckImageRenderService : NSObject
-- (void)imageFromLocalDeck:(LocalDeck *)localDeck completion:(DeckImageRenderServiceCompletion)completion;
+- (void)imageFromLocalDeck:(LocalDeck *)localDeck completion:(DeckImageRenderServiceCompletion)completion testVC:(UIViewController *)testVC;
 - (void)imageFromHSDeck:(HSDeck *)hsDeck completion:(DeckImageRenderServiceCompletion)completion;
 @end
 

@@ -15,7 +15,6 @@
 @interface DeckImageRenderServiceAboutContentView ()
 @property (readonly, nonatomic) NSString * _Nullable hsYearCurrent;
 @property (readonly, nonatomic) NSNumber * _Nullable totalArcaneDust;
-@property (retain) UIStackView *primaryStackView;
 @property (retain) InsetsLabel *deckYearLabel;
 @property (retain) UIStackView *arcaneDustStackView;
 @property (retain) InsetsLabel *arcaneDustLabel;
@@ -31,7 +30,6 @@
     
     if (self) {
         [self setAttributes];
-        [self configurePrimaryStackView];
         [self configureDeckYearLabel];
         [self configureArcaneDustStackView];
         [self configureArcaneDustImageView];
@@ -43,7 +41,6 @@
 
 - (void)dealloc {
     [configuration release];
-    [_primaryStackView release];
     [_deckYearLabel release];
     [_arcaneDustStackView release];
     [_arcaneDustLabel release];
@@ -55,41 +52,28 @@
     self.backgroundColor = UIColor.clearColor;
 }
 
-- (void)configurePrimaryStackView {
-    UIStackView *primaryStackView = [UIStackView new];
-    self.primaryStackView = primaryStackView;
-    
-    primaryStackView.axis = UILayoutConstraintAxisHorizontal;
-    primaryStackView.backgroundColor = UIColor.clearColor;
-    
-    primaryStackView.translatesAutoresizingMaskIntoConstraints = NO;
-    [self addSubview:primaryStackView];
-    
-    [NSLayoutConstraint activateConstraints:@[
-        [primaryStackView.topAnchor constraintEqualToAnchor:self.topAnchor],
-        [primaryStackView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
-        [primaryStackView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor]
-    ]];
-    
-    NSLayoutConstraint *bottomLayout = [primaryStackView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor];
-    bottomLayout.priority = UILayoutPriorityDefaultHigh;
-    bottomLayout.active = YES;
-    
-    [primaryStackView release];
-}
-
 - (void)configureDeckYearLabel {
     InsetsLabel *deckYearLabel = [InsetsLabel new];
     self.deckYearLabel = deckYearLabel;
     
     deckYearLabel.contentInsets = UIEdgeInsetsMake(10, 10, 10, 10);
-    deckYearLabel.font = [UIFont customFontWithType:UIFontCustomFontTypeGmarketSansMedium size:15];
+    deckYearLabel.font = [UIFont customFontWithType:UIFontCustomFontTypeGmarketSansMedium size:18];
     deckYearLabel.backgroundColor = UIColor.clearColor;
     deckYearLabel.textColor = UIColor.whiteColor;
     
-    [self.primaryStackView addArrangedSubview:deckYearLabel];
+    deckYearLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    [self addSubview:deckYearLabel];
     
-    [deckYearLabel setContentCompressionResistancePriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
+    [NSLayoutConstraint activateConstraints:@[
+        [deckYearLabel.topAnchor constraintEqualToAnchor:self.topAnchor],
+        [deckYearLabel.leadingAnchor constraintEqualToAnchor:self.leadingAnchor]
+    ]];
+    
+    NSLayoutConstraint *bottomLayout = [deckYearLabel.bottomAnchor constraintEqualToAnchor:self.bottomAnchor];
+    bottomLayout.priority = UILayoutPriorityDefaultHigh;
+    bottomLayout.active = YES;
+    
+    [deckYearLabel setContentCompressionResistancePriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
     
     [deckYearLabel release];
 }
@@ -100,10 +84,25 @@
     
     arcaneDustStackView.axis = UILayoutConstraintAxisHorizontal;
     arcaneDustStackView.backgroundColor = UIColor.clearColor;
+    arcaneDustStackView.distribution = UIStackViewDistributionFill;
     
-    [self.primaryStackView addArrangedSubview:arcaneDustStackView];
+    arcaneDustStackView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self addSubview:arcaneDustStackView];
     
-    [arcaneDustStackView setContentCompressionResistancePriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
+    //
+    
+    [NSLayoutConstraint activateConstraints:@[
+        [arcaneDustStackView.centerYAnchor constraintEqualToAnchor:self.centerYAnchor],
+        [arcaneDustStackView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor]
+    ]];
+    
+    NSLayoutConstraint *leadingLayout = [arcaneDustStackView.leadingAnchor constraintGreaterThanOrEqualToAnchor:self.deckYearLabel.trailingAnchor];
+    leadingLayout.priority = UILayoutPriorityDefaultHigh;
+    leadingLayout.active = YES;
+    
+    //
+    
+    [arcaneDustStackView setContentCompressionResistancePriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
     
     [arcaneDustStackView release];
 }
@@ -115,7 +114,7 @@
     arcaneDustImageView.backgroundColor = UIColor.clearColor;
     arcaneDustImageView.tintColor = UIColor.cyanColor;
     arcaneDustImageView.contentMode = UIViewContentModeScaleToFill;
-    arcaneDustImageView.image = [[UIImage systemImageNamed:@"eyedropper.halffull"] imageWithAlignmentRectInsets:UIEdgeInsetsMake(-5, 0, -5, 0)];
+    arcaneDustImageView.image = [UIImage imageNamed:@"chemistry"];
     
     [self.arcaneDustStackView addArrangedSubview:arcaneDustImageView];
     
@@ -138,15 +137,21 @@
     InsetsLabel *arcaneDustLabel = [InsetsLabel new];
     self.arcaneDustLabel = arcaneDustLabel;
     
-    arcaneDustLabel.contentInsets = UIEdgeInsetsMake(10, 10, 10, 10);
-    arcaneDustLabel.font = [UIFont customFontWithType:UIFontCustomFontTypeGmarketSansMedium size:15];
+    arcaneDustLabel.font = [UIFont customFontWithType:UIFontCustomFontTypeGmarketSansMedium size:18];
     arcaneDustLabel.backgroundColor = UIColor.clearColor;
     arcaneDustLabel.textColor = UIColor.whiteColor;
     
     [self.arcaneDustStackView addArrangedSubview:arcaneDustLabel];
     
-    NSLayoutConstraint *heightLayout = [arcaneDustLabel.heightAnchor constraintEqualToAnchor:self.arcaneDustImageView.heightAnchor];
-    heightLayout.active = YES;
+    CGRect rect = [@"9" boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX)
+                                     options:NSStringDrawingUsesLineFragmentOrigin
+                                  attributes:@{NSFontAttributeName: arcaneDustLabel.font}
+                                     context:nil];
+    
+    [NSLayoutConstraint activateConstraints:@[
+        [arcaneDustLabel.heightAnchor constraintEqualToAnchor:self.arcaneDustImageView.heightAnchor],
+        [arcaneDustLabel.heightAnchor constraintEqualToConstant:ceil(rect.size.height)]
+    ]];
     
     [arcaneDustLabel setContentCompressionResistancePriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
     [arcaneDustLabel setContentCompressionResistancePriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisVertical];

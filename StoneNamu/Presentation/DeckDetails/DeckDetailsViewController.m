@@ -196,7 +196,7 @@
                 [service release];
             }];
         }];
-    }];
+    } testVC:self];
 }
 
 - (void)exportDeckCodeAndShare {

@@ -199,6 +199,8 @@
     gradientLayer.endPoint = CGPointMake(0, 1);
     self.backgroundView.layer.mask = gradientLayer;
     [gradientLayer release];
+    
+    [backgroundView release];
 }
 
 - (void)updateGradientLayer {
