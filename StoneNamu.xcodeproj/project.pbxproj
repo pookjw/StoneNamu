@@ -179,7 +179,6 @@
 		4FDE8DFB26F113AB00959B97 /* DeckImageRenderServiceAboutContentConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FDE8DFA26F113AB00959B97 /* DeckImageRenderServiceAboutContentConfiguration.m */; };
 		4FDE8DFE26F113B500959B97 /* DeckImageRenderServiceAboutContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FDE8DFD26F113B500959B97 /* DeckImageRenderServiceAboutContentView.m */; };
 		4FDE8E0126F1281100959B97 /* NSNumber+stringWithSepearatedDecimalNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FDE8E0026F1281100959B97 /* NSNumber+stringWithSepearatedDecimalNumber.m */; };
-		4FDE8E0326F12D6400959B97 /* View.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4FDE8E0226F12D6400959B97 /* View.xib */; };
 		4FEB413E26BD6116009D8594 /* CardDetailsBasicContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FEB413D26BD6116009D8594 /* CardDetailsBasicContentView.m */; };
 		4FEB414126BD6133009D8594 /* CardDetailsBasicContentConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FEB414026BD6133009D8594 /* CardDetailsBasicContentConfiguration.m */; };
 		4FEB414826BD7BDF009D8594 /* NSString+clearedHTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FEB414726BD7BDF009D8594 /* NSString+clearedHTML.m */; };
@@ -574,7 +573,6 @@
 		4FDE8DFD26F113B500959B97 /* DeckImageRenderServiceAboutContentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckImageRenderServiceAboutContentView.m; sourceTree = "<group>"; };
 		4FDE8DFF26F1281100959B97 /* NSNumber+stringWithSepearatedDecimalNumber.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSNumber+stringWithSepearatedDecimalNumber.h"; sourceTree = "<group>"; };
 		4FDE8E0026F1281100959B97 /* NSNumber+stringWithSepearatedDecimalNumber.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSNumber+stringWithSepearatedDecimalNumber.m"; sourceTree = "<group>"; };
-		4FDE8E0226F12D6400959B97 /* View.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = View.xib; sourceTree = "<group>"; };
 		4FE097C326A329B400BF3A6D /* BlizzardAPIRegionHost.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlizzardAPIRegionHost.h; sourceTree = "<group>"; };
 		4FE097C626A331FE00BF3A6D /* HSCardRarity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardRarity.h; sourceTree = "<group>"; };
 		4FE097CA26A33C7500BF3A6D /* HSCardClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardClass.h; sourceTree = "<group>"; };
@@ -1427,7 +1425,6 @@
 				4FDE8DFA26F113AB00959B97 /* DeckImageRenderServiceAboutContentConfiguration.m */,
 				4FDE8DFC26F113B500959B97 /* DeckImageRenderServiceAboutContentView.h */,
 				4FDE8DFD26F113B500959B97 /* DeckImageRenderServiceAboutContentView.m */,
-				4FDE8E0226F12D6400959B97 /* View.xib */,
 			);
 			path = About;
 			sourceTree = "<group>";
@@ -1766,7 +1763,6 @@
 				4FA56BB726A2105A002D9FA0 /* Assets.xcassets in Resources */,
 				4F9DFBBD26B30764002AACDE /* LaunchScreen.storyboard in Resources */,
 				4F9DFBB726B2FD2E002AACDE /* InfoPlist.strings in Resources */,
-				4FDE8E0326F12D6400959B97 /* View.xib in Resources */,
 				4FDE8DF526F10A2D00959B97 /* GmarketSansTTFLight.ttf in Resources */,
 				4F9DFBB126B2FD0C002AACDE /* Localizable.strings in Resources */,
 				4FDE8DF426F10A2D00959B97 /* GmarketSansTTFMedium.ttf in Resources */,
