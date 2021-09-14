@@ -178,6 +178,7 @@
 		4FDE8DF626F10A2D00959B97 /* GmarketSansTTFBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4FDE8DEF26F107D200959B97 /* GmarketSansTTFBold.ttf */; };
 		4FDE8DFB26F113AB00959B97 /* DeckImageRenderServiceAboutContentConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FDE8DFA26F113AB00959B97 /* DeckImageRenderServiceAboutContentConfiguration.m */; };
 		4FDE8DFE26F113B500959B97 /* DeckImageRenderServiceAboutContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FDE8DFD26F113B500959B97 /* DeckImageRenderServiceAboutContentView.m */; };
+		4FDE8E0126F1281100959B97 /* NSNumber+stringWithSepearatedDecimalNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FDE8E0026F1281100959B97 /* NSNumber+stringWithSepearatedDecimalNumber.m */; };
 		4FEB413E26BD6116009D8594 /* CardDetailsBasicContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FEB413D26BD6116009D8594 /* CardDetailsBasicContentView.m */; };
 		4FEB414126BD6133009D8594 /* CardDetailsBasicContentConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FEB414026BD6133009D8594 /* CardDetailsBasicContentConfiguration.m */; };
 		4FEB414826BD7BDF009D8594 /* NSString+clearedHTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FEB414726BD7BDF009D8594 /* NSString+clearedHTML.m */; };
@@ -570,6 +571,8 @@
 		4FDE8DFA26F113AB00959B97 /* DeckImageRenderServiceAboutContentConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckImageRenderServiceAboutContentConfiguration.m; sourceTree = "<group>"; };
 		4FDE8DFC26F113B500959B97 /* DeckImageRenderServiceAboutContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckImageRenderServiceAboutContentView.h; sourceTree = "<group>"; };
 		4FDE8DFD26F113B500959B97 /* DeckImageRenderServiceAboutContentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckImageRenderServiceAboutContentView.m; sourceTree = "<group>"; };
+		4FDE8DFF26F1281100959B97 /* NSNumber+stringWithSepearatedDecimalNumber.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSNumber+stringWithSepearatedDecimalNumber.h"; sourceTree = "<group>"; };
+		4FDE8E0026F1281100959B97 /* NSNumber+stringWithSepearatedDecimalNumber.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSNumber+stringWithSepearatedDecimalNumber.m"; sourceTree = "<group>"; };
 		4FE097C326A329B400BF3A6D /* BlizzardAPIRegionHost.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlizzardAPIRegionHost.h; sourceTree = "<group>"; };
 		4FE097C626A331FE00BF3A6D /* HSCardRarity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardRarity.h; sourceTree = "<group>"; };
 		4FE097CA26A33C7500BF3A6D /* HSCardClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardClass.h; sourceTree = "<group>"; };
@@ -763,6 +766,8 @@
 				4F7EC54326EB26BE00A7758D /* UIView+imageRendered.m */,
 				4FDE8DF126F107ED00959B97 /* UIFont+customFonts.h */,
 				4FDE8DF226F107ED00959B97 /* UIFont+customFonts.m */,
+				4FDE8DFF26F1281100959B97 /* NSNumber+stringWithSepearatedDecimalNumber.h */,
+				4FDE8E0026F1281100959B97 /* NSNumber+stringWithSepearatedDecimalNumber.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1828,6 +1833,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4FDE8E0126F1281100959B97 /* NSNumber+stringWithSepearatedDecimalNumber.m in Sources */,
 				4F74711726C1678F001C45C4 /* CardDetailsChildrenContentConfiguration.m in Sources */,
 				4FF3E0C726C998E6002B20EA /* NSBundle+BuildInfo.m in Sources */,
 				4F1B98A626C8235B004E1603 /* PrefsLocaleViewController.m in Sources */,

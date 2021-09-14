@@ -10,8 +10,11 @@
 #import "InsetsLabel.h"
 #import "HSYear.h"
 #import "UIFont+customFonts.h"
+#import "NSNumber+stringWithSepearatedDecimalNumber.h"
 
 @interface DeckImageRenderServiceAboutContentView ()
+@property (readonly, nonatomic) NSString * _Nullable hsYearCurrent;
+@property (readonly, nonatomic) NSNumber * _Nullable totalArcaneDust;
 @property (retain) UIStackView *primaryStackView;
 @property (retain) InsetsLabel *deckYearLabel;
 @property (retain) UIStackView *arcaneDustStackView;
@@ -112,7 +115,7 @@
     arcaneDustImageView.backgroundColor = UIColor.clearColor;
     arcaneDustImageView.tintColor = UIColor.cyanColor;
     arcaneDustImageView.contentMode = UIViewContentModeScaleToFill;
-    arcaneDustImageView.image = [[UIImage systemImageNamed:@"testtube.2"] imageWithAlignmentRectInsets:UIEdgeInsetsMake(-5, 0, -5, 0)];
+    arcaneDustImageView.image = [[UIImage systemImageNamed:@"eyedropper.halffull"] imageWithAlignmentRectInsets:UIEdgeInsetsMake(-5, 0, -5, 0)];
     
     [self.arcaneDustStackView addArrangedSubview:arcaneDustImageView];
     
@@ -158,8 +161,36 @@
     DeckImageRenderServiceAboutContentConfiguration *newConfiguration = [(DeckImageRenderServiceAboutContentConfiguration *)configuration copy];
     self->configuration = newConfiguration;
     
-    self.deckYearLabel.text = hsYearsWithLocalizables()[newConfiguration.hsYearCurrent];
-    self.arcaneDustLabel.text = newConfiguration.totalArcaneDust.stringValue;
+    [self updateDeckYearLabel];
+    [self updateArcaneDustLabel];
+}
+
+- (void)updateDeckYearLabel {
+    self.deckYearLabel.text = hsYearsWithLocalizables()[self.hsYearCurrent];
+}
+
+- (void)updateArcaneDustLabel {
+    self.arcaneDustLabel.text = self.totalArcaneDust.stringWithSepearatedDecimalNumber;
+}
+
+- (NSString *)hsYearCurrent {
+    DeckImageRenderServiceAboutContentConfiguration *configuration = (DeckImageRenderServiceAboutContentConfiguration *)self.configuration;
+    
+    if (![configuration isKindOfClass:[DeckImageRenderServiceAboutContentConfiguration class]]) {
+        return nil;
+    }
+    
+    return configuration.hsYearCurrent;
+}
+
+- (NSNumber *)totalArcaneDust {
+    DeckImageRenderServiceAboutContentConfiguration *configuration = (DeckImageRenderServiceAboutContentConfiguration *)self.configuration;
+    
+    if (![configuration isKindOfClass:[DeckImageRenderServiceAboutContentConfiguration class]]) {
+        return nil;
+    }
+    
+    return configuration.totalArcaneDust;
 }
 
 @end
