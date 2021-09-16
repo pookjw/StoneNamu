@@ -136,45 +136,46 @@ HSCardSet HSCardSetFromNSString(NSString * key) {
     }
 }
 
-NSArray<NSString *> * hsCardSets() {
+NSArray<NSNumber *> * hsCardSets() {
     return @[
-        NSStringFromHSCardSet(HSCardSetLegacy),
-        NSStringFromHSCardSet(HSCardSetNaxxramas),
-        NSStringFromHSCardSet(HSCardSetGoblinsVsGnomes),
-        NSStringFromHSCardSet(HSCardSetBlackRockMountain),
-        NSStringFromHSCardSet(HSCardSetTheGrandTournament),
-        NSStringFromHSCardSet(HSCardSetLeagueOfExplorers),
-        NSStringFromHSCardSet(HSCardSetWhispersOfTheOldGods),
-        NSStringFromHSCardSet(HSCardSetOneNightInKarazhan),
-        NSStringFromHSCardSet(HSCardSetMeanStreetOfGadgetzan),
-        NSStringFromHSCardSet(HSCardSetJourneyToUngoro),
-        NSStringFromHSCardSet(HSCardSetKnightsOfTheFrozenThrone),
-        NSStringFromHSCardSet(HSCardSetKoboldsAndCatacombs),
-        NSStringFromHSCardSet(HSCardSetTheWitchwood),
-        NSStringFromHSCardSet(HSCardSetTheBoomsdayProject),
-        NSStringFromHSCardSet(HSCardSetRastakhansRumble),
-        NSStringFromHSCardSet(HSCardSetRiseOfShadows),
-        NSStringFromHSCardSet(HSCardSetSaviorsOfUldum),
-        NSStringFromHSCardSet(HSCardSetDescentOfDragons),
-        NSStringFromHSCardSet(HSCardSetGalakrondsAwakening),
-        NSStringFromHSCardSet(HSCardSetDemonHunderInitiate),
-        NSStringFromHSCardSet(HSCardSetCore),
-        NSStringFromHSCardSet(HSCardSetAshesOfOutland),
-        NSStringFromHSCardSet(HSCardSetScholomanceAcademy),
-        NSStringFromHSCardSet(HSCardSetMadnessAtTheDarkmoonFaire),
-        NSStringFromHSCardSet(HSCardSetForgedInTheBarrens),
-        NSStringFromHSCardSet(HSCardSetUnitedInStormWind),
-        NSStringFromHSCardSet(HSCardSetClassicCards),
-        NSStringFromHSCardSet(HSCardSetWildCards),
-        NSStringFromHSCardSet(HSCardSetStandardCards)
+        [NSNumber numberWithUnsignedInteger:HSCardSetLegacy],
+        [NSNumber numberWithUnsignedInteger:HSCardSetNaxxramas],
+        [NSNumber numberWithUnsignedInteger:HSCardSetGoblinsVsGnomes],
+        [NSNumber numberWithUnsignedInteger:HSCardSetBlackRockMountain],
+        [NSNumber numberWithUnsignedInteger:HSCardSetTheGrandTournament],
+        [NSNumber numberWithUnsignedInteger:HSCardSetLeagueOfExplorers],
+        [NSNumber numberWithUnsignedInteger:HSCardSetWhispersOfTheOldGods],
+        [NSNumber numberWithUnsignedInteger:HSCardSetOneNightInKarazhan],
+        [NSNumber numberWithUnsignedInteger:HSCardSetMeanStreetOfGadgetzan],
+        [NSNumber numberWithUnsignedInteger:HSCardSetJourneyToUngoro],
+        [NSNumber numberWithUnsignedInteger:HSCardSetKnightsOfTheFrozenThrone],
+        [NSNumber numberWithUnsignedInteger:HSCardSetKoboldsAndCatacombs],
+        [NSNumber numberWithUnsignedInteger:HSCardSetTheWitchwood],
+        [NSNumber numberWithUnsignedInteger:HSCardSetTheBoomsdayProject],
+        [NSNumber numberWithUnsignedInteger:HSCardSetRastakhansRumble],
+        [NSNumber numberWithUnsignedInteger:HSCardSetRiseOfShadows],
+        [NSNumber numberWithUnsignedInteger:HSCardSetSaviorsOfUldum],
+        [NSNumber numberWithUnsignedInteger:HSCardSetDescentOfDragons],
+        [NSNumber numberWithUnsignedInteger:HSCardSetGalakrondsAwakening],
+        [NSNumber numberWithUnsignedInteger:HSCardSetDemonHunderInitiate],
+        [NSNumber numberWithUnsignedInteger:HSCardSetCore],
+        [NSNumber numberWithUnsignedInteger:HSCardSetAshesOfOutland],
+        [NSNumber numberWithUnsignedInteger:HSCardSetScholomanceAcademy],
+        [NSNumber numberWithUnsignedInteger:HSCardSetMadnessAtTheDarkmoonFaire],
+        [NSNumber numberWithUnsignedInteger:HSCardSetForgedInTheBarrens],
+        [NSNumber numberWithUnsignedInteger:HSCardSetUnitedInStormWind],
+        [NSNumber numberWithUnsignedInteger:HSCardSetClassicCards],
+        [NSNumber numberWithUnsignedInteger:HSCardSetWildCards],
+        [NSNumber numberWithUnsignedInteger:HSCardSetStandardCards]
     ];
 }
 
 NSDictionary<NSString *, NSString *> * hsCardSetsWithLocalizable() {
     NSMutableDictionary<NSString *, NSString *> *dic = [@{} mutableCopy];
     
-    [hsCardSets() enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        dic[obj] = NSLocalizedStringFromTableInBundle(obj,
+    [hsCardSets() enumerateObjectsUsingBlock:^(NSNumber * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSString *key = NSStringFromHSCardSet(obj.unsignedIntegerValue);
+        dic[key] = NSLocalizedStringFromTableInBundle(key,
                                                       @"HSCardSet",
                                                       [NSBundle bundleWithIdentifier:@"com.pookjw.StoneNamuCore"],
                                                       @"");
@@ -184,4 +185,54 @@ NSDictionary<NSString *, NSString *> * hsCardSetsWithLocalizable() {
     [dic release];
     
     return result;
+}
+
+NSArray<NSNumber *> *hsCardSetsFromHSDeckFormat(HSDeckFormat deckFormat) {
+    if ([deckFormat isEqualToString:HSDeckFormatStandard]) {
+        return @[
+            [NSNumber numberWithUnsignedInteger:HSCardSetCore],
+            [NSNumber numberWithUnsignedInteger:HSCardSetAshesOfOutland],
+            [NSNumber numberWithUnsignedInteger:HSCardSetScholomanceAcademy],
+            [NSNumber numberWithUnsignedInteger:HSCardSetMadnessAtTheDarkmoonFaire],
+            [NSNumber numberWithUnsignedInteger:HSCardSetForgedInTheBarrens],
+            [NSNumber numberWithUnsignedInteger:HSCardSetUnitedInStormWind]
+        ];
+    } else if ([deckFormat isEqualToString:HSDeckFormatWild]) {
+        return @[
+            [NSNumber numberWithUnsignedInteger:HSCardSetLegacy],
+            [NSNumber numberWithUnsignedInteger:HSCardSetNaxxramas],
+            [NSNumber numberWithUnsignedInteger:HSCardSetGoblinsVsGnomes],
+            [NSNumber numberWithUnsignedInteger:HSCardSetBlackRockMountain],
+            [NSNumber numberWithUnsignedInteger:HSCardSetTheGrandTournament],
+            [NSNumber numberWithUnsignedInteger:HSCardSetLeagueOfExplorers],
+            [NSNumber numberWithUnsignedInteger:HSCardSetWhispersOfTheOldGods],
+            [NSNumber numberWithUnsignedInteger:HSCardSetOneNightInKarazhan],
+            [NSNumber numberWithUnsignedInteger:HSCardSetMeanStreetOfGadgetzan],
+            [NSNumber numberWithUnsignedInteger:HSCardSetJourneyToUngoro],
+            [NSNumber numberWithUnsignedInteger:HSCardSetKnightsOfTheFrozenThrone],
+            [NSNumber numberWithUnsignedInteger:HSCardSetKoboldsAndCatacombs],
+            [NSNumber numberWithUnsignedInteger:HSCardSetTheWitchwood],
+            [NSNumber numberWithUnsignedInteger:HSCardSetTheBoomsdayProject],
+            [NSNumber numberWithUnsignedInteger:HSCardSetRastakhansRumble],
+            [NSNumber numberWithUnsignedInteger:HSCardSetRiseOfShadows],
+            [NSNumber numberWithUnsignedInteger:HSCardSetSaviorsOfUldum],
+            [NSNumber numberWithUnsignedInteger:HSCardSetDescentOfDragons],
+            [NSNumber numberWithUnsignedInteger:HSCardSetGalakrondsAwakening],
+            [NSNumber numberWithUnsignedInteger:HSCardSetDemonHunderInitiate],
+            [NSNumber numberWithUnsignedInteger:HSCardSetCore],
+            [NSNumber numberWithUnsignedInteger:HSCardSetAshesOfOutland],
+            [NSNumber numberWithUnsignedInteger:HSCardSetScholomanceAcademy],
+            [NSNumber numberWithUnsignedInteger:HSCardSetMadnessAtTheDarkmoonFaire],
+            [NSNumber numberWithUnsignedInteger:HSCardSetForgedInTheBarrens],
+            [NSNumber numberWithUnsignedInteger:HSCardSetUnitedInStormWind],
+            [NSNumber numberWithUnsignedInteger:HSCardSetWildCards],
+            [NSNumber numberWithUnsignedInteger:HSCardSetStandardCards]
+        ];
+    } else if ([deckFormat isEqualToString:HSDeckFormatClassic]) {
+        return @[
+            [NSNumber numberWithUnsignedInteger:HSCardSetClassicCards]
+        ];
+    } else {
+        return @[];
+    }
 }

@@ -149,7 +149,7 @@
 }
 
 - (void)optionsBarButtonItemTriggered:(UIBarButtonItem *)sender {
-    DeckAddCardOptionsViewController *vc = [[DeckAddCardOptionsViewController alloc] initWithOptions:self.viewModel.options];
+    DeckAddCardOptionsViewController *vc = [[DeckAddCardOptionsViewController alloc] initWithOptions:self.viewModel.options localDeck:self.viewModel.localDeck];
     vc.delegate = self;
     SheetNavigationController *nvc = [[SheetNavigationController alloc] initWithRootViewController:vc];
     nvc.supportsLargeDetent = YES;

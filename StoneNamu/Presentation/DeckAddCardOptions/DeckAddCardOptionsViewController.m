@@ -19,12 +19,13 @@
 
 @implementation DeckAddCardOptionsViewController
 
-- (instancetype)initWithOptions:(NSDictionary<NSString *,NSString *> *)options {
+- (instancetype)initWithOptions:(NSDictionary<NSString *,NSString *> *)options localDeck:(nonnull LocalDeck *)localDeck {
     self = [self init];
     
     if (self) {
         [self loadViewIfNeeded];
         [self.viewModel updateDataSourceWithOptions:options];
+        self.viewModel.localDeck = localDeck;
     }
     
     return self;

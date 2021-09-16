@@ -6,6 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "HSDeckFormat.h"
 
 typedef NS_ENUM(NSUInteger, HSCardSet) {
     HSCardSetLegacy = 9000,
@@ -42,5 +43,7 @@ typedef NS_ENUM(NSUInteger, HSCardSet) {
 NSString * NSStringFromHSCardSet(HSCardSet);
 HSCardSet HSCardSetFromNSString(NSString *);
 
-NSArray<NSString *> * hsCardSets(void);
+NSArray<NSNumber *> * hsCardSets(void);
 NSDictionary<NSString *, NSString *> * hsCardSetsWithLocalizable(void);
+
+NSArray<NSNumber *> *hsCardSetsFromHSDeckFormat(HSDeckFormat);

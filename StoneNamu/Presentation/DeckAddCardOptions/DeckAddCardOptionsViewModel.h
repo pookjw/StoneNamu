@@ -9,6 +9,7 @@
 #import "DeckAddCardOptionSectionModel.h"
 #import "DeckAddCardOptionItemModel.h"
 #import "PickerItemModel.h"
+#import "LocalDeck.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -23,6 +24,7 @@ typedef UICollectionViewDiffableDataSource<DeckAddCardOptionSectionModel *, Deck
 @interface DeckAddCardOptionsViewModel : NSObject
 @property (readonly, retain) CardOptionsDataSource *dataSource;
 @property (readonly, nonatomic) NSDictionary<NSString *, NSString *> *options;
+@property (retain) LocalDeck * _Nullable localDeck;
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithDataSource:(CardOptionsDataSource *)dataSource;

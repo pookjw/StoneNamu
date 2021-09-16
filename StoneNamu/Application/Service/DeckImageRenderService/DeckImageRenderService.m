@@ -113,7 +113,7 @@
     UIListSeparatorConfiguration *separatorConfiguration = [[UIListSeparatorConfiguration alloc] initWithListAppearance:UICollectionLayoutListAppearancePlain];
     separatorConfiguration.topSeparatorInsets = NSDirectionalEdgeInsetsZero;
     separatorConfiguration.bottomSeparatorInsets = NSDirectionalEdgeInsetsZero;
-    separatorConfiguration.color = [UIColor.whiteColor colorWithAlphaComponent:0.3];
+    separatorConfiguration.color = [UIColor.whiteColor colorWithAlphaComponent:0.5];
     layoutConfiguration.separatorConfiguration = separatorConfiguration;
     [separatorConfiguration release];
     

@@ -19,8 +19,9 @@
     self = [self init];
     
     if (self) {
-        _dataSource = dataSource;
-        [_dataSource retain];
+        self->_dataSource = dataSource;
+        [self->_dataSource retain];
+        self.localDeck = nil;
         
         NSOperationQueue *queue = [NSOperationQueue new];
         queue.qualityOfService = NSQualityOfServiceUserInitiated;
@@ -35,6 +36,7 @@
 
 - (void)dealloc {
     [_dataSource release];
+    [_localDeck release];
     [_queue release];
     [super dealloc];
 }

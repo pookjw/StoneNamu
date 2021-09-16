@@ -7,6 +7,7 @@
 
 #import <UIKit/UIKit.h>
 #import "DeckAddCardOptionsViewControllerDelegate.h"
+#import "LocalDeck.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -14,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak) id<DeckAddCardOptionsViewControllerDelegate> delegate;
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
-- (instancetype)initWithOptions:(NSDictionary<NSString *, NSString *> * _Nullable)options;
+- (instancetype)initWithOptions:(NSDictionary<NSString *, NSString *> * _Nullable)options localDeck:(LocalDeck *)localDeck;
 - (void)setCancelButtonHidden:(BOOL)hidden;
 @end
 NS_ASSUME_NONNULL_END
