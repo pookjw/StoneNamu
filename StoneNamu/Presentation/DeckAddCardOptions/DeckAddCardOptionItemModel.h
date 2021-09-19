@@ -40,8 +40,8 @@ DeckAddCardOptionItemModelType DeckAddCardOptionItemModelTypeFromNSString(NSStri
 
 @interface DeckAddCardOptionItemModel : NSObject
 @property (readonly) DeckAddCardOptionItemModelType type;
-@property (readonly) HSDeckFormat deckFormat;
-@property (readonly) HSCardClass classId;
+@property (copy) HSDeckFormat deckFormat;
+@property HSCardClass classId;
 @property (copy) NSString * _Nullable value;
 @property (readonly, nonatomic) DeckAddCardOptionItemModelValueSetType valueSetType;
 @property (readonly, nonatomic) NSArray<PickerItemModel *> * _Nullable pickerDataSource;

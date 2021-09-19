@@ -221,11 +221,28 @@
 - (void)localDeckChangesReceived:(NSNotification *)notification {
     if (self.localDeck != nil) {
         [self.localDeckUseCase refreshObject:self.localDeck mergeChanges:NO completion:^{
-            
+            [self reconfigureDataSourceWhenLocalDeckChanged];
         }];
     }
 }
 
-
+- (void)reconfigureDataSourceWhenLocalDeckChanged {
+    [self.queue addBarrierBlock:^{
+        NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
+        
+        [snapshot.itemIdentifiers enumerateObjectsUsingBlock:^(DeckAddCardOptionItemModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            obj.deckFormat = self.localDeck.format;
+            obj.classId = self.localDeck.classId.unsignedIntegerValue;
+        }];
+        
+        [snapshot reconfigureItemsWithIdentifiers:snapshot.itemIdentifiers];
+        
+        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+            [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
+                [snapshot release];
+            }];
+        }];
+    }];
+}
 
 @end

@@ -83,14 +83,15 @@ DeckAddCardOptionItemModelType DeckAddCardOptionItemModelTypeFromNSString(NSStri
     
     if (self) {
         self->_type = type;
-        self->_deckFormat = deckFormat;
-        self->_classId = classId;
+        self.deckFormat = deckFormat;
+        self.classId = classId;
     }
     
     return self;
 }
 
 - (void)dealloc {
+    [_deckFormat release];
     [_value release];
     [super dealloc];
 }
