@@ -13,6 +13,7 @@
 #import "NSMutableArray+removeSingle.h"
 #import "DataCacheUseCaseImpl.h"
 #import "NSArray+countOfObject.h"
+#import "UICollectionViewDiffableDataSource+applySnapshotAndWait.h"
 
 @interface DeckDetailsViewModel ()
 @property (retain) NSOperationQueue *queue;
@@ -118,11 +119,9 @@
             [self updateCardsSectionHeaderTitleFromSnapshot:snapshot];
             [self sortSnapshot:snapshot];
             
-            [NSOperationQueue.mainQueue addOperationWithBlock:^{
-                [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
-                    [snapshot release];
-                    [self postApplyingSnapshotToDataSourceWasDoneNotification];
-                }];
+            [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
+                [snapshot release];
+                [self postApplyingSnapshotToDataSourceWasDoneNotification];
             }];
         }
         
@@ -151,11 +150,9 @@
             [self updateCardsSectionHeaderTitleFromSnapshot:snapshot];
             [self sortSnapshot:snapshot];
             
-            [NSOperationQueue.mainQueue addOperationWithBlock:^{
-                [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
-                    [snapshot release];
-                    [self postApplyingSnapshotToDataSourceWasDoneNotification];
-                }];
+            [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
+                [snapshot release];
+                [self postApplyingSnapshotToDataSourceWasDoneNotification];
             }];
         }
         
@@ -193,11 +190,9 @@
             [self updateCardsSectionHeaderTitleFromSnapshot:snapshot];
             [self sortSnapshot:snapshot];
             
-            [NSOperationQueue.mainQueue addOperationWithBlock:^{
-                [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
-                    [snapshot release];
-                    [self postApplyingSnapshotToDataSourceWasDoneNotification];
-                }];
+            [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
+                [snapshot release];
+                [self postApplyingSnapshotToDataSourceWasDoneNotification];
             }];
         }
         
@@ -238,11 +233,9 @@
             [self updateCardsSectionHeaderTitleFromSnapshot:snapshot];
             [self sortSnapshot:snapshot];
             
-            [NSOperationQueue.mainQueue addOperationWithBlock:^{
-                [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
-                    [snapshot release];
-                    [self postApplyingSnapshotToDataSourceWasDoneNotification];
-                }];
+            [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
+                [snapshot release];
+                [self postApplyingSnapshotToDataSourceWasDoneNotification];
             }];
         }
         
@@ -389,11 +382,9 @@
         
         //
         
-        [NSOperationQueue.mainQueue addOperationWithBlock:^{
-            [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
-                [snapshot release];
-                [self postApplyingSnapshotToDataSourceWasDoneNotification];
-            }];
+        [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
+            [snapshot release];
+            [self postApplyingSnapshotToDataSourceWasDoneNotification];
         }];
     }];
 }

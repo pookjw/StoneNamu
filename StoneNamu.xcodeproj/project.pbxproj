@@ -172,6 +172,7 @@
 		4FCC22C426ECA99B004997AA /* HSYear.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FCC22C326ECA99B004997AA /* HSYear.m */; };
 		4FCC22C826ECAC81004997AA /* DeckImageRenderServiceAppNameContentConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FCC22C726ECAC81004997AA /* DeckImageRenderServiceAppNameContentConfiguration.m */; };
 		4FCC22CB26ECAC98004997AA /* DeckImageRenderServiceAppNameContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FCC22CA26ECAC98004997AA /* DeckImageRenderServiceAppNameContentView.m */; };
+		4FDDE4B526F762FC0022F87C /* UICollectionViewDiffableDataSource+applySnapshotAndWait.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FDDE4B426F762FC0022F87C /* UICollectionViewDiffableDataSource+applySnapshotAndWait.m */; };
 		4FDE8DF326F107ED00959B97 /* UIFont+customFonts.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FDE8DF226F107ED00959B97 /* UIFont+customFonts.m */; };
 		4FDE8DF426F10A2D00959B97 /* GmarketSansTTFMedium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4FDE8DEE26F107D200959B97 /* GmarketSansTTFMedium.ttf */; };
 		4FDE8DF526F10A2D00959B97 /* GmarketSansTTFLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4FDE8DF026F107D200959B97 /* GmarketSansTTFLight.ttf */; };
@@ -562,6 +563,8 @@
 		4FCC22C726ECAC81004997AA /* DeckImageRenderServiceAppNameContentConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckImageRenderServiceAppNameContentConfiguration.m; sourceTree = "<group>"; };
 		4FCC22C926ECAC98004997AA /* DeckImageRenderServiceAppNameContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckImageRenderServiceAppNameContentView.h; sourceTree = "<group>"; };
 		4FCC22CA26ECAC98004997AA /* DeckImageRenderServiceAppNameContentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckImageRenderServiceAppNameContentView.m; sourceTree = "<group>"; };
+		4FDDE4B326F762FC0022F87C /* UICollectionViewDiffableDataSource+applySnapshotAndWait.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UICollectionViewDiffableDataSource+applySnapshotAndWait.h"; sourceTree = "<group>"; };
+		4FDDE4B426F762FC0022F87C /* UICollectionViewDiffableDataSource+applySnapshotAndWait.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UICollectionViewDiffableDataSource+applySnapshotAndWait.m"; sourceTree = "<group>"; };
 		4FDE8DEE26F107D200959B97 /* GmarketSansTTFMedium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GmarketSansTTFMedium.ttf; sourceTree = "<group>"; };
 		4FDE8DEF26F107D200959B97 /* GmarketSansTTFBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GmarketSansTTFBold.ttf; sourceTree = "<group>"; };
 		4FDE8DF026F107D200959B97 /* GmarketSansTTFLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GmarketSansTTFLight.ttf; sourceTree = "<group>"; };
@@ -768,6 +771,8 @@
 				4FDE8DF226F107ED00959B97 /* UIFont+customFonts.m */,
 				4FDE8DFF26F1281100959B97 /* NSNumber+stringWithSepearatedDecimalNumber.h */,
 				4FDE8E0026F1281100959B97 /* NSNumber+stringWithSepearatedDecimalNumber.m */,
+				4FDDE4B326F762FC0022F87C /* UICollectionViewDiffableDataSource+applySnapshotAndWait.h */,
+				4FDDE4B426F762FC0022F87C /* UICollectionViewDiffableDataSource+applySnapshotAndWait.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1955,6 +1960,7 @@
 				4F6A13B226B273640089A13A /* StepperViewController.m in Sources */,
 				4F90709926D35FA000BA7614 /* DeckDetailsCardContentConfiguration.m in Sources */,
 				4F74712F26C1760C001C45C4 /* CardDetailsChildrenContentImageContentView.m in Sources */,
+				4FDDE4B526F762FC0022F87C /* UICollectionViewDiffableDataSource+applySnapshotAndWait.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

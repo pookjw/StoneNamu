@@ -7,6 +7,7 @@
 
 #import "DeckDetailsManaCostContentViewModel.h"
 #import "NSDiffableDataSourceSnapshot+sort.h"
+#import "UICollectionViewDiffableDataSource+applySnapshotAndWait.h"
 
 @interface DeckDetailsManaCostContentViewModel ()
 @property (retain) NSOperationQueue *queue;
@@ -105,10 +106,8 @@
         
         //
         
-        [NSOperationQueue.mainQueue addOperationWithBlock:^{
-            // if dataSource deallocated before calling completion, snapshot won't be released; so need to call autorelease.
-            [snapshot autorelease];
-            [self.dataSource applySnapshot:snapshot animatingDifferences:NO];
+        [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:NO completion:^{
+            [snapshot release];
         }];
     }];
 }

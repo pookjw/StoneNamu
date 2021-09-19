@@ -10,7 +10,7 @@
 #import "BlizzardAPIRegionHost.h"
 #import "BlizzardHSAPILocale.h"
 #import "DataCacheUseCaseImpl.h"
-#import "NSSemaphoreCondition.h"
+#import "UICollectionViewDiffableDataSource+applySnapshotAndWait.h"
 #import "LocalDeckUseCaseImpl.h"
 
 @interface PrefsViewModel ()
@@ -121,26 +121,19 @@
         [dataSection release];
         [contributorsSection release];
         
-        NSSemaphoreCondition *semaphore = [[NSSemaphoreCondition alloc] initWithValue:0];
-        [NSOperationQueue.mainQueue addOperationWithBlock:^{
-            [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
-                [semaphore signal];
-                [snapshot release];
-                
-                [self.prefsUseCase fetchWithCompletion:^(Prefs * _Nullable prefs, NSError * _Nullable error) {
-                    if (prefs) {
-                        [self loadPrefs:prefs];
-                    }
-                }];
-                
-                [self.queue addBarrierBlock:^{
-                    [self observePrefs];
-                }];
+        [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
+            [snapshot release];
+            
+            [self.prefsUseCase fetchWithCompletion:^(Prefs * _Nullable prefs, NSError * _Nullable error) {
+                if (prefs) {
+                    [self loadPrefs:prefs];
+                }
+            }];
+            
+            [self.queue addBarrierBlock:^{
+                [self observePrefs];
             }];
         }];
-        
-        [semaphore wait];
-        [semaphore release];
     }];
 }
 
@@ -207,16 +200,9 @@
         
         [prefs release];
         
-        NSSemaphoreCondition *semaphore = [[NSSemaphoreCondition alloc] initWithValue:0];
-        [NSOperationQueue.mainQueue addOperationWithBlock:^{
-            [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
-                [semaphore signal];
-                [snapshot release];
-            }];
+        [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
+            [snapshot release];
         }];
-        
-        [semaphore wait];
-        [semaphore release];
     }];
 }
 

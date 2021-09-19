@@ -6,7 +6,7 @@
 //
 
 #import "CardDetailsChildrenContentViewModel.h"
-#import "NSSemaphoreCondition.h"
+#import "UICollectionViewDiffableDataSource+applySnapshotAndWait.h"
 #import "DragItemService.h"
 
 @interface CardDetailsChildrenContentViewModel ()
@@ -73,16 +73,9 @@
         [sectionModel release];
         [itemModels release];
         
-        NSSemaphoreCondition *semaphore = [[NSSemaphoreCondition alloc] initWithValue:0];
-        [NSOperationQueue.mainQueue addOperationWithBlock:^{
-            [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
-                [semaphore signal];
-                [snapshot release];
-            }];
+        [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
+            [snapshot release];
         }];
-        
-        [semaphore wait];
-        [semaphore release];
     }];
 }
 

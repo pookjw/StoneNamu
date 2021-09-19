@@ -7,7 +7,7 @@
 
 #import "DeckAddCardOptionsViewModel.h"
 #import "BlizzardHSAPIKeys.h"
-#import "NSSemaphoreCondition.h"
+#import "UICollectionViewDiffableDataSource+applySnapshotAndWait.h"
 #import "LocalDeckUseCaseImpl.h"
 
 @interface DeckAddCardOptionsViewModel ()
@@ -91,10 +91,8 @@
         [nonnullOptions release];
         [snapshot reconfigureItemsWithIdentifiers:itemModels];
         
-        [NSOperationQueue.mainQueue addOperationWithBlock:^{
-            [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
-                [snapshot release];
-            }];
+        [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
+            [snapshot release];
         }];
     }];
 }
@@ -143,13 +141,13 @@
     [value retain];
     
     [self.queue addBarrierBlock:^{
-        NSDiffableDataSourceSnapshot *snapshot = self.dataSource.snapshot;
+        NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
         itemModel.value = value;
         
         [snapshot reconfigureItemsWithIdentifiers:@[itemModel]];
         
-        [NSOperationQueue.mainQueue addOperationWithBlock:^{
-            [self.dataSource applySnapshot:snapshot animatingDifferences:YES];
+        [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
+            [snapshot release];
         }];
         
         [itemModel release];
@@ -197,17 +195,9 @@
         [majorSectionModel release];
         [minorSectionModel release];
         
-        NSSemaphoreCondition *semaphore = [[NSSemaphoreCondition alloc] initWithValue:0];
-        
-        [NSOperationQueue.mainQueue addOperationWithBlock:^{
-            [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
-                [semaphore signal];
-                [snapshot release];
-            }];
+        [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
+            [snapshot release];
         }];
-        
-        [semaphore wait];
-        [semaphore release];
     }];
 }
 
@@ -237,10 +227,8 @@
         
         [snapshot reconfigureItemsWithIdentifiers:snapshot.itemIdentifiers];
         
-        [NSOperationQueue.mainQueue addOperationWithBlock:^{
-            [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
-                [snapshot release];
-            }];
+        [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
+            [snapshot release];
         }];
     }];
 }

@@ -10,6 +10,7 @@
 #import "DataCacheUseCaseImpl.h"
 #import "NSSemaphoreCondition.h"
 #import "HSYear.h"
+#import "UICollectionViewDiffableDataSource+applySnapshotAndWait.h"
 
 @interface DeckImageRenderServiceModel ()
 @property (retain) NSOperationQueue *queue;
@@ -173,12 +174,10 @@
         
         //
         
-        [NSOperationQueue.mainQueue addOperationWithBlock:^{
-            [self.dataSource applySnapshot:snapshot animatingDifferences:NO completion:^{
-                [snapshot release];
-                [countOfEachCards release];
-                completion(countOfCardItem);
-            }];
+        [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:NO completion:^{
+            [snapshot release];
+            [countOfEachCards release];
+            completion(countOfCardItem);
         }];
     }];
 }

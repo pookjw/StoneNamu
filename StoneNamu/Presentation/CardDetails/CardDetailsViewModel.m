@@ -9,6 +9,7 @@
 #import "HSCardUseCaseImpl.h"
 #import "BlizzardHSAPIKeys.h"
 #import "NSSemaphoreCondition.h"
+#import "UICollectionViewDiffableDataSource+applySnapshotAndWait.h"
 #import "DragItemService.h"
 
 @interface CardDetailsViewModel ()
@@ -110,17 +111,10 @@
         [sectionModelBase release];
         [sectionModelDetail release];
         
-        NSSemaphoreCondition *semaphore = [[NSSemaphoreCondition alloc] initWithValue:0];
-        [NSOperationQueue.mainQueue addOperationWithBlock:^{
-            [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
-                [semaphore signal];
-                [snapshot release];
-                [self loadChildCardsWithHSCard:hsCard];
-            }];
+        [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
+            [snapshot release];
+            [self loadChildCardsWithHSCard:hsCard];
         }];
-        
-        [semaphore wait];
-        [semaphore release];
     }];
 }
 
@@ -194,7 +188,7 @@
         [childCards release];
         [childCardsItem release];
         
-        [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
+        [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
             [snapshot release];
             [NSNotificationCenter.defaultCenter postNotificationName:CardDetailsViewModelStartFetchedChildCardsNotificationName
                                                               object:self

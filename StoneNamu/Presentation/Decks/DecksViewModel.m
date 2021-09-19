@@ -9,6 +9,7 @@
 #import "HSDeckUseCaseImpl.h"
 #import "LocalDeckUseCaseImpl.h"
 #import "NSDiffableDataSourceSnapshot+sort.h"
+#import "UICollectionViewDiffableDataSource+applySnapshotAndWait.h"
 
 @interface DecksViewModel ()
 @property (retain) NSOperationQueue *queue;
@@ -113,12 +114,9 @@
         [itemModel release];
         [self sortSnapshot:snapshot];
         
-        [NSOperationQueue.mainQueue addOperationWithBlock:^{
-            [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
-                [snapshot release];
-                [self.localDeckUseCase saveChanges];
-                completion(localDeck);
-            }];
+        [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
+            [self.localDeckUseCase saveChanges];
+            completion(localDeck);
         }];
     }];
 }
@@ -165,12 +163,10 @@
         [itemModel release];
         [self sortSnapshot:snapshot];
         
-        [NSOperationQueue.mainQueue addOperationWithBlock:^{
-            [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
-                [snapshot release];
-                [self.localDeckUseCase saveChanges];
-                completion(localDeck);
-            }];
+        [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
+            [snapshot release];
+            [self.localDeckUseCase saveChanges];
+            completion(localDeck);
         }];
     }];
 }
@@ -205,7 +201,7 @@
             }
         }];
         
-        [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
+        [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
             [snapshot release];
             
             [self.localDeckUseCase deleteLocalDeck:localDeck];
@@ -273,10 +269,8 @@
         
         //
         
-        [NSOperationQueue.mainQueue addOperationWithBlock:^{
-            [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
-                [snapshot release];
-            }];
+        [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
+            [snapshot release];
         }];
     }];
 }

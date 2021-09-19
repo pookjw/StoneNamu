@@ -8,10 +8,10 @@
 #import "CardsViewModel.h"
 #import "HSCardUseCaseImpl.h"
 #import "BlizzardHSAPIKeys.h"
-#import "NSSemaphoreCondition.h"
 #import "PrefsUseCaseImpl.h"
 #import "DataCacheUseCaseImpl.h"
 #import "DragItemService.h"
+#import "UICollectionViewDiffableDataSource+applySnapshotAndWait.h"
 
 @interface CardsViewModel ()
 @property (retain) id<HSCardUseCase> hsCardUseCase;
@@ -130,11 +130,10 @@
     self.page = [NSNumber numberWithUnsignedInt:1];
     NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
     [snapshot deleteAllItems];
-    [NSOperationQueue.mainQueue addOperationWithBlock:^{
-        [self.dataSource applySnapshot:snapshot animatingDifferences:NO completion:^{
-            [snapshot release];
-            [self postApplyingSnapshotWasDone];
-        }];
+    
+    [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:NO completion:^{
+        [snapshot release];
+        [self postApplyingSnapshotWasDone];
     }];
 }
 
@@ -184,17 +183,10 @@
         
         [itemModels release];
         
-        NSSemaphoreCondition *semaphore = [[NSSemaphoreCondition alloc] initWithValue:0];
-        [NSOperationQueue.mainQueue addOperationWithBlock:^{
-            [self.dataSource applySnapshot:snapshot animatingDifferences:YES completion:^{
-                [semaphore signal];
-                [snapshot release];
-                [self postApplyingSnapshotWasDone];
-            }];
+        [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
+            [snapshot release];
+            [self postApplyingSnapshotWasDone];
         }];
-        
-        [semaphore wait];
-        [semaphore release];
     }];
 }
 
