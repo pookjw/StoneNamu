@@ -109,6 +109,7 @@
     UIProgressView *progressView = [UIProgressView new];
     self.progressView = progressView;
     
+    progressView.tintColor = UIColor.systemCyanColor;
     progressView.backgroundColor = UIColor.clearColor;
     progressView.trackTintColor = UIColor.clearColor;
     progressView.progressViewStyle = UIProgressViewStyleBar;
@@ -210,12 +211,6 @@
 
 - (void)updateProgressLabel {
     self.progressView.progress = self.percentage.floatValue;
-    
-    if (self.isDarkMode) {
-        self.progressView.tintColor = UIColor.systemGray2Color;
-    } else {
-        self.progressView.tintColor = UIColor.systemGrayColor;
-    }
 }
 
 - (void)updateCountLabel {
