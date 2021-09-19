@@ -220,7 +220,7 @@
         self.countLabel.backgroundColor = UIColor.systemGrayColor;
     }
     
-    self.countLabel.text = [NSString stringWithFormat:@"x%@", self.cardCount.stringValue];
+    self.countLabel.text = [NSString stringWithFormat:@"%@", self.cardCount.stringValue];
 }
 
 @end
