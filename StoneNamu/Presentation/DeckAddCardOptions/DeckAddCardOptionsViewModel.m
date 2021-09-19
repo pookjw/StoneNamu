@@ -161,39 +161,57 @@
         
         [snapshot deleteAllItems];
         
-        DeckAddCardOptionSectionModel *majorSectionModel = [[DeckAddCardOptionSectionModel alloc] initWithType:DeckAddCardOptionSectionModelTypeMajor];
-        DeckAddCardOptionSectionModel *minorSectionModel = [[DeckAddCardOptionSectionModel alloc] initWithType:DeckAddCardOptionSectionModelTypeMinor];
+        DeckAddCardOptionSectionModel *firstSectionModel = [[DeckAddCardOptionSectionModel alloc] initWithType:DeckAddCardOptionSectionModelTypeFirst];
+        DeckAddCardOptionSectionModel *secondSectionModel = [[DeckAddCardOptionSectionModel alloc] initWithType:DeckAddCardOptionSectionModelTypeSecond];
+        DeckAddCardOptionSectionModel *thirdSectionModel = [[DeckAddCardOptionSectionModel alloc] initWithType:DeckAddCardOptionSectionModelTypeThird];
+        DeckAddCardOptionSectionModel *forthSectionModel = [[DeckAddCardOptionSectionModel alloc] initWithType:DeckAddCardOptionSectionModelTypeForth];
+        DeckAddCardOptionSectionModel *fifthSectionModel = [[DeckAddCardOptionSectionModel alloc] initWithType:DeckAddCardOptionSectionModelTypeFifth];
         
-        [snapshot appendSectionsWithIdentifiers:@[majorSectionModel, minorSectionModel]];
+        [snapshot appendSectionsWithIdentifiers:@[firstSectionModel, secondSectionModel, thirdSectionModel, forthSectionModel, fifthSectionModel]];
         
         @autoreleasepool {
             HSDeckFormat deckFormat = self.localDeck.format;
             HSCardClass classId = self.localDeck.classId.unsignedIntegerValue;
             
             [snapshot appendItemsWithIdentifiers:@[
+                [[[DeckAddCardOptionItemModel alloc] initWithType:DeckAddCardOptionItemModelTypeTextFilter deckFormat:deckFormat classId:classId] autorelease]
+            ]
+                       intoSectionWithIdentifier:firstSectionModel];
+            
+            [snapshot appendItemsWithIdentifiers:@[
                 [[[DeckAddCardOptionItemModel alloc] initWithType:DeckAddCardOptionItemModelTypeSet deckFormat:deckFormat classId:classId] autorelease],
                 [[[DeckAddCardOptionItemModel alloc] initWithType:DeckAddCardOptionItemModelTypeClass deckFormat:deckFormat classId:classId] autorelease],
+            ]
+                       intoSectionWithIdentifier:secondSectionModel];
+            
+            [snapshot appendItemsWithIdentifiers:@[
                 [[[DeckAddCardOptionItemModel alloc] initWithType:DeckAddCardOptionItemModelTypeManaCost deckFormat:deckFormat classId:classId] autorelease],
                 [[[DeckAddCardOptionItemModel alloc] initWithType:DeckAddCardOptionItemModelTypeAttack deckFormat:deckFormat classId:classId] autorelease],
-                [[[DeckAddCardOptionItemModel alloc] initWithType:DeckAddCardOptionItemModelTypeHealth deckFormat:deckFormat classId:classId] autorelease],
+                [[[DeckAddCardOptionItemModel alloc] initWithType:DeckAddCardOptionItemModelTypeHealth deckFormat:deckFormat classId:classId] autorelease]
+            ]
+                       intoSectionWithIdentifier:thirdSectionModel];
+            
+            [snapshot appendItemsWithIdentifiers:@[
                 [[[DeckAddCardOptionItemModel alloc] initWithType:DeckAddCardOptionItemModelTypeCollectible deckFormat:deckFormat classId:classId] autorelease],
                 [[[DeckAddCardOptionItemModel alloc] initWithType:DeckAddCardOptionItemModelTypeRarity deckFormat:deckFormat classId:classId] autorelease],
                 [[[DeckAddCardOptionItemModel alloc] initWithType:DeckAddCardOptionItemModelTypeType deckFormat:deckFormat classId:classId] autorelease],
                 [[[DeckAddCardOptionItemModel alloc] initWithType:DeckAddCardOptionItemModelTypeMinionType deckFormat:deckFormat classId:classId] autorelease],
                 [[[DeckAddCardOptionItemModel alloc] initWithType:DeckAddCardOptionItemModelTypeKeyword deckFormat:deckFormat classId:classId] autorelease],
-                [[[DeckAddCardOptionItemModel alloc] initWithType:DeckAddCardOptionItemModelTypeTextFilter deckFormat:deckFormat classId:classId] autorelease]
+                [[[DeckAddCardOptionItemModel alloc] initWithType:DeckAddCardOptionItemModelTypeGameMode deckFormat:deckFormat classId:classId] autorelease]
             ]
-                       intoSectionWithIdentifier:majorSectionModel];
+                       intoSectionWithIdentifier:forthSectionModel];
             
             [snapshot appendItemsWithIdentifiers:@[
-                [[[DeckAddCardOptionItemModel alloc] initWithType:DeckAddCardOptionItemModelTypeGameMode deckFormat:deckFormat classId:classId] autorelease],
                 [[[DeckAddCardOptionItemModel alloc] initWithType:DeckAddCardOptionItemModelTypeSort deckFormat:deckFormat classId:classId] autorelease]
             ]
-                       intoSectionWithIdentifier:minorSectionModel];
+                       intoSectionWithIdentifier:fifthSectionModel];
         }
         
-        [majorSectionModel release];
-        [minorSectionModel release];
+        [firstSectionModel release];
+        [secondSectionModel release];
+        [thirdSectionModel release];
+        [forthSectionModel release];
+        [fifthSectionModel release];
         
         [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
             [snapshot release];

@@ -78,7 +78,7 @@
     CardOptionsViewController *vc = [[CardOptionsViewController alloc] initWithOptions:self.viewModel.options];
     vc.delegate = self;
     SheetNavigationController *nvc = [[SheetNavigationController alloc] initWithRootViewController:vc];
-    nvc.supportsLargeDetent = YES;
+    nvc.detents = @[[UISheetPresentationControllerDetent largeDetent]];
     [self presentViewController:nvc animated:YES completion:^{}];
     [vc release];
     [nvc release];

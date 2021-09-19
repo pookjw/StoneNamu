@@ -16,10 +16,25 @@
     self = [super init];
     
     if (self) {
-        self.supportsLargeDetent = NO;
+        self.detents = @[[UISheetPresentationControllerDetent mediumDetent]];
     }
     
     return self;
+}
+
+- (instancetype)initWithRootViewController:(UIViewController *)rootViewController {
+    self = [super initWithRootViewController:rootViewController];
+    
+    if (self) {
+        self.detents = @[[UISheetPresentationControllerDetent mediumDetent]];
+    }
+    
+    return self;
+}
+
+- (void)dealloc {
+    [_detents release];
+    [super dealloc];
 }
 
 - (void)viewDidLoad {
@@ -37,17 +52,7 @@
 - (UIPresentationController *)presentationControllerForPresentedViewController:(UIViewController *)presented presentingViewController:(UIViewController *)presenting sourceViewController:(UIViewController *)source {
     
     UISheetPresentationController *pc = [[UISheetPresentationController alloc] initWithPresentedViewController:presented presentingViewController:presenting];
-    
-    if (self.supportsLargeDetent) {
-        pc.detents = @[
-            [UISheetPresentationControllerDetent largeDetent],
-            [UISheetPresentationControllerDetent mediumDetent]
-        ];
-    } else {
-        pc.detents = @[
-            [UISheetPresentationControllerDetent mediumDetent]
-        ];
-    }
+    pc.detents = self.detents;
     
     pc.prefersGrabberVisible = YES;
     pc.selectedDetentIdentifier = UISheetPresentationControllerDetentIdentifierMedium;

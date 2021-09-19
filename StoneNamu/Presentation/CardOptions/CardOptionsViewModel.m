@@ -151,36 +151,54 @@
         
         [snapshot deleteAllItems];
         
-        CardOptionSectionModel *majorSectionModel = [[CardOptionSectionModel alloc] initWithType:CardOptionSectionModelTypeMajor];
-        CardOptionSectionModel *minorSectionModel = [[CardOptionSectionModel alloc] initWithType:CardOptionSectionModelTypeMinor];
+        CardOptionSectionModel *firstSectionModel = [[CardOptionSectionModel alloc] initWithType:CardOptionSectionModelTypeFirst];
+        CardOptionSectionModel *secondSectionModel = [[CardOptionSectionModel alloc] initWithType:CardOptionSectionModelTypeSecond];
+        CardOptionSectionModel *thirdSectionModel = [[CardOptionSectionModel alloc] initWithType:CardOptionSectionModelTypeThird];
+        CardOptionSectionModel *forthSectionModel = [[CardOptionSectionModel alloc] initWithType:CardOptionSectionModelTypeForth];
+        CardOptionSectionModel *fifthSectionModel = [[CardOptionSectionModel alloc] initWithType:CardOptionSectionModelTypeFifth];
         
-        [snapshot appendSectionsWithIdentifiers:@[majorSectionModel, minorSectionModel]];
+        [snapshot appendSectionsWithIdentifiers:@[firstSectionModel, secondSectionModel, thirdSectionModel, forthSectionModel, fifthSectionModel]];
         
         @autoreleasepool {
             [snapshot appendItemsWithIdentifiers:@[
+                [[[CardOptionItemModel alloc] initWithType:CardOptionItemModelTypeTextFilter] autorelease]
+            ]
+                       intoSectionWithIdentifier:firstSectionModel];
+            
+            [snapshot appendItemsWithIdentifiers:@[
                 [[[CardOptionItemModel alloc] initWithType:CardOptionItemModelTypeSet] autorelease],
-                [[[CardOptionItemModel alloc] initWithType:CardOptionItemModelTypeClass] autorelease],
+                [[[CardOptionItemModel alloc] initWithType:CardOptionItemModelTypeClass] autorelease]
+            ]
+                       intoSectionWithIdentifier:secondSectionModel];
+            
+            [snapshot appendItemsWithIdentifiers:@[
                 [[[CardOptionItemModel alloc] initWithType:CardOptionItemModelTypeManaCost] autorelease],
                 [[[CardOptionItemModel alloc] initWithType:CardOptionItemModelTypeAttack] autorelease],
                 [[[CardOptionItemModel alloc] initWithType:CardOptionItemModelTypeHealth] autorelease],
+            ]
+                       intoSectionWithIdentifier:thirdSectionModel];
+            
+            [snapshot appendItemsWithIdentifiers:@[
                 [[[CardOptionItemModel alloc] initWithType:CardOptionItemModelTypeCollectible] autorelease],
                 [[[CardOptionItemModel alloc] initWithType:CardOptionItemModelTypeRarity] autorelease],
                 [[[CardOptionItemModel alloc] initWithType:CardOptionItemModelTypeType] autorelease],
                 [[[CardOptionItemModel alloc] initWithType:CardOptionItemModelTypeMinionType] autorelease],
                 [[[CardOptionItemModel alloc] initWithType:CardOptionItemModelTypeKeyword] autorelease],
-                [[[CardOptionItemModel alloc] initWithType:CardOptionItemModelTypeTextFilter] autorelease]
+                [[[CardOptionItemModel alloc] initWithType:CardOptionItemModelTypeGameMode] autorelease]
             ]
-                       intoSectionWithIdentifier:majorSectionModel];
+                       intoSectionWithIdentifier:forthSectionModel];
             
             [snapshot appendItemsWithIdentifiers:@[
-                [[[CardOptionItemModel alloc] initWithType:CardOptionItemModelTypeGameMode] autorelease],
                 [[[CardOptionItemModel alloc] initWithType:CardOptionItemModelTypeSort] autorelease]
             ]
-                       intoSectionWithIdentifier:minorSectionModel];
+                       intoSectionWithIdentifier:fifthSectionModel];
         }
         
-        [majorSectionModel release];
-        [minorSectionModel release];
+        [firstSectionModel release];
+        [secondSectionModel release];
+        [thirdSectionModel release];
+        [forthSectionModel release];
+        [fifthSectionModel release];
         
         [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
             [snapshot release];

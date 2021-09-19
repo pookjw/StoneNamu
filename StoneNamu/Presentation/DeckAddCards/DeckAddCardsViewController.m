@@ -152,7 +152,7 @@
     DeckAddCardOptionsViewController *vc = [[DeckAddCardOptionsViewController alloc] initWithOptions:self.viewModel.options localDeck:self.viewModel.localDeck];
     vc.delegate = self;
     SheetNavigationController *nvc = [[SheetNavigationController alloc] initWithRootViewController:vc];
-    nvc.supportsLargeDetent = YES;
+    nvc.detents = @[[UISheetPresentationControllerDetent largeDetent]];
     [self presentViewController:nvc animated:YES completion:^{}];
     [vc release];
     [nvc release];
@@ -357,6 +357,7 @@
     DeckDetailsViewController *vc = [[DeckDetailsViewController alloc] initWithLocalDeck:self.viewModel.localDeck presentEditorIfNoCards:NO];
     [vc setRightBarButtons:DeckDetailsViewControllerRightBarButtonTypeDone];
     SheetNavigationController *nvc = [[SheetNavigationController alloc] initWithRootViewController:vc];
+    nvc.detents = @[[UISheetPresentationControllerDetent mediumDetent]];
     [vc release];
     return [nvc autorelease];
 }
