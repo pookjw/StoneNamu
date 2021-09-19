@@ -6,12 +6,14 @@
 //
 
 #import "BlizzardHSAPIKeys.h"
+#import "HSCardSet.h"
 #import "HSCardCollectible.h"
 #import "HSCardGameMode.h"
 #import "HSCardSort.h"
 
 NSDictionary<BlizzardHSAPIOptionType, NSString *> *BlizzardHSAPIDefaultOptions(void) {
     return @{
+        BlizzardHSAPIOptionTypeSet: NSStringFromHSCardSet(HSCardSetWildCards),
         BlizzardHSAPIOptionTypeCollectible: NSStringFromHSCardCollectible(HSCardCollectibleYES),
         BlizzardHSAPIOptionTypeGameMode: NSStringFromHSCardGameMode(HSCardGameModeConstructed),
         BlizzardHSAPIOptionTypeSort: NSStringFromHSCardSort(HSCardSortManaCostAsc)
