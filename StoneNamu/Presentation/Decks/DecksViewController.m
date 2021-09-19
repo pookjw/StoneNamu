@@ -20,6 +20,7 @@
 @property (retain) DecksViewModel *viewModel;
 @property (weak) UITextField * _Nullable deckCodeTextField;
 @property (weak) UIAlertAction * _Nullable deckCodeAlertAction;
+@property (retain) UIViewController * _Nullable contextViewController;
 @end
 
 @implementation DecksViewController
@@ -28,6 +29,7 @@
     [_collectionView release];
     [_addBarButtonItem release];
     [_viewModel release];
+    [_contextViewController release];
     [super dealloc];
 }
 
@@ -82,7 +84,7 @@
                                             deckFormat:HSDeckFormatStandard
                                             completion:^(LocalDeck * _Nonnull localDeck) {
                     [NSOperationQueue.mainQueue addOperationWithBlock:^{
-                        [self presentDeckDetailsWithLocalDeck:localDeck];
+                        [self presentDeckDetailsWithLocalDeck:localDeck scrollToItem:YES];
                     }];
                 }];
             }];
@@ -104,7 +106,7 @@
                                             deckFormat:HSDeckFormatWild
                                             completion:^(LocalDeck * _Nonnull localDeck) {
                     [NSOperationQueue.mainQueue addOperationWithBlock:^{
-                        [self presentDeckDetailsWithLocalDeck:localDeck];
+                        [self presentDeckDetailsWithLocalDeck:localDeck scrollToItem:YES];
                     }];
                 }];
             }];
@@ -126,7 +128,7 @@
                                             deckFormat:HSDeckFormatClassic
                                             completion:^(LocalDeck * _Nonnull localDeck) {
                     [NSOperationQueue.mainQueue addOperationWithBlock:^{
-                        [self presentDeckDetailsWithLocalDeck:localDeck];
+                        [self presentDeckDetailsWithLocalDeck:localDeck scrollToItem:YES];
                     }];
                 }];
             }];
@@ -307,7 +309,7 @@
                             if (error) {
                                 [self presentErrorAlertWithError:error];
                             } else {
-                                [self presentDeckDetailsWithLocalDeck:localDeck];
+                                [self presentDeckDetailsWithLocalDeck:localDeck scrollToItem:YES];
                             }
                         }];
                     }];
@@ -329,20 +331,69 @@
     }];
 }
 
-- (void)presentDeckDetailsWithLocalDeck:(LocalDeck *)localDeck {
-    NSIndexPath *indexPath = [self.viewModel indexPathForLocalDeck:localDeck];
-    [self.collectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionNone];
+- (DeckDetailsViewController *)makeDeckDetailsWithLocalDeck:(LocalDeck *)localDeck {
+    DeckDetailsViewController *vc = [[DeckDetailsViewController alloc] initWithLocalDeck:localDeck presentEditorIfNoCards:YES];    
+    return [vc autorelease];
+}
+
+- (void)presentDeckDetailsWithLocalDeck:(LocalDeck *)localDeck scrollToItem:(BOOL) scrollToItem {
+    DeckDetailsViewController *vc = [self makeDeckDetailsWithLocalDeck:localDeck];
     
-    DeckDetailsViewController *vc = [[DeckDetailsViewController alloc] initWithLocalDeck:localDeck presentEditorIfNoCards:YES];
-    [self.splitViewController showDetailViewController:vc sender:nil];
-    [vc release];
+    if (scrollToItem) {
+        NSIndexPath *indexPath = [self.viewModel indexPathForLocalDeck:localDeck];
+        [self.collectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionNone];
+    }
+    
+    [self.splitViewController showDetailViewController:vc sender:self];
 }
 
 #pragma mark - UICollectionViewDelegate
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     DecksItemModel *itemModel = [self.viewModel.dataSource itemIdentifierForIndexPath:indexPath];
-    [self presentDeckDetailsWithLocalDeck:itemModel.localDeck];
+    [self presentDeckDetailsWithLocalDeck:itemModel.localDeck scrollToItem:NO];
+}
+
+- (UIContextMenuConfiguration *)collectionView:(UICollectionView *)collectionView contextMenuConfigurationForItemAtIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point {
+    self.contextViewController = nil;
+    self.viewModel.contextMenuIndexPath = nil;
+    
+    DecksItemModel * _Nullable itemModel = [self.viewModel.dataSource itemIdentifierForIndexPath:indexPath];
+    
+    if (itemModel == nil) {
+        return nil;
+    }
+    
+    self.viewModel.contextMenuIndexPath = indexPath;
+    
+    UIContextMenuConfiguration *configuration = [UIContextMenuConfiguration configurationWithIdentifier:nil
+                                                                                        previewProvider:^UIViewController * _Nullable{
+        DeckDetailsViewController *vc = [self makeDeckDetailsWithLocalDeck:itemModel.localDeck];
+        self.contextViewController = vc;
+        return [vc autorelease];
+    }
+                                                                                         actionProvider:nil];
+    
+    return configuration;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView willPerformPreviewActionForMenuWithConfiguration:(UIContextMenuConfiguration *)configuration animator:(id<UIContextMenuInteractionCommitAnimating>)animator {
+    NSIndexPath * _Nullable indexPath = self.viewModel.contextMenuIndexPath;
+    
+    if (indexPath) {
+        [collectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionNone];
+        self.viewModel.contextMenuIndexPath = nil;
+    }
+    
+    if (self.contextViewController == nil) return;
+    
+    [animator addAnimations:^{
+        [self.splitViewController showDetailViewController:self.contextViewController sender:nil];
+    }];
+    
+    [animator addCompletion:^{
+        self.contextViewController = nil;
+    }];
 }
 
 #pragma mark - UITextFieldDelegate

@@ -24,6 +24,7 @@
     
     if (self) {
         self->_dataSource = [dataSource retain];
+        self.contextMenuIndexPath = nil;
         
         NSOperationQueue *queue = [NSOperationQueue new];
         self.queue = queue;
@@ -51,6 +52,7 @@
 - (void)dealloc {
     [_queue release];
     [_dataSource release];
+    [_contextMenuIndexPath release];
     [_hsDeckUseCase release];
     [_localDeckUseCase release];
     [super dealloc];
