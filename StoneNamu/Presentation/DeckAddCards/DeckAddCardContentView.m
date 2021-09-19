@@ -136,11 +136,24 @@
 }
 
 - (void)updateCountLabel {
+    NSUInteger count = self.count;
+    int maxCount;
+    
     if (self.hsCard.rarityId == HSCardRarityLegendary) {
-        self.countLabel.text = [NSString stringWithFormat:@"%lu / %d", self.count, HSDECK_MAX_SINGLE_LEGENDARY_CARD];
+        maxCount = HSDECK_MAX_SINGLE_LEGENDARY_CARD;
     } else {
-        self.countLabel.text = [NSString stringWithFormat:@"%lu / %d", self.count, HSDECK_MAX_SINGLE_CARD];
+        maxCount = HSDECK_MAX_SINGLE_CARD;
     }
+    
+    //
+    
+    if (count > 0) {
+        self.countLabel.alpha = 1.0;
+    } else {
+        self.countLabel.alpha = 0.0;
+    }
+    
+    self.countLabel.text = [NSString stringWithFormat:@"%lu / %d", count, maxCount];
     
     [self drawShapeToCountLabel];
 }
