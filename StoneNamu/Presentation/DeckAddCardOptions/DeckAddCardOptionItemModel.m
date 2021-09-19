@@ -78,21 +78,13 @@ DeckAddCardOptionItemModelType DeckAddCardOptionItemModelTypeFromNSString(NSStri
 
 @implementation DeckAddCardOptionItemModel
 
-- (instancetype)init {
-    self = [super init];
-    
-    if (self) {
-        _value = nil;
-    }
-    
-    return self;
-}
-
-- (instancetype)initWithType:(DeckAddCardOptionItemModelType)type {
+- (instancetype)initWithType:(DeckAddCardOptionItemModelType)type deckFormat:(HSDeckFormat)deckFormat classId:(HSCardClass)classId {
     self = [self init];
     
     if (self) {
-        _type = type;
+        self->_type = type;
+        self->_deckFormat = deckFormat;
+        self->_classId = classId;
     }
     
     return self;
@@ -110,7 +102,10 @@ DeckAddCardOptionItemModelType DeckAddCardOptionItemModelTypeFromNSString(NSStri
     
     DeckAddCardOptionItemModel *toCompare = (DeckAddCardOptionItemModel *)object;
     
-    return (self.type == toCompare.type) && ([self.value isEqualToString:toCompare.value]);
+    return (self.type == toCompare.type) &&
+    [self.deckFormat isEqualToString:toCompare.deckFormat] &&
+    (self.classId == toCompare.classId) &&
+    ([self.value isEqualToString:toCompare.value]);
 }
 
 - (NSUInteger)hash {
@@ -120,9 +115,9 @@ DeckAddCardOptionItemModelType DeckAddCardOptionItemModelTypeFromNSString(NSStri
 - (DeckAddCardOptionItemModelValueSetType)valueSetType {
     switch (self.type) {
         case DeckAddCardOptionItemModelTypeSet:
-            return DeckAddCardOptionItemModelValueSetTypePickerWithEmptyRow;
+            return DeckAddCardOptionItemModelValueSetTypePicker;
         case DeckAddCardOptionItemModelTypeClass:
-            return DeckAddCardOptionItemModelValueSetTypePickerWithEmptyRow;
+            return DeckAddCardOptionItemModelValueSetTypePicker;
         case DeckAddCardOptionItemModelTypeManaCost:
             return DeckAddCardOptionItemModelValueSetTypeStepper;
         case DeckAddCardOptionItemModelTypeAttack:
@@ -153,7 +148,7 @@ DeckAddCardOptionItemModelType DeckAddCardOptionItemModelTypeFromNSString(NSStri
 - (NSArray<PickerItemModel *> * _Nullable)pickerDataSource {
     switch (self.type) {
         case DeckAddCardOptionItemModelTypeSet:
-            return [self pickerItemModelsFromDic:hsCardSetsWithLocalizable()
+            return [self pickerItemModelsFromDic:hsCardSetsWithLocalizableFromHSDeckFormat(self.deckFormat)
                                      filterArray:nil
                                      imageSource:^UIImage * _Nullable(NSString * key) {
                 return [ImageService.sharedInstance imageOfCardSet:HSCardSetFromNSString(key)];
@@ -163,7 +158,13 @@ DeckAddCardOptionItemModelType DeckAddCardOptionItemModelTypeFromNSString(NSStri
             }
                                        ascending:NO];
         case DeckAddCardOptionItemModelTypeClass: {
-            return [self pickerItemModelsFromDic:hsCardClassesWithLocalizable()
+            NSDictionary<NSString *, NSString *> *oldLocalizables = hsCardClassesWithLocalizable();
+            NSDictionary<NSString *, NSString *> *newLocalizables = @{
+                NSStringFromHSCardClass(self.classId): oldLocalizables[NSStringFromHSCardClass(self.classId)],
+                NSStringFromHSCardClass(HSCardClassNeutral): oldLocalizables[NSStringFromHSCardClass(HSCardClassNeutral)]
+            };
+            
+            return [self pickerItemModelsFromDic:newLocalizables
                                      filterArray:@[NSStringFromHSCardClass(HSCardClassDeathKnight)]
                                      imageSource:^UIImage * _Nullable(NSString * key) {
                 return nil;

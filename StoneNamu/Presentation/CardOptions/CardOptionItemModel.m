@@ -78,21 +78,11 @@ CardOptionItemModelType CardOptionItemModelTypeFromNSString(NSString * key) {
 
 @implementation CardOptionItemModel
 
-- (instancetype)init {
-    self = [super init];
-    
-    if (self) {
-        _value = nil;
-    }
-    
-    return self;
-}
-
 - (instancetype)initWithType:(CardOptionItemModelType)type {
     self = [self init];
     
     if (self) {
-        _type = type;
+        self->_type = type;
     }
     
     return self;

@@ -8,9 +8,11 @@
 #import "DeckAddCardOptionsViewModel.h"
 #import "BlizzardHSAPIKeys.h"
 #import "NSSemaphoreCondition.h"
+#import "LocalDeckUseCaseImpl.h"
 
 @interface DeckAddCardOptionsViewModel ()
 @property (retain) NSOperationQueue *queue;
+@property (retain) id<LocalDeckUseCase> localDeckUseCase;
 @end
 
 @implementation DeckAddCardOptionsViewModel
@@ -28,7 +30,12 @@
         self.queue = queue;
         [queue release];
         
+        LocalDeckUseCaseImpl *localDeckUseCase = [LocalDeckUseCaseImpl new];
+        self.localDeckUseCase = localDeckUseCase;
+        [localDeckUseCase release];
+        
         [self configureSnapshot];
+        [self startObserving];
     }
     
     return self;
@@ -38,6 +45,7 @@
     [_dataSource release];
     [_localDeck release];
     [_queue release];
+    [_localDeckUseCase release];
     [super dealloc];
 }
 
@@ -161,24 +169,27 @@
         [snapshot appendSectionsWithIdentifiers:@[majorSectionModel, minorSectionModel]];
         
         @autoreleasepool {
+            HSDeckFormat deckFormat = self.localDeck.format;
+            HSCardClass classId = self.localDeck.classId.unsignedIntegerValue;
+            
             [snapshot appendItemsWithIdentifiers:@[
-                [[[DeckAddCardOptionItemModel alloc] initWithType:DeckAddCardOptionItemModelTypeSet] autorelease],
-                [[[DeckAddCardOptionItemModel alloc] initWithType:DeckAddCardOptionItemModelTypeClass] autorelease],
-                [[[DeckAddCardOptionItemModel alloc] initWithType:DeckAddCardOptionItemModelTypeManaCost] autorelease],
-                [[[DeckAddCardOptionItemModel alloc] initWithType:DeckAddCardOptionItemModelTypeAttack] autorelease],
-                [[[DeckAddCardOptionItemModel alloc] initWithType:DeckAddCardOptionItemModelTypeHealth] autorelease],
-                [[[DeckAddCardOptionItemModel alloc] initWithType:DeckAddCardOptionItemModelTypeCollectible] autorelease],
-                [[[DeckAddCardOptionItemModel alloc] initWithType:DeckAddCardOptionItemModelTypeRarity] autorelease],
-                [[[DeckAddCardOptionItemModel alloc] initWithType:DeckAddCardOptionItemModelTypeType] autorelease],
-                [[[DeckAddCardOptionItemModel alloc] initWithType:DeckAddCardOptionItemModelTypeMinionType] autorelease],
-                [[[DeckAddCardOptionItemModel alloc] initWithType:DeckAddCardOptionItemModelTypeKeyword] autorelease],
-                [[[DeckAddCardOptionItemModel alloc] initWithType:DeckAddCardOptionItemModelTypeTextFilter] autorelease]
+                [[[DeckAddCardOptionItemModel alloc] initWithType:DeckAddCardOptionItemModelTypeSet deckFormat:deckFormat classId:classId] autorelease],
+                [[[DeckAddCardOptionItemModel alloc] initWithType:DeckAddCardOptionItemModelTypeClass deckFormat:deckFormat classId:classId] autorelease],
+                [[[DeckAddCardOptionItemModel alloc] initWithType:DeckAddCardOptionItemModelTypeManaCost deckFormat:deckFormat classId:classId] autorelease],
+                [[[DeckAddCardOptionItemModel alloc] initWithType:DeckAddCardOptionItemModelTypeAttack deckFormat:deckFormat classId:classId] autorelease],
+                [[[DeckAddCardOptionItemModel alloc] initWithType:DeckAddCardOptionItemModelTypeHealth deckFormat:deckFormat classId:classId] autorelease],
+                [[[DeckAddCardOptionItemModel alloc] initWithType:DeckAddCardOptionItemModelTypeCollectible deckFormat:deckFormat classId:classId] autorelease],
+                [[[DeckAddCardOptionItemModel alloc] initWithType:DeckAddCardOptionItemModelTypeRarity deckFormat:deckFormat classId:classId] autorelease],
+                [[[DeckAddCardOptionItemModel alloc] initWithType:DeckAddCardOptionItemModelTypeType deckFormat:deckFormat classId:classId] autorelease],
+                [[[DeckAddCardOptionItemModel alloc] initWithType:DeckAddCardOptionItemModelTypeMinionType deckFormat:deckFormat classId:classId] autorelease],
+                [[[DeckAddCardOptionItemModel alloc] initWithType:DeckAddCardOptionItemModelTypeKeyword deckFormat:deckFormat classId:classId] autorelease],
+                [[[DeckAddCardOptionItemModel alloc] initWithType:DeckAddCardOptionItemModelTypeTextFilter deckFormat:deckFormat classId:classId] autorelease]
             ]
                        intoSectionWithIdentifier:majorSectionModel];
             
             [snapshot appendItemsWithIdentifiers:@[
-                [[[DeckAddCardOptionItemModel alloc] initWithType:DeckAddCardOptionItemModelTypeGameMode] autorelease],
-                [[[DeckAddCardOptionItemModel alloc] initWithType:DeckAddCardOptionItemModelTypeSort] autorelease]
+                [[[DeckAddCardOptionItemModel alloc] initWithType:DeckAddCardOptionItemModelTypeGameMode deckFormat:deckFormat classId:classId] autorelease],
+                [[[DeckAddCardOptionItemModel alloc] initWithType:DeckAddCardOptionItemModelTypeSort deckFormat:deckFormat classId:classId] autorelease]
             ]
                        intoSectionWithIdentifier:minorSectionModel];
         }
@@ -199,5 +210,22 @@
         [semaphore release];
     }];
 }
+
+- (void)startObserving {
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(localDeckChangesReceived:)
+                                               name:LocalDeckUseCaseObserveDataNotificationName
+                                             object:self.localDeckUseCase];
+}
+
+- (void)localDeckChangesReceived:(NSNotification *)notification {
+    if (self.localDeck != nil) {
+        [self.localDeckUseCase refreshObject:self.localDeck mergeChanges:NO completion:^{
+            
+        }];
+    }
+}
+
+
 
 @end

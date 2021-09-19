@@ -195,7 +195,8 @@ NSArray<NSNumber *> *hsCardSetsFromHSDeckFormat(HSDeckFormat deckFormat) {
             [NSNumber numberWithUnsignedInteger:HSCardSetScholomanceAcademy],
             [NSNumber numberWithUnsignedInteger:HSCardSetMadnessAtTheDarkmoonFaire],
             [NSNumber numberWithUnsignedInteger:HSCardSetForgedInTheBarrens],
-            [NSNumber numberWithUnsignedInteger:HSCardSetUnitedInStormWind]
+            [NSNumber numberWithUnsignedInteger:HSCardSetUnitedInStormWind],
+            [NSNumber numberWithUnsignedInteger:HSCardSetStandardCards]
         ];
     } else if ([deckFormat isEqualToString:HSDeckFormatWild]) {
         return @[
@@ -235,4 +236,21 @@ NSArray<NSNumber *> *hsCardSetsFromHSDeckFormat(HSDeckFormat deckFormat) {
     } else {
         return @[];
     }
+}
+
+NSDictionary<NSString *, NSString *> * hsCardSetsWithLocalizableFromHSDeckFormat(HSDeckFormat deckFormat) {
+    NSMutableDictionary<NSString *, NSString *> *dic = [@{} mutableCopy];
+    
+    [hsCardSetsFromHSDeckFormat(deckFormat) enumerateObjectsUsingBlock:^(NSNumber * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSString *key = NSStringFromHSCardSet(obj.unsignedIntegerValue);
+        dic[key] = NSLocalizedStringFromTableInBundle(key,
+                                                      @"HSCardSet",
+                                                      [NSBundle bundleWithIdentifier:@"com.pookjw.StoneNamuCore"],
+                                                      @"");
+    }];
+    
+    NSDictionary<NSString *, NSString *> *result = [[dic copy] autorelease];
+    [dic release];
+    
+    return result;
 }

@@ -7,6 +7,8 @@
 
 #import <Foundation/Foundation.h>
 #import "PickerItemModel.h"
+#import "HSDeckFormat.h"
+#import "HSCardClass.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -38,6 +40,8 @@ DeckAddCardOptionItemModelType DeckAddCardOptionItemModelTypeFromNSString(NSStri
 
 @interface DeckAddCardOptionItemModel : NSObject
 @property (readonly) DeckAddCardOptionItemModelType type;
+@property (readonly) HSDeckFormat deckFormat;
+@property (readonly) HSCardClass classId;
 @property (copy) NSString * _Nullable value;
 @property (readonly, nonatomic) DeckAddCardOptionItemModelValueSetType valueSetType;
 @property (readonly, nonatomic) NSArray<PickerItemModel *> * _Nullable pickerDataSource;
@@ -47,7 +51,7 @@ DeckAddCardOptionItemModelType DeckAddCardOptionItemModelTypeFromNSString(NSStri
 @property (readonly, nonatomic) NSString * _Nullable accessoryText;
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
-- (instancetype)initWithType:(DeckAddCardOptionItemModelType)type;
+- (instancetype)initWithType:(DeckAddCardOptionItemModelType)type deckFormat:(HSDeckFormat)deckFormat classId:(HSCardClass)classId;
 @end
 
 NS_ASSUME_NONNULL_END
