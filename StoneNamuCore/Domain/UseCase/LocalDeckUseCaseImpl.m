@@ -83,7 +83,7 @@
     BOOL __block result = NO;
     
     [easterEggs enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if ([firstNames containsString:obj]) {
+        if ([firstNames localizedCaseInsensitiveContainsString:obj]) {
             result = YES;
             *stop = YES;
         }

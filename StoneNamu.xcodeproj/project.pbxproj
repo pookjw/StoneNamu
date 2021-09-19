@@ -155,7 +155,6 @@
 		4FAA89DD26A426E700572BB4 /* HSCardUseCaseImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA89DB26A426E700572BB4 /* HSCardUseCaseImpl.m */; };
 		4FAA89E026A42A1500572BB4 /* BlizzardAPIRepositoryImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FAA89DE26A42A1500572BB4 /* BlizzardAPIRepositoryImpl.h */; };
 		4FAA89E126A42A1500572BB4 /* BlizzardAPIRepositoryImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA89DF26A42A1500572BB4 /* BlizzardAPIRepositoryImpl.m */; };
-		4FAA89E626A4333C00572BB4 /* FetchHSCardUseCaseTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA89E526A4333C00572BB4 /* FetchHSCardUseCaseTest.m */; };
 		4FB0ECE826B82AEE0020EE6C /* CardDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FB0ECE726B82AEE0020EE6C /* CardDetailsViewController.m */; };
 		4FB0ECEB26B82B100020EE6C /* DynamicPresentationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FB0ECEA26B82B100020EE6C /* DynamicPresentationController.m */; };
 		4FB850F726C18BAE00E3C89D /* PrefsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FB850F626C18BAE00E3C89D /* PrefsViewController.m */; };
@@ -176,6 +175,10 @@
 		4FDDE4B826F77D4D0022F87C /* HSCardSort.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4FDDE4BA26F77D4D0022F87C /* HSCardSort.strings */; };
 		4FDDE4BE26F79F2D0022F87C /* NSString+arrayOfCharacters.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FDDE4BC26F79F2D0022F87C /* NSString+arrayOfCharacters.h */; };
 		4FDDE4BF26F79F2D0022F87C /* NSString+arrayOfCharacters.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FDDE4BD26F79F2D0022F87C /* NSString+arrayOfCharacters.m */; };
+		4FDDE4C126F7B9000022F87C /* HSCardUseCaseTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FDDE4C026F7B9000022F87C /* HSCardUseCaseTest.m */; };
+		4FDDE4C326F7BC360022F87C /* HSDeckUseCaseTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FDDE4C226F7BC360022F87C /* HSDeckUseCaseTest.m */; };
+		4FDDE4C526F7BDD80022F87C /* DataCacheUseCaseTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FDDE4C426F7BDD80022F87C /* DataCacheUseCaseTest.m */; };
+		4FDDE4C726F7C0030022F87C /* PrefsUseCaseTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FDDE4C626F7C0030022F87C /* PrefsUseCaseTest.m */; };
 		4FDE8DF326F107ED00959B97 /* UIFont+customFonts.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FDE8DF226F107ED00959B97 /* UIFont+customFonts.m */; };
 		4FDE8DF426F10A2D00959B97 /* GmarketSansTTFMedium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4FDE8DEE26F107D200959B97 /* GmarketSansTTFMedium.ttf */; };
 		4FDE8DF526F10A2D00959B97 /* GmarketSansTTFLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4FDE8DF026F107D200959B97 /* GmarketSansTTFLight.ttf */; };
@@ -538,7 +541,6 @@
 		4FAA89DE26A42A1500572BB4 /* BlizzardAPIRepositoryImpl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlizzardAPIRepositoryImpl.h; sourceTree = "<group>"; };
 		4FAA89DF26A42A1500572BB4 /* BlizzardAPIRepositoryImpl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlizzardAPIRepositoryImpl.m; sourceTree = "<group>"; };
 		4FAA89E226A42A2100572BB4 /* BlizzardAPIRepository.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlizzardAPIRepository.h; sourceTree = "<group>"; };
-		4FAA89E526A4333C00572BB4 /* FetchHSCardUseCaseTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FetchHSCardUseCaseTest.m; sourceTree = "<group>"; };
 		4FB0ECE626B82AEE0020EE6C /* CardDetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardDetailsViewController.h; sourceTree = "<group>"; };
 		4FB0ECE726B82AEE0020EE6C /* CardDetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardDetailsViewController.m; sourceTree = "<group>"; };
 		4FB0ECEA26B82B100020EE6C /* DynamicPresentationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DynamicPresentationController.m; sourceTree = "<group>"; };
@@ -572,6 +574,10 @@
 		4FDDE4BB26F77D4E0022F87C /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/HSCardSort.strings; sourceTree = "<group>"; };
 		4FDDE4BC26F79F2D0022F87C /* NSString+arrayOfCharacters.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+arrayOfCharacters.h"; sourceTree = "<group>"; };
 		4FDDE4BD26F79F2D0022F87C /* NSString+arrayOfCharacters.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+arrayOfCharacters.m"; sourceTree = "<group>"; };
+		4FDDE4C026F7B9000022F87C /* HSCardUseCaseTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCardUseCaseTest.m; sourceTree = "<group>"; };
+		4FDDE4C226F7BC360022F87C /* HSDeckUseCaseTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSDeckUseCaseTest.m; sourceTree = "<group>"; };
+		4FDDE4C426F7BDD80022F87C /* DataCacheUseCaseTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DataCacheUseCaseTest.m; sourceTree = "<group>"; };
+		4FDDE4C626F7C0030022F87C /* PrefsUseCaseTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrefsUseCaseTest.m; sourceTree = "<group>"; };
 		4FDE8DEE26F107D200959B97 /* GmarketSansTTFMedium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GmarketSansTTFMedium.ttf; sourceTree = "<group>"; };
 		4FDE8DEF26F107D200959B97 /* GmarketSansTTFBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GmarketSansTTFBold.ttf; sourceTree = "<group>"; };
 		4FDE8DF026F107D200959B97 /* GmarketSansTTFLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GmarketSansTTFLight.ttf; sourceTree = "<group>"; };
@@ -1287,7 +1293,10 @@
 		4FAA89E326A4332B00572BB4 /* UseCase */ = {
 			isa = PBXGroup;
 			children = (
-				4FAA89E526A4333C00572BB4 /* FetchHSCardUseCaseTest.m */,
+				4FDDE4C026F7B9000022F87C /* HSCardUseCaseTest.m */,
+				4FDDE4C226F7BC360022F87C /* HSDeckUseCaseTest.m */,
+				4FDDE4C426F7BDD80022F87C /* DataCacheUseCaseTest.m */,
+				4FDDE4C626F7C0030022F87C /* PrefsUseCaseTest.m */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -1843,7 +1852,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4FAA89E626A4333C00572BB4 /* FetchHSCardUseCaseTest.m in Sources */,
+				4FDDE4C126F7B9000022F87C /* HSCardUseCaseTest.m in Sources */,
+				4FDDE4C326F7BC360022F87C /* HSDeckUseCaseTest.m in Sources */,
+				4FDDE4C726F7C0030022F87C /* PrefsUseCaseTest.m in Sources */,
+				4FDDE4C526F7BDD80022F87C /* DataCacheUseCaseTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
