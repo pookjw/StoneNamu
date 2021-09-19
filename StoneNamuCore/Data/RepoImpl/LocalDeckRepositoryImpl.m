@@ -111,9 +111,11 @@
     }];
 }
 
-- (nonnull LocalDeck *)makeLocalDeck {
-    LocalDeck *localDeck = [[LocalDeck alloc] initWithContext:self.coreDataStack.context];
-    return [localDeck autorelease];
+- (void)makeLocalDeckWithCompletion:(LocalDeckRepositoryMakeWithCompletion)completion {
+    [self.coreDataStack.queue addBarrierBlock:^{
+        LocalDeck *localDeck = [[[LocalDeck alloc] initWithContext:self.coreDataStack.context] autorelease];
+        completion(localDeck);
+    }];
 }
 
 - (void)saveChanges {

@@ -51,10 +51,11 @@
     [self.localDeckRepository refreshObject:object mergeChanges:flag completion:completion];
 }
 
-- (nonnull LocalDeck *)makeLocalDeck {
-    LocalDeck *localDeck = [self.localDeckRepository makeLocalDeck];
-    [localDeck updateTimestamp];
-    return localDeck;
+- (void)makeLocalDeckWithCompletion:(LocalDeckUseCaseMakeWithCompletion)completion {
+    [self.localDeckRepository makeLocalDeckWithCompletion:^(LocalDeck * _Nonnull localDeck) {
+        [localDeck updateTimestamp];
+        completion(localDeck);
+    }];
 }
 
 - (void)saveChanges {

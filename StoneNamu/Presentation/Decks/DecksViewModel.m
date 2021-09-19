@@ -103,20 +103,23 @@
             return;
         }
         
-        LocalDeck *localDeck = [self.localDeckUseCase makeLocalDeck];
-        localDeck.format = deckFormat;
-        localDeck.name = hsCardClassesWithLocalizable()[NSStringFromHSCardClass(hsCardClass)];
-        localDeck.classId = [NSNumber numberWithUnsignedInteger:hsCardClass];
-        
-        DecksItemModel *itemModel = [[DecksItemModel alloc] initWithType:DecksItemModelTypeDeck localDeck:localDeck];
-        
-        [snapshot appendItemsWithIdentifiers:@[itemModel] intoSectionWithIdentifier:sectionModel];
-        [itemModel release];
-        [self sortSnapshot:snapshot];
-        
-        [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
-            [self.localDeckUseCase saveChanges];
-            completion(localDeck);
+        [self.localDeckUseCase makeLocalDeckWithCompletion:^(LocalDeck * _Nonnull localDeck) {
+            [self.queue addBarrierBlock:^{
+                localDeck.format = deckFormat;
+                localDeck.name = hsCardClassesWithLocalizable()[NSStringFromHSCardClass(hsCardClass)];
+                localDeck.classId = [NSNumber numberWithUnsignedInteger:hsCardClass];
+                
+                DecksItemModel *itemModel = [[DecksItemModel alloc] initWithType:DecksItemModelTypeDeck localDeck:localDeck];
+                
+                [snapshot appendItemsWithIdentifiers:@[itemModel] intoSectionWithIdentifier:sectionModel];
+                [itemModel release];
+                [self sortSnapshot:snapshot];
+                
+                [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
+                    [self.localDeckUseCase saveChanges];
+                    completion(localDeck);
+                }];
+            }];
         }];
     }];
 }
@@ -145,28 +148,31 @@
             return;
         }
         
-        LocalDeck *localDeck = [self.localDeckUseCase makeLocalDeck];
-        
-        if (copyHSDeck) {
-            [localDeck setValuesAsHSDeck:copyHSDeck];
-        }
-        [copyHSDeck release];
-        
-        if ((copyTitle != nil) && (![copyTitle isEqualToString:@""])) {
-            localDeck.name = copyTitle;
-        }
-        [copyTitle release];
-        
-        DecksItemModel *itemModel = [[DecksItemModel alloc] initWithType:DecksItemModelTypeDeck localDeck:localDeck];
-        
-        [snapshot appendItemsWithIdentifiers:@[itemModel] intoSectionWithIdentifier:sectionModel];
-        [itemModel release];
-        [self sortSnapshot:snapshot];
-        
-        [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
-            [snapshot release];
-            [self.localDeckUseCase saveChanges];
-            completion(localDeck);
+        [self.localDeckUseCase makeLocalDeckWithCompletion:^(LocalDeck * _Nonnull localDeck) {
+            [self.queue addBarrierBlock:^{
+                if (copyHSDeck) {
+                    [localDeck setValuesAsHSDeck:copyHSDeck];
+                }
+                
+                [copyHSDeck release];
+                
+                if ((copyTitle != nil) && (![copyTitle isEqualToString:@""])) {
+                    localDeck.name = copyTitle;
+                }
+                [copyTitle release];
+                
+                DecksItemModel *itemModel = [[DecksItemModel alloc] initWithType:DecksItemModelTypeDeck localDeck:localDeck];
+                
+                [snapshot appendItemsWithIdentifiers:@[itemModel] intoSectionWithIdentifier:sectionModel];
+                [itemModel release];
+                [self sortSnapshot:snapshot];
+                
+                [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
+                    [snapshot release];
+                    [self.localDeckUseCase saveChanges];
+                    completion(localDeck);
+                }];
+            }];
         }];
     }];
 }

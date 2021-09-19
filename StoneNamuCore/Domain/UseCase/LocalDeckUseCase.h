@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 typedef void (^LocalDeckUseCaseFetchWithCompletion)(NSArray<LocalDeck *> * _Nullable, NSError * _Nullable);
 typedef void (^LocalDeckUseCaseRefreshObjectWithCompletion)(void);
 typedef void (^LocalDeckUseCaseFetchWithValidation)(NSError * _Nullable);
+typedef void (^LocalDeckUseCaseMakeWithCompletion)(LocalDeck *);
 
 static NSString * const LocalDeckUseCaseObserveDataNotificationName = @"LocalDeckUseCaseObserveDataNotificationName";
 
@@ -31,7 +32,7 @@ static NSString * const LocalDeckUseCaseDeleteAllNotificationName = @"LocalDeckU
 - (void)deleteHSCards:(NSSet<HSCard *> *)hsCards toLocalDeck:(LocalDeck *)localDeck validation:(LocalDeckUseCaseFetchWithValidation)validation;
 - (void)increaseHSCards:(NSSet<HSCard *> *)hsCards toLocalDeck:(LocalDeck *)localDeck validation:(LocalDeckUseCaseFetchWithValidation)validation;
 - (void)decreaseHSCards:(NSSet<HSCard *> *)hsCards toLocalDeck:(LocalDeck *)localDeck validation:(LocalDeckUseCaseFetchWithValidation)validation;
-- (LocalDeck *)makeLocalDeck;
+- (void)makeLocalDeckWithCompletion:(LocalDeckUseCaseMakeWithCompletion)completion;
 @end
 
 NS_ASSUME_NONNULL_END

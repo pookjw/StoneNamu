@@ -11,6 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 typedef void (^LocalDeckRepositoryFetchWithCompletion)(NSArray<LocalDeck *> * _Nullable, NSError * _Nullable);
+typedef void (^LocalDeckRepositoryMakeWithCompletion)(LocalDeck *);
 typedef void (^LocalDeckRepositoryRefreshObjectCompletion)(void);
 
 static NSString * const LocalDeckRepositoryObserveDataNotificationName = @"LocalDeckRepositoryObserveDataNotificationName";
@@ -24,7 +25,7 @@ static NSString * const LocalDeckRepositoryDeleteAllNotificationName = @"LocalDe
 - (void)refreshObject:(NSManagedObject *)object mergeChanges:(BOOL)flag completion:(LocalDeckRepositoryRefreshObjectCompletion)completion;
 - (void)deleteLocalDeck:(LocalDeck *)localDeck;
 - (void)deleteAllLocalDecks;
-- (LocalDeck *)makeLocalDeck;
+- (void)makeLocalDeckWithCompletion:(LocalDeckRepositoryMakeWithCompletion)completion;
 @end
 
 NS_ASSUME_NONNULL_END
