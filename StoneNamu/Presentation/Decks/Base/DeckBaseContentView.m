@@ -16,6 +16,8 @@
 @property (retain) InsetsLabel *nameLabel;
 @property (retain) UIImageView *heroImageView;
 @property (retain) CAGradientLayer *imageViewGradientLayer;
+@property (retain) UIVisualEffectView *countBlurView;
+@property (retain) InsetsLabel *countLabel;
 @property (readonly, nonatomic) LocalDeck * _Nullable localDeck;
 @property (retain) DeckBaseContentViewModel *viewModel;
 @end
@@ -31,6 +33,8 @@
         [self configureCardSetImageView];
         [self configureNameLabel];
         [self configureHeroImageView];
+        [self configureCountBlurView];
+        [self configureCountLabel];
         [self configureViewModel];
     }
     
@@ -43,6 +47,8 @@
     [_nameLabel release];
     [_heroImageView release];
     [_imageViewGradientLayer release];
+    [_countBlurView release];
+    [_countLabel release];
     [_viewModel release];
     [super dealloc];
 }
@@ -108,7 +114,6 @@
     [NSLayoutConstraint activateConstraints:@[
         [nameLabel.topAnchor constraintEqualToAnchor:self.topAnchor],
         [nameLabel.leadingAnchor constraintEqualToAnchor:self.cardSetImageView.trailingAnchor],
-        [nameLabel.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
         [nameLabel.heightAnchor constraintEqualToConstant:ceil(rect.size.height + contentInsets.top + contentInsets.bottom)],
         [self.cardSetImageView.heightAnchor constraintEqualToAnchor:nameLabel.heightAnchor]
     ]];
@@ -130,9 +135,9 @@
     [self addSubview:heroImageView];
     
     [NSLayoutConstraint activateConstraints:@[
-        [heroImageView.centerYAnchor constraintEqualToAnchor:self.nameLabel.centerYAnchor],
+        [heroImageView.centerYAnchor constraintEqualToAnchor:self.centerYAnchor],
         [heroImageView.heightAnchor constraintEqualToAnchor:self.nameLabel.heightAnchor],
-        [heroImageView.trailingAnchor constraintEqualToAnchor:self.nameLabel.trailingAnchor]
+        [heroImageView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor]
     ]];
     
     NSLayoutConstraint *aspectLayout = [NSLayoutConstraint constraintWithItem:heroImageView
@@ -166,6 +171,45 @@
     [heroImageView release];
 }
 
+- (void)configureCountBlurView {
+    UIVisualEffectView *countBlurView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
+    self.countBlurView = countBlurView;
+    
+    countBlurView.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    [self addSubview:countBlurView];
+    
+    [NSLayoutConstraint activateConstraints:@[
+        [countBlurView.centerYAnchor constraintEqualToAnchor:self.nameLabel.centerYAnchor],
+        [countBlurView.leadingAnchor constraintEqualToAnchor:self.nameLabel.trailingAnchor]
+    ]];
+    
+    [countBlurView release];
+}
+
+- (void)configureCountLabel {
+    InsetsLabel *countLabel = [InsetsLabel new];
+    self.countLabel = countLabel;
+    
+    countLabel.contentInsets = UIEdgeInsetsMake(5, 5, 5, 5);
+    countLabel.backgroundColor = [UIColor.tintColor colorWithAlphaComponent:0.5];
+    countLabel.textColor = UIColor.whiteColor;
+    countLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline];
+    
+    countLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    [self.countBlurView.contentView addSubview:countLabel];
+    
+    [NSLayoutConstraint activateConstraints:@[
+        [countLabel.topAnchor constraintEqualToAnchor:self.countBlurView.contentView.topAnchor],
+        [countLabel.leadingAnchor constraintEqualToAnchor:self.countBlurView.contentView.leadingAnchor],
+        [countLabel.trailingAnchor constraintEqualToAnchor:self.countBlurView.contentView.trailingAnchor],
+        [countLabel.bottomAnchor constraintEqualToAnchor:self.countBlurView.contentView.bottomAnchor]
+    ]];
+    
+    [countLabel release];
+}
+
 - (void)configureViewModel {
     DeckBaseContentViewModel *viewModel = [DeckBaseContentViewModel new];
     self.viewModel = viewModel;
@@ -180,6 +224,7 @@
     [self updateCardSetImageView];
     [self updateNameLabel];
     [self updateHeroImageView];
+    [self updateCountLabel];
     
     [oldContentConfig release];
 }
@@ -216,6 +261,22 @@
 - (void)updateHeroImageView {
     self.heroImageView.image = [self.viewModel portraitImageOfLocalDeck:self.localDeck];
     [self updateGradientLayer];
+}
+
+- (void)updateCountLabel {
+    NSUInteger count = self.localDeck.cards.count;
+    
+    if (count >= HSDECK_MAX_TOTAL_CARDS) {
+        self.countBlurView.alpha = 0.0;
+    } else {
+        self.countBlurView.alpha = 1.0;
+    }
+    
+    self.countLabel.text = [NSString stringWithFormat:@"%lu / %d", count, HSDECK_MAX_TOTAL_CARDS];
+    [self.countLabel sizeToFit];
+    
+    self.countBlurView.layer.cornerRadius = self.countLabel.frame.size.height / 2;
+    self.countBlurView.clipsToBounds = YES;
 }
 
 - (void)updateGradientLayer {
