@@ -106,7 +106,9 @@
             
             [snapshot appendItemsWithIdentifiers:@[
                 [[[PrefsItemModel alloc] initWithType:PrefsItemModelTypeDeleteAllCaches] autorelease],
+#if DEBUG
                 [[[PrefsItemModel alloc] initWithType:PrefsItemModelTypeDeleteAllLocalDecks] autorelease]
+#endif
             ]
                        intoSectionWithIdentifier:dataSection];
             
