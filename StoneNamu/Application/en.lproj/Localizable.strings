@@ -120,7 +120,7 @@
 
 "EDIT_DECK_NAME_TITLE" = "Edit Deck Name";
 
-"DECK_EXPORT_ERROR_CARDS_ARE_NOT_FILLED" = "Please fill total %lu cards to export deck code! (Current : %lu)";
+"DECK_EXPORT_ERROR_CARDS_ARE_NOT_FILLED" = "Please fill total %lu cards to export deck code! (Current : %lu card(s))";
 
 "ENTER_DECK_TITLE_HERE" = "Enter deck title here... (optional)";
 

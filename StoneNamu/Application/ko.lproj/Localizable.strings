@@ -120,7 +120,7 @@
 
 "EDIT_DECK_NAME_TITLE" = "덱 이름 수정";
 
-"DECK_EXPORT_ERROR_CARDS_ARE_NOT_FILLED" = "덱코드를 추출하기 위해서는 총 %lu의 카드가 필요해요. (현재 : %lu)";
+"DECK_EXPORT_ERROR_CARDS_ARE_NOT_FILLED" = "덱코드를 추출하기 위해서는 총 %lu의 카드가 필요해요. (현재 : %lu장)";
 
 "ENTER_DECK_TITLE_HERE" = "제목을 입력해 주세요... (선택)";
 
