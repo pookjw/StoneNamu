@@ -179,10 +179,7 @@
     
     [self updateCardSetImageView];
     [self updateNameLabel];
-    
-    if (![newContentConfig.localDeck isEqual:oldContentConfig.localDeck]) {
-        [self updateHeroImageView];
-    }
+    [self updateHeroImageView];
     
     [oldContentConfig release];
 }
@@ -217,7 +214,7 @@
 }
 
 - (void)updateHeroImageView {
-    self.heroImageView.image = [self.viewModel portraitImageOfClassId:self.localDeck.classId.unsignedIntegerValue];
+    self.heroImageView.image = [self.viewModel portraitImageOfLocalDeck:self.localDeck];
     [self updateGradientLayer];
 }
 

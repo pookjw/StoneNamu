@@ -16,6 +16,7 @@
         self->_type = type;
         self.totalArcaneDust = nil;
         self.deckName = nil;
+        self.isEasterEgg = NO;
         self.deckFormat = nil;
         self.hsCard = nil;
         self.hsCardImage = nil;

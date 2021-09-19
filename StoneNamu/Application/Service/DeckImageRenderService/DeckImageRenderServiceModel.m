@@ -8,6 +8,7 @@
 #import "DeckImageRenderServiceModel.h"
 #import "NSDiffableDataSourceSnapshot+sort.h"
 #import "DataCacheUseCaseImpl.h"
+#import "LocalDeckUseCaseImpl.h"
 #import "NSSemaphoreCondition.h"
 #import "HSYear.h"
 #import "UICollectionViewDiffableDataSource+applySnapshotAndWait.h"
@@ -15,6 +16,7 @@
 @interface DeckImageRenderServiceModel ()
 @property (retain) NSOperationQueue *queue;
 @property (retain) id<DataCacheUseCase> dataCacheUseCase;
+@property (retain) id<LocalDeckUseCase> localDeckUseCase;
 @end
 
 @implementation DeckImageRenderServiceModel
@@ -29,6 +31,10 @@
         self.dataCacheUseCase = dataCacheUseCase;
         [dataCacheUseCase release];
         
+        LocalDeckUseCaseImpl *localDeckUseCase = [LocalDeckUseCaseImpl new];
+        self.localDeckUseCase = localDeckUseCase;
+        [localDeckUseCase release];
+        
         NSOperationQueue *queue = [NSOperationQueue new];
         self.queue = queue;
         queue.qualityOfService = NSQualityOfServiceUserInitiated;
@@ -41,19 +47,22 @@
 - (void)dealloc {
     [_dataSource release];
     [_dataCacheUseCase release];
+    [_localDeckUseCase release];
     [_queue release];
     [super dealloc];
 }
 
-- (void)updateDataSourceWithHSCards:(NSArray<HSCard *> *)hsCards
-                           deckName:(NSString *)deckName
-                            classId:(HSCardClass)classId
-                         deckFormat:(HSDeckFormat)deckFormat
-                         completion:(DeckImageRenderServiceModelUpdateWithCompletion)completion {
-    
+- (void)updateDataSourcdWithLocalDeck:(LocalDeck *)localDeck completion:(DeckImageRenderServiceModelUpdateWithCompletion)completion {
     [self.queue addBarrierBlock:^{
         NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
         [snapshot deleteAllItems];
+        
+        //
+        
+        NSArray<HSCard *> *hsCards = localDeck.cards;
+        NSString *deckName = localDeck.name;
+        HSCardClass classId = localDeck.classId.unsignedIntegerValue;
+        HSDeckFormat deckFormat = localDeck.format;
         
         //
         
@@ -104,6 +113,7 @@
         introItemModel.classId = classId;
         introItemModel.deckName = deckName;
         introItemModel.deckFormat = deckFormat;
+        introItemModel.isEasterEgg = [self.localDeckUseCase isEasterEggDeckFromLocalDeck:localDeck];
         
         [snapshot appendItemsWithIdentifiers:@[introItemModel] intoSectionWithIdentifier:introSectionModel];
         [introSectionModel release];

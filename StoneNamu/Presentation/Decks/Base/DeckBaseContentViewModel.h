@@ -7,11 +7,12 @@
 
 #import <UIKit/UIKit.h>
 #import "HSCard.h"
+#import "LocalDeck.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface DeckBaseContentViewModel : NSObject
-- (UIImage * _Nullable)portraitImageOfClassId:(HSCardClass)classId;
+- (UIImage * _Nullable)portraitImageOfLocalDeck:(LocalDeck *)localDeck;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -49,11 +49,8 @@
     [self.queue addBarrierBlock:^{
         NSSemaphoreCondition *semaphore = [[NSSemaphoreCondition alloc] initWithValue:0];
         
-        [self.model updateDataSourceWithHSCards:localDeck.cards
-                                       deckName:localDeck.name
-                                        classId:localDeck.classId.unsignedIntegerValue
-                                     deckFormat:localDeck.format
-                                     completion:^(NSUInteger countOfCardItem){
+        [self.model updateDataSourcdWithLocalDeck:localDeck
+                                       completion:^(NSUInteger countOfCardItem){
             [NSOperationQueue.mainQueue addOperationWithBlock:^{
                 [self.collectionView layoutIfNeeded];
                 [self.collectionView.collectionViewLayout invalidateLayout];
@@ -73,31 +70,6 @@
 //                ]];
 //                [testVC presentViewController:vc animated:YES completion:^{}];
 //                [vc release];
-            }];
-        }];
-        
-        [semaphore wait];
-        [semaphore release];
-    }];
-}
-
-- (void)imageFromHSDeck:(HSDeck *)hsDeck completion:(DeckImageRenderServiceCompletion)completion {
-    [self.queue addBarrierBlock:^{
-        NSSemaphoreCondition *semaphore = [[NSSemaphoreCondition alloc] initWithValue:0];
-        
-        [self.model updateDataSourceWithHSCards:hsDeck.cards
-                                       deckName:hsCardClassesWithLocalizable()[NSStringFromHSCardClass(hsDeck.classId)]
-                                        classId:hsDeck.classId
-                                     deckFormat:hsDeck.format
-                                     completion:^(NSUInteger countOfCardItem){
-            [NSOperationQueue.mainQueue addOperationWithBlock:^{
-                [self.collectionView layoutIfNeeded];
-                [self.collectionView.collectionViewLayout invalidateLayout];
-                self.collectionView.frame = CGRectMake(0, 0, 300, self.collectionView.contentSize.height);
-                UIImage *image = self.collectionView.imageRendered;
-                completion(image);
-                [semaphore signal];
-                completion(image);
             }];
         }];
         
@@ -165,7 +137,8 @@
             case DeckImageRenderServiceItemModelTypeIntro: {
                 DeckImageRenderServiceIntroContentConfiguration *configuration = [[DeckImageRenderServiceIntroContentConfiguration alloc] initWithClassId:itemModel.classId
                                                                                                                                                  deckName:itemModel.deckName
-                                                                                                                                               deckFormat:itemModel.deckFormat];
+                                                                                                                                               deckFormat:itemModel.deckFormat
+                                                                                                                                              isEasterEgg:itemModel.isEasterEgg];
                 cell.contentConfiguration = configuration;
                 [configuration release];
                 break;

@@ -14,11 +14,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly) HSCardClass classId;
 @property (readonly, copy) NSString *deckName;
 @property (readonly, copy) HSDeckFormat _Nullable deckFormat;
+@property (readonly) BOOL isEasterEgg;
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithClassId:(HSCardClass)classId
                        deckName:(NSString *)deckName
-                     deckFormat:(HSDeckFormat)deckFormat;
+                     deckFormat:(HSDeckFormat)deckFormat
+                    isEasterEgg:(BOOL)isEasterEgg;
 @end
 
 NS_ASSUME_NONNULL_END

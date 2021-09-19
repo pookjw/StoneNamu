@@ -25,6 +25,7 @@ typedef NS_ENUM(NSUInteger, DeckImageRenderServiceItemModelType) {
 @property HSCardClass classId;
 @property (copy) NSString * _Nullable deckName;
 @property (copy) HSDeckFormat _Nullable deckFormat;
+@property BOOL isEasterEgg;
 
 #pragma mark - DeckImageRenderServiceItemModelTypeCard
 @property (copy) HSCard * _Nullable hsCard;

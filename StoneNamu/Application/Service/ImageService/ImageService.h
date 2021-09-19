@@ -19,6 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (UIImage * _Nullable)imageOfCardSet:(HSCardSet)cardSet;
 - (UIImage * _Nullable)imageOfDeckFormat:(HSDeckFormat)deckFormat;
 - (UIImage * _Nullable)portraitImageOfClassId:(HSCardClass)classId;
+- (UIImage * _Nullable)portraitOfPnamu1;
+- (UIImage * _Nullable)portraitOfPnamu2;
 @end
 
 NS_ASSUME_NONNULL_END

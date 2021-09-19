@@ -10,6 +10,7 @@
 #import "HSCardHero.h"
 #import "NSMutableArray+removeSingle.h"
 #import "StoneNamuCoreErrors.h"
+#import "NSString+arrayOfCharacters.h"
 
 @interface LocalDeckUseCaseImpl ()
 @property (retain) id<LocalDeckRepository> localDeckRepository;
@@ -60,6 +61,37 @@
 
 - (void)saveChanges {
     [self.localDeckRepository saveChanges];
+}
+
+- (BOOL)isEasterEggDeckFromLocalDeck:(LocalDeck *)localDeck {
+    NSArray<NSString *> *easterEggs = @[@"피나무", @"pnamu"];
+    NSMutableArray<HSCard *> *allCards = [[[NSSet setWithArray:localDeck.cards] allObjects] mutableCopy];
+    
+    [allCards sortUsingComparator:^NSComparisonResult(HSCard * _Nonnull obj1, HSCard * _Nonnull obj2) {
+        return [obj1 compare:obj2];
+    }];
+    
+    NSMutableString *firstNames = [@"" mutableCopy];
+    
+    [allCards enumerateObjectsUsingBlock:^(HSCard * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSString *firstName = [obj.name.arrayOfCharacters firstObject];
+        [firstNames appendString:firstName];
+    }];
+    
+    [allCards release];
+    
+    BOOL __block result = NO;
+    
+    [easterEggs enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([firstNames containsString:obj]) {
+            result = YES;
+            *stop = YES;
+        }
+    }];
+    
+    [firstNames release];
+    
+    return result;
 }
 
 - (void)addHSCards:(NSArray<HSCard *> *)hsCards toLocalDeck:(LocalDeck *)localDeck validation:(LocalDeckUseCaseFetchWithValidation)validation {

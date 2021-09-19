@@ -81,4 +81,12 @@
     return [UIImage imageNamed:imageName];
 }
 
+- (UIImage *)portraitOfPnamu1 {
+    return [UIImage imageNamed:@"pnamu_easteregg_1"];
+}
+
+- (UIImage *)portraitOfPnamu2 {
+    return [UIImage imageNamed:@"pnamu_easteregg_2"];
+}
+
 @end

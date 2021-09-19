@@ -28,6 +28,8 @@ static NSString * const LocalDeckUseCaseDeleteAllNotificationName = @"LocalDeckU
 - (void)deleteLocalDeck:(LocalDeck *)localDeck;
 - (void)deleteAllLocalDecks;
 
+- (BOOL)isEasterEggDeckFromLocalDeck:(LocalDeck *)localDeck;
+
 - (void)addHSCards:(NSArray<HSCard *> *)hsCards toLocalDeck:(LocalDeck *)localDeck validation:(LocalDeckUseCaseFetchWithValidation)validation;
 - (void)deleteHSCards:(NSSet<HSCard *> *)hsCards toLocalDeck:(LocalDeck *)localDeck validation:(LocalDeckUseCaseFetchWithValidation)validation;
 - (void)increaseHSCards:(NSSet<HSCard *> *)hsCards toLocalDeck:(LocalDeck *)localDeck validation:(LocalDeckUseCaseFetchWithValidation)validation;

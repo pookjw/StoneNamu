@@ -12,13 +12,15 @@
 
 - (instancetype)initWithClassId:(HSCardClass)classId
                        deckName:(NSString *)deckName
-                     deckFormat:(HSDeckFormat)deckFormat {
+                     deckFormat:(HSDeckFormat)deckFormat
+                    isEasterEgg:(BOOL)isEasterEgg{
     self = [self init];
     
     if (self) {
         self->_classId = classId;;
         self->_deckName = [deckName copy];
         self->_deckFormat = [deckFormat copy];
+        self->_isEasterEgg = isEasterEgg;
     }
     
     return self;
@@ -38,6 +40,7 @@
         _copy->_classId = self.classId;
         _copy->_deckName = [self.deckName copy];
         _copy->_deckFormat = [self.deckFormat copy];
+        _copy->_isEasterEgg = self.isEasterEgg;
     }
     
     return copy;

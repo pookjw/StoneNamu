@@ -71,7 +71,7 @@
     self.heroImageView = heroImageView;
     
     heroImageView.backgroundColor = UIColor.clearColor;
-    heroImageView.contentMode = UIViewContentModeScaleAspectFill;
+    heroImageView.contentMode = UIViewContentModeScaleAspectFit;
     heroImageView.translatesAutoresizingMaskIntoConstraints = NO;
     
     [self addSubview:heroImageView];
@@ -119,11 +119,17 @@
     InsetsLabel *nameLabel = [InsetsLabel new];
     self.nameLabel = nameLabel;
     
-    nameLabel.contentInsets = UIEdgeInsetsMake(0, 10, 0, 10);
+    nameLabel.contentInsets = UIEdgeInsetsMake(10, 10, 0, 10);
     nameLabel.font = [UIFont customFontWithType:UIFontCustomFontTypeGmarketSansBold size:18];
     nameLabel.backgroundColor = UIColor.clearColor;
     nameLabel.textColor = UIColor.whiteColor;
     nameLabel.textAlignment = NSTextAlignmentCenter;
+    
+    nameLabel.layer.shadowRadius = 2.0;
+    nameLabel.layer.shadowOpacity = 1;
+    nameLabel.layer.shadowOffset = CGSizeMake(0, 0);
+    nameLabel.layer.shadowColor = UIColor.blackColor.CGColor;
+    nameLabel.layer.masksToBounds = YES;
     
     [self.primaryStackView addArrangedSubview:nameLabel];
     
@@ -152,6 +158,12 @@
     classLabel.textColor = UIColor.whiteColor;
     classLabel.textAlignment = NSTextAlignmentLeft;
     
+    classLabel.layer.shadowRadius = 2.0;
+    classLabel.layer.shadowOpacity = 1;
+    classLabel.layer.shadowOffset = CGSizeMake(0, 0);
+    classLabel.layer.shadowColor = UIColor.blackColor.CGColor;
+    classLabel.layer.masksToBounds = YES;
+    
     [self.secondaryStackView addArrangedSubview:classLabel];
     [classLabel setContentCompressionResistancePriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
     
@@ -167,6 +179,12 @@
     deckFormatLabel.backgroundColor = UIColor.clearColor;
     deckFormatLabel.textColor = UIColor.whiteColor;
     deckFormatLabel.textAlignment = NSTextAlignmentRight;
+    
+    deckFormatLabel.layer.shadowRadius = 2.0;
+    deckFormatLabel.layer.shadowOpacity = 1;
+    deckFormatLabel.layer.shadowOffset = CGSizeMake(0, 0);
+    deckFormatLabel.layer.shadowColor = UIColor.blackColor.CGColor;
+    deckFormatLabel.layer.masksToBounds = YES;
     
     [self.secondaryStackView addArrangedSubview:deckFormatLabel];
     [deckFormatLabel setContentCompressionResistancePriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
@@ -219,10 +237,26 @@
     
     //
     
-    self.heroImageView.image = [ImageService.sharedInstance portraitImageOfClassId:newConfiguration.classId];
+    if (newConfiguration.isEasterEgg) {
+        self.heroImageView.backgroundColor = UIColor.grayColor;
+        self.heroImageView.image = [ImageService.sharedInstance portraitOfPnamu2];
+    } else {
+        self.heroImageView.backgroundColor = UIColor.clearColor;
+        self.heroImageView.image = [ImageService.sharedInstance portraitImageOfClassId:newConfiguration.classId];
+    }
+    
     self.classLabel.text = hsCardClassesWithLocalizable()[NSStringFromHSCardClass(newConfiguration.classId)];
     self.nameLabel.text = newConfiguration.deckName;
+    
     self.deckFormatLabel.text = hsDeckFormatsWithLocalizable()[newConfiguration.deckFormat];
+    
+    if ([newConfiguration.deckFormat isEqualToString:HSDeckFormatStandard]) {
+        self.deckFormatLabel.textColor = UIColor.greenColor;
+    } else if ([newConfiguration.deckFormat isEqualToString:HSDeckFormatWild]) {
+        self.deckFormatLabel.textColor = UIColor.orangeColor;
+    } else if ([newConfiguration.deckFormat isEqualToString:HSDeckFormatClassic]) {
+        self.deckFormatLabel.textColor = UIColor.yellowColor;
+    }
 }
 
 @end

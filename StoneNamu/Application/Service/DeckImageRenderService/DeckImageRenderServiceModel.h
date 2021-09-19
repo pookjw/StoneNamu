@@ -22,11 +22,7 @@ typedef void (^DeckImageRenderServiceModelUpdateWithCompletion)(NSUInteger);
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithDataSource:(DeckImageRenderServiceDataSource *)dataSource;
-- (void)updateDataSourceWithHSCards:(NSArray<HSCard *> *)hsCards
-                           deckName:(NSString *)deckName
-                            classId:(HSCardClass)classId
-                         deckFormat:(HSDeckFormat)deckFormat
-                         completion:(DeckImageRenderServiceModelUpdateWithCompletion)completion;
+- (void)updateDataSourcdWithLocalDeck:(LocalDeck *)localDeck completion:(DeckImageRenderServiceModelUpdateWithCompletion)completion;
 @end
 
 NS_ASSUME_NONNULL_END
