@@ -1,0 +1,31 @@
+/* 
+  HSCardSort.strings
+  StoneNamu
+
+  Created by Jinwoo Kim on 9/19/21.
+  
+*/
+
+"manaCost:asc" = "비용 - 오름차순";
+
+"manaCost:desc" = "비용 - 내림차순";
+
+"attack:asc" = "공격력 - 오름차순";
+
+"attack:desc" = "공격력 - 내림차순";
+
+"health:asc" = "체력 - 오름차순";
+
+"health:desc" = "체력 - 내림차순";
+
+"class:asc" = "직업 - 오름차순";
+
+"class:desc" = "직업 - 내림차순";
+
+"groupByClass:asc" = "직업 묶음 - 오름차순";
+
+"groupByClass:desc" = "직업 묶음 - 내림차순";
+
+"name:asc" = "이름 - 오름차순";
+
+"name:desc" = "이름 - 내림차순";

@@ -173,6 +173,7 @@
 		4FCC22C826ECAC81004997AA /* DeckImageRenderServiceAppNameContentConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FCC22C726ECAC81004997AA /* DeckImageRenderServiceAppNameContentConfiguration.m */; };
 		4FCC22CB26ECAC98004997AA /* DeckImageRenderServiceAppNameContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FCC22CA26ECAC98004997AA /* DeckImageRenderServiceAppNameContentView.m */; };
 		4FDDE4B526F762FC0022F87C /* UICollectionViewDiffableDataSource+applySnapshotAndWait.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FDDE4B426F762FC0022F87C /* UICollectionViewDiffableDataSource+applySnapshotAndWait.m */; };
+		4FDDE4B826F77D4D0022F87C /* HSCardSort.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4FDDE4BA26F77D4D0022F87C /* HSCardSort.strings */; };
 		4FDE8DF326F107ED00959B97 /* UIFont+customFonts.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FDE8DF226F107ED00959B97 /* UIFont+customFonts.m */; };
 		4FDE8DF426F10A2D00959B97 /* GmarketSansTTFMedium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4FDE8DEE26F107D200959B97 /* GmarketSansTTFMedium.ttf */; };
 		4FDE8DF526F10A2D00959B97 /* GmarketSansTTFLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4FDE8DF026F107D200959B97 /* GmarketSansTTFLight.ttf */; };
@@ -565,6 +566,8 @@
 		4FCC22CA26ECAC98004997AA /* DeckImageRenderServiceAppNameContentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckImageRenderServiceAppNameContentView.m; sourceTree = "<group>"; };
 		4FDDE4B326F762FC0022F87C /* UICollectionViewDiffableDataSource+applySnapshotAndWait.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UICollectionViewDiffableDataSource+applySnapshotAndWait.h"; sourceTree = "<group>"; };
 		4FDDE4B426F762FC0022F87C /* UICollectionViewDiffableDataSource+applySnapshotAndWait.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UICollectionViewDiffableDataSource+applySnapshotAndWait.m"; sourceTree = "<group>"; };
+		4FDDE4B926F77D4D0022F87C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/HSCardSort.strings; sourceTree = "<group>"; };
+		4FDDE4BB26F77D4E0022F87C /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/HSCardSort.strings; sourceTree = "<group>"; };
 		4FDE8DEE26F107D200959B97 /* GmarketSansTTFMedium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GmarketSansTTFMedium.ttf; sourceTree = "<group>"; };
 		4FDE8DEF26F107D200959B97 /* GmarketSansTTFBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GmarketSansTTFBold.ttf; sourceTree = "<group>"; };
 		4FDE8DF026F107D200959B97 /* GmarketSansTTFLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GmarketSansTTFLight.ttf; sourceTree = "<group>"; };
@@ -1248,6 +1251,7 @@
 				4F8754AF26DB6F30000CE351 /* HSDeckFormat.strings */,
 				4F6F181B26E6069200DC210B /* HSDeck.strings */,
 				4FCC22C026ECA949004997AA /* HSYear.strings */,
+				4FDDE4BA26F77D4D0022F87C /* HSCardSort.strings */,
 			);
 			path = Localizables;
 			sourceTree = "<group>";
@@ -1748,6 +1752,7 @@
 				4F449EC326B19974007CE04A /* HSCardMinionType.strings in Resources */,
 				4FA8F3FB26B1430200D7D4C6 /* HSCardSet.strings in Resources */,
 				4F6F181926E6069200DC210B /* HSDeck.strings in Resources */,
+				4FDDE4B826F77D4D0022F87C /* HSCardSort.strings in Resources */,
 				4F449EA626B187CA007CE04A /* HSCardCollectible.strings in Resources */,
 				4F8754AD26DB6F30000CE351 /* HSDeckFormat.strings in Resources */,
 			);
@@ -2127,6 +2132,15 @@
 				4FCC22C126ECA94A004997AA /* ko */,
 			);
 			name = HSYear.strings;
+			sourceTree = "<group>";
+		};
+		4FDDE4BA26F77D4D0022F87C /* HSCardSort.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4FDDE4B926F77D4D0022F87C /* en */,
+				4FDDE4BB26F77D4E0022F87C /* ko */,
+			);
+			name = HSCardSort.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
