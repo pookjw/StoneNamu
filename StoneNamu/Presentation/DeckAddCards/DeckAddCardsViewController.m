@@ -236,7 +236,7 @@
     deckDetailsButton.translatesAutoresizingMaskIntoConstraints = NO;
 
     [NSLayoutConstraint activateConstraints:@[
-        [deckDetailsButton.bottomAnchor constraintEqualToAnchor:self.view.layoutMarginsGuide.bottomAnchor],
+        [deckDetailsButton.bottomAnchor constraintEqualToAnchor:self.view.layoutMarginsGuide.bottomAnchor constant:-10],
         [deckDetailsButton.centerXAnchor constraintEqualToAnchor:self.view.layoutMarginsGuide.centerXAnchor]
     ]];
 
