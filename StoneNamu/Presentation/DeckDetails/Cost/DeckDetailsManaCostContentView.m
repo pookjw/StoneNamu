@@ -66,7 +66,7 @@
         [collectionView.topAnchor constraintEqualToAnchor:self.topAnchor],
         [collectionView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
         [collectionView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
-        [collectionView.heightAnchor constraintEqualToConstant:ceil(DeckDetailsManaCostGraphContentView.preferredCostLabelRect.size.height) * DeckDetailsManaCostContentViewModelCountOfData]
+        [collectionView.heightAnchor constraintEqualToConstant:ceil(DeckDetailsManaCostGraphContentView.preferredLabelRect.size.height) * DeckDetailsManaCostContentViewModelCountOfData]
     ]];
     
     NSLayoutConstraint *bottomLayout = [collectionView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor];
@@ -108,7 +108,7 @@
         
         DeckDetailsManaCostContentItemModel *itemModel = (DeckDetailsManaCostContentItemModel *)item;
         
-        DeckDetailsManaCostGraphContentConfiguration *configuration = [[DeckDetailsManaCostGraphContentConfiguration alloc] initWithCost:itemModel.cardManaCost percentage:itemModel.percentage];
+        DeckDetailsManaCostGraphContentConfiguration *configuration = [[DeckDetailsManaCostGraphContentConfiguration alloc] initWithCost:itemModel.cardManaCost percentage:itemModel.percentage cardCount:itemModel.cardCount];
         cell.contentConfiguration = configuration;
         [configuration release];
         

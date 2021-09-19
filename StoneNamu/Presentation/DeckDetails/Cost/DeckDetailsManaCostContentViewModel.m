@@ -93,6 +93,8 @@
                 itemModel.percentage = [NSNumber numberWithFloat:(obj.floatValue / (float)highestCostCount)];
             }
             
+            itemModel.cardCount = obj;
+            
             [snapshot appendItemsWithIdentifiers:@[itemModel] intoSectionWithIdentifier:sectionModel];
             [itemModel release];
         }];

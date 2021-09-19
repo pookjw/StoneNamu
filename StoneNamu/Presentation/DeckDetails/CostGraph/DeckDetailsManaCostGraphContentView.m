@@ -11,12 +11,14 @@
 #import "DeckDetailsManaCostContentViewModel.h"
 
 @interface DeckDetailsManaCostGraphContentView ()
-@property (class, readonly, nonatomic) UIFont *costLabelFont;
-@property (class, readonly, nonatomic) UIEdgeInsets costLabelInsets;
+@property (class, readonly, nonatomic) UIFont *labelFont;
+@property (class, readonly, nonatomic) UIEdgeInsets labelInsets;
 @property (retain) InsetsLabel *costLabel;
 @property (retain) UIProgressView *progressView;
+@property (retain) InsetsLabel *countLabel;
 @property (readonly, nonatomic) NSNumber *cardManaCost;
 @property (readonly, nonatomic) NSNumber *percentage;
+@property (readonly, nonatomic) NSNumber *cardCount;
 @property (readonly, nonatomic) BOOL isDarkMode;
 @end
 
@@ -24,15 +26,15 @@
 
 @synthesize configuration;
 
-+ (CGRect)preferredCostLabelRect {
-    NSString *string = @"10+";
++ (CGRect)preferredLabelRect {
+    NSString *string = @"99+";
     
     CGRect rect = [string boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX)
                                        options:NSStringDrawingUsesLineFragmentOrigin
-                                    attributes:@{NSFontAttributeName: DeckDetailsManaCostGraphContentView.costLabelFont}
+                                    attributes:@{NSFontAttributeName: DeckDetailsManaCostGraphContentView.labelFont}
                                        context:nil];
     
-    UIEdgeInsets costLabelInsets = DeckDetailsManaCostGraphContentView.costLabelInsets;
+    UIEdgeInsets costLabelInsets = DeckDetailsManaCostGraphContentView.labelInsets;
     
     rect.size.height += (costLabelInsets.top + costLabelInsets.bottom);
     rect.size.width += (costLabelInsets.left + costLabelInsets.right);
@@ -40,11 +42,11 @@
     return rect;
 }
 
-+ (UIFont *)costLabelFont {
++ (UIFont *)labelFont {
     return [UIFont preferredFontForTextStyle:UIFontTextStyleCaption1];
 }
 
-+ (UIEdgeInsets)costLabelInsets {
++ (UIEdgeInsets)labelInsets {
     return UIEdgeInsetsMake(5, 5, 5, 5);
 }
 
@@ -55,6 +57,7 @@
         [self setAttributes];
         [self configureCostLabel];
         [self configureProgressView];
+        [self configureCountLabel];
     }
     
     return self;
@@ -64,6 +67,7 @@
     [configuration release];
     [_costLabel release];
     [_progressView release];
+    [_countLabel release];
     [super dealloc];
 }
 
@@ -76,8 +80,8 @@
     self.costLabel = costLabel;
     
     costLabel.textAlignment = NSTextAlignmentCenter;
-    costLabel.font = DeckDetailsManaCostGraphContentView.costLabelFont;
-    costLabel.contentInsets = DeckDetailsManaCostGraphContentView.costLabelInsets;
+    costLabel.font = DeckDetailsManaCostGraphContentView.labelFont;
+    costLabel.contentInsets = DeckDetailsManaCostGraphContentView.labelInsets;
     costLabel.backgroundColor = UIColor.systemBlueColor;
     costLabel.textColor = UIColor.whiteColor;
     
@@ -85,7 +89,7 @@
     
     costLabel.translatesAutoresizingMaskIntoConstraints = NO;
     
-    CGRect preferredRect = DeckDetailsManaCostGraphContentView.preferredCostLabelRect;
+    CGRect preferredRect = DeckDetailsManaCostGraphContentView.preferredLabelRect;
     
     [NSLayoutConstraint activateConstraints:@[
         [costLabel.topAnchor constraintEqualToAnchor:self.topAnchor],
@@ -113,13 +117,39 @@
     
     progressView.translatesAutoresizingMaskIntoConstraints = NO;
     [NSLayoutConstraint activateConstraints:@[
-        [progressView.topAnchor constraintEqualToAnchor:self.topAnchor],
+        [progressView.topAnchor constraintEqualToAnchor:self.costLabel.topAnchor],
         [progressView.leadingAnchor constraintEqualToAnchor:self.costLabel.trailingAnchor],
-        [progressView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor],
-        [progressView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor]
+        [progressView.bottomAnchor constraintEqualToAnchor:self.costLabel.bottomAnchor]
     ]];
     
     [progressView release];
+}
+
+- (void)configureCountLabel {
+    InsetsLabel *countLabel = [InsetsLabel new];
+    self.countLabel = countLabel;
+    
+    countLabel.textAlignment = NSTextAlignmentCenter;
+    countLabel.font = DeckDetailsManaCostGraphContentView.labelFont;
+    countLabel.contentInsets = DeckDetailsManaCostGraphContentView.labelInsets;
+    countLabel.textColor = UIColor.whiteColor;
+    
+    [self addSubview:countLabel];
+    
+    countLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    CGRect preferredRect = DeckDetailsManaCostGraphContentView.preferredLabelRect;
+    
+    [NSLayoutConstraint activateConstraints:@[
+        [countLabel.topAnchor constraintEqualToAnchor:self.progressView.topAnchor],
+        [countLabel.leadingAnchor constraintEqualToAnchor:self.progressView.trailingAnchor],
+        [countLabel.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
+        [countLabel.bottomAnchor constraintEqualToAnchor:self.progressView.bottomAnchor],
+        [countLabel.widthAnchor constraintEqualToConstant:ceil(preferredRect.size.width)],
+        [countLabel.heightAnchor constraintEqualToConstant:ceil(preferredRect.size.height)]
+    ]];
+    
+    [countLabel release];
 }
 
 - (void)setConfiguration:(id<UIContentConfiguration>)configuration {
@@ -132,6 +162,7 @@
     }
     
     [self updateProgressLabel];
+    [self updateCountLabel];
     
     [oldContentConfig release];
 }
@@ -150,6 +181,14 @@
     if (![contentConfig isKindOfClass:[DeckDetailsManaCostGraphContentConfiguration class]]) return nil;
     
     return contentConfig.percentage;
+}
+
+- (NSNumber * _Nullable)cardCount {
+    DeckDetailsManaCostGraphContentConfiguration *contentConfig = (DeckDetailsManaCostGraphContentConfiguration *)self.configuration;
+    
+    if (![contentConfig isKindOfClass:[DeckDetailsManaCostGraphContentConfiguration class]]) return nil;
+    
+    return contentConfig.cardCount;
 }
 
 - (BOOL)isDarkMode {
@@ -177,6 +216,16 @@
     } else {
         self.progressView.tintColor = UIColor.systemGrayColor;
     }
+}
+
+- (void)updateCountLabel {
+    if (self.isDarkMode) {
+        self.countLabel.backgroundColor = UIColor.systemGray2Color;
+    } else {
+        self.countLabel.backgroundColor = UIColor.systemGrayColor;
+    }
+    
+    self.countLabel.text = [NSString stringWithFormat:@"x%@", self.cardCount.stringValue];
 }
 
 @end

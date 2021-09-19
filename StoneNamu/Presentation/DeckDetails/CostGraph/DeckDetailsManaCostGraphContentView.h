@@ -10,7 +10,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface DeckDetailsManaCostGraphContentView : UIView <UIContentView>
-@property (class, readonly, nonatomic) CGRect preferredCostLabelRect;
+@property (class, readonly, nonatomic) CGRect preferredLabelRect;
 @end
 
 NS_ASSUME_NONNULL_END

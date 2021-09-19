@@ -10,12 +10,13 @@
 
 @implementation DeckDetailsManaCostGraphContentConfiguration
 
-- (instancetype)initWithCost:(NSNumber *)cost percentage:(NSNumber *)percentage {
+- (instancetype)initWithCost:(NSNumber *)cost percentage:(NSNumber *)percentage cardCount:(nonnull NSNumber *)cardCount {
     self = [self init];
     
     if (self) {
         self->_cardManaCost = [cost copy];
         self->_percentage = [percentage copy];
+        self->_cardCount = [cardCount copy];
         self->_isDarkMode = NO;
     }
     
@@ -25,6 +26,7 @@
 - (void)dealloc {
     [_cardManaCost release];
     [_percentage release];
+    [_cardCount release];
     [super dealloc];
 }
 
@@ -35,6 +37,7 @@
         DeckDetailsManaCostGraphContentConfiguration *_copy = (DeckDetailsManaCostGraphContentConfiguration *)copy;
         _copy->_cardManaCost = [self.cardManaCost copy];
         _copy->_percentage = [self.percentage copy];
+        _copy->_cardCount = [self.cardCount copy];
         _copy->_isDarkMode = self.isDarkMode;
     }
     
