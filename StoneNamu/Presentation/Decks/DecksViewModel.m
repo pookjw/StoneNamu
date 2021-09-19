@@ -118,6 +118,7 @@
                 [self sortSnapshot:snapshot];
                 
                 [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
+                    [snapshot release];
                     [self.localDeckUseCase saveChanges];
                     completion(localDeck);
                 }];

@@ -88,13 +88,13 @@
     self.isFetching = YES;
     
     if (options == nil) {
-        [self->_options release];
         self->_options = [BlizzardHSAPIDefaultOptions() copy];
     } else {
+        [self->_options release];
         self->_options = [options copy];
     }
     
-    NSMutableDictionary *mutableDic = [self.options mutableCopy];
+    NSMutableDictionary *mutableDic = [[self.options mutableCopy] autorelease];
     
     if (self.pageCount != nil) {
         // Next page
@@ -105,10 +105,7 @@
         mutableDic[BlizzardHSAPIOptionTypePage] = [self.page stringValue];
     }
     
-    NSDictionary *finalDic = [[mutableDic copy] autorelease];
-    [mutableDic release];
-    
-    [self.hsCardUseCase fetchWithOptions:finalDic completionHandler:^(NSArray<HSCard *> * _Nullable cards, NSNumber *pageCount, NSNumber *page, NSError * _Nullable error) {
+    [self.hsCardUseCase fetchWithOptions:mutableDic completionHandler:^(NSArray<HSCard *> * _Nullable cards, NSNumber *pageCount, NSNumber *page, NSError * _Nullable error) {
         
         if (error) {
             [self postError:error];

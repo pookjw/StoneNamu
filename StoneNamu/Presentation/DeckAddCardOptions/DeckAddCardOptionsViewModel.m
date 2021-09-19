@@ -146,12 +146,12 @@
         
         [snapshot reconfigureItemsWithIdentifiers:@[itemModel]];
         
+        [itemModel release];
+        [value release];
+        
         [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
             [snapshot release];
         }];
-        
-        [itemModel release];
-        [value release];
     }];
 }
 

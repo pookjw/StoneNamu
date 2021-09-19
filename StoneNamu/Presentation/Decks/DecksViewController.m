@@ -332,7 +332,7 @@
 }
 
 - (DeckDetailsViewController *)makeDeckDetailsWithLocalDeck:(LocalDeck *)localDeck {
-    DeckDetailsViewController *vc = [[DeckDetailsViewController alloc] initWithLocalDeck:localDeck presentEditorIfNoCards:YES];    
+    DeckDetailsViewController *vc = [[DeckDetailsViewController alloc] initWithLocalDeck:localDeck presentEditorIfNoCards:YES];
     return [vc autorelease];
 }
 
@@ -370,7 +370,7 @@
                                                                                         previewProvider:^UIViewController * _Nullable{
         DeckDetailsViewController *vc = [self makeDeckDetailsWithLocalDeck:itemModel.localDeck];
         self.contextViewController = vc;
-        return [vc autorelease];
+        return vc;
     }
                                                                                          actionProvider:nil];
     

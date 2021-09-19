@@ -33,8 +33,9 @@
     self = [self init];
     
     if (self) {
-        _contextMenuIndexPath = nil;
-        _dataSource = [dataSource retain];
+        self->_contextMenuIndexPath = nil;
+        self->_dataSource = [dataSource retain];
+        self->_options = nil;
         self.localDeck = nil;
         
         HSCardUseCaseImpl *hsCardUseCase = [HSCardUseCaseImpl new];
@@ -107,13 +108,13 @@
     self.isFetching = YES;
     
     if (options == nil) {
-        [self->_options release];
         self->_options = [[self optionsForLocalDeckClassId] copy];
     } else {
+        [self->_options release];
         self->_options = [options copy];
     }
     
-    NSMutableDictionary *mutableDic = [self.options mutableCopy];
+    NSMutableDictionary *mutableDic = [[self.options mutableCopy] autorelease];
     
     if (self.pageCount != nil) {
         // Next page
@@ -124,10 +125,7 @@
         mutableDic[BlizzardHSAPIOptionTypePage] = [self.page stringValue];
     }
     
-    NSDictionary *finalDic = [[mutableDic copy] autorelease];
-    [mutableDic release];
-    
-    [self.hsCardUseCase fetchWithOptions:finalDic completionHandler:^(NSArray<HSCard *> * _Nullable cards, NSNumber *pageCount, NSNumber *page, NSError * _Nullable error) {
+    [self.hsCardUseCase fetchWithOptions:mutableDic completionHandler:^(NSArray<HSCard *> * _Nullable cards, NSNumber *pageCount, NSNumber *page, NSError * _Nullable error) {
         
         if (error) {
             [self postError:error];
