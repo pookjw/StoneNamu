@@ -34,7 +34,7 @@
 
 - (UIImage *)portraitImageOfLocalDeck:(LocalDeck *)localDeck {
     if ([self.localDeckUseCase isEasterEggDeckFromLocalDeck:localDeck]) {
-        return [ImageService.sharedInstance portraitOfPnamu1];;
+        return [ImageService.sharedInstance portraitOfPnamu];;
     } else {
         return [ImageService.sharedInstance portraitImageOfClassId:localDeck.classId.unsignedIntegerValue];;
     }

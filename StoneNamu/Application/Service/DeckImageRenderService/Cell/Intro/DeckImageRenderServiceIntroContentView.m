@@ -71,7 +71,7 @@
     self.heroImageView = heroImageView;
     
     heroImageView.backgroundColor = UIColor.clearColor;
-    heroImageView.contentMode = UIViewContentModeScaleAspectFit;
+    heroImageView.contentMode = UIViewContentModeScaleAspectFill;
     heroImageView.translatesAutoresizingMaskIntoConstraints = NO;
     
     [self addSubview:heroImageView];
@@ -239,7 +239,7 @@
     
     if (newConfiguration.isEasterEgg) {
         self.heroImageView.backgroundColor = UIColor.grayColor;
-        self.heroImageView.image = [ImageService.sharedInstance portraitOfPnamu2];
+        self.heroImageView.image = [ImageService.sharedInstance portraitOfPnamu];
     } else {
         self.heroImageView.backgroundColor = UIColor.clearColor;
         self.heroImageView.image = [ImageService.sharedInstance portraitImageOfClassId:newConfiguration.classId];
