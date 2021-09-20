@@ -28,17 +28,17 @@
     
     UIWindow *window = [[UIWindow alloc] initWithWindowScene:windowScene];
     self.window = window;
-    [window release];
-    
     [self.window setTintColor:UIColor.redColor];
     
     MainTabBarController *tabBarController = [MainTabBarController new];
     self.tabBarController = tabBarController;
-    
     [tabBarController loadViewIfNeeded];
-    self.window.rootViewController = tabBarController;
+    
+    window.rootViewController = tabBarController;
     [tabBarController release];
-    [self.window makeKeyAndVisible];
+    [window makeKeyAndVisible];
+    
+    [window release];
 }
 
 @end
