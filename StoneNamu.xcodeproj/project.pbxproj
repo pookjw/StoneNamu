@@ -158,9 +158,7 @@
 		4FB0ECE826B82AEE0020EE6C /* CardDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FB0ECE726B82AEE0020EE6C /* CardDetailsViewController.m */; };
 		4FB0ECEB26B82B100020EE6C /* DynamicPresentationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FB0ECEA26B82B100020EE6C /* DynamicPresentationController.m */; };
 		4FB850F726C18BAE00E3C89D /* PrefsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FB850F626C18BAE00E3C89D /* PrefsViewController.m */; };
-		4FB850FE26C18D9300E3C89D /* Prefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FB850FC26C18D9300E3C89D /* Prefs.h */; };
 		4FB850FF26C18D9300E3C89D /* Prefs.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FB850FD26C18D9300E3C89D /* Prefs.m */; };
-		4FB8510226C18DE200E3C89D /* NSManagedObject+_fetchRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FB8510026C18DE200E3C89D /* NSManagedObject+_fetchRequest.h */; };
 		4FB8510326C18DE200E3C89D /* NSManagedObject+_fetchRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FB8510126C18DE200E3C89D /* NSManagedObject+_fetchRequest.m */; };
 		4FC094F926CD712100A7D373 /* HSDeckUseCaseImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FC094F726CD712100A7D373 /* HSDeckUseCaseImpl.h */; };
 		4FC094FA26CD712100A7D373 /* HSDeckUseCaseImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC094F826CD712100A7D373 /* HSDeckUseCaseImpl.m */; };
@@ -173,7 +171,6 @@
 		4FCC22CB26ECAC98004997AA /* DeckImageRenderServiceAppNameContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FCC22CA26ECAC98004997AA /* DeckImageRenderServiceAppNameContentView.m */; };
 		4FDDE4B526F762FC0022F87C /* UICollectionViewDiffableDataSource+applySnapshotAndWait.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FDDE4B426F762FC0022F87C /* UICollectionViewDiffableDataSource+applySnapshotAndWait.m */; };
 		4FDDE4B826F77D4D0022F87C /* HSCardSort.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4FDDE4BA26F77D4D0022F87C /* HSCardSort.strings */; };
-		4FDDE4BE26F79F2D0022F87C /* NSString+arrayOfCharacters.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FDDE4BC26F79F2D0022F87C /* NSString+arrayOfCharacters.h */; };
 		4FDDE4BF26F79F2D0022F87C /* NSString+arrayOfCharacters.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FDDE4BD26F79F2D0022F87C /* NSString+arrayOfCharacters.m */; };
 		4FDDE4C126F7B9000022F87C /* HSCardUseCaseTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FDDE4C026F7B9000022F87C /* HSCardUseCaseTest.m */; };
 		4FDDE4C326F7BC360022F87C /* HSDeckUseCaseTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FDDE4C226F7BC360022F87C /* HSDeckUseCaseTest.m */; };
@@ -186,6 +183,64 @@
 		4FDE8DFB26F113AB00959B97 /* DeckImageRenderServiceAboutContentConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FDE8DFA26F113AB00959B97 /* DeckImageRenderServiceAboutContentConfiguration.m */; };
 		4FDE8DFE26F113B500959B97 /* DeckImageRenderServiceAboutContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FDE8DFD26F113B500959B97 /* DeckImageRenderServiceAboutContentView.m */; };
 		4FDE8E0126F1281100959B97 /* NSNumber+stringWithSepearatedDecimalNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FDE8E0026F1281100959B97 /* NSNumber+stringWithSepearatedDecimalNumber.m */; };
+		4FE85701270089BC0008C2FB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE85700270089BC0008C2FB /* AppDelegate.m */; };
+		4FE85703270089BD0008C2FB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4FE85702270089BD0008C2FB /* Assets.xcassets */; };
+		4FE85706270089BD0008C2FB /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4FE85704270089BD0008C2FB /* MainMenu.xib */; };
+		4FE85708270089BD0008C2FB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE85707270089BD0008C2FB /* main.m */; };
+		4FE8571A27008A240008C2FB /* StoneNamuMacCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FE8571227008A240008C2FB /* StoneNamuMacCore.framework */; };
+		4FE8572127008A240008C2FB /* StoneNamuMacCoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE8572027008A240008C2FB /* StoneNamuMacCoreTests.m */; };
+		4FE8572227008A240008C2FB /* StoneNamuMacCore.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FE8571427008A240008C2FB /* StoneNamuMacCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4FE8572527008A240008C2FB /* StoneNamuMacCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FE8571227008A240008C2FB /* StoneNamuMacCore.framework */; };
+		4FE8572627008A240008C2FB /* StoneNamuMacCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4FE8571227008A240008C2FB /* StoneNamuMacCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4FE8572E27008B090008C2FB /* LocalDeckModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4FFDD66726CACB30008E5B45 /* LocalDeckModel.xcdatamodeld */; };
+		4FE8572F27008B0C0008C2FB /* LocalDeck.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FFDD66126CAC9B4008E5B45 /* LocalDeck.m */; };
+		4FE8573027008B0E0008C2FB /* Prefs.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FB850FD26C18D9300E3C89D /* Prefs.m */; };
+		4FE8573127008B110008C2FB /* DataCacheModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4F646A6126B7D73400BEDB38 /* DataCacheModel.xcdatamodeld */; };
+		4FE8573227008B130008C2FB /* DataCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F646A6526B7D7E100BEDB38 /* DataCache.m */; };
+		4FE8573327008B160008C2FB /* BlizzardAPIRegionHost.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE097CD26A3496F00BF3A6D /* BlizzardAPIRegionHost.m */; };
+		4FE8573427008B180008C2FB /* BlizzardHSAPILocale.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F03F56C26C7B3CF00FC9155 /* BlizzardHSAPILocale.m */; };
+		4FE8573527008B1B0008C2FB /* BlizzardHSAPIKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4DD75726DFBE4D00893E2B /* BlizzardHSAPIKeys.m */; };
+		4FE8573627008B1D0008C2FB /* HSCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA05F6F26A30940000E93BC /* HSCard.m */; };
+		4FE8573727008B210008C2FB /* HSCardCollectible.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F449EAB26B1884E007CE04A /* HSCardCollectible.m */; };
+		4FE8573827008B250008C2FB /* HSCardClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F449E9A26B178C4007CE04A /* HSCardClass.m */; };
+		4FE8573927008B280008C2FB /* HSCardHero.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FFDD67F26CADB2D008E5B45 /* HSCardHero.m */; };
+		4FE8573A27008B2B0008C2FB /* HSCardRarity.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F449EAD26B1908A007CE04A /* HSCardRarity.m */; };
+		4FE8573B27008B2D0008C2FB /* HSCardSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F57DEA426AD96D3000E4163 /* HSCardSet.m */; };
+		4FE8573C27008B2F0008C2FB /* HSCardType.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F449EBC26B19445007CE04A /* HSCardType.m */; };
+		4FE8573D27008B320008C2FB /* HSCardMinionType.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F449EBF26B197C7007CE04A /* HSCardMinionType.m */; };
+		4FE8573E27008B350008C2FB /* HSCardKeyword.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F6A139B26B251EE0089A13A /* HSCardKeyword.m */; };
+		4FE8573F27008B370008C2FB /* HSCardGameMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F6A13A426B267D60089A13A /* HSCardGameMode.m */; };
+		4FE8574027008B3A0008C2FB /* HSCardSort.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F6A13AD26B26F0E0089A13A /* HSCardSort.m */; };
+		4FE8574127008B3C0008C2FB /* HSDeck.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FFDD67926CAD40E008E5B45 /* HSDeck.m */; };
+		4FE8574227008B3F0008C2FB /* HSDeckFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8754B126DB6F60000CE351 /* HSDeckFormat.m */; };
+		4FE8574327008B410008C2FB /* HSYear.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FCC22C326ECA99B004997AA /* HSYear.m */; };
+		4FE8574427008B440008C2FB /* HSCardUseCaseImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA89DB26A426E700572BB4 /* HSCardUseCaseImpl.m */; };
+		4FE8574527008B480008C2FB /* HSDeckUseCaseImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC094F826CD712100A7D373 /* HSDeckUseCaseImpl.m */; };
+		4FE8574627008B4A0008C2FB /* DataCacheUseCaseImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F646A7A26B7F08500BEDB38 /* DataCacheUseCaseImpl.m */; };
+		4FE8574727008B4D0008C2FB /* PrefsUseCaseImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F03F56326C7A6AF00FC9155 /* PrefsUseCaseImpl.m */; };
+		4FE8574827008B4F0008C2FB /* LocalDeckUseCaseImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FFDD67326CAD1EE008E5B45 /* LocalDeckUseCaseImpl.m */; };
+		4FE8574927008B520008C2FB /* CoreDataStackImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F646A7026B7DFB500BEDB38 /* CoreDataStackImpl.m */; };
+		4FE8574A27008B550008C2FB /* BlizzardTokenAPIImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F34383D26A36501001161FE /* BlizzardTokenAPIImpl.m */; };
+		4FE8574B27008B590008C2FB /* BlizzardAPIImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA56BED26A213B2002D9FA0 /* BlizzardAPIImpl.m */; };
+		4FE8574C27008B5B0008C2FB /* BlizzardAPIRepositoryImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA89DF26A42A1500572BB4 /* BlizzardAPIRepositoryImpl.m */; };
+		4FE8574D27008B5D0008C2FB /* HSCardRepositoryImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA05F7526A309C7000E93BC /* HSCardRepositoryImpl.m */; };
+		4FE8574E27008B600008C2FB /* HSDeckRepositoryImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FFDD68326CADEEA008E5B45 /* HSDeckRepositoryImpl.m */; };
+		4FE8574F27008B630008C2FB /* DataCacheRepositoryImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F646A7526B7E8C100BEDB38 /* DataCacheRepositoryImpl.m */; };
+		4FE8575027008B660008C2FB /* PrefsRepositoryImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F03F55626C79C2D00FC9155 /* PrefsRepositoryImpl.m */; };
+		4FE8575127008B690008C2FB /* LocalDeckRepositoryImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FFDD66F26CACE97008E5B45 /* LocalDeckRepositoryImpl.m */; };
+		4FE8575227008BF30008C2FB /* NSSemaphoreCondition.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF3E0D626CA7F81002B20EA /* NSSemaphoreCondition.m */; };
+		4FE8575327008BF50008C2FB /* StoneNamuCoreErrors.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2438F926CD9E8A0041BB84 /* StoneNamuCoreErrors.m */; };
+		4FE8575527008DBA0008C2FB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4F9DFBB926B2FD2E002AACDE /* InfoPlist.strings */; };
+		4FE8575627008DBE0008C2FB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4F9DFBB326B2FD0C002AACDE /* Localizable.strings */; };
+		4FE8575E27008E140008C2FB /* MainWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE8575D27008E140008C2FB /* MainWindow.m */; };
+		4FE857622700913A0008C2FB /* MainSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE857612700913A0008C2FB /* MainSplitViewController.m */; };
+		4FE85767270092F30008C2FB /* MainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE85766270092F30008C2FB /* MainMenuViewController.m */; };
+		4FE8576A270093CF0008C2FB /* CardsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE85769270093CF0008C2FB /* CardsViewController.m */; };
+		4FE8576D27009B5C0008C2FB /* CardsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE8576C27009B5C0008C2FB /* CardsViewModel.m */; };
+		4FE8577027009C4D0008C2FB /* CardSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE8576F27009C4D0008C2FB /* CardSectionModel.m */; };
+		4FE8577327009C570008C2FB /* CardItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE8577227009C570008C2FB /* CardItemModel.m */; };
+		4FE857762700A0230008C2FB /* NSCollectionViewDiffableDataSource+applySnapshotAndWait.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE857752700A0230008C2FB /* NSCollectionViewDiffableDataSource+applySnapshotAndWait.m */; };
+		4FE857792700A3580008C2FB /* NSWindow+presentErrorAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE857782700A3580008C2FB /* NSWindow+presentErrorAlert.m */; };
 		4FEB413E26BD6116009D8594 /* CardDetailsBasicContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FEB413D26BD6116009D8594 /* CardDetailsBasicContentView.m */; };
 		4FEB414126BD6133009D8594 /* CardDetailsBasicContentConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FEB414026BD6133009D8594 /* CardDetailsBasicContentConfiguration.m */; };
 		4FEB414826BD7BDF009D8594 /* NSString+clearedHTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FEB414726BD7BDF009D8594 /* NSString+clearedHTML.m */; };
@@ -209,7 +264,6 @@
 		4FFDD65326CAC274008E5B45 /* UIView+scrollToTopForRecursiveView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FFDD65226CAC274008E5B45 /* UIView+scrollToTopForRecursiveView.m */; };
 		4FFDD65826CAC419008E5B45 /* DecksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FFDD65726CAC419008E5B45 /* DecksViewController.m */; };
 		4FFDD65B26CAC5B3008E5B45 /* DeckDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FFDD65A26CAC5B3008E5B45 /* DeckDetailsViewController.m */; };
-		4FFDD66226CAC9B4008E5B45 /* LocalDeck.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FFDD66026CAC9B4008E5B45 /* LocalDeck.h */; };
 		4FFDD66326CAC9B4008E5B45 /* LocalDeck.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FFDD66126CAC9B4008E5B45 /* LocalDeck.m */; };
 		4FFDD66926CACB30008E5B45 /* LocalDeckModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4FFDD66726CACB30008E5B45 /* LocalDeckModel.xcdatamodeld */; };
 		4FFDD66D26CACE0E008E5B45 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FFDD66C26CACE0E008E5B45 /* CloudKit.framework */; };
@@ -247,6 +301,27 @@
 			remoteGlobalIDString = 4F34384726A36FBA001161FE;
 			remoteInfo = StoneNamuCore;
 		};
+		4FE8571B27008A240008C2FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4FA56B9F26A21059002D9FA0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4FE8571127008A240008C2FB;
+			remoteInfo = StoneNamuMacCore;
+		};
+		4FE8571D27008A240008C2FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4FA56B9F26A21059002D9FA0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4FE856FC270089BC0008C2FB;
+			remoteInfo = StoneNamuMac;
+		};
+		4FE8572327008A240008C2FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4FA56B9F26A21059002D9FA0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4FE8571127008A240008C2FB;
+			remoteInfo = StoneNamuMacCore;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -257,6 +332,17 @@
 			dstSubfolderSpec = 10;
 			files = (
 				4F34385C26A36FBA001161FE /* StoneNamuCore.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4FE8572A27008A240008C2FB /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				4FE8572627008A240008C2FB /* StoneNamuMacCore.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -594,6 +680,34 @@
 		4FE097CA26A33C7500BF3A6D /* HSCardClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardClass.h; sourceTree = "<group>"; };
 		4FE097CC26A3409500BF3A6D /* BlizzardHSAPIKeys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlizzardHSAPIKeys.h; sourceTree = "<group>"; };
 		4FE097CD26A3496F00BF3A6D /* BlizzardAPIRegionHost.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlizzardAPIRegionHost.m; sourceTree = "<group>"; };
+		4FE856FD270089BC0008C2FB /* StoneNamuMac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StoneNamuMac.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4FE856FF270089BC0008C2FB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		4FE85700270089BC0008C2FB /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		4FE85702270089BD0008C2FB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		4FE85705270089BD0008C2FB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		4FE85707270089BD0008C2FB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		4FE8571227008A240008C2FB /* StoneNamuMacCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StoneNamuMacCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4FE8571427008A240008C2FB /* StoneNamuMacCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoneNamuMacCore.h; sourceTree = "<group>"; };
+		4FE8571927008A240008C2FB /* StoneNamuMacCoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StoneNamuMacCoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4FE8572027008A240008C2FB /* StoneNamuMacCoreTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StoneNamuMacCoreTests.m; sourceTree = "<group>"; };
+		4FE8575C27008E140008C2FB /* MainWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainWindow.h; sourceTree = "<group>"; };
+		4FE8575D27008E140008C2FB /* MainWindow.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainWindow.m; sourceTree = "<group>"; };
+		4FE857602700913A0008C2FB /* MainSplitViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainSplitViewController.h; sourceTree = "<group>"; };
+		4FE857612700913A0008C2FB /* MainSplitViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainSplitViewController.m; sourceTree = "<group>"; };
+		4FE85765270092F30008C2FB /* MainMenuViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainMenuViewController.h; sourceTree = "<group>"; };
+		4FE85766270092F30008C2FB /* MainMenuViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainMenuViewController.m; sourceTree = "<group>"; };
+		4FE85768270093CF0008C2FB /* CardsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardsViewController.h; sourceTree = "<group>"; };
+		4FE85769270093CF0008C2FB /* CardsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardsViewController.m; sourceTree = "<group>"; };
+		4FE8576B27009B5C0008C2FB /* CardsViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardsViewModel.h; sourceTree = "<group>"; };
+		4FE8576C27009B5C0008C2FB /* CardsViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardsViewModel.m; sourceTree = "<group>"; };
+		4FE8576E27009C4D0008C2FB /* CardSectionModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardSectionModel.h; sourceTree = "<group>"; };
+		4FE8576F27009C4D0008C2FB /* CardSectionModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardSectionModel.m; sourceTree = "<group>"; };
+		4FE8577127009C570008C2FB /* CardItemModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardItemModel.h; sourceTree = "<group>"; };
+		4FE8577227009C570008C2FB /* CardItemModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardItemModel.m; sourceTree = "<group>"; };
+		4FE857742700A0230008C2FB /* NSCollectionViewDiffableDataSource+applySnapshotAndWait.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSCollectionViewDiffableDataSource+applySnapshotAndWait.h"; sourceTree = "<group>"; };
+		4FE857752700A0230008C2FB /* NSCollectionViewDiffableDataSource+applySnapshotAndWait.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSCollectionViewDiffableDataSource+applySnapshotAndWait.m"; sourceTree = "<group>"; };
+		4FE857772700A3580008C2FB /* NSWindow+presentErrorAlert.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSWindow+presentErrorAlert.h"; sourceTree = "<group>"; };
+		4FE857782700A3580008C2FB /* NSWindow+presentErrorAlert.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSWindow+presentErrorAlert.m"; sourceTree = "<group>"; };
 		4FEB413C26BD6116009D8594 /* CardDetailsBasicContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardDetailsBasicContentView.h; sourceTree = "<group>"; };
 		4FEB413D26BD6116009D8594 /* CardDetailsBasicContentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardDetailsBasicContentView.m; sourceTree = "<group>"; };
 		4FEB413F26BD6133009D8594 /* CardDetailsBasicContentConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardDetailsBasicContentConfiguration.h; sourceTree = "<group>"; };
@@ -685,6 +799,29 @@
 			files = (
 				4F34385B26A36FBA001161FE /* StoneNamuCore.framework in Frameworks */,
 				4FFDD66D26CACE0E008E5B45 /* CloudKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4FE856FA270089BC0008C2FB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4FE8572527008A240008C2FB /* StoneNamuMacCore.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4FE8570F27008A240008C2FB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4FE8571627008A240008C2FB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4FE8571A27008A240008C2FB /* StoneNamuMacCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1171,8 +1308,11 @@
 			isa = PBXGroup;
 			children = (
 				4FA56BA926A21059002D9FA0 /* StoneNamu */,
+				4FE856FE270089BC0008C2FB /* StoneNamuMac */,
 				4F34384926A36FBA001161FE /* StoneNamuCore */,
 				4F34385526A36FBA001161FE /* StoneNamuCoreTests */,
+				4FE8571327008A240008C2FB /* StoneNamuMacCore */,
+				4FE8571F27008A240008C2FB /* StoneNamuMacCoreTests */,
 				4FA56BA826A21059002D9FA0 /* Products */,
 				4FFDD66B26CACE0E008E5B45 /* Frameworks */,
 			);
@@ -1184,6 +1324,9 @@
 				4FA56BA726A21059002D9FA0 /* StoneNamu.app */,
 				4F34384826A36FBA001161FE /* StoneNamuCore.framework */,
 				4F34384F26A36FBA001161FE /* StoneNamuCoreTests.xctest */,
+				4FE856FD270089BC0008C2FB /* StoneNamuMac.app */,
+				4FE8571227008A240008C2FB /* StoneNamuMacCore.framework */,
+				4FE8571927008A240008C2FB /* StoneNamuMacCoreTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1495,6 +1638,124 @@
 			path = HSCard;
 			sourceTree = "<group>";
 		};
+		4FE856FE270089BC0008C2FB /* StoneNamuMac */ = {
+			isa = PBXGroup;
+			children = (
+				4FE8575427008D640008C2FB /* Application */,
+				4FE8575827008DE60008C2FB /* Category */,
+				4FE8575727008DDF0008C2FB /* Presentation */,
+			);
+			path = StoneNamuMac;
+			sourceTree = "<group>";
+		};
+		4FE8571327008A240008C2FB /* StoneNamuMacCore */ = {
+			isa = PBXGroup;
+			children = (
+				4FE8571427008A240008C2FB /* StoneNamuMacCore.h */,
+			);
+			path = StoneNamuMacCore;
+			sourceTree = "<group>";
+		};
+		4FE8571F27008A240008C2FB /* StoneNamuMacCoreTests */ = {
+			isa = PBXGroup;
+			children = (
+				4FE8572027008A240008C2FB /* StoneNamuMacCoreTests.m */,
+			);
+			path = StoneNamuMacCoreTests;
+			sourceTree = "<group>";
+		};
+		4FE8575427008D640008C2FB /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				4FE856FF270089BC0008C2FB /* AppDelegate.h */,
+				4FE85700270089BC0008C2FB /* AppDelegate.m */,
+				4FE85702270089BD0008C2FB /* Assets.xcassets */,
+				4FE85704270089BD0008C2FB /* MainMenu.xib */,
+				4FE85707270089BD0008C2FB /* main.m */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		4FE8575727008DDF0008C2FB /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				4FE8575927008DEE0008C2FB /* Window */,
+				4FE8575A27008DF40008C2FB /* View */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		4FE8575827008DE60008C2FB /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				4FE857742700A0230008C2FB /* NSCollectionViewDiffableDataSource+applySnapshotAndWait.h */,
+				4FE857752700A0230008C2FB /* NSCollectionViewDiffableDataSource+applySnapshotAndWait.m */,
+				4FE857772700A3580008C2FB /* NSWindow+presentErrorAlert.h */,
+				4FE857782700A3580008C2FB /* NSWindow+presentErrorAlert.m */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+		4FE8575927008DEE0008C2FB /* Window */ = {
+			isa = PBXGroup;
+			children = (
+				4FE8575B27008DFF0008C2FB /* Main */,
+			);
+			path = Window;
+			sourceTree = "<group>";
+		};
+		4FE8575A27008DF40008C2FB /* View */ = {
+			isa = PBXGroup;
+			children = (
+				4FE8575F2700911B0008C2FB /* MainSplit */,
+				4FE85763270092CA0008C2FB /* MainMenu */,
+				4FE85764270092CF0008C2FB /* Cards */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		4FE8575B27008DFF0008C2FB /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				4FE8575C27008E140008C2FB /* MainWindow.h */,
+				4FE8575D27008E140008C2FB /* MainWindow.m */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		4FE8575F2700911B0008C2FB /* MainSplit */ = {
+			isa = PBXGroup;
+			children = (
+				4FE857602700913A0008C2FB /* MainSplitViewController.h */,
+				4FE857612700913A0008C2FB /* MainSplitViewController.m */,
+			);
+			path = MainSplit;
+			sourceTree = "<group>";
+		};
+		4FE85763270092CA0008C2FB /* MainMenu */ = {
+			isa = PBXGroup;
+			children = (
+				4FE85765270092F30008C2FB /* MainMenuViewController.h */,
+				4FE85766270092F30008C2FB /* MainMenuViewController.m */,
+			);
+			path = MainMenu;
+			sourceTree = "<group>";
+		};
+		4FE85764270092CF0008C2FB /* Cards */ = {
+			isa = PBXGroup;
+			children = (
+				4FE85768270093CF0008C2FB /* CardsViewController.h */,
+				4FE85769270093CF0008C2FB /* CardsViewController.m */,
+				4FE8576B27009B5C0008C2FB /* CardsViewModel.h */,
+				4FE8576C27009B5C0008C2FB /* CardsViewModel.m */,
+				4FE8576E27009C4D0008C2FB /* CardSectionModel.h */,
+				4FE8576F27009C4D0008C2FB /* CardSectionModel.m */,
+				4FE8577127009C570008C2FB /* CardItemModel.h */,
+				4FE8577227009C570008C2FB /* CardItemModel.m */,
+			);
+			path = Cards;
+			sourceTree = "<group>";
+		};
 		4FEC8A0326EB87860061BBF4 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -1593,9 +1854,9 @@
 		4FFDD65C26CAC770008E5B45 /* LocalDeck */ = {
 			isa = PBXGroup;
 			children = (
+				4FFDD66726CACB30008E5B45 /* LocalDeckModel.xcdatamodeld */,
 				4FFDD66026CAC9B4008E5B45 /* LocalDeck.h */,
 				4FFDD66126CAC9B4008E5B45 /* LocalDeck.m */,
-				4FFDD66726CACB30008E5B45 /* LocalDeckModel.xcdatamodeld */,
 			);
 			path = LocalDeck;
 			sourceTree = "<group>";
@@ -1632,7 +1893,6 @@
 				4F646A7B26B7F08500BEDB38 /* DataCacheUseCaseImpl.h in Headers */,
 				4F646A7126B7DFB500BEDB38 /* CoreDataStackImpl.h in Headers */,
 				4FFDD67426CAD1EE008E5B45 /* LocalDeckUseCaseImpl.h in Headers */,
-				4FFDD66226CAC9B4008E5B45 /* LocalDeck.h in Headers */,
 				4FFDD68026CADB2D008E5B45 /* HSCardHero.h in Headers */,
 				4F34385826A36FBA001161FE /* StoneNamuCore.h in Headers */,
 				4FAA89D826A4266500572BB4 /* HSCardUseCase.h in Headers */,
@@ -1641,13 +1901,18 @@
 				4F03F55726C79C2D00FC9155 /* PrefsRepositoryImpl.h in Headers */,
 				4FFDD68426CADEEA008E5B45 /* HSDeckRepositoryImpl.h in Headers */,
 				4F03F56426C7A6AF00FC9155 /* PrefsUseCaseImpl.h in Headers */,
-				4FB850FE26C18D9300E3C89D /* Prefs.h in Headers */,
-				4FB8510226C18DE200E3C89D /* NSManagedObject+_fetchRequest.h in Headers */,
 				4FFDD67A26CAD40E008E5B45 /* HSDeck.h in Headers */,
 				4FFDD67026CACE97008E5B45 /* LocalDeckRepositoryImpl.h in Headers */,
-				4FDDE4BE26F79F2D0022F87C /* NSString+arrayOfCharacters.h in Headers */,
 				4FAA89E026A42A1500572BB4 /* BlizzardAPIRepositoryImpl.h in Headers */,
 				4F646A7626B7E8C100BEDB38 /* DataCacheRepositoryImpl.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4FE8570D27008A240008C2FB /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4FE8572227008A240008C2FB /* StoneNamuMacCore.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1710,6 +1975,62 @@
 			productReference = 4FA56BA726A21059002D9FA0 /* StoneNamu.app */;
 			productType = "com.apple.product-type.application";
 		};
+		4FE856FC270089BC0008C2FB /* StoneNamuMac */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4FE8570B270089BD0008C2FB /* Build configuration list for PBXNativeTarget "StoneNamuMac" */;
+			buildPhases = (
+				4FE856F9270089BC0008C2FB /* Sources */,
+				4FE856FA270089BC0008C2FB /* Frameworks */,
+				4FE856FB270089BC0008C2FB /* Resources */,
+				4FE8572A27008A240008C2FB /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4FE8572427008A240008C2FB /* PBXTargetDependency */,
+			);
+			name = StoneNamuMac;
+			productName = StoneNamuMac;
+			productReference = 4FE856FD270089BC0008C2FB /* StoneNamuMac.app */;
+			productType = "com.apple.product-type.application";
+		};
+		4FE8571127008A240008C2FB /* StoneNamuMacCore */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4FE8572727008A240008C2FB /* Build configuration list for PBXNativeTarget "StoneNamuMacCore" */;
+			buildPhases = (
+				4FE8570D27008A240008C2FB /* Headers */,
+				4FE8570E27008A240008C2FB /* Sources */,
+				4FE8570F27008A240008C2FB /* Frameworks */,
+				4FE8571027008A240008C2FB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = StoneNamuMacCore;
+			productName = StoneNamuMacCore;
+			productReference = 4FE8571227008A240008C2FB /* StoneNamuMacCore.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		4FE8571827008A240008C2FB /* StoneNamuMacCoreTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4FE8572B27008A240008C2FB /* Build configuration list for PBXNativeTarget "StoneNamuMacCoreTests" */;
+			buildPhases = (
+				4FE8571527008A240008C2FB /* Sources */,
+				4FE8571627008A240008C2FB /* Frameworks */,
+				4FE8571727008A240008C2FB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4FE8571C27008A240008C2FB /* PBXTargetDependency */,
+				4FE8571E27008A240008C2FB /* PBXTargetDependency */,
+			);
+			name = StoneNamuMacCoreTests;
+			productName = StoneNamuMacCoreTests;
+			productReference = 4FE8571927008A240008C2FB /* StoneNamuMacCoreTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1727,6 +2048,16 @@
 					};
 					4FA56BA626A21059002D9FA0 = {
 						CreatedOnToolsVersion = 12.5.1;
+					};
+					4FE856FC270089BC0008C2FB = {
+						CreatedOnToolsVersion = 13.0;
+					};
+					4FE8571127008A240008C2FB = {
+						CreatedOnToolsVersion = 13.0;
+					};
+					4FE8571827008A240008C2FB = {
+						CreatedOnToolsVersion = 13.0;
+						TestTargetID = 4FE856FC270089BC0008C2FB;
 					};
 				};
 			};
@@ -1746,7 +2077,10 @@
 			targets = (
 				4FA56BA626A21059002D9FA0 /* StoneNamu */,
 				4F34384726A36FBA001161FE /* StoneNamuCore */,
+				4FE856FC270089BC0008C2FB /* StoneNamuMac */,
+				4FE8571127008A240008C2FB /* StoneNamuMacCore */,
 				4F34384E26A36FBA001161FE /* StoneNamuCoreTests */,
+				4FE8571827008A240008C2FB /* StoneNamuMacCoreTests */,
 			);
 		};
 /* End PBXProject section */
@@ -1792,6 +2126,31 @@
 				4FDE8DF526F10A2D00959B97 /* GmarketSansTTFLight.ttf in Resources */,
 				4F9DFBB126B2FD0C002AACDE /* Localizable.strings in Resources */,
 				4FDE8DF426F10A2D00959B97 /* GmarketSansTTFMedium.ttf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4FE856FB270089BC0008C2FB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4FE85703270089BD0008C2FB /* Assets.xcassets in Resources */,
+				4FE8575627008DBE0008C2FB /* Localizable.strings in Resources */,
+				4FE8575527008DBA0008C2FB /* InfoPlist.strings in Resources */,
+				4FE85706270089BD0008C2FB /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4FE8571027008A240008C2FB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4FE8571727008A240008C2FB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1989,6 +2348,77 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4FE856F9270089BC0008C2FB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4FE857622700913A0008C2FB /* MainSplitViewController.m in Sources */,
+				4FE8576D27009B5C0008C2FB /* CardsViewModel.m in Sources */,
+				4FE85708270089BD0008C2FB /* main.m in Sources */,
+				4FE85701270089BC0008C2FB /* AppDelegate.m in Sources */,
+				4FE8575E27008E140008C2FB /* MainWindow.m in Sources */,
+				4FE8577027009C4D0008C2FB /* CardSectionModel.m in Sources */,
+				4FE857792700A3580008C2FB /* NSWindow+presentErrorAlert.m in Sources */,
+				4FE8576A270093CF0008C2FB /* CardsViewController.m in Sources */,
+				4FE8577327009C570008C2FB /* CardItemModel.m in Sources */,
+				4FE85767270092F30008C2FB /* MainMenuViewController.m in Sources */,
+				4FE857762700A0230008C2FB /* NSCollectionViewDiffableDataSource+applySnapshotAndWait.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4FE8570E27008A240008C2FB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4FE8573427008B180008C2FB /* BlizzardHSAPILocale.m in Sources */,
+				4FE8574127008B3C0008C2FB /* HSDeck.m in Sources */,
+				4FE8573B27008B2D0008C2FB /* HSCardSet.m in Sources */,
+				4FE8573627008B1D0008C2FB /* HSCard.m in Sources */,
+				4FE8573E27008B350008C2FB /* HSCardKeyword.m in Sources */,
+				4FE8573527008B1B0008C2FB /* BlizzardHSAPIKeys.m in Sources */,
+				4FE8574727008B4D0008C2FB /* PrefsUseCaseImpl.m in Sources */,
+				4FE8573327008B160008C2FB /* BlizzardAPIRegionHost.m in Sources */,
+				4FE8574F27008B630008C2FB /* DataCacheRepositoryImpl.m in Sources */,
+				4FE8574427008B440008C2FB /* HSCardUseCaseImpl.m in Sources */,
+				4FE8575027008B660008C2FB /* PrefsRepositoryImpl.m in Sources */,
+				4FE8574027008B3A0008C2FB /* HSCardSort.m in Sources */,
+				4FE8573227008B130008C2FB /* DataCache.m in Sources */,
+				4FE8573027008B0E0008C2FB /* Prefs.m in Sources */,
+				4FE8574827008B4F0008C2FB /* LocalDeckUseCaseImpl.m in Sources */,
+				4FE8574527008B480008C2FB /* HSDeckUseCaseImpl.m in Sources */,
+				4FE8575327008BF50008C2FB /* StoneNamuCoreErrors.m in Sources */,
+				4FE8575127008B690008C2FB /* LocalDeckRepositoryImpl.m in Sources */,
+				4FE8574227008B3F0008C2FB /* HSDeckFormat.m in Sources */,
+				4FE8575227008BF30008C2FB /* NSSemaphoreCondition.m in Sources */,
+				4FE8574327008B410008C2FB /* HSYear.m in Sources */,
+				4FE8574B27008B590008C2FB /* BlizzardAPIImpl.m in Sources */,
+				4FE8573A27008B2B0008C2FB /* HSCardRarity.m in Sources */,
+				4FE8574927008B520008C2FB /* CoreDataStackImpl.m in Sources */,
+				4FE8574E27008B600008C2FB /* HSDeckRepositoryImpl.m in Sources */,
+				4FE8573F27008B370008C2FB /* HSCardGameMode.m in Sources */,
+				4FE8573927008B280008C2FB /* HSCardHero.m in Sources */,
+				4FE8572F27008B0C0008C2FB /* LocalDeck.m in Sources */,
+				4FE8573827008B250008C2FB /* HSCardClass.m in Sources */,
+				4FE8574A27008B550008C2FB /* BlizzardTokenAPIImpl.m in Sources */,
+				4FE8574D27008B5D0008C2FB /* HSCardRepositoryImpl.m in Sources */,
+				4FE8573C27008B2F0008C2FB /* HSCardType.m in Sources */,
+				4FE8573727008B210008C2FB /* HSCardCollectible.m in Sources */,
+				4FE8573127008B110008C2FB /* DataCacheModel.xcdatamodeld in Sources */,
+				4FE8574627008B4A0008C2FB /* DataCacheUseCaseImpl.m in Sources */,
+				4FE8574C27008B5B0008C2FB /* BlizzardAPIRepositoryImpl.m in Sources */,
+				4FE8573D27008B320008C2FB /* HSCardMinionType.m in Sources */,
+				4FE8572E27008B090008C2FB /* LocalDeckModel.xcdatamodeld in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4FE8571527008A240008C2FB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4FE8572127008A240008C2FB /* StoneNamuMacCoreTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -2006,6 +2436,21 @@
 			isa = PBXTargetDependency;
 			target = 4F34384726A36FBA001161FE /* StoneNamuCore */;
 			targetProxy = 4F34385926A36FBA001161FE /* PBXContainerItemProxy */;
+		};
+		4FE8571C27008A240008C2FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4FE8571127008A240008C2FB /* StoneNamuMacCore */;
+			targetProxy = 4FE8571B27008A240008C2FB /* PBXContainerItemProxy */;
+		};
+		4FE8571E27008A240008C2FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4FE856FC270089BC0008C2FB /* StoneNamuMac */;
+			targetProxy = 4FE8571D27008A240008C2FB /* PBXContainerItemProxy */;
+		};
+		4FE8572427008A240008C2FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4FE8571127008A240008C2FB /* StoneNamuMacCore */;
+			targetProxy = 4FE8572327008A240008C2FB /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -2163,6 +2608,14 @@
 			name = HSCardSort.strings;
 			sourceTree = "<group>";
 		};
+		4FE85704270089BD0008C2FB /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4FE85705270089BD0008C2FB /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -2193,6 +2646,8 @@
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/StoneNamuCore/**";
+				USE_HEADERMAP = NO;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -2225,6 +2680,8 @@
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/StoneNamuCore/**";
+				USE_HEADERMAP = NO;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -2251,6 +2708,8 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/StoneNamu.app/StoneNamu";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/StoneNamuCoreTests/**";
+				USE_HEADERMAP = NO;
 			};
 			name = Debug;
 		};
@@ -2275,6 +2734,8 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/StoneNamu.app/StoneNamu";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/StoneNamuCoreTests/**";
+				USE_HEADERMAP = NO;
 			};
 			name = Release;
 		};
@@ -2331,6 +2792,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -2385,6 +2847,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -2412,6 +2875,11 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/StoneNamu/**",
+					"$(SRCROOT)/StoneNamuCore/**",
+				);
+				USE_HEADERMAP = NO;
 			};
 			name = Debug;
 		};
@@ -2435,6 +2903,209 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/StoneNamu/**",
+					"$(SRCROOT)/StoneNamuCore/**",
+				);
+				USE_HEADERMAP = NO;
+			};
+			name = Release;
+		};
+		4FE85709270089BD0008C2FB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = P53D29U9LJ;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = "";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMainNibFile = MainMenu;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pookjw.StoneNamuMac;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				USER_HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/StoneNamuMac/**",
+					"$(SRCROOT)/StoneNamuCore/**",
+				);
+				USE_HEADERMAP = NO;
+			};
+			name = Debug;
+		};
+		4FE8570A270089BD0008C2FB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = P53D29U9LJ;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = "";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMainNibFile = MainMenu;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pookjw.StoneNamuMac;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				USER_HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/StoneNamuMac/**",
+					"$(SRCROOT)/StoneNamuCore/**",
+				);
+				USE_HEADERMAP = NO;
+			};
+			name = Release;
+		};
+		4FE8572827008A240008C2FB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = P53D29U9LJ;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pookjw.StoneNamuMacCore;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/StoneNamuCore/**";
+				USE_HEADERMAP = NO;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		4FE8572927008A240008C2FB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = P53D29U9LJ;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pookjw.StoneNamuMacCore;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/StoneNamuCore/**";
+				USE_HEADERMAP = NO;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		4FE8572C27008A240008C2FB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = P53D29U9LJ;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pookjw.StoneNamuMacCoreTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/StoneNamuMac.app/Contents/MacOS/StoneNamuMac";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/StoneNamuMacCoreTests/**";
+				USE_HEADERMAP = NO;
+			};
+			name = Debug;
+		};
+		4FE8572D27008A240008C2FB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = P53D29U9LJ;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pookjw.StoneNamuMacCoreTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/StoneNamuMac.app/Contents/MacOS/StoneNamuMac";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/StoneNamuMacCoreTests/**";
+				USE_HEADERMAP = NO;
 			};
 			name = Release;
 		};
@@ -2473,6 +3144,33 @@
 			buildConfigurations = (
 				4FA56BC126A2105A002D9FA0 /* Debug */,
 				4FA56BC226A2105A002D9FA0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4FE8570B270089BD0008C2FB /* Build configuration list for PBXNativeTarget "StoneNamuMac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4FE85709270089BD0008C2FB /* Debug */,
+				4FE8570A270089BD0008C2FB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4FE8572727008A240008C2FB /* Build configuration list for PBXNativeTarget "StoneNamuMacCore" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4FE8572827008A240008C2FB /* Debug */,
+				4FE8572927008A240008C2FB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4FE8572B27008A240008C2FB /* Build configuration list for PBXNativeTarget "StoneNamuMacCoreTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4FE8572C27008A240008C2FB /* Debug */,
+				4FE8572D27008A240008C2FB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

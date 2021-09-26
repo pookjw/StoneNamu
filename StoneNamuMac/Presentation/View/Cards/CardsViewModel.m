@@ -1,8 +1,8 @@
 //
 //  CardsViewModel.m
-//  StoneNamu
+//  CardsViewModel
 //
-//  Created by Jinwoo Kim on 7/24/21.
+//  Created by Jinwoo Kim on 9/26/21.
 //
 
 #import "CardsViewModel.h"
@@ -10,8 +10,7 @@
 #import "BlizzardHSAPIKeys.h"
 #import "PrefsUseCaseImpl.h"
 #import "DataCacheUseCaseImpl.h"
-#import "DragItemService.h"
-#import "UICollectionViewDiffableDataSource+applySnapshotAndWait.h"
+#import "NSCollectionViewDiffableDataSource+applySnapshotAndWait.h"
 
 @interface CardsViewModel ()
 @property (retain) id<HSCardUseCase> hsCardUseCase;
@@ -30,7 +29,6 @@
     self = [self init];
     
     if (self) {
-        self->_contextMenuIndexPath = nil;
         self->_dataSource = [dataSource retain];
         
         HSCardUseCaseImpl *hsCardUseCase = [HSCardUseCaseImpl new];
@@ -53,16 +51,12 @@
         self.pageCount = nil;
         self.page = [NSNumber numberWithUnsignedInt:1];
         self.isFetching = NO;
-        
-        [self observePrefsChange];
-        [self observeDataCachesDeleted];
     }
     
     return self;
 }
 
 - (void)dealloc {
-    [_contextMenuIndexPath release];
     [_dataSource release];
     [_hsCardUseCase release];
     [_pageCount release];
@@ -74,7 +68,9 @@
     [super dealloc];
 }
 
-- (BOOL)requestDataSourceWithOptions:(NSDictionary<NSString *,id> * _Nullable)options reset:(BOOL)reset {
+
+
+- (BOOL)requestDataSourceWithOptions:(NSDictionary<NSString *,NSString *> *)options reset:(BOOL)reset {
     
     if (reset) {
         [self resetDataSource];
@@ -141,16 +137,6 @@
     return ![self.pageCount isEqual:self.page];
 }
 
-- (NSArray<UIDragItem *> *)makeDragItemFromIndexPath:(NSIndexPath *)indexPath image:(UIImage * _Nullable)image {
-    CardItemModel * _Nullable itemModel = [self.dataSource itemIdentifierForIndexPath:indexPath];
-    
-    if (itemModel == nil) return @[];
-    
-    UIDragItem *dragItem = [DragItemService.sharedInstance makeDragItemsFromHSCard:itemModel.hsCard image:image];
-    
-    return @[dragItem];
-}
-
 - (void)updateDataSourceWithCards:(NSArray<HSCard *> *)cards {
     [self.queue addBarrierBlock:^{
         NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
@@ -158,13 +144,13 @@
         CardSectionModel * _Nullable sectionModel = nil;
         
         for (CardSectionModel *tmp in snapshot.sectionIdentifiers) {
-            if (tmp.type == CardsSectionModelTypeCards) {
+            if (tmp.type == CardSecctionModelTypeCards) {
                 sectionModel = tmp;
             }
         }
         
         if (sectionModel == nil) {
-            sectionModel = [[[CardSectionModel alloc] initWithType:CardsSectionModelTypeCards] autorelease];
+            sectionModel = [[[CardSectionModel alloc] initWithType:CardSecctionModelTypeCards] autorelease];
             [snapshot appendSectionsWithIdentifiers:@[sectionModel]];
         }
         

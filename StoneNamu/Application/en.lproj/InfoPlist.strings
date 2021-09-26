@@ -8,4 +8,6 @@
 
 "CFBundleDisplayName" = "StoneNamu";
 
+"CFBundleName" = "StoneNamu";
+
 "NSPhotoLibraryAddUsageDescription" = "Please allow accessing to Photo Library to save photo.";

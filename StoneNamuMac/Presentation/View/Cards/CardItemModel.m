@@ -1,8 +1,8 @@
 //
 //  CardItemModel.m
-//  StoneNamu
+//  CardItemModel
 //
-//  Created by Jinwoo Kim on 7/24/21.
+//  Created by Jinwoo Kim on 9/26/21.
 //
 
 #import "CardItemModel.h"

@@ -144,7 +144,7 @@
         CardItemModel *itemModel = (CardItemModel *)item;
         
         CardContentConfiguration *configuration = [CardContentConfiguration new];
-        configuration.hsCard = itemModel.card;
+        configuration.hsCard = itemModel.hsCard;
         
         cell.contentConfiguration = configuration;
         [configuration release];
@@ -208,7 +208,7 @@
 - (void)presentCardDetailsViewControllerFromIndexPath:(NSIndexPath *)indexPath {
     UICollectionViewCell * _Nullable cell = [self.collectionView cellForItemAtIndexPath:indexPath];
     if (cell == nil) return;
-    HSCard * _Nullable hsCard = [self.viewModel.dataSource itemIdentifierForIndexPath:indexPath].card;
+    HSCard * _Nullable hsCard = [self.viewModel.dataSource itemIdentifierForIndexPath:indexPath].hsCard;
     if (hsCard == nil) return;
     
     CardContentView *contentView = (CardContentView *)cell.contentView;
@@ -256,10 +256,10 @@
                                                    image:[UIImage systemImageNamed:@"square.and.arrow.down"]
                                               identifier:nil
                                                  handler:^(__kindof UIAction * _Nonnull action) {
-            [PhotosService.sharedInstance saveImageURL:itemModel.card.image fromViewController:self completionHandler:^(BOOL success, NSError * _Nonnull error) {}];
+            [PhotosService.sharedInstance saveImageURL:itemModel.hsCard.image fromViewController:self completionHandler:^(BOOL success, NSError * _Nonnull error) {}];
         }];
         
-        UIMenu *menu = [UIMenu menuWithTitle:itemModel.card.name
+        UIMenu *menu = [UIMenu menuWithTitle:itemModel.hsCard.name
                                     children:@[saveAction]];
         
         return menu;

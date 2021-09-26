@@ -1,8 +1,8 @@
 //
 //  CardSectionModel.h
-//  StoneNamu
+//  CardSectionModel
 //
-//  Created by Jinwoo Kim on 7/24/21.
+//  Created by Jinwoo Kim on 9/26/21.
 //
 
 #import <Foundation/Foundation.h>
@@ -10,7 +10,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSUInteger, CardSectionModelType) {
-    CardSectionModelTypeCards
+    CardSecctionModelTypeCards
 };
 
 @interface CardSectionModel : NSObject
