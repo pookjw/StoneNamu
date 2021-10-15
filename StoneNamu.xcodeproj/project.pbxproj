@@ -174,6 +174,7 @@
 		4FD87F932719CD50003EED4B /* MainViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD87F922719CD50003EED4B /* MainViewModel.m */; };
 		4FD87F962719CD66003EED4B /* MainSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD87F952719CD66003EED4B /* MainSectionModel.m */; };
 		4FD87F992719CD71003EED4B /* MainItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD87F982719CD71003EED4B /* MainItemModel.m */; };
+		4FD87F9D2719E6AB003EED4B /* MoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD87F9C2719E6AB003EED4B /* MoreViewController.m */; };
 		4FDDE4B526F762FC0022F87C /* UICollectionViewDiffableDataSource+applySnapshotAndWait.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FDDE4B426F762FC0022F87C /* UICollectionViewDiffableDataSource+applySnapshotAndWait.m */; };
 		4FDDE4B826F77D4D0022F87C /* HSCardSort.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4FDDE4BA26F77D4D0022F87C /* HSCardSort.strings */; };
 		4FDDE4BF26F79F2D0022F87C /* NSString+arrayOfCharacters.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FDDE4BD26F79F2D0022F87C /* NSString+arrayOfCharacters.m */; };
@@ -669,6 +670,8 @@
 		4FD87F952719CD66003EED4B /* MainSectionModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainSectionModel.m; sourceTree = "<group>"; };
 		4FD87F972719CD71003EED4B /* MainItemModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainItemModel.h; sourceTree = "<group>"; };
 		4FD87F982719CD71003EED4B /* MainItemModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainItemModel.m; sourceTree = "<group>"; };
+		4FD87F9B2719E6AB003EED4B /* MoreViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoreViewController.h; sourceTree = "<group>"; };
+		4FD87F9C2719E6AB003EED4B /* MoreViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MoreViewController.m; sourceTree = "<group>"; };
 		4FDDE4B326F762FC0022F87C /* UICollectionViewDiffableDataSource+applySnapshotAndWait.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UICollectionViewDiffableDataSource+applySnapshotAndWait.h"; sourceTree = "<group>"; };
 		4FDDE4B426F762FC0022F87C /* UICollectionViewDiffableDataSource+applySnapshotAndWait.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UICollectionViewDiffableDataSource+applySnapshotAndWait.m"; sourceTree = "<group>"; };
 		4FDDE4B926F77D4D0022F87C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/HSCardSort.strings; sourceTree = "<group>"; };
@@ -1284,6 +1287,7 @@
 				4F6F182226E6691300DC210B /* FloatingMini */,
 				4F73ABAF26E88302000FD629 /* ZoomAnimatedTransitioning */,
 				4F3F1BC026E7C0E500ACF80A /* TextActivity */,
+				4FD87F9A2719E698003EED4B /* More */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -1614,6 +1618,15 @@
 				4FD87F8F2719CA15003EED4B /* MainSplitViewController.m */,
 			);
 			path = Split;
+			sourceTree = "<group>";
+		};
+		4FD87F9A2719E698003EED4B /* More */ = {
+			isa = PBXGroup;
+			children = (
+				4FD87F9B2719E6AB003EED4B /* MoreViewController.h */,
+				4FD87F9C2719E6AB003EED4B /* MoreViewController.m */,
+			);
+			path = More;
 			sourceTree = "<group>";
 		};
 		4FDE8DED26F107C400959B97 /* Resources */ = {
@@ -2351,6 +2364,7 @@
 				4F9070A126D3803800BA7614 /* UIImage+averageColor.m in Sources */,
 				4FCC22B426ECA4B7004997AA /* DeckImageRenderServiceIntroContentView.m in Sources */,
 				4F74712626C170CA001C45C4 /* CardDetailsChildrenContentSectionModel.m in Sources */,
+				4FD87F9D2719E6AB003EED4B /* MoreViewController.m in Sources */,
 				4F8754B626DB8773000CE351 /* SpinnerView.m in Sources */,
 				4F8FFF4E26E0EE9000FA6586 /* DeckAddCardOptionsViewModel.m in Sources */,
 				4F2438ED26CD8CCF0041BB84 /* DecksSectionModel.m in Sources */,

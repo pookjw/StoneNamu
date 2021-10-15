@@ -13,6 +13,7 @@
 #import "CardOptionsViewController.h"
 #import "UIView+scrollToTopForRecursiveView.h"
 #import "DecksViewController.h"
+#import "MoreViewController.h"
 
 @interface MainTabBarController () <UITabBarControllerDelegate>
 @property (retain) CardsOneBesideSecondarySplitViewController *cardsSplitViewController;
@@ -43,14 +44,17 @@
 - (void)configureViewControllers {
     DecksViewController *decksViewController = [DecksViewController new];
     PrefsViewController *prefsViewController = [PrefsViewController new];
+    MoreViewController *moreViewController = [MoreViewController new];
     
     [decksViewController loadViewIfNeeded];
     [prefsViewController loadViewIfNeeded];
+    [moreViewController loadViewIfNeeded];
     
     UINavigationController *decksPrimaryNavigationController = [[UINavigationController alloc] initWithRootViewController:decksViewController];
     UINavigationController *decksSecondaryNavigationController = [UINavigationController new];
     UINavigationController *prefsPrimaryNavigationController = [[UINavigationController alloc] initWithRootViewController:prefsViewController];
     UINavigationController *prefsSecondaryNavigationController = [UINavigationController new];
+    UINavigationController *moreNavigationController = [[UINavigationController alloc] initWithRootViewController:moreViewController];
     
     CardsOneBesideSecondarySplitViewController *cardsSplitViewController = [[CardsOneBesideSecondarySplitViewController alloc] initWithHSCardGameMode:HSCardGameModeConstructed];
     OneBesideSecondarySplitViewController *decksSplitViewController = [OneBesideSecondarySplitViewController new];
@@ -67,6 +71,7 @@
     decksSecondaryNavigationController.view.backgroundColor = UIColor.systemBackgroundColor;
     prefsPrimaryNavigationController.view.backgroundColor = UIColor.systemBackgroundColor;
     prefsSecondaryNavigationController.view.backgroundColor = UIColor.systemBackgroundColor;
+    moreNavigationController.view.backgroundColor = UIColor.systemBackgroundColor;
     
     decksSplitViewController.viewControllers = @[decksPrimaryNavigationController, decksSecondaryNavigationController];
     prefsSplitViewController.viewControllers = @[prefsPrimaryNavigationController, prefsSecondaryNavigationController];
@@ -87,20 +92,26 @@
     UITabBarItem *prefsTabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"PREFERENCES", @"")
                                                                   image:[UIImage systemImageNamed:@"gearshape"]
                                                           selectedImage:[UIImage systemImageNamed:@"gearshape.fill"]];
+    UITabBarItem *moreTabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"MORE", @"")
+                                                                 image:[UIImage systemImageNamed:@"ellipsis"]
+                                                         selectedImage:[UIImage systemImageNamed:@"ellipsis"]];
     cardsSplitViewController.tabBarItem = cardsTabBarItem;
     decksSplitViewController.tabBarItem = decksTabBarItem;
     prefsSplitViewController.tabBarItem = prefsTabBarItem;
+    moreViewController.tabBarItem = moreTabBarItem;
     
     [cardsTabBarItem release];
     [decksTabBarItem release];
     [prefsTabBarItem release];
+    [moreTabBarItem release];
     
-    [self setViewControllers:@[cardsSplitViewController, decksSplitViewController, prefsSplitViewController] animated:NO];
+    [self setViewControllers:@[cardsSplitViewController, decksSplitViewController, prefsSplitViewController, moreNavigationController] animated:NO];
     self.selectedViewController = cardsSplitViewController;
     
     [cardsSplitViewController release];
     [decksSplitViewController release];
     [prefsSplitViewController release];
+    [moreNavigationController release];
 }
 
 - (void)makeFirstPageForNavigationController:(UINavigationController *)navigationController {

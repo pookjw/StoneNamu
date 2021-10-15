@@ -210,6 +210,7 @@
     } else {
         CardOptionsViewController *cardOptionsViewController = [[CardOptionsViewController alloc] initWithOptions:cardsViewController.options];
         cardOptionsViewController.delegate = cardsViewController;
+        [cardOptionsViewController setCancelButtonHidden:YES];
         [self.splitViewController setViewController:cardOptionsViewController forColumn:UISplitViewControllerColumnSupplementary];
         [self.splitViewController setViewController:cardsViewController forColumn:UISplitViewControllerColumnSecondary];
         
