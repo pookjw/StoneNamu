@@ -158,13 +158,13 @@
         CardSectionModel * _Nullable sectionModel = nil;
         
         for (CardSectionModel *tmp in snapshot.sectionIdentifiers) {
-            if (tmp.type == CardsSectionModelTypeCards) {
+            if (tmp.type == CardSectionModelTypeCards) {
                 sectionModel = tmp;
             }
         }
         
         if (sectionModel == nil) {
-            sectionModel = [[[CardSectionModel alloc] initWithType:CardsSectionModelTypeCards] autorelease];
+            sectionModel = [[[CardSectionModel alloc] initWithType:CardSectionModelTypeCards] autorelease];
             [snapshot appendSectionsWithIdentifiers:@[sectionModel]];
         }
         
