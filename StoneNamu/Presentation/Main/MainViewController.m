@@ -203,6 +203,7 @@
 - (void)presentCardsViewControllerWithOptions:(NSDictionary<NSString *, NSString *> * _Nullable)options {
     CardsViewController *cardsViewController = [CardsViewController new];
     [cardsViewController loadViewIfNeeded];
+    [cardsViewController setOptionsBarButtonItemHidden:YES];
     [cardsViewController requestWithOptions:options];
     
     if (self.splitViewController.isCollapsed) {
@@ -213,6 +214,8 @@
         [cardOptionsViewController setCancelButtonHidden:YES];
         [self.splitViewController setViewController:cardOptionsViewController forColumn:UISplitViewControllerColumnSupplementary];
         [self.splitViewController setViewController:cardsViewController forColumn:UISplitViewControllerColumnSecondary];
+        // setViewController:forColumn: will push the view controller, so prevent this
+        [cardsViewController.navigationController setViewControllers:@[cardsViewController] animated:NO];
         
         [cardOptionsViewController release];
     }

@@ -39,7 +39,9 @@
     self.primaryBackgroundStyle = UISplitViewControllerBackgroundStyleSidebar;
     self.preferredDisplayMode = UISplitViewControllerDisplayModeTwoBesideSecondary;
     self.view.backgroundColor = UIColor.systemBackgroundColor;
+#if TARGET_OS_MACCATALYST
     self.displayModeButtonVisibility = UISplitViewControllerDisplayModeButtonVisibilityNever;
+#endif
 }
 
 - (void)configureViewControllers {
