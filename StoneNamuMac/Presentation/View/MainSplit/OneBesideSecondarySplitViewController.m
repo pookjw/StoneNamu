@@ -5,14 +5,14 @@
 //  Created by Jinwoo Kim on 9/26/21.
 //
 
-#import "MainSplitViewController.h"
+#import "OneBesideSecondarySplitViewController.h"
 #import "MainMenuViewController.h"
 #import "CardsViewController.h"
 
-@interface MainSplitViewController ()
+@interface OneBesideSecondarySplitViewController ()
 @end
 
-@implementation MainSplitViewController
+@implementation OneBesideSecondarySplitViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

@@ -55,8 +55,11 @@
     [super dealloc];
 }
 
-- (LocalDeck * _Nullable)setDeckDetailsButtonHidden:(BOOL)hidden {
+- (void)setDeckDetailsButtonHidden:(BOOL)hidden {
     self.deckDetailsButton.hidden = hidden;
+}
+
+- (LocalDeck *)localDeck {
     return self.viewModel.localDeck;
 }
 

@@ -6,10 +6,10 @@
 //
 
 #import "MainWindow.h"
-#import "MainSplitViewController.h"
+#import "OneBesideSecondarySplitViewController.h"
 
 @interface MainWindow ()
-@property (retain) MainSplitViewController *mainSplitViewController;
+@property (retain) OneBesideSecondarySplitViewController *mainSplitViewController;
 @end
 
 @implementation MainWindow
@@ -25,7 +25,7 @@
         self.contentMinSize = NSMakeSize(300, 300);
         self.releasedWhenClosed = NO;
         
-        MainSplitViewController *mainSplitViewController = [MainSplitViewController new];
+        OneBesideSecondarySplitViewController *mainSplitViewController = [OneBesideSecondarySplitViewController new];
         self.mainSplitViewController = mainSplitViewController;
         self.contentViewController = mainSplitViewController;
         [mainSplitViewController release];

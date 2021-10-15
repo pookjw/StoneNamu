@@ -18,9 +18,20 @@
 @property (retain) UICollectionViewSupplementaryRegistration *headerCellRegistration;
 @property (retain) UICollectionViewSupplementaryRegistration *footerCellRegistration;
 @property (retain) UIViewController * _Nullable contextViewController;
+@property (retain) UIBarButtonItem *doneBarButtonItem;
 @end
 
 @implementation PrefsViewController
+
+- (instancetype)init {
+    self = [super init];
+    
+    if (self) {
+        self.contextViewController = nil;
+    }
+    
+    return self;
+}
 
 - (void)dealloc {
     [_collectionView release];
@@ -28,12 +39,22 @@
     [_headerCellRegistration release];
     [_footerCellRegistration release];
     [_contextViewController release];
+    [_doneBarButtonItem release];
     [super dealloc];
+}
+
+- (void)setDoneButtonHidden:(BOOL)hidden {
+    if (hidden) {
+        self.navigationItem.rightBarButtonItems = @[];
+    } else {
+        self.navigationItem.rightBarButtonItems = @[self.doneBarButtonItem];
+    }
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setAttributes];
+    [self configureRightBarButtonItems];
     [self configureCollectionView];
     [self configureViewModel];
 }
@@ -46,6 +67,20 @@
 
 - (void)setAttributes {
     self.view.backgroundColor = UIColor.systemBackgroundColor;
+}
+
+- (void)configureRightBarButtonItems {
+    UIBarButtonItem *doneBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"DONE", @"")
+                                                                          style:UIBarButtonItemStylePlain
+                                                                         target:self
+                                                                         action:@selector(triggeredDoneBarButtonItem:)];
+    self.doneBarButtonItem = doneBarButtonItem;
+    
+    [doneBarButtonItem release];
+}
+
+- (void)triggeredDoneBarButtonItem:(UIBarButtonItem *)sender {
+    [self dismissViewControllerAnimated:YES completion:^{}];
 }
 
 - (void)configureNavigation {
@@ -194,13 +229,21 @@
 
 - (void)pushToLocaleViewController {
     PrefsLocaleViewController *vc = [PrefsLocaleViewController new];
-    [self.splitViewController showDetailViewController:vc sender:nil];
+    if (self.splitViewController) {
+        [self.splitViewController showDetailViewController:vc sender:self];
+    } else {
+        [self.navigationController pushViewController:vc animated:YES];
+    }
     [vc release];
 }
 
 - (void)pushToRegionHostViewController {
     PrefsRegionHostViewController *vc = [PrefsRegionHostViewController new];
-    [self.splitViewController showDetailViewController:vc sender:nil];
+    if (self.splitViewController) {
+        [self.splitViewController showDetailViewController:vc sender:self];
+    } else {
+        [self.navigationController pushViewController:vc animated:YES];
+    }
     [vc release];
 }
 
@@ -358,7 +401,13 @@
         if ([self.contextViewController isKindOfClass:[SFSafariViewController class]]) {
             [self presentViewController:self.contextViewController animated:YES completion:^{}];
         } else {
-            [self.splitViewController showDetailViewController:self.contextViewController sender:nil];
+            
+            if (self.splitViewController) {
+                [self.splitViewController showDetailViewController:self.contextViewController sender:self];
+            } else {
+                [self.navigationController pushViewController:self.contextViewController animated:YES];
+            }
+            
         }
     }];
     

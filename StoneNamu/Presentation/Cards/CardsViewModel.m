@@ -87,14 +87,26 @@
     
     self.isFetching = YES;
     
+    NSDictionary<NSString *, NSString *> *defaultOptions = BlizzardHSAPIDefaultOptions();
+    
     if (options == nil) {
-        self->_options = [BlizzardHSAPIDefaultOptions() copy];
+        self->_options = [defaultOptions copy];
     } else {
         [self->_options release];
-        self->_options = [options copy];
+        
+        NSMutableDictionary *mutableDic = [options mutableCopy];
+        
+        for (NSString *key in defaultOptions.allKeys) {
+            if (mutableDic[key] == nil) {
+                mutableDic[key] = defaultOptions[key];
+            }
+        }
+        
+        self->_options = [mutableDic copy];
+        [mutableDic release];
     }
     
-    NSMutableDictionary *mutableDic = [[self.options mutableCopy] autorelease];
+    NSMutableDictionary *mutableDic = [self.options mutableCopy];
     
     if (self.pageCount != nil) {
         // Next page
@@ -106,6 +118,8 @@
     }
     
     [self.hsCardUseCase fetchWithOptions:mutableDic completionHandler:^(NSArray<HSCard *> * _Nullable cards, NSNumber *pageCount, NSNumber *page, NSError * _Nullable error) {
+        
+        [mutableDic release];
         
         if (error) {
             [self postError:error];

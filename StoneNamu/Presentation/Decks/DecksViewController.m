@@ -344,7 +344,11 @@
         [self.collectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionNone];
     }
     
-    [self.splitViewController showDetailViewController:vc sender:self];
+    if (self.splitViewController.style == UISplitViewControllerStyleTripleColumn) {
+        [self.splitViewController setViewController:vc forColumn:UISplitViewControllerColumnSecondary];
+    } else {
+        [self.splitViewController showDetailViewController:vc sender:self];
+    }
 }
 
 #pragma mark - UICollectionViewDelegate

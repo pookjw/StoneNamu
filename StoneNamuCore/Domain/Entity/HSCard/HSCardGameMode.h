@@ -11,7 +11,8 @@ typedef NS_ENUM(NSUInteger, HSCardGameMode) {
     HSCardGameModeConstructed,
     HSCardGameModeBattlegrounds,
     HSCardGameModeDuels,
-    HSCardGameModeArena
+    HSCardGameModeArena,
+    HSCardGameModeMercenaries
 };
 
 NSString * NSStringFromHSCardGameMode(HSCardGameMode);

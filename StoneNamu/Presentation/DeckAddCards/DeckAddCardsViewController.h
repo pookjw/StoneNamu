@@ -19,7 +19,8 @@ typedef NS_ENUM(NSUInteger, DeckAddCardsViewControllerRightBarButtonType) {
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithLocalDeck:(LocalDeck *)localDeck;
-- (LocalDeck * _Nullable)setDeckDetailsButtonHidden:(BOOL)hidden;
+- (void)setDeckDetailsButtonHidden:(BOOL)hidden;
+- (LocalDeck *)localDeck;
 - (void)setRightBarButtons:(DeckAddCardsViewControllerRightBarButtonType)type;
 - (void)requestDismissWithPromptIfNeeded;
 @end

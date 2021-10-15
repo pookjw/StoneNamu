@@ -10,7 +10,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface PrefsViewController : UIViewController
-
+- (void)setDoneButtonHidden:(BOOL)hidden;
 @end
 
 NS_ASSUME_NONNULL_END

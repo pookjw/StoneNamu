@@ -8,16 +8,16 @@
 #import "MainTabBarController.h"
 #import "CardsViewController.h"
 #import "PrefsViewController.h"
-#import "CardsSplitViewController.h"
-#import "MainSplitViewController.h"
+#import "CardsOneBesideSecondarySplitViewController.h"
+#import "OneBesideSecondarySplitViewController.h"
 #import "CardOptionsViewController.h"
 #import "UIView+scrollToTopForRecursiveView.h"
 #import "DecksViewController.h"
 
 @interface MainTabBarController () <UITabBarControllerDelegate>
-@property (retain) CardsSplitViewController *cardsSplitViewController;
-@property (retain) MainSplitViewController *decksSplitViewController;
-@property (retain) MainSplitViewController *prefsSplitViewController;
+@property (retain) CardsOneBesideSecondarySplitViewController *cardsSplitViewController;
+@property (retain) OneBesideSecondarySplitViewController *decksSplitViewController;
+@property (retain) OneBesideSecondarySplitViewController *prefsSplitViewController;
 @end
 
 @implementation MainTabBarController
@@ -37,6 +37,7 @@
 
 - (void)setAttributes {
     self.delegate = self;
+    self.view.backgroundColor = UIColor.systemBackgroundColor;
 }
 
 - (void)configureViewControllers {
@@ -51,9 +52,9 @@
     UINavigationController *prefsPrimaryNavigationController = [[UINavigationController alloc] initWithRootViewController:prefsViewController];
     UINavigationController *prefsSecondaryNavigationController = [UINavigationController new];
     
-    CardsSplitViewController *cardsSplitViewController = [CardsSplitViewController new];
-    MainSplitViewController *decksSplitViewController = [MainSplitViewController new];
-    MainSplitViewController *prefsSplitViewController = [MainSplitViewController new];
+    CardsOneBesideSecondarySplitViewController *cardsSplitViewController = [[CardsOneBesideSecondarySplitViewController alloc] initWithHSCardGameMode:HSCardGameModeConstructed];
+    OneBesideSecondarySplitViewController *decksSplitViewController = [OneBesideSecondarySplitViewController new];
+    OneBesideSecondarySplitViewController *prefsSplitViewController = [OneBesideSecondarySplitViewController new];
     self.cardsSplitViewController = cardsSplitViewController;
     self.decksSplitViewController = decksSplitViewController;
     self.prefsSplitViewController = prefsSplitViewController;
@@ -72,9 +73,9 @@
     
     [decksViewController release];
     [prefsViewController release];
-    [prefsPrimaryNavigationController release];
     [decksPrimaryNavigationController release];
     [decksSecondaryNavigationController release];
+    [prefsPrimaryNavigationController release];
     [prefsSecondaryNavigationController release];
     
     UITabBarItem *cardsTabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"CARDS", @"")

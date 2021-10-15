@@ -6,17 +6,16 @@
 //
 
 #import "SceneDelegate.h"
+#import "MainSplitViewController.h"
 #import "MainTabBarController.h"
 
 @interface SceneDelegate ()
-@property (retain) MainTabBarController *tabBarController;
 @end
 
 @implementation SceneDelegate
 
 - (void)dealloc {
     [_window release];
-    [_tabBarController release];
     [super dealloc];
 }
 
@@ -26,16 +25,29 @@
     
     if (![windowScene isKindOfClass:[UIWindowScene class]]) return;
     
+#if TARGET_OS_MACCATALYST
+    if (windowScene.titlebar != nil) {
+        windowScene.titlebar.titleVisibility = UITitlebarTitleVisibilityHidden;
+        windowScene.titlebar.toolbar = nil;
+    }
+#endif
+    
     UIWindow *window = [[UIWindow alloc] initWithWindowScene:windowScene];
     self.window = window;
     [self.window setTintColor:UIColor.redColor];
     
-    MainTabBarController *tabBarController = [MainTabBarController new];
-    self.tabBarController = tabBarController;
-    [tabBarController loadViewIfNeeded];
+    UIViewController *vc;
     
-    window.rootViewController = tabBarController;
-    [tabBarController release];
+    if (UIDevice.currentDevice.userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+        vc = [MainTabBarController new];
+    } else {
+        vc = [MainSplitViewController new];
+    }
+
+    [vc loadViewIfNeeded];
+    
+    window.rootViewController = vc;
+    [vc release];
     [window makeKeyAndVisible];
     
     [window release];

@@ -169,6 +169,11 @@
 		4FCC22C426ECA99B004997AA /* HSYear.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FCC22C326ECA99B004997AA /* HSYear.m */; };
 		4FCC22C826ECAC81004997AA /* DeckImageRenderServiceAppNameContentConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FCC22C726ECAC81004997AA /* DeckImageRenderServiceAppNameContentConfiguration.m */; };
 		4FCC22CB26ECAC98004997AA /* DeckImageRenderServiceAppNameContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FCC22CA26ECAC98004997AA /* DeckImageRenderServiceAppNameContentView.m */; };
+		4FD87F8C2719C9EC003EED4B /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD87F8B2719C9EC003EED4B /* MainViewController.m */; };
+		4FD87F902719CA15003EED4B /* MainSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD87F8F2719CA15003EED4B /* MainSplitViewController.m */; };
+		4FD87F932719CD50003EED4B /* MainViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD87F922719CD50003EED4B /* MainViewModel.m */; };
+		4FD87F962719CD66003EED4B /* MainSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD87F952719CD66003EED4B /* MainSectionModel.m */; };
+		4FD87F992719CD71003EED4B /* MainItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD87F982719CD71003EED4B /* MainItemModel.m */; };
 		4FDDE4B526F762FC0022F87C /* UICollectionViewDiffableDataSource+applySnapshotAndWait.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FDDE4B426F762FC0022F87C /* UICollectionViewDiffableDataSource+applySnapshotAndWait.m */; };
 		4FDDE4B826F77D4D0022F87C /* HSCardSort.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4FDDE4BA26F77D4D0022F87C /* HSCardSort.strings */; };
 		4FDDE4BF26F79F2D0022F87C /* NSString+arrayOfCharacters.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FDDE4BD26F79F2D0022F87C /* NSString+arrayOfCharacters.m */; };
@@ -233,7 +238,7 @@
 		4FE8575527008DBA0008C2FB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4F9DFBB926B2FD2E002AACDE /* InfoPlist.strings */; };
 		4FE8575627008DBE0008C2FB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4F9DFBB326B2FD0C002AACDE /* Localizable.strings */; };
 		4FE8575E27008E140008C2FB /* MainWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE8575D27008E140008C2FB /* MainWindow.m */; };
-		4FE857622700913A0008C2FB /* MainSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE857612700913A0008C2FB /* MainSplitViewController.m */; };
+		4FE857622700913A0008C2FB /* OneBesideSecondarySplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE857612700913A0008C2FB /* OneBesideSecondarySplitViewController.m */; };
 		4FE85767270092F30008C2FB /* MainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE85766270092F30008C2FB /* MainMenuViewController.m */; };
 		4FE8576A270093CF0008C2FB /* CardsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE85769270093CF0008C2FB /* CardsViewController.m */; };
 		4FE8576D27009B5C0008C2FB /* CardsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE8576C27009B5C0008C2FB /* CardsViewModel.m */; };
@@ -256,8 +261,8 @@
 		4FF3E0CB26C9AE15002B20EA /* PhotosService.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF3E0CA26C9AE15002B20EA /* PhotosService.m */; };
 		4FF3E0CE26C9B84C002B20EA /* UIView+viewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF3E0CD26C9B84C002B20EA /* UIView+viewController.m */; };
 		4FF3E0D226CA6FB9002B20EA /* MainTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF3E0D126CA6FB9002B20EA /* MainTabBarController.m */; };
-		4FF3E0DB26CA947D002B20EA /* MainSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF3E0DA26CA947D002B20EA /* MainSplitViewController.m */; };
-		4FF3E0DF26CA9C82002B20EA /* CardsSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF3E0DE26CA9C82002B20EA /* CardsSplitViewController.m */; };
+		4FF3E0DB26CA947D002B20EA /* OneBesideSecondarySplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF3E0DA26CA947D002B20EA /* OneBesideSecondarySplitViewController.m */; };
+		4FF3E0DF26CA9C82002B20EA /* CardsOneBesideSecondarySplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF3E0DE26CA9C82002B20EA /* CardsOneBesideSecondarySplitViewController.m */; };
 		4FF676CF26AAFC6A00477272 /* CardsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF676CE26AAFC6A00477272 /* CardsViewController.m */; };
 		4FFBAADB26E4FE9900DBEEDB /* UIImage+imageWithGrayScale.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FFBAADA26E4FE9900DBEEDB /* UIImage+imageWithGrayScale.m */; };
 		4FFDD65026CAC0F7008E5B45 /* UIScrollView+scrollToTop.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FFDD64F26CAC0F7008E5B45 /* UIScrollView+scrollToTop.m */; };
@@ -654,6 +659,16 @@
 		4FCC22C726ECAC81004997AA /* DeckImageRenderServiceAppNameContentConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckImageRenderServiceAppNameContentConfiguration.m; sourceTree = "<group>"; };
 		4FCC22C926ECAC98004997AA /* DeckImageRenderServiceAppNameContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckImageRenderServiceAppNameContentView.h; sourceTree = "<group>"; };
 		4FCC22CA26ECAC98004997AA /* DeckImageRenderServiceAppNameContentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckImageRenderServiceAppNameContentView.m; sourceTree = "<group>"; };
+		4FD87F8A2719C9EC003EED4B /* MainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		4FD87F8B2719C9EC003EED4B /* MainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		4FD87F8E2719CA15003EED4B /* MainSplitViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainSplitViewController.h; sourceTree = "<group>"; };
+		4FD87F8F2719CA15003EED4B /* MainSplitViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainSplitViewController.m; sourceTree = "<group>"; };
+		4FD87F912719CD50003EED4B /* MainViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainViewModel.h; sourceTree = "<group>"; };
+		4FD87F922719CD50003EED4B /* MainViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainViewModel.m; sourceTree = "<group>"; };
+		4FD87F942719CD66003EED4B /* MainSectionModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainSectionModel.h; sourceTree = "<group>"; };
+		4FD87F952719CD66003EED4B /* MainSectionModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainSectionModel.m; sourceTree = "<group>"; };
+		4FD87F972719CD71003EED4B /* MainItemModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainItemModel.h; sourceTree = "<group>"; };
+		4FD87F982719CD71003EED4B /* MainItemModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainItemModel.m; sourceTree = "<group>"; };
 		4FDDE4B326F762FC0022F87C /* UICollectionViewDiffableDataSource+applySnapshotAndWait.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UICollectionViewDiffableDataSource+applySnapshotAndWait.h"; sourceTree = "<group>"; };
 		4FDDE4B426F762FC0022F87C /* UICollectionViewDiffableDataSource+applySnapshotAndWait.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UICollectionViewDiffableDataSource+applySnapshotAndWait.m"; sourceTree = "<group>"; };
 		4FDDE4B926F77D4D0022F87C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/HSCardSort.strings; sourceTree = "<group>"; };
@@ -692,8 +707,8 @@
 		4FE8572027008A240008C2FB /* StoneNamuMacCoreTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StoneNamuMacCoreTests.m; sourceTree = "<group>"; };
 		4FE8575C27008E140008C2FB /* MainWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainWindow.h; sourceTree = "<group>"; };
 		4FE8575D27008E140008C2FB /* MainWindow.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainWindow.m; sourceTree = "<group>"; };
-		4FE857602700913A0008C2FB /* MainSplitViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainSplitViewController.h; sourceTree = "<group>"; };
-		4FE857612700913A0008C2FB /* MainSplitViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainSplitViewController.m; sourceTree = "<group>"; };
+		4FE857602700913A0008C2FB /* OneBesideSecondarySplitViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OneBesideSecondarySplitViewController.h; sourceTree = "<group>"; };
+		4FE857612700913A0008C2FB /* OneBesideSecondarySplitViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OneBesideSecondarySplitViewController.m; sourceTree = "<group>"; };
 		4FE85765270092F30008C2FB /* MainMenuViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainMenuViewController.h; sourceTree = "<group>"; };
 		4FE85766270092F30008C2FB /* MainMenuViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainMenuViewController.m; sourceTree = "<group>"; };
 		4FE85768270093CF0008C2FB /* CardsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardsViewController.h; sourceTree = "<group>"; };
@@ -741,10 +756,10 @@
 		4FF3E0D326CA732F002B20EA /* CardOptionsViewControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardOptionsViewControllerDelegate.h; sourceTree = "<group>"; };
 		4FF3E0D526CA7F81002B20EA /* NSSemaphoreCondition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSSemaphoreCondition.h; sourceTree = "<group>"; };
 		4FF3E0D626CA7F81002B20EA /* NSSemaphoreCondition.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NSSemaphoreCondition.m; sourceTree = "<group>"; };
-		4FF3E0D926CA947D002B20EA /* MainSplitViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainSplitViewController.h; sourceTree = "<group>"; };
-		4FF3E0DA26CA947D002B20EA /* MainSplitViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainSplitViewController.m; sourceTree = "<group>"; };
-		4FF3E0DD26CA9C82002B20EA /* CardsSplitViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardsSplitViewController.h; sourceTree = "<group>"; };
-		4FF3E0DE26CA9C82002B20EA /* CardsSplitViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardsSplitViewController.m; sourceTree = "<group>"; };
+		4FF3E0D926CA947D002B20EA /* OneBesideSecondarySplitViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OneBesideSecondarySplitViewController.h; sourceTree = "<group>"; };
+		4FF3E0DA26CA947D002B20EA /* OneBesideSecondarySplitViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OneBesideSecondarySplitViewController.m; sourceTree = "<group>"; };
+		4FF3E0DD26CA9C82002B20EA /* CardsOneBesideSecondarySplitViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardsOneBesideSecondarySplitViewController.h; sourceTree = "<group>"; };
+		4FF3E0DE26CA9C82002B20EA /* CardsOneBesideSecondarySplitViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardsOneBesideSecondarySplitViewController.m; sourceTree = "<group>"; };
 		4FF676CD26AAFC6A00477272 /* CardsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardsViewController.h; sourceTree = "<group>"; };
 		4FF676CE26AAFC6A00477272 /* CardsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardsViewController.m; sourceTree = "<group>"; };
 		4FFBAAD926E4FE9900DBEEDB /* UIImage+imageWithGrayScale.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+imageWithGrayScale.h"; sourceTree = "<group>"; };
@@ -1249,7 +1264,8 @@
 		4F98E26026B9BAAA0067846F /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				4FF3E0D826CA944B002B20EA /* MainSplit */,
+				4FD87F892719C9CD003EED4B /* Main */,
+				4FF3E0D826CA944B002B20EA /* OneBesideSecondary */,
 				4FF3E0CF26CA6FA0002B20EA /* MainTabBar */,
 				4FB850F426C18B9900E3C89D /* Prefs */,
 				4F4976E026ABFC9A00860809 /* CardOptions */,
@@ -1575,6 +1591,31 @@
 			path = AppName;
 			sourceTree = "<group>";
 		};
+		4FD87F892719C9CD003EED4B /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				4FD87F8A2719C9EC003EED4B /* MainViewController.h */,
+				4FD87F8B2719C9EC003EED4B /* MainViewController.m */,
+				4FD87F912719CD50003EED4B /* MainViewModel.h */,
+				4FD87F922719CD50003EED4B /* MainViewModel.m */,
+				4FD87F942719CD66003EED4B /* MainSectionModel.h */,
+				4FD87F952719CD66003EED4B /* MainSectionModel.m */,
+				4FD87F972719CD71003EED4B /* MainItemModel.h */,
+				4FD87F982719CD71003EED4B /* MainItemModel.m */,
+				4FD87F8D2719CA05003EED4B /* Split */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		4FD87F8D2719CA05003EED4B /* Split */ = {
+			isa = PBXGroup;
+			children = (
+				4FD87F8E2719CA15003EED4B /* MainSplitViewController.h */,
+				4FD87F8F2719CA15003EED4B /* MainSplitViewController.m */,
+			);
+			path = Split;
+			sourceTree = "<group>";
+		};
 		4FDE8DED26F107C400959B97 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -1726,8 +1767,8 @@
 		4FE8575F2700911B0008C2FB /* MainSplit */ = {
 			isa = PBXGroup;
 			children = (
-				4FE857602700913A0008C2FB /* MainSplitViewController.h */,
-				4FE857612700913A0008C2FB /* MainSplitViewController.m */,
+				4FE857602700913A0008C2FB /* OneBesideSecondarySplitViewController.h */,
+				4FE857612700913A0008C2FB /* OneBesideSecondarySplitViewController.m */,
 			);
 			path = MainSplit;
 			sourceTree = "<group>";
@@ -1798,20 +1839,20 @@
 			path = MainTabBar;
 			sourceTree = "<group>";
 		};
-		4FF3E0D826CA944B002B20EA /* MainSplit */ = {
+		4FF3E0D826CA944B002B20EA /* OneBesideSecondary */ = {
 			isa = PBXGroup;
 			children = (
-				4FF3E0D926CA947D002B20EA /* MainSplitViewController.h */,
-				4FF3E0DA26CA947D002B20EA /* MainSplitViewController.m */,
+				4FF3E0D926CA947D002B20EA /* OneBesideSecondarySplitViewController.h */,
+				4FF3E0DA26CA947D002B20EA /* OneBesideSecondarySplitViewController.m */,
 			);
-			path = MainSplit;
+			path = OneBesideSecondary;
 			sourceTree = "<group>";
 		};
 		4FF3E0DC26CA9C6C002B20EA /* Split */ = {
 			isa = PBXGroup;
 			children = (
-				4FF3E0DD26CA9C82002B20EA /* CardsSplitViewController.h */,
-				4FF3E0DE26CA9C82002B20EA /* CardsSplitViewController.m */,
+				4FF3E0DD26CA9C82002B20EA /* CardsOneBesideSecondarySplitViewController.h */,
+				4FF3E0DE26CA9C82002B20EA /* CardsOneBesideSecondarySplitViewController.m */,
 			);
 			path = Split;
 			sourceTree = "<group>";
@@ -2037,7 +2078,7 @@
 		4FA56B9F26A21059002D9FA0 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1250;
+				LastUpgradeCheck = 1300;
 				TargetAttributes = {
 					4F34384726A36FBA001161FE = {
 						CreatedOnToolsVersion = 13.0;
@@ -2231,6 +2272,7 @@
 				4F8FFF4126E0E66A00FA6586 /* DeckAddCardCollectionViewCompositionalLayout.m in Sources */,
 				4F57DEA126AD7DB3000E4163 /* SheetNavigationController.m in Sources */,
 				4F646A5C26B7CA8000BEDB38 /* CardsCollectionViewCompositionalLayout.m in Sources */,
+				4FD87F932719CD50003EED4B /* MainViewModel.m in Sources */,
 				4FFDD65B26CAC5B3008E5B45 /* DeckDetailsViewController.m in Sources */,
 				4F03F57C26C7B63600FC9155 /* PrefsItemModel.m in Sources */,
 				4FF3E0C326C9901F002B20EA /* PrefsRegionHostSectionModel.m in Sources */,
@@ -2245,6 +2287,7 @@
 				4F3F1BC326E7C12000ACF80A /* TextActivityViewController.m in Sources */,
 				4F74711A26C1698B001C45C4 /* CardDetailsChildrenContentView.m in Sources */,
 				4F57DE9D26AD7B53000E4163 /* PickerViewController.m in Sources */,
+				4FD87F8C2719C9EC003EED4B /* MainViewController.m in Sources */,
 				4FDE8DFB26F113AB00959B97 /* DeckImageRenderServiceAboutContentConfiguration.m in Sources */,
 				4FCC22CB26ECAC98004997AA /* DeckImageRenderServiceAppNameContentView.m in Sources */,
 				4F182BD126AC23600028115C /* UIViewController+presentErrorAlert.m in Sources */,
@@ -2267,6 +2310,7 @@
 				4F7EC55426EB2B0D00A7758D /* DeckImageRenderServiceItemModel.m in Sources */,
 				4F066CB426D6DC6A00991A98 /* DeckDetailsManaCostContentSectionModel.m in Sources */,
 				4F8F976526D469700024FC06 /* InsetsLabel.m in Sources */,
+				4FD87F992719CD71003EED4B /* MainItemModel.m in Sources */,
 				4FF3E0D226CA6FB9002B20EA /* MainTabBarController.m in Sources */,
 				4FA9047A26B6E26A00CD6147 /* CardContentView.m in Sources */,
 				4F4976E926ABFF5E00860809 /* CardOptionSectionModel.m in Sources */,
@@ -2289,6 +2333,7 @@
 				4FC094FD26CD77C400A7D373 /* DecksViewModel.m in Sources */,
 				4F8FFF3C26E0E66A00FA6586 /* DeckAddCardsViewModel.m in Sources */,
 				4F8F976926D47F360024FC06 /* DeckDetailsManaCostContentConfiguration.m in Sources */,
+				4FD87F902719CA15003EED4B /* MainSplitViewController.m in Sources */,
 				4FDE8DF326F107ED00959B97 /* UIFont+customFonts.m in Sources */,
 				4F03F57926C7B62C00FC9155 /* PrefsSectionModel.m in Sources */,
 				4FF3E0C426C9901F002B20EA /* PrefsRegionHostItemModel.m in Sources */,
@@ -2315,13 +2360,14 @@
 				4F7EC54426EB26BE00A7758D /* UIView+imageRendered.m in Sources */,
 				4F98E25E26B9AB110067846F /* CardDetailsItemModel.m in Sources */,
 				4FFDD65026CAC0F7008E5B45 /* UIScrollView+scrollToTop.m in Sources */,
+				4FD87F962719CD66003EED4B /* MainSectionModel.m in Sources */,
 				4F066CAB26D6D2D800991A98 /* DeckDetailsManaCostGraphContentView.m in Sources */,
 				4FFDD65826CAC419008E5B45 /* DecksViewController.m in Sources */,
 				4F2438F026CD8DE40041BB84 /* DecksItemModel.m in Sources */,
 				4F066CB726D6DC7100991A98 /* DeckDetailsManaCostContentItemModel.m in Sources */,
 				4FB850F726C18BAE00E3C89D /* PrefsViewController.m in Sources */,
 				4FA56BAF26A21059002D9FA0 /* SceneDelegate.m in Sources */,
-				4FF3E0DF26CA9C82002B20EA /* CardsSplitViewController.m in Sources */,
+				4FF3E0DF26CA9C82002B20EA /* CardsOneBesideSecondarySplitViewController.m in Sources */,
 				4F8FFF5426E1347100FA6586 /* UIViewController+targetedPreviewWithClearBackgroundForView.m in Sources */,
 				4F6F182526E6693500DC210B /* FloatingMiniViewController.m in Sources */,
 				4FEC8A0726EB87B90061BBF4 /* DeckImageRenderServiceCardContentConfiguration.m in Sources */,
@@ -2329,7 +2375,7 @@
 				4F98E25B26B9AA280067846F /* CardDetailsSectionModel.m in Sources */,
 				4F8754BC26DB91D7000CE351 /* NSIndexPath+identifier.m in Sources */,
 				4F68198526D74B2A00033AEE /* ImageService.m in Sources */,
-				4FF3E0DB26CA947D002B20EA /* MainSplitViewController.m in Sources */,
+				4FF3E0DB26CA947D002B20EA /* OneBesideSecondarySplitViewController.m in Sources */,
 				4F646A5F26B7D05E00BEDB38 /* UIImageView+setAsyncImage.m in Sources */,
 				4F066CA826D6D2C300991A98 /* DeckDetailsManaCostGraphContentConfiguration.m in Sources */,
 				4F066CB126D6DC5A00991A98 /* DeckDetailsManaCostContentViewModel.m in Sources */,
@@ -2352,7 +2398,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4FE857622700913A0008C2FB /* MainSplitViewController.m in Sources */,
+				4FE857622700913A0008C2FB /* OneBesideSecondarySplitViewController.m in Sources */,
 				4FE8576D27009B5C0008C2FB /* CardsViewModel.m in Sources */,
 				4FE85708270089BD0008C2FB /* main.m in Sources */,
 				4FE85701270089BC0008C2FB /* AppDelegate.m in Sources */,
@@ -2918,6 +2964,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_OBJC_ARC = NO;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -2955,6 +3002,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_OBJC_ARC = NO;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;

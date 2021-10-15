@@ -5,24 +5,28 @@
 //  Created by Jinwoo Kim on 8/16/21.
 //
 
-#import "CardsSplitViewController.h"
+#import "CardsOneBesideSecondarySplitViewController.h"
 #import "CardsViewController.h"
 #import "CardOptionsViewController.h"
+#import "BlizzardHSAPIKeys.h"
 
-@interface CardsSplitViewController () <UISplitViewControllerDelegate>
+@interface CardsOneBesideSecondarySplitViewController () <UISplitViewControllerDelegate>
+@property HSCardGameMode hsCardGameMode;
 @end
 
-@implementation CardsSplitViewController
+@implementation CardsOneBesideSecondarySplitViewController
 
-- (instancetype)init {
-    self = [super init];
+- (instancetype)initWithHSCardGameMode:(HSCardGameMode)hsCardGameMode {
+    self = [self init];
     
     if (self) {
+        self->_hsCardGameMode = hsCardGameMode;
         self.delegate = self;
         [self loadViewIfNeeded];
         
         CardsViewController *cardsViewController = [CardsViewController new];
         [cardsViewController loadViewIfNeeded];
+        [cardsViewController requestWithOptions:@{BlizzardHSAPIOptionTypeGameMode: NSStringFromHSCardGameMode(hsCardGameMode)}];
         
         UINavigationController *cardsPrimaryNavigationController = [UINavigationController new];
         UINavigationController *cardsSecondaryNavigationController = [UINavigationController new];
@@ -35,7 +39,8 @@
             cardsSecondaryNavigationController.viewControllers = @[];
             self.viewControllers = @[cardsPrimaryNavigationController, cardsSecondaryNavigationController];
         } else {
-            NSDictionary<NSString *, NSString *> *options = [cardsViewController setOptionsBarButtonItemHidden:YES];
+            [cardsViewController setOptionsBarButtonItemHidden:YES];
+            NSDictionary<NSString *, NSString *> *options = cardsViewController.options;
             CardOptionsViewController *cardOptionsViewController = [[CardOptionsViewController alloc] initWithOptions:options];
             [cardOptionsViewController setCancelButtonHidden:YES];
             cardOptionsViewController.delegate = cardsViewController;
@@ -113,7 +118,8 @@
     
     //
     
-    NSDictionary<NSString *, NSString *> *options = [cardsViewController setOptionsBarButtonItemHidden:YES];
+    [cardsViewController setOptionsBarButtonItemHidden:YES];
+    NSDictionary<NSString *, NSString *> *options = cardsViewController.options;
     
     UINavigationController *secondaryNavigationController = [UINavigationController new];
     secondaryNavigationController.view.backgroundColor = UIColor.systemBackgroundColor;

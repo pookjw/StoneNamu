@@ -17,6 +17,8 @@ NSString * NSStringFromHSCardGameMode(HSCardGameMode gameMode) {
             return @"duels";
         case HSCardGameModeArena:
             return @"arena";
+        case HSCardGameModeMercenaries:
+            return @"mercenaries";
         default:
             return @"";
     }
@@ -31,6 +33,8 @@ HSCardGameMode HSCardGameModeFromNSString(NSString * key) {
         return HSCardGameModeDuels;
     } else if ([key isEqualToString:@"arena"]) {
         return HSCardGameModeArena;
+    } else if ([key isEqualToString:@"mercenaries"]) {
+        return HSCardGameModeMercenaries;
     } else {
         return HSCardGameModeConstructed;
     }
@@ -41,7 +45,8 @@ NSArray<NSString *> *hsCardGameModes(void) {
         NSStringFromHSCardGameMode(HSCardGameModeConstructed),
         NSStringFromHSCardGameMode(HSCardGameModeBattlegrounds),
         NSStringFromHSCardGameMode(HSCardGameModeDuels),
-        NSStringFromHSCardGameMode(HSCardGameModeArena)
+        NSStringFromHSCardGameMode(HSCardGameModeArena),
+        NSStringFromHSCardGameMode(HSCardGameModeMercenaries)
     ];
 }
 

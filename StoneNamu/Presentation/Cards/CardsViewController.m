@@ -33,15 +33,20 @@
     [super dealloc];
 }
 
-- (NSDictionary<NSString *,NSString *> * _Nullable)setOptionsBarButtonItemHidden:(BOOL)hidden {
-    
+- (NSDictionary<NSString *,NSString *> * _Nullable)options {
+    return self.viewModel.options;
+}
+
+- (void)requestWithOptions:(NSDictionary<NSString *,NSString *> *)options {
+    [self.viewModel requestDataSourceWithOptions:options reset:YES];
+}
+
+- (void)setOptionsBarButtonItemHidden:(BOOL)hidden {
     if (hidden) {
         self.navigationItem.leftBarButtonItems = @[];
     } else {
         self.navigationItem.leftBarButtonItems = @[self.optionsBarButtonItem];
     }
-    
-    return self.viewModel.options;
 }
 
 - (void)viewDidLoad {
@@ -115,7 +120,6 @@
 - (void)configureViewModel {
     CardsViewModel *viewModel = [[CardsViewModel alloc] initWithDataSource:[self makeDataSource]];
     self.viewModel = viewModel;
-    [viewModel requestDataSourceWithOptions:nil reset:YES];
     [viewModel release];
 }
 

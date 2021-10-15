@@ -36,7 +36,8 @@
             secondaryNavigationController.viewControllers = @[];
             self.viewControllers = @[primaryNavigationController, secondaryNavigationController];
         } else {
-            LocalDeck *localDeck = [deckAddCardsViewController setDeckDetailsButtonHidden:YES];
+            [deckAddCardsViewController setDeckDetailsButtonHidden:YES];
+            LocalDeck *localDeck = deckAddCardsViewController.localDeck;
             DeckDetailsViewController *deckDetailsViewController = [[DeckDetailsViewController alloc] initWithLocalDeck:localDeck presentEditorIfNoCards:NO];
             deckDetailsViewController.delegate = self;
             [deckDetailsViewController setRightBarButtons:DeckDetailsViewControllerRightBarButtonTypeDone];
@@ -118,7 +119,8 @@
     
     //
     
-    LocalDeck *localDeck = [deckAddCardsViewController setDeckDetailsButtonHidden:YES];
+    [deckAddCardsViewController setDeckDetailsButtonHidden:YES];
+    LocalDeck *localDeck = deckAddCardsViewController.localDeck;
     
     UINavigationController *secondaryNavigationController = [UINavigationController new];
     secondaryNavigationController.view.backgroundColor = UIColor.systemBackgroundColor;

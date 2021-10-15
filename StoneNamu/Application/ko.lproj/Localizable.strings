@@ -151,3 +151,5 @@
 "NEED_PHOTO_PERMISSION" = "사진 권한이 필요해요.";
 
 "PLEASE_ALLOW_PHOTO_PERMISSION" = "설정 어플에서 사진 권한을 부여해 주세요.";
+
+"MORE" = "기타";
