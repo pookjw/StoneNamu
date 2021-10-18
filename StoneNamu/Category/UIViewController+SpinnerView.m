@@ -34,6 +34,7 @@
         spinnerView.alpha = 1;
     }];
     
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
     UIApplication.sharedApplication.networkActivityIndicatorVisible = YES;
 
     return [spinnerView autorelease];
@@ -50,6 +51,7 @@
         }
     }
     
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
     UIApplication.sharedApplication.networkActivityIndicatorVisible = NO;
 }
 
