@@ -75,9 +75,13 @@
     [self bind];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self updateCollectionViewAttributes];
+}
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self updateCollectionViewAttributes];
     [self.currentLayoutViewController cardDetailsLayoutUpdateCollectionViewInsets];
 }
 

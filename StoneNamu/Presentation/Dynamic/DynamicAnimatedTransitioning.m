@@ -52,9 +52,18 @@
                               delay:0
                             options:UIViewAnimationOptionCurveEaseOut
                          animations:^{
-            toView.alpha = 1.0f;
+            
         } completion:^(BOOL finished) {
             [transitionContext completeTransition:finished];
+            
+            [UIView animateWithDuration:DYNAMICANIMATEDTRANSITIONING_DURATION
+                                  delay:0
+                                options:UIViewAnimationOptionCurveEaseOut
+                             animations:^{
+                toView.alpha = 1.0f;
+            } completion:^(BOOL finished) {
+                
+            }];
         }];
     } else {
         [UIView animateWithDuration:DYNAMICANIMATEDTRANSITIONING_DURATION
