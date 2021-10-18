@@ -1,23 +1,23 @@
 //
-//  DynamicPresentationController.h
-//  DynamicPresentationController
+//  FloatingPresentationController.h
+//  StoneNamu
 //
-//  Created by Jinwoo Kim on 8/2/21.
+//  Created by Jinwoo Kim on 10/18/21.
 //
 
 #import <UIKit/UIKit.h>
 
+# define FLOATINGPRESENTATIONCONTROLLER_CORNERRADIUS 25.0f
+
 NS_ASSUME_NONNULL_BEGIN
 
-@interface DynamicPresentationController : UIPresentationController
+@interface FloatingPresentationController : UIPresentationController
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithPresentedViewController:(UIViewController *)presentedViewController presentingViewController:(nullable UIViewController *)presentingViewController NS_UNAVAILABLE;
 - (instancetype)initWithPresentedViewController:(UIViewController *)presentedViewController
                        presentingViewController:(UIViewController *)presentingViewController
-                                     sourceView:(UIView * _Nullable)sourceView
-                                     targetView:(UIView *)targetView
-                                destinationRect:(CGRect)destinationRect;
+                                 backgroundView:(UIView *)backgroundView;
 @end
 
 NS_ASSUME_NONNULL_END

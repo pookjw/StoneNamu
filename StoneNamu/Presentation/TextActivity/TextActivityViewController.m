@@ -6,11 +6,12 @@
 //
 
 #import "TextActivityViewController.h"
-#import "FloatingMiniViewController.h"
+#import "FloatingPresentationController.h"
 
 @interface TextActivityViewController () <UITextViewDelegate>
 @property (retain) UIBarButtonItem *cancelBarButtonItem;
 @property (retain) UIBarButtonItem *shareBarButtonItem;
+@property (retain) UIVisualEffectView *blurView;
 @property (retain) UITextView *textView;
 @end
 
@@ -30,6 +31,7 @@
 - (void)dealloc {
     [_cancelBarButtonItem release];
     [_shareBarButtonItem release];
+    [_blurView release];
     [_textView release];
     [super dealloc];
 }
@@ -39,6 +41,7 @@
     [self setAttributes];
     [self configureLeftBarButtonItems];
     [self configureRightBarButtonItems];
+    [self configureBlurView];
     [self configureTextView];
 }
 
@@ -90,6 +93,23 @@
     [activity release];
 }
 
+- (void)configureBlurView {
+    UIVisualEffectView *blurView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleSystemChromeMaterial]];
+    self.blurView = blurView;
+    
+    [self.view addSubview:blurView];
+    blurView.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    [NSLayoutConstraint activateConstraints:@[
+        [blurView.topAnchor constraintEqualToAnchor:self.view.topAnchor],
+        [blurView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor],
+        [blurView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor],
+        [blurView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor]
+    ]];
+    
+    [blurView release];
+}
+
 - (void)configureTextView {
     UITextView *textView = [UITextView new];
     self.textView = textView;
@@ -99,12 +119,12 @@
     textView.font = [UIFont preferredFontForTextStyle:UIFontTextStyleCallout];
     textView.backgroundColor = UIColor.clearColor;
     textView.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.view addSubview:textView];
+    [self.blurView.contentView addSubview:textView];
     [NSLayoutConstraint activateConstraints:@[
-        [textView.topAnchor constraintEqualToAnchor:self.view.topAnchor],
-        [textView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor],
-        [textView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor],
-        [textView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor]
+        [textView.topAnchor constraintEqualToAnchor:self.blurView.contentView.topAnchor],
+        [textView.trailingAnchor constraintEqualToAnchor:self.blurView.contentView.trailingAnchor],
+        [textView.leadingAnchor constraintEqualToAnchor:self.blurView.contentView.leadingAnchor],
+        [textView.bottomAnchor constraintEqualToAnchor:self.blurView.contentView.bottomAnchor]
     ]];
     
     [textView release];
@@ -113,6 +133,11 @@
 - (void)configureNavigation {
     self.title = NSLocalizedString(@"RESULT", @"");
     self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
+    
+    UINavigationBarAppearance *appearance = [UINavigationBarAppearance new];
+    [appearance configureWithOpaqueBackground];
+    self.navigationController.navigationBar.scrollEdgeAppearance = appearance;
+    [appearance release];
 }
 
 - (void)setTextViewText:(NSString *)text {
@@ -127,10 +152,10 @@
 - (void)updateTextView {
     [self.textView becomeFirstResponder];
     
-    if ([self.parentViewController.parentViewController isKindOfClass:[FloatingMiniViewController class]]) {
+    if ([self.parentViewController.presentationController isKindOfClass:[FloatingPresentationController class]]) {
         UIEdgeInsets edgeInsets = UIEdgeInsetsMake(0,
                                                    0,
-                                                   FLOATINGMINIVIEWCONTROLLER_CONTENTVIEW_CORNER_RADIUS,
+                                                   FLOATINGPRESENTATIONCONTROLLER_CORNERRADIUS,
                                                    0);
         self.textView.contentInset = edgeInsets;
         self.textView.scrollIndicatorInsets = edgeInsets;

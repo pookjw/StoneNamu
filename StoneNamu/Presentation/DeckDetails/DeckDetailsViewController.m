@@ -15,10 +15,10 @@
 #import "CardDetailsViewController.h"
 #import "UIViewController+SpinnerView.h"
 #import "DeckAddCardSplitViewController.h"
-#import "FloatingMiniViewController.h"
 #import "TextActivityViewController.h"
 #import "DeckImageRenderService.h"
 #import "PhotosService.h"
+#import "FloatingNaigationControllerViewController.h"
 
 @interface DeckDetailsViewController () <UICollectionViewDelegate, UICollectionViewDragDelegate, UICollectionViewDropDelegate>
 @property (retain) UICollectionView *collectionView;
@@ -208,12 +208,10 @@
             
             if (string != nil) {
                 TextActivityViewController *textVC = [[TextActivityViewController alloc] initWithText:string];
-                UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:textVC];
+                FloatingNaigationControllerViewController *nvc = [[FloatingNaigationControllerViewController alloc] initWithRootViewController:textVC];
                 [textVC release];
-                FloatingMiniViewController *vc = [[FloatingMiniViewController alloc] initWithContentViewController:nvc sizeOfContentView:CGSizeMake(400, 300)];
+                [self presentViewController:nvc animated:YES completion:^{}];
                 [nvc release];
-                [self presentViewController:vc animated:YES completion:^{}];
-                [vc release];
             }
         }];
     }];

@@ -78,6 +78,7 @@
     
     [decksViewController release];
     [prefsViewController release];
+    [moreViewController release];
     [decksPrimaryNavigationController release];
     [decksSecondaryNavigationController release];
     [prefsPrimaryNavigationController release];
@@ -98,7 +99,7 @@
     cardsSplitViewController.tabBarItem = cardsTabBarItem;
     decksSplitViewController.tabBarItem = decksTabBarItem;
     prefsSplitViewController.tabBarItem = prefsTabBarItem;
-    moreViewController.tabBarItem = moreTabBarItem;
+    moreNavigationController.tabBarItem = moreTabBarItem;
     
     [cardsTabBarItem release];
     [decksTabBarItem release];

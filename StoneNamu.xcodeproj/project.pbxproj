@@ -34,6 +34,9 @@
 		4F2438F326CD9BD40041BB84 /* LocalizedError.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4F2438F526CD9BD40041BB84 /* LocalizedError.strings */; };
 		4F2438FA26CD9E8A0041BB84 /* StoneNamuCoreErrors.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F2438F826CD9E8A0041BB84 /* StoneNamuCoreErrors.h */; };
 		4F2438FB26CD9E8A0041BB84 /* StoneNamuCoreErrors.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2438F926CD9E8A0041BB84 /* StoneNamuCoreErrors.m */; };
+		4F248383271DA25800A231BF /* FloatingPresentationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F248382271DA25800A231BF /* FloatingPresentationController.m */; };
+		4F248386271DA64C00A231BF /* UIView+floatingConstraints.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F248385271DA64C00A231BF /* UIView+floatingConstraints.m */; };
+		4F248389271DAE5300A231BF /* FloatingNaigationControllerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F248388271DAE5300A231BF /* FloatingNaigationControllerViewController.m */; };
 		4F34385026A36FBA001161FE /* StoneNamuCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F34384826A36FBA001161FE /* StoneNamuCore.framework */; };
 		4F34385826A36FBA001161FE /* StoneNamuCore.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F34384A26A36FBA001161FE /* StoneNamuCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4F34385B26A36FBA001161FE /* StoneNamuCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F34384826A36FBA001161FE /* StoneNamuCore.framework */; };
@@ -95,8 +98,7 @@
 		4F6A13B226B273640089A13A /* StepperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F6A13B126B273640089A13A /* StepperViewController.m */; };
 		4F6F181626E6064D00DC210B /* NSArray+countOfObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA7A7C526E539D7005BE434 /* NSArray+countOfObject.m */; };
 		4F6F181926E6069200DC210B /* HSDeck.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4F6F181B26E6069200DC210B /* HSDeck.strings */; };
-		4F6F182526E6693500DC210B /* FloatingMiniViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F6F182426E6693500DC210B /* FloatingMiniViewController.m */; };
-		4F73ABB226E88337000FD629 /* ZoomAnimatedTransitioning.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F73ABB126E88337000FD629 /* ZoomAnimatedTransitioning.m */; };
+		4F73ABB226E88337000FD629 /* FloatingAnimatedTransitioning.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F73ABB126E88337000FD629 /* FloatingAnimatedTransitioning.m */; };
 		4F74711726C1678F001C45C4 /* CardDetailsChildrenContentConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F74711626C1678F001C45C4 /* CardDetailsChildrenContentConfiguration.m */; };
 		4F74711A26C1698B001C45C4 /* CardDetailsChildrenContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F74711926C1698B001C45C4 /* CardDetailsChildrenContentView.m */; };
 		4F74711E26C16BD4001C45C4 /* CardDetailsChildrenContentCollectionViewCompositionalLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F74711D26C16BD4001C45C4 /* CardDetailsChildrenContentCollectionViewCompositionalLayout.m */; };
@@ -403,6 +405,12 @@
 		4F2438F626CD9BD50041BB84 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LocalizedError.strings; sourceTree = "<group>"; };
 		4F2438F826CD9E8A0041BB84 /* StoneNamuCoreErrors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoneNamuCoreErrors.h; sourceTree = "<group>"; };
 		4F2438F926CD9E8A0041BB84 /* StoneNamuCoreErrors.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StoneNamuCoreErrors.m; sourceTree = "<group>"; };
+		4F248381271DA25800A231BF /* FloatingPresentationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FloatingPresentationController.h; sourceTree = "<group>"; };
+		4F248382271DA25800A231BF /* FloatingPresentationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FloatingPresentationController.m; sourceTree = "<group>"; };
+		4F248384271DA64C00A231BF /* UIView+floatingConstraints.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+floatingConstraints.h"; sourceTree = "<group>"; };
+		4F248385271DA64C00A231BF /* UIView+floatingConstraints.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+floatingConstraints.m"; sourceTree = "<group>"; };
+		4F248387271DAE5300A231BF /* FloatingNaigationControllerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FloatingNaigationControllerViewController.h; sourceTree = "<group>"; };
+		4F248388271DAE5300A231BF /* FloatingNaigationControllerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FloatingNaigationControllerViewController.m; sourceTree = "<group>"; };
 		4F34383726A36492001161FE /* BlizzardTokenAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlizzardTokenAPI.h; sourceTree = "<group>"; };
 		4F34383C26A36501001161FE /* BlizzardTokenAPIImpl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlizzardTokenAPIImpl.h; sourceTree = "<group>"; };
 		4F34383D26A36501001161FE /* BlizzardTokenAPIImpl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlizzardTokenAPIImpl.m; sourceTree = "<group>"; };
@@ -501,11 +509,9 @@
 		4F6A13B126B273640089A13A /* StepperViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StepperViewController.m; sourceTree = "<group>"; };
 		4F6F181A26E6069200DC210B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/HSDeck.strings; sourceTree = "<group>"; };
 		4F6F181C26E6069300DC210B /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/HSDeck.strings; sourceTree = "<group>"; };
-		4F6F182326E6693500DC210B /* FloatingMiniViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FloatingMiniViewController.h; sourceTree = "<group>"; };
-		4F6F182426E6693500DC210B /* FloatingMiniViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FloatingMiniViewController.m; sourceTree = "<group>"; };
 		4F6F1B7726B940E700649F77 /* DynamicPresentationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DynamicPresentationController.h; sourceTree = "<group>"; };
-		4F73ABB026E88337000FD629 /* ZoomAnimatedTransitioning.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZoomAnimatedTransitioning.h; sourceTree = "<group>"; };
-		4F73ABB126E88337000FD629 /* ZoomAnimatedTransitioning.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZoomAnimatedTransitioning.m; sourceTree = "<group>"; };
+		4F73ABB026E88337000FD629 /* FloatingAnimatedTransitioning.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FloatingAnimatedTransitioning.h; sourceTree = "<group>"; };
+		4F73ABB126E88337000FD629 /* FloatingAnimatedTransitioning.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FloatingAnimatedTransitioning.m; sourceTree = "<group>"; };
 		4F74711526C1678F001C45C4 /* CardDetailsChildrenContentConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardDetailsChildrenContentConfiguration.h; sourceTree = "<group>"; };
 		4F74711626C1678F001C45C4 /* CardDetailsChildrenContentConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardDetailsChildrenContentConfiguration.m; sourceTree = "<group>"; };
 		4F74711826C1698B001C45C4 /* CardDetailsChildrenContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardDetailsChildrenContentView.h; sourceTree = "<group>"; };
@@ -941,6 +947,8 @@
 				4FDE8E0026F1281100959B97 /* NSNumber+stringWithSepearatedDecimalNumber.m */,
 				4FDDE4B326F762FC0022F87C /* UICollectionViewDiffableDataSource+applySnapshotAndWait.h */,
 				4FDDE4B426F762FC0022F87C /* UICollectionViewDiffableDataSource+applySnapshotAndWait.m */,
+				4F248384271DA64C00A231BF /* UIView+floatingConstraints.h */,
+				4F248385271DA64C00A231BF /* UIView+floatingConstraints.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -984,6 +992,19 @@
 				4FF3E0D626CA7F81002B20EA /* NSSemaphoreCondition.m */,
 			);
 			path = Util;
+			sourceTree = "<group>";
+		};
+		4F248380271DA1D600A231BF /* Floating */ = {
+			isa = PBXGroup;
+			children = (
+				4F248387271DAE5300A231BF /* FloatingNaigationControllerViewController.h */,
+				4F248388271DAE5300A231BF /* FloatingNaigationControllerViewController.m */,
+				4F248381271DA25800A231BF /* FloatingPresentationController.h */,
+				4F248382271DA25800A231BF /* FloatingPresentationController.m */,
+				4F73ABB026E88337000FD629 /* FloatingAnimatedTransitioning.h */,
+				4F73ABB126E88337000FD629 /* FloatingAnimatedTransitioning.m */,
+			);
+			path = Floating;
 			sourceTree = "<group>";
 		};
 		4F34384926A36FBA001161FE /* StoneNamuCore */ = {
@@ -1129,24 +1150,6 @@
 			path = Stepper;
 			sourceTree = "<group>";
 		};
-		4F6F182226E6691300DC210B /* FloatingMini */ = {
-			isa = PBXGroup;
-			children = (
-				4F6F182326E6693500DC210B /* FloatingMiniViewController.h */,
-				4F6F182426E6693500DC210B /* FloatingMiniViewController.m */,
-			);
-			path = FloatingMini;
-			sourceTree = "<group>";
-		};
-		4F73ABAF26E88302000FD629 /* ZoomAnimatedTransitioning */ = {
-			isa = PBXGroup;
-			children = (
-				4F73ABB026E88337000FD629 /* ZoomAnimatedTransitioning.h */,
-				4F73ABB126E88337000FD629 /* ZoomAnimatedTransitioning.m */,
-			);
-			path = ZoomAnimatedTransitioning;
-			sourceTree = "<group>";
-		};
 		4F7EC54826EB29FF00A7758D /* PhotosService */ = {
 			isa = PBXGroup;
 			children = (
@@ -1284,8 +1287,7 @@
 				4F8FFF4426E0EE2D00FA6586 /* DeckAddCardOptions */,
 				4F8F976626D47EF10024FC06 /* InsetLabel */,
 				4F8754B326DB875D000CE351 /* Spinner */,
-				4F6F182226E6691300DC210B /* FloatingMini */,
-				4F73ABAF26E88302000FD629 /* ZoomAnimatedTransitioning */,
+				4F248380271DA1D600A231BF /* Floating */,
 				4F3F1BC026E7C0E500ACF80A /* TextActivity */,
 				4FD87F9A2719E698003EED4B /* More */,
 			);
@@ -2297,7 +2299,9 @@
 				4F7EC54E26EB2A3700A7758D /* DeckImageRenderServiceModel.m in Sources */,
 				4FF3E0C226C9901F002B20EA /* PrefsRegionHostViewModel.m in Sources */,
 				4F3F1BC626E7C21100ACF80A /* UIView+removeAllSubviews.m in Sources */,
+				4F248386271DA64C00A231BF /* UIView+floatingConstraints.m in Sources */,
 				4F3F1BC326E7C12000ACF80A /* TextActivityViewController.m in Sources */,
+				4F248383271DA25800A231BF /* FloatingPresentationController.m in Sources */,
 				4F74711A26C1698B001C45C4 /* CardDetailsChildrenContentView.m in Sources */,
 				4F57DE9D26AD7B53000E4163 /* PickerViewController.m in Sources */,
 				4FD87F8C2719C9EC003EED4B /* MainViewController.m in Sources */,
@@ -2306,7 +2310,7 @@
 				4F182BD126AC23600028115C /* UIViewController+presentErrorAlert.m in Sources */,
 				4F74711E26C16BD4001C45C4 /* CardDetailsChildrenContentCollectionViewCompositionalLayout.m in Sources */,
 				4F74712126C16BDF001C45C4 /* CardDetailsChildrenContentViewModel.m in Sources */,
-				4F73ABB226E88337000FD629 /* ZoomAnimatedTransitioning.m in Sources */,
+				4F73ABB226E88337000FD629 /* FloatingAnimatedTransitioning.m in Sources */,
 				4F414B0A26CEFA5E0003A0CF /* DeckDetailsItemModel.m in Sources */,
 				4FCC22C826ECAC81004997AA /* DeckImageRenderServiceAppNameContentConfiguration.m in Sources */,
 				4FF3E0CE26C9B84C002B20EA /* UIView+viewController.m in Sources */,
@@ -2370,6 +2374,7 @@
 				4F2438ED26CD8CCF0041BB84 /* DecksSectionModel.m in Sources */,
 				4FEB414126BD6133009D8594 /* CardDetailsBasicContentConfiguration.m in Sources */,
 				4FA9047D26B6E2A000CD6147 /* CardContentConfiguration.m in Sources */,
+				4F248389271DAE5300A231BF /* FloatingNaigationControllerViewController.m in Sources */,
 				4F8FFF3D26E0E66A00FA6586 /* DeckAddCardContentConfiguration.m in Sources */,
 				4F7EC54426EB26BE00A7758D /* UIView+imageRendered.m in Sources */,
 				4F98E25E26B9AB110067846F /* CardDetailsItemModel.m in Sources */,
@@ -2383,7 +2388,6 @@
 				4FA56BAF26A21059002D9FA0 /* SceneDelegate.m in Sources */,
 				4FF3E0DF26CA9C82002B20EA /* CardsOneBesideSecondarySplitViewController.m in Sources */,
 				4F8FFF5426E1347100FA6586 /* UIViewController+targetedPreviewWithClearBackgroundForView.m in Sources */,
-				4F6F182526E6693500DC210B /* FloatingMiniViewController.m in Sources */,
 				4FEC8A0726EB87B90061BBF4 /* DeckImageRenderServiceCardContentConfiguration.m in Sources */,
 				4F414B0426CEF31D0003A0CF /* DeckDetailsViewModel.m in Sources */,
 				4F98E25B26B9AA280067846F /* CardDetailsSectionModel.m in Sources */,

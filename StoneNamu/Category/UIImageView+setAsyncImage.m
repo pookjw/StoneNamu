@@ -23,11 +23,6 @@ static NSString * const UIImageViewAsyncImageCategorySessionTaskKey = @"UIImageV
 
 @implementation UIImageView (setAsyncImage)
 
-- (void)dealloc {
-    objc_removeAssociatedObjects(self);
-    [super dealloc];
-}
-
 - (void)setAsyncImageWithURL:(NSURL * _Nullable)url indicator:(BOOL)indicator {
     [self setAsyncImageWithURL:url indicator:indicator completion:^(UIImage * _Nullable image, NSError * _Nullable error) {}];
 }
@@ -158,7 +153,13 @@ static NSString * const UIImageViewAsyncImageCategorySessionTaskKey = @"UIImageV
 //
 
 - (UIActivityIndicatorView * _Nullable)activityIndicator {
-    return objc_getAssociatedObject(self, &UIImageViewAsyncImageCategoryActivityIndicatorKey);
+    id activityIndicator = objc_getAssociatedObject(self, &UIImageViewAsyncImageCategoryActivityIndicatorKey);
+    
+    if (activityIndicator == NULL) {
+        return nil;
+    }
+    
+    return activityIndicator;
 }
 
 - (void)setActivityIndicator:(UIActivityIndicatorView *)activityIndicator {
@@ -166,7 +167,13 @@ static NSString * const UIImageViewAsyncImageCategorySessionTaskKey = @"UIImageV
 }
 
 - (id<DataCacheUseCase>)dataCacheUseCase {
-    return objc_getAssociatedObject(self, &UIImageViewAsyncImageCategoryDataCacheUseCaseKey);
+    id dataCacheUseCase = objc_getAssociatedObject(self, &UIImageViewAsyncImageCategoryDataCacheUseCaseKey);
+    
+    if (dataCacheUseCase == NULL) {
+        return nil;
+    }
+    
+    return dataCacheUseCase;
 }
 
 - (void)setDataCacheUseCase:(id<DataCacheUseCase> _Nullable)dataCacheUseCase {
@@ -174,7 +181,13 @@ static NSString * const UIImageViewAsyncImageCategorySessionTaskKey = @"UIImageV
 }
 
 - (NSURL * _Nullable)currentURL {
-    return objc_getAssociatedObject(self, &UIImageViewAsyncImageCategoryCurrentURLKey);
+    id currentURL = objc_getAssociatedObject(self, &UIImageViewAsyncImageCategoryCurrentURLKey);
+    
+    if (currentURL == NULL) {
+        return nil;
+    }
+    
+    return currentURL;
 }
 
 - (void)setCurrentURL:(NSURL *)currentURL {
@@ -182,7 +195,13 @@ static NSString * const UIImageViewAsyncImageCategorySessionTaskKey = @"UIImageV
 }
 
 - (NSURLSessionTask *)sessionTask {
-    return objc_getAssociatedObject(self, &UIImageViewAsyncImageCategorySessionTaskKey);
+    id sessionTask = objc_getAssociatedObject(self, &UIImageViewAsyncImageCategorySessionTaskKey);
+    
+    if (sessionTask == NULL) {
+        return nil;
+    }
+    
+    return sessionTask;
 }
 
 - (void)setSessionTask:(NSURLSessionTask *)sessionTask {
