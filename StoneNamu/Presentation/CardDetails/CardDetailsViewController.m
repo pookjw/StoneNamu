@@ -82,7 +82,9 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    [self animateCollectionViewWhenDidAppear];
     [self.currentLayoutViewController cardDetailsLayoutUpdateCollectionViewInsets];
+    [self updateLayoutViewControllerWithTraitCollection:self.traitCollection];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -197,6 +199,7 @@
     
     collectionView.delegate = self;
     collectionView.backgroundColor = UIColor.clearColor;
+    collectionView.alpha = 0.0f;
     
     collectionView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
     
@@ -307,6 +310,17 @@
     targetLayoutViewController.view.hidden = NO;
     
     [self.collectionView.collectionViewLayout invalidateLayout];
+}
+
+- (void)animateCollectionViewWhenDidAppear {
+    [UIView animateWithDuration:0.3
+                          delay:0
+                        options:UIViewAnimationOptionCurveEaseOut
+                     animations:^{
+        self.collectionView.alpha = 1.0f;
+    } completion:^(BOOL finished) {
+        
+    }];
 }
 
 - (CardDetailsDataSource *)makeDataSource {
