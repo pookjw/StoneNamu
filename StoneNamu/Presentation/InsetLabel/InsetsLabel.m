@@ -26,4 +26,9 @@
     return [super drawTextInRect:UIEdgeInsetsInsetRect(rect, self.contentInsets)];
 }
 
+- (CGRect)textRectForBounds:(CGRect)bounds limitedToNumberOfLines:(NSInteger)numberOfLines {
+    CGRect trancated = UIEdgeInsetsInsetRect(bounds, self.contentInsets);
+    return [super textRectForBounds:trancated limitedToNumberOfLines:numberOfLines];
+}
+
 @end
