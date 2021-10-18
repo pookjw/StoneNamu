@@ -20,7 +20,14 @@
     self.view.backgroundColor = UIColor.clearColor;
     self.modalPresentationStyle = UIModalPresentationCustom;
     self.transitioningDelegate = self;
+    self.modalPresentationCapturesStatusBarAppearance = YES;
 }
+
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
+
+#pragma mark - UIViewControllerTransitioningDelegate
 
 - (UIPresentationController *)presentationControllerForPresentedViewController:(UIViewController *)presented presentingViewController:(UIViewController *)presenting sourceViewController:(UIViewController *)source {
     UIVisualEffectView *backgroundView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleDark]];
