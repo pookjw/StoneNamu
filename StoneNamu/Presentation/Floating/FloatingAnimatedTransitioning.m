@@ -8,7 +8,7 @@
 #import "FloatingAnimatedTransitioning.h"
 #import "UIView+floatingConstraints.h"
 
-#define FLOATINGANIMATEDTRANSITIONING_DURATION 0.3
+#define FLOATINGANIMATEDTRANSITIONING_DURATION 0.3f
 
 @interface FloatingAnimatedTransitioning ()
 @property BOOL animateForPresenting;
@@ -66,49 +66,51 @@
     
     UIView *fromView = fromViewController.view;
     UIView *toView = toViewController.view;
+    UIView *containerView = transitionContext.containerView;
     
     //
     
     if (self.animateForPresenting) {
+        [containerView addSubview:toView];
         toView.translatesAutoresizingMaskIntoConstraints = NO;
         
         //
         
         NSMutableArray<NSLayoutConstraint *> *allConstraints = [@[] mutableCopy];
         
-        @autoreleasepool {
-            NSLayoutConstraint *topLayout = [toView.topAnchor constraintEqualToAnchor:toView.superview.safeAreaLayoutGuide.topAnchor];
-            NSLayoutConstraint *leadingLayout = [toView.leadingAnchor constraintEqualToAnchor:toView.superview.safeAreaLayoutGuide.leadingAnchor];
-            NSLayoutConstraint *trailingLayout = [toView.trailingAnchor constraintEqualToAnchor:toView.superview.safeAreaLayoutGuide.trailingAnchor];
-            NSLayoutConstraint *bottomLayout = [toView.bottomAnchor constraintEqualToAnchor:toView.superview.safeAreaLayoutGuide.bottomAnchor];
-            NSLayoutConstraint *centerXLayout = [toView.centerXAnchor constraintEqualToAnchor:toView.superview.safeAreaLayoutGuide.centerXAnchor];
-            NSLayoutConstraint *centerYLayout = [toView.centerYAnchor constraintEqualToAnchor:toView.superview.safeAreaLayoutGuide.centerYAnchor];
-            
-            topLayout.priority = UILayoutPriorityDefaultHigh;
-            leadingLayout.priority = UILayoutPriorityDefaultHigh;
-            trailingLayout.priority = UILayoutPriorityDefaultHigh;
-            bottomLayout.priority = UILayoutPriorityDefaultHigh;
-            centerXLayout.priority = UILayoutPriorityDefaultHigh;
-            centerYLayout.priority = UILayoutPriorityDefaultHigh;
-            
-            [allConstraints addObjectsFromArray:@[
-                topLayout,
-                leadingLayout,
-                trailingLayout,
-                bottomLayout,
-                centerXLayout,
-                centerYLayout
-            ]];
-            
-            if (self.maxWidth != nil) {
-                NSLayoutConstraint *widthLayout = [toView.widthAnchor constraintLessThanOrEqualToConstant:self.maxWidth.floatValue];
-                [allConstraints addObject:widthLayout];
-            }
-            
-            if (self.maxHeight != nil) {
-                NSLayoutConstraint *heightLayout = [toView.heightAnchor constraintLessThanOrEqualToConstant:self.maxHeight.floatValue];
-                [allConstraints addObject:heightLayout];
-            }
+        NSLayoutConstraint *topLayout = [toView.topAnchor constraintEqualToAnchor:containerView.safeAreaLayoutGuide.topAnchor];
+        NSLayoutConstraint *leadingLayout = [toView.leadingAnchor constraintEqualToAnchor:containerView.safeAreaLayoutGuide.leadingAnchor];
+        NSLayoutConstraint *trailingLayout = [toView.trailingAnchor constraintEqualToAnchor:containerView.safeAreaLayoutGuide.trailingAnchor];
+        NSLayoutConstraint *bottomLayout = [toView.bottomAnchor constraintEqualToAnchor:containerView.safeAreaLayoutGuide.bottomAnchor];
+        NSLayoutConstraint *centerXLayout = [toView.centerXAnchor constraintEqualToAnchor:containerView.safeAreaLayoutGuide.centerXAnchor];
+        NSLayoutConstraint *centerYLayout = [toView.centerYAnchor constraintEqualToAnchor:containerView.safeAreaLayoutGuide.centerYAnchor];
+        
+        topLayout.priority = UILayoutPriorityDefaultHigh;
+        leadingLayout.priority = UILayoutPriorityDefaultHigh;
+        trailingLayout.priority = UILayoutPriorityDefaultHigh;
+        bottomLayout.priority = UILayoutPriorityDefaultHigh;
+        centerXLayout.priority = UILayoutPriorityDefaultHigh;
+        centerYLayout.priority = UILayoutPriorityDefaultHigh;
+        
+        [allConstraints addObjectsFromArray:@[
+            topLayout,
+            leadingLayout,
+            trailingLayout,
+            bottomLayout,
+            centerXLayout,
+            centerYLayout
+        ]];
+        
+        if (self.maxWidth != nil) {
+            NSLayoutConstraint *widthLayout = [toView.widthAnchor constraintLessThanOrEqualToConstant:self.maxWidth.floatValue];
+            widthLayout.priority = UILayoutPriorityRequired;
+            [allConstraints addObject:widthLayout];
+        }
+        
+        if (self.maxHeight != nil) {
+            NSLayoutConstraint *heightLayout = [toView.heightAnchor constraintLessThanOrEqualToConstant:self.maxHeight.floatValue];
+            heightLayout.priority = UILayoutPriorityRequired;
+            [allConstraints addObject:heightLayout];
         }
         
         [NSLayoutConstraint activateConstraints:allConstraints];
@@ -130,7 +132,7 @@
             fromView.transform = CGAffineTransformMakeScale(0.9f, 0.9f);
             toView.alpha = 1.0f;
             toView.transform = CGAffineTransformIdentity;
-//            toView.frame = [transitionContext finalFrameForViewController:toViewController];
+            //            toView.frame = [transitionContext finalFrameForViewController:toViewController];
         } completion:^(BOOL finished) {
             [transitionContext completeTransition:finished];
         }];
@@ -148,6 +150,7 @@
             toView.transform = CGAffineTransformIdentity;
             toView.frame = [transitionContext finalFrameForViewController:toViewController];
         } completion:^(BOOL finished) {
+            [fromView removeFromSuperview];
             [transitionContext completeTransition:finished];
         }];
     }

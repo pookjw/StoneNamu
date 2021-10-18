@@ -59,7 +59,6 @@
     
     //
     
-    [self.containerView addSubview:self.presentedView];
     self.presentedView.layer.cornerRadius = FLOATINGPRESENTATIONCONTROLLER_CORNERRADIUS;
     self.presentedView.layer.cornerCurve = kCACornerCurveContinuous;
     self.presentedView.layer.masksToBounds = YES;

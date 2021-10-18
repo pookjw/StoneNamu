@@ -19,6 +19,7 @@
 #import "NSIndexPath+identifier.h"
 #import "UIViewController+targetedPreviewWithClearBackgroundForView.h"
 #import "UIImage+imageWithGrayScale.h"
+#import "DynamicAnimatedTransitioning.h"
 
 @interface CardDetailsViewController () <UICollectionViewDelegate, UIViewControllerTransitioningDelegate, UIContextMenuInteractionDelegate, UIDragInteractionDelegate, CardDetailsChildrenContentConfigurationDelegate>
 @property (retain) UIImageView * _Nullable sourceImageView;
@@ -76,15 +77,8 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self updateLayoutViewControllerWithTraitCollection:self.traitCollection];
-    [self updateCloseButtonAttributes];
     [self updateCollectionViewAttributes];
     [self.currentLayoutViewController cardDetailsLayoutUpdateCollectionViewInsets];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    self.closeButton.alpha = 0;
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -176,8 +170,6 @@
     
     UIButton *closeButton = [UIButton buttonWithConfiguration:buttonConfiguration primaryAction:action];
     self.closeButton = closeButton;
-    
-    closeButton.alpha = 0;
 }
 
 - (void)configureCollectionView {
@@ -201,23 +193,13 @@
     
     collectionView.delegate = self;
     collectionView.backgroundColor = UIColor.clearColor;
-    collectionView.alpha = 0;
     
     collectionView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
     
     [collectionView release];
 }
 
-- (void)updateCloseButtonAttributes {
-    [UIView animateWithDuration:0.2 animations:^{
-        self.closeButton.alpha = 1;
-    }];
-}
-
 - (void)updateCollectionViewAttributes {
-    [UIView animateWithDuration:0.2 animations:^{
-        self.collectionView.alpha = 1;
-    }];
     [self.collectionView.collectionViewLayout invalidateLayout];
     [self.collectionView scrollToTopAnimated:YES];
 }
@@ -442,6 +424,18 @@
     [pc autorelease];
     
     return pc;
+}
+
+- (id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
+    DynamicAnimatedTransitioning *animator = [[DynamicAnimatedTransitioning alloc] initWithIsPresenting:YES];
+    [animator autorelease];
+    return animator;
+}
+
+- (id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
+    DynamicAnimatedTransitioning *animator = [[DynamicAnimatedTransitioning alloc] initWithIsPresenting:NO];
+    [animator autorelease];
+    return animator;
 }
 
 #pragma mark - UIContextMenuInteractionDelegate
