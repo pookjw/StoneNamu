@@ -114,7 +114,7 @@
     [NSLayoutConstraint activateConstraints:@[
         [nameLabel.topAnchor constraintEqualToAnchor:self.topAnchor],
         [nameLabel.leadingAnchor constraintEqualToAnchor:self.cardSetImageView.trailingAnchor],
-        [nameLabel.heightAnchor constraintEqualToConstant:ceil(rect.size.height + contentInsets.top + contentInsets.bottom)],
+        [nameLabel.heightAnchor constraintEqualToConstant:ceilf(rect.size.height + contentInsets.top + contentInsets.bottom)],
         [self.cardSetImageView.heightAnchor constraintEqualToAnchor:nameLabel.heightAnchor]
     ]];
     

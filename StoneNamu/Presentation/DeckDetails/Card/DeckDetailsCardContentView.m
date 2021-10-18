@@ -81,7 +81,7 @@
                                     attributes:@{NSFontAttributeName: nameLabel.font}
                                        context:nil];
     CGFloat margin = nameLabel.contentInsets.top + nameLabel.contentInsets.bottom;
-    CGFloat height = ceil(rect.size.height + margin);
+    CGFloat height = ceilf(rect.size.height + margin);
     
     //
     
@@ -120,7 +120,7 @@
                                     attributes:@{NSFontAttributeName: manaCostLabel.font}
                                        context:nil];
     CGFloat margin = 10;
-    CGFloat width = ceil(rect.size.width + margin);
+    CGFloat width = ceilf(rect.size.width + margin);
     
     //
     
@@ -208,7 +208,7 @@
                                             attributes:@{NSFontAttributeName: countLabel.font}
                                                context:nil];
     CGFloat margin = 10;
-    CGFloat width = ceil(MAX(integerRect.size.width, starRect.size.width) + margin);
+    CGFloat width = ceilf(MAX(integerRect.size.width, starRect.size.width) + margin);
     
     //
     

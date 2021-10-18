@@ -94,8 +94,8 @@
     [NSLayoutConstraint activateConstraints:@[
         [costLabel.topAnchor constraintEqualToAnchor:self.topAnchor],
         [costLabel.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
-        [costLabel.widthAnchor constraintEqualToConstant:ceil(preferredRect.size.width)],
-        [costLabel.heightAnchor constraintEqualToConstant:ceil(preferredRect.size.height)]
+        [costLabel.widthAnchor constraintEqualToConstant:ceilf(preferredRect.size.width)],
+        [costLabel.heightAnchor constraintEqualToConstant:ceilf(preferredRect.size.height)]
     ]];
     
     NSLayoutConstraint *bottomLayout = [costLabel.bottomAnchor constraintEqualToAnchor:self.bottomAnchor];
@@ -146,8 +146,8 @@
         [countLabel.leadingAnchor constraintEqualToAnchor:self.progressView.trailingAnchor],
         [countLabel.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
         [countLabel.bottomAnchor constraintEqualToAnchor:self.progressView.bottomAnchor],
-        [countLabel.widthAnchor constraintEqualToConstant:ceil(preferredRect.size.width)],
-        [countLabel.heightAnchor constraintEqualToConstant:ceil(preferredRect.size.height)]
+        [countLabel.widthAnchor constraintEqualToConstant:ceilf(preferredRect.size.width)],
+        [countLabel.heightAnchor constraintEqualToConstant:ceilf(preferredRect.size.height)]
     ]];
     
     [countLabel release];

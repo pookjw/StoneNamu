@@ -151,7 +151,7 @@
     
     [NSLayoutConstraint activateConstraints:@[
         [arcaneDustLabel.heightAnchor constraintEqualToAnchor:self.arcaneDustImageView.heightAnchor],
-        [arcaneDustLabel.heightAnchor constraintEqualToConstant:ceil(rect.size.height)]
+        [arcaneDustLabel.heightAnchor constraintEqualToConstant:ceilf(rect.size.height)]
     ]];
     
     [arcaneDustLabel setContentCompressionResistancePriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];

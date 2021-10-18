@@ -34,7 +34,7 @@
     CGFloat height2 = rect2.size.height;
     CGFloat margin = 50;
     
-    return ceil(height1 + height2 + margin);
+    return ceilf(height1 + height2 + margin);
 }
 
 - (instancetype)init {
