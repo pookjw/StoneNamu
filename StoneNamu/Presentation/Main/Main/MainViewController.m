@@ -55,7 +55,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self configureViewControllers];
-    [self setViewControllerForTraitCollection:self.traitCollection];
+    [self setViewControllerForTraitCollection:self.traitCollection previous:nil];
 }
 
 - (void)willTransitionToTraitCollection:(UITraitCollection *)newCollection withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
@@ -71,11 +71,7 @@
 
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
     [super traitCollectionDidChange:previousTraitCollection];
-    
-    // when presenting ViewController, horizontalSizeClass will be changed rapidly. (Catalyst bug)
-#if !TARGET_OS_MACCATALYST
-    [self setViewControllerForTraitCollection:self.traitCollection];
-#endif
+    [self setViewControllerForTraitCollection:self.traitCollection previous:previousTraitCollection];
     
     if ((self.tmpPresentedViewController != nil)) {
         if ((self.tmpPresentedViewController.presentingViewController == nil) && (![self.tmpPresentedViewController isKindOfClass:[UISplitViewController class]])) {
@@ -100,7 +96,14 @@
     [prefsViewController release];
 }
 
-- (void)setViewControllerForTraitCollection:(UITraitCollection *)traitCollection {
+- (void)setViewControllerForTraitCollection:(UITraitCollection *)traitCollection previous:(UITraitCollection * _Nullable)previousTraitCollection {
+    UIUserInterfaceSizeClass sizeClass = traitCollection.horizontalSizeClass;
+    
+    if (sizeClass == UIUserInterfaceSizeClassUnspecified) return;
+    if ((previousTraitCollection != nil) && (sizeClass == previousTraitCollection.horizontalSizeClass)) return;
+    
+    //
+    
     NSArray<__kindof UIViewController *> * previousViewControllers = @[];
     
     if (self.tabBarController != nil) {
@@ -121,7 +124,6 @@
     
     //
     
-    UIUserInterfaceSizeClass sizeClass = traitCollection.horizontalSizeClass;
     UIViewController<MainLayoutProtocol> * _Nullable targetViewController = nil;
     
     switch (sizeClass) {
