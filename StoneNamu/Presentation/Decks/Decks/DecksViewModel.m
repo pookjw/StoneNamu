@@ -271,6 +271,7 @@
         }
         
         [snapshot appendItemsWithIdentifiers:itemModels intoSectionWithIdentifier:sectionModel];
+        [snapshot reconfigureItemsWithIdentifiers:itemModels];
         [itemModels release];
         [sectionModel release];
         

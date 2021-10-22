@@ -28,4 +28,22 @@
     [semaphore release];
 }
 
+- (void)applySnapshotUsingReloadDataAndWait:(NSDiffableDataSourceSnapshot *)snapshot completion:(void (^)(void))completion {
+    NSSemaphoreCondition * _Nullable semaphore = nil;
+    
+    if (!NSThread.isMainThread) {
+        semaphore = [[NSSemaphoreCondition alloc] initWithValue:0];
+    }
+    
+    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+        [self applySnapshotUsingReloadData:snapshot completion:^{
+            completion();
+            [semaphore signal];
+        }];
+    }];
+    
+    [semaphore wait];
+    [semaphore release];
+}
+
 @end
