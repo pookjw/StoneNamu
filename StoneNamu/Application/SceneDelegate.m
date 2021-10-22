@@ -6,7 +6,6 @@
 //
 
 #import "SceneDelegate.h"
-#import "MainViewController.h"
 
 @interface SceneDelegate ()
 @end
@@ -15,6 +14,7 @@
 
 - (void)dealloc {
     [_window release];
+    [_mainViewController release];
     [super dealloc];
 }
 
@@ -32,13 +32,14 @@
     
     UIWindow *window = [[UIWindow alloc] initWithWindowScene:windowScene];
     self.window = window;
-    [self.window setTintColor:UIColor.redColor];
+//    [self.window setTintColor:UIColor.redColor];
     
-    MainViewController *vc = [MainViewController new];
-    [vc loadViewIfNeeded];
+    MainViewController *mainViewController = [MainViewController new];
+    self.mainViewController = mainViewController;
+    [mainViewController loadViewIfNeeded];
     
-    window.rootViewController = vc;
-    [vc release];
+    window.rootViewController = mainViewController;
+    [mainViewController release];
     [window makeKeyAndVisible];
     
     [window release];

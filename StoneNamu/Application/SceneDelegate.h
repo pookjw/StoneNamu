@@ -6,10 +6,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MainViewController.h"
 
 @interface SceneDelegate : UIResponder <UIWindowSceneDelegate>
-
 @property (retain, nonatomic) UIWindow * window;
-
+@property (retain) MainViewController *mainViewController;
 @end
 
