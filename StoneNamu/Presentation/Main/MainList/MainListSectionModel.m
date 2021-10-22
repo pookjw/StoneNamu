@@ -1,13 +1,13 @@
 //
-//  MainSectionModel.m
-//  MainSectionModel
+//  MainListSectionModel.m
+//  MainListSectionModel
 //
 //  Created by Jinwoo Kim on 10/15/21.
 //
 
-#import "MainSectionModel.h"
+#import "MainListSectionModel.h"
 
-@implementation MainSectionModel
+@implementation MainListSectionModel
 
 - (instancetype)initWithType:(MainSectionModelType)type {
     self = [self init];
@@ -20,9 +20,9 @@
 }
 
 - (BOOL)isEqual:(id)object {
-    MainSectionModel *toCompare = (MainSectionModel *)object;
+    MainListSectionModel *toCompare = (MainListSectionModel *)object;
     
-    if (![toCompare isKindOfClass:[MainSectionModel class]]) {
+    if (![toCompare isKindOfClass:[MainListSectionModel class]]) {
         return NO;
     }
     

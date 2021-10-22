@@ -344,10 +344,14 @@
         [self.collectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionNone];
     }
     
-    if (self.splitViewController.style == UISplitViewControllerStyleTripleColumn) {
-        [self.splitViewController setViewController:vc forColumn:UISplitViewControllerColumnSecondary];
+    if ((self.splitViewController == nil) || (self.splitViewController.isCollapsed)) {
+        [self.navigationController pushViewController:vc animated:YES];
     } else {
-        [self.splitViewController showDetailViewController:vc sender:self];
+        if (self.splitViewController.style == UISplitViewControllerStyleTripleColumn) {
+            [self.splitViewController setViewController:vc forColumn:UISplitViewControllerColumnSecondary];
+        } else {
+            [self.splitViewController showDetailViewController:vc sender:self];
+        }
     }
 }
 

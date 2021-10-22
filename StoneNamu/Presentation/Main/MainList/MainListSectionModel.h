@@ -14,7 +14,7 @@ typedef NS_ENUM(NSUInteger, MainSectionModelType) {
     MainSectionModelTypeDeck
 };
 
-@interface MainSectionModel : NSObject
+@interface MainListSectionModel : NSObject
 @property (readonly) MainSectionModelType type;
 @property (readonly, nonatomic) NSString * _Nullable headerText;
 @property (readonly, nonatomic) NSString * _Nullable footerText;

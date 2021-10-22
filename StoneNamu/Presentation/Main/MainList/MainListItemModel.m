@@ -1,14 +1,13 @@
 //
-//  MainItemModel.m
-//  MainItemModel
+//  MainListItemModel.m
+//  MainListItemModel
 //
 //  Created by Jinwoo Kim on 10/15/21.
 //
 
-#import "MainItemModel.h"
-#import "HSCardGameMode.h"
+#import "MainListItemModel.h"
 
-@implementation MainItemModel
+@implementation MainListItemModel
 
 - (instancetype)initWithType:(MainItemModelType)type {
     self = [self init];
@@ -21,9 +20,9 @@
 }
 
 - (BOOL)isEqual:(id)object {
-    MainItemModel *toCompare = (MainItemModel *)object;
+    MainListItemModel *toCompare = (MainListItemModel *)object;
     
-    if (![toCompare isKindOfClass:[MainItemModel class]]) {
+    if (![toCompare isKindOfClass:[MainListItemModel class]]) {
         return NO;
     }
     
@@ -36,9 +35,7 @@
 
 - (UIImage * _Nullable)primaryImage {
     switch (self.type) {
-        case MainItemModelTypeCardsConstructed:
-            return [UIImage systemImageNamed:@"text.book.closed"];
-        case MainItemModelTypeCardsMercenaries:
+        case MainItemModelTypeCards:
             return [UIImage systemImageNamed:@"text.book.closed"];
         case MainItemModelTypeDecks:
             return [UIImage systemImageNamed:@"books.vertical"];
@@ -49,10 +46,8 @@
 
 - (NSString * _Nullable)primaryText {
     switch (self.type) {
-        case MainItemModelTypeCardsConstructed:
-            return hsCardGameModesWithLocalizable()[NSStringFromHSCardGameMode(HSCardGameModeConstructed)];
-        case MainItemModelTypeCardsMercenaries:
-            return hsCardGameModesWithLocalizable()[NSStringFromHSCardGameMode(HSCardGameModeMercenaries)];
+        case MainItemModelTypeCards:
+            return NSLocalizedString(@"CARDS", @"");
         case MainItemModelTypeDecks:
             return NSLocalizedString(@"DECKS", @"");
         default:

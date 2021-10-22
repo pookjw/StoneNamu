@@ -158,9 +158,9 @@
     classLabel.textColor = UIColor.whiteColor;
     classLabel.textAlignment = NSTextAlignmentLeft;
     
-    classLabel.layer.shadowRadius = 2.0;
-    classLabel.layer.shadowOpacity = 1;
-    classLabel.layer.shadowOffset = CGSizeMake(0, 0);
+    classLabel.layer.shadowRadius = 2.0f;
+    classLabel.layer.shadowOpacity = 1.0f;
+    classLabel.layer.shadowOffset = CGSizeZero;
     classLabel.layer.shadowColor = UIColor.blackColor.CGColor;
     classLabel.layer.masksToBounds = YES;
     

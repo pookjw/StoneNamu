@@ -44,6 +44,8 @@
 }
 
 - (void)setDoneButtonHidden:(BOOL)hidden {
+    [self loadViewIfNeeded];
+    
     if (hidden) {
         self.navigationItem.rightBarButtonItems = @[];
     } else {

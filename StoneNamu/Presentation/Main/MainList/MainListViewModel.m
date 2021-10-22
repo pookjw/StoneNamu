@@ -1,20 +1,18 @@
 //
-//  MainViewModel.m
-//  MainViewModel
+//  MainListViewModel.m
+//  MainListViewModel
 //
 //  Created by Jinwoo Kim on 10/15/21.
 //
 
-#import "MainViewModel.h"
+#import "MainListViewModel.h"
 #import "UICollectionViewDiffableDataSource+applySnapshotAndWait.h"
-#import "BlizzardHSAPIKeys.h"
-#import "HSCardGameMode.h"
 
-@interface MainViewModel ()
+@interface MainListViewModel ()
 @property (retain) NSOperationQueue *queue;
 @end
 
-@implementation MainViewModel
+@implementation MainListViewModel
 
 - (instancetype)initWithDataSource:(MainDataSource *)dataSource {
     self = [self init];
@@ -40,24 +38,33 @@
 }
 
 - (NSString * _Nullable)headerTextFromIndexPath:(NSIndexPath *)indexPath {
-    MainSectionModel * _Nullable sectionModel = [self.dataSource sectionIdentifierForIndex:indexPath.section];
+    MainListSectionModel * _Nullable sectionModel = [self.dataSource sectionIdentifierForIndex:indexPath.section];
     return sectionModel.headerText;
 }
 
 - (NSString * _Nullable)footerTextFromIndexPath:(NSIndexPath *)indexPath {
-    MainSectionModel * _Nullable sectionModel = [self.dataSource sectionIdentifierForIndex:indexPath.section];
+    MainListSectionModel * _Nullable sectionModel = [self.dataSource sectionIdentifierForIndex:indexPath.section];
     return sectionModel.footerText;
 }
 
-- (NSDictionary<NSString *,NSString *> * _Nullable)cardOptionsFromType:(MainItemModelType)type {
-    switch (type) {
-        case MainItemModelTypeCardsConstructed:
-            return @{BlizzardHSAPIOptionTypeGameMode: NSStringFromHSCardGameMode(HSCardGameModeConstructed)};
-        case MainItemModelTypeCardsMercenaries:
-            return @{BlizzardHSAPIOptionTypeGameMode: NSStringFromHSCardGameMode(HSCardGameModeMercenaries)};
-        default:
-            return nil;
-    }
+- (void)indexPathOfItemType:(MainItemModelType)itemType completion:(MainListViewModelIndexPathForItemTypeCompletion)completion {
+    [self.queue addBarrierBlock:^{
+        MainListItemModel * _Nullable __block itemModel = nil;
+        
+        [self.dataSource.snapshot.itemIdentifiers enumerateObjectsUsingBlock:^(MainListItemModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if (obj.type == itemType) {
+                itemModel = obj;
+                *stop = YES;
+            }
+        }];
+        
+        if (itemModel == nil) {
+            completion(nil);
+        }
+        
+        NSIndexPath * _Nullable indexPath = [self.dataSource indexPathForItemIdentifier:itemModel];
+        completion(indexPath);
+    }];
 }
 
 - (void)requestDataSource {
@@ -68,8 +75,8 @@
         
         //
         
-        MainSectionModel *cardsSection = [[MainSectionModel alloc] initWithType:MainSectionModelTypeCards];
-        MainSectionModel *deckSection = [[MainSectionModel alloc] initWithType:MainSectionModelTypeDeck];
+        MainListSectionModel *cardsSection = [[MainListSectionModel alloc] initWithType:MainSectionModelTypeCards];
+        MainListSectionModel *deckSection = [[MainListSectionModel alloc] initWithType:MainSectionModelTypeDeck];
         
         [snapshot appendSectionsWithIdentifiers:@[cardsSection, deckSection]];
         
@@ -77,13 +84,12 @@
         
         @autoreleasepool {
             [snapshot appendItemsWithIdentifiers:@[
-                [[[MainItemModel alloc] initWithType:MainItemModelTypeCardsConstructed] autorelease],
-                [[[MainItemModel alloc] initWithType:MainItemModelTypeCardsMercenaries] autorelease]
+                [[[MainListItemModel alloc] initWithType:MainItemModelTypeCards] autorelease]
             ]
                        intoSectionWithIdentifier:cardsSection];
             
             [snapshot appendItemsWithIdentifiers:@[
-                [[[MainItemModel alloc] initWithType:MainItemModelTypeDecks] autorelease]
+                [[[MainListItemModel alloc] initWithType:MainItemModelTypeDecks] autorelease]
             ] intoSectionWithIdentifier:deckSection];
         }
         

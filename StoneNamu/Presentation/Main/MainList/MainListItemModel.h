@@ -10,12 +10,11 @@
 NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSUInteger, MainItemModelType) {
-    MainItemModelTypeCardsConstructed,
-    MainItemModelTypeCardsMercenaries,
-    MainItemModelTypeDecks,
+    MainItemModelTypeCards,
+    MainItemModelTypeDecks
 };
 
-@interface MainItemModel : NSObject
+@interface MainListItemModel : NSObject
 @property (readonly) MainItemModelType type;
 @property (readonly, nonatomic) UIImage * _Nullable primaryImage;
 @property (readonly, nonatomic) NSString * _Nullable primaryText;

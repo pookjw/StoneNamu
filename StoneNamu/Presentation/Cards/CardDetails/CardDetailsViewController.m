@@ -279,7 +279,7 @@
     }];
 }
 
-- (void)updateLayoutViewControllerWithTraitCollection:(UITraitCollection *)trailtCollection {
+- (void)updateLayoutViewControllerWithTraitCollection:(UITraitCollection *)traitCollection {
     for (UIViewController<CardDetailsLayoutProtocol> *tmp in self.layoutViewControllers) {
         [tmp cardDetailsLayoutRemovePrimaryImageView];
         [tmp cardDetailsLayoutRemoveCloseButton];
@@ -288,7 +288,7 @@
     }
     
     UIViewController<CardDetailsLayoutProtocol> *targetLayoutViewController;
-    UIUserInterfaceSizeClass sizeClass = trailtCollection.horizontalSizeClass;
+    UIUserInterfaceSizeClass sizeClass = traitCollection.horizontalSizeClass;
     
     switch (sizeClass) {
         case UIUserInterfaceSizeClassCompact:

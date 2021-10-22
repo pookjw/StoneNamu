@@ -6,8 +6,7 @@
 //
 
 #import "SceneDelegate.h"
-#import "MainSplitViewController.h"
-#import "MainTabBarController.h"
+#import "MainViewController.h"
 
 @interface SceneDelegate ()
 @end
@@ -18,7 +17,6 @@
     [_window release];
     [super dealloc];
 }
-
 
 - (void)scene:(UIScene *)scene willConnectToSession:(UISceneSession *)session options:(UISceneConnectionOptions *)connectionOptions {
     UIWindowScene *windowScene = (UIWindowScene *)scene;
@@ -36,14 +34,7 @@
     self.window = window;
     [self.window setTintColor:UIColor.redColor];
     
-    UIViewController *vc;
-    
-    if (UIDevice.currentDevice.userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
-        vc = [MainTabBarController new];
-    } else {
-        vc = [MainSplitViewController new];
-    }
-
+    MainViewController *vc = [MainViewController new];
     [vc loadViewIfNeeded];
     
     window.rootViewController = vc;

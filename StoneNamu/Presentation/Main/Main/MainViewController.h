@@ -1,8 +1,8 @@
 //
 //  MainViewController.h
-//  MainViewController
+//  StoneNamu
 //
-//  Created by Jinwoo Kim on 10/15/21.
+//  Created by Jinwoo Kim on 10/22/21.
 //
 
 #import <UIKit/UIKit.h>

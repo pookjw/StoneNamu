@@ -6,21 +6,23 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MainSectionModel.h"
-#import "MainItemModel.h"
+#import "MainListSectionModel.h"
+#import "MainListItemModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef UICollectionViewDiffableDataSource<MainSectionModel *, MainItemModel *> MainDataSource;
+typedef UICollectionViewDiffableDataSource<MainListSectionModel *, MainListItemModel *> MainDataSource;
 
-@interface MainViewModel : NSObject
+typedef void (^MainListViewModelIndexPathForItemTypeCompletion)(NSIndexPath * _Nullable);
+
+@interface MainListViewModel : NSObject
 @property (readonly, retain) MainDataSource *dataSource;
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithDataSource:(MainDataSource *)dataSource;
 - (NSString * _Nullable)headerTextFromIndexPath:(NSIndexPath *)indexPath;
 - (NSString * _Nullable)footerTextFromIndexPath:(NSIndexPath *)indexPath;
-- (NSDictionary<NSString *, NSString *> * _Nullable)cardOptionsFromType:(MainItemModelType)type;
+- (void)indexPathOfItemType:(MainItemModelType)itemType completion:(MainListViewModelIndexPathForItemTypeCompletion)completion;
 @end
 
 NS_ASSUME_NONNULL_END

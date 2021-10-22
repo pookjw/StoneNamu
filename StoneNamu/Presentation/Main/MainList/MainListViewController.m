@@ -1,27 +1,27 @@
 //
-//  MainViewController.m
-//  MainViewController
+//  MainListViewController.m
+//  MainListViewController
 //
 //  Created by Jinwoo Kim on 10/15/21.
 //
 
-#import "MainViewController.h"
-#import "MainViewModel.h"
+#import "MainListViewController.h"
+#import "MainListViewModel.h"
 #import "UIViewController+animatedForSelectedIndexPath.h"
+#import "OneBesideSecondarySplitViewController.h"
 #import "CardsViewController.h"
-#import "CardOptionsViewController.h"
 #import "DecksViewController.h"
 #import "PrefsViewController.h"
-#import "OneBesideSecondarySplitViewController.h"
+#import "MainLayoutProtocol.h"
 
-@interface MainViewController () <UICollectionViewDelegate>
+@interface MainListViewController () <UICollectionViewDelegate>
 @property (retain) UICollectionView *collectionView;
-@property (retain) MainViewModel *viewModel;
+@property (retain) MainListViewModel *viewModel;
 @property (retain) UICollectionViewSupplementaryRegistration *headerCellRegistration;
 @property (retain) UICollectionViewSupplementaryRegistration *footerCellRegistration;
 @end
 
-@implementation MainViewController
+@implementation MainListViewController
 
 - (void)dealloc {
     [_collectionView release];
@@ -29,6 +29,18 @@
     [_headerCellRegistration release];
     [_footerCellRegistration release];
     [super dealloc];
+}
+
+- (void)setSelectionStatusForViewController:(__kindof UIViewController *)viewController {
+    if ([viewController isKindOfClass:[CardsViewController class]]) {
+        [self.viewModel indexPathOfItemType:MainItemModelTypeCards completion:^(NSIndexPath * _Nullable indexPath) {
+            if (indexPath == nil) return;
+            
+            [NSOperationQueue.mainQueue addOperationWithBlock:^{
+                [self.collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
+            }];
+        }];
+    }
 }
 
 - (void)viewDidLoad {
@@ -96,7 +108,7 @@
 }
 
 - (void)configureViewModel {
-    MainViewModel *viewModel = [[MainViewModel alloc] initWithDataSource:[self makeDataSource]];
+    MainListViewModel *viewModel = [[MainListViewModel alloc] initWithDataSource:[self makeDataSource]];
     self.viewModel = viewModel;
     [viewModel autorelease];
 }
@@ -119,11 +131,11 @@
 - (UICollectionViewCellRegistration *)makeCellRegistration {
     UICollectionViewCellRegistration *cellRegistration = [UICollectionViewCellRegistration registrationWithCellClass:[UICollectionViewListCell class] configurationHandler:^(__kindof UICollectionViewListCell * _Nonnull cell, NSIndexPath * _Nonnull indexPath, id  _Nonnull item) {
         
-        if (![item isKindOfClass:[MainItemModel class]]) {
+        if (![item isKindOfClass:[MainListItemModel class]]) {
             return;
         }
         
-        MainItemModel *itemModel = (MainItemModel *)item;
+        MainListItemModel *itemModel = (MainListItemModel *)item;
         
         UIListContentConfiguration *configuration = [UIListContentConfiguration cellConfiguration];
         configuration.image = itemModel.primaryImage;
@@ -200,31 +212,13 @@
     return registration;
 }
 
-- (void)presentCardsViewControllerWithOptions:(NSDictionary<NSString *, NSString *> * _Nullable)options {
-    CardsViewController *cardsViewController = [CardsViewController new];
-    [cardsViewController loadViewIfNeeded];
-    [cardsViewController setOptionsBarButtonItemHidden:YES];
-    [cardsViewController requestWithOptions:options];
-    
-    if (self.splitViewController.isCollapsed) {
-        [self.navigationController pushViewController:cardsViewController animated:YES];
-    } else {
-        CardOptionsViewController *cardOptionsViewController = [[CardOptionsViewController alloc] initWithOptions:cardsViewController.options];
-        cardOptionsViewController.delegate = cardsViewController;
-        [cardOptionsViewController setCancelButtonHidden:YES];
-        [self.splitViewController setViewController:cardOptionsViewController forColumn:UISplitViewControllerColumnSupplementary];
-        [self.splitViewController setViewController:cardsViewController forColumn:UISplitViewControllerColumnSecondary];
-        // setViewController:forColumn: will push the view controller, so prevent this
-        [cardsViewController.navigationController setViewControllers:@[cardsViewController] animated:NO];
-        
-        [cardOptionsViewController release];
-    }
-    
-    [cardsViewController release];
+- (void)presentCardsViewController {
+    CardsViewController *cardsViewController = ((id<MainLayoutProtocol>)self.splitViewController).cardsViewController;
+    [(id<MainLayoutProtocol>)self.splitViewController restoreViewControllers:@[cardsViewController]];
 }
 
 - (void)presentDecksViewController {
-    DecksViewController *decksViewController = [DecksViewController new];
+    DecksViewController *decksViewController = ((id<MainLayoutProtocol>)self.splitViewController).decksViewController;
     [decksViewController loadViewIfNeeded];
     
     if (self.splitViewController.isCollapsed) {
@@ -233,19 +227,15 @@
         [self.splitViewController setViewController:decksViewController forColumn:UISplitViewControllerColumnSupplementary];
         [self.splitViewController setViewController:nil forColumn:UISplitViewControllerColumnSecondary];
     }
-    
-    [decksViewController release];
 }
 
 - (void)presentPrefsViewController {
-    PrefsViewController *prefsViewController = [PrefsViewController new];
+    PrefsViewController *prefsViewController = ((id<MainLayoutProtocol>)self.splitViewController).prefsViewController;
     [prefsViewController loadViewIfNeeded];
     [prefsViewController setDoneButtonHidden:NO];
     
     UINavigationController *prefsPrimaryNavigationController = [[UINavigationController alloc] initWithRootViewController:prefsViewController];
     UINavigationController *prefsSecondaryNavigationController = [UINavigationController new];
-    
-    [prefsViewController release];
     
     prefsPrimaryNavigationController.view.backgroundColor = UIColor.systemBackgroundColor;
     prefsSecondaryNavigationController.view.backgroundColor = UIColor.systemBackgroundColor;
@@ -265,17 +255,11 @@
 #pragma mark - UICollectionViewDelegate
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    MainItemModel * _Nullable itemModel = [self.viewModel.dataSource itemIdentifierForIndexPath:indexPath];
+    MainListItemModel * _Nullable itemModel = [self.viewModel.dataSource itemIdentifierForIndexPath:indexPath];
     
     switch (itemModel.type) {
-        case MainItemModelTypeCardsConstructed: {
-            NSDictionary<NSString *, NSString *> * _Nullable options = [self.viewModel cardOptionsFromType:itemModel.type];
-            [self presentCardsViewControllerWithOptions:options];
-            break;
-        }
-        case MainItemModelTypeCardsMercenaries: {
-            NSDictionary<NSString *, NSString *> * _Nullable options = [self.viewModel cardOptionsFromType:itemModel.type];
-            [self presentCardsViewControllerWithOptions:options];
+        case MainItemModelTypeCards: {
+            [self presentCardsViewController];
             break;
         }
         case MainItemModelTypeDecks: {
