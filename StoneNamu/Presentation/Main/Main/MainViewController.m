@@ -71,7 +71,11 @@
 
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
     [super traitCollectionDidChange:previousTraitCollection];
+    
+    // when presenting ViewController, horizontalSizeClass will be changed rapidly. (Catalyst bug)
+#if !TARGET_OS_MACCATALYST
     [self setViewControllerForTraitCollection:self.traitCollection];
+#endif
     
     if ((self.tmpPresentedViewController != nil)) {
         if (self.tmpPresentedViewController.presentingViewController == nil) {
