@@ -349,6 +349,7 @@
     } else {
         if (self.splitViewController.style == UISplitViewControllerStyleTripleColumn) {
             [self.splitViewController setViewController:vc forColumn:UISplitViewControllerColumnSecondary];
+            [vc.navigationController setViewControllers:@[vc] animated:NO];
         } else {
             [self.splitViewController showDetailViewController:vc sender:self];
         }
