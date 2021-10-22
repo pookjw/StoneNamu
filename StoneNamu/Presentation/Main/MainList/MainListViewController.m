@@ -40,6 +40,14 @@
                 [self.collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
             }];
         }];
+    } else if ([viewController isKindOfClass:[DecksViewController class]]) {
+        [self.viewModel indexPathOfItemType:MainItemModelTypeDecks completion:^(NSIndexPath * _Nullable indexPath) {
+            if (indexPath == nil) return;
+            
+            [NSOperationQueue.mainQueue addOperationWithBlock:^{
+                [self.collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
+            }];
+        }];
     }
 }
 
