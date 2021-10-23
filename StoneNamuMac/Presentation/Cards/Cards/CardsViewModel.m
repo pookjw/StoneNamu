@@ -65,8 +65,6 @@
     [super dealloc];
 }
 
-
-
 - (BOOL)requestDataSourceWithOptions:(NSDictionary<NSString *,NSString *> *)options reset:(BOOL)reset {
     
     if (reset) {
@@ -105,10 +103,10 @@
         }
         
         [self.queue addBarrierBlock:^{
+            [self updateDataSourceWithCards:cards];
             self.pageCount = pageCount;
             self.page = page;
             self.isFetching = NO;
-            [self updateDataSourceWithCards:cards];
         }];
     }];
     
@@ -141,14 +139,16 @@
         CardSectionModel * _Nullable sectionModel = nil;
         
         for (CardSectionModel *tmp in snapshot.sectionIdentifiers) {
-            if (tmp.type == CardSecctionModelTypeCards) {
+            if (tmp.type == CardSectionModelTypeCards) {
                 sectionModel = tmp;
             }
         }
         
         if (sectionModel == nil) {
-            sectionModel = [[[CardSectionModel alloc] initWithType:CardSecctionModelTypeCards] autorelease];
-            [snapshot appendSectionsWithIdentifiers:@[sectionModel]];
+            CardSectionModel *_sectionModel = [[CardSectionModel alloc] initWithType:CardSectionModelTypeCards];
+            sectionModel = _sectionModel;
+            [snapshot appendSectionsWithIdentifiers:@[_sectionModel]];
+            [_sectionModel autorelease];
         }
         
         NSMutableArray<CardItemModel *> *itemModels = [@[] mutableCopy];
@@ -159,7 +159,7 @@
             [itemModel release];
         }
         
-        [snapshot appendItemsWithIdentifiers:[[itemModels copy] autorelease] intoSectionWithIdentifier:sectionModel];
+        [snapshot appendItemsWithIdentifiers:itemModels intoSectionWithIdentifier:sectionModel];
         
         [itemModels release];
         

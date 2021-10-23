@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface OneBesideSecondarySplitViewController : UISplitViewController
+@interface MainSplitViewController : UISplitViewController
 
 @end
 

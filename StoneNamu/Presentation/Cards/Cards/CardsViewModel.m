@@ -123,10 +123,10 @@
         }
         
         [self.queue addBarrierBlock:^{
+            [self updateDataSourceWithCards:cards];
             self.pageCount = pageCount;
             self.page = page;
             self.isFetching = NO;
-            [self updateDataSourceWithCards:cards];
         }];
     }];
     
@@ -175,8 +175,10 @@
         }
         
         if (sectionModel == nil) {
-            sectionModel = [[[CardSectionModel alloc] initWithType:CardSectionModelTypeCards] autorelease];
-            [snapshot appendSectionsWithIdentifiers:@[sectionModel]];
+            CardSectionModel *_sectionModel = [[CardSectionModel alloc] initWithType:CardSectionModelTypeCards];
+            sectionModel = _sectionModel;
+            [snapshot appendSectionsWithIdentifiers:@[_sectionModel]];
+            [_sectionModel autorelease];
         }
         
         NSMutableArray<CardItemModel *> *itemModels = [@[] mutableCopy];
@@ -187,9 +189,7 @@
             [itemModel release];
         }
         
-        [snapshot appendItemsWithIdentifiers:[[itemModels copy] autorelease] intoSectionWithIdentifier:sectionModel];
-        
-        [itemModels release];
+        [snapshot appendItemsWithIdentifiers:itemModels intoSectionWithIdentifier:sectionModel];
         
         [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
             [snapshot release];

@@ -66,6 +66,10 @@
 		4F4892C52724539600126131 /* Identifier.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F4892C42724534C00126131 /* Identifier.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		4F4892CA272460CD00126131 /* StoneNamuCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F34384826A36FBA001161FE /* StoneNamuCore.framework */; };
 		4F4892CB272460CD00126131 /* StoneNamuCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4F34384826A36FBA001161FE /* StoneNamuCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4F4892DE27246B6000126131 /* NSViewController+loadViewIfNeeded.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4892DD27246B6000126131 /* NSViewController+loadViewIfNeeded.m */; };
+		4F4892E227246E2B00126131 /* MainWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4892E127246E2B00126131 /* MainWindow.m */; };
+		4F4892E92724727000126131 /* CardContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4892E82724727000126131 /* CardContentView.m */; };
+		4F4892EB272474D600126131 /* CardContentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F4892EA272474D600126131 /* CardContentView.xib */; };
 		4F4976D226ABE6B600860809 /* CardsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4976D126ABE6B600860809 /* CardsViewModel.m */; };
 		4F4976D626ABE72C00860809 /* CardSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4976D526ABE72C00860809 /* CardSectionModel.m */; };
 		4F4976D926ABE80700860809 /* CardItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4976D826ABE80700860809 /* CardItemModel.m */; };
@@ -240,9 +244,8 @@
 		4FE85708270089BD0008C2FB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE85707270089BD0008C2FB /* main.m */; };
 		4FE8575527008DBA0008C2FB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4F9DFBB926B2FD2E002AACDE /* InfoPlist.strings */; };
 		4FE8575627008DBE0008C2FB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4F9DFBB326B2FD0C002AACDE /* Localizable.strings */; };
-		4FE8575E27008E140008C2FB /* MainWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE8575D27008E140008C2FB /* MainWindow.m */; };
-		4FE857622700913A0008C2FB /* OneBesideSecondarySplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE857612700913A0008C2FB /* OneBesideSecondarySplitViewController.m */; };
-		4FE85767270092F30008C2FB /* MainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE85766270092F30008C2FB /* MainMenuViewController.m */; };
+		4FE857622700913A0008C2FB /* MainSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE857612700913A0008C2FB /* MainSplitViewController.m */; };
+		4FE85767270092F30008C2FB /* MainListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE85766270092F30008C2FB /* MainListViewController.m */; };
 		4FE8576A270093CF0008C2FB /* CardsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE85769270093CF0008C2FB /* CardsViewController.m */; };
 		4FE8576D27009B5C0008C2FB /* CardsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE8576C27009B5C0008C2FB /* CardsViewModel.m */; };
 		4FE8577027009C4D0008C2FB /* CardSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE8576F27009C4D0008C2FB /* CardSectionModel.m */; };
@@ -264,7 +267,7 @@
 		4FF3E0CB26C9AE15002B20EA /* PhotosService.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF3E0CA26C9AE15002B20EA /* PhotosService.m */; };
 		4FF3E0CE26C9B84C002B20EA /* UIView+viewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF3E0CD26C9B84C002B20EA /* UIView+viewController.m */; };
 		4FF3E0D226CA6FB9002B20EA /* MainTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF3E0D126CA6FB9002B20EA /* MainTabBarController.m */; };
-		4FF3E0DB26CA947D002B20EA /* OneBesideSecondarySplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF3E0DA26CA947D002B20EA /* OneBesideSecondarySplitViewController.m */; };
+		4FF3E0DB26CA947D002B20EA /* MainSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF3E0DA26CA947D002B20EA /* MainSplitViewController.m */; };
 		4FF5729C271DC8A5007794EE /* DynamicAnimatedTransitioning.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF5729B271DC8A5007794EE /* DynamicAnimatedTransitioning.m */; };
 		4FF676CF26AAFC6A00477272 /* CardsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF676CE26AAFC6A00477272 /* CardsViewController.m */; };
 		4FFBAADB26E4FE9900DBEEDB /* UIImage+imageWithGrayScale.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FFBAADA26E4FE9900DBEEDB /* UIImage+imageWithGrayScale.m */; };
@@ -443,6 +446,14 @@
 		4F449EC726B19AAE007CE04A /* HSCardKeyword.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardKeyword.h; sourceTree = "<group>"; };
 		4F4892C42724534C00126131 /* Identifier.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Identifier.h; sourceTree = "<group>"; };
 		4F4892D02724637D00126131 /* StoneNamuMac.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = StoneNamuMac.entitlements; sourceTree = "<group>"; };
+		4F4892D2272467E300126131 /* NSCollectionViewDiffableDataSource+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSCollectionViewDiffableDataSource+Private.h"; sourceTree = "<group>"; };
+		4F4892DC27246B6000126131 /* NSViewController+loadViewIfNeeded.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSViewController+loadViewIfNeeded.h"; sourceTree = "<group>"; };
+		4F4892DD27246B6000126131 /* NSViewController+loadViewIfNeeded.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSViewController+loadViewIfNeeded.m"; sourceTree = "<group>"; };
+		4F4892E027246E2B00126131 /* MainWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainWindow.h; sourceTree = "<group>"; };
+		4F4892E127246E2B00126131 /* MainWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainWindow.m; sourceTree = "<group>"; };
+		4F4892E72724727000126131 /* CardContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardContentView.h; sourceTree = "<group>"; };
+		4F4892E82724727000126131 /* CardContentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardContentView.m; sourceTree = "<group>"; };
+		4F4892EA272474D600126131 /* CardContentView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CardContentView.xib; sourceTree = "<group>"; };
 		4F4976D026ABE6B600860809 /* CardsViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardsViewModel.h; sourceTree = "<group>"; };
 		4F4976D126ABE6B600860809 /* CardsViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardsViewModel.m; sourceTree = "<group>"; };
 		4F4976D426ABE72C00860809 /* CardSectionModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardSectionModel.h; sourceTree = "<group>"; };
@@ -708,12 +719,10 @@
 		4FE85702270089BD0008C2FB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4FE85705270089BD0008C2FB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		4FE85707270089BD0008C2FB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		4FE8575C27008E140008C2FB /* MainWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainWindow.h; sourceTree = "<group>"; };
-		4FE8575D27008E140008C2FB /* MainWindow.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainWindow.m; sourceTree = "<group>"; };
-		4FE857602700913A0008C2FB /* OneBesideSecondarySplitViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OneBesideSecondarySplitViewController.h; sourceTree = "<group>"; };
-		4FE857612700913A0008C2FB /* OneBesideSecondarySplitViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OneBesideSecondarySplitViewController.m; sourceTree = "<group>"; };
-		4FE85765270092F30008C2FB /* MainMenuViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainMenuViewController.h; sourceTree = "<group>"; };
-		4FE85766270092F30008C2FB /* MainMenuViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainMenuViewController.m; sourceTree = "<group>"; };
+		4FE857602700913A0008C2FB /* MainSplitViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainSplitViewController.h; sourceTree = "<group>"; };
+		4FE857612700913A0008C2FB /* MainSplitViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainSplitViewController.m; sourceTree = "<group>"; };
+		4FE85765270092F30008C2FB /* MainListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainListViewController.h; sourceTree = "<group>"; };
+		4FE85766270092F30008C2FB /* MainListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainListViewController.m; sourceTree = "<group>"; };
 		4FE85768270093CF0008C2FB /* CardsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardsViewController.h; sourceTree = "<group>"; };
 		4FE85769270093CF0008C2FB /* CardsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardsViewController.m; sourceTree = "<group>"; };
 		4FE8576B27009B5C0008C2FB /* CardsViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardsViewModel.h; sourceTree = "<group>"; };
@@ -759,8 +768,8 @@
 		4FF3E0D326CA732F002B20EA /* CardOptionsViewControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardOptionsViewControllerDelegate.h; sourceTree = "<group>"; };
 		4FF3E0D526CA7F81002B20EA /* NSSemaphoreCondition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSSemaphoreCondition.h; sourceTree = "<group>"; };
 		4FF3E0D626CA7F81002B20EA /* NSSemaphoreCondition.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NSSemaphoreCondition.m; sourceTree = "<group>"; };
-		4FF3E0D926CA947D002B20EA /* OneBesideSecondarySplitViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OneBesideSecondarySplitViewController.h; sourceTree = "<group>"; };
-		4FF3E0DA26CA947D002B20EA /* OneBesideSecondarySplitViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OneBesideSecondarySplitViewController.m; sourceTree = "<group>"; };
+		4FF3E0D926CA947D002B20EA /* MainSplitViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainSplitViewController.h; sourceTree = "<group>"; };
+		4FF3E0DA26CA947D002B20EA /* MainSplitViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainSplitViewController.m; sourceTree = "<group>"; };
 		4FF5729A271DC8A5007794EE /* DynamicAnimatedTransitioning.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DynamicAnimatedTransitioning.h; sourceTree = "<group>"; };
 		4FF5729B271DC8A5007794EE /* DynamicAnimatedTransitioning.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DynamicAnimatedTransitioning.m; sourceTree = "<group>"; };
 		4FF676CD26AAFC6A00477272 /* CardsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardsViewController.h; sourceTree = "<group>"; };
@@ -1015,6 +1024,51 @@
 				4F3F1BC226E7C12000ACF80A /* TextActivityViewController.m */,
 			);
 			path = TextActivity;
+			sourceTree = "<group>";
+		};
+		4F4892D1272467CD00126131 /* Private */ = {
+			isa = PBXGroup;
+			children = (
+				4F4892D2272467E300126131 /* NSCollectionViewDiffableDataSource+Private.h */,
+			);
+			path = Private;
+			sourceTree = "<group>";
+		};
+		4F4892D3272469A100126131 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				4F4892DF27246E1F00126131 /* MainWindow */,
+				4FE8575F2700911B0008C2FB /* MainSplit */,
+				4FE85763270092CA0008C2FB /* MainMenu */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		4F4892D4272469AB00126131 /* Cards */ = {
+			isa = PBXGroup;
+			children = (
+				4FE85768270093CF0008C2FB /* CardsViewController.h */,
+				4FE85769270093CF0008C2FB /* CardsViewController.m */,
+				4FE8576B27009B5C0008C2FB /* CardsViewModel.h */,
+				4FE8576C27009B5C0008C2FB /* CardsViewModel.m */,
+				4FE8576E27009C4D0008C2FB /* CardSectionModel.h */,
+				4FE8576F27009C4D0008C2FB /* CardSectionModel.m */,
+				4FE8577127009C570008C2FB /* CardItemModel.h */,
+				4FE8577227009C570008C2FB /* CardItemModel.m */,
+				4F4892E72724727000126131 /* CardContentView.h */,
+				4F4892E82724727000126131 /* CardContentView.m */,
+				4F4892EA272474D600126131 /* CardContentView.xib */,
+			);
+			path = Cards;
+			sourceTree = "<group>";
+		};
+		4F4892DF27246E1F00126131 /* MainWindow */ = {
+			isa = PBXGroup;
+			children = (
+				4F4892E027246E2B00126131 /* MainWindow.h */,
+				4F4892E127246E2B00126131 /* MainWindow.m */,
+			);
+			path = MainWindow;
 			sourceTree = "<group>";
 		};
 		4F4976D326ABE6EF00860809 /* Cards */ = {
@@ -1724,6 +1778,7 @@
 				4F4892D02724637D00126131 /* StoneNamuMac.entitlements */,
 				4FE8575427008D640008C2FB /* Application */,
 				4FE8575827008DE60008C2FB /* Category */,
+				4F4892D1272467CD00126131 /* Private */,
 				4FE8575727008DDF0008C2FB /* Presentation */,
 			);
 			path = StoneNamuMac;
@@ -1744,8 +1799,8 @@
 		4FE8575727008DDF0008C2FB /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				4FE8575927008DEE0008C2FB /* Window */,
-				4FE8575A27008DF40008C2FB /* View */,
+				4F4892D3272469A100126131 /* Main */,
+				4FE85764270092CF0008C2FB /* Cards */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -1757,42 +1812,17 @@
 				4FE857752700A0230008C2FB /* NSCollectionViewDiffableDataSource+applySnapshotAndWait.m */,
 				4FE857772700A3580008C2FB /* NSWindow+presentErrorAlert.h */,
 				4FE857782700A3580008C2FB /* NSWindow+presentErrorAlert.m */,
+				4F4892DC27246B6000126131 /* NSViewController+loadViewIfNeeded.h */,
+				4F4892DD27246B6000126131 /* NSViewController+loadViewIfNeeded.m */,
 			);
 			path = Category;
-			sourceTree = "<group>";
-		};
-		4FE8575927008DEE0008C2FB /* Window */ = {
-			isa = PBXGroup;
-			children = (
-				4FE8575B27008DFF0008C2FB /* Main */,
-			);
-			path = Window;
-			sourceTree = "<group>";
-		};
-		4FE8575A27008DF40008C2FB /* View */ = {
-			isa = PBXGroup;
-			children = (
-				4FE8575F2700911B0008C2FB /* MainSplit */,
-				4FE85763270092CA0008C2FB /* MainMenu */,
-				4FE85764270092CF0008C2FB /* Cards */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		4FE8575B27008DFF0008C2FB /* Main */ = {
-			isa = PBXGroup;
-			children = (
-				4FE8575C27008E140008C2FB /* MainWindow.h */,
-				4FE8575D27008E140008C2FB /* MainWindow.m */,
-			);
-			path = Main;
 			sourceTree = "<group>";
 		};
 		4FE8575F2700911B0008C2FB /* MainSplit */ = {
 			isa = PBXGroup;
 			children = (
-				4FE857602700913A0008C2FB /* OneBesideSecondarySplitViewController.h */,
-				4FE857612700913A0008C2FB /* OneBesideSecondarySplitViewController.m */,
+				4FE857602700913A0008C2FB /* MainSplitViewController.h */,
+				4FE857612700913A0008C2FB /* MainSplitViewController.m */,
 			);
 			path = MainSplit;
 			sourceTree = "<group>";
@@ -1800,8 +1830,8 @@
 		4FE85763270092CA0008C2FB /* MainMenu */ = {
 			isa = PBXGroup;
 			children = (
-				4FE85765270092F30008C2FB /* MainMenuViewController.h */,
-				4FE85766270092F30008C2FB /* MainMenuViewController.m */,
+				4FE85765270092F30008C2FB /* MainListViewController.h */,
+				4FE85766270092F30008C2FB /* MainListViewController.m */,
 			);
 			path = MainMenu;
 			sourceTree = "<group>";
@@ -1809,14 +1839,7 @@
 		4FE85764270092CF0008C2FB /* Cards */ = {
 			isa = PBXGroup;
 			children = (
-				4FE85768270093CF0008C2FB /* CardsViewController.h */,
-				4FE85769270093CF0008C2FB /* CardsViewController.m */,
-				4FE8576B27009B5C0008C2FB /* CardsViewModel.h */,
-				4FE8576C27009B5C0008C2FB /* CardsViewModel.m */,
-				4FE8576E27009C4D0008C2FB /* CardSectionModel.h */,
-				4FE8576F27009C4D0008C2FB /* CardSectionModel.m */,
-				4FE8577127009C570008C2FB /* CardItemModel.h */,
-				4FE8577227009C570008C2FB /* CardItemModel.m */,
+				4F4892D4272469AB00126131 /* Cards */,
 			);
 			path = Cards;
 			sourceTree = "<group>";
@@ -1866,8 +1889,8 @@
 		4FF3E0D826CA944B002B20EA /* OneBesideSecondary */ = {
 			isa = PBXGroup;
 			children = (
-				4FF3E0D926CA947D002B20EA /* OneBesideSecondarySplitViewController.h */,
-				4FF3E0DA26CA947D002B20EA /* OneBesideSecondarySplitViewController.m */,
+				4FF3E0D926CA947D002B20EA /* MainSplitViewController.h */,
+				4FF3E0DA26CA947D002B20EA /* MainSplitViewController.m */,
 			);
 			path = OneBesideSecondary;
 			sourceTree = "<group>";
@@ -2172,6 +2195,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F4892EB272474D600126131 /* CardContentView.xib in Resources */,
 				4FE85703270089BD0008C2FB /* Assets.xcassets in Resources */,
 				4FE8575627008DBE0008C2FB /* Localizable.strings in Resources */,
 				4FE8575527008DBA0008C2FB /* InfoPlist.strings in Resources */,
@@ -2363,7 +2387,7 @@
 				4F98E25B26B9AA280067846F /* CardDetailsSectionModel.m in Sources */,
 				4F8754BC26DB91D7000CE351 /* NSIndexPath+identifier.m in Sources */,
 				4F68198526D74B2A00033AEE /* ImageService.m in Sources */,
-				4FF3E0DB26CA947D002B20EA /* OneBesideSecondarySplitViewController.m in Sources */,
+				4FF3E0DB26CA947D002B20EA /* MainSplitViewController.m in Sources */,
 				4F646A5F26B7D05E00BEDB38 /* UIImageView+setAsyncImage.m in Sources */,
 				4F066CA826D6D2C300991A98 /* DeckDetailsManaCostGraphContentConfiguration.m in Sources */,
 				4F066CB126D6DC5A00991A98 /* DeckDetailsManaCostContentViewModel.m in Sources */,
@@ -2386,16 +2410,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4FE857622700913A0008C2FB /* OneBesideSecondarySplitViewController.m in Sources */,
+				4FE857622700913A0008C2FB /* MainSplitViewController.m in Sources */,
 				4FE8576D27009B5C0008C2FB /* CardsViewModel.m in Sources */,
 				4FE85708270089BD0008C2FB /* main.m in Sources */,
+				4F4892E92724727000126131 /* CardContentView.m in Sources */,
 				4FE85701270089BC0008C2FB /* AppDelegate.m in Sources */,
-				4FE8575E27008E140008C2FB /* MainWindow.m in Sources */,
 				4FE8577027009C4D0008C2FB /* CardSectionModel.m in Sources */,
+				4F4892DE27246B6000126131 /* NSViewController+loadViewIfNeeded.m in Sources */,
 				4FE857792700A3580008C2FB /* NSWindow+presentErrorAlert.m in Sources */,
 				4FE8576A270093CF0008C2FB /* CardsViewController.m in Sources */,
+				4F4892E227246E2B00126131 /* MainWindow.m in Sources */,
 				4FE8577327009C570008C2FB /* CardItemModel.m in Sources */,
-				4FE85767270092F30008C2FB /* MainMenuViewController.m in Sources */,
+				4FE85767270092F30008C2FB /* MainListViewController.m in Sources */,
 				4FE857762700A0230008C2FB /* NSCollectionViewDiffableDataSource+applySnapshotAndWait.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

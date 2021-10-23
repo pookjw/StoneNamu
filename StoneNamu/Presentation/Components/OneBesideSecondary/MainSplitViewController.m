@@ -5,12 +5,12 @@
 //  Created by Jinwoo Kim on 8/16/21.
 //
 
-#import "OneBesideSecondarySplitViewController.h"
+#import "MainSplitViewController.h"
 
-@interface OneBesideSecondarySplitViewController () <UISplitViewControllerDelegate>
+@interface MainSplitViewController () <UISplitViewControllerDelegate>
 @end
 
-@implementation OneBesideSecondarySplitViewController
+@implementation MainSplitViewController
 
 - (instancetype)init {
     self = [super init];

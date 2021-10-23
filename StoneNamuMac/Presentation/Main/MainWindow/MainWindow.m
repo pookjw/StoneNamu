@@ -6,10 +6,10 @@
 //
 
 #import "MainWindow.h"
-#import "OneBesideSecondarySplitViewController.h"
+#import "MainSplitViewController.h"
 
 @interface MainWindow ()
-@property (retain) OneBesideSecondarySplitViewController *mainSplitViewController;
+@property (retain) MainSplitViewController *mainSplitViewController;
 @end
 
 @implementation MainWindow
@@ -22,10 +22,10 @@
         self.titlebarAppearsTransparent = YES;
         self.movableByWindowBackground = YES;
         self.titleVisibility = NSWindowTitleHidden;
-        self.contentMinSize = NSMakeSize(300, 300);
+        self.contentMinSize = NSMakeSize(800, 600);
         self.releasedWhenClosed = NO;
         
-        OneBesideSecondarySplitViewController *mainSplitViewController = [OneBesideSecondarySplitViewController new];
+        MainSplitViewController *mainSplitViewController = [MainSplitViewController new];
         self.mainSplitViewController = mainSplitViewController;
         self.contentViewController = mainSplitViewController;
         [mainSplitViewController release];

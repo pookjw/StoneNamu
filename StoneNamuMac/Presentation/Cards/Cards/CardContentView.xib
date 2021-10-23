@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19455" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19455"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner"/>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <collectionViewItem id="IgK-hD-som" customClass="CardContentView">
+            <connections>
+                <outlet property="imageView" destination="dOn-gC-T2f" id="30K-FN-aBQ"/>
+                <outlet property="view" destination="0mA-ce-Dtt" id="ZF2-Ne-x6a"/>
+            </connections>
+        </collectionViewItem>
+        <box boxType="custom" cornerRadius="4" title="Box" id="NGd-fg-qV6">
+            <rect key="frame" x="0.0" y="0.0" width="177" height="114"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <view key="contentView" id="0mA-ce-Dtt">
+                <rect key="frame" x="1" y="1" width="175" height="112"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <subviews>
+                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dOn-gC-T2f">
+                        <rect key="frame" x="0.0" y="0.0" width="175" height="112"/>
+                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="c4e-Pv-8Wo"/>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="dOn-gC-T2f" firstAttribute="top" secondItem="0mA-ce-Dtt" secondAttribute="top" id="bgD-9Z-uMd"/>
+                    <constraint firstItem="dOn-gC-T2f" firstAttribute="leading" secondItem="0mA-ce-Dtt" secondAttribute="leading" id="e9R-PH-ZCM"/>
+                    <constraint firstAttribute="bottom" secondItem="dOn-gC-T2f" secondAttribute="bottom" id="lEP-TD-aHc"/>
+                    <constraint firstAttribute="trailing" secondItem="dOn-gC-T2f" secondAttribute="trailing" id="miY-Xe-P6d"/>
+                </constraints>
+            </view>
+            <point key="canvasLocation" x="140" y="154"/>
+        </box>
+    </objects>
+</document>

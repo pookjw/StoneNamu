@@ -8,7 +8,7 @@
 #import "MainListViewController.h"
 #import "MainListViewModel.h"
 #import "UIViewController+animatedForSelectedIndexPath.h"
-#import "OneBesideSecondarySplitViewController.h"
+#import "MainSplitViewController.h"
 #import "CardsViewController.h"
 #import "DecksViewController.h"
 #import "PrefsViewController.h"
@@ -248,7 +248,7 @@
     prefsPrimaryNavigationController.view.backgroundColor = UIColor.systemBackgroundColor;
     prefsSecondaryNavigationController.view.backgroundColor = UIColor.systemBackgroundColor;
     
-    OneBesideSecondarySplitViewController *prefsSplitViewController = [OneBesideSecondarySplitViewController new];
+    MainSplitViewController *prefsSplitViewController = [MainSplitViewController new];
     
     prefsSplitViewController.viewControllers = @[prefsPrimaryNavigationController, prefsSecondaryNavigationController];
     

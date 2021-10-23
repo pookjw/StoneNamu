@@ -1,6 +1,6 @@
 //
-//  MainMenuViewController.h
-//  MainMenuViewController
+//  MainListViewController.h
+//  MainListViewController
 //
 //  Created by Jinwoo Kim on 9/26/21.
 //
@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MainMenuViewController : NSViewController
+@interface MainListViewController : NSViewController
 
 @end
 

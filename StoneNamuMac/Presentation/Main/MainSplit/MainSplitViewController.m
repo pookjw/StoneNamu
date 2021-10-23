@@ -5,14 +5,14 @@
 //  Created by Jinwoo Kim on 9/26/21.
 //
 
-#import "OneBesideSecondarySplitViewController.h"
-#import "MainMenuViewController.h"
+#import "MainSplitViewController.h"
+#import "MainListViewController.h"
 #import "CardsViewController.h"
 
-@interface OneBesideSecondarySplitViewController ()
+@interface MainSplitViewController ()
 @end
 
-@implementation OneBesideSecondarySplitViewController
+@implementation MainSplitViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -25,7 +25,7 @@
 }
 
 - (void)configureViewControllers {
-    MainMenuViewController *mainMenuViewController = [MainMenuViewController new];
+    MainListViewController *mainMenuViewController = [MainListViewController new];
     NSSplitViewItem *item = [NSSplitViewItem sidebarWithViewController:mainMenuViewController];
     [self addSplitViewItem:item];
     [mainMenuViewController release];
@@ -34,6 +34,12 @@
     NSSplitViewItem *item2 = [NSSplitViewItem contentListWithViewController:cardsViewController];
     [self addSplitViewItem:item2];
     [cardsViewController release];
+}
+
+#pragma mark - NSSplitViewDelegate
+
+- (BOOL)splitView:(NSSplitView *)splitView canCollapseSubview:(NSView *)subview {
+    return NO;
 }
 
 @end

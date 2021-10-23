@@ -7,6 +7,7 @@
 
 #import "NSCollectionViewDiffableDataSource+applySnapshotAndWait.h"
 #import <StoneNamuCore/StoneNamuCore.h>
+#import "NSCollectionViewDiffableDataSource+Private.h"
 
 @implementation NSCollectionViewDiffableDataSource (applySnapshotAndWait)
 
