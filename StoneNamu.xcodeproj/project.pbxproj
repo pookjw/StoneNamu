@@ -990,12 +990,12 @@
 		4F34384926A36FBA001161FE /* StoneNamuCore */ = {
 			isa = PBXGroup;
 			children = (
+				4F34384A26A36FBA001161FE /* StoneNamuCore.h */,
 				4F2438F726CD9E6D0041BB84 /* Util */,
 				4FA8F40026B145D200D7D4C6 /* Localizables */,
 				4F646A6826B7D8A100BEDB38 /* Category */,
 				4FA56BEA26A212E8002D9FA0 /* Domain */,
 				4FA56BE926A212E2002D9FA0 /* Data */,
-				4F34384A26A36FBA001161FE /* StoneNamuCore.h */,
 			);
 			path = StoneNamuCore;
 			sourceTree = "<group>";
@@ -2602,7 +2602,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = P53D29U9LJ;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -2617,7 +2617,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pookjw.StoneNamuCore;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -2639,7 +2639,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = P53D29U9LJ;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -2654,7 +2654,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pookjw.StoneNamuCore;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -2851,7 +2851,7 @@
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CODE_SIGN_ENTITLEMENTS = StoneNamu/StoneNamu.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = P53D29U9LJ;
 				INFOPLIST_FILE = StoneNamu/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -2859,7 +2859,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pookjw.StoneNamu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
@@ -2877,7 +2877,7 @@
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CODE_SIGN_ENTITLEMENTS = StoneNamu/StoneNamu.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = P53D29U9LJ;
 				INFOPLIST_FILE = StoneNamu/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -2885,7 +2885,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pookjw.StoneNamu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
@@ -2921,7 +2921,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pookjw.StoneNamu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -2957,7 +2957,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pookjw.StoneNamu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
