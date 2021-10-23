@@ -1,16 +1,16 @@
 //
-//  MainSplitViewController.m
-//  MainSplitViewController
+//  OneBesideSecondarySplitViewController.m
+//  OneBesideSecondarySplitViewController
 //
 //  Created by Jinwoo Kim on 8/16/21.
 //
 
-#import "MainSplitViewController.h"
+#import "OneBesideSecondarySplitViewController.h"
 
-@interface MainSplitViewController () <UISplitViewControllerDelegate>
+@interface OneBesideSecondarySplitViewController () <UISplitViewControllerDelegate>
 @end
 
-@implementation MainSplitViewController
+@implementation OneBesideSecondarySplitViewController
 
 - (instancetype)init {
     self = [super init];

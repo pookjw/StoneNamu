@@ -267,7 +267,7 @@
 		4FF3E0CB26C9AE15002B20EA /* PhotosService.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF3E0CA26C9AE15002B20EA /* PhotosService.m */; };
 		4FF3E0CE26C9B84C002B20EA /* UIView+viewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF3E0CD26C9B84C002B20EA /* UIView+viewController.m */; };
 		4FF3E0D226CA6FB9002B20EA /* MainTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF3E0D126CA6FB9002B20EA /* MainTabBarController.m */; };
-		4FF3E0DB26CA947D002B20EA /* MainSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF3E0DA26CA947D002B20EA /* MainSplitViewController.m */; };
+		4FF3E0DB26CA947D002B20EA /* OneBesideSecondarySplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF3E0DA26CA947D002B20EA /* OneBesideSecondarySplitViewController.m */; };
 		4FF5729C271DC8A5007794EE /* DynamicAnimatedTransitioning.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF5729B271DC8A5007794EE /* DynamicAnimatedTransitioning.m */; };
 		4FF676CF26AAFC6A00477272 /* CardsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF676CE26AAFC6A00477272 /* CardsViewController.m */; };
 		4FFBAADB26E4FE9900DBEEDB /* UIImage+imageWithGrayScale.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FFBAADA26E4FE9900DBEEDB /* UIImage+imageWithGrayScale.m */; };
@@ -768,8 +768,8 @@
 		4FF3E0D326CA732F002B20EA /* CardOptionsViewControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardOptionsViewControllerDelegate.h; sourceTree = "<group>"; };
 		4FF3E0D526CA7F81002B20EA /* NSSemaphoreCondition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSSemaphoreCondition.h; sourceTree = "<group>"; };
 		4FF3E0D626CA7F81002B20EA /* NSSemaphoreCondition.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NSSemaphoreCondition.m; sourceTree = "<group>"; };
-		4FF3E0D926CA947D002B20EA /* MainSplitViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainSplitViewController.h; sourceTree = "<group>"; };
-		4FF3E0DA26CA947D002B20EA /* MainSplitViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainSplitViewController.m; sourceTree = "<group>"; };
+		4FF3E0D926CA947D002B20EA /* OneBesideSecondarySplitViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OneBesideSecondarySplitViewController.h; sourceTree = "<group>"; };
+		4FF3E0DA26CA947D002B20EA /* OneBesideSecondarySplitViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OneBesideSecondarySplitViewController.m; sourceTree = "<group>"; };
 		4FF5729A271DC8A5007794EE /* DynamicAnimatedTransitioning.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DynamicAnimatedTransitioning.h; sourceTree = "<group>"; };
 		4FF5729B271DC8A5007794EE /* DynamicAnimatedTransitioning.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DynamicAnimatedTransitioning.m; sourceTree = "<group>"; };
 		4FF676CD26AAFC6A00477272 /* CardsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardsViewController.h; sourceTree = "<group>"; };
@@ -1889,8 +1889,8 @@
 		4FF3E0D826CA944B002B20EA /* OneBesideSecondary */ = {
 			isa = PBXGroup;
 			children = (
-				4FF3E0D926CA947D002B20EA /* MainSplitViewController.h */,
-				4FF3E0DA26CA947D002B20EA /* MainSplitViewController.m */,
+				4FF3E0D926CA947D002B20EA /* OneBesideSecondarySplitViewController.h */,
+				4FF3E0DA26CA947D002B20EA /* OneBesideSecondarySplitViewController.m */,
 			);
 			path = OneBesideSecondary;
 			sourceTree = "<group>";
@@ -2387,7 +2387,7 @@
 				4F98E25B26B9AA280067846F /* CardDetailsSectionModel.m in Sources */,
 				4F8754BC26DB91D7000CE351 /* NSIndexPath+identifier.m in Sources */,
 				4F68198526D74B2A00033AEE /* ImageService.m in Sources */,
-				4FF3E0DB26CA947D002B20EA /* MainSplitViewController.m in Sources */,
+				4FF3E0DB26CA947D002B20EA /* OneBesideSecondarySplitViewController.m in Sources */,
 				4F646A5F26B7D05E00BEDB38 /* UIImageView+setAsyncImage.m in Sources */,
 				4F066CA826D6D2C300991A98 /* DeckDetailsManaCostGraphContentConfiguration.m in Sources */,
 				4F066CB126D6DC5A00991A98 /* DeckDetailsManaCostContentViewModel.m in Sources */,

@@ -397,7 +397,11 @@
     if (self.contextViewController == nil) return;
     
     [animator addAnimations:^{
-        [self.splitViewController showDetailViewController:self.contextViewController sender:nil];
+        if (self.splitViewController == nil) {
+            [self.navigationController pushViewController:self.contextViewController animated:YES];
+        } else {
+            [self.splitViewController showDetailViewController:self.contextViewController sender:nil];
+        }
     }];
     
     [animator addCompletion:^{
