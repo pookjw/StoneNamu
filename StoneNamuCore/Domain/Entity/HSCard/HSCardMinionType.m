@@ -6,6 +6,12 @@
 //
 
 #import "HSCardMinionType.h"
+#include <TargetConditionals.h>
+#if TARGET_OS_OSX
+#import <StoneNamuMacCore/Identifier.h>
+#else
+#import <StoneNamuCore/Identifier.h>
+#endif
 
 NSString * NSStringFromHSCardMinionType(HSCardMinionType type) {
     switch (type) {
@@ -80,7 +86,7 @@ NSDictionary<NSString *, NSString *> * hsCardMinionTypesWithLocalizable(void) {
     [hsCardMinionTypes() enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         dic[obj] = NSLocalizedStringFromTableInBundle(obj,
                                                       @"HSCardMinionType",
-                                                      [NSBundle bundleWithIdentifier:@"com.pookjw.StoneNamuCore"],
+                                                      [NSBundle bundleWithIdentifier:IDENTIFIER],
                                                       @"");
     }];
     

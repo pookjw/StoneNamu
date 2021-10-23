@@ -33,4 +33,8 @@
     [super viewDidLoad];
 }
 
+- (void)setAttributes {
+    
+}
+
 @end

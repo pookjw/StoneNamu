@@ -6,11 +6,17 @@
 //
 
 #import "StoneNamuCoreErrors.h"
+#include <TargetConditionals.h>
+#if TARGET_OS_OSX
+#import <StoneNamuMacCore/Identifier.h>
+#else
+#import <StoneNamuCore/Identifier.h>
+#endif
 
 NSString * LocalizedErrorString(NSString *key) {
     return NSLocalizedStringFromTableInBundle(key,
                                               @"LocalizedError",
-                                              [NSBundle bundleWithIdentifier:@"com.pookjw.StoneNamuCore"],
+                                              [NSBundle bundleWithIdentifier:IDENTIFIER],
                                               @"");
 }
 

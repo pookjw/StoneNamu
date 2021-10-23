@@ -8,7 +8,7 @@
 #import "StoneNamuErrors.h"
 
 NSError * DataCorruptionError(void) {
-    return [NSError errorWithDomain:@"com.pookjw.StoneNamuCore.DataCorruptionError"
+    return [NSError errorWithDomain:@"com.pookjw.StoneNamu.DataCorruptionError"
                                code:100
                            userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"DATA_IS_CORRUPTED", @"")}];
 }

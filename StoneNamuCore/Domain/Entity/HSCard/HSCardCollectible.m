@@ -6,6 +6,12 @@
 //
 
 #import "HSCardCollectible.h"
+#include <TargetConditionals.h>
+#if TARGET_OS_OSX
+#import <StoneNamuMacCore/Identifier.h>
+#else
+#import <StoneNamuCore/Identifier.h>
+#endif
 
 NSString * NSStringFromHSCardCollectible(HSCardCollectible collectible) {
     switch (collectible) {
@@ -46,13 +52,13 @@ NSDictionary<NSString *, NSString *> * hsCardCollectiblesWithLocalizable(void) {
             case HSCardCollectibleYES:
                 dic[obj] = NSLocalizedStringFromTableInBundle(@"collectible_yes",
                                                               @"HSCardCollectible",
-                                                              [NSBundle bundleWithIdentifier:@"com.pookjw.StoneNamuCore"],
+                                                              [NSBundle bundleWithIdentifier:IDENTIFIER],
                                                               @"");
                 break;
             case HSCardCollectibleNO:
                 dic[obj] = NSLocalizedStringFromTableInBundle(@"collectible_no",
                                                               @"HSCardCollectible",
-                                                              [NSBundle bundleWithIdentifier:@"com.pookjw.StoneNamuCore"],
+                                                              [NSBundle bundleWithIdentifier:IDENTIFIER],
                                                               @"");
                 break;
             default:

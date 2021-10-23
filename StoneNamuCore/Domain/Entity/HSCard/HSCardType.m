@@ -6,6 +6,12 @@
 //
 
 #import "HSCardType.h"
+#include <TargetConditionals.h>
+#if TARGET_OS_OSX
+#import <StoneNamuMacCore/Identifier.h>
+#else
+#import <StoneNamuCore/Identifier.h>
+#endif
 
 NSString * NSStringFromHSCardType(HSCardType type) {
     switch (type) {
@@ -56,7 +62,7 @@ NSDictionary<NSString *, NSString *> * hsCardTypesWithLocalizable(void) {
     [hsCardTypesCollectibles() enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         dic[obj] = NSLocalizedStringFromTableInBundle(obj,
                                                       @"HSCardType",
-                                                      [NSBundle bundleWithIdentifier:@"com.pookjw.StoneNamuCore"],
+                                                      [NSBundle bundleWithIdentifier:IDENTIFIER],
                                                       @"");
     }];
     

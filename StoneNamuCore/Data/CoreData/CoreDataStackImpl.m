@@ -9,8 +9,10 @@
 #include <TargetConditionals.h>
 #if TARGET_OS_OSX
 #import <StoneNamuMacCore/NSSemaphoreCondition.h>
+#import <StoneNamuMacCore/Identifier.h>
 #else
 #import <StoneNamuCore/NSSemaphoreCondition.h>
+#import <StoneNamuCore/Identifier.h>
 #endif
 
 static NSMutableDictionary<NSString *, NSPersistentContainer *> * _Nullable kStoreContainers = nil;
@@ -81,7 +83,7 @@ static NSMutableDictionary<NSString *, NSOperationQueue *> * _Nullable kOperatio
         return;
     }
     
-    NSBundle *bundle = [NSBundle bundleWithIdentifier:@"com.pookjw.StoneNamuCore"];
+    NSBundle *bundle = [NSBundle bundleWithIdentifier:IDENTIFIER];
     NSURL *modelURL = [bundle URLForResource:modelName withExtension:@"momd"];
     NSManagedObjectModel *model = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
     NSPersistentContainer *container = [class persistentContainerWithName:modelName managedObjectModel:model];

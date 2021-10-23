@@ -6,6 +6,12 @@
 //
 
 #import "HSCardClass.h"
+#include <TargetConditionals.h>
+#if TARGET_OS_OSX
+#import <StoneNamuMacCore/Identifier.h>
+#else
+#import <StoneNamuCore/Identifier.h>
+#endif
 
 NSString * NSStringFromHSCardClass(HSCardClass class) {
     switch (class) {
@@ -135,7 +141,7 @@ NSDictionary<NSString *, NSString *> * hsCardClassesWithLocalizable(void) {
     [hsCardClasses() enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         dic[obj] = NSLocalizedStringFromTableInBundle(obj,
                                                       @"HSCardClass",
-                                                      [NSBundle bundleWithIdentifier:@"com.pookjw.StoneNamuCore"],
+                                                      [NSBundle bundleWithIdentifier:IDENTIFIER],
                                                       @"");
     }];
     
@@ -151,7 +157,7 @@ NSDictionary<NSString *, NSString *> * hsCardClassesWithLocalizableForFormat(HSD
     [hsCardClassesForFormat(format) enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         dic[obj] = NSLocalizedStringFromTableInBundle(obj,
                                                       @"HSCardClass",
-                                                      [NSBundle bundleWithIdentifier:@"com.pookjw.StoneNamuCore"],
+                                                      [NSBundle bundleWithIdentifier:IDENTIFIER],
                                                       @"");
     }];
     

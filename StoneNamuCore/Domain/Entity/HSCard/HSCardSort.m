@@ -6,6 +6,12 @@
 //
 
 #import "HSCardSort.h"
+#include <TargetConditionals.h>
+#if TARGET_OS_OSX
+#import <StoneNamuMacCore/Identifier.h>
+#else
+#import <StoneNamuCore/Identifier.h>
+#endif
 
 NSString * NSStringFromHSCardSort(HSCardSort sort) {
     switch (sort) {
@@ -91,7 +97,7 @@ NSDictionary<NSString *, NSString *> * hsCardSortsWithLocalizable(void) {
     [hsCardSorts() enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         dic[obj] = NSLocalizedStringFromTableInBundle(obj,
                                                       @"HSCardSort",
-                                                      [NSBundle bundleWithIdentifier:@"com.pookjw.StoneNamuCore"],
+                                                      [NSBundle bundleWithIdentifier:IDENTIFIER],
                                                       @"");
     }];
     

@@ -6,6 +6,12 @@
 //
 
 #import "HSCardKeyword.h"
+#include <TargetConditionals.h>
+#if TARGET_OS_OSX
+#import <StoneNamuMacCore/Identifier.h>
+#else
+#import <StoneNamuCore/Identifier.h>
+#endif
 
 NSString * NSStringFromHSCardKeyword(HSCardKeyword keyword) {
     switch (keyword) {
@@ -236,7 +242,7 @@ NSDictionary<NSString *, NSString *> * hsCardKeywordsWithLocalizable(void) {
     [hsCardKeywords() enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         dic[obj] = NSLocalizedStringFromTableInBundle(obj,
                                                       @"HSCardKeyword",
-                                                      [NSBundle bundleWithIdentifier:@"com.pookjw.StoneNamuCore"],
+                                                      [NSBundle bundleWithIdentifier:IDENTIFIER],
                                                       @"");
     }];
     

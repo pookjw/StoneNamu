@@ -6,6 +6,12 @@
 //
 
 #import "BlizzardAPIRegionHost.h"
+#include <TargetConditionals.h>
+#if TARGET_OS_OSX
+#import <StoneNamuMacCore/Identifier.h>
+#else
+#import <StoneNamuCore/Identifier.h>
+#endif
 
 NSString *NSStringForAPIFromRegionHost(BlizzardAPIRegionHost regionHost) {
     switch (regionHost) {
@@ -73,7 +79,7 @@ NSDictionary<NSString *, NSString *> *blizzardHSAPIRegionsForAPIWithLocalizable(
     [blizzardHSAPIRegionsForAPI() enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         dic[obj] = NSLocalizedStringFromTableInBundle(obj,
                                                       @"BlizzardAPIRegionHost",
-                                                      [NSBundle bundleWithIdentifier:@"com.pookjw.StoneNamuCore"],
+                                                      [NSBundle bundleWithIdentifier:IDENTIFIER],
                                                       @"");
     }];
     

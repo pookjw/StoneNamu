@@ -10,9 +10,11 @@
 #if TARGET_OS_OSX
 #import <StoneNamuMacCore/StoneNamuCoreErrors.h>
 #import <StoneNamuMacCore/NSArray+countOfObject.h>
+#import <StoneNamuMacCore/Identifier.h>
 #else
 #import <StoneNamuCore/StoneNamuCoreErrors.h>
 #import <StoneNamuCore/NSArray+countOfObject.h>
+#import <StoneNamuCore/Identifier.h>
 #endif
 
 @implementation HSDeck
@@ -59,19 +61,19 @@
     NSMutableString *result = [@"" mutableCopy];
     NSString *classTitle = NSLocalizedStringFromTableInBundle(@"CLASS",
                                                                @"HSDeck",
-                                                               [NSBundle bundleWithIdentifier:@"com.pookjw.StoneNamuCore"],
+                                                               [NSBundle bundleWithIdentifier:IDENTIFIER],
                                                                @"");
     NSString *formatTitle = NSLocalizedStringFromTableInBundle(@"FORMAT",
                                                                @"HSDeck",
-                                                               [NSBundle bundleWithIdentifier:@"com.pookjw.StoneNamuCore"],
+                                                               [NSBundle bundleWithIdentifier:IDENTIFIER],
                                                                @"");
     NSString *footer1Title = NSLocalizedStringFromTableInBundle(@"FOOTER_1",
                                                                @"HSDeck",
-                                                               [NSBundle bundleWithIdentifier:@"com.pookjw.StoneNamuCore"],
+                                                               [NSBundle bundleWithIdentifier:IDENTIFIER],
                                                                @"");
     NSString *footer2Title = NSLocalizedStringFromTableInBundle(@"FOOTER_2",
                                                                @"HSDeck",
-                                                               [NSBundle bundleWithIdentifier:@"com.pookjw.StoneNamuCore"],
+                                                               [NSBundle bundleWithIdentifier:IDENTIFIER],
                                                                @"");
     
     NSString *className = hsCardClassesWithLocalizable()[NSStringFromHSCardClass(self.classId)];

@@ -6,6 +6,12 @@
 //
 
 #import "HSCardSet.h"
+#include <TargetConditionals.h>
+#if TARGET_OS_OSX
+#import <StoneNamuMacCore/Identifier.h>
+#else
+#import <StoneNamuCore/Identifier.h>
+#endif
 
 NSString * NSStringFromHSCardSet(HSCardSet set) {
     switch (set) {
@@ -177,7 +183,7 @@ NSDictionary<NSString *, NSString *> * hsCardSetsWithLocalizable() {
         NSString *key = NSStringFromHSCardSet(obj.unsignedIntegerValue);
         dic[key] = NSLocalizedStringFromTableInBundle(key,
                                                       @"HSCardSet",
-                                                      [NSBundle bundleWithIdentifier:@"com.pookjw.StoneNamuCore"],
+                                                      [NSBundle bundleWithIdentifier:IDENTIFIER],
                                                       @"");
     }];
     
@@ -245,7 +251,7 @@ NSDictionary<NSString *, NSString *> * hsCardSetsWithLocalizableFromHSDeckFormat
         NSString *key = NSStringFromHSCardSet(obj.unsignedIntegerValue);
         dic[key] = NSLocalizedStringFromTableInBundle(key,
                                                       @"HSCardSet",
-                                                      [NSBundle bundleWithIdentifier:@"com.pookjw.StoneNamuCore"],
+                                                      [NSBundle bundleWithIdentifier:IDENTIFIER],
                                                       @"");
     }];
     
