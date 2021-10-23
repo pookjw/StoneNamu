@@ -6,12 +6,7 @@
 //
 
 #import "DataCacheUseCaseImpl.h"
-#include <TargetConditionals.h>
-#if TARGET_OS_OSX
-#import <StoneNamuMacCore/DataCacheRepositoryImpl.h>
-#else
 #import <StoneNamuCore/DataCacheRepositoryImpl.h>
-#endif
 
 @interface DataCacheUseCaseImpl ()
 @property (retain) id<DataCacheRepository> dataCacheRepository;

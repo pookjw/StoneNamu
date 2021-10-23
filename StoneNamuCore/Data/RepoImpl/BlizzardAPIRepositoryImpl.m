@@ -6,14 +6,8 @@
 //
 
 #import "BlizzardAPIRepositoryImpl.h"
-#include <TargetConditionals.h>
-#if TARGET_OS_OSX
-#import <StoneNamuMacCore/BlizzardTokenAPIImpl.h>
-#import <StoneNamuMacCore/BlizzardAPIImpl.h>
-#else
 #import <StoneNamuCore/BlizzardTokenAPIImpl.h>
 #import <StoneNamuCore/BlizzardAPIImpl.h>
-#endif
 
 @interface BlizzardAPIRepositoryImpl ()
 @property (retain) id<BlizzardTokenAPI> blizzardTokenAPI;

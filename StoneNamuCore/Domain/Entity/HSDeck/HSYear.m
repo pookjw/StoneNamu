@@ -6,12 +6,7 @@
 //
 
 #import "HSYear.h"
-#include <TargetConditionals.h>
-#if TARGET_OS_OSX
-#import <StoneNamuMacCore/Identifier.h>
-#else
 #import <StoneNamuCore/Identifier.h>
-#endif
 
 NSString * hsYearCurrent(void) {
     return @"year-of-the-gryphon";

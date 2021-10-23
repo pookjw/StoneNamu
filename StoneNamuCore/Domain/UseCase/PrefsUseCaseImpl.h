@@ -6,12 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#include <TargetConditionals.h>
-#if TARGET_OS_OSX
-#import <StoneNamuMacCore/PrefsUseCase.h>
-#else
 #import <StoneNamuCore/PrefsUseCase.h>
-#endif
 
 NS_ASSUME_NONNULL_BEGIN
 

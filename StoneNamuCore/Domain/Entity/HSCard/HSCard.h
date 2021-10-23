@@ -6,18 +6,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#include <TargetConditionals.h>
-#if TARGET_OS_OSX
-#import <StoneNamuMacCore/HSCardSet.h>
-#import <StoneNamuMacCore/HSCardClass.h>
-#import <StoneNamuMacCore/HSCardRarity.h>
-#import <StoneNamuMacCore/HSCardCollectible.h>
-#import <StoneNamuMacCore/HSCardType.h>
-#import <StoneNamuMacCore/HSCardMinionType.h>
-#import <StoneNamuMacCore/HSCardKeyword.h>
-#import <StoneNamuMacCore/HSCardGameMode.h>
-#import <StoneNamuMacCore/HSCardSort.h>
-#else
 #import <StoneNamuCore/HSCardSet.h>
 #import <StoneNamuCore/HSCardClass.h>
 #import <StoneNamuCore/HSCardRarity.h>
@@ -27,7 +15,6 @@
 #import <StoneNamuCore/HSCardKeyword.h>
 #import <StoneNamuCore/HSCardGameMode.h>
 #import <StoneNamuCore/HSCardSort.h>
-#endif
 
 #define kHSCardType @"kHSCardType"
 

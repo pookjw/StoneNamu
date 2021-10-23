@@ -6,12 +6,7 @@
 //
 
 #import "BlizzardAPIRegionHost.h"
-#include <TargetConditionals.h>
-#if TARGET_OS_OSX
-#import <StoneNamuMacCore/Identifier.h>
-#else
 #import <StoneNamuCore/Identifier.h>
-#endif
 
 NSString *NSStringForAPIFromRegionHost(BlizzardAPIRegionHost regionHost) {
     switch (regionHost) {

@@ -6,12 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#include <TargetConditionals.h>
-#if TARGET_OS_OSX
-#import <StoneNamuMacCore/HSCard.h>
-#else
 #import <StoneNamuCore/HSCard.h>
-#endif
 
 typedef void (^HSCardUseCaseCardsCompletion)(NSArray<HSCard *> * _Nullable, NSNumber * _Nullable, NSNumber * _Nullable, NSError * _Nullable);
 typedef void (^HSCardUseCaseCardCompletion)(HSCard * _Nullable, NSError * _Nullable);

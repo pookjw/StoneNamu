@@ -6,12 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#include <TargetConditionals.h>
-#if TARGET_OS_OSX
-#import <StoneNamuMacCore/BlizzardAPIRegionHost.h>
-#else
 #import <StoneNamuCore/BlizzardAPIRegionHost.h>
-#endif
 
 typedef void (^BlizzardAPIRepositoryCompletion)(NSData * _Nullable, NSURLResponse * _Nullable, NSError * _Nullable);
 

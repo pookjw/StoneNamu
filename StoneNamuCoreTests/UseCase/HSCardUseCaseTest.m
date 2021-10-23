@@ -6,7 +6,7 @@
 //
 
 #import <XCTest/XCTest.h>
-#import "HSCardUseCaseImpl.h"
+#import <StoneNamuCore/HSCardUseCaseImpl.h>
 
 @interface HSCardUseCaseTest : XCTestCase
 @property (retain) id<HSCardUseCase> hsCardUseCase;

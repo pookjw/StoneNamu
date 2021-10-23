@@ -6,12 +6,7 @@
 //
 
 #import "BlizzardHSAPILocale.h"
-#include <TargetConditionals.h>
-#if TARGET_OS_OSX
-#import <StoneNamuMacCore/Identifier.h>
-#else
 #import <StoneNamuCore/Identifier.h>
-#endif
 
 NSArray<NSString *> *blizzardHSAPILocales(void) {
     return @[

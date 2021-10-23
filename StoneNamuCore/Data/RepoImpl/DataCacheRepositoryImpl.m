@@ -6,16 +6,9 @@
 //
 
 #import "DataCacheRepositoryImpl.h"
-#include <TargetConditionals.h>
-#if TARGET_OS_OSX
-#import <StoneNamuMacCore/CoreDataStackImpl.h>
-#import <StoneNamuMacCore/DataCache.h>
-#import <StoneNamuMacCore/NSManagedObject+_fetchRequest.h>
-#else
 #import <StoneNamuCore/CoreDataStackImpl.h>
 #import <StoneNamuCore/DataCache.h>
 #import <StoneNamuCore/NSManagedObject+_fetchRequest.h>
-#endif
 
 @interface DataCacheRepositoryImpl ()
 @property (retain) id<CoreDataStack> coreDataStack;

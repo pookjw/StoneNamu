@@ -6,12 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#include <TargetConditionals.h>
-#if TARGET_OS_OSX
-#import <StoneNamuMacCore/HSCardClass.h>
-#else
 #import <StoneNamuCore/HSCardClass.h>
-#endif
 
 typedef NS_ENUM(NSUInteger, HSCardHero) {
     HSCardHeroDemonHunter = 56550,

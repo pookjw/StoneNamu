@@ -6,7 +6,7 @@
 //
 
 #import <XCTest/XCTest.h>
-#import "HSDeckUseCaseImpl.h"
+#import <StoneNamuCore/HSDeckUseCaseImpl.h>
 
 @interface HSDeckUseCaseTest : XCTestCase
 @property (retain) id<HSDeckUseCase> hsDeckUseCase;

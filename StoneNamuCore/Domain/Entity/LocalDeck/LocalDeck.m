@@ -6,12 +6,7 @@
 //
 
 #import "LocalDeck.h"
-#include <TargetConditionals.h>
-#if TARGET_OS_OSX
-#import <StoneNamuMacCore/HSCardHero.h>
-#else
 #import <StoneNamuCore/HSCardHero.h>
-#endif
 
 @implementation LocalDeck
 

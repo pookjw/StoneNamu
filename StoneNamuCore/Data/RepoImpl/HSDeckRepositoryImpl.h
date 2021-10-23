@@ -6,12 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#include <TargetConditionals.h>
-#if TARGET_OS_OSX
-#import <StoneNamuMacCore/HSDeckRepository.h>
-#else
 #import <StoneNamuCore/HSDeckRepository.h>
-#endif
 
 NS_ASSUME_NONNULL_BEGIN
 

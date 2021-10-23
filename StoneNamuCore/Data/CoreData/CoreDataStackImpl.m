@@ -6,14 +6,8 @@
 //
 
 #import "CoreDataStackImpl.h"
-#include <TargetConditionals.h>
-#if TARGET_OS_OSX
-#import <StoneNamuMacCore/NSSemaphoreCondition.h>
-#import <StoneNamuMacCore/Identifier.h>
-#else
 #import <StoneNamuCore/NSSemaphoreCondition.h>
 #import <StoneNamuCore/Identifier.h>
-#endif
 
 static NSMutableDictionary<NSString *, NSPersistentContainer *> * _Nullable kStoreContainers = nil;
 static NSMutableDictionary<NSString *, NSManagedObjectContext *> * _Nullable kContexts = nil;

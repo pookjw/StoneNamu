@@ -6,12 +6,7 @@
 //
 
 #import "PrefsUseCaseImpl.h"
-#include <TargetConditionals.h>
-#if TARGET_OS_OSX
-#import <StoneNamuMacCore/PrefsRepositoryImpl.h>
-#else
 #import <StoneNamuCore/PrefsRepositoryImpl.h>
-#endif
 
 @interface PrefsUseCaseImpl ()
 @property (retain) id<PrefsRepository> prefsRepository;

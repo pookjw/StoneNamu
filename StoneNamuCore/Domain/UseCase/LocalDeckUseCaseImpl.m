@@ -6,20 +6,11 @@
 //
 
 #import "LocalDeckUseCaseImpl.h"
-#include <TargetConditionals.h>
-#if TARGET_OS_OSX
-#import <StoneNamuMacCore/LocalDeckRepositoryImpl.h>
-#import <StoneNamuMacCore/HSCardHero.h>
-#import <StoneNamuMacCore/NSMutableArray+removeSingle.h>
-#import <StoneNamuMacCore/StoneNamuCoreErrors.h>
-#import <StoneNamuMacCore/NSString+arrayOfCharacters.h>
-#else
 #import <StoneNamuCore/LocalDeckRepositoryImpl.h>
 #import <StoneNamuCore/HSCardHero.h>
 #import <StoneNamuCore/NSMutableArray+removeSingle.h>
 #import <StoneNamuCore/StoneNamuCoreErrors.h>
 #import <StoneNamuCore/NSString+arrayOfCharacters.h>
-#endif
 
 @interface LocalDeckUseCaseImpl ()
 @property (retain) id<LocalDeckRepository> localDeckRepository;

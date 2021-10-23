@@ -6,7 +6,7 @@
 //
 
 #import <XCTest/XCTest.h>
-#import "DataCacheUseCaseImpl.h"
+#import <StoneNamuCore/DataCacheUseCaseImpl.h>
 
 @interface DataCacheUseCaseTest : XCTestCase
 @property (retain) id<DataCacheUseCase> dataCacheUseCase;

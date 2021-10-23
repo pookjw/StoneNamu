@@ -6,12 +6,7 @@
 //
 
 #import "HSCardGameMode.h"
-#include <TargetConditionals.h>
-#if TARGET_OS_OSX
-#import <StoneNamuMacCore/Identifier.h>
-#else
 #import <StoneNamuCore/Identifier.h>
-#endif
 
 NSString * NSStringFromHSCardGameMode(HSCardGameMode gameMode) {
     switch (gameMode) {

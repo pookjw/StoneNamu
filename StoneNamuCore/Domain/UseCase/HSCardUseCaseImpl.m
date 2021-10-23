@@ -6,20 +6,11 @@
 //
 
 #import "HSCardUseCaseImpl.h"
-#include <TargetConditionals.h>
-#if TARGET_OS_OSX
-#import <StoneNamuMacCore/HSCardRepositoryImpl.h>
-#import <StoneNamuMacCore/BlizzardHSAPIKeys.h>
-#import <StoneNamuMacCore/BlizzardHSAPILocale.h>
-#import <StoneNamuMacCore/PrefsUseCaseImpl.h>
-#import <StoneNamuMacCore/DataCacheUseCaseImpl.h>
-#else
 #import <StoneNamuCore/HSCardRepositoryImpl.h>
 #import <StoneNamuCore/BlizzardHSAPIKeys.h>
 #import <StoneNamuCore/BlizzardHSAPILocale.h>
 #import <StoneNamuCore/PrefsUseCaseImpl.h>
 #import <StoneNamuCore/DataCacheUseCaseImpl.h>
-#endif
 
 @interface HSCardUseCaseImpl ()
 @property (retain) id<HSCardRepository> hsCardRepository;

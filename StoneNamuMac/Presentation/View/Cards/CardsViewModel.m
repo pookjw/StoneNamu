@@ -6,7 +6,7 @@
 //
 
 #import "CardsViewModel.h"
-#import <StoneNamuMacCore/StoneNamuMacCore.h>
+#import <StoneNamuCore/StoneNamuCore.h>
 #import "NSCollectionViewDiffableDataSource+applySnapshotAndWait.h"
 
 @interface CardsViewModel ()

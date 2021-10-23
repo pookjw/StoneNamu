@@ -6,7 +6,7 @@
 //
 
 #import <XCTest/XCTest.h>
-#import "PrefsUseCaseImpl.h"
+#import <StoneNamuCore/PrefsUseCaseImpl.h>
 
 @interface PrefsUseCaseTest : XCTestCase
 @property (retain) id<PrefsUseCase> prefsUseCase;
