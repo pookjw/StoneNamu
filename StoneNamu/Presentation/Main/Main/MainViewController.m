@@ -12,8 +12,7 @@
 #import "CardsViewController.h"
 #import "DecksViewController.h"
 #import "PrefsViewController.h"
-#import "BlizzardHSAPIKeys.h"
-#import "HSCardGameMode.h"
+#import <StoneNamuCore/StoneNamuCore.h>
 
 @interface MainViewController ()
 @property (retain) MainSplitViewController * _Nullable splitViewController;

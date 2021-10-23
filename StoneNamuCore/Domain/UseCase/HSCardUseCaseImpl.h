@@ -5,7 +5,12 @@
 //  Created by Jinwoo Kim on 7/18/21.
 //
 
-#import "HSCardUseCase.h"
+#include <TargetConditionals.h>
+#if TARGET_OS_OSX
+#import <StoneNamuMacCore/HSCardUseCase.h>
+#else
+#import <StoneNamuCore/HSCardUseCase.h>
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 

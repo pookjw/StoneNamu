@@ -6,8 +6,14 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "HSCard.h"
-#import "HSDeckFormat.h"
+#include <TargetConditionals.h>
+#if TARGET_OS_OSX
+#import <StoneNamuMacCore/HSCard.h>
+#import <StoneNamuMacCore/HSDeckFormat.h>
+#else
+#import <StoneNamuCore/HSCard.h>
+#import <StoneNamuCore/HSDeckFormat.h>
+#endif
 
 #define HSDECK_MAX_TOTAL_CARDS 30
 #define HSDECK_MAX_SINGLE_CARD 2

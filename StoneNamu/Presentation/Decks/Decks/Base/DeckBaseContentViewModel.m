@@ -7,7 +7,7 @@
 
 #import "DeckBaseContentViewModel.h"
 #import "ImageService.h"
-#import "LocalDeckUseCaseImpl.h"
+#import <StoneNamuCore/StoneNamuCore.h>
 
 @interface DeckBaseContentViewModel ()
 @property (retain) id<LocalDeckUseCase> localDeckUseCase;

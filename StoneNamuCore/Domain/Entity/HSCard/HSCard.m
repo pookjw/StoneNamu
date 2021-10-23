@@ -6,7 +6,12 @@
 //
 
 #import "HSCard.h"
-#import "StoneNamuCoreErrors.h"
+#include <TargetConditionals.h>
+#if TARGET_OS_OSX
+#import <StoneNamuMacCore/StoneNamuCoreErrors.h>
+#else
+#import <StoneNamuCore/StoneNamuCoreErrors.h>
+#endif
 
 @implementation HSCard
 

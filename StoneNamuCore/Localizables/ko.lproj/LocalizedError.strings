@@ -6,8 +6,6 @@
   
 */
 
-"DATA_IS_CORRUPTED" = "데이터가 잘못 되었어요.";
-
 "INVALID_HSCARD" = "올바르지 않은 하스스톤 카드 데이터에요.";
 
 "INVALID_HSDECK" = "올바르지 않은 하스스톤 덱 데이터에요.";

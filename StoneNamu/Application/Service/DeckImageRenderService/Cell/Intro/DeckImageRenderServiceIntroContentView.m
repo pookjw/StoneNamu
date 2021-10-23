@@ -9,7 +9,7 @@
 #import "DeckImageRenderServiceIntroContentConfiguration.h"
 #import "ImageService.h"
 #import "InsetsLabel.h"
-#import "HSDeckFormat.h"
+#import <StoneNamuCore/StoneNamuCore.h>
 #import "UIFont+customFonts.h"
 
 @interface DeckImageRenderServiceIntroContentView ()

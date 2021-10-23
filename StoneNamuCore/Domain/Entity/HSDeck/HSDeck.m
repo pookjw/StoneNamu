@@ -6,8 +6,14 @@
 //
 
 #import "HSDeck.h"
-#import "StoneNamuCoreErrors.h"
-#import "NSArray+countOfObject.h"
+#include <TargetConditionals.h>
+#if TARGET_OS_OSX
+#import <StoneNamuMacCore/StoneNamuCoreErrors.h>
+#import <StoneNamuMacCore/NSArray+countOfObject.h>
+#else
+#import <StoneNamuCore/StoneNamuCoreErrors.h>
+#import <StoneNamuCore/NSArray+countOfObject.h>
+#endif
 
 @implementation HSDeck
 

@@ -8,7 +8,7 @@
 #import <UIKit/UIKit.h>
 #import "DeckAddCardSectionModel.h"
 #import "DeckAddCardItemModel.h"
-#import "LocalDeck.h"
+#import <StoneNamuCore/StoneNamuCore.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

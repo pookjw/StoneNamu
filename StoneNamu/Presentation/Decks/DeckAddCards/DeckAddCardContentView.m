@@ -8,7 +8,7 @@
 #import "DeckAddCardContentView.h"
 #import "DeckAddCardContentConfiguration.h"
 #import "UIImageView+setAsyncImage.h"
-#import "HSDeck.h"
+#import <StoneNamuCore/StoneNamuCore.h>
 #import "InsetsLabel.h"
 #import "UIImage+imageWithGrayScale.h"
 

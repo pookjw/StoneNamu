@@ -7,7 +7,7 @@
 
 #import "UIImageView+setAsyncImage.h"
 #import <objc/runtime.h>
-#import "DataCacheUseCaseImpl.h"
+#import <StoneNamuCore/StoneNamuCore.h>
 
 static NSString * const UIImageViewAsyncImageCategoryActivityIndicatorKey = @"UIImageViewAsyncImageCategoryActivityIndicatorKey";
 static NSString * const UIImageViewAsyncImageCategoryDataCacheUseCaseKey = @"UIImageViewAsyncImageCategoryDataCacheUseCaseKey";

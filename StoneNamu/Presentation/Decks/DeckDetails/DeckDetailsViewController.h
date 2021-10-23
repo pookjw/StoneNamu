@@ -6,8 +6,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "LocalDeck.h"
-#import "HSCard.h"
+#import <StoneNamuCore/StoneNamuCore.h>
 #import "DeckDetailsViewControllerDelegate.h"
 
 NS_ASSUME_NONNULL_BEGIN

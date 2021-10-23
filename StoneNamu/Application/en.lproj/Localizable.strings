@@ -153,3 +153,5 @@
 "PLEASE_ALLOW_PHOTO_PERMISSION" = "Please grant Photo Permission at Settings app.";
 
 "MORE" = "More";
+
+"DATA_IS_CORRUPTED" = "Data is corrupted.";

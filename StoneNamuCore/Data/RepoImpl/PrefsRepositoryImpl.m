@@ -6,8 +6,14 @@
 //
 
 #import "PrefsRepositoryImpl.h"
-#import "CoreDataStackImpl.h"
-#import "NSManagedObject+_fetchRequest.h"
+#include <TargetConditionals.h>
+#if TARGET_OS_OSX
+#import <StoneNamuMacCore/CoreDataStackImpl.h>
+#import <StoneNamuMacCore/NSManagedObject+_fetchRequest.h>
+#else
+#import <StoneNamuCore/CoreDataStackImpl.h>
+#import <StoneNamuCore/NSManagedObject+_fetchRequest.h>
+#endif
 
 @interface PrefsRepositoryImpl ()
 @property (retain) id<CoreDataStack> coreDataStack;

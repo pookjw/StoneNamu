@@ -6,7 +6,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "HSCard.h"
+#import <StoneNamuCore/StoneNamuCore.h>
 
 @protocol CardDetailsChildrenContentConfigurationDelegate <NSObject>
 - (void)cardDetailsChildrenContentConfigurationDidTapImageView:(UIImageView *)imageView hsCard:(HSCard *)hsCard;

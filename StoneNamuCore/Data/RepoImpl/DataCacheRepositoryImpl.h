@@ -5,7 +5,12 @@
 //  Created by Jinwoo Kim on 8/2/21.
 //
 
-#import "DataCacheRepository.h"
+#include <TargetConditionals.h>
+#if TARGET_OS_OSX
+#import <StoneNamuMacCore/DataCacheRepository.h>
+#else
+#import <StoneNamuCore/DataCacheRepository.h>
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -6,7 +6,12 @@
 //
 
 #import <CoreData/CoreData.h>
-#import "LocalDeck.h"
+#include <TargetConditionals.h>
+#if TARGET_OS_OSX
+#import <StoneNamuMacCore/LocalDeck.h>
+#else
+#import <StoneNamuCore/LocalDeck.h>
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 

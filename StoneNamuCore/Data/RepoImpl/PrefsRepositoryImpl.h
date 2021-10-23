@@ -5,7 +5,12 @@
 //  Created by Jinwoo Kim on 8/14/21.
 //
 
-#import "PrefsRepository.h"
+#include <TargetConditionals.h>
+#if TARGET_OS_OSX
+#import <StoneNamuMacCore/PrefsRepository.h>
+#else
+#import <StoneNamuCore/PrefsRepository.h>
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 

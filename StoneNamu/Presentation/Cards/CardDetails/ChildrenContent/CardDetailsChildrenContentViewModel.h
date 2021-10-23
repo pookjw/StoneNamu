@@ -6,7 +6,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "HSCard.h"
+#import <StoneNamuCore/StoneNamuCore.h>
 #import "CardDetailsChildrenContentSectionModel.h"
 #import "CardDetailsChildrenContentItemModel.h"
 

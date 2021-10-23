@@ -6,10 +6,18 @@
 //
 
 #import "HSDeckUseCaseImpl.h"
-#import "HSDeckRepositoryImpl.h"
-#import "BlizzardHSAPIKeys.h"
-#import "BlizzardHSAPILocale.h"
-#import "PrefsUseCaseImpl.h"
+#include <TargetConditionals.h>
+#if TARGET_OS_OSX
+#import <StoneNamuMacCore/HSDeckRepositoryImpl.h>
+#import <StoneNamuMacCore/BlizzardHSAPIKeys.h>
+#import <StoneNamuMacCore/BlizzardHSAPILocale.h>
+#import <StoneNamuMacCore/PrefsUseCaseImpl.h>
+#else
+#import <StoneNamuCore/HSDeckRepositoryImpl.h>
+#import <StoneNamuCore/BlizzardHSAPIKeys.h>
+#import <StoneNamuCore/BlizzardHSAPILocale.h>
+#import <StoneNamuCore/PrefsUseCaseImpl.h>
+#endif
 
 @interface HSDeckUseCaseImpl ()
 @property (retain) id<HSDeckRepository> hsDeckRepository;

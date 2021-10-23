@@ -6,7 +6,7 @@
 //
 
 #import "CardOptionsViewModel.h"
-#import "BlizzardHSAPIKeys.h"
+#import <StoneNamuCore/StoneNamuCore.h>
 #import "UICollectionViewDiffableDataSource+applySnapshotAndWait.h"
 
 @interface CardOptionsViewModel ()

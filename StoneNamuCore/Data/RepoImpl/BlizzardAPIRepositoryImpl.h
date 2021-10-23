@@ -5,7 +5,13 @@
 //  Created by Jinwoo Kim on 7/18/21.
 //
 
-#import "BlizzardAPIRepository.h"
+#include <TargetConditionals.h>
+#if TARGET_OS_OSX
+#import <StoneNamuMacCore/BlizzardAPIRepository.h>
+#else
+#import <StoneNamuCore/BlizzardAPIRepository.h>
+#endif
+
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -6,8 +6,7 @@
 //
 
 #import "CardOptionItemModel.h"
-#import "BlizzardHSAPIKeys.h"
-#import "HSCard.h"
+#import <StoneNamuCore/StoneNamuCore.h>
 #import "ImageService.h"
 
 NSString * NSStringFromCardOptionItemModelType(CardOptionItemModelType type) {

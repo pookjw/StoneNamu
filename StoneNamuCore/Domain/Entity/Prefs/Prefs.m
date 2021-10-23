@@ -6,9 +6,16 @@
 //
 
 #import "Prefs.h"
-#import "BlizzardAPIRegionHost.h"
-#import "BlizzardHSAPILocale.h"
-#import "BlizzardHSAPIKeys.h"
+#include <TargetConditionals.h>
+#if TARGET_OS_OSX
+#import <StoneNamuMacCore/BlizzardAPIRegionHost.h>
+#import <StoneNamuMacCore/BlizzardHSAPILocale.h>
+#import <StoneNamuMacCore/BlizzardHSAPIKeys.h>
+#else
+#import <StoneNamuCore/BlizzardAPIRegionHost.h>
+#import <StoneNamuCore/BlizzardHSAPILocale.h>
+#import <StoneNamuCore/BlizzardHSAPIKeys.h>
+#endif
 
 @implementation Prefs
 

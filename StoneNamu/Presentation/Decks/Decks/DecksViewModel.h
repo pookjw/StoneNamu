@@ -6,8 +6,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "LocalDeck.h"
-#import "HSDeck.h"
+#import <StoneNamuCore/StoneNamuCore.h>
 #import "DecksSectionModel.h"
 #import "DecksItemModel.h"
 

@@ -8,7 +8,7 @@
 #import "DeckImageRenderServiceAboutContentView.h"
 #import "DeckImageRenderServiceAboutContentConfiguration.h"
 #import "InsetsLabel.h"
-#import "HSYear.h"
+#import <StoneNamuCore/StoneNamuCore.h>
 #import "UIFont+customFonts.h"
 #import "NSNumber+stringWithSepearatedDecimalNumber.h"
 

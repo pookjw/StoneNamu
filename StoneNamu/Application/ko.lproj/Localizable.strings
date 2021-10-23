@@ -153,3 +153,5 @@
 "PLEASE_ALLOW_PHOTO_PERMISSION" = "설정 어플에서 사진 권한을 부여해 주세요.";
 
 "MORE" = "더보기";
+
+"DATA_IS_CORRUPTED" = "데이터가 잘못 되었어요.";

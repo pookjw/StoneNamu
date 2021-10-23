@@ -6,8 +6,13 @@
 //
 
 #import <CoreData/CoreData.h>
-#import "HSDeck.h"
-#import "HSCard.h"
+#if TARGET_OS_OSX
+#import <StoneNamuMacCore/HSDeck.h>
+#import <StoneNamuMacCore/HSCard.h>
+#else
+#import <StoneNamuCore/HSDeck.h>
+#import <StoneNamuCore/HSCard.h>
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -6,7 +6,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "BlizzardAPIRegionHost.h"
+#include <TargetConditionals.h>
+#if TARGET_OS_OSX
+#import <StoneNamuMacCore/BlizzardAPIRegionHost.h>
+#else
+#import <StoneNamuCore/BlizzardAPIRegionHost.h>
+#endif
 
 typedef void (^BlizzardTokenAPICompletionType)(NSData *, NSURLResponse *, NSError *);
 

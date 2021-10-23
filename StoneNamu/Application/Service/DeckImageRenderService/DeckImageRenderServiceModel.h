@@ -8,8 +8,7 @@
 #import <UIKit/UIKit.h>
 #import "DeckImageRenderServiceSectionModel.h"
 #import "DeckImageRenderServiceItemModel.h"
-#import "LocalDeck.h"
-#import "HSDeck.h"
+#import <StoneNamuCore/StoneNamuCore.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

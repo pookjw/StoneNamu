@@ -6,8 +6,8 @@
 //
 
 #import "PhotosService.h"
-#import "DataCacheUseCaseImpl.h"
-#import "StoneNamuCoreErrors.h"
+#import <StoneNamuCore/StoneNamuCore.h>
+#import "StoneNamuErrors.h"
 
 @interface PhotosService ()
 @property (retain) PHPhotoLibrary *phPhotoLibrary;

@@ -6,7 +6,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "HSCard.h"
+#import <StoneNamuCore/StoneNamuCore.h>
 #import "CardDetailsChildrenContentConfigurationDelegate.h"
 
 NS_ASSUME_NONNULL_BEGIN

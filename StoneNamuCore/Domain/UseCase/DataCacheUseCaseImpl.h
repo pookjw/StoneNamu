@@ -6,7 +6,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "DataCacheUseCase.h"
+#include <TargetConditionals.h>
+#if TARGET_OS_OSX
+#import <StoneNamuMacCore/DataCacheUseCase.h>
+#else
+#import <StoneNamuCore/DataCacheUseCase.h>
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 

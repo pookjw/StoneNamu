@@ -12,7 +12,7 @@
 #import "DeckImageRenderServiceCardContentConfiguration.h"
 #import "DeckImageRenderServiceAboutContentConfiguration.h"
 #import "DeckImageRenderServiceAppNameContentConfiguration.h"
-#import "NSSemaphoreCondition.h"
+#import <StoneNamuCore/StoneNamuCore.h>
 
 @interface DeckImageRenderService ()
 @property (retain) UICollectionView *collectionView;

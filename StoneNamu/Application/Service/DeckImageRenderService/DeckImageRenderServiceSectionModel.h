@@ -6,8 +6,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "HSCardClass.h"
-#import "HSDeckFormat.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

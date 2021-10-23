@@ -7,8 +7,6 @@
 
 #import <Foundation/Foundation.h>
 
-NSError * DataCorruptionError(void);
-
 NSError * InvalidHSCardError(void);
 
 NSError * InvalidHSDeckError(void);

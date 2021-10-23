@@ -6,7 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "BlizzardHSAPILocale.h"
+#import <StoneNamuCore/StoneNamuCore.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

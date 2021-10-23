@@ -6,8 +6,7 @@
 //
 
 #import "DeckAddCardOptionItemModel.h"
-#import "BlizzardHSAPIKeys.h"
-#import "HSCard.h"
+#import <StoneNamuCore/StoneNamuCore.h>
 #import "ImageService.h"
 
 NSString * NSStringFromDeckAddCardOptionItemModelType(DeckAddCardOptionItemModelType type) {

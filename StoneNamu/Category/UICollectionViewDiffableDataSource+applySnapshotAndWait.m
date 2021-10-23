@@ -6,7 +6,7 @@
 //
 
 #import "UICollectionViewDiffableDataSource+applySnapshotAndWait.h"
-#import "NSSemaphoreCondition.h"
+#import <StoneNamuCore/StoneNamuCore.h>
 
 @implementation UICollectionViewDiffableDataSource (applySnapshotAndWait)
 

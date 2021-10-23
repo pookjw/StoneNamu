@@ -6,8 +6,14 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "HSCard.h"
-#import "BlizzardAPIRegionHost.h"
+#include <TargetConditionals.h>
+#if TARGET_OS_OSX
+#import <StoneNamuMacCore/HSCard.h>
+#import <StoneNamuMacCore/BlizzardAPIRegionHost.h>
+#else
+#import <StoneNamuCore/HSCard.h>
+#import <StoneNamuCore/BlizzardAPIRegionHost.h>
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 

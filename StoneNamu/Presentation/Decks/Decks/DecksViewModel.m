@@ -6,8 +6,7 @@
 //
 
 #import "DecksViewModel.h"
-#import "HSDeckUseCaseImpl.h"
-#import "LocalDeckUseCaseImpl.h"
+#import <StoneNamuCore/StoneNamuCore.h>
 #import "NSDiffableDataSourceSnapshot+sort.h"
 #import "UICollectionViewDiffableDataSource+applySnapshotAndWait.h"
 

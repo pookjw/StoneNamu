@@ -6,9 +6,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "HSCardSet.h"
-#import "HSCardClass.h"
-#import "HSDeckFormat.h"
+#import <StoneNamuCore/StoneNamuCore.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

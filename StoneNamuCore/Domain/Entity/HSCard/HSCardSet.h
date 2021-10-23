@@ -6,7 +6,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "HSDeckFormat.h"
+#include <TargetConditionals.h>
+#if TARGET_OS_OSX
+#import <StoneNamuMacCore/HSDeckFormat.h>
+#else
+#import <StoneNamuCore/HSDeckFormat.h>
+#endif
 
 typedef NS_ENUM(NSUInteger, HSCardSet) {
     HSCardSetLegacy = 9000,

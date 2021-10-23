@@ -6,7 +6,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "HSDeckUseCase.h"
+#include <TargetConditionals.h>
+#if TARGET_OS_OSX
+#import <StoneNamuMacCore/HSDeckUseCase.h>
+#else
+#import <StoneNamuCore/HSDeckUseCase.h>
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 

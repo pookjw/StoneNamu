@@ -11,14 +11,7 @@ NSString * LocalizedErrorString(NSString *key) {
     return NSLocalizedStringFromTableInBundle(key,
                                               @"LocalizedError",
                                               [NSBundle bundleWithIdentifier:@"com.pookjw.StoneNamuCore"],
-                                              @"");;
-}
-
-
-NSError * DataCorruptionError(void) {
-    return [NSError errorWithDomain:@"com.pookjw.StoneNamuCore.DataCorruptionError"
-                               code:100
-                           userInfo:@{NSLocalizedDescriptionKey: LocalizedErrorString(@"DATA_IS_CORRUPTED")}];
+                                              @"");
 }
 
 NSError * InvalidHSCardError(void) {

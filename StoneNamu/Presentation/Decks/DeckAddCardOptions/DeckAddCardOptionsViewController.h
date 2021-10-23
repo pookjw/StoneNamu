@@ -7,7 +7,7 @@
 
 #import <UIKit/UIKit.h>
 #import "DeckAddCardOptionsViewControllerDelegate.h"
-#import "LocalDeck.h"
+#import <StoneNamuCore/StoneNamuCore.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -6,7 +6,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Prefs.h"
+
+#if TARGET_OS_OSX
+#import <StoneNamuMacCore/Prefs.h>
+#else
+#import <StoneNamuCore/Prefs.h>
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -6,7 +6,12 @@
 //
 
 #import "CoreDataStackImpl.h"
-#import "NSSemaphoreCondition.h"
+#include <TargetConditionals.h>
+#if TARGET_OS_OSX
+#import <StoneNamuMacCore/NSSemaphoreCondition.h>
+#else
+#import <StoneNamuCore/NSSemaphoreCondition.h>
+#endif
 
 static NSMutableDictionary<NSString *, NSPersistentContainer *> * _Nullable kStoreContainers = nil;
 static NSMutableDictionary<NSString *, NSManagedObjectContext *> * _Nullable kContexts = nil;

@@ -6,8 +6,14 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "HSDeck.h"
-#import "HSCardHero.h"
+#include <TargetConditionals.h>
+#if TARGET_OS_OSX
+#import <StoneNamuMacCore/HSDeck.h>
+#import <StoneNamuMacCore/HSCardHero.h>
+#else
+#import <StoneNamuCore/HSDeck.h>
+#import <StoneNamuCore/HSCardHero.h>
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 
