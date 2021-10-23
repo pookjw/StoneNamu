@@ -400,7 +400,8 @@
         if (self.splitViewController == nil) {
             [self.navigationController pushViewController:self.contextViewController animated:YES];
         } else {
-            [self.splitViewController showDetailViewController:self.contextViewController sender:nil];
+            [self.splitViewController setViewController:self.contextViewController forColumn:UISplitViewControllerColumnSecondary];
+            [self.contextViewController.navigationController setViewControllers:@[self.contextViewController] animated:NO];
         }
     }];
     
