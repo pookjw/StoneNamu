@@ -2092,7 +2092,7 @@
 					};
 					4F34384E26A36FBA001161FE = {
 						CreatedOnToolsVersion = 13.0;
-						TestTargetID = 4FE856FC270089BC0008C2FB;
+						TestTargetID = 4FA56BA626A21059002D9FA0;
 					};
 					4FA56BA626A21059002D9FA0 = {
 						CreatedOnToolsVersion = 12.5.1;
@@ -2117,8 +2117,8 @@
 			projectRoot = "";
 			targets = (
 				4FA56BA626A21059002D9FA0 /* StoneNamu */,
-				4F34384726A36FBA001161FE /* StoneNamuCore */,
 				4FE856FC270089BC0008C2FB /* StoneNamuMac */,
+				4F34384726A36FBA001161FE /* StoneNamuCore */,
 				4F34384E26A36FBA001161FE /* StoneNamuCoreTests */,
 			);
 		};
@@ -2692,7 +2692,7 @@
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/StoneNamuMac.app/Contents/MacOS/StoneNamuMac";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/StoneNamu.app/StoneNamu";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/StoneNamuCoreTests/**";
 				USE_HEADERMAP = NO;
 			};
@@ -2721,7 +2721,7 @@
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/StoneNamuMac.app/Contents/MacOS/StoneNamuMac";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/StoneNamu.app/StoneNamu";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/StoneNamuCoreTests/**";
 				USE_HEADERMAP = NO;
 			};
