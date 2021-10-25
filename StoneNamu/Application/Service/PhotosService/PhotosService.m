@@ -82,10 +82,11 @@
                 if (error) {
                     completionHandler(NO, error);
                 } else if (data) {
-                    [self.dataCacheUseCase makeDataCache:data identity:url.absoluteString];
-                    [self.dataCacheUseCase saveChanges];
-                    UIImage *image = [UIImage imageWithData:data];
-                    [self saveImage:image fromViewController:viewController completionHandler:completionHandler];
+                    [self.dataCacheUseCase makeDataCache:data identity:url.absoluteString completion:^{
+                        [self.dataCacheUseCase saveChanges];
+                        UIImage *image = [UIImage imageWithData:data];
+                        [self saveImage:image fromViewController:viewController completionHandler:completionHandler];
+                    }];
                 } else {
                     NSError *error = DataCorruptionError();
                     completionHandler(NO, error);

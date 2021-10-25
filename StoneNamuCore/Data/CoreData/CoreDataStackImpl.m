@@ -48,6 +48,7 @@ static NSMutableDictionary<NSString *, NSOperationQueue *> * _Nullable kOperatio
 }
 
 - (void)saveChanges {
+    NSLog(@"%@", kOperationQueues);
     [self.queue addBarrierBlock:^{
         if (!self.context.hasChanges) {
             NSLog(@"Nothing to save!");

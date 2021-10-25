@@ -9,6 +9,8 @@
 #import <StoneNamuCore/CoreDataStackImpl.h>
 #import <StoneNamuCore/NSManagedObject+_fetchRequest.h>
 
+typedef void (^PrefsRepositoryImplMakeWithCompletion)(Prefs *);
+
 @interface PrefsRepositoryImpl ()
 @property (retain) id<CoreDataStack> coreDataStack;
 @end
@@ -51,9 +53,10 @@
                 }
                 
                 if (results.count == 0) {
-                    Prefs *prefs = [self makeNewPrefs];
-                    [self saveChanges];
-                    completion(prefs, error);
+                    [self makeNewPrefsWithCompletion:^(Prefs * prefs) {
+                        [self saveChanges];
+                        completion(prefs, error);
+                    }];
                 } else {
                     completion(results.lastObject, error);
                 }
@@ -83,9 +86,11 @@
     }];
 }
 
-- (Prefs *)makeNewPrefs {
-    Prefs *prefs = [[Prefs alloc] initWithContext:self.coreDataStack.context];
-    return [prefs autorelease];
+- (void)makeNewPrefsWithCompletion:(PrefsRepositoryImplMakeWithCompletion)completion {
+    [self.coreDataStack.queue addBarrierBlock:^{
+        Prefs *prefs = [[Prefs alloc] initWithContext:self.coreDataStack.context];
+        completion(prefs);
+    }];
 }
 
 @end

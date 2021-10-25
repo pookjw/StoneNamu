@@ -90,9 +90,11 @@
     }];
 }
 
-- (DataCache *)makeDataCache {
-    DataCache *dataCache = [[DataCache alloc] initWithContext:self.coreDataStack.context];
-    return [dataCache autorelease];
+- (void)makeDataCacheWithCompletion:(DataCacheRepositoryMakeWithCompletion)completion {
+    [self.coreDataStack.queue addBarrierBlock:^{
+        DataCache *dataCache = [[DataCache alloc] initWithContext:self.coreDataStack.context];
+        completion(dataCache);
+    }];
 }
 
 @end

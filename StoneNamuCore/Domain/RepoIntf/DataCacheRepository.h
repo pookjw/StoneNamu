@@ -11,6 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 typedef void (^DataCacheRepositoryFetchWithIdentityCompletion)(NSArray<DataCache *> * _Nullable, NSError * _Nullable);
+typedef void (^DataCacheRepositoryMakeWithCompletion)(DataCache *);
 
 static NSString * const DataCacheRepositoryDeleteAllNotificationName = @"DataCacheRepositoryDeleteAllNotificationName";
 
@@ -18,7 +19,7 @@ static NSString * const DataCacheRepositoryDeleteAllNotificationName = @"DataCac
 - (void)saveChanges;
 - (void)dataCachesWithIdentity:(NSString *)identity completion:(DataCacheRepositoryFetchWithIdentityCompletion)completion;
 - (void)deleteAllDataCaches;
-- (DataCache *)makeDataCache;
+- (void)makeDataCacheWithCompletion:(DataCacheRepositoryMakeWithCompletion)completion;
 @end
 
 NS_ASSUME_NONNULL_END

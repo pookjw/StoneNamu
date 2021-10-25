@@ -37,6 +37,7 @@
     [super viewDidLoad];
     [self configureCollectionView];
     [self configureViewModel];
+    [self bind];
     [self.viewModel requestDataSourceWithOptions:nil reset:NO];
 }
 
@@ -51,6 +52,7 @@
     
     scrollView.contentView = clipView;
     clipView.documentView = collectionView;
+    clipView.postsBoundsChangedNotifications = YES;
 
     [self.view addSubview:scrollView];
     scrollView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -90,6 +92,25 @@
     CardsViewModel *viewModel = [[CardsViewModel alloc] initWithDataSource:[self makeDataSource]];
     self.viewModel = viewModel;
     [viewModel release];
+}
+
+- (void)bind {
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(scrollViewDidEndLiveScrollReceived:)
+                                               name:NSScrollViewDidEndLiveScrollNotification
+                                             object:self.scrollView];
+}
+
+- (void)scrollViewDidEndLiveScrollReceived:(NSNotification *)notification {
+    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+        if ((self.clipView.bounds.origin.y + self.clipView.bounds.size.height) >= self.collectionView.collectionViewLayout.collectionViewContentSize.height) {
+            BOOL requested = [self.viewModel requestDataSourceWithOptions:self.viewModel.options reset:NO];
+            
+            if (requested) {
+                
+            }
+        }
+    }];
 }
 
 - (CardsDataSource *)makeDataSource {

@@ -60,10 +60,12 @@
     [self.dataCacheRepository deleteAllDataCaches];
 }
 
-- (void)makeDataCache:(NSData *)data identity:(NSString *)identity {
-    DataCache *dataCache = [self.dataCacheRepository makeDataCache];
-    dataCache.data = data;
-    dataCache.identity = identity;
+- (void)makeDataCache:(NSData *)data identity:(NSString *)identity completion:(DataCacheUseCaseMakeWithCompletion)completion {
+    [self.dataCacheRepository makeDataCacheWithCompletion:^(DataCache * _Nonnull dataCache) {
+        dataCache.data = data;
+        dataCache.identity = identity;
+        completion();
+    }];
 }
 
 - (void)saveChanges {

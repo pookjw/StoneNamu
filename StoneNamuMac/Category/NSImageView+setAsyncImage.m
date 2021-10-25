@@ -92,18 +92,19 @@ static NSString * const NSImageViewAsyncImageCategorySessionTaskKey = @"NSImageV
                     }];
                     completion(nil, error);
                 } else if (data) {
-                    [self.dataCacheUseCase makeDataCache:data identity:url.absoluteString];
-                    [self.dataCacheUseCase saveChanges];
-                    
-                    if ([self.currentURL isEqual:url]) {
-                        NSImage *image = [[NSImage alloc] initWithData:data];
-                        [NSOperationQueue.mainQueue addOperationWithBlock:^{
-                            [self removeProgressIndicator];
-                            [self loadImageWithFade:image];
-                            [image autorelease];
-                            completion(image, nil);
-                        }];
-                    }
+                    [self.dataCacheUseCase makeDataCache:data identity:identity completion:^{
+                        [self.dataCacheUseCase saveChanges];
+                        
+                        if ([self.currentURL isEqual:url]) {
+                            NSImage *image = [[NSImage alloc] initWithData:data];
+                            [NSOperationQueue.mainQueue addOperationWithBlock:^{
+                                [self removeProgressIndicator];
+                                [self loadImageWithFade:image];
+                                [image autorelease];
+                                completion(image, nil);
+                            }];
+                        }
+                    }];
                 }
             }];
             [sessionTask resume];

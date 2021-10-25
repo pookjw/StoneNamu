@@ -211,11 +211,12 @@
                 if (error) {
                     completion(nil);
                 } else {
-                    [self.dataCacheUseCase makeDataCache:data identity:url.absoluteString];
-                    [self.dataCacheUseCase saveChanges];
-                    
-                    UIImage *image = [UIImage imageWithData:data];
-                    completion(image);
+                    [self.dataCacheUseCase makeDataCache:data identity:url.absoluteString completion:^{
+                        [self.dataCacheUseCase saveChanges];
+                        
+                        UIImage *image = [UIImage imageWithData:data];
+                        completion(image);
+                    }];
                 }
             }];
             
