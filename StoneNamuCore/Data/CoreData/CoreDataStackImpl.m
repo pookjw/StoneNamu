@@ -28,6 +28,10 @@ static NSMutableDictionary<NSString *, NSOperationQueue *> * _Nullable kOperatio
 @synthesize queue = _queue;
 
 - (instancetype)initWithModelName:(NSString *)modelName storeContainerClass:(Class)storeContainerClass {
+    if (!NSThread.isMainThread) {
+        [NSException raise:@"Not Main Thread!" format:@"Please run init at Main Thread!"];
+    }
+    
     self = [self init];
     
     if (self) {
@@ -48,7 +52,6 @@ static NSMutableDictionary<NSString *, NSOperationQueue *> * _Nullable kOperatio
 }
 
 - (void)saveChanges {
-    NSLog(@"%@", kOperationQueues);
     [self.queue addBarrierBlock:^{
         if (!self.context.hasChanges) {
             NSLog(@"Nothing to save!");
