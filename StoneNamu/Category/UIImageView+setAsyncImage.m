@@ -15,10 +15,10 @@ static NSString * const UIImageViewAsyncImageCategoryCurrentURLKey = @"UIImageVi
 static NSString * const UIImageViewAsyncImageCategorySessionTaskKey = @"UIImageViewAsyncImageCategorySessionTaskKey";
 
 @interface UIImageView (setAsyncImage)
-@property (nonatomic, assign) UIActivityIndicatorView * _Nullable activityIndicator;
-@property (nonatomic, assign) id<DataCacheUseCase> _Nullable dataCacheUseCase;
-@property (nonatomic, assign) NSURL * _Nullable currentURL;
-@property (nonatomic, assign) NSURLSessionTask * _Nullable sessionTask;
+@property (nonatomic, retain) UIActivityIndicatorView * _Nullable activityIndicator;
+@property (nonatomic, retain) id<DataCacheUseCase> _Nullable dataCacheUseCase;
+@property (nonatomic, retain) NSURL * _Nullable currentURL;
+@property (nonatomic, retain) NSURLSessionTask * _Nullable sessionTask;
 @end
 
 @implementation UIImageView (setAsyncImage)
@@ -80,8 +80,8 @@ static NSString * const UIImageViewAsyncImageCategorySessionTaskKey = @"UIImageV
                 }
             }];
             
-            NSURLSession *sharedSession = NSURLSession.sharedSession;
-            NSURLSessionTask *sessionTask = [sharedSession dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+            NSURLSession *session = [NSURLSession sessionWithConfiguration:NSURLSessionConfiguration.ephemeralSessionConfiguration];
+            NSURLSessionTask *sessionTask = [session dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
                 
                 if (error) {
                     [NSOperationQueue.mainQueue addOperationWithBlock:^{

@@ -40,7 +40,7 @@ static NSString * const BlizzardHSAPIAccessToken = @"access_token";
     NSLog(@"%@", url.absoluteString);
     [components release];
     
-    NSURLSession *session = NSURLSession.sharedSession;
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:NSURLSessionConfiguration.ephemeralSessionConfiguration];
     NSURLSessionTask *task = [session dataTaskWithURL:url completionHandler:completion];
     [task resume];
 }

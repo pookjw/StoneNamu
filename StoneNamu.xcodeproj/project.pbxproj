@@ -87,6 +87,7 @@
 		4F57DEA526AD96D3000E4163 /* HSCardSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F57DEA426AD96D3000E4163 /* HSCardSet.m */; };
 		4F57DEAC26ADA6E3000E4163 /* PickerItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F57DEAB26ADA6E3000E4163 /* PickerItemModel.m */; };
 		4F57DEB926ADC3CF000E4163 /* PickerItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F57DEB826ADC3CF000E4163 /* PickerItemView.m */; };
+		4F6462D62726932A00329B10 /* NSImageView+setAsyncImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F6462D52726932A00329B10 /* NSImageView+setAsyncImage.m */; };
 		4F646A5C26B7CA8000BEDB38 /* CardsCollectionViewCompositionalLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F646A5B26B7CA8000BEDB38 /* CardsCollectionViewCompositionalLayout.m */; };
 		4F646A5F26B7D05E00BEDB38 /* UIImageView+setAsyncImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F646A5E26B7D05E00BEDB38 /* UIImageView+setAsyncImage.m */; };
 		4F646A6326B7D73400BEDB38 /* DataCacheModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4F646A6126B7D73400BEDB38 /* DataCacheModel.xcdatamodeld */; };
@@ -487,6 +488,8 @@
 		4F57DEAB26ADA6E3000E4163 /* PickerItemModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PickerItemModel.m; sourceTree = "<group>"; };
 		4F57DEB726ADC3CF000E4163 /* PickerItemView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PickerItemView.h; sourceTree = "<group>"; };
 		4F57DEB826ADC3CF000E4163 /* PickerItemView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PickerItemView.m; sourceTree = "<group>"; };
+		4F6462D42726932A00329B10 /* NSImageView+setAsyncImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSImageView+setAsyncImage.h"; sourceTree = "<group>"; };
+		4F6462D52726932A00329B10 /* NSImageView+setAsyncImage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSImageView+setAsyncImage.m"; sourceTree = "<group>"; };
 		4F646A5A26B7CA8000BEDB38 /* CardsCollectionViewCompositionalLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardsCollectionViewCompositionalLayout.h; sourceTree = "<group>"; };
 		4F646A5B26B7CA8000BEDB38 /* CardsCollectionViewCompositionalLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardsCollectionViewCompositionalLayout.m; sourceTree = "<group>"; };
 		4F646A5D26B7D05E00BEDB38 /* UIImageView+setAsyncImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImageView+setAsyncImage.h"; sourceTree = "<group>"; };
@@ -1814,6 +1817,8 @@
 				4FE857782700A3580008C2FB /* NSWindow+presentErrorAlert.m */,
 				4F4892DC27246B6000126131 /* NSViewController+loadViewIfNeeded.h */,
 				4F4892DD27246B6000126131 /* NSViewController+loadViewIfNeeded.m */,
+				4F6462D42726932A00329B10 /* NSImageView+setAsyncImage.h */,
+				4F6462D52726932A00329B10 /* NSImageView+setAsyncImage.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -2421,6 +2426,7 @@
 				4FE8576A270093CF0008C2FB /* CardsViewController.m in Sources */,
 				4F4892E227246E2B00126131 /* MainWindow.m in Sources */,
 				4FE8577327009C570008C2FB /* CardItemModel.m in Sources */,
+				4F6462D62726932A00329B10 /* NSImageView+setAsyncImage.m in Sources */,
 				4FE85767270092F30008C2FB /* MainListViewController.m in Sources */,
 				4FE857762700A0230008C2FB /* NSCollectionViewDiffableDataSource+applySnapshotAndWait.m in Sources */,
 			);

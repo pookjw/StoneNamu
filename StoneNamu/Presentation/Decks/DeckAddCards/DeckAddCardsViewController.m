@@ -38,6 +38,7 @@
         self.contextViewController = nil;
         [self loadViewIfNeeded];
         self.viewModel.localDeck = localDeck;
+        [self addSpinnerView];
         [self.viewModel requestDataSourceWithOptions:nil reset:YES];
         [self updateDeckDetailButtonText];
     }

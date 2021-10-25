@@ -33,7 +33,7 @@ static NSString * const BlizzardTokenAPIAuthorizationValue = @"Basic NDBjMjRlNDh
     request.allHTTPHeaderFields = @{
         BlizzardTokenAPIAuthorizationKey: BlizzardTokenAPIAuthorizationValue
     };
-    NSURLSession *session = NSURLSession.sharedSession;
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:NSURLSessionConfiguration.ephemeralSessionConfiguration];
     NSURLSessionTask *task = [session dataTaskWithRequest:request completionHandler:completion];
     [request release];
     [task resume];

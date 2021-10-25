@@ -39,6 +39,7 @@
 
 - (void)requestWithOptions:(NSDictionary<NSString *,NSString *> *)options {
     [self loadViewIfNeeded];
+    [self addSpinnerView];
     [self.viewModel requestDataSourceWithOptions:options reset:YES];
 }
 

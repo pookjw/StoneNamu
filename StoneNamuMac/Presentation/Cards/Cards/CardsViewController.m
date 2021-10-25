@@ -97,11 +97,7 @@
                                                                      itemProvider:^NSCollectionViewItem * _Nullable(NSCollectionView * _Nonnull collectionView, NSIndexPath * _Nonnull indexPath, CardItemModel * _Nonnull itemModel) {
         
         CardContentView *cell = (CardContentView *)[collectionView makeItemWithIdentifier:NSStringFromClass([CardContentView class]) forIndexPath:indexPath];
-        NSData *data = [[NSData alloc] initWithContentsOfURL:itemModel.hsCard.image];
-        NSImage *image = [[NSImage alloc] initWithData:data];
-        [data release];
-        cell.imageView.image = image;
-        [image release];
+        [cell configureWithHSCard:itemModel.hsCard];
         
         return cell;
     }];

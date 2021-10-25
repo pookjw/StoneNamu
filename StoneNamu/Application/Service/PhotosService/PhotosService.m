@@ -75,9 +75,9 @@
             UIImage *image = [UIImage imageWithData:cachedData];
             [self saveImage:image fromViewController:viewController completionHandler:completionHandler];
         } else {
-            NSURLSession *sharedSession = NSURLSession.sharedSession;
+            NSURLSession *session = [NSURLSession sessionWithConfiguration:NSURLSessionConfiguration.ephemeralSessionConfiguration];
             
-            NSURLSessionTask *sessionTask = [sharedSession dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+            NSURLSessionTask *sessionTask = [session dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
                 
                 if (error) {
                     completionHandler(NO, error);
