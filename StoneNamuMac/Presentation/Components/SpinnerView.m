@@ -41,6 +41,7 @@
     [_baseCircularPathLayer release];
     [_progressCircularView release];
     [_progressCircularLayer release];
+    [_progressCircularAnimation release];
     [super dealloc];
 }
 
