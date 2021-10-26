@@ -109,7 +109,7 @@
             BOOL requested = [self.viewModel requestDataSourceWithOptions:self.viewModel.options reset:NO];
             
             if (requested) {
-                
+                [self addSpinnerView];
             }
         }
     }];
