@@ -301,7 +301,7 @@
     
     // https://stackoverflow.com/a/226761
     [CATransaction begin];
-    [CATransaction setValue: (id) kCFBooleanTrue forKey: kCATransactionDisableActions];
+    [CATransaction setValue:(id)kCFBooleanTrue forKey: kCATransactionDisableActions];
     self.progressCircularLayer.position = CGPointMake((self.progressCircularView.bounds.size.width / 2.0f),
                                                       (self.progressCircularView.bounds.size.height / 2.0f));
     [CATransaction commit];
