@@ -6,15 +6,15 @@
 //
 
 #import "UIViewController+SpinnerView.h"
-#define ANIMATION_DURATION 0.2
+#define ANIMATION_DURATION 0.2f
 
 @implementation UIViewController (SpinnerView)
 
 - (SpinnerView *)addSpinnerView {
-    return [self addSpinnerViewWithPreventTouch:NO];
+    return [self addSpinnerViewWithPreventInteraction:NO];
 }
 
-- (SpinnerView *)addSpinnerViewWithPreventTouch:(BOOL)preventTouch {
+- (SpinnerView *)addSpinnerViewWithPreventInteraction:(BOOL)preventTouch {
     SpinnerView *spinnerView = [SpinnerView new];
     
     spinnerView.userInteractionEnabled = preventTouch;
@@ -23,9 +23,9 @@
 
     spinnerView.translatesAutoresizingMaskIntoConstraints = NO;
     [NSLayoutConstraint activateConstraints:@[
+        [spinnerView.topAnchor constraintEqualToAnchor:self.view.topAnchor],
         [spinnerView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor],
         [spinnerView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor],
-        [spinnerView.topAnchor constraintEqualToAnchor:self.view.topAnchor],
         [spinnerView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor]
     ]];
     
@@ -44,7 +44,7 @@
     for (UIView *subview in self.view.subviews) {
         if ([subview isKindOfClass:[SpinnerView class]]) {
             [UIView animateWithDuration:ANIMATION_DURATION animations:^{
-                subview.alpha = 0;
+                subview.alpha = 0.0f;
             } completion:^(BOOL finished) {
                 [subview removeFromSuperview];
             }];

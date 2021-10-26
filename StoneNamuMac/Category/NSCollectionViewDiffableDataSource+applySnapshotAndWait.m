@@ -19,6 +19,7 @@
     }
     
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
+        [self applySnapshot:snapshot animatingDifferences:YES];
         [self applySnapshot:snapshot animatingDifferences:animatingDifferences completion:^{
             completion();
             [semaphore signal];

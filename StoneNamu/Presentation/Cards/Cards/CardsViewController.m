@@ -174,13 +174,15 @@
 - (void)errorEventReceived:(NSNotification *)notification {
     NSError * _Nullable error = notification.userInfo[CardsViewModelErrorNotificationErrorKey];
     
-    if (error) {
-        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+        [self removeAllSpinnerview];
+        
+        if (error) {
             [self presentErrorAlertWithError:error];
-        }];
-    } else {
-        NSLog(@"No error found but the notification was posted: %@", notification.userInfo);
-    }
+        } else {
+            NSLog(@"No error found but the notification was posted: %@", notification.userInfo);
+        }
+    }];
 }
 
 - (void)applyingSnapshotWasDoneReceived:(NSNotification *)notification {

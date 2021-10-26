@@ -20,6 +20,7 @@ FOUNDATION_EXPORT const unsigned char StoneNamuCoreVersionString[];
 #import <StoneNamuCore/NSMutableArray+removeSingle.h>
 #import <StoneNamuCore/NSArray+countOfObject.h>
 #import <StoneNamuCore/NSString+arrayOfCharacters.h>
+#import <StoneNamuCore/NSArray+containsString.h>
 #import <StoneNamuCore/LocalDeck.h>
 #import <StoneNamuCore/Prefs.h>
 #import <StoneNamuCore/BlizzardAPIRegionHost.h>

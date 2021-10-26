@@ -20,6 +20,7 @@
     alert.informativeText = error.localizedDescription;
     
     [alert beginSheetModalForWindow:self completionHandler:completion];
+    [alert autorelease];
 }
 
 @end

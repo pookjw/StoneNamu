@@ -9,6 +9,7 @@
 #import "NSWindow+presentErrorAlert.h"
 #import "CardsViewModel.h"
 #import "CardContentView.h"
+#import "NSViewController+SpinnerView.h"
 
 @interface CardsViewController ()
 @property (retain) NSScrollView *scrollView;
@@ -38,6 +39,7 @@
     [self configureCollectionView];
     [self configureViewModel];
     [self bind];
+    [self addSpinnerView];
     [self.viewModel requestDataSourceWithOptions:nil reset:NO];
 }
 
@@ -64,7 +66,7 @@
     ]];
     
     NSCollectionViewFlowLayout *flowLayout = [NSCollectionViewFlowLayout new];
-    flowLayout.itemSize = NSMakeSize(200, 300);
+    flowLayout.itemSize = NSMakeSize(150, 250);
     flowLayout.minimumLineSpacing = 0.0f;
     collectionView.collectionViewLayout = flowLayout;
     [flowLayout release];
@@ -76,16 +78,6 @@
     [scrollView release];
     [clipView release];
     [collectionView release];
-    
-    NSTextField *textField = [NSTextField new];
-    textField.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.view addSubview:textField];
-    [NSLayoutConstraint activateConstraints:@[
-        [textField.topAnchor constraintEqualToAnchor:self.view.topAnchor],
-        [textField.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor],
-        [textField.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor]
-    ]];
-    [textField release];
 }
 
 - (void)configureViewModel {
@@ -99,6 +91,16 @@
                                            selector:@selector(scrollViewDidEndLiveScrollReceived:)
                                                name:NSScrollViewDidEndLiveScrollNotification
                                              object:self.scrollView];
+    
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(errorEventReceived:)
+                                               name:CardsViewModelErrorNotificationName
+                                             object:self.viewModel];
+    
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(applyingSnapshotWasDoneReceived:)
+                                               name:CardsViewModelApplyingSnapshotToDataSourceWasDoneNotificationName
+                                             object:self.viewModel];
 }
 
 - (void)scrollViewDidEndLiveScrollReceived:(NSNotification *)notification {
@@ -110,6 +112,26 @@
                 
             }
         }
+    }];
+}
+
+- (void)errorEventReceived:(NSNotification *)notification {
+    NSError * _Nullable error = notification.userInfo[CardsViewModelErrorNotificationErrorKey];
+    
+    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+        [self removeAllSpinnerview];
+        
+        if (error) {
+            [self.view.window presentErrorAlertWithError:error];
+        } else {
+            NSLog(@"No error found but the notification was posted: %@", notification.userInfo);
+        }
+    }];
+}
+
+- (void)applyingSnapshotWasDoneReceived:(NSNotification *)notification {
+    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+        [self removeAllSpinnerview];
     }];
 }
 

@@ -33,6 +33,14 @@
     [super dealloc];
 }
 
+- (void)startAnimating {
+    [self.activityIndicatorView startAnimating];
+}
+
+- (void)stopAnimating {
+    [self.activityIndicatorView stopAnimating];
+}
+
 - (void)setAttributes {
     self.backgroundColor = UIColor.clearColor;
     self.userInteractionEnabled = YES;
@@ -69,12 +77,11 @@
     
     visualEffectView.translatesAutoresizingMaskIntoConstraints = NO;
     [NSLayoutConstraint activateConstraints:@[
-        [visualEffectView.centerXAnchor constraintEqualToAnchor:self.centerXAnchor],
-        [visualEffectView.centerYAnchor constraintEqualToAnchor:self.centerYAnchor],
-        [visualEffectView.widthAnchor constraintEqualToConstant:75],
-        [visualEffectView.heightAnchor constraintEqualToConstant:75]
+        [visualEffectView.centerXAnchor constraintEqualToAnchor:self.safeAreaLayoutGuide.centerXAnchor],
+        [visualEffectView.centerYAnchor constraintEqualToAnchor:self.safeAreaLayoutGuide.centerYAnchor]
     ]];
     visualEffectView.layer.cornerRadius = 10;
+    visualEffectView.layer.cornerCurve = kCACornerCurveContinuous;
     visualEffectView.clipsToBounds = YES;
     visualEffectView.userInteractionEnabled = NO;
     
@@ -85,13 +92,15 @@
     UIActivityIndicatorView *activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleLarge];
     self.activityIndicatorView = activityIndicatorView;
     
-    [self addSubview:activityIndicatorView];
+    [self.visualEffectView.contentView addSubview:activityIndicatorView];
     [activityIndicatorView startAnimating];
     
     activityIndicatorView.translatesAutoresizingMaskIntoConstraints = NO;
     [NSLayoutConstraint activateConstraints:@[
-        [activityIndicatorView.centerXAnchor constraintEqualToAnchor:self.centerXAnchor],
-        [activityIndicatorView.centerYAnchor constraintEqualToAnchor:self.centerYAnchor]
+        [activityIndicatorView.topAnchor constraintEqualToAnchor:self.visualEffectView.contentView.topAnchor constant:15.0f],
+        [activityIndicatorView.leadingAnchor constraintEqualToAnchor:self.visualEffectView.contentView.leadingAnchor constant:15.0f],
+        [activityIndicatorView.trailingAnchor constraintEqualToAnchor:self.visualEffectView.contentView.trailingAnchor constant:-15.0f],
+        [activityIndicatorView.bottomAnchor constraintEqualToAnchor:self.visualEffectView.contentView.bottomAnchor constant:-15.0f]
     ]];
     activityIndicatorView.backgroundColor = UIColor.clearColor;
     activityIndicatorView.userInteractionEnabled = NO;

@@ -1,15 +1,15 @@
 //
 //  SpinnerView.h
-//  SpinnerView
+//  StoneNamuMac
 //
-//  Created by Jinwoo Kim on 8/29/21.
+//  Created by Jinwoo Kim on 10/26/21.
 //
 
-#import <UIKit/UIKit.h>
+#import <Cocoa/Cocoa.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SpinnerView : UIView
+@interface SpinnerView : NSView
 - (void)startAnimating;
 - (void)stopAnimating;
 @end

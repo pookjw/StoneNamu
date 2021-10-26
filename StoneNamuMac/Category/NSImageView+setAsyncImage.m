@@ -7,16 +7,17 @@
 
 #import "NSImageView+setAsyncImage.h"
 #import <objc/runtime.h>
-#import <QuartzCore/CoreAnimation.h>
+#import <QuartzCore/QuartzCore.h>
 #import <StoneNamuCore/StoneNamuCore.h>
+#import "SpinnerView.h"
 
-static NSString * const NSImageViewAsyncImageCategoryProgressIndicatorKey = @"NSImageViewAsyncImageCategoryProgressIndicatorKey";
+static NSString * const NSImageViewAsyncImageCategorySpinnerViewKey = @"NSImageViewAsyncImageCategorySpinnerViewKey";
 static NSString * const NSImageViewAsyncImageCategoryDataCacheUseCaseKey = @"NSImageViewAsyncImageCategoryDataCacheUseCaseKey";
 static NSString * const NSImageViewAsyncImageCategoryCurrentURLKey = @"NSImageViewAsyncImageCategoryCurrentURLKey";
 static NSString * const NSImageViewAsyncImageCategorySessionTaskKey = @"NSImageViewAsyncImageCategorySessionTaskKey";
 
 @interface NSImageView (setAsyncImage)
-@property (nonatomic, retain) NSProgressIndicator * _Nullable progressIndicator;
+@property (nonatomic, retain) SpinnerView * _Nullable spinnerView;
 @property (nonatomic, retain) id<DataCacheUseCase> _Nullable dataCacheUseCase;
 @property (nonatomic, retain) NSURL * _Nullable currentURL;
 @property (nonatomic, retain) NSURLSessionTask * _Nullable sessionTask;
@@ -46,6 +47,7 @@ static NSString * const NSImageViewAsyncImageCategorySessionTaskKey = @"NSImageV
     }
     
     NSString *identity = url.absoluteString;
+    [self showSpinnerView];
     
     // Fetch Cahce Data from another background thread...
     [self.dataCacheUseCase dataCachesWithIdentity:identity completion:^(NSArray<NSData *> * _Nonnull cachedDatas, NSError * _Nullable error) {
@@ -63,7 +65,7 @@ static NSString * const NSImageViewAsyncImageCategorySessionTaskKey = @"NSImageV
             if ([self.currentURL isEqual:url]) {
                 NSImage *image = [[NSImage alloc] initWithData:cachedData];
                 [NSOperationQueue.mainQueue addOperationWithBlock:^{
-                    [self removeProgressIndicator];
+                    [self removeSpinnerView];
                     [self loadImageWithFade:image];
                     [image autorelease];
                     completion(image, nil);
@@ -76,9 +78,9 @@ static NSString * const NSImageViewAsyncImageCategorySessionTaskKey = @"NSImageV
             // if not found, download from server
             [NSOperationQueue.mainQueue addOperationWithBlock:^{
                 if (indicator) {
-                    [self showProgressIndicator];
+                    [self showSpinnerView];
                 } else {
-                    [self removeProgressIndicator];
+                    [self removeSpinnerView];
                 }
             }];
             
@@ -87,7 +89,7 @@ static NSString * const NSImageViewAsyncImageCategorySessionTaskKey = @"NSImageV
                 
                 if (error) {
                     [NSOperationQueue.mainQueue addOperationWithBlock:^{
-                        [self removeProgressIndicator];
+                        [self removeSpinnerView];
                         self.image = nil;
                     }];
                     completion(nil, error);
@@ -98,7 +100,7 @@ static NSString * const NSImageViewAsyncImageCategorySessionTaskKey = @"NSImageV
                         if ([self.currentURL isEqual:url]) {
                             NSImage *image = [[NSImage alloc] initWithData:data];
                             [NSOperationQueue.mainQueue addOperationWithBlock:^{
-                                [self removeProgressIndicator];
+                                [self removeSpinnerView];
                                 [self loadImageWithFade:image];
                                 [image autorelease];
                                 completion(image, nil);
@@ -113,30 +115,48 @@ static NSString * const NSImageViewAsyncImageCategorySessionTaskKey = @"NSImageV
     }];
 }
 
-- (void)showProgressIndicator {
-//    if (self.progressIndicator) {
-//        self.progressIndicator.hidden = NO;
-//        [self.progressIndicator startAnimation:nil];
-//        return;
-//    }
-//
-//    NSProgressIndicator *progressIndicator = [NSProgressIndicator new];
-//    self.progressIndicator = progressIndicator;
-//    [self addSubview:progressIndicator];
-//    progressIndicator.translatesAutoresizingMaskIntoConstraints = NO;
-//    [NSLayoutConstraint activateConstraints:@[
-//        [progressIndicator.centerXAnchor constraintEqualToAnchor:self.centerXAnchor],
-//        [progressIndicator.centerYAnchor constraintEqualToAnchor:self.centerYAnchor]
-//    ]];
-//    progressIndicator.controlTint = NSBlueControlTint;
-//    [progressIndicator startAnimation:nil];
-//    [progressIndicator release];
+- (void)showSpinnerView {
+    if (self.spinnerView) {
+        self.spinnerView.hidden = NO;
+        [self.spinnerView startAnimating];
+        return;
+    }
+
+    SpinnerView *spinnerView = [SpinnerView new];
+    self.spinnerView = spinnerView;
+    [self addSubview:spinnerView];
+    spinnerView.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    NSLayoutConstraint *widthConstraint = [NSLayoutConstraint constraintWithItem:spinnerView
+                                                                       attribute:NSLayoutAttributeWidth
+                                                                       relatedBy:NSLayoutRelationEqual
+                                                                          toItem:self
+                                                                       attribute:NSLayoutAttributeWidth
+                                                                      multiplier:0.3f
+                                                                        constant:0.0f];
+    NSLayoutConstraint *heightConstraint = [NSLayoutConstraint constraintWithItem:spinnerView
+                                                                       attribute:NSLayoutAttributeHeight
+                                                                       relatedBy:NSLayoutRelationEqual
+                                                                          toItem:self
+                                                                       attribute:NSLayoutAttributeHeight
+                                                                      multiplier:0.3f
+                                                                        constant:0.0f];
+    
+    [NSLayoutConstraint activateConstraints:@[
+        [spinnerView.centerXAnchor constraintEqualToAnchor:self.centerXAnchor],
+        [spinnerView.centerYAnchor constraintEqualToAnchor:self.centerYAnchor],
+        widthConstraint,
+        heightConstraint
+    ]];
+    
+    [spinnerView startAnimating];
+    [spinnerView release];
 }
 
-- (void)removeProgressIndicator {
-//    if (self.progressIndicator == nil) return;
-//    self.progressIndicator.hidden = YES;
-//    [self.progressIndicator stopAnimation:nil];
+- (void)removeSpinnerView {
+    if (self.spinnerView == nil) return;
+    self.spinnerView.hidden = YES;
+    [self.spinnerView stopAnimating];
 }
 
 - (void)configureDataCacheUseCase {
@@ -150,14 +170,15 @@ static NSString * const NSImageViewAsyncImageCategorySessionTaskKey = @"NSImageV
 - (void)loadImageWithFade:(NSImage *)image {
     self.image = image;
     self.wantsLayer = YES;
-    
+
+    [CATransaction begin];
     CABasicAnimation *fade = [CABasicAnimation animationWithKeyPath:@"opacity"];
     fade.duration = 0.3f;
     fade.fromValue = [NSNumber numberWithFloat:0.0f];
     fade.toValue = [NSNumber numberWithFloat:1.0f];
     fade.removedOnCompletion = YES;
     [CATransaction setCompletionBlock:^{
-        self.alphaValue = 1.0;
+        self.alphaValue = 1.0f;
     }];
     [self.layer addAnimation:fade forKey:@"fade"];
     [CATransaction commit];
@@ -165,8 +186,8 @@ static NSString * const NSImageViewAsyncImageCategorySessionTaskKey = @"NSImageV
 
 //
 
-- (NSProgressIndicator * _Nullable)progressIndicator {
-    id progressIndicator = objc_getAssociatedObject(self, &NSImageViewAsyncImageCategoryProgressIndicatorKey);
+- (SpinnerView * _Nullable)spinnerView {
+    id progressIndicator = objc_getAssociatedObject(self, &NSImageViewAsyncImageCategorySpinnerViewKey);
     
     if (progressIndicator == NULL) {
         return nil;
@@ -175,8 +196,8 @@ static NSString * const NSImageViewAsyncImageCategorySessionTaskKey = @"NSImageV
     return progressIndicator;
 }
 
-- (void)setProgressIndicator:(NSProgressIndicator *)activityIndicator {
-    objc_setAssociatedObject(self, &NSImageViewAsyncImageCategoryProgressIndicatorKey, activityIndicator, OBJC_ASSOCIATION_RETAIN);
+- (void)setSpinnerView:(SpinnerView *)spinnerView {
+    objc_setAssociatedObject(self, &NSImageViewAsyncImageCategorySpinnerViewKey, spinnerView, OBJC_ASSOCIATION_RETAIN);
 }
 
 - (id<DataCacheUseCase>)dataCacheUseCase {
