@@ -36,7 +36,7 @@
 		4F2438FB26CD9E8A0041BB84 /* StoneNamuCoreErrors.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2438F926CD9E8A0041BB84 /* StoneNamuCoreErrors.m */; };
 		4F248383271DA25800A231BF /* FloatingPresentationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F248382271DA25800A231BF /* FloatingPresentationController.m */; };
 		4F248386271DA64C00A231BF /* UIView+floatingConstraints.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F248385271DA64C00A231BF /* UIView+floatingConstraints.m */; };
-		4F248389271DAE5300A231BF /* FloatingNaigationControllerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F248388271DAE5300A231BF /* FloatingNaigationControllerViewController.m */; };
+		4F248389271DAE5300A231BF /* FloatingNaigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F248388271DAE5300A231BF /* FloatingNaigationController.m */; };
 		4F29FD732722EAB700753E8D /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F29FD722722EAB700753E8D /* MainViewController.m */; };
 		4F34385026A36FBA001161FE /* StoneNamuCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F34384826A36FBA001161FE /* StoneNamuCore.framework */; };
 		4F34385826A36FBA001161FE /* StoneNamuCore.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F34384A26A36FBA001161FE /* StoneNamuCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -410,8 +410,8 @@
 		4F248382271DA25800A231BF /* FloatingPresentationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FloatingPresentationController.m; sourceTree = "<group>"; };
 		4F248384271DA64C00A231BF /* UIView+floatingConstraints.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+floatingConstraints.h"; sourceTree = "<group>"; };
 		4F248385271DA64C00A231BF /* UIView+floatingConstraints.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+floatingConstraints.m"; sourceTree = "<group>"; };
-		4F248387271DAE5300A231BF /* FloatingNaigationControllerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FloatingNaigationControllerViewController.h; sourceTree = "<group>"; };
-		4F248388271DAE5300A231BF /* FloatingNaigationControllerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FloatingNaigationControllerViewController.m; sourceTree = "<group>"; };
+		4F248387271DAE5300A231BF /* FloatingNaigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FloatingNaigationController.h; sourceTree = "<group>"; };
+		4F248388271DAE5300A231BF /* FloatingNaigationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FloatingNaigationController.m; sourceTree = "<group>"; };
 		4F29FD712722EAB700753E8D /* MainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		4F29FD722722EAB700753E8D /* MainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		4F34383726A36492001161FE /* BlizzardTokenAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlizzardTokenAPI.h; sourceTree = "<group>"; };
@@ -999,8 +999,8 @@
 		4F248380271DA1D600A231BF /* Floating */ = {
 			isa = PBXGroup;
 			children = (
-				4F248387271DAE5300A231BF /* FloatingNaigationControllerViewController.h */,
-				4F248388271DAE5300A231BF /* FloatingNaigationControllerViewController.m */,
+				4F248387271DAE5300A231BF /* FloatingNaigationController.h */,
+				4F248388271DAE5300A231BF /* FloatingNaigationController.m */,
 				4F248381271DA25800A231BF /* FloatingPresentationController.h */,
 				4F248382271DA25800A231BF /* FloatingPresentationController.m */,
 				4F73ABB026E88337000FD629 /* FloatingAnimatedTransitioning.h */,
@@ -2399,7 +2399,7 @@
 				4F2438ED26CD8CCF0041BB84 /* DecksSectionModel.m in Sources */,
 				4FEB414126BD6133009D8594 /* CardDetailsBasicContentConfiguration.m in Sources */,
 				4FA9047D26B6E2A000CD6147 /* CardContentConfiguration.m in Sources */,
-				4F248389271DAE5300A231BF /* FloatingNaigationControllerViewController.m in Sources */,
+				4F248389271DAE5300A231BF /* FloatingNaigationController.m in Sources */,
 				4F8FFF3D26E0E66A00FA6586 /* DeckAddCardContentConfiguration.m in Sources */,
 				4F7EC54426EB26BE00A7758D /* UIView+imageRendered.m in Sources */,
 				4F98E25E26B9AB110067846F /* CardDetailsItemModel.m in Sources */,

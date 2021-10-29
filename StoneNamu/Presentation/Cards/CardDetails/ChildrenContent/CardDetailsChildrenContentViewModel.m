@@ -8,6 +8,7 @@
 #import "CardDetailsChildrenContentViewModel.h"
 #import "UICollectionViewDiffableDataSource+applySnapshotAndWait.h"
 #import "DragItemService.h"
+#import "NSDiffableDataSourceSnapshot+sort.h"
 
 @interface CardDetailsChildrenContentViewModel ()
 @property (retain) NSOperationQueue *queue;
@@ -73,9 +74,17 @@
         [sectionModel release];
         [itemModels release];
         
+        [self sortSnapshot:snapshot];
+        
         [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
             [snapshot release];
         }];
+    }];
+}
+
+- (void)sortSnapshot:(NSDiffableDataSourceSnapshot *)snapshot {
+    [snapshot sortItemsWithSectionIdentifiers:snapshot.sectionIdentifiers usingComparator:^NSComparisonResult(CardDetailsChildrenContentItemModel * _Nonnull obj1, CardDetailsChildrenContentItemModel * _Nonnull obj2) {
+        return [obj1.hsCard compare:obj2.hsCard];
     }];
 }
 

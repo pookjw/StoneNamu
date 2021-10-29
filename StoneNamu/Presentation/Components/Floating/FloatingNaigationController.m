@@ -1,19 +1,19 @@
 //
-//  FloatingNaigationControllerViewController.m
+//  FloatingNaigationController.m
 //  StoneNamu
 //
 //  Created by Jinwoo Kim on 10/18/21.
 //
 
-#import "FloatingNaigationControllerViewController.h"
+#import "FloatingNaigationController.h"
 #import "FloatingPresentationController.h"
 #import "FloatingAnimatedTransitioning.h"
 
-@interface FloatingNaigationControllerViewController () <UIViewControllerTransitioningDelegate>
+@interface FloatingNaigationController () <UIViewControllerTransitioningDelegate>
 
 @end
 
-@implementation FloatingNaigationControllerViewController
+@implementation FloatingNaigationController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

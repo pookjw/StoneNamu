@@ -18,7 +18,7 @@
 #import "TextActivityViewController.h"
 #import "DeckImageRenderService.h"
 #import "PhotosService.h"
-#import "FloatingNaigationControllerViewController.h"
+#import "FloatingNaigationController.h"
 
 @interface DeckDetailsViewController () <UICollectionViewDelegate, UICollectionViewDragDelegate, UICollectionViewDropDelegate>
 @property (retain) UICollectionView *collectionView;
@@ -208,7 +208,7 @@
             
             if (string != nil) {
                 TextActivityViewController *textVC = [[TextActivityViewController alloc] initWithText:string];
-                FloatingNaigationControllerViewController *nvc = [[FloatingNaigationControllerViewController alloc] initWithRootViewController:textVC];
+                FloatingNaigationController *nvc = [[FloatingNaigationController alloc] initWithRootViewController:textVC];
                 [textVC release];
                 [self presentViewController:nvc animated:YES completion:^{}];
                 [nvc release];

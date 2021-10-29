@@ -1,5 +1,5 @@
 //
-//  FloatingNaigationControllerViewController.h
+//  FloatingNaigationController.h
 //  StoneNamu
 //
 //  Created by Jinwoo Kim on 10/18/21.
@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface FloatingNaigationControllerViewController : UINavigationController
+@interface FloatingNaigationController : UINavigationController
 
 @end
 
