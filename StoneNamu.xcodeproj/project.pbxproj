@@ -113,6 +113,8 @@
 		4F6F181926E6069200DC210B /* HSDeck.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4F6F181B26E6069200DC210B /* HSDeck.strings */; };
 		4F70E28F2724359A0076735B /* BlizzardTokenAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F34383726A36492001161FE /* BlizzardTokenAPI.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		4F70E292272439940076735B /* StoneNamuErrors.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F70E291272439940076735B /* StoneNamuErrors.m */; };
+		4F7333F8272D836A00438FE0 /* CardOptionsToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F7333F7272D836A00438FE0 /* CardOptionsToolbar.m */; };
+		4F7333FB272DA77900438FE0 /* KeyMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F7333FA272DA77900438FE0 /* KeyMenuItem.m */; };
 		4F73ABB226E88337000FD629 /* FloatingAnimatedTransitioning.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F73ABB126E88337000FD629 /* FloatingAnimatedTransitioning.m */; };
 		4F74711726C1678F001C45C4 /* CardDetailsChildrenContentConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F74711626C1678F001C45C4 /* CardDetailsChildrenContentConfiguration.m */; };
 		4F74711A26C1698B001C45C4 /* CardDetailsChildrenContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F74711926C1698B001C45C4 /* CardDetailsChildrenContentView.m */; };
@@ -534,6 +536,11 @@
 		4F6F1B7726B940E700649F77 /* DynamicPresentationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DynamicPresentationController.h; sourceTree = "<group>"; };
 		4F70E291272439940076735B /* StoneNamuErrors.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StoneNamuErrors.m; sourceTree = "<group>"; };
 		4F70E2932724399A0076735B /* StoneNamuErrors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoneNamuErrors.h; sourceTree = "<group>"; };
+		4F7333F6272D836A00438FE0 /* CardOptionsToolbar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardOptionsToolbar.h; sourceTree = "<group>"; };
+		4F7333F7272D836A00438FE0 /* CardOptionsToolbar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardOptionsToolbar.m; sourceTree = "<group>"; };
+		4F7333F9272DA77900438FE0 /* KeyMenuItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyMenuItem.h; sourceTree = "<group>"; };
+		4F7333FA272DA77900438FE0 /* KeyMenuItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KeyMenuItem.m; sourceTree = "<group>"; };
+		4F7333FC272DAF1600438FE0 /* CardOptionsToolbarDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardOptionsToolbarDelegate.h; sourceTree = "<group>"; };
 		4F73ABB026E88337000FD629 /* FloatingAnimatedTransitioning.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FloatingAnimatedTransitioning.h; sourceTree = "<group>"; };
 		4F73ABB126E88337000FD629 /* FloatingAnimatedTransitioning.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FloatingAnimatedTransitioning.m; sourceTree = "<group>"; };
 		4F74711526C1678F001C45C4 /* CardDetailsChildrenContentConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardDetailsChildrenContentConfiguration.h; sourceTree = "<group>"; };
@@ -1060,17 +1067,8 @@
 		4F4892D4272469AB00126131 /* Cards */ = {
 			isa = PBXGroup;
 			children = (
-				4FE85768270093CF0008C2FB /* CardsViewController.h */,
-				4FE85769270093CF0008C2FB /* CardsViewController.m */,
-				4FE8576B27009B5C0008C2FB /* CardsViewModel.h */,
-				4FE8576C27009B5C0008C2FB /* CardsViewModel.m */,
-				4FE8576E27009C4D0008C2FB /* CardSectionModel.h */,
-				4FE8576F27009C4D0008C2FB /* CardSectionModel.m */,
-				4FE8577127009C570008C2FB /* CardItemModel.h */,
-				4FE8577227009C570008C2FB /* CardItemModel.m */,
-				4F4892E72724727000126131 /* CardContentView.h */,
-				4F4892E82724727000126131 /* CardContentView.m */,
-				4F4892EA272474D600126131 /* CardContentView.xib */,
+				4F7333F5272D834D00438FE0 /* Cards */,
+				4F7333F4272D834900438FE0 /* Toolbar */,
 			);
 			path = Cards;
 			sourceTree = "<group>";
@@ -1276,6 +1274,36 @@
 				4F70E291272439940076735B /* StoneNamuErrors.m */,
 			);
 			path = Util;
+			sourceTree = "<group>";
+		};
+		4F7333F4272D834900438FE0 /* Toolbar */ = {
+			isa = PBXGroup;
+			children = (
+				4F7333FC272DAF1600438FE0 /* CardOptionsToolbarDelegate.h */,
+				4F7333F6272D836A00438FE0 /* CardOptionsToolbar.h */,
+				4F7333F7272D836A00438FE0 /* CardOptionsToolbar.m */,
+				4F7333F9272DA77900438FE0 /* KeyMenuItem.h */,
+				4F7333FA272DA77900438FE0 /* KeyMenuItem.m */,
+			);
+			path = Toolbar;
+			sourceTree = "<group>";
+		};
+		4F7333F5272D834D00438FE0 /* Cards */ = {
+			isa = PBXGroup;
+			children = (
+				4FE85768270093CF0008C2FB /* CardsViewController.h */,
+				4FE85769270093CF0008C2FB /* CardsViewController.m */,
+				4FE8576B27009B5C0008C2FB /* CardsViewModel.h */,
+				4FE8576C27009B5C0008C2FB /* CardsViewModel.m */,
+				4FE8576E27009C4D0008C2FB /* CardSectionModel.h */,
+				4FE8576F27009C4D0008C2FB /* CardSectionModel.m */,
+				4FE8577127009C570008C2FB /* CardItemModel.h */,
+				4FE8577227009C570008C2FB /* CardItemModel.m */,
+				4F4892E72724727000126131 /* CardContentView.h */,
+				4F4892E82724727000126131 /* CardContentView.m */,
+				4F4892EA272474D600126131 /* CardContentView.xib */,
+			);
+			path = Cards;
 			sourceTree = "<group>";
 		};
 		4F7EC54826EB29FF00A7758D /* PhotosService */ = {
@@ -2452,11 +2480,13 @@
 				4FE8576A270093CF0008C2FB /* CardsViewController.m in Sources */,
 				4F4892E227246E2B00126131 /* MainWindow.m in Sources */,
 				4FE8577327009C570008C2FB /* CardItemModel.m in Sources */,
+				4F7333FB272DA77900438FE0 /* KeyMenuItem.m in Sources */,
 				4F6462D62726932A00329B10 /* NSImageView+setAsyncImage.m in Sources */,
 				4FE85767270092F30008C2FB /* MainListViewController.m in Sources */,
 				4F98C28F27284DC900865CCD /* SpinnerView.m in Sources */,
 				4F466EF1272851090035C569 /* NSViewController+SpinnerView.m in Sources */,
 				4FE857762700A0230008C2FB /* NSCollectionViewDiffableDataSource+applySnapshotAndWait.m in Sources */,
+				4F7333F8272D836A00438FE0 /* CardOptionsToolbar.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

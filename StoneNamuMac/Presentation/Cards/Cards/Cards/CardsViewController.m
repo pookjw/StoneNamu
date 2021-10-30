@@ -10,12 +10,14 @@
 #import "CardsViewModel.h"
 #import "CardContentView.h"
 #import "NSViewController+SpinnerView.h"
+#import "CardOptionsToolbar.h"
 
-@interface CardsViewController ()
+@interface CardsViewController () <CardOptionsToolbarDelegate>
 @property (retain) NSScrollView *scrollView;
 @property (retain) NSClipView *clipView;
 @property (retain) NSCollectionView *collectionView;
 @property (retain) CardsViewModel *viewModel;
+@property (retain) CardOptionsToolbar *cardOptionsToolbar;
 @end
 
 @implementation CardsViewController
@@ -25,6 +27,7 @@
     [_clipView release];
     [_collectionView release];
     [_viewModel release];
+    [_cardOptionsToolbar release];
     [super dealloc];
 }
 
@@ -41,6 +44,12 @@
     [self bind];
     [self addSpinnerView];
     [self.viewModel requestDataSourceWithOptions:nil reset:NO];
+    [self configureCardOptionsToolbar];
+}
+
+- (void)viewWillAppear {
+    [super viewWillAppear];
+    [self setCardOptionsToolbarToWindow];
 }
 
 - (void)configureCollectionView {
@@ -66,7 +75,7 @@
     ]];
     
     NSCollectionViewFlowLayout *flowLayout = [NSCollectionViewFlowLayout new];
-    flowLayout.itemSize = NSMakeSize(150, 250);
+    flowLayout.itemSize = NSMakeSize(200, 300);
     flowLayout.minimumLineSpacing = 0.0f;
     collectionView.collectionViewLayout = flowLayout;
     [flowLayout release];
@@ -146,6 +155,28 @@
     }];
     
     return [dataSource autorelease];
+}
+
+- (void)configureCardOptionsToolbar {
+    CardOptionsToolbar *cardOptionsToolbar = [[CardOptionsToolbar alloc] initWithOptions:self.viewModel.options cardOptionsToolbarDelegate:self];
+    self.cardOptionsToolbar = cardOptionsToolbar;
+    [cardOptionsToolbar release];
+}
+
+- (void)setCardOptionsToolbarToWindow {
+    self.view.window.toolbar = self.cardOptionsToolbar;
+    [self.cardOptionsToolbar validateVisibleItems];
+}
+
+- (void)clearCardOptionsToolbarFromWindow {
+    self.view.window.toolbar = nil;
+}
+
+#pragma mark - CardOptionsToolbarDelegate
+
+- (void)cardOptionsToolbar:(CardOptionsToolbar *)toolbar changedOption:(NSDictionary<NSString *,NSString *> *)options {
+    [self addSpinnerView];
+    [self.viewModel requestDataSourceWithOptions:options reset:YES];
 }
 
 @end

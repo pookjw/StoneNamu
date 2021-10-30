@@ -329,7 +329,7 @@ CardOptionItemModelType CardOptionItemModelTypeFromNSString(NSString * key) {
                                             filterArray:(NSArray<NSString *> * _Nullable)filterArray
                                             imageSource:(UIImage * _Nullable (^)(NSString *))imageSource
                                               converter:(NSUInteger (^)(NSString *))converter
-                                              ascending:(BOOL)ascending{
+                                              ascending:(BOOL)ascending {
     
     NSMutableArray<PickerItemModel *> *arr = [@[] mutableCopy];
     
@@ -368,9 +368,7 @@ CardOptionItemModelType CardOptionItemModelTypeFromNSString(NSString * key) {
     
     [arr sortUsingComparator:comparator];
     
-    NSArray<PickerItemModel *> *result = [[arr copy] autorelease];
-    [arr release];
-    return result;
+    return [arr autorelease];
 }
 
 @end

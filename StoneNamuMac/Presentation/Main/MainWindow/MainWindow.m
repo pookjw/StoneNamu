@@ -18,12 +18,7 @@
     self = [super init];
     
     if (self) {
-        self.styleMask = NSWindowStyleMaskClosable | NSWindowStyleMaskMiniaturizable | NSWindowStyleMaskFullSizeContentView | NSWindowStyleMaskResizable | NSWindowStyleMaskTitled;
-        self.titlebarAppearsTransparent = YES;
-        self.movableByWindowBackground = YES;
-        self.titleVisibility = NSWindowTitleHidden;
-        self.contentMinSize = NSMakeSize(800, 600);
-        self.releasedWhenClosed = NO;
+        [self setAttributes];
         
         MainSplitViewController *mainSplitViewController = [MainSplitViewController new];
         self.mainSplitViewController = mainSplitViewController;
@@ -37,6 +32,15 @@
 - (void)dealloc {
     [_mainSplitViewController release];
     [super dealloc];
+}
+
+- (void)setAttributes {
+    self.styleMask = NSWindowStyleMaskClosable | NSWindowStyleMaskMiniaturizable | NSWindowStyleMaskFullSizeContentView | NSWindowStyleMaskResizable | NSWindowStyleMaskTitled;
+    self.movableByWindowBackground = YES;
+    self.contentMinSize = NSMakeSize(800, 600);
+    self.releasedWhenClosed = NO;
+    self.titlebarAppearsTransparent = NO;
+    self.titleVisibility = NSWindowTitleHidden;
 }
 
 @end

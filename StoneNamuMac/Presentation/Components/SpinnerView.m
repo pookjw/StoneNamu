@@ -78,17 +78,23 @@
     [self addSubview:contentView];
     contentView.translatesAutoresizingMaskIntoConstraints = NO;
     
-    NSLayoutConstraint *topConstraint = [contentView.topAnchor constraintGreaterThanOrEqualToAnchor:self.topAnchor];
-    topConstraint.priority = NSLayoutPriorityDefaultHigh;
+    NSLayoutConstraint *topConstraint = [contentView.topAnchor constraintEqualToAnchor:self.topAnchor];
+    topConstraint.priority = NSLayoutPriorityDefaultLow;
     
-    NSLayoutConstraint *leadingConstraint = [contentView.leadingAnchor constraintGreaterThanOrEqualToAnchor:self.leadingAnchor];
-    leadingConstraint.priority = NSLayoutPriorityDefaultHigh;
+    NSLayoutConstraint *leadingConstraint = [contentView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor];
+    leadingConstraint.priority = NSLayoutPriorityDefaultLow;
     
-    NSLayoutConstraint *trailingConstraint = [contentView.trailingAnchor constraintGreaterThanOrEqualToAnchor:self.trailingAnchor];
-    trailingConstraint.priority = NSLayoutPriorityDefaultHigh;
+    NSLayoutConstraint *trailingConstraint = [contentView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor];
+    trailingConstraint.priority = NSLayoutPriorityDefaultLow;
     
-    NSLayoutConstraint *bottomConstraint = [contentView.bottomAnchor constraintGreaterThanOrEqualToAnchor:self.bottomAnchor];
-    bottomConstraint.priority = NSLayoutPriorityDefaultHigh;
+    NSLayoutConstraint *bottomConstraint = [contentView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor];
+    bottomConstraint.priority = NSLayoutPriorityDefaultLow;
+    
+    NSLayoutConstraint *widthConstraint = [contentView.widthAnchor constraintLessThanOrEqualToAnchor:self.widthAnchor];
+    widthConstraint.priority = NSLayoutPriorityDefaultHigh;
+    
+    NSLayoutConstraint *heightConstraint = [contentView.heightAnchor constraintLessThanOrEqualToAnchor:self.heightAnchor];
+    heightConstraint.priority = NSLayoutPriorityDefaultHigh;
     
     NSLayoutConstraint *centerXConstraint = [contentView.centerXAnchor constraintEqualToAnchor:self.centerXAnchor];
     centerXConstraint.priority = NSLayoutPriorityRequired;
@@ -110,6 +116,8 @@
         leadingConstraint,
         trailingConstraint,
         bottomConstraint,
+        widthConstraint,
+        heightConstraint,
         centerXConstraint,
         centerYConstraint,
         aspectConstraint
