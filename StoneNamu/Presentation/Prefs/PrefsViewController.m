@@ -263,7 +263,11 @@
         UIAlertAction *action = [UIAlertAction actionWithTitle:key
                                                          style:UIAlertActionStyleDefault
                                                        handler:^(UIAlertAction * _Nonnull action) {
-            [UIApplication.sharedApplication openURL:obj options:@{} completionHandler:^(BOOL success) {}];
+            if (view.window.windowScene) {
+                [view.window.windowScene openURL:obj options:nil completionHandler:^(BOOL success) {}];
+            } else {
+                [UIApplication.sharedApplication openURL:obj options:@{} completionHandler:^(BOOL success) {}];
+            }
         }];
         [alert addAction:action];
     }];
@@ -372,7 +376,11 @@
                 NSMutableArray<UIAction *> *children = [@[] mutableCopy];
                 [itemModel.socialInfo enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSURL * _Nonnull obj, BOOL * _Nonnull stop) {
                     [children addObject:[UIAction actionWithTitle:key image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
-                        [UIApplication.sharedApplication openURL:obj options:@{} completionHandler:^(BOOL success){}];
+                        if (self.view.window.windowScene) {
+                            [self.view.window.windowScene openURL:obj options:nil completionHandler:^(BOOL success) {}];
+                        } else {
+                            [UIApplication.sharedApplication openURL:obj options:@{} completionHandler:^(BOOL success){}];
+                        }
                     }]];
                 }];
                 

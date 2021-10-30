@@ -111,7 +111,7 @@
         UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"")
                                                                 style:UIAlertActionStyleDefault
                                                               handler:^(UIAlertAction * _Nonnull action) {
-            [self openAppSettings];
+            [self openAppSettingsFromScene:viewController.view.window.windowScene];
         }];
         
         [alert addAction:cancelAction];
@@ -121,10 +121,14 @@
     }];
 }
 
-- (void)openAppSettings {
+- (void)openAppSettingsFromScene:(UIScene *)scene {
     NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
     if (url) {
-        [UIApplication.sharedApplication openURL:url options:@{} completionHandler:^(BOOL success) {}];
+        if (scene) {
+            [scene openURL:url options:nil completionHandler:^(BOOL success) {}];
+        } else {
+            [UIApplication.sharedApplication openURL:url options:@{} completionHandler:^(BOOL success) {}];
+        }
     }
 }
 
