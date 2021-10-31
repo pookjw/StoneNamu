@@ -8,6 +8,7 @@
 #import "CardOptionsToolbar.h"
 #import <StoneNamuCore/StoneNamuCore.h>
 #import "KeyMenuItem.h"
+#import "DynamicMenuToolbarItem.h"
 
 static NSToolbarIdentifier const NSToolbarIdentifierCardOptionsTypeTextFilter = @"NSToolbarIdentifierCardOptionsTextFilter";
 static NSToolbarIdentifier const NSToolbarIdentifierCardOptionsTypeSet = @"NSToolbarIdentifierCardOptionsTypeSet";
@@ -151,55 +152,55 @@ BlizzardHSAPIOptionType BlizzardHSAPIOptionTypeFromNSToolbarIdentifier(NSToolbar
 }
 
 - (void)configureToolbarItems {
-    NSMenuToolbarItem *textFilterItem = [[NSMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeTextFilter];
+    DynamicMenuToolbarItem *textFilterItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeTextFilter];
     self.textFilterItem = textFilterItem;
     [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeTextFilter atIndex:0];
     
-    NSMenuToolbarItem *setItem = [[NSMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeSet];
+    DynamicMenuToolbarItem *setItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeSet];
     self.setItem = setItem;
     [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeSet atIndex:1];
     
-    NSMenuToolbarItem *classItem = [[NSMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeClass];
+    DynamicMenuToolbarItem *classItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeClass];
     self.classItem = classItem;
     [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeClass atIndex:2];
     
-    NSMenuToolbarItem *manaCostItem = [[NSMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeManaCost];
+    DynamicMenuToolbarItem *manaCostItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeManaCost];
     self.manaCostItem = manaCostItem;
     [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeManaCost atIndex:3];
     
-    NSMenuToolbarItem *attackItem = [[NSMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeAttack];
+    DynamicMenuToolbarItem *attackItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeAttack];
     self.attackItem = attackItem;
     [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeAttack atIndex:4];
     
-    NSMenuToolbarItem *healthItem = [[NSMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeHealth];
+    DynamicMenuToolbarItem *healthItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeHealth];
     self.healthItem = healthItem;
     [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeHealth atIndex:5];
     
-    NSMenuToolbarItem *collectibleItem = [[NSMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeCollecticle];
+    DynamicMenuToolbarItem *collectibleItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeCollecticle];
     self.collectibleItem = collectibleItem;
     [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeCollecticle atIndex:6];
     
-    NSMenuToolbarItem *rarityItem = [[NSMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeRarity];
+    DynamicMenuToolbarItem *rarityItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeRarity];
     self.rarityItem = rarityItem;
     [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeRarity atIndex:7];
     
-    NSMenuToolbarItem *typeItem = [[NSMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeType];
+    DynamicMenuToolbarItem *typeItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeType];
     self.typeItem = typeItem;
     [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeType atIndex:8];
     
-    NSMenuToolbarItem *minionTypeItem = [[NSMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeMinionType];
+    DynamicMenuToolbarItem *minionTypeItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeMinionType];
     self.minionTypeItem = minionTypeItem;
     [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeMinionType atIndex:9];
     
-    NSMenuToolbarItem *keyowrdItem = [[NSMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeKeyword];
+    DynamicMenuToolbarItem *keyowrdItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeKeyword];
     self.keyowrdItem = keyowrdItem;
     [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeKeyword atIndex:10];
     
-    NSMenuToolbarItem *gameModeItem = [[NSMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeGameMode];
+    DynamicMenuToolbarItem *gameModeItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeGameMode];
     self.gameModeItem = gameModeItem;
     [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeGameMode atIndex:11];
     
-    NSMenuToolbarItem *sortItem = [[NSMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeSort];
+    DynamicMenuToolbarItem *sortItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeSort];
     self.sortItem = sortItem;
     [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeSort atIndex:12];
     
@@ -355,7 +356,16 @@ BlizzardHSAPIOptionType BlizzardHSAPIOptionTypeFromNSToolbarIdentifier(NSToolbar
         
         //
         
-        obj.menu = [self menuForMenuToolbarItem:obj];
+        NSMenu *menu = [self menuForMenuToolbarItem:obj];
+        obj.menu = menu;
+        
+//        NSMenuItem *item1 = [[NSMenuItem alloc] initWithTitle:obj.title action:nil keyEquivalent:@""];
+//        NSMenu *menu2 = [[NSMenu alloc] initWithTitle:obj.title];
+//        item1.submenu = menu2;
+//        NSMenuItem *item2 = [[NSMenuItem alloc] initWithTitle:obj.title action:nil keyEquivalent:@""];
+//        item2.submenu = menu1;
+//        obj.menuFormRepresentation = item1;
+//        [item1 release];
     }];
 }
 
@@ -365,7 +375,7 @@ BlizzardHSAPIOptionType BlizzardHSAPIOptionTypeFromNSToolbarIdentifier(NSToolbar
     NSString * _Nullable selectedKey = self.options[optionType];
     NSMenu *menu = [[NSMenu alloc] initWithTitle:menuToolbarItem.title];
     
-    NSArray<KeyMenuItem *> *itemArray;
+    NSArray<NSMenuItem *> *itemArray;
     
     if ([optionType isEqualToString:BlizzardHSAPIOptionTypeSet]) {
         itemArray = [self itemArrayFromDic:hsCardSetsWithLocalizable()
@@ -438,15 +448,15 @@ BlizzardHSAPIOptionType BlizzardHSAPIOptionTypeFromNSToolbarIdentifier(NSToolbar
                                  ascending:YES];
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeKeyword]) {
         itemArray = [self itemArrayFromDic:hsCardKeywordsWithLocalizable()
-                                     optionType:optionType
-                                  showEmptyItem:YES
-                                    selectedKey:selectedKey
-                                    filterArray:nil
-                                    imageSource:nil
-                                      converter:^NSUInteger(NSString * key) {
+                                optionType:optionType
+                             showEmptyItem:YES
+                               selectedKey:selectedKey
+                               filterArray:nil
+                               imageSource:nil
+                                 converter:^NSUInteger(NSString * key) {
             return HSCardKeywordFromNSString(key);
         }
-                                      ascending:YES];
+                                 ascending:YES];
         
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeGameMode]) {
         itemArray = [self itemArrayFromDic:hsCardGameModesWithLocalizable()
@@ -477,21 +487,21 @@ BlizzardHSAPIOptionType BlizzardHSAPIOptionTypeFromNSToolbarIdentifier(NSToolbar
     
     menu.itemArray = itemArray;
     
-    return menu;
+    return [menu autorelease];
 }
 
 #pragma mark - Helper
 
-- (NSArray<KeyMenuItem *> *)itemArrayFromDic:(NSDictionary<NSString *, NSString *> *)dic
-                                  optionType:(BlizzardHSAPIOptionType)type
-                               showEmptyItem:(BOOL)showEmptyItem
-                                 selectedKey:(NSString * _Nullable)selectedKey
-                                 filterArray:(NSArray<NSString *> * _Nullable)filterArray
-                                 imageSource:(NSImage * _Nullable (^)(NSString *))imageSource
-                                   converter:(NSUInteger (^)(NSString *))converter
-                                   ascending:(BOOL)ascending {
+- (NSArray<NSMenuItem *> *)itemArrayFromDic:(NSDictionary<NSString *, NSString *> *)dic
+                                 optionType:(BlizzardHSAPIOptionType)type
+                              showEmptyItem:(BOOL)showEmptyItem
+                                selectedKey:(NSString * _Nullable)selectedKey
+                                filterArray:(NSArray<NSString *> * _Nullable)filterArray
+                                imageSource:(NSImage * _Nullable (^)(NSString *))imageSource
+                                  converter:(NSUInteger (^)(NSString *))converter
+                                  ascending:(BOOL)ascending {
     
-    NSMutableArray<KeyMenuItem *> *arr = [@[] mutableCopy];
+    NSMutableArray<NSMenuItem *> *arr = [@[] mutableCopy];
     
     [dic enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSString * _Nonnull obj, BOOL * _Nonnull stop) {
         if (![filterArray containsObject:key]) {
@@ -552,6 +562,9 @@ BlizzardHSAPIOptionType BlizzardHSAPIOptionTypeFromNSToolbarIdentifier(NSToolbar
         
         [arr insertObject:emptyItem atIndex:0];
         [emptyItem release];
+        
+        NSMenuItem *separatorItem = [NSMenuItem separatorItem];
+        [arr insertObject:separatorItem atIndex:1];
     }
     
     return [arr autorelease];

@@ -10,7 +10,7 @@
 @implementation KeyMenuItem
 
 - (void)dealloc {
-    [_key dealloc];
+    [_key release];
     [super dealloc];
 }
 
@@ -22,6 +22,17 @@
     }
     
     return self;
+}
+
+- (id)copyWithZone:(nullable NSZone *)zone {
+    id copy = [super copyWithZone:zone];
+    
+    if (copy) {
+        KeyMenuItem *_copy = (KeyMenuItem *)copy;
+        _copy->_key = [self.key copy];
+    }
+    
+    return copy;
 }
 
 @end
