@@ -7,6 +7,7 @@
 
 #import "NSViewController+SpinnerView.h"
 #import <QuartzCore/QuartzCore.h>
+
 #define ANIMATION_DURATION 0.2f
 
 @interface _SpinnerBlurView : NSVisualEffectView

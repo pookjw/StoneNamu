@@ -8,6 +8,7 @@
 #import "SpinnerView.h"
 #import <QuartzCore/QuartzCore.h>
 #import <StoneNamuCore/StoneNamuCore.h>
+#import "NSView+isDarkMode.h"
 
 #define PROGRESS_CIRCULAR_ANIMATION_KEY @"rotation"
 
@@ -30,6 +31,7 @@
         [self configureContentView];
         [self configureBaseCircularView];
         [self configureProgressCircularView];
+        [self updateTintColors];
     }
     
     return self;
@@ -47,7 +49,7 @@
 
 - (void)viewDidChangeEffectiveAppearance {
     [super viewDidChangeEffectiveAppearance];
-    
+    [self updateTintColors];
 }
 
 - (void)layout {
@@ -153,7 +155,6 @@
     CAShapeLayer *baseCircularPathLayer = [CAShapeLayer new];
     self.baseCircularPathLayer = baseCircularPathLayer;
     baseCircularPathLayer.fillColor = NSColor.clearColor.CGColor;
-    baseCircularPathLayer.strokeColor = [NSColor.whiteColor colorWithAlphaComponent:0.1f].CGColor;
     
     [baseCircularView.layer addSublayer:baseCircularPathLayer];
     [baseCircularPathLayer release];
@@ -232,7 +233,6 @@
     CAShapeLayer *progressCircularLayer = [CAShapeLayer new];
     self.progressCircularLayer = progressCircularLayer;
     progressCircularLayer.backgroundColor = NSColor.clearColor.CGColor;
-    progressCircularLayer.fillColor = NSColor.whiteColor.CGColor;
     progressCircularLayer.strokeColor = NSColor.clearColor.CGColor;
     
     [progressCircularView.layer addSublayer:progressCircularLayer];
@@ -313,6 +313,16 @@
     self.progressCircularLayer.position = CGPointMake((self.progressCircularView.bounds.size.width / 2.0f),
                                                       (self.progressCircularView.bounds.size.height / 2.0f));
     [CATransaction commit];
+}
+
+- (void)updateTintColors {
+    if (self.isDarkMode) {
+        self.baseCircularPathLayer.strokeColor = [NSColor.whiteColor colorWithAlphaComponent:0.1f].CGColor;
+        self.progressCircularLayer.fillColor = NSColor.whiteColor.CGColor;
+    } else {
+        self.baseCircularPathLayer.strokeColor = [NSColor.blackColor colorWithAlphaComponent:0.1f].CGColor;
+        self.progressCircularLayer.fillColor = NSColor.blackColor.CGColor;
+    }
 }
 
 @end
