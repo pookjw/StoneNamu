@@ -266,10 +266,10 @@ BlizzardHSAPIOptionType BlizzardHSAPIOptionTypeFromNSToolbarIdentifier(NSToolbar
             }
         } else if ([itemIdentifier isEqualToString:NSToolbarIdentifierCardOptionsTypeClass]) {
             if (hasValue) {
-                obj.image = [NSImage imageWithSystemSymbolName:@"list.bullet.circle.fill" accessibilityDescription:nil];
+                obj.image = [NSImage imageWithSystemSymbolName:@"person.circle.fill" accessibilityDescription:nil];
                 obj.title = [NSString stringWithFormat:@"%@ : %@", NSLocalizedString(@"CARD_CLASS", @""), value];
             } else {
-                obj.image = [NSImage imageWithSystemSymbolName:@"list.bullet.circle" accessibilityDescription:nil];
+                obj.image = [NSImage imageWithSystemSymbolName:@"person.circle" accessibilityDescription:nil];
                 obj.title = NSLocalizedString(@"CARD_CLASS", @"");
             }
         } else if ([itemIdentifier isEqualToString:NSToolbarIdentifierCardOptionsTypeManaCost]) {
