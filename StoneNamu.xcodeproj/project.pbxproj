@@ -114,7 +114,7 @@
 		4F70E28F2724359A0076735B /* BlizzardTokenAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F34383726A36492001161FE /* BlizzardTokenAPI.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		4F70E292272439940076735B /* StoneNamuErrors.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F70E291272439940076735B /* StoneNamuErrors.m */; };
 		4F7333F8272D836A00438FE0 /* CardOptionsToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F7333F7272D836A00438FE0 /* CardOptionsToolbar.m */; };
-		4F7333FB272DA77900438FE0 /* KeyMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F7333FA272DA77900438FE0 /* KeyMenuItem.m */; };
+		4F7333FB272DA77900438FE0 /* CardOptionsMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F7333FA272DA77900438FE0 /* CardOptionsMenuItem.m */; };
 		4F73ABB226E88337000FD629 /* FloatingAnimatedTransitioning.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F73ABB126E88337000FD629 /* FloatingAnimatedTransitioning.m */; };
 		4F74711726C1678F001C45C4 /* CardDetailsChildrenContentConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F74711626C1678F001C45C4 /* CardDetailsChildrenContentConfiguration.m */; };
 		4F74711A26C1698B001C45C4 /* CardDetailsChildrenContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F74711926C1698B001C45C4 /* CardDetailsChildrenContentView.m */; };
@@ -174,6 +174,7 @@
 		4F8754B626DB8773000CE351 /* SpinnerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8754B526DB8773000CE351 /* SpinnerView.m */; };
 		4F8754B926DB87DC000CE351 /* UIViewController+SpinnerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8754B826DB87DC000CE351 /* UIViewController+SpinnerView.m */; };
 		4F8754BC26DB91D7000CE351 /* NSIndexPath+identifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8754BB26DB91D7000CE351 /* NSIndexPath+identifier.m */; };
+		4F883F66272FF31500AF0048 /* CardOptionsTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F883F65272FF31500AF0048 /* CardOptionsTextField.m */; };
 		4F8F976526D469700024FC06 /* InsetsLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8F976426D469700024FC06 /* InsetsLabel.m */; };
 		4F8F976926D47F360024FC06 /* DeckDetailsManaCostContentConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8F976826D47F360024FC06 /* DeckDetailsManaCostContentConfiguration.m */; };
 		4F8F976C26D47F560024FC06 /* DeckDetailsManaCostContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8F976B26D47F560024FC06 /* DeckDetailsManaCostContentView.m */; };
@@ -540,8 +541,8 @@
 		4F70E2932724399A0076735B /* StoneNamuErrors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoneNamuErrors.h; sourceTree = "<group>"; };
 		4F7333F6272D836A00438FE0 /* CardOptionsToolbar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardOptionsToolbar.h; sourceTree = "<group>"; };
 		4F7333F7272D836A00438FE0 /* CardOptionsToolbar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardOptionsToolbar.m; sourceTree = "<group>"; };
-		4F7333F9272DA77900438FE0 /* KeyMenuItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyMenuItem.h; sourceTree = "<group>"; };
-		4F7333FA272DA77900438FE0 /* KeyMenuItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KeyMenuItem.m; sourceTree = "<group>"; };
+		4F7333F9272DA77900438FE0 /* CardOptionsMenuItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardOptionsMenuItem.h; sourceTree = "<group>"; };
+		4F7333FA272DA77900438FE0 /* CardOptionsMenuItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardOptionsMenuItem.m; sourceTree = "<group>"; };
 		4F7333FC272DAF1600438FE0 /* CardOptionsToolbarDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardOptionsToolbarDelegate.h; sourceTree = "<group>"; };
 		4F73ABB026E88337000FD629 /* FloatingAnimatedTransitioning.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FloatingAnimatedTransitioning.h; sourceTree = "<group>"; };
 		4F73ABB126E88337000FD629 /* FloatingAnimatedTransitioning.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FloatingAnimatedTransitioning.m; sourceTree = "<group>"; };
@@ -585,6 +586,8 @@
 		4F8754B826DB87DC000CE351 /* UIViewController+SpinnerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+SpinnerView.m"; sourceTree = "<group>"; };
 		4F8754BA26DB91D7000CE351 /* NSIndexPath+identifier.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSIndexPath+identifier.h"; sourceTree = "<group>"; };
 		4F8754BB26DB91D7000CE351 /* NSIndexPath+identifier.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSIndexPath+identifier.m"; sourceTree = "<group>"; };
+		4F883F64272FF31500AF0048 /* CardOptionsTextField.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardOptionsTextField.h; sourceTree = "<group>"; };
+		4F883F65272FF31500AF0048 /* CardOptionsTextField.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardOptionsTextField.m; sourceTree = "<group>"; };
 		4F8F976026D45C290024FC06 /* NSMutableArray+removeSingle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+removeSingle.h"; sourceTree = "<group>"; };
 		4F8F976126D45C290024FC06 /* NSMutableArray+removeSingle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+removeSingle.m"; sourceTree = "<group>"; };
 		4F8F976326D469700024FC06 /* InsetsLabel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InsetsLabel.h; sourceTree = "<group>"; };
@@ -1288,10 +1291,10 @@
 				4F7333FC272DAF1600438FE0 /* CardOptionsToolbarDelegate.h */,
 				4F7333F6272D836A00438FE0 /* CardOptionsToolbar.h */,
 				4F7333F7272D836A00438FE0 /* CardOptionsToolbar.m */,
-				4F7333F9272DA77900438FE0 /* KeyMenuItem.h */,
-				4F7333FA272DA77900438FE0 /* KeyMenuItem.m */,
-				4F83FBDA272E6F5D002D2387 /* DynamicMenuToolbarItem.h */,
-				4F83FBDB272E6F5D002D2387 /* DynamicMenuToolbarItem.m */,
+				4F7333F9272DA77900438FE0 /* CardOptionsMenuItem.h */,
+				4F7333FA272DA77900438FE0 /* CardOptionsMenuItem.m */,
+				4F883F64272FF31500AF0048 /* CardOptionsTextField.h */,
+				4F883F65272FF31500AF0048 /* CardOptionsTextField.m */,
 			);
 			path = Toolbar;
 			sourceTree = "<group>";
@@ -1409,6 +1412,8 @@
 			children = (
 				4F98C28D27284DC900865CCD /* SpinnerView.h */,
 				4F98C28E27284DC900865CCD /* SpinnerView.m */,
+				4F83FBDA272E6F5D002D2387 /* DynamicMenuToolbarItem.h */,
+				4F83FBDB272E6F5D002D2387 /* DynamicMenuToolbarItem.m */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -2489,10 +2494,11 @@
 				4FE8577027009C4D0008C2FB /* CardSectionModel.m in Sources */,
 				4F4892DE27246B6000126131 /* NSViewController+loadViewIfNeeded.m in Sources */,
 				4FE857792700A3580008C2FB /* NSWindow+presentErrorAlert.m in Sources */,
+				4F883F66272FF31500AF0048 /* CardOptionsTextField.m in Sources */,
 				4FE8576A270093CF0008C2FB /* CardsViewController.m in Sources */,
 				4F4892E227246E2B00126131 /* MainWindow.m in Sources */,
 				4FE8577327009C570008C2FB /* CardItemModel.m in Sources */,
-				4F7333FB272DA77900438FE0 /* KeyMenuItem.m in Sources */,
+				4F7333FB272DA77900438FE0 /* CardOptionsMenuItem.m in Sources */,
 				4F6462D62726932A00329B10 /* NSImageView+setAsyncImage.m in Sources */,
 				4FE85767270092F30008C2FB /* MainListViewController.m in Sources */,
 				4F98C28F27284DC900865CCD /* SpinnerView.m in Sources */,

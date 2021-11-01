@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithIdentifier:(NSToolbarIdentifier)identifier NS_UNAVAILABLE;
 - (instancetype)initWithOptions:(NSDictionary<NSString *, NSString *> *)options cardOptionsToolbarDelegate:(id<CardOptionsToolbarDelegate>)cardOptionsToolbarDelegate;
+- (void)updateItemsWithOptions:(NSDictionary<NSString *, NSString *> *)options;
 @end
 
 NS_ASSUME_NONNULL_END

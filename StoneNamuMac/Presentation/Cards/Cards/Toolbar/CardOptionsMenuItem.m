@@ -1,13 +1,13 @@
 //
-//  KeyMenuItem.m
+//  CardOptionsMenuItem.m
 //  StoneNamuMac
 //
 //  Created by Jinwoo Kim on 10/31/21.
 //
 
-#import "KeyMenuItem.h"
+#import "CardOptionsMenuItem.h"
 
-@implementation KeyMenuItem
+@implementation CardOptionsMenuItem
 
 - (void)dealloc {
     [_key release];
@@ -28,7 +28,7 @@
     id copy = [super copyWithZone:zone];
     
     if (copy) {
-        KeyMenuItem *_copy = (KeyMenuItem *)copy;
+        CardOptionsMenuItem *_copy = (CardOptionsMenuItem *)copy;
         _copy->_key = [self.key copy];
     }
     

@@ -7,7 +7,8 @@
 
 #import "CardOptionsToolbar.h"
 #import <StoneNamuCore/StoneNamuCore.h>
-#import "KeyMenuItem.h"
+#import "CardOptionsMenuItem.h"
+#import "CardOptionsTextField.h"
 #import "DynamicMenuToolbarItem.h"
 
 static NSToolbarIdentifier const NSToolbarIdentifierCardOptionsTypeTextFilter = @"NSToolbarIdentifierCardOptionsTextFilter";
@@ -88,22 +89,22 @@ BlizzardHSAPIOptionType BlizzardHSAPIOptionTypeFromNSToolbarIdentifier(NSToolbar
     }
 }
 
-@interface CardOptionsToolbar () <NSToolbarDelegate>
+@interface CardOptionsToolbar () <NSToolbarDelegate, NSTextFieldDelegate>
 @property (weak) id<CardOptionsToolbarDelegate> cardOptionsToolbarDelegate;
-@property (retain) NSToolbarItem *textFilterItem;
-@property (retain) NSToolbarItem *setItem;
-@property (retain) NSToolbarItem *classItem;
-@property (retain) NSToolbarItem *manaCostItem;
-@property (retain) NSToolbarItem *attackItem;
-@property (retain) NSToolbarItem *healthItem;
-@property (retain) NSToolbarItem *collectibleItem;
-@property (retain) NSToolbarItem *rarityItem;
-@property (retain) NSToolbarItem *typeItem;
-@property (retain) NSToolbarItem *minionTypeItem;
-@property (retain) NSToolbarItem *keyowrdItem;
-@property (retain) NSToolbarItem *gameModeItem;
-@property (retain) NSToolbarItem *sortItem;
-@property (retain) NSArray<NSMenuToolbarItem *> *allItems;
+@property (retain) DynamicMenuToolbarItem *textFilterItem;
+@property (retain) DynamicMenuToolbarItem *setItem;
+@property (retain) DynamicMenuToolbarItem *classItem;
+@property (retain) DynamicMenuToolbarItem *manaCostItem;
+@property (retain) DynamicMenuToolbarItem *attackItem;
+@property (retain) DynamicMenuToolbarItem *healthItem;
+@property (retain) DynamicMenuToolbarItem *collectibleItem;
+@property (retain) DynamicMenuToolbarItem *rarityItem;
+@property (retain) DynamicMenuToolbarItem *typeItem;
+@property (retain) DynamicMenuToolbarItem *minionTypeItem;
+@property (retain) DynamicMenuToolbarItem *keyowrdItem;
+@property (retain) DynamicMenuToolbarItem *gameModeItem;
+@property (retain) DynamicMenuToolbarItem *sortItem;
+@property (retain) NSArray<DynamicMenuToolbarItem *> *allItems;
 @property (retain) NSMutableDictionary<NSString *, NSString *> *options;
 @end
 
@@ -358,14 +359,6 @@ BlizzardHSAPIOptionType BlizzardHSAPIOptionTypeFromNSToolbarIdentifier(NSToolbar
         
         NSMenu *menu = [self menuForMenuToolbarItem:obj];
         obj.menu = menu;
-        
-//        NSMenuItem *item1 = [[NSMenuItem alloc] initWithTitle:obj.title action:nil keyEquivalent:@""];
-//        NSMenu *menu2 = [[NSMenu alloc] initWithTitle:obj.title];
-//        item1.submenu = menu2;
-//        NSMenuItem *item2 = [[NSMenuItem alloc] initWithTitle:obj.title action:nil keyEquivalent:@""];
-//        item2.submenu = menu1;
-//        obj.menuFormRepresentation = item1;
-//        [item1 release];
     }];
 }
 
@@ -399,7 +392,30 @@ BlizzardHSAPIOptionType BlizzardHSAPIOptionTypeFromNSToolbarIdentifier(NSToolbar
             return HSCardClassFromNSString(key);
         }
                                  ascending:YES];
-        
+    } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeManaCost] || ([optionType isEqualToString:BlizzardHSAPIOptionTypeAttack] || ([optionType isEqualToString:BlizzardHSAPIOptionTypeHealth]))) {
+        itemArray = [self itemArrayFromDic:@{@"1": @"1",
+                                             @"2": @"2",
+                                             @"3": @"3",
+                                             @"4": @"4",
+                                             @"5": @"5",
+                                             @"6": @"6",
+                                             @"7": @"7",
+                                             @"8": @"8",
+                                             @"9": @"9",
+                                             @"10": @"10+"}
+                                optionType:optionType
+                             showEmptyItem:YES
+                               selectedKey:selectedKey
+                               filterArray:nil
+                               imageSource:nil
+                                 converter:^NSUInteger(NSString * key) {
+            NSNumberFormatter *formatter = [NSNumberFormatter new];
+            formatter.numberStyle = NSNumberFormatterDecimalStyle;
+            NSUInteger value = [formatter numberFromString:key].unsignedIntegerValue;
+            [formatter release];
+            return value;
+        }
+                                 ascending:YES];
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeCollectible]) {
         itemArray = [self itemArrayFromDic:hsCardCollectiblesWithLocalizable()
                                 optionType:optionType
@@ -457,7 +473,8 @@ BlizzardHSAPIOptionType BlizzardHSAPIOptionTypeFromNSToolbarIdentifier(NSToolbar
             return HSCardKeywordFromNSString(key);
         }
                                  ascending:YES];
-        
+    } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeTextFilter]) {
+        itemArray = @[[self textFieldItemWithOptionType:optionType selectedKey:selectedKey]];
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeGameMode]) {
         itemArray = [self itemArrayFromDic:hsCardGameModesWithLocalizable()
                                 optionType:optionType
@@ -469,7 +486,6 @@ BlizzardHSAPIOptionType BlizzardHSAPIOptionTypeFromNSToolbarIdentifier(NSToolbar
             return HSCardGameModeFromNSString(key);
         }
                                  ascending:YES];
-        
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeSort]) {
         itemArray = [self itemArrayFromDic:hsCardSortsWithLocalizable()
                                 optionType:optionType
@@ -492,6 +508,26 @@ BlizzardHSAPIOptionType BlizzardHSAPIOptionTypeFromNSToolbarIdentifier(NSToolbar
 
 #pragma mark - Helper
 
+- (NSMenuItem *)textFieldItemWithOptionType:(BlizzardHSAPIOptionType)type
+                                selectedKey:(NSString * _Nullable)selectedKey {
+    CardOptionsMenuItem *item = [[CardOptionsMenuItem alloc] initWithTitle:@"Test" action:nil keyEquivalent:@"" key:@{type: @""}];
+    CardOptionsTextField *textField = [[CardOptionsTextField alloc] initWithKey:@{type: @""}];
+    
+    if (selectedKey) {
+        textField.stringValue = selectedKey;
+    } else {
+        textField.stringValue = @"";
+    }
+    textField.frame = CGRectMake(0, 0, 100, 20);
+    textField.weakObject = item;
+    textField.delegate = self;
+    
+    item.view = textField;
+    
+    [textField release];
+    return [item autorelease];
+}
+
 - (NSArray<NSMenuItem *> *)itemArrayFromDic:(NSDictionary<NSString *, NSString *> *)dic
                                  optionType:(BlizzardHSAPIOptionType)type
                               showEmptyItem:(BOOL)showEmptyItem
@@ -505,7 +541,7 @@ BlizzardHSAPIOptionType BlizzardHSAPIOptionTypeFromNSToolbarIdentifier(NSToolbar
     
     [dic enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSString * _Nonnull obj, BOOL * _Nonnull stop) {
         if (![filterArray containsObject:key]) {
-            KeyMenuItem *item = [[KeyMenuItem alloc] initWithTitle:obj
+            CardOptionsMenuItem *item = [[CardOptionsMenuItem alloc] initWithTitle:obj
                                                             action:@selector(keyMenuItemTriggered:)
                                                      keyEquivalent:@""
                                                                key:@{type: key}];
@@ -522,7 +558,7 @@ BlizzardHSAPIOptionType BlizzardHSAPIOptionTypeFromNSToolbarIdentifier(NSToolbar
         }
     }];
     
-    NSComparator comparator = ^NSComparisonResult(KeyMenuItem *lhsItem, KeyMenuItem *rhsItem) {
+    NSComparator comparator = ^NSComparisonResult(CardOptionsMenuItem *lhsItem, CardOptionsMenuItem *rhsItem) {
         NSUInteger lhs = converter(lhsItem.key[type]);
         NSUInteger rhs = converter(rhsItem.key[type]);
         
@@ -548,7 +584,7 @@ BlizzardHSAPIOptionType BlizzardHSAPIOptionTypeFromNSToolbarIdentifier(NSToolbar
     [arr sortUsingComparator:comparator];
     
     if (showEmptyItem) {
-        KeyMenuItem *emptyItem = [[KeyMenuItem alloc] initWithTitle:NSLocalizedString(@"ALL", @"")
+        CardOptionsMenuItem *emptyItem = [[CardOptionsMenuItem alloc] initWithTitle:NSLocalizedString(@"ALL", @"")
                                                              action:@selector(keyMenuItemTriggered:)
                                                       keyEquivalent:@""
                                                                 key:@{type: @""}];
@@ -570,11 +606,15 @@ BlizzardHSAPIOptionType BlizzardHSAPIOptionTypeFromNSToolbarIdentifier(NSToolbar
     return [arr autorelease];
 }
 
-- (void)keyMenuItemTriggered:(KeyMenuItem *)sender {
+- (void)keyMenuItemTriggered:(CardOptionsMenuItem *)sender {
     NSString *key = sender.key.allKeys.firstObject;
     NSString *value = sender.key.allValues.firstObject;
     
-    self.options[key] = value;
+    if ([value isEqualToString:@""]) {
+        [self.options removeObjectForKey:key];
+    } else {
+        self.options[key] = value;
+    }
     
     [self updateItemsWithOptions:self.options];
     [self.cardOptionsToolbarDelegate cardOptionsToolbar:self changedOption:self.options];
@@ -613,6 +653,35 @@ BlizzardHSAPIOptionType BlizzardHSAPIOptionTypeFromNSToolbarIdentifier(NSToolbar
     }];
     
     return [itemIdentifiers autorelease];
+}
+
+#pragma mark - NSTextFieldDelegate
+
+- (void)controlTextDidEndEditing:(NSNotification *)notification {
+    CardOptionsTextField *textField = (CardOptionsTextField *)notification.object;
+    
+    if (![textField isKindOfClass:[CardOptionsTextField class]]) {
+        return;
+    }
+    
+    if ([[notification.userInfo objectForKey:@"NSTextMovement"] integerValue] == NSReturnTextMovement) {
+        if ([textField.weakObject isKindOfClass:[CardOptionsMenuItem class]]) {
+            CardOptionsMenuItem *item = (CardOptionsMenuItem *)textField.weakObject;
+            [item.menu cancelTracking];
+        }
+        
+        NSString *key = textField.key.allKeys.firstObject;
+        NSString *value = textField.stringValue;
+        
+        if ([value isEqualToString:@""]) {
+            [self.options removeObjectForKey:key];
+        } else {
+            self.options[key] = value;
+        }
+        
+        [self updateItemsWithOptions:self.options];
+        [self.cardOptionsToolbarDelegate cardOptionsToolbar:self changedOption:self.options];
+    }
 }
 
 @end

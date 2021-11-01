@@ -1,5 +1,5 @@
 //
-//  KeyMenuItem.h
+//  CardOptionsMenuItem.h
 //  StoneNamuMac
 //
 //  Created by Jinwoo Kim on 10/31/21.
@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface KeyMenuItem : NSMenuItem
+@interface CardOptionsMenuItem : NSMenuItem
 @property (readonly, copy) NSDictionary * _Nullable key;
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
