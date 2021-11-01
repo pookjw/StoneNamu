@@ -175,6 +175,10 @@
 		4F8754B926DB87DC000CE351 /* UIViewController+SpinnerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8754B826DB87DC000CE351 /* UIViewController+SpinnerView.m */; };
 		4F8754BC26DB91D7000CE351 /* NSIndexPath+identifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8754BB26DB91D7000CE351 /* NSIndexPath+identifier.m */; };
 		4F883F66272FF31500AF0048 /* CardOptionsTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F883F65272FF31500AF0048 /* CardOptionsTextField.m */; };
+		4F883F6A272FFE7C00AF0048 /* CardOptionsTouchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F883F69272FFE7C00AF0048 /* CardOptionsTouchBar.m */; };
+		4F883F6E27300B1700AF0048 /* NSToolbarIdentifierCardOptions+BlizzardHSAPIOptionType.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F883F6D27300B1700AF0048 /* NSToolbarIdentifierCardOptions+BlizzardHSAPIOptionType.m */; };
+		4F883F7127300BCB00AF0048 /* NSTouchBarItemIdentifierCardOptions+BlizzardHSAPIOptionType.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F883F7027300BCB00AF0048 /* NSTouchBarItemIdentifierCardOptions+BlizzardHSAPIOptionType.m */; };
+		4F883F74273011FC00AF0048 /* NSTextField+setLabelStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F883F73273011FC00AF0048 /* NSTextField+setLabelStyle.m */; };
 		4F8F976526D469700024FC06 /* InsetsLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8F976426D469700024FC06 /* InsetsLabel.m */; };
 		4F8F976926D47F360024FC06 /* DeckDetailsManaCostContentConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8F976826D47F360024FC06 /* DeckDetailsManaCostContentConfiguration.m */; };
 		4F8F976C26D47F560024FC06 /* DeckDetailsManaCostContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8F976B26D47F560024FC06 /* DeckDetailsManaCostContentView.m */; };
@@ -588,6 +592,15 @@
 		4F8754BB26DB91D7000CE351 /* NSIndexPath+identifier.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSIndexPath+identifier.m"; sourceTree = "<group>"; };
 		4F883F64272FF31500AF0048 /* CardOptionsTextField.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardOptionsTextField.h; sourceTree = "<group>"; };
 		4F883F65272FF31500AF0048 /* CardOptionsTextField.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardOptionsTextField.m; sourceTree = "<group>"; };
+		4F883F68272FFE7C00AF0048 /* CardOptionsTouchBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardOptionsTouchBar.h; sourceTree = "<group>"; };
+		4F883F69272FFE7C00AF0048 /* CardOptionsTouchBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardOptionsTouchBar.m; sourceTree = "<group>"; };
+		4F883F6B272FFE9B00AF0048 /* CardOptionsTouchBarDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardOptionsTouchBarDelegate.h; sourceTree = "<group>"; };
+		4F883F6C27300B0E00AF0048 /* NSToolbarIdentifierCardOptions+BlizzardHSAPIOptionType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSToolbarIdentifierCardOptions+BlizzardHSAPIOptionType.h"; sourceTree = "<group>"; };
+		4F883F6D27300B1700AF0048 /* NSToolbarIdentifierCardOptions+BlizzardHSAPIOptionType.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSToolbarIdentifierCardOptions+BlizzardHSAPIOptionType.m"; sourceTree = "<group>"; };
+		4F883F6F27300BA200AF0048 /* NSTouchBarItemIdentifierCardOptions+BlizzardHSAPIOptionType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSTouchBarItemIdentifierCardOptions+BlizzardHSAPIOptionType.h"; sourceTree = "<group>"; };
+		4F883F7027300BCB00AF0048 /* NSTouchBarItemIdentifierCardOptions+BlizzardHSAPIOptionType.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSTouchBarItemIdentifierCardOptions+BlizzardHSAPIOptionType.m"; sourceTree = "<group>"; };
+		4F883F72273011FC00AF0048 /* NSTextField+setLabelStyle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSTextField+setLabelStyle.h"; sourceTree = "<group>"; };
+		4F883F73273011FC00AF0048 /* NSTextField+setLabelStyle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSTextField+setLabelStyle.m"; sourceTree = "<group>"; };
 		4F8F976026D45C290024FC06 /* NSMutableArray+removeSingle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+removeSingle.h"; sourceTree = "<group>"; };
 		4F8F976126D45C290024FC06 /* NSMutableArray+removeSingle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+removeSingle.m"; sourceTree = "<group>"; };
 		4F8F976326D469700024FC06 /* InsetsLabel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InsetsLabel.h; sourceTree = "<group>"; };
@@ -1078,6 +1091,7 @@
 			children = (
 				4F7333F5272D834D00438FE0 /* Cards */,
 				4F7333F4272D834900438FE0 /* Toolbar */,
+				4F883F67272FFE6100AF0048 /* TouchBar */,
 			);
 			path = Cards;
 			sourceTree = "<group>";
@@ -1291,6 +1305,8 @@
 				4F7333FC272DAF1600438FE0 /* CardOptionsToolbarDelegate.h */,
 				4F7333F6272D836A00438FE0 /* CardOptionsToolbar.h */,
 				4F7333F7272D836A00438FE0 /* CardOptionsToolbar.m */,
+				4F883F6C27300B0E00AF0048 /* NSToolbarIdentifierCardOptions+BlizzardHSAPIOptionType.h */,
+				4F883F6D27300B1700AF0048 /* NSToolbarIdentifierCardOptions+BlizzardHSAPIOptionType.m */,
 				4F7333F9272DA77900438FE0 /* CardOptionsMenuItem.h */,
 				4F7333FA272DA77900438FE0 /* CardOptionsMenuItem.m */,
 				4F883F64272FF31500AF0048 /* CardOptionsTextField.h */,
@@ -1367,6 +1383,18 @@
 				4F8754B526DB8773000CE351 /* SpinnerView.m */,
 			);
 			path = Spinner;
+			sourceTree = "<group>";
+		};
+		4F883F67272FFE6100AF0048 /* TouchBar */ = {
+			isa = PBXGroup;
+			children = (
+				4F883F6B272FFE9B00AF0048 /* CardOptionsTouchBarDelegate.h */,
+				4F883F68272FFE7C00AF0048 /* CardOptionsTouchBar.h */,
+				4F883F69272FFE7C00AF0048 /* CardOptionsTouchBar.m */,
+				4F883F6F27300BA200AF0048 /* NSTouchBarItemIdentifierCardOptions+BlizzardHSAPIOptionType.h */,
+				4F883F7027300BCB00AF0048 /* NSTouchBarItemIdentifierCardOptions+BlizzardHSAPIOptionType.m */,
+			);
+			path = TouchBar;
 			sourceTree = "<group>";
 		};
 		4F8F976626D47EF10024FC06 /* InsetLabel */ = {
@@ -1886,6 +1914,8 @@
 				4F466EF0272851090035C569 /* NSViewController+SpinnerView.m */,
 				4F83FBDD272E7226002D2387 /* NSView+isDarkMode.h */,
 				4F83FBDE272E7226002D2387 /* NSView+isDarkMode.m */,
+				4F883F72273011FC00AF0048 /* NSTextField+setLabelStyle.h */,
+				4F883F73273011FC00AF0048 /* NSTextField+setLabelStyle.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -2488,7 +2518,9 @@
 				4FE857622700913A0008C2FB /* MainSplitViewController.m in Sources */,
 				4FE8576D27009B5C0008C2FB /* CardsViewModel.m in Sources */,
 				4FE85708270089BD0008C2FB /* main.m in Sources */,
+				4F883F6E27300B1700AF0048 /* NSToolbarIdentifierCardOptions+BlizzardHSAPIOptionType.m in Sources */,
 				4F4892E92724727000126131 /* CardContentView.m in Sources */,
+				4F883F7127300BCB00AF0048 /* NSTouchBarItemIdentifierCardOptions+BlizzardHSAPIOptionType.m in Sources */,
 				4FE85701270089BC0008C2FB /* AppDelegate.m in Sources */,
 				4F83FBDC272E6F5D002D2387 /* DynamicMenuToolbarItem.m in Sources */,
 				4FE8577027009C4D0008C2FB /* CardSectionModel.m in Sources */,
@@ -2498,8 +2530,10 @@
 				4FE8576A270093CF0008C2FB /* CardsViewController.m in Sources */,
 				4F4892E227246E2B00126131 /* MainWindow.m in Sources */,
 				4FE8577327009C570008C2FB /* CardItemModel.m in Sources */,
+				4F883F74273011FC00AF0048 /* NSTextField+setLabelStyle.m in Sources */,
 				4F7333FB272DA77900438FE0 /* CardOptionsMenuItem.m in Sources */,
 				4F6462D62726932A00329B10 /* NSImageView+setAsyncImage.m in Sources */,
+				4F883F6A272FFE7C00AF0048 /* CardOptionsTouchBar.m in Sources */,
 				4FE85767270092F30008C2FB /* MainListViewController.m in Sources */,
 				4F98C28F27284DC900865CCD /* SpinnerView.m in Sources */,
 				4F466EF1272851090035C569 /* NSViewController+SpinnerView.m in Sources */,

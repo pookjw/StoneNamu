@@ -1,0 +1,26 @@
+//
+//   NSTouchBarItemIdentifierCardOptions+BlizzardHSAPIOptionType.h
+//  StoneNamu
+//
+//  Created by Jinwoo Kim on 11/1/21.
+//
+
+#import <Cocoa/Cocoa.h>
+#import <StoneNamuCore/StoneNamuCore.h>
+
+static NSTouchBarItemIdentifier const NSTouchBarItemIdentifierCardOptionsTypeSet = @"NSTouchBarItemIdentifierCardOptionsTypeSet";
+static NSTouchBarItemIdentifier const NSTouchBarItemIdentifierCardOptionsTypeClass = @"NSTouchBarItemIdentifierCardOptionsTypeClass";
+static NSTouchBarItemIdentifier const NSTouchBarItemIdentifierCardOptionsTypeManaCost = @"NSTouchBarItemIdentifierCardOptionsTypeManaCost";
+static NSTouchBarItemIdentifier const NSTouchBarItemIdentifierCardOptionsTypeAttack = @"NSTouchBarItemIdentifierCardOptionsTypeAttack";
+static NSTouchBarItemIdentifier const NSTouchBarItemIdentifierCardOptionsTypeHealth = @"NSTouchBarItemIdentifierCardOptionsTypeHealth";
+static NSTouchBarItemIdentifier const NSTouchBarItemIdentifierCardOptionsTypeCollecticle = @"NSTouchBarItemIdentifierCardOptionsTypeCollecticle";
+static NSTouchBarItemIdentifier const NSTouchBarItemIdentifierCardOptionsTypeRarity = @"NSTouchBarItemIdentifierCardOptionsTypeRarity";
+static NSTouchBarItemIdentifier const NSTouchBarItemIdentifierCardOptionsTypeType = @"NSTouchBarItemIdentifierCardOptionsTypeType";
+static NSTouchBarItemIdentifier const NSTouchBarItemIdentifierCardOptionsTypeMinionType = @"NSTouchBarItemIdentifierCardOptionsTypeMinionType";
+static NSTouchBarItemIdentifier const NSTouchBarItemIdentifierCardOptionsTypeKeyword = @"NSTouchBarItemIdentifierCardOptionsTypeKeyword";
+static NSTouchBarItemIdentifier const NSTouchBarItemIdentifierCardOptionsTypeGameMode = @"NSTouchBarItemIdentifierCardOptionsTypeGameMode";
+static NSTouchBarItemIdentifier const NSTouchBarItemIdentifierCardOptionsTypeSort = @"NSTouchBarItemIdentifierCardOptionsTypeSort";
+
+NSArray<NSTouchBarItemIdentifier> * AllNSTouchBarItemIdentifierCardOptions(void);
+NSTouchBarItemIdentifier NSTouchBarItemIdentifierCardOptionsFromBlizzardHSAPIOptionType(BlizzardHSAPIOptionType type);
+BlizzardHSAPIOptionType BlizzardHSAPIOptionTypeFromNSTouchBarItemIdentifierCardOptions(NSTouchBarItemIdentifier itemIdentifier);

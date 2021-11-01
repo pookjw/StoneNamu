@@ -11,13 +11,15 @@
 #import "CardContentView.h"
 #import "NSViewController+SpinnerView.h"
 #import "CardOptionsToolbar.h"
+#import "CardOptionsTouchBar.h"
 
-@interface CardsViewController () <CardOptionsToolbarDelegate>
+@interface CardsViewController () <CardOptionsToolbarDelegate, CardOptionsTouchBarDelegate>
 @property (retain) NSScrollView *scrollView;
 @property (retain) NSClipView *clipView;
 @property (retain) NSCollectionView *collectionView;
 @property (retain) CardsViewModel *viewModel;
 @property (retain) CardOptionsToolbar *cardOptionsToolbar;
+@property (retain) CardOptionsTouchBar *cardOptionsTouchBar;
 @end
 
 @implementation CardsViewController
@@ -28,6 +30,7 @@
     [_collectionView release];
     [_viewModel release];
     [_cardOptionsToolbar release];
+    [_cardOptionsTouchBar release];
     [super dealloc];
 }
 
@@ -40,16 +43,28 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self configureCollectionView];
+    [self configureCardOptionsToolbar];
+    [self configureCardOptionsTouchBar];
     [self configureViewModel];
     [self bind];
     [self addSpinnerView];
     [self.viewModel requestDataSourceWithOptions:nil reset:NO];
-    [self configureCardOptionsToolbar];
 }
 
 - (void)viewWillAppear {
     [super viewWillAppear];
     [self setCardOptionsToolbarToWindow];
+    [self setCardOptionsTouchBarToWindow];
+}
+
+- (void)viewWillDisappear {
+    [super viewWillDisappear];
+    [self clearCardOptionsToolbarFromWindow];
+    [self clearCardOptionsTouchBarFromWindow];
+}
+
+- (NSTouchBar *)makeTouchBar {
+    return self.cardOptionsTouchBar;
 }
 
 - (void)configureCollectionView {
@@ -142,6 +157,7 @@
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
         [self removeAllSpinnerview];
         [self.cardOptionsToolbar updateItemsWithOptions:self.viewModel.options];
+        [self.cardOptionsTouchBar updateItemsWithOptions:self.viewModel.options];
     }];
 }
 
@@ -164,6 +180,20 @@
     [cardOptionsToolbar release];
 }
 
+- (void)configureCardOptionsTouchBar {
+    CardOptionsTouchBar *cardOptionsTouchBar = [[CardOptionsTouchBar alloc] initWithOptions:self.viewModel.options cardOptionsTouchBarDelegate:self];
+    self.cardOptionsTouchBar = cardOptionsTouchBar;
+    [cardOptionsTouchBar release];
+}
+
+- (void)setCardOptionsTouchBarToWindow {
+    self.view.window.touchBar = self.touchBar;
+}
+
+- (void)clearCardOptionsTouchBarFromWindow {
+    self.view.window.touchBar = nil;
+}
+
 - (void)setCardOptionsToolbarToWindow {
     self.view.window.toolbar = self.cardOptionsToolbar;
     [self.cardOptionsToolbar validateVisibleItems];
@@ -176,6 +206,13 @@
 #pragma mark - CardOptionsToolbarDelegate
 
 - (void)cardOptionsToolbar:(CardOptionsToolbar *)toolbar changedOption:(NSDictionary<NSString *,NSString *> *)options {
+    [self addSpinnerView];
+    [self.viewModel requestDataSourceWithOptions:options reset:YES];
+}
+
+#pragma mark - CardOptionsTouchBarDelegate
+
+- (void)cardOptionsTouchBar:(CardOptionsTouchBar *)touchBar changedOption:(NSDictionary<NSString *,NSString *> *)options {
     [self addSpinnerView];
     [self.viewModel requestDataSourceWithOptions:options reset:YES];
 }

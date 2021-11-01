@@ -14,6 +14,7 @@
 @implementation AppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+    NSApp.automaticCustomizeTouchBarMenuItemEnabled = YES;
     [self presentMainWindow];
 }
 

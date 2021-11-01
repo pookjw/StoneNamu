@@ -11,6 +11,8 @@
  https://develop.battle.net/documentation/hearthstone/game-data-apis
  */
 
+NS_ASSUME_NONNULL_BEGIN
+
 typedef NSString * BlizzardHSAPIOptionType NS_STRING_ENUM;
 
 static BlizzardHSAPIOptionType const BlizzardHSAPIOptionTypeLocale = @"locale";
@@ -34,3 +36,7 @@ static BlizzardHSAPIOptionType const BlizzardHSAPIOptionTypeCode = @"code";
 static BlizzardHSAPIOptionType const BlizzardHSAPIOptionTypeHero = @"hero";
 
 NSDictionary<BlizzardHSAPIOptionType, NSString *> *BlizzardHSAPIDefaultOptions(void);
+
+NSString * _Nullable PrefferedSystemSymbolFromBlizzardHSAPIDefaultOptions(BlizzardHSAPIOptionType option);
+
+NS_ASSUME_NONNULL_END

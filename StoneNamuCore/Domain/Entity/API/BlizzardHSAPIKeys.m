@@ -18,3 +18,35 @@ NSDictionary<BlizzardHSAPIOptionType, NSString *> *BlizzardHSAPIDefaultOptions(v
         BlizzardHSAPIOptionTypeSort: NSStringFromHSCardSort(HSCardSortManaCostAsc)
     };
 }
+
+NSString * _Nullable PrefferedSystemSymbolFromBlizzardHSAPIDefaultOptions(BlizzardHSAPIOptionType option) {
+    if ([option isEqualToString:BlizzardHSAPIOptionTypeSet]) {
+        return @"book.circle";
+    } else if ([option isEqualToString:BlizzardHSAPIOptionTypeClass]) {
+        return @"person.circle";
+    } else if ([option isEqualToString:BlizzardHSAPIOptionTypeManaCost]) {
+        return @"dollarsign.circle";
+    } else if ([option isEqualToString:BlizzardHSAPIOptionTypeAttack]) {
+        return @"staroflife.circle";
+    } else if ([option isEqualToString:BlizzardHSAPIOptionTypeHealth]) {
+        return @"heart.circle";
+    } else if ([option isEqualToString:BlizzardHSAPIOptionTypeCollectible]) {
+        return @"tray.circle";
+    } else if ([option isEqualToString:BlizzardHSAPIOptionTypeRarity]) {
+        return @"star.circle";
+    } else if ([option isEqualToString:BlizzardHSAPIOptionTypeType]) {
+        return @"list.bullet.circle";
+    } else if ([option isEqualToString:BlizzardHSAPIOptionTypeMinionType]) {
+        return @"list.bullet.circle";
+    } else if ([option isEqualToString:BlizzardHSAPIOptionTypeKeyword]) {
+        return @"list.bullet.circle";
+    } else if ([option isEqualToString:BlizzardHSAPIOptionTypeTextFilter]) {
+        return @"a.circle";
+    } else if ([option isEqualToString:BlizzardHSAPIOptionTypeGameMode]) {
+        return @"flag.circle";
+    } else if ([option isEqualToString:BlizzardHSAPIOptionTypeSort]) {
+        return @"arrow.up.arrow.down.circle";
+    } else {
+        return nil;
+    }
+}

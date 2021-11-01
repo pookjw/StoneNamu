@@ -6,105 +6,27 @@
 //
 
 #import "CardOptionsToolbar.h"
-#import <StoneNamuCore/StoneNamuCore.h>
 #import "CardOptionsMenuItem.h"
 #import "CardOptionsTextField.h"
 #import "DynamicMenuToolbarItem.h"
-
-static NSToolbarIdentifier const NSToolbarIdentifierCardOptionsTypeTextFilter = @"NSToolbarIdentifierCardOptionsTextFilter";
-static NSToolbarIdentifier const NSToolbarIdentifierCardOptionsTypeSet = @"NSToolbarIdentifierCardOptionsTypeSet";
-static NSToolbarIdentifier const NSToolbarIdentifierCardOptionsTypeClass = @"NSToolbarIdentifierCardOptionsTypeClass";
-static NSToolbarIdentifier const NSToolbarIdentifierCardOptionsTypeManaCost = @"NSToolbarIdentifierCardOptionsTypeManaCost";
-static NSToolbarIdentifier const NSToolbarIdentifierCardOptionsTypeAttack = @"NSToolbarIdentifierCardOptionsTypeAttack";
-static NSToolbarIdentifier const NSToolbarIdentifierCardOptionsTypeHealth = @"NSToolbarIdentifierCardOptionsTypeHealth";
-static NSToolbarIdentifier const NSToolbarIdentifierCardOptionsTypeCollecticle = @"NSToolbarIdentifierCardOptionsTypeCollecticle";
-static NSToolbarIdentifier const NSToolbarIdentifierCardOptionsTypeRarity = @"NSToolbarIdentifierCardOptionsTypeRarity";
-static NSToolbarIdentifier const NSToolbarIdentifierCardOptionsTypeType = @"NSToolbarIdentifierCardOptionsTypeType";
-static NSToolbarIdentifier const NSToolbarIdentifierCardOptionsTypeMinionType = @"NSToolbarIdentifierCardOptionsTypeMinionType";
-static NSToolbarIdentifier const NSToolbarIdentifierCardOptionsTypeKeyword = @"NSToolbarIdentifierCardOptionsTypeKeyword";
-static NSToolbarIdentifier const NSToolbarIdentifierCardOptionsTypeGameMode = @"NSToolbarIdentifierCardOptionsTypeGameMode";
-static NSToolbarIdentifier const NSToolbarIdentifierCardOptionsTypeSort = @"NSToolbarIdentifierCardOptionsTypeSort";
-
-NSToolbarIdentifier NSToolbarIdentifierFromBlizzardHSAPIOptionType(BlizzardHSAPIOptionType type) {
-    if ([type isEqualToString:BlizzardHSAPIOptionTypeSet]) {
-        return NSToolbarIdentifierCardOptionsTypeSet;
-    } else if ([type isEqualToString:BlizzardHSAPIOptionTypeClass]) {
-        return NSToolbarIdentifierCardOptionsTypeClass;
-    } else if ([type isEqualToString:BlizzardHSAPIOptionTypeManaCost]) {
-        return NSToolbarIdentifierCardOptionsTypeManaCost;
-    } else if ([type isEqualToString:BlizzardHSAPIOptionTypeAttack]) {
-        return NSToolbarIdentifierCardOptionsTypeAttack;
-    } else if ([type isEqualToString:BlizzardHSAPIOptionTypeHealth]) {
-        return NSToolbarIdentifierCardOptionsTypeHealth;
-    } else if ([type isEqualToString:BlizzardHSAPIOptionTypeCollectible]) {
-        return NSToolbarIdentifierCardOptionsTypeCollecticle;
-    } else if ([type isEqualToString:BlizzardHSAPIOptionTypeRarity]) {
-        return NSToolbarIdentifierCardOptionsTypeRarity;
-    } else if ([type isEqualToString:BlizzardHSAPIOptionTypeType]) {
-        return NSToolbarIdentifierCardOptionsTypeType;
-    } else if ([type isEqualToString:BlizzardHSAPIOptionTypeMinionType]) {
-        return NSToolbarIdentifierCardOptionsTypeMinionType;
-    } else if ([type isEqualToString:BlizzardHSAPIOptionTypeKeyword]) {
-        return NSToolbarIdentifierCardOptionsTypeKeyword;
-    } else if ([type isEqualToString:BlizzardHSAPIOptionTypeTextFilter]) {
-        return NSToolbarIdentifierCardOptionsTypeTextFilter;
-    } else if ([type isEqualToString:BlizzardHSAPIOptionTypeGameMode]) {
-        return NSToolbarIdentifierCardOptionsTypeGameMode;
-    } else if ([type isEqualToString:BlizzardHSAPIOptionTypeSort]) {
-        return NSToolbarIdentifierCardOptionsTypeSort;
-    } else {
-        return @"";
-    }
-}
-
-BlizzardHSAPIOptionType BlizzardHSAPIOptionTypeFromNSToolbarIdentifier(NSToolbarIdentifier itemIdentifier) {
-    if ([itemIdentifier isEqualToString:NSToolbarIdentifierCardOptionsTypeTextFilter]) {
-        return BlizzardHSAPIOptionTypeTextFilter;
-    } else if ([itemIdentifier isEqualToString:NSToolbarIdentifierCardOptionsTypeSet]) {
-        return BlizzardHSAPIOptionTypeSet;
-    } else if ([itemIdentifier isEqualToString:NSToolbarIdentifierCardOptionsTypeClass]) {
-        return BlizzardHSAPIOptionTypeClass;
-    } else if ([itemIdentifier isEqualToString:NSToolbarIdentifierCardOptionsTypeManaCost]) {
-        return BlizzardHSAPIOptionTypeManaCost;
-    } else if ([itemIdentifier isEqualToString:NSToolbarIdentifierCardOptionsTypeAttack]) {
-        return BlizzardHSAPIOptionTypeAttack;
-    } else if ([itemIdentifier isEqualToString:NSToolbarIdentifierCardOptionsTypeHealth]) {
-        return BlizzardHSAPIOptionTypeHealth;
-    } else if ([itemIdentifier isEqualToString:NSToolbarIdentifierCardOptionsTypeCollecticle]) {
-        return BlizzardHSAPIOptionTypeCollectible;
-    } else if ([itemIdentifier isEqualToString:NSToolbarIdentifierCardOptionsTypeRarity]) {
-        return BlizzardHSAPIOptionTypeRarity;
-    } else if ([itemIdentifier isEqualToString:NSToolbarIdentifierCardOptionsTypeType]) {
-        return BlizzardHSAPIOptionTypeType;
-    } else if ([itemIdentifier isEqualToString:NSToolbarIdentifierCardOptionsTypeMinionType]) {
-        return BlizzardHSAPIOptionTypeMinionType;
-    } else if ([itemIdentifier isEqualToString:NSToolbarIdentifierCardOptionsTypeKeyword]) {
-        return BlizzardHSAPIOptionTypeKeyword;
-    } else if ([itemIdentifier isEqualToString:NSToolbarIdentifierCardOptionsTypeGameMode]) {
-        return BlizzardHSAPIOptionTypeGameMode;
-    } else if ([itemIdentifier isEqualToString:NSToolbarIdentifierCardOptionsTypeSort]) {
-        return BlizzardHSAPIOptionTypeSort;
-    } else {
-        return @"";
-    }
-}
+#import "NSToolbarIdentifierCardOptions+BlizzardHSAPIOptionType.h"
 
 @interface CardOptionsToolbar () <NSToolbarDelegate, NSTextFieldDelegate>
 @property (weak) id<CardOptionsToolbarDelegate> cardOptionsToolbarDelegate;
-@property (retain) DynamicMenuToolbarItem *textFilterItem;
-@property (retain) DynamicMenuToolbarItem *setItem;
-@property (retain) DynamicMenuToolbarItem *classItem;
-@property (retain) DynamicMenuToolbarItem *manaCostItem;
-@property (retain) DynamicMenuToolbarItem *attackItem;
-@property (retain) DynamicMenuToolbarItem *healthItem;
-@property (retain) DynamicMenuToolbarItem *collectibleItem;
-@property (retain) DynamicMenuToolbarItem *rarityItem;
-@property (retain) DynamicMenuToolbarItem *typeItem;
-@property (retain) DynamicMenuToolbarItem *minionTypeItem;
-@property (retain) DynamicMenuToolbarItem *keyowrdItem;
-@property (retain) DynamicMenuToolbarItem *gameModeItem;
-@property (retain) DynamicMenuToolbarItem *sortItem;
-@property (retain) NSArray<DynamicMenuToolbarItem *> *allItems;
+@property (retain) DynamicMenuToolbarItem *optionTypeTextFilterItem;
+@property (retain) DynamicMenuToolbarItem *optionTypeSetItem;
+@property (retain) DynamicMenuToolbarItem *optionTypeClassItem;
+@property (retain) DynamicMenuToolbarItem *optionTypeManaCostItem;
+@property (retain) DynamicMenuToolbarItem *optionTypeAttackItem;
+@property (retain) DynamicMenuToolbarItem *optionTypeHealthItem;
+@property (retain) DynamicMenuToolbarItem *optionTypeCollectibleItem;
+@property (retain) DynamicMenuToolbarItem *optionTypeRarityItem;
+@property (retain) DynamicMenuToolbarItem *optionTypeTypeItem;
+@property (retain) DynamicMenuToolbarItem *optionTypeMinionTypeItem;
+@property (retain) DynamicMenuToolbarItem *optionTypeKeyowrdItem;
+@property (retain) DynamicMenuToolbarItem *optionTypeGameModeItem;
+@property (retain) DynamicMenuToolbarItem *optionTypeSortItem;
+@property (retain) NSArray<DynamicMenuToolbarItem *> *optionTypeAllItems;
 @property (retain) NSMutableDictionary<NSString *, NSString *> *options;
 @end
 
@@ -128,20 +50,20 @@ BlizzardHSAPIOptionType BlizzardHSAPIOptionTypeFromNSToolbarIdentifier(NSToolbar
 }
 
 - (void)dealloc {
-    [_textFilterItem release];
-    [_setItem release];
-    [_classItem release];
-    [_manaCostItem release];
-    [_attackItem release];
-    [_healthItem release];
-    [_collectibleItem release];
-    [_rarityItem release];
-    [_typeItem release];
-    [_minionTypeItem release];
-    [_keyowrdItem release];
-    [_gameModeItem release];
-    [_sortItem release];
-    [_allItems release];
+    [_optionTypeTextFilterItem release];
+    [_optionTypeSetItem release];
+    [_optionTypeClassItem release];
+    [_optionTypeManaCostItem release];
+    [_optionTypeAttackItem release];
+    [_optionTypeHealthItem release];
+    [_optionTypeCollectibleItem release];
+    [_optionTypeRarityItem release];
+    [_optionTypeTypeItem release];
+    [_optionTypeMinionTypeItem release];
+    [_optionTypeKeyowrdItem release];
+    [_optionTypeGameModeItem release];
+    [_optionTypeSortItem release];
+    [_optionTypeAllItems release];
     [_options release];
     [super dealloc];
 }
@@ -153,89 +75,89 @@ BlizzardHSAPIOptionType BlizzardHSAPIOptionTypeFromNSToolbarIdentifier(NSToolbar
 }
 
 - (void)configureToolbarItems {
-    DynamicMenuToolbarItem *textFilterItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeTextFilter];
-    self.textFilterItem = textFilterItem;
+    DynamicMenuToolbarItem *optionTypeTextFilterItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeTextFilter];
+    self.optionTypeTextFilterItem = optionTypeTextFilterItem;
     [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeTextFilter atIndex:0];
     
-    DynamicMenuToolbarItem *setItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeSet];
-    self.setItem = setItem;
+    DynamicMenuToolbarItem *optionTypeSetItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeSet];
+    self.optionTypeSetItem = optionTypeSetItem;
     [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeSet atIndex:1];
     
-    DynamicMenuToolbarItem *classItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeClass];
-    self.classItem = classItem;
+    DynamicMenuToolbarItem *optionTypeClassItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeClass];
+    self.optionTypeClassItem = optionTypeClassItem;
     [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeClass atIndex:2];
     
-    DynamicMenuToolbarItem *manaCostItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeManaCost];
-    self.manaCostItem = manaCostItem;
+    DynamicMenuToolbarItem *optionTypeManaCostItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeManaCost];
+    self.optionTypeManaCostItem = optionTypeManaCostItem;
     [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeManaCost atIndex:3];
     
-    DynamicMenuToolbarItem *attackItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeAttack];
-    self.attackItem = attackItem;
+    DynamicMenuToolbarItem *optionTypeAttackItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeAttack];
+    self.optionTypeAttackItem = optionTypeAttackItem;
     [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeAttack atIndex:4];
     
-    DynamicMenuToolbarItem *healthItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeHealth];
-    self.healthItem = healthItem;
+    DynamicMenuToolbarItem *optionTypeHealthItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeHealth];
+    self.optionTypeHealthItem = optionTypeHealthItem;
     [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeHealth atIndex:5];
     
-    DynamicMenuToolbarItem *collectibleItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeCollecticle];
-    self.collectibleItem = collectibleItem;
+    DynamicMenuToolbarItem *optionTypeCollectibleItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeCollecticle];
+    self.optionTypeCollectibleItem = optionTypeCollectibleItem;
     [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeCollecticle atIndex:6];
     
-    DynamicMenuToolbarItem *rarityItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeRarity];
-    self.rarityItem = rarityItem;
+    DynamicMenuToolbarItem *optionTypeRarityItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeRarity];
+    self.optionTypeRarityItem = optionTypeRarityItem;
     [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeRarity atIndex:7];
     
-    DynamicMenuToolbarItem *typeItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeType];
-    self.typeItem = typeItem;
+    DynamicMenuToolbarItem *optionTypeTypeItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeType];
+    self.optionTypeTypeItem = optionTypeTypeItem;
     [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeType atIndex:8];
     
-    DynamicMenuToolbarItem *minionTypeItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeMinionType];
-    self.minionTypeItem = minionTypeItem;
+    DynamicMenuToolbarItem *optionTypeMinionTypeItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeMinionType];
+    self.optionTypeMinionTypeItem = optionTypeMinionTypeItem;
     [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeMinionType atIndex:9];
     
-    DynamicMenuToolbarItem *keyowrdItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeKeyword];
-    self.keyowrdItem = keyowrdItem;
+    DynamicMenuToolbarItem *optionTypeKeyowrdItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeKeyword];
+    self.optionTypeKeyowrdItem = optionTypeKeyowrdItem;
     [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeKeyword atIndex:10];
     
-    DynamicMenuToolbarItem *gameModeItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeGameMode];
-    self.gameModeItem = gameModeItem;
+    DynamicMenuToolbarItem *optionTypeGameModeItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeGameMode];
+    self.optionTypeGameModeItem = optionTypeGameModeItem;
     [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeGameMode atIndex:11];
     
-    DynamicMenuToolbarItem *sortItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeSort];
-    self.sortItem = sortItem;
+    DynamicMenuToolbarItem *optionTypeSortItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeSort];
+    self.optionTypeSortItem = optionTypeSortItem;
     [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeSort atIndex:12];
     
     //
     
-    self.allItems = @[
-        textFilterItem,
-        setItem,
-        classItem,
-        manaCostItem,
-        attackItem,
-        healthItem,
-        collectibleItem,
-        rarityItem,
-        typeItem,
-        minionTypeItem,
-        keyowrdItem,
-        gameModeItem,
-        sortItem
+    self.optionTypeAllItems = @[
+        optionTypeTextFilterItem,
+        optionTypeSetItem,
+        optionTypeClassItem,
+        optionTypeManaCostItem,
+        optionTypeAttackItem,
+        optionTypeHealthItem,
+        optionTypeCollectibleItem,
+        optionTypeRarityItem,
+        optionTypeTypeItem,
+        optionTypeMinionTypeItem,
+        optionTypeKeyowrdItem,
+        optionTypeGameModeItem,
+        optionTypeSortItem
     ];
     
-    [textFilterItem release];
-    [setItem release];
-    [classItem release];
-    [manaCostItem release];
-    [attackItem release];
-    [healthItem release];
-    [collectibleItem release];
-    [rarityItem release];
-    [typeItem release];
-    [minionTypeItem release];
-    [keyowrdItem release];
-    [gameModeItem release];
-    [sortItem release];
+    [optionTypeTextFilterItem release];
+    [optionTypeSetItem release];
+    [optionTypeClassItem release];
+    [optionTypeManaCostItem release];
+    [optionTypeAttackItem release];
+    [optionTypeHealthItem release];
+    [optionTypeCollectibleItem release];
+    [optionTypeRarityItem release];
+    [optionTypeTypeItem release];
+    [optionTypeMinionTypeItem release];
+    [optionTypeKeyowrdItem release];
+    [optionTypeGameModeItem release];
+    [optionTypeSortItem release];
     
     [self validateVisibleItems];
     
@@ -243,117 +165,109 @@ BlizzardHSAPIOptionType BlizzardHSAPIOptionTypeFromNSToolbarIdentifier(NSToolbar
 }
 
 - (void)updateItemsWithOptions:(NSDictionary<NSString *, NSString *> *)options {
-    [self.allItems enumerateObjectsUsingBlock:^(NSMenuToolbarItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    NSMutableDictionary<NSString *, NSString *> *mutableOptions = [options mutableCopy];
+    self.options = mutableOptions;
+    [mutableOptions release];
+    
+    [self.optionTypeAllItems enumerateObjectsUsingBlock:^(NSMenuToolbarItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         NSToolbarItemIdentifier itemIdentifier = obj.itemIdentifier;
-        BlizzardHSAPIOptionType optionType = BlizzardHSAPIOptionTypeFromNSToolbarIdentifier(itemIdentifier);
+        BlizzardHSAPIOptionType optionType = BlizzardHSAPIOptionTypeFromNSToolbarIdentifierCardOptions(itemIdentifier);
         NSString * _Nullable value = options[optionType];
         BOOL hasValue = ((value != nil) && (![value isEqualToString:@""]));
         
+        NSImage * _Nullable image = nil;
+        NSString * _Nullable title = nil;
+        
+        if (hasValue) {
+            image = [NSImage imageWithSystemSymbolName:[NSString stringWithFormat:@"%@.fill", PrefferedSystemSymbolFromBlizzardHSAPIDefaultOptions(optionType)] accessibilityDescription:nil];
+        } else {
+            image = [NSImage imageWithSystemSymbolName:PrefferedSystemSymbolFromBlizzardHSAPIDefaultOptions(optionType) accessibilityDescription:nil];
+        }
+        
         if ([itemIdentifier isEqualToString:NSToolbarIdentifierCardOptionsTypeTextFilter]) {
             if (hasValue) {
-                obj.image = [NSImage imageWithSystemSymbolName:@"a.circle.fill" accessibilityDescription:nil];
-                obj.title = [NSString stringWithFormat:@"%@ : %@", NSLocalizedString(@"CARD_TEXT_FILTER", @""), value];
+                title = [NSString stringWithFormat:@"%@ : %@", NSLocalizedString(@"CARD_TEXT_FILTER", @""), value];
             } else {
-                obj.image = [NSImage imageWithSystemSymbolName:@"a.circle" accessibilityDescription:nil];
-                obj.title = NSLocalizedString(@"CARD_TEXT_FILTER", @"");
+                title = NSLocalizedString(@"CARD_TEXT_FILTER", @"");
             }
         } else if ([itemIdentifier isEqualToString:NSToolbarIdentifierCardOptionsTypeSet]) {
             if (hasValue) {
-                obj.image = [NSImage imageWithSystemSymbolName:@"book.circle.fill" accessibilityDescription:nil];
-                obj.title = [NSString stringWithFormat:@"%@ : %@", NSLocalizedString(@"CARD_SET", @""), value];
+                title = [NSString stringWithFormat:@"%@ : %@", NSLocalizedString(@"CARD_SET", @""), value];
             } else {
-                obj.image = [NSImage imageWithSystemSymbolName:@"book.circle" accessibilityDescription:nil];
-                obj.title = NSLocalizedString(@"CARD_SET", @"");
+                title = NSLocalizedString(@"CARD_SET", @"");
             }
         } else if ([itemIdentifier isEqualToString:NSToolbarIdentifierCardOptionsTypeClass]) {
             if (hasValue) {
-                obj.image = [NSImage imageWithSystemSymbolName:@"person.circle.fill" accessibilityDescription:nil];
-                obj.title = [NSString stringWithFormat:@"%@ : %@", NSLocalizedString(@"CARD_CLASS", @""), value];
+                title = [NSString stringWithFormat:@"%@ : %@", NSLocalizedString(@"CARD_CLASS", @""), value];
             } else {
-                obj.image = [NSImage imageWithSystemSymbolName:@"person.circle" accessibilityDescription:nil];
-                obj.title = NSLocalizedString(@"CARD_CLASS", @"");
+                title = NSLocalizedString(@"CARD_CLASS", @"");
             }
         } else if ([itemIdentifier isEqualToString:NSToolbarIdentifierCardOptionsTypeManaCost]) {
             if (hasValue) {
-                obj.image = [NSImage imageWithSystemSymbolName:@"dollarsign.circle.fill" accessibilityDescription:nil];
-                obj.title = [NSString stringWithFormat:@"%@ : %@", NSLocalizedString(@"CARD_MANA_COST", @""), value];
+                title = [NSString stringWithFormat:@"%@ : %@", NSLocalizedString(@"CARD_MANA_COST", @""), value];
             } else {
-                obj.image = [NSImage imageWithSystemSymbolName:@"dollarsign.circle" accessibilityDescription:nil];
-                obj.title = NSLocalizedString(@"CARD_MANA_COST", @"");
+                title = NSLocalizedString(@"CARD_MANA_COST", @"");
             }
         } else if ([itemIdentifier isEqualToString:NSToolbarIdentifierCardOptionsTypeAttack]) {
             if (hasValue) {
-                obj.image = [NSImage imageWithSystemSymbolName:@"staroflife.circle.fill" accessibilityDescription:nil];
-                obj.title = [NSString stringWithFormat:@"%@ : %@", NSLocalizedString(@"CARD_ATTACK", @""), value];
+                title = [NSString stringWithFormat:@"%@ : %@", NSLocalizedString(@"CARD_ATTACK", @""), value];
             } else {
-                obj.image = [NSImage imageWithSystemSymbolName:@"staroflife.circle" accessibilityDescription:nil];
-                obj.title = NSLocalizedString(@"CARD_ATTACK", @"");
+                title = NSLocalizedString(@"CARD_ATTACK", @"");
             }
         } else if ([itemIdentifier isEqualToString:NSToolbarIdentifierCardOptionsTypeHealth]) {
             if (hasValue) {
-                obj.image = [NSImage imageWithSystemSymbolName:@"heart.circle.fill" accessibilityDescription:nil];
-                obj.title = [NSString stringWithFormat:@"%@ : %@", NSLocalizedString(@"CARD_HEALTH", @""), value];
+                title = [NSString stringWithFormat:@"%@ : %@", NSLocalizedString(@"CARD_HEALTH", @""), value];
             } else {
-                obj.image = [NSImage imageWithSystemSymbolName:@"heart.circle" accessibilityDescription:nil];
-                obj.title = NSLocalizedString(@"CARD_HEALTH", @"");
+                title = NSLocalizedString(@"CARD_HEALTH", @"");
             }
         } else if ([itemIdentifier isEqualToString:NSToolbarIdentifierCardOptionsTypeCollecticle]) {
             if (hasValue) {
-                obj.image = [NSImage imageWithSystemSymbolName:@"tray.circle.fill" accessibilityDescription:nil];
-                obj.title = [NSString stringWithFormat:@"%@ : %@", NSLocalizedString(@"CARD_COLLECTIBLE", @""), value];
+                title = [NSString stringWithFormat:@"%@ : %@", NSLocalizedString(@"CARD_COLLECTIBLE", @""), value];
             } else {
-                obj.image = [NSImage imageWithSystemSymbolName:@"tray.circle" accessibilityDescription:nil];
-                obj.title = NSLocalizedString(@"CARD_COLLECTIBLE", @"");
+                title = NSLocalizedString(@"CARD_COLLECTIBLE", @"");
             }
         } else if ([itemIdentifier isEqualToString:NSToolbarIdentifierCardOptionsTypeRarity]) {
             if (hasValue) {
-                obj.image = [NSImage imageWithSystemSymbolName:@"star.circle.fill" accessibilityDescription:nil];
-                obj.title = [NSString stringWithFormat:@"%@ : %@", NSLocalizedString(@"CARD_RARITY", @""), value];
+                title = [NSString stringWithFormat:@"%@ : %@", NSLocalizedString(@"CARD_RARITY", @""), value];
             } else {
-                obj.image = [NSImage imageWithSystemSymbolName:@"star.circle" accessibilityDescription:nil];
-                obj.title = NSLocalizedString(@"CARD_RARITY", @"");
+                title = NSLocalizedString(@"CARD_RARITY", @"");
             }
         } else if ([itemIdentifier isEqualToString:NSToolbarIdentifierCardOptionsTypeType]) {
             if (hasValue) {
-                obj.image = [NSImage imageWithSystemSymbolName:@"list.bullet.circle.fill" accessibilityDescription:nil];
-                obj.title = [NSString stringWithFormat:@"%@ : %@", NSLocalizedString(@"CARD_TYPE", @""), value];
+                title = [NSString stringWithFormat:@"%@ : %@", NSLocalizedString(@"CARD_TYPE", @""), value];
             } else {
-                obj.image = [NSImage imageWithSystemSymbolName:@"list.bullet.circle" accessibilityDescription:nil];
-                obj.title = NSLocalizedString(@"CARD_TYPE", @"");
+                title = NSLocalizedString(@"CARD_TYPE", @"");
             }
         } else if ([itemIdentifier isEqualToString:NSToolbarIdentifierCardOptionsTypeMinionType]) {
             if (hasValue) {
-                obj.image = [NSImage imageWithSystemSymbolName:@"list.bullet.circle.fill" accessibilityDescription:nil];
-                obj.title = [NSString stringWithFormat:@"%@ : %@", NSLocalizedString(@"CARD_MINION_TYPE", @""), value];
+                title = [NSString stringWithFormat:@"%@ : %@", NSLocalizedString(@"CARD_MINION_TYPE", @""), value];
             } else {
-                obj.image = [NSImage imageWithSystemSymbolName:@"list.bullet.circle" accessibilityDescription:nil];
-                obj.title = NSLocalizedString(@"CARD_MINION_TYPE", @"");
+                title = NSLocalizedString(@"CARD_MINION_TYPE", @"");
             }
         } else if ([itemIdentifier isEqualToString:NSToolbarIdentifierCardOptionsTypeKeyword]) {
             if (hasValue) {
-                obj.image = [NSImage imageWithSystemSymbolName:@"list.bullet.circle.fill" accessibilityDescription:nil];
-                obj.title = [NSString stringWithFormat:@"%@ : %@", NSLocalizedString(@"CARD_KEYWORD", @""), value];
+                title = [NSString stringWithFormat:@"%@ : %@", NSLocalizedString(@"CARD_KEYWORD", @""), value];
             } else {
-                obj.image = [NSImage imageWithSystemSymbolName:@"list.bullet.circle" accessibilityDescription:nil];
-                obj.title = NSLocalizedString(@"CARD_KEYWORD", @"");
+                title = NSLocalizedString(@"CARD_KEYWORD", @"");
             }
         } else if ([itemIdentifier isEqualToString:NSToolbarIdentifierCardOptionsTypeGameMode]) {
             if (hasValue) {
-                obj.image = [NSImage imageWithSystemSymbolName:@"flag.circle.fill" accessibilityDescription:nil];
-                obj.title = [NSString stringWithFormat:@"%@ : %@", NSLocalizedString(@"CARD_GAME_MODE", @""), value];
+                title = [NSString stringWithFormat:@"%@ : %@", NSLocalizedString(@"CARD_GAME_MODE", @""), value];
             } else {
-                obj.image = [NSImage imageWithSystemSymbolName:@"flag.circle" accessibilityDescription:nil];
-                obj.title = NSLocalizedString(@"CARD_GAME_MODE", @"");
+                title = NSLocalizedString(@"CARD_GAME_MODE", @"");
             }
         } else if ([itemIdentifier isEqualToString:NSToolbarIdentifierCardOptionsTypeSort]) {
             if (hasValue) {
-                obj.image = [NSImage imageWithSystemSymbolName:@"arrow.up.arrow.down.circle.fill" accessibilityDescription:nil];
-                obj.title = [NSString stringWithFormat:@"%@ : %@", NSLocalizedString(@"CARD_SORT", @""), value];
+                title = [NSString stringWithFormat:@"%@ : %@", NSLocalizedString(@"CARD_SORT", @""), value];
             } else {
-                obj.image = [NSImage imageWithSystemSymbolName:@"arrow.up.arrow.down.circle" accessibilityDescription:nil];
-                obj.title = NSLocalizedString(@"CARD_SORT", @"");
+                title = NSLocalizedString(@"CARD_SORT", @"");
             }
         }
+        
+        //
+        
+        obj.image = image;
+        obj.title = title;
         
         //
         
@@ -364,7 +278,7 @@ BlizzardHSAPIOptionType BlizzardHSAPIOptionTypeFromNSToolbarIdentifier(NSToolbar
 
 - (NSMenu *)menuForMenuToolbarItem:(NSMenuToolbarItem *)menuToolbarItem {
     NSToolbarItemIdentifier itemIdentifier = menuToolbarItem.itemIdentifier;
-    BlizzardHSAPIOptionType optionType = BlizzardHSAPIOptionTypeFromNSToolbarIdentifier(itemIdentifier);
+    BlizzardHSAPIOptionType optionType = BlizzardHSAPIOptionTypeFromNSToolbarIdentifierCardOptions(itemIdentifier);
     NSString * _Nullable selectedKey = self.options[optionType];
     NSMenu *menu = [[NSMenu alloc] initWithTitle:menuToolbarItem.title];
     
@@ -625,7 +539,7 @@ BlizzardHSAPIOptionType BlizzardHSAPIOptionTypeFromNSToolbarIdentifier(NSToolbar
 - (NSToolbarItem *)toolbar:(NSToolbar *)toolbar itemForItemIdentifier:(NSToolbarItemIdentifier)itemIdentifier willBeInsertedIntoToolbar:(BOOL)flag {
     NSMenuToolbarItem * _Nullable __block resultItem = nil;
     
-    [self.allItems enumerateObjectsUsingBlock:^(NSMenuToolbarItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    [self.optionTypeAllItems enumerateObjectsUsingBlock:^(NSMenuToolbarItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([itemIdentifier isEqualToString:obj.itemIdentifier]) {
             resultItem = obj;
             *stop = YES;
@@ -636,23 +550,11 @@ BlizzardHSAPIOptionType BlizzardHSAPIOptionTypeFromNSToolbarIdentifier(NSToolbar
 }
 
 - (NSArray<NSToolbarItemIdentifier> *)toolbarDefaultItemIdentifiers:(NSToolbar *)toolbar {
-    NSMutableArray<NSToolbarItemIdentifier> *itemIdentifiers = [@[] mutableCopy];
-    
-    [self.allItems enumerateObjectsUsingBlock:^(NSMenuToolbarItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        [itemIdentifiers addObject:obj.itemIdentifier];
-    }];
-    
-    return [itemIdentifiers autorelease];
+    return AllNSToolbarIdentifierCardOptionsType();
 }
 
 - (NSArray<NSToolbarItemIdentifier> *)toolbarAllowedItemIdentifiers:(NSToolbar *)toolbar {
-    NSMutableArray<NSToolbarItemIdentifier> *itemIdentifiers = [@[] mutableCopy];
-    
-    [self.allItems enumerateObjectsUsingBlock:^(NSMenuToolbarItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        [itemIdentifiers addObject:obj.itemIdentifier];
-    }];
-    
-    return [itemIdentifiers autorelease];
+    return AllNSToolbarIdentifierCardOptionsType();
 }
 
 #pragma mark - NSTextFieldDelegate
