@@ -207,6 +207,7 @@
 
 - (void)cardOptionsToolbar:(CardOptionsToolbar *)toolbar changedOption:(NSDictionary<NSString *,NSString *> *)options {
     [self addSpinnerView];
+    [self.cardOptionsTouchBar updateItemsWithOptions:options];
     [self.viewModel requestDataSourceWithOptions:options reset:YES];
 }
 
@@ -214,6 +215,7 @@
 
 - (void)cardOptionsTouchBar:(CardOptionsTouchBar *)touchBar changedOption:(NSDictionary<NSString *,NSString *> *)options {
     [self addSpinnerView];
+    [self.cardOptionsToolbar updateItemsWithOptions:options];
     [self.viewModel requestDataSourceWithOptions:options reset:YES];
 }
 

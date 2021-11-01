@@ -162,6 +162,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     [_optionTypeSortTouchBar release];
     [_optionTypeSortItem release];
     [_optionTypeSortScrubber release];
+    
     [super dealloc];
 }
 
@@ -177,30 +178,17 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     NSTouchBar *optionTypeSetTouchBar = [NSTouchBar new];
     NSCustomTouchBarItem *optionTypeSetItem = [[NSCustomTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierCardOptionsTypeSet];;
     NSScrubber *optionTypeSetScrubber = [NSScrubber new];
-    NSScrubberFlowLayout *optionTypeSetScrubberLayout = [NSScrubberFlowLayout new];
     self.optionTypeSetPopoverItem = optionTypeSetPopoverItem;
     self.optionTypeSetTouchBar = optionTypeSetTouchBar;
     self.optionTypeSetItem = optionTypeSetItem;
     self.optionTypeSetScrubber = optionTypeSetScrubber;
     
-    optionTypeSetPopoverItem.collapsedRepresentationImage = [NSImage imageWithSystemSymbolName:PrefferedSystemSymbolFromBlizzardHSAPIDefaultOptions(BlizzardHSAPIOptionTypeSet) accessibilityDescription:nil];
-    optionTypeSetPopoverItem.customizationLabel = NSLocalizedString(@"CARD_SET", @"");
-    optionTypeSetPopoverItem.collapsedRepresentationLabel = NSLocalizedString(@"CARD_SET", @"");
-    optionTypeSetPopoverItem.popoverTouchBar = optionTypeSetTouchBar;
-    optionTypeSetPopoverItem.pressAndHoldTouchBar = optionTypeSetTouchBar;
-    optionTypeSetTouchBar.delegate = self;
-    optionTypeSetTouchBar.defaultItemIdentifiers = @[NSTouchBarItemIdentifierCardOptionsTypeSet];
-    optionTypeSetItem.view = optionTypeSetScrubber;
-    optionTypeSetScrubber.backgroundColor = NSColor.darkGrayColor;
-    optionTypeSetScrubber.mode = NSScrubberModeFree;
-    optionTypeSetScrubber.scrubberLayout = optionTypeSetScrubberLayout;
-    optionTypeSetScrubber.selectionOverlayStyle = [NSScrubberSelectionStyle outlineOverlayStyle];
-    optionTypeSetScrubber.continuous = NO;
-    optionTypeSetScrubber.showsArrowButtons = YES;
-    [optionTypeSetScrubber registerClass:[NSScrubberTextItemView class] forItemIdentifier:NSUserInterfaceItemIdentifierNSScrubberTextItemViewReuseIdentifier];
-    optionTypeSetScrubber.dataSource = self;
-    optionTypeSetScrubber.delegate = self;
-    optionTypeSetScrubberLayout.itemSize = CGSizeMake(230.0f, 30.0f);
+    [self wireItemsWithPopoverItem:optionTypeSetPopoverItem
+                          touchBar:optionTypeSetTouchBar
+                        customItem:optionTypeSetItem
+                          scrubber:optionTypeSetScrubber
+                             title:NSLocalizedString(@"CARD_SET", @"")
+                             image:[NSImage imageWithSystemSymbolName:PrefferedSystemSymbolFromBlizzardHSAPIDefaultOptions(BlizzardHSAPIOptionTypeSet) accessibilityDescription:nil]];
     
     self.allItems = @[
         optionTypeSetPopoverItem
@@ -210,13 +198,43 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     [optionTypeSetTouchBar release];
     [optionTypeSetItem release];
     [optionTypeSetScrubber release];
-    [optionTypeSetScrubberLayout release];
 }
 
 - (void)updateItemsWithOptions:(NSDictionary<NSString *,NSString *> *)options {
     NSMutableDictionary<NSString *, NSString *> *mutableOptions = [options mutableCopy];
     self.options = mutableOptions;
     [mutableOptions release];
+}
+
+- (void)wireItemsWithPopoverItem:(NSPopoverTouchBarItem *)popoverItem
+                        touchBar:(NSTouchBar *)touchBar
+                      customItem:(NSCustomTouchBarItem *)customItem
+                        scrubber:(NSScrubber *)scrubber
+                           title:(NSString *)title
+                           image:(NSImage *)image {
+    
+    popoverItem.collapsedRepresentationImage = image;
+    popoverItem.customizationLabel = title;
+    popoverItem.collapsedRepresentationLabel = title;
+    popoverItem.popoverTouchBar = touchBar;
+    popoverItem.pressAndHoldTouchBar = touchBar;
+    touchBar.delegate = self;
+    touchBar.defaultItemIdentifiers = @[popoverItem.identifier];
+    
+    customItem.view = scrubber;
+    scrubber.backgroundColor = NSColor.darkGrayColor;
+    scrubber.mode = NSScrubberModeFree;
+    scrubber.selectionOverlayStyle = [NSScrubberSelectionStyle outlineOverlayStyle];
+    scrubber.continuous = NO;
+    scrubber.showsArrowButtons = YES;
+    [scrubber registerClass:[NSScrubberTextItemView class] forItemIdentifier:NSUserInterfaceItemIdentifierNSScrubberTextItemViewReuseIdentifier];
+    scrubber.dataSource = self;
+    scrubber.delegate = self;
+    
+    NSScrubberFlowLayout *scrubberLayout = [NSScrubberFlowLayout new];
+    scrubberLayout.itemSize = CGSizeMake(230.0f, 30.0f);
+    scrubber.scrubberLayout = scrubberLayout;
+    [scrubberLayout release];
 }
 
 #pragma mark - NSTouchBarDelegate

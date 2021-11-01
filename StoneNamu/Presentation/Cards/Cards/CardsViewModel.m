@@ -36,6 +36,7 @@
         
         NSOperationQueue *queue = [NSOperationQueue new];
         queue.qualityOfService = NSQualityOfServiceUserInitiated;
+        queue.maxConcurrentOperationCount = 1;
         self.queue = queue;
         [queue release];
         
@@ -84,64 +85,88 @@
     
     self.isFetching = YES;
     
-    NSDictionary<NSString *, NSString *> *defaultOptions = BlizzardHSAPIDefaultOptions();
+    NSBlockOperation *op = [NSBlockOperation new];
     
-    if (options == nil) {
-        self->_options = [defaultOptions copy];
-    } else {
-        [self->_options release];
+    [op addExecutionBlock:^{
+       NSDictionary<NSString *, NSString *> *defaultOptions = BlizzardHSAPIDefaultOptions();
         
-        NSMutableDictionary *mutableDic = [options mutableCopy];
-        
-        for (NSString *key in defaultOptions.allKeys) {
-            if (mutableDic[key] == nil) {
-                mutableDic[key] = defaultOptions[key];
+        if (options == nil) {
+            self->_options = [defaultOptions copy];
+        } else {
+            [self->_options release];
+            
+            NSMutableDictionary *mutableDic = [options mutableCopy];
+            
+            for (NSString *key in defaultOptions.allKeys) {
+                if (mutableDic[key] == nil) {
+                    mutableDic[key] = defaultOptions[key];
+                }
             }
+            
+            self->_options = [mutableDic copy];
+            [mutableDic release];
         }
         
-        self->_options = [mutableDic copy];
-        [mutableDic release];
-    }
-    
-    NSMutableDictionary *mutableDic = [self.options mutableCopy];
-    
-    if (self.pageCount != nil) {
-        // Next page
-        NSNumber *nextPage = [NSNumber numberWithUnsignedInt:[self.page unsignedIntValue] + 1];
-        mutableDic[BlizzardHSAPIOptionTypePage] = [nextPage stringValue];
-    } else {
-        // Initial data
-        mutableDic[BlizzardHSAPIOptionTypePage] = [self.page stringValue];
-    }
-    
-    [self.hsCardUseCase fetchWithOptions:mutableDic completionHandler:^(NSArray<HSCard *> * _Nullable cards, NSNumber *pageCount, NSNumber *page, NSError * _Nullable error) {
+        NSMutableDictionary *mutableDic = [self.options mutableCopy];
         
-        [mutableDic release];
-        
-        if (error) {
-            [self postError:error];
+        if (self.pageCount != nil) {
+            // Next page
+            NSNumber *nextPage = [NSNumber numberWithUnsignedInt:[self.page unsignedIntValue] + 1];
+            mutableDic[BlizzardHSAPIOptionTypePage] = [nextPage stringValue];
+        } else {
+            // Initial data
+            mutableDic[BlizzardHSAPIOptionTypePage] = [self.page stringValue];
         }
         
-        [self.queue addBarrierBlock:^{
-            [self updateDataSourceWithCards:cards];
-            self.pageCount = pageCount;
-            self.page = page;
-            self.isFetching = NO;
+        NSSemaphoreCondition *semaphore = [[NSSemaphoreCondition alloc] initWithValue:0];
+        
+        [self.hsCardUseCase fetchWithOptions:mutableDic completionHandler:^(NSArray<HSCard *> * _Nullable cards, NSNumber *pageCount, NSNumber *page, NSError * _Nullable error) {
+            
+            [mutableDic release];
+            
+            if (op.isCancelled) {
+                [semaphore signal];
+                [semaphore release];
+                return;
+            }
+            
+            [semaphore signal];
+            [semaphore release];
+            
+            if (error) {
+                [self postError:error];
+            }
+            
+            [self.queue addOperationWithBlock:^{
+                [self updateDataSourceWithCards:cards completion:^{
+                    self.pageCount = pageCount;
+                    self.page = page;
+                    self.isFetching = NO;
+                }];
+            }];
         }];
+        
+        [semaphore wait];
     }];
+    
+    [self.queue addOperation:op];
+    [op release];
     
     return YES;
 }
 
 - (void)resetDataSource {
-    self.pageCount = nil;
-    self.page = [NSNumber numberWithUnsignedInt:1];
-    NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
-    [snapshot deleteAllItems];
+    [self.queue cancelAllOperations];
     
-    [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:NO completion:^{
-        [snapshot release];
-        [self postApplyingSnapshotWasDone];
+    [self.queue addOperationWithBlock:^{
+        self.pageCount = nil;
+        self.page = [NSNumber numberWithUnsignedInt:1];
+        NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
+        [snapshot deleteAllItems];
+        
+        [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:NO completion:^{
+            [snapshot release];
+        }];
     }];
 }
 
@@ -162,7 +187,7 @@
     return @[dragItem];
 }
 
-- (void)updateDataSourceWithCards:(NSArray<HSCard *> *)cards {
+- (void)updateDataSourceWithCards:(NSArray<HSCard *> *)cards completion:(void (^)(void))completion {
     [self.queue addBarrierBlock:^{
         NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
         
@@ -193,6 +218,7 @@
         
         [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
             [snapshot release];
+            completion();
             [self postApplyingSnapshotWasDone];
         }];
     }];
