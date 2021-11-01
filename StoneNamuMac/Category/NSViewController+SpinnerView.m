@@ -19,6 +19,8 @@
 @implementation NSViewController (SpinnerView)
 
 - (SpinnerView *)addSpinnerView {
+    [self removeAllSpinnerview];
+    
     _SpinnerBlurView *visualEffectView = [_SpinnerBlurView new];
     SpinnerView *spinnerView = [SpinnerView new];
     

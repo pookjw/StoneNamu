@@ -15,6 +15,8 @@
 }
 
 - (SpinnerView *)addSpinnerViewWithPreventInteraction:(BOOL)preventTouch {
+    [self removeAllSpinnerview];
+    
     SpinnerView *spinnerView = [SpinnerView new];
     
     spinnerView.userInteractionEnabled = preventTouch;
