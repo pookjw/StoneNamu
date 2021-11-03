@@ -165,6 +165,8 @@
 }
 
 - (void)updateItemsWithOptions:(NSDictionary<NSString *, NSString *> *)options {
+    if ([options isEqualToDictionary:self.options]) return;
+    
     NSMutableDictionary<NSString *, NSString *> *mutableOptions = [options mutableCopy];
     self.options = mutableOptions;
     [mutableOptions release];
