@@ -429,11 +429,7 @@
 
 - (void)shouldDismissReceived:(NSNotification *)notification {
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
-        if (self.splitViewController.isCollapsed) {
-            [self.navigationController popViewControllerAnimated:YES];
-        } else {
-            self.navigationController.viewControllers = @[];
-        }
+        [self.navigationController popViewControllerAnimated:YES];
     }];
 }
 
