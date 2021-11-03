@@ -489,6 +489,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
             }];
             
             [scrubber _interactiveSelectItemAtIndex:index animated:YES];
+            [scrubber scrollItemAtIndex:index toAlignment:NSScrubberAlignmentCenter];
         }
     }];
 }
