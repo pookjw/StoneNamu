@@ -29,6 +29,8 @@ NSString * NSStringFromDeckAddCardOptionItemModelType(DeckAddCardOptionItemModel
             return BlizzardHSAPIOptionTypeType;
         case DeckAddCardOptionItemModelTypeMinionType:
             return BlizzardHSAPIOptionTypeMinionType;
+        case DeckAddCardOptionItemModelTypeSpellSchool:
+            return BlizzardHSAPIOptionTypeSpellSchool;
         case DeckAddCardOptionItemModelTypeKeyword:
             return BlizzardHSAPIOptionTypeKeyword;
         case DeckAddCardOptionItemModelTypeTextFilter:
@@ -61,6 +63,8 @@ DeckAddCardOptionItemModelType DeckAddCardOptionItemModelTypeFromNSString(NSStri
         return DeckAddCardOptionItemModelTypeType;
     } else if ([key isEqualToString:BlizzardHSAPIOptionTypeMinionType]) {
         return DeckAddCardOptionItemModelTypeMinionType;
+    } else if ([key isEqualToString:BlizzardHSAPIOptionTypeSpellSchool]) {
+        return DeckAddCardOptionItemModelTypeSpellSchool;
     } else if ([key isEqualToString:BlizzardHSAPIOptionTypeKeyword]) {
         return DeckAddCardOptionItemModelTypeKeyword;
     } else if ([key isEqualToString:BlizzardHSAPIOptionTypeTextFilter]) {
@@ -131,6 +135,8 @@ DeckAddCardOptionItemModelType DeckAddCardOptionItemModelTypeFromNSString(NSStri
         case DeckAddCardOptionItemModelTypeType:
             return DeckAddCardOptionItemModelValueSetTypePickerWithEmptyRow;
         case DeckAddCardOptionItemModelTypeMinionType:
+            return DeckAddCardOptionItemModelValueSetTypePickerWithEmptyRow;
+        case DeckAddCardOptionItemModelTypeSpellSchool:
             return DeckAddCardOptionItemModelValueSetTypePickerWithEmptyRow;
         case DeckAddCardOptionItemModelTypeKeyword:
             return DeckAddCardOptionItemModelValueSetTypePickerWithEmptyRow;
@@ -216,6 +222,16 @@ DeckAddCardOptionItemModelType DeckAddCardOptionItemModelTypeFromNSString(NSStri
                 return HSCardMinionTypeFromNSString(key);
             }
                                        ascending:YES];
+        case DeckAddCardOptionItemModelTypeSpellSchool:
+            return [self pickerItemModelsFromDic:hsCardSpellSchoolsWithLocalizable()
+                                     filterArray:nil
+                                     imageSource:^UIImage * _Nullable(NSString * key) {
+                return nil;
+            }
+                                       converter:^NSUInteger(NSString * key) {
+                return HSCardSpellSchoolFromNSString(key);
+            }
+                                       ascending:YES];
         case DeckAddCardOptionItemModelTypeKeyword:
             return [self pickerItemModelsFromDic:hsCardKeywordsWithLocalizable()
                                      filterArray:nil
@@ -297,6 +313,8 @@ DeckAddCardOptionItemModelType DeckAddCardOptionItemModelTypeFromNSString(NSStri
             return NSLocalizedString(@"CARD_TYPE", @"");
         case DeckAddCardOptionItemModelTypeMinionType:
             return NSLocalizedString(@"CARD_MINION_TYPE", @"");
+        case DeckAddCardOptionItemModelTypeSpellSchool:
+            return NSLocalizedString(@"CARD_SPELL_SCHOOL", @"");
         case DeckAddCardOptionItemModelTypeKeyword:
             return NSLocalizedString(@"CARD_KEYWORD", @"");
         case DeckAddCardOptionItemModelTypeTextFilter:
@@ -324,6 +342,8 @@ DeckAddCardOptionItemModelType DeckAddCardOptionItemModelTypeFromNSString(NSStri
             return hsCardTypesWithLocalizable()[self.value];
         case DeckAddCardOptionItemModelTypeMinionType:
             return hsCardMinionTypesWithLocalizable()[self.value];
+        case DeckAddCardOptionItemModelTypeSpellSchool:
+            return hsCardSpellSchoolsWithLocalizable()[self.value];
         case DeckAddCardOptionItemModelTypeKeyword:
             return hsCardKeywordsWithLocalizable()[self.value];
         case DeckAddCardOptionItemModelTypeGameMode:

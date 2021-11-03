@@ -21,6 +21,7 @@ typedef NS_ENUM(NSUInteger, DeckAddCardOptionItemModelType) {
     DeckAddCardOptionItemModelTypeRarity,
     DeckAddCardOptionItemModelTypeType,
     DeckAddCardOptionItemModelTypeMinionType,
+    DeckAddCardOptionItemModelTypeSpellSchool,
     DeckAddCardOptionItemModelTypeKeyword,
     DeckAddCardOptionItemModelTypeTextFilter,
     DeckAddCardOptionItemModelTypeGameMode,

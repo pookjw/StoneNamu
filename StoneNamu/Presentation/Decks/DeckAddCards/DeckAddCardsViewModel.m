@@ -106,41 +106,41 @@
     NSBlockOperation *op = [NSBlockOperation new];
     
     [op addExecutionBlock:^{
-       NSDictionary<NSString *, NSString *> *defaultOptions = BlizzardHSAPIDefaultOptions();
+        NSDictionary<NSString *, NSString *> *defaultOptions = [self optionsForLocalDeckClassId];
+        NSMutableDictionary<NSString *, NSString *> *mutableOptions = [options mutableCopy];
         
         if (options == nil) {
-            self->_options = [defaultOptions copy];
-        } else {
+            mutableOptions = [defaultOptions mutableCopy];
+            
             [self->_options release];
-            
-            NSMutableDictionary *mutableDic = [options mutableCopy];
-            
+            self->_options = [mutableOptions copy];
+        } else {
             for (NSString *key in defaultOptions.allKeys) {
-                if (mutableDic[key] == nil) {
-                    mutableDic[key] = defaultOptions[key];
+                if (mutableOptions[key] == nil) {
+                    mutableOptions[key] = defaultOptions[key];
                 }
             }
             
-            self->_options = [mutableDic copy];
-            [mutableDic release];
+            [self->_options release];
+            self->_options = [mutableOptions copy];
         }
         
-        NSMutableDictionary *mutableDic = [self.options mutableCopy];
+        //
         
         if (self.pageCount != nil) {
             // Next page
             NSNumber *nextPage = [NSNumber numberWithUnsignedInt:[self.page unsignedIntValue] + 1];
-            mutableDic[BlizzardHSAPIOptionTypePage] = [nextPage stringValue];
+            mutableOptions[BlizzardHSAPIOptionTypePage] = [nextPage stringValue];
         } else {
             // Initial data
-            mutableDic[BlizzardHSAPIOptionTypePage] = [self.page stringValue];
+            mutableOptions[BlizzardHSAPIOptionTypePage] = [self.page stringValue];
         }
         
         NSSemaphoreCondition *semaphore = [[NSSemaphoreCondition alloc] initWithValue:0];
         
-        [self.hsCardUseCase fetchWithOptions:mutableDic completionHandler:^(NSArray<HSCard *> * _Nullable cards, NSNumber *pageCount, NSNumber *page, NSError * _Nullable error) {
+        [self.hsCardUseCase fetchWithOptions:mutableOptions completionHandler:^(NSArray<HSCard *> * _Nullable cards, NSNumber *pageCount, NSNumber *page, NSError * _Nullable error) {
             
-            [mutableDic release];
+            [mutableOptions release];
             
             if (op.isCancelled) {
                 [semaphore signal];

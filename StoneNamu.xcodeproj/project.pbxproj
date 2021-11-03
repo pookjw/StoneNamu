@@ -1238,8 +1238,8 @@
 		4F53D4B827231D1900DE6F25 /* DeckAddCardSplit */ = {
 			isa = PBXGroup;
 			children = (
-				4F53D4B927231D1900DE6F25 /* DeckAddCardSplitViewController.m */,
 				4F53D4BA27231D1900DE6F25 /* DeckAddCardSplitViewController.h */,
+				4F53D4B927231D1900DE6F25 /* DeckAddCardSplitViewController.m */,
 			);
 			path = DeckAddCardSplit;
 			sourceTree = "<group>";

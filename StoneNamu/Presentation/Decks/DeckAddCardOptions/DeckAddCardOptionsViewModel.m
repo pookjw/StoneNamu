@@ -195,6 +195,7 @@
                 [[[DeckAddCardOptionItemModel alloc] initWithType:DeckAddCardOptionItemModelTypeRarity deckFormat:deckFormat classId:classId] autorelease],
                 [[[DeckAddCardOptionItemModel alloc] initWithType:DeckAddCardOptionItemModelTypeType deckFormat:deckFormat classId:classId] autorelease],
                 [[[DeckAddCardOptionItemModel alloc] initWithType:DeckAddCardOptionItemModelTypeMinionType deckFormat:deckFormat classId:classId] autorelease],
+                [[[DeckAddCardOptionItemModel alloc] initWithType:DeckAddCardOptionItemModelTypeSpellSchool deckFormat:deckFormat classId:classId] autorelease],
                 [[[DeckAddCardOptionItemModel alloc] initWithType:DeckAddCardOptionItemModelTypeKeyword deckFormat:deckFormat classId:classId] autorelease],
                 [[[DeckAddCardOptionItemModel alloc] initWithType:DeckAddCardOptionItemModelTypeGameMode deckFormat:deckFormat classId:classId] autorelease]
             ]
