@@ -266,8 +266,12 @@
         
         //
         
-        obj.image = image;
-        obj.title = title;
+        if (image != nil) {
+            obj.image = image;
+        }
+        if (title != nil) {
+            obj.title = title;
+        }
         
         //
         

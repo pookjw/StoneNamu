@@ -407,6 +407,7 @@
 		4F1B98A826C82382004E1603 /* PrefsRegionHostViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrefsRegionHostViewController.m; sourceTree = "<group>"; };
 		4F1B98AA26C824D9004E1603 /* UIViewController+animatedForSelectedIndexPath.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+animatedForSelectedIndexPath.h"; sourceTree = "<group>"; };
 		4F1B98AB26C824D9004E1603 /* UIViewController+animatedForSelectedIndexPath.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+animatedForSelectedIndexPath.m"; sourceTree = "<group>"; };
+		4F1E85EE27331DF600CE2551 /* NSScrubber+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSScrubber+Private.h"; sourceTree = "<group>"; };
 		4F2438EB26CD8CCF0041BB84 /* DecksSectionModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DecksSectionModel.h; sourceTree = "<group>"; };
 		4F2438EC26CD8CCF0041BB84 /* DecksSectionModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DecksSectionModel.m; sourceTree = "<group>"; };
 		4F2438EE26CD8DE40041BB84 /* DecksItemModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DecksItemModel.h; sourceTree = "<group>"; };
@@ -1072,6 +1073,7 @@
 			isa = PBXGroup;
 			children = (
 				4F4892D2272467E300126131 /* NSCollectionViewDiffableDataSource+Private.h */,
+				4F1E85EE27331DF600CE2551 /* NSScrubber+Private.h */,
 			);
 			path = Private;
 			sourceTree = "<group>";

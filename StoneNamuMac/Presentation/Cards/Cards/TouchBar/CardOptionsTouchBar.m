@@ -7,6 +7,7 @@
 
 #import "CardOptionsTouchBar.h"
 #import "NSTouchBarItemIdentifierCardOptions+BlizzardHSAPIOptionType.h"
+#import "NSScrubber+Private.h"
 
 static NSTouchBarCustomizationIdentifier const NSTouchBarCustomizationIdentifierCardOptionsTouchBar = @"NSTouchBarCustomizationIdentifierCardOptionsTouchBar";
 static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubberTextItemViewReuseIdentifier = @"NSUserInterfaceItemIdentifierNSScrubberTextItemViewReuseIdentifier";
@@ -39,22 +40,22 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
 @property (retain) NSPopoverTouchBarItem *optionTypeHealthPopoverItem;
 @property (retain) NSTouchBar *optionTypeHealthTouchBar;
 @property (retain) NSCustomTouchBarItem *optionTypeHealthItem;
-@property (retain) NSScrubber *optionTypeHealthItemScrubber;
+@property (retain) NSScrubber *optionTypeHealthScrubber;
 
 @property (retain) NSPopoverTouchBarItem *optionTypeCollectiblePopoverItem;
 @property (retain) NSTouchBar *optionTypeCollectibleTouchBar;
 @property (retain) NSCustomTouchBarItem *optionTypeCollectibleItem;
-@property (retain) NSScrubber *optionTypeCollectibleItemScrubber;
+@property (retain) NSScrubber *optionTypeCollectibleScrubber;
 
 @property (retain) NSPopoverTouchBarItem *optionTypeRarityPopoverItem;
 @property (retain) NSTouchBar *optionTypeRarityTouchBar;
 @property (retain) NSCustomTouchBarItem *optionTypeRarityItem;
-@property (retain) NSScrubber *optionTypeRarityItemScrubber;
+@property (retain) NSScrubber *optionTypeRarityScrubber;
 
 @property (retain) NSPopoverTouchBarItem *optionTypeTypePopoverItem;
 @property (retain) NSTouchBar *optionTypeTypeTouchBar;
 @property (retain) NSCustomTouchBarItem *optionTypeTypeItem;
-@property (retain) NSScrubber *optionTypTypeItemScrubber;
+@property (retain) NSScrubber *optionTypeTypeScrubber;
 
 @property (retain) NSPopoverTouchBarItem *optionTypeMinionTypePopoverItem;
 @property (retain) NSTouchBar *optionTypeMinionTypeTouchBar;
@@ -71,7 +72,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
 @property (retain) NSCustomTouchBarItem *optionTypeGameModeItem;
 @property (retain) NSScrubber *optionTypeGameModeScrubber;
 
-@property (retain) NSPopoverTouchBarItem *optionTypSortPopoverItem;
+@property (retain) NSPopoverTouchBarItem *optionTypeSortPopoverItem;
 @property (retain) NSTouchBar *optionTypeSortTouchBar;
 @property (retain) NSCustomTouchBarItem *optionTypeSortItem;
 @property (retain) NSScrubber *optionTypeSortScrubber;
@@ -126,22 +127,22 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     [_optionTypeHealthPopoverItem release];
     [_optionTypeHealthTouchBar release];
     [_optionTypeHealthItem release];
-    [_optionTypeHealthItemScrubber release];
+    [_optionTypeHealthScrubber release];
     
     [_optionTypeCollectiblePopoverItem release];
     [_optionTypeCollectibleTouchBar release];
     [_optionTypeCollectibleItem release];
-    [_optionTypeCollectibleItemScrubber release];
+    [_optionTypeCollectibleScrubber release];
     
     [_optionTypeRarityPopoverItem release];
     [_optionTypeRarityTouchBar release];
     [_optionTypeRarityItem release];
-    [_optionTypeRarityItemScrubber release];
+    [_optionTypeRarityScrubber release];
     
     [_optionTypeTypePopoverItem release];
     [_optionTypeTypeTouchBar release];
     [_optionTypeTypeItem release];
-    [_optionTypTypeItemScrubber release];
+    [_optionTypeTypeScrubber release];
     
     [_optionTypeMinionTypePopoverItem release];
     [_optionTypeMinionTypeTouchBar release];
@@ -158,7 +159,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     [_optionTypeGameModeItem release];
     [_optionTypeGameModeScrubber release];
     
-    [_optionTypSortPopoverItem release];
+    [_optionTypeSortPopoverItem release];
     [_optionTypeSortTouchBar release];
     [_optionTypeSortItem release];
     [_optionTypeSortScrubber release];
@@ -176,7 +177,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
 - (void)configureTouchBarItems {
     NSPopoverTouchBarItem *optionTypeSetPopoverItem = [[NSPopoverTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierCardOptionsTypeSet];
     NSTouchBar *optionTypeSetTouchBar = [NSTouchBar new];
-    NSCustomTouchBarItem *optionTypeSetItem = [[NSCustomTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierCardOptionsTypeSet];;
+    NSCustomTouchBarItem *optionTypeSetItem = [[NSCustomTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierCardOptionsTypeSet];
     NSScrubber *optionTypeSetScrubber = [NSScrubber new];
     self.optionTypeSetPopoverItem = optionTypeSetPopoverItem;
     self.optionTypeSetTouchBar = optionTypeSetTouchBar;
@@ -188,22 +189,308 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
                         customItem:optionTypeSetItem
                           scrubber:optionTypeSetScrubber
                              title:NSLocalizedString(@"CARD_SET", @"")
-                             image:[NSImage imageWithSystemSymbolName:PrefferedSystemSymbolFromBlizzardHSAPIDefaultOptions(BlizzardHSAPIOptionTypeSet) accessibilityDescription:nil]];
+                          itemSize:CGSizeMake(230.0f, 30.0f)];
+    
+    //
+    
+    NSPopoverTouchBarItem *optionTypeClassPopoverItem = [[NSPopoverTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierCardOptionsTypeClass];
+    NSTouchBar *optionTypeClassTouchBar = [NSTouchBar new];
+    NSCustomTouchBarItem *optionTypeClassItem = [[NSCustomTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierCardOptionsTypeClass];
+    NSScrubber *optionTypeClassScrubber = [NSScrubber new];
+    self.optionTypeClassPopoverItem = optionTypeClassPopoverItem;
+    self.optionTypeClassTouchBar = optionTypeClassTouchBar;
+    self.optionTypeClassItem = optionTypeClassItem;
+    self.optionTypeClassScrubber = optionTypeClassScrubber;
+    
+    [self wireItemsWithPopoverItem:optionTypeClassPopoverItem
+                          touchBar:optionTypeClassTouchBar
+                        customItem:optionTypeClassItem
+                          scrubber:optionTypeClassScrubber
+                             title:NSLocalizedString(@"CARD_CLASS", @"")
+                          itemSize:CGSizeMake(150.0f, 30.0f)];
+    
+    //
+    
+    NSPopoverTouchBarItem *optionTypeManaCostPopoverItem = [[NSPopoverTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierCardOptionsTypeManaCost];
+    NSTouchBar *optionTypeManaCostTouchBar = [NSTouchBar new];
+    NSCustomTouchBarItem *optionTypeManaCostItem = [[NSCustomTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierCardOptionsTypeManaCost];
+    NSScrubber *optionTypeManaCostScrubber = [NSScrubber new];
+    self.optionTypeManaCostPopoverItem = optionTypeManaCostPopoverItem;
+    self.optionTypeManaCostTouchBar = optionTypeManaCostTouchBar;
+    self.optionTypeManaCostItem = optionTypeManaCostItem;
+    self.optionTypeManaCostScrubber = optionTypeManaCostScrubber;
+    
+    [self wireItemsWithPopoverItem:optionTypeManaCostPopoverItem
+                          touchBar:optionTypeManaCostTouchBar
+                        customItem:optionTypeManaCostItem
+                          scrubber:optionTypeManaCostScrubber
+                             title:NSLocalizedString(@"CARD_MANA_COST", @"")
+                          itemSize:CGSizeMake(50.0f, 30.0f)];
+    
+    //
+    
+    NSPopoverTouchBarItem *optionTypeAttackPopoverItem = [[NSPopoverTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierCardOptionsTypeAttack];
+    NSTouchBar *optionTypeAttackTouchBar = [NSTouchBar new];
+    NSCustomTouchBarItem *optionTypeAttackItem = [[NSCustomTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierCardOptionsTypeAttack];
+    NSScrubber *optionTypeAttackScrubber = [NSScrubber new];
+    self.optionTypeAttackPopoverItem = optionTypeAttackPopoverItem;
+    self.optionTypeAttackTouchBar = optionTypeAttackTouchBar;
+    self.optionTypeAttackItem = optionTypeAttackItem;
+    self.optionTypeAttackScrubber = optionTypeAttackScrubber;
+    
+    [self wireItemsWithPopoverItem:optionTypeAttackPopoverItem
+                          touchBar:optionTypeAttackTouchBar
+                        customItem:optionTypeAttackItem
+                          scrubber:optionTypeAttackScrubber
+                             title:NSLocalizedString(@"CARD_ATTACK", @"")
+                          itemSize:CGSizeMake(50.0f, 30.0f)];
+    
+    //
+    
+    NSPopoverTouchBarItem *optionTypeHealthPopoverItem = [[NSPopoverTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierCardOptionsTypeHealth];
+    NSTouchBar *optionTypeHealthTouchBar = [NSTouchBar new];
+    NSCustomTouchBarItem *optionTypeHealthItem = [[NSCustomTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierCardOptionsTypeHealth];
+    NSScrubber *optionTypeHealthScrubber = [NSScrubber new];
+    self.optionTypeHealthPopoverItem = optionTypeHealthPopoverItem;
+    self.optionTypeHealthTouchBar = optionTypeHealthTouchBar;
+    self.optionTypeHealthItem = optionTypeHealthItem;
+    self.optionTypeHealthScrubber = optionTypeHealthScrubber;
+    
+    [self wireItemsWithPopoverItem:optionTypeHealthPopoverItem
+                          touchBar:optionTypeHealthTouchBar
+                        customItem:optionTypeHealthItem
+                          scrubber:optionTypeHealthScrubber
+                             title:NSLocalizedString(@"CARD_HEALTH", @"")
+                          itemSize:CGSizeMake(50.0f, 30.0f)];
+    
+    //
+    
+    NSPopoverTouchBarItem *optionTypeCollectiblePopoverItem = [[NSPopoverTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierCardOptionsTypeCollecticle];
+    NSTouchBar *optionTypeCollectibleTouchBar = [NSTouchBar new];
+    NSCustomTouchBarItem *optionTypeCollectibleItem = [[NSCustomTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierCardOptionsTypeCollecticle];
+    NSScrubber *optionTypeCollectibleScrubber = [NSScrubber new];
+    self.optionTypeCollectiblePopoverItem = optionTypeCollectiblePopoverItem;
+    self.optionTypeCollectibleTouchBar = optionTypeCollectibleTouchBar;
+    self.optionTypeCollectibleItem = optionTypeCollectibleItem;
+    self.optionTypeCollectibleScrubber = optionTypeCollectibleScrubber;
+    
+    [self wireItemsWithPopoverItem:optionTypeCollectiblePopoverItem
+                          touchBar:optionTypeCollectibleTouchBar
+                        customItem:optionTypeCollectibleItem
+                          scrubber:optionTypeCollectibleScrubber
+                             title:NSLocalizedString(@"CARD_COLLECTIBLE", @"")
+                          itemSize:CGSizeMake(150.0f, 30.0f)];
+    
+    //
+    
+    NSPopoverTouchBarItem *optionTypeRarityPopoverItem = [[NSPopoverTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierCardOptionsTypeRarity];
+    NSTouchBar *optionTypeRarityTouchBar = [NSTouchBar new];
+    NSCustomTouchBarItem *optionTypeRarityItem = [[NSCustomTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierCardOptionsTypeRarity];
+    NSScrubber *optionTypeRarityScrubber = [NSScrubber new];
+    self.optionTypeRarityPopoverItem = optionTypeRarityPopoverItem;
+    self.optionTypeRarityTouchBar = optionTypeRarityTouchBar;
+    self.optionTypeRarityItem = optionTypeRarityItem;
+    self.optionTypeRarityScrubber = optionTypeRarityScrubber;
+    
+    [self wireItemsWithPopoverItem:optionTypeRarityPopoverItem
+                          touchBar:optionTypeRarityTouchBar
+                        customItem:optionTypeRarityItem
+                          scrubber:optionTypeRarityScrubber
+                             title:NSLocalizedString(@"CARD_RARITY", @"")
+                          itemSize:CGSizeMake(150.0f, 30.0f)];
+    
+    //
+    
+    NSPopoverTouchBarItem *optionTypeTypePopoverItem = [[NSPopoverTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierCardOptionsTypeType];
+    NSTouchBar *optionTypeTypeTouchBar = [NSTouchBar new];
+    NSCustomTouchBarItem *optionTypeTypeItem = [[NSCustomTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierCardOptionsTypeType];
+    NSScrubber *optionTypeTypeScrubber = [NSScrubber new];
+    self.optionTypeTypePopoverItem = optionTypeTypePopoverItem;
+    self.optionTypeTypeTouchBar = optionTypeTypeTouchBar;
+    self.optionTypeTypeItem = optionTypeTypeItem;
+    self.optionTypeTypeScrubber = optionTypeTypeScrubber;
+    
+    [self wireItemsWithPopoverItem:optionTypeTypePopoverItem
+                          touchBar:optionTypeTypeTouchBar
+                        customItem:optionTypeTypeItem
+                          scrubber:optionTypeTypeScrubber
+                             title:NSLocalizedString(@"CARD_TYPE", @"")
+                          itemSize:CGSizeMake(150.0f, 30.0f)];
+    
+    //
+    
+    NSPopoverTouchBarItem *optionTypeMinionTypePopoverItem = [[NSPopoverTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierCardOptionsTypeMinionType];
+    NSTouchBar *optionTypeMinionTypeTouchBar = [NSTouchBar new];
+    NSCustomTouchBarItem *optionTypeMinionTypeItem = [[NSCustomTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierCardOptionsTypeMinionType];
+    NSScrubber *optionTypeMinionTypeScrubber = [NSScrubber new];
+    self.optionTypeMinionTypePopoverItem = optionTypeMinionTypePopoverItem;
+    self.optionTypeMinionTypeTouchBar = optionTypeMinionTypeTouchBar;
+    self.optionTypeMinionTypeItem = optionTypeMinionTypeItem;
+    self.optionTypeMinionTypeScrubber = optionTypeMinionTypeScrubber;
+    
+    [self wireItemsWithPopoverItem:optionTypeMinionTypePopoverItem
+                          touchBar:optionTypeMinionTypeTouchBar
+                        customItem:optionTypeMinionTypeItem
+                          scrubber:optionTypeMinionTypeScrubber
+                             title:NSLocalizedString(@"CARD_MINION_TYPE", @"")
+                          itemSize:CGSizeMake(150.0f, 30.0f)];
+    
+    //
+    
+    NSPopoverTouchBarItem *optionTypeKeywordPopoverItem = [[NSPopoverTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierCardOptionsTypeKeyword];
+    NSTouchBar *optionTypeKeywordTouchBar = [NSTouchBar new];
+    NSCustomTouchBarItem *optionTypeKeywordItem = [[NSCustomTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierCardOptionsTypeKeyword];
+    NSScrubber *optionTypeKeywordScrubber = [NSScrubber new];
+    self.optionTypeKeywordPopoverItem = optionTypeKeywordPopoverItem;
+    self.optionTypeKeywordTouchBar = optionTypeKeywordTouchBar;
+    self.optionTypeKeywordItem = optionTypeKeywordItem;
+    self.optionTypeKeywordScrubber = optionTypeKeywordScrubber;
+    
+    [self wireItemsWithPopoverItem:optionTypeKeywordPopoverItem
+                          touchBar:optionTypeKeywordTouchBar
+                        customItem:optionTypeKeywordItem
+                          scrubber:optionTypeKeywordScrubber
+                             title:NSLocalizedString(@"CARD_KEYWORD", @"")
+                          itemSize:CGSizeMake(180.0f, 30.0f)];
+    
+    //
+    
+    NSPopoverTouchBarItem *optionTypeGameModePopoverItem = [[NSPopoverTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierCardOptionsTypeGameMode];
+    NSTouchBar *optionTypeGameModeTouchBar = [NSTouchBar new];
+    NSCustomTouchBarItem *optionTypeGameModeItem = [[NSCustomTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierCardOptionsTypeGameMode];
+    NSScrubber *optionTypeGameModeScrubber = [NSScrubber new];
+    self.optionTypeGameModePopoverItem = optionTypeGameModePopoverItem;
+    self.optionTypeGameModeTouchBar = optionTypeGameModeTouchBar;
+    self.optionTypeGameModeItem = optionTypeGameModeItem;
+    self.optionTypeGameModeScrubber = optionTypeGameModeScrubber;
+    
+    [self wireItemsWithPopoverItem:optionTypeGameModePopoverItem
+                          touchBar:optionTypeGameModeTouchBar
+                        customItem:optionTypeGameModeItem
+                          scrubber:optionTypeGameModeScrubber
+                             title:NSLocalizedString(@"CARD_GAME_MODE", @"")
+                          itemSize:CGSizeMake(180.0f, 30.0f)];
+    
+    //
+    
+    NSPopoverTouchBarItem *optionTypeSortPopoverItem = [[NSPopoverTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierCardOptionsTypeSort];
+    NSTouchBar *optionTypeSortTouchBar = [NSTouchBar new];
+    NSCustomTouchBarItem *optionTypeSortItem = [[NSCustomTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierCardOptionsTypeSort];
+    NSScrubber *optionTypeSortScrubber = [NSScrubber new];
+    self.optionTypeSortPopoverItem = optionTypeSortPopoverItem;
+    self.optionTypeSortTouchBar = optionTypeSortTouchBar;
+    self.optionTypeSortItem = optionTypeSortItem;
+    self.optionTypeSortScrubber = optionTypeSortScrubber;
+    
+    [self wireItemsWithPopoverItem:optionTypeSortPopoverItem
+                          touchBar:optionTypeSortTouchBar
+                        customItem:optionTypeSortItem
+                          scrubber:optionTypeSortScrubber
+                             title:NSLocalizedString(@"CARD_SORT", @"")
+                          itemSize:CGSizeMake(200.0f, 30.0f)];
+    
+    //
     
     self.allItems = @[
-        optionTypeSetPopoverItem
+        optionTypeSetPopoverItem,
+        optionTypeClassPopoverItem,
+        optionTypeManaCostPopoverItem,
+        optionTypeAttackPopoverItem,
+        optionTypeHealthPopoverItem,
+        optionTypeCollectiblePopoverItem,
+        optionTypeRarityPopoverItem,
+        optionTypeTypePopoverItem,
+        optionTypeMinionTypePopoverItem,
+        optionTypeKeywordPopoverItem,
+        optionTypeGameModePopoverItem,
+        optionTypeSortPopoverItem
     ];
     
     [optionTypeSetPopoverItem release];
     [optionTypeSetTouchBar release];
     [optionTypeSetItem release];
     [optionTypeSetScrubber release];
+    
+    [optionTypeClassPopoverItem release];
+    [optionTypeClassTouchBar release];
+    [optionTypeClassItem release];
+    [optionTypeClassScrubber release];
+    
+    [optionTypeManaCostPopoverItem release];
+    [optionTypeManaCostTouchBar release];
+    [optionTypeManaCostItem release];
+    [optionTypeManaCostScrubber release];
+    
+    [optionTypeAttackPopoverItem release];
+    [optionTypeAttackTouchBar release];
+    [optionTypeAttackItem release];
+    [optionTypeAttackScrubber release];
+    
+    [optionTypeHealthPopoverItem release];
+    [optionTypeHealthTouchBar release];
+    [optionTypeHealthItem release];
+    [optionTypeHealthScrubber release];
+    
+    [optionTypeCollectiblePopoverItem release];
+    [optionTypeCollectibleTouchBar release];
+    [optionTypeCollectibleItem release];
+    [optionTypeCollectibleScrubber release];
+    
+    [optionTypeRarityPopoverItem release];
+    [optionTypeRarityTouchBar release];
+    [optionTypeRarityItem release];
+    [optionTypeRarityScrubber release];
+    
+    [optionTypeTypePopoverItem release];
+    [optionTypeTypeTouchBar release];
+    [optionTypeTypeItem release];
+    [optionTypeTypeScrubber release];
+    
+    [optionTypeMinionTypePopoverItem release];
+    [optionTypeMinionTypeTouchBar release];
+    [optionTypeMinionTypeItem release];
+    [optionTypeMinionTypeScrubber release];
+    
+    [optionTypeKeywordPopoverItem release];
+    [optionTypeKeywordTouchBar release];
+    [optionTypeKeywordItem release];
+    [optionTypeKeywordScrubber release];
+    
+    [optionTypeGameModePopoverItem release];
+    [optionTypeGameModeTouchBar release];
+    [optionTypeGameModeItem release];
+    [optionTypeGameModeScrubber release];
+    
+    [optionTypeSortPopoverItem release];
+    [optionTypeSortTouchBar release];
+    [optionTypeSortItem release];
+    [optionTypeSortScrubber release];
 }
 
 - (void)updateItemsWithOptions:(NSDictionary<NSString *,NSString *> *)options {
     NSMutableDictionary<NSString *, NSString *> *mutableOptions = [options mutableCopy];
     self.options = mutableOptions;
     [mutableOptions release];
+    
+    //
+    
+    [options enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSString * _Nonnull obj1, BOOL * _Nonnull stop) {
+        NSScrubber * _Nullable scrubber = [self scrubberFromOptionType:key];
+        
+        if (scrubber != nil) {
+            NSArray<NSString *> *keys = [self sortedKeysFromScrubber:scrubber];
+            NSUInteger __block index = 0;
+            
+            [keys enumerateObjectsUsingBlock:^(NSString * _Nonnull obj2, NSUInteger idx, BOOL * _Nonnull stop) {
+                if ([obj2 isEqualToString:obj1]) {
+                    index = idx;
+                    *stop = YES;
+                }
+            }];
+            
+            [scrubber _interactiveSelectItemAtIndex:index animated:YES];
+        }
+    }];
 }
 
 - (void)wireItemsWithPopoverItem:(NSPopoverTouchBarItem *)popoverItem
@@ -211,9 +498,9 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
                       customItem:(NSCustomTouchBarItem *)customItem
                         scrubber:(NSScrubber *)scrubber
                            title:(NSString *)title
-                           image:(NSImage *)image {
+                        itemSize:(CGSize)itemSize {
     
-    popoverItem.collapsedRepresentationImage = image;
+    popoverItem.collapsedRepresentationImage = [NSImage imageWithSystemSymbolName:PrefferedSystemSymbolFromBlizzardHSAPIDefaultOptions([self optionTypeFromScrubber:scrubber]) accessibilityDescription:nil];
     popoverItem.customizationLabel = title;
     popoverItem.collapsedRepresentationLabel = title;
     popoverItem.popoverTouchBar = touchBar;
@@ -232,15 +519,222 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     scrubber.delegate = self;
     
     NSScrubberFlowLayout *scrubberLayout = [NSScrubberFlowLayout new];
-    scrubberLayout.itemSize = CGSizeMake(230.0f, 30.0f);
+    scrubberLayout.itemSize = itemSize;
     scrubber.scrubberLayout = scrubberLayout;
     [scrubberLayout release];
+}
+
+- (NSScrubber * _Nullable)scrubberFromOptionType:(BlizzardHSAPIOptionType)optionType {
+    if ([optionType isEqualToString:BlizzardHSAPIOptionTypeSet]) {
+        return self.optionTypeSetScrubber;
+    } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeClass]) {
+        return self.optionTypeClassScrubber;
+    } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeManaCost]) {
+        return self.optionTypeManaCostScrubber;
+    } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeAttack]) {
+        return self.optionTypeAttackScrubber;
+    } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeHealth]) {
+        return self.optionTypeHealthScrubber;
+    } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeCollectible]) {
+        return self.optionTypeCollectibleScrubber;
+    } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeType]) {
+        return self.optionTypeTypeScrubber;
+    } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeMinionType]) {
+        return self.optionTypeMinionTypeScrubber;
+    } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeKeyword]) {
+        return self.optionTypeKeywordScrubber;
+    } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeGameMode]) {
+        return self.optionTypeGameModeScrubber;
+    } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeSort]) {
+        return self.optionTypeSortScrubber;
+    } else {
+        return nil;
+    }
+}
+
+- (BlizzardHSAPIOptionType _Nullable)optionTypeFromScrubber:(NSScrubber *)scrubber {
+    BlizzardHSAPIOptionType _Nullable optionType = nil;
+    
+    if ([scrubber isEqual:self.optionTypeSetScrubber]) {
+        optionType = BlizzardHSAPIOptionTypeSet;
+    } else if ([scrubber isEqual:self.optionTypeClassScrubber]) {
+        optionType = BlizzardHSAPIOptionTypeClass;
+    } else if ([scrubber isEqual:self.optionTypeManaCostScrubber]) {
+        optionType = BlizzardHSAPIOptionTypeManaCost;
+    } else if ([scrubber isEqual:self.optionTypeAttackScrubber]) {
+        optionType = BlizzardHSAPIOptionTypeAttack;
+    } else if ([scrubber isEqual:self.optionTypeHealthScrubber]) {
+        optionType = BlizzardHSAPIOptionTypeHealth;
+    } else if ([scrubber isEqual:self.optionTypeCollectibleScrubber]) {
+        optionType = BlizzardHSAPIOptionTypeCollectible;
+    } else if ([scrubber isEqual:self.optionTypeRarityScrubber]) {
+        optionType = BlizzardHSAPIOptionTypeRarity;
+    } else if ([scrubber isEqual:self.optionTypeTypeScrubber]) {
+        optionType = BlizzardHSAPIOptionTypeType;
+    } else if ([scrubber isEqual:self.optionTypeMinionTypeScrubber]) {
+        optionType = BlizzardHSAPIOptionTypeMinionType;
+    } else if ([scrubber isEqual:self.optionTypeKeywordScrubber]) {
+        optionType = BlizzardHSAPIOptionTypeKeyword;
+    } else if ([scrubber isEqual:self.optionTypeGameModeScrubber]) {
+        optionType = BlizzardHSAPIOptionTypeGameMode;
+    } else if ([scrubber isEqual:self.optionTypeSortScrubber]) {
+        optionType = BlizzardHSAPIOptionTypeSort;
+    }
+    
+    return optionType;
+}
+
+- (NSDictionary<NSString *, NSString *> * _Nullable)dicFromScrubber:(NSScrubber *)scrubber {
+    NSDictionary<NSString *, NSString *> * _Nullable dic = nil;
+    NSArray<NSString *> * _Nullable filterKeys = nil;
+    
+    if ([scrubber isEqual:self.optionTypeSetScrubber]) {
+        dic = hsCardSetsWithLocalizable();
+        filterKeys = nil;
+    } else if ([scrubber isEqual:self.optionTypeClassScrubber]) {
+        dic = hsCardClassesWithLocalizable();
+        filterKeys = @[NSStringFromHSCardClass(HSCardClassDeathKnight)];
+    } else if ([scrubber isEqual:self.optionTypeManaCostScrubber] || [scrubber isEqual:self.optionTypeAttackScrubber] || [scrubber isEqual:self.optionTypeHealthScrubber]) {
+        dic = @{@"1": @"1",
+                @"2": @"2",
+                @"3": @"3",
+                @"4": @"4",
+                @"5": @"5",
+                @"6": @"6",
+                @"7": @"7",
+                @"8": @"8",
+                @"9": @"9",
+                @"10": @"10+"};
+        filterKeys = nil;
+    } else if ([scrubber isEqual:self.optionTypeCollectibleScrubber]) {
+        dic = hsCardCollectiblesWithLocalizable();
+        filterKeys = nil;
+    } else if ([scrubber isEqual:self.optionTypeRarityScrubber]) {
+        dic = hsCardRaritiesWithLocalizable();
+        filterKeys = @[NSStringFromHSCardRarity(HSCardRarityNull)];
+    } else if ([scrubber isEqual:self.optionTypeTypeScrubber]) {
+        dic = hsCardTypesWithLocalizable();
+        filterKeys = nil;
+    } else if ([scrubber isEqual:self.optionTypeMinionTypeScrubber]) {
+        dic = hsCardMinionTypesWithLocalizable();
+        filterKeys = nil;
+    } else if ([scrubber isEqual:self.optionTypeKeywordScrubber]) {
+        dic = hsCardKeywordsWithLocalizable();
+        filterKeys = nil;
+    } else if ([scrubber isEqual:self.optionTypeGameModeScrubber]) {
+        dic = hsCardGameModesWithLocalizable();
+        filterKeys = nil;
+    } else if ([scrubber isEqual:self.optionTypeSortScrubber]) {
+        dic = hsCardSortsWithLocalizable();
+        filterKeys = nil;
+    }
+    
+    //
+    
+    if (filterKeys == nil) {
+        return dic;
+    } else {
+        NSMutableDictionary<NSString *, NSString *> *result = [@{} mutableCopy];
+        
+        [dic enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSString * _Nonnull obj, BOOL * _Nonnull stop) {
+            if (![filterKeys containsString:key]) {
+                result[key] = obj;
+            }
+        }];
+        
+        return [result autorelease];
+    }
+}
+
+- (NSArray<NSString *> *)sortedKeysFromScrubber:(NSScrubber *)scrubber {
+    NSDictionary<NSString *, NSString *> * _Nullable dic = [self dicFromScrubber:scrubber];
+    NSUInteger (^__block converter)(NSString *);
+    BOOL ascending = YES;
+    
+    if ([scrubber isEqual:self.optionTypeSetScrubber]) {
+        converter = ^NSUInteger(NSString * key) {
+            return HSCardSetFromNSString(key);
+        };
+        ascending = NO;
+    } else if ([scrubber isEqual:self.optionTypeClassScrubber]) {
+        converter = ^NSUInteger(NSString * key) {
+            return HSCardClassFromNSString(key);
+        };
+        ascending = YES;
+    } else if ([scrubber isEqual:self.optionTypeManaCostScrubber] || [scrubber isEqual:self.optionTypeAttackScrubber] || [scrubber isEqual:self.optionTypeHealthScrubber]) {
+        converter = ^NSUInteger(NSString *key) {
+            NSNumberFormatter *formatter = [NSNumberFormatter new];
+            formatter.numberStyle = NSNumberFormatterDecimalStyle;
+            NSUInteger value = [formatter numberFromString:key].unsignedIntegerValue;
+            [formatter release];
+            return value;
+        };
+        ascending = YES;
+    } else if ([scrubber isEqual:self.optionTypeCollectibleScrubber]) {
+        converter = ^NSUInteger(NSString * key) {
+            return HSCardCollectibleFromNSString(key);
+        };
+        ascending = YES;
+    } else if ([scrubber isEqual:self.optionTypeRarityScrubber]) {
+        converter = ^NSUInteger(NSString *key) {
+            return HSCardRarityFromNSString(key);
+        };
+        ascending = YES;
+    } else if ([scrubber isEqual:self.optionTypeTypeScrubber]) {
+        converter = ^NSUInteger(NSString *key) {
+            return HSCardTypeFromNSString(key);
+        };
+        ascending = YES;
+    } else if ([scrubber isEqual:self.optionTypeMinionTypeScrubber]) {
+        converter = ^NSUInteger(NSString *key) {
+            return HSCardMinionTypeFromNSString(key);
+        };
+        ascending = YES;
+    } else if ([scrubber isEqual:self.optionTypeKeywordScrubber]) {
+        converter = ^NSUInteger(NSString *key) {
+            return HSCardKeywordFromNSString(key);
+        };
+        ascending = YES;
+    } else if ([scrubber isEqual:self.optionTypeGameModeScrubber]) {
+        converter = ^NSUInteger(NSString *key) {
+            return HSCardGameModeFromNSString(key);
+        };
+        ascending = YES;
+    } else if ([scrubber isEqual:self.optionTypeSortScrubber]) {
+        converter = ^NSUInteger(NSString *key) {
+            return HSCardSortFromNSString(key);
+        };
+        ascending = YES;
+    }
+    
+    NSArray<NSString *> *keys = [dic.allKeys sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        HSCardSet lhs = converter(obj1);
+        HSCardSet rhs = converter(obj2);
+        
+        if (lhs < rhs) {
+            if (ascending) {
+                return NSOrderedAscending;
+            } else {
+                return NSOrderedDescending;
+            }
+        } else if (lhs > rhs) {
+            if (ascending) {
+                return NSOrderedDescending;
+            } else {
+                return NSOrderedAscending;
+            }
+        } else {
+            return NSOrderedSame;
+        }
+    }];
+    
+    return keys;
 }
 
 #pragma mark - NSTouchBarDelegate
 
 - (NSTouchBarItem *)touchBar:(NSTouchBar *)touchBar makeItemForIdentifier:(NSTouchBarItemIdentifier)identifier {
-    if ([touchBar isEqualTo:self]) {
+    if ([touchBar isEqual:self]) {
         NSTouchBarItem * _Nullable __block result = nil;
         
         [self.allItems enumerateObjectsUsingBlock:^(NSTouchBarItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -251,8 +745,30 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
         }];
         
         return result;
-    } else if ([touchBar isEqualTo:self.optionTypeSetTouchBar]) {
+    } else if ([touchBar isEqual:self.optionTypeSetTouchBar]) {
         return self.optionTypeSetItem;
+    } else if ([touchBar isEqual:self.optionTypeClassTouchBar]) {
+        return self.optionTypeClassItem;
+    } else if ([touchBar isEqual:self.optionTypeManaCostTouchBar]) {
+        return self.optionTypeManaCostItem;
+    } else if ([touchBar isEqual:self.optionTypeAttackTouchBar]) {
+        return self.optionTypeAttackItem;
+    } else if ([touchBar isEqual:self.optionTypeHealthTouchBar]) {
+        return self.optionTypeHealthItem;
+    } else if ([touchBar isEqual:self.optionTypeCollectibleTouchBar]) {
+        return self.optionTypeCollectibleItem;
+    } else if ([touchBar isEqual:self.optionTypeRarityTouchBar]) {
+        return self.optionTypeRarityItem;
+    } else if ([touchBar isEqual:self.optionTypeTypeTouchBar]) {
+        return self.optionTypeTypeItem;
+    } else if ([touchBar isEqual:self.optionTypeMinionTypeTouchBar]) {
+        return self.optionTypeMinionTypeItem;
+    } else if ([touchBar isEqual:self.optionTypeKeywordTouchBar]) {
+        return self.optionTypeKeywordItem;
+    } else if ([touchBar isEqual:self.optionTypeGameModeTouchBar]) {
+        return self.optionTypeGameModeItem;
+    } else if ([touchBar isEqual:self.optionTypeSortTouchBar]) {
+        return self.optionTypeSortItem;
     } else {
         return nil;
     }
@@ -261,31 +777,23 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
 #pragma mark - NSScrubberDataSource
 
 - (NSInteger)numberOfItemsForScrubber:(NSScrubber *)scrubber {
-    if ([scrubber isEqualTo:self.optionTypeSetScrubber]) {
-        return hsCardSets().count;
-    } else {
-        return 0;
-    }
+    return [self dicFromScrubber:scrubber].count;
 }
 
 - (__kindof NSScrubberItemView *)scrubber:(NSScrubber *)scrubber viewForItemAtIndex:(NSInteger)index {
-    NSScrubberTextItemView *item = [scrubber makeItemWithIdentifier:NSUserInterfaceItemIdentifierNSScrubberTextItemViewReuseIdentifier owner:nil];
+    NSScrubberTextItemView *item = [scrubber makeItemWithIdentifier:NSUserInterfaceItemIdentifierNSScrubberTextItemViewReuseIdentifier owner:self];
     
-    if ([scrubber isEqualTo:self.optionTypeSetScrubber]) {
-        NSDictionary<NSString *, NSString *> *dic = hsCardSetsWithLocalizable();
-        NSArray<NSString *> *keys = [dic.allKeys sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-            HSCardSet lhs = HSCardSetFromNSString(obj1);
-            HSCardSet rhs = HSCardSetFromNSString(obj2);
-            
-            if (lhs < rhs) {
-                return NSOrderedDescending;
-            } else if (lhs > rhs) {
-                return NSOrderedAscending;
-            } else {
-                return NSOrderedSame;
-            }
-        }];
-        
+    NSDictionary<NSString *, NSString *> *dic = [self dicFromScrubber:scrubber];
+    NSArray<NSString *> *keys = [self sortedKeysFromScrubber:scrubber];
+    
+    NSString * _Nullable key = keys[index];
+    NSString * _Nullable title = nil;
+    
+    if (key != nil) {
+        title = dic[key];
+    }
+    
+    if (title != nil) {
         item.title = dic[keys[index]];
     }
     
@@ -295,24 +803,12 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
 #pragma mark - NSScrubberDelegate
 
 - (void)scrubber:(NSScrubber *)scrubber didSelectItemAtIndex:(NSInteger)selectedIndex {
-    if ([scrubber isEqualTo:self.optionTypeSetScrubber]) {
-        NSDictionary<NSString *, NSString *> *dic = hsCardSetsWithLocalizable();
-        NSArray<NSString *> *keys = [dic.allKeys sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-            HSCardSet lhs = HSCardSetFromNSString(obj1);
-            HSCardSet rhs = HSCardSetFromNSString(obj2);
-            
-            if (lhs < rhs) {
-                return NSOrderedDescending;
-            } else if (lhs > rhs) {
-                return NSOrderedAscending;
-            } else {
-                return NSOrderedSame;
-            }
-        }];
-        self.options[BlizzardHSAPIOptionTypeSet] = keys[selectedIndex];
-        [self updateItemsWithOptions:self.options];
-        [self.cardOptionsTouchBarDelegate cardOptionsTouchBar:self changedOption:self.options];
-    }
+    NSArray<NSString *> *keys = [self sortedKeysFromScrubber:scrubber];
+    BlizzardHSAPIOptionType optionType = [self optionTypeFromScrubber:scrubber];
+    
+    self.options[optionType] = keys[selectedIndex];
+    [self updateItemsWithOptions:self.options];
+    [self.cardOptionsTouchBarDelegate cardOptionsTouchBar:self changedOption:self.options];
 }
 
 @end
