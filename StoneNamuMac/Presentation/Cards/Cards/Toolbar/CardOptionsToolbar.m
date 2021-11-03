@@ -23,6 +23,7 @@
 @property (retain) DynamicMenuToolbarItem *optionTypeRarityItem;
 @property (retain) DynamicMenuToolbarItem *optionTypeTypeItem;
 @property (retain) DynamicMenuToolbarItem *optionTypeMinionTypeItem;
+@property (retain) DynamicMenuToolbarItem *optionTypeSpellSchoolItem;
 @property (retain) DynamicMenuToolbarItem *optionTypeKeyowrdItem;
 @property (retain) DynamicMenuToolbarItem *optionTypeGameModeItem;
 @property (retain) DynamicMenuToolbarItem *optionTypeSortItem;
@@ -60,6 +61,7 @@
     [_optionTypeRarityItem release];
     [_optionTypeTypeItem release];
     [_optionTypeMinionTypeItem release];
+    [_optionTypeSpellSchoolItem release];
     [_optionTypeKeyowrdItem release];
     [_optionTypeGameModeItem release];
     [_optionTypeSortItem release];
@@ -115,17 +117,21 @@
     self.optionTypeMinionTypeItem = optionTypeMinionTypeItem;
     [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeMinionType atIndex:9];
     
+    DynamicMenuToolbarItem *optionTypeSpellSchoolItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeSpellSchool];
+    self.optionTypeSpellSchoolItem = optionTypeSpellSchoolItem;
+    [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeSpellSchool atIndex:10];
+    
     DynamicMenuToolbarItem *optionTypeKeyowrdItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeKeyword];
     self.optionTypeKeyowrdItem = optionTypeKeyowrdItem;
-    [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeKeyword atIndex:10];
+    [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeKeyword atIndex:11];
     
     DynamicMenuToolbarItem *optionTypeGameModeItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeGameMode];
     self.optionTypeGameModeItem = optionTypeGameModeItem;
-    [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeGameMode atIndex:11];
+    [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeGameMode atIndex:12];
     
     DynamicMenuToolbarItem *optionTypeSortItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeSort];
     self.optionTypeSortItem = optionTypeSortItem;
-    [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeSort atIndex:12];
+    [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeSort atIndex:13];
     
     //
     
@@ -140,6 +146,7 @@
         optionTypeRarityItem,
         optionTypeTypeItem,
         optionTypeMinionTypeItem,
+        optionTypeSpellSchoolItem,
         optionTypeKeyowrdItem,
         optionTypeGameModeItem,
         optionTypeSortItem
@@ -155,6 +162,7 @@
     [optionTypeRarityItem release];
     [optionTypeTypeItem release];
     [optionTypeMinionTypeItem release];
+    [optionTypeSpellSchoolItem release];
     [optionTypeKeyowrdItem release];
     [optionTypeGameModeItem release];
     [optionTypeSortItem release];
@@ -209,6 +217,12 @@
                 title = [NSString stringWithFormat:@"%@ : %@", NSLocalizedString(@"CARD_MANA_COST", @""), value];
             } else {
                 title = NSLocalizedString(@"CARD_MANA_COST", @"");
+            }
+        } else if ([itemIdentifier isEqualToString:NSToolbarIdentifierCardOptionsTypeSpellSchool]) {
+            if (hasValue) {
+                title = [NSString stringWithFormat:@"%@ : %@", NSLocalizedString(@"CARD_SPELL_SCHOOL", @""), value];
+            } else {
+                title = NSLocalizedString(@"CARD_SPELL_SCHOOL", @"");
             }
         } else if ([itemIdentifier isEqualToString:NSToolbarIdentifierCardOptionsTypeAttack]) {
             if (hasValue) {
@@ -382,6 +396,17 @@
             return HSCardMinionTypeFromNSString(key);
         }
                                  ascending:YES];
+    } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeSpellSchool]) {
+        itemArray = [self itemArrayFromDic:hsCardSpellSchoolsWithLocalizable()
+                                optionType:optionType
+                             showEmptyItem:YES
+                               selectedKey:selectedKey
+                               filterArray:nil
+                               imageSource:nil
+                                 converter:^NSUInteger(NSString * key) {
+            return HSCardSpellSchoolFromNSString(key);
+        }
+                                 ascending:YES];
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeKeyword]) {
         itemArray = [self itemArrayFromDic:hsCardKeywordsWithLocalizable()
                                 optionType:optionType
@@ -430,7 +455,7 @@
 
 - (NSMenuItem *)textFieldItemWithOptionType:(BlizzardHSAPIOptionType)type
                                 selectedKey:(NSString * _Nullable)selectedKey {
-    CardOptionsMenuItem *item = [[CardOptionsMenuItem alloc] initWithTitle:@"Test" action:nil keyEquivalent:@"" key:@{type: @""}];
+    CardOptionsMenuItem *item = [[CardOptionsMenuItem alloc] initWithTitle:@"" action:nil keyEquivalent:@"" key:@{type: @""}];
     CardOptionsTextField *textField = [[CardOptionsTextField alloc] initWithKey:@{type: @""}];
     
     if (selectedKey) {

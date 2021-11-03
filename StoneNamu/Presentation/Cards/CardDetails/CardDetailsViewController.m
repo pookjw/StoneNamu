@@ -65,6 +65,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     NSLog(@"hsCard.slug: %@, hsCard.cardId: %lu", self.hsCard.slug, self.hsCard.cardId);
+    NSLog(@"hsCard.spellSchoolId: %@", self.hsCard.spellSchoolId);
     
     [self setAttributes];
     [self configurePrimaryImageView];

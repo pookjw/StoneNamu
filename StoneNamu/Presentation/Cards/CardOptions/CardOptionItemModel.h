@@ -20,6 +20,7 @@ typedef NS_ENUM(NSUInteger, CardOptionItemModelType) {
     CardOptionItemModelTypeRarity,
     CardOptionItemModelTypeType,
     CardOptionItemModelTypeMinionType,
+    CardOptionItemModelTypeSpellSchool,
     CardOptionItemModelTypeKeyword,
     CardOptionItemModelTypeTextFilter,
     CardOptionItemModelTypeGameMode,

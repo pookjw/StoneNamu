@@ -29,6 +29,8 @@ NSString * NSStringFromCardOptionItemModelType(CardOptionItemModelType type) {
             return BlizzardHSAPIOptionTypeType;
         case CardOptionItemModelTypeMinionType:
             return BlizzardHSAPIOptionTypeMinionType;
+        case CardOptionItemModelTypeSpellSchool:
+            return BlizzardHSAPIOptionTypeSpellSchool;
         case CardOptionItemModelTypeKeyword:
             return BlizzardHSAPIOptionTypeKeyword;
         case CardOptionItemModelTypeTextFilter:
@@ -61,6 +63,8 @@ CardOptionItemModelType CardOptionItemModelTypeFromNSString(NSString * key) {
         return CardOptionItemModelTypeType;
     } else if ([key isEqualToString:BlizzardHSAPIOptionTypeMinionType]) {
         return CardOptionItemModelTypeMinionType;
+    } else if ([key isEqualToString:BlizzardHSAPIOptionTypeSpellSchool]) {
+        return CardOptionItemModelTypeSpellSchool;
     } else if ([key isEqualToString:BlizzardHSAPIOptionTypeKeyword]) {
         return CardOptionItemModelTypeKeyword;
     } else if ([key isEqualToString:BlizzardHSAPIOptionTypeTextFilter]) {
@@ -125,6 +129,8 @@ CardOptionItemModelType CardOptionItemModelTypeFromNSString(NSString * key) {
         case CardOptionItemModelTypeType:
             return CardOptionItemModelValueSetTypePickerWithEmptyRow;
         case CardOptionItemModelTypeMinionType:
+            return CardOptionItemModelValueSetTypePickerWithEmptyRow;
+        case CardOptionItemModelTypeSpellSchool:
             return CardOptionItemModelValueSetTypePickerWithEmptyRow;
         case CardOptionItemModelTypeKeyword:
             return CardOptionItemModelValueSetTypePickerWithEmptyRow;
@@ -202,6 +208,16 @@ CardOptionItemModelType CardOptionItemModelTypeFromNSString(NSString * key) {
             }
                                        converter:^NSUInteger(NSString * key) {
                 return HSCardMinionTypeFromNSString(key);
+            }
+                                       ascending:YES];
+        case CardOptionItemModelTypeSpellSchool:
+            return [self pickerItemModelsFromDic:hsCardSpellSchoolsWithLocalizable()
+                                     filterArray:nil
+                                     imageSource:^UIImage * _Nullable(NSString * key) {
+                return nil;
+            }
+                                       converter:^NSUInteger(NSString * key) {
+                return HSCardSpellSchoolFromNSString(key);
             }
                                        ascending:YES];
         case CardOptionItemModelTypeKeyword:
@@ -285,6 +301,8 @@ CardOptionItemModelType CardOptionItemModelTypeFromNSString(NSString * key) {
             return NSLocalizedString(@"CARD_TYPE", @"");
         case CardOptionItemModelTypeMinionType:
             return NSLocalizedString(@"CARD_MINION_TYPE", @"");
+        case CardOptionItemModelTypeSpellSchool:
+            return NSLocalizedString(@"CARD_SPELL_SCHOOL", @"");
         case CardOptionItemModelTypeKeyword:
             return NSLocalizedString(@"CARD_KEYWORD", @"");
         case CardOptionItemModelTypeTextFilter:
@@ -312,6 +330,8 @@ CardOptionItemModelType CardOptionItemModelTypeFromNSString(NSString * key) {
             return hsCardTypesWithLocalizable()[self.value];
         case CardOptionItemModelTypeMinionType:
             return hsCardMinionTypesWithLocalizable()[self.value];
+        case CardOptionItemModelTypeSpellSchool:
+            return hsCardSpellSchoolsWithLocalizable()[self.value];
         case CardOptionItemModelTypeKeyword:
             return hsCardKeywordsWithLocalizable()[self.value];
         case CardOptionItemModelTypeGameMode:

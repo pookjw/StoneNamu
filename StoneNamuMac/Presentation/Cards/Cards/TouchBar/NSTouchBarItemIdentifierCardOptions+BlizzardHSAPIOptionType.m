@@ -18,6 +18,7 @@ NSArray<NSTouchBarItemIdentifier> * AllNSTouchBarItemIdentifierCardOptions(void)
         NSTouchBarItemIdentifierCardOptionsTypeRarity,
         NSTouchBarItemIdentifierCardOptionsTypeType,
         NSTouchBarItemIdentifierCardOptionsTypeMinionType,
+        NSTouchBarItemIdentifierCardOptionsTypeSchoolSpell,
         NSTouchBarItemIdentifierCardOptionsTypeKeyword,
         NSTouchBarItemIdentifierCardOptionsTypeGameMode,
         NSTouchBarItemIdentifierCardOptionsTypeSort
@@ -43,6 +44,8 @@ NSTouchBarItemIdentifier NSTouchBarItemIdentifierCardOptionsFromBlizzardHSAPIOpt
         return NSTouchBarItemIdentifierCardOptionsTypeType;
     } else if ([type isEqualToString:BlizzardHSAPIOptionTypeMinionType]) {
         return NSTouchBarItemIdentifierCardOptionsTypeMinionType;
+    } else if ([type isEqualToString:BlizzardHSAPIOptionTypeSpellSchool]) {
+        return NSTouchBarItemIdentifierCardOptionsTypeSchoolSpell;
     } else if ([type isEqualToString:BlizzardHSAPIOptionTypeKeyword]) {
         return NSTouchBarItemIdentifierCardOptionsTypeKeyword;
     } else if ([type isEqualToString:BlizzardHSAPIOptionTypeGameMode]) {
@@ -73,6 +76,8 @@ BlizzardHSAPIOptionType BlizzardHSAPIOptionTypeFromNSTouchBarItemIdentifierCardO
         return BlizzardHSAPIOptionTypeType;
     } else if ([itemIdentifier isEqualToString:NSTouchBarItemIdentifierCardOptionsTypeMinionType]) {
         return BlizzardHSAPIOptionTypeMinionType;
+    } else if ([itemIdentifier isEqualToString:NSTouchBarItemIdentifierCardOptionsTypeSchoolSpell]) {
+        return BlizzardHSAPIOptionTypeSpellSchool;
     } else if ([itemIdentifier isEqualToString:NSTouchBarItemIdentifierCardOptionsTypeKeyword]) {
         return BlizzardHSAPIOptionTypeKeyword;
     } else if ([itemIdentifier isEqualToString:NSTouchBarItemIdentifierCardOptionsTypeGameMode]) {

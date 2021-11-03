@@ -38,6 +38,8 @@ NSString * _Nullable PrefferedSystemSymbolFromBlizzardHSAPIDefaultOptions(Blizza
         return @"list.bullet.circle";
     } else if ([option isEqualToString:BlizzardHSAPIOptionTypeMinionType]) {
         return @"list.bullet.circle";
+    } else if ([option isEqualToString:BlizzardHSAPIOptionTypeSpellSchool]) {
+        return @"line.3.crossed.swirl.circle";
     } else if ([option isEqualToString:BlizzardHSAPIOptionTypeKeyword]) {
         return @"list.bullet.circle";
     } else if ([option isEqualToString:BlizzardHSAPIOptionTypeTextFilter]) {

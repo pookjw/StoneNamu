@@ -12,6 +12,7 @@
 #import <StoneNamuCore/HSCardCollectible.h>
 #import <StoneNamuCore/HSCardType.h>
 #import <StoneNamuCore/HSCardMinionType.h>
+#import <StoneNamuCore/HSCardSpellSchool.h>
 #import <StoneNamuCore/HSCardKeyword.h>
 #import <StoneNamuCore/HSCardGameMode.h>
 #import <StoneNamuCore/HSCardSort.h>
@@ -29,7 +30,8 @@ NS_ASSUME_NONNULL_BEGIN
  multiClassIds can be nil, or empty array on old cards...
  */
 @property (readonly, copy) NSArray<NSNumber *> * _Nullable multiClassIds;
-@property (readonly) HSCardMinionType minionTypeId;
+@property (readonly, copy) NSNumber * _Nullable minionTypeId;
+@property (readonly, copy) NSNumber * _Nullable spellSchoolId;
 @property (readonly) HSCardType cardTypeId;
 @property (readonly) HSCardSet cardSetId;
 @property (readonly) HSCardRarity rarityId;

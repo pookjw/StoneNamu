@@ -25,6 +25,7 @@ static BlizzardHSAPIOptionType const BlizzardHSAPIOptionTypeCollectible = @"coll
 static BlizzardHSAPIOptionType const BlizzardHSAPIOptionTypeRarity = @"rarity";
 static BlizzardHSAPIOptionType const BlizzardHSAPIOptionTypeType = @"type";
 static BlizzardHSAPIOptionType const BlizzardHSAPIOptionTypeMinionType = @"minionType";
+static BlizzardHSAPIOptionType const BlizzardHSAPIOptionTypeSpellSchool = @"spellSchool";
 static BlizzardHSAPIOptionType const BlizzardHSAPIOptionTypeKeyword = @"keyword";
 static BlizzardHSAPIOptionType const BlizzardHSAPIOptionTypeTextFilter = @"textFilter";
 static BlizzardHSAPIOptionType const BlizzardHSAPIOptionTypeGameMode = @"gameMode";

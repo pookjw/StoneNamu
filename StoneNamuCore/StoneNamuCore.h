@@ -34,6 +34,7 @@ FOUNDATION_EXPORT const unsigned char StoneNamuCoreVersionString[];
 #import <StoneNamuCore/HSCardSet.h>
 #import <StoneNamuCore/HSCardType.h>
 #import <StoneNamuCore/HSCardMinionType.h>
+#import <StoneNamuCore/HSCardSpellSchool.h>
 #import <StoneNamuCore/HSCardKeyword.h>
 #import <StoneNamuCore/HSCardGameMode.h>
 #import <StoneNamuCore/HSCardSort.h>

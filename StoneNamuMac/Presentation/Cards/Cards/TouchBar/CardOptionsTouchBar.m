@@ -62,6 +62,11 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
 @property (retain) NSCustomTouchBarItem *optionTypeMinionTypeItem;
 @property (retain) NSScrubber *optionTypeMinionTypeScrubber;
 
+@property (retain) NSPopoverTouchBarItem *optionTypeSpellSchoolPopoverItem;
+@property (retain) NSTouchBar *optionTypeSpellSchoolTouchBar;
+@property (retain) NSCustomTouchBarItem *optionTypeSpellSchoolItem;
+@property (retain) NSScrubber *optionTypeSpellSchoolScrubber;
+
 @property (retain) NSPopoverTouchBarItem *optionTypeKeywordPopoverItem;
 @property (retain) NSTouchBar *optionTypeKeywordTouchBar;
 @property (retain) NSCustomTouchBarItem *optionTypeKeywordItem;
@@ -148,6 +153,11 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     [_optionTypeMinionTypeTouchBar release];
     [_optionTypeMinionTypeItem release];
     [_optionTypeMinionTypeScrubber release];
+    
+    [_optionTypeSpellSchoolPopoverItem release];
+    [_optionTypeSpellSchoolTouchBar release];
+    [_optionTypeSpellSchoolItem release];
+    [_optionTypeSpellSchoolScrubber release];
     
     [_optionTypeKeywordPopoverItem release];
     [_optionTypeKeywordTouchBar release];
@@ -337,6 +347,24 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     
     //
     
+    NSPopoverTouchBarItem *optionTypeSpellSchoolPopoverItem = [[NSPopoverTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierCardOptionsTypeSchoolSpell];
+    NSTouchBar *optionTypeSpellSchoolTouchBar = [NSTouchBar new];
+    NSCustomTouchBarItem *optionTypeSpellSchoolItem = [[NSCustomTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierCardOptionsTypeSchoolSpell];
+    NSScrubber *optionTypeSpellSchoolScrubber = [NSScrubber new];
+    self.optionTypeSpellSchoolPopoverItem = optionTypeSpellSchoolPopoverItem;
+    self.optionTypeSpellSchoolTouchBar = optionTypeSpellSchoolTouchBar;
+    self.optionTypeSpellSchoolItem = optionTypeSpellSchoolItem;
+    self.optionTypeSpellSchoolScrubber = optionTypeSpellSchoolScrubber;
+    
+    [self wireItemsWithPopoverItem:optionTypeSpellSchoolPopoverItem
+                          touchBar:optionTypeSpellSchoolTouchBar
+                        customItem:optionTypeSpellSchoolItem
+                          scrubber:optionTypeSpellSchoolScrubber
+                             title:NSLocalizedString(@"CARD_SPELL_SCHOOL", @"")
+                          itemSize:CGSizeMake(150.0f, 30.0f)];
+    
+    //
+    
     NSPopoverTouchBarItem *optionTypeKeywordPopoverItem = [[NSPopoverTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierCardOptionsTypeKeyword];
     NSTouchBar *optionTypeKeywordTouchBar = [NSTouchBar new];
     NSCustomTouchBarItem *optionTypeKeywordItem = [[NSCustomTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierCardOptionsTypeKeyword];
@@ -401,6 +429,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
         optionTypeRarityPopoverItem,
         optionTypeTypePopoverItem,
         optionTypeMinionTypePopoverItem,
+        optionTypeSpellSchoolPopoverItem,
         optionTypeKeywordPopoverItem,
         optionTypeGameModePopoverItem,
         optionTypeSortPopoverItem
@@ -450,6 +479,11 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     [optionTypeMinionTypeTouchBar release];
     [optionTypeMinionTypeItem release];
     [optionTypeMinionTypeScrubber release];
+    
+    [optionTypeSpellSchoolPopoverItem release];
+    [optionTypeSpellSchoolTouchBar release];
+    [optionTypeSpellSchoolItem release];
+    [optionTypeSpellSchoolScrubber release];
     
     [optionTypeKeywordPopoverItem release];
     [optionTypeKeywordTouchBar release];
@@ -546,6 +580,8 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
         return self.optionTypeTypeScrubber;
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeMinionType]) {
         return self.optionTypeMinionTypeScrubber;
+    } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeSpellSchool]) {
+        return self.optionTypeSpellSchoolScrubber;
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeKeyword]) {
         return self.optionTypeKeywordScrubber;
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeGameMode]) {
@@ -578,6 +614,8 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
         optionType = BlizzardHSAPIOptionTypeType;
     } else if ([scrubber isEqual:self.optionTypeMinionTypeScrubber]) {
         optionType = BlizzardHSAPIOptionTypeMinionType;
+    } else if ([scrubber isEqual:self.optionTypeSpellSchoolScrubber]) {
+        optionType = BlizzardHSAPIOptionTypeSpellSchool;
     } else if ([scrubber isEqual:self.optionTypeKeywordScrubber]) {
         optionType = BlizzardHSAPIOptionTypeKeyword;
     } else if ([scrubber isEqual:self.optionTypeGameModeScrubber]) {
@@ -622,6 +660,9 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
         filterKeys = nil;
     } else if ([scrubber isEqual:self.optionTypeMinionTypeScrubber]) {
         dic = hsCardMinionTypesWithLocalizable();
+        filterKeys = nil;
+    } else if ([scrubber isEqual:self.optionTypeSpellSchoolScrubber]) {
+        dic = hsCardSpellSchoolsWithLocalizable();
         filterKeys = nil;
     } else if ([scrubber isEqual:self.optionTypeKeywordScrubber]) {
         dic = hsCardKeywordsWithLocalizable();
@@ -693,6 +734,11 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     } else if ([scrubber isEqual:self.optionTypeMinionTypeScrubber]) {
         converter = ^NSUInteger(NSString *key) {
             return HSCardMinionTypeFromNSString(key);
+        };
+        ascending = YES;
+    } else if ([scrubber isEqual:self.optionTypeSpellSchoolScrubber]) {
+        converter = ^NSUInteger(NSString *key) {
+            return HSCardSpellSchoolFromNSString(key);
         };
         ascending = YES;
     } else if ([scrubber isEqual:self.optionTypeKeywordScrubber]) {
@@ -768,6 +814,8 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
         return self.optionTypeTypeItem;
     } else if ([touchBar isEqual:self.optionTypeMinionTypeTouchBar]) {
         return self.optionTypeMinionTypeItem;
+    } else if ([touchBar isEqual:self.optionTypeSpellSchoolTouchBar]) {
+        return self.optionTypeSpellSchoolItem;
     } else if ([touchBar isEqual:self.optionTypeKeywordTouchBar]) {
         return self.optionTypeKeywordItem;
     } else if ([touchBar isEqual:self.optionTypeGameModeTouchBar]) {

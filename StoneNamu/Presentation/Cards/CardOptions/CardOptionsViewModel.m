@@ -183,6 +183,7 @@
                 [[[CardOptionItemModel alloc] initWithType:CardOptionItemModelTypeRarity] autorelease],
                 [[[CardOptionItemModel alloc] initWithType:CardOptionItemModelTypeType] autorelease],
                 [[[CardOptionItemModel alloc] initWithType:CardOptionItemModelTypeMinionType] autorelease],
+                [[[CardOptionItemModel alloc] initWithType:CardOptionItemModelTypeSpellSchool] autorelease],
                 [[[CardOptionItemModel alloc] initWithType:CardOptionItemModelTypeKeyword] autorelease],
                 [[[CardOptionItemModel alloc] initWithType:CardOptionItemModelTypeGameMode] autorelease]
             ]

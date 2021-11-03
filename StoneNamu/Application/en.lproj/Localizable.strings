@@ -46,6 +46,8 @@
 
 "CARD_MINION_TYPE" = "Minion Type";
 
+"CARD_SPELL_SCHOOL" = "Spell School";
+
 "CARD_KEYWORD" = "Keyword";
 
 "CARD_TEXT_FILTER" = "Text";

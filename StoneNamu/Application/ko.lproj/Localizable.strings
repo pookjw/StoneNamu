@@ -46,6 +46,8 @@
 
 "CARD_MINION_TYPE" = "하수인 종류";
 
+"CARD_SPELL_SCHOOL" = "주문 종류";
+
 "CARD_KEYWORD" = "키워드";
 
 "CARD_TEXT_FILTER" = "글자";

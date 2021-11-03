@@ -5,7 +5,7 @@
 //  Created by Jinwoo Kim on 7/17/21.
 //
 
-#import "HSCard.h"
+#import <StoneNamuCore/HSCard.h>
 #import <StoneNamuCore/StoneNamuCoreErrors.h>
 
 @implementation HSCard
@@ -13,6 +13,8 @@
 - (void)dealloc {
     [_slug release];
     [_multiClassIds release];
+    [_minionTypeId release];
+    [_spellSchoolId release];
     [_artistName release];
     [_name release];
     [_text release];
@@ -102,7 +104,20 @@
         hsCard->_multiClassIds = [dic[@"multiClassIds"] copy];
     }
     
-    hsCard->_minionTypeId = [(NSNumber *)dic[@"minionTypeId"] unsignedIntegerValue];
+    id minionTypeId = dic[@"minionTypeId"];
+    if ([minionTypeId isEqual:[NSNull null]]) {
+        hsCard->_minionTypeId = nil;
+    } else {
+        hsCard->_minionTypeId = [minionTypeId copy];
+    }
+    
+    id spellSchoolId = dic[@"spellSchoolId"];
+    if ([spellSchoolId isEqual:[NSNull null]]) {
+        hsCard->_spellSchoolId = nil;
+    } else {
+        hsCard->_spellSchoolId = [spellSchoolId copy];
+    }
+    
     hsCard->_cardTypeId = [(NSNumber *)dic[@"cardTypeId"] unsignedIntegerValue];
     hsCard->_cardSetId = [(NSNumber *)dic[@"cardSetId"] unsignedIntegerValue];
     
@@ -204,7 +219,8 @@
         _copy->_slug = [self->_slug copyWithZone:zone];
         _copy->_classId = self->_classId;
         _copy->_multiClassIds = [self->_multiClassIds copyWithZone:zone];
-        _copy->_minionTypeId = self->_minionTypeId;
+        _copy->_minionTypeId = [self->_minionTypeId copyWithZone:zone];
+        _copy->_spellSchoolId = [self->_spellSchoolId copyWithZone:zone];
         _copy->_cardTypeId = self->_cardTypeId;
         _copy->_cardSetId = self->_cardSetId;
         _copy->_rarityId = self->_rarityId;
@@ -238,7 +254,8 @@
         cardObject->_slug = [[coder decodeObjectOfClass:[NSString class] forKey:@"slug"] copy];
         cardObject->_classId = [coder decodeIntegerForKey:@"classId"];
         cardObject->_multiClassIds = [[coder decodeObjectOfClass:[NSArray<NSNumber *> class] forKey:@"multiClassIds"] copy];
-        cardObject->_minionTypeId = [coder decodeIntegerForKey:@"minionTypeId"];
+        cardObject->_minionTypeId = [[coder decodeObjectOfClass:[NSNumber class] forKey:@"minionTypeId"] copy];
+        cardObject->_spellSchoolId = [[coder decodeObjectOfClass:[NSNumber class] forKey:@"spellSchoolId"] copy];
         cardObject->_cardTypeId = [coder decodeIntegerForKey:@"cardTypeId"];
         cardObject->_cardSetId = [coder decodeIntegerForKey:@"cardSetId"];
         cardObject->_rarityId = [coder decodeIntegerForKey:@"rarityId"];
@@ -266,7 +283,8 @@
     [coder encodeObject:self.slug forKey:@"slug"];
     [coder encodeInteger:self.classId forKey:@"classId"];
     [coder encodeObject:self.multiClassIds forKey:@"multiClassIds"];
-    [coder encodeInteger:self.minionTypeId forKey:@"minionTypeId"];
+    [coder encodeObject:self.minionTypeId forKey:@"minionTypeId"];
+    [coder encodeObject:self.spellSchoolId forKey:@"spellSchoolId"];
     [coder encodeInteger:self.cardTypeId forKey:@"cardTypeId"];
     [coder encodeInteger:self.cardSetId forKey:@"cardSetId"];
     [coder encodeInteger:self.rarityId forKey:@"rarityId"];

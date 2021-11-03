@@ -29,6 +29,9 @@
 		4F1B98A626C8235B004E1603 /* PrefsLocaleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1B98A526C8235B004E1603 /* PrefsLocaleViewController.m */; };
 		4F1B98A926C82382004E1603 /* PrefsRegionHostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1B98A826C82382004E1603 /* PrefsRegionHostViewController.m */; };
 		4F1B98AC26C824D9004E1603 /* UIViewController+animatedForSelectedIndexPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1B98AB26C824D9004E1603 /* UIViewController+animatedForSelectedIndexPath.m */; };
+		4F1E85F0273320CA00CE2551 /* HSCardSpellSchool.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F1E85EF273320C500CE2551 /* HSCardSpellSchool.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4F1E85F2273320E600CE2551 /* HSCardSpellSchool.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1E85F1273320E500CE2551 /* HSCardSpellSchool.m */; };
+		4F1E85F5273323C900CE2551 /* HSCardSpellSchool.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4F1E85F7273323C900CE2551 /* HSCardSpellSchool.strings */; };
 		4F2438ED26CD8CCF0041BB84 /* DecksSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2438EC26CD8CCF0041BB84 /* DecksSectionModel.m */; };
 		4F2438F026CD8DE40041BB84 /* DecksItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2438EF26CD8DE40041BB84 /* DecksItemModel.m */; };
 		4F2438F326CD9BD40041BB84 /* LocalizedError.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4F2438F526CD9BD40041BB84 /* LocalizedError.strings */; };
@@ -408,6 +411,10 @@
 		4F1B98AA26C824D9004E1603 /* UIViewController+animatedForSelectedIndexPath.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+animatedForSelectedIndexPath.h"; sourceTree = "<group>"; };
 		4F1B98AB26C824D9004E1603 /* UIViewController+animatedForSelectedIndexPath.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+animatedForSelectedIndexPath.m"; sourceTree = "<group>"; };
 		4F1E85EE27331DF600CE2551 /* NSScrubber+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSScrubber+Private.h"; sourceTree = "<group>"; };
+		4F1E85EF273320C500CE2551 /* HSCardSpellSchool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardSpellSchool.h; sourceTree = "<group>"; };
+		4F1E85F1273320E500CE2551 /* HSCardSpellSchool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCardSpellSchool.m; sourceTree = "<group>"; };
+		4F1E85F6273323C900CE2551 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/HSCardSpellSchool.strings; sourceTree = "<group>"; };
+		4F1E85F8273323CB00CE2551 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/HSCardSpellSchool.strings; sourceTree = "<group>"; };
 		4F2438EB26CD8CCF0041BB84 /* DecksSectionModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DecksSectionModel.h; sourceTree = "<group>"; };
 		4F2438EC26CD8CCF0041BB84 /* DecksSectionModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DecksSectionModel.m; sourceTree = "<group>"; };
 		4F2438EE26CD8DE40041BB84 /* DecksItemModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DecksItemModel.h; sourceTree = "<group>"; };
@@ -1601,6 +1608,7 @@
 				4F449EA026B17D08007CE04A /* HSCardClass.strings */,
 				4F449EBA26B193DE007CE04A /* HSCardType.strings */,
 				4F449EC526B19974007CE04A /* HSCardMinionType.strings */,
+				4F1E85F7273323C900CE2551 /* HSCardSpellSchool.strings */,
 				4F6A13A126B256150089A13A /* HSCardKeyword.strings */,
 				4F6A13AA26B26DD70089A13A /* HSCardGameMode.strings */,
 				4F03F57226C7B47C00FC9155 /* BlizzardAPIRegionHost.strings */,
@@ -1857,6 +1865,8 @@
 				4F449EBC26B19445007CE04A /* HSCardType.m */,
 				4F449EBE26B19630007CE04A /* HSCardMinionType.h */,
 				4F449EBF26B197C7007CE04A /* HSCardMinionType.m */,
+				4F1E85EF273320C500CE2551 /* HSCardSpellSchool.h */,
+				4F1E85F1273320E500CE2551 /* HSCardSpellSchool.m */,
 				4F449EC726B19AAE007CE04A /* HSCardKeyword.h */,
 				4F6A139B26B251EE0089A13A /* HSCardKeyword.m */,
 				4F6A13A326B267BF0089A13A /* HSCardGameMode.h */,
@@ -2088,6 +2098,7 @@
 				4F7F584E2724308C0080D6C3 /* PrefsUseCase.h in Headers */,
 				4FFDD68026CADB2D008E5B45 /* HSCardHero.h in Headers */,
 				4F34385826A36FBA001161FE /* StoneNamuCore.h in Headers */,
+				4F1E85F0273320CA00CE2551 /* HSCardSpellSchool.h in Headers */,
 				4FAA89D826A4266500572BB4 /* HSCardUseCase.h in Headers */,
 				4F4892C52724539600126131 /* Identifier.h in Headers */,
 				4FC094F926CD712100A7D373 /* HSDeckUseCaseImpl.h in Headers */,
@@ -2259,6 +2270,7 @@
 			files = (
 				4F449EB826B193DE007CE04A /* HSCardType.strings in Resources */,
 				4F449EB126B19202007CE04A /* HSCardRarity.strings in Resources */,
+				4F1E85F5273323C900CE2551 /* HSCardSpellSchool.strings in Resources */,
 				4FCC22BE26ECA949004997AA /* HSYear.strings in Resources */,
 				4F2438F326CD9BD40041BB84 /* LocalizedError.strings in Resources */,
 				4F03F56826C7B2C900FC9155 /* BlizzardHSAPILocale.strings in Resources */,
@@ -2340,6 +2352,7 @@
 				4FFDD67526CAD1EE008E5B45 /* LocalDeckUseCaseImpl.m in Sources */,
 				4F449E9B26B178C4007CE04A /* HSCardClass.m in Sources */,
 				4FFDD67B26CAD40E008E5B45 /* HSDeck.m in Sources */,
+				4F1E85F2273320E600CE2551 /* HSCardSpellSchool.m in Sources */,
 				4F03F55E26C7A15700FC9155 /* PrefsModel.xcdatamodeld in Sources */,
 				4FAA89DD26A426E700572BB4 /* HSCardUseCaseImpl.m in Sources */,
 				4FDDE4BF26F79F2D0022F87C /* NSString+arrayOfCharacters.m in Sources */,
@@ -2591,6 +2604,15 @@
 				4F03F57326C7B47D00FC9155 /* ko */,
 			);
 			name = BlizzardAPIRegionHost.strings;
+			sourceTree = "<group>";
+		};
+		4F1E85F7273323C900CE2551 /* HSCardSpellSchool.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4F1E85F6273323C900CE2551 /* en */,
+				4F1E85F8273323CB00CE2551 /* ko */,
+			);
+			name = HSCardSpellSchool.strings;
 			sourceTree = "<group>";
 		};
 		4F2438F526CD9BD40041BB84 /* LocalizedError.strings */ = {
