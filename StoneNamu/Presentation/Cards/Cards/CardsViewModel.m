@@ -218,6 +218,7 @@
         
         [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
             [snapshot release];
+            [itemModels release];
             completion();
             [self postApplyingSnapshotWasDone];
         }];
