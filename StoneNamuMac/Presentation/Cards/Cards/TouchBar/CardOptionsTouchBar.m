@@ -858,6 +858,11 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
 - (void)scrubber:(NSScrubber *)scrubber didSelectItemAtIndex:(NSInteger)selectedIndex {
     NSArray<NSString *> *keys = [self sortedKeysFromScrubber:scrubber];
     BlizzardHSAPIOptionType optionType = [self optionTypeFromScrubber:scrubber];
+    NSString *newValue = keys[selectedIndex];
+    
+    if ([newValue isEqualToString:self.options[optionType]]) {
+        return;
+    }
     
     self.options[optionType] = keys[selectedIndex];
     [self updateItemsWithOptions:self.options];
