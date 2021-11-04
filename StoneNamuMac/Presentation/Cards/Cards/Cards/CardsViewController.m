@@ -67,6 +67,14 @@
     return self.cardOptionsTouchBar;
 }
 
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder {
+    [super encodeRestorableStateWithCoder:coder];
+}
+
+- (void)restoreStateWithCoder:(NSCoder *)coder {
+    [super restoreStateWithCoder:coder];
+}
+
 - (void)configureCollectionView {
     NSScrollView *scrollView = [NSScrollView new];
     NSClipView *clipView = [NSClipView new];

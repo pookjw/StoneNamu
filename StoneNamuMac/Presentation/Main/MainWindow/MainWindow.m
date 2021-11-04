@@ -41,6 +41,7 @@
     self.releasedWhenClosed = NO;
     self.titlebarAppearsTransparent = NO;
     self.titleVisibility = NSWindowTitleHidden;
+    [self enableSnapshotRestoration];
 }
 
 @end
