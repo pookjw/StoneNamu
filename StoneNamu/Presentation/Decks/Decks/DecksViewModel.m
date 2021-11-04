@@ -72,9 +72,8 @@
         }
         
         if (hsDeck) {
-            [hsDeck retain];
             [self makeLocalDeckWithHSDeck:hsDeck title:[copyTitle autorelease] completion:^(LocalDeck * _Nonnull localDeck) {
-                completion(localDeck, [hsDeck autorelease], error);
+                completion(localDeck, hsDeck, error);
             }];
         }
     }];
@@ -197,10 +196,7 @@
     }];
 }
 
-- (void)deleteLocalDeck:(LocalDeck *)localDeck {
-    [localDeck retain];
-    
-    [self.queue addBarrierBlock:^{
+- (void)deleteLocalDeck:(LocalDeck *)localDeck {[self.queue addBarrierBlock:^{
         NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
         
         [snapshot.itemIdentifiers enumerateObjectsUsingBlock:^(DecksItemModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -213,7 +209,6 @@
             [snapshot release];
             
             [self.localDeckUseCase deleteLocalDeck:localDeck];
-            [localDeck release];
         }];
     }];
 }

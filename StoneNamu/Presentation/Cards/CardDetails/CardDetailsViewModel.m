@@ -166,7 +166,6 @@
 }
 
 - (void)updateDataSourceWithChildCards:(NSArray<HSCard *> *)childCards {
-    [childCards retain];
     [self.queue addBarrierBlock:^{
         NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
         
@@ -183,7 +182,6 @@
         [snapshot appendItemsWithIdentifiers:@[childCardsItem] intoSectionWithIdentifier:sectionModelChildren];
         
         [sectionModelChildren release];
-        [childCards release];
         [childCardsItem release];
         
         [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{

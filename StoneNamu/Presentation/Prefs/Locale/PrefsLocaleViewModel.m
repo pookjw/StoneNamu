@@ -125,7 +125,6 @@
 }
 
 - (void)loadPrefs:(Prefs *)prefs {
-    [prefs retain];
     [self.queue addOperationWithBlock:^{
         
         NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
@@ -146,8 +145,6 @@
             itemModel.isSelected = isSelected;
             [snapshot reconfigureItemsWithIdentifiers:@[itemModel]];
         }
-        
-        [prefs release];
         
         [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
             [snapshot release];

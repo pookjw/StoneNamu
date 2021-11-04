@@ -151,9 +151,7 @@
 }
 
 - (void)loadPrefs:(Prefs *)prefs {
-    [prefs retain];
     [self.queue addOperationWithBlock:^{
-        
         NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
         
         PrefsItemModel * _Nullable localeItemModel = nil;
@@ -195,8 +193,6 @@
         
         [snapshot reconfigureItemsWithIdentifiers:willReloaded];
         [willReloaded release];
-        
-        [prefs release];
         
         [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
             [snapshot release];

@@ -127,9 +127,6 @@
 }
 
 - (void)updateItem:(CardOptionItemModel *)itemModel withValue:(NSString * _Nullable)value {
-    [itemModel retain];
-    [value retain];
-    
     [self.queue addBarrierBlock:^{
         NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
         itemModel.value = value;
@@ -139,9 +136,6 @@
         [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
             [snapshot release];
         }];
-        
-        [itemModel release];
-        [value release];
     }];
 }
 
