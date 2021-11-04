@@ -264,7 +264,7 @@
 }
 
 - (void)updateCountLabel {
-    NSUInteger count = self.localDeck.cards.count;
+    NSUInteger count = self.localDeck.hsCards.count;
     
     if (count >= HSDECK_MAX_TOTAL_CARDS) {
         self.countBlurView.alpha = 0.0;

@@ -19,7 +19,7 @@
     self = [super init];
     
     if (self) {
-        CoreDataStackImpl *coreDataStack = [[CoreDataStackImpl alloc] initWithModelName:@"LocalDeckModel" storeContainerClass:[NSPersistentCloudKitContainer class]];
+        CoreDataStackImpl *coreDataStack = [[CoreDataStackImpl alloc] initWithModelName:@"LocalDeckModel" storeContainerClass:[NSPersistentCloudKitContainer class] models:@[@"LocalDeckModel", @"LocalDeckModel 2"]];
         self.coreDataStack = coreDataStack;
         [coreDataStack release];
         

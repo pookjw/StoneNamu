@@ -65,7 +65,7 @@
 
 - (BOOL)isEasterEggDeckFromLocalDeck:(LocalDeck *)localDeck {
     NSArray<NSString *> *easterEggs = @[@"피나무", @"pnamu"];
-    NSMutableArray<HSCard *> *allCards = [[[NSSet setWithArray:localDeck.cards] allObjects] mutableCopy];
+    NSMutableArray<HSCard *> *allCards = [[[NSSet setWithArray:localDeck.hsCards] allObjects] mutableCopy];
     
     [allCards sortUsingComparator:^NSComparisonResult(HSCard * _Nonnull obj1, HSCard * _Nonnull obj2) {
         return [obj1 compare:obj2];
@@ -98,7 +98,7 @@
     NSArray<HSCard *> *copyHSCards = [hsCards copy];
     
     [self.localDeckRepository.queue addBarrierBlock:^{
-        NSArray<HSCard *> *localDeckHSCards = localDeck.cards;
+        NSArray<HSCard *> *localDeckHSCards = localDeck.hsCards;
         
         if ((localDeckHSCards.count + copyHSCards.count) > HSDECK_MAX_TOTAL_CARDS) {
             NSError *error = CannotAddNoMoreThanThirtyCardsError();
@@ -166,7 +166,7 @@
         NSMutableArray<HSCard *> *mutableLocalDeckHSCards = [localDeckHSCards mutableCopy];
         [mutableLocalDeckHSCards addObjectsFromArray:copyHSCards];
         [copyHSCards release];
-        localDeck.cards = mutableLocalDeckHSCards;
+        localDeck.hsCards = mutableLocalDeckHSCards;
         [mutableLocalDeckHSCards release];
         localDeck.deckCode = nil;
         [localDeck updateTimestamp];
@@ -180,11 +180,11 @@
     [self.localDeckRepository.queue addBarrierBlock:^{
         validation(nil);
         
-        NSMutableArray<HSCard *> *mutableCards = [localDeck.cards mutableCopy];
+        NSMutableArray<HSCard *> *mutableCards = [localDeck.hsCards mutableCopy];
         [mutableCards removeObjectsInArray:copyHSCards.allObjects];
         [copyHSCards release];
         
-        localDeck.cards = mutableCards;
+        localDeck.hsCards = mutableCards;
         [mutableCards release];
         localDeck.deckCode = nil;
         [localDeck updateTimestamp];
@@ -197,7 +197,7 @@
     NSSet<HSCard *> *copyHSCards = [hsCards copy];
     
     [self.localDeckRepository.queue addBarrierBlock:^{
-        NSArray<HSCard *> *localDeckHSCards = localDeck.cards;
+        NSArray<HSCard *> *localDeckHSCards = localDeck.hsCards;
         
         for (HSCard *hsCard in copyHSCards) {
             NSUInteger countOfContaining = 0;
@@ -238,7 +238,7 @@
         NSMutableArray<HSCard *> *mutableLocalDeckHSCards = [localDeckHSCards mutableCopy];
         [mutableLocalDeckHSCards addObjectsFromArray:copyHSCards.allObjects];
         [copyHSCards release];
-        localDeck.cards = mutableLocalDeckHSCards;
+        localDeck.hsCards = mutableLocalDeckHSCards;
         [mutableLocalDeckHSCards release];
         localDeck.deckCode = nil;
         [localDeck updateTimestamp];
@@ -252,14 +252,14 @@
     [self.localDeckRepository.queue addBarrierBlock:^{
         validation(nil);
         
-        NSMutableArray<HSCard *> *mutableLocalDeckHSCards = [localDeck.cards mutableCopy];
+        NSMutableArray<HSCard *> *mutableLocalDeckHSCards = [localDeck.hsCards mutableCopy];
         
         for (HSCard *hsCard in copyHSCards) {
             [mutableLocalDeckHSCards removeSingleObject:hsCard];
         }
         [copyHSCards release];
         
-        localDeck.cards = mutableLocalDeckHSCards;
+        localDeck.hsCards = mutableLocalDeckHSCards;
         [mutableLocalDeckHSCards release];
         localDeck.deckCode = nil;
         [localDeck updateTimestamp];

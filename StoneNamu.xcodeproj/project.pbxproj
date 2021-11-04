@@ -225,6 +225,7 @@
 		4FAA89E126A42A1500572BB4 /* BlizzardAPIRepositoryImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FAA89DF26A42A1500572BB4 /* BlizzardAPIRepositoryImpl.m */; };
 		4FB0ECE826B82AEE0020EE6C /* CardDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FB0ECE726B82AEE0020EE6C /* CardDetailsViewController.m */; };
 		4FB0ECEB26B82B100020EE6C /* DynamicPresentationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FB0ECEA26B82B100020EE6C /* DynamicPresentationController.m */; };
+		4FB45F8A27346B440039CD62 /* LocalDeck_v1_to_v2.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 4FB45F8927346B440039CD62 /* LocalDeck_v1_to_v2.xcmappingmodel */; };
 		4FB850F726C18BAE00E3C89D /* PrefsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FB850F626C18BAE00E3C89D /* PrefsViewController.m */; };
 		4FB850FF26C18D9300E3C89D /* Prefs.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FB850FD26C18D9300E3C89D /* Prefs.m */; };
 		4FB8510326C18DE200E3C89D /* NSManagedObject+_fetchRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FB8510126C18DE200E3C89D /* NSManagedObject+_fetchRequest.m */; };
@@ -703,6 +704,8 @@
 		4FB0ECE626B82AEE0020EE6C /* CardDetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardDetailsViewController.h; sourceTree = "<group>"; };
 		4FB0ECE726B82AEE0020EE6C /* CardDetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardDetailsViewController.m; sourceTree = "<group>"; };
 		4FB0ECEA26B82B100020EE6C /* DynamicPresentationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DynamicPresentationController.m; sourceTree = "<group>"; };
+		4FB45F88273469910039CD62 /* LocalDeckModel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "LocalDeckModel 2.xcdatamodel"; sourceTree = "<group>"; };
+		4FB45F8927346B440039CD62 /* LocalDeck_v1_to_v2.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = LocalDeck_v1_to_v2.xcmappingmodel; sourceTree = "<group>"; };
 		4FB850F526C18BAE00E3C89D /* PrefsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefsViewController.h; sourceTree = "<group>"; };
 		4FB850F626C18BAE00E3C89D /* PrefsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrefsViewController.m; sourceTree = "<group>"; };
 		4FB850FC26C18D9300E3C89D /* Prefs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Prefs.h; sourceTree = "<group>"; };
@@ -2044,6 +2047,7 @@
 			isa = PBXGroup;
 			children = (
 				4FFDD66726CACB30008E5B45 /* LocalDeckModel.xcdatamodeld */,
+				4FB45F8927346B440039CD62 /* LocalDeck_v1_to_v2.xcmappingmodel */,
 				4FFDD66026CAC9B4008E5B45 /* LocalDeck.h */,
 				4FFDD66126CAC9B4008E5B45 /* LocalDeck.m */,
 			);
@@ -2329,6 +2333,7 @@
 			files = (
 				4F6A13A526B267D60089A13A /* HSCardGameMode.m in Sources */,
 				4F646A7726B7E8C100BEDB38 /* DataCacheRepositoryImpl.m in Sources */,
+				4FB45F8A27346B440039CD62 /* LocalDeck_v1_to_v2.xcmappingmodel in Sources */,
 				4F449EAE26B1908A007CE04A /* HSCardRarity.m in Sources */,
 				4F34386826A37029001161FE /* BlizzardTokenAPIImpl.m in Sources */,
 				4FFDD67126CACE97008E5B45 /* LocalDeckRepositoryImpl.m in Sources */,
@@ -3211,9 +3216,10 @@
 		4FFDD66726CACB30008E5B45 /* LocalDeckModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				4FB45F88273469910039CD62 /* LocalDeckModel 2.xcdatamodel */,
 				4FFDD66826CACB30008E5B45 /* LocalDeckModel.xcdatamodel */,
 			);
-			currentVersion = 4FFDD66826CACB30008E5B45 /* LocalDeckModel.xcdatamodel */;
+			currentVersion = 4FB45F88273469910039CD62 /* LocalDeckModel 2.xcdatamodel */;
 			path = LocalDeckModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

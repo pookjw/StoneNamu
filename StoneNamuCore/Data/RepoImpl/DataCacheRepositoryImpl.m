@@ -20,7 +20,7 @@
     self = [super init];
     
     if (self) {
-        CoreDataStackImpl *coreDataStack = [[CoreDataStackImpl alloc] initWithModelName:@"DataCacheModel" storeContainerClass:[NSPersistentContainer class]];
+        CoreDataStackImpl *coreDataStack = [[CoreDataStackImpl alloc] initWithModelName:@"DataCacheModel" storeContainerClass:[NSPersistentContainer class] models:@[@"DataCacheModel"]];
         self.coreDataStack = coreDataStack;
         [coreDataStack release];
     }

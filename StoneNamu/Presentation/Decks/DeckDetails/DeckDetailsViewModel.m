@@ -257,13 +257,13 @@
 }
 
 - (void)exportLocalizedDeckCodeWithCompletion:(DeckDetailsViewModelExportDeckCodeCompletion)completion {
-    if (self.localDeck.cards.count < HSDECK_MAX_TOTAL_CARDS) {
+    if (self.localDeck.hsCards.count < HSDECK_MAX_TOTAL_CARDS) {
         [self postCardsAreNotFilledNotification];
         completion(nil);
         return;
     }
     
-    [self.hsDeckUseCase fetchDeckByCardList:self.localDeck.cardIds
+    [self.hsDeckUseCase fetchDeckByCardList:self.localDeck.hsCardIds
                                     classId:self.localDeck.classId.unsignedIntegerValue
                                  completion:^(HSDeck * _Nullable hsDeck, NSError * _Nullable error) {
         if (error) {
@@ -291,8 +291,8 @@
     [self->_localDeck release];
     self->_localDeck = [localDeck retain];
     
-    if (localDeck.cards) {
-        [self updateDataSourceWithHSCards:localDeck.cards];;
+    if (localDeck.hsCards) {
+        [self updateDataSourceWithHSCards:localDeck.hsCards];;
     } else {
         [self updateDataSourceWithHSCards:@[]];
     }
@@ -562,7 +562,7 @@
 - (void)postCardsAreNotFilledNotification {
     NSString *message = [NSString stringWithFormat:NSLocalizedString(@"DECK_EXPORT_ERROR_CARDS_ARE_NOT_FILLED", @""),
                          HSDECK_MAX_TOTAL_CARDS,
-                         self.localDeck.cards.count];
+                         self.localDeck.hsCards.count];
     NSError *error = [NSError errorWithDomain:@"com.pookjw.StoneNamu"
                                          code:113
                                      userInfo:@{NSLocalizedDescriptionKey: message}];

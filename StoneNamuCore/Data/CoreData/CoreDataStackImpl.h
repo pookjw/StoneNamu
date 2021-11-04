@@ -10,7 +10,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CoreDataStackImpl : NSObject <CoreDataStack>
-- (instancetype)initWithModelName:(NSString *)modelName storeContainerClass:(Class)storeContainerClass;
+- (instancetype)initWithModelName:(NSString *)modelName storeContainerClass:(Class)storeContainerClass models:(NSArray<NSString *> *)models;
 @end
 
 NS_ASSUME_NONNULL_END

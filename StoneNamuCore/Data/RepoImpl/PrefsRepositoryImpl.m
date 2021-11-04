@@ -21,7 +21,7 @@ typedef void (^PrefsRepositoryImplMakeWithCompletion)(Prefs *);
     self = [super init];
     
     if (self) {
-        CoreDataStackImpl *coreDataStack = [[CoreDataStackImpl alloc] initWithModelName:@"PrefsModel" storeContainerClass:[NSPersistentContainer class]];
+        CoreDataStackImpl *coreDataStack = [[CoreDataStackImpl alloc] initWithModelName:@"PrefsModel" storeContainerClass:[NSPersistentContainer class] models:@[@"PrefsModel"]];
         self.coreDataStack = coreDataStack;
         [coreDataStack release];
         

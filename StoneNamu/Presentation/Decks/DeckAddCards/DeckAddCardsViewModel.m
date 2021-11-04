@@ -87,7 +87,7 @@
 }
 
 - (NSUInteger)countOfLocalDeckCards {
-    return self.localDeck.cards.count;
+    return self.localDeck.hsCards.count;
 }
 
 - (BOOL)requestDataSourceWithOptions:(NSDictionary<NSString *,id> * _Nullable)options reset:(BOOL)reset {
@@ -251,7 +251,7 @@
             [snapshot appendSectionsWithIdentifiers:@[sectionModel]];
         }
         
-        NSArray<HSCard *> *localDeckCards = self.localDeck.cards;
+        NSArray<HSCard *> *localDeckCards = self.localDeck.hsCards;
         NSMutableArray<DeckAddCardItemModel *> *itemModels = [@[] mutableCopy];
         
         for (HSCard *card in cards) {
@@ -279,7 +279,7 @@
     [self.queue addBarrierBlock:^{
         NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
         
-        NSArray<HSCard *> *localDeckCards = self.localDeck.cards;
+        NSArray<HSCard *> *localDeckCards = self.localDeck.hsCards;
         
         for (DeckAddCardItemModel *itemModel in snapshot.itemIdentifiers) {
             NSUInteger count = [localDeckCards countOfObject:itemModel.card];

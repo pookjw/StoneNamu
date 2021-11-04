@@ -10,21 +10,21 @@
 
 @implementation LocalDeck
 
-@dynamic cardsData;
+@dynamic hsCardsData;
 @dynamic format;
 @dynamic classId;
 @dynamic deckCode;
 @dynamic name;
 @dynamic timestamp;
 
-- (NSArray<HSCard *> *)cards {
-    if (self.cardsData == nil) {
+- (NSArray<HSCard *> *)hsCards {
+    if (self.hsCardsData == nil) {
         return @[];
     }
     
     NSError * _Nullable error = nil;
     
-    NSArray<HSCard *> *cards = [NSKeyedUnarchiver unarchivedObjectOfClasses:HSCard.unarchvingClasses fromData:self.cardsData error:&error];
+    NSArray<HSCard *> *cards = [NSKeyedUnarchiver unarchivedObjectOfClasses:HSCard.unarchvingClasses fromData:self.hsCardsData error:&error];
     
     if (error) {
         NSLog(@"%@", error.localizedDescription);
@@ -34,25 +34,25 @@
     return cards;
 }
 
-- (void)setCards:(NSArray<NSNumber *> *)cards {
+- (void)setHsCards:(NSArray<NSNumber *> *)hsCards {
     NSError * _Nullable error = nil;
-    NSArray<NSNumber *> *cardsCopy = [cards copy];
+    NSArray<NSNumber *> *hsCardsCopy = [hsCards copy];
     
-    NSData *cardsData = [NSKeyedArchiver archivedDataWithRootObject:cardsCopy requiringSecureCoding:YES error:&error];
-    [cardsCopy release];
+    NSData *hsCardsData = [NSKeyedArchiver archivedDataWithRootObject:hsCardsCopy requiringSecureCoding:YES error:&error];
+    [hsCardsCopy release];
     
     if (error) {
         NSLog(@"%@", error.localizedDescription);
         return;
     }
     
-    self.cardsData = cardsData;
+    self.hsCardsData = hsCardsData;
 }
 
-- (NSArray<NSNumber *> *)cardIds {
+- (NSArray<NSNumber *> *)hsCardIds {
     NSMutableArray<NSNumber *> *mutable = [@[] mutableCopy];
     
-    for (HSCard *hsCard in self.cards) {
+    for (HSCard *hsCard in self.hsCards) {
         @autoreleasepool {
             [mutable addObject:[NSNumber numberWithUnsignedInteger:hsCard.cardId]];
         }
@@ -66,7 +66,7 @@
 
 - (void)setValuesAsHSDeck:(HSDeck *)hsDeck {
     if (hsDeck.cards.count > 0) {
-        self.cards = hsDeck.cards;
+        self.hsCards = hsDeck.cards;
     } else {
         NSLog(@"card in HSDeck is empty!");
     }

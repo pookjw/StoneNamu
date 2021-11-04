@@ -18,7 +18,7 @@ static NSMutableDictionary<NSString *, NSOperationQueue *> * _Nullable kOperatio
     NSPersistentContainer *_storeContainer;
     NSOperationQueue *_queue;
 }
-
+@property Class storeContainerClass;
 @end
 
 @implementation CoreDataStackImpl
@@ -27,7 +27,7 @@ static NSMutableDictionary<NSString *, NSOperationQueue *> * _Nullable kOperatio
 @synthesize storeContainer = _storeContainer;
 @synthesize queue = _queue;
 
-- (instancetype)initWithModelName:(NSString *)modelName storeContainerClass:(Class)storeContainerClass {
+- (instancetype)initWithModelName:(NSString *)modelName storeContainerClass:(Class)storeContainerClass models:(nonnull NSArray<NSString *> *)models {
     if (!NSThread.isMainThread) {
         [NSException raise:@"Not Main Thread!" format:@"Please run init at Main Thread!"];
     }
@@ -35,9 +35,11 @@ static NSMutableDictionary<NSString *, NSOperationQueue *> * _Nullable kOperatio
     self = [self init];
     
     if (self) {
-        [self configureStoreContainerWithModelName:modelName class:storeContainerClass];
+        self.storeContainerClass = storeContainerClass;
+        [self configureStoreContainerWithModelName:modelName models:models class:storeContainerClass];
         [self configureContextWithModelName:modelName];
         [self configureQueueWithModelName:modelName];
+        [self performMigrationWithModelName:modelName models:models];
         [self bind];
     }
     
@@ -71,7 +73,7 @@ static NSMutableDictionary<NSString *, NSOperationQueue *> * _Nullable kOperatio
     }];
 }
 
-- (void)configureStoreContainerWithModelName:(NSString *)modelName class:(Class)class {
+- (void)configureStoreContainerWithModelName:(NSString *)modelName models:(nonnull NSArray<NSString *> *)models class:(Class)class {
     if (kStoreContainers == nil) {
         kStoreContainers = [@{} mutableCopy];
     }
@@ -81,11 +83,8 @@ static NSMutableDictionary<NSString *, NSOperationQueue *> * _Nullable kOperatio
         return;
     }
     
-    NSBundle *bundle = [NSBundle bundleWithIdentifier:IDENTIFIER];
-    NSURL *modelURL = [bundle URLForResource:modelName withExtension:@"momd"];
-    NSManagedObjectModel *model = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
+    NSManagedObjectModel *model = [self modelForMomd:modelName mom:models.lastObject];
     NSPersistentContainer *container = [class persistentContainerWithName:modelName managedObjectModel:model];
-    [model release];
     
     NSSemaphoreCondition *semaphore = [[NSSemaphoreCondition alloc] initWithValue:0];
     
@@ -115,6 +114,7 @@ static NSMutableDictionary<NSString *, NSOperationQueue *> * _Nullable kOperatio
     }
     
     NSManagedObjectContext *context = self.storeContainer.newBackgroundContext;
+    context.automaticallyMergesChangesFromParent = YES;
     kContexts[modelName] = context;
     _context = [context retain];
 }
@@ -134,6 +134,73 @@ static NSMutableDictionary<NSString *, NSOperationQueue *> * _Nullable kOperatio
     kOperationQueues[modelName] = queue;
     _queue = [queue retain];
     [queue release];
+}
+
+- (void)performMigrationWithModelName:(NSString *)modelName models:(nonnull NSArray<NSString *> *)models {
+    if (models.count < 2) return;
+    
+    NSSemaphoreCondition *semaphore = [[NSSemaphoreCondition alloc] initWithValue:0];
+    
+    [self.queue addBarrierBlock:^{
+        for (NSUInteger index = 0; index < (models.count - 1); index++) {
+            NSManagedObjectModel *currentmodel = [self modelForMomd:modelName mom:models[index]];
+            NSManagedObjectModel *nextModel = [self modelForMomd:modelName mom:models[index + 1]];
+            
+            if ((currentmodel == nil) || (nextModel == nil)) {
+                continue;
+            }
+            
+            NSMigrationManager *migrationManager = [[NSMigrationManager alloc] initWithSourceModel:currentmodel destinationModel:nextModel];
+            NSMappingModel *mappingModel = [NSMappingModel inferredMappingModelForSourceModel:currentmodel destinationModel:nextModel error:nil];
+            
+            NSURL *dirURL = [self.storeContainerClass defaultDirectoryURL];
+            NSURL *fromURL = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@.sqlite", modelName] relativeToURL:dirURL];
+            NSURL *toDestinationURL = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@~1.sqlite", modelName] relativeToURL:dirURL];
+            
+            [NSFileManager.defaultManager removeItemAtURL:toDestinationURL error:nil];
+            
+            NSError * _Nullable error = nil;
+            [migrationManager migrateStoreFromURL:fromURL
+                                             type:NSSQLiteStoreType
+                                          options:nil
+                                 withMappingModel:mappingModel
+                                 toDestinationURL:toDestinationURL
+                                  destinationType:NSSQLiteStoreType
+                               destinationOptions:nil
+                                            error:&error];
+            
+            [migrationManager release];
+            
+            if (error == nil) {
+                [NSFileManager.defaultManager removeItemAtURL:fromURL error:nil];
+                [NSFileManager.defaultManager moveItemAtURL:toDestinationURL toURL:fromURL error:nil];
+            } else {
+//                NSLog(@"Migration failed: %@", error.localizedDescription);
+            }
+        }
+        
+        [semaphore signal];
+    }];
+    
+    [semaphore wait];
+    [semaphore release];
+}
+
+- (NSManagedObjectModel * _Nullable)modelForMomd:(NSString *)modelName mom:(NSString *)mom {
+    NSBundle *bundle = [NSBundle bundleWithIdentifier:IDENTIFIER];
+    NSArray<NSURL *> *urls = [bundle URLsForResourcesWithExtension:@"mom" subdirectory:[NSString stringWithFormat:@"%@.momd", modelName]];
+    NSURL * _Nullable __block url = nil;
+    
+    [urls enumerateObjectsUsingBlock:^(NSURL * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj.lastPathComponent isEqualToString:[NSString stringWithFormat:@"%@.mom", mom]]) {
+            url = obj;
+            *stop = YES;
+        }
+    }];
+    
+    NSManagedObjectModel *model = [[NSManagedObjectModel alloc] initWithContentsOfURL:url];
+    
+    return [model autorelease];
 }
 
 - (void)bind {

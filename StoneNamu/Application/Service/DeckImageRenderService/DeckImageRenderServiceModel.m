@@ -56,7 +56,7 @@
         
         //
         
-        NSArray<HSCard *> *hsCards = localDeck.cards;
+        NSArray<HSCard *> *hsCards = localDeck.hsCards;
         NSString *deckName = localDeck.name;
         HSCardClass classId = localDeck.classId.unsignedIntegerValue;
         HSDeckFormat deckFormat = localDeck.format;
