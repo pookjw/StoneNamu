@@ -155,7 +155,7 @@ static NSMutableDictionary<NSString *, NSOperationQueue *> * _Nullable kOperatio
             
             NSURL *dirURL = [self.storeContainerClass defaultDirectoryURL];
             NSURL *fromURL = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@.sqlite", modelName] relativeToURL:dirURL];
-            NSURL *toDestinationURL = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@~1.sqlite", modelName] relativeToURL:dirURL];
+            NSURL *toDestinationURL = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@_migration.sqlite", modelName] relativeToURL:dirURL];
             
             [NSFileManager.defaultManager removeItemAtURL:toDestinationURL error:nil];
             
