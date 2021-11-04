@@ -103,7 +103,7 @@
     
     self.isFetching = YES;
     
-    NSBlockOperation *op = [NSBlockOperation new];
+    NSBlockOperation * __block op = [NSBlockOperation new];
     
     [op addExecutionBlock:^{
         NSDictionary<NSString *, NSString *> *defaultOptions = [self optionsForLocalDeckClassId];
