@@ -197,6 +197,8 @@
         hsCard->_parentId = 0;
     }
     
+    hsCard->_version = HSCARD_LATEST_VERSION;
+    
     //
     
     return [hsCard autorelease];
@@ -249,12 +251,20 @@
     
     if (object) {
         HSCard *cardObject = (HSCard *)object;
+        
+        NSUInteger version = [coder decodeIntegerForKey:@"version"];
+        
         cardObject->_cardId = [coder decodeIntegerForKey:@"cardId"];
         cardObject->_collectible = [coder decodeIntegerForKey:@"collectible"];
         cardObject->_slug = [[coder decodeObjectOfClass:[NSString class] forKey:@"slug"] copy];
         cardObject->_classId = [coder decodeIntegerForKey:@"classId"];
         cardObject->_multiClassIds = [[coder decodeObjectOfClass:[NSArray<NSNumber *> class] forKey:@"multiClassIds"] copy];
-        cardObject->_minionTypeId = [[coder decodeObjectOfClass:[NSNumber class] forKey:@"minionTypeId"] copy];
+        if (version == 0) {
+            NSUInteger minionTypeId = [coder decodeIntegerForKey:@"minionTypeId"];
+            cardObject->_minionTypeId = [[NSNumber numberWithUnsignedInteger:minionTypeId] copy];
+        } else if (version == 1) {
+            cardObject->_minionTypeId = [[coder decodeObjectOfClass:[NSNumber class] forKey:@"minionTypeId"] copy];
+        }
         cardObject->_spellSchoolId = [[coder decodeObjectOfClass:[NSNumber class] forKey:@"spellSchoolId"] copy];
         cardObject->_cardTypeId = [coder decodeIntegerForKey:@"cardTypeId"];
         cardObject->_cardSetId = [coder decodeIntegerForKey:@"cardSetId"];
@@ -272,6 +282,7 @@
         cardObject->_childIds = [[coder decodeObjectOfClass:[NSArray<NSNumber *> class] forKey:@"childIds"] copy];
         cardObject->_gameModes = [[coder decodeObjectOfClass:[NSArray<NSNumber *> class] forKey:@"gameModes"] copy];
         cardObject->_parentId = [coder decodeIntegerForKey:@"parentId"];
+        cardObject->_version = HSCARD_LATEST_VERSION;
     }
     
     return object;
@@ -301,6 +312,7 @@
     [coder encodeObject:self.childIds forKey:@"childIds"];
     [coder encodeObject:self.gameModes forKey:@"gameModes"];
     [coder encodeInteger:self.parentId forKey:@"parentId"];
+    [coder encodeInteger:self.version forKey:@"version"];
 }
 
 #pragma mark - NSSecureCoding

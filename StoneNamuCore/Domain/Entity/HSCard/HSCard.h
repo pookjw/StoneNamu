@@ -18,6 +18,7 @@
 #import <StoneNamuCore/HSCardSort.h>
 
 #define kHSCardType @"kHSCardType"
+#define HSCARD_LATEST_VERSION 1
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -49,6 +50,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly, copy) NSArray<NSNumber *> *gameModes;
 @property (readonly) NSUInteger parentId;
 
+@property (readonly) NSUInteger version;
 @property (class, readonly, nonatomic) NSSet<Class> *unarchvingClasses;
 + (HSCard * _Nullable)hsCardFromDic:(NSDictionary *)dic error:(NSError ** _Nullable)error;
 + (NSArray<HSCard *> *)hsCardsFromDic:(NSDictionary *)dic;
