@@ -62,7 +62,7 @@
     
     if (self.presentedViewController != nil) {
         self.tmpPresentedViewController = self.presentedViewController;
-        [self.tmpPresentedViewController dismissViewControllerAnimated:NO completion:^{}];
+        [self.tmpPresentedViewController dismissViewControllerAnimated:YES completion:^{}];
     } else {
         self.tmpPresentedViewController = nil;
     }
@@ -72,7 +72,7 @@
     [super traitCollectionDidChange:previousTraitCollection];
     [self setViewControllerForTraitCollection:self.traitCollection previous:previousTraitCollection];
     
-    if ((self.tmpPresentedViewController != nil)) {
+    if (self.tmpPresentedViewController != nil) {
         if ((self.tmpPresentedViewController.presentingViewController == nil) && (![self.tmpPresentedViewController isKindOfClass:[UISplitViewController class]])) {
             [self presentViewController:self.tmpPresentedViewController animated:YES completion:^{}];
         }
