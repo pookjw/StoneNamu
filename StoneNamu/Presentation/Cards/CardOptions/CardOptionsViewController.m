@@ -154,6 +154,22 @@
         configuration.text = itemModel.text;
         cell.contentConfiguration = configuration;
         
+        //
+        
+        [cell.interactions enumerateObjectsUsingBlock:^(id<UIInteraction>  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if ([obj isKindOfClass:[UIToolTipInteraction class]]) {
+                [cell removeInteraction:obj];
+            }
+        }];
+        
+        if (itemModel.toolTip != nil) {
+            UIToolTipInteraction *toolTipInteraction = [[UIToolTipInteraction alloc] initWithDefaultToolTip:itemModel.toolTip];
+            [cell addInteraction:toolTipInteraction];
+            [toolTipInteraction release];
+        }
+        
+        //
+        
         if (itemModel.value) {
             cell.accessories = @[
                 [[[UICellAccessoryLabel alloc] initWithText:itemModel.accessoryText] autorelease]

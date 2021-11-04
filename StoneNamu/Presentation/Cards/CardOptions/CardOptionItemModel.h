@@ -46,6 +46,7 @@ CardOptionItemModelType CardOptionItemModelTypeFromNSString(NSString *);
 @property (readonly, nonatomic) BOOL showPlusMarkWhenReachedToMaxOnStepper;
 @property (readonly, nonatomic) NSString *text;
 @property (readonly, nonatomic) NSString * _Nullable accessoryText;
+@property (readonly, nonatomic) NSString * _Nullable toolTip;
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithType:(CardOptionItemModelType)type;

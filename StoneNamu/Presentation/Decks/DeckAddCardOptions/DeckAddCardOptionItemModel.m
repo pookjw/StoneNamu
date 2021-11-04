@@ -355,6 +355,41 @@ DeckAddCardOptionItemModelType DeckAddCardOptionItemModelTypeFromNSString(NSStri
     }
 }
 
+- (NSString * _Nullable)toolTip {
+    switch (self.type) {
+        case DeckAddCardOptionItemModelTypeSet:
+            return NSLocalizedString(@"CARD_SET_TOOLTIP_DESCRIPTION", @"");
+        case DeckAddCardOptionItemModelTypeClass:
+            return NSLocalizedString(@"CARD_CLASS_TOOLTIP_DESCRIPTION", @"");
+        case DeckAddCardOptionItemModelTypeManaCost:
+            return NSLocalizedString(@"CARD_MANA_COST_TOOLTIP_DESCRIPTION", @"");
+        case DeckAddCardOptionItemModelTypeAttack:
+            return NSLocalizedString(@"CARD_ATTACK_TOOLTIP_DESCRIPTION", @"");
+        case DeckAddCardOptionItemModelTypeHealth:
+            return NSLocalizedString(@"CARD_HEALTH_TOOLTIP_DESCRIPTION", @"");
+        case DeckAddCardOptionItemModelTypeCollectible:
+            return NSLocalizedString(@"CARD_COLLECTIBLE_TOOLTIP_DESCRIPTION", @"");
+        case DeckAddCardOptionItemModelTypeRarity:
+            return NSLocalizedString(@"CARD_RARITY_TOOLTIP_DESCRIPTION", @"");
+        case DeckAddCardOptionItemModelTypeType:
+            return NSLocalizedString(@"CARD_TYPE_TOOLTIP_DESCRIPTION", @"");
+        case DeckAddCardOptionItemModelTypeMinionType:
+            return NSLocalizedString(@"CARD_MINION_TYPE_TOOLTIP_DESCRIPTION", @"");
+        case DeckAddCardOptionItemModelTypeSpellSchool:
+            return NSLocalizedString(@"CARD_SPELL_SCHOOL_TOOLTIP_DESCRIPTION", @"");
+        case DeckAddCardOptionItemModelTypeKeyword:
+            return NSLocalizedString(@"CARD_KEYWORD_TOOLTIP_DESCRIPTION", @"");
+        case DeckAddCardOptionItemModelTypeTextFilter:
+            return NSLocalizedString(@"CARD_TEXT_FILTER_TOOLTIP_DESCRIPTION", @"");
+        case DeckAddCardOptionItemModelTypeGameMode:
+            return NSLocalizedString(@"CARD_GAME_MODE_TOOLTIP_DESCRIPTION", @"");
+        case DeckAddCardOptionItemModelTypeSort:
+            return NSLocalizedString(@"CARD_SORT_TOOLTIP_DESCRIPTION", @"");
+        default:
+            return @"";
+    }
+}
+
 #pragma mark - Helper
 
 - (NSArray<PickerItemModel *> *)pickerItemModelsFromDic:(NSDictionary<NSString *, NSString *> *)dic

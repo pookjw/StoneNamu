@@ -343,6 +343,41 @@ CardOptionItemModelType CardOptionItemModelTypeFromNSString(NSString * key) {
     }
 }
 
+- (NSString * _Nullable)toolTip {
+    switch (self.type) {
+        case CardOptionItemModelTypeSet:
+            return NSLocalizedString(@"CARD_SET_TOOLTIP_DESCRIPTION", @"");
+        case CardOptionItemModelTypeClass:
+            return NSLocalizedString(@"CARD_CLASS_TOOLTIP_DESCRIPTION", @"");
+        case CardOptionItemModelTypeManaCost:
+            return NSLocalizedString(@"CARD_MANA_COST_TOOLTIP_DESCRIPTION", @"");
+        case CardOptionItemModelTypeAttack:
+            return NSLocalizedString(@"CARD_ATTACK_TOOLTIP_DESCRIPTION", @"");
+        case CardOptionItemModelTypeHealth:
+            return NSLocalizedString(@"CARD_HEALTH_TOOLTIP_DESCRIPTION", @"");
+        case CardOptionItemModelTypeCollectible:
+            return NSLocalizedString(@"CARD_COLLECTIBLE_TOOLTIP_DESCRIPTION", @"");
+        case CardOptionItemModelTypeRarity:
+            return NSLocalizedString(@"CARD_RARITY_TOOLTIP_DESCRIPTION", @"");
+        case CardOptionItemModelTypeType:
+            return NSLocalizedString(@"CARD_TYPE_TOOLTIP_DESCRIPTION", @"");
+        case CardOptionItemModelTypeMinionType:
+            return NSLocalizedString(@"CARD_MINION_TYPE_TOOLTIP_DESCRIPTION", @"");
+        case CardOptionItemModelTypeSpellSchool:
+            return NSLocalizedString(@"CARD_SPELL_SCHOOL_TOOLTIP_DESCRIPTION", @"");
+        case CardOptionItemModelTypeKeyword:
+            return NSLocalizedString(@"CARD_KEYWORD_TOOLTIP_DESCRIPTION", @"");
+        case CardOptionItemModelTypeTextFilter:
+            return NSLocalizedString(@"CARD_TEXT_FILTER_TOOLTIP_DESCRIPTION", @"");
+        case CardOptionItemModelTypeGameMode:
+            return NSLocalizedString(@"CARD_GAME_MODE_TOOLTIP_DESCRIPTION", @"");
+        case CardOptionItemModelTypeSort:
+            return NSLocalizedString(@"CARD_SORT_TOOLTIP_DESCRIPTION", @"");
+        default:
+            return @"";
+    }
+}
+
 #pragma mark - Helper
 
 - (NSArray<PickerItemModel *> *)pickerItemModelsFromDic:(NSDictionary<NSString *, NSString *> *)dic
