@@ -38,7 +38,7 @@
 
 "CARD_HEALTH" = "Health";
 
-"CARD_COLLECTIBLE" = "Collectible";
+"CARD_COLLECTIBLE" = "collectability";
 
 "CARD_RARITY" = "Rarity";
 
@@ -63,6 +63,34 @@
 "CARD_DESCRIPTION" = "Description";
 
 "CARD_ARTIST" = "Artist";
+
+"CARD_SET_TOOLTIP_DESCRIPTION" = "Search cards with choosing card's Sets.";
+
+"CARD_CLASS_TOOLTIP_DESCRIPTION" = "Search cards with choosing card's Class.";
+
+"CARD_MANA_COST_TOOLTIP_DESCRIPTION" = "Search cards with choosing card's mana cost.";
+
+"CARD_ATTACK_TOOLTIP_DESCRIPTION" = "Search cards with choosing card's attack.";
+
+"CARD_HEALTH_TOOLTIP_DESCRIPTION" = "Search cards with choosing card's health.";
+
+"CARD_COLLECTIBLE_TOOLTIP_DESCRIPTION" = "Search cards with choosing card's collectability.";
+
+"CARD_RARITY_TOOLTIP_DESCRIPTION" = "Search cards with choosing card's rarity.";
+
+"CARD_TYPE_TOOLTIP_DESCRIPTION" = "Search cards with choosing card's type.";
+
+"CARD_MINION_TYPE_TOOLTIP_DESCRIPTION" = "Search cards with choosing card's minion type.";
+
+"CARD_SPELL_SCHOOL_TOOLTIP_DESCRIPTION" = "Search cards with choosing card's spell school.";
+
+"CARD_KEYWORD_TOOLTIP_DESCRIPTION" = "Search cards with choosing card's keyword.";
+
+"CARD_TEXT_FILTER_TOOLTIP_DESCRIPTION" = "Search cards with card's text.";
+
+"CARD_GAME_MODE_TOOLTIP_DESCRIPTION" = "Search cards with choosing Game Mode.";
+
+"CARD_SORT_TOOLTIP_DESCRIPTION" = "Choose sorting method of results.";
 
 "EMPTY" = "(Empty)";
 

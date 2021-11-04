@@ -64,6 +64,34 @@
 
 "CARD_ARTIST" = "작가";
 
+"CARD_SET_TOOLTIP_DESCRIPTION" = "확장팩을 선택해서 카드를 검색합니다.";
+
+"CARD_CLASS_TOOLTIP_DESCRIPTION" = "직업을 선택해서 카드를 검색합니다.";
+
+"CARD_MANA_COST_TOOLTIP_DESCRIPTION" = "비용을 선택해서 카드를 검색합니다.";
+
+"CARD_ATTACK_TOOLTIP_DESCRIPTION" = "공격력을 선택해서 카드를 검색합니다.";
+
+"CARD_HEALTH_TOOLTIP_DESCRIPTION" = "체력을 선택해서 카드를 검색합니다.";
+
+"CARD_COLLECTIBLE_TOOLTIP_DESCRIPTION" = "수집가능성을 선택해서 카드를 검색합니다.";
+
+"CARD_RARITY_TOOLTIP_DESCRIPTION" = "등급을 선택해서 카드를 검색합니다.";
+
+"CARD_TYPE_TOOLTIP_DESCRIPTION" = "종류를 선택해서 카드를 검색합니다.";
+
+"CARD_MINION_TYPE_TOOLTIP_DESCRIPTION" = "하수인 종류를 선택해서 카드를 검색합니다.";
+
+"CARD_SPELL_SCHOOL_TOOLTIP_DESCRIPTION" = "주문 종류를 선택해서 카드를 검색합니다.";
+
+"CARD_KEYWORD_TOOLTIP_DESCRIPTION" = "키워드를 선택해서 카드를 검색합니다.";
+
+"CARD_TEXT_FILTER_TOOLTIP_DESCRIPTION" = "검색어를 입력해서 카드를 검색합니다.";
+
+"CARD_GAME_MODE_TOOLTIP_DESCRIPTION" = "대전 모드를 선택해서 카드를 검색합니다.";
+
+"CARD_SORT_TOOLTIP_DESCRIPTION" = "검색 결과의 정렬 방식을 선택합니다.";
+
 "EMPTY" = "(없음)";
 
 "CARDS" = "카드";
