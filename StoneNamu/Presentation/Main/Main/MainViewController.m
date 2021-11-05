@@ -12,6 +12,7 @@
 #import "CardsViewController.h"
 #import "DecksViewController.h"
 #import "PrefsViewController.h"
+#import "OneBesideSecondarySplitViewController.h"
 #import <StoneNamuCore/StoneNamuCore.h>
 
 @interface MainViewController ()
@@ -21,8 +22,6 @@
 @property (retain) CardsViewController *cardsViewController;
 @property (retain) DecksViewController *decksViewController;
 @property (retain) PrefsViewController *prefsViewController;
-
-@property (retain) UIViewController * _Nullable tmpPresentedViewController;
 @end
 
 @implementation MainViewController
@@ -33,7 +32,6 @@
     if (self) {
         self.splitViewController = nil;
         self.tabBarController = nil;
-        self.tmpPresentedViewController = nil;
     }
     
     return self;
@@ -46,8 +44,6 @@
     [_cardsViewController release];
     [_decksViewController release];
     [_prefsViewController release];
-    
-    [_tmpPresentedViewController release];
     [super dealloc];
 }
 
@@ -59,24 +55,14 @@
 
 - (void)willTransitionToTraitCollection:(UITraitCollection *)newCollection withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
     [super willTransitionToTraitCollection:newCollection withTransitionCoordinator:coordinator];
-    
-    if (self.presentedViewController != nil) {
-        self.tmpPresentedViewController = self.presentedViewController;
-        [self.tmpPresentedViewController dismissViewControllerAnimated:YES completion:^{}];
-    } else {
-        self.tmpPresentedViewController = nil;
-    }
+    [self dismissPrefsViewControllerIfNeeded];
 }
 
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
     [super traitCollectionDidChange:previousTraitCollection];
-    [self setViewControllerForTraitCollection:self.traitCollection previous:previousTraitCollection];
     
-    if (self.tmpPresentedViewController != nil) {
-        if ((self.tmpPresentedViewController.presentingViewController == nil) && (![self.tmpPresentedViewController isKindOfClass:[UISplitViewController class]])) {
-            [self presentViewController:self.tmpPresentedViewController animated:YES completion:^{}];
-        }
-        self.tmpPresentedViewController = nil;
+    if ([self shouldChangeLayoutForTraitCollection:self.traitCollection previous:previousTraitCollection]) {
+        [self setViewControllerForTraitCollection:self.traitCollection previous:previousTraitCollection];
     }
 }
 
@@ -95,14 +81,16 @@
     [prefsViewController release];
 }
 
-- (void)setViewControllerForTraitCollection:(UITraitCollection *)traitCollection previous:(UITraitCollection * _Nullable)previousTraitCollection {
+- (BOOL)shouldChangeLayoutForTraitCollection:(UITraitCollection *)traitCollection previous:(UITraitCollection * _Nullable)previousTraitCollection {
     UIUserInterfaceSizeClass sizeClass = traitCollection.horizontalSizeClass;
     
-    if (sizeClass == UIUserInterfaceSizeClassUnspecified) return;
-    if ((previousTraitCollection != nil) && (sizeClass == previousTraitCollection.horizontalSizeClass)) return;
+    if (sizeClass == UIUserInterfaceSizeClassUnspecified) return NO;
+    if ((previousTraitCollection != nil) && (sizeClass == previousTraitCollection.horizontalSizeClass)) return NO;
     
-    //
-    
+    return YES;
+}
+
+- (void)setViewControllerForTraitCollection:(UITraitCollection *)traitCollection previous:(UITraitCollection * _Nullable)previousTraitCollection {
     NSArray<__kindof UIViewController *> * previousViewControllers = @[];
     
     if (self.tabBarController != nil) {
@@ -124,6 +112,7 @@
     //
     
     UIViewController<MainLayoutProtocol> * _Nullable targetViewController = nil;
+    UIUserInterfaceSizeClass sizeClass = traitCollection.horizontalSizeClass;
     
     switch (sizeClass) {
         case UIUserInterfaceSizeClassCompact: {
@@ -163,6 +152,28 @@
         [targetViewController activate];
         [targetViewController restoreViewControllers:previousViewControllers];
     }
+}
+
+- (void)dismissPrefsViewControllerIfNeeded {
+    if (self.presentedViewController == nil) return;
+    
+    OneBesideSecondarySplitViewController *splitViewController = (OneBesideSecondarySplitViewController *)self.presentedViewController;
+    
+    if (![splitViewController isKindOfClass:[OneBesideSecondarySplitViewController class]]) return;
+    
+    if (splitViewController.viewControllers.count == 0) return;
+    
+    UINavigationController *firstNavigationController = (UINavigationController *)splitViewController.viewControllers.firstObject;
+    
+    if (![firstNavigationController isKindOfClass:[UINavigationController class]]) return;
+    
+    if (firstNavigationController.viewControllers.count == 0) return;
+    
+    PrefsViewController *prefsViewController = (PrefsViewController *)firstNavigationController.viewControllers.firstObject;
+    
+    if (![prefsViewController isKindOfClass:[PrefsViewController class]]) return;
+    
+    [prefsViewController dismissViewControllerAnimated:NO completion:^{}];
 }
 
 @end

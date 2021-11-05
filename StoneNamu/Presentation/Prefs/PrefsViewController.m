@@ -231,7 +231,7 @@
 
 - (void)pushToLocaleViewController {
     PrefsLocaleViewController *vc = [PrefsLocaleViewController new];
-    if (self.splitViewController) {
+    if (self.splitViewController != nil) {
         [self.splitViewController showDetailViewController:vc sender:self];
     } else {
         [self.navigationController pushViewController:vc animated:YES];
@@ -241,7 +241,7 @@
 
 - (void)pushToRegionHostViewController {
     PrefsRegionHostViewController *vc = [PrefsRegionHostViewController new];
-    if (self.splitViewController) {
+    if (self.splitViewController != nil) {
         [self.splitViewController showDetailViewController:vc sender:self];
     } else {
         [self.navigationController pushViewController:vc animated:YES];
@@ -411,8 +411,7 @@
         if ([self.contextViewController isKindOfClass:[SFSafariViewController class]]) {
             [self presentViewController:self.contextViewController animated:YES completion:^{}];
         } else {
-            
-            if (self.splitViewController) {
+            if (self.splitViewController != nil) {
                 [self.splitViewController showDetailViewController:self.contextViewController sender:self];
             } else {
                 [self.navigationController pushViewController:self.contextViewController animated:YES];
