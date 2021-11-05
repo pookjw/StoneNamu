@@ -1,13 +1,13 @@
 //
-//  NSArray+containsString.m
+//  NSArray+string.m
 //  StoneNamuCore
 //
 //  Created by Jinwoo Kim on 10/27/21.
 //
 
-#import <StoneNamuCore/NSArray+containsString.h>
+#import <StoneNamuCore/NSArray+string.h>
 
-@implementation NSArray (containsString)
+@implementation NSArray (string)
 
 - (BOOL)containsString:(NSString *)string {
     BOOL __block result = NO;
@@ -23,6 +23,19 @@
     }];
     
     return result;
+}
+
+- (NSUInteger)indexOfString:(NSString *)string {
+    NSUInteger __block index = 0;
+    
+    [self enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj isEqualToString:string]) {
+            index = idx;
+            *stop = YES;
+        }
+    }];
+    
+    return index;
 }
 
 @end

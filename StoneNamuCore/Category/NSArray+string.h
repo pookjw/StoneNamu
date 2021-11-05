@@ -1,5 +1,5 @@
 //
-//  NSArray+containsString.h
+//  NSArray+string.h
 //  StoneNamuCore
 //
 //  Created by Jinwoo Kim on 10/27/21.
@@ -9,8 +9,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NSArray (containsString)
+@interface NSArray (string)
 - (BOOL)containsString:(NSString *)string;
+- (NSUInteger)indexOfString:(NSString *)string;
 @end
 
 NS_ASSUME_NONNULL_END

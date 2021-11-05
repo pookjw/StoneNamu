@@ -14,4 +14,19 @@
     [self removeObjectAtIndex:index];
 }
 
+- (void)removeSingleString:(NSString *)string {
+    NSInteger __block index = -1;
+    
+    [self enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj isEqualToString:string]) {
+            index = idx;
+            *stop = YES;
+        }
+    }];
+    
+    if (index == -1) return;
+    
+    [self removeObjectAtIndex:index];
+}
+
 @end

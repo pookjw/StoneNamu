@@ -67,8 +67,8 @@
 		4F449EC026B197C7007CE04A /* HSCardMinionType.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F449EBF26B197C7007CE04A /* HSCardMinionType.m */; };
 		4F449EC326B19974007CE04A /* HSCardMinionType.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4F449EC526B19974007CE04A /* HSCardMinionType.strings */; };
 		4F466EF1272851090035C569 /* NSViewController+SpinnerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F466EF0272851090035C569 /* NSViewController+SpinnerView.m */; };
-		4F466EF5272889B00035C569 /* NSArray+containsString.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F466EF3272889B00035C569 /* NSArray+containsString.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4F466EF6272889B00035C569 /* NSArray+containsString.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F466EF4272889B00035C569 /* NSArray+containsString.m */; };
+		4F466EF5272889B00035C569 /* NSArray+string.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F466EF3272889B00035C569 /* NSArray+string.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4F466EF6272889B00035C569 /* NSArray+string.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F466EF4272889B00035C569 /* NSArray+string.m */; };
 		4F4892C52724539600126131 /* Identifier.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F4892C42724534C00126131 /* Identifier.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		4F4892CA272460CD00126131 /* StoneNamuCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F34384826A36FBA001161FE /* StoneNamuCore.framework */; };
 		4F4892CB272460CD00126131 /* StoneNamuCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4F34384826A36FBA001161FE /* StoneNamuCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -469,8 +469,8 @@
 		4F449EC726B19AAE007CE04A /* HSCardKeyword.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardKeyword.h; sourceTree = "<group>"; };
 		4F466EEF272851090035C569 /* NSViewController+SpinnerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSViewController+SpinnerView.h"; sourceTree = "<group>"; };
 		4F466EF0272851090035C569 /* NSViewController+SpinnerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSViewController+SpinnerView.m"; sourceTree = "<group>"; };
-		4F466EF3272889B00035C569 /* NSArray+containsString.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSArray+containsString.h"; sourceTree = "<group>"; };
-		4F466EF4272889B00035C569 /* NSArray+containsString.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSArray+containsString.m"; sourceTree = "<group>"; };
+		4F466EF3272889B00035C569 /* NSArray+string.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSArray+string.h"; sourceTree = "<group>"; };
+		4F466EF4272889B00035C569 /* NSArray+string.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSArray+string.m"; sourceTree = "<group>"; };
 		4F4892C42724534C00126131 /* Identifier.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Identifier.h; sourceTree = "<group>"; };
 		4F4892D02724637D00126131 /* StoneNamuMac.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = StoneNamuMac.entitlements; sourceTree = "<group>"; };
 		4F4892D2272467E300126131 /* NSCollectionViewDiffableDataSource+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSCollectionViewDiffableDataSource+Private.h"; sourceTree = "<group>"; };
@@ -1273,12 +1273,12 @@
 				4FB8510126C18DE200E3C89D /* NSManagedObject+_fetchRequest.m */,
 				4F8F976026D45C290024FC06 /* NSMutableArray+removeSingle.h */,
 				4F8F976126D45C290024FC06 /* NSMutableArray+removeSingle.m */,
+				4F466EF3272889B00035C569 /* NSArray+string.h */,
+				4F466EF4272889B00035C569 /* NSArray+string.m */,
 				4FA7A7C426E539D7005BE434 /* NSArray+countOfObject.h */,
 				4FA7A7C526E539D7005BE434 /* NSArray+countOfObject.m */,
 				4FDDE4BC26F79F2D0022F87C /* NSString+arrayOfCharacters.h */,
 				4FDDE4BD26F79F2D0022F87C /* NSString+arrayOfCharacters.m */,
-				4F466EF3272889B00035C569 /* NSArray+containsString.h */,
-				4F466EF4272889B00035C569 /* NSArray+containsString.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -2107,7 +2107,7 @@
 				4F4892C52724539600126131 /* Identifier.h in Headers */,
 				4FC094F926CD712100A7D373 /* HSDeckUseCaseImpl.h in Headers */,
 				4F7F582D2724300A0080D6C3 /* HSCardGameMode.h in Headers */,
-				4F466EF5272889B00035C569 /* NSArray+containsString.h in Headers */,
+				4F466EF5272889B00035C569 /* NSArray+string.h in Headers */,
 				4F2438FA26CD9E8A0041BB84 /* StoneNamuCoreErrors.h in Headers */,
 				4F7F580B27242F0C0080D6C3 /* NSArray+countOfObject.h in Headers */,
 				4F7F580E27242F300080D6C3 /* NSString+arrayOfCharacters.h in Headers */,
@@ -2365,7 +2365,7 @@
 				4F6F181626E6064D00DC210B /* NSArray+countOfObject.m in Sources */,
 				4F646A6726B7D7E100BEDB38 /* DataCache.m in Sources */,
 				4F4DD75926DFD54B00893E2B /* NSMutableArray+removeSingle.m in Sources */,
-				4F466EF6272889B00035C569 /* NSArray+containsString.m in Sources */,
+				4F466EF6272889B00035C569 /* NSArray+string.m in Sources */,
 				4F646A6326B7D73400BEDB38 /* DataCacheModel.xcdatamodeld in Sources */,
 				4F34386426A36FED001161FE /* HSCard.m in Sources */,
 				4FCC22C426ECA99B004997AA /* HSYear.m in Sources */,
