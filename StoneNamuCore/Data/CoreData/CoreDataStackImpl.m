@@ -12,6 +12,7 @@
 static NSMutableDictionary<NSString *, NSPersistentContainer *> * _Nullable kStoreContainers = nil;
 static NSMutableDictionary<NSString *, NSManagedObjectContext *> * _Nullable kContexts = nil;
 static NSMutableDictionary<NSString *, NSOperationQueue *> * _Nullable kOperationQueues = nil;
+static NSMutableDictionary<NSString *, NSNumber *> * _Nullable kMigrateStatus = nil;
 
 @interface CoreDataStackImpl () {
     NSManagedObjectContext *_context;
@@ -39,7 +40,7 @@ static NSMutableDictionary<NSString *, NSOperationQueue *> * _Nullable kOperatio
         [self configureStoreContainerWithModelName:modelName models:models class:storeContainerClass];
         [self configureContextWithModelName:modelName];
         [self configureQueueWithModelName:modelName];
-        [self performMigrationWithModelName:modelName models:models];
+        [self performMigrationIfNeededWithModelName:modelName models:models];
         [self bind];
     }
     
@@ -136,8 +137,20 @@ static NSMutableDictionary<NSString *, NSOperationQueue *> * _Nullable kOperatio
     [queue release];
 }
 
-- (void)performMigrationWithModelName:(NSString *)modelName models:(nonnull NSArray<NSString *> *)models {
+- (void)performMigrationIfNeededWithModelName:(NSString *)modelName models:(nonnull NSArray<NSString *> *)models {
     if (models.count < 2) return;
+    
+    if (kMigrateStatus == nil) {
+        kMigrateStatus = [@{} mutableCopy];
+    }
+    
+    NSNumber * _Nullable status = kMigrateStatus[modelName];
+    
+    if ((status != nil) && (status.boolValue)) {
+        return;
+    }
+    
+    //
     
     NSSemaphoreCondition *semaphore = [[NSSemaphoreCondition alloc] initWithValue:0];
     
@@ -184,6 +197,8 @@ static NSMutableDictionary<NSString *, NSOperationQueue *> * _Nullable kOperatio
     
     [semaphore wait];
     [semaphore release];
+    
+    kMigrateStatus[modelName] = [NSNumber numberWithBool:YES];
 }
 
 - (NSManagedObjectModel * _Nullable)modelForMomd:(NSString *)modelName mom:(NSString *)mom {
