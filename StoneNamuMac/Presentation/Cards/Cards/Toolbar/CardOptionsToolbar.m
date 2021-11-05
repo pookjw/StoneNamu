@@ -315,7 +315,7 @@
     NSArray<NSMenuItem *> *itemArray;
     
     if ([optionType isEqualToString:BlizzardHSAPIOptionTypeSet]) {
-        itemArray = [self itemArrayFromDic:hsCardSetsWithLocalizable()
+        itemArray = [self itemArrayFromDic:localizablesWithHSCardSet()
                                 optionType:optionType
                              showEmptyItem:YES
                                selectedKey:selectedKey
@@ -326,7 +326,7 @@
         }
                                  ascending:NO];
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeClass]) {
-        itemArray = [self itemArrayFromDic:hsCardClassesWithLocalizable()
+        itemArray = [self itemArrayFromDic:localizablesWithHSCardClass()
                                 optionType:optionType
                              showEmptyItem:YES
                                selectedKey:selectedKey
@@ -361,7 +361,7 @@
         }
                                  ascending:YES];
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeCollectible]) {
-        itemArray = [self itemArrayFromDic:hsCardCollectiblesWithLocalizable()
+        itemArray = [self itemArrayFromDic:localizablesWithHSCardCollectible()
                                 optionType:optionType
                              showEmptyItem:NO
                                selectedKey:selectedKey
@@ -373,7 +373,7 @@
                                  ascending:YES];
         
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeRarity]) {
-        itemArray = [self itemArrayFromDic:hsCardRaritiesWithLocalizable()
+        itemArray = [self itemArrayFromDic:localizablesWithHSCardRarity()
                                 optionType:optionType
                              showEmptyItem:YES
                                selectedKey:selectedKey
@@ -385,7 +385,7 @@
                                  ascending:YES];
         
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeType]) {
-        itemArray = [self itemArrayFromDic:hsCardTypesWithLocalizable()
+        itemArray = [self itemArrayFromDic:localizableWithHSCardType()
                                 optionType:optionType
                              showEmptyItem:YES
                                selectedKey:selectedKey
@@ -396,7 +396,7 @@
         }
                                  ascending:YES];
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeMinionType]) {
-        itemArray = [self itemArrayFromDic:hsCardMinionTypesWithLocalizable()
+        itemArray = [self itemArrayFromDic:localizablesWithHSCardMinionType()
                                 optionType:optionType
                              showEmptyItem:YES
                                selectedKey:selectedKey
@@ -407,7 +407,7 @@
         }
                                  ascending:YES];
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeSpellSchool]) {
-        itemArray = [self itemArrayFromDic:hsCardSpellSchoolsWithLocalizable()
+        itemArray = [self itemArrayFromDic:localizablesWithHSCardSpellSchool()
                                 optionType:optionType
                              showEmptyItem:YES
                                selectedKey:selectedKey
@@ -418,7 +418,7 @@
         }
                                  ascending:YES];
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeKeyword]) {
-        itemArray = [self itemArrayFromDic:hsCardKeywordsWithLocalizable()
+        itemArray = [self itemArrayFromDic:localizablesWithHSCardKeyword()
                                 optionType:optionType
                              showEmptyItem:YES
                                selectedKey:selectedKey
@@ -431,7 +431,7 @@
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeTextFilter]) {
         itemArray = @[[self textFieldItemWithOptionType:optionType selectedKey:selectedKey]];
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeGameMode]) {
-        itemArray = [self itemArrayFromDic:hsCardGameModesWithLocalizable()
+        itemArray = [self itemArrayFromDic:localizablesWithHSCardGameMode()
                                 optionType:optionType
                              showEmptyItem:NO
                                selectedKey:selectedKey
@@ -442,7 +442,7 @@
         }
                                  ascending:YES];
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeSort]) {
-        itemArray = [self itemArrayFromDic:hsCardSortsWithLocalizable()
+        itemArray = [self itemArrayFromDic:localizablesWithHSCardSort()
                                 optionType:optionType
                              showEmptyItem:NO
                                selectedKey:selectedKey

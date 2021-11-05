@@ -148,7 +148,7 @@ CardOptionItemModelType CardOptionItemModelTypeFromNSString(NSString * key) {
 - (NSArray<PickerItemModel *> * _Nullable)pickerDataSource {
     switch (self.type) {
         case CardOptionItemModelTypeSet:
-            return [self pickerItemModelsFromDic:hsCardSetsWithLocalizable()
+            return [self pickerItemModelsFromDic:localizablesWithHSCardSet()
                                      filterArray:nil
                                      imageSource:^UIImage * _Nullable(NSString * key) {
                 return [ImageService.sharedInstance imageOfCardSet:HSCardSetFromNSString(key)];
@@ -158,7 +158,7 @@ CardOptionItemModelType CardOptionItemModelTypeFromNSString(NSString * key) {
             }
                                        ascending:NO];
         case CardOptionItemModelTypeClass: {
-            return [self pickerItemModelsFromDic:hsCardClassesWithLocalizable()
+            return [self pickerItemModelsFromDic:localizablesWithHSCardClass()
                                      filterArray:@[NSStringFromHSCardClass(HSCardClassDeathKnight)]
                                      imageSource:^UIImage * _Nullable(NSString * key) {
                 return nil;
@@ -169,7 +169,7 @@ CardOptionItemModelType CardOptionItemModelTypeFromNSString(NSString * key) {
                                        ascending:YES];
         }
         case CardOptionItemModelTypeCollectible: {
-            return [self pickerItemModelsFromDic:hsCardCollectiblesWithLocalizable()
+            return [self pickerItemModelsFromDic:localizablesWithHSCardCollectible()
                                      filterArray:nil
                                      imageSource:^UIImage * _Nullable(NSString * key) {
                 return nil;
@@ -180,7 +180,7 @@ CardOptionItemModelType CardOptionItemModelTypeFromNSString(NSString * key) {
                                        ascending:YES];
         }
         case CardOptionItemModelTypeRarity: {
-            return [self pickerItemModelsFromDic:hsCardRaritiesWithLocalizable()
+            return [self pickerItemModelsFromDic:localizablesWithHSCardRarity()
                                      filterArray:@[NSStringFromHSCardRarity(HSCardRarityNull)]
                                      imageSource:^UIImage * _Nullable(NSString * key) {
                 return nil;
@@ -191,7 +191,7 @@ CardOptionItemModelType CardOptionItemModelTypeFromNSString(NSString * key) {
                                        ascending:YES];
         }
         case CardOptionItemModelTypeType:
-            return [self pickerItemModelsFromDic:hsCardTypesWithLocalizable()
+            return [self pickerItemModelsFromDic:localizableWithHSCardType()
                                      filterArray:@[NSStringFromHSCardType(HSCardTypeHeroPower)]
                                      imageSource:^UIImage * _Nullable(NSString * key) {
                 return nil;
@@ -201,7 +201,7 @@ CardOptionItemModelType CardOptionItemModelTypeFromNSString(NSString * key) {
             }
                                        ascending:YES];
         case CardOptionItemModelTypeMinionType:
-            return [self pickerItemModelsFromDic:hsCardMinionTypesWithLocalizable()
+            return [self pickerItemModelsFromDic:localizablesWithHSCardMinionType()
                                      filterArray:nil
                                      imageSource:^UIImage * _Nullable(NSString * key) {
                 return nil;
@@ -211,7 +211,7 @@ CardOptionItemModelType CardOptionItemModelTypeFromNSString(NSString * key) {
             }
                                        ascending:YES];
         case CardOptionItemModelTypeSpellSchool:
-            return [self pickerItemModelsFromDic:hsCardSpellSchoolsWithLocalizable()
+            return [self pickerItemModelsFromDic:localizablesWithHSCardSpellSchool()
                                      filterArray:nil
                                      imageSource:^UIImage * _Nullable(NSString * key) {
                 return nil;
@@ -221,7 +221,7 @@ CardOptionItemModelType CardOptionItemModelTypeFromNSString(NSString * key) {
             }
                                        ascending:YES];
         case CardOptionItemModelTypeKeyword:
-            return [self pickerItemModelsFromDic:hsCardKeywordsWithLocalizable()
+            return [self pickerItemModelsFromDic:localizablesWithHSCardKeyword()
                                      filterArray:nil
                                      imageSource:^UIImage * _Nullable(NSString * key) {
                 return nil;
@@ -231,7 +231,7 @@ CardOptionItemModelType CardOptionItemModelTypeFromNSString(NSString * key) {
             }
                                        ascending:YES];
         case CardOptionItemModelTypeGameMode:
-            return [self pickerItemModelsFromDic:hsCardGameModesWithLocalizable()
+            return [self pickerItemModelsFromDic:localizablesWithHSCardGameMode()
                                      filterArray:nil
                                      imageSource:^UIImage * _Nullable(NSString * key) {
                 return nil;
@@ -241,7 +241,7 @@ CardOptionItemModelType CardOptionItemModelTypeFromNSString(NSString * key) {
             }
                                        ascending:YES];
         case CardOptionItemModelTypeSort:
-            return [self pickerItemModelsFromDic:hsCardSortsWithLocalizable()
+            return [self pickerItemModelsFromDic:localizablesWithHSCardSort()
                                      filterArray:nil
                                      imageSource:^UIImage * _Nullable(NSString * key) {
                 return nil;
@@ -319,25 +319,25 @@ CardOptionItemModelType CardOptionItemModelTypeFromNSString(NSString * key) {
 - (NSString * _Nullable)accessoryText {
     switch (self.type) {
         case CardOptionItemModelTypeSet:
-            return hsCardSetsWithLocalizable()[self.value];
+            return localizableFromHSCardSet(HSCardSetFromNSString(self.value));
         case CardOptionItemModelTypeClass:
-            return hsCardClassesWithLocalizable()[self.value];
+            return localizableFromHSCardClass(HSCardClassFromNSString(self.value));
         case CardOptionItemModelTypeCollectible:
-            return hsCardCollectiblesWithLocalizable()[self.value];
+            return localizableFromHSCardCollectible(HSCardCollectibleFromNSString(self.value));
         case CardOptionItemModelTypeRarity:
-            return hsCardRaritiesWithLocalizable()[self.value];
+            return localizableFromHSCardRarity(HSCardRarityFromNSString(self.value));
         case CardOptionItemModelTypeType:
-            return hsCardTypesWithLocalizable()[self.value];
+            return localizableFromHSCardType(HSCardTypeFromNSString(self.value));
         case CardOptionItemModelTypeMinionType:
-            return hsCardMinionTypesWithLocalizable()[self.value];
+            return localizableFromHSCardMinionType(HSCardMinionTypeFromNSString(self.value));
         case CardOptionItemModelTypeSpellSchool:
-            return hsCardSpellSchoolsWithLocalizable()[self.value];
+            return localizableFromHSCardSpellSchool(HSCardSpellSchoolFromNSString(self.value));
         case CardOptionItemModelTypeKeyword:
-            return hsCardKeywordsWithLocalizable()[self.value];
+            return localizableFromHSCardKeyword(HSCardKeywordFromNSString(self.value));
         case CardOptionItemModelTypeGameMode:
-            return hsCardGameModesWithLocalizable()[self.value];
+            return localizableFromHSCardGameMode(HSCardGameModeFromNSString(self.value));
         case CardOptionItemModelTypeSort:
-            return hsCardSortsWithLocalizable()[self.value];
+            return localizableFromHSCardSort(HSCardSortFromNSString(self.value));
         default:
             return self.value;
     }

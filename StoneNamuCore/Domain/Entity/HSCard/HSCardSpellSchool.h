@@ -21,4 +21,6 @@ NSString * NSStringFromHSCardSpellSchool(HSCardSpellSchool);
 HSCardSpellSchool HSCardSpellSchoolFromNSString(NSString *);
 
 NSArray<NSString *> *hsCardSpellSchools(void);
-NSDictionary<NSString *, NSString *> * hsCardSpellSchoolsWithLocalizable(void);
+
+NSString * localizableFromHSCardSpellSchool(HSCardSpellSchool);
+NSDictionary<NSString *, NSString *> * localizablesWithHSCardSpellSchool(void);

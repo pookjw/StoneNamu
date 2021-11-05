@@ -41,7 +41,7 @@ HSCardType HSCardTypeFromNSString(NSString * key) {
     }
 }
 
-NSArray<NSString *> *hsCardTypesCollectibles(void) {
+NSArray<NSString *> *hsCardTypes(void) {
     return @[
         NSStringFromHSCardType(HSCardTypeMinion),
         NSStringFromHSCardType(HSCardTypeSpell),
@@ -51,14 +51,18 @@ NSArray<NSString *> *hsCardTypesCollectibles(void) {
     ];
 }
 
-NSDictionary<NSString *, NSString *> * hsCardTypesWithLocalizable(void) {
+NSString * localizableFromHSCardType(HSCardType key) {
+    return NSLocalizedStringFromTableInBundle(NSStringFromHSCardType(key),
+                                              @"HSCardType",
+                                              [NSBundle bundleWithIdentifier:IDENTIFIER],
+                                              @"");
+}
+
+NSDictionary<NSString *, NSString *> * localizableWithHSCardType(void) {
     NSMutableDictionary<NSString *, NSString *> *dic = [@{} mutableCopy];
     
-    [hsCardTypesCollectibles() enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        dic[obj] = NSLocalizedStringFromTableInBundle(obj,
-                                                      @"HSCardType",
-                                                      [NSBundle bundleWithIdentifier:IDENTIFIER],
-                                                      @"");
+    [hsCardTypes() enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        dic[obj] = localizableFromHSCardType(HSCardTypeFromNSString(obj));
     }];
     
     NSDictionary<NSString *, NSString *> *result = [[dic copy] autorelease];

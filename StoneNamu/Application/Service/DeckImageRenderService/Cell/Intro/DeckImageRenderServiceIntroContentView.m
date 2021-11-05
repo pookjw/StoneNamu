@@ -245,7 +245,7 @@
         self.heroImageView.image = [ImageService.sharedInstance portraitImageOfClassId:newConfiguration.classId];
     }
     
-    self.classLabel.text = hsCardClassesWithLocalizable()[NSStringFromHSCardClass(newConfiguration.classId)];
+    self.classLabel.text = localizableFromHSCardClass(newConfiguration.classId);
     self.nameLabel.text = newConfiguration.deckName;
     
     self.deckFormatLabel.text = hsDeckFormatsWithLocalizable()[newConfiguration.deckFormat];

@@ -43,8 +43,9 @@ typedef NS_ENUM(NSUInteger, HSCardSet) {
 NSString * NSStringFromHSCardSet(HSCardSet);
 HSCardSet HSCardSetFromNSString(NSString *);
 
-NSArray<NSNumber *> * hsCardSets(void);
-NSDictionary<NSString *, NSString *> * hsCardSetsWithLocalizable(void);
+NSArray<NSString *> * hsCardSets(void);
+NSString * localizableFromHSCardSet(HSCardSet);
+NSDictionary<NSString *, NSString *> * localizablesWithHSCardSet(void);
 
-NSArray<NSNumber *> *hsCardSetsFromHSDeckFormat(HSDeckFormat);
-NSDictionary<NSString *, NSString *> * hsCardSetsWithLocalizableFromHSDeckFormat(HSDeckFormat);
+NSArray<NSString *> *hsCardSetsFromHSDeckFormat(HSDeckFormat);
+NSDictionary<NSString *, NSString *> * localizablesWithHSCardSetFromHSDeckFormat(HSDeckFormat);

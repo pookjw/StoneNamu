@@ -20,4 +20,6 @@ NSString * NSStringFromHSCardRarity(HSCardRarity);
 HSCardRarity HSCardRarityFromNSString(NSString *);
 
 NSArray<NSString *> *hsCardRarities(void);
-NSDictionary<NSString *, NSString *> * hsCardRaritiesWithLocalizable(void);
+
+NSString * localizableFromHSCardRarity(HSCardRarity);
+NSDictionary<NSString *, NSString *> * localizablesWithHSCardRarity(void);

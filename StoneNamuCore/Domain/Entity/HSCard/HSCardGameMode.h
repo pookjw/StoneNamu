@@ -19,4 +19,6 @@ NSString * NSStringFromHSCardGameMode(HSCardGameMode);
 HSCardGameMode HSCardGameModeFromNSString(NSString *);
 
 NSArray<NSString *> *hsCardGameModes(void);
-NSDictionary<NSString *, NSString *> * hsCardGameModesWithLocalizable(void);
+
+NSString * localizableFromHSCardGameMode(HSCardGameMode);
+NSDictionary<NSString *, NSString *> * localizablesWithHSCardGameMode(void);

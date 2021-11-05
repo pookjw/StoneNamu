@@ -231,14 +231,18 @@ NSArray<NSString *> *hsCardKeywords(void) {
     ];
 }
 
-NSDictionary<NSString *, NSString *> * hsCardKeywordsWithLocalizable(void) {
+NSString * localizableFromHSCardKeyword(HSCardKeyword key) {
+    return NSLocalizedStringFromTableInBundle(NSStringFromHSCardKeyword(key),
+                                              @"HSCardKeyword",
+                                              [NSBundle bundleWithIdentifier:IDENTIFIER],
+                                              @"");
+}
+
+NSDictionary<NSString *, NSString *> * localizablesWithHSCardKeyword(void) {
     NSMutableDictionary<NSString *, NSString *> *dic = [@{} mutableCopy];
     
     [hsCardKeywords() enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        dic[obj] = NSLocalizedStringFromTableInBundle(obj,
-                                                      @"HSCardKeyword",
-                                                      [NSBundle bundleWithIdentifier:IDENTIFIER],
-                                                      @"");
+        dic[obj] = localizableFromHSCardKeyword(HSCardKeywordFromNSString(obj));
     }];
     
     NSDictionary<NSString *, NSString *> *result = [[dic copy] autorelease];

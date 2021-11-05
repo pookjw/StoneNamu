@@ -24,4 +24,6 @@ NSString * NSStringFromHSCardMinionType(HSCardMinionType);
 HSCardMinionType HSCardMinionTypeFromNSString(NSString *);
 
 NSArray<NSString *> *hsCardMinionTypes(void);
-NSDictionary<NSString *, NSString *> * hsCardMinionTypesWithLocalizable(void);
+
+NSString * localizableFromHSCardMinionType(HSCardMinionType);
+NSDictionary<NSString *, NSString *> * localizablesWithHSCardMinionType(void);

@@ -697,10 +697,10 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     NSArray<NSString *> * _Nullable filterKeys = nil;
     
     if ([scrubber isEqual:self.optionTypeSetScrubber]) {
-        mutableDic = [hsCardSetsWithLocalizable() mutableCopy];
+        mutableDic = [localizablesWithHSCardSet() mutableCopy];
         filterKeys = nil;
     } else if ([scrubber isEqual:self.optionTypeClassScrubber]) {
-        mutableDic = [hsCardClassesWithLocalizable() mutableCopy];
+        mutableDic = [localizablesWithHSCardClass() mutableCopy];
         filterKeys = @[NSStringFromHSCardClass(HSCardClassDeathKnight)];
     } else if ([scrubber isEqual:self.optionTypeManaCostScrubber] || [scrubber isEqual:self.optionTypeAttackScrubber] || [scrubber isEqual:self.optionTypeHealthScrubber]) {
         mutableDic = [@{@"1": @"1",
@@ -715,28 +715,28 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
                 @"10": @"10+"} mutableCopy];
         filterKeys = nil;
     } else if ([scrubber isEqual:self.optionTypeCollectibleScrubber]) {
-        mutableDic = [hsCardCollectiblesWithLocalizable() mutableCopy];
+        mutableDic = [localizablesWithHSCardCollectible() mutableCopy];
         filterKeys = nil;
     } else if ([scrubber isEqual:self.optionTypeRarityScrubber]) {
-        mutableDic = [hsCardRaritiesWithLocalizable() mutableCopy];
+        mutableDic = [localizablesWithHSCardRarity() mutableCopy];
         filterKeys = @[NSStringFromHSCardRarity(HSCardRarityNull)];
     } else if ([scrubber isEqual:self.optionTypeTypeScrubber]) {
-        mutableDic = [hsCardTypesWithLocalizable() mutableCopy];
+        mutableDic = [localizableWithHSCardType() mutableCopy];
         filterKeys = nil;
     } else if ([scrubber isEqual:self.optionTypeMinionTypeScrubber]) {
-        mutableDic = [hsCardMinionTypesWithLocalizable() mutableCopy];
+        mutableDic = [localizablesWithHSCardMinionType() mutableCopy];
         filterKeys = nil;
     } else if ([scrubber isEqual:self.optionTypeSpellSchoolScrubber]) {
-        mutableDic = [hsCardSpellSchoolsWithLocalizable() mutableCopy];
+        mutableDic = [localizablesWithHSCardSpellSchool() mutableCopy];
         filterKeys = nil;
     } else if ([scrubber isEqual:self.optionTypeKeywordScrubber]) {
-        mutableDic = [hsCardKeywordsWithLocalizable() mutableCopy];
+        mutableDic = [localizablesWithHSCardKeyword() mutableCopy];
         filterKeys = nil;
     } else if ([scrubber isEqual:self.optionTypeGameModeScrubber]) {
-        mutableDic = [hsCardGameModesWithLocalizable() mutableCopy];
+        mutableDic = [localizablesWithHSCardGameMode() mutableCopy];
         filterKeys = nil;
     } else if ([scrubber isEqual:self.optionTypeSortScrubber]) {
-        mutableDic = [hsCardSortsWithLocalizable() mutableCopy];
+        mutableDic = [localizablesWithHSCardSort() mutableCopy];
         filterKeys = nil;
     }
     

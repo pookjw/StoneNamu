@@ -56,4 +56,6 @@ NSString * NSStringFromHSCardKeyword(HSCardKeyword);
 HSCardKeyword HSCardKeywordFromNSString(NSString *);
 
 NSArray<NSString *> *hsCardKeywords(void);
-NSDictionary<NSString *, NSString *> * hsCardKeywordsWithLocalizable(void);
+
+NSString * localizableFromHSCardKeyword(HSCardKeyword);
+NSDictionary<NSString *, NSString *> * localizablesWithHSCardKeyword(void);

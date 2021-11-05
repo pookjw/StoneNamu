@@ -69,7 +69,7 @@
     NSMutableArray<UIAction *> *createWildDeckActions = [@[] mutableCopy];
     NSMutableArray<UIAction *> *createClassicDeckActions = [@[] mutableCopy];
     
-    NSDictionary<NSString *, NSString *> *localizable = hsCardClassesWithLocalizable();
+    NSDictionary<NSString *, NSString *> *localizable = localizablesWithHSCardClass();
     
     for (NSString *key in hsCardClassesForFormat(HSDeckFormatStandard)) {
         @autoreleasepool {

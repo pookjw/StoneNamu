@@ -130,14 +130,18 @@ NSArray<NSString *> * hsCardClassesForFormat(HSDeckFormat format) {
     }
 }
 
-NSDictionary<NSString *, NSString *> * hsCardClassesWithLocalizable(void) {
+NSString * localizableFromHSCardClass(HSCardClass key) {
+    return NSLocalizedStringFromTableInBundle(NSStringFromHSCardClass(key),
+                                              @"HSCardClass",
+                                              [NSBundle bundleWithIdentifier:IDENTIFIER],
+                                              @"");;
+}
+
+NSDictionary<NSString *, NSString *> * localizablesWithHSCardClass(void) {
     NSMutableDictionary<NSString *, NSString *> *dic = [@{} mutableCopy];
     
     [hsCardClasses() enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        dic[obj] = NSLocalizedStringFromTableInBundle(obj,
-                                                      @"HSCardClass",
-                                                      [NSBundle bundleWithIdentifier:IDENTIFIER],
-                                                      @"");
+        dic[obj] = localizableFromHSCardClass(HSCardClassFromNSString(obj));
     }];
     
     NSDictionary<NSString *, NSString *> *result = [[dic copy] autorelease];
@@ -146,14 +150,11 @@ NSDictionary<NSString *, NSString *> * hsCardClassesWithLocalizable(void) {
     return result;
 }
 
-NSDictionary<NSString *, NSString *> * hsCardClassesWithLocalizableForFormat(HSDeckFormat format) {
+NSDictionary<NSString *, NSString *> * localizablesWithHSCardClasseForFormat(HSDeckFormat format) {
     NSMutableDictionary<NSString *, NSString *> *dic = [@{} mutableCopy];
     
     [hsCardClassesForFormat(format) enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        dic[obj] = NSLocalizedStringFromTableInBundle(obj,
-                                                      @"HSCardClass",
-                                                      [NSBundle bundleWithIdentifier:IDENTIFIER],
-                                                      @"");
+        dic[obj] = localizableFromHSCardClass(HSCardClassFromNSString(obj));
     }];
     
     NSDictionary<NSString *, NSString *> *result = [[dic copy] autorelease];

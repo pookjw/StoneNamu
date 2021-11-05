@@ -75,14 +75,18 @@ NSArray<NSString *> *hsCardMinionTypes(void) {
     ];
 }
 
-NSDictionary<NSString *, NSString *> * hsCardMinionTypesWithLocalizable(void) {
+NSString * localizableFromHSCardMinionType(HSCardMinionType key) {
+    return NSLocalizedStringFromTableInBundle(NSStringFromHSCardMinionType(key),
+                                              @"HSCardMinionType",
+                                              [NSBundle bundleWithIdentifier:IDENTIFIER],
+                                              @"");
+}
+
+NSDictionary<NSString *, NSString *> * localizablesWithHSCardMinionType(void) {
     NSMutableDictionary<NSString *, NSString *> *dic = [@{} mutableCopy];
     
     [hsCardMinionTypes() enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        dic[obj] = NSLocalizedStringFromTableInBundle(obj,
-                                                      @"HSCardMinionType",
-                                                      [NSBundle bundleWithIdentifier:IDENTIFIER],
-                                                      @"");
+        dic[obj] = localizableFromHSCardMinionType(HSCardMinionTypeFromNSString(obj));
     }];
     
     NSDictionary<NSString *, NSString *> *result = [[dic copy] autorelease];

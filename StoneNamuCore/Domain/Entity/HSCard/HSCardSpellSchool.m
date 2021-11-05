@@ -61,14 +61,18 @@ NSArray<NSString *> *hsCardSpellSchools(void) {
     ];
 }
 
-NSDictionary<NSString *, NSString *> * hsCardSpellSchoolsWithLocalizable(void) {
+NSString * localizableFromHSCardSpellSchool(HSCardSpellSchool key) {
+    return NSLocalizedStringFromTableInBundle(NSStringFromHSCardSpellSchool(key),
+                                              @"HSCardSpellSchool",
+                                              [NSBundle bundleWithIdentifier:IDENTIFIER],
+                                              @"");;
+}
+
+NSDictionary<NSString *, NSString *> * localizablesWithHSCardSpellSchool(void) {
     NSMutableDictionary<NSString *, NSString *> *dic = [@{} mutableCopy];
     
     [hsCardSpellSchools() enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        dic[obj] = NSLocalizedStringFromTableInBundle(obj,
-                                                      @"HSCardSpellSchool",
-                                                      [NSBundle bundleWithIdentifier:IDENTIFIER],
-                                                      @"");
+        dic[obj] = localizableFromHSCardSpellSchool(HSCardSpellSchoolFromNSString(obj));
     }];
     
     NSDictionary<NSString *, NSString *> *result = [[dic copy] autorelease];

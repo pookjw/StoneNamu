@@ -154,7 +154,7 @@ DeckAddCardOptionItemModelType DeckAddCardOptionItemModelTypeFromNSString(NSStri
 - (NSArray<PickerItemModel *> * _Nullable)pickerDataSource {
     switch (self.type) {
         case DeckAddCardOptionItemModelTypeSet:
-            return [self pickerItemModelsFromDic:hsCardSetsWithLocalizableFromHSDeckFormat(self.deckFormat)
+            return [self pickerItemModelsFromDic:localizablesWithHSCardSetFromHSDeckFormat(self.deckFormat)
                                      filterArray:nil
                                      imageSource:^UIImage * _Nullable(NSString * key) {
                 return [ImageService.sharedInstance imageOfCardSet:HSCardSetFromNSString(key)];
@@ -164,7 +164,7 @@ DeckAddCardOptionItemModelType DeckAddCardOptionItemModelTypeFromNSString(NSStri
             }
                                        ascending:NO];
         case DeckAddCardOptionItemModelTypeClass: {
-            NSDictionary<NSString *, NSString *> *oldLocalizables = hsCardClassesWithLocalizable();
+            NSDictionary<NSString *, NSString *> *oldLocalizables = localizablesWithHSCardClass();
             NSDictionary<NSString *, NSString *> *newLocalizables = @{
                 NSStringFromHSCardClass(self.classId): oldLocalizables[NSStringFromHSCardClass(self.classId)],
                 NSStringFromHSCardClass(HSCardClassNeutral): oldLocalizables[NSStringFromHSCardClass(HSCardClassNeutral)]
@@ -181,7 +181,7 @@ DeckAddCardOptionItemModelType DeckAddCardOptionItemModelTypeFromNSString(NSStri
                                        ascending:YES];
         }
         case DeckAddCardOptionItemModelTypeCollectible: {
-            return [self pickerItemModelsFromDic:hsCardCollectiblesWithLocalizable()
+            return [self pickerItemModelsFromDic:localizablesWithHSCardCollectible()
                                      filterArray:nil
                                      imageSource:^UIImage * _Nullable(NSString * key) {
                 return nil;
@@ -192,7 +192,7 @@ DeckAddCardOptionItemModelType DeckAddCardOptionItemModelTypeFromNSString(NSStri
                                        ascending:YES];
         }
         case DeckAddCardOptionItemModelTypeRarity: {
-            return [self pickerItemModelsFromDic:hsCardRaritiesWithLocalizable()
+            return [self pickerItemModelsFromDic:localizablesWithHSCardRarity()
                                      filterArray:@[NSStringFromHSCardRarity(HSCardRarityNull)]
                                      imageSource:^UIImage * _Nullable(NSString * key) {
                 return nil;
@@ -203,7 +203,7 @@ DeckAddCardOptionItemModelType DeckAddCardOptionItemModelTypeFromNSString(NSStri
                                        ascending:YES];
         }
         case DeckAddCardOptionItemModelTypeType:
-            return [self pickerItemModelsFromDic:hsCardTypesWithLocalizable()
+            return [self pickerItemModelsFromDic:localizableWithHSCardType()
                                      filterArray:@[NSStringFromHSCardType(HSCardTypeHeroPower)]
                                      imageSource:^UIImage * _Nullable(NSString * key) {
                 return nil;
@@ -213,7 +213,7 @@ DeckAddCardOptionItemModelType DeckAddCardOptionItemModelTypeFromNSString(NSStri
             }
                                        ascending:YES];
         case DeckAddCardOptionItemModelTypeMinionType:
-            return [self pickerItemModelsFromDic:hsCardMinionTypesWithLocalizable()
+            return [self pickerItemModelsFromDic:localizablesWithHSCardMinionType()
                                      filterArray:nil
                                      imageSource:^UIImage * _Nullable(NSString * key) {
                 return nil;
@@ -223,7 +223,7 @@ DeckAddCardOptionItemModelType DeckAddCardOptionItemModelTypeFromNSString(NSStri
             }
                                        ascending:YES];
         case DeckAddCardOptionItemModelTypeSpellSchool:
-            return [self pickerItemModelsFromDic:hsCardSpellSchoolsWithLocalizable()
+            return [self pickerItemModelsFromDic:localizablesWithHSCardSpellSchool()
                                      filterArray:nil
                                      imageSource:^UIImage * _Nullable(NSString * key) {
                 return nil;
@@ -233,7 +233,7 @@ DeckAddCardOptionItemModelType DeckAddCardOptionItemModelTypeFromNSString(NSStri
             }
                                        ascending:YES];
         case DeckAddCardOptionItemModelTypeKeyword:
-            return [self pickerItemModelsFromDic:hsCardKeywordsWithLocalizable()
+            return [self pickerItemModelsFromDic:localizablesWithHSCardKeyword()
                                      filterArray:nil
                                      imageSource:^UIImage * _Nullable(NSString * key) {
                 return nil;
@@ -243,7 +243,7 @@ DeckAddCardOptionItemModelType DeckAddCardOptionItemModelTypeFromNSString(NSStri
             }
                                        ascending:YES];
         case DeckAddCardOptionItemModelTypeGameMode:
-            return [self pickerItemModelsFromDic:hsCardGameModesWithLocalizable()
+            return [self pickerItemModelsFromDic:localizablesWithHSCardGameMode()
                                      filterArray:nil
                                      imageSource:^UIImage * _Nullable(NSString * key) {
                 return nil;
@@ -253,7 +253,7 @@ DeckAddCardOptionItemModelType DeckAddCardOptionItemModelTypeFromNSString(NSStri
             }
                                        ascending:YES];
         case DeckAddCardOptionItemModelTypeSort:
-            return [self pickerItemModelsFromDic:hsCardSortsWithLocalizable()
+            return [self pickerItemModelsFromDic:localizablesWithHSCardSort()
                                      filterArray:nil
                                      imageSource:^UIImage * _Nullable(NSString * key) {
                 return nil;
@@ -331,25 +331,25 @@ DeckAddCardOptionItemModelType DeckAddCardOptionItemModelTypeFromNSString(NSStri
 - (NSString * _Nullable)accessoryText {
     switch (self.type) {
         case DeckAddCardOptionItemModelTypeSet:
-            return hsCardSetsWithLocalizable()[self.value];
+            return localizableFromHSCardSet(HSCardSetFromNSString(self.value));
         case DeckAddCardOptionItemModelTypeClass:
-            return hsCardClassesWithLocalizable()[self.value];
+            return localizableFromHSCardClass(HSCardClassFromNSString(self.value));
         case DeckAddCardOptionItemModelTypeCollectible:
-            return hsCardCollectiblesWithLocalizable()[self.value];
+            return localizableFromHSCardCollectible(HSCardCollectibleFromNSString(self.value));
         case DeckAddCardOptionItemModelTypeRarity:
-            return hsCardRaritiesWithLocalizable()[self.value];
+            return localizableFromHSCardRarity(HSCardRarityFromNSString(self.value));
         case DeckAddCardOptionItemModelTypeType:
-            return hsCardTypesWithLocalizable()[self.value];
+            return localizableFromHSCardType(HSCardTypeFromNSString(self.value));
         case DeckAddCardOptionItemModelTypeMinionType:
-            return hsCardMinionTypesWithLocalizable()[self.value];
+            return localizableFromHSCardMinionType(HSCardMinionTypeFromNSString(self.value));
         case DeckAddCardOptionItemModelTypeSpellSchool:
-            return hsCardSpellSchoolsWithLocalizable()[self.value];
+            return localizableFromHSCardSpellSchool(HSCardSpellSchoolFromNSString(self.value));
         case DeckAddCardOptionItemModelTypeKeyword:
-            return hsCardKeywordsWithLocalizable()[self.value];
+            return localizableFromHSCardKeyword(HSCardKeywordFromNSString(self.value));
         case DeckAddCardOptionItemModelTypeGameMode:
-            return hsCardGameModesWithLocalizable()[self.value];
+            return localizableFromHSCardGameMode(HSCardGameModeFromNSString(self.value));
         case DeckAddCardOptionItemModelTypeSort:
-            return hsCardSortsWithLocalizable()[self.value];
+            return localizableFromHSCardSort(HSCardSortFromNSString(self.value));
         default:
             return self.value;
     }

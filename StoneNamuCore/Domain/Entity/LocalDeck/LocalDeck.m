@@ -76,7 +76,7 @@
     self.deckCode = [[hsDeck.deckCode copy] autorelease];
     
     if (self.name == nil) {
-        self.name = hsCardClassesWithLocalizable()[NSStringFromHSCardClass(hsDeck.classId)];
+        self.name = localizableFromHSCardClass(hsDeck.classId);
     }
 }
 

@@ -18,5 +18,7 @@ typedef NS_ENUM(NSUInteger, HSCardType) {
 NSString * NSStringFromHSCardType(HSCardType);
 HSCardType HSCardTypeFromNSString(NSString *);
 
-NSArray<NSString *> *hsCardTypesCollectibles(void);
-NSDictionary<NSString *, NSString *> * hsCardTypesWithLocalizable(void);
+NSArray<NSString *> *hsCardTypes(void);
+
+NSString * localizableFromHSCardType(HSCardType);
+NSDictionary<NSString *, NSString *> * localizableWithHSCardType(void);

@@ -106,7 +106,7 @@
         [self.localDeckUseCase makeLocalDeckWithCompletion:^(LocalDeck * _Nonnull localDeck) {
             [self.queue addBarrierBlock:^{
                 localDeck.format = deckFormat;
-                localDeck.name = hsCardClassesWithLocalizable()[NSStringFromHSCardClass(hsCardClass)];
+                localDeck.name = localizableFromHSCardClass(hsCardClass);
                 localDeck.classId = [NSNumber numberWithUnsignedInteger:hsCardClass];
                 
                 DecksItemModel *itemModel = [[DecksItemModel alloc] initWithType:DecksItemModelTypeDeck localDeck:localDeck];

@@ -51,14 +51,18 @@ NSArray<NSString *> *hsCardGameModes(void) {
     ];
 }
 
-NSDictionary<NSString *, NSString *> * hsCardGameModesWithLocalizable(void) {
+NSString * localizableFromHSCardGameMode(HSCardGameMode key) {
+    return NSLocalizedStringFromTableInBundle(NSStringFromHSCardGameMode(key),
+                                              @"HSCardGameMode",
+                                              [NSBundle bundleWithIdentifier:IDENTIFIER],
+                                              @"");;
+}
+
+NSDictionary<NSString *, NSString *> * localizablesWithHSCardGameMode(void) {
     NSMutableDictionary<NSString *, NSString *> *dic = [@{} mutableCopy];
     
     [hsCardGameModes() enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        dic[obj] = NSLocalizedStringFromTableInBundle(obj,
-                                                      @"HSCardGameMode",
-                                                      [NSBundle bundleWithIdentifier:IDENTIFIER],
-                                                      @"");
+        dic[obj] = localizableFromHSCardGameMode(HSCardGameModeFromNSString(obj));
     }];
     
     NSDictionary<NSString *, NSString *> *result = [[dic copy] autorelease];

@@ -28,5 +28,7 @@ HSCardClass HSCardClassFromNSString(NSString *);
 
 NSArray<NSString *> * hsCardClasses(void);
 NSArray<NSString *> * hsCardClassesForFormat(HSDeckFormat);
-NSDictionary<NSString *, NSString *> * hsCardClassesWithLocalizable(void);
-NSDictionary<NSString *, NSString *> * hsCardClassesWithLocalizableForFormat(HSDeckFormat);
+
+NSString * localizableFromHSCardClass(HSCardClass);
+NSDictionary<NSString *, NSString *> * localizablesWithHSCardClass(void);
+NSDictionary<NSString *, NSString *> * localizablesWithHSCardClasseForFormat(HSDeckFormat);

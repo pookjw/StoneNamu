@@ -69,7 +69,7 @@
                                                                [NSBundle bundleWithIdentifier:IDENTIFIER],
                                                                @"");
     
-    NSString *className = hsCardClassesWithLocalizable()[NSStringFromHSCardClass(self.classId)];
+    NSString *className = localizableFromHSCardClass(self.classId);
     NSString *formatName = hsDeckFormatsWithLocalizable()[self.format];
     
     [result appendFormat:@"### %@\n", title];

@@ -52,14 +52,18 @@ NSArray<NSString *> *hsCardRarities(void) {
     ];
 }
 
-NSDictionary<NSString *, NSString *> * hsCardRaritiesWithLocalizable(void) {
+NSString * localizableFromHSCardRarity(HSCardRarity key) {
+    return NSLocalizedStringFromTableInBundle(NSStringFromHSCardRarity(key),
+                                              @"HSCardRarity",
+                                              [NSBundle bundleWithIdentifier:IDENTIFIER],
+                                              @"");;
+}
+
+NSDictionary<NSString *, NSString *> * localizablesWithHSCardRarity(void) {
     NSMutableDictionary<NSString *, NSString *> *dic = [@{} mutableCopy];
     
     [hsCardRarities() enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        dic[obj] = NSLocalizedStringFromTableInBundle(obj,
-                                                      @"HSCardRarity",
-                                                      [NSBundle bundleWithIdentifier:IDENTIFIER],
-                                                      @"");
+        dic[obj] = localizableFromHSCardRarity(HSCardRarityFromNSString(obj));
     }];
     
     NSDictionary<NSString *, NSString *> *result = [[dic copy] autorelease];

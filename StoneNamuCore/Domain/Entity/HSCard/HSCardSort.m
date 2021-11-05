@@ -86,14 +86,18 @@ NSArray<NSString *> *hsCardSorts(void) {
     ];
 }
 
-NSDictionary<NSString *, NSString *> * hsCardSortsWithLocalizable(void) {
+NSString * localizableFromHSCardSort(HSCardSort key) {
+    return NSLocalizedStringFromTableInBundle(NSStringFromHSCardSort(key),
+                                              @"HSCardSort",
+                                              [NSBundle bundleWithIdentifier:IDENTIFIER],
+                                              @"");;
+}
+
+NSDictionary<NSString *, NSString *> * localizablesWithHSCardSort(void) {
     NSMutableDictionary<NSString *, NSString *> *dic = [@{} mutableCopy];
     
     [hsCardSorts() enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        dic[obj] = NSLocalizedStringFromTableInBundle(obj,
-                                                      @"HSCardSort",
-                                                      [NSBundle bundleWithIdentifier:IDENTIFIER],
-                                                      @"");
+        dic[obj] = localizableFromHSCardSort(HSCardSortFromNSString(obj));
     }];
     
     NSDictionary<NSString *, NSString *> *result = [[dic copy] autorelease];

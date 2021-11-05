@@ -36,29 +36,29 @@ NSArray<NSString *> *hsCardCollectibles(void) {
     ];
 }
 
-NSDictionary<NSString *, NSString *> * hsCardCollectiblesWithLocalizable(void) {
+NSString * localizableFromHSCardCollectible(HSCardCollectible key) {
+    switch (key) {
+        case HSCardCollectibleYES:
+            return NSLocalizedStringFromTableInBundle(@"collectible_yes",
+                                                          @"HSCardCollectible",
+                                                          [NSBundle bundleWithIdentifier:IDENTIFIER],
+                                                          @"");
+        case HSCardCollectibleNO:
+            return NSLocalizedStringFromTableInBundle(@"collectible_no",
+                                                          @"HSCardCollectible",
+                                                          [NSBundle bundleWithIdentifier:IDENTIFIER],
+                                                          @"");
+        default:
+            return @"";
+    }
+}
+
+NSDictionary<NSString *, NSString *> * localizablesWithHSCardCollectible(void) {
     NSMutableDictionary<NSString *, NSString *> *dic = [@{} mutableCopy];
     
     [hsCardCollectibles() enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        
         HSCardCollectible collectible = HSCardCollectibleFromNSString(obj);
-        
-        switch (collectible) {
-            case HSCardCollectibleYES:
-                dic[obj] = NSLocalizedStringFromTableInBundle(@"collectible_yes",
-                                                              @"HSCardCollectible",
-                                                              [NSBundle bundleWithIdentifier:IDENTIFIER],
-                                                              @"");
-                break;
-            case HSCardCollectibleNO:
-                dic[obj] = NSLocalizedStringFromTableInBundle(@"collectible_no",
-                                                              @"HSCardCollectible",
-                                                              [NSBundle bundleWithIdentifier:IDENTIFIER],
-                                                              @"");
-                break;
-            default:
-                break;
-        }
+        dic[obj] = localizableFromHSCardCollectible(collectible);
     }];
     
     NSDictionary<NSString *, NSString *> *result = [[dic copy] autorelease];
