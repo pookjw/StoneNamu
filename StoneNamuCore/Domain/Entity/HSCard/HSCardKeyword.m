@@ -98,87 +98,87 @@ NSString * NSStringFromHSCardKeyword(HSCardKeyword keyword) {
 }
 
 HSCardKeyword HSCardKeywordFromNSString(NSString * key) {
-    if ([key isEqual:@"adapt"]) {
+    if ([key isEqualToString:@"adapt"]) {
         return HSCardKeywordAdapt;
-    } else if ([key isEqual:@"battlecry"]) {
+    } else if ([key isEqualToString:@"battlecry"]) {
         return HSCardKeywordBattlecry;
-    } else if ([key isEqual:@"charge"]) {
+    } else if ([key isEqualToString:@"charge"]) {
         return HSCardKeywordCharge;
-    } else if ([key isEqual:@"combo"]) {
+    } else if ([key isEqualToString:@"combo"]) {
         return HSCardKeywordCombo;
-    } else if ([key isEqual:@"corrupt"]) {
+    } else if ([key isEqualToString:@"corrupt"]) {
         return HSCardKeywordCorrupt;
-    } else if ([key isEqual:@"counter"]) {
+    } else if ([key isEqualToString:@"counter"]) {
         return HSCardKeywordCounter;
-    } else if ([key isEqual:@"deathrattle"]) {
+    } else if ([key isEqualToString:@"deathrattle"]) {
         return HSCardKeywordDeathrattle;
-    } else if ([key isEqual:@"discover"]) {
+    } else if ([key isEqualToString:@"discover"]) {
         return HSCardKeywordDiscover;
-    } else if ([key isEqual:@"divine-shield"]) {
+    } else if ([key isEqualToString:@"divine-shield"]) {
         return HSCardKeywordDivineShield;
-    } else if ([key isEqual:@"echo"]) {
+    } else if ([key isEqualToString:@"echo"]) {
         return HSCardKeywordEcho;
-    } else if ([key isEqual:@"freeze"]) {
+    } else if ([key isEqualToString:@"freeze"]) {
         return HSCardKeywordFreeze;
-    } else if ([key isEqual:@"frenzy"]) {
+    } else if ([key isEqualToString:@"frenzy"]) {
         return HSCardKeywordFrenzy;
-    } else if ([key isEqual:@"immune"]) {
+    } else if ([key isEqualToString:@"immune"]) {
         return HSCardKeywordImmune;
-    } else if ([key isEqual:@"inspire"]) {
+    } else if ([key isEqualToString:@"inspire"]) {
         return HSCardKeywordInspire;
-    } else if ([key isEqual:@"empower"]) {
+    } else if ([key isEqualToString:@"empower"]) {
         return HSCardKeywordInvoke;
-    } else if ([key isEqual:@"evilzug"]) {
+    } else if ([key isEqualToString:@"evilzug"]) {
         return HSCardKeywordLackey;
-    } else if ([key isEqual:@"lifesteal"]) {
+    } else if ([key isEqualToString:@"lifesteal"]) {
         return HSCardKeywordLifesteal;
-    } else if ([key isEqual:@"modular"]) {
+    } else if ([key isEqualToString:@"modular"]) {
         return HSCardKeywordMagnetic;
-    } else if ([key isEqual:@"mega-windfury"]) {
+    } else if ([key isEqualToString:@"mega-windfury"]) {
         return HSCardKeywordMegaWindfury;
-    } else if ([key isEqual:@"spellpowernature"]) {
+    } else if ([key isEqualToString:@"spellpowernature"]) {
         return HSCardKeywordNatureSpellDamage;
-    } else if ([key isEqual:@"outcast"]) {
+    } else if ([key isEqualToString:@"outcast"]) {
         return HSCardKeywordOutcast;
-    } else if ([key isEqual:@"overkill"]) {
+    } else if ([key isEqualToString:@"overkill"]) {
         return HSCardKeywordOverkill;
-    } else if ([key isEqual:@"overload"]) {
+    } else if ([key isEqualToString:@"overload"]) {
         return HSCardKeywordOverload;
-    } else if ([key isEqual:@"poisonous"]) {
+    } else if ([key isEqualToString:@"poisonous"]) {
         return HSCardKeywordPoisonous;
-    } else if ([key isEqual:@"quest"]) {
+    } else if ([key isEqualToString:@"quest"]) {
         return HSCardKeywordQuest;
-    } else if ([key isEqual:@"questline"]) {
+    } else if ([key isEqualToString:@"questline"]) {
         return HSCardKeywordQuestline;
-    } else if ([key isEqual:@"reborn"]) {
+    } else if ([key isEqualToString:@"reborn"]) {
         return HSCardKeywordReborn;
-    } else if ([key isEqual:@"recruit"]) {
+    } else if ([key isEqualToString:@"recruit"]) {
         return HSCardKeywordRecruit;
-    } else if ([key isEqual:@"rush"]) {
+    } else if ([key isEqualToString:@"rush"]) {
         return HSCardKeywordRush;
-    } else if ([key isEqual:@"secret"]) {
+    } else if ([key isEqualToString:@"secret"]) {
         return HSCardKeywordSecret;
-    } else if ([key isEqual:@"sidequest"]) {
+    } else if ([key isEqualToString:@"sidequest"]) {
         return HSCardKeywordSidequest;
-    } else if ([key isEqual:@"silence"]) {
+    } else if ([key isEqualToString:@"silence"]) {
         return HSCardKeywordSilence;
-    } else if ([key isEqual:@"spare-part"]) {
+    } else if ([key isEqualToString:@"spare-part"]) {
         return HSCardKeywordSpareParts;
-    } else if ([key isEqual:@"spellpower"]) {
+    } else if ([key isEqualToString:@"spellpower"]) {
         return HSCardKeywordSpellDamage;
-    } else if ([key isEqual:@"spellburst"]) {
+    } else if ([key isEqualToString:@"spellburst"]) {
         return HSCardKeywordSpellburst;
-    } else if ([key isEqual:@"startofgamekeyword"]) {
+    } else if ([key isEqualToString:@"startofgamekeyword"]) {
         return HSCardKeywordStartOfGame;
-    } else if ([key isEqual:@"stealth"]) {
+    } else if ([key isEqualToString:@"stealth"]) {
         return HSCardKeywordStealth;
-    } else if ([key isEqual:@"taunt"]) {
+    } else if ([key isEqualToString:@"taunt"]) {
         return HSCardKeywordTaunt;
-    } else if ([key isEqual:@"trade"]) {
+    } else if ([key isEqualToString:@"trade"]) {
         return HSCardKeywordTradeable;
-    } else if ([key isEqual:@"twinspell"]) {
+    } else if ([key isEqualToString:@"twinspell"]) {
         return HSCardKeywordTwinspell;
-    } else if ([key isEqual:@"windfury"]) {
+    } else if ([key isEqualToString:@"windfury"]) {
         return HSCardKeywordWindfury;
     } else {
         return 0;
