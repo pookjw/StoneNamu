@@ -5,7 +5,7 @@
 //  Created by Jinwoo Kim on 8/2/21.
 //
 
-#import "DataCache.h"
+#import <StoneNamuCore/DataCache.h>
 
 @implementation DataCache
 

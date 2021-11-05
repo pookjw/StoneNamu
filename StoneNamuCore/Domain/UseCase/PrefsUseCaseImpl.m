@@ -5,7 +5,7 @@
 //  Created by Jinwoo Kim on 8/14/21.
 //
 
-#import "PrefsUseCaseImpl.h"
+#import <StoneNamuCore/PrefsUseCaseImpl.h>
 #import <StoneNamuCore/PrefsRepositoryImpl.h>
 
 @interface PrefsUseCaseImpl ()

@@ -5,7 +5,7 @@
 //  Created by Jinwoo Kim on 8/17/21.
 //
 
-#import "HSDeck.h"
+#import <StoneNamuCore/HSDeck.h>
 #import <StoneNamuCore/StoneNamuCoreErrors.h>
 #import <StoneNamuCore/NSArray+countOfObject.h>
 #import <StoneNamuCore/Identifier.h>

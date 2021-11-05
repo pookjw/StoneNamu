@@ -5,7 +5,7 @@
 //  Created by Jinwoo Kim on 7/29/21.
 //
 
-#import "HSCardGameMode.h"
+#import <StoneNamuCore/HSCardGameMode.h>
 #import <StoneNamuCore/Identifier.h>
 
 NSString * NSStringFromHSCardGameMode(HSCardGameMode gameMode) {

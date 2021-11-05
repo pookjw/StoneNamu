@@ -5,7 +5,7 @@
 //  Created by Jinwoo Kim on 7/28/21.
 //
 
-#import "HSCardCollectible.h"
+#import <StoneNamuCore/HSCardCollectible.h>
 #import <StoneNamuCore/Identifier.h>
 
 NSString * NSStringFromHSCardCollectible(HSCardCollectible collectible) {

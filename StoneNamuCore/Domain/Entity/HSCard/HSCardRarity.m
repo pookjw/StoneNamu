@@ -5,7 +5,7 @@
 //  Created by Jinwoo Kim on 7/28/21.
 //
 
-#import "HSCardRarity.h"
+#import <StoneNamuCore/HSCardRarity.h>
 #import <StoneNamuCore/Identifier.h>
 
 NSString * NSStringFromHSCardRarity(HSCardRarity rarity) {

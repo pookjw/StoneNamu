@@ -5,7 +5,7 @@
 //  Created by Jinwoo Kim on 10/27/21.
 //
 
-#import "NSArray+containsString.h"
+#import <StoneNamuCore/NSArray+containsString.h>
 
 @implementation NSArray (containsString)
 

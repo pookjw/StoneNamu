@@ -5,7 +5,7 @@
 //  Created by Jinwoo Kim on 8/24/21.
 //
 
-#import "NSMutableArray+removeSingle.h"
+#import <StoneNamuCore/NSMutableArray+removeSingle.h>
 
 @implementation NSMutableArray (removeSingle)
 

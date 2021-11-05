@@ -5,7 +5,7 @@
 //  Created by Jinwoo Kim on 8/17/21.
 //
 
-#import "LocalDeckUseCaseImpl.h"
+#import <StoneNamuCore/LocalDeckUseCaseImpl.h>
 #import <StoneNamuCore/LocalDeckRepositoryImpl.h>
 #import <StoneNamuCore/HSCardHero.h>
 #import <StoneNamuCore/NSMutableArray+removeSingle.h>

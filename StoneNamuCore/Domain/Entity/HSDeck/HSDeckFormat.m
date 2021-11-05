@@ -5,7 +5,7 @@
 //  Created by Jinwoo Kim on 8/29/21.
 //
 
-#import "HSDeckFormat.h"
+#import <StoneNamuCore/HSDeckFormat.h>
 #import <StoneNamuCore/Identifier.h>
 
 NSArray<NSString *> * hsDeckFormats(void) {

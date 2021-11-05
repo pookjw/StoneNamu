@@ -5,7 +5,7 @@
 //  Created by Jinwoo Kim on 7/18/21.
 //
 
-#import "BlizzardAPIRegionHost.h"
+#import <StoneNamuCore/BlizzardAPIRegionHost.h>
 #import <StoneNamuCore/Identifier.h>
 
 NSString *NSStringForAPIFromRegionHost(BlizzardAPIRegionHost regionHost) {

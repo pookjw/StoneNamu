@@ -5,7 +5,7 @@
 //  Created by Jinwoo Kim on 8/10/21.
 //
 
-#import "Prefs.h"
+#import <StoneNamuCore/Prefs.h>
 #import <StoneNamuCore/BlizzardAPIRegionHost.h>
 #import <StoneNamuCore/BlizzardHSAPILocale.h>
 #import <StoneNamuCore/BlizzardHSAPIKeys.h>

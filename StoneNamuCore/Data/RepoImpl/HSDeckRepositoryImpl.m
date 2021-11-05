@@ -5,8 +5,8 @@
 //  Created by Jinwoo Kim on 8/17/21.
 //
 
-#import "HSDeckRepositoryImpl.h"
-#import "BlizzardAPIRepositoryImpl.h"
+#import <StoneNamuCore/HSDeckRepositoryImpl.h>
+#import <StoneNamuCore/BlizzardAPIRepositoryImpl.h>
 
 static NSString * const BlizzardHSDeckAPIBasePath = @"/hearthstone/deck";
 

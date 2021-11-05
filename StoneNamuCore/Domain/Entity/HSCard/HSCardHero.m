@@ -5,7 +5,7 @@
 //  Created by Jinwoo Kim on 8/17/21.
 //
 
-#import "HSCardHero.h"
+#import <StoneNamuCore/HSCardHero.h>
 
 HSCardHero HSCardHeroFromHSCardClass(HSCardClass key) {
     switch (key) {

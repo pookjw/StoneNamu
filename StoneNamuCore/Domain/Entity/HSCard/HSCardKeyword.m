@@ -5,7 +5,7 @@
 //  Created by Jinwoo Kim on 7/29/21.
 //
 
-#import "HSCardKeyword.h"
+#import <StoneNamuCore/HSCardKeyword.h>
 #import <StoneNamuCore/Identifier.h>
 
 NSString * NSStringFromHSCardKeyword(HSCardKeyword keyword) {

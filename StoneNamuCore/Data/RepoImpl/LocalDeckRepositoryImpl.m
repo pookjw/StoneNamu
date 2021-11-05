@@ -5,7 +5,7 @@
 //  Created by Jinwoo Kim on 8/17/21.
 //
 
-#import "LocalDeckRepositoryImpl.h"
+#import <StoneNamuCore/LocalDeckRepositoryImpl.h>
 #import <StoneNamuCore/CoreDataStackImpl.h>
 #import <StoneNamuCore/NSManagedObject+_fetchRequest.h>
 

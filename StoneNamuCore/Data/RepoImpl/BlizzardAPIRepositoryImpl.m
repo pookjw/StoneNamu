@@ -5,7 +5,7 @@
 //  Created by Jinwoo Kim on 7/18/21.
 //
 
-#import "BlizzardAPIRepositoryImpl.h"
+#import <StoneNamuCore/BlizzardAPIRepositoryImpl.h>
 #import <StoneNamuCore/BlizzardTokenAPIImpl.h>
 #import <StoneNamuCore/BlizzardAPIImpl.h>
 

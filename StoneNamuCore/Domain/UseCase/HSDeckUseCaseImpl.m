@@ -5,7 +5,7 @@
 //  Created by Jinwoo Kim on 8/19/21.
 //
 
-#import "HSDeckUseCaseImpl.h"
+#import <StoneNamuCore/HSDeckUseCaseImpl.h>
 #import <StoneNamuCore/HSDeckRepositoryImpl.h>
 #import <StoneNamuCore/BlizzardHSAPIKeys.h>
 #import <StoneNamuCore/BlizzardHSAPILocale.h>

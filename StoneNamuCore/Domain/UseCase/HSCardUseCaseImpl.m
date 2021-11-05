@@ -5,7 +5,7 @@
 //  Created by Jinwoo Kim on 7/18/21.
 //
 
-#import "HSCardUseCaseImpl.h"
+#import <StoneNamuCore/HSCardUseCaseImpl.h>
 #import <StoneNamuCore/HSCardRepositoryImpl.h>
 #import <StoneNamuCore/BlizzardHSAPIKeys.h>
 #import <StoneNamuCore/BlizzardHSAPILocale.h>

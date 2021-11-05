@@ -5,7 +5,7 @@
 //  Created by Jinwoo Kim on 8/17/21.
 //
 
-#import "LocalDeck.h"
+#import <StoneNamuCore/LocalDeck.h>
 #import <StoneNamuCore/HSCardHero.h>
 
 @implementation LocalDeck

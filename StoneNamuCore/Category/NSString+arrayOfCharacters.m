@@ -5,7 +5,7 @@
 //  Created by Jinwoo Kim on 9/20/21.
 //
 
-#import "NSString+arrayOfCharacters.h"
+#import <StoneNamuCore/NSString+arrayOfCharacters.h>
 
 @implementation NSString (arrayOfCharacters)
 

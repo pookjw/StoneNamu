@@ -5,7 +5,7 @@
 //  Created by Jinwoo Kim on 9/1/21.
 //
 
-#import "BlizzardHSAPIKeys.h"
+#import <StoneNamuCore/BlizzardHSAPIKeys.h>
 #import <StoneNamuCore/HSCardSet.h>
 #import <StoneNamuCore/HSCardCollectible.h>
 #import <StoneNamuCore/HSCardGameMode.h>

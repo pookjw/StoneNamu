@@ -5,7 +5,7 @@
 //  Created by Jinwoo Kim on 9/6/21.
 //
 
-#import "NSArray+countOfObject.h"
+#import <StoneNamuCore/NSArray+countOfObject.h>
 
 @implementation NSArray (countOfObject)
 

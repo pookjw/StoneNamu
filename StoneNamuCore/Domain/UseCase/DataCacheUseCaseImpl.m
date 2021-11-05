@@ -5,7 +5,7 @@
 //  Created by Jinwoo Kim on 8/2/21.
 //
 
-#import "DataCacheUseCaseImpl.h"
+#import <StoneNamuCore/DataCacheUseCaseImpl.h>
 #import <StoneNamuCore/DataCacheRepositoryImpl.h>
 
 @interface DataCacheUseCaseImpl ()

@@ -5,7 +5,7 @@
 //  Created by Jinwoo Kim on 7/28/21.
 //
 
-#import "HSCardMinionType.h"
+#import <StoneNamuCore/HSCardMinionType.h>
 #import <StoneNamuCore/Identifier.h>
 
 NSString * NSStringFromHSCardMinionType(HSCardMinionType type) {

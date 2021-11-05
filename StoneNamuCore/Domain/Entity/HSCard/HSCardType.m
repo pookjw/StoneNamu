@@ -5,7 +5,7 @@
 //  Created by Jinwoo Kim on 7/28/21.
 //
 
-#import "HSCardType.h"
+#import <StoneNamuCore/HSCardType.h>
 #import <StoneNamuCore/Identifier.h>
 
 NSString * NSStringFromHSCardType(HSCardType type) {

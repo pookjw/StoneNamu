@@ -5,7 +5,7 @@
 //  Created by Jinwoo Kim on 8/2/21.
 //
 
-#import "CoreDataStackImpl.h"
+#import <StoneNamuCore/CoreDataStackImpl.h>
 #import <StoneNamuCore/NSSemaphoreCondition.h>
 #import <StoneNamuCore/Identifier.h>
 

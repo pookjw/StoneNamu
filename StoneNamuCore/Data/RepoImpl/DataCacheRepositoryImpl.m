@@ -5,7 +5,7 @@
 //  Created by Jinwoo Kim on 8/2/21.
 //
 
-#import "DataCacheRepositoryImpl.h"
+#import <StoneNamuCore/DataCacheRepositoryImpl.h>
 #import <StoneNamuCore/CoreDataStackImpl.h>
 #import <StoneNamuCore/DataCache.h>
 #import <StoneNamuCore/NSManagedObject+_fetchRequest.h>

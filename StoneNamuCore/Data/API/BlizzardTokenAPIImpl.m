@@ -5,7 +5,7 @@
 //  Created by Jinwoo Kim on 7/18/21.
 //
 
-#import "BlizzardTokenAPIImpl.h"
+#import <StoneNamuCore/BlizzardTokenAPIImpl.h>
 
 static NSString * const BlizzardTokenAPIBasePath = @"/oauth/token";
 static NSString * const BlizzardTokenAPIGrantTypeKey = @"grant_type";

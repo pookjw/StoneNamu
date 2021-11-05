@@ -5,7 +5,7 @@
 //  Created by Jinwoo Kim on 8/10/21.
 //
 
-#import "NSManagedObject+_fetchRequest.h"
+#import <StoneNamuCore/NSManagedObject+_fetchRequest.h>
 
 @implementation NSManagedObject (_fetchRequest)
 

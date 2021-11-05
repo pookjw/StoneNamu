@@ -5,7 +5,7 @@
 //  Created by Jinwoo Kim on 7/17/21.
 //
 
-#import "BlizzardAPIImpl.h"
+#import <StoneNamuCore/BlizzardAPIImpl.h>
 
 static NSString * const BlizzardHSAPIAccessToken = @"access_token";
 

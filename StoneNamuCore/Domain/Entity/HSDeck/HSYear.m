@@ -5,7 +5,7 @@
 //  Created by Jinwoo Kim on 9/11/21.
 //
 
-#import "HSYear.h"
+#import <StoneNamuCore/HSYear.h>
 #import <StoneNamuCore/Identifier.h>
 
 NSString * hsYearCurrent(void) {

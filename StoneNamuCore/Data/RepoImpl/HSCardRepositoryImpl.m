@@ -5,8 +5,8 @@
 //  Created by Jinwoo Kim on 7/17/21.
 //
 
-#import "HSCardRepositoryImpl.h"
-#import "BlizzardAPIRepositoryImpl.h"
+#import <StoneNamuCore/HSCardRepositoryImpl.h>
+#import <StoneNamuCore/BlizzardAPIRepositoryImpl.h>
 
 static NSString * const BlizzardHSCardAPIBasePath = @"/hearthstone/cards";
 

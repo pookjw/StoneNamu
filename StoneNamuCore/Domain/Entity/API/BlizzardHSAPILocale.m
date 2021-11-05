@@ -5,7 +5,7 @@
 //  Created by Jinwoo Kim on 8/14/21.
 //
 
-#import "BlizzardHSAPILocale.h"
+#import <StoneNamuCore/BlizzardHSAPILocale.h>
 #import <StoneNamuCore/Identifier.h>
 
 NSArray<NSString *> *blizzardHSAPILocales(void) {

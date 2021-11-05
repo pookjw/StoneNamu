@@ -5,7 +5,7 @@
 //  Created by Jinwoo Kim on 8/14/21.
 //
 
-#import "PrefsRepositoryImpl.h"
+#import <StoneNamuCore/PrefsRepositoryImpl.h>
 #import <StoneNamuCore/CoreDataStackImpl.h>
 #import <StoneNamuCore/NSManagedObject+_fetchRequest.h>
 
