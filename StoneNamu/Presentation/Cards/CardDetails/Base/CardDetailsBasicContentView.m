@@ -160,6 +160,8 @@
         } else {
             self.trailingLabel.text = clearedTrailingText;
         }
+        
+        [self invalidateIntrinsicContentSize];
     }];
 }
 
