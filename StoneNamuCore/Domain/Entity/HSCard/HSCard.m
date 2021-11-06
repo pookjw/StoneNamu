@@ -239,6 +239,7 @@
         _copy->_childIds = [self->_childIds copyWithZone:zone];
         _copy->_gameModes = [self->_gameModes copyWithZone:zone];
         _copy->_parentId = self->_parentId;
+        _copy->_version = self->_version;
     }
     
     return copy;
