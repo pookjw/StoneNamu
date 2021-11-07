@@ -8,14 +8,15 @@
 #import "UIImageView+setAsyncImage.h"
 #import <objc/runtime.h>
 #import <StoneNamuCore/StoneNamuCore.h>
+#import "SpinnerView.h"
 
-static NSString * const UIImageViewAsyncImageCategoryActivityIndicatorKey = @"UIImageViewAsyncImageCategoryActivityIndicatorKey";
+static NSString * const UIImageViewAsyncImageCategorySpinnerViewKey = @"UIImageViewAsyncImageCategorySpinnerViewKey";
 static NSString * const UIImageViewAsyncImageCategoryDataCacheUseCaseKey = @"UIImageViewAsyncImageCategoryDataCacheUseCaseKey";
 static NSString * const UIImageViewAsyncImageCategoryCurrentURLKey = @"UIImageViewAsyncImageCategoryCurrentURLKey";
 static NSString * const UIImageViewAsyncImageCategorySessionTaskKey = @"UIImageViewAsyncImageCategorySessionTaskKey";
 
 @interface UIImageView (setAsyncImage)
-@property (nonatomic, retain) UIActivityIndicatorView * _Nullable activityIndicator;
+@property (nonatomic, retain) SpinnerView * _Nullable spinnerView;
 @property (nonatomic, retain) id<DataCacheUseCase> _Nullable dataCacheUseCase;
 @property (nonatomic, retain) NSURL * _Nullable currentURL;
 @property (nonatomic, retain) NSURLSessionTask * _Nullable sessionTask;
@@ -46,7 +47,11 @@ static NSString * const UIImageViewAsyncImageCategorySessionTaskKey = @"UIImageV
     
     NSString *identity = url.absoluteString;
     
-    [self showActivityIndicator];
+    if (indicator) {
+        [self showSpinnerView];
+    } else {
+        [self removeSpinnerView];
+    }
     
     // Fetch Cahce Data from another background thread...
     [self.dataCacheUseCase dataCachesWithIdentity:identity completion:^(NSArray<NSData *> * _Nonnull cachedDatas, NSError * _Nullable error) {
@@ -64,7 +69,7 @@ static NSString * const UIImageViewAsyncImageCategorySessionTaskKey = @"UIImageV
             if ([self.currentURL isEqual:url]) {
                 UIImage *image = [UIImage imageWithData:cachedData];
                 [NSOperationQueue.mainQueue addOperationWithBlock:^{
-                    [self removeActivityIndicator];
+                    [self removeSpinnerView];
                     [self loadImageWithFade:image];
                     completion(image, nil);
                 }];
@@ -74,20 +79,12 @@ static NSString * const UIImageViewAsyncImageCategorySessionTaskKey = @"UIImageV
             }
         } else {
             // if not found, download from server
-            [NSOperationQueue.mainQueue addOperationWithBlock:^{
-                if (indicator) {
-                    [self showActivityIndicator];
-                } else {
-                    [self removeActivityIndicator];
-                }
-            }];
-            
             NSURLSession *session = [NSURLSession sessionWithConfiguration:NSURLSessionConfiguration.ephemeralSessionConfiguration];
             NSURLSessionTask *sessionTask = [session dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
                 
                 if (error) {
                     [NSOperationQueue.mainQueue addOperationWithBlock:^{
-                        [self removeActivityIndicator];
+                        [self removeSpinnerView];
                         self.image = nil;
                     }];
                     completion(nil, error);
@@ -98,7 +95,7 @@ static NSString * const UIImageViewAsyncImageCategorySessionTaskKey = @"UIImageV
                         if ([self.currentURL isEqual:url]) {
                             UIImage *image = [UIImage imageWithData:data];
                             [NSOperationQueue.mainQueue addOperationWithBlock:^{
-                                [self removeActivityIndicator];
+                                [self removeSpinnerView];
                                 [self loadImageWithFade:image];
                                 completion(image, nil);
                             }];
@@ -112,29 +109,48 @@ static NSString * const UIImageViewAsyncImageCategorySessionTaskKey = @"UIImageV
     }];
 }
 
-- (void)showActivityIndicator {
-    if (self.activityIndicator) {
-        self.activityIndicator.hidden = NO;
-        [self.activityIndicator startAnimating];
+- (void)showSpinnerView {
+    if (self.spinnerView) {
+        self.spinnerView.hidden = NO;
+        [self.spinnerView startAnimating];
         return;
     }
     
-    UIActivityIndicatorView *activityIndicator = [UIActivityIndicatorView new];
-    self.activityIndicator = activityIndicator;
-    [self addSubview:activityIndicator];
-    activityIndicator.translatesAutoresizingMaskIntoConstraints = NO;
+    SpinnerView *spinnerView = [SpinnerView new];
+    self.spinnerView = spinnerView;
+    [self addSubview:spinnerView];
+    spinnerView.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    NSLayoutConstraint *widthConstraint = [NSLayoutConstraint constraintWithItem:spinnerView
+                                                                       attribute:NSLayoutAttributeWidth
+                                                                       relatedBy:NSLayoutRelationEqual
+                                                                          toItem:self
+                                                                       attribute:NSLayoutAttributeWidth
+                                                                      multiplier:0.3f
+                                                                        constant:0.0f];
+    NSLayoutConstraint *heightConstraint = [NSLayoutConstraint constraintWithItem:spinnerView
+                                                                       attribute:NSLayoutAttributeHeight
+                                                                       relatedBy:NSLayoutRelationEqual
+                                                                          toItem:self
+                                                                       attribute:NSLayoutAttributeHeight
+                                                                      multiplier:0.3f
+                                                                        constant:0.0f];
+    
     [NSLayoutConstraint activateConstraints:@[
-        [activityIndicator.centerXAnchor constraintEqualToAnchor:self.centerXAnchor],
-        [activityIndicator.centerYAnchor constraintEqualToAnchor:self.centerYAnchor]
+        [spinnerView.centerXAnchor constraintEqualToAnchor:self.centerXAnchor],
+        [spinnerView.centerYAnchor constraintEqualToAnchor:self.centerYAnchor],
+        widthConstraint,
+        heightConstraint
     ]];
-    [activityIndicator startAnimating];
-    [activityIndicator release];
+    
+    [spinnerView startAnimating];
+    [spinnerView release];
 }
 
-- (void)removeActivityIndicator {
-    if (self.activityIndicator == nil) return;
-    self.activityIndicator.hidden = YES;
-    [self.activityIndicator stopAnimating];
+- (void)removeSpinnerView {
+    if (self.spinnerView == nil) return;
+    self.spinnerView.hidden = YES;
+    [self.spinnerView stopAnimating];
 }
 
 - (void)configureDataCacheUseCase {
@@ -155,18 +171,18 @@ static NSString * const UIImageViewAsyncImageCategorySessionTaskKey = @"UIImageV
 
 //
 
-- (UIActivityIndicatorView * _Nullable)activityIndicator {
-    id activityIndicator = objc_getAssociatedObject(self, &UIImageViewAsyncImageCategoryActivityIndicatorKey);
+- (SpinnerView * _Nullable)spinnerView {
+    id spinnerView = objc_getAssociatedObject(self, &UIImageViewAsyncImageCategorySpinnerViewKey);
     
-    if (activityIndicator == NULL) {
+    if (spinnerView == NULL) {
         return nil;
     }
     
-    return activityIndicator;
+    return spinnerView;
 }
 
-- (void)setActivityIndicator:(UIActivityIndicatorView *)activityIndicator {
-    objc_setAssociatedObject(self, &UIImageViewAsyncImageCategoryActivityIndicatorKey, activityIndicator, OBJC_ASSOCIATION_RETAIN);
+- (void)setSpinnerView:(SpinnerView *)spinnerView {
+    objc_setAssociatedObject(self, &UIImageViewAsyncImageCategorySpinnerViewKey, spinnerView, OBJC_ASSOCIATION_RETAIN);
 }
 
 - (id<DataCacheUseCase>)dataCacheUseCase {

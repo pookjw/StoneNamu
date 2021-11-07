@@ -175,7 +175,6 @@
 		4F83FBDF272E7226002D2387 /* NSView+isDarkMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F83FBDE272E7226002D2387 /* NSView+isDarkMode.m */; };
 		4F8754AD26DB6F30000CE351 /* HSDeckFormat.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4F8754AF26DB6F30000CE351 /* HSDeckFormat.strings */; };
 		4F8754B226DB6F60000CE351 /* HSDeckFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8754B126DB6F60000CE351 /* HSDeckFormat.m */; };
-		4F8754B626DB8773000CE351 /* SpinnerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8754B526DB8773000CE351 /* SpinnerView.m */; };
 		4F8754B926DB87DC000CE351 /* UIViewController+SpinnerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8754B826DB87DC000CE351 /* UIViewController+SpinnerView.m */; };
 		4F8754BC26DB91D7000CE351 /* NSIndexPath+identifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8754BB26DB91D7000CE351 /* NSIndexPath+identifier.m */; };
 		4F883F66272FF31500AF0048 /* CardOptionsTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F883F65272FF31500AF0048 /* CardOptionsTextField.m */; };
@@ -202,6 +201,7 @@
 		4F90709C26D3606300BA7614 /* DeckDetailsCardContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F90709B26D3606300BA7614 /* DeckDetailsCardContentView.m */; };
 		4F9070A126D3803800BA7614 /* UIImage+averageColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F9070A026D3803800BA7614 /* UIImage+averageColor.m */; };
 		4F9070A426D3836600BA7614 /* UIColor+invertedColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F9070A326D3836600BA7614 /* UIColor+invertedColor.m */; };
+		4F9831E627382D1400BA6D7E /* SpinnerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F9831E527382D1400BA6D7E /* SpinnerView.m */; };
 		4F98C28F27284DC900865CCD /* SpinnerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F98C28E27284DC900865CCD /* SpinnerView.m */; };
 		4F98E25226B9935B0067846F /* CardDetailsLayoutCompactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F98E25126B9935B0067846F /* CardDetailsLayoutCompactViewController.m */; };
 		4F98E25526B993650067846F /* CardDetailsLayoutRegularViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F98E25426B993650067846F /* CardDetailsLayoutRegularViewController.m */; };
@@ -593,9 +593,6 @@
 		4F8754AE26DB6F30000CE351 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/HSDeckFormat.strings; sourceTree = "<group>"; };
 		4F8754B026DB6F31000CE351 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/HSDeckFormat.strings; sourceTree = "<group>"; };
 		4F8754B126DB6F60000CE351 /* HSDeckFormat.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSDeckFormat.m; sourceTree = "<group>"; };
-		4F8754B426DB8773000CE351 /* SpinnerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SpinnerView.h; sourceTree = "<group>"; };
-		4F8754B526DB8773000CE351 /* SpinnerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SpinnerView.m; sourceTree = "<group>"; };
-		4F8754B726DB87DC000CE351 /* UIViewController+SpinnerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+SpinnerView.h"; sourceTree = "<group>"; };
 		4F8754B826DB87DC000CE351 /* UIViewController+SpinnerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+SpinnerView.m"; sourceTree = "<group>"; };
 		4F8754BA26DB91D7000CE351 /* NSIndexPath+identifier.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSIndexPath+identifier.h"; sourceTree = "<group>"; };
 		4F8754BB26DB91D7000CE351 /* NSIndexPath+identifier.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSIndexPath+identifier.m"; sourceTree = "<group>"; };
@@ -651,6 +648,9 @@
 		4F9070A026D3803800BA7614 /* UIImage+averageColor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+averageColor.m"; sourceTree = "<group>"; };
 		4F9070A226D3836600BA7614 /* UIColor+invertedColor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+invertedColor.h"; sourceTree = "<group>"; };
 		4F9070A326D3836600BA7614 /* UIColor+invertedColor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIColor+invertedColor.m"; sourceTree = "<group>"; };
+		4F9831E427382D1400BA6D7E /* SpinnerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SpinnerView.h; sourceTree = "<group>"; };
+		4F9831E527382D1400BA6D7E /* SpinnerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SpinnerView.m; sourceTree = "<group>"; };
+		4F9831E72738312100BA6D7E /* UIViewController+SpinnerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+SpinnerView.h"; sourceTree = "<group>"; };
 		4F98C28D27284DC900865CCD /* SpinnerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SpinnerView.h; sourceTree = "<group>"; };
 		4F98C28E27284DC900865CCD /* SpinnerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SpinnerView.m; sourceTree = "<group>"; };
 		4F98E24F26B9934B0067846F /* CardDetailsLayoutProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardDetailsLayoutProtocol.h; sourceTree = "<group>"; };
@@ -970,7 +970,7 @@
 				4F9070A026D3803800BA7614 /* UIImage+averageColor.m */,
 				4F9070A226D3836600BA7614 /* UIColor+invertedColor.h */,
 				4F9070A326D3836600BA7614 /* UIColor+invertedColor.m */,
-				4F8754B726DB87DC000CE351 /* UIViewController+SpinnerView.h */,
+				4F9831E72738312100BA6D7E /* UIViewController+SpinnerView.h */,
 				4F8754B826DB87DC000CE351 /* UIViewController+SpinnerView.m */,
 				4F8754BA26DB91D7000CE351 /* NSIndexPath+identifier.h */,
 				4F8754BB26DB91D7000CE351 /* NSIndexPath+identifier.m */,
@@ -1211,7 +1211,7 @@
 			children = (
 				4F248380271DA1D600A231BF /* Floating */,
 				4F3F1BC026E7C0E500ACF80A /* TextActivity */,
-				4F8754B326DB875D000CE351 /* Spinner */,
+				4F8754B326DB875D000CE351 /* SpinnerView */,
 				4F8F976626D47EF10024FC06 /* InsetLabel */,
 				4F6A13AF26B2733D0089A13A /* Stepper */,
 				4F95AED726AD6A810075D2D9 /* Picker */,
@@ -1388,13 +1388,13 @@
 			path = DeckImageRenderService;
 			sourceTree = "<group>";
 		};
-		4F8754B326DB875D000CE351 /* Spinner */ = {
+		4F8754B326DB875D000CE351 /* SpinnerView */ = {
 			isa = PBXGroup;
 			children = (
-				4F8754B426DB8773000CE351 /* SpinnerView.h */,
-				4F8754B526DB8773000CE351 /* SpinnerView.m */,
+				4F9831E427382D1400BA6D7E /* SpinnerView.h */,
+				4F9831E527382D1400BA6D7E /* SpinnerView.m */,
 			);
-			path = Spinner;
+			path = SpinnerView;
 			sourceTree = "<group>";
 		};
 		4F883F67272FFE6100AF0048 /* TouchBar */ = {
@@ -2486,7 +2486,6 @@
 				4F9070A126D3803800BA7614 /* UIImage+averageColor.m in Sources */,
 				4FCC22B426ECA4B7004997AA /* DeckImageRenderServiceIntroContentView.m in Sources */,
 				4F74712626C170CA001C45C4 /* CardDetailsChildrenContentSectionModel.m in Sources */,
-				4F8754B626DB8773000CE351 /* SpinnerView.m in Sources */,
 				4F53D4BB27231D1900DE6F25 /* DeckAddCardSplitViewController.m in Sources */,
 				4F8FFF4E26E0EE9000FA6586 /* DeckAddCardOptionsViewModel.m in Sources */,
 				4F2438ED26CD8CCF0041BB84 /* DecksSectionModel.m in Sources */,
@@ -2515,6 +2514,7 @@
 				4F646A5F26B7D05E00BEDB38 /* UIImageView+setAsyncImage.m in Sources */,
 				4F066CA826D6D2C300991A98 /* DeckDetailsManaCostGraphContentConfiguration.m in Sources */,
 				4F066CB126D6DC5A00991A98 /* DeckDetailsManaCostContentViewModel.m in Sources */,
+				4F9831E627382D1400BA6D7E /* SpinnerView.m in Sources */,
 				4FEB414826BD7BDF009D8594 /* NSString+clearedHTML.m in Sources */,
 				4F8754B926DB87DC000CE351 /* UIViewController+SpinnerView.m in Sources */,
 				4FF3E0B826C97DA4002B20EA /* PrefsLocaleSectionModel.m in Sources */,

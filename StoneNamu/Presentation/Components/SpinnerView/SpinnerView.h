@@ -1,8 +1,8 @@
 //
 //  SpinnerView.h
-//  SpinnerView
+//  StoneNamu
 //
-//  Created by Jinwoo Kim on 8/29/21.
+//  Created by Jinwoo Kim on 11/8/21.
 //
 
 #import <UIKit/UIKit.h>

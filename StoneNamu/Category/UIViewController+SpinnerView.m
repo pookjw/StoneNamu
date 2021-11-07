@@ -8,43 +8,60 @@
 #import "UIViewController+SpinnerView.h"
 #define ANIMATION_DURATION 0.2f
 
+@interface _SpinnerBlurView : UIVisualEffectView
+@end
+
+@implementation _SpinnerBlurView
+@end
+
 @implementation UIViewController (SpinnerView)
 
-- (SpinnerView *)addSpinnerView {
-    return [self addSpinnerViewWithPreventInteraction:NO];
-}
-
-- (SpinnerView *)addSpinnerViewWithPreventInteraction:(BOOL)preventTouch {
+- (void)addSpinnerView {
     [self removeAllSpinnerview];
     
+    _SpinnerBlurView *visualEffectView = [[_SpinnerBlurView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleSystemChromeMaterial]];
     SpinnerView *spinnerView = [SpinnerView new];
     
-    spinnerView.userInteractionEnabled = preventTouch;
-
-    [self.view addSubview:spinnerView];
-
-    spinnerView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:visualEffectView];
+    [visualEffectView.contentView addSubview:spinnerView];
+    
+    visualEffectView.translatesAutoresizingMaskIntoConstraints = NO;
     [NSLayoutConstraint activateConstraints:@[
-        [spinnerView.topAnchor constraintEqualToAnchor:self.view.topAnchor],
-        [spinnerView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor],
-        [spinnerView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor],
-        [spinnerView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor]
+        [visualEffectView.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor],
+        [visualEffectView.centerYAnchor constraintEqualToAnchor:self.view.centerYAnchor],
+        [visualEffectView.widthAnchor constraintEqualToConstant:100.0f],
+        [visualEffectView.heightAnchor constraintEqualToConstant:100.0f]
     ]];
     
-    spinnerView.alpha = 0;
+    spinnerView.translatesAutoresizingMaskIntoConstraints = NO;
+    [NSLayoutConstraint activateConstraints:@[
+        [spinnerView.topAnchor constraintEqualToAnchor:visualEffectView.contentView.topAnchor constant:15.0f],
+        [spinnerView.leadingAnchor constraintEqualToAnchor:visualEffectView.contentView.leadingAnchor constant:15.0f],
+        [spinnerView.trailingAnchor constraintEqualToAnchor:visualEffectView.contentView.trailingAnchor constant:-15.0f],
+        [spinnerView.bottomAnchor constraintEqualToAnchor:visualEffectView.contentView.bottomAnchor constant:-15.0f]
+    ]];
+    
+    [spinnerView startAnimating];
+    [spinnerView release];
+    
+    visualEffectView.clipsToBounds = YES;
+    visualEffectView.layer.cornerRadius = 25.0f;
+    visualEffectView.layer.cornerCurve = kCACornerCurveContinuous;
+    
+    visualEffectView.alpha = 0;
     [UIView animateWithDuration:ANIMATION_DURATION animations:^{
-        spinnerView.alpha = 1;
+        visualEffectView.alpha = 1;
+    } completion:^(BOOL finished) {
+        [visualEffectView release];
     }];
     
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
     UIApplication.sharedApplication.networkActivityIndicatorVisible = YES;
-
-    return [spinnerView autorelease];
 }
 
 - (void)removeAllSpinnerview {
     for (UIView *subview in self.view.subviews) {
-        if ([subview isKindOfClass:[SpinnerView class]]) {
+        if ([subview isKindOfClass:[_SpinnerBlurView class]]) {
             [UIView animateWithDuration:ANIMATION_DURATION animations:^{
                 subview.alpha = 0.0f;
             } completion:^(BOOL finished) {

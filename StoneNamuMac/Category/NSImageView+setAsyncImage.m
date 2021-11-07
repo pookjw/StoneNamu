@@ -47,7 +47,14 @@ static NSString * const NSImageViewAsyncImageCategorySessionTaskKey = @"NSImageV
     }
     
     NSString *identity = url.absoluteString;
-    [self showSpinnerView];
+    
+    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+        if (indicator) {
+            [self showSpinnerView];
+        } else {
+            [self removeSpinnerView];
+        }
+    }];
     
     // Fetch Cahce Data from another background thread...
     [self.dataCacheUseCase dataCachesWithIdentity:identity completion:^(NSArray<NSData *> * _Nonnull cachedDatas, NSError * _Nullable error) {
@@ -76,14 +83,6 @@ static NSString * const NSImageViewAsyncImageCategorySessionTaskKey = @"NSImageV
             }
         } else {
             // if not found, download from server
-            [NSOperationQueue.mainQueue addOperationWithBlock:^{
-                if (indicator) {
-                    [self showSpinnerView];
-                } else {
-                    [self removeSpinnerView];
-                }
-            }];
-            
             NSURLSession *session = [NSURLSession sessionWithConfiguration:NSURLSessionConfiguration.ephemeralSessionConfiguration];
             NSURLSessionTask *sessionTask = [session dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
                 

@@ -1,22 +1,21 @@
 //
 //  SpinnerView.m
-//  StoneNamuMac
+//  StoneNamu
 //
-//  Created by Jinwoo Kim on 10/26/21.
+//  Created by Jinwoo Kim on 11/8/21.
 //
 
 #import "SpinnerView.h"
 #import <QuartzCore/QuartzCore.h>
 #import <StoneNamuCore/StoneNamuCore.h>
-#import "NSView+isDarkMode.h"
 
 #define PROGRESS_CIRCULAR_ANIMATION_KEY @"rotation"
 
 @interface SpinnerView ()
-@property (retain) NSView *contentView;
-@property (retain) NSView *baseCircularView;
+@property (retain) UIView *contentView;
+@property (retain) UIView *baseCircularView;
 @property (retain) CAShapeLayer *baseCircularPathLayer;
-@property (retain) NSView *progressCircularView;
+@property (retain) UIView *progressCircularView;
 @property (retain) CAShapeLayer *progressCircularLayer;
 @property (retain) CABasicAnimation *progressCircularAnimation;
 @end
@@ -47,18 +46,30 @@
     [super dealloc];
 }
 
-- (void)viewDidChangeEffectiveAppearance {
-    [super viewDidChangeEffectiveAppearance];
-    [self updateTintColors];
-}
-
-- (void)layout {
-    [super layout];
+- (void)layoutSubviews {
+    [super layoutSubviews];
     [self redrawBaseCircularPath];
     [self redrawProgressCircularPath];
 }
 
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+    [super traitCollectionDidChange:previousTraitCollection];
+    [self updateTintColors];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+    if ([object isEqual:self.baseCircularView] && [keyPath isEqualToString:@"bounds"]) {
+        [self redrawBaseCircularPath];
+    } else if ([object isEqual:self.progressCircularView] && [keyPath isEqualToString:@"bounds"]) {
+        [self redrawProgressCircularPath];
+    } else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
+}
+
 - (void)startAnimating {
+    [self layoutIfNeeded];
+    
     if (![self.progressCircularLayer.animationKeys containsString:PROGRESS_CIRCULAR_ANIMATION_KEY]) {
         [self.progressCircularLayer addAnimation:self.progressCircularAnimation forKey:PROGRESS_CIRCULAR_ANIMATION_KEY];
     }
@@ -69,40 +80,39 @@
 }
 
 - (void)setAttributes {
-    self.wantsLayer = YES;
-    self.layer.backgroundColor = NSColor.clearColor.CGColor;
+    self.backgroundColor = UIColor.clearColor;
 }
 
 - (void)configureContentView {
-    NSView *contentView = [NSView new];
+    UIView *contentView = [UIView new];
     self.contentView = contentView;
     
     [self addSubview:contentView];
     contentView.translatesAutoresizingMaskIntoConstraints = NO;
     
     NSLayoutConstraint *topConstraint = [contentView.topAnchor constraintEqualToAnchor:self.topAnchor];
-    topConstraint.priority = NSLayoutPriorityDefaultLow;
+    topConstraint.priority = UILayoutPriorityDefaultLow;
     
     NSLayoutConstraint *leadingConstraint = [contentView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor];
-    leadingConstraint.priority = NSLayoutPriorityDefaultLow;
+    leadingConstraint.priority = UILayoutPriorityDefaultLow;
     
     NSLayoutConstraint *trailingConstraint = [contentView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor];
-    trailingConstraint.priority = NSLayoutPriorityDefaultLow;
+    trailingConstraint.priority = UILayoutPriorityDefaultLow;
     
     NSLayoutConstraint *bottomConstraint = [contentView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor];
-    bottomConstraint.priority = NSLayoutPriorityDefaultLow;
+    bottomConstraint.priority = UILayoutPriorityDefaultLow;
     
     NSLayoutConstraint *widthConstraint = [contentView.widthAnchor constraintLessThanOrEqualToAnchor:self.widthAnchor];
-    widthConstraint.priority = NSLayoutPriorityDefaultHigh;
+    widthConstraint.priority = UILayoutPriorityDefaultHigh;
     
     NSLayoutConstraint *heightConstraint = [contentView.heightAnchor constraintLessThanOrEqualToAnchor:self.heightAnchor];
-    heightConstraint.priority = NSLayoutPriorityDefaultHigh;
+    heightConstraint.priority = UILayoutPriorityDefaultHigh;
     
     NSLayoutConstraint *centerXConstraint = [contentView.centerXAnchor constraintEqualToAnchor:self.centerXAnchor];
-    centerXConstraint.priority = NSLayoutPriorityRequired;
+    centerXConstraint.priority = UILayoutPriorityRequired;
     
     NSLayoutConstraint *centerYConstraint = [contentView.centerYAnchor constraintEqualToAnchor:self.centerYAnchor];
-    centerYConstraint.priority = NSLayoutPriorityRequired;
+    centerYConstraint.priority = UILayoutPriorityRequired;
     
     NSLayoutConstraint *aspectConstraint = [NSLayoutConstraint constraintWithItem:contentView
                                                                         attribute:NSLayoutAttributeWidth
@@ -111,7 +121,7 @@
                                                                         attribute:NSLayoutAttributeHeight
                                                                        multiplier:1.0f
                                                                          constant:0.0f];
-    aspectConstraint.priority = NSLayoutPriorityRequired;
+    aspectConstraint.priority = UILayoutPriorityRequired;
     
     [NSLayoutConstraint activateConstraints:@[
         topConstraint,
@@ -125,14 +135,13 @@
         aspectConstraint
     ]];
     
-    contentView.wantsLayer = YES;
-    contentView.layer.backgroundColor = NSColor.clearColor.CGColor;
+    contentView.backgroundColor = UIColor.clearColor;
     
     [contentView release];
 }
 
 - (void)configureBaseCircularView {
-    NSView *baseCircularView = [NSView new];
+    UIView *baseCircularView = [UIView new];
     self.baseCircularView = baseCircularView;
     
     [self.contentView addSubview:baseCircularView];
@@ -149,34 +158,26 @@
     
     //
     
-    baseCircularView.wantsLayer = YES;
-    baseCircularView.layer.backgroundColor = NSColor.clearColor.CGColor;
+    [baseCircularView addObserver:self forKeyPath:@"bounds" options:0 context:nil];
+    
+    //
+    
+    baseCircularView.backgroundColor = UIColor.clearColor;
     
     CAShapeLayer *baseCircularPathLayer = [CAShapeLayer new];
     self.baseCircularPathLayer = baseCircularPathLayer;
-    baseCircularPathLayer.fillColor = NSColor.clearColor.CGColor;
+    baseCircularPathLayer.fillColor = UIColor.clearColor.CGColor;
     
     [baseCircularView.layer addSublayer:baseCircularPathLayer];
     [baseCircularPathLayer release];
     
-    [NSNotificationCenter.defaultCenter addObserver:self
-                                           selector:@selector(baseCircularViewDidChangeFrame:)
-                                               name:NSViewFrameDidChangeNotification
-                                             object:baseCircularView];
-    
     [baseCircularView release];
-}
-
-- (void)baseCircularViewDidChangeFrame:(NSNotification *)notification {
-    [NSOperationQueue.mainQueue addOperationWithBlock:^{
-        [self redrawBaseCircularPath];
-    }];
 }
 
 - (void)redrawBaseCircularPath {
     CGMutablePathRef mutablePath = CGPathCreateMutable();
     CGFloat lineWidth = (self.baseCircularView.bounds.size.height / 10.0f);
-
+    
     CGPathMoveToPoint(mutablePath,
                       nil,
                       (self.baseCircularView.bounds.size.width / 2.0f),
@@ -210,7 +211,7 @@
 }
 
 - (void)configureProgressCircularView {
-    NSView *progressCircularView = [NSView new];
+    UIView *progressCircularView = [UIView new];
     self.progressCircularView = progressCircularView;
 
     [self.contentView addSubview:progressCircularView];
@@ -227,23 +228,15 @@
     
     //
     
-    progressCircularView.wantsLayer = YES;
-    progressCircularView.layer.backgroundColor = NSColor.clearColor.CGColor;
+    progressCircularView.backgroundColor = UIColor.clearColor;
     
     CAShapeLayer *progressCircularLayer = [CAShapeLayer new];
     self.progressCircularLayer = progressCircularLayer;
-    progressCircularLayer.backgroundColor = NSColor.clearColor.CGColor;
-    progressCircularLayer.strokeColor = NSColor.clearColor.CGColor;
+    progressCircularLayer.backgroundColor = UIColor.clearColor.CGColor;
+    progressCircularLayer.strokeColor = UIColor.clearColor.CGColor;
     
     [progressCircularView.layer addSublayer:progressCircularLayer];
     [progressCircularLayer release];
-    
-    //
-    
-    [NSNotificationCenter.defaultCenter addObserver:self
-                                           selector:@selector(progressCircularViewDidChangeFrame:)
-                                               name:NSViewFrameDidChangeNotification
-                                             object:progressCircularView];
     
     //
     
@@ -254,17 +247,15 @@
     progressCircularAnimation.duration = 1.0f;
     progressCircularAnimation.repeatCount = INFINITY;
     progressCircularAnimation.fromValue = [NSNumber numberWithFloat:0.0f];
-    progressCircularAnimation.toValue = [NSNumber numberWithFloat:-(M_PI * 2.0)];
+    progressCircularAnimation.toValue = [NSNumber numberWithFloat:(M_PI * 2.0)];
+    
+    //
+    
+    [progressCircularView addObserver:self forKeyPath:@"bounds" options:0 context:nil];
     
     //
     
     [progressCircularView release];
-}
-
-- (void)progressCircularViewDidChangeFrame:(NSNotification *)notification {
-    [NSOperationQueue.mainQueue addOperationWithBlock:^{
-        [self redrawProgressCircularPath];
-    }];
 }
 
 - (void)redrawProgressCircularPath {
@@ -276,18 +267,18 @@
                  nil,
                  0.0f,
                  0.0f,
-                 NSMidY(self.progressCircularView.bounds),
-                 (M_PI / 2.0f),
-                 ((M_PI / 2.0f) - degree),
-                 YES);
+                 CGRectGetMidY(self.progressCircularView.bounds),
+                 (-(M_PI * (1.0f / 2.0f))),
+                 (-(M_PI * (1.0f / 2.0f)) + degree),
+                 NO);
     CGPathAddArc(mutablePath,
                  nil,
                  0.0f,
                  0.0f,
-                 (NSMidY(self.progressCircularView.bounds) - lineWidth),
-                 ((M_PI / 2.0f) - degree),
-                 (M_PI / 2.0f),
-                 NO);
+                 (CGRectGetMidY(self.progressCircularView.bounds) - lineWidth),
+                 (-(M_PI * (1.0f / 2.0f)) + degree),
+                 (-(M_PI * (1.0f / 2.0f))),
+                 YES);
     
     CGPathCloseSubpath(mutablePath);
     
@@ -308,12 +299,14 @@
 }
 
 - (void)updateTintColors {
-    if (self.isDarkMode) {
-        self.baseCircularPathLayer.strokeColor = [NSColor.whiteColor colorWithAlphaComponent:0.1f].CGColor;
-        self.progressCircularLayer.fillColor = NSColor.whiteColor.CGColor;
+    BOOL isDarkMode = (self.traitCollection.userInterfaceStyle != UIUserInterfaceStyleLight);
+    
+    if (isDarkMode) {
+        self.baseCircularPathLayer.strokeColor = [UIColor.whiteColor colorWithAlphaComponent:0.1f].CGColor;
+        self.progressCircularLayer.fillColor = UIColor.whiteColor.CGColor;
     } else {
-        self.baseCircularPathLayer.strokeColor = [NSColor.blackColor colorWithAlphaComponent:0.1f].CGColor;
-        self.progressCircularLayer.fillColor = NSColor.blackColor.CGColor;
+        self.baseCircularPathLayer.strokeColor = [UIColor.blackColor colorWithAlphaComponent:0.1f].CGColor;
+        self.progressCircularLayer.fillColor = UIColor.blackColor.CGColor;
     }
 }
 

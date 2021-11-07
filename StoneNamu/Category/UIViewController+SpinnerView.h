@@ -11,8 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UIViewController (SpinnerView)
-- (SpinnerView *)addSpinnerView;
-- (SpinnerView *)addSpinnerViewWithPreventInteraction:(BOOL)preventTouch;
+- (void)addSpinnerView;
 - (void)removeAllSpinnerview;
 @end
 

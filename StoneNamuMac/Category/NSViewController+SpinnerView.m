@@ -18,7 +18,7 @@
 
 @implementation NSViewController (SpinnerView)
 
-- (SpinnerView *)addSpinnerView {
+- (void)addSpinnerView {
     [self removeAllSpinnerview];
     
     _SpinnerBlurView *visualEffectView = [_SpinnerBlurView new];
@@ -67,14 +67,14 @@
     spinnerView.layer.opacity = 1.0f;
     [spinnerView startAnimating];
     
-    return [spinnerView autorelease];
+    [spinnerView release];
 }
 
 - (void)removeAllSpinnerview {
     for (NSView *subview in self.view.subviews) {
         if ([subview isKindOfClass:[_SpinnerBlurView class]]) {
             subview.wantsLayer = YES;
-            
+
             [CATransaction begin];
             CABasicAnimation *fade = [CABasicAnimation animationWithKeyPath:@"opacity"];
             fade.duration = ANIMATION_DURATION;
@@ -86,7 +86,7 @@
             }];
             [subview.layer addAnimation:fade forKey:@"fadeOut"];
             [CATransaction commit];
-            
+
             subview.layer.opacity = 0.0f;
         }
     }
