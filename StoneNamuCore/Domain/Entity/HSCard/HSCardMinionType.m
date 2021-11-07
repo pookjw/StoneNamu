@@ -41,11 +41,11 @@ HSCardMinionType HSCardMinionTypeFromNSString(NSString * key) {
     } else if ([key isEqualToString:@"demon"]) {
         return HSCardMinionTypeDemon;
     } else if ([key isEqualToString:@"dragon"]) {
-        return HSCardMinionTypeElemental;
+        return HSCardMinionTypeDragon;
     } else if ([key isEqualToString:@"elemental"]) {
         return HSCardMinionTypeElemental;
     } else if ([key isEqualToString:@"mech"]) {
-        return HSCardMinionTypeMurloc;
+        return HSCardMinionTypeMech;
     } else if ([key isEqualToString:@"murloc"]) {
         return HSCardMinionTypeMurloc;
     } else if ([key isEqualToString:@"pirate"]) {
