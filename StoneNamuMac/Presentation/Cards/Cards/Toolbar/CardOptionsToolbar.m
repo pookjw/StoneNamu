@@ -33,7 +33,7 @@
 
 @implementation CardOptionsToolbar
 
-- (instancetype)initWithOptions:(NSDictionary<NSString *,NSString *> *)options cardOptionsToolbarDelegate:(nonnull id<CardOptionsToolbarDelegate>)cardOptionsToolbarDelegate {
+- (instancetype)initWithOptions:(NSDictionary<NSString *,NSString *> * _Nullable)options cardOptionsToolbarDelegate:(nonnull id<CardOptionsToolbarDelegate>)cardOptionsToolbarDelegate {
     self = [super initWithIdentifier:@"CardOptionsToolbar"];
     
     if (self) {
@@ -184,7 +184,7 @@
     [self validateVisibleItems];
 }
 
-- (void)updateItemsWithOptions:(NSDictionary<NSString *, NSString *> *)options {
+- (void)updateItemsWithOptions:(NSDictionary<NSString *, NSString *> * _Nullable)options {
     NSMutableDictionary<NSString *, NSString *> *mutableOptions = [options mutableCopy];
     self.options = mutableOptions;
     [mutableOptions release];

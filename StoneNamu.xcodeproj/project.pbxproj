@@ -50,6 +50,7 @@
 		4F34386726A37022001161FE /* HSCardRepositoryImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA05F7526A309C7000E93BC /* HSCardRepositoryImpl.m */; };
 		4F34386826A37029001161FE /* BlizzardTokenAPIImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F34383D26A36501001161FE /* BlizzardTokenAPIImpl.m */; };
 		4F34386926A37031001161FE /* BlizzardAPIImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA56BED26A213B2002D9FA0 /* BlizzardAPIImpl.m */; };
+		4F394DDD273861C500D1148D /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F394DDC273861C500D1148D /* MainMenu.xib */; };
 		4F3F1BC326E7C12000ACF80A /* TextActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F3F1BC226E7C12000ACF80A /* TextActivityViewController.m */; };
 		4F3F1BC626E7C21100ACF80A /* UIView+removeAllSubviews.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F3F1BC526E7C21100ACF80A /* UIView+removeAllSubviews.m */; };
 		4F414B0126CED5480003A0CF /* NSSemaphoreCondition.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF3E0D626CA7F81002B20EA /* NSSemaphoreCondition.m */; };
@@ -232,6 +233,14 @@
 		4FC094F926CD712100A7D373 /* HSDeckUseCaseImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FC094F726CD712100A7D373 /* HSDeckUseCaseImpl.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4FC094FA26CD712100A7D373 /* HSDeckUseCaseImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC094F826CD712100A7D373 /* HSDeckUseCaseImpl.m */; };
 		4FC094FD26CD77C400A7D373 /* DecksViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC094FC26CD77C400A7D373 /* DecksViewModel.m */; };
+		4FC402B22738686500D25523 /* AppMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC402B12738686500D25523 /* AppMenuItem.m */; };
+		4FC402BA27386D2500D25523 /* FileMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC402B927386D2500D25523 /* FileMenuItem.m */; };
+		4FC402BD27386F3100D25523 /* EditMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC402BC27386F3100D25523 /* EditMenuItem.m */; };
+		4FC402C0273870C200D25523 /* ViewMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC402BF273870C200D25523 /* ViewMenuItem.m */; };
+		4FC402C3273872A900D25523 /* WindowMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC402C2273872A900D25523 /* WindowMenuItem.m */; };
+		4FC402C6273873BC00D25523 /* HelpMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC402C5273873BC00D25523 /* HelpMenuItem.m */; };
+		4FC402C92738755F00D25523 /* BaseMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC402C82738755F00D25523 /* BaseMenu.m */; };
+		4FC402CD2738759200D25523 /* CardsMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC402CC2738759200D25523 /* CardsMenu.m */; };
 		4FCC22B126ECA3C4004997AA /* DeckImageRenderServiceIntroContentConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FCC22B026ECA3C4004997AA /* DeckImageRenderServiceIntroContentConfiguration.m */; };
 		4FCC22B426ECA4B7004997AA /* DeckImageRenderServiceIntroContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FCC22B326ECA4B7004997AA /* DeckImageRenderServiceIntroContentView.m */; };
 		4FCC22BE26ECA949004997AA /* HSYear.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4FCC22C026ECA949004997AA /* HSYear.strings */; };
@@ -437,6 +446,7 @@
 		4F34384826A36FBA001161FE /* StoneNamuCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StoneNamuCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F34384A26A36FBA001161FE /* StoneNamuCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoneNamuCore.h; sourceTree = "<group>"; };
 		4F34384F26A36FBA001161FE /* StoneNamuCoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StoneNamuCoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4F394DDC273861C500D1148D /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
 		4F3F1BC126E7C12000ACF80A /* TextActivityViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TextActivityViewController.h; sourceTree = "<group>"; };
 		4F3F1BC226E7C12000ACF80A /* TextActivityViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TextActivityViewController.m; sourceTree = "<group>"; };
 		4F3F1BC426E7C21100ACF80A /* UIView+removeAllSubviews.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+removeAllSubviews.h"; sourceTree = "<group>"; };
@@ -717,6 +727,22 @@
 		4FC094F826CD712100A7D373 /* HSDeckUseCaseImpl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSDeckUseCaseImpl.m; sourceTree = "<group>"; };
 		4FC094FB26CD77C400A7D373 /* DecksViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DecksViewModel.h; sourceTree = "<group>"; };
 		4FC094FC26CD77C400A7D373 /* DecksViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DecksViewModel.m; sourceTree = "<group>"; };
+		4FC402B02738686500D25523 /* AppMenuItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppMenuItem.h; sourceTree = "<group>"; };
+		4FC402B12738686500D25523 /* AppMenuItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppMenuItem.m; sourceTree = "<group>"; };
+		4FC402B827386D2500D25523 /* FileMenuItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FileMenuItem.h; sourceTree = "<group>"; };
+		4FC402B927386D2500D25523 /* FileMenuItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FileMenuItem.m; sourceTree = "<group>"; };
+		4FC402BB27386F3100D25523 /* EditMenuItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditMenuItem.h; sourceTree = "<group>"; };
+		4FC402BC27386F3100D25523 /* EditMenuItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditMenuItem.m; sourceTree = "<group>"; };
+		4FC402BE273870C200D25523 /* ViewMenuItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewMenuItem.h; sourceTree = "<group>"; };
+		4FC402BF273870C200D25523 /* ViewMenuItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewMenuItem.m; sourceTree = "<group>"; };
+		4FC402C1273872A900D25523 /* WindowMenuItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WindowMenuItem.h; sourceTree = "<group>"; };
+		4FC402C2273872A900D25523 /* WindowMenuItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WindowMenuItem.m; sourceTree = "<group>"; };
+		4FC402C4273873BC00D25523 /* HelpMenuItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HelpMenuItem.h; sourceTree = "<group>"; };
+		4FC402C5273873BC00D25523 /* HelpMenuItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HelpMenuItem.m; sourceTree = "<group>"; };
+		4FC402C72738755F00D25523 /* BaseMenu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseMenu.h; sourceTree = "<group>"; };
+		4FC402C82738755F00D25523 /* BaseMenu.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseMenu.m; sourceTree = "<group>"; };
+		4FC402CB2738759200D25523 /* CardsMenu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardsMenu.h; sourceTree = "<group>"; };
+		4FC402CC2738759200D25523 /* CardsMenu.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardsMenu.m; sourceTree = "<group>"; };
 		4FCC22AF26ECA3C4004997AA /* DeckImageRenderServiceIntroContentConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckImageRenderServiceIntroContentConfiguration.h; sourceTree = "<group>"; };
 		4FCC22B026ECA3C4004997AA /* DeckImageRenderServiceIntroContentConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckImageRenderServiceIntroContentConfiguration.m; sourceTree = "<group>"; };
 		4FCC22B226ECA4B7004997AA /* DeckImageRenderServiceIntroContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckImageRenderServiceIntroContentView.h; sourceTree = "<group>"; };
@@ -1068,6 +1094,15 @@
 			path = StoneNamuCoreTests;
 			sourceTree = "<group>";
 		};
+		4F394DBA2738613F00D1148D /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				4FC402CB2738759200D25523 /* CardsMenu.h */,
+				4FC402CC2738759200D25523 /* CardsMenu.m */,
+			);
+			path = Menu;
+			sourceTree = "<group>";
+		};
 		4F3F1BC026E7C0E500ACF80A /* TextActivity */ = {
 			isa = PBXGroup;
 			children = (
@@ -1100,6 +1135,7 @@
 			isa = PBXGroup;
 			children = (
 				4F7333F5272D834D00438FE0 /* Cards */,
+				4F394DBA2738613F00D1148D /* Menu */,
 				4F7333F4272D834900438FE0 /* Toolbar */,
 				4F883F67272FFE6100AF0048 /* TouchBar */,
 			);
@@ -1448,10 +1484,9 @@
 		4F98C28C27284D8F00865CCD /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				4F98C28D27284DC900865CCD /* SpinnerView.h */,
-				4F98C28E27284DC900865CCD /* SpinnerView.m */,
-				4F83FBDA272E6F5D002D2387 /* DynamicMenuToolbarItem.h */,
-				4F83FBDB272E6F5D002D2387 /* DynamicMenuToolbarItem.m */,
+				4FC402B727386D0E00D25523 /* DynamicMenuToolbarItem */,
+				4FC402AF2738684600D25523 /* Menu */,
+				4FC402B627386D0600D25523 /* SpinnerView */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -1713,6 +1748,53 @@
 			path = Prefs;
 			sourceTree = "<group>";
 		};
+		4FC402AF2738684600D25523 /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				4FC402C72738755F00D25523 /* BaseMenu.h */,
+				4FC402C82738755F00D25523 /* BaseMenu.m */,
+				4FC402CA2738756300D25523 /* Items */,
+			);
+			path = Menu;
+			sourceTree = "<group>";
+		};
+		4FC402B627386D0600D25523 /* SpinnerView */ = {
+			isa = PBXGroup;
+			children = (
+				4F98C28D27284DC900865CCD /* SpinnerView.h */,
+				4F98C28E27284DC900865CCD /* SpinnerView.m */,
+			);
+			path = SpinnerView;
+			sourceTree = "<group>";
+		};
+		4FC402B727386D0E00D25523 /* DynamicMenuToolbarItem */ = {
+			isa = PBXGroup;
+			children = (
+				4F83FBDA272E6F5D002D2387 /* DynamicMenuToolbarItem.h */,
+				4F83FBDB272E6F5D002D2387 /* DynamicMenuToolbarItem.m */,
+			);
+			path = DynamicMenuToolbarItem;
+			sourceTree = "<group>";
+		};
+		4FC402CA2738756300D25523 /* Items */ = {
+			isa = PBXGroup;
+			children = (
+				4FC402B02738686500D25523 /* AppMenuItem.h */,
+				4FC402B12738686500D25523 /* AppMenuItem.m */,
+				4FC402B827386D2500D25523 /* FileMenuItem.h */,
+				4FC402B927386D2500D25523 /* FileMenuItem.m */,
+				4FC402BB27386F3100D25523 /* EditMenuItem.h */,
+				4FC402BC27386F3100D25523 /* EditMenuItem.m */,
+				4FC402BE273870C200D25523 /* ViewMenuItem.h */,
+				4FC402BF273870C200D25523 /* ViewMenuItem.m */,
+				4FC402C1273872A900D25523 /* WindowMenuItem.h */,
+				4FC402C2273872A900D25523 /* WindowMenuItem.m */,
+				4FC402C4273873BC00D25523 /* HelpMenuItem.h */,
+				4FC402C5273873BC00D25523 /* HelpMenuItem.m */,
+			);
+			path = Items;
+			sourceTree = "<group>";
+		};
 		4FC6CDF126C18AEE006F0BED /* Layout */ = {
 			isa = PBXGroup;
 			children = (
@@ -1894,6 +1976,7 @@
 		4FE8575427008D640008C2FB /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				4F394DDC273861C500D1148D /* MainMenu.xib */,
 				4FE856FF270089BC0008C2FB /* AppDelegate.h */,
 				4FE85700270089BC0008C2FB /* AppDelegate.m */,
 				4FE85707270089BD0008C2FB /* main.m */,
@@ -2317,6 +2400,7 @@
 				4FE8575627008DBE0008C2FB /* Localizable.strings in Resources */,
 				4FE8575527008DBA0008C2FB /* InfoPlist.strings in Resources */,
 				4F4D1D1D273337980003F317 /* Assets.xcassets in Resources */,
+				4F394DDD273861C500D1148D /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2534,8 +2618,11 @@
 				4FE857622700913A0008C2FB /* MainSplitViewController.m in Sources */,
 				4FE8576D27009B5C0008C2FB /* CardsViewModel.m in Sources */,
 				4FE85708270089BD0008C2FB /* main.m in Sources */,
+				4FC402C0273870C200D25523 /* ViewMenuItem.m in Sources */,
+				4FC402C3273872A900D25523 /* WindowMenuItem.m in Sources */,
 				4F883F6E27300B1700AF0048 /* NSToolbarIdentifierCardOptions+BlizzardHSAPIOptionType.m in Sources */,
 				4F4892E92724727000126131 /* CardContentView.m in Sources */,
+				4FC402B22738686500D25523 /* AppMenuItem.m in Sources */,
 				4F883F7127300BCB00AF0048 /* NSTouchBarItemIdentifierCardOptions+BlizzardHSAPIOptionType.m in Sources */,
 				4FE85701270089BC0008C2FB /* AppDelegate.m in Sources */,
 				4F83FBDC272E6F5D002D2387 /* DynamicMenuToolbarItem.m in Sources */,
@@ -2548,11 +2635,16 @@
 				4FE8577327009C570008C2FB /* CardItemModel.m in Sources */,
 				4F883F74273011FC00AF0048 /* NSTextField+setLabelStyle.m in Sources */,
 				4F7333FB272DA77900438FE0 /* CardOptionsMenuItem.m in Sources */,
+				4FC402C6273873BC00D25523 /* HelpMenuItem.m in Sources */,
+				4FC402C92738755F00D25523 /* BaseMenu.m in Sources */,
 				4F6462D62726932A00329B10 /* NSImageView+setAsyncImage.m in Sources */,
+				4FC402BA27386D2500D25523 /* FileMenuItem.m in Sources */,
 				4F883F6A272FFE7C00AF0048 /* CardOptionsTouchBar.m in Sources */,
 				4FE85767270092F30008C2FB /* MainListViewController.m in Sources */,
 				4F98C28F27284DC900865CCD /* SpinnerView.m in Sources */,
+				4FC402BD27386F3100D25523 /* EditMenuItem.m in Sources */,
 				4F466EF1272851090035C569 /* NSViewController+SpinnerView.m in Sources */,
+				4FC402CD2738759200D25523 /* CardsMenu.m in Sources */,
 				4FE857762700A0230008C2FB /* NSCollectionViewDiffableDataSource+applySnapshotAndWait.m in Sources */,
 				4F7333F8272D836A00438FE0 /* CardOptionsToolbar.m in Sources */,
 			);

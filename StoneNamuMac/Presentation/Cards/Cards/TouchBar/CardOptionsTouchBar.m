@@ -86,7 +86,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
 
 @implementation CardOptionsTouchBar
 
-- (instancetype)initWithOptions:(NSDictionary<NSString *,NSString *> *)options cardOptionsTouchBarDelegate:(id<CardOptionsTouchBarDelegate>)cardOptionsTouchBarDelegate {
+- (instancetype)initWithOptions:(NSDictionary<NSString *,NSString *> * _Nullable)options cardOptionsTouchBarDelegate:(id<CardOptionsTouchBarDelegate>)cardOptionsTouchBarDelegate {
     self = [self init];
     
     if (self) {
