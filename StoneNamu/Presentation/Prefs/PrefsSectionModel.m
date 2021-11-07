@@ -40,6 +40,8 @@
             return NSLocalizedString(@"SEARCH", @"");
         case PrefsSectionModelTypeData:
             return NSLocalizedString(@"DATA", @"");
+        case PrefsSectionModelMiscellaneous:
+            return NSLocalizedString(@"MISCELLANEOUS", @"");
         case PrefsSectionModelContributors:
             return NSLocalizedString(@"CONTRIBUTORS", @"");
         default:

@@ -48,6 +48,8 @@
             return [UIImage systemImageNamed:@"trash"];
         case PrefsItemModelTypeDeleteAllLocalDecks:
             return [UIImage systemImageNamed:@"trash"];
+        case PrefsItemModelTypeJoinTestFlight:
+            return [UIImage systemImageNamed:@"testtube.2"];
         case PrefsItemModelTypePookjwContributor:
             return [UIImage imageNamed:@"pookjw"];
         case PrefsItemModelTypePnamuContributor:
@@ -65,6 +67,8 @@
             return NSLocalizedString(@"DELETE_ALL_CACHES", @"");
         case PrefsItemModelTypeDeleteAllLocalDecks:
             return @"Remove All LocalDecks";
+        case PrefsItemModelTypeJoinTestFlight:
+            return NSLocalizedString(@"JOIN_TESTFLIGHT", @"");
         case PrefsItemModelTypePookjwContributor:
             return NSLocalizedString(@"POOKJW", @"");
         case PrefsItemModelTypePnamuContributor:
@@ -95,6 +99,8 @@
             return NO;
         case PrefsItemModelTypeDeleteAllLocalDecks:
             return NO;
+        case PrefsItemModelTypeJoinTestFlight:
+            return NO;
         default:
             return YES;
     }
@@ -114,10 +120,19 @@
     }
 }
 
-- (NSURL * _Nullable)singleWebPageURL {
+- (NSURL * _Nullable)internalWebPageURL {
     switch (self.type) {
         case PrefsItemModelTypePookjwContributor:
             return [NSURL URLWithString:@"https://github.com/pookjw"];
+        default:
+            return nil;
+    }
+}
+
+- (NSURL * _Nullable)externalWebPageURL {
+    switch (self.type) {
+        case PrefsItemModelTypeJoinTestFlight:
+            return [NSURL URLWithString:@"https://testflight.apple.com/join/StyyfbHu"];
         default:
             return nil;
     }

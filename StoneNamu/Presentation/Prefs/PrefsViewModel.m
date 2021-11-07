@@ -87,9 +87,10 @@
         
         PrefsSectionModel *searchPrefSection = [[PrefsSectionModel alloc] initWithType:PrefsSectionModelTypeSearchPrefSelection];
         PrefsSectionModel *dataSection = [[PrefsSectionModel alloc] initWithType:PrefsSectionModelTypeData];
+        PrefsSectionModel *miscellaneousSection = [[PrefsSectionModel alloc] initWithType:PrefsSectionModelMiscellaneous];
         PrefsSectionModel *contributorsSection = [[PrefsSectionModel alloc] initWithType:PrefsSectionModelContributors];
         
-        [snapshot appendSectionsWithIdentifiers:@[searchPrefSection, dataSection, contributorsSection]];
+        [snapshot appendSectionsWithIdentifiers:@[searchPrefSection, dataSection, miscellaneousSection, contributorsSection]];
         
         //
         
@@ -109,6 +110,11 @@
                        intoSectionWithIdentifier:dataSection];
             
             [snapshot appendItemsWithIdentifiers:@[
+                [[[PrefsItemModel alloc] initWithType:PrefsItemModelTypeJoinTestFlight] autorelease]
+            ]
+                       intoSectionWithIdentifier:miscellaneousSection];
+            
+            [snapshot appendItemsWithIdentifiers:@[
                 [[[PrefsItemModel alloc] initWithType:PrefsItemModelTypePookjwContributor] autorelease],
                 [[[PrefsItemModel alloc] initWithType:PrefsItemModelTypePnamuContributor] autorelease]
             ]
@@ -117,6 +123,7 @@
         
         [searchPrefSection release];
         [dataSection release];
+        [miscellaneousSection release];
         [contributorsSection release];
         
         [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{

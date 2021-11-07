@@ -14,6 +14,7 @@ typedef NS_ENUM(NSUInteger, PrefsItemModelType) {
     PrefsItemModelTypeRegionSelection,
     PrefsItemModelTypeDeleteAllCaches,
     PrefsItemModelTypeDeleteAllLocalDecks,
+    PrefsItemModelTypeJoinTestFlight,
     PrefsItemModelTypePookjwContributor,
     PrefsItemModelTypePnamuContributor
 };
@@ -27,7 +28,8 @@ typedef NS_ENUM(NSUInteger, PrefsItemModelType) {
 @property (readonly, nonatomic) UIListContentTextAlignment primaryTextAlignment;
 @property (readonly, nonatomic) BOOL hasDisclosure;
 @property (readonly, nonatomic) NSDictionary<NSString *, NSURL *> * _Nullable socialInfo;
-@property (readonly, nonatomic) NSURL * _Nullable singleWebPageURL;
+@property (readonly, nonatomic) NSURL * _Nullable internalWebPageURL;
+@property (readonly, nonatomic) NSURL * _Nullable externalWebPageURL;
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithType:(PrefsItemModelType)type;

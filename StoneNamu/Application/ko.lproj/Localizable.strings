@@ -116,6 +116,10 @@
 
 "PNAMU_DESCRIPTION" = "아이콘 디자이너, 베타 테스터";
 
+"MISCELLANEOUS" = "기타";
+
+"JOIN_TESTFLIGHT" = "베타 프로그램 참여";
+
 "AUTO" = "(자동)";
 
 "CARD_LANGUAGE_AUTO_DESCRIPTION" = "시스템 설정에 따라 자동으로 결정해요.";

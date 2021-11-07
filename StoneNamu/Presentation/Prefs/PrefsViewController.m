@@ -249,10 +249,18 @@
     [vc release];
 }
 
-- (void)presentWebViewControllerWithURL:(NSURL *)url {
+- (void)presentInternalWebViewControllerWithURL:(NSURL *)url {
     SFSafariViewController *vc = [[SFSafariViewController alloc] initWithURL:url];
     [self presentViewController:vc animated:YES completion:^{}];
     [vc release];
+}
+
+- (void)openURL:(NSURL *)url {
+    if (self.view.window.windowScene != nil) {
+        [self.view.window.windowScene openURL:url options:nil completionHandler:^(BOOL success) {}];
+    } else {
+        [UIApplication.sharedApplication openURL:url options:@{} completionHandler:^(BOOL success) {}];
+    }
 }
 
 - (void)presentActionSheetFromView:(UIView *)view withSocialInfo:(NSDictionary<NSString *, NSURL *> *)socialInfo title:(NSString *)title {
@@ -311,8 +319,12 @@
             [self.viewModel deleteAllLocalDecks];
             [collectionView deselectItemAtIndexPath:indexPath animated:YES];
             break;
+        case PrefsItemModelTypeJoinTestFlight:
+            [self openURL:itemModel.externalWebPageURL];
+            [collectionView deselectItemAtIndexPath:indexPath animated:YES];
+            break;
         case PrefsItemModelTypePookjwContributor:
-            [self presentWebViewControllerWithURL:itemModel.singleWebPageURL];
+            [self presentInternalWebViewControllerWithURL:itemModel.internalWebPageURL];
             break;
         case PrefsItemModelTypePnamuContributor: {
             UICollectionViewCell * _Nullable cell = [collectionView cellForItemAtIndexPath:indexPath];
@@ -362,7 +374,7 @@
             self.viewModel.contextMenuIndexPath = indexPath;
             UIContextMenuConfiguration *configuration = [UIContextMenuConfiguration configurationWithIdentifier:nil
                                                                                                 previewProvider:^UIViewController * _Nullable{
-                SFSafariViewController *vc = [[SFSafariViewController alloc] initWithURL:itemModel.singleWebPageURL];
+                SFSafariViewController *vc = [[SFSafariViewController alloc] initWithURL:itemModel.internalWebPageURL];
                 self.contextViewController = vc;
                 return [vc autorelease];
             }

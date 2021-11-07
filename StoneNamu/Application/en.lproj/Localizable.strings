@@ -116,6 +116,10 @@
 
 "PNAMU_DESCRIPTION" = "Icon Designer, Beta Tester";
 
+"MISCELLANEOUS" = "Miscellaneous";
+
+"JOIN_TESTFLIGHT" = "Join Beta Program";
+
 "AUTO" = "(Auto)";
 
 "CARD_LANGUAGE_AUTO_DESCRIPTION" = "Card Language will be automatically selected from system settings.";

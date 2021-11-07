@@ -12,7 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 typedef NS_ENUM(NSUInteger, PrefsSectionModelType) {
     PrefsSectionModelTypeSearchPrefSelection,
     PrefsSectionModelTypeData,
-    PrefsSectionModelContributors,
+    PrefsSectionModelMiscellaneous,
+    PrefsSectionModelContributors
 };
 
 @interface PrefsSectionModel : NSObject
