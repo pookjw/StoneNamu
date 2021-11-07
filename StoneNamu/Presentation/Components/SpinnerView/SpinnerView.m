@@ -178,23 +178,19 @@
     CGMutablePathRef mutablePath = CGPathCreateMutable();
     CGFloat lineWidth = (self.baseCircularView.bounds.size.height / 10.0f);
     
-    CGPathMoveToPoint(mutablePath,
-                      nil,
-                      (self.baseCircularView.bounds.size.width / 2.0f),
-                      (self.baseCircularView.bounds.size.height - (lineWidth / 2.0f)));
     CGPathAddArc(mutablePath,
                  nil,
-                 (self.baseCircularView.bounds.size.width / 2.0f),
-                 (self.baseCircularView.bounds.size.height / 2.0f),
-                 (self.baseCircularView.bounds.size.height / 2.0f) - (lineWidth / 2.0f),
+                 CGRectGetMidX(self.baseCircularView.bounds),
+                 CGRectGetMidY(self.baseCircularView.bounds),
+                 (CGRectGetMidY(self.baseCircularView.bounds) - (lineWidth / 2.0f)),
                  (M_PI / 2.0f),
                  -(M_PI / 2.0f),
                  YES);
     CGPathAddArc(mutablePath,
                  nil,
-                 (self.baseCircularView.bounds.size.width / 2.0f),
-                 (self.baseCircularView.bounds.size.height / 2.0f),
-                 (self.baseCircularView.bounds.size.height / 2.0f) - (lineWidth / 2.0f),
+                 CGRectGetMidX(self.baseCircularView.bounds),
+                 CGRectGetMidY(self.baseCircularView.bounds),
+                 (CGRectGetMidY(self.baseCircularView.bounds) - (lineWidth / 2.0f)),
                  -(M_PI / 2.0f),
                  (M_PI / 2.0f),
                  YES);
@@ -207,7 +203,7 @@
     self.baseCircularPathLayer.path = path;
     CGPathRelease(path);
     
-    self.baseCircularPathLayer.lineWidth = (self.baseCircularView.bounds.size.height / 10.0f);
+    self.baseCircularPathLayer.lineWidth = lineWidth;
 }
 
 - (void)configureProgressCircularView {
@@ -260,7 +256,7 @@
 
 - (void)redrawProgressCircularPath {
     CGMutablePathRef mutablePath = CGPathCreateMutable();
-    CGFloat lineWidth = self.progressCircularView.bounds.size.height / 10.0f;
+    CGFloat lineWidth = CGRectGetMaxY(self.progressCircularView.bounds) / 10.0f;
     CGFloat degree = M_PI * (1.0f / 2.0f);
     
     CGPathAddArc(mutablePath,
@@ -293,8 +289,8 @@
     // https://stackoverflow.com/a/226761
     [CATransaction begin];
     [CATransaction setValue:(id)kCFBooleanTrue forKey: kCATransactionDisableActions];
-    self.progressCircularLayer.position = CGPointMake((self.progressCircularView.bounds.size.width / 2.0f),
-                                                      (self.progressCircularView.bounds.size.height / 2.0f));
+    self.progressCircularLayer.position = CGPointMake(CGRectGetMidX(self.progressCircularView.bounds),
+                                                      CGRectGetMidY(self.progressCircularView.bounds));
     [CATransaction commit];
 }
 
