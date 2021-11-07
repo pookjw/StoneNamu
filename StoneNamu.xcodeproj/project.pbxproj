@@ -258,7 +258,6 @@
 		4FDE8DFE26F113B500959B97 /* DeckImageRenderServiceAboutContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FDE8DFD26F113B500959B97 /* DeckImageRenderServiceAboutContentView.m */; };
 		4FDE8E0126F1281100959B97 /* NSNumber+stringWithSepearatedDecimalNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FDE8E0026F1281100959B97 /* NSNumber+stringWithSepearatedDecimalNumber.m */; };
 		4FE85701270089BC0008C2FB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE85700270089BC0008C2FB /* AppDelegate.m */; };
-		4FE85706270089BD0008C2FB /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4FE85704270089BD0008C2FB /* MainMenu.xib */; };
 		4FE85708270089BD0008C2FB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE85707270089BD0008C2FB /* main.m */; };
 		4FE8575527008DBA0008C2FB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4F9DFBB926B2FD2E002AACDE /* InfoPlist.strings */; };
 		4FE8575627008DBE0008C2FB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4F9DFBB326B2FD0C002AACDE /* Localizable.strings */; };
@@ -770,7 +769,6 @@
 		4FE856FD270089BC0008C2FB /* StoneNamuMac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StoneNamuMac.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FE856FF270089BC0008C2FB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		4FE85700270089BC0008C2FB /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		4FE85705270089BD0008C2FB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		4FE85707270089BD0008C2FB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4FE857602700913A0008C2FB /* MainSplitViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainSplitViewController.h; sourceTree = "<group>"; };
 		4FE857612700913A0008C2FB /* MainSplitViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainSplitViewController.m; sourceTree = "<group>"; };
@@ -1898,7 +1896,6 @@
 			children = (
 				4FE856FF270089BC0008C2FB /* AppDelegate.h */,
 				4FE85700270089BC0008C2FB /* AppDelegate.m */,
-				4FE85704270089BD0008C2FB /* MainMenu.xib */,
 				4FE85707270089BD0008C2FB /* main.m */,
 			);
 			path = Application;
@@ -2320,7 +2317,6 @@
 				4FE8575627008DBE0008C2FB /* Localizable.strings in Resources */,
 				4FE8575527008DBA0008C2FB /* InfoPlist.strings in Resources */,
 				4F4D1D1D273337980003F317 /* Assets.xcassets in Resources */,
-				4FE85706270089BD0008C2FB /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2755,14 +2751,6 @@
 			name = HSCardSort.strings;
 			sourceTree = "<group>";
 		};
-		4FE85704270089BD0008C2FB /* MainMenu.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				4FE85705270089BD0008C2FB /* Base */,
-			);
-			name = MainMenu.xib;
-			sourceTree = "<group>";
-		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -3089,7 +3077,6 @@
 				INFOPLIST_FILE = StoneNamuMac/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INFOPLIST_KEY_NSMainNibFile = MainMenu;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3127,7 +3114,6 @@
 				INFOPLIST_FILE = StoneNamuMac/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INFOPLIST_KEY_NSMainNibFile = MainMenu;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
