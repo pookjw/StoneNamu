@@ -42,4 +42,8 @@
     [mainWindow release];
 }
 
+- (void)presentPrefsWindow {
+    
+}
+
 @end
