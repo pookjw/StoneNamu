@@ -128,7 +128,7 @@
             cardItemModel.hsCard = key;
             cardItemModel.hsCardCount = obj.unsignedIntegerValue;
             
-            NSSemaphoreCondition *semaphore = [[NSSemaphoreCondition alloc] initWithValue:0];
+            SemaphoreCondition *semaphore = [[SemaphoreCondition alloc] initWithValue:0];
             
             if (key.cropImage != nil) {
                 [self fetchImageCacheWithURL:key.cropImage completion:^(UIImage * _Nullable image) {

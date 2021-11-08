@@ -112,7 +112,7 @@
             mutableDic[BlizzardHSAPIOptionTypePage] = [self.page stringValue];
         }
         
-        NSSemaphoreCondition *semaphore = [[NSSemaphoreCondition alloc] initWithValue:0];
+        SemaphoreCondition *semaphore = [[SemaphoreCondition alloc] initWithValue:0];
         
         [self.hsCardUseCase fetchWithOptions:mutableDic completionHandler:^(NSArray<HSCard *> * _Nullable cards, NSNumber *pageCount, NSNumber *page, NSError * _Nullable error) {
             

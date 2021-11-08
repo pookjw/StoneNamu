@@ -12,10 +12,10 @@
 @implementation NSCollectionViewDiffableDataSource (applySnapshotAndWait)
 
 - (void)applySnapshotAndWait:(NSDiffableDataSourceSnapshot *)snapshot animatingDifferences:(BOOL)animatingDifferences completion:(void (^)(void))completion {
-    NSSemaphoreCondition * _Nullable semaphore = nil;
+    SemaphoreCondition * _Nullable semaphore = nil;
     
     if (!NSThread.isMainThread) {
-        semaphore = [[NSSemaphoreCondition alloc] initWithValue:0];
+        semaphore = [[SemaphoreCondition alloc] initWithValue:0];
     }
     
     [NSOperationQueue.mainQueue addOperationWithBlock:^{

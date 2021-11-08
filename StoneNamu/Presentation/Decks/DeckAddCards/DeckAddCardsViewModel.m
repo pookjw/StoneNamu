@@ -136,7 +136,7 @@
             mutableOptions[BlizzardHSAPIOptionTypePage] = [self.page stringValue];
         }
         
-        NSSemaphoreCondition *semaphore = [[NSSemaphoreCondition alloc] initWithValue:0];
+        SemaphoreCondition *semaphore = [[SemaphoreCondition alloc] initWithValue:0];
         
         [self.hsCardUseCase fetchWithOptions:mutableOptions completionHandler:^(NSArray<HSCard *> * _Nullable cards, NSNumber *pageCount, NSNumber *page, NSError * _Nullable error) {
             

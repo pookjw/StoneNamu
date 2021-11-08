@@ -6,7 +6,7 @@
 //
 
 #import <StoneNamuCore/CoreDataStackImpl.h>
-#import <StoneNamuCore/NSSemaphoreCondition.h>
+#import <StoneNamuCore/SemaphoreCondition.h>
 #import <StoneNamuCore/Identifier.h>
 
 static NSMutableDictionary<NSString *, NSPersistentContainer *> * _Nullable kStoreContainers = nil;
@@ -87,7 +87,7 @@ static NSMutableDictionary<NSString *, NSNumber *> * _Nullable kMigrateStatus = 
     NSManagedObjectModel *model = [self modelForMomd:modelName mom:models.lastObject];
     NSPersistentContainer *container = [class persistentContainerWithName:modelName managedObjectModel:model];
     
-    NSSemaphoreCondition *semaphore = [[NSSemaphoreCondition alloc] initWithValue:0];
+    SemaphoreCondition *semaphore = [[SemaphoreCondition alloc] initWithValue:0];
     
     [container loadPersistentStoresWithCompletionHandler:^(NSPersistentStoreDescription * _Nonnull description, NSError * _Nullable error) {
         [semaphore signal];
@@ -152,7 +152,7 @@ static NSMutableDictionary<NSString *, NSNumber *> * _Nullable kMigrateStatus = 
     
     //
     
-    NSSemaphoreCondition *semaphore = [[NSSemaphoreCondition alloc] initWithValue:0];
+    SemaphoreCondition *semaphore = [[SemaphoreCondition alloc] initWithValue:0];
     
     [self.queue addBarrierBlock:^{
         for (NSUInteger index = 0; index < (models.count - 1); index++) {

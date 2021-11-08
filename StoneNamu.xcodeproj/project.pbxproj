@@ -53,7 +53,7 @@
 		4F394DDD273861C500D1148D /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F394DDC273861C500D1148D /* MainMenu.xib */; };
 		4F3F1BC326E7C12000ACF80A /* TextActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F3F1BC226E7C12000ACF80A /* TextActivityViewController.m */; };
 		4F3F1BC626E7C21100ACF80A /* UIView+removeAllSubviews.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F3F1BC526E7C21100ACF80A /* UIView+removeAllSubviews.m */; };
-		4F414B0126CED5480003A0CF /* NSSemaphoreCondition.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF3E0D626CA7F81002B20EA /* NSSemaphoreCondition.m */; };
+		4F414B0126CED5480003A0CF /* SemaphoreCondition.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF3E0D626CA7F81002B20EA /* SemaphoreCondition.m */; };
 		4F414B0426CEF31D0003A0CF /* DeckDetailsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F414B0326CEF31D0003A0CF /* DeckDetailsViewModel.m */; };
 		4F414B0726CEF9F80003A0CF /* DeckDetailsSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F414B0626CEF9F80003A0CF /* DeckDetailsSectionModel.m */; };
 		4F414B0A26CEFA5E0003A0CF /* DeckDetailsItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F414B0926CEFA5E0003A0CF /* DeckDetailsItemModel.m */; };
@@ -135,7 +135,7 @@
 		4F7EC55126EB2B0500A7758D /* DeckImageRenderServiceSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F7EC55026EB2B0500A7758D /* DeckImageRenderServiceSectionModel.m */; };
 		4F7EC55426EB2B0D00A7758D /* DeckImageRenderServiceItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F7EC55326EB2B0D00A7758D /* DeckImageRenderServiceItemModel.m */; };
 		4F7F57F127242E110080D6C3 /* BlizzardAPIRegionHost.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FE097C326A329B400BF3A6D /* BlizzardAPIRegionHost.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4F7F57F227242E6D0080D6C3 /* NSSemaphoreCondition.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FF3E0D526CA7F81002B20EA /* NSSemaphoreCondition.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4F7F57F227242E6D0080D6C3 /* SemaphoreCondition.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FF3E0D526CA7F81002B20EA /* SemaphoreCondition.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4F7F580227242EA70080D6C3 /* NSManagedObject+_fetchRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FB8510026C18DE200E3C89D /* NSManagedObject+_fetchRequest.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		4F7F580727242F020080D6C3 /* NSMutableArray+removeSingle.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F8F976026D45C290024FC06 /* NSMutableArray+removeSingle.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4F7F580B27242F0C0080D6C3 /* NSArray+countOfObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FA7A7C426E539D7005BE434 /* NSArray+countOfObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -843,8 +843,8 @@
 		4FF3E0D026CA6FB9002B20EA /* MainTabBarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainTabBarController.h; sourceTree = "<group>"; };
 		4FF3E0D126CA6FB9002B20EA /* MainTabBarController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainTabBarController.m; sourceTree = "<group>"; };
 		4FF3E0D326CA732F002B20EA /* CardOptionsViewControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardOptionsViewControllerDelegate.h; sourceTree = "<group>"; };
-		4FF3E0D526CA7F81002B20EA /* NSSemaphoreCondition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSSemaphoreCondition.h; sourceTree = "<group>"; };
-		4FF3E0D626CA7F81002B20EA /* NSSemaphoreCondition.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NSSemaphoreCondition.m; sourceTree = "<group>"; };
+		4FF3E0D526CA7F81002B20EA /* SemaphoreCondition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SemaphoreCondition.h; sourceTree = "<group>"; };
+		4FF3E0D626CA7F81002B20EA /* SemaphoreCondition.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SemaphoreCondition.m; sourceTree = "<group>"; };
 		4FF3E0D926CA947D002B20EA /* OneBesideSecondarySplitViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OneBesideSecondarySplitViewController.h; sourceTree = "<group>"; };
 		4FF3E0DA26CA947D002B20EA /* OneBesideSecondarySplitViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OneBesideSecondarySplitViewController.m; sourceTree = "<group>"; };
 		4FF5729A271DC8A5007794EE /* DynamicAnimatedTransitioning.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DynamicAnimatedTransitioning.h; sourceTree = "<group>"; };
@@ -1054,8 +1054,8 @@
 				4F2438F826CD9E8A0041BB84 /* StoneNamuCoreErrors.h */,
 				4F2438F926CD9E8A0041BB84 /* StoneNamuCoreErrors.m */,
 				4F4892C42724534C00126131 /* Identifier.h */,
-				4FF3E0D526CA7F81002B20EA /* NSSemaphoreCondition.h */,
-				4FF3E0D626CA7F81002B20EA /* NSSemaphoreCondition.m */,
+				4FF3E0D526CA7F81002B20EA /* SemaphoreCondition.h */,
+				4FF3E0D626CA7F81002B20EA /* SemaphoreCondition.m */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -2210,7 +2210,7 @@
 				4F7F5857272430C90080D6C3 /* BlizzardAPI.h in Headers */,
 				4F7F582327242FE70080D6C3 /* HSCardRarity.h in Headers */,
 				4F7F582727242FF60080D6C3 /* HSCardType.h in Headers */,
-				4F7F57F227242E6D0080D6C3 /* NSSemaphoreCondition.h in Headers */,
+				4F7F57F227242E6D0080D6C3 /* SemaphoreCondition.h in Headers */,
 				4F7F57F127242E110080D6C3 /* BlizzardAPIRegionHost.h in Headers */,
 				4F7F584C272430760080D6C3 /* HSDeckUseCase.h in Headers */,
 				4F7F581E27242FC40080D6C3 /* HSCardCollectible.h in Headers */,
@@ -2430,7 +2430,7 @@
 				4F34386526A3700C001161FE /* BlizzardAPIRegionHost.m in Sources */,
 				4FB8510326C18DE200E3C89D /* NSManagedObject+_fetchRequest.m in Sources */,
 				4FFDD66926CACB30008E5B45 /* LocalDeckModel.xcdatamodeld in Sources */,
-				4F414B0126CED5480003A0CF /* NSSemaphoreCondition.m in Sources */,
+				4F414B0126CED5480003A0CF /* SemaphoreCondition.m in Sources */,
 				4FFDD66326CAC9B4008E5B45 /* LocalDeck.m in Sources */,
 				4FFDD68126CADB2D008E5B45 /* HSCardHero.m in Sources */,
 				4F646A7226B7DFB500BEDB38 /* CoreDataStackImpl.m in Sources */,

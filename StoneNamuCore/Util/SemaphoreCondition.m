@@ -1,13 +1,13 @@
 //
-//  NSSemaphoreCondition.m
-//  NSSemaphoreCondition
+//  SemaphoreCondition.m
+//  SemaphoreCondition
 //
 //  Created by Jinwoo Kim on 8/16/21.
 //
 
-#import "NSSemaphoreCondition.h"
+#import "SemaphoreCondition.h"
 
-@implementation NSSemaphoreCondition
+@implementation SemaphoreCondition
 
 - (instancetype)initWithValue:(NSInteger)value {
     self = [self init];

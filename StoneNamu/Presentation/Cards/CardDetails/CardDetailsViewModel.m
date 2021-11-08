@@ -134,7 +134,7 @@
                                                     userInfo:nil];
     
     [self.queue addOperationWithBlock:^{
-        NSSemaphoreCondition *semaphore = [[NSSemaphoreCondition alloc] initWithValue:-((NSInteger)childIds.count) + 1];
+        SemaphoreCondition *semaphore = [[SemaphoreCondition alloc] initWithValue:-((NSInteger)childIds.count) + 1];
         NSMutableArray<HSCard *> *childCards = [@[] mutableCopy];
         
         for (NSNumber *childId in childIds) {

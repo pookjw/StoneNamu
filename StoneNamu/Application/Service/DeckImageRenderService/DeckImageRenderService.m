@@ -47,7 +47,7 @@
 
 - (void)imageFromLocalDeck:(LocalDeck *)localDeck completion:(DeckImageRenderServiceCompletion)completion {
     [self.queue addBarrierBlock:^{
-        NSSemaphoreCondition *semaphore = [[NSSemaphoreCondition alloc] initWithValue:0];
+        SemaphoreCondition *semaphore = [[SemaphoreCondition alloc] initWithValue:0];
         
         [self.model updateDataSourcdWithLocalDeck:localDeck
                                        completion:^(NSUInteger countOfCardItem){
