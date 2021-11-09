@@ -8,13 +8,14 @@
 #import "CardOptionsTouchBar.h"
 #import "NSTouchBarItemIdentifierCardOptions+BlizzardHSAPIOptionType.h"
 #import "NSScrubber+Private.h"
+#import "CardOptionsFactory.h"
 
 static NSTouchBarCustomizationIdentifier const NSTouchBarCustomizationIdentifierCardOptionsTouchBar = @"NSTouchBarCustomizationIdentifierCardOptionsTouchBar";
 static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubberTextItemViewReuseIdentifier = @"NSUserInterfaceItemIdentifierNSScrubberTextItemViewReuseIdentifier";
 
 @interface CardOptionsTouchBar () <NSTouchBarDelegate, NSScrubberDataSource, NSScrubberDelegate>
 @property (weak) id<CardOptionsTouchBarDelegate> cardOptionsTouchBarDelegate;
-@property (retain) NSArray<NSTouchBarItem *> *allPopoverItems;
+@property (retain) NSArray<NSPopoverTouchBarItem *> *allPopoverItems;
 @property (retain) NSArray<NSScrubber *> *allScrubbers;
 @property (retain) NSMutableDictionary<NSString *, NSString *> *options;
 
@@ -200,7 +201,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
                           touchBar:optionTypeSetTouchBar
                         customItem:optionTypeSetItem
                           scrubber:optionTypeSetScrubber
-                             title:NSLocalizedString(@"CARD_SET", @"")
                           itemSize:CGSizeMake(230.0f, 30.0f)];
     
     //
@@ -218,7 +218,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
                           touchBar:optionTypeClassTouchBar
                         customItem:optionTypeClassItem
                           scrubber:optionTypeClassScrubber
-                             title:NSLocalizedString(@"CARD_CLASS", @"")
                           itemSize:CGSizeMake(150.0f, 30.0f)];
     
     //
@@ -236,7 +235,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
                           touchBar:optionTypeManaCostTouchBar
                         customItem:optionTypeManaCostItem
                           scrubber:optionTypeManaCostScrubber
-                             title:NSLocalizedString(@"CARD_MANA_COST", @"")
                           itemSize:CGSizeMake(50.0f, 30.0f)];
     
     //
@@ -254,7 +252,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
                           touchBar:optionTypeAttackTouchBar
                         customItem:optionTypeAttackItem
                           scrubber:optionTypeAttackScrubber
-                             title:NSLocalizedString(@"CARD_ATTACK", @"")
                           itemSize:CGSizeMake(50.0f, 30.0f)];
     
     //
@@ -272,7 +269,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
                           touchBar:optionTypeHealthTouchBar
                         customItem:optionTypeHealthItem
                           scrubber:optionTypeHealthScrubber
-                             title:NSLocalizedString(@"CARD_HEALTH", @"")
                           itemSize:CGSizeMake(50.0f, 30.0f)];
     
     //
@@ -290,7 +286,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
                           touchBar:optionTypeCollectibleTouchBar
                         customItem:optionTypeCollectibleItem
                           scrubber:optionTypeCollectibleScrubber
-                             title:NSLocalizedString(@"CARD_COLLECTIBLE", @"")
                           itemSize:CGSizeMake(150.0f, 30.0f)];
     
     //
@@ -308,7 +303,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
                           touchBar:optionTypeRarityTouchBar
                         customItem:optionTypeRarityItem
                           scrubber:optionTypeRarityScrubber
-                             title:NSLocalizedString(@"CARD_RARITY", @"")
                           itemSize:CGSizeMake(150.0f, 30.0f)];
     
     //
@@ -326,7 +320,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
                           touchBar:optionTypeTypeTouchBar
                         customItem:optionTypeTypeItem
                           scrubber:optionTypeTypeScrubber
-                             title:NSLocalizedString(@"CARD_TYPE", @"")
                           itemSize:CGSizeMake(150.0f, 30.0f)];
     
     //
@@ -344,7 +337,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
                           touchBar:optionTypeMinionTypeTouchBar
                         customItem:optionTypeMinionTypeItem
                           scrubber:optionTypeMinionTypeScrubber
-                             title:NSLocalizedString(@"CARD_MINION_TYPE", @"")
                           itemSize:CGSizeMake(150.0f, 30.0f)];
     
     //
@@ -362,7 +354,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
                           touchBar:optionTypeSpellSchoolTouchBar
                         customItem:optionTypeSpellSchoolItem
                           scrubber:optionTypeSpellSchoolScrubber
-                             title:NSLocalizedString(@"CARD_SPELL_SCHOOL", @"")
                           itemSize:CGSizeMake(150.0f, 30.0f)];
     
     //
@@ -380,7 +371,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
                           touchBar:optionTypeKeywordTouchBar
                         customItem:optionTypeKeywordItem
                           scrubber:optionTypeKeywordScrubber
-                             title:NSLocalizedString(@"CARD_KEYWORD", @"")
                           itemSize:CGSizeMake(180.0f, 30.0f)];
     
     //
@@ -398,7 +388,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
                           touchBar:optionTypeGameModeTouchBar
                         customItem:optionTypeGameModeItem
                           scrubber:optionTypeGameModeScrubber
-                             title:NSLocalizedString(@"CARD_GAME_MODE", @"")
                           itemSize:CGSizeMake(180.0f, 30.0f)];
     
     //
@@ -416,7 +405,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
                           touchBar:optionTypeSortTouchBar
                         customItem:optionTypeSortItem
                           scrubber:optionTypeSortScrubber
-                             title:NSLocalizedString(@"CARD_SORT", @"")
                           itemSize:CGSizeMake(200.0f, 30.0f)];
     
     //
@@ -520,7 +508,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
 }
 
 - (void)updateItemsWithOptions:(NSDictionary<NSString *,NSString *> *)options {
-    if ([options isEqualToDictionary:self.options]) return;
+    BOOL shouldSelectItem = ![options isEqualToDictionary:self.options];
     
     NSMutableDictionary<NSString *, NSString *> *mutableOptions = [options mutableCopy];
     self.options = mutableOptions;
@@ -532,10 +520,20 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
         if ([self hasEmptyRowAtScrubber:obj]) {
             NSArray<NSString *> *keys = [self sortedKeysFromScrubber:obj];
             NSUInteger index = [keys indexOfString:@""];
+            BlizzardHSAPIOptionType optionType = [self optionTypeFromScrubber:obj];
             
-            if ([obj respondsToSelector:@selector(_interactiveSelectItemAtIndex:animated:)]) {
+            if ([obj respondsToSelector:@selector(_interactiveSelectItemAtIndex:animated:)] && shouldSelectItem) {
                 // this will excute `scrubber:didSelectItemAtIndex:`
                 [obj _interactiveSelectItemAtIndex:index animated:YES];
+            }
+            [obj scrollItemAtIndex:index toAlignment:NSScrubberAlignmentCenter];
+            
+            //
+            
+            NSPopoverTouchBarItem * _Nullable popover = [self popoverTouchBarItemFromOptionType:optionType];
+            
+            if (popover != nil) {
+                popover.collapsedRepresentationImage = [CardOptionsFactory imageForCardOptionsWithValue:nil optionType:optionType];
             }
         }
     }];
@@ -558,11 +556,20 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
             
             if (index == -1) return;
             
-            if ([scrubber respondsToSelector:@selector(_interactiveSelectItemAtIndex:animated:)]) {
+            if ([scrubber respondsToSelector:@selector(_interactiveSelectItemAtIndex:animated:)] && shouldSelectItem) {
                 // this will excute `scrubber:didSelectItemAtIndex:`
                 [scrubber _interactiveSelectItemAtIndex:index animated:YES];
             }
             [scrubber scrollItemAtIndex:index toAlignment:NSScrubberAlignmentCenter];
+            
+            //
+            
+            BlizzardHSAPIOptionType optionType = [self optionTypeFromScrubber:scrubber];
+            NSPopoverTouchBarItem * _Nullable popover = [self popoverTouchBarItemFromOptionType:optionType];
+            
+            if (popover != nil) {
+                popover.collapsedRepresentationImage = [CardOptionsFactory imageForCardOptionsWithValue:obj1 optionType:optionType];
+            }
         }
     }];
 }
@@ -571,12 +578,14 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
                         touchBar:(NSTouchBar *)touchBar
                       customItem:(NSCustomTouchBarItem *)customItem
                         scrubber:(NSScrubber *)scrubber
-                           title:(NSString *)title
                         itemSize:(CGSize)itemSize {
     
-    popoverItem.collapsedRepresentationImage = [NSImage imageWithSystemSymbolName:PrefferedSystemSymbolFromBlizzardHSAPIDefaultOptions([self optionTypeFromScrubber:scrubber]) accessibilityDescription:nil];
-    popoverItem.customizationLabel = title;
-    popoverItem.collapsedRepresentationLabel = title;
+    BlizzardHSAPIOptionType optionType = [self optionTypeFromScrubber:scrubber];
+    NSString * _Nullable value = self.options[optionType];
+    
+    popoverItem.collapsedRepresentationImage = [CardOptionsFactory imageForCardOptionsWithValue:value optionType:optionType];
+    popoverItem.customizationLabel = [CardOptionsFactory titleForCardOptionsWithValue:nil optionType:optionType];
+    popoverItem.collapsedRepresentationLabel = [CardOptionsFactory titleForCardOptionsWithValue:nil optionType:optionType];
     popoverItem.popoverTouchBar = touchBar;
     popoverItem.pressAndHoldTouchBar = touchBar;
     touchBar.delegate = self;
@@ -597,6 +606,8 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     scrubber.scrubberLayout = scrubberLayout;
     [scrubberLayout release];
 }
+
+#pragma mark - Helper
 
 - (NSScrubber * _Nullable)scrubberFromOptionType:(BlizzardHSAPIOptionType)optionType {
     if ([optionType isEqualToString:BlizzardHSAPIOptionTypeSet]) {
@@ -626,6 +637,19 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     } else {
         return nil;
     }
+}
+
+- (NSPopoverTouchBarItem * _Nullable)popoverTouchBarItemFromOptionType:(BlizzardHSAPIOptionType)optionType {
+    NSPopoverTouchBarItem * _Nullable __block result = nil;
+    
+    [self.allPopoverItems enumerateObjectsUsingBlock:^(NSTouchBarItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([BlizzardHSAPIOptionTypeFromNSTouchBarItemIdentifierCardOptions(obj.identifier) isEqualToString:optionType]) {
+            result = obj;
+            *stop = YES;
+        }
+    }];
+    
+    return result;
 }
 
 - (BlizzardHSAPIOptionType _Nullable)optionTypeFromScrubber:(NSScrubber *)scrubber {
@@ -940,9 +964,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     BlizzardHSAPIOptionType optionType = [self optionTypeFromScrubber:scrubber];
     NSString *newValue = keys[selectedIndex];
     
-    if (newValue == nil) {
-        self.options[optionType] = nil;
-    } else if ([newValue isEqualToString:@""]) {
+    if (![CardOptionsFactory hasValueForValue:newValue]) {
         self.options[optionType] = nil;
     } else if ((newValue == nil) && (self.options[optionType] == nil)) {
         return;

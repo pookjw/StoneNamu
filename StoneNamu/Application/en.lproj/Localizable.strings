@@ -140,6 +140,8 @@
 
 "CARD_OPTIONS_TITLE" = "Cards Filter";
 
+"CARD_OPTIONS_TITLE_SHORT" = "Filter";
+
 "DECKS" = "Decks";
 
 "CREATE_NEW_DECK" = "Create New Deck";

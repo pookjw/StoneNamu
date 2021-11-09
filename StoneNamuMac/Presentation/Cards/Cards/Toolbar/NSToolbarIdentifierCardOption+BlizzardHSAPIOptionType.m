@@ -5,9 +5,9 @@
 //  Created by Jinwoo Kim on 11/1/21.
 //
 
-#import "NSToolbarIdentifierCardOptions+BlizzardHSAPIOptionType.h"
+#import "NSToolbarIdentifierCardOption+BlizzardHSAPIOptionType.h"
 
-NSArray<NSToolbarIdentifier> * AllNSToolbarIdentifierCardOptionsType(void) {
+NSArray<NSToolbarIdentifier> * allNSToolbarIdentifierCardOptionsType(void) {
     return @[
         NSToolbarIdentifierCardOptionsTypeTextFilter,
         NSToolbarIdentifierCardOptionsTypeSet,
@@ -26,7 +26,7 @@ NSArray<NSToolbarIdentifier> * AllNSToolbarIdentifierCardOptionsType(void) {
     ];
 }
 
-NSToolbarIdentifier NSToolbarIdentifierCardOptionsFromBlizzardHSAPIOptionType(BlizzardHSAPIOptionType type) {
+NSToolbarIdentifier NSToolbarIdentifierCardOptionFromBlizzardHSAPIOptionType(BlizzardHSAPIOptionType type) {
     if ([type isEqualToString:BlizzardHSAPIOptionTypeSet]) {
         return NSToolbarIdentifierCardOptionsTypeSet;
     } else if ([type isEqualToString:BlizzardHSAPIOptionTypeClass]) {
@@ -60,7 +60,7 @@ NSToolbarIdentifier NSToolbarIdentifierCardOptionsFromBlizzardHSAPIOptionType(Bl
     }
 }
 
-BlizzardHSAPIOptionType BlizzardHSAPIOptionTypeFromNSToolbarIdentifierCardOptions(NSToolbarIdentifier itemIdentifier) {
+BlizzardHSAPIOptionType BlizzardHSAPIOptionTypeFromNSToolbarIdentifierCardOption(NSToolbarIdentifier itemIdentifier) {
     if ([itemIdentifier isEqualToString:NSToolbarIdentifierCardOptionsTypeTextFilter]) {
         return BlizzardHSAPIOptionTypeTextFilter;
     } else if ([itemIdentifier isEqualToString:NSToolbarIdentifierCardOptionsTypeSet]) {

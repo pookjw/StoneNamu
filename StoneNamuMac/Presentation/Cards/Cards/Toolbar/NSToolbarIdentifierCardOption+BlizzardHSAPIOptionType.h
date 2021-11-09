@@ -1,5 +1,5 @@
 //
-//  NSToolbarIdentifierCardOptions+BlizzardHSAPIOptionType.h
+//  NSToolbarIdentifierCardOption+BlizzardHSAPIOptionType.h
 //  StoneNamu
 //
 //  Created by Jinwoo Kim on 11/1/21.
@@ -23,6 +23,6 @@ static NSToolbarIdentifier const NSToolbarIdentifierCardOptionsTypeKeyword = @"N
 static NSToolbarIdentifier const NSToolbarIdentifierCardOptionsTypeGameMode = @"NSToolbarIdentifierCardOptionsTypeGameMode";
 static NSToolbarIdentifier const NSToolbarIdentifierCardOptionsTypeSort = @"NSToolbarIdentifierCardOptionsTypeSort";
 
-NSArray<NSToolbarIdentifier> * AllNSToolbarIdentifierCardOptionsType(void);
-NSToolbarIdentifier NSToolbarIdentifierCardOptionsFromBlizzardHSAPIOptionType(BlizzardHSAPIOptionType type);
-BlizzardHSAPIOptionType BlizzardHSAPIOptionTypeFromNSToolbarIdentifierCardOptions(NSToolbarIdentifier itemIdentifier);
+NSArray<NSToolbarIdentifier> * allNSToolbarIdentifierCardOptionsType(void);
+NSToolbarIdentifier NSToolbarIdentifierCardOptionFromBlizzardHSAPIOptionType(BlizzardHSAPIOptionType type);
+BlizzardHSAPIOptionType BlizzardHSAPIOptionTypeFromNSToolbarIdentifierCardOption(NSToolbarIdentifier itemIdentifier);

@@ -1,0 +1,28 @@
+//
+//  NSUserInterfaceItemIdentifier+BlizzardHSAPIOption.h
+//  StoneNamu
+//
+//  Created by Jinwoo Kim on 11/9/21.
+//
+
+#import <Cocoa/Cocoa.h>
+#import <StoneNamuCore/StoneNamuCore.h>
+
+static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardOptionTextFilter = @"NSUserInterfaceItemIdentifierCardOptionTextFilter";
+static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardOptionSet = @"NSUserInterfaceItemIdentifierCardOptionSet";
+static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardOptionClass = @"NSUserInterfaceItemIdentifierCardOptionClass";
+static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardOptionManaCost = @"NSUserInterfaceItemIdentifierCardOptionManaCost";
+static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardOptionAttack = @"NSUserInterfaceItemIdentifierCardOptionAttack";
+static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardOptionHealth = @"NSUserInterfaceItemIdentifierCardOptionHealth";
+static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardOptionCollectible = @"NSUserInterfaceItemIdentifierCardOptionCollectible";
+static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardOptionRarity = @"NSUserInterfaceItemIdentifierCardOptionRarity";
+static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardOptionType = @"NSUserInterfaceItemIdentifierCardOptionType";
+static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardOptionMinionType = @"NSUserInterfaceItemIdentifierCardOptionMinionType";
+static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardOptionSpellSchool = @"NSUserInterfaceItemIdentifierCardOptionSpellSchool";
+static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardOptionKeyword = @"NSUserInterfaceItemIdentifierCardOptionKeyword";
+static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardOptionGameMode = @"NSUserInterfaceItemIdentifierCardOptionGameMode";
+static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardOptionSort = @"NSUserInterfaceItemIdentifierCardOptionSort";
+
+NSArray<NSUserInterfaceItemIdentifier> *allNSUserInterfaceItemIdentifierCardOptions(void);
+NSUserInterfaceItemIdentifier NSUserInterfaceItemIdentifierCardOptionFromBlizzardHSAPIOptionType(BlizzardHSAPIOptionType type);
+BlizzardHSAPIOptionType BlizzardHSAPIOptionTypeFromNSUserInterfaceItemIdentifierCardOption(NSUserInterfaceItemIdentifier item);

@@ -140,6 +140,8 @@
 
 "CARD_OPTIONS_TITLE" = "카드 필터";
 
+"CARD_OPTIONS_TITLE_SHORT" = "필터";
+
 "DECKS" = "덱";
 
 "CREATE_NEW_DECK" = "새로운 덱 만들기";

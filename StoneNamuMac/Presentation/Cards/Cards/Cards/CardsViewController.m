@@ -10,16 +10,16 @@
 #import "CardsViewModel.h"
 #import "CardContentView.h"
 #import "NSViewController+SpinnerView.h"
-#import "CardsMenu.h"
+#import "CardOptionsMenu.h"
 #import "CardOptionsToolbar.h"
 #import "CardOptionsTouchBar.h"
 
-@interface CardsViewController () <CardOptionsToolbarDelegate, CardOptionsTouchBarDelegate>
+@interface CardsViewController () <CardOptionsMenuDelegate, CardOptionsToolbarDelegate, CardOptionsTouchBarDelegate>
 @property (retain) NSScrollView *scrollView;
 @property (retain) NSClipView *clipView;
 @property (retain) NSCollectionView *collectionView;
 @property (retain) CardsViewModel *viewModel;
-@property (retain) CardsMenu *cardsMenu;
+@property (retain) CardOptionsMenu *cardOptionsMenu;
 @property (retain) CardOptionsToolbar *cardOptionsToolbar;
 @property (retain) CardOptionsTouchBar *cardOptionsTouchBar;
 @end
@@ -31,7 +31,7 @@
     [_clipView release];
     [_collectionView release];
     [_viewModel release];
-    [_cardsMenu release];
+    [_cardOptionsMenu release];
     [_cardOptionsToolbar release];
     [_cardOptionsTouchBar release];
     [super dealloc];
@@ -46,7 +46,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self configureCollectionView];
-    [self configureCardsMenu];
+    [self configureCardOptionsMenu];
     [self configureCardOptionsToolbar];
     [self configureCardOptionsTouchBar];
     [self configureViewModel];
@@ -81,9 +81,14 @@
     [super restoreStateWithCoder:coder];
 }
 
-- (BOOL)requestDataSourceWithOptions:(NSDictionary<NSString *, NSString *> * _Nullable)options reset:(BOOL)reset {
+- (void)updateOptionInterfaceWithOptions:(NSDictionary<NSString *, NSString *> * _Nullable)options {
+    [self.cardOptionsMenu updateItemsWithOptions:options];
     [self.cardOptionsToolbar updateItemsWithOptions:options];
     [self.cardOptionsTouchBar updateItemsWithOptions:options];
+}
+
+- (BOOL)requestDataSourceWithOptions:(NSDictionary<NSString *, NSString *> * _Nullable)options reset:(BOOL)reset {
+    [self updateOptionInterfaceWithOptions:options];
     
     if (reset) {
         [self.undoManager registerUndoWithTarget:self
@@ -95,9 +100,7 @@
 }
 
 - (void)undoOptions:(NSDictionary<NSString *, NSString *> *)options {
-    [self.cardOptionsToolbar updateItemsWithOptions:options];
-    [self.cardOptionsTouchBar updateItemsWithOptions:options];
-    
+    [self updateOptionInterfaceWithOptions:options];
     [self.viewModel requestDataSourceWithOptions:options reset:YES];
 }
 
@@ -208,10 +211,10 @@
     return [dataSource autorelease];
 }
 
-- (void)configureCardsMenu {
-    CardsMenu *cardsMenu = [CardsMenu new];
-    self.cardsMenu = cardsMenu;
-    [cardsMenu release];
+- (void)configureCardOptionsMenu {
+    CardOptionsMenu *cardOptionsMenu = [[CardOptionsMenu alloc] initWithOptions:self.viewModel.options cardOptionsMenuDelegate:self];
+    self.cardOptionsMenu = cardOptionsMenu;
+    [cardOptionsMenu release];
 }
 
 - (void)configureCardOptionsToolbar {
@@ -227,7 +230,7 @@
 }
 
 - (void)setCardsMenuToWindow {
-    NSApp.mainMenu = self.cardsMenu;
+    NSApp.mainMenu = self.cardOptionsMenu;
 }
 
 - (void)clearCardsMenuFromWindow {
@@ -249,6 +252,13 @@
 
 - (void)clearCardOptionsToolbarFromWindow {
     self.view.window.toolbar = nil;
+}
+
+#pragma mark - CardOptionsMenuDelegate
+
+- (void)cardOptionsMenu:(CardOptionsMenu *)menu changedOption:(NSDictionary<NSString *,NSString *> *)options {
+    [self addSpinnerView];
+    [self requestDataSourceWithOptions:options reset:YES];
 }
 
 #pragma mark - CardOptionsToolbarDelegate
