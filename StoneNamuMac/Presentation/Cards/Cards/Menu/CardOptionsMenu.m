@@ -30,10 +30,6 @@
 
 @implementation CardOptionsMenu
 
-//+ (CardOptionsMenuItem *)makeCardOptionsMenuItemWithOptionType:(CardOptionsMenuItemOptionType)optionType {
-//
-//}
-
 - (instancetype)initWithOptions:(NSDictionary<NSString *,NSString *> *)options cardOptionsMenuDelegate:(id<CardOptionsMenuDelegate>)cardOptionsMenuDelegate {
     self = [self init];
     
