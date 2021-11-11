@@ -486,7 +486,6 @@
 		4F23C8DD273DA51B00C33F10 /* StoneNamuResourcesScript.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = StoneNamuResourcesScript.entitlements; sourceTree = "<group>"; };
 		4F23C8DE273DA70300C33F10 /* NSString+convertToCamelCase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+convertToCamelCase.h"; sourceTree = "<group>"; };
 		4F23C8DF273DA70300C33F10 /* NSString+convertToCamelCase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+convertToCamelCase.m"; sourceTree = "<group>"; };
-		4F23C8E1273DB81300C33F10 /* NSImage+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSImage+Private.h"; sourceTree = "<group>"; };
 		4F2438EB26CD8CCF0041BB84 /* DecksSectionModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DecksSectionModel.h; sourceTree = "<group>"; };
 		4F2438EC26CD8CCF0041BB84 /* DecksSectionModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DecksSectionModel.m; sourceTree = "<group>"; };
 		4F2438EE26CD8DE40041BB84 /* DecksItemModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DecksItemModel.h; sourceTree = "<group>"; };
@@ -1145,7 +1144,6 @@
 				4F23C8C0273D9ABC00C33F10 /* Localizable.strings */,
 				4F23C8C2273D9AEA00C33F10 /* Assets.xcassets */,
 				4F23C8CA273D9BEC00C33F10 /* Identifier.h */,
-				4F23C8E1273DB81300C33F10 /* NSImage+Private.h */,
 				4F23C8C4273D9B3000C33F10 /* ResourcesService.h */,
 				4F23C8C5273D9B3000C33F10 /* ResourcesService.m */,
 				4F23C8C8273D9B9500C33F10 /* ImageKey.h */,
