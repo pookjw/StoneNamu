@@ -7,9 +7,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "BaseMenu.h"
-#import "CardOptionsMenuItem.h"
 #import "CardOptionsMenuDelegate.h"
-#import "NSUserInterfaceItemIdentifierCardOption+BlizzardHSAPIOption.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

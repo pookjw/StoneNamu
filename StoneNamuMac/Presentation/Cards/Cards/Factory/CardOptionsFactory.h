@@ -14,8 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (class, readonly) SEL keyMenuItemTriggeredSelector;
 + (BOOL)hasValueForValue:(NSString * _Nullable)value;
 + (NSString * _Nullable)titleForCardOptionsWithValue:(NSString * _Nullable)value optionType:(BlizzardHSAPIOptionType)optionType;
-+ (NSImage * _Nullable) imageForCardOptionsWithValue:(NSString * _Nullable)value optionType:(BlizzardHSAPIOptionType)optionType;
-+ (NSMenu *)menuForOptionType:(BlizzardHSAPIOptionType)optionType selectedKey:(NSString * _Nullable)selectedKey target:(id<NSTextFieldDelegate>)target;
++ (NSImage * _Nullable)imageForCardOptionsWithValue:(NSString * _Nullable)value optionType:(BlizzardHSAPIOptionType)optionType;
++ (NSMenu *)menuForOptionType:(BlizzardHSAPIOptionType)optionType target:(id<NSTextFieldDelegate>)target;
 @end
 
 NS_ASSUME_NONNULL_END

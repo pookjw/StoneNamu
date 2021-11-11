@@ -122,7 +122,7 @@
     }
 }
 
-+ (NSMenu *)menuForOptionType:(BlizzardHSAPIOptionType)optionType selectedKey:(NSString * _Nullable)selectedKey target:(nonnull id<NSTextFieldDelegate>)target {
++ (NSMenu *)menuForOptionType:(BlizzardHSAPIOptionType)optionType target:(nonnull id<NSTextFieldDelegate>)target {
     NSMenu *menu = [NSMenu new];
     
     NSArray<NSMenuItem *> *itemArray;
@@ -131,7 +131,6 @@
         itemArray = [self itemArrayFromDic:localizablesWithHSCardSet()
                                 optionType:optionType
                              showEmptyItem:YES
-                               selectedKey:selectedKey
                                filterArray:nil
                                imageSource:nil
                                  converter:^NSUInteger(NSString * key) {
@@ -143,7 +142,6 @@
         itemArray = [self itemArrayFromDic:localizablesWithHSCardClass()
                                 optionType:optionType
                              showEmptyItem:YES
-                               selectedKey:selectedKey
                                filterArray:@[NSStringFromHSCardClass(HSCardClassDeathKnight)]
                                imageSource:nil
                                  converter:^NSUInteger(NSString * key) {
@@ -164,7 +162,6 @@
                                              @"10": @"10+"}
                                 optionType:optionType
                              showEmptyItem:YES
-                               selectedKey:selectedKey
                                filterArray:nil
                                imageSource:nil
                                  converter:^NSUInteger(NSString * key) {
@@ -180,7 +177,6 @@
         itemArray = [self itemArrayFromDic:localizablesWithHSCardCollectible()
                                 optionType:optionType
                              showEmptyItem:NO
-                               selectedKey:selectedKey
                                filterArray:nil
                                imageSource:nil
                                  converter:^NSUInteger(NSString * key) {
@@ -193,7 +189,6 @@
         itemArray = [self itemArrayFromDic:localizablesWithHSCardRarity()
                                 optionType:optionType
                              showEmptyItem:YES
-                               selectedKey:selectedKey
                                filterArray:@[NSStringFromHSCardRarity(HSCardRarityNull)]
                                imageSource:nil
                                  converter:^NSUInteger(NSString * key) {
@@ -206,7 +201,6 @@
         itemArray = [self itemArrayFromDic:localizableWithHSCardType()
                                 optionType:optionType
                              showEmptyItem:YES
-                               selectedKey:selectedKey
                                filterArray:nil
                                imageSource:nil
                                  converter:^NSUInteger(NSString * key) {
@@ -218,7 +212,6 @@
         itemArray = [self itemArrayFromDic:localizablesWithHSCardMinionType()
                                 optionType:optionType
                              showEmptyItem:YES
-                               selectedKey:selectedKey
                                filterArray:nil
                                imageSource:nil
                                  converter:^NSUInteger(NSString * key) {
@@ -230,7 +223,6 @@
         itemArray = [self itemArrayFromDic:localizablesWithHSCardSpellSchool()
                                 optionType:optionType
                              showEmptyItem:YES
-                               selectedKey:selectedKey
                                filterArray:nil
                                imageSource:nil
                                  converter:^NSUInteger(NSString * key) {
@@ -242,7 +234,6 @@
         itemArray = [self itemArrayFromDic:localizablesWithHSCardKeyword()
                                 optionType:optionType
                              showEmptyItem:YES
-                               selectedKey:selectedKey
                                filterArray:nil
                                imageSource:nil
                                  converter:^NSUInteger(NSString * key) {
@@ -251,12 +242,11 @@
                                  ascending:YES
                                     target:target];
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeTextFilter]) {
-        itemArray = @[[self textFieldItemWithOptionType:optionType selectedKey:selectedKey textFieldDelegate:target]];
+        itemArray = @[[self textFieldItemWithOptionType:optionType textFieldDelegate:target]];
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeGameMode]) {
         itemArray = [self itemArrayFromDic:localizablesWithHSCardGameMode()
                                 optionType:optionType
                              showEmptyItem:NO
-                               selectedKey:selectedKey
                                filterArray:nil
                                imageSource:nil
                                  converter:^NSUInteger(NSString * key) {
@@ -268,7 +258,6 @@
         itemArray = [self itemArrayFromDic:localizablesWithHSCardSort()
                                 optionType:optionType
                              showEmptyItem:NO
-                               selectedKey:selectedKey
                                filterArray:nil
                                imageSource:nil
                                  converter:^NSUInteger(NSString * key) {
@@ -288,7 +277,6 @@
 + (NSArray<NSMenuItem *> *)itemArrayFromDic:(NSDictionary<NSString *, NSString *> *)dic
                                  optionType:(BlizzardHSAPIOptionType)type
                               showEmptyItem:(BOOL)showEmptyItem
-                                selectedKey:(NSString * _Nullable)selectedKey
                                 filterArray:(NSArray<NSString *> * _Nullable)filterArray
                                 imageSource:(NSImage * _Nullable (^)(NSString *))imageSource
                                   converter:(NSUInteger (^)(NSString *))converter
@@ -304,12 +292,6 @@
                                                                      keyEquivalent:@""
                                                                                key:@{type: key}];
             item.target = target;
-            
-            if ([key isEqualToString:selectedKey]) {
-                item.state = NSControlStateValueOn;
-            } else {
-                item.state = NSControlStateValueOff;
-            }
             
             [arr addObject:item];
             [item release];
@@ -348,12 +330,6 @@
                                                                                 key:@{type: @""}];
         emptyItem.target = target;
         
-        if (selectedKey == nil) {
-            emptyItem.state = NSControlStateValueOn;
-        } else {
-            emptyItem.state = NSControlStateValueOff;
-        }
-        
         [arr insertObject:emptyItem atIndex:0];
         [emptyItem release];
         
@@ -365,18 +341,11 @@
 }
 
 + (NSMenuItem *)textFieldItemWithOptionType:(BlizzardHSAPIOptionType)type
-                                selectedKey:(NSString * _Nullable)selectedKey
                           textFieldDelegate:(nonnull id<NSTextFieldDelegate>)textFieldDelegate {
     CardOptionsMenuItem *item = [[CardOptionsMenuItem alloc] initWithTitle:@"" action:nil keyEquivalent:@"" key:@{type: @""}];
     CardOptionsTextField *textField = [[CardOptionsTextField alloc] initWithKey:@{type: @""}];
     
-    if (selectedKey) {
-        textField.stringValue = selectedKey;
-    } else {
-        textField.stringValue = @"";
-    }
     textField.frame = CGRectMake(0, 0, 100, 20);
-    textField.weakObject = item;
     textField.delegate = textFieldDelegate;
     
     item.view = textField;

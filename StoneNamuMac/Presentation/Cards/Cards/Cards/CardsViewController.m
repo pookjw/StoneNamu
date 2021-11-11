@@ -193,8 +193,7 @@
 - (void)applyingSnapshotWasDoneReceived:(NSNotification *)notification {
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
         [self removeAllSpinnerview];
-        [self.cardOptionsToolbar updateItemsWithOptions:self.viewModel.options];
-        [self.cardOptionsTouchBar updateItemsWithOptions:self.viewModel.options];
+        [self updateOptionInterfaceWithOptions:self.viewModel.options];
     }];
 }
 

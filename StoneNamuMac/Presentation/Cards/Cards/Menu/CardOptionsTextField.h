@@ -11,7 +11,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CardOptionsTextField : NSTextField
 @property (readonly, copy) NSDictionary * _Nullable key;
-@property (weak) id weakObject;
 - (instancetype)initWithKey:(NSDictionary * _Nullable)key;
 @end
 

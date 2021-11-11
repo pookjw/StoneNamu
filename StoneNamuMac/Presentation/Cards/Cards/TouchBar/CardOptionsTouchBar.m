@@ -642,7 +642,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
 - (NSPopoverTouchBarItem * _Nullable)popoverTouchBarItemFromOptionType:(BlizzardHSAPIOptionType)optionType {
     NSPopoverTouchBarItem * _Nullable __block result = nil;
     
-    [self.allPopoverItems enumerateObjectsUsingBlock:^(NSTouchBarItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    [self.allPopoverItems enumerateObjectsUsingBlock:^(NSPopoverTouchBarItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([BlizzardHSAPIOptionTypeFromNSTouchBarItemIdentifierCardOptions(obj.identifier) isEqualToString:optionType]) {
             result = obj;
             *stop = YES;
