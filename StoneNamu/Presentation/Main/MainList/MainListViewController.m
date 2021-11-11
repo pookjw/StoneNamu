@@ -13,6 +13,7 @@
 #import "DecksViewController.h"
 #import "PrefsViewController.h"
 #import "MainLayoutProtocol.h"
+#import <StoneNamuResources/StoneNamuResources.h>
 
 @interface MainListViewController () <UICollectionViewDelegate>
 @property (retain) UICollectionView *collectionView;
@@ -85,7 +86,7 @@
 }
 
 - (void)configureNavigation {
-    self.title = NSLocalizedString(@"APP_NAME", @"");
+    self.title = [ResourcesService localizaedStringForKey:@"APP_NAME"];
     self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAlways;
     self.navigationController.navigationBar.prefersLargeTitles = YES;
 }

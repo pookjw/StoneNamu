@@ -9,6 +9,7 @@
 #import "MainSplitViewController.h"
 #import "MainWindowRestoration.h"
 #import "NSViewController+loadViewIfNeeded.h"
+#import <StoneNamuResources/StoneNamuResources.h>
 
 @interface MainWindow () <NSWindowDelegate>
 @property (retain) MainSplitViewController *mainSplitViewController;
@@ -27,6 +28,7 @@
         [mainSplitViewController loadViewIfNeeded];
         self.contentViewController = mainSplitViewController;
         [mainSplitViewController release];
+        
     }
     
     return self;

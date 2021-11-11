@@ -13,6 +13,7 @@
 #import "CardOptionsMenu.h"
 #import "CardOptionsToolbar.h"
 #import "CardOptionsTouchBar.h"
+#import <StoneNamuResources/StoneNamuResources.h>
 
 static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardsViewController = @"NSUserInterfaceItemIdentifierCardsViewController";
 

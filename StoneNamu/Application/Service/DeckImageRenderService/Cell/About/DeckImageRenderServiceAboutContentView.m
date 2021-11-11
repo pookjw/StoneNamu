@@ -11,6 +11,7 @@
 #import <StoneNamuCore/StoneNamuCore.h>
 #import "UIFont+customFonts.h"
 #import "NSNumber+stringWithSepearatedDecimalNumber.h"
+#import <StoneNamuResources/StoneNamuResources.h>
 
 @interface DeckImageRenderServiceAboutContentView ()
 @property (readonly, nonatomic) NSString * _Nullable hsYearCurrent;
@@ -114,7 +115,7 @@
     arcaneDustImageView.backgroundColor = UIColor.clearColor;
     arcaneDustImageView.tintColor = UIColor.cyanColor;
     arcaneDustImageView.contentMode = UIViewContentModeScaleToFill;
-    arcaneDustImageView.image = [UIImage imageNamed:@"chemistry"];
+    arcaneDustImageView.image = [ResourcesService imageForKey:ImageKeyChemistry];
     
     [self.arcaneDustStackView addArrangedSubview:arcaneDustImageView];
     

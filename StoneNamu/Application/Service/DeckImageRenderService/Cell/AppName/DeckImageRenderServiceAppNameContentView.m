@@ -9,6 +9,7 @@
 #import "DeckImageRenderServiceAppNameContentConfiguration.h"
 #import "InsetsLabel.h"
 #import "UIFont+customFonts.h"
+#import <StoneNamuResources/StoneNamuResources.h>
 
 @interface DeckImageRenderServiceAppNameContentView ()
 @property (retain) InsetsLabel *aboutLabel;
@@ -48,7 +49,7 @@
     aboutLabel.backgroundColor = UIColor.clearColor;
     aboutLabel.textColor = UIColor.whiteColor;
     aboutLabel.textAlignment = NSTextAlignmentCenter;
-    aboutLabel.text = NSLocalizedString(@"APP_NAME", @"");
+    aboutLabel.text = [ResourcesService localizaedStringForKey:@"APP_NAME"];
     
     [self addSubview:aboutLabel];
     aboutLabel.translatesAutoresizingMaskIntoConstraints = NO;

@@ -6,6 +6,7 @@
 //
 
 #import "MainListItemModel.h"
+#import <StoneNamuResources/StoneNamuResources.h>
 
 @implementation MainListItemModel
 
@@ -47,9 +48,9 @@
 - (NSString * _Nullable)primaryText {
     switch (self.type) {
         case MainItemModelTypeCards:
-            return NSLocalizedString(@"CARDS", @"");
+            return [ResourcesService localizaedStringForKey:@"CARDS"];
         case MainItemModelTypeDecks:
-            return NSLocalizedString(@"DECKS", @"");
+            return [ResourcesService localizaedStringForKey:@"DECKS"];
         default:
             return nil;
     }

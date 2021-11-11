@@ -6,6 +6,7 @@
 //
 
 #import "ImageService.h"
+#import <StoneNamuResources/StoneNamuResources.h>
 
 @implementation ImageService
 
@@ -22,67 +23,67 @@
 
 - (UIImage * _Nullable)imageOfDeckFormat:(HSDeckFormat)deckFormat {
     if ([deckFormat isEqualToString:HSDeckFormatStandard]) {
-        return [UIImage imageNamed:HSDeckFormatStandard];
+        return [ResourcesService imageForKey:ImageKeyStandard];
     } else if ([deckFormat isEqualToString:HSDeckFormatWild]) {
-        return [UIImage imageNamed:HSDeckFormatWild];
+        return [ResourcesService imageForKey:ImageKeyWild];
     } else if ([deckFormat isEqualToString:HSDeckFormatClassic]) {
-        return [UIImage imageNamed:@"classic-cards"];
+        return [ResourcesService imageForKey:ImageKeyClassicCards];
     } else {
         return nil;
     }
 }
 
 - (UIImage * _Nullable)imageOfCardSet:(HSCardSet)cardSet {
-    return [UIImage imageNamed:NSStringFromHSCardSet(cardSet)];
+    return [ResourcesService imageForKey:NSStringFromHSCardSet(cardSet)];
 }
 
 - (UIImage * _Nullable)portraitImageOfClassId:(HSCardClass)classId {
-    NSString * _Nullable imageName = nil;
+    ImageKey _Nullable imageKey = nil;
     
     switch (classId) {
         case HSCardClassDemonHunter:
-            imageName = @"demon_hunter_portrait";
+            imageKey = ImageKeyDemonHunterPortrait;
             break;
         case HSCardClassDruid:
-            imageName = @"druid_portrait";
+            imageKey = ImageKeyDruidPortrait;
             break;
         case HSCardClassHunter:
-            imageName = @"hunter_portrait";
+            imageKey = ImageKeyHunterPortrait;
             break;
         case HSCardClassMage:
-            imageName = @"mage_portrait";
+            imageKey = ImageKeyMagePortrait;
             break;
         case HSCardClassPaladin:
-            imageName = @"paladin_portrait";
+            imageKey = ImageKeyPaladinPortrait;
             break;
         case HSCardClassPriest:
-            imageName = @"priest_portrait";
+            imageKey = ImageKeyPriestPortrait;
             break;
         case HSCardClassRogue:
-            imageName = @"rogue_portrait";
+            imageKey = ImageKeyRoguePortrait;
             break;
         case HSCardClassShaman:
-            imageName = @"shaman_portrait";
+            imageKey = ImageKeyShamanPortrait;
             break;
         case HSCardClassWarlock:
-            imageName = @"warlock_portrait";
+            imageKey = ImageKeyWarlockPortrait;
             break;
         case HSCardClassWarrior:
-            imageName = @"warrior_portrait";
+            imageKey = ImageKeyWarriorPortrait;
             break;
         default:
             break;
     }
     
-    if (imageName == nil) {
+    if (imageKey == nil) {
         return nil;
     }
     
-    return [UIImage imageNamed:imageName];
+    return [ResourcesService imageForKey:imageKey];
 }
 
 - (UIImage *)portraitOfPnamu {
-    return [UIImage imageNamed:@"pnamu_easteregg_1"];
+    return [ResourcesService imageForKey:ImageKeyPnamuEasteregg1];
 }
 
 @end

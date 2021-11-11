@@ -6,9 +6,12 @@
 //
 
 #import "StoneNamuErrors.h"
+#import <StoneNamuResources/StoneNamuResources.h>
 
 NSError * DataCorruptionError(void) {
     return [NSError errorWithDomain:@"com.pookjw.StoneNamu.DataCorruptionError"
                                code:100
-                           userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"DATA_IS_CORRUPTED", @"")}];
+                           userInfo:@{NSLocalizedDescriptionKey: [ResourcesService localizaedStringForKey:@"DATA_IS_CORRUPTED"]}];
 }
+
+//[ResourcesService localizaedStringForKey:@"CARDS"]

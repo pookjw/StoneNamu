@@ -8,6 +8,7 @@
 #import "PhotosService.h"
 #import <StoneNamuCore/StoneNamuCore.h>
 #import "StoneNamuErrors.h"
+#import <StoneNamuResources/StoneNamuResources.h>
 
 @interface PhotosService ()
 @property (retain) PHPhotoLibrary *phPhotoLibrary;
@@ -100,15 +101,15 @@
 
 - (void)askPopupAndOpenAppSettingsFromViewController:(UIViewController *)viewController {
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"NEED_PHOTO_PERMISSION", @"")
-                                                                       message:NSLocalizedString(@"PLEASE_ALLOW_PHOTO_PERMISSION", @"")
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:[ResourcesService localizaedStringForKey:@"NEED_PHOTO_PERMISSION"]
+                                                                       message:[ResourcesService localizaedStringForKey:@"PLEASE_ALLOW_PHOTO_PERMISSION"]
                                                                 preferredStyle:UIAlertControllerStyleAlert];
         
-        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"CANCEL", @"")
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:[ResourcesService localizaedStringForKey:@"CANCEL"]
                                                                style:UIAlertActionStyleCancel
                                                              handler:^(UIAlertAction * _Nonnull action) {}];
         
-        UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"")
+        UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:[ResourcesService localizaedStringForKey:@"OK"]
                                                                 style:UIAlertActionStyleDefault
                                                               handler:^(UIAlertAction * _Nonnull action) {
             [self openAppSettingsFromScene:viewController.view.window.windowScene];

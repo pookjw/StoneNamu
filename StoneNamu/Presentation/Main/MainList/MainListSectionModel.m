@@ -6,6 +6,7 @@
 //
 
 #import "MainListSectionModel.h"
+#import <StoneNamuResources/StoneNamuResources.h>
 
 @implementation MainListSectionModel
 
@@ -36,9 +37,9 @@
 - (NSString * _Nullable)headerText {
     switch (self.type) {
         case MainSectionModelTypeCards:
-            return NSLocalizedString(@"CARDS", @"");
+            return [ResourcesService localizaedStringForKey:@"CARDS"];
         case MainSectionModelTypeDeck:
-            return NSLocalizedString(@"DECKS", @"");
+            return [ResourcesService localizaedStringForKey:@"DECKS"];
         default:
             return nil;;
     }

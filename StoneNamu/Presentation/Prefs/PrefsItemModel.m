@@ -6,6 +6,7 @@
 //
 
 #import "PrefsItemModel.h"
+#import <StoneNamuResources/StoneNamuResources.h>
 
 @implementation PrefsItemModel
 
@@ -51,9 +52,9 @@
         case PrefsItemModelTypeJoinTestFlight:
             return [UIImage systemImageNamed:@"testtube.2"];
         case PrefsItemModelTypePookjwContributor:
-            return [UIImage imageNamed:@"pookjw"];
+            return [ResourcesService imageForKey:ImageKeyPookjw];
         case PrefsItemModelTypePnamuContributor:
-            return [UIImage imageNamed:@"pnamu"];
+            return [ResourcesService imageForKey:ImageKeyPnamu];
     }
 }
 

@@ -1,0 +1,11 @@
+/* 
+  InfoPlist.strings
+  StoneNamu
+
+  Created by Jinwoo Kim on 11/12/21.
+  
+*/
+
+"CFBundleDisplayName" = "스톤나무";
+
+"CFBundleName" = "스톤나무";

@@ -6,15 +6,16 @@
 //
 
 #import "UIViewController+presentErrorAlert.h"
+#import <StoneNamuResources/StoneNamuResources.h>
 
 @implementation UIViewController (presentErrorAlert)
 
 - (void)presentErrorAlertWithError:(NSError *)error {
-    UIAlertController *vc = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"ERROR_ALERT_TITLE", @"")
+    UIAlertController *vc = [UIAlertController alertControllerWithTitle:[ResourcesService localizaedStringForKey:@"ERROR_ALERT_TITLE"]
                                                                 message:error.localizedDescription
                                                          preferredStyle:UIAlertControllerStyleAlert];
     
-    UIAlertAction *dismissAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"DISMISS", "")
+    UIAlertAction *dismissAction = [UIAlertAction actionWithTitle:[ResourcesService localizaedStringForKey:@"DISMISS"]
                                                          style:UIAlertActionStyleDefault
                                                        handler:^(UIAlertAction * _Nonnull action) {}];
     
