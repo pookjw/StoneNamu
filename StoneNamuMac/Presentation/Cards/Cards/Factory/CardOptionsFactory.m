@@ -31,13 +31,13 @@
         }
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeSet]) {
         if (hasValue) {
-            return [NSString stringWithFormat:@"%@ : %@", NSLocalizedString(@"CARD_SET", @""), value];
+            return [NSString stringWithFormat:@"%@ : %@", NSLocalizedString(@"CARD_SET", @""), localizableFromHSCardSet(HSCardSetFromNSString(value))];
         } else {
             return NSLocalizedString(@"CARD_SET", @"");
         }
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeClass]) {
         if (hasValue) {
-            return [NSString stringWithFormat:@"%@ : %@", NSLocalizedString(@"CARD_CLASS", @""), value];
+            return [NSString stringWithFormat:@"%@ : %@", NSLocalizedString(@"CARD_CLASS", @""), localizableFromHSCardClass(HSCardClassFromNSString(value))];
         } else {
             return NSLocalizedString(@"CARD_CLASS", @"");
         }
@@ -49,7 +49,7 @@
         }
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeSpellSchool]) {
         if (hasValue) {
-            return [NSString stringWithFormat:@"%@ : %@", NSLocalizedString(@"CARD_SPELL_SCHOOL", @""), value];
+            return [NSString stringWithFormat:@"%@ : %@", NSLocalizedString(@"CARD_SPELL_SCHOOL", @""), localizableFromHSCardSpellSchool(HSCardSpellSchoolFromNSString(value))];
         } else {
             return NSLocalizedString(@"CARD_SPELL_SCHOOL", @"");
         }
@@ -67,43 +67,43 @@
         }
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeCollectible]) {
         if (hasValue) {
-            return [NSString stringWithFormat:@"%@ : %@", NSLocalizedString(@"CARD_COLLECTIBLE", @""), value];
+            return [NSString stringWithFormat:@"%@ : %@", NSLocalizedString(@"CARD_COLLECTIBLE", @""), localizableFromHSCardCollectible(HSCardCollectibleFromNSString(value))];
         } else {
             return NSLocalizedString(@"CARD_COLLECTIBLE", @"");
         }
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeRarity]) {
         if (hasValue) {
-            return [NSString stringWithFormat:@"%@ : %@", NSLocalizedString(@"CARD_RARITY", @""), value];
+            return [NSString stringWithFormat:@"%@ : %@", NSLocalizedString(@"CARD_RARITY", @""), localizableFromHSCardRarity(HSCardRarityFromNSString(value))];
         } else {
             return NSLocalizedString(@"CARD_RARITY", @"");
         }
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeType]) {
         if (hasValue) {
-            return [NSString stringWithFormat:@"%@ : %@", NSLocalizedString(@"CARD_TYPE", @""), value];
+            return [NSString stringWithFormat:@"%@ : %@", NSLocalizedString(@"CARD_TYPE", @""), localizableFromHSCardType(HSCardTypeFromNSString(value))];
         } else {
             return NSLocalizedString(@"CARD_TYPE", @"");
         }
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeMinionType]) {
         if (hasValue) {
-            return [NSString stringWithFormat:@"%@ : %@", NSLocalizedString(@"CARD_MINION_TYPE", @""), value];
+            return [NSString stringWithFormat:@"%@ : %@", NSLocalizedString(@"CARD_MINION_TYPE", @""), localizableFromHSCardMinionType(HSCardMinionTypeFromNSString(value))];
         } else {
             return NSLocalizedString(@"CARD_MINION_TYPE", @"");
         }
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeKeyword]) {
         if (hasValue) {
-            return [NSString stringWithFormat:@"%@ : %@", NSLocalizedString(@"CARD_KEYWORD", @""), value];
+            return [NSString stringWithFormat:@"%@ : %@", NSLocalizedString(@"CARD_KEYWORD", @""), localizableFromHSCardKeyword(HSCardKeywordFromNSString(value))];
         } else {
             return NSLocalizedString(@"CARD_KEYWORD", @"");
         }
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeGameMode]) {
         if (hasValue) {
-            return [NSString stringWithFormat:@"%@ : %@", NSLocalizedString(@"CARD_GAME_MODE", @""), value];
+            return [NSString stringWithFormat:@"%@ : %@", NSLocalizedString(@"CARD_GAME_MODE", @""), localizableFromHSCardGameMode(HSCardGameModeFromNSString(value))];
         } else {
             return NSLocalizedString(@"CARD_GAME_MODE", @"");
         }
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeSort]) {
         if (hasValue) {
-            return [NSString stringWithFormat:@"%@ : %@", NSLocalizedString(@"CARD_SORT", @""), value];
+            return [NSString stringWithFormat:@"%@ : %@", NSLocalizedString(@"CARD_SORT", @""), localizableFromHSCardSort(HSCardSortFromNSString(value))];
         } else {
             return NSLocalizedString(@"CARD_SORT", @"");
         }
