@@ -14,6 +14,8 @@
 #import "CardOptionsToolbar.h"
 #import "CardOptionsTouchBar.h"
 
+static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardsViewController = @"NSUserInterfaceItemIdentifierCardsViewController";
+
 @interface CardsViewController () <CardOptionsMenuDelegate, CardOptionsToolbarDelegate, CardOptionsTouchBarDelegate>
 @property (retain) NSScrollView *scrollView;
 @property (retain) NSClipView *clipView;
@@ -45,13 +47,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.identifier = NSUserInterfaceItemIdentifierCardsViewController;
     [self configureCollectionView];
     [self configureCardOptionsMenu];
     [self configureCardOptionsToolbar];
     [self configureCardOptionsTouchBar];
     [self configureViewModel];
     [self bind];
-    [self addSpinnerView];
     [self requestDataSourceWithOptions:nil reset:NO];
 }
 
@@ -75,10 +77,15 @@
 
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder {
     [super encodeRestorableStateWithCoder:coder];
+    
+    [coder encodeObject:self.viewModel.options forKey:@"options"];
 }
 
 - (void)restoreStateWithCoder:(NSCoder *)coder {
     [super restoreStateWithCoder:coder];
+    
+    NSDictionary<NSString *, NSString *> *options = [coder decodeObjectOfClass:[NSDictionary<NSString *, NSString *> class] forKey:@"options"];
+    [self requestDataSourceWithOptions:options reset:YES];
 }
 
 - (void)updateOptionInterfaceWithOptions:(NSDictionary<NSString *, NSString *> * _Nullable)options {
@@ -90,13 +97,21 @@
 - (BOOL)requestDataSourceWithOptions:(NSDictionary<NSString *, NSString *> * _Nullable)options reset:(BOOL)reset {
     [self updateOptionInterfaceWithOptions:options];
     
-    if (reset) {
-        [self.undoManager registerUndoWithTarget:self
-                                        selector:@selector(undoOptions:)
-                                          object:self.viewModel.options];
+    BOOL requested = [self.viewModel requestDataSourceWithOptions:options reset:reset];
+    
+    if (requested) {
+        [self addSpinnerView];
+        
+        if (reset) {
+            [self.undoManager registerUndoWithTarget:self
+                                            selector:@selector(undoOptions:)
+                                              object:self.viewModel.options];
+        }
+        
+        [self invalidateRestorableState];
     }
     
-    return [self.viewModel requestDataSourceWithOptions:options reset:reset];
+    return requested;
 }
 
 - (void)undoOptions:(NSDictionary<NSString *, NSString *> *)options {
@@ -256,21 +271,18 @@
 #pragma mark - CardOptionsMenuDelegate
 
 - (void)cardOptionsMenu:(CardOptionsMenu *)menu changedOption:(NSDictionary<NSString *,NSString *> *)options {
-    [self addSpinnerView];
     [self requestDataSourceWithOptions:options reset:YES];
 }
 
 #pragma mark - CardOptionsToolbarDelegate
 
 - (void)cardOptionsToolbar:(CardOptionsToolbar *)toolbar changedOption:(NSDictionary<NSString *,NSString *> *)options {
-    [self addSpinnerView];
     [self requestDataSourceWithOptions:options reset:YES];
 }
 
 #pragma mark - CardOptionsTouchBarDelegate
 
 - (void)cardOptionsTouchBar:(CardOptionsTouchBar *)touchBar changedOption:(NSDictionary<NSString *,NSString *> *)options {
-    [self addSpinnerView];
     [self requestDataSourceWithOptions:options reset:YES];
 }
 

@@ -7,8 +7,10 @@
 
 #import "MainWindow.h"
 #import "MainSplitViewController.h"
+#import "MainWindowRestoration.h"
+#import "NSViewController+loadViewIfNeeded.h"
 
-@interface MainWindow ()
+@interface MainWindow () <NSWindowDelegate>
 @property (retain) MainSplitViewController *mainSplitViewController;
 @end
 
@@ -22,6 +24,7 @@
         
         MainSplitViewController *mainSplitViewController = [MainSplitViewController new];
         self.mainSplitViewController = mainSplitViewController;
+        [mainSplitViewController loadViewIfNeeded];
         self.contentViewController = mainSplitViewController;
         [mainSplitViewController release];
     }
@@ -34,6 +37,11 @@
     [super dealloc];
 }
 
+- (void)restoreStateWithCoder:(NSCoder *)coder {
+    [super restoreStateWithCoder:coder];
+    [self.mainSplitViewController restoreStateWithCoder:coder];
+}
+
 - (void)setAttributes {
     self.styleMask = NSWindowStyleMaskClosable | NSWindowStyleMaskMiniaturizable | NSWindowStyleMaskFullSizeContentView | NSWindowStyleMaskResizable | NSWindowStyleMaskTitled;
     self.movableByWindowBackground = YES;
@@ -41,7 +49,20 @@
     self.releasedWhenClosed = NO;
     self.titlebarAppearsTransparent = NO;
     self.titleVisibility = NSWindowTitleHidden;
-    [self enableSnapshotRestoration];
+    self.delegate = self;
+    self.restorable = YES;
+    self.restorationClass = [MainWindowRestoration class];
+    self.identifier = NSUserInterfaceItemIdentifierMainWindow;
+}
+
+#pragma mark - NSWindowDelegate
+
+- (void)window:(NSWindow *)window willEncodeRestorableState:(NSCoder *)state {
+    
+}
+
+- (void)window:(NSWindow *)window didDecodeRestorableState:(NSCoder *)state {
+    
 }
 
 @end

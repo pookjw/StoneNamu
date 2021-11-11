@@ -33,6 +33,7 @@
 		4F1E85F0273320CA00CE2551 /* HSCardSpellSchool.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F1E85EF273320C500CE2551 /* HSCardSpellSchool.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4F1E85F2273320E600CE2551 /* HSCardSpellSchool.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1E85F1273320E500CE2551 /* HSCardSpellSchool.m */; };
 		4F1E85F5273323C900CE2551 /* HSCardSpellSchool.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4F1E85F7273323C900CE2551 /* HSCardSpellSchool.strings */; };
+		4F23C8A3273D830200C33F10 /* MainWindowRestoration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F23C8A2273D830200C33F10 /* MainWindowRestoration.m */; };
 		4F2438ED26CD8CCF0041BB84 /* DecksSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2438EC26CD8CCF0041BB84 /* DecksSectionModel.m */; };
 		4F2438F026CD8DE40041BB84 /* DecksItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2438EF26CD8DE40041BB84 /* DecksItemModel.m */; };
 		4F2438F326CD9BD40041BB84 /* LocalizedError.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4F2438F526CD9BD40041BB84 /* LocalizedError.strings */; };
@@ -429,6 +430,8 @@
 		4F1E85F1273320E500CE2551 /* HSCardSpellSchool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCardSpellSchool.m; sourceTree = "<group>"; };
 		4F1E85F6273323C900CE2551 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/HSCardSpellSchool.strings; sourceTree = "<group>"; };
 		4F1E85F8273323CB00CE2551 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/HSCardSpellSchool.strings; sourceTree = "<group>"; };
+		4F23C8A1273D830200C33F10 /* MainWindowRestoration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainWindowRestoration.h; sourceTree = "<group>"; };
+		4F23C8A2273D830200C33F10 /* MainWindowRestoration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainWindowRestoration.m; sourceTree = "<group>"; };
 		4F2438EB26CD8CCF0041BB84 /* DecksSectionModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DecksSectionModel.h; sourceTree = "<group>"; };
 		4F2438EC26CD8CCF0041BB84 /* DecksSectionModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DecksSectionModel.m; sourceTree = "<group>"; };
 		4F2438EE26CD8DE40041BB84 /* DecksItemModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DecksItemModel.h; sourceTree = "<group>"; };
@@ -1174,6 +1177,8 @@
 			children = (
 				4F4892E027246E2B00126131 /* MainWindow.h */,
 				4F4892E127246E2B00126131 /* MainWindow.m */,
+				4F23C8A1273D830200C33F10 /* MainWindowRestoration.h */,
+				4F23C8A2273D830200C33F10 /* MainWindowRestoration.m */,
 			);
 			path = MainWindow;
 			sourceTree = "<group>";
@@ -2653,6 +2658,7 @@
 				4FC48A882739EF48001240FE /* CardOptionsFactory.m in Sources */,
 				4FE8576D27009B5C0008C2FB /* CardsViewModel.m in Sources */,
 				4FE85708270089BD0008C2FB /* main.m in Sources */,
+				4F23C8A3273D830200C33F10 /* MainWindowRestoration.m in Sources */,
 				4FC402C0273870C200D25523 /* ViewMenuItem.m in Sources */,
 				4FC402C3273872A900D25523 /* WindowMenuItem.m in Sources */,
 				4F883F6E27300B1700AF0048 /* NSToolbarIdentifierCardOption+BlizzardHSAPIOptionType.m in Sources */,
