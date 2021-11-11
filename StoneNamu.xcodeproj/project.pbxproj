@@ -25,6 +25,7 @@
 		4F066CB726D6DC7100991A98 /* DeckDetailsManaCostContentItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F066CB626D6DC7100991A98 /* DeckDetailsManaCostContentItemModel.m */; };
 		4F066CBE26D71ACD00991A98 /* DeckBaseContentConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F066CBD26D71ACD00991A98 /* DeckBaseContentConfiguration.m */; };
 		4F066CC126D71B2200991A98 /* DeckBaseContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F066CC026D71B2200991A98 /* DeckBaseContentView.m */; };
+		4F128D45273C044100C6A0D9 /* IntrinsicCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F128D44273C044100C6A0D9 /* IntrinsicCollectionView.m */; };
 		4F182BD126AC23600028115C /* UIViewController+presentErrorAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F182BD026AC23600028115C /* UIViewController+presentErrorAlert.m */; };
 		4F1B98A626C8235B004E1603 /* PrefsLocaleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1B98A526C8235B004E1603 /* PrefsLocaleViewController.m */; };
 		4F1B98A926C82382004E1603 /* PrefsRegionHostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1B98A826C82382004E1603 /* PrefsRegionHostViewController.m */; };
@@ -413,6 +414,8 @@
 		4F066CBD26D71ACD00991A98 /* DeckBaseContentConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckBaseContentConfiguration.m; sourceTree = "<group>"; };
 		4F066CBF26D71B2200991A98 /* DeckBaseContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckBaseContentView.h; sourceTree = "<group>"; };
 		4F066CC026D71B2200991A98 /* DeckBaseContentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckBaseContentView.m; sourceTree = "<group>"; };
+		4F128D43273C044100C6A0D9 /* IntrinsicCollectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IntrinsicCollectionView.h; sourceTree = "<group>"; };
+		4F128D44273C044100C6A0D9 /* IntrinsicCollectionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IntrinsicCollectionView.m; sourceTree = "<group>"; };
 		4F182BCF26AC23600028115C /* UIViewController+presentErrorAlert.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+presentErrorAlert.h"; sourceTree = "<group>"; };
 		4F182BD026AC23600028115C /* UIViewController+presentErrorAlert.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+presentErrorAlert.m"; sourceTree = "<group>"; };
 		4F1B98A426C8235B004E1603 /* PrefsLocaleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefsLocaleViewController.h; sourceTree = "<group>"; };
@@ -976,6 +979,15 @@
 			path = Base;
 			sourceTree = "<group>";
 		};
+		4F128D42273C041F00C6A0D9 /* Intrinsic */ = {
+			isa = PBXGroup;
+			children = (
+				4F128D43273C044100C6A0D9 /* IntrinsicCollectionView.h */,
+				4F128D44273C044100C6A0D9 /* IntrinsicCollectionView.m */,
+			);
+			path = Intrinsic;
+			sourceTree = "<group>";
+		};
 		4F182BCB26AC23330028115C /* Category */ = {
 			isa = PBXGroup;
 			children = (
@@ -1267,6 +1279,7 @@
 				4F57DE9E26AD7D98000E4163 /* Sheet */,
 				4FF3E0D826CA944B002B20EA /* OneBesideSecondary */,
 				4FB0ECEC26B833FD0020EE6C /* Dynamic */,
+				4F128D42273C041F00C6A0D9 /* Intrinsic */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -2525,6 +2538,7 @@
 				4FDE8DFB26F113AB00959B97 /* DeckImageRenderServiceAboutContentConfiguration.m in Sources */,
 				4FCC22CB26ECAC98004997AA /* DeckImageRenderServiceAppNameContentView.m in Sources */,
 				4F182BD126AC23600028115C /* UIViewController+presentErrorAlert.m in Sources */,
+				4F128D45273C044100C6A0D9 /* IntrinsicCollectionView.m in Sources */,
 				4F74711E26C16BD4001C45C4 /* CardDetailsChildrenContentCollectionViewCompositionalLayout.m in Sources */,
 				4F74712126C16BDF001C45C4 /* CardDetailsChildrenContentViewModel.m in Sources */,
 				4F73ABB226E88337000FD629 /* FloatingAnimatedTransitioning.m in Sources */,

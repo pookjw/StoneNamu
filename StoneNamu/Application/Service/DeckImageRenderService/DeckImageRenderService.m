@@ -12,10 +12,11 @@
 #import "DeckImageRenderServiceCardContentConfiguration.h"
 #import "DeckImageRenderServiceAboutContentConfiguration.h"
 #import "DeckImageRenderServiceAppNameContentConfiguration.h"
+#import "IntrinsicCollectionView.h"
 #import <StoneNamuCore/StoneNamuCore.h>
 
 @interface DeckImageRenderService ()
-@property (retain) UICollectionView *collectionView;
+@property (retain) IntrinsicCollectionView *collectionView;
 @property (retain) DeckImageRenderServiceModel *model;
 @property (retain) NSOperationQueue *queue;
 @end
@@ -52,24 +53,10 @@
         [self.model updateDataSourcdWithLocalDeck:localDeck
                                        completion:^(NSUInteger countOfCardItem){
             [NSOperationQueue.mainQueue addOperationWithBlock:^{
-                [self.collectionView layoutIfNeeded];
-                [self.collectionView.collectionViewLayout invalidateLayout];
                 self.collectionView.frame = CGRectMake(0, 0, 300, self.collectionView.contentSize.height);
                 UIImage *image = self.collectionView.imageRendered;
                 [semaphore signal];
                 completion(image);
-                
-//                UIViewController *vc = [UIViewController new];
-//                [vc.view addSubview:self.collectionView];
-//                self.collectionView.translatesAutoresizingMaskIntoConstraints = NO;
-//                [NSLayoutConstraint activateConstraints:@[
-//                    [self.collectionView.topAnchor constraintEqualToAnchor:vc.view.topAnchor],
-//                    [self.collectionView.leadingAnchor constraintEqualToAnchor:vc.view.leadingAnchor],
-//                    [self.collectionView.trailingAnchor constraintEqualToAnchor:vc.view.trailingAnchor],
-//                    [self.collectionView.bottomAnchor constraintEqualToAnchor:vc.view.bottomAnchor]
-//                ]];
-//                [testVC presentViewController:vc animated:YES completion:^{}];
-//                [vc release];
             }];
         }];
         
@@ -93,7 +80,7 @@
     [layoutConfiguration release];
     
     // height will be 1313 when filled 30 cards with sigle cards
-    UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, 300, 1313) collectionViewLayout:layout];
+    IntrinsicCollectionView *collectionView = [[IntrinsicCollectionView alloc] initWithFrame:CGRectMake(0, 0, 300, 1313) collectionViewLayout:layout];
     collectionView.backgroundColor = UIColor.blackColor;
     collectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     collectionView.showsVerticalScrollIndicator = NO;
