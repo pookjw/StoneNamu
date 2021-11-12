@@ -21,7 +21,7 @@
     NSMutableString *result = [[NSMutableString alloc] initWithString:@""];
     
     [separated enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        NSMutableArray *characters = [[NSMutableArray alloc] initWithCapacity:[obj length]];
+        NSMutableArray<NSString *> *characters = [[NSMutableArray alloc] initWithCapacity:[obj length]];
 
         [obj enumerateSubstringsInRange:NSMakeRange(0, obj.length)
                                       options:NSStringEnumerationByComposedCharacterSequences
