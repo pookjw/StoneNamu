@@ -6,8 +6,8 @@
 //
 
 #import "DeckBaseContentViewModel.h"
-#import "ImageService.h"
 #import <StoneNamuCore/StoneNamuCore.h>
+#import <StoneNamuResources/StoneNamuResources.h>
 
 @interface DeckBaseContentViewModel ()
 @property (retain) id<LocalDeckUseCase> localDeckUseCase;
@@ -34,9 +34,9 @@
 
 - (UIImage *)portraitImageOfLocalDeck:(LocalDeck *)localDeck {
     if ([self.localDeckUseCase isEasterEggDeckFromLocalDeck:localDeck]) {
-        return [ImageService.sharedInstance portraitOfPnamu];;
+        return [ResourcesService imageForKey:ImageKeyPnamuEasteregg1];
     } else {
-        return [ImageService.sharedInstance portraitImageOfClassId:localDeck.classId.unsignedIntegerValue];;
+        return [ResourcesService portraitImageOfClassId:localDeck.classId.unsignedIntegerValue];;
     }
 }
 

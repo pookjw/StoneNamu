@@ -8,7 +8,6 @@
 #import "CardOptionItemModel.h"
 #import <StoneNamuCore/StoneNamuCore.h>
 #import <StoneNamuResources/StoneNamuResources.h>
-#import "ImageService.h"
 
 NSString * NSStringFromCardOptionItemModelType(CardOptionItemModelType type) {
     switch (type) {
@@ -152,7 +151,7 @@ CardOptionItemModelType CardOptionItemModelTypeFromNSString(NSString * key) {
             return [self pickerItemModelsFromDic:localizablesWithHSCardSet()
                                      filterArray:nil
                                      imageSource:^UIImage * _Nullable(NSString * key) {
-                return [ImageService.sharedInstance imageOfCardSet:HSCardSetFromNSString(key)];
+                return [ResourcesService imageOfCardSet:HSCardSetFromNSString(key)];
             }
                                        converter:^NSUInteger(NSString * key) {
                 return HSCardSetFromNSString(key);

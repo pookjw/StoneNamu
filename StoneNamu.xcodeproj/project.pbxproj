@@ -123,7 +123,6 @@
 		4F646A7B26B7F08500BEDB38 /* DataCacheUseCaseImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F646A7926B7F08500BEDB38 /* DataCacheUseCaseImpl.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4F646A7C26B7F08500BEDB38 /* DataCacheUseCaseImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F646A7A26B7F08500BEDB38 /* DataCacheUseCaseImpl.m */; };
 		4F68198226D73F2F00033AEE /* DeckBaseContentViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F68198126D73F2F00033AEE /* DeckBaseContentViewModel.m */; };
-		4F68198526D74B2A00033AEE /* ImageService.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F68198426D74B2A00033AEE /* ImageService.m */; };
 		4F6A139C26B251EE0089A13A /* HSCardKeyword.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F6A139B26B251EE0089A13A /* HSCardKeyword.m */; };
 		4F6A139F26B256150089A13A /* HSCardKeyword.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4F6A13A126B256150089A13A /* HSCardKeyword.strings */; };
 		4F6A13A526B267D60089A13A /* HSCardGameMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F6A13A426B267D60089A13A /* HSCardGameMode.m */; };
@@ -329,6 +328,7 @@
 		4FFDD68126CADB2D008E5B45 /* HSCardHero.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FFDD67F26CADB2D008E5B45 /* HSCardHero.m */; };
 		4FFDD68426CADEEA008E5B45 /* HSDeckRepositoryImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FFDD68226CADEEA008E5B45 /* HSDeckRepositoryImpl.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		4FFDD68526CADEEA008E5B45 /* HSDeckRepositoryImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FFDD68326CADEEA008E5B45 /* HSDeckRepositoryImpl.m */; };
+		F3024CED274007DD001DDE08 /* StoneNamuCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F34384826A36FBA001161FE /* StoneNamuCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -380,6 +380,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 4FE856FC270089BC0008C2FB;
 			remoteInfo = StoneNamuMac;
+		};
+		F3024CEF274007DD001DDE08 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4FA56B9F26A21059002D9FA0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4F34384726A36FBA001161FE;
+			remoteInfo = StoneNamuCore;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -604,8 +611,6 @@
 		4F646A7A26B7F08500BEDB38 /* DataCacheUseCaseImpl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DataCacheUseCaseImpl.m; sourceTree = "<group>"; };
 		4F68198026D73F2F00033AEE /* DeckBaseContentViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeckBaseContentViewModel.h; sourceTree = "<group>"; };
 		4F68198126D73F2F00033AEE /* DeckBaseContentViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeckBaseContentViewModel.m; sourceTree = "<group>"; };
-		4F68198326D74B2A00033AEE /* ImageService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageService.h; sourceTree = "<group>"; };
-		4F68198426D74B2A00033AEE /* ImageService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageService.m; sourceTree = "<group>"; };
 		4F6A139B26B251EE0089A13A /* HSCardKeyword.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCardKeyword.m; sourceTree = "<group>"; };
 		4F6A13A026B256150089A13A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/HSCardKeyword.strings; sourceTree = "<group>"; };
 		4F6A13A226B256170089A13A /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/HSCardKeyword.strings; sourceTree = "<group>"; };
@@ -950,6 +955,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3024CED274007DD001DDE08 /* StoneNamuCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1517,15 +1523,6 @@
 				4F4C5E1E26D3015D00E3349B /* DragItemService.m */,
 			);
 			path = DragItemService;
-			sourceTree = "<group>";
-		};
-		4F7EC54A26EB2A1200A7758D /* ImageService */ = {
-			isa = PBXGroup;
-			children = (
-				4F68198326D74B2A00033AEE /* ImageService.h */,
-				4F68198426D74B2A00033AEE /* ImageService.m */,
-			);
-			path = ImageService;
 			sourceTree = "<group>";
 		};
 		4F7EC54B26EB2A2100A7758D /* DeckImageRenderService */ = {
@@ -2203,7 +2200,6 @@
 			children = (
 				4F7EC54B26EB2A2100A7758D /* DeckImageRenderService */,
 				4F7EC54826EB29FF00A7758D /* PhotosService */,
-				4F7EC54A26EB2A1200A7758D /* ImageService */,
 				4F7EC54926EB2A0800A7758D /* DragItemService */,
 			);
 			path = Service;
@@ -2385,6 +2381,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				F3024CF0274007DD001DDE08 /* PBXTargetDependency */,
 			);
 			name = StoneNamuResources;
 			productName = StoneNamuResources;
@@ -2492,7 +2489,7 @@
 		4FA56B9F26A21059002D9FA0 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1300;
+				LastUpgradeCheck = 1320;
 				TargetAttributes = {
 					4F23C8A8273D997C00C33F10 = {
 						CreatedOnToolsVersion = 13.2;
@@ -2805,7 +2802,6 @@
 				4F414B0426CEF31D0003A0CF /* DeckDetailsViewModel.m in Sources */,
 				4F98E25B26B9AA280067846F /* CardDetailsSectionModel.m in Sources */,
 				4F8754BC26DB91D7000CE351 /* NSIndexPath+identifier.m in Sources */,
-				4F68198526D74B2A00033AEE /* ImageService.m in Sources */,
 				4FF3E0DB26CA947D002B20EA /* OneBesideSecondarySplitViewController.m in Sources */,
 				4F646A5F26B7D05E00BEDB38 /* UIImageView+setAsyncImage.m in Sources */,
 				4F066CA826D6D2C300991A98 /* DeckDetailsManaCostGraphContentConfiguration.m in Sources */,
@@ -2906,6 +2902,11 @@
 			isa = PBXTargetDependency;
 			target = 4FE856FC270089BC0008C2FB /* StoneNamuMac */;
 			targetProxy = 4F4892CE2724632300126131 /* PBXContainerItemProxy */;
+		};
+		F3024CF0274007DD001DDE08 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4F34384726A36FBA001161FE /* StoneNamuCore */;
+			targetProxy = F3024CEF274007DD001DDE08 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -3160,6 +3161,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CODE_SIGN_ENTITLEMENTS = StoneNamuResourcesScript/StoneNamuResourcesScript.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = P53D29U9LJ;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -3175,6 +3177,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CODE_SIGN_ENTITLEMENTS = StoneNamuResourcesScript/StoneNamuResourcesScript.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = P53D29U9LJ;
 				ENABLE_HARDENED_RUNTIME = YES;

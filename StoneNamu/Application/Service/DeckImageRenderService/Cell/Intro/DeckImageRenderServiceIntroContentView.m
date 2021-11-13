@@ -7,9 +7,9 @@
 
 #import "DeckImageRenderServiceIntroContentView.h"
 #import "DeckImageRenderServiceIntroContentConfiguration.h"
-#import "ImageService.h"
 #import "InsetsLabel.h"
 #import <StoneNamuCore/StoneNamuCore.h>
+#import <StoneNamuResources/StoneNamuResources.h>
 #import "UIFont+customFonts.h"
 
 @interface DeckImageRenderServiceIntroContentView ()
@@ -239,10 +239,10 @@
     
     if (newConfiguration.isEasterEgg) {
         self.heroImageView.backgroundColor = UIColor.grayColor;
-        self.heroImageView.image = [ImageService.sharedInstance portraitOfPnamu];
+        self.heroImageView.image = [ResourcesService imageForKey:ImageKeyPnamuEasteregg1];
     } else {
         self.heroImageView.backgroundColor = UIColor.clearColor;
-        self.heroImageView.image = [ImageService.sharedInstance portraitImageOfClassId:newConfiguration.classId];
+        self.heroImageView.image = [ResourcesService portraitImageOfClassId:newConfiguration.classId];
     }
     
     self.classLabel.text = localizableFromHSCardClass(newConfiguration.classId);

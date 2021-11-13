@@ -11,7 +11,6 @@
 #import "UIViewController+presentErrorAlert.h"
 #import "UIViewController+animatedForSelectedIndexPath.h"
 #import "DeckBaseContentConfiguration.h"
-#import "ImageService.h"
 #import "UIViewController+SpinnerView.h"
 #import <StoneNamuResources/StoneNamuResources.h>
 
@@ -144,19 +143,19 @@
                                               children:@[
         
         [UIMenu menuWithTitle:hsDeckFormatsWithLocalizable()[HSDeckFormatStandard]
-                        image:[ImageService.sharedInstance imageOfDeckFormat:HSDeckFormatStandard]
+                        image:[ResourcesService imageOfDeckFormat:HSDeckFormatStandard]
                    identifier:nil
                       options:UIMenuOptionsSingleSelection
                      children:createStandardDeckActions],
         
         [UIMenu menuWithTitle:hsDeckFormatsWithLocalizable()[HSDeckFormatWild]
-                        image:[ImageService.sharedInstance imageOfDeckFormat:HSDeckFormatWild]
+                        image:[ResourcesService imageOfDeckFormat:HSDeckFormatWild]
                    identifier:nil
                       options:UIMenuOptionsSingleSelection
                      children:createWildDeckActions],
         
         [UIMenu menuWithTitle:hsDeckFormatsWithLocalizable()[HSDeckFormatClassic]
-                        image:[ImageService.sharedInstance imageOfDeckFormat:HSDeckFormatClassic]
+                        image:[ResourcesService imageOfDeckFormat:HSDeckFormatClassic]
                    identifier:nil
                       options:UIMenuOptionsSingleSelection
                      children:createClassicDeckActions]

@@ -8,7 +8,6 @@
 #import "DeckAddCardOptionItemModel.h"
 #import <StoneNamuCore/StoneNamuCore.h>
 #import <StoneNamuResources/StoneNamuResources.h>
-#import "ImageService.h"
 
 NSString * NSStringFromDeckAddCardOptionItemModelType(DeckAddCardOptionItemModelType type) {
     switch (type) {
@@ -158,7 +157,7 @@ DeckAddCardOptionItemModelType DeckAddCardOptionItemModelTypeFromNSString(NSStri
             return [self pickerItemModelsFromDic:localizablesWithHSCardSetFromHSDeckFormat(self.deckFormat)
                                      filterArray:nil
                                      imageSource:^UIImage * _Nullable(NSString * key) {
-                return [ImageService.sharedInstance imageOfCardSet:HSCardSetFromNSString(key)];
+                return [ResourcesService imageOfCardSet:HSCardSetFromNSString(key)];
             }
                                        converter:^NSUInteger(NSString * key) {
                 return HSCardSetFromNSString(key);

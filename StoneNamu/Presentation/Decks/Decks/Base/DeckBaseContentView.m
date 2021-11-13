@@ -9,7 +9,7 @@
 #import "DeckBaseContentConfiguration.h"
 #import "InsetsLabel.h"
 #import "DeckBaseContentViewModel.h"
-#import "ImageService.h"
+#import <StoneNamuResources/StoneNamuResources.h>
 
 @interface DeckBaseContentView ()
 @property (retain) UIImageView *cardSetImageView;
@@ -251,7 +251,7 @@
 
 - (void)updateCardSetImageView {
     UIEdgeInsets inset = UIEdgeInsetsMake(-8, -8, -8, -8);
-    self.cardSetImageView.image = [[ImageService.sharedInstance imageOfDeckFormat:self.localDeck.format] imageWithAlignmentRectInsets:inset];
+    self.cardSetImageView.image = [[ResourcesService imageOfDeckFormat:self.localDeck.format] imageWithAlignmentRectInsets:inset];
 }
 
 - (void)updateNameLabel {
