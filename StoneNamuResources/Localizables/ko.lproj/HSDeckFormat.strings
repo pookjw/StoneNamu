@@ -1,0 +1,13 @@
+/* 
+  HSDeckFormat.strings
+  StoneNamu
+
+  Created by Jinwoo Kim on 8/29/21.
+  
+*/
+
+"standard" = "정규";
+
+"wild" = "야생";
+
+"classic" = "클래식";

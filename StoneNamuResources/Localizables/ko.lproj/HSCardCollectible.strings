@@ -1,0 +1,11 @@
+/*
+  HSCardCollectoble.strings
+  StoneNamu
+
+  Created by Jinwoo Kim on 7/28/21.
+  
+*/
+
+"1" = "수집가능";
+
+"0" = "수집불가";

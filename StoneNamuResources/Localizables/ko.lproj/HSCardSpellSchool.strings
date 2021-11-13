@@ -1,0 +1,21 @@
+/* 
+  HSCardSpellSchool.strings
+  StoneNamu
+
+  Created by Jinwoo Kim on 11/4/21.
+  
+*/
+
+"arcane" = "비전";
+
+"fire" = "화염";
+
+"frost" = "냉기";
+
+"nature" = "자연";
+
+"holy" = "신성";
+
+"shadow" = "암흑";
+
+"fel" = "지옥";

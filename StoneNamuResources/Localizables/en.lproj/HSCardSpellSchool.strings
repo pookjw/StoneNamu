@@ -1,0 +1,21 @@
+/* 
+  HSCardSpellSchool.strings
+  StoneNamu
+
+  Created by Jinwoo Kim on 11/4/21.
+  
+*/
+
+"arcane" = "Arcane";
+
+"fire" = "Fire";
+
+"frost" = "Frost";
+
+"nature" = "Nature";
+
+"holy" = "Holy";
+
+"shadow" = "shadow";
+
+"fel" = "Fel";

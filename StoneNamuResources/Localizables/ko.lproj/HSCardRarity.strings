@@ -1,0 +1,17 @@
+/* 
+  HSCardRarity.strings
+  StoneNamu
+
+  Created by Jinwoo Kim on 7/28/21.
+  
+*/
+
+"free" = "무료";
+
+"common" = "일반";
+
+"rare" = "희귀";
+
+"epic" = "특급";
+
+"legendary" = "전설";

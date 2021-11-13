@@ -1,0 +1,17 @@
+/*
+  HSCardGameMode.strings
+  StoneNamu
+
+  Created by Jinwoo Kim on 7/29/21.
+  
+*/
+
+"constructed" = "Constructed";
+
+"battlegrounds" = "Battlegrounds";
+
+"duels" = "Duels";
+
+"arena" = "Arena";
+
+"mercenaries" = "Mercenaries";

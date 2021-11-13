@@ -1,0 +1,29 @@
+/* 
+  BlizzardHSAPILocale.strings
+  StoneNamu
+
+  Created by Jinwoo Kim on 8/14/21.
+  
+*/
+
+"en_US" = "영어";
+
+"fr_FR" = "프랑스어";
+
+"de_DE" = "독일어";
+
+"it_IT" = "이탈리어";
+
+"ja_JP" = "일본어";
+
+"ko_KR" = "한국어";
+
+"pl_PL" = "포르투갈어";
+
+"ru_RU" = "러시아어";
+
+"zh_CN" = "중국어 (간체)";
+
+"es_ES" = "스페인어";
+
+"zh_TW" = "중국어 (번체)";

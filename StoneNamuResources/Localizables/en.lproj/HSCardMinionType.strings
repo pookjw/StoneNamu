@@ -1,0 +1,25 @@
+/* 
+  HSCardMinionType.strings
+  StoneNamu
+
+  Created by Jinwoo Kim on 7/28/21.
+  
+*/
+
+"beast" = "Beast";
+
+"demon" = "Demon";
+
+"dragon" = "Dragon";
+
+"elemental" = "Elemental";
+
+"mech" = "Mech";
+
+"murloc" = "Murloc";
+
+"pirate" = "Pirate";
+
+"quilboar" = "Quilboar";
+
+"totem" = "Totem";

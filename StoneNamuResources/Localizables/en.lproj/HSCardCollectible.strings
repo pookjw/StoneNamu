@@ -1,0 +1,11 @@
+/*
+  HSCardCollectoble.strings
+  StoneNamu
+
+  Created by Jinwoo Kim on 7/28/21.
+  
+*/
+
+"1" = "Collectible";
+
+"0" = "Not Collectible";
