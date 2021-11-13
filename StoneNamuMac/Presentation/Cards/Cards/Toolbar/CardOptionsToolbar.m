@@ -11,6 +11,7 @@
 #import "DynamicMenuToolbarItem.h"
 #import "NSToolbarIdentifierCardOption+BlizzardHSAPIOptionType.h"
 #import "CardOptionsFactory.h"
+#import <StoneNamuResources/StoneNamuResources.h>
 
 @interface CardOptionsToolbar () <NSToolbarDelegate, NSTextFieldDelegate>
 @property (weak) id<CardOptionsToolbarDelegate> cardOptionsToolbarDelegate;
@@ -80,85 +81,85 @@
 - (void)configureToolbarItems {
     DynamicMenuToolbarItem *optionTypeTextFilterItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeTextFilter];
     self.optionTypeTextFilterItem = optionTypeTextFilterItem;
-    optionTypeTextFilterItem.toolTip = NSLocalizedString(@"CARD_TEXT_FILTER_TOOLTIP_DESCRIPTION", @"");
+    optionTypeTextFilterItem.toolTip = [ResourcesService localizaedStringForKey:LocalizableKeyCardTextFilterTooltipDescription];
     optionTypeTextFilterItem.menu = [self menuForMenuToolbarItem:optionTypeTextFilterItem];
     [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeTextFilter atIndex:0];
     
     DynamicMenuToolbarItem *optionTypeSetItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeSet];
     self.optionTypeSetItem = optionTypeSetItem;
-    optionTypeSetItem.toolTip = NSLocalizedString(@"CARD_SET_TOOLTIP_DESCRIPTION", @"");
+    optionTypeSetItem.toolTip = [ResourcesService localizaedStringForKey:LocalizableKeyCardSetTooltipDescription];
     optionTypeSetItem.menu = [self menuForMenuToolbarItem:optionTypeSetItem];
     [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeSet atIndex:1];
     
     DynamicMenuToolbarItem *optionTypeClassItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeClass];
     self.optionTypeClassItem = optionTypeClassItem;
-    optionTypeClassItem.toolTip = NSLocalizedString(@"CARD_CLASS_TOOLTIP_DESCRIPTION", @"");
+    optionTypeClassItem.toolTip = [ResourcesService localizaedStringForKey:LocalizableKeyCardClassTooltipDescription];
     optionTypeClassItem.menu = [self menuForMenuToolbarItem:optionTypeClassItem];
     [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeClass atIndex:2];
     
     DynamicMenuToolbarItem *optionTypeManaCostItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeManaCost];
     self.optionTypeManaCostItem = optionTypeManaCostItem;
-    optionTypeManaCostItem.toolTip = NSLocalizedString(@"CARD_MANA_COST_TOOLTIP_DESCRIPTION", @"");
+    optionTypeManaCostItem.toolTip = [ResourcesService localizaedStringForKey:LocalizableKeyCardManaCostTooltipDescription];
     optionTypeManaCostItem.menu = [self menuForMenuToolbarItem:optionTypeManaCostItem];
     [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeManaCost atIndex:3];
     
     DynamicMenuToolbarItem *optionTypeAttackItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeAttack];
     self.optionTypeAttackItem = optionTypeAttackItem;
-    optionTypeAttackItem.toolTip = NSLocalizedString(@"CARD_ATTACK_TOOLTIP_DESCRIPTION", @"");
+    optionTypeAttackItem.toolTip = [ResourcesService localizaedStringForKey:LocalizableKeyCardAttackTooltipDescription];
     optionTypeAttackItem.menu = [self menuForMenuToolbarItem:optionTypeAttackItem];
     [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeAttack atIndex:4];
     
     DynamicMenuToolbarItem *optionTypeHealthItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeHealth];
     self.optionTypeHealthItem = optionTypeHealthItem;
-    optionTypeHealthItem.toolTip = NSLocalizedString(@"CARD_HEALTH_TOOLTIP_DESCRIPTION", @"");
+    optionTypeHealthItem.toolTip = [ResourcesService localizaedStringForKey:LocalizableKeyCardHealthTooltipDescription];
     optionTypeHealthItem.menu = [self menuForMenuToolbarItem:optionTypeHealthItem];
     [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeHealth atIndex:5];
     
     DynamicMenuToolbarItem *optionTypeCollectibleItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeCollecticle];
     self.optionTypeCollectibleItem = optionTypeCollectibleItem;
-    optionTypeCollectibleItem.toolTip = NSLocalizedString(@"CARD_COLLECTIBLE_TOOLTIP_DESCRIPTION", @"");
+    optionTypeCollectibleItem.toolTip = [ResourcesService localizaedStringForKey:LocalizableKeyCardCollectibleTooltipDescription];
     optionTypeCollectibleItem.menu = [self menuForMenuToolbarItem:optionTypeCollectibleItem];
     [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeCollecticle atIndex:6];
     
     DynamicMenuToolbarItem *optionTypeRarityItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeRarity];
     self.optionTypeRarityItem = optionTypeRarityItem;
-    optionTypeRarityItem.toolTip = NSLocalizedString(@"CARD_RARITY_TOOLTIP_DESCRIPTION", @"");
+    optionTypeRarityItem.toolTip = [ResourcesService localizaedStringForKey:LocalizableKeyCardRarityTooltipDescription];
     optionTypeRarityItem.menu = [self menuForMenuToolbarItem:optionTypeRarityItem];
     [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeRarity atIndex:7];
     
     DynamicMenuToolbarItem *optionTypeTypeItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeType];
     self.optionTypeTypeItem = optionTypeTypeItem;
-    optionTypeTypeItem.toolTip = NSLocalizedString(@"CARD_TYPE_TOOLTIP_DESCRIPTION", @"");
+    optionTypeTypeItem.toolTip = [ResourcesService localizaedStringForKey:LocalizableKeyCardTypeTooltipDescription];
     optionTypeTypeItem.menu = [self menuForMenuToolbarItem:optionTypeTypeItem];
     [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeType atIndex:8];
     
     DynamicMenuToolbarItem *optionTypeMinionTypeItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeMinionType];
     self.optionTypeMinionTypeItem = optionTypeMinionTypeItem;
-    optionTypeMinionTypeItem.toolTip = NSLocalizedString(@"CARD_MINION_TYPE_TOOLTIP_DESCRIPTION", @"");
+    optionTypeMinionTypeItem.toolTip = [ResourcesService localizaedStringForKey:LocalizableKeyCardMinionTypeTooltipDescription];
     optionTypeMinionTypeItem.menu = [self menuForMenuToolbarItem:optionTypeMinionTypeItem];
     [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeMinionType atIndex:9];
     
     DynamicMenuToolbarItem *optionTypeSpellSchoolItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeSpellSchool];
     self.optionTypeSpellSchoolItem = optionTypeSpellSchoolItem;
-    optionTypeSpellSchoolItem.toolTip = NSLocalizedString(@"CARD_SPELL_SCHOOL_TOOLTIP_DESCRIPTION", @"");
+    optionTypeSpellSchoolItem.toolTip = [ResourcesService localizaedStringForKey:LocalizableKeyCardSpellSchoolTooltipDescription];
     optionTypeSpellSchoolItem.menu = [self menuForMenuToolbarItem:optionTypeSpellSchoolItem];
     [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeSpellSchool atIndex:10];
     
     DynamicMenuToolbarItem *optionTypeKeyowrdItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeKeyword];
     self.optionTypeKeyowrdItem = optionTypeKeyowrdItem;
-    optionTypeKeyowrdItem.toolTip = NSLocalizedString(@"CARD_KEYWORD_TOOLTIP_DESCRIPTION", @"");
+    optionTypeKeyowrdItem.toolTip = [ResourcesService localizaedStringForKey:LocalizableKeyCardKeywordTooltipDescription];
     optionTypeKeyowrdItem.menu = [self menuForMenuToolbarItem:optionTypeKeyowrdItem];
     [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeKeyword atIndex:11];
     
     DynamicMenuToolbarItem *optionTypeGameModeItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeGameMode];
     self.optionTypeGameModeItem = optionTypeGameModeItem;
-    optionTypeGameModeItem.toolTip = NSLocalizedString(@"CARD_GAME_MODE_TOOLTIP_DESCRIPTION", @"");
+    optionTypeGameModeItem.toolTip = [ResourcesService localizaedStringForKey:LocalizableKeyCardGameModeTooltipDescription];
     optionTypeGameModeItem.menu = [self menuForMenuToolbarItem:optionTypeGameModeItem];
     [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeGameMode atIndex:12];
     
     DynamicMenuToolbarItem *optionTypeSortItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeSort];
     self.optionTypeSortItem = optionTypeSortItem;
-    optionTypeSortItem.toolTip = NSLocalizedString(@"CARD_SORT_TOOLTIP_DESCRIPTION", @"");
+    optionTypeSortItem.toolTip = [ResourcesService localizaedStringForKey:LocalizableKeyCardSortTooltipDescription];
     optionTypeSortItem.menu = [self menuForMenuToolbarItem:optionTypeSortItem];
     [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionsTypeSort atIndex:13];
     

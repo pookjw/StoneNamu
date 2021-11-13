@@ -17,6 +17,7 @@
 #import "SheetNavigationController.h"
 #import "UIViewController+SpinnerView.h"
 #import "CardsViewModel.h"
+#import <StoneNamuResources/StoneNamuResources.h>
 
 @interface CardsViewController () <UICollectionViewDelegate, UICollectionViewDragDelegate>
 @property (retain) CardsViewModel *viewModel;
@@ -92,7 +93,7 @@
 }
 
 - (void)configureNavigation {
-    self.title = NSLocalizedString(@"CARDS", @"");
+    self.title = [ResourcesService localizaedStringForKey:LocalizableKeyCards];
     self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
 }
 
@@ -260,7 +261,7 @@
                                                                                         previewProvider:nil
                                                                                          actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> * _Nonnull suggestedActions) {
         
-        UIAction *saveAction = [UIAction actionWithTitle:NSLocalizedString(@"SAVE", @"")
+        UIAction *saveAction = [UIAction actionWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeySave]
                                                    image:[UIImage systemImageNamed:@"square.and.arrow.down"]
                                               identifier:nil
                                                  handler:^(__kindof UIAction * _Nonnull action) {

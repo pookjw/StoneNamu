@@ -11,6 +11,7 @@
 #import "PrefsLocaleViewController.h"
 #import "PrefsRegionHostViewController.h"
 #import "UIViewController+animatedForSelectedIndexPath.h"
+#import <StoneNamuResources/StoneNamuResources.h>
 
 @interface PrefsViewController () <UICollectionViewDelegate>
 @property (retain) UICollectionView *collectionView;
@@ -72,7 +73,7 @@
 }
 
 - (void)configureRightBarButtonItems {
-    UIBarButtonItem *doneBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"DONE", @"")
+    UIBarButtonItem *doneBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeyDone]
                                                                           style:UIBarButtonItemStylePlain
                                                                          target:self
                                                                          action:@selector(triggeredDoneBarButtonItem:)];
@@ -86,7 +87,7 @@
 }
 
 - (void)configureNavigation {
-    self.title = NSLocalizedString(@"PREFERENCES", @"");
+    self.title = [ResourcesService localizaedStringForKey:LocalizableKeyPreferences];
     self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAlways;
     self.navigationController.navigationBar.prefersLargeTitles = YES;
 }
@@ -280,7 +281,7 @@
         [alert addAction:action];
     }];
     
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"CANCEL", @"")
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeyCancel]
                                                            style:UIAlertActionStyleCancel
                                                          handler:^(UIAlertAction * _Nonnull action) {}];
     [alert addAction:cancelAction];

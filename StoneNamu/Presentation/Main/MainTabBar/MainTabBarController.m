@@ -7,6 +7,7 @@
 
 #import "MainTabBarController.h"
 #import "UIView+scrollToTopForRecursiveView.h"
+#import <StoneNamuResources/StoneNamuResources.h>
 
 @interface MainTabBarController () <UITabBarControllerDelegate>
 @property (retain) UINavigationController *cardsNavigationController;
@@ -58,13 +59,13 @@
     decksNavigationController.view.backgroundColor = UIColor.systemBackgroundColor;
     prefsNavigationController.view.backgroundColor = UIColor.systemBackgroundColor;
     
-    UITabBarItem *cardsTabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"CARDS", @"")
+    UITabBarItem *cardsTabBarItem = [[UITabBarItem alloc] initWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeyCards]
                                                                   image:[UIImage systemImageNamed:@"text.book.closed"]
                                                           selectedImage:[UIImage systemImageNamed:@"text.book.closed.fill"]];
-    UITabBarItem *decksTabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"DECKS", @"")
+    UITabBarItem *decksTabBarItem = [[UITabBarItem alloc] initWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeyDecks]
                                                                   image:[UIImage systemImageNamed:@"books.vertical"]
                                                           selectedImage:[UIImage systemImageNamed:@"books.vertical.fill"]];
-    UITabBarItem *prefsTabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"PREFERENCES", @"")
+    UITabBarItem *prefsTabBarItem = [[UITabBarItem alloc] initWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeyPreferences]
                                                                   image:[UIImage systemImageNamed:@"gearshape"]
                                                           selectedImage:[UIImage systemImageNamed:@"gearshape.fill"]];
     cardsNavigationController.tabBarItem = cardsTabBarItem;

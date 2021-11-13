@@ -9,6 +9,7 @@
 #import "NSTouchBarItemIdentifierCardOptions+BlizzardHSAPIOptionType.h"
 #import "NSScrubber+Private.h"
 #import "CardOptionsFactory.h"
+#import <StoneNamuResources/StoneNamuResources.h>
 
 static NSTouchBarCustomizationIdentifier const NSTouchBarCustomizationIdentifierCardOptionsTouchBar = @"NSTouchBarCustomizationIdentifierCardOptionsTouchBar";
 static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubberTextItemViewReuseIdentifier = @"NSUserInterfaceItemIdentifierNSScrubberTextItemViewReuseIdentifier";
@@ -508,7 +509,9 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
 }
 
 - (void)updateItemsWithOptions:(NSDictionary<NSString *,NSString *> *)options {
-    BOOL shouldSelectItem = ![options isEqualToDictionary:self.options];
+    if ([options isEqualToDictionary:self.options]) {
+        return;
+    }
     
     NSMutableDictionary<NSString *, NSString *> *mutableOptions = [options mutableCopy];
     self.options = mutableOptions;
@@ -522,7 +525,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
             NSUInteger index = [keys indexOfString:@""];
             BlizzardHSAPIOptionType optionType = [self optionTypeFromScrubber:obj];
             
-            if ([obj respondsToSelector:@selector(_interactiveSelectItemAtIndex:animated:)] && shouldSelectItem) {
+            if ([obj respondsToSelector:@selector(_interactiveSelectItemAtIndex:animated:)]) {
                 // this will excute `scrubber:didSelectItemAtIndex:`
                 [obj _interactiveSelectItemAtIndex:index animated:YES];
             }
@@ -556,7 +559,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
             
             if (index == -1) return;
             
-            if ([scrubber respondsToSelector:@selector(_interactiveSelectItemAtIndex:animated:)] && shouldSelectItem) {
+            if ([scrubber respondsToSelector:@selector(_interactiveSelectItemAtIndex:animated:)]) {
                 // this will excute `scrubber:didSelectItemAtIndex:`
                 [scrubber _interactiveSelectItemAtIndex:index animated:YES];
             }
@@ -767,7 +770,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     //
     
     if ([self hasEmptyRowAtScrubber:scrubber]) {
-        mutableDic[@""] = NSLocalizedString(@"ALL", @"");
+        mutableDic[@""] = [ResourcesService localizaedStringForKey:LocalizableKeyAll];
     }
     
     if (filterKeys == nil) {

@@ -9,6 +9,7 @@
 #import "CardDetailsBasicContentConfiguration.h"
 #import "NSString+clearedHTML.h"
 #import "InsetsLabel.h"
+#import <StoneNamuResources/StoneNamuResources.h>
 
 @interface CardDetailsBasicContentView ()
 @property (retain) UIVisualEffectView *visualEffectView;
@@ -149,14 +150,14 @@
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
         NSString * _Nullable clearedLeadingText = content.leadingText.clearedHTML;
         if ((clearedLeadingText == nil) || ([clearedLeadingText isEqualToString:@""])) {
-            self.leadingLabel.text = NSLocalizedString(@"EMPTY", @"");
+            self.leadingLabel.text = [ResourcesService localizaedStringForKey:LocalizableKeyEmpty];
         } else {
             self.leadingLabel.text = clearedLeadingText;
         }
         
         NSString * _Nullable clearedTrailingText = content.trailingText.clearedHTML;
         if ((clearedTrailingText == nil) || ([clearedTrailingText isEqualToString:@""])) {
-            self.trailingLabel.text = NSLocalizedString(@"EMPTY", @"");
+            self.trailingLabel.text = [ResourcesService localizaedStringForKey:LocalizableKeyEmpty];
         } else {
             self.trailingLabel.text = clearedTrailingText;
         }

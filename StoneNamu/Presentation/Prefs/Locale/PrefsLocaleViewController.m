@@ -7,6 +7,7 @@
 
 #import "PrefsLocaleViewController.h"
 #import "PrefsLocaleViewModel.h"
+#import <StoneNamuResources/StoneNamuResources.h>
 
 @interface PrefsLocaleViewController () <UICollectionViewDelegate>
 @property (retain) UICollectionView *collectionView;
@@ -38,7 +39,7 @@
 }
 
 - (void)configureNavigation {
-    self.title = NSLocalizedString(@"LOCALE", @"");
+    self.title = [ResourcesService localizaedStringForKey:LocalizableKeyLocale];
     self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
 }
 

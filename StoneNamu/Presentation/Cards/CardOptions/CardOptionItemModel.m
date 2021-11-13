@@ -7,6 +7,7 @@
 
 #import "CardOptionItemModel.h"
 #import <StoneNamuCore/StoneNamuCore.h>
+#import <StoneNamuResources/StoneNamuResources.h>
 #import "ImageService.h"
 
 NSString * NSStringFromCardOptionItemModelType(CardOptionItemModelType type) {
@@ -284,33 +285,33 @@ CardOptionItemModelType CardOptionItemModelTypeFromNSString(NSString * key) {
 - (NSString *)text {
     switch (self.type) {
         case CardOptionItemModelTypeSet:
-            return NSLocalizedString(@"CARD_SET", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardSet];
         case CardOptionItemModelTypeClass:
-            return NSLocalizedString(@"CARD_CLASS", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardClass];
         case CardOptionItemModelTypeManaCost:
-            return NSLocalizedString(@"CARD_MANA_COST", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardManaCost];
         case CardOptionItemModelTypeAttack:
-            return NSLocalizedString(@"CARD_ATTACK", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardAttack];
         case CardOptionItemModelTypeHealth:
-            return NSLocalizedString(@"CARD_HEALTH", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardHealth];
         case CardOptionItemModelTypeCollectible:
-            return NSLocalizedString(@"CARD_COLLECTIBLE", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardCollectible];
         case CardOptionItemModelTypeRarity:
-            return NSLocalizedString(@"CARD_RARITY", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardRarity];
         case CardOptionItemModelTypeType:
-            return NSLocalizedString(@"CARD_TYPE", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardType];
         case CardOptionItemModelTypeMinionType:
-            return NSLocalizedString(@"CARD_MINION_TYPE", @"");
+            return[ResourcesService localizaedStringForKey:LocalizableKeyCardMinionType];
         case CardOptionItemModelTypeSpellSchool:
-            return NSLocalizedString(@"CARD_SPELL_SCHOOL", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardSpellSchool];
         case CardOptionItemModelTypeKeyword:
-            return NSLocalizedString(@"CARD_KEYWORD", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardKeyword];
         case CardOptionItemModelTypeTextFilter:
-            return NSLocalizedString(@"CARD_TEXT_FILTER", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardTextFilter];
         case CardOptionItemModelTypeGameMode:
-            return NSLocalizedString(@"CARD_GAME_MODE", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardGameMode];
         case CardOptionItemModelTypeSort:
-            return NSLocalizedString(@"CARD_SORT", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardSort];
         default:
             return @"";
     }
@@ -346,33 +347,33 @@ CardOptionItemModelType CardOptionItemModelTypeFromNSString(NSString * key) {
 - (NSString * _Nullable)toolTip {
     switch (self.type) {
         case CardOptionItemModelTypeSet:
-            return NSLocalizedString(@"CARD_SET_TOOLTIP_DESCRIPTION", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardSetTooltipDescription];
         case CardOptionItemModelTypeClass:
-            return NSLocalizedString(@"CARD_CLASS_TOOLTIP_DESCRIPTION", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardClassTooltipDescription];
         case CardOptionItemModelTypeManaCost:
-            return NSLocalizedString(@"CARD_MANA_COST_TOOLTIP_DESCRIPTION", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardManaCostTooltipDescription];
         case CardOptionItemModelTypeAttack:
-            return NSLocalizedString(@"CARD_ATTACK_TOOLTIP_DESCRIPTION", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardAttack];
         case CardOptionItemModelTypeHealth:
-            return NSLocalizedString(@"CARD_HEALTH_TOOLTIP_DESCRIPTION", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardHealthTooltipDescription];
         case CardOptionItemModelTypeCollectible:
-            return NSLocalizedString(@"CARD_COLLECTIBLE_TOOLTIP_DESCRIPTION", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardCollectibleTooltipDescription];
         case CardOptionItemModelTypeRarity:
-            return NSLocalizedString(@"CARD_RARITY_TOOLTIP_DESCRIPTION", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardRarityTooltipDescription];
         case CardOptionItemModelTypeType:
-            return NSLocalizedString(@"CARD_TYPE_TOOLTIP_DESCRIPTION", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardTypeTooltipDescription];
         case CardOptionItemModelTypeMinionType:
-            return NSLocalizedString(@"CARD_MINION_TYPE_TOOLTIP_DESCRIPTION", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardMinionTypeTooltipDescription];
         case CardOptionItemModelTypeSpellSchool:
-            return NSLocalizedString(@"CARD_SPELL_SCHOOL_TOOLTIP_DESCRIPTION", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardSpellSchoolTooltipDescription];
         case CardOptionItemModelTypeKeyword:
-            return NSLocalizedString(@"CARD_KEYWORD_TOOLTIP_DESCRIPTION", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardKeywordTooltipDescription];
         case CardOptionItemModelTypeTextFilter:
-            return NSLocalizedString(@"CARD_TEXT_FILTER_TOOLTIP_DESCRIPTION", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardTextFilterTooltipDescription];
         case CardOptionItemModelTypeGameMode:
-            return NSLocalizedString(@"CARD_GAME_MODE_TOOLTIP_DESCRIPTION", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardGameModeTooltipDescription];
         case CardOptionItemModelTypeSort:
-            return NSLocalizedString(@"CARD_SORT_TOOLTIP_DESCRIPTION", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardSortTooltipDescription];
         default:
             return @"";
     }

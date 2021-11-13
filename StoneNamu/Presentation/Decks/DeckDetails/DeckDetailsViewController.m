@@ -19,6 +19,7 @@
 #import "DeckImageRenderService.h"
 #import "PhotosService.h"
 #import "FloatingNaigationController.h"
+#import <StoneNamuResources/StoneNamuResources.h>
 
 @interface DeckDetailsViewController () <UICollectionViewDelegate, UICollectionViewDragDelegate, UICollectionViewDropDelegate>
 @property (retain) UICollectionView *collectionView;
@@ -103,28 +104,28 @@
     self.menuBarButtonItem = menuBarButtonItem;
     
     UIMenu *menu = [UIMenu menuWithChildren:@[
-        [UIAction actionWithTitle:NSLocalizedString(@"ADD_CARDS", @"")
+        [UIAction actionWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeyAddCards]
                             image:[UIImage systemImageNamed:@"plus"]
                        identifier:nil
                           handler:^(__kindof UIAction * _Nonnull action) {
             [self presentDeckAddCardsViewController];
         }],
         
-        [UIAction actionWithTitle:NSLocalizedString(@"EDIT_DECK_NAME", @"")
+        [UIAction actionWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeyEditDeckName]
                             image:[UIImage systemImageNamed:@"pencil"]
                        identifier:nil
                           handler:^(__kindof UIAction * _Nonnull action) {
             [self presentEditLocalDeckNameAlert];
         }],
         
-        [UIAction actionWithTitle:NSLocalizedString(@"SAVE_AS_IMAGE", @"")
+        [UIAction actionWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeySaveAsImage]
                             image:[UIImage systemImageNamed:@"photo"]
                        identifier:nil
                           handler:^(__kindof UIAction * _Nonnull action) {
             [self saveDeckAsImage];
         }],
         
-        [UIAction actionWithTitle:NSLocalizedString(@"EXPORT_DECK_CODE", @"")
+        [UIAction actionWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeyExportDeckCode]
                             image:[UIImage systemImageNamed:@"square.and.arrow.up"]
                        identifier:nil
                           handler:^(__kindof UIAction * _Nonnull action) {
@@ -138,7 +139,7 @@
     
     //
     
-    UIBarButtonItem *doneBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"DONE", @"")
+    UIBarButtonItem *doneBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeyDone]
                                                                           style:UIBarButtonItemStyleDone
                                                                          target:self
                                                                          action:@selector(doneBarButtonItemTriggered:)];
@@ -161,7 +162,7 @@
 }
 
 - (void)presentEditLocalDeckNameAlert {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"EDIT_DECK_NAME_TITLE", @"")
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeyEditDeckNameTitle]
                                                                    message:nil
                                                             preferredStyle:UIAlertControllerStyleAlert];
     
@@ -169,11 +170,11 @@
         textField.text = self.viewModel.localDeck.name;
     }];
     
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"CANCEL", @"")
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeyCancel]
                                                            style:UIAlertActionStyleCancel
                                                          handler:^(UIAlertAction * _Nonnull action) {}];
     
-    UIAlertAction *doneAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"DONE", @"")
+    UIAlertAction *doneAction = [UIAlertAction actionWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeyDone]
                                                          style:UIAlertActionStyleDefault
                                                        handler:^(UIAlertAction * _Nonnull action) {
         [self.viewModel updateDeckName:alert.textFields.firstObject.text];
@@ -548,21 +549,21 @@
                                                                                                 previewProvider:nil
                                                                                                  actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> * _Nonnull suggestedActions) {
                 
-                UIAction *incrementAction = [UIAction actionWithTitle:NSLocalizedString(@"INCREASE_CARD_COUNT", @"")
+                UIAction *incrementAction = [UIAction actionWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeyIncreaseCardCount]
                                                                 image:[UIImage systemImageNamed:@"plus"]
                                                            identifier:nil
                                                               handler:^(__kindof UIAction * _Nonnull action) {
                     [self.viewModel increaseAtIndexPath:indexPath];
                 }];
                 
-                UIAction *decrementAction = [UIAction actionWithTitle:NSLocalizedString(@"DECREASE_CARD_COUNT", @"")
+                UIAction *decrementAction = [UIAction actionWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeyDecreaseCardCount]
                                                                 image:[UIImage systemImageNamed:@"minus"]
                                                            identifier:nil
                                                               handler:^(__kindof UIAction * _Nonnull action) {
                     [self.viewModel decreaseAtIndexPath:indexPath];
                 }];
                 
-                UIAction *deleteAction = [UIAction actionWithTitle:NSLocalizedString(@"DELETE", @"")
+                UIAction *deleteAction = [UIAction actionWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeyDelete]
                                                              image:[UIImage systemImageNamed:@"trash"]
                                                         identifier:nil
                                                            handler:^(__kindof UIAction * _Nonnull action) {

@@ -10,6 +10,7 @@
 #import "CardOptionsMenuItem.h"
 #import "CardOptionsTextField.h"
 #import "NSUserInterfaceItemIdentifierCardOption+BlizzardHSAPIOption.h"
+#import <StoneNamuResources/StoneNamuResources.h>
 
 @interface CardOptionsMenu () <NSTextFieldDelegate>
 @property (weak) id<CardOptionsMenuDelegate> cardOptionsMenuDelegate;
@@ -102,7 +103,7 @@
     NSMenuItem *optionsMenuItem = [NSMenuItem new];
     self.optionsMenuItem = optionsMenuItem;
     
-    NSMenu *optionsSubMenu = [[NSMenu alloc] initWithTitle:NSLocalizedString(@"CARD_OPTIONS_TITLE_SHORT", @"")];
+    NSMenu *optionsSubMenu = [[NSMenu alloc] initWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeyCardOptionsTitleShort]];
     self.optionsSubMenu = optionsSubMenu;
     optionsMenuItem.submenu = optionsSubMenu;
     

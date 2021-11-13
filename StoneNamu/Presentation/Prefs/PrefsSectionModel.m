@@ -7,6 +7,7 @@
 
 #import "PrefsSectionModel.h"
 #import "NSBundle+BuildInfo.h"
+#import <StoneNamuResources/StoneNamuResources.h>
 
 @implementation PrefsSectionModel
 
@@ -37,13 +38,13 @@
 - (NSString * _Nullable )headerText {
     switch (self.type) {
         case PrefsSectionModelTypeSearchPrefSelection:
-            return NSLocalizedString(@"SEARCH", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeySearch];
         case PrefsSectionModelTypeData:
-            return NSLocalizedString(@"DATA", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyData];
         case PrefsSectionModelMiscellaneous:
-            return NSLocalizedString(@"MISCELLANEOUS", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyMiscellaneous];
         case PrefsSectionModelContributors:
-            return NSLocalizedString(@"CONTRIBUTORS", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyContributors];
         default:
             return nil;
     }
@@ -52,7 +53,7 @@
 - (NSString * _Nullable)footerText {
     switch (self.type) {
         case PrefsSectionModelContributors: {
-            NSString *appName = NSLocalizedString(@"APP_NAME", @"");
+            NSString *appName = [ResourcesService localizaedStringForKey:LocalizableKeyAppName];
             NSString *version = NSBundle.mainBundle.releaseVersionString;
             NSString *build = NSBundle.mainBundle.buildVersionString;
             return [NSString stringWithFormat:@"%@ (%@-%@)", appName, version, build];

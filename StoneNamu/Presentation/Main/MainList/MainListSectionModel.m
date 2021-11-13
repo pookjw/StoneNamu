@@ -37,9 +37,9 @@
 - (NSString * _Nullable)headerText {
     switch (self.type) {
         case MainSectionModelTypeCards:
-            return [ResourcesService localizaedStringForKey:@"CARDS"];
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCards];
         case MainSectionModelTypeDeck:
-            return [ResourcesService localizaedStringForKey:@"DECKS"];
+            return [ResourcesService localizaedStringForKey:LocalizableKeyDecks];
         default:
             return nil;;
     }

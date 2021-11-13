@@ -7,6 +7,7 @@
 
 #import "PrefsRegionHostViewController.h"
 #import "PrefsRegionHostViewModel.h"
+#import <StoneNamuResources/StoneNamuResources.h>
 
 @interface PrefsRegionHostViewController () <UICollectionViewDelegate>
 @property (retain) UICollectionView *collectionView;
@@ -38,7 +39,7 @@
 }
 
 - (void)configureNavigation {
-    self.title = NSLocalizedString(@"REGION", @"");
+    self.title = [ResourcesService localizaedStringForKey:LocalizableKeyRegion];
     self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
 }
 

@@ -61,19 +61,19 @@
 - (NSString * _Nullable)primaryText {
     switch (self.type) {
         case PrefsItemModelTypeLocaleSelection:
-            return NSLocalizedString(@"LOCALE", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyLocale];
         case PrefsItemModelTypeRegionSelection:
-            return NSLocalizedString(@"REGION", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyRegion];
         case PrefsItemModelTypeDeleteAllCaches:
-            return NSLocalizedString(@"DELETE_ALL_CACHES", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyDeleteAllCaches];
         case PrefsItemModelTypeDeleteAllLocalDecks:
             return @"Remove All LocalDecks";
         case PrefsItemModelTypeJoinTestFlight:
-            return NSLocalizedString(@"JOIN_TESTFLIGHT", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyJoinTestflight];
         case PrefsItemModelTypePookjwContributor:
-            return NSLocalizedString(@"POOKJW", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyPookjw];
         case PrefsItemModelTypePnamuContributor:
-            return NSLocalizedString(@"PNAMU", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyPnamu];
         default:
             return nil;
     }
@@ -82,9 +82,9 @@
 - (NSString * _Nullable)secondaryText {
     switch (self.type) {
         case PrefsItemModelTypePookjwContributor:
-            return NSLocalizedString(@"POOKJW_DESCRIPTION", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyPookjwDescription];
         case PrefsItemModelTypePnamuContributor:
-            return NSLocalizedString(@"PNAMU_DESCRIPTION", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyPnamuDescription];
         default:
             return nil;
     }
@@ -112,9 +112,9 @@
     switch (self.type) {
         case PrefsItemModelTypePnamuContributor:
             return @{
-                NSLocalizedString(@"TWITTER", @""): [NSURL URLWithString:@"https://twitter.com/Pnamu"],
-                NSLocalizedString(@"TWITCH", @""): [NSURL URLWithString:@"https://www.twitch.tv/Pnamu"],
-                NSLocalizedString(@"YOUTUBE", @""): [NSURL URLWithString:@"https://www.youtube.com/c/Pnamu"]
+                [ResourcesService localizaedStringForKey:LocalizableKeyTwitter]: [NSURL URLWithString:@"https://twitter.com/Pnamu"],
+                [ResourcesService localizaedStringForKey:LocalizableKeyTwitch]: [NSURL URLWithString:@"https://www.twitch.tv/Pnamu"],
+                [ResourcesService localizaedStringForKey:LocalizableKeyYoutube]: [NSURL URLWithString:@"https://www.youtube.com/c/Pnamu"]
             };
         default:
             return nil;

@@ -6,6 +6,7 @@
 //
 
 #import "StepperViewController.h"
+#import <StoneNamuResources/StoneNamuResources.h>
 
 @interface StepperViewController ()
 @property (retain) UIStackView *stackView;
@@ -106,17 +107,17 @@
 }
 
 - (void)configureBarButtonItems {
-    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"CANCEL", @"")
+    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeyCancel]
                                                                      style:UIBarButtonItemStylePlain
                                                                     target:self
                                                                     action:@selector(cancelButtonTriggered:)];
     
-    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"DONE", @"")
+    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeyDone]
                                                                    style:UIBarButtonItemStylePlain
                                                                   target:self
                                                                   action:@selector(doneButtonTriggered:)];
     
-    UIBarButtonItem *clearButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"CLEAR", @"")
+    UIBarButtonItem *clearButton = [[UIBarButtonItem alloc] initWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeyClear]
                                                                     style:UIBarButtonItemStylePlain
                                                                    target:self
                                                                    action:@selector(clearButtonTriggered:)];

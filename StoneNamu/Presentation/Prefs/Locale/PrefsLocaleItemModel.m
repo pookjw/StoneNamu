@@ -6,6 +6,7 @@
 //
 
 #import "PrefsLocaleItemModel.h"
+#import <StoneNamuResources/StoneNamuResources.h>
 
 @implementation PrefsLocaleItemModel
 
@@ -54,13 +55,13 @@
         NSDictionary<NSString *, NSString *> *localizables = blizzardHSAPILocalesWithLocalizable();
         return localizables[self.locale];
     } else {
-        return NSLocalizedString(@"AUTO", @"");
+        return [ResourcesService localizaedStringForKey:LocalizableKeyAuto];
     }
 }
 
 - (NSString * _Nullable)secondaryText {
     if (self.locale == nil) {
-        return NSLocalizedString(@"CARD_LANGUAGE_AUTO_DESCRIPTION", @"");
+        return [ResourcesService localizaedStringForKey:LocalizableKeyCardLanguageAutoDescription];
     } else {
         return nil;
     }

@@ -7,6 +7,7 @@
 
 #import "PickerViewController.h"
 #import "PickerItemView.h"
+#import <StoneNamuResources/StoneNamuResources.h>
 
 @interface PickerViewController () <UIPickerViewDataSource, UIPickerViewDelegate>
 @property (retain) UIPickerView *pickerView;
@@ -93,7 +94,7 @@
 }
 
 - (void)configureCancelButton {
-    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"CANCEL", @"")
+    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeyCancel]
                                                                      style:UIBarButtonItemStylePlain
                                                                     target:self
                                                                     action:@selector(cancelButtonTriggered:)];
@@ -107,7 +108,7 @@
 }
 
 - (void)configureDoneButton {
-    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"DONE", @"")
+    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeyDone]
                                                                    style:UIBarButtonItemStylePlain
                                                                   target:self
                                                                   action:@selector(doneButtonTriggered:)];
@@ -162,7 +163,7 @@
     if (self.showEmptyRow) {
         if (row == 0) {
             [pickerItemView configureWithImage:nil
-                                   primaryText:NSLocalizedString(@"ALL", @"")
+                                   primaryText:[ResourcesService localizaedStringForKey:LocalizableKeyAll]
                                  secondaryText:nil];
         } else {
 #if DEBUG

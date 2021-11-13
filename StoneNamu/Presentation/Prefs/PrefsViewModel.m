@@ -7,6 +7,7 @@
 
 #import "PrefsViewModel.h"
 #import <StoneNamuCore/StoneNamuCore.h>
+#import <StoneNamuResources/StoneNamuResources.h>
 #import "UICollectionViewDiffableDataSource+applySnapshotAndWait.h"
 
 @interface PrefsViewModel ()
@@ -181,12 +182,12 @@
         if (prefs.locale) {
             localeItemModel.accessoryText = blizzardHSAPILocalesWithLocalizable()[prefs.locale];
         } else {
-            localeItemModel.accessoryText = NSLocalizedString(@"AUTO", @"");
+            localeItemModel.accessoryText = [ResourcesService localizaedStringForKey:LocalizableKeyAuto];
         }
         if (prefs.apiRegionHost) {
             regionItemModel.accessoryText = blizzardHSAPIRegionsForAPIWithLocalizable()[prefs.apiRegionHost];
         } else {
-            regionItemModel.accessoryText = NSLocalizedString(@"AUTO", @"");
+            regionItemModel.accessoryText = [ResourcesService localizaedStringForKey:LocalizableKeyAuto];
         }
         
         //

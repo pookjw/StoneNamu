@@ -10,6 +10,7 @@
 #import "SheetNavigationController.h"
 #import "PickerViewController.h"
 #import "StepperViewController.h"
+#import <StoneNamuResources/StoneNamuResources.h>
 
 @interface DeckAddCardOptionsViewController () <UICollectionViewDelegate>
 @property (retain) UICollectionView *collectionView;
@@ -66,11 +67,11 @@
 }
 
 - (void)configureNavigation {
-    self.title = NSLocalizedString(@"CARD_OPTIONS_TITLE", @"");
+    self.title = [ResourcesService localizaedStringForKey:LocalizableKeyCardOptionsTitle];
 }
 
 - (void)configureLeftBarButtonItems {
-    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"CANCEL", @"")
+    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeyCancel]
                                                                      style:UIBarButtonItemStylePlain
                                                                     target:self
                                                                     action:@selector(cancelButtonTriggered:)];
@@ -81,7 +82,7 @@
 }
 
 - (void)configureRightBarButtonItems {
-    UIBarButtonItem *fetchButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"DONE", @"")
+    UIBarButtonItem *fetchButton = [[UIBarButtonItem alloc] initWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeyDone]
                                                                     style:UIBarButtonItemStyleDone
                                                                    target:self
                                                                    action:@selector(fetchButtonTriggered:)];
@@ -212,11 +213,11 @@
             textField.text = itemModel.value;
         }];
         
-        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"CANCEL", @"")
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeyCancel]
                                                                style:UIAlertActionStyleCancel
                                                              handler:^(UIAlertAction * _Nonnull action) {}];
         
-        UIAlertAction *doneAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"DONE", @"")
+        UIAlertAction *doneAction = [UIAlertAction actionWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeyDone]
                                                              style:UIAlertActionStyleDefault
                                                            handler:^(UIAlertAction * _Nonnull action) {
             

@@ -7,6 +7,7 @@
 
 #import "DeckAddCardOptionItemModel.h"
 #import <StoneNamuCore/StoneNamuCore.h>
+#import <StoneNamuResources/StoneNamuResources.h>
 #import "ImageService.h"
 
 NSString * NSStringFromDeckAddCardOptionItemModelType(DeckAddCardOptionItemModelType type) {
@@ -296,33 +297,33 @@ DeckAddCardOptionItemModelType DeckAddCardOptionItemModelTypeFromNSString(NSStri
 - (NSString *)text {
     switch (self.type) {
         case DeckAddCardOptionItemModelTypeSet:
-            return NSLocalizedString(@"CARD_SET", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardSet];
         case DeckAddCardOptionItemModelTypeClass:
-            return NSLocalizedString(@"CARD_CLASS", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardClass];
         case DeckAddCardOptionItemModelTypeManaCost:
-            return NSLocalizedString(@"CARD_MANA_COST", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardManaCost];
         case DeckAddCardOptionItemModelTypeAttack:
-            return NSLocalizedString(@"CARD_ATTACK", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardAttack];
         case DeckAddCardOptionItemModelTypeHealth:
-            return NSLocalizedString(@"CARD_HEALTH", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardHealth];
         case DeckAddCardOptionItemModelTypeCollectible:
-            return NSLocalizedString(@"CARD_COLLECTIBLE", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardCollectible];
         case DeckAddCardOptionItemModelTypeRarity:
-            return NSLocalizedString(@"CARD_RARITY", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardRarity];
         case DeckAddCardOptionItemModelTypeType:
-            return NSLocalizedString(@"CARD_TYPE", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardType];
         case DeckAddCardOptionItemModelTypeMinionType:
-            return NSLocalizedString(@"CARD_MINION_TYPE", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardMinionType];
         case DeckAddCardOptionItemModelTypeSpellSchool:
-            return NSLocalizedString(@"CARD_SPELL_SCHOOL", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardSpellSchool];
         case DeckAddCardOptionItemModelTypeKeyword:
-            return NSLocalizedString(@"CARD_KEYWORD", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardKeyword];
         case DeckAddCardOptionItemModelTypeTextFilter:
-            return NSLocalizedString(@"CARD_TEXT_FILTER", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardTextFilter];
         case DeckAddCardOptionItemModelTypeGameMode:
-            return NSLocalizedString(@"CARD_GAME_MODE", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardGameMode];
         case DeckAddCardOptionItemModelTypeSort:
-            return NSLocalizedString(@"CARD_SORT", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardSort];
         default:
             return @"";
     }
@@ -358,33 +359,33 @@ DeckAddCardOptionItemModelType DeckAddCardOptionItemModelTypeFromNSString(NSStri
 - (NSString * _Nullable)toolTip {
     switch (self.type) {
         case DeckAddCardOptionItemModelTypeSet:
-            return NSLocalizedString(@"CARD_SET_TOOLTIP_DESCRIPTION", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardSetTooltipDescription];
         case DeckAddCardOptionItemModelTypeClass:
-            return NSLocalizedString(@"CARD_CLASS_TOOLTIP_DESCRIPTION", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardClassTooltipDescription];
         case DeckAddCardOptionItemModelTypeManaCost:
-            return NSLocalizedString(@"CARD_MANA_COST_TOOLTIP_DESCRIPTION", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardManaCostTooltipDescription];
         case DeckAddCardOptionItemModelTypeAttack:
-            return NSLocalizedString(@"CARD_ATTACK_TOOLTIP_DESCRIPTION", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardAttackTooltipDescription];
         case DeckAddCardOptionItemModelTypeHealth:
-            return NSLocalizedString(@"CARD_HEALTH_TOOLTIP_DESCRIPTION", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardHealthTooltipDescription];
         case DeckAddCardOptionItemModelTypeCollectible:
-            return NSLocalizedString(@"CARD_COLLECTIBLE_TOOLTIP_DESCRIPTION", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardCollectibleTooltipDescription];
         case DeckAddCardOptionItemModelTypeRarity:
-            return NSLocalizedString(@"CARD_RARITY_TOOLTIP_DESCRIPTION", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardRarityTooltipDescription];
         case DeckAddCardOptionItemModelTypeType:
-            return NSLocalizedString(@"CARD_TYPE_TOOLTIP_DESCRIPTION", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardTypeTooltipDescription];
         case DeckAddCardOptionItemModelTypeMinionType:
-            return NSLocalizedString(@"CARD_MINION_TYPE_TOOLTIP_DESCRIPTION", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardMinionTypeTooltipDescription];
         case DeckAddCardOptionItemModelTypeSpellSchool:
-            return NSLocalizedString(@"CARD_SPELL_SCHOOL_TOOLTIP_DESCRIPTION", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardSpellSchoolTooltipDescription];
         case DeckAddCardOptionItemModelTypeKeyword:
-            return NSLocalizedString(@"CARD_KEYWORD_TOOLTIP_DESCRIPTION", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardKeywordTooltipDescription];
         case DeckAddCardOptionItemModelTypeTextFilter:
-            return NSLocalizedString(@"CARD_TEXT_FILTER_TOOLTIP_DESCRIPTION", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardTextFilterTooltipDescription];
         case DeckAddCardOptionItemModelTypeGameMode:
-            return NSLocalizedString(@"CARD_GAME_MODE_TOOLTIP_DESCRIPTION", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardGameModeTooltipDescription];
         case DeckAddCardOptionItemModelTypeSort:
-            return NSLocalizedString(@"CARD_SORT_TOOLTIP_DESCRIPTION", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardSortTooltipDescription];
         default:
             return @"";
     }

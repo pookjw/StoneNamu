@@ -6,6 +6,7 @@
 //
 
 #import "NSWindow+presentErrorAlert.h"
+#import <StoneNamuResources/StoneNamuResources.h>
 
 @implementation NSWindow (presentErrorAlert)
 
@@ -16,7 +17,7 @@
 - (void)presentErrorAlertWithError:(NSError *)error completion:(void (^ _Nullable)(NSModalResponse returnCode))completion {
     NSAlert *alert = [NSAlert new];
     alert.alertStyle = NSAlertStyleCritical;
-    alert.messageText = NSLocalizedString(@"ERROR_ALERT_TITLE", @"");
+    alert.messageText = [ResourcesService localizaedStringForKey:LocalizableKeyErrorAlertTitle];
     alert.informativeText = error.localizedDescription;
     
     [alert beginSheetModalForWindow:self completionHandler:completion];

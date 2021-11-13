@@ -13,6 +13,7 @@
 #import "CardDetailsChildrenContentImageContentView.h"
 #import "PhotosService.h"
 #import "UIView+viewController.h"
+#import <StoneNamuResources/StoneNamuResources.h>
 
 @interface CardDetailsChildrenContentView () <UICollectionViewDelegate, UICollectionViewDragDelegate>
 @property (retain) UIVisualEffectView *visualEffectView;
@@ -193,7 +194,7 @@
                                                                                         previewProvider:nil
                                                                                          actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> * _Nonnull suggestedActions) {
         
-        UIAction *saveAction = [UIAction actionWithTitle:NSLocalizedString(@"SAVE", @"")
+        UIAction *saveAction = [UIAction actionWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeySave]
                                                    image:[UIImage systemImageNamed:@"square.and.arrow.down"]
                                               identifier:nil
                                                  handler:^(__kindof UIAction * _Nonnull action) {

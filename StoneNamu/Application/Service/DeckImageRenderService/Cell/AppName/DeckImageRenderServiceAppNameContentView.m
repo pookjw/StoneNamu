@@ -49,7 +49,7 @@
     aboutLabel.backgroundColor = UIColor.clearColor;
     aboutLabel.textColor = UIColor.whiteColor;
     aboutLabel.textAlignment = NSTextAlignmentCenter;
-    aboutLabel.text = [ResourcesService localizaedStringForKey:@"APP_NAME"];
+    aboutLabel.text = [ResourcesService localizaedStringForKey:LocalizableKeyAppName];
     
     [self addSubview:aboutLabel];
     aboutLabel.translatesAutoresizingMaskIntoConstraints = NO;

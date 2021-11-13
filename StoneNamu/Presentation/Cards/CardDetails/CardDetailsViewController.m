@@ -20,6 +20,7 @@
 #import "UIViewController+targetedPreviewWithClearBackgroundForView.h"
 #import "UIImage+imageWithGrayScale.h"
 #import "DynamicAnimatedTransitioning.h"
+#import <StoneNamuResources/StoneNamuResources.h>
 
 @interface CardDetailsViewController () <UICollectionViewDelegate, UIViewControllerTransitioningDelegate, UIContextMenuInteractionDelegate, UIDragInteractionDelegate, CardDetailsChildrenContentConfigurationDelegate>
 @property (retain) UIImageView * _Nullable sourceImageView;
@@ -401,7 +402,7 @@
     UIContextMenuConfiguration *configuration = [UIContextMenuConfiguration configurationWithIdentifier:indexPath.identifier
                                                                                         previewProvider:nil
                                                                                          actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> * _Nonnull suggestedActions) {
-        UIAction *copyAction = [UIAction actionWithTitle:NSLocalizedString(@"COPY", @"")
+        UIAction *copyAction = [UIAction actionWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeyCopy]
                                                    image:[UIImage systemImageNamed:@"doc.on.doc"]
                                               identifier:nil
                                                  handler:^(__kindof UIAction * _Nonnull action) {
@@ -463,7 +464,7 @@
                                                                                         previewProvider:nil
                                                                                          actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> * _Nonnull suggestedActions) {
         
-        UIAction *saveAction = [UIAction actionWithTitle:NSLocalizedString(@"SAVE", @"")
+        UIAction *saveAction = [UIAction actionWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeySave]
                                                    image:[UIImage systemImageNamed:@"square.and.arrow.down"]
                                               identifier:nil
                                                  handler:^(__kindof UIAction * _Nonnull action) {

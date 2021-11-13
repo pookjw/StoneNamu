@@ -6,6 +6,7 @@
 //
 
 #import "CardDetailsItemModel.h"
+#import <StoneNamuResources/StoneNamuResources.h>
 
 @interface CardDetailsItemModel ()
 @property (copy) NSString * _Nullable value;
@@ -60,23 +61,23 @@
 - (NSString * _Nullable)primaryText {
     switch (self.type) {
         case CardDetailsItemModelTypeName:
-            return NSLocalizedString(@"CARD_NAME", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardName];
         case CardDetailsItemModelTypeFlavorText:
-            return NSLocalizedString(@"CARD_FLAVOR_TEXT", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardFlavorText];
         case CardDetailsItemModelTypeText:
-            return NSLocalizedString(@"CARD_DESCRIPTION", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardDescription];
         case CardDetailsItemModelTypeType:
-            return NSLocalizedString(@"CARD_TYPE", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardType];
         case CardDetailsItemModelTypeRarity:
-            return NSLocalizedString(@"CARD_RARITY", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardRarity];
         case CardDetailsItemModelTypeSet:
-            return NSLocalizedString(@"CARD_SET", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardSet];
         case CardDetailsItemModelTypeClass:
-            return NSLocalizedString(@"CARD_CLASS", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardClass];
         case CardDetailsItemModelTypeArtist:
-            return NSLocalizedString(@"CARD_ARTIST", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardArtist];
         case CardDetailsItemModelTypeCollectible:
-            return NSLocalizedString(@"CARD_COLLECTIBLE", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardCollectible];
         case CardDetailsItemModelTypeChildren:
             return nil;
         default:

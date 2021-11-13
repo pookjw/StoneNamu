@@ -6,6 +6,7 @@
 //
 
 #import "PrefsRegionHostItemModel.h"
+#import <StoneNamuResources/StoneNamuResources.h>
 
 @implementation PrefsRegionHostItemModel
 
@@ -54,13 +55,13 @@
         NSDictionary<NSString *, NSString *> *localizables = blizzardHSAPIRegionsForAPIWithLocalizable();
         return localizables[self.regionHost];
     } else {
-        return NSLocalizedString(@"AUTO", @"");
+        return [ResourcesService localizaedStringForKey:LocalizableKeyAuto];
     }
 }
 
 - (NSString * _Nullable)secondaryText {
     if (self.regionHost == nil) {
-        return NSLocalizedString(@"SERVER_AUTO_DESCRIPTION", @"");
+        return [ResourcesService localizaedStringForKey:LocalizableKeyServerAutoDescription];
     } else {
         return nil;
     }

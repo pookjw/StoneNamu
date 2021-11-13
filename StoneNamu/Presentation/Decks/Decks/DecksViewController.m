@@ -13,6 +13,7 @@
 #import "DeckBaseContentConfiguration.h"
 #import "ImageService.h"
 #import "UIViewController+SpinnerView.h"
+#import <StoneNamuResources/StoneNamuResources.h>
 
 @interface DecksViewController () <UICollectionViewDelegate, UITextFieldDelegate>
 @property (retain) UICollectionView *collectionView;
@@ -139,7 +140,7 @@
     
     //
     
-    UIMenu *createDeckMenu = [UIMenu menuWithTitle:NSLocalizedString(@"CREATE_NEW_DECK", @"")
+    UIMenu *createDeckMenu = [UIMenu menuWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeyCreateNewDeck]
                                               children:@[
         
         [UIMenu menuWithTitle:hsDeckFormatsWithLocalizable()[HSDeckFormatStandard]
@@ -168,7 +169,7 @@
     self.addBarButtonItem.menu = [UIMenu menuWithChildren:@[
         createDeckMenu,
         
-        [UIAction actionWithTitle:NSLocalizedString(@"LOAD_FROM_DECK_CODE", @"")
+        [UIAction actionWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeyLoadFromDeckCode]
                             image:[UIImage systemImageNamed:@"arrow.down.square"]
                        identifier:nil
                           handler:^(__kindof UIAction * _Nonnull action) {
@@ -178,7 +179,7 @@
 }
 
 - (void)configureNavigation {
-    self.title = NSLocalizedString(@"DECKS", @"");
+    self.title = [ResourcesService localizaedStringForKey:LocalizableKeyDecks];
     self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAlways;
     self.navigationController.navigationBar.prefersLargeTitles = YES;
 }
@@ -266,20 +267,20 @@
 - (void)presentTextFieldAndFetchDeckCode {
     [self.viewModel parseClipboardForDeckCodeWithCompletion:^(NSString * _Nullable title, NSString * _Nullable deckCode) {
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"LOAD_FROM_DECK_CODE", @"")
-                                                                           message:NSLocalizedString(@"PLEASE_ENTER_DECK_CODE", @"")
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeyLoadFromDeckCode]
+                                                                           message:[ResourcesService localizaedStringForKey:LocalizableKeyPleaseEnterDeckCode]
                                                                     preferredStyle:UIAlertControllerStyleAlert];
             
             [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
                 textField.text = title;
-                textField.placeholder = NSLocalizedString(@"ENTER_DECK_TITLE_HERE", @"");
+                textField.placeholder = [ResourcesService localizaedStringForKey:LocalizableKeyEnterDeckTitleHere];
             }];
             
             [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
                 textField.text = deckCode;
                 self.deckCodeTextField = textField;
                 textField.delegate = self;
-                textField.placeholder = NSLocalizedString(@"ENTER_DECK_CODE_HERE", @"");
+                textField.placeholder = [ResourcesService localizaedStringForKey:LocalizableKeyEnterDeckCodeHere];
                 
 #if DEBUG
                 if (deckCode == nil) {
@@ -288,11 +289,11 @@
 #endif
             }];
             
-            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"CANCEL", @"")
+            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeyCancel]
                                                                    style:UIAlertActionStyleCancel
                                                                  handler:^(UIAlertAction * _Nonnull action) {}];
             
-            UIAlertAction *fetchButton = [UIAlertAction actionWithTitle:NSLocalizedString(@"FETCH", @"")
+            UIAlertAction *fetchButton = [UIAlertAction actionWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeyFetch]
                                                                   style:UIAlertActionStyleDefault
                                                                 handler:^(UIAlertAction * _Nonnull action) {
                 UITextField * _Nullable firstTextField = alert.textFields[0];

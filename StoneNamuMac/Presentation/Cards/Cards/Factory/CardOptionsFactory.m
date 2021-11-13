@@ -8,6 +8,7 @@
 #import "CardOptionsFactory.h"
 #import "CardOptionsMenuItem.h"
 #import "CardOptionsTextField.h"
+#import <StoneNamuResources/StoneNamuResources.h>
 
 @implementation CardOptionsFactory
 
@@ -25,87 +26,87 @@
     
     if ([optionType isEqualToString:BlizzardHSAPIOptionTypeTextFilter]) {
         if (hasValue) {
-            return [NSString stringWithFormat:@"%@ : %@", NSLocalizedString(@"CARD_TEXT_FILTER", @""), value];
+            return [NSString stringWithFormat:@"%@ : %@", [ResourcesService localizaedStringForKey:LocalizableKeyCardTextFilter], value];
         } else {
-            return NSLocalizedString(@"CARD_TEXT_FILTER", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardTextFilter];
         }
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeSet]) {
         if (hasValue) {
-            return [NSString stringWithFormat:@"%@ : %@", NSLocalizedString(@"CARD_SET", @""), localizableFromHSCardSet(HSCardSetFromNSString(value))];
+            return [NSString stringWithFormat:@"%@ : %@", [ResourcesService localizaedStringForKey:LocalizableKeyCardSet], localizableFromHSCardSet(HSCardSetFromNSString(value))];
         } else {
-            return NSLocalizedString(@"CARD_SET", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardSet];
         }
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeClass]) {
         if (hasValue) {
-            return [NSString stringWithFormat:@"%@ : %@", NSLocalizedString(@"CARD_CLASS", @""), localizableFromHSCardClass(HSCardClassFromNSString(value))];
+            return [NSString stringWithFormat:@"%@ : %@", [ResourcesService localizaedStringForKey:LocalizableKeyCardClass], localizableFromHSCardClass(HSCardClassFromNSString(value))];
         } else {
-            return NSLocalizedString(@"CARD_CLASS", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardClass];
         }
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeManaCost]) {
         if (hasValue) {
-            return [NSString stringWithFormat:@"%@ : %@", NSLocalizedString(@"CARD_MANA_COST", @""), value];
+            return [NSString stringWithFormat:@"%@ : %@", [ResourcesService localizaedStringForKey:LocalizableKeyCardManaCost], value];
         } else {
-            return NSLocalizedString(@"CARD_MANA_COST", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardManaCost];
         }
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeSpellSchool]) {
         if (hasValue) {
-            return [NSString stringWithFormat:@"%@ : %@", NSLocalizedString(@"CARD_SPELL_SCHOOL", @""), localizableFromHSCardSpellSchool(HSCardSpellSchoolFromNSString(value))];
+            return [NSString stringWithFormat:@"%@ : %@", [ResourcesService localizaedStringForKey:LocalizableKeyCardSpellSchool], localizableFromHSCardSpellSchool(HSCardSpellSchoolFromNSString(value))];
         } else {
-            return NSLocalizedString(@"CARD_SPELL_SCHOOL", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardSpellSchool];
         }
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeAttack]) {
         if (hasValue) {
-            return [NSString stringWithFormat:@"%@ : %@", NSLocalizedString(@"CARD_ATTACK", @""), value];
+            return [NSString stringWithFormat:@"%@ : %@", [ResourcesService localizaedStringForKey:LocalizableKeyCardAttack], value];
         } else {
-            return NSLocalizedString(@"CARD_ATTACK", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardAttack];
         }
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeHealth]) {
         if (hasValue) {
-            return [NSString stringWithFormat:@"%@ : %@", NSLocalizedString(@"CARD_HEALTH", @""), value];
+            return [NSString stringWithFormat:@"%@ : %@", [ResourcesService localizaedStringForKey:LocalizableKeyCardHealth], value];
         } else {
-            return NSLocalizedString(@"CARD_HEALTH", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardHealth];
         }
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeCollectible]) {
         if (hasValue) {
-            return [NSString stringWithFormat:@"%@ : %@", NSLocalizedString(@"CARD_COLLECTIBLE", @""), localizableFromHSCardCollectible(HSCardCollectibleFromNSString(value))];
+            return [NSString stringWithFormat:@"%@ : %@", [ResourcesService localizaedStringForKey:LocalizableKeyCardCollectible], localizableFromHSCardCollectible(HSCardCollectibleFromNSString(value))];
         } else {
-            return NSLocalizedString(@"CARD_COLLECTIBLE", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardCollectible];
         }
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeRarity]) {
         if (hasValue) {
-            return [NSString stringWithFormat:@"%@ : %@", NSLocalizedString(@"CARD_RARITY", @""), localizableFromHSCardRarity(HSCardRarityFromNSString(value))];
+            return [NSString stringWithFormat:@"%@ : %@", [ResourcesService localizaedStringForKey:LocalizableKeyCardRarity], localizableFromHSCardRarity(HSCardRarityFromNSString(value))];
         } else {
-            return NSLocalizedString(@"CARD_RARITY", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardRarity];
         }
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeType]) {
         if (hasValue) {
-            return [NSString stringWithFormat:@"%@ : %@", NSLocalizedString(@"CARD_TYPE", @""), localizableFromHSCardType(HSCardTypeFromNSString(value))];
+            return [NSString stringWithFormat:@"%@ : %@", [ResourcesService localizaedStringForKey:LocalizableKeyCardType], localizableFromHSCardType(HSCardTypeFromNSString(value))];
         } else {
-            return NSLocalizedString(@"CARD_TYPE", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardType];
         }
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeMinionType]) {
         if (hasValue) {
-            return [NSString stringWithFormat:@"%@ : %@", NSLocalizedString(@"CARD_MINION_TYPE", @""), localizableFromHSCardMinionType(HSCardMinionTypeFromNSString(value))];
+            return [NSString stringWithFormat:@"%@ : %@", [ResourcesService localizaedStringForKey:LocalizableKeyCardMinionType], localizableFromHSCardMinionType(HSCardMinionTypeFromNSString(value))];
         } else {
-            return NSLocalizedString(@"CARD_MINION_TYPE", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardMinionType];
         }
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeKeyword]) {
         if (hasValue) {
-            return [NSString stringWithFormat:@"%@ : %@", NSLocalizedString(@"CARD_KEYWORD", @""), localizableFromHSCardKeyword(HSCardKeywordFromNSString(value))];
+            return [NSString stringWithFormat:@"%@ : %@", [ResourcesService localizaedStringForKey:LocalizableKeyCardKeyword], localizableFromHSCardKeyword(HSCardKeywordFromNSString(value))];
         } else {
-            return NSLocalizedString(@"CARD_KEYWORD", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardKeyword];
         }
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeGameMode]) {
         if (hasValue) {
-            return [NSString stringWithFormat:@"%@ : %@", NSLocalizedString(@"CARD_GAME_MODE", @""), localizableFromHSCardGameMode(HSCardGameModeFromNSString(value))];
+            return [NSString stringWithFormat:@"%@ : %@", [ResourcesService localizaedStringForKey:LocalizableKeyCardGameMode], localizableFromHSCardGameMode(HSCardGameModeFromNSString(value))];
         } else {
-            return NSLocalizedString(@"CARD_GAME_MODE", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardGameMode];
         }
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeSort]) {
         if (hasValue) {
-            return [NSString stringWithFormat:@"%@ : %@", NSLocalizedString(@"CARD_SORT", @""), localizableFromHSCardSort(HSCardSortFromNSString(value))];
+            return [NSString stringWithFormat:@"%@ : %@", [ResourcesService localizaedStringForKey:LocalizableKeyCardSort], localizableFromHSCardSort(HSCardSortFromNSString(value))];
         } else {
-            return NSLocalizedString(@"CARD_SORT", @"");
+            return [ResourcesService localizaedStringForKey:LocalizableKeyCardSort];
         }
     } else {
         return @"";
@@ -324,7 +325,7 @@
     [arr sortUsingComparator:comparator];
     
     if (showEmptyItem) {
-        CardOptionsMenuItem *emptyItem = [[CardOptionsMenuItem alloc] initWithTitle:NSLocalizedString(@"ALL", @"")
+        CardOptionsMenuItem *emptyItem = [[CardOptionsMenuItem alloc] initWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeyAll]
                                                                              action:CardOptionsFactory.keyMenuItemTriggeredSelector
                                                                       keyEquivalent:@""
                                                                                 key:@{type: @""}];

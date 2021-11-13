@@ -19,6 +19,7 @@
 #import "DeckDetailsViewController.h"
 #import "CardDetailsViewController.h"
 #import "UIViewController+targetedPreviewWithClearBackgroundForView.h"
+#import <StoneNamuResources/StoneNamuResources.h>
 
 @interface DeckAddCardsViewController () <UICollectionViewDelegate, UICollectionViewDragDelegate, UIDropInteractionDelegate, UIContextMenuInteractionDelegate>
 @property (retain) DeckAddCardsViewModel *viewModel;
@@ -79,15 +80,15 @@
     if (self.viewModel.isLocalDeckCardFull) {
         [self dismissViewControllerAnimated:YES completion:^{}];
     } else {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"DECK_ADD_CARDS_NOT_FULL_TITLE", @"")
-                                                                       message:[NSString stringWithFormat:NSLocalizedString(@"DECK_ADD_CARDS_NOT_FULL_DESCRIPTION", @""), HSDECK_MAX_TOTAL_CARDS, self.viewModel.countOfLocalDeckCards]
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeyDeckAddCardsNotFullTitle]
+                                                                       message:[NSString stringWithFormat:[ResourcesService localizaedStringForKey:LocalizableKeyDeckAddCardsNotFullDescription], HSDECK_MAX_TOTAL_CARDS, self.viewModel.countOfLocalDeckCards]
                                                                 preferredStyle:UIAlertControllerStyleAlert];
         
-        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"NO", @"")
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeyNo]
                                                                style:UIAlertActionStyleCancel
                                                              handler:^(UIAlertAction * _Nonnull action) {}];
         
-        UIAlertAction *dismissAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"YES", @"")
+        UIAlertAction *dismissAction = [UIAlertAction actionWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeyYes]
                                                                 style:UIAlertActionStyleDefault
                                                               handler:^(UIAlertAction * _Nonnull action) {
             [self dismissViewControllerAnimated:YES completion:^{}];
@@ -138,7 +139,7 @@
 }
 
 - (void)configureRightBarButtonItems {
-    UIBarButtonItem *doneBarButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"DONE", @"")
+    UIBarButtonItem *doneBarButton = [[UIBarButtonItem alloc] initWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeyDone]
                                                                       style:UIBarButtonItemStyleDone
                                                                      target:self
                                                                      action:@selector(doneBarButtonTriggered:)];
@@ -163,7 +164,7 @@
 }
 
 - (void)configureNavigation {
-    self.title = NSLocalizedString(@"ADD_CARDS", @"");
+    self.title = [ResourcesService localizaedStringForKey:LocalizableKeyAddCards];
     self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
 }
 
@@ -417,7 +418,7 @@
                                                                                         previewProvider:nil
                                                                                          actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> * _Nonnull suggestedActions) {
         
-        UIAction *addButton = [UIAction actionWithTitle:NSLocalizedString(@"ADD_TO_DECK", @"")
+        UIAction *addButton = [UIAction actionWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeyAddToDeck]
                                                   image:[UIImage systemImageNamed:@"plus"]
                                              identifier:nil
                                                 handler:^(__kindof UIAction * _Nonnull action) {

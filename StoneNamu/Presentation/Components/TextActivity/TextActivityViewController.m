@@ -7,6 +7,7 @@
 
 #import "TextActivityViewController.h"
 #import "FloatingPresentationController.h"
+#import <StoneNamuResources/StoneNamuResources.h>
 
 @interface TextActivityViewController () <UITextViewDelegate>
 @property (retain) UIBarButtonItem *cancelBarButtonItem;
@@ -60,7 +61,7 @@
 }
 
 - (void)configureLeftBarButtonItems {
-    UIBarButtonItem *cancelBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"CANCEL", @"")
+    UIBarButtonItem *cancelBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeyCancel]
                                                                             style:UIBarButtonItemStylePlain
                                                                            target:self
                                                                            action:@selector(cancelBarButtonTriggered:)];
@@ -71,7 +72,7 @@
 }
 
 - (void)configureRightBarButtonItems {
-    UIBarButtonItem *shareBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"SHARE", @"")
+    UIBarButtonItem *shareBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeyShare]
                                                                            style:UIBarButtonItemStyleDone
                                                                           target:self
                                                                           action:@selector(shareBarButtonTriggered:)];
@@ -131,7 +132,7 @@
 }
 
 - (void)configureNavigation {
-    self.title = NSLocalizedString(@"RESULT", @"");
+    self.title = [ResourcesService localizaedStringForKey:LocalizableKeyResult];
     self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
     
     UINavigationBarAppearance *appearance = [UINavigationBarAppearance new];

@@ -11,7 +11,5 @@
 NSError * DataCorruptionError(void) {
     return [NSError errorWithDomain:@"com.pookjw.StoneNamu.DataCorruptionError"
                                code:100
-                           userInfo:@{NSLocalizedDescriptionKey: [ResourcesService localizaedStringForKey:@"DATA_IS_CORRUPTED"]}];
+                           userInfo:@{NSLocalizedDescriptionKey: [ResourcesService localizaedStringForKey:LocalizableKeyDataIsCorrupted]}];
 }
-
-//[ResourcesService localizaedStringForKey:@"CARDS"]
