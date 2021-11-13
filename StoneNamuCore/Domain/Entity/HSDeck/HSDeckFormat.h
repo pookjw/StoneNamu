@@ -14,4 +14,3 @@ static HSDeckFormat const HSDeckFormatWild = @"wild";
 static HSDeckFormat const HSDeckFormatClassic = @"classic";
 
 NSArray<NSString *> * hsDeckFormats(void);
-NSDictionary<NSString *, NSString *> * hsDeckFormatsWithLocalizable(void);

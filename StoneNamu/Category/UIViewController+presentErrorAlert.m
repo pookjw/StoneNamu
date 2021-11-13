@@ -11,11 +11,11 @@
 @implementation UIViewController (presentErrorAlert)
 
 - (void)presentErrorAlertWithError:(NSError *)error {
-    UIAlertController *vc = [UIAlertController alertControllerWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeyErrorAlertTitle]
+    UIAlertController *vc = [UIAlertController alertControllerWithTitle:[ResourcesService localizationForKey:LocalizableKeyErrorAlertTitle]
                                                                 message:error.localizedDescription
                                                          preferredStyle:UIAlertControllerStyleAlert];
     
-    UIAlertAction *dismissAction = [UIAlertAction actionWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeyDismiss]
+    UIAlertAction *dismissAction = [UIAlertAction actionWithTitle:[ResourcesService localizationForKey:LocalizableKeyDismiss]
                                                          style:UIAlertActionStyleDefault
                                                        handler:^(UIAlertAction * _Nonnull action) {}];
     

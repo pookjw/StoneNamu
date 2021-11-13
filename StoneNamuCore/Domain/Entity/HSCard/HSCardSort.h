@@ -26,6 +26,3 @@ NSString * NSStringFromHSCardSort(HSCardSort);
 HSCardSort HSCardSortFromNSString(NSString *);
 
 NSArray<NSString *> *hsCardSorts(void);
-
-NSString * localizableFromHSCardSort(HSCardSort);
-NSDictionary<NSString *, NSString *> * localizablesWithHSCardSort(void);

@@ -180,14 +180,14 @@
         //
         
         if (prefs.locale) {
-            localeItemModel.accessoryText = blizzardHSAPILocalesWithLocalizable()[prefs.locale];
+            localeItemModel.accessoryText = [ResourcesService localizationForBlizzardHSAPILocale:prefs.locale];
         } else {
-            localeItemModel.accessoryText = [ResourcesService localizaedStringForKey:LocalizableKeyAuto];
+            localeItemModel.accessoryText = [ResourcesService localizationForKey:LocalizableKeyAuto];
         }
         if (prefs.apiRegionHost) {
-            regionItemModel.accessoryText = blizzardHSAPIRegionsForAPIWithLocalizable()[prefs.apiRegionHost];
+            regionItemModel.accessoryText = [ResourcesService localizationForBlizzardAPIRegionHost:BlizzardAPIRegionHostFromNSStringForAPI(prefs.apiRegionHost)];
         } else {
-            regionItemModel.accessoryText = [ResourcesService localizaedStringForKey:LocalizableKeyAuto];
+            regionItemModel.accessoryText = [ResourcesService localizationForKey:LocalizableKeyAuto];
         }
         
         //

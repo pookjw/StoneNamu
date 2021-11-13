@@ -7,6 +7,7 @@
 
 #import "DecksViewModel.h"
 #import <StoneNamuCore/StoneNamuCore.h>
+#import <StoneNamuResources/StoneNamuResources.h>
 #import "NSDiffableDataSourceSnapshot+sort.h"
 #import "UICollectionViewDiffableDataSource+applySnapshotAndWait.h"
 
@@ -106,7 +107,7 @@
         [self.localDeckUseCase makeLocalDeckWithCompletion:^(LocalDeck * _Nonnull localDeck) {
             [self.queue addBarrierBlock:^{
                 localDeck.format = deckFormat;
-                localDeck.name = localizableFromHSCardClass(hsCardClass);
+                localDeck.name = [ResourcesService localizationForHSCardClass:hsCardClass];
                 localDeck.classId = [NSNumber numberWithUnsignedInteger:hsCardClass];
                 
                 DecksItemModel *itemModel = [[DecksItemModel alloc] initWithType:DecksItemModelTypeDeck localDeck:localDeck];
@@ -128,9 +129,6 @@
 - (void)makeLocalDeckWithHSDeck:(HSDeck * _Nullable)hsDeck
                           title:(NSString *)title
                      completion:(DecksViewModelMakeLocalDeckCompletion)completion {
-    HSDeck * _Nullable copyHSDeck = [hsDeck copy];
-    NSString * _Nullable copyTitle = [title copy];
-    
     [self.queue addBarrierBlock:^{
         NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
         
@@ -145,22 +143,20 @@
         
         if (sectionModel == nil) {
             [snapshot release];
-            [copyTitle release];
             return;
         }
         
         [self.localDeckUseCase makeLocalDeckWithCompletion:^(LocalDeck * _Nonnull localDeck) {
             [self.queue addBarrierBlock:^{
-                if (copyHSDeck) {
-                    [localDeck setValuesAsHSDeck:copyHSDeck];
+                if (hsDeck) {
+                    [localDeck setValuesAsHSDeck:hsDeck];
                 }
                 
-                [copyHSDeck release];
-                
-                if ((copyTitle != nil) && (![copyTitle isEqualToString:@""])) {
-                    localDeck.name = copyTitle;
+                if ((title == nil) || ([title isEqualToString:@""])) {
+                    localDeck.name = [ResourcesService localizationForHSCardClass:hsDeck.classId];
+                } else {
+                    localDeck.name = title;
                 }
-                [copyTitle release];
                 
                 DecksItemModel *itemModel = [[DecksItemModel alloc] initWithType:DecksItemModelTypeDeck localDeck:localDeck];
                 

@@ -23,19 +23,3 @@ NSArray<NSString *> *blizzardHSAPILocales(void) {
         BlizzardHSAPILocaleZhTW
     ];
 }
-
-NSDictionary<NSString *, NSString *> *blizzardHSAPILocalesWithLocalizable(void) {
-    NSMutableDictionary<NSString *, NSString *> *dic = [@{} mutableCopy];
-    
-    [blizzardHSAPILocales() enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        dic[obj] = NSLocalizedStringFromTableInBundle(obj,
-                                                      @"BlizzardHSAPILocale",
-                                                      [NSBundle bundleWithIdentifier:IDENTIFIER],
-                                                      @"");
-    }];
-    
-    NSDictionary<NSString *, NSString *> *result = [[dic copy] autorelease];
-    [dic release];
-    
-    return result;
-}

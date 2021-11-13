@@ -39,7 +39,7 @@
 }
 
 - (void)configureNavigation {
-    self.title = [ResourcesService localizaedStringForKey:LocalizableKeyRegion];
+    self.title = [ResourcesService localizationForKey:LocalizableKeyRegion];
     self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
 }
 

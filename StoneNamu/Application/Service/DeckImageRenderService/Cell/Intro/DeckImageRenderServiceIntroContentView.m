@@ -242,13 +242,13 @@
         self.heroImageView.image = [ResourcesService imageForKey:ImageKeyPnamuEasteregg1];
     } else {
         self.heroImageView.backgroundColor = UIColor.clearColor;
-        self.heroImageView.image = [ResourcesService portraitImageOfClassId:newConfiguration.classId];
+        self.heroImageView.image = [ResourcesService portraitImageForClassId:newConfiguration.classId];
     }
     
-    self.classLabel.text = localizableFromHSCardClass(newConfiguration.classId);
+    self.classLabel.text = [ResourcesService localizationForHSCardClass:newConfiguration.classId];
     self.nameLabel.text = newConfiguration.deckName;
     
-    self.deckFormatLabel.text = hsDeckFormatsWithLocalizable()[newConfiguration.deckFormat];
+    self.deckFormatLabel.text = [ResourcesService localizationForHSDeckFormat:newConfiguration.deckFormat];
     
     if ([newConfiguration.deckFormat isEqualToString:HSDeckFormatStandard]) {
         self.deckFormatLabel.textColor = UIColor.greenColor;

@@ -154,17 +154,17 @@ DeckAddCardOptionItemModelType DeckAddCardOptionItemModelTypeFromNSString(NSStri
 - (NSArray<PickerItemModel *> * _Nullable)pickerDataSource {
     switch (self.type) {
         case DeckAddCardOptionItemModelTypeSet:
-            return [self pickerItemModelsFromDic:localizablesWithHSCardSetFromHSDeckFormat(self.deckFormat)
+            return [self pickerItemModelsFromDic:[ResourcesService localizationsForHSCardSetForHSDeckFormat:self.deckFormat]
                                      filterArray:nil
                                      imageSource:^UIImage * _Nullable(NSString * key) {
-                return [ResourcesService imageOfCardSet:HSCardSetFromNSString(key)];
+                return [ResourcesService imageForCardSet:HSCardSetFromNSString(key)];
             }
                                        converter:^NSUInteger(NSString * key) {
                 return HSCardSetFromNSString(key);
             }
                                        ascending:NO];
         case DeckAddCardOptionItemModelTypeClass: {
-            NSDictionary<NSString *, NSString *> *oldLocalizables = localizablesWithHSCardClass();
+            NSDictionary<NSString *, NSString *> *oldLocalizables = [ResourcesService localizationsForHSCardClass];
             NSDictionary<NSString *, NSString *> *newLocalizables = @{
                 NSStringFromHSCardClass(self.classId): oldLocalizables[NSStringFromHSCardClass(self.classId)],
                 NSStringFromHSCardClass(HSCardClassNeutral): oldLocalizables[NSStringFromHSCardClass(HSCardClassNeutral)]
@@ -181,7 +181,7 @@ DeckAddCardOptionItemModelType DeckAddCardOptionItemModelTypeFromNSString(NSStri
                                        ascending:YES];
         }
         case DeckAddCardOptionItemModelTypeCollectible: {
-            return [self pickerItemModelsFromDic:localizablesWithHSCardCollectible()
+            return [self pickerItemModelsFromDic:[ResourcesService localizationsForHSCardCollectible]
                                      filterArray:nil
                                      imageSource:^UIImage * _Nullable(NSString * key) {
                 return nil;
@@ -192,7 +192,7 @@ DeckAddCardOptionItemModelType DeckAddCardOptionItemModelTypeFromNSString(NSStri
                                        ascending:YES];
         }
         case DeckAddCardOptionItemModelTypeRarity: {
-            return [self pickerItemModelsFromDic:localizablesWithHSCardRarity()
+            return [self pickerItemModelsFromDic:[ResourcesService localizationsForHSCardRarity]
                                      filterArray:@[NSStringFromHSCardRarity(HSCardRarityNull)]
                                      imageSource:^UIImage * _Nullable(NSString * key) {
                 return nil;
@@ -203,7 +203,7 @@ DeckAddCardOptionItemModelType DeckAddCardOptionItemModelTypeFromNSString(NSStri
                                        ascending:YES];
         }
         case DeckAddCardOptionItemModelTypeType:
-            return [self pickerItemModelsFromDic:localizableWithHSCardType()
+            return [self pickerItemModelsFromDic:[ResourcesService localizationsForHSCardType]
                                      filterArray:@[NSStringFromHSCardType(HSCardTypeHeroPower)]
                                      imageSource:^UIImage * _Nullable(NSString * key) {
                 return nil;
@@ -213,7 +213,7 @@ DeckAddCardOptionItemModelType DeckAddCardOptionItemModelTypeFromNSString(NSStri
             }
                                        ascending:YES];
         case DeckAddCardOptionItemModelTypeMinionType:
-            return [self pickerItemModelsFromDic:localizablesWithHSCardMinionType()
+            return [self pickerItemModelsFromDic:[ResourcesService localizationsForHSCardMinionType]
                                      filterArray:nil
                                      imageSource:^UIImage * _Nullable(NSString * key) {
                 return nil;
@@ -223,7 +223,7 @@ DeckAddCardOptionItemModelType DeckAddCardOptionItemModelTypeFromNSString(NSStri
             }
                                        ascending:YES];
         case DeckAddCardOptionItemModelTypeSpellSchool:
-            return [self pickerItemModelsFromDic:localizablesWithHSCardSpellSchool()
+            return [self pickerItemModelsFromDic:[ResourcesService localizationsForHSCardSpellSchool]
                                      filterArray:nil
                                      imageSource:^UIImage * _Nullable(NSString * key) {
                 return nil;
@@ -233,7 +233,7 @@ DeckAddCardOptionItemModelType DeckAddCardOptionItemModelTypeFromNSString(NSStri
             }
                                        ascending:YES];
         case DeckAddCardOptionItemModelTypeKeyword:
-            return [self pickerItemModelsFromDic:localizablesWithHSCardKeyword()
+            return [self pickerItemModelsFromDic:[ResourcesService localizationsForHSCardKeyword]
                                      filterArray:nil
                                      imageSource:^UIImage * _Nullable(NSString * key) {
                 return nil;
@@ -243,7 +243,7 @@ DeckAddCardOptionItemModelType DeckAddCardOptionItemModelTypeFromNSString(NSStri
             }
                                        ascending:YES];
         case DeckAddCardOptionItemModelTypeGameMode:
-            return [self pickerItemModelsFromDic:localizablesWithHSCardGameMode()
+            return [self pickerItemModelsFromDic:[ResourcesService localizationsForHSCardGameMode]
                                      filterArray:nil
                                      imageSource:^UIImage * _Nullable(NSString * key) {
                 return nil;
@@ -253,7 +253,7 @@ DeckAddCardOptionItemModelType DeckAddCardOptionItemModelTypeFromNSString(NSStri
             }
                                        ascending:YES];
         case DeckAddCardOptionItemModelTypeSort:
-            return [self pickerItemModelsFromDic:localizablesWithHSCardSort()
+            return [self pickerItemModelsFromDic:[ResourcesService localizationsForHSCardSort]
                                      filterArray:nil
                                      imageSource:^UIImage * _Nullable(NSString * key) {
                 return nil;
@@ -296,33 +296,33 @@ DeckAddCardOptionItemModelType DeckAddCardOptionItemModelTypeFromNSString(NSStri
 - (NSString *)text {
     switch (self.type) {
         case DeckAddCardOptionItemModelTypeSet:
-            return [ResourcesService localizaedStringForKey:LocalizableKeyCardSet];
+            return [ResourcesService localizationForBlizzardHSAPIOptionType:BlizzardHSAPIOptionTypeSet];
         case DeckAddCardOptionItemModelTypeClass:
-            return [ResourcesService localizaedStringForKey:LocalizableKeyCardClass];
+            return [ResourcesService localizationForBlizzardHSAPIOptionType:BlizzardHSAPIOptionTypeClass];
         case DeckAddCardOptionItemModelTypeManaCost:
-            return [ResourcesService localizaedStringForKey:LocalizableKeyCardManaCost];
+            return [ResourcesService localizationForBlizzardHSAPIOptionType:BlizzardHSAPIOptionTypeManaCost];
         case DeckAddCardOptionItemModelTypeAttack:
-            return [ResourcesService localizaedStringForKey:LocalizableKeyCardAttack];
+            return [ResourcesService localizationForBlizzardHSAPIOptionType:BlizzardHSAPIOptionTypeAttack];
         case DeckAddCardOptionItemModelTypeHealth:
-            return [ResourcesService localizaedStringForKey:LocalizableKeyCardHealth];
+            return [ResourcesService localizationForBlizzardHSAPIOptionType:BlizzardHSAPIOptionTypeHealth];
         case DeckAddCardOptionItemModelTypeCollectible:
-            return [ResourcesService localizaedStringForKey:LocalizableKeyCardCollectible];
+            return [ResourcesService localizationForBlizzardHSAPIOptionType:BlizzardHSAPIOptionTypeCollectible];
         case DeckAddCardOptionItemModelTypeRarity:
-            return [ResourcesService localizaedStringForKey:LocalizableKeyCardRarity];
+            return [ResourcesService localizationForBlizzardHSAPIOptionType:BlizzardHSAPIOptionTypeRarity];
         case DeckAddCardOptionItemModelTypeType:
-            return [ResourcesService localizaedStringForKey:LocalizableKeyCardType];
+            return [ResourcesService localizationForBlizzardHSAPIOptionType:BlizzardHSAPIOptionTypeType];
         case DeckAddCardOptionItemModelTypeMinionType:
-            return [ResourcesService localizaedStringForKey:LocalizableKeyCardMinionType];
+            return [ResourcesService localizationForBlizzardHSAPIOptionType:BlizzardHSAPIOptionTypeMinionType];
         case DeckAddCardOptionItemModelTypeSpellSchool:
-            return [ResourcesService localizaedStringForKey:LocalizableKeyCardSpellSchool];
+            return [ResourcesService localizationForBlizzardHSAPIOptionType:BlizzardHSAPIOptionTypeSpellSchool];
         case DeckAddCardOptionItemModelTypeKeyword:
-            return [ResourcesService localizaedStringForKey:LocalizableKeyCardKeyword];
+            return [ResourcesService localizationForBlizzardHSAPIOptionType:BlizzardHSAPIOptionTypeKeyword];
         case DeckAddCardOptionItemModelTypeTextFilter:
-            return [ResourcesService localizaedStringForKey:LocalizableKeyCardTextFilter];
+            return [ResourcesService localizationForBlizzardHSAPIOptionType:BlizzardHSAPIOptionTypeTextFilter];
         case DeckAddCardOptionItemModelTypeGameMode:
-            return [ResourcesService localizaedStringForKey:LocalizableKeyCardGameMode];
+            return [ResourcesService localizationForBlizzardHSAPIOptionType:BlizzardHSAPIOptionTypeGameMode];
         case DeckAddCardOptionItemModelTypeSort:
-            return [ResourcesService localizaedStringForKey:LocalizableKeyCardSort];
+            return [ResourcesService localizationForBlizzardHSAPIOptionType:BlizzardHSAPIOptionTypeSort];
         default:
             return @"";
     }
@@ -331,25 +331,25 @@ DeckAddCardOptionItemModelType DeckAddCardOptionItemModelTypeFromNSString(NSStri
 - (NSString * _Nullable)accessoryText {
     switch (self.type) {
         case DeckAddCardOptionItemModelTypeSet:
-            return localizableFromHSCardSet(HSCardSetFromNSString(self.value));
+            return [ResourcesService localizationForHSCardSet:HSCardSetFromNSString(self.value)];
         case DeckAddCardOptionItemModelTypeClass:
-            return localizableFromHSCardClass(HSCardClassFromNSString(self.value));
+            return [ResourcesService localizationForHSCardClass:HSCardClassFromNSString(self.value)];
         case DeckAddCardOptionItemModelTypeCollectible:
-            return localizableFromHSCardCollectible(HSCardCollectibleFromNSString(self.value));
+            return [ResourcesService localizationForHSCardCollectible:HSCardCollectibleFromNSString(self.value)];
         case DeckAddCardOptionItemModelTypeRarity:
-            return localizableFromHSCardRarity(HSCardRarityFromNSString(self.value));
+            return [ResourcesService localizationForHSCardRarity:HSCardRarityFromNSString(self.value)];
         case DeckAddCardOptionItemModelTypeType:
-            return localizableFromHSCardType(HSCardTypeFromNSString(self.value));
+            return [ResourcesService localizationForHSCardType:HSCardTypeFromNSString(self.value)];
         case DeckAddCardOptionItemModelTypeMinionType:
-            return localizableFromHSCardMinionType(HSCardMinionTypeFromNSString(self.value));
+            return [ResourcesService localizationForHSCardMinionType:HSCardMinionTypeFromNSString(self.value)];
         case DeckAddCardOptionItemModelTypeSpellSchool:
-            return localizableFromHSCardSpellSchool(HSCardSpellSchoolFromNSString(self.value));
+            return [ResourcesService localizationForHSCardSpellSchool:HSCardSpellSchoolFromNSString(self.value)];
         case DeckAddCardOptionItemModelTypeKeyword:
-            return localizableFromHSCardKeyword(HSCardKeywordFromNSString(self.value));
+            return [ResourcesService localizationForHSCardKeyword:HSCardKeywordFromNSString(self.value)];
         case DeckAddCardOptionItemModelTypeGameMode:
-            return localizableFromHSCardGameMode(HSCardGameModeFromNSString(self.value));
+            return [ResourcesService localizationForHSCardGameMode:HSCardGameModeFromNSString(self.value)];
         case DeckAddCardOptionItemModelTypeSort:
-            return localizableFromHSCardSort(HSCardSortFromNSString(self.value));
+            return [ResourcesService localizationForHSCardSort:HSCardSortFromNSString(self.value)];
         default:
             return self.value;
     }
@@ -358,33 +358,33 @@ DeckAddCardOptionItemModelType DeckAddCardOptionItemModelTypeFromNSString(NSStri
 - (NSString * _Nullable)toolTip {
     switch (self.type) {
         case DeckAddCardOptionItemModelTypeSet:
-            return [ResourcesService localizaedStringForKey:LocalizableKeyCardSetTooltipDescription];
+            return [ResourcesService localizationForKey:LocalizableKeyCardSetTooltipDescription];
         case DeckAddCardOptionItemModelTypeClass:
-            return [ResourcesService localizaedStringForKey:LocalizableKeyCardClassTooltipDescription];
+            return [ResourcesService localizationForKey:LocalizableKeyCardClassTooltipDescription];
         case DeckAddCardOptionItemModelTypeManaCost:
-            return [ResourcesService localizaedStringForKey:LocalizableKeyCardManaCostTooltipDescription];
+            return [ResourcesService localizationForKey:LocalizableKeyCardManaCostTooltipDescription];
         case DeckAddCardOptionItemModelTypeAttack:
-            return [ResourcesService localizaedStringForKey:LocalizableKeyCardAttackTooltipDescription];
+            return [ResourcesService localizationForKey:LocalizableKeyCardAttackTooltipDescription];
         case DeckAddCardOptionItemModelTypeHealth:
-            return [ResourcesService localizaedStringForKey:LocalizableKeyCardHealthTooltipDescription];
+            return [ResourcesService localizationForKey:LocalizableKeyCardHealthTooltipDescription];
         case DeckAddCardOptionItemModelTypeCollectible:
-            return [ResourcesService localizaedStringForKey:LocalizableKeyCardCollectibleTooltipDescription];
+            return [ResourcesService localizationForKey:LocalizableKeyCardCollectibleTooltipDescription];
         case DeckAddCardOptionItemModelTypeRarity:
-            return [ResourcesService localizaedStringForKey:LocalizableKeyCardRarityTooltipDescription];
+            return [ResourcesService localizationForKey:LocalizableKeyCardRarityTooltipDescription];
         case DeckAddCardOptionItemModelTypeType:
-            return [ResourcesService localizaedStringForKey:LocalizableKeyCardTypeTooltipDescription];
+            return [ResourcesService localizationForKey:LocalizableKeyCardTypeTooltipDescription];
         case DeckAddCardOptionItemModelTypeMinionType:
-            return [ResourcesService localizaedStringForKey:LocalizableKeyCardMinionTypeTooltipDescription];
+            return [ResourcesService localizationForKey:LocalizableKeyCardMinionTypeTooltipDescription];
         case DeckAddCardOptionItemModelTypeSpellSchool:
-            return [ResourcesService localizaedStringForKey:LocalizableKeyCardSpellSchoolTooltipDescription];
+            return [ResourcesService localizationForKey:LocalizableKeyCardSpellSchoolTooltipDescription];
         case DeckAddCardOptionItemModelTypeKeyword:
-            return [ResourcesService localizaedStringForKey:LocalizableKeyCardKeywordTooltipDescription];
+            return [ResourcesService localizationForKey:LocalizableKeyCardKeywordTooltipDescription];
         case DeckAddCardOptionItemModelTypeTextFilter:
-            return [ResourcesService localizaedStringForKey:LocalizableKeyCardTextFilterTooltipDescription];
+            return [ResourcesService localizationForKey:LocalizableKeyCardTextFilterTooltipDescription];
         case DeckAddCardOptionItemModelTypeGameMode:
-            return [ResourcesService localizaedStringForKey:LocalizableKeyCardGameModeTooltipDescription];
+            return [ResourcesService localizationForKey:LocalizableKeyCardGameModeTooltipDescription];
         case DeckAddCardOptionItemModelTypeSort:
-            return [ResourcesService localizaedStringForKey:LocalizableKeyCardSortTooltipDescription];
+            return [ResourcesService localizationForKey:LocalizableKeyCardSortTooltipDescription];
         default:
             return @"";
     }

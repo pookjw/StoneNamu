@@ -6,7 +6,6 @@
 //
 
 #import <StoneNamuCore/HSCardType.h>
-#import <StoneNamuCore/Identifier.h>
 
 NSString * NSStringFromHSCardType(HSCardType type) {
     switch (type) {
@@ -49,24 +48,4 @@ NSArray<NSString *> *hsCardTypes(void) {
         NSStringFromHSCardType(HSCardTypeHero),
         NSStringFromHSCardType(HSCardTypeHeroPower)
     ];
-}
-
-NSString * localizableFromHSCardType(HSCardType key) {
-    return NSLocalizedStringFromTableInBundle(NSStringFromHSCardType(key),
-                                              @"HSCardType",
-                                              [NSBundle bundleWithIdentifier:IDENTIFIER],
-                                              @"");
-}
-
-NSDictionary<NSString *, NSString *> * localizableWithHSCardType(void) {
-    NSMutableDictionary<NSString *, NSString *> *dic = [@{} mutableCopy];
-    
-    [hsCardTypes() enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        dic[obj] = localizableFromHSCardType(HSCardTypeFromNSString(obj));
-    }];
-    
-    NSDictionary<NSString *, NSString *> *result = [[dic copy] autorelease];
-    [dic release];
-    
-    return result;
 }

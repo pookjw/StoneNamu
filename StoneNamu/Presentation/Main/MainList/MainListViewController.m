@@ -86,7 +86,7 @@
 }
 
 - (void)configureNavigation {
-    self.title = [ResourcesService localizaedStringForKey:LocalizableKeyAppName];
+    self.title = [ResourcesService localizationForKey:LocalizableKeyAppName];
     self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAlways;
     self.navigationController.navigationBar.prefersLargeTitles = YES;
 }

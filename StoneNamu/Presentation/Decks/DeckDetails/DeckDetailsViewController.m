@@ -104,28 +104,28 @@
     self.menuBarButtonItem = menuBarButtonItem;
     
     UIMenu *menu = [UIMenu menuWithChildren:@[
-        [UIAction actionWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeyAddCards]
+        [UIAction actionWithTitle:[ResourcesService localizationForKey:LocalizableKeyAddCards]
                             image:[UIImage systemImageNamed:@"plus"]
                        identifier:nil
                           handler:^(__kindof UIAction * _Nonnull action) {
             [self presentDeckAddCardsViewController];
         }],
         
-        [UIAction actionWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeyEditDeckName]
+        [UIAction actionWithTitle:[ResourcesService localizationForKey:LocalizableKeyEditDeckName]
                             image:[UIImage systemImageNamed:@"pencil"]
                        identifier:nil
                           handler:^(__kindof UIAction * _Nonnull action) {
             [self presentEditLocalDeckNameAlert];
         }],
         
-        [UIAction actionWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeySaveAsImage]
+        [UIAction actionWithTitle:[ResourcesService localizationForKey:LocalizableKeySaveAsImage]
                             image:[UIImage systemImageNamed:@"photo"]
                        identifier:nil
                           handler:^(__kindof UIAction * _Nonnull action) {
             [self saveDeckAsImage];
         }],
         
-        [UIAction actionWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeyExportDeckCode]
+        [UIAction actionWithTitle:[ResourcesService localizationForKey:LocalizableKeyExportDeckCode]
                             image:[UIImage systemImageNamed:@"square.and.arrow.up"]
                        identifier:nil
                           handler:^(__kindof UIAction * _Nonnull action) {
@@ -139,7 +139,7 @@
     
     //
     
-    UIBarButtonItem *doneBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeyDone]
+    UIBarButtonItem *doneBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyDone]
                                                                           style:UIBarButtonItemStyleDone
                                                                          target:self
                                                                          action:@selector(doneBarButtonItemTriggered:)];
@@ -162,7 +162,7 @@
 }
 
 - (void)presentEditLocalDeckNameAlert {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeyEditDeckNameTitle]
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:[ResourcesService localizationForKey:LocalizableKeyEditDeckNameTitle]
                                                                    message:nil
                                                             preferredStyle:UIAlertControllerStyleAlert];
     
@@ -170,11 +170,11 @@
         textField.text = self.viewModel.localDeck.name;
     }];
     
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeyCancel]
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:[ResourcesService localizationForKey:LocalizableKeyCancel]
                                                            style:UIAlertActionStyleCancel
                                                          handler:^(UIAlertAction * _Nonnull action) {}];
     
-    UIAlertAction *doneAction = [UIAlertAction actionWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeyDone]
+    UIAlertAction *doneAction = [UIAlertAction actionWithTitle:[ResourcesService localizationForKey:LocalizableKeyDone]
                                                          style:UIAlertActionStyleDefault
                                                        handler:^(UIAlertAction * _Nonnull action) {
         [self.viewModel updateDeckName:alert.textFields.firstObject.text];
@@ -549,21 +549,21 @@
                                                                                                 previewProvider:nil
                                                                                                  actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> * _Nonnull suggestedActions) {
                 
-                UIAction *incrementAction = [UIAction actionWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeyIncreaseCardCount]
+                UIAction *incrementAction = [UIAction actionWithTitle:[ResourcesService localizationForKey:LocalizableKeyIncreaseCardCount]
                                                                 image:[UIImage systemImageNamed:@"plus"]
                                                            identifier:nil
                                                               handler:^(__kindof UIAction * _Nonnull action) {
                     [self.viewModel increaseAtIndexPath:indexPath];
                 }];
                 
-                UIAction *decrementAction = [UIAction actionWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeyDecreaseCardCount]
+                UIAction *decrementAction = [UIAction actionWithTitle:[ResourcesService localizationForKey:LocalizableKeyDecreaseCardCount]
                                                                 image:[UIImage systemImageNamed:@"minus"]
                                                            identifier:nil
                                                               handler:^(__kindof UIAction * _Nonnull action) {
                     [self.viewModel decreaseAtIndexPath:indexPath];
                 }];
                 
-                UIAction *deleteAction = [UIAction actionWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeyDelete]
+                UIAction *deleteAction = [UIAction actionWithTitle:[ResourcesService localizationForKey:LocalizableKeyDelete]
                                                              image:[UIImage systemImageNamed:@"trash"]
                                                         identifier:nil
                                                            handler:^(__kindof UIAction * _Nonnull action) {

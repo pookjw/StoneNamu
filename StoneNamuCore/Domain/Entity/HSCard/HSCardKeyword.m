@@ -6,7 +6,6 @@
 //
 
 #import <StoneNamuCore/HSCardKeyword.h>
-#import <StoneNamuCore/Identifier.h>
 
 NSString * NSStringFromHSCardKeyword(HSCardKeyword keyword) {
     switch (keyword) {
@@ -229,24 +228,4 @@ NSArray<NSString *> *hsCardKeywords(void) {
         NSStringFromHSCardKeyword(HSCardKeywordTwinspell),
         NSStringFromHSCardKeyword(HSCardKeywordWindfury)
     ];
-}
-
-NSString * localizableFromHSCardKeyword(HSCardKeyword key) {
-    return NSLocalizedStringFromTableInBundle(NSStringFromHSCardKeyword(key),
-                                              @"HSCardKeyword",
-                                              [NSBundle bundleWithIdentifier:IDENTIFIER],
-                                              @"");
-}
-
-NSDictionary<NSString *, NSString *> * localizablesWithHSCardKeyword(void) {
-    NSMutableDictionary<NSString *, NSString *> *dic = [@{} mutableCopy];
-    
-    [hsCardKeywords() enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        dic[obj] = localizableFromHSCardKeyword(HSCardKeywordFromNSString(obj));
-    }];
-    
-    NSDictionary<NSString *, NSString *> *result = [[dic copy] autorelease];
-    [dic release];
-    
-    return result;
 }

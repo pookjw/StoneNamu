@@ -38,13 +38,13 @@
 - (NSString * _Nullable )headerText {
     switch (self.type) {
         case PrefsSectionModelTypeSearchPrefSelection:
-            return [ResourcesService localizaedStringForKey:LocalizableKeySearch];
+            return [ResourcesService localizationForKey:LocalizableKeySearch];
         case PrefsSectionModelTypeData:
-            return [ResourcesService localizaedStringForKey:LocalizableKeyData];
+            return [ResourcesService localizationForKey:LocalizableKeyData];
         case PrefsSectionModelMiscellaneous:
-            return [ResourcesService localizaedStringForKey:LocalizableKeyMiscellaneous];
+            return [ResourcesService localizationForKey:LocalizableKeyMiscellaneous];
         case PrefsSectionModelContributors:
-            return [ResourcesService localizaedStringForKey:LocalizableKeyContributors];
+            return [ResourcesService localizationForKey:LocalizableKeyContributors];
         default:
             return nil;
     }
@@ -53,7 +53,7 @@
 - (NSString * _Nullable)footerText {
     switch (self.type) {
         case PrefsSectionModelContributors: {
-            NSString *appName = [ResourcesService localizaedStringForKey:LocalizableKeyAppName];
+            NSString *appName = [ResourcesService localizationForKey:LocalizableKeyAppName];
             NSString *version = NSBundle.mainBundle.releaseVersionString;
             NSString *build = NSBundle.mainBundle.buildVersionString;
             return [NSString stringWithFormat:@"%@ (%@-%@)", appName, version, build];

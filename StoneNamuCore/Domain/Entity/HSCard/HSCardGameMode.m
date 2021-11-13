@@ -6,7 +6,6 @@
 //
 
 #import <StoneNamuCore/HSCardGameMode.h>
-#import <StoneNamuCore/Identifier.h>
 
 NSString * NSStringFromHSCardGameMode(HSCardGameMode gameMode) {
     switch (gameMode) {
@@ -49,24 +48,4 @@ NSArray<NSString *> *hsCardGameModes(void) {
         NSStringFromHSCardGameMode(HSCardGameModeArena),
         NSStringFromHSCardGameMode(HSCardGameModeMercenaries)
     ];
-}
-
-NSString * localizableFromHSCardGameMode(HSCardGameMode key) {
-    return NSLocalizedStringFromTableInBundle(NSStringFromHSCardGameMode(key),
-                                              @"HSCardGameMode",
-                                              [NSBundle bundleWithIdentifier:IDENTIFIER],
-                                              @"");;
-}
-
-NSDictionary<NSString *, NSString *> * localizablesWithHSCardGameMode(void) {
-    NSMutableDictionary<NSString *, NSString *> *dic = [@{} mutableCopy];
-    
-    [hsCardGameModes() enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        dic[obj] = localizableFromHSCardGameMode(HSCardGameModeFromNSString(obj));
-    }];
-    
-    NSDictionary<NSString *, NSString *> *result = [[dic copy] autorelease];
-    [dic release];
-    
-    return result;
 }

@@ -6,7 +6,6 @@
 //
 
 #import <StoneNamuCore/HSCardSet.h>
-#import <StoneNamuCore/Identifier.h>
 
 NSString * NSStringFromHSCardSet(HSCardSet set) {
     switch (set) {
@@ -171,26 +170,6 @@ NSArray<NSString *> * hsCardSets() {
     ];
 }
 
-NSString * localizableFromHSCardSet(HSCardSet key) {
-    return NSLocalizedStringFromTableInBundle(NSStringFromHSCardSet(key),
-                                              @"HSCardSet",
-                                              [NSBundle bundleWithIdentifier:IDENTIFIER],
-                                              @"");
-}
-
-NSDictionary<NSString *, NSString *> * localizablesWithHSCardSet() {
-    NSMutableDictionary<NSString *, NSString *> *dic = [@{} mutableCopy];
-    
-    [hsCardSets() enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        dic[obj] = localizableFromHSCardSet(HSCardSetFromNSString(obj));
-    }];
-    
-    NSDictionary<NSString *, NSString *> *result = [[dic copy] autorelease];
-    [dic release];
-    
-    return result;
-}
-
 NSArray<NSString *> *hsCardSetsFromHSDeckFormat(HSDeckFormat deckFormat) {
     if ([deckFormat isEqualToString:HSDeckFormatStandard]) {
         return @[
@@ -240,17 +219,4 @@ NSArray<NSString *> *hsCardSetsFromHSDeckFormat(HSDeckFormat deckFormat) {
     } else {
         return @[];
     }
-}
-
-NSDictionary<NSString *, NSString *> * localizablesWithHSCardSetFromHSDeckFormat(HSDeckFormat deckFormat) {
-    NSMutableDictionary<NSString *, NSString *> *dic = [@{} mutableCopy];
-    
-    [hsCardSetsFromHSDeckFormat(deckFormat) enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        dic[obj] = localizableFromHSCardSet(HSCardSetFromNSString(obj));
-    }];
-    
-    NSDictionary<NSString *, NSString *> *result = [[dic copy] autorelease];
-    [dic release];
-    
-    return result;
 }

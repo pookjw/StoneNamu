@@ -80,15 +80,15 @@
     if (self.viewModel.isLocalDeckCardFull) {
         [self dismissViewControllerAnimated:YES completion:^{}];
     } else {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeyDeckAddCardsNotFullTitle]
-                                                                       message:[NSString stringWithFormat:[ResourcesService localizaedStringForKey:LocalizableKeyDeckAddCardsNotFullDescription], HSDECK_MAX_TOTAL_CARDS, self.viewModel.countOfLocalDeckCards]
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:[ResourcesService localizationForKey:LocalizableKeyDeckAddCardsNotFullTitle]
+                                                                       message:[NSString stringWithFormat:[ResourcesService localizationForKey:LocalizableKeyDeckAddCardsNotFullDescription], HSDECK_MAX_TOTAL_CARDS, self.viewModel.countOfLocalDeckCards]
                                                                 preferredStyle:UIAlertControllerStyleAlert];
         
-        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeyNo]
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:[ResourcesService localizationForKey:LocalizableKeyNo]
                                                                style:UIAlertActionStyleCancel
                                                              handler:^(UIAlertAction * _Nonnull action) {}];
         
-        UIAlertAction *dismissAction = [UIAlertAction actionWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeyYes]
+        UIAlertAction *dismissAction = [UIAlertAction actionWithTitle:[ResourcesService localizationForKey:LocalizableKeyYes]
                                                                 style:UIAlertActionStyleDefault
                                                               handler:^(UIAlertAction * _Nonnull action) {
             [self dismissViewControllerAnimated:YES completion:^{}];
@@ -139,7 +139,7 @@
 }
 
 - (void)configureRightBarButtonItems {
-    UIBarButtonItem *doneBarButton = [[UIBarButtonItem alloc] initWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeyDone]
+    UIBarButtonItem *doneBarButton = [[UIBarButtonItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyDone]
                                                                       style:UIBarButtonItemStyleDone
                                                                      target:self
                                                                      action:@selector(doneBarButtonTriggered:)];
@@ -164,7 +164,7 @@
 }
 
 - (void)configureNavigation {
-    self.title = [ResourcesService localizaedStringForKey:LocalizableKeyAddCards];
+    self.title = [ResourcesService localizationForKey:LocalizableKeyAddCards];
     self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
 }
 
@@ -418,7 +418,7 @@
                                                                                         previewProvider:nil
                                                                                          actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> * _Nonnull suggestedActions) {
         
-        UIAction *addButton = [UIAction actionWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeyAddToDeck]
+        UIAction *addButton = [UIAction actionWithTitle:[ResourcesService localizationForKey:LocalizableKeyAddToDeck]
                                                   image:[UIImage systemImageNamed:@"plus"]
                                              identifier:nil
                                                 handler:^(__kindof UIAction * _Nonnull action) {

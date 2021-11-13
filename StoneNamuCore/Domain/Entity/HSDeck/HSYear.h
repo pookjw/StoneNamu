@@ -14,4 +14,3 @@ static HSYear const HSYearGryphon = @"year-of-the-gryphon";
 NSString * hsYearCurrent(void);
 
 NSArray<NSString *> * hsYears(void);
-NSDictionary<NSString *, NSString *> *hsYearsWithLocalizables(void);

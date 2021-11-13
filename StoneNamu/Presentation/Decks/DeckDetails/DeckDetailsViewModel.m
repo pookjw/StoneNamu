@@ -273,9 +273,9 @@
             [self.localDeck setValuesAsHSDeck:hsDeck];
             [self.localDeck updateTimestamp];
             [self.localDeckUseCase saveChanges];
-            completion([hsDeck localizedDeckCodeWithTitle:self.localDeck.name]);
+            completion([ResourcesService localizationForHSDeck:hsDeck title:self.localDeck.name]);
         } else {
-            NSError *error = [NSError errorWithDomain:@"com.pookjw.StoneNamu" code:105 userInfo:@{NSLocalizedDescriptionKey: [ResourcesService localizaedStringForKey:LocalizableKeyDeckcodeFetchError]}];
+            NSError *error = [NSError errorWithDomain:@"com.pookjw.StoneNamu" code:105 userInfo:@{NSLocalizedDescriptionKey: [ResourcesService localizationForKey:LocalizableKeyDeckcodeFetchError]}];
             [self postErrorOccurredNotification:error];
         }
     }];
@@ -459,7 +459,7 @@
     for (DeckDetailsSectionModel *sectionModel in snapshot.sectionIdentifiers) {
         @autoreleasepool {
             if (sectionModel.type == DeckDetailsSectionModelTypeCards) {
-                NSString *headerText = [NSString stringWithFormat:[ResourcesService localizaedStringForKey:LocalizableKeyCardCount], [self totalCardsInSnapshot:snapshot], HSDECK_MAX_TOTAL_CARDS];
+                NSString *headerText = [NSString stringWithFormat:[ResourcesService localizationForKey:LocalizableKeyCardCount], [self totalCardsInSnapshot:snapshot], HSDECK_MAX_TOTAL_CARDS];
                 sectionModel.headerText = headerText;
             }
         }
@@ -561,7 +561,7 @@
 }
 
 - (void)postCardsAreNotFilledNotification {
-    NSString *message = [NSString stringWithFormat:[ResourcesService localizaedStringForKey:LocalizableKeyDeckExportErrorCardsAreNotFilled],
+    NSString *message = [NSString stringWithFormat:[ResourcesService localizationForKey:LocalizableKeyDeckExportErrorCardsAreNotFilled],
                          HSDECK_MAX_TOTAL_CARDS,
                          self.localDeck.hsCards.count];
     NSError *error = [NSError errorWithDomain:@"com.pookjw.StoneNamu"

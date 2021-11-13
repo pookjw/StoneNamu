@@ -16,5 +16,3 @@ NSString * NSStringFromHSCardCollectible(HSCardCollectible);
 HSCardCollectible HSCardCollectibleFromNSString(NSString *);
 
 NSArray<NSString *> *hsCardCollectibles(void);
-NSString * localizableFromHSCardCollectible(HSCardCollectible);
-NSDictionary<NSString *, NSString *> * localizablesWithHSCardCollectible(void);

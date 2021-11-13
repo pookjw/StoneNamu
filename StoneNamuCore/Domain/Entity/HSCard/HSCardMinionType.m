@@ -6,7 +6,6 @@
 //
 
 #import <StoneNamuCore/HSCardMinionType.h>
-#import <StoneNamuCore/Identifier.h>
 
 NSString * NSStringFromHSCardMinionType(HSCardMinionType type) {
     switch (type) {
@@ -73,24 +72,4 @@ NSArray<NSString *> *hsCardMinionTypes(void) {
         NSStringFromHSCardMinionType(HSCardMinionTypeQuilboar),
         NSStringFromHSCardMinionType(HSCardMinionTypeTotem)
     ];
-}
-
-NSString * localizableFromHSCardMinionType(HSCardMinionType key) {
-    return NSLocalizedStringFromTableInBundle(NSStringFromHSCardMinionType(key),
-                                              @"HSCardMinionType",
-                                              [NSBundle bundleWithIdentifier:IDENTIFIER],
-                                              @"");
-}
-
-NSDictionary<NSString *, NSString *> * localizablesWithHSCardMinionType(void) {
-    NSMutableDictionary<NSString *, NSString *> *dic = [@{} mutableCopy];
-    
-    [hsCardMinionTypes() enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        dic[obj] = localizableFromHSCardMinionType(HSCardMinionTypeFromNSString(obj));
-    }];
-    
-    NSDictionary<NSString *, NSString *> *result = [[dic copy] autorelease];
-    [dic release];
-    
-    return result;
 }

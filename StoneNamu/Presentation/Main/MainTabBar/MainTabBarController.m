@@ -59,13 +59,13 @@
     decksNavigationController.view.backgroundColor = UIColor.systemBackgroundColor;
     prefsNavigationController.view.backgroundColor = UIColor.systemBackgroundColor;
     
-    UITabBarItem *cardsTabBarItem = [[UITabBarItem alloc] initWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeyCards]
+    UITabBarItem *cardsTabBarItem = [[UITabBarItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyCards]
                                                                   image:[UIImage systemImageNamed:@"text.book.closed"]
                                                           selectedImage:[UIImage systemImageNamed:@"text.book.closed.fill"]];
-    UITabBarItem *decksTabBarItem = [[UITabBarItem alloc] initWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeyDecks]
+    UITabBarItem *decksTabBarItem = [[UITabBarItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyDecks]
                                                                   image:[UIImage systemImageNamed:@"books.vertical"]
                                                           selectedImage:[UIImage systemImageNamed:@"books.vertical.fill"]];
-    UITabBarItem *prefsTabBarItem = [[UITabBarItem alloc] initWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeyPreferences]
+    UITabBarItem *prefsTabBarItem = [[UITabBarItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyPreferences]
                                                                   image:[UIImage systemImageNamed:@"gearshape"]
                                                           selectedImage:[UIImage systemImageNamed:@"gearshape.fill"]];
     cardsNavigationController.tabBarItem = cardsTabBarItem;

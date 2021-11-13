@@ -6,7 +6,6 @@
 //
 
 #import <StoneNamuCore/HSCardCollectible.h>
-#import <StoneNamuCore/Identifier.h>
 
 NSString * NSStringFromHSCardCollectible(HSCardCollectible collectible) {
     switch (collectible) {
@@ -34,35 +33,4 @@ NSArray<NSString *> *hsCardCollectibles(void) {
         NSStringFromHSCardCollectible(HSCardCollectibleYES),
         NSStringFromHSCardCollectible(HSCardCollectibleNO)
     ];
-}
-
-NSString * localizableFromHSCardCollectible(HSCardCollectible key) {
-    switch (key) {
-        case HSCardCollectibleYES:
-            return NSLocalizedStringFromTableInBundle(@"collectible_yes",
-                                                          @"HSCardCollectible",
-                                                          [NSBundle bundleWithIdentifier:IDENTIFIER],
-                                                          @"");
-        case HSCardCollectibleNO:
-            return NSLocalizedStringFromTableInBundle(@"collectible_no",
-                                                          @"HSCardCollectible",
-                                                          [NSBundle bundleWithIdentifier:IDENTIFIER],
-                                                          @"");
-        default:
-            return @"";
-    }
-}
-
-NSDictionary<NSString *, NSString *> * localizablesWithHSCardCollectible(void) {
-    NSMutableDictionary<NSString *, NSString *> *dic = [@{} mutableCopy];
-    
-    [hsCardCollectibles() enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        HSCardCollectible collectible = HSCardCollectibleFromNSString(obj);
-        dic[obj] = localizableFromHSCardCollectible(collectible);
-    }];
-    
-    NSDictionary<NSString *, NSString *> *result = [[dic copy] autorelease];
-    [dic release];
-    
-    return result;
 }

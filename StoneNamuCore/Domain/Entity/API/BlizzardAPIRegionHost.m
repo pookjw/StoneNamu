@@ -67,19 +67,3 @@ NSArray<NSString *> *blizzardHSAPIRegionsForAPI(void) {
         NSStringForAPIFromRegionHost(BlizzardAPIRegionHostCN)
     ];
 }
-
-NSDictionary<NSString *, NSString *> *blizzardHSAPIRegionsForAPIWithLocalizable(void) {
-    NSMutableDictionary<NSString *, NSString *> *dic = [@{} mutableCopy];
-    
-    [blizzardHSAPIRegionsForAPI() enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        dic[obj] = NSLocalizedStringFromTableInBundle(obj,
-                                                      @"BlizzardAPIRegionHost",
-                                                      [NSBundle bundleWithIdentifier:IDENTIFIER],
-                                                      @"");
-    }];
-    
-    NSDictionary<NSString *, NSString *> *result = [[dic copy] autorelease];
-    [dic release];
-    
-    return result;
-}

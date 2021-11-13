@@ -39,7 +39,7 @@
 }
 
 - (void)configureNavigation {
-    self.title = [ResourcesService localizaedStringForKey:LocalizableKeyLocale];
+    self.title = [ResourcesService localizationForBlizzardHSAPIOptionType:BlizzardHSAPIOptionTypeLocale];
     self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
 }
 

@@ -150,14 +150,14 @@
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
         NSString * _Nullable clearedLeadingText = content.leadingText.clearedHTML;
         if ((clearedLeadingText == nil) || ([clearedLeadingText isEqualToString:@""])) {
-            self.leadingLabel.text = [ResourcesService localizaedStringForKey:LocalizableKeyEmpty];
+            self.leadingLabel.text = [ResourcesService localizationForKey:LocalizableKeyEmpty];
         } else {
             self.leadingLabel.text = clearedLeadingText;
         }
         
         NSString * _Nullable clearedTrailingText = content.trailingText.clearedHTML;
         if ((clearedTrailingText == nil) || ([clearedTrailingText isEqualToString:@""])) {
-            self.trailingLabel.text = [ResourcesService localizaedStringForKey:LocalizableKeyEmpty];
+            self.trailingLabel.text = [ResourcesService localizationForKey:LocalizableKeyEmpty];
         } else {
             self.trailingLabel.text = clearedTrailingText;
         }

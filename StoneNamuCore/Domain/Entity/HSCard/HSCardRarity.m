@@ -6,7 +6,6 @@
 //
 
 #import <StoneNamuCore/HSCardRarity.h>
-#import <StoneNamuCore/Identifier.h>
 
 NSString * NSStringFromHSCardRarity(HSCardRarity rarity) {
     switch (rarity) {
@@ -50,24 +49,4 @@ NSArray<NSString *> *hsCardRarities(void) {
         NSStringFromHSCardRarity(HSCardRarityEpic),
         NSStringFromHSCardRarity(HSCardRarityLegendary)
     ];
-}
-
-NSString * localizableFromHSCardRarity(HSCardRarity key) {
-    return NSLocalizedStringFromTableInBundle(NSStringFromHSCardRarity(key),
-                                              @"HSCardRarity",
-                                              [NSBundle bundleWithIdentifier:IDENTIFIER],
-                                              @"");;
-}
-
-NSDictionary<NSString *, NSString *> * localizablesWithHSCardRarity(void) {
-    NSMutableDictionary<NSString *, NSString *> *dic = [@{} mutableCopy];
-    
-    [hsCardRarities() enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        dic[obj] = localizableFromHSCardRarity(HSCardRarityFromNSString(obj));
-    }];
-    
-    NSDictionary<NSString *, NSString *> *result = [[dic copy] autorelease];
-    [dic release];
-    
-    return result;
 }

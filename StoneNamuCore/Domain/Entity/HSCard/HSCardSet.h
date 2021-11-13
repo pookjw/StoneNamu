@@ -44,8 +44,5 @@ NSString * NSStringFromHSCardSet(HSCardSet);
 HSCardSet HSCardSetFromNSString(NSString *);
 
 NSArray<NSString *> * hsCardSets(void);
-NSString * localizableFromHSCardSet(HSCardSet);
-NSDictionary<NSString *, NSString *> * localizablesWithHSCardSet(void);
 
 NSArray<NSString *> *hsCardSetsFromHSDeckFormat(HSDeckFormat);
-NSDictionary<NSString *, NSString *> * localizablesWithHSCardSetFromHSDeckFormat(HSDeckFormat);

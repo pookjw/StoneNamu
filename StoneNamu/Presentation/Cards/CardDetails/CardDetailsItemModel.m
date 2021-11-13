@@ -61,23 +61,23 @@
 - (NSString * _Nullable)primaryText {
     switch (self.type) {
         case CardDetailsItemModelTypeName:
-            return [ResourcesService localizaedStringForKey:LocalizableKeyCardName];
+            return [ResourcesService localizationForKey:LocalizableKeyCardName];
         case CardDetailsItemModelTypeFlavorText:
-            return [ResourcesService localizaedStringForKey:LocalizableKeyCardFlavorText];
+            return [ResourcesService localizationForKey:LocalizableKeyCardFlavorText];
         case CardDetailsItemModelTypeText:
-            return [ResourcesService localizaedStringForKey:LocalizableKeyCardDescription];
+            return [ResourcesService localizationForKey:LocalizableKeyCardDescription];
         case CardDetailsItemModelTypeType:
-            return [ResourcesService localizaedStringForKey:LocalizableKeyCardType];
+            return [ResourcesService localizationForKey:LocalizableKeyCardType];
         case CardDetailsItemModelTypeRarity:
-            return [ResourcesService localizaedStringForKey:LocalizableKeyCardRarity];
+            return [ResourcesService localizationForKey:LocalizableKeyCardRarity];
         case CardDetailsItemModelTypeSet:
-            return [ResourcesService localizaedStringForKey:LocalizableKeyCardSet];
+            return [ResourcesService localizationForKey:LocalizableKeyCardSet];
         case CardDetailsItemModelTypeClass:
-            return [ResourcesService localizaedStringForKey:LocalizableKeyCardClass];
+            return [ResourcesService localizationForKey:LocalizableKeyCardClass];
         case CardDetailsItemModelTypeArtist:
-            return [ResourcesService localizaedStringForKey:LocalizableKeyCardArtist];
+            return [ResourcesService localizationForKey:LocalizableKeyCardArtist];
         case CardDetailsItemModelTypeCollectible:
-            return [ResourcesService localizaedStringForKey:LocalizableKeyCardCollectible];
+            return [ResourcesService localizationForKey:LocalizableKeyCardCollectible];
         case CardDetailsItemModelTypeChildren:
             return nil;
         default:

@@ -7,6 +7,7 @@
 
 #import "CardDetailsViewModel.h"
 #import <StoneNamuCore/StoneNamuCore.h>
+#import <StoneNamuResources/StoneNamuResources.h>
 #import "UICollectionViewDiffableDataSource+applySnapshotAndWait.h"
 #import "DragItemService.h"
 
@@ -67,7 +68,7 @@
             NSMutableArray *strings = [@[] mutableCopy];
             
             for (NSNumber *classId in hsCard.multiClassIds) {
-                [strings addObject:localizableFromHSCardClass(classId.unsignedIntegerValue)];
+                [strings addObject:[ResourcesService localizationForHSCardClass:classId.unsignedIntegerValue]];
             }
             
             cardClassValue = [strings componentsJoinedByString:@", "];
@@ -75,7 +76,7 @@
         }
         
         if ((cardClassValue == nil) || ([cardClassValue isEqualToString:@""])) {
-            cardClassValue = localizableFromHSCardClass(hsCard.classId);
+            cardClassValue = [ResourcesService localizationForHSCardClass:hsCard.classId];
         }
         
         @autoreleasepool {
@@ -89,15 +90,15 @@
                        intoSectionWithIdentifier:sectionModelBase];
             
             [snapshot appendItemsWithIdentifiers:@[
-                [[[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeType value:localizableFromHSCardType(hsCard.cardTypeId)] autorelease],
+                [[[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeType value:[ResourcesService localizationForHSCardType:hsCard.cardTypeId]] autorelease],
                 
-                [[[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeRarity value:localizableFromHSCardRarity(hsCard.rarityId)] autorelease],
+                [[[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeRarity value:[ResourcesService localizationForHSCardRarity:hsCard.rarityId]] autorelease],
                 
-                [[[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeSet value:localizableFromHSCardSet(hsCard.cardSetId)] autorelease],
+                [[[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeSet value:[ResourcesService localizationForHSCardSet:hsCard.cardSetId]] autorelease],
                 
                 [[[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeClass value:cardClassValue] autorelease],
                 
-                [[[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeCollectible value:localizableFromHSCardCollectible(hsCard.collectible)] autorelease],
+                [[[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeCollectible value:[ResourcesService localizationForHSCardCollectible:hsCard.collectible]] autorelease],
                 
                 [[[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeArtist value:hsCard.artistName] autorelease]
             ]

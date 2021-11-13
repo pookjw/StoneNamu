@@ -103,7 +103,7 @@
     NSMenuItem *optionsMenuItem = [NSMenuItem new];
     self.optionsMenuItem = optionsMenuItem;
     
-    NSMenu *optionsSubMenu = [[NSMenu alloc] initWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeyCardOptionsTitleShort]];
+    NSMenu *optionsSubMenu = [[NSMenu alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyCardOptionsTitleShort]];
     self.optionsSubMenu = optionsSubMenu;
     optionsMenuItem.submenu = optionsSubMenu;
     

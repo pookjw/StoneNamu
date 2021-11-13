@@ -1,0 +1,37 @@
+/* 
+  BlizzardHSAPIOptionType.strings
+  StoneNamu
+
+  Created by Jinwoo Kim on 11/14/21.
+  
+*/
+
+"locale" = "카드 언어";
+
+"set" = "확장팩";
+
+"class" = "직업";
+
+"manaCost" = "비용";
+
+"attack" = "공격력";
+
+"health" = "체력";
+
+"collectible" = "수집가능성";
+
+"rarity" = "등급";
+
+"type" = "종류";
+
+"minionType" = "하수인 종류";
+
+"spellSchool" = "주문 종류";
+
+"keyword" = "키워드";
+
+"textFilter" = "글자";
+
+"gameMode" = "게임 모드";
+
+"sort" = "결과 정렬";

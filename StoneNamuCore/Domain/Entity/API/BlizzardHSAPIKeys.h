@@ -38,6 +38,4 @@ static BlizzardHSAPIOptionType const BlizzardHSAPIOptionTypeHero = @"hero";
 
 NSDictionary<BlizzardHSAPIOptionType, NSString *> *BlizzardHSAPIDefaultOptions(void);
 
-NSString * _Nullable PrefferedSystemSymbolFromBlizzardHSAPIDefaultOptions(BlizzardHSAPIOptionType option);
-
 NS_ASSUME_NONNULL_END

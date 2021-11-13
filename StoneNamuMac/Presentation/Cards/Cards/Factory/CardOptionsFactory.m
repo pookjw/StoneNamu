@@ -26,87 +26,87 @@
     
     if ([optionType isEqualToString:BlizzardHSAPIOptionTypeTextFilter]) {
         if (hasValue) {
-            return [NSString stringWithFormat:@"%@ : %@", [ResourcesService localizaedStringForKey:LocalizableKeyCardTextFilter], value];
+            return [NSString stringWithFormat:@"%@ : %@", [ResourcesService localizationForKey:LocalizableKeyCardTextFilter], value];
         } else {
-            return [ResourcesService localizaedStringForKey:LocalizableKeyCardTextFilter];
+            return [ResourcesService localizationForKey:LocalizableKeyCardTextFilter];
         }
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeSet]) {
         if (hasValue) {
-            return [NSString stringWithFormat:@"%@ : %@", [ResourcesService localizaedStringForKey:LocalizableKeyCardSet], localizableFromHSCardSet(HSCardSetFromNSString(value))];
+            return [NSString stringWithFormat:@"%@ : %@", [ResourcesService localizationForKey:LocalizableKeyCardSet], [ResourcesService localizationForHSCardSet:HSCardSetFromNSString(value)]];
         } else {
-            return [ResourcesService localizaedStringForKey:LocalizableKeyCardSet];
+            return [ResourcesService localizationForKey:LocalizableKeyCardSet];
         }
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeClass]) {
         if (hasValue) {
-            return [NSString stringWithFormat:@"%@ : %@", [ResourcesService localizaedStringForKey:LocalizableKeyCardClass], localizableFromHSCardClass(HSCardClassFromNSString(value))];
+            return [NSString stringWithFormat:@"%@ : %@", [ResourcesService localizationForKey:LocalizableKeyCardClass], [ResourcesService localizationForHSCardClass:HSCardClassFromNSString(value)]];
         } else {
-            return [ResourcesService localizaedStringForKey:LocalizableKeyCardClass];
+            return [ResourcesService localizationForKey:LocalizableKeyCardClass];
         }
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeManaCost]) {
         if (hasValue) {
-            return [NSString stringWithFormat:@"%@ : %@", [ResourcesService localizaedStringForKey:LocalizableKeyCardManaCost], value];
+            return [NSString stringWithFormat:@"%@ : %@", [ResourcesService localizationForKey:LocalizableKeyCardManaCost], value];
         } else {
-            return [ResourcesService localizaedStringForKey:LocalizableKeyCardManaCost];
+            return [ResourcesService localizationForKey:LocalizableKeyCardManaCost];
         }
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeSpellSchool]) {
         if (hasValue) {
-            return [NSString stringWithFormat:@"%@ : %@", [ResourcesService localizaedStringForKey:LocalizableKeyCardSpellSchool], localizableFromHSCardSpellSchool(HSCardSpellSchoolFromNSString(value))];
+            return [NSString stringWithFormat:@"%@ : %@", [ResourcesService localizationForKey:LocalizableKeyCardSpellSchool], [ResourcesService localizationForHSCardSpellSchool:HSCardSpellSchoolFromNSString(value)]];
         } else {
-            return [ResourcesService localizaedStringForKey:LocalizableKeyCardSpellSchool];
+            return [ResourcesService localizationForKey:LocalizableKeyCardSpellSchool];
         }
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeAttack]) {
         if (hasValue) {
-            return [NSString stringWithFormat:@"%@ : %@", [ResourcesService localizaedStringForKey:LocalizableKeyCardAttack], value];
+            return [NSString stringWithFormat:@"%@ : %@", [ResourcesService localizationForKey:LocalizableKeyCardAttack], value];
         } else {
-            return [ResourcesService localizaedStringForKey:LocalizableKeyCardAttack];
+            return [ResourcesService localizationForKey:LocalizableKeyCardAttack];
         }
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeHealth]) {
         if (hasValue) {
-            return [NSString stringWithFormat:@"%@ : %@", [ResourcesService localizaedStringForKey:LocalizableKeyCardHealth], value];
+            return [NSString stringWithFormat:@"%@ : %@", [ResourcesService localizationForKey:LocalizableKeyCardHealth], value];
         } else {
-            return [ResourcesService localizaedStringForKey:LocalizableKeyCardHealth];
+            return [ResourcesService localizationForKey:LocalizableKeyCardHealth];
         }
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeCollectible]) {
         if (hasValue) {
-            return [NSString stringWithFormat:@"%@ : %@", [ResourcesService localizaedStringForKey:LocalizableKeyCardCollectible], localizableFromHSCardCollectible(HSCardCollectibleFromNSString(value))];
+            return [NSString stringWithFormat:@"%@ : %@", [ResourcesService localizationForKey:LocalizableKeyCardCollectible], [ResourcesService localizationForHSCardCollectible:HSCardCollectibleFromNSString(value)]];
         } else {
-            return [ResourcesService localizaedStringForKey:LocalizableKeyCardCollectible];
+            return [ResourcesService localizationForKey:LocalizableKeyCardCollectible];
         }
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeRarity]) {
         if (hasValue) {
-            return [NSString stringWithFormat:@"%@ : %@", [ResourcesService localizaedStringForKey:LocalizableKeyCardRarity], localizableFromHSCardRarity(HSCardRarityFromNSString(value))];
+            return [NSString stringWithFormat:@"%@ : %@", [ResourcesService localizationForKey:LocalizableKeyCardRarity], [ResourcesService localizationForHSCardRarity:HSCardRarityFromNSString(value)]];
         } else {
-            return [ResourcesService localizaedStringForKey:LocalizableKeyCardRarity];
+            return [ResourcesService localizationForKey:LocalizableKeyCardRarity];
         }
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeType]) {
         if (hasValue) {
-            return [NSString stringWithFormat:@"%@ : %@", [ResourcesService localizaedStringForKey:LocalizableKeyCardType], localizableFromHSCardType(HSCardTypeFromNSString(value))];
+            return [NSString stringWithFormat:@"%@ : %@", [ResourcesService localizationForKey:LocalizableKeyCardType], [ResourcesService localizationForHSCardType:HSCardTypeFromNSString(value)]];
         } else {
-            return [ResourcesService localizaedStringForKey:LocalizableKeyCardType];
+            return [ResourcesService localizationForKey:LocalizableKeyCardType];
         }
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeMinionType]) {
         if (hasValue) {
-            return [NSString stringWithFormat:@"%@ : %@", [ResourcesService localizaedStringForKey:LocalizableKeyCardMinionType], localizableFromHSCardMinionType(HSCardMinionTypeFromNSString(value))];
+            return [NSString stringWithFormat:@"%@ : %@", [ResourcesService localizationForKey:LocalizableKeyCardMinionType], [ResourcesService localizationForHSCardMinionType:HSCardMinionTypeFromNSString(value)]];
         } else {
-            return [ResourcesService localizaedStringForKey:LocalizableKeyCardMinionType];
+            return [ResourcesService localizationForKey:LocalizableKeyCardMinionType];
         }
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeKeyword]) {
         if (hasValue) {
-            return [NSString stringWithFormat:@"%@ : %@", [ResourcesService localizaedStringForKey:LocalizableKeyCardKeyword], localizableFromHSCardKeyword(HSCardKeywordFromNSString(value))];
+            return [NSString stringWithFormat:@"%@ : %@", [ResourcesService localizationForKey:LocalizableKeyCardKeyword], [ResourcesService localizationForHSCardKeyword:HSCardKeywordFromNSString(value)]];
         } else {
-            return [ResourcesService localizaedStringForKey:LocalizableKeyCardKeyword];
+            return [ResourcesService localizationForKey:LocalizableKeyCardKeyword];
         }
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeGameMode]) {
         if (hasValue) {
-            return [NSString stringWithFormat:@"%@ : %@", [ResourcesService localizaedStringForKey:LocalizableKeyCardGameMode], localizableFromHSCardGameMode(HSCardGameModeFromNSString(value))];
+            return [NSString stringWithFormat:@"%@ : %@", [ResourcesService localizationForKey:LocalizableKeyCardGameMode], [ResourcesService localizationForHSCardGameMode:HSCardGameModeFromNSString(value)]];
         } else {
-            return [ResourcesService localizaedStringForKey:LocalizableKeyCardGameMode];
+            return [ResourcesService localizationForKey:LocalizableKeyCardGameMode];
         }
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeSort]) {
         if (hasValue) {
-            return [NSString stringWithFormat:@"%@ : %@", [ResourcesService localizaedStringForKey:LocalizableKeyCardSort], localizableFromHSCardSort(HSCardSortFromNSString(value))];
+            return [NSString stringWithFormat:@"%@ : %@", [ResourcesService localizationForKey:LocalizableKeyCardSort], [ResourcesService localizationForHSCardSort:HSCardSortFromNSString(value)]];
         } else {
-            return [ResourcesService localizaedStringForKey:LocalizableKeyCardSort];
+            return [ResourcesService localizationForKey:LocalizableKeyCardSort];
         }
     } else {
         return @"";
@@ -115,12 +115,7 @@
 
 + (NSImage *)imageForCardOptionsWithValue:(NSString *)value optionType:(BlizzardHSAPIOptionType)optionType {
     BOOL hasValue = [self hasValueForValue:value];
-    
-    if (hasValue) {
-        return [NSImage imageWithSystemSymbolName:[NSString stringWithFormat:@"%@.fill", PrefferedSystemSymbolFromBlizzardHSAPIDefaultOptions(optionType)] accessibilityDescription:nil];
-    } else {
-        return [NSImage imageWithSystemSymbolName:PrefferedSystemSymbolFromBlizzardHSAPIDefaultOptions(optionType) accessibilityDescription:nil];
-    }
+    return [ResourcesService imageForBlizzardHSAPIOptionType:optionType fill:hasValue];
 }
 
 + (NSMenu *)menuForOptionType:(BlizzardHSAPIOptionType)optionType target:(nonnull id<NSTextFieldDelegate>)target {
@@ -129,7 +124,7 @@
     NSArray<NSMenuItem *> *itemArray;
     
     if ([optionType isEqualToString:BlizzardHSAPIOptionTypeSet]) {
-        itemArray = [self itemArrayFromDic:localizablesWithHSCardSet()
+        itemArray = [self itemArrayFromDic:[ResourcesService localizationsForHSCardSet]
                                 optionType:optionType
                              showEmptyItem:YES
                                filterArray:nil
@@ -140,7 +135,7 @@
                                  ascending:NO
                                     target:target];
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeClass]) {
-        itemArray = [self itemArrayFromDic:localizablesWithHSCardClass()
+        itemArray = [self itemArrayFromDic:[ResourcesService localizationsForHSCardClass]
                                 optionType:optionType
                              showEmptyItem:YES
                                filterArray:@[NSStringFromHSCardClass(HSCardClassDeathKnight)]
@@ -175,7 +170,7 @@
                                  ascending:YES
                                     target:target];
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeCollectible]) {
-        itemArray = [self itemArrayFromDic:localizablesWithHSCardCollectible()
+        itemArray = [self itemArrayFromDic:[ResourcesService localizationsForHSCardCollectible]
                                 optionType:optionType
                              showEmptyItem:NO
                                filterArray:nil
@@ -187,7 +182,7 @@
                                     target:target];
         
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeRarity]) {
-        itemArray = [self itemArrayFromDic:localizablesWithHSCardRarity()
+        itemArray = [self itemArrayFromDic:[ResourcesService localizationsForHSCardRarity]
                                 optionType:optionType
                              showEmptyItem:YES
                                filterArray:@[NSStringFromHSCardRarity(HSCardRarityNull)]
@@ -199,7 +194,7 @@
                                     target:target];
         
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeType]) {
-        itemArray = [self itemArrayFromDic:localizableWithHSCardType()
+        itemArray = [self itemArrayFromDic:[ResourcesService localizationsForHSCardType]
                                 optionType:optionType
                              showEmptyItem:YES
                                filterArray:nil
@@ -210,7 +205,7 @@
                                  ascending:YES
                                     target:target];
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeMinionType]) {
-        itemArray = [self itemArrayFromDic:localizablesWithHSCardMinionType()
+        itemArray = [self itemArrayFromDic:[ResourcesService localizationsForHSCardMinionType]
                                 optionType:optionType
                              showEmptyItem:YES
                                filterArray:nil
@@ -221,7 +216,7 @@
                                  ascending:YES
                                     target:target];
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeSpellSchool]) {
-        itemArray = [self itemArrayFromDic:localizablesWithHSCardSpellSchool()
+        itemArray = [self itemArrayFromDic:[ResourcesService localizationsForHSCardSpellSchool]
                                 optionType:optionType
                              showEmptyItem:YES
                                filterArray:nil
@@ -232,7 +227,7 @@
                                  ascending:YES
                                     target:target];
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeKeyword]) {
-        itemArray = [self itemArrayFromDic:localizablesWithHSCardKeyword()
+        itemArray = [self itemArrayFromDic:[ResourcesService localizationsForHSCardKeyword]
                                 optionType:optionType
                              showEmptyItem:YES
                                filterArray:nil
@@ -245,7 +240,7 @@
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeTextFilter]) {
         itemArray = @[[self textFieldItemWithOptionType:optionType textFieldDelegate:target]];
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeGameMode]) {
-        itemArray = [self itemArrayFromDic:localizablesWithHSCardGameMode()
+        itemArray = [self itemArrayFromDic:[ResourcesService localizationsForHSCardGameMode]
                                 optionType:optionType
                              showEmptyItem:NO
                                filterArray:nil
@@ -256,7 +251,7 @@
                                  ascending:YES
                                     target:target];
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeSort]) {
-        itemArray = [self itemArrayFromDic:localizablesWithHSCardSort()
+        itemArray = [self itemArrayFromDic:[ResourcesService localizationsForHSCardSort]
                                 optionType:optionType
                              showEmptyItem:NO
                                filterArray:nil
@@ -325,7 +320,7 @@
     [arr sortUsingComparator:comparator];
     
     if (showEmptyItem) {
-        CardOptionsMenuItem *emptyItem = [[CardOptionsMenuItem alloc] initWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeyAll]
+        CardOptionsMenuItem *emptyItem = [[CardOptionsMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyAll]
                                                                              action:CardOptionsFactory.keyMenuItemTriggeredSelector
                                                                       keyEquivalent:@""
                                                                                 key:@{type: @""}];

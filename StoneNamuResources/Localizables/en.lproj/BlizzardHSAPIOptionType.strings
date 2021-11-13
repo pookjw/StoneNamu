@@ -1,0 +1,37 @@
+/* 
+  BlizzardHSAPIOptionType.strings
+  StoneNamu
+
+  Created by Jinwoo Kim on 11/14/21.
+  
+*/
+
+"locale" = "Card Language";
+
+"set" = "Set";
+
+"class" = "Class";
+
+"manaCost" = "Cost";
+
+"attack" = "Attack";
+
+"health" = "Health";
+
+"collectible" = "Collectability";
+
+"rarity" = "Rarity";
+
+"type" = "Type";
+
+"minionType" = "Minion Type";
+
+"spellSchool" = "Spell School";
+
+"keyword" = "Keyword";
+
+"textFilter" = "Text";
+
+"gameMode" = "Game Mode";
+
+"sort" = "Sorting Results";

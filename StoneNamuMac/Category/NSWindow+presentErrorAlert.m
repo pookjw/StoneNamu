@@ -17,7 +17,7 @@
 - (void)presentErrorAlertWithError:(NSError *)error completion:(void (^ _Nullable)(NSModalResponse returnCode))completion {
     NSAlert *alert = [NSAlert new];
     alert.alertStyle = NSAlertStyleCritical;
-    alert.messageText = [ResourcesService localizaedStringForKey:LocalizableKeyErrorAlertTitle];
+    alert.messageText = [ResourcesService localizationForKey:LocalizableKeyErrorAlertTitle];
     alert.informativeText = error.localizedDescription;
     
     [alert beginSheetModalForWindow:self completionHandler:completion];

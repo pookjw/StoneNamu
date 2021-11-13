@@ -61,19 +61,19 @@
 - (NSString * _Nullable)primaryText {
     switch (self.type) {
         case PrefsItemModelTypeLocaleSelection:
-            return [ResourcesService localizaedStringForKey:LocalizableKeyLocale];
+            return [ResourcesService localizationForBlizzardHSAPIOptionType:BlizzardHSAPIOptionTypeLocale];
         case PrefsItemModelTypeRegionSelection:
-            return [ResourcesService localizaedStringForKey:LocalizableKeyRegion];
+            return [ResourcesService localizationForKey:LocalizableKeyRegion];
         case PrefsItemModelTypeDeleteAllCaches:
-            return [ResourcesService localizaedStringForKey:LocalizableKeyDeleteAllCaches];
+            return [ResourcesService localizationForKey:LocalizableKeyDeleteAllCaches];
         case PrefsItemModelTypeDeleteAllLocalDecks:
             return @"Remove All LocalDecks";
         case PrefsItemModelTypeJoinTestFlight:
-            return [ResourcesService localizaedStringForKey:LocalizableKeyJoinTestflight];
+            return [ResourcesService localizationForKey:LocalizableKeyJoinTestflight];
         case PrefsItemModelTypePookjwContributor:
-            return [ResourcesService localizaedStringForKey:LocalizableKeyPookjw];
+            return [ResourcesService localizationForKey:LocalizableKeyPookjw];
         case PrefsItemModelTypePnamuContributor:
-            return [ResourcesService localizaedStringForKey:LocalizableKeyPnamu];
+            return [ResourcesService localizationForKey:LocalizableKeyPnamu];
         default:
             return nil;
     }
@@ -82,9 +82,9 @@
 - (NSString * _Nullable)secondaryText {
     switch (self.type) {
         case PrefsItemModelTypePookjwContributor:
-            return [ResourcesService localizaedStringForKey:LocalizableKeyPookjwDescription];
+            return [ResourcesService localizationForKey:LocalizableKeyPookjwDescription];
         case PrefsItemModelTypePnamuContributor:
-            return [ResourcesService localizaedStringForKey:LocalizableKeyPnamuDescription];
+            return [ResourcesService localizationForKey:LocalizableKeyPnamuDescription];
         default:
             return nil;
     }
@@ -112,9 +112,9 @@
     switch (self.type) {
         case PrefsItemModelTypePnamuContributor:
             return @{
-                [ResourcesService localizaedStringForKey:LocalizableKeyTwitter]: [NSURL URLWithString:@"https://twitter.com/Pnamu"],
-                [ResourcesService localizaedStringForKey:LocalizableKeyTwitch]: [NSURL URLWithString:@"https://www.twitch.tv/Pnamu"],
-                [ResourcesService localizaedStringForKey:LocalizableKeyYoutube]: [NSURL URLWithString:@"https://www.youtube.com/c/Pnamu"]
+                [ResourcesService localizationForKey:LocalizableKeyTwitter]: [NSURL URLWithString:@"https://twitter.com/Pnamu"],
+                [ResourcesService localizationForKey:LocalizableKeyTwitch]: [NSURL URLWithString:@"https://www.twitch.tv/Pnamu"],
+                [ResourcesService localizationForKey:LocalizableKeyYoutube]: [NSURL URLWithString:@"https://www.youtube.com/c/Pnamu"]
             };
         default:
             return nil;

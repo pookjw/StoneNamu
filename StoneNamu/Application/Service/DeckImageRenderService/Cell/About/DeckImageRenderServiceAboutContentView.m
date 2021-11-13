@@ -173,7 +173,7 @@
 }
 
 - (void)updateDeckYearLabel {
-    self.deckYearLabel.text = hsYearsWithLocalizables()[self.hsYearCurrent];
+    self.deckYearLabel.text = [ResourcesService localizationForHSYear:self.hsYearCurrent];
 }
 
 - (void)updateArcaneDustLabel {

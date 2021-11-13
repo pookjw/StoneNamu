@@ -251,7 +251,7 @@
 
 - (void)updateCardSetImageView {
     UIEdgeInsets inset = UIEdgeInsetsMake(-8, -8, -8, -8);
-    self.cardSetImageView.image = [[ResourcesService imageOfDeckFormat:self.localDeck.format] imageWithAlignmentRectInsets:inset];
+    self.cardSetImageView.image = [[ResourcesService imageForDeckFormat:self.localDeck.format] imageWithAlignmentRectInsets:inset];
 }
 
 - (void)updateNameLabel {

@@ -69,7 +69,7 @@
     NSMutableArray<UIAction *> *createWildDeckActions = [@[] mutableCopy];
     NSMutableArray<UIAction *> *createClassicDeckActions = [@[] mutableCopy];
     
-    NSDictionary<NSString *, NSString *> *localizable = localizablesWithHSCardClass();
+    NSDictionary<NSString *, NSString *> *localizable = [ResourcesService localizationsForHSCardClass];
     
     for (NSString *key in hsCardClassesForFormat(HSDeckFormatStandard)) {
         @autoreleasepool {
@@ -139,23 +139,23 @@
     
     //
     
-    UIMenu *createDeckMenu = [UIMenu menuWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeyCreateNewDeck]
+    UIMenu *createDeckMenu = [UIMenu menuWithTitle:[ResourcesService localizationForKey:LocalizableKeyCreateNewDeck]
                                               children:@[
         
-        [UIMenu menuWithTitle:hsDeckFormatsWithLocalizable()[HSDeckFormatStandard]
-                        image:[ResourcesService imageOfDeckFormat:HSDeckFormatStandard]
+        [UIMenu menuWithTitle:[ResourcesService localizationForHSDeckFormat:HSDeckFormatStandard]
+                        image:[ResourcesService imageForDeckFormat:HSDeckFormatStandard]
                    identifier:nil
                       options:UIMenuOptionsSingleSelection
                      children:createStandardDeckActions],
         
-        [UIMenu menuWithTitle:hsDeckFormatsWithLocalizable()[HSDeckFormatWild]
-                        image:[ResourcesService imageOfDeckFormat:HSDeckFormatWild]
+        [UIMenu menuWithTitle:[ResourcesService localizationForHSDeckFormat:HSDeckFormatWild]
+                        image:[ResourcesService imageForDeckFormat:HSDeckFormatWild]
                    identifier:nil
                       options:UIMenuOptionsSingleSelection
                      children:createWildDeckActions],
         
-        [UIMenu menuWithTitle:hsDeckFormatsWithLocalizable()[HSDeckFormatClassic]
-                        image:[ResourcesService imageOfDeckFormat:HSDeckFormatClassic]
+        [UIMenu menuWithTitle:[ResourcesService localizationForHSDeckFormat:HSDeckFormatClassic]
+                        image:[ResourcesService imageForDeckFormat:HSDeckFormatClassic]
                    identifier:nil
                       options:UIMenuOptionsSingleSelection
                      children:createClassicDeckActions]
@@ -168,7 +168,7 @@
     self.addBarButtonItem.menu = [UIMenu menuWithChildren:@[
         createDeckMenu,
         
-        [UIAction actionWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeyLoadFromDeckCode]
+        [UIAction actionWithTitle:[ResourcesService localizationForKey:LocalizableKeyLoadFromDeckCode]
                             image:[UIImage systemImageNamed:@"arrow.down.square"]
                        identifier:nil
                           handler:^(__kindof UIAction * _Nonnull action) {
@@ -178,7 +178,7 @@
 }
 
 - (void)configureNavigation {
-    self.title = [ResourcesService localizaedStringForKey:LocalizableKeyDecks];
+    self.title = [ResourcesService localizationForKey:LocalizableKeyDecks];
     self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAlways;
     self.navigationController.navigationBar.prefersLargeTitles = YES;
 }
@@ -266,20 +266,20 @@
 - (void)presentTextFieldAndFetchDeckCode {
     [self.viewModel parseClipboardForDeckCodeWithCompletion:^(NSString * _Nullable title, NSString * _Nullable deckCode) {
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeyLoadFromDeckCode]
-                                                                           message:[ResourcesService localizaedStringForKey:LocalizableKeyPleaseEnterDeckCode]
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:[ResourcesService localizationForKey:LocalizableKeyLoadFromDeckCode]
+                                                                           message:[ResourcesService localizationForKey:LocalizableKeyPleaseEnterDeckCode]
                                                                     preferredStyle:UIAlertControllerStyleAlert];
             
             [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
                 textField.text = title;
-                textField.placeholder = [ResourcesService localizaedStringForKey:LocalizableKeyEnterDeckTitleHere];
+                textField.placeholder = [ResourcesService localizationForKey:LocalizableKeyEnterDeckTitleHere];
             }];
             
             [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
                 textField.text = deckCode;
                 self.deckCodeTextField = textField;
                 textField.delegate = self;
-                textField.placeholder = [ResourcesService localizaedStringForKey:LocalizableKeyEnterDeckCodeHere];
+                textField.placeholder = [ResourcesService localizationForKey:LocalizableKeyEnterDeckCodeHere];
                 
 #if DEBUG
                 if (deckCode == nil) {
@@ -288,11 +288,11 @@
 #endif
             }];
             
-            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeyCancel]
+            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:[ResourcesService localizationForKey:LocalizableKeyCancel]
                                                                    style:UIAlertActionStyleCancel
                                                                  handler:^(UIAlertAction * _Nonnull action) {}];
             
-            UIAlertAction *fetchButton = [UIAlertAction actionWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeyFetch]
+            UIAlertAction *fetchButton = [UIAlertAction actionWithTitle:[ResourcesService localizationForKey:LocalizableKeyFetch]
                                                                   style:UIAlertActionStyleDefault
                                                                 handler:^(UIAlertAction * _Nonnull action) {
                 UITextField * _Nullable firstTextField = alert.textFields[0];

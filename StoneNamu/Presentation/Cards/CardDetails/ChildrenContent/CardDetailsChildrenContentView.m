@@ -194,7 +194,7 @@
                                                                                         previewProvider:nil
                                                                                          actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> * _Nonnull suggestedActions) {
         
-        UIAction *saveAction = [UIAction actionWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeySave]
+        UIAction *saveAction = [UIAction actionWithTitle:[ResourcesService localizationForKey:LocalizableKeySave]
                                                    image:[UIImage systemImageNamed:@"square.and.arrow.down"]
                                               identifier:nil
                                                  handler:^(__kindof UIAction * _Nonnull action) {

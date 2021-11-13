@@ -509,9 +509,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
 }
 
 - (void)updateItemsWithOptions:(NSDictionary<NSString *,NSString *> *)options {
-    if ([options isEqualToDictionary:self.options]) {
-        return;
-    }
+    BOOL shouldChangePosition = ![options isEqualToDictionary:self.options];
     
     NSMutableDictionary<NSString *, NSString *> *mutableOptions = [options mutableCopy];
     self.options = mutableOptions;
@@ -525,11 +523,13 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
             NSUInteger index = [keys indexOfString:@""];
             BlizzardHSAPIOptionType optionType = [self optionTypeFromScrubber:obj];
             
-            if ([obj respondsToSelector:@selector(_interactiveSelectItemAtIndex:animated:)]) {
-                // this will excute `scrubber:didSelectItemAtIndex:`
-                [obj _interactiveSelectItemAtIndex:index animated:YES];
+            if (shouldChangePosition) {
+                if ([obj respondsToSelector:@selector(_interactiveSelectItemAtIndex:animated:)]) {
+                    // this will excute `scrubber:didSelectItemAtIndex:`
+                    [obj _interactiveSelectItemAtIndex:index animated:YES];
+                }
+                [obj scrollItemAtIndex:index toAlignment:NSScrubberAlignmentCenter];
             }
-            [obj scrollItemAtIndex:index toAlignment:NSScrubberAlignmentCenter];
             
             //
             
@@ -559,11 +559,13 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
             
             if (index == -1) return;
             
-            if ([scrubber respondsToSelector:@selector(_interactiveSelectItemAtIndex:animated:)]) {
-                // this will excute `scrubber:didSelectItemAtIndex:`
-                [scrubber _interactiveSelectItemAtIndex:index animated:YES];
+            if (shouldChangePosition) {
+                if ([scrubber respondsToSelector:@selector(_interactiveSelectItemAtIndex:animated:)]) {
+                    // this will excute `scrubber:didSelectItemAtIndex:`
+                    [scrubber _interactiveSelectItemAtIndex:index animated:YES];
+                }
+                [scrubber scrollItemAtIndex:index toAlignment:NSScrubberAlignmentCenter];
             }
-            [scrubber scrollItemAtIndex:index toAlignment:NSScrubberAlignmentCenter];
             
             //
             
@@ -724,10 +726,10 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     NSArray<NSString *> * _Nullable filterKeys = nil;
     
     if ([scrubber isEqual:self.optionTypeSetScrubber]) {
-        mutableDic = [localizablesWithHSCardSet() mutableCopy];
+        mutableDic = [[ResourcesService localizationsForHSCardSet] mutableCopy];
         filterKeys = nil;
     } else if ([scrubber isEqual:self.optionTypeClassScrubber]) {
-        mutableDic = [localizablesWithHSCardClass() mutableCopy];
+        mutableDic = [[ResourcesService localizationsForHSCardClass] mutableCopy];
         filterKeys = @[NSStringFromHSCardClass(HSCardClassDeathKnight)];
     } else if ([scrubber isEqual:self.optionTypeManaCostScrubber] || [scrubber isEqual:self.optionTypeAttackScrubber] || [scrubber isEqual:self.optionTypeHealthScrubber]) {
         mutableDic = [@{@"1": @"1",
@@ -742,35 +744,35 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
                 @"10": @"10+"} mutableCopy];
         filterKeys = nil;
     } else if ([scrubber isEqual:self.optionTypeCollectibleScrubber]) {
-        mutableDic = [localizablesWithHSCardCollectible() mutableCopy];
+        mutableDic = [[ResourcesService localizationsForHSCardCollectible] mutableCopy];
         filterKeys = nil;
     } else if ([scrubber isEqual:self.optionTypeRarityScrubber]) {
-        mutableDic = [localizablesWithHSCardRarity() mutableCopy];
+        mutableDic = [[ResourcesService localizationsForHSCardRarity] mutableCopy];
         filterKeys = @[NSStringFromHSCardRarity(HSCardRarityNull)];
     } else if ([scrubber isEqual:self.optionTypeTypeScrubber]) {
-        mutableDic = [localizableWithHSCardType() mutableCopy];
+        mutableDic = [[ResourcesService localizationsForHSCardType] mutableCopy];
         filterKeys = nil;
     } else if ([scrubber isEqual:self.optionTypeMinionTypeScrubber]) {
-        mutableDic = [localizablesWithHSCardMinionType() mutableCopy];
+        mutableDic = [[ResourcesService localizationsForHSCardMinionType] mutableCopy];
         filterKeys = nil;
     } else if ([scrubber isEqual:self.optionTypeSpellSchoolScrubber]) {
-        mutableDic = [localizablesWithHSCardSpellSchool() mutableCopy];
+        mutableDic = [[ResourcesService localizationsForHSCardSpellSchool] mutableCopy];
         filterKeys = nil;
     } else if ([scrubber isEqual:self.optionTypeKeywordScrubber]) {
-        mutableDic = [localizablesWithHSCardKeyword() mutableCopy];
+        mutableDic = [[ResourcesService localizationsForHSCardKeyword] mutableCopy];
         filterKeys = nil;
     } else if ([scrubber isEqual:self.optionTypeGameModeScrubber]) {
-        mutableDic = [localizablesWithHSCardGameMode() mutableCopy];
+        mutableDic = [[ResourcesService localizationsForHSCardGameMode] mutableCopy];
         filterKeys = nil;
     } else if ([scrubber isEqual:self.optionTypeSortScrubber]) {
-        mutableDic = [localizablesWithHSCardSort() mutableCopy];
+        mutableDic = [[ResourcesService localizationsForHSCardSort] mutableCopy];
         filterKeys = nil;
     }
     
     //
     
     if ([self hasEmptyRowAtScrubber:scrubber]) {
-        mutableDic[@""] = [ResourcesService localizaedStringForKey:LocalizableKeyAll];
+        mutableDic[@""] = [ResourcesService localizationForKey:LocalizableKeyAll];
     }
     
     if (filterKeys == nil) {

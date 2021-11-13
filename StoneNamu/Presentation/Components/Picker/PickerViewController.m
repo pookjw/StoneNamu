@@ -94,7 +94,7 @@
 }
 
 - (void)configureCancelButton {
-    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeyCancel]
+    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyCancel]
                                                                      style:UIBarButtonItemStylePlain
                                                                     target:self
                                                                     action:@selector(cancelButtonTriggered:)];
@@ -108,7 +108,7 @@
 }
 
 - (void)configureDoneButton {
-    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeyDone]
+    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyDone]
                                                                    style:UIBarButtonItemStylePlain
                                                                   target:self
                                                                   action:@selector(doneButtonTriggered:)];
@@ -163,7 +163,7 @@
     if (self.showEmptyRow) {
         if (row == 0) {
             [pickerItemView configureWithImage:nil
-                                   primaryText:[ResourcesService localizaedStringForKey:LocalizableKeyAll]
+                                   primaryText:[ResourcesService localizationForKey:LocalizableKeyAll]
                                  secondaryText:nil];
         } else {
 #if DEBUG

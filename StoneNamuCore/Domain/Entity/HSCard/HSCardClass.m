@@ -6,7 +6,6 @@
 //
 
 #import <StoneNamuCore/HSCardClass.h>
-#import <StoneNamuCore/Identifier.h>
 
 NSString * NSStringFromHSCardClass(HSCardClass class) {
     switch (class) {
@@ -128,37 +127,4 @@ NSArray<NSString *> * hsCardClassesForFormat(HSDeckFormat format) {
     } else {
         return @[];
     }
-}
-
-NSString * localizableFromHSCardClass(HSCardClass key) {
-    return NSLocalizedStringFromTableInBundle(NSStringFromHSCardClass(key),
-                                              @"HSCardClass",
-                                              [NSBundle bundleWithIdentifier:IDENTIFIER],
-                                              @"");;
-}
-
-NSDictionary<NSString *, NSString *> * localizablesWithHSCardClass(void) {
-    NSMutableDictionary<NSString *, NSString *> *dic = [@{} mutableCopy];
-    
-    [hsCardClasses() enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        dic[obj] = localizableFromHSCardClass(HSCardClassFromNSString(obj));
-    }];
-    
-    NSDictionary<NSString *, NSString *> *result = [[dic copy] autorelease];
-    [dic release];
-    
-    return result;
-}
-
-NSDictionary<NSString *, NSString *> * localizablesWithHSCardClasseForFormat(HSDeckFormat format) {
-    NSMutableDictionary<NSString *, NSString *> *dic = [@{} mutableCopy];
-    
-    [hsCardClassesForFormat(format) enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        dic[obj] = localizableFromHSCardClass(HSCardClassFromNSString(obj));
-    }];
-    
-    NSDictionary<NSString *, NSString *> *result = [[dic copy] autorelease];
-    [dic release];
-    
-    return result;
 }

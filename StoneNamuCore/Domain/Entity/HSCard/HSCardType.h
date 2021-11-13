@@ -19,6 +19,3 @@ NSString * NSStringFromHSCardType(HSCardType);
 HSCardType HSCardTypeFromNSString(NSString *);
 
 NSArray<NSString *> *hsCardTypes(void);
-
-NSString * localizableFromHSCardType(HSCardType);
-NSDictionary<NSString *, NSString *> * localizableWithHSCardType(void);

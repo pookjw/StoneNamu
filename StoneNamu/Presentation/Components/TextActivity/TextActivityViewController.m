@@ -61,7 +61,7 @@
 }
 
 - (void)configureLeftBarButtonItems {
-    UIBarButtonItem *cancelBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeyCancel]
+    UIBarButtonItem *cancelBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyCancel]
                                                                             style:UIBarButtonItemStylePlain
                                                                            target:self
                                                                            action:@selector(cancelBarButtonTriggered:)];
@@ -72,7 +72,7 @@
 }
 
 - (void)configureRightBarButtonItems {
-    UIBarButtonItem *shareBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[ResourcesService localizaedStringForKey:LocalizableKeyShare]
+    UIBarButtonItem *shareBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyShare]
                                                                            style:UIBarButtonItemStyleDone
                                                                           target:self
                                                                           action:@selector(shareBarButtonTriggered:)];
@@ -132,7 +132,7 @@
 }
 
 - (void)configureNavigation {
-    self.title = [ResourcesService localizaedStringForKey:LocalizableKeyResult];
+    self.title = [ResourcesService localizationForKey:LocalizableKeyResult];
     self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
     
     UINavigationBarAppearance *appearance = [UINavigationBarAppearance new];

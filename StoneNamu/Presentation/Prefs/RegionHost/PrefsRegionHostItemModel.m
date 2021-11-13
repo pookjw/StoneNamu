@@ -52,16 +52,15 @@
 
 - (NSString * _Nullable)primaryText {
     if (self.regionHost) {
-        NSDictionary<NSString *, NSString *> *localizables = blizzardHSAPIRegionsForAPIWithLocalizable();
-        return localizables[self.regionHost];
+        return [ResourcesService localizationForBlizzardAPIRegionHost:BlizzardAPIRegionHostFromNSStringForAPI(self.regionHost)];
     } else {
-        return [ResourcesService localizaedStringForKey:LocalizableKeyAuto];
+        return [ResourcesService localizationForKey:LocalizableKeyAuto];
     }
 }
 
 - (NSString * _Nullable)secondaryText {
     if (self.regionHost == nil) {
-        return [ResourcesService localizaedStringForKey:LocalizableKeyServerAutoDescription];
+        return [ResourcesService localizationForKey:LocalizableKeyServerAutoDescription];
     } else {
         return nil;
     }

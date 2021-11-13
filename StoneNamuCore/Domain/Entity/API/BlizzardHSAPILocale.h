@@ -24,4 +24,3 @@ static BlizzardHSAPILocale const BlizzardHSAPILocaleEsES = @"es_ES"; // Spanish
 static BlizzardHSAPILocale const BlizzardHSAPILocaleZhTW = @"zh_TW"; // Traditional Chinese
 
 NSArray<NSString *> *blizzardHSAPILocales(void);
-NSDictionary<NSString *, NSString *> *blizzardHSAPILocalesWithLocalizable(void);

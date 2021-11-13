@@ -83,7 +83,7 @@ void writeLocalizableKeys(void) {
     NSFileManager *fileManager = [NSFileManager new];
     NSURL *currentDirectoryURL = [NSURL URLWithString:[NSString stringWithFormat:@"file://%@", fileManager.currentDirectoryPath]];
     NSURL *resourcesFrameworkURL = [currentDirectoryURL URLByAppendingPathComponent:@"StoneNamuResources" isDirectory:YES];
-    NSURL *localizableStringsURL = [[[resourcesFrameworkURL URLByAppendingPathComponent:@"en.lproj" isDirectory:YES] URLByAppendingPathComponent:@"Localizable" isDirectory:NO] URLByAppendingPathExtension:@"strings"];
+    NSURL *localizableStringsURL = [[[[resourcesFrameworkURL URLByAppendingPathComponent:@"Localizables" isDirectory:YES] URLByAppendingPathComponent:@"en.lproj" isDirectory:YES] URLByAppendingPathComponent:@"Localizable" isDirectory:NO] URLByAppendingPathExtension:@"strings"];
     NSURL *localizableKeyURL = [[resourcesFrameworkURL URLByAppendingPathComponent:@"LocalizableKey" isDirectory:NO] URLByAppendingPathExtension:@"h"];
     
     if (![fileManager fileExistsAtPath:resourcesFrameworkURL.path]) {

@@ -48,9 +48,9 @@
 - (NSString * _Nullable)primaryText {
     switch (self.type) {
         case MainItemModelTypeCards:
-            return [ResourcesService localizaedStringForKey:LocalizableKeyCards];
+            return [ResourcesService localizationForKey:LocalizableKeyCards];
         case MainItemModelTypeDecks:
-            return [ResourcesService localizaedStringForKey:LocalizableKeyDecks];
+            return [ResourcesService localizationForKey:LocalizableKeyDecks];
         default:
             return nil;
     }

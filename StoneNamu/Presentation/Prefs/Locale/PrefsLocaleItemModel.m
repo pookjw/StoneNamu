@@ -52,16 +52,15 @@
 
 - (NSString * _Nullable)primaryText {
     if (self.locale) {
-        NSDictionary<NSString *, NSString *> *localizables = blizzardHSAPILocalesWithLocalizable();
-        return localizables[self.locale];
+        return [ResourcesService localizationForBlizzardHSAPILocale:self.locale];
     } else {
-        return [ResourcesService localizaedStringForKey:LocalizableKeyAuto];
+        return [ResourcesService localizationForKey:LocalizableKeyAuto];
     }
 }
 
 - (NSString * _Nullable)secondaryText {
     if (self.locale == nil) {
-        return [ResourcesService localizaedStringForKey:LocalizableKeyCardLanguageAutoDescription];
+        return [ResourcesService localizationForKey:LocalizableKeyCardLanguageAutoDescription];
     } else {
         return nil;
     }

@@ -21,7 +21,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly) HSCardClass classId;
 @property (readonly, copy) NSArray<HSCard *> *cards;
 + (HSDeck * _Nullable)hsDeckFromDic:(NSDictionary *)dic error:(NSError ** _Nullable)error;
-- (NSString *)localizedDeckCodeWithTitle:(NSString *)title;
 @end
 
 NS_ASSUME_NONNULL_END

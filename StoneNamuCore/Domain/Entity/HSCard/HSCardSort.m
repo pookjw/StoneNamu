@@ -6,7 +6,6 @@
 //
 
 #import <StoneNamuCore/HSCardSort.h>
-#import <StoneNamuCore/Identifier.h>
 
 NSString * NSStringFromHSCardSort(HSCardSort sort) {
     switch (sort) {
@@ -84,24 +83,4 @@ NSArray<NSString *> *hsCardSorts(void) {
         NSStringFromHSCardSort(HSCardSortNameAsc),
         NSStringFromHSCardSort(HSCardSortNameDesc),
     ];
-}
-
-NSString * localizableFromHSCardSort(HSCardSort key) {
-    return NSLocalizedStringFromTableInBundle(NSStringFromHSCardSort(key),
-                                              @"HSCardSort",
-                                              [NSBundle bundleWithIdentifier:IDENTIFIER],
-                                              @"");;
-}
-
-NSDictionary<NSString *, NSString *> * localizablesWithHSCardSort(void) {
-    NSMutableDictionary<NSString *, NSString *> *dic = [@{} mutableCopy];
-    
-    [hsCardSorts() enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        dic[obj] = localizableFromHSCardSort(HSCardSortFromNSString(obj));
-    }];
-    
-    NSDictionary<NSString *, NSString *> *result = [[dic copy] autorelease];
-    [dic release];
-    
-    return result;
 }

@@ -36,7 +36,7 @@
     if ([self.localDeckUseCase isEasterEggDeckFromLocalDeck:localDeck]) {
         return [ResourcesService imageForKey:ImageKeyPnamuEasteregg1];
     } else {
-        return [ResourcesService portraitImageOfClassId:localDeck.classId.unsignedIntegerValue];;
+        return [ResourcesService portraitImageForClassId:localDeck.classId.unsignedIntegerValue];;
     }
 }
 

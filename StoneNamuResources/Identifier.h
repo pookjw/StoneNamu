@@ -7,4 +7,4 @@
 
 #import <Foundation/Foundation.h>
 
-#define Identifier @"com.pookjw.StoneNamuResources"
+#define IDENTIFIER @"com.pookjw.StoneNamuResources"
