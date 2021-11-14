@@ -76,11 +76,15 @@
     self.localeLabel = localeLabel;
     [localeLabel setLabelStyle];
     localeLabel.font = [NSFont preferredFontForTextStyle:NSFontTextStyleBody options:@{}];
-    localeLabel.stringValue = [NSString stringWithFormat:@"%@:", [ResourcesService localizationForKey:LocalizableKeyLocale]];
+    localeLabel.stringValue = [ResourcesService localizationForKey:LocalizableKeyLocale];
     
     NSPopUpButton *localeMenuButton = [NSPopUpButton new];
     self.localeMenuButton = localeMenuButton;
     localeMenuButton.pullsDown = NO;
+    localeMenuButton.translatesAutoresizingMaskIntoConstraints = NO;
+    [NSLayoutConstraint activateConstraints:@[
+        [localeMenuButton.widthAnchor constraintEqualToConstant:150.0f]
+    ]];
     
     [self.gridView addRowWithViews:@[localeLabel, localeMenuButton]];
     
@@ -128,7 +132,7 @@
     self.regionLabel = regionLabel;
     [regionLabel setLabelStyle];
     regionLabel.font = [NSFont preferredFontForTextStyle:NSFontTextStyleBody options:@{}];
-    regionLabel.stringValue = [NSString stringWithFormat:@"%@:", [ResourcesService localizationForKey:LocalizableKeyRegion]];
+    regionLabel.stringValue = [ResourcesService localizationForKey:LocalizableKeyRegion];
     
     NSPopUpButton *regionMenuButton = [NSPopUpButton new];
     self.regionMenuButton = regionMenuButton;
@@ -141,6 +145,10 @@
     NSMenu *regionMenu = [NSMenu new];
     self.regionMenu = regionMenu;
     regionMenuButton.menu = regionMenu;
+    regionMenuButton.translatesAutoresizingMaskIntoConstraints = NO;
+    [NSLayoutConstraint activateConstraints:@[
+        [regionMenuButton.widthAnchor constraintEqualToConstant:150.0f]
+    ]];
     
     NSMutableArray<PrefsCardsMenuItem *> *itemArray = [@[] mutableCopy];
     
