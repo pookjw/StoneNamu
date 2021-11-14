@@ -50,6 +50,9 @@
         self.pageCount = nil;
         self.page = [NSNumber numberWithUnsignedInt:1];
         self.isFetching = NO;
+        
+        [self observePrefsChange];
+        [self observeDataCachesDeleted];
     }
     
     return self;
