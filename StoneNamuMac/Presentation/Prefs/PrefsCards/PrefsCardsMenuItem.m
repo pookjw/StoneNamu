@@ -20,6 +20,11 @@
     return self;
 }
 
+- (void)dealloc {
+    [_key release];
+    [super dealloc];
+}
+
 - (id)copyWithZone:(NSZone *)zone {
     id copy = [super copyWithZone:zone];
     
