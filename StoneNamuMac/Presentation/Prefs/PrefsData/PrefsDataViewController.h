@@ -1,5 +1,5 @@
 //
-//  PrefsViewController.h
+//  PrefsDataViewController.h
 //  StoneNamuMac
 //
 //  Created by Jinwoo Kim on 11/14/21.
@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PrefsViewController : NSViewController
+@interface PrefsDataViewController : NSViewController
 
 @end
 

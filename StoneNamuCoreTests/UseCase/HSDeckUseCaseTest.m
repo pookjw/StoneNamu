@@ -9,7 +9,7 @@
 #import <StoneNamuCore/HSDeckUseCaseImpl.h>
 
 @interface HSDeckUseCaseTest : XCTestCase
-@property (retain) id<HSDeckUseCase> hsDeckUseCase;
+@property (retain) id<HSDeckUseCase> _Nullable hsDeckUseCase;
 @end
 
 @implementation HSDeckUseCaseTest
@@ -24,8 +24,7 @@
 
 - (void)tearDown {
     [super tearDown];
-    
-    [self->_hsDeckUseCase release];
+    self.hsDeckUseCase = nil;
 }
 
 - (void)testFetchByDeckCode {

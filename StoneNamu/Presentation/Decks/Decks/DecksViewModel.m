@@ -23,6 +23,7 @@
     self = [self init];
     
     if (self) {
+        [self->_dataSource release];
         self->_dataSource = [dataSource retain];
         self.contextMenuIndexPath = nil;
         

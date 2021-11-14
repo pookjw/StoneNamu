@@ -56,9 +56,12 @@
     
     if (copy) {
         HSDeck *_copy = (HSDeck *)copy;
+        [_copy->_deckCode release];
         _copy->_deckCode = [self.deckCode copyWithZone:zone];
+        [_copy->_format release];
         _copy->_format = [self.format copyWithZone:zone];
         _copy->_classId = self.classId;
+        [_copy->_cards release];
         _copy->_cards = [self.cards copyWithZone:zone];
     }
     

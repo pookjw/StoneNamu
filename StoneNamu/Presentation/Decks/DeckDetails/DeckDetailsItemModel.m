@@ -33,9 +33,11 @@
     
     if (copy) {
         DeckDetailsItemModel *_copy = (DeckDetailsItemModel *)copy;
+        [_copy->_hsCard release];
         _copy->_hsCard = [self.hsCard copyWithZone:zone];
         _copy->_hsCardCount = self.hsCardCount;
         _copy->_type = self.type;
+        [_copy->_manaDictionary release];
         _copy->_manaDictionary = [self.manaDictionary copyWithZone:zone];
     }
     

@@ -14,8 +14,11 @@
     self = [self init];
     
     if (self) {
+        [self->_cardManaCost release];
         self->_cardManaCost = [cost copy];
+        [self->_percentage release];
         self->_percentage = [percentage copy];
+        [self->_cardCount release];
         self->_cardCount = [cardCount copy];
         self->_isDarkMode = NO;
     }
@@ -35,9 +38,12 @@
     
     if (copy) {
         DeckDetailsManaCostGraphContentConfiguration *_copy = (DeckDetailsManaCostGraphContentConfiguration *)copy;
-        _copy->_cardManaCost = [self.cardManaCost copy];
-        _copy->_percentage = [self.percentage copy];
-        _copy->_cardCount = [self.cardCount copy];
+        [_copy->_cardManaCost release];
+        _copy->_cardManaCost = [self.cardManaCost copyWithZone:zone];
+        [_copy->_percentage release];
+        _copy->_percentage = [self.percentage copyWithZone:zone];
+        [_copy->_cardCount release];
+        _copy->_cardCount = [self.cardCount copcopyWithZone:zoney];
         _copy->_isDarkMode = self.isDarkMode;
     }
     

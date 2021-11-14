@@ -13,6 +13,7 @@
     self = [self init];
     
     if (self) {
+        [self->_card release];
         self->_card = [card copy];
         self.count = count;
     }

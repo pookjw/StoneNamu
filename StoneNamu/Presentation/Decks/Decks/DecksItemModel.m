@@ -14,6 +14,7 @@
     
     if (self) {
         self->_type = type;
+        [self->_localDeck release];
         self->_localDeck = [localDeck retain];
     }
     

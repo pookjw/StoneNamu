@@ -14,6 +14,7 @@
     self = [self init];
     
     if (self) {
+        [self->_regionHost release];
         self->_regionHost = [regionHost copy];
         self.isSelected = isSelected;
     }

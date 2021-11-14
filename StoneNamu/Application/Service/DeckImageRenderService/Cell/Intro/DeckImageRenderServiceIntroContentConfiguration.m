@@ -18,7 +18,9 @@
     
     if (self) {
         self->_classId = classId;;
+        [self->_deckName release];
         self->_deckName = [deckName copy];
+        [self->_deckFormat release];
         self->_deckFormat = [deckFormat copy];
         self->_isEasterEgg = isEasterEgg;
     }
@@ -38,8 +40,10 @@
     if (copy) {
         DeckImageRenderServiceIntroContentConfiguration *_copy = (DeckImageRenderServiceIntroContentConfiguration *)copy;
         _copy->_classId = self.classId;
-        _copy->_deckName = [self.deckName copy];
-        _copy->_deckFormat = [self.deckFormat copy];
+        [_copy->_deckName release];
+        _copy->_deckName = [self.deckName copyWithZone:zone];
+        [_copy->_deckFormat release];
+        _copy->_deckFormat = [self.deckFormat copyWithZone:zone];
         _copy->_isEasterEgg = self.isEasterEgg;
     }
     

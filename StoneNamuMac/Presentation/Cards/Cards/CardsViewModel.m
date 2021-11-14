@@ -26,6 +26,7 @@
     self = [self init];
     
     if (self) {
+        [self->_dataSource release];
         self->_dataSource = [dataSource retain];
         
         HSCardUseCaseImpl *hsCardUseCase = [HSCardUseCaseImpl new];
@@ -85,6 +86,7 @@
        NSDictionary<NSString *, NSString *> *defaultOptions = BlizzardHSAPIDefaultOptions();
         
         if (options == nil) {
+            [self->_options release];
             self->_options = [defaultOptions copy];
         } else {
             [self->_options release];

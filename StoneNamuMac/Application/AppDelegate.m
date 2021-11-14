@@ -16,7 +16,7 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     NSApp.automaticCustomizeTouchBarMenuItemEnabled = YES;
-    [self presentNewMainWindowIfNeeded];
+    [self presentNewMainWindow];
 }
 
 - (BOOL)applicationSupportsSecureRestorableState:(NSApplication *)app {
@@ -25,21 +25,8 @@
 }
 
 - (BOOL)applicationShouldHandleReopen:(NSApplication *)sender hasVisibleWindows:(BOOL)flag {
-    BOOL __block hasMainWindow = NO;
-    
-    [sender.windows enumerateObjectsUsingBlock:^(NSWindow * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if ([obj isKindOfClass:[MainWindow class]]) {
-            hasMainWindow = YES;
-            *stop = YES;
-        }
-    }];
-    
-    if (!hasMainWindow) {
-        [self presentNewMainWindow];
-        return YES;
-    } else {
-        return NO;
-    }
+    [self presentNewMainWindowIfNeeded];
+    return YES;
 }
 
 - (void)presentNewMainWindow {
@@ -50,14 +37,14 @@
 
 - (void)presentNewMainWindowIfNeeded {
     MainWindow * _Nullable __block mainWindow = nil;
-    
+
     [NSApp.windows enumerateObjectsUsingBlock:^(NSWindow * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([obj isKindOfClass:[MainWindow class]]) {
             mainWindow = (MainWindow *)obj;
             *stop = YES;
         }
     }];
-    
+
     if (mainWindow) {
         [mainWindow makeKeyAndOrderFront:nil];
     } else {

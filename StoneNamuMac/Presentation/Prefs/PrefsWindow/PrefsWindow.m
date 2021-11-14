@@ -7,11 +7,12 @@
 
 #import "PrefsWindow.h"
 #import "NSViewController+loadViewIfNeeded.h"
-#import "PrefsViewController.h"
+#import "PrefsTabViewController.h"
 #import <StoneNamuResources/StoneNamuResources.h>
+#import "NSProcessInfo+isEnabledRestoration.h"
 
 @interface PrefsWindow () <NSWindowDelegate>
-@property (retain) PrefsViewController *prefsViewController;
+@property (retain) PrefsTabViewController *prefsTabViewController;
 @end
 
 @implementation PrefsWindow
@@ -21,33 +22,41 @@
     
     if (self) {
         [self setAttributes];
-        
-        PrefsViewController *prefsViewController = [PrefsViewController new];
-        self.prefsViewController = prefsViewController;
-        [prefsViewController loadViewIfNeeded];
-        self.contentViewController = prefsViewController;
-        [prefsViewController release];
+        [self configurePrefsTabViewController];
     }
     
     return self;
 }
 
 - (void)dealloc {
-    [_prefsViewController release];
+    [_prefsTabViewController release];
     [super dealloc];
+}
+
+- (void)makeKeyAndOrderFront:(id)sender {
+    [super makeKeyAndOrderFront:sender];
+    [self center];
 }
 
 - (void)setAttributes {
     self.styleMask = NSWindowStyleMaskClosable | NSWindowStyleMaskTitled;
     self.movableByWindowBackground = NO;
-    self.contentMinSize = NSMakeSize(800, 600);
+    self.contentMinSize = NSMakeSize(500, 300);
     self.releasedWhenClosed = NO;
     self.titlebarAppearsTransparent = NO;
     self.titleVisibility = NSWindowTitleVisible;
     self.delegate = self;
-    self.restorable = YES;
-//    self.restorationClass = [MainWindowRestoration class];
+    self.restorable = NSProcessInfo.processInfo.isEnabledRestoration;
+//        self.restorationClass = [MainWindowRestoration class];
     self.identifier = NSUserInterfaceItemIdentifierPrefsWindow;
+}
+
+- (void)configurePrefsTabViewController {
+    PrefsTabViewController *prefsTabViewController = [PrefsTabViewController new];
+    self.prefsTabViewController = prefsTabViewController;
+    [prefsTabViewController loadViewIfNeeded];
+    self.contentViewController = prefsTabViewController;
+    [prefsTabViewController release];
 }
 
 #pragma mark - NSWindowDelegate

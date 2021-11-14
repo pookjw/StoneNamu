@@ -9,7 +9,7 @@
 #import <StoneNamuCore/PrefsUseCaseImpl.h>
 
 @interface PrefsUseCaseTest : XCTestCase
-@property (retain) id<PrefsUseCase> prefsUseCase;
+@property (retain) id<PrefsUseCase> _Nullable prefsUseCase;
 @end
 
 @implementation PrefsUseCaseTest
@@ -24,8 +24,7 @@
 
 - (void)tearDown {
     [super tearDown];
-    
-    [self->_prefsUseCase release];
+    self.prefsUseCase = nil;
 }
 
 - (void)test {

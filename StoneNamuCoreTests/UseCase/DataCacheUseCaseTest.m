@@ -9,7 +9,7 @@
 #import <StoneNamuCore/DataCacheUseCaseImpl.h>
 
 @interface DataCacheUseCaseTest : XCTestCase
-@property (retain) id<DataCacheUseCase> dataCacheUseCase;
+@property (retain) id<DataCacheUseCase> _Nullable dataCacheUseCase;
 @end
 
 @implementation DataCacheUseCaseTest
@@ -24,8 +24,7 @@
 
 - (void)tearDown {
     [super tearDown];
-    
-    [self->_dataCacheUseCase release];
+    self.dataCacheUseCase = nil;
 }
 
 - (void)test {

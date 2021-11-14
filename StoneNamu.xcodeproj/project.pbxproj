@@ -266,7 +266,6 @@
 		4FDE8DFB26F113AB00959B97 /* DeckImageRenderServiceAboutContentConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FDE8DFA26F113AB00959B97 /* DeckImageRenderServiceAboutContentConfiguration.m */; };
 		4FDE8DFE26F113B500959B97 /* DeckImageRenderServiceAboutContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FDE8DFD26F113B500959B97 /* DeckImageRenderServiceAboutContentView.m */; };
 		4FDE8E0126F1281100959B97 /* NSNumber+stringWithSepearatedDecimalNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FDE8E0026F1281100959B97 /* NSNumber+stringWithSepearatedDecimalNumber.m */; };
-		4FE85701270089BC0008C2FB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE85700270089BC0008C2FB /* AppDelegate.m */; };
 		4FE85708270089BD0008C2FB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE85707270089BD0008C2FB /* main.m */; };
 		4FE857622700913A0008C2FB /* MainSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE857612700913A0008C2FB /* MainSplitViewController.m */; };
 		4FE85767270092F30008C2FB /* MainListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE85766270092F30008C2FB /* MainListViewController.m */; };
@@ -329,8 +328,15 @@
 		F3024D3027400ACC001DDE08 /* HSCardCollectible.strings in Resources */ = {isa = PBXBuildFile; fileRef = F3024D0D27400ACC001DDE08 /* HSCardCollectible.strings */; };
 		F3024D3127400ACC001DDE08 /* LocalizedError.strings in Resources */ = {isa = PBXBuildFile; fileRef = F3024D0F27400ACC001DDE08 /* LocalizedError.strings */; };
 		F3024D3227400ACC001DDE08 /* HSCardRarity.strings in Resources */ = {isa = PBXBuildFile; fileRef = F3024D1127400ACC001DDE08 /* HSCardRarity.strings */; };
+		F303D63427414E8700569E20 /* PrefsTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F303D63327414E8700569E20 /* PrefsTabViewController.m */; };
+		F303D6392741507400569E20 /* PrefsCardsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F303D6382741507400569E20 /* PrefsCardsViewController.m */; };
+		F303D63C274150B200569E20 /* PrefsDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F303D63B274150B200569E20 /* PrefsDataViewController.m */; };
+		F303D63F2741549800569E20 /* NSTabViewController+selectTabViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = F303D63E2741549800569E20 /* NSTabViewController+selectTabViewItem.m */; };
+		F303D64227415BFF00569E20 /* NSProcessInfo+isEnabledRestoration.m in Sources */ = {isa = PBXBuildFile; fileRef = F303D64127415BFF00569E20 /* NSProcessInfo+isEnabledRestoration.m */; };
+		F303D645274162CB00569E20 /* PrefsCardsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F303D644274162CB00569E20 /* PrefsCardsViewModel.m */; };
+		F303D648274171C700569E20 /* PrefsCardsMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = F303D647274171C700569E20 /* PrefsCardsMenuItem.m */; };
 		F31580ED2740D69000DBD6D4 /* PrefsWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = F31580EC2740D69000DBD6D4 /* PrefsWindow.m */; };
-		F31580F12741123800DBD6D4 /* PrefsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F31580F02741123800DBD6D4 /* PrefsViewController.m */; };
+		F31581012741231700DBD6D4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F31581002741231700DBD6D4 /* AppDelegate.m */; };
 		F35E230A27401B42000A2605 /* BlizzardHSAPIOptionType.strings in Resources */ = {isa = PBXBuildFile; fileRef = F35E230C27401B42000A2605 /* BlizzardHSAPIOptionType.strings */; };
 /* End PBXBuildFile section */
 
@@ -834,7 +840,6 @@
 		4FE4B4B427333C22008D6FCD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		4FE856FD270089BC0008C2FB /* StoneNamuMac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StoneNamuMac.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FE856FF270089BC0008C2FB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		4FE85700270089BC0008C2FB /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		4FE85707270089BD0008C2FB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4FE857602700913A0008C2FB /* MainSplitViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainSplitViewController.h; sourceTree = "<group>"; };
 		4FE857612700913A0008C2FB /* MainSplitViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainSplitViewController.m; sourceTree = "<group>"; };
@@ -951,10 +956,23 @@
 		F3024D2027400ACC001DDE08 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/HSCardCollectible.strings; sourceTree = "<group>"; };
 		F3024D2127400ACC001DDE08 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LocalizedError.strings; sourceTree = "<group>"; };
 		F3024D2227400ACC001DDE08 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/HSCardRarity.strings; sourceTree = "<group>"; };
+		F303D63227414E8700569E20 /* PrefsTabViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefsTabViewController.h; sourceTree = "<group>"; };
+		F303D63327414E8700569E20 /* PrefsTabViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrefsTabViewController.m; sourceTree = "<group>"; };
+		F303D6372741507400569E20 /* PrefsCardsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefsCardsViewController.h; sourceTree = "<group>"; };
+		F303D6382741507400569E20 /* PrefsCardsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrefsCardsViewController.m; sourceTree = "<group>"; };
+		F303D63A274150B200569E20 /* PrefsDataViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefsDataViewController.h; sourceTree = "<group>"; };
+		F303D63B274150B200569E20 /* PrefsDataViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrefsDataViewController.m; sourceTree = "<group>"; };
+		F303D63D2741549800569E20 /* NSTabViewController+selectTabViewItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSTabViewController+selectTabViewItem.h"; sourceTree = "<group>"; };
+		F303D63E2741549800569E20 /* NSTabViewController+selectTabViewItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSTabViewController+selectTabViewItem.m"; sourceTree = "<group>"; };
+		F303D64027415BFF00569E20 /* NSProcessInfo+isEnabledRestoration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSProcessInfo+isEnabledRestoration.h"; sourceTree = "<group>"; };
+		F303D64127415BFF00569E20 /* NSProcessInfo+isEnabledRestoration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSProcessInfo+isEnabledRestoration.m"; sourceTree = "<group>"; };
+		F303D643274162CB00569E20 /* PrefsCardsViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefsCardsViewModel.h; sourceTree = "<group>"; };
+		F303D644274162CB00569E20 /* PrefsCardsViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrefsCardsViewModel.m; sourceTree = "<group>"; };
+		F303D646274171C700569E20 /* PrefsCardsMenuItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefsCardsMenuItem.h; sourceTree = "<group>"; };
+		F303D647274171C700569E20 /* PrefsCardsMenuItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrefsCardsMenuItem.m; sourceTree = "<group>"; };
 		F31580EB2740D69000DBD6D4 /* PrefsWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefsWindow.h; sourceTree = "<group>"; };
 		F31580EC2740D69000DBD6D4 /* PrefsWindow.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrefsWindow.m; sourceTree = "<group>"; };
-		F31580EF2741123800DBD6D4 /* PrefsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefsViewController.h; sourceTree = "<group>"; };
-		F31580F02741123800DBD6D4 /* PrefsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrefsViewController.m; sourceTree = "<group>"; };
+		F31581002741231700DBD6D4 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		F35E230B27401B42000A2605 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/BlizzardHSAPIOptionType.strings; sourceTree = "<group>"; };
 		F35E230D27401B43000A2605 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/BlizzardHSAPIOptionType.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1270,10 +1288,17 @@
 		4F4892D4272469AB00126131 /* Cards */ = {
 			isa = PBXGroup;
 			children = (
-				4F7333F5272D834D00438FE0 /* Cards */,
-				4FC48A892739FE7B001240FE /* Factory */,
-				4F394DBA2738613F00D1148D /* Menu */,
-				4F7333F4272D834900438FE0 /* Toolbar */,
+				4FE85768270093CF0008C2FB /* CardsViewController.h */,
+				4FE85769270093CF0008C2FB /* CardsViewController.m */,
+				4FE8576B27009B5C0008C2FB /* CardsViewModel.h */,
+				4FE8576C27009B5C0008C2FB /* CardsViewModel.m */,
+				4FE8576E27009C4D0008C2FB /* CardSectionModel.h */,
+				4FE8576F27009C4D0008C2FB /* CardSectionModel.m */,
+				4FE8577127009C570008C2FB /* CardItemModel.h */,
+				4FE8577227009C570008C2FB /* CardItemModel.m */,
+				4F4892E72724727000126131 /* CardContentView.h */,
+				4F4892E82724727000126131 /* CardContentView.m */,
+				4F4892EA272474D600126131 /* CardContentView.xib */,
 				4F883F67272FFE6100AF0048 /* TouchBar */,
 			);
 			path = Cards;
@@ -1495,24 +1520,6 @@
 				4F7333F7272D836A00438FE0 /* CardOptionsToolbar.m */,
 			);
 			path = Toolbar;
-			sourceTree = "<group>";
-		};
-		4F7333F5272D834D00438FE0 /* Cards */ = {
-			isa = PBXGroup;
-			children = (
-				4FE85768270093CF0008C2FB /* CardsViewController.h */,
-				4FE85769270093CF0008C2FB /* CardsViewController.m */,
-				4FE8576B27009B5C0008C2FB /* CardsViewModel.h */,
-				4FE8576C27009B5C0008C2FB /* CardsViewModel.m */,
-				4FE8576E27009C4D0008C2FB /* CardSectionModel.h */,
-				4FE8576F27009C4D0008C2FB /* CardSectionModel.m */,
-				4FE8577127009C570008C2FB /* CardItemModel.h */,
-				4FE8577227009C570008C2FB /* CardItemModel.m */,
-				4F4892E72724727000126131 /* CardContentView.h */,
-				4F4892E82724727000126131 /* CardContentView.m */,
-				4F4892EA272474D600126131 /* CardContentView.xib */,
-			);
-			path = Cards;
 			sourceTree = "<group>";
 		};
 		4F7EC54826EB29FF00A7758D /* PhotosService */ = {
@@ -2093,7 +2100,7 @@
 			isa = PBXGroup;
 			children = (
 				4FE856FF270089BC0008C2FB /* AppDelegate.h */,
-				4FE85700270089BC0008C2FB /* AppDelegate.m */,
+				F31581002741231700DBD6D4 /* AppDelegate.m */,
 				4FE85707270089BD0008C2FB /* main.m */,
 				4F23C8B4273D9A2500C33F10 /* Assets.xcassets */,
 				4F23C8BA273D9A5900C33F10 /* InfoPlist.strings */,
@@ -2129,6 +2136,10 @@
 				4F83FBDE272E7226002D2387 /* NSView+isDarkMode.m */,
 				4F883F72273011FC00AF0048 /* NSTextField+setLabelStyle.h */,
 				4F883F73273011FC00AF0048 /* NSTextField+setLabelStyle.m */,
+				F303D63D2741549800569E20 /* NSTabViewController+selectTabViewItem.h */,
+				F303D63E2741549800569E20 /* NSTabViewController+selectTabViewItem.m */,
+				F303D64027415BFF00569E20 /* NSProcessInfo+isEnabledRestoration.h */,
+				F303D64127415BFF00569E20 /* NSProcessInfo+isEnabledRestoration.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -2155,6 +2166,9 @@
 			isa = PBXGroup;
 			children = (
 				4F4892D4272469AB00126131 /* Cards */,
+				4FC48A892739FE7B001240FE /* Factory */,
+				4F394DBA2738613F00D1148D /* Menu */,
+				4F7333F4272D834900438FE0 /* Toolbar */,
 			);
 			path = Cards;
 			sourceTree = "<group>";
@@ -2297,11 +2311,35 @@
 			path = Localizables;
 			sourceTree = "<group>";
 		};
+		F303D6352741504C00569E20 /* PrefsCards */ = {
+			isa = PBXGroup;
+			children = (
+				F303D6372741507400569E20 /* PrefsCardsViewController.h */,
+				F303D6382741507400569E20 /* PrefsCardsViewController.m */,
+				F303D643274162CB00569E20 /* PrefsCardsViewModel.h */,
+				F303D644274162CB00569E20 /* PrefsCardsViewModel.m */,
+				F303D646274171C700569E20 /* PrefsCardsMenuItem.h */,
+				F303D647274171C700569E20 /* PrefsCardsMenuItem.m */,
+			);
+			path = PrefsCards;
+			sourceTree = "<group>";
+		};
+		F303D6362741505B00569E20 /* PrefsData */ = {
+			isa = PBXGroup;
+			children = (
+				F303D63A274150B200569E20 /* PrefsDataViewController.h */,
+				F303D63B274150B200569E20 /* PrefsDataViewController.m */,
+			);
+			path = PrefsData;
+			sourceTree = "<group>";
+		};
 		F31580E92740D65A00DBD6D4 /* Prefs */ = {
 			isa = PBXGroup;
 			children = (
 				F31580EA2740D67500DBD6D4 /* PrefsWindow */,
 				F31580EE2741122500DBD6D4 /* Prefs */,
+				F303D6352741504C00569E20 /* PrefsCards */,
+				F303D6362741505B00569E20 /* PrefsData */,
 			);
 			path = Prefs;
 			sourceTree = "<group>";
@@ -2318,8 +2356,8 @@
 		F31580EE2741122500DBD6D4 /* Prefs */ = {
 			isa = PBXGroup;
 			children = (
-				F31580EF2741123800DBD6D4 /* PrefsViewController.h */,
-				F31580F02741123800DBD6D4 /* PrefsViewController.m */,
+				F303D63227414E8700569E20 /* PrefsTabViewController.h */,
+				F303D63327414E8700569E20 /* PrefsTabViewController.m */,
 			);
 			path = Prefs;
 			sourceTree = "<group>";
@@ -2865,26 +2903,31 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F303D63F2741549800569E20 /* NSTabViewController+selectTabViewItem.m in Sources */,
 				4F83FBDF272E7226002D2387 /* NSView+isDarkMode.m in Sources */,
 				4FE857622700913A0008C2FB /* MainSplitViewController.m in Sources */,
 				4FC48A882739EF48001240FE /* CardOptionsFactory.m in Sources */,
 				4FE8576D27009B5C0008C2FB /* CardsViewModel.m in Sources */,
+				F31581012741231700DBD6D4 /* AppDelegate.m in Sources */,
+				F303D6392741507400569E20 /* PrefsCardsViewController.m in Sources */,
 				4FE85708270089BD0008C2FB /* main.m in Sources */,
 				4F23C8A3273D830200C33F10 /* MainWindowRestoration.m in Sources */,
 				4FC402C0273870C200D25523 /* ViewMenuItem.m in Sources */,
-				F31580F12741123800DBD6D4 /* PrefsViewController.m in Sources */,
 				4FC402C3273872A900D25523 /* WindowMenuItem.m in Sources */,
 				4F883F6E27300B1700AF0048 /* NSToolbarIdentifierCardOption+BlizzardHSAPIOptionType.m in Sources */,
 				4F4892E92724727000126131 /* CardContentView.m in Sources */,
+				F303D64227415BFF00569E20 /* NSProcessInfo+isEnabledRestoration.m in Sources */,
 				F31580ED2740D69000DBD6D4 /* PrefsWindow.m in Sources */,
 				4FC402B22738686500D25523 /* AppMenuItem.m in Sources */,
 				4F883F7127300BCB00AF0048 /* NSTouchBarItemIdentifierCardOptions+BlizzardHSAPIOptionType.m in Sources */,
-				4FE85701270089BC0008C2FB /* AppDelegate.m in Sources */,
 				4F83FBDC272E6F5D002D2387 /* DynamicMenuToolbarItem.m in Sources */,
 				4FE8577027009C4D0008C2FB /* CardSectionModel.m in Sources */,
+				F303D63427414E8700569E20 /* PrefsTabViewController.m in Sources */,
+				F303D645274162CB00569E20 /* PrefsCardsViewModel.m in Sources */,
 				4F4892DE27246B6000126131 /* NSViewController+loadViewIfNeeded.m in Sources */,
 				4FE857792700A3580008C2FB /* NSWindow+presentErrorAlert.m in Sources */,
 				4F883F66272FF31500AF0048 /* CardOptionsSearchField.m in Sources */,
+				F303D63C274150B200569E20 /* PrefsDataViewController.m in Sources */,
 				4FE8576A270093CF0008C2FB /* CardsViewController.m in Sources */,
 				4FC48A852739E6B3001240FE /* NSUserInterfaceItemIdentifierCardOption+BlizzardHSAPIOption.m in Sources */,
 				4F4892E227246E2B00126131 /* MainWindow.m in Sources */,
@@ -2900,6 +2943,7 @@
 				4F98C28F27284DC900865CCD /* SpinnerView.m in Sources */,
 				4FC402BD27386F3100D25523 /* EditMenuItem.m in Sources */,
 				4F466EF1272851090035C569 /* NSViewController+SpinnerView.m in Sources */,
+				F303D648274171C700569E20 /* PrefsCardsMenuItem.m in Sources */,
 				4FC402CD2738759200D25523 /* CardOptionsMenu.m in Sources */,
 				4FE857762700A0230008C2FB /* NSCollectionViewDiffableDataSource+applySnapshotAndWait.m in Sources */,
 				4F7333F8272D836A00438FE0 /* CardOptionsToolbar.m in Sources */,

@@ -17,6 +17,7 @@
     self = [self init];
     
     if (self) {
+        [self->_hsCard release];
         self->_hsCard = [hsCard copy];
         self->_count = count;
     }
@@ -34,6 +35,7 @@
     
     if (copy) {
         DeckAddCardContentConfiguration *_copy = (DeckAddCardContentConfiguration *)copy;
+        [_copy->_hsCard release];
         _copy->_hsCard = [self.hsCard copyWithZone:zone];
         _copy->_count = self.count;
     }

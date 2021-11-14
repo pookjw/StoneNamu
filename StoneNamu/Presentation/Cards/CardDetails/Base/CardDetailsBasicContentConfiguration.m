@@ -14,7 +14,9 @@
     self = [self init];
     
     if (self) {
+        [self->_leadingText release];
         self->_leadingText = [leadingText copy];
+        [self->_trailingText release];
         self->_trailingText = [trailingText copy];
     }
     
@@ -33,8 +35,10 @@
     if (copy) {
         CardDetailsBasicContentConfiguration *_copy = (CardDetailsBasicContentConfiguration *)copy;
         
-        _copy->_leadingText = [self.leadingText copy];
-        _copy->_trailingText = [self.trailingText copy];
+        [_copy->_leadingText release];
+        _copy->_leadingText = [self.leadingText copyWithZone:zone];
+        [_copy->_trailingText release];
+        _copy->_trailingText = [self.trailingText copyWithZone:zone];
     }
     
     return copy;

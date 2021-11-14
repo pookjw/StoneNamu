@@ -18,6 +18,7 @@
     self = [self initWithTitle:string action:selector keyEquivalent:charCode];
     
     if (self) {
+        [self->_key release];
         self->_key = [key copy];
     }
     
@@ -29,7 +30,8 @@
     
     if (copy) {
         CardOptionsMenuItem *_copy = (CardOptionsMenuItem *)copy;
-        _copy->_key = [self.key copy];
+        [_copy->_key release];
+        _copy->_key = [self->_key copyWithZone:zone];
     }
     
     return copy;

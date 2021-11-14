@@ -13,6 +13,7 @@
     self = [self init];
     
     if (self) {
+        [self->_hsCard release];
         self->_hsCard = [hsCard copy];
     }
     

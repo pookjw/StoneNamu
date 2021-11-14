@@ -14,6 +14,7 @@
     self = [self init];
     
     if (self) {
+        [self->_localDeck release];
         self->_localDeck = [localDeck retain];
         self->_isDarkMode = NO;
     }
@@ -31,6 +32,7 @@
     
     if (copy) {
         DeckBaseContentConfiguration *_copy = (DeckBaseContentConfiguration *)copy;
+        [_copy->_localDeck release];
         _copy->_localDeck= [self.localDeck retain];
     }
     

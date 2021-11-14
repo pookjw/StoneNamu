@@ -35,8 +35,8 @@
 
 @implementation CardOptionsToolbar
 
-- (instancetype)initWithOptions:(NSDictionary<NSString *,NSString *> * _Nullable)options cardOptionsToolbarDelegate:(nonnull id<CardOptionsToolbarDelegate>)cardOptionsToolbarDelegate {
-    self = [super initWithIdentifier:@"CardOptionsToolbar"];
+- (instancetype)initWithIdentifier:(NSToolbarIdentifier)identifier options:(NSDictionary<NSString *, NSString *> * _Nullable)options cardOptionsToolbarDelegate:(id<CardOptionsToolbarDelegate>)cardOptionsToolbarDelegate {
+    self = [self initWithIdentifier:identifier];
     
     if (self) {
         NSMutableDictionary<NSString *, NSString *> *mutableOptions = [options mutableCopy];
@@ -44,8 +44,8 @@
         [mutableOptions release];
         
         self.cardOptionsToolbarDelegate = cardOptionsToolbarDelegate;
-        [self configureToolbarItems];
         [self setAttributes];
+        [self configureToolbarItems];
         [self updateItemsWithOptions:options];
     }
     

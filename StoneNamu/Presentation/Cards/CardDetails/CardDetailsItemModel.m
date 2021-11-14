@@ -20,6 +20,7 @@
     if (self) {
         self->_type = type;
         self.value = value;
+        [self->_childCards release];
         self->_childCards = nil;
     }
     
@@ -32,6 +33,7 @@
     if (self) {
         self->_type = type;
         self.value = nil;
+        [self->_childCards release];
         self->_childCards = [childCards copy];
     }
     

@@ -48,7 +48,6 @@
 - (void)requestDataSourceWithCard:(HSCard *)hsCard {
     [self.queue addBarrierBlock:^{
         [self->_hsCard release];
-        self->_hsCard = nil;
         self->_hsCard = [hsCard copy];
         
         NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];

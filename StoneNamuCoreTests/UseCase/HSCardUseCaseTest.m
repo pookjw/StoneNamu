@@ -9,7 +9,7 @@
 #import <StoneNamuCore/HSCardUseCaseImpl.h>
 
 @interface HSCardUseCaseTest : XCTestCase
-@property (retain) id<HSCardUseCase> hsCardUseCase;
+@property (retain) id<HSCardUseCase> _Nullable hsCardUseCase;
 @end
 
 @implementation HSCardUseCaseTest
@@ -24,8 +24,7 @@
 
 - (void)tearDown {
     [super tearDown];
-    
-    [self->_hsCardUseCase release];
+    self.hsCardUseCase = nil;
 }
 
 - (void)testFetchWithOptions {

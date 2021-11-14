@@ -15,6 +15,8 @@
     self.bezeled = NO;
     self.preferredMaxLayoutWidth = 0.0f;
     self.lineBreakMode = NSLineBreakByWordWrapping;
+    self.drawsBackground = YES;
+    self.backgroundColor = NSColor.clearColor;
 }
 
 @end

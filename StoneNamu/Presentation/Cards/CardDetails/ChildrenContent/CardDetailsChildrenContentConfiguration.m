@@ -14,6 +14,7 @@
     self = [self init];
     
     if (self) {
+        [self->_childCards release];
         self->_childCards = [childCards copy];
     }
     
@@ -31,7 +32,8 @@
     if (copy) {
         CardDetailsChildrenContentConfiguration *_copy = (CardDetailsChildrenContentConfiguration *)copy;
         
-        _copy->_childCards = [self.childCards copy];
+        [_copy->_childCards release];
+        _copy->_childCards = [self.childCards copyWithZone:zone];
         _copy.delegate = self.delegate;
     }
     

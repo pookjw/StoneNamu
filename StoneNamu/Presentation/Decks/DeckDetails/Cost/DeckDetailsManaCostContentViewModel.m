@@ -19,6 +19,7 @@
     self = [self init];
     
     if (self) {
+        [self->_dataSource release];
         self->_dataSource = [dataSource retain];
         
         NSOperationQueue *queue = [NSOperationQueue new];

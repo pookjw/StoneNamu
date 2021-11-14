@@ -233,7 +233,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardsVie
 }
 
 - (void)configureCardOptionsToolbar {
-    CardOptionsToolbar *cardOptionsToolbar = [[CardOptionsToolbar alloc] initWithOptions:self.viewModel.options cardOptionsToolbarDelegate:self];
+    CardOptionsToolbar *cardOptionsToolbar = [[CardOptionsToolbar alloc] initWithIdentifier:NSToolbarIdentifierCardOptionsToolbar options:self.viewModel.options cardOptionsToolbarDelegate:self];
     self.cardOptionsToolbar = cardOptionsToolbar;
     [cardOptionsToolbar release];
 }

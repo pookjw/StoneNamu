@@ -65,6 +65,10 @@
             argument = "-com.apple.CoreData.ConcurrencyDebug 1"
             isEnabled = "NO">
          </CommandLineArgument>
+         <CommandLineArgument
+            argument = "-disableRestoration"
+            isEnabled = "YES">
+         </CommandLineArgument>
       </CommandLineArguments>
    </LaunchAction>
    <ProfileAction

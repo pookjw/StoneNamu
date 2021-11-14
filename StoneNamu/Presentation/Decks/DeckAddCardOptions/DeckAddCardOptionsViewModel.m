@@ -20,8 +20,8 @@
     self = [self init];
     
     if (self) {
-        self->_dataSource = dataSource;
-        [self->_dataSource retain];
+        [self->_dataSource release];
+        self->_dataSource = [dataSource retain];
         self.localDeck = nil;
         
         NSOperationQueue *queue = [NSOperationQueue new];

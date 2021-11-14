@@ -14,6 +14,7 @@
     self = [self init];
     
     if (self) {
+        [self->_manaDictionary release];
         self->_manaDictionary = [manaDictionary copy];
     }
     
@@ -30,6 +31,7 @@
     
     if (copy) {
         DeckDetailsManaCostContentConfiguration *_copy = (DeckDetailsManaCostContentConfiguration *)copy;
+        [_copy->_manaDictionary release];
         _copy->_manaDictionary = [self.manaDictionary copyWithZone:zone];
     }
     

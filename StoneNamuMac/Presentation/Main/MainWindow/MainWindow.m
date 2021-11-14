@@ -10,6 +10,7 @@
 #import "MainWindowRestoration.h"
 #import "NSViewController+loadViewIfNeeded.h"
 #import <StoneNamuResources/StoneNamuResources.h>
+#import "NSProcessInfo+isEnabledRestoration.h"
 
 @interface MainWindow () <NSWindowDelegate>
 @property (retain) MainSplitViewController *mainSplitViewController;
@@ -22,12 +23,7 @@
     
     if (self) {
         [self setAttributes];
-        
-        MainSplitViewController *mainSplitViewController = [MainSplitViewController new];
-        self.mainSplitViewController = mainSplitViewController;
-        [mainSplitViewController loadViewIfNeeded];
-        self.contentViewController = mainSplitViewController;
-        [mainSplitViewController release];
+        [self configureMainSplitViewController];
     }
     
     return self;
@@ -36,6 +32,11 @@
 - (void)dealloc {
     [_mainSplitViewController release];
     [super dealloc];
+}
+
+- (void)makeKeyAndOrderFront:(id)sender {
+    [super makeKeyAndOrderFront:sender];
+    [self center];
 }
 
 - (void)restoreStateWithCoder:(NSCoder *)coder {
@@ -51,9 +52,17 @@
     self.titlebarAppearsTransparent = YES;
     self.titleVisibility = NSWindowTitleHidden;
     self.delegate = self;
-    self.restorable = YES;
+    self.restorable = NSProcessInfo.processInfo.isEnabledRestoration;
     self.restorationClass = [MainWindowRestoration class];
     self.identifier = NSUserInterfaceItemIdentifierMainWindow;
+}
+
+- (void)configureMainSplitViewController {
+    MainSplitViewController *mainSplitViewController = [MainSplitViewController new];
+    self.mainSplitViewController = mainSplitViewController;
+    [mainSplitViewController loadViewIfNeeded];
+    self.contentViewController = mainSplitViewController;
+    [mainSplitViewController release];
 }
 
 #pragma mark - NSWindowDelegate

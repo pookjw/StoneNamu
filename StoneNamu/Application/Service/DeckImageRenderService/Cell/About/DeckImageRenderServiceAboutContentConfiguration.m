@@ -14,7 +14,9 @@
     self = [self init];
     
     if (self) {
+        [self->_totalArcaneDust release];
         self->_totalArcaneDust = [totalArcaneDust copy];
+        [self->_hsYearCurrent release];
         self->_hsYearCurrent = [hsYearCurrent copy];
     }
     
@@ -32,8 +34,10 @@
     
     if (copy) {
         DeckImageRenderServiceAboutContentConfiguration *_copy = (DeckImageRenderServiceAboutContentConfiguration *)copy;
-        _copy->_totalArcaneDust = [self.totalArcaneDust copy];
-        _copy->_hsYearCurrent = [self.hsYearCurrent copy];
+        [_copy->_totalArcaneDust release];
+        _copy->_totalArcaneDust = [self.totalArcaneDust copyWithZone:zone];
+        [_copy->_hsYearCurrent release];
+        _copy->_hsYearCurrent = [self.hsYearCurrent copyWithZone:zone];
     }
     
     return copy;

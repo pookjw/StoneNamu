@@ -14,6 +14,7 @@
     self = [self init];
     
     if (self) {
+        [self->_locale release];
         self->_locale = [locale copy];
         self.isSelected = isSelected;
     }

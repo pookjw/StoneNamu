@@ -123,8 +123,8 @@
     //
     
     NSMenuItem *optionTypeSetItem = [[NSMenuItem alloc] initWithTitle:@""
-                                                                      action:nil
-                                                               keyEquivalent:@""];
+                                                               action:nil
+                                                        keyEquivalent:@""];
     self.optionTypeSetItem = optionTypeSetItem;
     optionTypeSetItem.identifier = NSUserInterfaceItemIdentifierCardOptionSet;
     optionTypeSetItem.submenu = [self menuForMenuItem:optionTypeSetItem];
@@ -132,8 +132,8 @@
     //
     
     NSMenuItem *optionTypeClassItem = [[NSMenuItem alloc] initWithTitle:@""
-                                                                      action:nil
-                                                               keyEquivalent:@""];
+                                                                 action:nil
+                                                          keyEquivalent:@""];
     self.optionTypeClassItem = optionTypeClassItem;
     optionTypeClassItem.identifier = NSUserInterfaceItemIdentifierCardOptionClass;
     optionTypeClassItem.submenu = [self menuForMenuItem:optionTypeClassItem];
@@ -141,8 +141,8 @@
     //
     
     NSMenuItem *optionTypeManaCostItem = [[NSMenuItem alloc] initWithTitle:@""
-                                                                      action:nil
-                                                               keyEquivalent:@""];
+                                                                    action:nil
+                                                             keyEquivalent:@""];
     self.optionTypeManaCostItem = optionTypeManaCostItem;
     optionTypeManaCostItem.identifier = NSUserInterfaceItemIdentifierCardOptionManaCost;
     optionTypeManaCostItem.submenu = [self menuForMenuItem:optionTypeManaCostItem];
@@ -150,8 +150,8 @@
     //
     
     NSMenuItem *optionTypeAttackItem = [[NSMenuItem alloc] initWithTitle:@""
-                                                                      action:nil
-                                                               keyEquivalent:@""];
+                                                                  action:nil
+                                                           keyEquivalent:@""];
     self.optionTypeAttackItem = optionTypeAttackItem;
     optionTypeAttackItem.identifier = NSUserInterfaceItemIdentifierCardOptionAttack;
     optionTypeAttackItem.submenu = [self menuForMenuItem:optionTypeAttackItem];
@@ -159,8 +159,8 @@
     //
     
     NSMenuItem *optionTypeHealthItem = [[NSMenuItem alloc] initWithTitle:@""
-                                                                      action:nil
-                                                               keyEquivalent:@""];
+                                                                  action:nil
+                                                           keyEquivalent:@""];
     self.optionTypeHealthItem = optionTypeHealthItem;
     optionTypeHealthItem.identifier = NSUserInterfaceItemIdentifierCardOptionHealth;
     optionTypeHealthItem.submenu = [self menuForMenuItem:optionTypeHealthItem];
@@ -168,8 +168,8 @@
     //
     
     NSMenuItem *optionTypeCollectibleItem = [[NSMenuItem alloc] initWithTitle:@""
-                                                                      action:nil
-                                                               keyEquivalent:@""];
+                                                                       action:nil
+                                                                keyEquivalent:@""];
     self.optionTypeCollectibleItem = optionTypeCollectibleItem;
     optionTypeCollectibleItem.identifier = NSUserInterfaceItemIdentifierCardOptionCollectible;
     optionTypeCollectibleItem.submenu = [self menuForMenuItem:optionTypeCollectibleItem];
@@ -177,8 +177,8 @@
     //
     
     NSMenuItem *optionTypeRarityItem = [[NSMenuItem alloc] initWithTitle:@""
-                                                                      action:nil
-                                                               keyEquivalent:@""];
+                                                                  action:nil
+                                                           keyEquivalent:@""];
     self.optionTypeRarityItem = optionTypeRarityItem;
     optionTypeRarityItem.identifier = NSUserInterfaceItemIdentifierCardOptionRarity;
     optionTypeRarityItem.submenu = [self menuForMenuItem:optionTypeRarityItem];
@@ -186,8 +186,8 @@
     //
     
     NSMenuItem *optionTypeTypeItem = [[NSMenuItem alloc] initWithTitle:@""
-                                                                      action:nil
-                                                               keyEquivalent:@""];
+                                                                action:nil
+                                                         keyEquivalent:@""];
     self.optionTypeTypeItem = optionTypeTypeItem;
     optionTypeTypeItem.identifier = NSUserInterfaceItemIdentifierCardOptionType;
     optionTypeTypeItem.submenu = [self menuForMenuItem:optionTypeTypeItem];
@@ -204,8 +204,8 @@
     //
     
     NSMenuItem *optionTypeSpellSchoolItem = [[NSMenuItem alloc] initWithTitle:@""
-                                                                      action:nil
-                                                               keyEquivalent:@""];
+                                                                       action:nil
+                                                                keyEquivalent:@""];
     self.optionTypeSpellSchoolItem = optionTypeSpellSchoolItem;
     optionTypeSpellSchoolItem.identifier = NSUserInterfaceItemIdentifierCardOptionSpellSchool;
     optionTypeSpellSchoolItem.submenu = [self menuForMenuItem:optionTypeSpellSchoolItem];
@@ -213,8 +213,8 @@
     //
     
     NSMenuItem *optionTypeKeywordItem = [[NSMenuItem alloc] initWithTitle:@""
-                                                                      action:nil
-                                                               keyEquivalent:@""];
+                                                                   action:nil
+                                                            keyEquivalent:@""];
     self.optionTypeKeywordItem = optionTypeKeywordItem;
     optionTypeKeywordItem.identifier = NSUserInterfaceItemIdentifierCardOptionKeyword;
     optionTypeKeywordItem.submenu = [self menuForMenuItem:optionTypeKeywordItem];
@@ -222,8 +222,8 @@
     //
     
     NSMenuItem *optionTypeGameModeItem = [[NSMenuItem alloc] initWithTitle:@""
-                                                                      action:nil
-                                                               keyEquivalent:@""];
+                                                                    action:nil
+                                                             keyEquivalent:@""];
     self.optionTypeGameModeItem = optionTypeGameModeItem;
     optionTypeGameModeItem.identifier = NSUserInterfaceItemIdentifierCardOptionGameMode;
     optionTypeGameModeItem.submenu = [self menuForMenuItem:optionTypeGameModeItem];
@@ -231,8 +231,8 @@
     //
     
     NSMenuItem *optionTypeSortItem = [[NSMenuItem alloc] initWithTitle:@""
-                                                                      action:nil
-                                                               keyEquivalent:@""];
+                                                                action:nil
+                                                         keyEquivalent:@""];
     self.optionTypeSortItem = optionTypeSortItem;
     optionTypeSortItem.identifier = NSUserInterfaceItemIdentifierCardOptionSort;
     optionTypeSortItem.submenu = [self menuForMenuItem:optionTypeSortItem];

@@ -27,7 +27,9 @@
     self = [self init];
     
     if (self) {
+        [self->_contextMenuIndexPath release];
         self->_contextMenuIndexPath = nil;
+        [self->_dataSource release];
         self->_dataSource = [dataSource retain];
         
         HSCardUseCaseImpl *hsCardUseCase = [HSCardUseCaseImpl new];

@@ -13,6 +13,7 @@
     self = [self init];
     
     if (self) {
+        [self->_key release];
         self->_key = [key copy];
     }
     
