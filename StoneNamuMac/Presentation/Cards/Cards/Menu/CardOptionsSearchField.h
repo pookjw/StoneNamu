@@ -1,5 +1,5 @@
 //
-//  CardOptionsTextField.h
+//  CardOptionsSearchField.h
 //  StoneNamuMac
 //
 //  Created by Jinwoo Kim on 11/1/21.
@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CardOptionsTextField : NSTextField
+@interface CardOptionsSearchField : NSSearchField
 @property (readonly, copy) NSDictionary * _Nullable key;
 - (instancetype)initWithKey:(NSDictionary * _Nullable)key;
 @end

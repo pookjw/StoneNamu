@@ -7,13 +7,13 @@
 
 #import "CardOptionsToolbar.h"
 #import "CardOptionsMenuItem.h"
-#import "CardOptionsTextField.h"
+#import "CardOptionsSearchField.h"
 #import "DynamicMenuToolbarItem.h"
 #import "NSToolbarIdentifierCardOption+BlizzardHSAPIOptionType.h"
 #import "CardOptionsFactory.h"
 #import <StoneNamuResources/StoneNamuResources.h>
 
-@interface CardOptionsToolbar () <NSToolbarDelegate, NSTextFieldDelegate>
+@interface CardOptionsToolbar () <NSToolbarDelegate, NSSearchFieldDelegate>
 @property (weak) id<CardOptionsToolbarDelegate> cardOptionsToolbarDelegate;
 @property (retain) DynamicMenuToolbarItem *optionTypeTextFilterItem;
 @property (retain) DynamicMenuToolbarItem *optionTypeSetItem;
@@ -304,18 +304,18 @@
     return allNSToolbarIdentifierCardOptionsType();
 }
 
-#pragma mark - NSTextFieldDelegate
+#pragma mark - NSSearchFieldDelegate
 
 - (void)controlTextDidEndEditing:(NSNotification *)notification {
-    CardOptionsTextField *textField = (CardOptionsTextField *)notification.object;
+    CardOptionsSearchField *searchField = (CardOptionsSearchField *)notification.object;
     
-    if (![textField isKindOfClass:[CardOptionsTextField class]]) {
+    if (![searchField isKindOfClass:[CardOptionsSearchField class]]) {
         return;
     }
     
     if ([[notification.userInfo objectForKey:@"NSTextMovement"] integerValue] == NSReturnTextMovement) {
-        NSString *key = textField.key.allKeys.firstObject;
-        NSString *value = textField.stringValue;
+        NSString *key = searchField.key.allKeys.firstObject;
+        NSString *value = searchField.stringValue;
         
         [[self menuToolbarItemForOptionType:key].menu cancelTracking];
         

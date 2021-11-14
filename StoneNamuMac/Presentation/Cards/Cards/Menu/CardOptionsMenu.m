@@ -8,11 +8,11 @@
 #import "CardOptionsMenu.h"
 #import "CardOptionsFactory.h"
 #import "CardOptionsMenuItem.h"
-#import "CardOptionsTextField.h"
+#import "CardOptionsSearchField.h"
 #import "NSUserInterfaceItemIdentifierCardOption+BlizzardHSAPIOption.h"
 #import <StoneNamuResources/StoneNamuResources.h>
 
-@interface CardOptionsMenu () <NSTextFieldDelegate>
+@interface CardOptionsMenu () <NSSearchFieldDelegate>
 @property (weak) id<CardOptionsMenuDelegate> cardOptionsMenuDelegate;
 
 @property (retain) NSMenuItem *optionsMenuItem;
@@ -331,18 +331,18 @@
     }];
 }
 
-#pragma mark - NSTextFieldDelegate
+#pragma mark - NSSearchFieldDelegate
 
 - (void)controlTextDidEndEditing:(NSNotification *)notification {
-    CardOptionsTextField *textField = (CardOptionsTextField *)notification.object;
+    CardOptionsSearchField *searchField = (CardOptionsSearchField *)notification.object;
     
-    if (![textField isKindOfClass:[CardOptionsTextField class]]) {
+    if (![searchField isKindOfClass:[CardOptionsSearchField class]]) {
         return;
     }
     
     if ([[notification.userInfo objectForKey:@"NSTextMovement"] integerValue] == NSReturnTextMovement) {
-        NSString *key = textField.key.allKeys.firstObject;
-        NSString *value = textField.stringValue;
+        NSString *key = searchField.key.allKeys.firstObject;
+        NSString *value = searchField.stringValue;
         
         [[self itemForOptionType:key].menu cancelTracking];
         

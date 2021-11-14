@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (BOOL)hasValueForValue:(NSString * _Nullable)value;
 + (NSString * _Nullable)titleForCardOptionsWithValue:(NSString * _Nullable)value optionType:(BlizzardHSAPIOptionType)optionType;
 + (NSImage * _Nullable)imageForCardOptionsWithValue:(NSString * _Nullable)value optionType:(BlizzardHSAPIOptionType)optionType;
-+ (NSMenu *)menuForOptionType:(BlizzardHSAPIOptionType)optionType target:(id<NSTextFieldDelegate>)target;
++ (NSMenu *)menuForOptionType:(BlizzardHSAPIOptionType)optionType target:(id<NSSearchFieldDelegate>)target;
 @end
 
 NS_ASSUME_NONNULL_END

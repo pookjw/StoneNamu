@@ -1,13 +1,13 @@
 //
-//  CardOptionsTextField.m
+//  CardOptionsSearchField.m
 //  StoneNamuMac
 //
 //  Created by Jinwoo Kim on 11/1/21.
 //
 
-#import "CardOptionsTextField.h"
+#import "CardOptionsSearchField.h"
 
-@implementation CardOptionsTextField
+@implementation CardOptionsSearchField
 
 - (instancetype)initWithKey:(NSDictionary *)key {
     self = [self init];

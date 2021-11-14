@@ -7,7 +7,7 @@
 
 #import "CardOptionsFactory.h"
 #import "CardOptionsMenuItem.h"
-#import "CardOptionsTextField.h"
+#import "CardOptionsSearchField.h"
 #import <StoneNamuResources/StoneNamuResources.h>
 
 @implementation CardOptionsFactory
@@ -118,7 +118,7 @@
     return [ResourcesService imageForBlizzardHSAPIOptionType:optionType fill:hasValue];
 }
 
-+ (NSMenu *)menuForOptionType:(BlizzardHSAPIOptionType)optionType target:(nonnull id<NSTextFieldDelegate>)target {
++ (NSMenu *)menuForOptionType:(BlizzardHSAPIOptionType)optionType target:(nonnull id<NSSearchFieldDelegate>)target {
     NSMenu *menu = [NSMenu new];
     
     NSArray<NSMenuItem *> *itemArray;
@@ -238,7 +238,7 @@
                                  ascending:YES
                                     target:target];
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeTextFilter]) {
-        itemArray = @[[self textFieldItemWithOptionType:optionType textFieldDelegate:target]];
+        itemArray = @[[self searchFieldItemWithOptionType:optionType searchFieldDelegate:target]];
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeGameMode]) {
         itemArray = [self itemArrayFromDic:[ResourcesService localizationsForHSCardGameMode]
                                 optionType:optionType
@@ -336,17 +336,17 @@
     return [arr autorelease];
 }
 
-+ (NSMenuItem *)textFieldItemWithOptionType:(BlizzardHSAPIOptionType)type
-                          textFieldDelegate:(nonnull id<NSTextFieldDelegate>)textFieldDelegate {
++ (NSMenuItem *)searchFieldItemWithOptionType:(BlizzardHSAPIOptionType)type
+                          searchFieldDelegate:(nonnull id<NSSearchFieldDelegate>)searchFieldDelegate {
     CardOptionsMenuItem *item = [[CardOptionsMenuItem alloc] initWithTitle:@"" action:nil keyEquivalent:@"" key:@{type: @""}];
-    CardOptionsTextField *textField = [[CardOptionsTextField alloc] initWithKey:@{type: @""}];
+    CardOptionsSearchField *searchField = [[CardOptionsSearchField alloc] initWithKey:@{type: @""}];
     
-    textField.frame = CGRectMake(0, 0, 100, 20);
-    textField.delegate = textFieldDelegate;
+    searchField.frame = CGRectMake(0, 0, 100, 20);
+    searchField.delegate = searchFieldDelegate;
     
-    item.view = textField;
+    item.view = searchField;
     
-    [textField release];
+    [searchField release];
     return [item autorelease];
 }
 
