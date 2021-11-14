@@ -7,6 +7,7 @@
 
 #import "AppDelegate.h"
 #import "MainWindow.h"
+#import "PrefsWindow.h"
 
 @interface AppDelegate ()
 @end
@@ -48,22 +49,43 @@
 }
 
 - (void)presentNewMainWindowIfNeeded {
-    BOOL __block hasMainWindow = NO;
+    MainWindow * _Nullable __block mainWindow = nil;
     
     [NSApp.windows enumerateObjectsUsingBlock:^(NSWindow * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([obj isKindOfClass:[MainWindow class]]) {
-            hasMainWindow = YES;
+            mainWindow = (MainWindow *)obj;
             *stop = YES;
         }
     }];
     
-    if (!hasMainWindow) {
+    if (mainWindow) {
+        [mainWindow makeKeyAndOrderFront:nil];
+    } else {
         [self presentNewMainWindow];
     }
 }
 
-- (void)presentPrefsWindow {
+- (void)presentNewPrefsWindow {
+    PrefsWindow *prefsWindow = [PrefsWindow new];
+    [prefsWindow makeKeyAndOrderFront:nil];
+    [prefsWindow release];
+}
+
+- (void)presentNewPrefsWindowIfNeeded {
+    PrefsWindow * _Nullable __block prefsWindow = nil;
     
+    [NSApp.windows enumerateObjectsUsingBlock:^(NSWindow * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj isKindOfClass:[PrefsWindow class]]) {
+            prefsWindow = (PrefsWindow *)obj;
+            *stop = YES;
+        }
+    }];
+    
+    if (prefsWindow) {
+        [prefsWindow makeKeyAndOrderFront:nil];
+    } else {
+        [self presentNewPrefsWindow];
+    }
 }
 
 @end

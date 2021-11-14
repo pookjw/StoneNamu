@@ -329,6 +329,7 @@
 		F3024D3027400ACC001DDE08 /* HSCardCollectible.strings in Resources */ = {isa = PBXBuildFile; fileRef = F3024D0D27400ACC001DDE08 /* HSCardCollectible.strings */; };
 		F3024D3127400ACC001DDE08 /* LocalizedError.strings in Resources */ = {isa = PBXBuildFile; fileRef = F3024D0F27400ACC001DDE08 /* LocalizedError.strings */; };
 		F3024D3227400ACC001DDE08 /* HSCardRarity.strings in Resources */ = {isa = PBXBuildFile; fileRef = F3024D1127400ACC001DDE08 /* HSCardRarity.strings */; };
+		F31580ED2740D69000DBD6D4 /* PrefsWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = F31580EC2740D69000DBD6D4 /* PrefsWindow.m */; };
 		F35E230A27401B42000A2605 /* BlizzardHSAPIOptionType.strings in Resources */ = {isa = PBXBuildFile; fileRef = F35E230C27401B42000A2605 /* BlizzardHSAPIOptionType.strings */; };
 /* End PBXBuildFile section */
 
@@ -949,6 +950,8 @@
 		F3024D2027400ACC001DDE08 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/HSCardCollectible.strings; sourceTree = "<group>"; };
 		F3024D2127400ACC001DDE08 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LocalizedError.strings; sourceTree = "<group>"; };
 		F3024D2227400ACC001DDE08 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/HSCardRarity.strings; sourceTree = "<group>"; };
+		F31580EB2740D69000DBD6D4 /* PrefsWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefsWindow.h; sourceTree = "<group>"; };
+		F31580EC2740D69000DBD6D4 /* PrefsWindow.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrefsWindow.m; sourceTree = "<group>"; };
 		F35E230B27401B42000A2605 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/BlizzardHSAPIOptionType.strings; sourceTree = "<group>"; };
 		F35E230D27401B43000A2605 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/BlizzardHSAPIOptionType.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -2100,6 +2103,7 @@
 			children = (
 				4F4892D3272469A100126131 /* Main */,
 				4FE85764270092CF0008C2FB /* Cards */,
+				F31580E92740D65A00DBD6D4 /* Prefs */,
 				4F98C28C27284D8F00865CCD /* Components */,
 			);
 			path = Presentation;
@@ -2288,6 +2292,23 @@
 				F3024D1127400ACC001DDE08 /* HSCardRarity.strings */,
 			);
 			path = Localizables;
+			sourceTree = "<group>";
+		};
+		F31580E92740D65A00DBD6D4 /* Prefs */ = {
+			isa = PBXGroup;
+			children = (
+				F31580EA2740D67500DBD6D4 /* PrefsWindow */,
+			);
+			path = Prefs;
+			sourceTree = "<group>";
+		};
+		F31580EA2740D67500DBD6D4 /* PrefsWindow */ = {
+			isa = PBXGroup;
+			children = (
+				F31580EB2740D69000DBD6D4 /* PrefsWindow.h */,
+				F31580EC2740D69000DBD6D4 /* PrefsWindow.m */,
+			);
+			path = PrefsWindow;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -2841,6 +2862,7 @@
 				4FC402C3273872A900D25523 /* WindowMenuItem.m in Sources */,
 				4F883F6E27300B1700AF0048 /* NSToolbarIdentifierCardOption+BlizzardHSAPIOptionType.m in Sources */,
 				4F4892E92724727000126131 /* CardContentView.m in Sources */,
+				F31580ED2740D69000DBD6D4 /* PrefsWindow.m in Sources */,
 				4FC402B22738686500D25523 /* AppMenuItem.m in Sources */,
 				4F883F7127300BCB00AF0048 /* NSTouchBarItemIdentifierCardOptions+BlizzardHSAPIOptionType.m in Sources */,
 				4FE85701270089BC0008C2FB /* AppDelegate.m in Sources */,

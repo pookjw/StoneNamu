@@ -28,7 +28,7 @@
                                                        action:@selector(orderFrontStandardAboutPanel:)
                                                 keyEquivalent:@""];
     NSMenuItem *prefsItem = [[NSMenuItem alloc] initWithTitle:@"Preferences (Demo)"
-                                                       action:NSSelectorFromString(@"presentPrefsWindow")
+                                                       action:NSSelectorFromString(@"presentNewPrefsWindowIfNeeded")
                                                 keyEquivalent:@","];
     NSMenuItem *hideItem = [[NSMenuItem alloc] initWithTitle:@"Hide StoneNamu (Demo)"
                                                       action:@selector(hide:)
