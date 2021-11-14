@@ -341,7 +341,7 @@
     CardOptionsMenuItem *item = [[CardOptionsMenuItem alloc] initWithTitle:@"" action:nil keyEquivalent:@"" key:@{type: @""}];
     CardOptionsSearchField *searchField = [[CardOptionsSearchField alloc] initWithKey:@{type: @""}];
     
-    searchField.frame = CGRectMake(0, 0, 100, 20);
+    searchField.frame = CGRectMake(0, 0, 300, 20);
     searchField.delegate = searchFieldDelegate;
     
     item.view = searchField;
