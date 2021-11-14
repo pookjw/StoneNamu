@@ -7,10 +7,11 @@
 
 #import "PrefsWindow.h"
 #import "NSViewController+loadViewIfNeeded.h"
+#import "PrefsViewController.h"
 #import <StoneNamuResources/StoneNamuResources.h>
 
 @interface PrefsWindow () <NSWindowDelegate>
-
+@property (retain) PrefsViewController *prefsViewController;
 @end
 
 @implementation PrefsWindow
@@ -20,18 +21,29 @@
     
     if (self) {
         [self setAttributes];
+        
+        PrefsViewController *prefsViewController = [PrefsViewController new];
+        self.prefsViewController = prefsViewController;
+        [prefsViewController loadViewIfNeeded];
+        self.contentViewController = prefsViewController;
+        [prefsViewController release];
     }
     
     return self;
 }
 
+- (void)dealloc {
+    [_prefsViewController release];
+    [super dealloc];
+}
+
 - (void)setAttributes {
-    self.styleMask = NSWindowStyleMaskClosable | NSWindowStyleMaskMiniaturizable | NSWindowStyleMaskFullSizeContentView | NSWindowStyleMaskResizable | NSWindowStyleMaskTitled;
-    self.movableByWindowBackground = YES;
+    self.styleMask = NSWindowStyleMaskClosable | NSWindowStyleMaskTitled;
+    self.movableByWindowBackground = NO;
     self.contentMinSize = NSMakeSize(800, 600);
     self.releasedWhenClosed = NO;
     self.titlebarAppearsTransparent = NO;
-    self.titleVisibility = NSWindowTitleHidden;
+    self.titleVisibility = NSWindowTitleVisible;
     self.delegate = self;
     self.restorable = YES;
 //    self.restorationClass = [MainWindowRestoration class];

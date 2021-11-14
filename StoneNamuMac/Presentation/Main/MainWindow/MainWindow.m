@@ -28,7 +28,6 @@
         [mainSplitViewController loadViewIfNeeded];
         self.contentViewController = mainSplitViewController;
         [mainSplitViewController release];
-        
     }
     
     return self;
@@ -49,7 +48,7 @@
     self.movableByWindowBackground = YES;
     self.contentMinSize = NSMakeSize(800, 600);
     self.releasedWhenClosed = NO;
-    self.titlebarAppearsTransparent = NO;
+    self.titlebarAppearsTransparent = YES;
     self.titleVisibility = NSWindowTitleHidden;
     self.delegate = self;
     self.restorable = YES;
