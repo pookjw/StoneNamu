@@ -44,7 +44,7 @@
     self.movableByWindowBackground = YES;
     self.contentMinSize = NSMakeSize(800, 600);
     self.releasedWhenClosed = NO;
-    self.titlebarAppearsTransparent = YES;
+    self.titlebarAppearsTransparent = NO;
     self.titleVisibility = NSWindowTitleHidden;
     self.delegate = self;
     self.restorable = NSProcessInfo.processInfo.isEnabledRestoration;
