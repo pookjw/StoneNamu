@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef void (^PrefsRepositoryFetchWithCompletion)(Prefs * _Nullable, NSError * _Nullable);
 
-static NSString * const PrefsRepositoryObserveDataNotificationName = @"PrefsRepositoryObserveDataNotificationName";
+static NSNotificationName const NSNotificationNamePrefsRepositoryObserveData = @"NSNotificationNamePrefsRepositoryObserveData";
 static NSString * const PrefsRepositoryPrefsNotificationItemKey = @"PrefsRepositoryPrefsNotificationItemKey";
 
 @protocol PrefsRepository <NSObject>

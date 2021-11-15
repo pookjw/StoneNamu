@@ -409,22 +409,22 @@
 - (void)bind {
     [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(shouldDismissReceived:)
-                                               name:DeckDetailsViewModelShouldDismissNotificationName
+                                               name:NSNotificationNameDeckDetailsViewModelShouldDismiss
                                              object:self.viewModel];
     
     [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(didChangeLocalDeckNameReceived:)
-                                               name:DeckDetailsViewModelDidChangeLocalDeckNameNoficationName
+                                               name:NSNotificationNameDeckDetailsViewModelDidChangeLocalDeck
                                              object:self.viewModel];
     
     [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(errorOccurredReceived:)
-                                               name:DeckDetailsViewModelErrorOccurredNoficiationName
+                                               name:NSNotificationNameDeckDetailsViewModelErrorOccurred
                                              object:self.viewModel];
     
     [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(applyingSnapshotToDataSourceWasDoneReceived:)
-                                               name:DeckDetailsViewModelApplyingSnapshotToDataSourceWasDoneNotificationName
+                                               name:NSNotificationNameDeckDetailsViewModelApplyingSnapshotToDataSourceWasDone
                                              object:self.viewModel];
 }
 

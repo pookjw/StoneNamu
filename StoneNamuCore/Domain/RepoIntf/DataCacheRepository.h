@@ -14,8 +14,8 @@ typedef void (^DataCacheRepositoryFileSizeWithCompletion)(NSNumber * _Nullable);
 typedef void (^DataCacheRepositoryFetchWithIdentityCompletion)(NSArray<DataCache *> * _Nullable, NSError * _Nullable);
 typedef void (^DataCacheRepositoryMakeWithCompletion)(DataCache *);
 
-static NSString * const DataCacheRepositoryDeleteAllNotificationName = @"DataCacheRepositoryDeleteAllNotificationName";
-static NSString * const DataCacheRepositoryObserveDataNotificationName = @"DataCacheRepositoryObserveDataNotificationName";
+static NSNotificationName const NSNotificationNameDataCacheRepositoryDeleteAll = @"NSNotificationNameDataCacheRepositoryDeleteAll";
+static NSNotificationName const NSNotificationNameDataCacheRepositoryObserveData = @"NSNotificationNameDataCacheRepositoryObserveData";
 
 @protocol DataCacheRepository <NSObject>
 - (void)fileSizeWithCompletion:(DataCacheRepositoryFileSizeWithCompletion)completion;

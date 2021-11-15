@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-static NSString * const PrefsDataViewModelDidChangeFormattedFileSizeNotificationName = @"PrefsDataViewModelDidChangeFormattedFileSizeNotificationName";
+static NSNotificationName const NSNotificationNamePrefsDataViewModelDidChangeFormattedFileSize = @"NSNotificationNamePrefsDataViewModelDidChangeFormattedFileSize";
 static NSString * const PrefsDataViewModelDidChangeFormattedFileSizeNotificationItemKey = @"PrefsDataViewModelDidChangeFormattedFileSizeNotificationItemKey";
 
 @interface PrefsDataViewModel : NSObject

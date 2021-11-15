@@ -92,14 +92,14 @@
     
     switch (itemModel.valueSetType) {
         case CardOptionItemModelValueSetTypeTextField:
-            [NSNotificationCenter.defaultCenter postNotificationName:CardOptionsViewModelPresentTextFieldNotificationName
+            [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameCardOptionsViewModelPresentTextField
                                                               object:self
                                                             userInfo:@{
                 CardOptionsViewModelPresentNotificationItemKey: itemModel
             }];
             break;
         case CardOptionItemModelValueSetTypePicker:
-            [NSNotificationCenter.defaultCenter postNotificationName:CardOptionsViewModelPresentPickerNotificationName
+            [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameCardOptionsViewModelPresentPicker
                                                               object:self
                                                             userInfo:@{
                 CardOptionsViewModelPresentNotificationItemKey: itemModel,
@@ -107,7 +107,7 @@
             }];
             break;
         case CardOptionItemModelValueSetTypePickerWithEmptyRow:
-            [NSNotificationCenter.defaultCenter postNotificationName:CardOptionsViewModelPresentPickerNotificationName
+            [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameCardOptionsViewModelPresentPicker
                                                               object:self
                                                             userInfo:@{
                 CardOptionsViewModelPresentNotificationItemKey: itemModel,
@@ -115,7 +115,7 @@
             }];
             break;
         case CardOptionItemModelValueSetTypeStepper: {
-            [NSNotificationCenter.defaultCenter postNotificationName:CardOptionsViewModelPresentStepperNotificationName
+            [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameCardOptionsViewModelPresentStepper
                                                               object:self
                                                             userInfo:@{
                 CardOptionsViewModelPresentNotificationItemKey: itemModel

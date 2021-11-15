@@ -270,23 +270,23 @@
 - (void)startObserving {
     [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(changesReceived:)
-                                               name:LocalDeckRepositoryObserveDataNotificationName
+                                               name:NSNotificationNameLocalDeckRepositoryObserveData
                                              object:self.localDeckRepository];
     
     [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(deleteAllEventReceived:)
-                                               name:LocalDeckRepositoryDeleteAllNotificationName
+                                               name:NSNotificationNameLocalDeckRepositoryDeleteAll
                                              object:self.localDeckRepository];
 }
 
 - (void)changesReceived:(NSNotification *)notification {
-    [NSNotificationCenter.defaultCenter postNotificationName:LocalDeckUseCaseObserveDataNotificationName
+    [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameLocalDeckUseCaseObserveData
                                                       object:self
                                                     userInfo:nil];
 }
 
 - (void)deleteAllEventReceived:(NSNotification *)notification {
-    [NSNotificationCenter.defaultCenter postNotificationName:LocalDeckUseCaseDeleteAllNotificationName
+    [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameLocalDeckUseCaseDeleteAll
                                                       object:self
                                                     userInfo:nil];
 }

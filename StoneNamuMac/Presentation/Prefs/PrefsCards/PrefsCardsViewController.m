@@ -211,7 +211,7 @@
 - (void)bind {
     [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(didReceivePrefsChanged:)
-                                               name:PrefsCardsViewModelDidChangeDataNotificationName
+                                               name:NSNotificationNamePrefsCardsViewModelDidChangeData
                                              object:self.viewModel];
 }
 

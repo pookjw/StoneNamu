@@ -28,7 +28,7 @@
         self.prefsUseCase = prefsUseCase;
         [NSNotificationCenter.defaultCenter addObserver:self
                                                selector:@selector(didReceivePrefsChanged:)
-                                                   name:PrefsUseCaseObserveDataNotificationName
+                                                   name:NSNotificationNamePrefsUseCaseObserveData
                                                  object:prefsUseCase];
         [prefsUseCase release];
         
@@ -93,7 +93,7 @@
 }
 
 - (void)postPrefs:(Prefs *)prefs {
-    [NSNotificationCenter.defaultCenter postNotificationName:PrefsCardsViewModelDidChangeDataNotificationName
+    [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNamePrefsCardsViewModelDidChangeData
                                                       object:self
                                                     userInfo:@{PrefsCardsViewModelDidChangeDataNotificationPrefsItemKey: prefs}];
 }

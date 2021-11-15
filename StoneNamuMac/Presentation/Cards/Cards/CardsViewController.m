@@ -171,12 +171,12 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardsVie
     
     [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(errorEventReceived:)
-                                               name:CardsViewModelErrorNotificationName
+                                               name:NSNotificationNameCardsViewModelError
                                              object:self.viewModel];
     
     [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(applyingSnapshotWasDoneReceived:)
-                                               name:CardsViewModelApplyingSnapshotToDataSourceWasDoneNotificationName
+                                               name:NSNotificationNameCardsViewModelApplyingSnapshotToDataSourceWasDone
                                              object:self.viewModel];
 }
 

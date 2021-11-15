@@ -79,23 +79,23 @@
 - (void)startObserving {
     [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(deleteAllEventReceived:)
-                                               name:DataCacheRepositoryDeleteAllNotificationName
+                                               name:NSNotificationNameDataCacheRepositoryDeleteAll
                                              object:self.dataCacheRepository];
     
     [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(changesReceived:)
-                                               name:DataCacheRepositoryObserveDataNotificationName
+                                               name:NSNotificationNameDataCacheRepositoryObserveData
                                              object:self.dataCacheRepository];
 }
 
 - (void)deleteAllEventReceived:(NSNotification *)notification {
-    [NSNotificationCenter.defaultCenter postNotificationName:DataCacheUseCaseDeleteAllNotificationName
+    [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameDataCacheUseCaseDeleteAll
                                                       object:self
                                                     userInfo:nil];
 }
 
 - (void)changesReceived:(NSNotification *)notification {
-    [NSNotificationCenter.defaultCenter postNotificationName:DataCacheUseCaseObserveDataNotificationName
+    [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameDataCacheUseCaseObserveData
                                                       object:self
                                                     userInfo:nil];
 }

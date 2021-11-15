@@ -112,7 +112,7 @@
 - (void)observePrefs {
     [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(prefChangesReceived:)
-                                               name:PrefsUseCaseObserveDataNotificationName
+                                               name:NSNotificationNamePrefsUseCaseObserveData
                                              object:self.prefsUseCase];
 }
 

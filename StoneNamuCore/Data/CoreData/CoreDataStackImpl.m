@@ -235,7 +235,7 @@ static NSMutableDictionary<NSString *, NSNumber *> * _Nullable kMigrateStatus = 
 }
 
 - (void)didReceiveChangeEvent:(NSNotification *)notification {
-    [NSNotificationCenter.defaultCenter postNotificationName:CoreDataStackDidChangeNotificationName
+    [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameCoreDataStackDidChange
                                                       object:self
                                                     userInfo:nil];
 }

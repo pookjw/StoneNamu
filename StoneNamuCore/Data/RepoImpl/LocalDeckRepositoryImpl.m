@@ -66,7 +66,7 @@
                 if (error) {
                     NSLog(@"%@", error.localizedDescription);
                 } else {
-                    [NSNotificationCenter.defaultCenter postNotificationName:LocalDeckRepositoryDeleteAllNotificationName
+                    [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameLocalDeckRepositoryDeleteAll
                                                                       object:self
                                                                     userInfo:nil];
                 }
@@ -125,12 +125,12 @@
 - (void)startObserving {
     [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(changesReceived:)
-                                               name:CoreDataStackDidChangeNotificationName
+                                               name:NSNotificationNameCoreDataStackDidChange
                                              object:self.coreDataStack];
 }
 
 - (void)changesReceived:(NSNotification *)notification {
-    [NSNotificationCenter.defaultCenter postNotificationName:LocalDeckRepositoryObserveDataNotificationName
+    [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameLocalDeckRepositoryObserveData
                                                       object:self
                                                     userInfo:nil];
 }

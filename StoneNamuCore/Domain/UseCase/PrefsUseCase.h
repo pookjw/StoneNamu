@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef void (^PrefsUseCaseFetchWithCompletion)(Prefs * _Nullable, NSError * _Nullable);
 
-static NSString * const PrefsUseCaseObserveDataNotificationName = @"PrefsUseCaseObserveDataNotificationName";
+static NSNotificationName const NSNotificationNamePrefsUseCaseObserveData = @"NSNotificationNamePrefsUseCaseObserveData";
 static NSString * const PrefsUseCasePrefsNotificationItemKey = @"PrefsUseCasePrefsNotificationItemKey";
 
 @protocol PrefsUseCase <NSObject>

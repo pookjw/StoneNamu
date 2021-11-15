@@ -129,7 +129,7 @@
         return;
     }
     
-    [NSNotificationCenter.defaultCenter postNotificationName:CardDetailsViewModelStartFetchingChildCardsNotificationName
+    [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameCardDetailsViewModelStartFetchingChildCards
                                                       object:self
                                                     userInfo:nil];
     
@@ -186,7 +186,7 @@
         
         [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
             [snapshot release];
-            [NSNotificationCenter.defaultCenter postNotificationName:CardDetailsViewModelStartFetchedChildCardsNotificationName
+            [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameCardDetailsViewModelStartFetchedChildCards
                                                               object:self
                                                             userInfo:nil];
         }];

@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-static NSString * const PrefsCardsViewModelDidChangeDataNotificationName = @"PrefsCardsViewModelDidChangeDataNotificationName";
+static NSNotificationName const NSNotificationNamePrefsCardsViewModelDidChangeData = @"NSNotificationNamePrefsCardsViewModelDidChangeData";
 static NSString * const PrefsCardsViewModelDidChangeDataNotificationPrefsItemKey = @"PrefsCardsViewModelDidChangeDataNotificationPrefsItemKey";
 
 @interface PrefsCardsViewModel : NSObject

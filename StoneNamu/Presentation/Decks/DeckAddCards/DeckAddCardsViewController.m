@@ -282,17 +282,17 @@
 - (void)bind {
     [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(errorEventReceived:)
-                                               name:DeckAddCardsViewModelErrorNotificationName
+                                               name:NSNotificationNameDeckAddCardsViewModelError
                                              object:self.viewModel];
     
     [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(applyingSnapshotWasDoneReceived:)
-                                               name:DeckAddCardsViewModelApplyingSnapshotToDataSourceWasDoneNotificationName
+                                               name:NSNotificationNameDeckAddCardsViewModelApplyingSnapshotToDataSourceWasDone
                                              object:self.viewModel];
     
     [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(localDeckHasChangedReceived:)
-                                               name:DeckAddCardsViewModelLocalDeckHasChangedNotificationName
+                                               name:NSNotificationNameDeckAddCardsViewModelLocalDeckHasChanged
                                              object:self.viewModel];
 }
 

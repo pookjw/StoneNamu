@@ -17,9 +17,9 @@ typedef void (^LocalDeckUseCaseRefreshObjectWithCompletion)(void);
 typedef void (^LocalDeckUseCaseFetchWithValidation)(NSError * _Nullable);
 typedef void (^LocalDeckUseCaseMakeWithCompletion)(LocalDeck *);
 
-static NSString * const LocalDeckUseCaseObserveDataNotificationName = @"LocalDeckUseCaseObserveDataNotificationName";
+static NSNotificationName const NSNotificationNameLocalDeckUseCaseObserveData = @"NSNotificationNameLocalDeckUseCaseObserveData";
 
-static NSString * const LocalDeckUseCaseDeleteAllNotificationName = @"LocalDeckUseCaseDeleteAllNotificationName";
+static NSNotificationName const NSNotificationNameLocalDeckUseCaseDeleteAll = @"NSNotificationNameLocalDeckUseCaseDeleteAll";
 
 @protocol LocalDeckUseCase <NSObject>
 - (void)saveChanges;

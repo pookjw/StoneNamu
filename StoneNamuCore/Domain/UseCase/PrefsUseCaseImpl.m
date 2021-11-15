@@ -46,7 +46,7 @@
 - (void)startObserving {
     [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(changesReceived:)
-                                               name:PrefsRepositoryObserveDataNotificationName
+                                               name:NSNotificationNamePrefsRepositoryObserveData
                                              object:self.prefsRepository];
 }
 
@@ -54,7 +54,7 @@
     Prefs * _Nullable prefs = notification.userInfo[PrefsRepositoryPrefsNotificationItemKey];
     
     if (prefs) {
-        [NSNotificationCenter.defaultCenter postNotificationName:PrefsUseCaseObserveDataNotificationName
+        [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNamePrefsUseCaseObserveData
                                                           object:self
                                                         userInfo:@{PrefsUseCasePrefsNotificationItemKey: prefs}];
     }

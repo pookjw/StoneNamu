@@ -99,7 +99,7 @@
                 if (error) {
                     NSLog(@"%@", error.localizedDescription);
                 } else {
-                    [NSNotificationCenter.defaultCenter postNotificationName:DataCacheRepositoryDeleteAllNotificationName
+                    [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameDataCacheRepositoryDeleteAll
                                                                       object:self
                                                                     userInfo:nil];
                 }
@@ -118,12 +118,12 @@
 - (void)startObserving {
     [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(changesReceived:)
-                                               name:CoreDataStackDidChangeNotificationName
+                                               name:NSNotificationNameCoreDataStackDidChange
                                              object:nil];
 }
 
 - (void)changesReceived:(NSNotification *)notification {
-    [NSNotificationCenter.defaultCenter postNotificationName:DataCacheRepositoryObserveDataNotificationName
+    [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameDataCacheRepositoryObserveData
                                                       object:self
                                                     userInfo:nil];
 }

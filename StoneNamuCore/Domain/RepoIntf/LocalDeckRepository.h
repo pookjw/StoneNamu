@@ -14,9 +14,9 @@ typedef void (^LocalDeckRepositoryFetchWithCompletion)(NSArray<LocalDeck *> * _N
 typedef void (^LocalDeckRepositoryMakeWithCompletion)(LocalDeck *);
 typedef void (^LocalDeckRepositoryRefreshObjectCompletion)(void);
 
-static NSString * const LocalDeckRepositoryObserveDataNotificationName = @"LocalDeckRepositoryObserveDataNotificationName";
+static NSNotificationName const NSNotificationNameLocalDeckRepositoryObserveData = @"NSNotificationNameLocalDeckRepositoryObserveData";
 
-static NSString * const LocalDeckRepositoryDeleteAllNotificationName = @"LocalDeckRepositoryDeleteAllNotificationName";
+static NSNotificationName const NSNotificationNameLocalDeckRepositoryDeleteAll = @"NSNotificationNameLocalDeckRepositoryDeleteAll";
 
 @protocol LocalDeckRepository <NSObject>
 @property (readonly, nonatomic) NSOperationQueue *queue;

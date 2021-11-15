@@ -16,14 +16,14 @@ typedef UICollectionViewDiffableDataSource<DeckDetailsSectionModel *, DeckDetail
 
 typedef void (^DeckDetailsViewModelExportDeckCodeCompletion)(NSString * _Nullable);
 
-static NSString * const DeckDetailsViewModelShouldDismissNotificationName = @"DeckDetailsViewModelShouldDismissNotificationName";
-static NSString * const DeckDetailsViewModelDidChangeLocalDeckNameNoficationName = @"DeckDetailsViewModelDidChangeLocalDeckNameNoficationName";
+static NSNotificationName const NSNotificationNameDeckDetailsViewModelShouldDismiss = @"NSNotificationNameDeckDetailsViewModelShouldDismiss";
+static NSNotificationName const NSNotificationNameDeckDetailsViewModelDidChangeLocalDeck = @"NSNotificationNameDeckDetailsViewModelDidChangeLocalDeck";
 static NSString * const DeckDetailsViewModelDidChangeLocalDeckNameItemKey = @"DeckDetailsViewModelDidChangeLocalDeckNameItemKey";
 
-static NSString * const DeckDetailsViewModelErrorOccurredNoficiationName = @"DeckDetailsViewModelErrorOccurredNoficiationName";
+static NSNotificationName const NSNotificationNameDeckDetailsViewModelErrorOccurred = @"NSNotificationNameDeckDetailsViewModelErrorOccurred";
 static NSString * const DeckDetailsViewModelErrorOccurredItemKey = @"DeckDetailsViewModelErrorOccurredItemKey";
 
-static NSString * const DeckDetailsViewModelApplyingSnapshotToDataSourceWasDoneNotificationName = @"DeckDetailsViewModelApplyingSnapshotToDataSourceWasDoneNotificationName";
+static NSNotificationName const NSNotificationNameDeckDetailsViewModelApplyingSnapshotToDataSourceWasDone = @"NSNotificationNameDeckDetailsViewModelApplyingSnapshotToDataSourceWasDone";
 static NSString * const DeckDetailsViewModelApplyingSnapshotToDataSourceWasDoneHasAnyCardsItemKey = @"DeckDetailsViewModelApplyingSnapshotToDataSourceWasDoneHasAnyCardsItemKey";
 static NSString * const DeckDetailsViewModelApplyingSnapshotToDataSourceWasDoneCardsHeaderTextKey = @"DeckDetailsViewModelApplyingSnapshotToDataSourceWasDoneCardsHeaderTextKey";
 

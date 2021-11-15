@@ -41,7 +41,7 @@
 - (void)bind {
     [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(didChangeFormattedFileSize:)
-                                               name:PrefsDataViewModelDidChangeFormattedFileSizeNotificationName
+                                               name:NSNotificationNamePrefsDataViewModelDidChangeFormattedFileSize
                                              object:self.viewModel];
 }
 

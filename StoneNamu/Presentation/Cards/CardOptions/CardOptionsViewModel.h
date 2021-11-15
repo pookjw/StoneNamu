@@ -12,9 +12,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-static NSString * const CardOptionsViewModelPresentTextFieldNotificationName = @"CardOptionsViewModelPresentTextFieldNotificationName";
-static NSString * const CardOptionsViewModelPresentPickerNotificationName = @"CardOptionsViewModelPresentPickerNotificationName";
-static NSString * const CardOptionsViewModelPresentStepperNotificationName = @"CardOptionsViewModelPresentStepperNotificationName";
+static NSNotificationName const NSNotificationNameCardOptionsViewModelPresentTextField = @"NSNotificationNameCardOptionsViewModelPresentTextField";
+static NSNotificationName const NSNotificationNameCardOptionsViewModelPresentPicker = @"NSNotificationNameCardOptionsViewModelPresentPicker";
+static NSNotificationName const NSNotificationNameCardOptionsViewModelPresentStepper = @"NSNotificationNameCardOptionsViewModelPresentStepper";
 static NSString * const CardOptionsViewModelPresentNotificationItemKey = @"CardOptionsViewModelPresentNotificationItemKey";
 static NSString * const CardOptionsViewModelPresentPickerNotificationShowEmptyRowKey = @"CardOptionsViewModelPresentPickerNotificationShowEmptyRowKey";
 

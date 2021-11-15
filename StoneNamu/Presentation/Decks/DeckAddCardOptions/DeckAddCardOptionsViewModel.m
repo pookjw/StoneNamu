@@ -101,14 +101,14 @@
     
     switch (itemModel.valueSetType) {
         case DeckAddCardOptionItemModelValueSetTypeTextField:
-            [NSNotificationCenter.defaultCenter postNotificationName:DeckAddCardOptionsViewModelPresentTextFieldNotificationName
+            [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameDeckAddCardOptionsViewModelPresentTextField
                                                               object:self
                                                             userInfo:@{
                 DeckAddCardOptionsViewModelPresentNotificationItemKey: itemModel
             }];
             break;
         case DeckAddCardOptionItemModelValueSetTypePicker:
-            [NSNotificationCenter.defaultCenter postNotificationName:DeckAddCardOptionsViewModelPresentPickerNotificationName
+            [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameDeckAddCardOptionsViewModelPresentPicker
                                                               object:self
                                                             userInfo:@{
                 DeckAddCardOptionsViewModelPresentNotificationItemKey: itemModel,
@@ -116,7 +116,7 @@
             }];
             break;
         case DeckAddCardOptionItemModelValueSetTypePickerWithEmptyRow:
-            [NSNotificationCenter.defaultCenter postNotificationName:DeckAddCardOptionsViewModelPresentPickerNotificationName
+            [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameDeckAddCardOptionsViewModelPresentPicker
                                                               object:self
                                                             userInfo:@{
                 DeckAddCardOptionsViewModelPresentNotificationItemKey: itemModel,
@@ -124,7 +124,7 @@
             }];
             break;
         case DeckAddCardOptionItemModelValueSetTypeStepper: {
-            [NSNotificationCenter.defaultCenter postNotificationName:DeckAddCardOptionsViewModelPresentStepperNotificationName
+            [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameDeckAddCardOptionsViewModelPresentStepper
                                                               object:self
                                                             userInfo:@{
                 DeckAddCardOptionsViewModelPresentNotificationItemKey: itemModel
@@ -222,7 +222,7 @@
 - (void)startObserving {
     [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(localDeckChangesReceived:)
-                                               name:LocalDeckUseCaseObserveDataNotificationName
+                                               name:NSNotificationNameLocalDeckUseCaseObserveData
                                              object:self.localDeckUseCase];
 }
 

@@ -7,7 +7,7 @@
 
 #import <CoreData/CoreData.h>
 
-static NSString * const CoreDataStackDidChangeNotificationName = @"CoreDataStackDidChangeNotificationName";
+static NSNotificationName const NSNotificationNameCoreDataStackDidChange = @"NSNotificationNameCoreDataStackDidChange";
 
 @protocol CoreDataStack <NSObject>
 @property (readonly, retain) NSManagedObjectContext *context;

@@ -187,17 +187,17 @@
 - (void)bind {
     [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(presentTextFieldEventReceived:)
-                                               name:DeckAddCardOptionsViewModelPresentTextFieldNotificationName
+                                               name:NSNotificationNameDeckAddCardOptionsViewModelPresentTextField
                                              object:self.viewModel];
     
     [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(presentPickerEventReceived:)
-                                               name:DeckAddCardOptionsViewModelPresentPickerNotificationName
+                                               name:NSNotificationNameDeckAddCardOptionsViewModelPresentPicker
                                              object:self.viewModel];
     
     [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(presentStepperEventReceived:)
-                                               name:DeckAddCardOptionsViewModelPresentStepperNotificationName
+                                               name:NSNotificationNameDeckAddCardOptionsViewModelPresentStepper
                                              object:self.viewModel];
 }
 

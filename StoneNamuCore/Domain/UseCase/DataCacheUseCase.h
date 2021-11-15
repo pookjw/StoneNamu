@@ -13,8 +13,8 @@ typedef void (^DataCacheUseCaseFileSizeWithCompletion)(NSNumber * _Nullable);
 typedef void (^DataCacheUseCaseFetchWithIdentityCompletion)(NSArray<NSData *> * _Nullable, NSError * _Nullable);
 typedef void (^DataCacheUseCaseMakeWithCompletion)(void);
 
-static NSString * const DataCacheUseCaseDeleteAllNotificationName = @"DataCacheUseCaseDeleteAllNotificationName";
-static NSString * const DataCacheUseCaseObserveDataNotificationName = @"DataCacheUseCaseObserveDataNotificationName";
+static NSNotificationName const NSNotificationNameDataCacheUseCaseDeleteAll = @"NSNotificationNameDataCacheUseCaseDeleteAll";
+static NSNotificationName const NSNotificationNameDataCacheUseCaseObserveData = @"NSNotificationNameDataCacheUseCaseObserveData";
 
 @protocol DataCacheUseCase <NSObject>
 - (void)dataCachesWithIdentity:(NSString *)identity completion:(DataCacheUseCaseFetchWithIdentityCompletion)completion;

@@ -302,7 +302,7 @@
 - (void)startObserving {
     [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(localDeckChangesReceived:)
-                                               name:LocalDeckUseCaseObserveDataNotificationName
+                                               name:NSNotificationNameLocalDeckUseCaseObserveData
                                              object:self.localDeckUseCase];
 }
 
@@ -316,19 +316,19 @@
 }
 
 - (void)postError:(NSError *)error {
-    [NSNotificationCenter.defaultCenter postNotificationName:DeckAddCardsViewModelErrorNotificationName
+    [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameDeckAddCardsViewModelError
                                                       object:self
                                                     userInfo:@{DeckAddCardsViewModelErrorNotificationErrorKey: error}];
 }
 
 - (void)postApplyingSnapshotWasDone {
-    [NSNotificationCenter.defaultCenter postNotificationName:DeckAddCardsViewModelApplyingSnapshotToDataSourceWasDoneNotificationName
+    [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameDeckAddCardsViewModelApplyingSnapshotToDataSourceWasDone
                                                       object:self
                                                     userInfo:nil];
 }
 
 - (void)postLocalDeckHasChanged {
-    [NSNotificationCenter.defaultCenter postNotificationName:DeckAddCardsViewModelLocalDeckHasChangedNotificationName
+    [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameDeckAddCardsViewModelLocalDeckHasChanged
                                                       object:self
                                                     userInfo:nil];
 }
@@ -336,7 +336,7 @@
 - (void)observePrefsChange {
     [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(prefsChangedEventReceived:)
-                                               name:PrefsUseCaseObserveDataNotificationName
+                                               name:NSNotificationNamePrefsUseCaseObserveData
                                              object:self.prefsUseCase];
 }
 
@@ -347,7 +347,7 @@
 - (void)observeDataCachesDeleted {
     [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(dataCacheDeletedEventReceived:)
-                                               name:DataCacheUseCaseDeleteAllNotificationName
+                                               name:NSNotificationNameDataCacheUseCaseDeleteAll
                                              object:nil];
 }
 

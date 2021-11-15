@@ -480,17 +480,17 @@
 - (void)startObserving {
     [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(localDeckChangesReceived:)
-                                               name:LocalDeckUseCaseObserveDataNotificationName
+                                               name:NSNotificationNameLocalDeckUseCaseObserveData
                                              object:self.localDeckUseCase];
     
     [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(localDeckDeleteAllReceived:)
-                                               name:LocalDeckUseCaseDeleteAllNotificationName
+                                               name:NSNotificationNameLocalDeckUseCaseDeleteAll
                                              object:nil];
     
     [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(dataCacheDeleteAllReceived:)
-                                               name:DataCacheUseCaseDeleteAllNotificationName
+                                               name:NSNotificationNameDataCacheUseCaseDeleteAll
                                              object:nil];
 }
 
@@ -503,13 +503,13 @@
 }
 
 - (void)localDeckDeleteAllReceived:(NSNotification *)notification {
-    [NSNotificationCenter.defaultCenter postNotificationName:DeckDetailsViewModelShouldDismissNotificationName
+    [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameDeckDetailsViewModelShouldDismiss
                                                       object:self
                                                     userInfo:nil];
 }
 
 - (void)dataCacheDeleteAllReceived:(NSNotification *)notification {
-    [NSNotificationCenter.defaultCenter postNotificationName:DeckDetailsViewModelShouldDismissNotificationName
+    [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameDeckDetailsViewModelShouldDismiss
                                                       object:self
                                                     userInfo:nil];
 }
@@ -535,7 +535,7 @@
         userInfo[DeckDetailsViewModelApplyingSnapshotToDataSourceWasDoneCardsHeaderTextKey] = headerText;
     }
     
-    [NSNotificationCenter.defaultCenter postNotificationName:DeckDetailsViewModelApplyingSnapshotToDataSourceWasDoneNotificationName
+    [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameDeckDetailsViewModelApplyingSnapshotToDataSourceWasDone
                                                       object:self
                                                     userInfo:userInfo];
     [userInfo release];
@@ -548,7 +548,7 @@
         userInfo[DeckDetailsViewModelDidChangeLocalDeckNameItemKey] = name;
     }
     
-    [NSNotificationCenter.defaultCenter postNotificationName:DeckDetailsViewModelDidChangeLocalDeckNameNoficationName
+    [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameDeckDetailsViewModelDidChangeLocalDeck
                                                       object:self
                                                     userInfo:userInfo];
     
@@ -556,7 +556,7 @@
 }
 
 - (void)postErrorOccurredNotification:(NSError *)error {
-    [NSNotificationCenter.defaultCenter postNotificationName:DeckDetailsViewModelErrorOccurredNoficiationName
+    [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameDeckDetailsViewModelErrorOccurred
                                                       object:self
                                                     userInfo:@{DeckDetailsViewModelErrorOccurredItemKey: error}];
 }

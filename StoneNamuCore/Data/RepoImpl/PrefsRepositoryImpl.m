@@ -72,14 +72,14 @@ typedef void (^PrefsRepositoryImplMakeWithCompletion)(Prefs *);
 - (void)startObserving {
     [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(changesReceived:)
-                                               name:CoreDataStackDidChangeNotificationName
+                                               name:NSNotificationNameCoreDataStackDidChange
                                              object:self.coreDataStack];
 }
 
 - (void)changesReceived:(NSNotification *)notification {
     [self fetchWithCompletion:^(Prefs * _Nullable prefs, NSError * _Nullable error) {
         if (prefs) {
-            [NSNotificationCenter.defaultCenter postNotificationName:PrefsRepositoryObserveDataNotificationName
+            [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNamePrefsRepositoryObserveData
                                                               object:self
                                                             userInfo:@{PrefsRepositoryPrefsNotificationItemKey: prefs}];
         }

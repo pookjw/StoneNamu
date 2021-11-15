@@ -12,8 +12,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-static NSString * CardDetailsViewModelStartFetchingChildCardsNotificationName = @"CardDetailsViewModelStartFetchingChildCardsNotificationName";
-static NSString * CardDetailsViewModelStartFetchedChildCardsNotificationName = @"CardDetailsViewModelStartFetchedChildCardsNotificationName";
+static NSNotificationName const NSNotificationNameCardDetailsViewModelStartFetchingChildCards = @"NSNotificationNameCardDetailsViewModelStartFetchingChildCards";
+static NSNotificationName const NSNotificationNameCardDetailsViewModelStartFetchedChildCards = @"NSNotificationNameCardDetailsViewModelStartFetchedChildCards";
 
 typedef UICollectionViewDiffableDataSource<CardDetailsSectionModel *, CardDetailsItemModel *> CardDetailsDataSource;
 

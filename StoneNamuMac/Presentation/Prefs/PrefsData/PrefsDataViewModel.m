@@ -58,7 +58,7 @@
     [self.queue addBarrierBlock:^{
         NSString *formattedFileSize = [NSByteCountFormatter stringFromByteCount:fileSize.unsignedLongLongValue countStyle:NSByteCountFormatterCountStyleFile];
         
-        [NSNotificationCenter.defaultCenter postNotificationName:PrefsDataViewModelDidChangeFormattedFileSizeNotificationName
+        [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNamePrefsDataViewModelDidChangeFormattedFileSize
                                                           object:self
                                                         userInfo:@{PrefsDataViewModelDidChangeFormattedFileSizeNotificationItemKey: formattedFileSize}];
     }];

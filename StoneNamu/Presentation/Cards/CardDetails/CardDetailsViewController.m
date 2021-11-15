@@ -259,12 +259,12 @@
 - (void)bind {
     [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(startFetchingChildCardsReceived:)
-                                               name:CardDetailsViewModelStartFetchingChildCardsNotificationName
+                                               name:NSNotificationNameCardDetailsViewModelStartFetchingChildCards
                                              object:self.viewModel];
     
     [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(fetchedChildCardsReceived:)
-                                               name:CardDetailsViewModelStartFetchedChildCardsNotificationName
+                                               name:NSNotificationNameCardDetailsViewModelStartFetchedChildCards
                                              object:self.viewModel];
 }
 

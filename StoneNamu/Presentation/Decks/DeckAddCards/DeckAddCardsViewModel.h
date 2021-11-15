@@ -12,12 +12,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-static NSString * const DeckAddCardsViewModelErrorNotificationName = @"DeckAddCardsViewModelErrorNotificationName";
+static NSNotificationName const NSNotificationNameDeckAddCardsViewModelError = @"NSNotificationNameDeckAddCardsViewModelError";
 static NSString * const DeckAddCardsViewModelErrorNotificationErrorKey = @"DeckAddCardsViewModelErrorNotificationErrorKey";
 
-static NSString * const DeckAddCardsViewModelApplyingSnapshotToDataSourceWasDoneNotificationName = @"DeckAddCardsViewModelApplyingSnapshotToDataSourceWasDoneNotificationName";
+static NSNotificationName const NSNotificationNameDeckAddCardsViewModelApplyingSnapshotToDataSourceWasDone = @"NSNotificationNameDeckAddCardsViewModelApplyingSnapshotToDataSourceWasDone";
 
-static NSString * const DeckAddCardsViewModelLocalDeckHasChangedNotificationName = @"DeckAddCardsViewModelLocalDeckHasChangedNotificationName";
+static NSNotificationName const NSNotificationNameDeckAddCardsViewModelLocalDeckHasChanged = @"NSNotificationNameDeckAddCardsViewModelLocalDeckHasChanged";
 
 typedef UICollectionViewDiffableDataSource<DeckAddCardSectionModel *, DeckAddCardItemModel *> CardsDataSource;
 

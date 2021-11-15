@@ -226,13 +226,13 @@
 }
 
 - (void)postError:(NSError *)error {
-    [NSNotificationCenter.defaultCenter postNotificationName:CardsViewModelErrorNotificationName
+    [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameCardsViewModelError
                                                       object:self
                                                     userInfo:@{CardsViewModelErrorNotificationErrorKey: error}];
 }
 
 - (void)postApplyingSnapshotWasDone {
-    [NSNotificationCenter.defaultCenter postNotificationName:CardsViewModelApplyingSnapshotToDataSourceWasDoneNotificationName
+    [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameCardsViewModelApplyingSnapshotToDataSourceWasDone
                                                       object:self
                                                     userInfo:nil];
 }
@@ -240,7 +240,7 @@
 - (void)observePrefsChange {
     [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(prefsChangedEventReceived:)
-                                               name:PrefsUseCaseObserveDataNotificationName
+                                               name:NSNotificationNamePrefsUseCaseObserveData
                                              object:self.prefsUseCase];
 }
 
@@ -251,7 +251,7 @@
 - (void)observeDataCachesDeleted {
     [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(dataCacheDeletedEventReceived:)
-                                               name:DataCacheUseCaseDeleteAllNotificationName
+                                               name:NSNotificationNameDataCacheUseCaseDeleteAll
                                              object:nil];
 }
 

@@ -289,12 +289,12 @@
 - (void)startLocalDeckObserving {
     [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(localDeckChangesReceived:)
-                                               name:LocalDeckUseCaseObserveDataNotificationName
+                                               name:NSNotificationNameLocalDeckUseCaseObserveData
                                              object:self.localDeckUseCase];
     
     [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(localDeckChangesReceived:)
-                                               name:LocalDeckUseCaseDeleteAllNotificationName
+                                               name:NSNotificationNameLocalDeckUseCaseDeleteAll
                                              object:nil];
 }
 
