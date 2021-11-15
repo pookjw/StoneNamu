@@ -23,6 +23,8 @@
         CoreDataStackImpl *coreDataStack = [[CoreDataStackImpl alloc] initWithModelName:@"DataCacheModel" storeContainerClass:[NSPersistentContainer class] models:@[@"DataCacheModel"]];
         self.coreDataStack = coreDataStack;
         [coreDataStack release];
+        
+        [self startObserving];
     }
     
     return self;
@@ -31,6 +33,22 @@
 - (void)dealloc {
     [_coreDataStack release];
     [super dealloc];
+}
+
+- (void)fileSizeWithCompletion:(DataCacheRepositoryFileSizeWithCompletion)completion {
+    [self.coreDataStack.queue addBarrierBlock:^{
+        NSURL *url = self.coreDataStack.storeContainer.persistentStoreCoordinator.persistentStores.firstObject.URL;
+        NSError * _Nullable error = nil;
+        NSDictionary *attributes = [NSFileManager.defaultManager attributesOfItemAtPath:url.path error:&error];
+        
+        if (error) {
+            NSLog(@"%@", error.localizedDescription);
+            return;
+        }
+        
+        NSNumber *fileSize = attributes[NSFileSize];
+        completion(fileSize);
+    }];
 }
 
 - (void)saveChanges {
@@ -95,6 +113,19 @@
         DataCache *dataCache = [[DataCache alloc] initWithContext:self.coreDataStack.context];
         completion(dataCache);
     }];
+}
+
+- (void)startObserving {
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(changesReceived:)
+                                               name:CoreDataStackDidChangeNotificationName
+                                             object:nil];
+}
+
+- (void)changesReceived:(NSNotification *)notification {
+    [NSNotificationCenter.defaultCenter postNotificationName:DataCacheRepositoryObserveDataNotificationName
+                                                      object:self
+                                                    userInfo:nil];
 }
 
 @end

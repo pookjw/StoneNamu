@@ -80,7 +80,8 @@ static NSMutableDictionary<NSString *, NSNumber *> * _Nullable kMigrateStatus = 
     }
     
     if (kStoreContainers[modelName]) {
-        _storeContainer = [kStoreContainers[modelName] retain];
+        [self->_storeContainer release];
+        self->_storeContainer = [kStoreContainers[modelName] retain];
         return;
     }
     
@@ -101,7 +102,8 @@ static NSMutableDictionary<NSString *, NSNumber *> * _Nullable kMigrateStatus = 
     [semaphore release];
     
     kStoreContainers[modelName] = container;
-    _storeContainer = [container retain];
+    [self->_storeContainer release];
+    self->_storeContainer = [container retain];
 }
 
 - (void)configureContextWithModelName:(NSString *)modelName {

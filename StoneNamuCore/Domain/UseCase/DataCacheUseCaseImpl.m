@@ -60,6 +60,10 @@
     [self.dataCacheRepository deleteAllDataCaches];
 }
 
+- (void)fileSizeWithCompletion:(DataCacheUseCaseFileSizeWithCompletion)completion {
+    [self.dataCacheRepository fileSizeWithCompletion:completion];
+}
+
 - (void)makeDataCache:(NSData *)data identity:(NSString *)identity completion:(DataCacheUseCaseMakeWithCompletion)completion {
     [self.dataCacheRepository makeDataCacheWithCompletion:^(DataCache * _Nonnull dataCache) {
         dataCache.data = data;
@@ -77,10 +81,21 @@
                                            selector:@selector(deleteAllEventReceived:)
                                                name:DataCacheRepositoryDeleteAllNotificationName
                                              object:self.dataCacheRepository];
+    
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(changesReceived:)
+                                               name:DataCacheRepositoryObserveDataNotificationName
+                                             object:self.dataCacheRepository];
 }
 
 - (void)deleteAllEventReceived:(NSNotification *)notification {
     [NSNotificationCenter.defaultCenter postNotificationName:DataCacheUseCaseDeleteAllNotificationName
+                                                      object:self
+                                                    userInfo:nil];
+}
+
+- (void)changesReceived:(NSNotification *)notification {
+    [NSNotificationCenter.defaultCenter postNotificationName:DataCacheUseCaseObserveDataNotificationName
                                                       object:self
                                                     userInfo:nil];
 }

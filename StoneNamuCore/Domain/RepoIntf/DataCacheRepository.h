@@ -10,12 +10,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void (^DataCacheRepositoryFileSizeWithCompletion)(NSNumber * _Nullable);
 typedef void (^DataCacheRepositoryFetchWithIdentityCompletion)(NSArray<DataCache *> * _Nullable, NSError * _Nullable);
 typedef void (^DataCacheRepositoryMakeWithCompletion)(DataCache *);
 
 static NSString * const DataCacheRepositoryDeleteAllNotificationName = @"DataCacheRepositoryDeleteAllNotificationName";
+static NSString * const DataCacheRepositoryObserveDataNotificationName = @"DataCacheRepositoryObserveDataNotificationName";
 
 @protocol DataCacheRepository <NSObject>
+- (void)fileSizeWithCompletion:(DataCacheRepositoryFileSizeWithCompletion)completion;
 - (void)saveChanges;
 - (void)dataCachesWithIdentity:(NSString *)identity completion:(DataCacheRepositoryFetchWithIdentityCompletion)completion;
 - (void)deleteAllDataCaches;

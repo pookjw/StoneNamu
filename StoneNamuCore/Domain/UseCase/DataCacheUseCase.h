@@ -9,14 +9,17 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void (^DataCacheUseCaseFileSizeWithCompletion)(NSNumber * _Nullable);
 typedef void (^DataCacheUseCaseFetchWithIdentityCompletion)(NSArray<NSData *> * _Nullable, NSError * _Nullable);
 typedef void (^DataCacheUseCaseMakeWithCompletion)(void);
 
 static NSString * const DataCacheUseCaseDeleteAllNotificationName = @"DataCacheUseCaseDeleteAllNotificationName";
+static NSString * const DataCacheUseCaseObserveDataNotificationName = @"DataCacheUseCaseObserveDataNotificationName";
 
 @protocol DataCacheUseCase <NSObject>
 - (void)dataCachesWithIdentity:(NSString *)identity completion:(DataCacheUseCaseFetchWithIdentityCompletion)completion;
 - (void)deleteAllDataCaches;
+- (void)fileSizeWithCompletion:(DataCacheUseCaseFileSizeWithCompletion)completion;
 - (void)makeDataCache:(NSData *)data identity:(NSString *)identity completion:(DataCacheUseCaseMakeWithCompletion)completion;
 - (void)saveChanges;
 @end
