@@ -120,7 +120,6 @@
 }
 
 - (void)didTriggerDeleteAllDataCacheButton:(NSButton *)sender {
-    self.dataCacheSizeLabel.stringValue = @"";
     [self.viewModel deleteAllCahces];
 }
 
