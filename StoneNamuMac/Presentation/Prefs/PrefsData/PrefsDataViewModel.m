@@ -11,6 +11,7 @@
 @interface PrefsDataViewModel ()
 @property (retain) NSOperationQueue *queue;
 @property (retain) id<DataCacheUseCase> dataCacheUseCase;
+@property (retain) id<LocalDeckUseCase> localDeckUseCase;
 @end
 
 @implementation PrefsDataViewModel
@@ -28,9 +29,13 @@
         self.dataCacheUseCase = dataCacheUseCase;
         [NSNotificationCenter.defaultCenter addObserver:self
                                                selector:@selector(didChangeDataCache:)
-                                                   name:DataCacheUseCaseObserveDataNotificationName
+                                                   name:NSNotificationNameDataCacheUseCaseObserveData
                                                  object:dataCacheUseCase];
         [dataCacheUseCase release];
+        
+        LocalDeckUseCaseImpl *localDeckUseCase = [LocalDeckUseCaseImpl new];
+        self.localDeckUseCase = localDeckUseCase;
+        [localDeckUseCase release];
     }
     
     return self;
@@ -39,6 +44,7 @@
 - (void)dealloc {
     [_queue release];
     [_dataCacheUseCase release];
+    [_localDeckUseCase release];
     [super dealloc];
 }
 
@@ -46,6 +52,14 @@
     [self.dataCacheUseCase fileSizeWithCompletion:^(NSNumber * fileSize) {
         [self postFormattedFileSizeFromFileSize:fileSize];
     }];
+}
+
+- (void)deleteAllCahces {
+    [self.dataCacheUseCase deleteAllDataCaches];
+}
+
+- (void)deleteAllLocalDecks {
+    [self.localDeckUseCase deleteAllLocalDecks];
 }
 
 - (void)didChangeDataCache:(NSNotification *)notification {

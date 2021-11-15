@@ -14,6 +14,8 @@ static NSString * const PrefsDataViewModelDidChangeFormattedFileSizeNotification
 
 @interface PrefsDataViewModel : NSObject
 - (void)requestFormattedFileSize;
+- (void)deleteAllCahces;
+- (void)deleteAllLocalDecks;
 @end
 
 NS_ASSUME_NONNULL_END

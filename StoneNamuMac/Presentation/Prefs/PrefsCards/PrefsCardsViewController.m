@@ -79,7 +79,7 @@
     self.localeLabel = localeLabel;
     [localeLabel setLabelStyle];
     localeLabel.font = [NSFont preferredFontForTextStyle:NSFontTextStyleBody options:@{}];
-    localeLabel.stringValue = [NSString stringWithFormat:@"%@:", [ResourcesService localizationForKey:LocalizableKeyLocale]];
+    localeLabel.stringValue = [NSString stringWithFormat:@"%@ :", [ResourcesService localizationForKey:LocalizableKeyLocale]];
     
     NSPopUpButton *localeMenuButton = [NSPopUpButton new];
     self.localeMenuButton = localeMenuButton;
@@ -135,7 +135,7 @@
     self.regionLabel = regionLabel;
     [regionLabel setLabelStyle];
     regionLabel.font = [NSFont preferredFontForTextStyle:NSFontTextStyleBody options:@{}];
-    regionLabel.stringValue = [NSString stringWithFormat:@"%@:", [ResourcesService localizationForKey:LocalizableKeyRegion]];
+    regionLabel.stringValue = [NSString stringWithFormat:@"%@ :", [ResourcesService localizationForKey:LocalizableKeyRegion]];
     
     NSPopUpButton *regionMenuButton = [NSPopUpButton new];
     self.regionMenuButton = regionMenuButton;

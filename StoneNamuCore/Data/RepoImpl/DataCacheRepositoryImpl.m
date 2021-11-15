@@ -43,6 +43,7 @@
         
         if (error) {
             NSLog(@"%@", error.localizedDescription);
+            completion([NSNumber numberWithLongLong:0]);
             return;
         }
         
@@ -100,6 +101,9 @@
                     NSLog(@"%@", error.localizedDescription);
                 } else {
                     [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameDataCacheRepositoryDeleteAll
+                                                                      object:self
+                                                                    userInfo:nil];
+                    [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameDataCacheRepositoryObserveData
                                                                       object:self
                                                                     userInfo:nil];
                 }

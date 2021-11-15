@@ -136,6 +136,8 @@
 
 "DELETE_ALL_CACHES" = "Delete All Caches";
 
+"CACHE_SIZE" = "Cache Size : %@";
+
 "SAVE" = "Save";
 
 "COPY" = "Copy";
