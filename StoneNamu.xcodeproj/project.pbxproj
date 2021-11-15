@@ -1302,7 +1302,6 @@
 				4F4892E72724727000126131 /* CardContentView.h */,
 				4F4892E82724727000126131 /* CardContentView.m */,
 				4F4892EA272474D600126131 /* CardContentView.xib */,
-				4F883F67272FFE6100AF0048 /* TouchBar */,
 			);
 			path = Cards;
 			sourceTree = "<group>";
@@ -2172,6 +2171,7 @@
 				4FC48A892739FE7B001240FE /* Factory */,
 				4F394DBA2738613F00D1148D /* Menu */,
 				4F7333F4272D834900438FE0 /* Toolbar */,
+				4F883F67272FFE6100AF0048 /* TouchBar */,
 			);
 			path = Cards;
 			sourceTree = "<group>";
