@@ -43,7 +43,7 @@
         [_copy->_percentage release];
         _copy->_percentage = [self.percentage copyWithZone:zone];
         [_copy->_cardCount release];
-        _copy->_cardCount = [self.cardCount copcopyWithZone:zoney];
+        _copy->_cardCount = [self.cardCount copyWithZone:zone];
         _copy->_isDarkMode = self.isDarkMode;
     }
     

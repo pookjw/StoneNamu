@@ -122,9 +122,11 @@
 
 "AUTO" = "(Auto)";
 
-"CARD_LANGUAGE_AUTO_DESCRIPTION" = "Card Language will be automatically selected from system settings.";
+"CARD_LANGUAGE_AUTO_DESCRIPTION" = "Card Language will be automatically selected using system settings.";
 
-"SERVER_AUTO_DESCRIPTION" = "Server will be automatically selected from system settings.";
+"SERVER_AUTO_DESCRIPTION" = "Server will be automatically selected using system settings.";
+
+"AUTO_DESCRIPTION" = "(Auto) will automatically select using system settings.";
 
 "TWITTER" = "Twitter";
 

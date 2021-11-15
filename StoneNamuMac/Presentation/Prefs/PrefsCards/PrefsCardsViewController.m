@@ -19,6 +19,7 @@
 @property (retain) NSTextField *regionLabel;
 @property (retain) NSPopUpButton *regionMenuButton;
 @property (retain) NSMenu *regionMenu;
+@property (retain) NSTextField *descriptionLabel;
 @property (retain) PrefsCardsViewModel *viewModel;
 @end
 
@@ -32,6 +33,7 @@
     [_regionLabel release];
     [_regionMenuButton release];
     [_regionMenu release];
+    [_descriptionLabel release];
     [_viewModel release];
     [super dealloc];
 }
@@ -48,6 +50,7 @@
     [self configureLocaleViews];
     [self configureRegionViews];
     [self configureViewModel];
+    [self configureDescriptionLabel];
     [self bind];
     [self.viewModel requestPrefs];
 }
@@ -65,7 +68,7 @@
     
     // https://stackoverflow.com/questions/52045470/nsgridview-difficulties
     gridView.rowAlignment = NSGridRowAlignmentLastBaseline;
-    gridView.xPlacement = NSGridCellPlacementCenter;
+    gridView.xPlacement = NSGridCellPlacementTrailing;
     gridView.yPlacement = NSGridCellPlacementTop;
     
     [gridView release];
@@ -76,7 +79,7 @@
     self.localeLabel = localeLabel;
     [localeLabel setLabelStyle];
     localeLabel.font = [NSFont preferredFontForTextStyle:NSFontTextStyleBody options:@{}];
-    localeLabel.stringValue = [ResourcesService localizationForKey:LocalizableKeyLocale];
+    localeLabel.stringValue = [NSString stringWithFormat:@"%@:", [ResourcesService localizationForKey:LocalizableKeyLocale]];
     
     NSPopUpButton *localeMenuButton = [NSPopUpButton new];
     self.localeMenuButton = localeMenuButton;
@@ -132,7 +135,7 @@
     self.regionLabel = regionLabel;
     [regionLabel setLabelStyle];
     regionLabel.font = [NSFont preferredFontForTextStyle:NSFontTextStyleBody options:@{}];
-    regionLabel.stringValue = [ResourcesService localizationForKey:LocalizableKeyRegion];
+    regionLabel.stringValue = [NSString stringWithFormat:@"%@:", [ResourcesService localizationForKey:LocalizableKeyRegion]];
     
     NSPopUpButton *regionMenuButton = [NSPopUpButton new];
     self.regionMenuButton = regionMenuButton;
@@ -181,6 +184,22 @@
     [regionLabel release];
     [regionMenuButton release];
     [regionMenu release];
+}
+
+- (void)configureDescriptionLabel {
+    NSTextField *descriptionLabel = [NSTextField new];
+    self.descriptionLabel = descriptionLabel;
+    [descriptionLabel setLabelStyle];
+    descriptionLabel.stringValue = [ResourcesService localizationForKey:LocalizableKeyAutoDescription];
+    
+    [self.view addSubview:descriptionLabel];
+    descriptionLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    [NSLayoutConstraint activateConstraints:@[
+        [descriptionLabel.topAnchor constraintEqualToAnchor:self.gridView.bottomAnchor constant:25.0f],
+        [descriptionLabel.centerXAnchor constraintEqualToAnchor:self.gridView.centerXAnchor]
+    ]];
+    
+    [descriptionLabel release];
 }
 
 - (void)configureViewModel {
