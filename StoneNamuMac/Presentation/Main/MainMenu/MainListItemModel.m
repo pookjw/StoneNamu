@@ -1,8 +1,8 @@
 //
 //  MainListItemModel.m
-//  MainListItemModel
+//  StoneNamuMac
 //
-//  Created by Jinwoo Kim on 10/15/21.
+//  Created by Jinwoo Kim on 11/16/21.
 //
 
 #import "MainListItemModel.h"
@@ -21,11 +21,11 @@
 }
 
 - (BOOL)isEqual:(id)object {
-    MainListItemModel *toCompare = (MainListItemModel *)object;
-    
-    if (![toCompare isKindOfClass:[MainListItemModel class]]) {
+    if (![object isKindOfClass:[MainListItemModel class]]) {
         return NO;
     }
+    
+    MainListItemModel *toCompare = (MainListItemModel *)object;
     
     return self.type == toCompare.type;
 }
@@ -34,12 +34,12 @@
     return self.type;
 }
 
-- (UIImage * _Nullable)primaryImage {
+- (NSImage * _Nullable)image {
     switch (self.type) {
         case MainListItemModelTypeCards:
-            return [UIImage systemImageNamed:@"text.book.closed"];
+            return [NSImage imageWithSystemSymbolName:@"text.book.closed" accessibilityDescription:nil];
         case MainListItemModelTypeDecks:
-            return [UIImage systemImageNamed:@"books.vertical"];
+            return [NSImage imageWithSystemSymbolName:@"books.vertical" accessibilityDescription:nil];
         default:
             return nil;
     }
@@ -54,10 +54,6 @@
         default:
             return nil;
     }
-}
-
-- (NSString * _Nullable)secondaryText {
-    return nil;
 }
 
 @end

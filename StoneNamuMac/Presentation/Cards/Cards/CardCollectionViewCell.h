@@ -1,5 +1,5 @@
 //
-//  CardContentView.h
+//  CardCollectionViewCell.h
 //  StoneNamuMac
 //
 //  Created by Jinwoo Kim on 10/24/21.
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CardContentView : NSCollectionViewItem
+@interface CardCollectionViewCell : NSCollectionViewItem
 - (void)configureWithHSCard:(HSCard *)hsCard;
 @end
 

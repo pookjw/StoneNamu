@@ -83,8 +83,8 @@
 		4F4892CB272460CD00126131 /* StoneNamuCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4F34384826A36FBA001161FE /* StoneNamuCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4F4892DE27246B6000126131 /* NSViewController+loadViewIfNeeded.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4892DD27246B6000126131 /* NSViewController+loadViewIfNeeded.m */; };
 		4F4892E227246E2B00126131 /* MainWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4892E127246E2B00126131 /* MainWindow.m */; };
-		4F4892E92724727000126131 /* CardContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4892E82724727000126131 /* CardContentView.m */; };
-		4F4892EB272474D600126131 /* CardContentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F4892EA272474D600126131 /* CardContentView.xib */; };
+		4F4892E92724727000126131 /* CardCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4892E82724727000126131 /* CardCollectionViewCell.m */; };
+		4F4892EB272474D600126131 /* CardCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F4892EA272474D600126131 /* CardCollectionViewCell.xib */; };
 		4F4976D226ABE6B600860809 /* CardsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4976D126ABE6B600860809 /* CardsViewModel.m */; };
 		4F4976D626ABE72C00860809 /* CardSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4976D526ABE72C00860809 /* CardSectionModel.m */; };
 		4F4976D926ABE80700860809 /* CardItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4976D826ABE80700860809 /* CardItemModel.m */; };
@@ -339,6 +339,12 @@
 		F31581012741231700DBD6D4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F31581002741231700DBD6D4 /* AppDelegate.m */; };
 		F35E230A27401B42000A2605 /* BlizzardHSAPIOptionType.strings in Resources */ = {isa = PBXBuildFile; fileRef = F35E230C27401B42000A2605 /* BlizzardHSAPIOptionType.strings */; };
 		F3862A3127428FC70061C20C /* PrefsDataViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F3862A3027428FC70061C20C /* PrefsDataViewModel.m */; };
+		F3CCE2812742BFCF004B5B26 /* MainListCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3CCE2802742BFCF004B5B26 /* MainListCollectionViewCell.xib */; };
+		F3CCE2842742BFF7004B5B26 /* MainListCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F3CCE2832742BFF7004B5B26 /* MainListCollectionViewCell.m */; };
+		F3CCE2872742C17F004B5B26 /* MainListCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = F3CCE2862742C17F004B5B26 /* MainListCollectionViewLayout.m */; };
+		F3CCE28A2742C3BD004B5B26 /* MainListViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F3CCE2892742C3BD004B5B26 /* MainListViewModel.m */; };
+		F3CCE28D2742C435004B5B26 /* MainListSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F3CCE28C2742C435004B5B26 /* MainListSectionModel.m */; };
+		F3CCE2902742C442004B5B26 /* MainListItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F3CCE28F2742C442004B5B26 /* MainListItemModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -547,9 +553,9 @@
 		4F4892DD27246B6000126131 /* NSViewController+loadViewIfNeeded.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSViewController+loadViewIfNeeded.m"; sourceTree = "<group>"; };
 		4F4892E027246E2B00126131 /* MainWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainWindow.h; sourceTree = "<group>"; };
 		4F4892E127246E2B00126131 /* MainWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainWindow.m; sourceTree = "<group>"; };
-		4F4892E72724727000126131 /* CardContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardContentView.h; sourceTree = "<group>"; };
-		4F4892E82724727000126131 /* CardContentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardContentView.m; sourceTree = "<group>"; };
-		4F4892EA272474D600126131 /* CardContentView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CardContentView.xib; sourceTree = "<group>"; };
+		4F4892E72724727000126131 /* CardCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardCollectionViewCell.h; sourceTree = "<group>"; };
+		4F4892E82724727000126131 /* CardCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardCollectionViewCell.m; sourceTree = "<group>"; };
+		4F4892EA272474D600126131 /* CardCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CardCollectionViewCell.xib; sourceTree = "<group>"; };
 		4F4976D026ABE6B600860809 /* CardsViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardsViewModel.h; sourceTree = "<group>"; };
 		4F4976D126ABE6B600860809 /* CardsViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardsViewModel.m; sourceTree = "<group>"; };
 		4F4976D426ABE72C00860809 /* CardSectionModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardSectionModel.h; sourceTree = "<group>"; };
@@ -978,6 +984,17 @@
 		F35E230D27401B43000A2605 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/BlizzardHSAPIOptionType.strings; sourceTree = "<group>"; };
 		F3862A2F27428FC70061C20C /* PrefsDataViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefsDataViewModel.h; sourceTree = "<group>"; };
 		F3862A3027428FC70061C20C /* PrefsDataViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrefsDataViewModel.m; sourceTree = "<group>"; };
+		F3CCE2802742BFCF004B5B26 /* MainListCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainListCollectionViewCell.xib; sourceTree = "<group>"; };
+		F3CCE2822742BFF7004B5B26 /* MainListCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainListCollectionViewCell.h; sourceTree = "<group>"; };
+		F3CCE2832742BFF7004B5B26 /* MainListCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainListCollectionViewCell.m; sourceTree = "<group>"; };
+		F3CCE2852742C17F004B5B26 /* MainListCollectionViewLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainListCollectionViewLayout.h; sourceTree = "<group>"; };
+		F3CCE2862742C17F004B5B26 /* MainListCollectionViewLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainListCollectionViewLayout.m; sourceTree = "<group>"; };
+		F3CCE2882742C3BD004B5B26 /* MainListViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainListViewModel.h; sourceTree = "<group>"; };
+		F3CCE2892742C3BD004B5B26 /* MainListViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainListViewModel.m; sourceTree = "<group>"; };
+		F3CCE28B2742C435004B5B26 /* MainListSectionModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainListSectionModel.h; sourceTree = "<group>"; };
+		F3CCE28C2742C435004B5B26 /* MainListSectionModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainListSectionModel.m; sourceTree = "<group>"; };
+		F3CCE28E2742C442004B5B26 /* MainListItemModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainListItemModel.h; sourceTree = "<group>"; };
+		F3CCE28F2742C442004B5B26 /* MainListItemModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainListItemModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1299,9 +1316,9 @@
 				4FE8576F27009C4D0008C2FB /* CardSectionModel.m */,
 				4FE8577127009C570008C2FB /* CardItemModel.h */,
 				4FE8577227009C570008C2FB /* CardItemModel.m */,
-				4F4892E72724727000126131 /* CardContentView.h */,
-				4F4892E82724727000126131 /* CardContentView.m */,
-				4F4892EA272474D600126131 /* CardContentView.xib */,
+				4F4892E72724727000126131 /* CardCollectionViewCell.h */,
+				4F4892E82724727000126131 /* CardCollectionViewCell.m */,
+				4F4892EA272474D600126131 /* CardCollectionViewCell.xib */,
 			);
 			path = Cards;
 			sourceTree = "<group>";
@@ -2160,6 +2177,17 @@
 			children = (
 				4FE85765270092F30008C2FB /* MainListViewController.h */,
 				4FE85766270092F30008C2FB /* MainListViewController.m */,
+				F3CCE2882742C3BD004B5B26 /* MainListViewModel.h */,
+				F3CCE2892742C3BD004B5B26 /* MainListViewModel.m */,
+				F3CCE28B2742C435004B5B26 /* MainListSectionModel.h */,
+				F3CCE28C2742C435004B5B26 /* MainListSectionModel.m */,
+				F3CCE28E2742C442004B5B26 /* MainListItemModel.h */,
+				F3CCE28F2742C442004B5B26 /* MainListItemModel.m */,
+				F3CCE2822742BFF7004B5B26 /* MainListCollectionViewCell.h */,
+				F3CCE2832742BFF7004B5B26 /* MainListCollectionViewCell.m */,
+				F3CCE2802742BFCF004B5B26 /* MainListCollectionViewCell.xib */,
+				F3CCE2852742C17F004B5B26 /* MainListCollectionViewLayout.h */,
+				F3CCE2862742C17F004B5B26 /* MainListCollectionViewLayout.m */,
 			);
 			path = MainMenu;
 			sourceTree = "<group>";
@@ -2675,9 +2703,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4F4892EB272474D600126131 /* CardContentView.xib in Resources */,
+				4F4892EB272474D600126131 /* CardCollectionViewCell.xib in Resources */,
 				4F23C8B5273D9A2500C33F10 /* Assets.xcassets in Resources */,
 				4F23C8B8273D9A5900C33F10 /* InfoPlist.strings in Resources */,
+				F3CCE2812742BFCF004B5B26 /* MainListCollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2909,9 +2938,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				F303D63F2741549800569E20 /* NSTabViewController+selectTabViewItem.m in Sources */,
+				F3CCE2842742BFF7004B5B26 /* MainListCollectionViewCell.m in Sources */,
 				4F83FBDF272E7226002D2387 /* NSView+isDarkMode.m in Sources */,
 				4FE857622700913A0008C2FB /* MainSplitViewController.m in Sources */,
 				4FC48A882739EF48001240FE /* CardOptionsFactory.m in Sources */,
+				F3CCE2902742C442004B5B26 /* MainListItemModel.m in Sources */,
 				4FE8576D27009B5C0008C2FB /* CardsViewModel.m in Sources */,
 				F31581012741231700DBD6D4 /* AppDelegate.m in Sources */,
 				F303D6392741507400569E20 /* PrefsCardsViewController.m in Sources */,
@@ -2920,7 +2951,7 @@
 				4FC402C0273870C200D25523 /* ViewMenuItem.m in Sources */,
 				4FC402C3273872A900D25523 /* WindowMenuItem.m in Sources */,
 				4F883F6E27300B1700AF0048 /* NSToolbarIdentifierCardOption+BlizzardHSAPIOptionType.m in Sources */,
-				4F4892E92724727000126131 /* CardContentView.m in Sources */,
+				4F4892E92724727000126131 /* CardCollectionViewCell.m in Sources */,
 				F303D64227415BFF00569E20 /* NSProcessInfo+isEnabledRestoration.m in Sources */,
 				F31580ED2740D69000DBD6D4 /* PrefsWindow.m in Sources */,
 				4FC402B22738686500D25523 /* AppMenuItem.m in Sources */,
@@ -2937,8 +2968,10 @@
 				4FE8576A270093CF0008C2FB /* CardsViewController.m in Sources */,
 				4FC48A852739E6B3001240FE /* NSUserInterfaceItemIdentifierCardOption+BlizzardHSAPIOption.m in Sources */,
 				4F4892E227246E2B00126131 /* MainWindow.m in Sources */,
+				F3CCE28D2742C435004B5B26 /* MainListSectionModel.m in Sources */,
 				4FE8577327009C570008C2FB /* CardItemModel.m in Sources */,
 				4F883F74273011FC00AF0048 /* NSTextField+setLabelStyle.m in Sources */,
+				F3CCE2872742C17F004B5B26 /* MainListCollectionViewLayout.m in Sources */,
 				4F7333FB272DA77900438FE0 /* CardOptionsMenuItem.m in Sources */,
 				4FC402C6273873BC00D25523 /* HelpMenuItem.m in Sources */,
 				4FC402C92738755F00D25523 /* BaseMenu.m in Sources */,
@@ -2949,6 +2982,7 @@
 				4F98C28F27284DC900865CCD /* SpinnerView.m in Sources */,
 				4FC402BD27386F3100D25523 /* EditMenuItem.m in Sources */,
 				4F466EF1272851090035C569 /* NSViewController+SpinnerView.m in Sources */,
+				F3CCE28A2742C3BD004B5B26 /* MainListViewModel.m in Sources */,
 				F303D648274171C700569E20 /* PrefsCardsMenuItem.m in Sources */,
 				4FC402CD2738759200D25523 /* CardOptionsMenu.m in Sources */,
 				4FE857762700A0230008C2FB /* NSCollectionViewDiffableDataSource+applySnapshotAndWait.m in Sources */,

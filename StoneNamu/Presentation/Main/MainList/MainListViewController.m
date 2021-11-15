@@ -34,7 +34,7 @@
 
 - (void)setSelectionStatusForViewController:(__kindof UIViewController *)viewController {
     if ([viewController isKindOfClass:[CardsViewController class]]) {
-        [self.viewModel indexPathOfItemType:MainItemModelTypeCards completion:^(NSIndexPath * _Nullable indexPath) {
+        [self.viewModel indexPathOfItemType:MainListItemModelTypeCards completion:^(NSIndexPath * _Nullable indexPath) {
             if (indexPath == nil) return;
             
             [NSOperationQueue.mainQueue addOperationWithBlock:^{
@@ -42,7 +42,7 @@
             }];
         }];
     } else if ([viewController isKindOfClass:[DecksViewController class]]) {
-        [self.viewModel indexPathOfItemType:MainItemModelTypeDecks completion:^(NSIndexPath * _Nullable indexPath) {
+        [self.viewModel indexPathOfItemType:MainListItemModelTypeDecks completion:^(NSIndexPath * _Nullable indexPath) {
             if (indexPath == nil) return;
             
             [NSOperationQueue.mainQueue addOperationWithBlock:^{
@@ -267,11 +267,11 @@
     MainListItemModel * _Nullable itemModel = [self.viewModel.dataSource itemIdentifierForIndexPath:indexPath];
     
     switch (itemModel.type) {
-        case MainItemModelTypeCards: {
+        case MainListItemModelTypeCards: {
             [self presentCardsViewController];
             break;
         }
-        case MainItemModelTypeDecks: {
+        case MainListItemModelTypeDecks: {
             [self presentDecksViewController];
             break;
         }

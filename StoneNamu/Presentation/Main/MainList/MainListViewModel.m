@@ -48,7 +48,7 @@
     return sectionModel.footerText;
 }
 
-- (void)indexPathOfItemType:(MainItemModelType)itemType completion:(MainListViewModelIndexPathForItemTypeCompletion)completion {
+- (void)indexPathOfItemType:(MainListItemModelType)itemType completion:(MainListViewModelIndexPathForItemTypeCompletion)completion {
     [self.queue addBarrierBlock:^{
         MainListItemModel * _Nullable __block itemModel = nil;
         
@@ -85,12 +85,12 @@
         
         @autoreleasepool {
             [snapshot appendItemsWithIdentifiers:@[
-                [[[MainListItemModel alloc] initWithType:MainItemModelTypeCards] autorelease]
+                [[[MainListItemModel alloc] initWithType:MainListItemModelTypeCards] autorelease]
             ]
                        intoSectionWithIdentifier:cardsSection];
             
             [snapshot appendItemsWithIdentifiers:@[
-                [[[MainListItemModel alloc] initWithType:MainItemModelTypeDecks] autorelease]
+                [[[MainListItemModel alloc] initWithType:MainListItemModelTypeDecks] autorelease]
             ] intoSectionWithIdentifier:deckSection];
         }
         

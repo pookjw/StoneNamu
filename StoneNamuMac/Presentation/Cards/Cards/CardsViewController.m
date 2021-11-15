@@ -8,7 +8,7 @@
 #import "CardsViewController.h"
 #import "NSWindow+presentErrorAlert.h"
 #import "CardsViewModel.h"
-#import "CardContentView.h"
+#import "CardCollectionViewCell.h"
 #import "NSViewController+SpinnerView.h"
 #import "CardOptionsMenu.h"
 #import "CardOptionsToolbar.h"
@@ -48,7 +48,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardsVie
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.identifier = NSUserInterfaceItemIdentifierCardsViewController;
+    [self setAttributes];
     [self configureCollectionView];
     [self configureCardOptionsMenu];
     [self configureCardOptionsToolbar];
@@ -120,6 +120,10 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardsVie
     [self.viewModel requestDataSourceWithOptions:options reset:YES];
 }
 
+- (void)setAttributes {
+    self.identifier = NSUserInterfaceItemIdentifierCardsViewController;
+}
+
 - (void)configureCollectionView {
     NSScrollView *scrollView = [NSScrollView new];
     NSClipView *clipView = [NSClipView new];
@@ -148,9 +152,9 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardsVie
     collectionView.collectionViewLayout = flowLayout;
     [flowLayout release];
     
-    NSNib *contentViewNib = [[NSNib alloc] initWithNibNamed:NSStringFromClass([CardContentView class]) bundle:NSBundle.mainBundle];
-    [collectionView registerNib:contentViewNib forItemWithIdentifier:NSStringFromClass([CardContentView class])];
-    [contentViewNib release];
+    NSNib *nib = [[NSNib alloc] initWithNibNamed:NSStringFromClass([CardCollectionViewCell class]) bundle:NSBundle.mainBundle];
+    [collectionView registerNib:nib forItemWithIdentifier:NSStringFromClass([CardCollectionViewCell class])];
+    [nib release];
     
     [scrollView release];
     [clipView release];
@@ -217,7 +221,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardsVie
     CardsDataSource *dataSource = [[CardsDataSource alloc] initWithCollectionView:self.collectionView
                                                                      itemProvider:^NSCollectionViewItem * _Nullable(NSCollectionView * _Nonnull collectionView, NSIndexPath * _Nonnull indexPath, CardItemModel * _Nonnull itemModel) {
         
-        CardContentView *cell = (CardContentView *)[collectionView makeItemWithIdentifier:NSStringFromClass([CardContentView class]) forIndexPath:indexPath];
+        CardCollectionViewCell *cell = (CardCollectionViewCell *)[collectionView makeItemWithIdentifier:NSStringFromClass([CardCollectionViewCell class]) forIndexPath:indexPath];
         [cell configureWithHSCard:itemModel.hsCard];
         
         return cell;

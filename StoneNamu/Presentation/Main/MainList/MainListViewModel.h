@@ -22,7 +22,7 @@ typedef void (^MainListViewModelIndexPathForItemTypeCompletion)(NSIndexPath * _N
 - (instancetype)initWithDataSource:(MainDataSource *)dataSource;
 - (NSString * _Nullable)headerTextFromIndexPath:(NSIndexPath *)indexPath;
 - (NSString * _Nullable)footerTextFromIndexPath:(NSIndexPath *)indexPath;
-- (void)indexPathOfItemType:(MainItemModelType)itemType completion:(MainListViewModelIndexPathForItemTypeCompletion)completion;
+- (void)indexPathOfItemType:(MainListItemModelType)itemType completion:(MainListViewModelIndexPathForItemTypeCompletion)completion;
 @end
 
 NS_ASSUME_NONNULL_END

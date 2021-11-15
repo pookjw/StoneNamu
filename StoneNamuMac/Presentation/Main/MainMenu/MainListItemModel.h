@@ -1,11 +1,11 @@
 //
-//  MainItemModel.h
-//  MainItemModel
+//  MainListItemModel.h
+//  StoneNamuMac
 //
-//  Created by Jinwoo Kim on 10/15/21.
+//  Created by Jinwoo Kim on 11/16/21.
 //
 
-#import <UIKit/UIKit.h>
+#import <Cocoa/Cocoa.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -16,9 +16,8 @@ typedef NS_ENUM(NSUInteger, MainListItemModelType) {
 
 @interface MainListItemModel : NSObject
 @property (readonly) MainListItemModelType type;
-@property (readonly, nonatomic) UIImage * _Nullable primaryImage;
+@property (readonly, nonatomic) NSImage * _Nullable image;
 @property (readonly, nonatomic) NSString * _Nullable primaryText;
-@property (readonly, nonatomic) NSString * _Nullable secondaryText;
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithType:(MainListItemModelType)type;

@@ -1,18 +1,18 @@
 //
-//  CardContentView.m
+//  CardCollectionViewCell.m
 //  StoneNamuMac
 //
 //  Created by Jinwoo Kim on 10/24/21.
 //
 
-#import "CardContentView.h"
+#import "CardCollectionViewCell.h"
 #import "NSImageView+setAsyncImage.h"
 
-@interface CardContentView ()
+@interface CardCollectionViewCell ()
 @property (copy) HSCard *hsCard;
 @end
 
-@implementation CardContentView
+@implementation CardCollectionViewCell
 
 - (void)dealloc {
     [_hsCard release];
