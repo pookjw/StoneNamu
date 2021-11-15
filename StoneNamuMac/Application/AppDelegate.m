@@ -32,6 +32,7 @@
 - (void)presentNewMainWindow {
     MainWindow *mainWindow = [MainWindow new];
     [mainWindow makeKeyAndOrderFront:nil];
+    [mainWindow center];
     [mainWindow release];
 }
 
@@ -55,6 +56,7 @@
 - (void)presentNewPrefsWindow {
     PrefsWindow *prefsWindow = [PrefsWindow new];
     [prefsWindow makeKeyAndOrderFront:nil];
+    [prefsWindow center];
     [prefsWindow release];
 }
 

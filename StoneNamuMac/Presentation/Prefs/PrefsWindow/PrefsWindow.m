@@ -33,11 +33,6 @@
     [super dealloc];
 }
 
-- (void)makeKeyAndOrderFront:(id)sender {
-    [super makeKeyAndOrderFront:sender];
-    [self center];
-}
-
 - (void)setAttributes {
     self.styleMask = NSWindowStyleMaskClosable | NSWindowStyleMaskTitled;
     self.movableByWindowBackground = NO;

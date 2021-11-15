@@ -34,11 +34,6 @@
     [super dealloc];
 }
 
-- (void)makeKeyAndOrderFront:(id)sender {
-    [super makeKeyAndOrderFront:sender];
-    [self center];
-}
-
 - (void)restoreStateWithCoder:(NSCoder *)coder {
     [super restoreStateWithCoder:coder];
     [self.mainSplitViewController restoreStateWithCoder:coder];
