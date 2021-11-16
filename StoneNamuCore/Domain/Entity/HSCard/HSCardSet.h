@@ -35,6 +35,7 @@ typedef NS_ENUM(NSUInteger, HSCardSet) {
     HSCardSetMadnessAtTheDarkmoonFaire = 1466,
     HSCardSetForgedInTheBarrens = 1525,
     HSCardSetUnitedInStormWind = 1578,
+    HSCardSetFracturedInAlteracValley = 1626,
     HSCardSetClassicCards = 1646,
     HSCardSetWildCards = 9001,
     HSCardSetStandardCards = 9002

@@ -61,6 +61,8 @@ NSString * NSStringFromHSCardSet(HSCardSet set) {
             return @"forged-in-the-barrens";
         case HSCardSetUnitedInStormWind:
             return @"united-in-stormwind";
+        case HSCardSetFracturedInAlteracValley:
+            return @"fractured-in-alterac-valley";
         case HSCardSetClassicCards:
             return @"classic-cards";
         case HSCardSetWildCards:
@@ -125,6 +127,8 @@ HSCardSet HSCardSetFromNSString(NSString * key) {
         return HSCardSetForgedInTheBarrens;
     } else if ([key isEqualToString:@"united-in-stormwind"]) {
         return HSCardSetUnitedInStormWind;
+    } else if ([key isEqualToString:@"fractured-in-alterac-valley"]) {
+        return HSCardSetFracturedInAlteracValley;
     } else if ([key isEqualToString:@"classic-cards"]) {
         return HSCardSetClassicCards;
     } else if ([key isEqualToString:@"wild"]) {
@@ -164,6 +168,7 @@ NSArray<NSString *> * hsCardSets() {
         NSStringFromHSCardSet(HSCardSetMadnessAtTheDarkmoonFaire),
         NSStringFromHSCardSet(HSCardSetForgedInTheBarrens),
         NSStringFromHSCardSet(HSCardSetUnitedInStormWind),
+        NSStringFromHSCardSet(HSCardSetFracturedInAlteracValley),
         NSStringFromHSCardSet(HSCardSetClassicCards),
         NSStringFromHSCardSet(HSCardSetWildCards),
         NSStringFromHSCardSet(HSCardSetStandardCards)
@@ -174,6 +179,7 @@ NSArray<NSString *> *hsCardSetsFromHSDeckFormat(HSDeckFormat deckFormat) {
     if ([deckFormat isEqualToString:HSDeckFormatStandard]) {
         return @[
             NSStringFromHSCardSet(HSCardSetCore),
+            NSStringFromHSCardSet(HSCardSetFracturedInAlteracValley),
             NSStringFromHSCardSet(HSCardSetAshesOfOutland),
             NSStringFromHSCardSet(HSCardSetScholomanceAcademy),
             NSStringFromHSCardSet(HSCardSetMadnessAtTheDarkmoonFaire),
@@ -209,6 +215,7 @@ NSArray<NSString *> *hsCardSetsFromHSDeckFormat(HSDeckFormat deckFormat) {
             NSStringFromHSCardSet(HSCardSetMadnessAtTheDarkmoonFaire),
             NSStringFromHSCardSet(HSCardSetForgedInTheBarrens),
             NSStringFromHSCardSet(HSCardSetUnitedInStormWind),
+            NSStringFromHSCardSet(HSCardSetFracturedInAlteracValley),
             NSStringFromHSCardSet(HSCardSetWildCards),
             NSStringFromHSCardSet(HSCardSetStandardCards)
         ];
