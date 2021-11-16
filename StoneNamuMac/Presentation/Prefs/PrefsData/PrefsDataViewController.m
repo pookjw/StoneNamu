@@ -36,8 +36,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self configureDeleteAllDataCacheButton];
-#if DEBUG
     [self configureDataCacheSizeLabel];
+#if DEBUG
     [self configureDeleteAllLocalDeckButton];
 #endif
     [self configureViewModel];

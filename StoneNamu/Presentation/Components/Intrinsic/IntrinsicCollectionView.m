@@ -29,6 +29,11 @@
     return self;
 }
 
+- (void)dealloc {
+    [self removeObserver:self forKeyPath:@"contentSize"];
+    [super dealloc];
+}
+
 - (CGSize)intrinsicContentSize {
     return self.contentSize;
 }

@@ -188,6 +188,7 @@
 		4F8F976526D469700024FC06 /* InsetsLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8F976426D469700024FC06 /* InsetsLabel.m */; };
 		4F8F976926D47F360024FC06 /* DeckDetailsManaCostContentConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8F976826D47F360024FC06 /* DeckDetailsManaCostContentConfiguration.m */; };
 		4F8F976C26D47F560024FC06 /* DeckDetailsManaCostContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8F976B26D47F560024FC06 /* DeckDetailsManaCostContentView.m */; };
+		4F8FDEEC2744261900BA84D2 /* DecksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8FDEEB2744261900BA84D2 /* DecksViewController.m */; };
 		4F8FFF3C26E0E66A00FA6586 /* DeckAddCardsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8FFF2B26E0E66A00FA6586 /* DeckAddCardsViewModel.m */; };
 		4F8FFF3D26E0E66A00FA6586 /* DeckAddCardContentConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8FFF2C26E0E66A00FA6586 /* DeckAddCardContentConfiguration.m */; };
 		4F8FFF3E26E0E66A00FA6586 /* DeckAddCardContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8FFF3126E0E66A00FA6586 /* DeckAddCardContentView.m */; };
@@ -680,6 +681,9 @@
 		4F8F976826D47F360024FC06 /* DeckDetailsManaCostContentConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckDetailsManaCostContentConfiguration.m; sourceTree = "<group>"; };
 		4F8F976A26D47F560024FC06 /* DeckDetailsManaCostContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckDetailsManaCostContentView.h; sourceTree = "<group>"; };
 		4F8F976B26D47F560024FC06 /* DeckDetailsManaCostContentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckDetailsManaCostContentView.m; sourceTree = "<group>"; };
+		4F8FDEE72744221900BA84D2 /* MainListViewControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainListViewControllerDelegate.h; sourceTree = "<group>"; };
+		4F8FDEEA2744261900BA84D2 /* DecksViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DecksViewController.h; sourceTree = "<group>"; };
+		4F8FDEEB2744261900BA84D2 /* DecksViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DecksViewController.m; sourceTree = "<group>"; };
 		4F8FFF2B26E0E66A00FA6586 /* DeckAddCardsViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeckAddCardsViewModel.m; sourceTree = "<group>"; };
 		4F8FFF2C26E0E66A00FA6586 /* DeckAddCardContentConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeckAddCardContentConfiguration.m; sourceTree = "<group>"; };
 		4F8FFF2D26E0E66A00FA6586 /* DeckAddCardContentConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeckAddCardContentConfiguration.h; sourceTree = "<group>"; };
@@ -1605,6 +1609,23 @@
 			path = InsetLabel;
 			sourceTree = "<group>";
 		};
+		4F8FDEE82744260300BA84D2 /* Decks */ = {
+			isa = PBXGroup;
+			children = (
+				4F8FDEE92744260C00BA84D2 /* Decks */,
+			);
+			path = Decks;
+			sourceTree = "<group>";
+		};
+		4F8FDEE92744260C00BA84D2 /* Decks */ = {
+			isa = PBXGroup;
+			children = (
+				4F8FDEEA2744261900BA84D2 /* DecksViewController.h */,
+				4F8FDEEB2744261900BA84D2 /* DecksViewController.m */,
+			);
+			path = Decks;
+			sourceTree = "<group>";
+		};
 		4F8FFF4426E0EE2D00FA6586 /* DeckAddCardOptions */ = {
 			isa = PBXGroup;
 			children = (
@@ -2132,6 +2153,7 @@
 			children = (
 				4F4892D3272469A100126131 /* Main */,
 				4FE85764270092CF0008C2FB /* Cards */,
+				4F8FDEE82744260300BA84D2 /* Decks */,
 				F31580E92740D65A00DBD6D4 /* Prefs */,
 				4F98C28C27284D8F00865CCD /* Components */,
 			);
@@ -2175,6 +2197,7 @@
 		4FE85763270092CA0008C2FB /* MainMenu */ = {
 			isa = PBXGroup;
 			children = (
+				4F8FDEE72744221900BA84D2 /* MainListViewControllerDelegate.h */,
 				4FE85765270092F30008C2FB /* MainListViewController.h */,
 				4FE85766270092F30008C2FB /* MainListViewController.m */,
 				F3CCE2882742C3BD004B5B26 /* MainListViewModel.h */,
@@ -2969,6 +2992,7 @@
 				4FC48A852739E6B3001240FE /* NSUserInterfaceItemIdentifierCardOption+BlizzardHSAPIOption.m in Sources */,
 				4F4892E227246E2B00126131 /* MainWindow.m in Sources */,
 				F3CCE28D2742C435004B5B26 /* MainListSectionModel.m in Sources */,
+				4F8FDEEC2744261900BA84D2 /* DecksViewController.m in Sources */,
 				4FE8577327009C570008C2FB /* CardItemModel.m in Sources */,
 				4F883F74273011FC00AF0048 /* NSTextField+setLabelStyle.m in Sources */,
 				F3CCE2872742C17F004B5B26 /* MainListCollectionViewLayout.m in Sources */,

@@ -37,6 +37,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardsVie
     [_cardOptionsMenu release];
     [_cardOptionsToolbar release];
     [_cardOptionsTouchBar release];
+    [self removeObserver:self forKeyPath:@"self.view.window"];
     [super dealloc];
 }
 
@@ -58,20 +59,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardsVie
     [self requestDataSourceWithOptions:nil reset:NO];
 }
 
-- (void)viewWillAppear {
-    [super viewWillAppear];
-    [self setCardsMenuToWindow];
-    [self setCardOptionsToolbarToWindow];
-    [self setCardOptionsTouchBarToWindow];
-}
-
-- (void)viewWillDisappear {
-    [super viewWillDisappear];
-    [self clearCardsMenuFromWindow];
-    [self clearCardOptionsToolbarFromWindow];
-    [self clearCardOptionsTouchBarFromWindow];
-}
-
 - (NSTouchBar *)makeTouchBar {
     return self.cardOptionsTouchBar;
 }
@@ -87,6 +74,26 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardsVie
     
     NSDictionary<NSString *, NSString *> *options = [coder decodeObjectOfClass:[NSDictionary<NSString *, NSString *> class] forKey:@"options"];
     [self requestDataSourceWithOptions:options reset:YES];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+    CardsViewController *vc = (CardsViewController *)object;
+    
+    if (![object isKindOfClass:[CardsViewController class]]) {
+        return [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
+    
+    if ([keyPath isEqualToString:@"self.view.window"]) {
+        if (vc.view.window != nil) {
+            [NSOperationQueue.mainQueue addOperationWithBlock:^{
+                [self setCardsMenuToWindow];
+                [self setCardOptionsToolbarToWindow];
+                [self setCardOptionsTouchBarToWindow];
+            }];
+        }
+    } else {
+        return [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
 }
 
 - (void)updateOptionInterfaceWithOptions:(NSDictionary<NSString *, NSString *> * _Nullable)options {
@@ -182,6 +189,8 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardsVie
                                            selector:@selector(applyingSnapshotWasDoneReceived:)
                                                name:NSNotificationNameCardsViewModelApplyingSnapshotToDataSourceWasDone
                                              object:self.viewModel];
+    
+    [self addObserver:self forKeyPath:@"self.view.window" options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:nil];
 }
 
 - (void)scrollViewDidEndLiveScrollReceived:(NSNotification *)notification {

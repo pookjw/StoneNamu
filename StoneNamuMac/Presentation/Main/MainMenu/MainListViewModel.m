@@ -69,4 +69,27 @@
     }];
 }
 
+- (void)indexPathForItemModelType:(MainListItemModelType)type completion:(MainListViewModelIndexPathForItemModelTypeCompletion)completion {
+    [self.queue addOperationWithBlock:^{
+        MainListItemModel * _Nullable __block itemModel = nil;
+        
+        [self.dataSource.snapshot.itemIdentifiers enumerateObjectsUsingBlock:^(MainListItemModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if (obj.type == type) {
+                itemModel = obj;
+                *stop = YES;
+            }
+        }];
+        
+        if (itemModel == nil) {
+            completion(nil);
+        }
+        
+        completion([self.dataSource indexPathForItemIdentifier:itemModel]);
+    }];
+}
+
+- (MainListItemModel * _Nullable)itemModelForndexPath:(NSIndexPath *)indexPath {
+    return [self.dataSource itemIdentifierForIndexPath:indexPath];
+}
+
 @end

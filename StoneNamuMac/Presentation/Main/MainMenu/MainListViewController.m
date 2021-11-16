@@ -11,6 +11,7 @@
 #import "MainListViewModel.h"
 
 @interface MainListViewController () <NSCollectionViewDelegate>
+@property (weak) id<MainListViewControllerDelegate> delegate;
 @property (retain) NSScrollView *scrollView;
 @property (retain) NSClipView *clipView;
 @property (retain) NSCollectionView *collectionView;
@@ -18,6 +19,16 @@
 @end
 
 @implementation MainListViewController
+
+- (instancetype)initWithDelegate:(id<MainListViewControllerDelegate>)delegate {
+    self = [self init];
+    
+    if (self) {
+        self.delegate = delegate;
+    }
+    
+    return self;
+}
 
 - (void)dealloc {
     [_scrollView release];
@@ -39,6 +50,16 @@
     [self configureCollectionView];
     [self configureViewModel];
     [self.viewModel request];
+}
+
+- (void)selectItemModelType:(MainListItemModelType)type {
+    [self.viewModel indexPathForItemModelType:type completion:^(NSIndexPath * _Nullable indexPath) {
+        if (indexPath == nil) return;
+        
+        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+            [self.collectionView selectItemsAtIndexPaths:[NSSet setWithArray:@[indexPath]] scrollPosition:NSCollectionViewScrollPositionCenteredVertically];
+        }];
+    }];
 }
 
 - (void)setAttributes {
@@ -112,7 +133,8 @@
 #pragma mark - NSCollectionViewDelegate
 
 - (void)collectionView:(NSCollectionView *)collectionView didSelectItemsAtIndexPaths:(NSSet<NSIndexPath *> *)indexPaths {
-    NSLog(@"%@", indexPaths);
+    MainListItemModel * _Nullable itemModel = [self.viewModel itemModelForndexPath:indexPaths.allObjects.firstObject];
+    [self.delegate mainListViewController:self didChangeSelectedItemModelType:itemModel.type];
 }
 
 @end
