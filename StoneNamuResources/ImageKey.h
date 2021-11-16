@@ -27,6 +27,7 @@ static ImageKey const ImageKeyDemonhunterInitiate = @"demonhunter-initiate";
 static ImageKey const ImageKeyJourneyToUngoro = @"journey-to-ungoro";
 static ImageKey const ImageKeyClassicCards = @"classic-cards";
 static ImageKey const ImageKeyForgedInTheBarrens = @"forged-in-the-barrens";
+static ImageKey const ImageKeyFracturedInAlteracValley = @"fractured-in-alterac-valley";
 static ImageKey const ImageKeyWhispersOfTheOldGods = @"whispers-of-the-old-gods";
 static ImageKey const ImageKeyLeagueOfExplorers = @"league-of-explorers";
 static ImageKey const ImageKeyMadnessAtTheDarkmoonFaire = @"madness-at-the-darkmoon-faire";
