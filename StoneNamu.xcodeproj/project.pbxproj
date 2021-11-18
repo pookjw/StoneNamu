@@ -177,6 +177,7 @@
 		4F83FBDF272E7226002D2387 /* NSView+isDarkMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F83FBDE272E7226002D2387 /* NSView+isDarkMode.m */; };
 		4F8635EC2746AE98000EC94F /* StoneNamuError.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F8635EA2746AE98000EC94F /* StoneNamuError.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4F8635ED2746AE98000EC94F /* StoneNamuError.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8635EB2746AE98000EC94F /* StoneNamuError.m */; };
+		4F8635EF2746B8BB000EC94F /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F8635EE2746B8BB000EC94F /* CloudKit.framework */; };
 		4F8754B226DB6F60000CE351 /* HSDeckFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8754B126DB6F60000CE351 /* HSDeckFormat.m */; };
 		4F8754B926DB87DC000CE351 /* UIViewController+SpinnerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8754B826DB87DC000CE351 /* UIViewController+SpinnerView.m */; };
 		4F8754BC26DB91D7000CE351 /* NSIndexPath+identifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8754BB26DB91D7000CE351 /* NSIndexPath+identifier.m */; };
@@ -657,6 +658,7 @@
 		4F83FBDE272E7226002D2387 /* NSView+isDarkMode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSView+isDarkMode.m"; sourceTree = "<group>"; };
 		4F8635EA2746AE98000EC94F /* StoneNamuError.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoneNamuError.h; sourceTree = "<group>"; };
 		4F8635EB2746AE98000EC94F /* StoneNamuError.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StoneNamuError.m; sourceTree = "<group>"; };
+		4F8635EE2746B8BB000EC94F /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.1.sdk/System/Library/Frameworks/CloudKit.framework; sourceTree = DEVELOPER_DIR; };
 		4F8754B126DB6F60000CE351 /* HSDeckFormat.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSDeckFormat.m; sourceTree = "<group>"; };
 		4F8754B826DB87DC000CE351 /* UIViewController+SpinnerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+SpinnerView.m"; sourceTree = "<group>"; };
 		4F8754BA26DB91D7000CE351 /* NSIndexPath+identifier.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSIndexPath+identifier.h"; sourceTree = "<group>"; };
@@ -1043,6 +1045,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F8635EF2746B8BB000EC94F /* CloudKit.framework in Frameworks */,
 				4F4892CA272460CD00126131 /* StoneNamuCore.framework in Frameworks */,
 				4F23C8CE273D9D4100C33F10 /* StoneNamuResources.framework in Frameworks */,
 			);
@@ -2319,6 +2322,7 @@
 		4FFDD66B26CACE0E008E5B45 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4F8635EE2746B8BB000EC94F /* CloudKit.framework */,
 				4FFDD66C26CACE0E008E5B45 /* CloudKit.framework */,
 			);
 			name = Frameworks;
