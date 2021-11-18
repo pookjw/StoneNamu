@@ -6,7 +6,7 @@
 //
 
 #import <StoneNamuCore/HSDeck.h>
-#import <StoneNamuCore/StoneNamuCoreErrors.h>
+#import <StoneNamuCore/StoneNamuError.h>
 #import <StoneNamuCore/NSArray+countOfObject.h>
 
 @implementation HSDeck
@@ -33,7 +33,7 @@
     
     if (dic[@"deckCode"] == nil) {
         if (error) {
-            *error = InvalidHSDeckError();
+            *error = [StoneNamuError errorWithErrorType:StoneNamuErrorTypeInvalidHSDeck];
         }
         [hsDeck release];
         return nil;

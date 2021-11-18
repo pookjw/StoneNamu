@@ -15,6 +15,7 @@ FOUNDATION_EXPORT const unsigned char StoneNamuCoreVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <StoneNamuCore/PublicHeader.h>
 
+#import <StoneNamuCore/StoneNamuError.h>
 #import <StoneNamuCore/SemaphoreCondition.h>
 #import <StoneNamuCore/BlizzardAPIRegionHost.h>
 #import <StoneNamuCore/NSMutableArray+removeSingle.h>

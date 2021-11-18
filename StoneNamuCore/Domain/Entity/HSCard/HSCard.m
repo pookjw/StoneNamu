@@ -6,7 +6,7 @@
 //
 
 #import <StoneNamuCore/HSCard.h>
-#import <StoneNamuCore/StoneNamuCoreErrors.h>
+#import <StoneNamuCore/StoneNamuError.h>
 
 @implementation HSCard
 
@@ -80,7 +80,7 @@
     
     if (dic[@"id"] == nil) {
         if (error) {
-            *error = InvalidHSCardError();
+            *error = [StoneNamuError errorWithErrorType:StoneNamuErrorTypeInvalidHSCard];
         }
         [hsCard release];
         return nil;

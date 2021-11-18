@@ -9,7 +9,7 @@
 #import <StoneNamuCore/LocalDeckRepositoryImpl.h>
 #import <StoneNamuCore/HSCardHero.h>
 #import <StoneNamuCore/NSMutableArray+removeSingle.h>
-#import <StoneNamuCore/StoneNamuCoreErrors.h>
+#import <StoneNamuCore/StoneNamuError.h>
 #import <StoneNamuCore/NSString+arrayOfCharacters.h>
 
 @interface LocalDeckUseCaseImpl ()
@@ -101,7 +101,7 @@
         NSArray<HSCard *> *localDeckHSCards = localDeck.hsCards;
         
         if ((localDeckHSCards.count + copyHSCards.count) > HSDECK_MAX_TOTAL_CARDS) {
-            NSError *error = CannotAddNoMoreThanThirtyCardsError();
+            NSError *error = [StoneNamuError errorWithErrorType:StoneNamuErrorTypeCannotAddNoMoreThanThirtyCards];
             validation(error);
             [copyHSCards release];
             return;
@@ -115,21 +115,21 @@
                 (hsCard.classId != HSCardClassNeutral))
             {
                 
-                NSError *error = CannotAddDifferentClassCardError();
+                NSError *error = [StoneNamuError errorWithErrorType:StoneNamuErrorTypeCannotAddDifferentClassCard];
                 validation(error);
                 [copyHSCards release];
                 return;
             }
             
             if (hsCard.collectible != HSCardCollectibleYES) {
-                NSError *error = CannotAddNotCollectibleCardError();
+                NSError *error = [StoneNamuError errorWithErrorType:StoneNamuErrorTypeCannotAddNotCollectibleCard];
                 validation(error);
                 [copyHSCards release];
                 return;
             }
             
             if ([hsCardHeroesArray containsObject:[NSNumber numberWithUnsignedInteger:hsCard.parentId]]) {
-                NSError *error = CannotAddHeroPortraitCardError();
+                NSError *error = [StoneNamuError errorWithErrorType:StoneNamuErrorTypeCannotAddHeroPortraitCard];
                 validation(error);
                 [copyHSCards release];
                 return;
@@ -146,14 +146,14 @@
             }
             
             if ((hsCard.rarityId == HSCardRarityLegendary) && (countOfContaining >= HSDECK_MAX_SINGLE_LEGENDARY_CARD)) {
-                NSError *error = CannotAddSingleLegendaryCardMoreThanOneError();
+                NSError *error = [StoneNamuError errorWithErrorType:StoneNamuErrorTypeCannotAddSingleLegendaryCardMoreThanOne];
                 validation(error);
                 [copyHSCards release];
                 return;
             }
             
             if (countOfContaining >= HSDECK_MAX_SINGLE_CARD) {
-                NSError *error = CannotAddSingleCardMoreThanTwoError();
+                NSError *error = [StoneNamuError errorWithErrorType:StoneNamuErrorTypeCannotAddSingleCardMoreThanTwo];
                 validation(error);
                 [copyHSCards release];
                 return;
@@ -209,14 +209,14 @@
             }
             
             if ((hsCard.rarityId == HSCardRarityLegendary) && countOfContaining >= HSDECK_MAX_SINGLE_LEGENDARY_CARD) {
-                NSError *error = CannotAddSingleLegendaryCardMoreThanOneError();
+                NSError *error = [StoneNamuError errorWithErrorType:StoneNamuErrorTypeCannotAddSingleLegendaryCardMoreThanOne];
                 validation(error);
                 [copyHSCards release];
                 return;
             }
             
             if (countOfContaining >= HSDECK_MAX_SINGLE_CARD) {
-                NSError *error = CannotAddSingleCardMoreThanTwoError();
+                NSError *error = [StoneNamuError errorWithErrorType:StoneNamuErrorTypeCannotAddSingleCardMoreThanTwo];
                 validation(error);
                 [copyHSCards release];
                 return;
@@ -226,7 +226,7 @@
         //
         
         if ((localDeckHSCards.count + copyHSCards.count) > HSDECK_MAX_TOTAL_CARDS) {
-            NSError *error = CannotAddNoMoreThanThirtyCardsError();
+            NSError *error = [StoneNamuError errorWithErrorType:StoneNamuErrorTypeCannotAddNoMoreThanThirtyCards];
             validation(error);
             [copyHSCards release];
             return;
