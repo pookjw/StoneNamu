@@ -286,8 +286,13 @@
                                              object:self.viewModel];
     
     [NSNotificationCenter.defaultCenter addObserver:self
-                                           selector:@selector(applyingSnapshotWasDoneReceived:)
-                                               name:NSNotificationNameDeckAddCardsViewModelApplyingSnapshotToDataSourceWasDone
+                                           selector:@selector(startedLoadingDataSourceReceived:)
+                                               name:NSNotificationNameDeckAddCardsViewModelStartedLoadingDataSource
+                                             object:self.viewModel];
+    
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(endedLoadingDataSourceReceived:)
+                                               name:NSNotificationNameDeckAddCardsViewModelEndedLoadingDataSource
                                              object:self.viewModel];
     
     [NSNotificationCenter.defaultCenter addObserver:self
@@ -308,7 +313,13 @@
     }
 }
 
-- (void)applyingSnapshotWasDoneReceived:(NSNotification *)notification {
+- (void)startedLoadingDataSourceReceived:(NSNotification *)notification {
+    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+        [self addSpinnerView];
+    }];
+}
+
+- (void)endedLoadingDataSourceReceived:(NSNotification *)notification {
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
         [self removeAllSpinnerview];
     }];

@@ -73,10 +73,12 @@
 - (BOOL)requestDataSourceWithOptions:(NSDictionary<NSString *,NSString *> *)options reset:(BOOL)reset {
     
     if (reset) {
+        [self postStartedLoadingDataSource];
         [self resetDataSource];
     } else {
         if (self.isFetching) return NO;
         if (!self.canLoadMore) return NO;
+        [self postStartedLoadingDataSource];
     }
     
     //
@@ -210,7 +212,7 @@
         [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
             [snapshot release];
             completion();
-            [self postApplyingSnapshotWasDone];
+            [self postEndedLoadingDataSource];
         }];
     }];
 }
@@ -221,8 +223,14 @@
                                                     userInfo:@{CardsViewModelErrorNotificationErrorKey: error}];
 }
 
-- (void)postApplyingSnapshotWasDone {
-    [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameCardsViewModelApplyingSnapshotToDataSourceWasDone
+- (void)postStartedLoadingDataSource {
+    [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameCardsViewModelStartedLoadingDataSource
+                                                      object:self
+                                                    userInfo:nil];
+}
+
+- (void)postEndedLoadingDataSource {
+    [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameCardsViewModelEndedLoadingDataSource
                                                       object:self
                                                     userInfo:nil];
 }

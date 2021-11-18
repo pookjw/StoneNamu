@@ -40,7 +40,6 @@
 
 - (void)requestWithOptions:(NSDictionary<NSString *,NSString *> *)options {
     [self loadViewIfNeeded];
-    [self addSpinnerView];
     [self.viewModel requestDataSourceWithOptions:options reset:YES];
 }
 
@@ -167,8 +166,13 @@
                                              object:self.viewModel];
     
     [NSNotificationCenter.defaultCenter addObserver:self
-                                           selector:@selector(applyingSnapshotWasDoneReceived:)
-                                               name:NSNotificationNameCardsViewModelApplyingSnapshotToDataSourceWasDone
+                                           selector:@selector(startedLoadingDataSourceReceived:)
+                                               name:NSNotificationNameCardsViewModelStartedLoadingDataSource
+                                             object:self.viewModel];
+    
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(endedLoadingDataSourceReceived:)
+                                               name:NSNotificationNameCardsViewModelEndedLoadingDataSource
                                              object:self.viewModel];
 }
 
@@ -186,7 +190,13 @@
     }];
 }
 
-- (void)applyingSnapshotWasDoneReceived:(NSNotification *)notification {
+- (void)startedLoadingDataSourceReceived:(NSNotification *)notification {
+    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+        [self addSpinnerView];
+    }];
+}
+
+- (void)endedLoadingDataSourceReceived:(NSNotification *)notification {
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
         [self removeAllSpinnerview];
     }];
@@ -241,11 +251,7 @@
     CGRect bounds = self.collectionView.bounds;
     
     if ((contentOffset.y + bounds.size.height) >= (contentSize.height)) {
-        BOOL requested = [self.viewModel requestDataSourceWithOptions:self.viewModel.options reset:NO];
-        
-        if (requested) {
-            [self addSpinnerView];
-        }
+        [self.viewModel requestDataSourceWithOptions:self.viewModel.options reset:NO];
     }
 }
 
@@ -308,7 +314,7 @@
     if ([self.navigationItem.leftBarButtonItems containsObject:self.optionsBarButtonItem]) {
         [viewController dismissViewControllerAnimated:YES completion:^{}];
     }
-    [self addSpinnerView];
+    
     [self.viewModel requestDataSourceWithOptions:options reset:YES];
 }
 

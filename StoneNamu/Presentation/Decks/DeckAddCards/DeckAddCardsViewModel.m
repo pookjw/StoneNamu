@@ -96,10 +96,12 @@
 - (BOOL)requestDataSourceWithOptions:(NSDictionary<NSString *,id> * _Nullable)options reset:(BOOL)reset {
     
     if (reset) {
+        [self postStartedLoadingDataSource];
         [self resetDataSource];
     } else {
         if (self.isFetching) return NO;
         if (!self.canLoadMore) return NO;
+        [self postStartedLoadingDataSource];
     }
     
     //
@@ -273,7 +275,7 @@
         [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
             [snapshot release];
             completion();
-            [self postApplyingSnapshotWasDone];
+            [self postEndedLoadingDataSource];
         }];
     }];
 }
@@ -321,8 +323,14 @@
                                                     userInfo:@{DeckAddCardsViewModelErrorNotificationErrorKey: error}];
 }
 
-- (void)postApplyingSnapshotWasDone {
-    [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameDeckAddCardsViewModelApplyingSnapshotToDataSourceWasDone
+- (void)postStartedLoadingDataSource {
+    [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameDeckAddCardsViewModelStartedLoadingDataSource
+                                                      object:self
+                                                    userInfo:nil];
+}
+
+- (void)postEndedLoadingDataSource {
+    [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameDeckAddCardsViewModelEndedLoadingDataSource
                                                       object:self
                                                     userInfo:nil];
 }

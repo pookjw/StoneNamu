@@ -14,7 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 static NSNotificationName const NSNotificationNameCardsViewModelError = @"NSNotificationNameCardsViewModelError";
 static NSString * const CardsViewModelErrorNotificationErrorKey = @"CardsViewModelErrorNotificationErrorKey";
 
-static NSNotificationName const NSNotificationNameCardsViewModelApplyingSnapshotToDataSourceWasDone = @"NSNotificationNameCardsViewModelApplyingSnapshotToDataSourceWasDone";
+static NSNotificationName const NSNotificationNameCardsViewModelStartedLoadingDataSource = @"NSNotificationNameCardsViewModelStartedLoadingDataSource";
+static NSNotificationName const NSNotificationNameCardsViewModelEndedLoadingDataSource = @"NSNotificationNameCardsViewModelEndedLoadingDataSource";
 
 typedef UICollectionViewDiffableDataSource<CardSectionModel *, CardItemModel *> CardsDataSource;
 

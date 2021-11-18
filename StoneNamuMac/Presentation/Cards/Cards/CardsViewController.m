@@ -186,8 +186,13 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardsVie
                                              object:self.viewModel];
     
     [NSNotificationCenter.defaultCenter addObserver:self
-                                           selector:@selector(applyingSnapshotWasDoneReceived:)
-                                               name:NSNotificationNameCardsViewModelApplyingSnapshotToDataSourceWasDone
+                                           selector:@selector(startedLoadingDataSourceReceived:)
+                                               name:NSNotificationNameCardsViewModelStartedLoadingDataSource
+                                             object:self.viewModel];
+    
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(endedLoadingDataSourceReceived:)
+                                               name:NSNotificationNameCardsViewModelEndedLoadingDataSource
                                              object:self.viewModel];
     
     [self addObserver:self forKeyPath:@"self.view.window" options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:nil];
@@ -216,6 +221,18 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardsVie
         } else {
             NSLog(@"No error found but the notification was posted: %@", notification.userInfo);
         }
+    }];
+}
+
+- (void)startedLoadingDataSourceReceived:(NSNotification *)notification {
+    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+        [self addSpinnerView];
+    }];
+}
+
+- (void)endedLoadingDataSourceReceived:(NSNotification *)notification {
+    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+        [self removeAllSpinnerview];
     }];
 }
 
