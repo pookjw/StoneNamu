@@ -109,6 +109,10 @@ static NSString * const UIImageViewAsyncImageCategorySessionTaskKey = @"UIImageV
     }];
 }
 
+- (void)cancelAsyncImage {
+    [self.sessionTask cancel];
+}
+
 - (void)showSpinnerView {
     if (self.spinnerView) {
         self.spinnerView.hidden = NO;

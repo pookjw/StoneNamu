@@ -258,14 +258,25 @@
 
 - (void)bind {
     [NSNotificationCenter.defaultCenter addObserver:self
-                                           selector:@selector(startFetchingChildCardsReceived:)
-                                               name:NSNotificationNameCardDetailsViewModelStartFetchingChildCards
+                                           selector:@selector(endedLoadingDataSourceReceived:)
+                                               name:NSNotificationNameCardDetailsViewModelEndedLoadingDataSource
                                              object:self.viewModel];
     
     [NSNotificationCenter.defaultCenter addObserver:self
-                                           selector:@selector(fetchedChildCardsReceived:)
-                                               name:NSNotificationNameCardDetailsViewModelStartFetchedChildCards
+                                           selector:@selector(startFetchingChildCardsReceived:)
+                                               name:NSNotificationNameCardDetailsViewModelStartedFetchingChildCards
                                              object:self.viewModel];
+    
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(endedChildCardsReceived:)
+                                               name:NSNotificationNameCardDetailsViewModelEndedFetchingChildCards
+                                             object:self.viewModel];
+}
+
+- (void)endedLoadingDataSourceReceived:(NSNotification *)notification {
+    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+        [self.collectionView.collectionViewLayout invalidateLayout];
+    }];
 }
 
 - (void)startFetchingChildCardsReceived:(NSNotification *)notification {
@@ -274,7 +285,7 @@
     }];
 }
 
-- (void)fetchedChildCardsReceived:(NSNotification *)notification {
+- (void)endedChildCardsReceived:(NSNotification *)notification {
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
         [self removeAllSpinnerview];
     }];
@@ -354,7 +365,7 @@
         switch (itemModel.type) {
             case CardDetailsItemModelTypeChildren: {
                 NSArray<HSCard *> *childCards = (itemModel.childCards == nil) ? @[] : itemModel.childCards;
-                CardDetailsChildrenContentConfiguration *configuration = [[CardDetailsChildrenContentConfiguration alloc] initwithChildCards:childCards];
+                CardDetailsChildrenContentConfiguration *configuration = [[CardDetailsChildrenContentConfiguration alloc] initWithChildCards:childCards];
                 configuration.delegate = self;
                 cell.contentConfiguration = configuration;
                 [configuration release];

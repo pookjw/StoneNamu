@@ -10,7 +10,7 @@
 
 @implementation CardDetailsChildrenContentConfiguration
 
-- (instancetype)initwithChildCards:(NSArray<HSCard *> *)childCards {
+- (instancetype)initWithChildCards:(NSArray<HSCard *> *)childCards {
     self = [self init];
     
     if (self) {

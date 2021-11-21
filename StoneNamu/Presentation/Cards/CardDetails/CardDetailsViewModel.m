@@ -6,7 +6,6 @@
 //
 
 #import "CardDetailsViewModel.h"
-#import <StoneNamuCore/StoneNamuCore.h>
 #import <StoneNamuResources/StoneNamuResources.h>
 #import "UICollectionViewDiffableDataSource+applySnapshotAndWait.h"
 #import "DragItemService.h"
@@ -22,7 +21,8 @@
     self = [self init];
     
     if (self) {
-        _dataSource = [dataSource retain];
+        [self->_dataSource release];
+        self->_dataSource = [dataSource retain];
         
         HSCardUseCaseImpl *hsCardUseCase = [HSCardUseCaseImpl new];
         self.hsCardUseCase = hsCardUseCase;
@@ -47,6 +47,8 @@
 
 - (void)requestDataSourceWithCard:(HSCard *)hsCard {
     [self.queue addBarrierBlock:^{
+        [self postStartedLoadingDataSource];
+        
         [self->_hsCard release];
         self->_hsCard = [hsCard copy];
         
@@ -111,6 +113,7 @@
         
         [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
             [snapshot release];
+            [self postEndedLoadingDataSource];
             [self loadChildCardsWithHSCard:hsCard];
         }];
     }];
@@ -129,9 +132,7 @@
         return;
     }
     
-    [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameCardDetailsViewModelStartFetchingChildCards
-                                                      object:self
-                                                    userInfo:nil];
+    [self postStartedFetchingChildCards];
     
     [self.queue addOperationWithBlock:^{
         SemaphoreCondition *semaphore = [[SemaphoreCondition alloc] initWithValue:-((NSInteger)childIds.count) + 1];
@@ -186,11 +187,34 @@
         
         [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
             [snapshot release];
-            [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameCardDetailsViewModelStartFetchedChildCards
-                                                              object:self
-                                                            userInfo:nil];
+            [self postEndedFetchingChildCards];
+            [self postEndedLoadingDataSource];
         }];
     }];
+}
+
+- (void)postStartedLoadingDataSource {
+    [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameCardDetailsViewModelStartedLoadingDataSource
+                                                      object:self
+                                                    userInfo:nil];
+}
+
+- (void)postEndedLoadingDataSource {
+    [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameCardDetailsViewModelEndedLoadingDataSource
+                                                      object:self
+                                                    userInfo:nil];
+}
+
+- (void)postStartedFetchingChildCards {
+    [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameCardDetailsViewModelStartedFetchingChildCards
+                                                      object:self
+                                                    userInfo:nil];
+}
+
+- (void)postEndedFetchingChildCards {
+    [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameCardDetailsViewModelEndedFetchingChildCards
+                                                      object:self
+                                                    userInfo:nil];
 }
 
 @end

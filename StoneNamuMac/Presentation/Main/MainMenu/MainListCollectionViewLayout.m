@@ -15,7 +15,7 @@
     NSCollectionLayoutItem *item = [NSCollectionLayoutItem itemWithLayoutSize:itemSize];
     
     NSCollectionLayoutSize *groupSize = [NSCollectionLayoutSize sizeWithWidthDimension:[NSCollectionLayoutDimension fractionalWidthDimension:1.0f]
-                                                                       heightDimension:[NSCollectionLayoutDimension absoluteDimension:50.0f]];
+                                                                       heightDimension:[NSCollectionLayoutDimension absoluteDimension:41.0f]];
     
     NSCollectionLayoutGroup *group = [NSCollectionLayoutGroup horizontalGroupWithLayoutSize:groupSize subitems:@[item]];
     

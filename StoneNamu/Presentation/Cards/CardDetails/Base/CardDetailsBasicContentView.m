@@ -91,9 +91,8 @@
     
     leadingLabel.translatesAutoresizingMaskIntoConstraints = NO;
     [NSLayoutConstraint activateConstraints:@[
-        [leadingLabel.topAnchor constraintEqualToAnchor:self.vibrancyView.contentView.topAnchor],
         [leadingLabel.leadingAnchor constraintEqualToAnchor:self.vibrancyView.contentView.leadingAnchor],
-        [leadingLabel.bottomAnchor constraintEqualToAnchor:self.vibrancyView.contentView.bottomAnchor]
+        [leadingLabel.centerYAnchor constraintEqualToAnchor:self.vibrancyView.contentView.centerYAnchor]
     ]];
     
     leadingLabel.numberOfLines = 0;
@@ -132,6 +131,9 @@
                                                                         multiplier:1
                                                                           constant:-margin];
     betweenConstraint.active = YES;
+    
+    [leadingLabel setContentHuggingPriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
+    [trailingLabel setContentHuggingPriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
     
     [leadingLabel setContentCompressionResistancePriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
     [trailingLabel setContentCompressionResistancePriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];

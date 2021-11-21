@@ -59,16 +59,13 @@
         
         [snapshot appendSectionsWithIdentifiers:@[sectionModel]];
         
-        NSMutableArray<CardDetailsChildrenContentItemModel *> *tmp = [@[] mutableCopy];
+        NSMutableArray<CardDetailsChildrenContentItemModel *> *itemModels = [@[] mutableCopy];
         
         for (HSCard *childCard in childCards) {
             CardDetailsChildrenContentItemModel *itemModel = [[CardDetailsChildrenContentItemModel alloc] initWithHSCard:childCard];
-            [tmp addObject:itemModel];
+            [itemModels addObject:itemModel];
             [itemModel release];
         }
-        
-        NSArray *itemModels = [tmp copy];
-        [tmp release];
         
         [snapshot appendItemsWithIdentifiers:itemModels intoSectionWithIdentifier:sectionModel];
         

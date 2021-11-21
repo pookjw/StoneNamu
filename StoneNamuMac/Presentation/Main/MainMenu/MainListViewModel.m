@@ -82,6 +82,7 @@
         
         if (itemModel == nil) {
             completion(nil);
+            return;
         }
         
         completion([self.dataSource indexPathForItemIdentifier:itemModel]);

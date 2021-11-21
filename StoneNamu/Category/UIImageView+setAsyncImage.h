@@ -14,6 +14,7 @@ typedef void (^UIImageViewSetAsyncImageCompletion)(UIImage * _Nullable, NSError 
 @interface UIImageView (setAsyncImage)
 - (void)setAsyncImageWithURL:(NSURL * _Nullable)url indicator:(BOOL)indicator;
 - (void)setAsyncImageWithURL:(NSURL * _Nullable)url indicator:(BOOL)indicator completion:(UIImageViewSetAsyncImageCompletion)completion;
+- (void)cancelAsyncImage;
 @end
 
 NS_ASSUME_NONNULL_END

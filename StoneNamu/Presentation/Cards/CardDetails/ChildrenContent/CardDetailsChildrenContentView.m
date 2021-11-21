@@ -7,7 +7,7 @@
 
 #import "CardDetailsChildrenContentView.h"
 #import "CardDetailsChildrenContentConfiguration.h"
-#import "CardDetailsChildrenContentCollectionViewCompositionalLayout.h"
+#import "CardDetailsChildrenContentCollectionViewLayout.h"
 #import "CardDetailsChildrenContentViewModel.h"
 #import "CardDetailsChildrenContentImageConfiguration.h"
 #import "CardDetailsChildrenContentImageContentView.h"
@@ -67,7 +67,7 @@
 }
 
 - (void)configureCollectionView {
-    CardDetailsChildrenContentCollectionViewCompositionalLayout *layout = [[CardDetailsChildrenContentCollectionViewCompositionalLayout alloc] init];
+    CardDetailsChildrenContentCollectionViewLayout *layout = [[CardDetailsChildrenContentCollectionViewLayout alloc] init];
     UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:self.bounds collectionViewLayout:layout];
     
     [layout release];

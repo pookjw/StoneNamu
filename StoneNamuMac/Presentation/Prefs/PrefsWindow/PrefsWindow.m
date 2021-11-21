@@ -8,7 +8,6 @@
 #import "PrefsWindow.h"
 #import "NSViewController+loadViewIfNeeded.h"
 #import "PrefsTabViewController.h"
-#import <StoneNamuResources/StoneNamuResources.h>
 #import "NSProcessInfo+isEnabledRestoration.h"
 
 @interface PrefsWindow () <NSWindowDelegate>

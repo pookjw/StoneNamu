@@ -59,9 +59,13 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
     if ([object isEqual:self.baseCircularView] && [keyPath isEqualToString:@"bounds"]) {
-        [self redrawBaseCircularPath];
+        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+            [self redrawBaseCircularPath];
+        }];
     } else if ([object isEqual:self.progressCircularView] && [keyPath isEqualToString:@"bounds"]) {
-        [self redrawProgressCircularPath];
+        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+            [self redrawProgressCircularPath];
+        }];
     } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }

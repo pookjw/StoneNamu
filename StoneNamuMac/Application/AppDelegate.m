@@ -7,7 +7,9 @@
 
 #import "AppDelegate.h"
 #import "MainWindow.h"
+#import "CardDetailsWindow.h"
 #import "PrefsWindow.h"
+#import <StoneNamuCore/StoneNamuCore.h>
 
 @interface AppDelegate ()
 @end
@@ -51,6 +53,13 @@
     } else {
         [self presentNewMainWindow];
     }
+}
+
+- (void)presentCardDetailsWithHSCard:(HSCard *)hsCard {
+    CardDetailsWindow *cardDetailsWindow = [[CardDetailsWindow alloc] initWithHSCard:hsCard];
+    [cardDetailsWindow makeKeyAndOrderFront:nil];
+    [cardDetailsWindow center];
+    [cardDetailsWindow release];
 }
 
 - (void)presentNewPrefsWindow {

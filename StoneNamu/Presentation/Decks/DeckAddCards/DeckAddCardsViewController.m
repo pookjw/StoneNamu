@@ -9,7 +9,7 @@
 #import "UIViewController+presentErrorAlert.h"
 #import "DeckAddCardContentConfiguration.h"
 #import "DeckAddCardContentView.h"
-#import "DeckAddCardCollectionViewCompositionalLayout.h"
+#import "DeckAddCardCollectionViewLayout.h"
 #import "PhotosService.h"
 #import "DeckAddCardOptionsViewController.h"
 #import "CardOptionsViewControllerDelegate.h"
@@ -169,7 +169,7 @@
 }
 
 - (void)configureCollectionView {
-    DeckAddCardCollectionViewCompositionalLayout *layout = [[DeckAddCardCollectionViewCompositionalLayout alloc] init];
+    DeckAddCardCollectionViewLayout *layout = [[DeckAddCardCollectionViewLayout alloc] init];
     UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:layout];
     [layout release];
     

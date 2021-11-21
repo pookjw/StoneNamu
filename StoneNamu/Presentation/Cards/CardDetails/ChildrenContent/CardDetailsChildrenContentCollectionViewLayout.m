@@ -1,13 +1,13 @@
 //
-//  CardDetailsChildrenContentCollectionViewCompositionalLayout.m
-//  CardDetailsChildrenContentCollectionViewCompositionalLayout
+//  CardDetailsChildrenContentCollectionViewLayout.m
+//  CardDetailsChildrenContentCollectionViewLayout
 //
 //  Created by Jinwoo Kim on 8/9/21.
 //
 
-#import "CardDetailsChildrenContentCollectionViewCompositionalLayout.h"
+#import "CardDetailsChildrenContentCollectionViewLayout.h"
 
-@implementation CardDetailsChildrenContentCollectionViewCompositionalLayout
+@implementation CardDetailsChildrenContentCollectionViewLayout
 
 - (instancetype)init {
     NSCollectionLayoutSize *itemSize = [NSCollectionLayoutSize sizeWithWidthDimension:[NSCollectionLayoutDimension fractionalWidthDimension:0.25]

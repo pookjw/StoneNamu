@@ -8,16 +8,18 @@
 #import "CardsViewController.h"
 #import "NSWindow+presentErrorAlert.h"
 #import "CardsViewModel.h"
-#import "CardCollectionViewCell.h"
+#import "CardCollectionViewItem.h"
 #import "NSViewController+SpinnerView.h"
 #import "CardOptionsMenu.h"
 #import "CardOptionsToolbar.h"
 #import "CardOptionsTouchBar.h"
+#import "AppDelegate.h"
+#import <StoneNamuCore/StoneNamuCore.h>
 #import <StoneNamuResources/StoneNamuResources.h>
 
 static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardsViewController = @"NSUserInterfaceItemIdentifierCardsViewController";
 
-@interface CardsViewController () <CardOptionsMenuDelegate, CardOptionsToolbarDelegate, CardOptionsTouchBarDelegate>
+@interface CardsViewController () <NSCollectionViewDelegate, CardOptionsMenuDelegate, CardOptionsToolbarDelegate, CardOptionsTouchBarDelegate, CardCollectionViewItemDelegate>
 @property (retain) NSScrollView *scrollView;
 @property (retain) NSClipView *clipView;
 @property (retain) NSCollectionView *collectionView;
@@ -77,14 +79,8 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardsVie
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
-    CardsViewController *vc = (CardsViewController *)object;
-    
-    if (![object isKindOfClass:[CardsViewController class]]) {
-        return [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
-    }
-    
-    if ([keyPath isEqualToString:@"self.view.window"]) {
-        if (vc.view.window != nil) {
+    if (([object isEqual:self]) && ([keyPath isEqualToString:@"self.view.window"])) {
+        if (self.view.window != nil) {
             [NSOperationQueue.mainQueue addOperationWithBlock:^{
                 [self setCardsMenuToWindow];
                 [self setCardOptionsToolbarToWindow];
@@ -154,14 +150,19 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardsVie
     ]];
     
     NSCollectionViewFlowLayout *flowLayout = [NSCollectionViewFlowLayout new];
-    flowLayout.itemSize = NSMakeSize(200, 300);
+    flowLayout.itemSize = NSMakeSize(200, 270);
     flowLayout.minimumLineSpacing = 0.0f;
     collectionView.collectionViewLayout = flowLayout;
     [flowLayout release];
     
-    NSNib *nib = [[NSNib alloc] initWithNibNamed:NSStringFromClass([CardCollectionViewCell class]) bundle:NSBundle.mainBundle];
-    [collectionView registerNib:nib forItemWithIdentifier:NSStringFromClass([CardCollectionViewCell class])];
+    NSNib *nib = [[NSNib alloc] initWithNibNamed:NSStringFromClass([CardCollectionViewItem class]) bundle:NSBundle.mainBundle];
+    [collectionView registerNib:nib forItemWithIdentifier:NSStringFromClass([CardCollectionViewItem class])];
     [nib release];
+
+    collectionView.selectable = YES;
+    collectionView.allowsMultipleSelection = YES;
+    collectionView.allowsEmptySelection = YES;
+    collectionView.delegate = self;
     
     [scrollView release];
     [clipView release];
@@ -233,12 +234,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardsVie
 - (void)endedLoadingDataSourceReceived:(NSNotification *)notification {
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
         [self removeAllSpinnerview];
-    }];
-}
-
-- (void)applyingSnapshotWasDoneReceived:(NSNotification *)notification {
-    [NSOperationQueue.mainQueue addOperationWithBlock:^{
-        [self removeAllSpinnerview];
         [self updateOptionInterfaceWithOptions:self.viewModel.options];
     }];
 }
@@ -247,10 +242,10 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardsVie
     CardsDataSource *dataSource = [[CardsDataSource alloc] initWithCollectionView:self.collectionView
                                                                      itemProvider:^NSCollectionViewItem * _Nullable(NSCollectionView * _Nonnull collectionView, NSIndexPath * _Nonnull indexPath, CardItemModel * _Nonnull itemModel) {
         
-        CardCollectionViewCell *cell = (CardCollectionViewCell *)[collectionView makeItemWithIdentifier:NSStringFromClass([CardCollectionViewCell class]) forIndexPath:indexPath];
-        [cell configureWithHSCard:itemModel.hsCard];
+        CardCollectionViewItem *item = (CardCollectionViewItem *)[collectionView makeItemWithIdentifier:NSStringFromClass([CardCollectionViewItem class]) forIndexPath:indexPath];
+        [item configureWithHSCard:itemModel.hsCard delegate:self];
         
-        return cell;
+        return item;
     }];
     
     return [dataSource autorelease];
@@ -315,6 +310,20 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardsVie
 
 - (void)cardOptionsTouchBar:(CardOptionsTouchBar *)touchBar changedOption:(NSDictionary<NSString *,NSString *> *)options {
     [self requestDataSourceWithOptions:options reset:YES];
+}
+
+#pragma mark - CardCollectionViewItemDelegate
+
+- (void)cardCollectionViewItem:(CardCollectionViewItem *)cardCollectionViewItem didDoubleClickWithRecognizer:(NSClickGestureRecognizer *)recognizer {
+    NSArray<NSIndexPath *> *selectionIndexPaths = self.collectionView.selectionIndexPaths.allObjects;
+    
+    [selectionIndexPaths enumerateObjectsUsingBlock:^(NSIndexPath * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        HSCard * _Nullable hsCard = [self.viewModel.dataSource itemIdentifierForIndexPath:obj].hsCard;
+        
+        if (hsCard == nil) return;
+        
+        [(AppDelegate *)NSApp.delegate presentCardDetailsWithHSCard:hsCard];
+    }];
 }
 
 @end

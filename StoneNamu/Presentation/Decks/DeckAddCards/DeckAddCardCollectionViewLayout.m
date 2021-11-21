@@ -1,13 +1,13 @@
 //
-//  DeckAddCardCollectionViewCompositionalLayout.m
-//  DeckAddCardCollectionViewCompositionalLayout
+//  DeckAddCardCollectionViewLayout.m
+//  DeckAddCardCollectionViewLayout
 //
 //  Created by Jinwoo Kim on 8/2/21.
 //
 
-#import "DeckAddCardCollectionViewCompositionalLayout.h"
+#import "DeckAddCardCollectionViewLayout.h"
 
-@implementation DeckAddCardCollectionViewCompositionalLayout
+@implementation DeckAddCardCollectionViewLayout
 
 - (instancetype)init {
     NSCollectionLayoutSize *itemSize = [NSCollectionLayoutSize sizeWithWidthDimension:[NSCollectionLayoutDimension fractionalWidthDimension:1.0 / 3.0]

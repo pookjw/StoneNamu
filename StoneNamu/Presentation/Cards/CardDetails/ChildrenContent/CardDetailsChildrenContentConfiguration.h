@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak) id<CardDetailsChildrenContentConfigurationDelegate> delegate;
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
-- (instancetype)initwithChildCards:(NSArray<HSCard *> *)childCards;
+- (instancetype)initWithChildCards:(NSArray<HSCard *> *)childCards;
 @end
 
 NS_ASSUME_NONNULL_END

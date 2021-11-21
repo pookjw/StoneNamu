@@ -7,7 +7,7 @@
 
 #import "MainListViewController.h"
 #import "MainListCollectionViewLayout.h"
-#import "MainListCollectionViewCell.h"
+#import "MainListCollectionViewItem.h"
 #import "MainListViewModel.h"
 
 @interface MainListViewController () <NSCollectionViewDelegate>
@@ -78,7 +78,6 @@
     self.clipView = clipView;
     self.collectionView = collectionView;
     
-    scrollView.backgroundColor = NSColor.clearColor;
     scrollView.contentView = clipView;
     clipView.documentView = collectionView;
     clipView.postsBoundsChangedNotifications = YES;
@@ -96,11 +95,12 @@
     collectionView.collectionViewLayout = layout;
     [layout release];
     
-    NSNib *nib = [[NSNib alloc] initWithNibNamed:NSStringFromClass([MainListCollectionViewCell class]) bundle:NSBundle.mainBundle];
-    [collectionView registerNib:nib forItemWithIdentifier:NSStringFromClass([MainListCollectionViewCell class])];
+    NSNib *nib = [[NSNib alloc] initWithNibNamed:NSStringFromClass([MainListCollectionViewItem class]) bundle:NSBundle.mainBundle];
+    [collectionView registerNib:nib forItemWithIdentifier:NSStringFromClass([MainListCollectionViewItem class])];
     [nib release];
     
     collectionView.selectable = YES;
+    collectionView.allowsMultipleSelection = NO;
     collectionView.allowsEmptySelection = NO;
     collectionView.delegate = self;
     collectionView.backgroundColors = @[NSColor.clearColor];
@@ -119,12 +119,12 @@
 - (MainListDataSource *)makeDataSource {
     MainListDataSource *dataSource = [[MainListDataSource alloc] initWithCollectionView:self.collectionView itemProvider:^NSCollectionViewItem * _Nullable(NSCollectionView * _Nonnull collectionView, NSIndexPath * _Nonnull indexPath, MainListItemModel * _Nonnull itemModel) {
         
-        MainListCollectionViewCell *cell = (MainListCollectionViewCell *)[collectionView makeItemWithIdentifier:NSStringFromClass([MainListCollectionViewCell class]) forIndexPath:indexPath];
+        MainListCollectionViewItem *item = (MainListCollectionViewItem *)[collectionView makeItemWithIdentifier:NSStringFromClass([MainListCollectionViewItem class]) forIndexPath:indexPath];
         
-        cell.imageView.image = itemModel.image;
-        cell.textField.stringValue = itemModel.primaryText;
+        item.imageView.image = itemModel.image;
+        item.textField.stringValue = itemModel.primaryText;
         
-        return cell;
+        return item;
     }];
     
     return [dataSource autorelease];
