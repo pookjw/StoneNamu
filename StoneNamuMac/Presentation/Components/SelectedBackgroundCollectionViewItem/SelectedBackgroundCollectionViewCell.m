@@ -9,6 +9,11 @@
 
 @implementation SelectedBackgroundCollectionViewCell
 
+- (void)dealloc {
+    [self removeObserver:self forKeyPath:@"self.view.window"];
+    [super dealloc];
+}
+
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
     if (([object isEqual:self]) && ([keyPath isEqualToString:@"self.view.window"])) {
         [NSNotificationCenter.defaultCenter removeObserver:self];

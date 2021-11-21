@@ -38,6 +38,7 @@
 }
 
 - (void)dealloc {
+    [self removeObserver:self forKeyPath:@"self.view.window"];
     [_hsCard release];
     [_blurView release];
     [_stackView release];

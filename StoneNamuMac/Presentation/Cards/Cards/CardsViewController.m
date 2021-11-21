@@ -32,6 +32,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardsVie
 @implementation CardsViewController
 
 - (void)dealloc {
+    [self removeObserver:self forKeyPath:@"self.view.window"];
     [_scrollView release];
     [_clipView release];
     [_collectionView release];
@@ -39,7 +40,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardsVie
     [_cardOptionsMenu release];
     [_cardOptionsToolbar release];
     [_cardOptionsTouchBar release];
-    [self removeObserver:self forKeyPath:@"self.view.window"];
     [super dealloc];
 }
 
@@ -176,6 +176,8 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardsVie
 }
 
 - (void)bind {
+    [self addObserver:self forKeyPath:@"self.view.window" options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:nil];
+    
     [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(scrollViewDidEndLiveScrollReceived:)
                                                name:NSScrollViewDidEndLiveScrollNotification
@@ -195,8 +197,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardsVie
                                            selector:@selector(endedLoadingDataSourceReceived:)
                                                name:NSNotificationNameCardsViewModelEndedLoadingDataSource
                                              object:self.viewModel];
-    
-    [self addObserver:self forKeyPath:@"self.view.window" options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:nil];
 }
 
 - (void)scrollViewDidEndLiveScrollReceived:(NSNotification *)notification {
@@ -239,11 +239,13 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardsVie
 }
 
 - (CardsDataSource *)makeDataSource {
+    CardsViewController * __block unretainedSelf = self;
+    
     CardsDataSource *dataSource = [[CardsDataSource alloc] initWithCollectionView:self.collectionView
                                                                      itemProvider:^NSCollectionViewItem * _Nullable(NSCollectionView * _Nonnull collectionView, NSIndexPath * _Nonnull indexPath, CardItemModel * _Nonnull itemModel) {
         
         CardCollectionViewItem *item = (CardCollectionViewItem *)[collectionView makeItemWithIdentifier:NSStringFromClass([CardCollectionViewItem class]) forIndexPath:indexPath];
-        [item configureWithHSCard:itemModel.hsCard delegate:self];
+        [item configureWithHSCard:itemModel.hsCard delegate:unretainedSelf];
         
         return item;
     }];
