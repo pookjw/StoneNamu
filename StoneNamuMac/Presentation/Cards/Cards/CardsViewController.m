@@ -317,15 +317,17 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardsVie
 #pragma mark - CardCollectionViewItemDelegate
 
 - (void)cardCollectionViewItem:(CardCollectionViewItem *)cardCollectionViewItem didDoubleClickWithRecognizer:(NSClickGestureRecognizer *)recognizer {
-    NSArray<NSIndexPath *> *selectionIndexPaths = self.collectionView.selectionIndexPaths.allObjects;
-    
-    [selectionIndexPaths enumerateObjectsUsingBlock:^(NSIndexPath * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        HSCard * _Nullable hsCard = [self.viewModel.dataSource itemIdentifierForIndexPath:obj].hsCard;
+    @autoreleasepool {
+        NSArray<NSIndexPath *> *selectionIndexPaths = self.collectionView.selectionIndexPaths.allObjects;
         
-        if (hsCard == nil) return;
-        
-        [(AppDelegate *)NSApp.delegate presentCardDetailsWithHSCard:hsCard];
-    }];
+        [selectionIndexPaths enumerateObjectsUsingBlock:^(NSIndexPath * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            HSCard * _Nullable hsCard = [self.viewModel.dataSource itemIdentifierForIndexPath:obj].hsCard;
+            
+            if (hsCard == nil) return;
+            
+            [(AppDelegate *)NSApp.delegate presentCardDetailsWithHSCard:hsCard];
+        }];
+    }
 }
 
 @end

@@ -491,6 +491,7 @@
 		4F066CC026D71B2200991A98 /* DeckBaseContentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckBaseContentView.m; sourceTree = "<group>"; };
 		4F128D43273C044100C6A0D9 /* IntrinsicCollectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IntrinsicCollectionView.h; sourceTree = "<group>"; };
 		4F128D44273C044100C6A0D9 /* IntrinsicCollectionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IntrinsicCollectionView.m; sourceTree = "<group>"; };
+		4F138422274C52DE007E68E4 /* CardDetailsChildrenContentImageContentCollectionViewItemDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardDetailsChildrenContentImageContentCollectionViewItemDelegate.h; sourceTree = "<group>"; };
 		4F182BCF26AC23600028115C /* UIViewController+presentErrorAlert.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+presentErrorAlert.h"; sourceTree = "<group>"; };
 		4F182BD026AC23600028115C /* UIViewController+presentErrorAlert.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+presentErrorAlert.m"; sourceTree = "<group>"; };
 		4F1B98A426C8235B004E1603 /* PrefsLocaleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefsLocaleViewController.h; sourceTree = "<group>"; };
@@ -2211,6 +2212,7 @@
 		4FDE9B68274AF02100AB0E02 /* ChrildrenContentImageContent */ = {
 			isa = PBXGroup;
 			children = (
+				4F138422274C52DE007E68E4 /* CardDetailsChildrenContentImageContentCollectionViewItemDelegate.h */,
 				4FDE9B69274AF05200AB0E02 /* CardDetailsChildrenContentImageContentCollectionViewItem.h */,
 				4FDE9B6A274AF05200AB0E02 /* CardDetailsChildrenContentImageContentCollectionViewItem.m */,
 				4FDE9B6C274AF05C00AB0E02 /* CardDetailsChildrenContentImageContentCollectionViewItem.xib */,

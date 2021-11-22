@@ -9,8 +9,9 @@
 #import "CardDetailsChildrenContentCollectionViewItemModel.h"
 #import "CardDetailsChildrenContentCollectionViewItemCollectionViewLayout.h"
 #import "CardDetailsChildrenContentImageContentCollectionViewItem.h"
+#import "AppDelegate.h"
 
-@interface CardDetailsChildrenContentCollectionViewItem () <NSCollectionViewDelegate>
+@interface CardDetailsChildrenContentCollectionViewItem () <NSCollectionViewDelegate, CardDetailsChildrenContentImageContentCollectionViewItemDelegate>
 @property (retain) NSScrollView *scrollView;
 @property (retain) NSClipView *clipView;
 @property (retain) NSCollectionView *innerCollectionView;
@@ -66,10 +67,10 @@
     [innerCollectionView registerNib:nib forItemWithIdentifier:NSStringFromClass([CardDetailsChildrenContentImageContentCollectionViewItem class])];
     [nib release];
     
-    innerCollectionView.postsBoundsChangedNotifications = YES;
+    innerCollectionView.postsBoundsChangedNotifications = NO;
     innerCollectionView.selectable = YES;
-    innerCollectionView.allowsMultipleSelection = NO;
-    innerCollectionView.allowsEmptySelection = NO;
+    innerCollectionView.allowsMultipleSelection = YES;
+    innerCollectionView.allowsEmptySelection = YES;
     innerCollectionView.delegate = self;
     innerCollectionView.backgroundColors = @[NSColor.clearColor];
     
@@ -89,7 +90,7 @@
         
         CardDetailsChildrenContentImageContentCollectionViewItem *item = [collectionView makeItemWithIdentifier:NSStringFromClass([CardDetailsChildrenContentImageContentCollectionViewItem class]) forIndexPath:indexPath];
 
-        [item configureWithHSCard:itemModel.hsCard];
+        [item configureWithHSCard:itemModel.hsCard delegate:self];
 
         return item;
     }];
@@ -98,5 +99,21 @@
 }
 
 #pragma mark - NSCollectionViewDelegate
+
+#pragma mark - CardDetailsChildrenContentImageContentCollectionViewItemDelegate
+
+- (void)cardDetailsChildrenContentImageContentCollectionViewItem:(CardDetailsChildrenContentImageContentCollectionViewItem *)cardDetailsChildrenContentImageContentCollectionViewItem didDoubleClickWithRecognizer:(NSClickGestureRecognizer *)recognizer {
+    @autoreleasepool {
+        NSArray<NSIndexPath *> *selectionIndexPaths = self.innerCollectionView.selectionIndexPaths.allObjects;
+        
+        [selectionIndexPaths enumerateObjectsUsingBlock:^(NSIndexPath * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            HSCard * _Nullable hsCard = [self.viewModel.dataSource itemIdentifierForIndexPath:obj].hsCard;
+            
+            if (hsCard == nil) return;
+            
+            [(AppDelegate *)NSApp.delegate presentCardDetailsWithHSCard:hsCard];
+        }];
+    }
+}
 
 @end
