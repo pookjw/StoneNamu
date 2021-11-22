@@ -21,24 +21,16 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    [self clearContents];
 }
 
 - (void)prepareForReuse {
     [super prepareForReuse];
-    [self clearContents];
 }
 
 - (void)configureWithHSCard:(HSCard *)hsCard {
     self.hsCard = hsCard;
     
     [self.imageView setAsyncImageWithURL:hsCard.image indicator:YES];
-}
-
-- (void)clearContents {
-    self.hsCard = nil;
-    [self.imageView cancelAsyncImage];
-    self.imageView.image = nil;
 }
 
 @end

@@ -23,12 +23,10 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     [self addGesture];
-    [self clearContents];
 }
 
 - (void)prepareForReuse {
     [super prepareForReuse];
-    [self clearContents];
 }
 
 - (void)configureWithHSCard:(HSCard *)hsCard delegate:(nonnull id<CardCollectionViewItemDelegate>)delegate {
@@ -36,12 +34,6 @@
     self.delegte = delegate;
     
     [self.imageView setAsyncImageWithURL:hsCard.image indicator:YES];
-}
-
-- (void)clearContents {
-    self.hsCard = nil;
-    [self.imageView cancelAsyncImage];
-    self.imageView.image = nil;
 }
 
 - (void)addGesture {
