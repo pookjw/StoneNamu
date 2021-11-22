@@ -208,7 +208,7 @@
         NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
         [snapshot deleteAllItems];
         
-        [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:NO completion:^{
+        [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
             [snapshot release];
         }];
     }];
