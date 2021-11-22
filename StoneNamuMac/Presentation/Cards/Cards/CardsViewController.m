@@ -164,6 +164,9 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardsVie
     collectionView.allowsEmptySelection = YES;
     collectionView.delegate = self;
     
+    // TODO
+    [collectionView registerForDraggedTypes:@[NSPasteboardTypeURL]];
+    
     [scrollView release];
     [clipView release];
     [collectionView release];
@@ -294,6 +297,30 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardsVie
 
 - (void)clearCardOptionsToolbarFromWindow {
     self.view.window.toolbar = nil;
+}
+
+#pragma mark - NSCollectionViewDelegate
+
+- (BOOL)collectionView:(NSCollectionView *)collectionView canDragItemsAtIndexPaths:(NSSet<NSIndexPath *> *)indexPaths withEvent:(NSEvent *)event {
+    BOOL result __block = YES;
+    
+    [indexPaths enumerateObjectsUsingBlock:^(NSIndexPath * _Nonnull obj, BOOL * _Nonnull stop) {
+        CardItemModel * _Nullable itemModel = [self.viewModel.dataSource itemIdentifierForIndexPath:obj];
+        
+        if (itemModel == nil) {
+            result = NO;
+            *stop = YES;
+            return;
+        }
+    }];
+    
+    return result;
+}
+
+- (id<NSPasteboardWriting>)collectionView:(NSCollectionView *)collectionView pasteboardWriterForItemAtIndexPath:(NSIndexPath *)indexPath {
+    CardItemModel * _Nullable itemModel = [self.viewModel.dataSource itemIdentifierForIndexPath:indexPath];
+    
+    return itemModel.hsCard;
 }
 
 #pragma mark - CardOptionsMenuDelegate

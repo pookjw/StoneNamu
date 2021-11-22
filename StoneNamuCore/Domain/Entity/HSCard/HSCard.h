@@ -6,6 +6,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <TargetConditionals.h>
+#if TARGET_OS_OSX
+#import <Cocoa/Cocoa.h>
+#endif
 #import <StoneNamuCore/HSCardSet.h>
 #import <StoneNamuCore/HSCardClass.h>
 #import <StoneNamuCore/HSCardRarity.h>
@@ -22,7 +26,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+#if TARGET_OS_OSX
+static NSPasteboardType const NSPasteboardTypeHSCard = @"com.pookjw.StoneNamuCore.NSPasteboardTypeHSCard";
+#endif
+
+#if TARGET_OS_OSX
+@interface HSCard : NSObject <NSCopying, NSCoding, NSSecureCoding, NSItemProviderWriting, NSItemProviderReading, NSPasteboardWriting, NSPasteboardReading>
+#else
 @interface HSCard : NSObject <NSCopying, NSCoding, NSSecureCoding, NSItemProviderWriting, NSItemProviderReading>
+#endif
 @property (readonly) NSUInteger cardId;
 @property (readonly) HSCardCollectible collectible;
 @property (readonly, copy) NSString *slug;
