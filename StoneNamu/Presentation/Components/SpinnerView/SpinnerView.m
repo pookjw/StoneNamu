@@ -37,6 +37,8 @@
 }
 
 - (void)dealloc {
+    [self.baseCircularView removeObserver:self forKeyPath:@"bounds"];
+    [self.progressCircularView removeObserver:self forKeyPath:@"bounds"];
     [_contentView release];
     [_baseCircularView release];
     [_baseCircularPathLayer release];
