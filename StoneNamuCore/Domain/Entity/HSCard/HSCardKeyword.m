@@ -33,6 +33,8 @@ NSString * NSStringFromHSCardKeyword(HSCardKeyword keyword) {
             return @"freeze";
         case HSCardKeywordFrenzy:
             return @"frenzy";
+        case HSCardKeywordHonorableKill:
+            return @"honorablekill";
         case HSCardKeywordImmune:
             return @"immune";
         case HSCardKeywordInspire:
@@ -121,6 +123,8 @@ HSCardKeyword HSCardKeywordFromNSString(NSString * key) {
         return HSCardKeywordFreeze;
     } else if ([key isEqualToString:@"frenzy"]) {
         return HSCardKeywordFrenzy;
+    } else if ([key isEqualToString:@"honorablekill"]) {
+        return HSCardKeywordHonorableKill;
     } else if ([key isEqualToString:@"immune"]) {
         return HSCardKeywordImmune;
     } else if ([key isEqualToString:@"inspire"]) {
@@ -198,6 +202,7 @@ NSArray<NSString *> *hsCardKeywords(void) {
         NSStringFromHSCardKeyword(HSCardKeywordEcho),
         NSStringFromHSCardKeyword(HSCardKeywordFreeze),
         NSStringFromHSCardKeyword(HSCardKeywordFrenzy),
+        NSStringFromHSCardKeyword(HSCardKeywordHonorableKill),
         NSStringFromHSCardKeyword(HSCardKeywordImmune),
         NSStringFromHSCardKeyword(HSCardKeywordInspire),
         NSStringFromHSCardKeyword(HSCardKeywordInvoke),

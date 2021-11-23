@@ -21,7 +21,7 @@ typedef NS_ENUM(NSUInteger, HSCardKeyword) {
     HSCardKeywordEcho = 52,
     HSCardKeywordFreeze = 10,
     HSCardKeywordFrenzy = 99,
-    HSCardKeywordHonorableKill = 100, // there's no string value
+    HSCardKeywordHonorableKill = 100,
     HSCardKeywordImmune = 17,
     HSCardKeywordInspire = 20,
     HSCardKeywordInvoke = 79,

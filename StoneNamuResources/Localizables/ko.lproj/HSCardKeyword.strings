@@ -28,6 +28,10 @@
 
 "freeze" = "빙결";
 
+"frenzy" = "광폭";
+
+"honorablekill" = "명예로운 일격";
+
 "immune" = "면역";
 
 "inspire" = "격려";
@@ -60,7 +64,7 @@
 
 "recruit" = "소집";
 
-"rush" = "소집";
+"rush" = "속공";
 
 "secret" = "비밀";
 
