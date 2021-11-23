@@ -358,6 +358,8 @@
 		F31581012741231700DBD6D4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F31581002741231700DBD6D4 /* AppDelegate.m */; };
 		F35E230A27401B42000A2605 /* BlizzardHSAPIOptionType.strings in Resources */ = {isa = PBXBuildFile; fileRef = F35E230C27401B42000A2605 /* BlizzardHSAPIOptionType.strings */; };
 		F3862A3127428FC70061C20C /* PrefsDataViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F3862A3027428FC70061C20C /* PrefsDataViewModel.m */; };
+		F3A096FB274C807D00C7DFA4 /* HSCardPromiseProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = F3A096FA274C807D00C7DFA4 /* HSCardPromiseProvider.m */; };
+		F3A096FE274C815200C7DFA4 /* HSCard+Pasteboard.m in Sources */ = {isa = PBXBuildFile; fileRef = F3A096FD274C815200C7DFA4 /* HSCard+Pasteboard.m */; };
 		F3CCE2812742BFCF004B5B26 /* MainListCollectionViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3CCE2802742BFCF004B5B26 /* MainListCollectionViewItem.xib */; };
 		F3CCE2842742BFF7004B5B26 /* MainListCollectionViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = F3CCE2832742BFF7004B5B26 /* MainListCollectionViewItem.m */; };
 		F3CCE2872742C17F004B5B26 /* MainListCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = F3CCE2862742C17F004B5B26 /* MainListCollectionViewLayout.m */; };
@@ -1040,6 +1042,10 @@
 		F35E230D27401B43000A2605 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/BlizzardHSAPIOptionType.strings; sourceTree = "<group>"; };
 		F3862A2F27428FC70061C20C /* PrefsDataViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefsDataViewModel.h; sourceTree = "<group>"; };
 		F3862A3027428FC70061C20C /* PrefsDataViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrefsDataViewModel.m; sourceTree = "<group>"; };
+		F3A096F9274C807D00C7DFA4 /* HSCardPromiseProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardPromiseProvider.h; sourceTree = "<group>"; };
+		F3A096FA274C807D00C7DFA4 /* HSCardPromiseProvider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCardPromiseProvider.m; sourceTree = "<group>"; };
+		F3A096FC274C815200C7DFA4 /* HSCard+Pasteboard.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HSCard+Pasteboard.h"; sourceTree = "<group>"; };
+		F3A096FD274C815200C7DFA4 /* HSCard+Pasteboard.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "HSCard+Pasteboard.m"; sourceTree = "<group>"; };
 		F3CCE2802742BFCF004B5B26 /* MainListCollectionViewItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainListCollectionViewItem.xib; sourceTree = "<group>"; };
 		F3CCE2822742BFF7004B5B26 /* MainListCollectionViewItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainListCollectionViewItem.h; sourceTree = "<group>"; };
 		F3CCE2832742BFF7004B5B26 /* MainListCollectionViewItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainListCollectionViewItem.m; sourceTree = "<group>"; };
@@ -2285,6 +2291,7 @@
 				4FE85707270089BD0008C2FB /* main.m */,
 				4F23C8B4273D9A2500C33F10 /* Assets.xcassets */,
 				4F23C8BA273D9A5900C33F10 /* InfoPlist.strings */,
+				F3A096F8274C806000C7DFA4 /* Service */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -2325,6 +2332,8 @@
 				F303D64127415BFF00569E20 /* NSProcessInfo+isEnabledRestoration.m */,
 				4FDE9B6E274AF1C200AB0E02 /* NSDiffableDataSourceSnapshot+sort.h */,
 				4FDE9B6F274AF1C200AB0E02 /* NSDiffableDataSourceSnapshot+sort.m */,
+				F3A096FC274C815200C7DFA4 /* HSCard+Pasteboard.h */,
+				F3A096FD274C815200C7DFA4 /* HSCard+Pasteboard.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -2560,6 +2569,15 @@
 				F303D63327414E8700569E20 /* PrefsTabViewController.m */,
 			);
 			path = Prefs;
+			sourceTree = "<group>";
+		};
+		F3A096F8274C806000C7DFA4 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				F3A096F9274C807D00C7DFA4 /* HSCardPromiseProvider.h */,
+				F3A096FA274C807D00C7DFA4 /* HSCardPromiseProvider.m */,
+			);
+			path = Service;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -3118,6 +3136,7 @@
 				4FE85708270089BD0008C2FB /* main.m in Sources */,
 				4F23C8A3273D830200C33F10 /* MainWindowRestoration.m in Sources */,
 				4FC402C0273870C200D25523 /* ViewMenuItem.m in Sources */,
+				F3A096FE274C815200C7DFA4 /* HSCard+Pasteboard.m in Sources */,
 				4FC402C3273872A900D25523 /* WindowMenuItem.m in Sources */,
 				4FDE9B6B274AF05200AB0E02 /* CardDetailsChildrenContentImageContentCollectionViewItem.m in Sources */,
 				4FDE9B67274AEFF600AB0E02 /* CardDetailsChildrenContentCollectionViewItemItemModel.m in Sources */,
@@ -3135,6 +3154,7 @@
 				F303D63427414E8700569E20 /* PrefsTabViewController.m in Sources */,
 				F303D645274162CB00569E20 /* PrefsCardsViewModel.m in Sources */,
 				4F4892DE27246B6000126131 /* NSViewController+loadViewIfNeeded.m in Sources */,
+				F3A096FB274C807D00C7DFA4 /* HSCardPromiseProvider.m in Sources */,
 				4FE857792700A3580008C2FB /* NSWindow+presentErrorAlert.m in Sources */,
 				4F883F66272FF31500AF0048 /* CardOptionsSearchField.m in Sources */,
 				4FDE9B70274AF1C300AB0E02 /* NSDiffableDataSourceSnapshot+sort.m in Sources */,

@@ -320,7 +320,8 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardsVie
 - (id<NSPasteboardWriting>)collectionView:(NSCollectionView *)collectionView pasteboardWriterForItemAtIndexPath:(NSIndexPath *)indexPath {
     CardItemModel * _Nullable itemModel = [self.viewModel.dataSource itemIdentifierForIndexPath:indexPath];
     
-    return itemModel.hsCard;
+//    return itemModel.hsCard;
+    return nil;
 }
 
 #pragma mark - CardOptionsMenuDelegate

@@ -371,43 +371,4 @@
     return NSItemProviderRepresentationVisibilityOwnProcess;
 }
 
-#if TARGET_OS_OSX
-
-#pragma mark - NSPasteboardWriting
-
-- (NSArray<NSPasteboardType> *)writableTypesForPasteboard:(NSPasteboard *)pasteboard {
-    return @[NSPasteboardTypeURL];
-}
-
-- (NSPasteboardWritingOptions)writingOptionsForType:(NSPasteboardType)type pasteboard:(NSPasteboard *)pasteboard {
-    return NSPasteboardWritingPromised;
-}
-
-- (nullable id)pasteboardPropertyListForType:(nonnull NSPasteboardType)type {
-//    NSError * _Nullable error = nil;
-//    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self requiringSecureCoding:YES error:&error];
-//
-//    if (error != nil) {
-//        NSLog(@"%@", error.localizedDescription);
-//        return nil;
-//    }
-//
-//    return data;
-//    return @"Test";
-    return [[NSURL URLWithString:@"https://developer.apple.com/documentation/appkit/nscollectionviewdelegate"] pasteboardPropertyListForType:type];
-}
-
-#pragma mark - NSPasteboardReading
-
-- (id)initWithPasteboardPropertyList:(id)propertyList ofType:(NSPasteboardType)type {
-    // TODO
-    return self;
-}
-
-+ (nonnull NSArray<NSPasteboardType> *)readableTypesForPasteboard:(nonnull NSPasteboard *)pasteboard {
-    return @[NSPasteboardTypeHSCard];
-}
-
-#endif
-
 @end
