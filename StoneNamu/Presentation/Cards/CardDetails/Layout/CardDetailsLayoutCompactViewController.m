@@ -82,8 +82,8 @@
     [NSLayoutConstraint activateConstraints:@[
         [closeButtonContainerView.topAnchor constraintEqualToAnchor:primaryImageViewContainerView.topAnchor],
         [closeButtonContainerView.trailingAnchor constraintEqualToAnchor:primaryImageViewContainerView.trailingAnchor],
-        [closeButtonContainerView.widthAnchor constraintEqualToConstant:80],
-        [closeButtonContainerView.heightAnchor constraintEqualToConstant:80]
+        [closeButtonContainerView.widthAnchor constraintEqualToConstant:60.0f],
+        [closeButtonContainerView.heightAnchor constraintEqualToConstant:60.0f]
     ]];
     closeButtonContainerView.backgroundColor = UIColor.clearColor;
     
