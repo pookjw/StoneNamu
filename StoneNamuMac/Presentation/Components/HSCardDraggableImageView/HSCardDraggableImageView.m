@@ -38,6 +38,9 @@
     [draggingItem setDraggingFrame:self.bounds contents:self.image];
     
     [self beginDraggingSessionWithItems:@[draggingItem] event:event source:self];
+    
+    [pasteboardItem release];
+    [draggingItem release];
 }
 
 #pragma mark - NSDraggingSource
