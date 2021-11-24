@@ -14,6 +14,7 @@
 #import "CardOptionsToolbar.h"
 #import "CardOptionsTouchBar.h"
 #import "AppDelegate.h"
+#import "HSCardPromiseProvider.h"
 #import <StoneNamuCore/StoneNamuCore.h>
 #import <StoneNamuResources/StoneNamuResources.h>
 
@@ -164,8 +165,8 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardsVie
     collectionView.allowsEmptySelection = YES;
     collectionView.delegate = self;
     
-    // TODO
-    [collectionView registerForDraggedTypes:@[NSPasteboardTypeURL]];
+    [collectionView registerForDraggedTypes:@[NSPasteboardTypeFileURL, NSPasteboardTypePNG]];
+    [collectionView setDraggingSourceOperationMask:NSDragOperationCopy forLocal:NO];
     
     [scrollView release];
     [clipView release];
@@ -303,25 +304,32 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardsVie
 
 - (BOOL)collectionView:(NSCollectionView *)collectionView canDragItemsAtIndexPaths:(NSSet<NSIndexPath *> *)indexPaths withEvent:(NSEvent *)event {
     BOOL result __block = YES;
-    
+
     [indexPaths enumerateObjectsUsingBlock:^(NSIndexPath * _Nonnull obj, BOOL * _Nonnull stop) {
         CardItemModel * _Nullable itemModel = [self.viewModel.dataSource itemIdentifierForIndexPath:obj];
-        
+
         if (itemModel == nil) {
             result = NO;
             *stop = YES;
             return;
         }
     }];
-    
+
     return result;
 }
 
 - (id<NSPasteboardWriting>)collectionView:(NSCollectionView *)collectionView pasteboardWriterForItemAtIndexPath:(NSIndexPath *)indexPath {
+    CardCollectionViewItem * _Nullable item = (CardCollectionViewItem *)[collectionView itemAtIndexPath:indexPath];
+    
+    if (item == nil) return nil;
+    
     CardItemModel * _Nullable itemModel = [self.viewModel.dataSource itemIdentifierForIndexPath:indexPath];
     
-//    return itemModel.hsCard;
-    return nil;
+    if (itemModel == nil) return nil;
+    
+    HSCardPromiseProvider *provider = [[HSCardPromiseProvider alloc] initWithHSCard:itemModel.hsCard image:item.imageView.image];
+    
+    return [provider autorelease];
 }
 
 #pragma mark - CardOptionsMenuDelegate

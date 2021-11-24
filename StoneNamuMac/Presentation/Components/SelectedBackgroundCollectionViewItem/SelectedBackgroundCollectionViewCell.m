@@ -51,13 +51,22 @@
     [self updateBackgroundColor];
 }
 
+- (void)setHighlightState:(NSCollectionViewItemHighlightState)highlightState {
+    [super setHighlightState:highlightState];
+    [self updateBackgroundColor];
+}
+
 - (void)setAttributes {
     self.view.wantsLayer = YES;
 }
 
 - (void)updateBackgroundColor {
-    if (self.isSelected) {
-        self.view.layer.backgroundColor = NSColor.controlAccentColor.CGColor;
+    if ((self.isSelected) || (self.highlightState == NSCollectionViewItemHighlightForSelection)) {
+        if (self.view.window.isMainWindow) {
+            self.view.layer.backgroundColor = NSColor.controlAccentColor.CGColor;
+        } else {
+            self.view.layer.backgroundColor = NSColor.systemGrayColor.CGColor;
+        }
     } else {
         self.view.layer.backgroundColor = nil;
     }
@@ -81,11 +90,7 @@
 
 - (void)didResignMain:(NSNotification *)notification {
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
-        if (self.isSelected) {
-            self.view.layer.backgroundColor = NSColor.systemGrayColor.CGColor;
-        } else {
-            self.view.layer.backgroundColor = nil;
-        }
+        [self updateBackgroundColor];
     }];
 }
 

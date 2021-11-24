@@ -118,6 +118,7 @@
 		4F646A7726B7E8C100BEDB38 /* DataCacheRepositoryImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F646A7526B7E8C100BEDB38 /* DataCacheRepositoryImpl.m */; };
 		4F646A7B26B7F08500BEDB38 /* DataCacheUseCaseImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F646A7926B7F08500BEDB38 /* DataCacheUseCaseImpl.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4F646A7C26B7F08500BEDB38 /* DataCacheUseCaseImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F646A7A26B7F08500BEDB38 /* DataCacheUseCaseImpl.m */; };
+		4F659208274DD5470017888C /* NSImage+pngData.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F659207274DD5470017888C /* NSImage+pngData.m */; };
 		4F68198226D73F2F00033AEE /* DeckBaseContentViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F68198126D73F2F00033AEE /* DeckBaseContentViewModel.m */; };
 		4F6A139C26B251EE0089A13A /* HSCardKeyword.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F6A139B26B251EE0089A13A /* HSCardKeyword.m */; };
 		4F6A13A526B267D60089A13A /* HSCardGameMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F6A13A426B267D60089A13A /* HSCardGameMode.m */; };
@@ -257,6 +258,7 @@
 		4FCC22C426ECA99B004997AA /* HSYear.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FCC22C326ECA99B004997AA /* HSYear.m */; };
 		4FCC22C826ECAC81004997AA /* DeckImageRenderServiceAppNameContentConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FCC22C726ECAC81004997AA /* DeckImageRenderServiceAppNameContentConfiguration.m */; };
 		4FCC22CB26ECAC98004997AA /* DeckImageRenderServiceAppNameContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FCC22CA26ECAC98004997AA /* DeckImageRenderServiceAppNameContentView.m */; };
+		4FD4E017274ED7DF0037D867 /* HSCardDraggableImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD4E016274ED7DF0037D867 /* HSCardDraggableImageView.m */; };
 		4FD87F8C2719C9EC003EED4B /* MainListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD87F8B2719C9EC003EED4B /* MainListViewController.m */; };
 		4FD87F902719CA15003EED4B /* MainSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD87F8F2719CA15003EED4B /* MainSplitViewController.m */; };
 		4FD87F932719CD50003EED4B /* MainListViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD87F922719CD50003EED4B /* MainListViewModel.m */; };
@@ -359,7 +361,6 @@
 		F35E230A27401B42000A2605 /* BlizzardHSAPIOptionType.strings in Resources */ = {isa = PBXBuildFile; fileRef = F35E230C27401B42000A2605 /* BlizzardHSAPIOptionType.strings */; };
 		F3862A3127428FC70061C20C /* PrefsDataViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F3862A3027428FC70061C20C /* PrefsDataViewModel.m */; };
 		F3A096FB274C807D00C7DFA4 /* HSCardPromiseProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = F3A096FA274C807D00C7DFA4 /* HSCardPromiseProvider.m */; };
-		F3A096FE274C815200C7DFA4 /* HSCard+Pasteboard.m in Sources */ = {isa = PBXBuildFile; fileRef = F3A096FD274C815200C7DFA4 /* HSCard+Pasteboard.m */; };
 		F3CCE2812742BFCF004B5B26 /* MainListCollectionViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3CCE2802742BFCF004B5B26 /* MainListCollectionViewItem.xib */; };
 		F3CCE2842742BFF7004B5B26 /* MainListCollectionViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = F3CCE2832742BFF7004B5B26 /* MainListCollectionViewItem.m */; };
 		F3CCE2872742C17F004B5B26 /* MainListCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = F3CCE2862742C17F004B5B26 /* MainListCollectionViewLayout.m */; };
@@ -641,6 +642,8 @@
 		4F646A7826B7EF9100BEDB38 /* DataCacheUseCase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataCacheUseCase.h; sourceTree = "<group>"; };
 		4F646A7926B7F08500BEDB38 /* DataCacheUseCaseImpl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataCacheUseCaseImpl.h; sourceTree = "<group>"; };
 		4F646A7A26B7F08500BEDB38 /* DataCacheUseCaseImpl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DataCacheUseCaseImpl.m; sourceTree = "<group>"; };
+		4F659206274DD5470017888C /* NSImage+pngData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSImage+pngData.h"; sourceTree = "<group>"; };
+		4F659207274DD5470017888C /* NSImage+pngData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSImage+pngData.m"; sourceTree = "<group>"; };
 		4F68198026D73F2F00033AEE /* DeckBaseContentViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeckBaseContentViewModel.h; sourceTree = "<group>"; };
 		4F68198126D73F2F00033AEE /* DeckBaseContentViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeckBaseContentViewModel.m; sourceTree = "<group>"; };
 		4F6A139B26B251EE0089A13A /* HSCardKeyword.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCardKeyword.m; sourceTree = "<group>"; };
@@ -850,6 +853,8 @@
 		4FCC22C726ECAC81004997AA /* DeckImageRenderServiceAppNameContentConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckImageRenderServiceAppNameContentConfiguration.m; sourceTree = "<group>"; };
 		4FCC22C926ECAC98004997AA /* DeckImageRenderServiceAppNameContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckImageRenderServiceAppNameContentView.h; sourceTree = "<group>"; };
 		4FCC22CA26ECAC98004997AA /* DeckImageRenderServiceAppNameContentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckImageRenderServiceAppNameContentView.m; sourceTree = "<group>"; };
+		4FD4E015274ED7DF0037D867 /* HSCardDraggableImageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardDraggableImageView.h; sourceTree = "<group>"; };
+		4FD4E016274ED7DF0037D867 /* HSCardDraggableImageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCardDraggableImageView.m; sourceTree = "<group>"; };
 		4FD87F8A2719C9EC003EED4B /* MainListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainListViewController.h; sourceTree = "<group>"; };
 		4FD87F8B2719C9EC003EED4B /* MainListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainListViewController.m; sourceTree = "<group>"; };
 		4FD87F8E2719CA15003EED4B /* MainSplitViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainSplitViewController.h; sourceTree = "<group>"; };
@@ -1044,8 +1049,6 @@
 		F3862A3027428FC70061C20C /* PrefsDataViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrefsDataViewModel.m; sourceTree = "<group>"; };
 		F3A096F9274C807D00C7DFA4 /* HSCardPromiseProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardPromiseProvider.h; sourceTree = "<group>"; };
 		F3A096FA274C807D00C7DFA4 /* HSCardPromiseProvider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCardPromiseProvider.m; sourceTree = "<group>"; };
-		F3A096FC274C815200C7DFA4 /* HSCard+Pasteboard.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HSCard+Pasteboard.h"; sourceTree = "<group>"; };
-		F3A096FD274C815200C7DFA4 /* HSCard+Pasteboard.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "HSCard+Pasteboard.m"; sourceTree = "<group>"; };
 		F3CCE2802742BFCF004B5B26 /* MainListCollectionViewItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainListCollectionViewItem.xib; sourceTree = "<group>"; };
 		F3CCE2822742BFF7004B5B26 /* MainListCollectionViewItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainListCollectionViewItem.h; sourceTree = "<group>"; };
 		F3CCE2832742BFF7004B5B26 /* MainListCollectionViewItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainListCollectionViewItem.m; sourceTree = "<group>"; };
@@ -1774,6 +1777,7 @@
 		4F98C28C27284D8F00865CCD /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				4FD4E014274ED7CD0037D867 /* HSCardDraggableImageView */,
 				4F4738B32746BBA4000C0C85 /* SelectedBackgroundCollectionViewItem */,
 				4FC402B727386D0E00D25523 /* DynamicMenuToolbarItem */,
 				4FC402AF2738684600D25523 /* Menu */,
@@ -2151,6 +2155,15 @@
 			path = AppName;
 			sourceTree = "<group>";
 		};
+		4FD4E014274ED7CD0037D867 /* HSCardDraggableImageView */ = {
+			isa = PBXGroup;
+			children = (
+				4FD4E015274ED7DF0037D867 /* HSCardDraggableImageView.h */,
+				4FD4E016274ED7DF0037D867 /* HSCardDraggableImageView.m */,
+			);
+			path = HSCardDraggableImageView;
+			sourceTree = "<group>";
+		};
 		4FD87F892719C9CD003EED4B /* MainList */ = {
 			isa = PBXGroup;
 			children = (
@@ -2332,8 +2345,8 @@
 				F303D64127415BFF00569E20 /* NSProcessInfo+isEnabledRestoration.m */,
 				4FDE9B6E274AF1C200AB0E02 /* NSDiffableDataSourceSnapshot+sort.h */,
 				4FDE9B6F274AF1C200AB0E02 /* NSDiffableDataSourceSnapshot+sort.m */,
-				F3A096FC274C815200C7DFA4 /* HSCard+Pasteboard.h */,
-				F3A096FD274C815200C7DFA4 /* HSCard+Pasteboard.m */,
+				4F659206274DD5470017888C /* NSImage+pngData.h */,
+				4F659207274DD5470017888C /* NSImage+pngData.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -3136,7 +3149,6 @@
 				4FE85708270089BD0008C2FB /* main.m in Sources */,
 				4F23C8A3273D830200C33F10 /* MainWindowRestoration.m in Sources */,
 				4FC402C0273870C200D25523 /* ViewMenuItem.m in Sources */,
-				F3A096FE274C815200C7DFA4 /* HSCard+Pasteboard.m in Sources */,
 				4FC402C3273872A900D25523 /* WindowMenuItem.m in Sources */,
 				4FDE9B6B274AF05200AB0E02 /* CardDetailsChildrenContentImageContentCollectionViewItem.m in Sources */,
 				4FDE9B67274AEFF600AB0E02 /* CardDetailsChildrenContentCollectionViewItemItemModel.m in Sources */,
@@ -3183,6 +3195,7 @@
 				4F98C28F27284DC900865CCD /* SpinnerView.m in Sources */,
 				4FC402BD27386F3100D25523 /* EditMenuItem.m in Sources */,
 				4F466EF1272851090035C569 /* NSViewController+SpinnerView.m in Sources */,
+				4F659208274DD5470017888C /* NSImage+pngData.m in Sources */,
 				F3CCE28A2742C3BD004B5B26 /* MainListViewModel.m in Sources */,
 				F303D648274171C700569E20 /* PrefsCardsMenuItem.m in Sources */,
 				4FC402CD2738759200D25523 /* CardOptionsMenu.m in Sources */,
@@ -3192,6 +3205,7 @@
 				4F4738BD2746BFCD000C0C85 /* CardDetailsWindow.m in Sources */,
 				4F7333F8272D836A00438FE0 /* CardOptionsToolbar.m in Sources */,
 				4FDE9B5B274AEBF500AB0E02 /* CardDetailsChildrenContentCollectionViewItem.m in Sources */,
+				4FD4E017274ED7DF0037D867 /* HSCardDraggableImageView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

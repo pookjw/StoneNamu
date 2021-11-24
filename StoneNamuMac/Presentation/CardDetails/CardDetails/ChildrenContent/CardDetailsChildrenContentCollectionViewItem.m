@@ -10,6 +10,7 @@
 #import "CardDetailsChildrenContentCollectionViewItemCollectionViewLayout.h"
 #import "CardDetailsChildrenContentImageContentCollectionViewItem.h"
 #import "AppDelegate.h"
+#import "HSCardPromiseProvider.h"
 
 @interface CardDetailsChildrenContentCollectionViewItem () <NSCollectionViewDelegate, CardDetailsChildrenContentImageContentCollectionViewItemDelegate>
 @property (retain) NSScrollView *scrollView;
@@ -74,6 +75,9 @@
     innerCollectionView.delegate = self;
     innerCollectionView.backgroundColors = @[NSColor.clearColor];
     
+    [innerCollectionView registerForDraggedTypes:@[NSPasteboardTypeFileURL, NSPasteboardTypePNG]];
+    [innerCollectionView setDraggingSourceOperationMask:NSDragOperationCopy forLocal:NO];
+    
     [scrollView release];
     [clipView release];
     [innerCollectionView release];
@@ -99,6 +103,36 @@
 }
 
 #pragma mark - NSCollectionViewDelegate
+
+- (BOOL)collectionView:(NSCollectionView *)collectionView canDragItemsAtIndexPaths:(NSSet<NSIndexPath *> *)indexPaths withEvent:(NSEvent *)event {
+    BOOL result __block = YES;
+
+    [indexPaths enumerateObjectsUsingBlock:^(NSIndexPath * _Nonnull obj, BOOL * _Nonnull stop) {
+        CardDetailsChildrenContentCollectionViewItemItemModel * _Nullable itemModel = [self.viewModel.dataSource itemIdentifierForIndexPath:obj];
+
+        if (itemModel == nil) {
+            result = NO;
+            *stop = YES;
+            return;
+        }
+    }];
+
+    return result;
+}
+
+- (id<NSPasteboardWriting>)collectionView:(NSCollectionView *)collectionView pasteboardWriterForItemAtIndexPath:(NSIndexPath *)indexPath {
+    CardDetailsChildrenContentImageContentCollectionViewItem * _Nullable item = (CardDetailsChildrenContentImageContentCollectionViewItem *)[collectionView itemAtIndexPath:indexPath];
+    
+    if (item == nil) return nil;
+    
+    CardDetailsChildrenContentCollectionViewItemItemModel * _Nullable itemModel = [self.viewModel.dataSource itemIdentifierForIndexPath:indexPath];
+    
+    if (itemModel == nil) return nil;
+    
+    HSCardPromiseProvider *provider = [[HSCardPromiseProvider alloc] initWithHSCard:itemModel.hsCard image:item.imageView.image];
+    
+    return [provider autorelease];
+}
 
 #pragma mark - CardDetailsChildrenContentImageContentCollectionViewItemDelegate
 

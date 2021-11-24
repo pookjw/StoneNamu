@@ -13,11 +13,12 @@
 #import "CardDetailsChildrenContentCollectionViewItem.h"
 #import "CardDetailsCollectionViewLayout.h"
 #import "NSViewController+SpinnerView.h"
+#import "HSCardDraggableImageView.h"
 
 @interface CardDetailsViewController () <NSCollectionViewDelegate>
 @property (retain) NSVisualEffectView *blurView;
 @property (retain) NSStackView *stackView;
-@property (retain) NSImageView *imageView;
+@property (retain) HSCardDraggableImageView *imageView;
 @property (retain) NSScrollView *scrollView;
 @property (retain) NSClipView *clipView;
 @property (retain) NSCollectionView *collectionView;
@@ -123,7 +124,8 @@
 }
 
 - (void)configureImageView {
-    NSImageView *imageView = [NSImageView new];
+    HSCardDraggableImageView *imageView = [[HSCardDraggableImageView alloc] initWithHSCard:self.hsCard];
+    self.imageView = imageView;
     [imageView setAsyncImageWithURL:self.hsCard.image indicator:YES];
     
     [self.stackView addArrangedSubview:imageView];
