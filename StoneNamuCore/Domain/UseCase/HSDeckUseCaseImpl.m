@@ -40,6 +40,21 @@
     [super dealloc];
 }
 
+- (NSDictionary<NSString * ,NSString *> *)parseDeckCodeFromString:(NSString *)string {
+    NSString * __block title = @"";
+    NSString * __block deckCode = @"";
+    
+    for (NSString *tmp in [string componentsSeparatedByString:@"\n"]) {
+        if ([tmp hasPrefix:@"###"]) {
+            title = [tmp componentsSeparatedByString:@"### "].lastObject;
+        } else if ([tmp hasPrefix:@"AA"]) {
+            deckCode = tmp;
+        }
+    }
+    
+    return @{title: deckCode};
+}
+
 - (void)fetchDeckByCardList:(nonnull NSArray<NSNumber *> *)cardList
                     classId:(HSCardClass)classId
                  completion:(nonnull HSDeckUseCaseFetchDeckByCardListCompletion)completion {

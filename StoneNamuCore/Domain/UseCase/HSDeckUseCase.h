@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 typedef void (^HSDeckUseCaseFetchDeckByDeckCodeCompletion)(HSDeck * _Nullable, NSError * _Nullable);
 typedef void (^HSDeckUseCaseFetchDeckByCardListCompletion)(HSDeck * _Nullable, NSError * _Nullable);
 
+- (NSDictionary<NSString *, NSString *> *)parseDeckCodeFromString:(NSString *)string;
 - (void)fetchDeckByDeckCode:(NSString *)deckCode
                  completion:(HSDeckUseCaseFetchDeckByDeckCodeCompletion)completion;
 - (void)fetchDeckByCardList:(NSArray<NSNumber *> *)cardList

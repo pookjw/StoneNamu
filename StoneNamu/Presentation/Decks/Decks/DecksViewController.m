@@ -84,7 +84,7 @@
                                             deckFormat:HSDeckFormatStandard
                                             completion:^(LocalDeck * _Nonnull localDeck) {
                     [NSOperationQueue.mainQueue addOperationWithBlock:^{
-                        [self presentDeckDetailsWithLocalDeck:localDeck scrollToItem:YES];
+                        [self presentDeckDetailsWithLocalDeck:localDeck indexPath:nil scrollToItem:YES];
                     }];
                 }];
             }];
@@ -106,7 +106,7 @@
                                             deckFormat:HSDeckFormatWild
                                             completion:^(LocalDeck * _Nonnull localDeck) {
                     [NSOperationQueue.mainQueue addOperationWithBlock:^{
-                        [self presentDeckDetailsWithLocalDeck:localDeck scrollToItem:YES];
+                        [self presentDeckDetailsWithLocalDeck:localDeck indexPath:nil scrollToItem:YES];
                     }];
                 }];
             }];
@@ -128,7 +128,7 @@
                                             deckFormat:HSDeckFormatClassic
                                             completion:^(LocalDeck * _Nonnull localDeck) {
                     [NSOperationQueue.mainQueue addOperationWithBlock:^{
-                        [self presentDeckDetailsWithLocalDeck:localDeck scrollToItem:YES];
+                        [self presentDeckDetailsWithLocalDeck:localDeck indexPath:nil scrollToItem:YES];
                     }];
                 }];
             }];
@@ -309,7 +309,7 @@
                             if (error) {
                                 [self presentErrorAlertWithError:error];
                             } else {
-                                [self presentDeckDetailsWithLocalDeck:localDeck scrollToItem:YES];
+                                [self presentDeckDetailsWithLocalDeck:localDeck indexPath:nil scrollToItem:YES];
                             }
                         }];
                     }];
@@ -336,12 +336,19 @@
     return [vc autorelease];
 }
 
-- (void)presentDeckDetailsWithLocalDeck:(LocalDeck *)localDeck scrollToItem:(BOOL) scrollToItem {
+- (void)presentDeckDetailsWithLocalDeck:(LocalDeck *)localDeck indexPath:(NSIndexPath * _Nullable)indexPath scrollToItem:(BOOL)scrollToItem {
     DeckDetailsViewController *vc = [self makeDeckDetailsWithLocalDeck:localDeck];
     
     if (scrollToItem) {
-        NSIndexPath *indexPath = [self.viewModel indexPathForLocalDeck:localDeck];
-        [self.collectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionNone];
+        NSIndexPath *_indexPath;
+        
+        if (indexPath == nil) {
+            _indexPath = [self.viewModel indexPathForLocalDeck:localDeck];
+        } else {
+            _indexPath = indexPath;
+        }
+        
+        [self.collectionView selectItemAtIndexPath:_indexPath animated:YES scrollPosition:UICollectionViewScrollPositionNone];
     }
     
     if ((self.splitViewController == nil) || (self.splitViewController.isCollapsed)) {
@@ -360,7 +367,7 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     DecksItemModel *itemModel = [self.viewModel.dataSource itemIdentifierForIndexPath:indexPath];
-    [self presentDeckDetailsWithLocalDeck:itemModel.localDeck scrollToItem:NO];
+    [self presentDeckDetailsWithLocalDeck:itemModel.localDeck indexPath:indexPath scrollToItem:NO];
 }
 
 - (UIContextMenuConfiguration *)collectionView:(UICollectionView *)collectionView contextMenuConfigurationForItemAtIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point {

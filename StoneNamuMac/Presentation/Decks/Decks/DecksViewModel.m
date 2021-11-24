@@ -1,15 +1,15 @@
 //
 //  DecksViewModel.m
-//  DecksViewModel
+//  StoneNamuMac
 //
-//  Created by Jinwoo Kim on 8/19/21.
+//  Created by Jinwoo Kim on 11/25/21.
 //
 
 #import "DecksViewModel.h"
 #import <StoneNamuCore/StoneNamuCore.h>
 #import <StoneNamuResources/StoneNamuResources.h>
 #import "NSDiffableDataSourceSnapshot+sort.h"
-#import "UICollectionViewDiffableDataSource+applySnapshotAndWait.h"
+#import "NSCollectionViewDiffableDataSource+applySnapshotAndWait.h"
 
 @interface DecksViewModel ()
 @property (retain) NSOperationQueue *queue;
@@ -25,7 +25,6 @@
     if (self) {
         [self->_dataSource release];
         self->_dataSource = [dataSource retain];
-        self.contextMenuIndexPath = nil;
         
         NSOperationQueue *queue = [NSOperationQueue new];
         self.queue = queue;
@@ -53,7 +52,6 @@
 - (void)dealloc {
     [_queue release];
     [_dataSource release];
-    [_contextMenuIndexPath release];
     [_hsDeckUseCase release];
     [_localDeckUseCase release];
     [super dealloc];
@@ -83,7 +81,7 @@
 
 /**
  Use this method to make a new LocalDeck object.
- This method also makes new DecksItemModel into NSDiffableDataSourceSnapshot immediately. It's handy for selecting cell item on UICollectionView when LocalDeck is created.
+ This method also makes new DecksItemModel into NSDiffableDataSourceSnapshot immediately. It's handy for selecting cell item on NSCollectionView when LocalDeck is created.
  */
 - (void)makeLocalDeckWithClass:(HSCardClass)hsCardClass
                     deckFormat:(HSDeckFormat)deckFormat
@@ -212,7 +210,7 @@
 
 - (void)parseClipboardForDeckCodeWithCompletion:(DecksViewModelParseClipboardCompletion)completion {
     [self.queue addOperationWithBlock:^{
-        NSString *text = UIPasteboard.generalPasteboard.string;
+        NSString *text = [NSPasteboard.generalPasteboard stringForType:NSPasteboardTypeString];
         NSDictionary<NSString *, NSString *> *result = [self.hsDeckUseCase parseDeckCodeFromString:text];
         
         NSString * __block _Nullable title = result.allKeys.firstObject;
@@ -253,7 +251,8 @@
         }
         
         [snapshot appendItemsWithIdentifiers:itemModels intoSectionWithIdentifier:sectionModel];
-        [snapshot reconfigureItemsWithIdentifiers:itemModels];
+//        [snapshot reconfigureItemsWithIdentifiers:itemModels];
+        [snapshot reloadItemsWithIdentifiers:itemModels];
         [itemModels release];
         [sectionModel release];
         
