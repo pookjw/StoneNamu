@@ -519,6 +519,7 @@
 		4F1FA0AB27501A270082EBF0 /* DecksTouchBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DecksTouchBar.m; sourceTree = "<group>"; };
 		4F1FA0AD27501AE40082EBF0 /* NSTouchBarItemIdentifierDecks+HSDeckFormat.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSTouchBarItemIdentifierDecks+HSDeckFormat.h"; sourceTree = "<group>"; };
 		4F1FA0AE275022B00082EBF0 /* NSTouchBarItemIdentifierDecks+HSDeckFormat.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSTouchBarItemIdentifierDecks+HSDeckFormat.m"; sourceTree = "<group>"; };
+		4F1FA0B0275048310082EBF0 /* NSDiffableDataSourceSnapshot+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSDiffableDataSourceSnapshot+Private.h"; sourceTree = "<group>"; };
 		4F23C8A1273D830200C33F10 /* MainWindowRestoration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainWindowRestoration.h; sourceTree = "<group>"; };
 		4F23C8A2273D830200C33F10 /* MainWindowRestoration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainWindowRestoration.m; sourceTree = "<group>"; };
 		4F23C8A9273D997C00C33F10 /* StoneNamuResources.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StoneNamuResources.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1462,6 +1463,7 @@
 			isa = PBXGroup;
 			children = (
 				4F4892D2272467E300126131 /* NSCollectionViewDiffableDataSource+Private.h */,
+				4F1FA0B0275048310082EBF0 /* NSDiffableDataSourceSnapshot+Private.h */,
 				4F1E85EE27331DF600CE2551 /* NSScrubber+Private.h */,
 			);
 			path = Private;

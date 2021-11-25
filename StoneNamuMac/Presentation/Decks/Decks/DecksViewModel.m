@@ -10,6 +10,7 @@
 #import <StoneNamuResources/StoneNamuResources.h>
 #import "NSDiffableDataSourceSnapshot+sort.h"
 #import "NSCollectionViewDiffableDataSource+applySnapshotAndWait.h"
+#import "NSDiffableDataSourceSnapshot+Private.h"
 
 @interface DecksViewModel ()
 @property (retain) NSOperationQueue *queue;
@@ -61,18 +62,15 @@
                 title:(NSString * _Nullable)title
            completion:(DecksViewModelFetchDeckCodeCompletion)completion {
     
-    NSString * _Nullable copyTitle = [title copy];
-    
     [self.hsDeckUseCase fetchDeckByDeckCode:deckCode completion:^(HSDeck * _Nullable hsDeck, NSError * _Nullable error) {
         if (error) {
             NSLog(@"%@", error.localizedDescription);
             completion(nil, nil, error);
-            [copyTitle release];
             return;
         }
         
         if (hsDeck) {
-            [self makeLocalDeckWithHSDeck:hsDeck title:[copyTitle autorelease] completion:^(LocalDeck * _Nonnull localDeck) {
+            [self makeLocalDeckWithHSDeck:hsDeck title:title completion:^(LocalDeck * _Nonnull localDeck) {
                 completion(localDeck, hsDeck, error);
             }];
         }
@@ -251,8 +249,8 @@
         }
         
         [snapshot appendItemsWithIdentifiers:itemModels intoSectionWithIdentifier:sectionModel];
-//        [snapshot reconfigureItemsWithIdentifiers:itemModels];
-        [snapshot reloadItemsWithIdentifiers:itemModels];
+        [snapshot reconfigureItemsWithIdentifiers:itemModels];
+//        [snapshot reloadItemsWithIdentifiers:itemModels];
         [itemModels release];
         [sectionModel release];
         
