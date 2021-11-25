@@ -184,8 +184,8 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
 - (void)setAttributes {
     self.delegate = self;
     self.customizationIdentifier = NSTouchBarCustomizationIdentifierCardOptionsTouchBar;
-    self.defaultItemIdentifiers = AllNSTouchBarItemIdentifierCardOptions();
-    self.customizationAllowedItemIdentifiers = AllNSTouchBarItemIdentifierCardOptions();
+    self.defaultItemIdentifiers = allNSTouchBarItemIdentifierCardOptions();
+    self.customizationAllowedItemIdentifiers = allNSTouchBarItemIdentifierCardOptions();
 }
 
 - (void)configureTouchBarItems {
@@ -589,18 +589,19 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     NSString * _Nullable value = self.options[optionType];
     
     popoverItem.collapsedRepresentationImage = [CardOptionsFactory imageForCardOptionsWithValue:value optionType:optionType];
-    popoverItem.customizationLabel = [CardOptionsFactory titleForCardOptionsWithValue:nil optionType:optionType];
     popoverItem.collapsedRepresentationLabel = [CardOptionsFactory titleForCardOptionsWithValue:nil optionType:optionType];
+    popoverItem.customizationLabel = [CardOptionsFactory titleForCardOptionsWithValue:nil optionType:optionType];
     popoverItem.popoverTouchBar = touchBar;
     popoverItem.pressAndHoldTouchBar = touchBar;
     touchBar.delegate = self;
-    touchBar.defaultItemIdentifiers = @[popoverItem.identifier];
+    touchBar.defaultItemIdentifiers = @[customItem.identifier];
     
     customItem.view = scrubber;
     scrubber.backgroundColor = NSColor.darkGrayColor;
     scrubber.mode = NSScrubberModeFree;
     scrubber.selectionOverlayStyle = [NSScrubberSelectionStyle outlineOverlayStyle];
     scrubber.continuous = NO;
+    scrubber.floatsSelectionViews = YES;
     scrubber.showsArrowButtons = YES;
     [scrubber registerClass:[NSScrubberTextItemView class] forItemIdentifier:NSUserInterfaceItemIdentifierNSScrubberTextItemViewReuseIdentifier];
     scrubber.dataSource = self;
@@ -956,7 +957,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     }
     
     if (title != nil) {
-        item.title = dic[keys[index]];
+        item.title = title;
     }
     
     return item;

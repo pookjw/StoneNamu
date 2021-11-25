@@ -30,6 +30,8 @@
 		4F1B98AC26C824D9004E1603 /* UIViewController+animatedForSelectedIndexPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1B98AB26C824D9004E1603 /* UIViewController+animatedForSelectedIndexPath.m */; };
 		4F1E85F0273320CA00CE2551 /* HSCardSpellSchool.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F1E85EF273320C500CE2551 /* HSCardSpellSchool.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4F1E85F2273320E600CE2551 /* HSCardSpellSchool.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1E85F1273320E500CE2551 /* HSCardSpellSchool.m */; };
+		4F1FA0AC27501A270082EBF0 /* DecksTouchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1FA0AB27501A270082EBF0 /* DecksTouchBar.m */; };
+		4F1FA0AF275022B00082EBF0 /* NSTouchBarItemIdentifierDecks+HSDeckFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1FA0AE275022B00082EBF0 /* NSTouchBarItemIdentifierDecks+HSDeckFormat.m */; };
 		4F23C8A3273D830200C33F10 /* MainWindowRestoration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F23C8A2273D830200C33F10 /* MainWindowRestoration.m */; };
 		4F23C8AC273D997C00C33F10 /* StoneNamuResources.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F23C8AB273D997C00C33F10 /* StoneNamuResources.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4F23C8AF273D997C00C33F10 /* StoneNamuResources.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F23C8A9273D997C00C33F10 /* StoneNamuResources.framework */; };
@@ -512,6 +514,11 @@
 		4F1E85EE27331DF600CE2551 /* NSScrubber+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSScrubber+Private.h"; sourceTree = "<group>"; };
 		4F1E85EF273320C500CE2551 /* HSCardSpellSchool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardSpellSchool.h; sourceTree = "<group>"; };
 		4F1E85F1273320E500CE2551 /* HSCardSpellSchool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCardSpellSchool.m; sourceTree = "<group>"; };
+		4F1FA0A927501A030082EBF0 /* DecksTouchBarDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DecksTouchBarDelegate.h; sourceTree = "<group>"; };
+		4F1FA0AA27501A270082EBF0 /* DecksTouchBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DecksTouchBar.h; sourceTree = "<group>"; };
+		4F1FA0AB27501A270082EBF0 /* DecksTouchBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DecksTouchBar.m; sourceTree = "<group>"; };
+		4F1FA0AD27501AE40082EBF0 /* NSTouchBarItemIdentifierDecks+HSDeckFormat.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSTouchBarItemIdentifierDecks+HSDeckFormat.h"; sourceTree = "<group>"; };
+		4F1FA0AE275022B00082EBF0 /* NSTouchBarItemIdentifierDecks+HSDeckFormat.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSTouchBarItemIdentifierDecks+HSDeckFormat.m"; sourceTree = "<group>"; };
 		4F23C8A1273D830200C33F10 /* MainWindowRestoration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainWindowRestoration.h; sourceTree = "<group>"; };
 		4F23C8A2273D830200C33F10 /* MainWindowRestoration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainWindowRestoration.m; sourceTree = "<group>"; };
 		4F23C8A9273D997C00C33F10 /* StoneNamuResources.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StoneNamuResources.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1273,6 +1280,32 @@
 			path = RegionHost;
 			sourceTree = "<group>";
 		};
+		4F1FA0A62750198F0082EBF0 /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Menu;
+			sourceTree = "<group>";
+		};
+		4F1FA0A7275019980082EBF0 /* Toolbar */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Toolbar;
+			sourceTree = "<group>";
+		};
+		4F1FA0A82750199E0082EBF0 /* TouchBar */ = {
+			isa = PBXGroup;
+			children = (
+				4F1FA0A927501A030082EBF0 /* DecksTouchBarDelegate.h */,
+				4F1FA0AA27501A270082EBF0 /* DecksTouchBar.h */,
+				4F1FA0AB27501A270082EBF0 /* DecksTouchBar.m */,
+				4F1FA0AD27501AE40082EBF0 /* NSTouchBarItemIdentifierDecks+HSDeckFormat.h */,
+				4F1FA0AE275022B00082EBF0 /* NSTouchBarItemIdentifierDecks+HSDeckFormat.m */,
+			);
+			path = TouchBar;
+			sourceTree = "<group>";
+		};
 		4F23C8AA273D997C00C33F10 /* StoneNamuResources */ = {
 			isa = PBXGroup;
 			children = (
@@ -1767,6 +1800,9 @@
 				4FD4E027274EE4440037D867 /* DecksCollectionViewLayout.h */,
 				4FD4E028274EE4440037D867 /* DecksCollectionViewLayout.m */,
 				4FD4E021274EE2AA0037D867 /* Base */,
+				4F1FA0A62750198F0082EBF0 /* Menu */,
+				4F1FA0A7275019980082EBF0 /* Toolbar */,
+				4F1FA0A82750199E0082EBF0 /* TouchBar */,
 			);
 			path = Decks;
 			sourceTree = "<group>";
@@ -3176,6 +3212,7 @@
 			files = (
 				F303D63F2741549800569E20 /* NSTabViewController+selectTabViewItem.m in Sources */,
 				F3CCE2842742BFF7004B5B26 /* MainListCollectionViewItem.m in Sources */,
+				4F1FA0AF275022B00082EBF0 /* NSTouchBarItemIdentifierDecks+HSDeckFormat.m in Sources */,
 				4F83FBDF272E7226002D2387 /* NSView+isDarkMode.m in Sources */,
 				4FE857622700913A0008C2FB /* MainSplitViewController.m in Sources */,
 				4FC48A882739EF48001240FE /* CardOptionsFactory.m in Sources */,
@@ -3206,6 +3243,7 @@
 				F3A096FB274C807D00C7DFA4 /* HSCardPromiseProvider.m in Sources */,
 				4FE857792700A3580008C2FB /* NSWindow+presentErrorAlert.m in Sources */,
 				4F883F66272FF31500AF0048 /* CardOptionsSearchField.m in Sources */,
+				4F1FA0AC27501A270082EBF0 /* DecksTouchBar.m in Sources */,
 				4FDE9B70274AF1C300AB0E02 /* NSDiffableDataSourceSnapshot+sort.m in Sources */,
 				F303D63C274150B200569E20 /* PrefsDataViewController.m in Sources */,
 				F3862A3127428FC70061C20C /* PrefsDataViewModel.m in Sources */,

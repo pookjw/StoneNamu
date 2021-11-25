@@ -7,7 +7,7 @@
 
 #import "NSTouchBarItemIdentifierCardOptions+BlizzardHSAPIOptionType.h"
 
-NSArray<NSTouchBarItemIdentifier> * AllNSTouchBarItemIdentifierCardOptions(void) {
+NSArray<NSTouchBarItemIdentifier> * allNSTouchBarItemIdentifierCardOptions(void) {
     return @[
         NSTouchBarItemIdentifierCardOptionsTypeSet,
         NSTouchBarItemIdentifierCardOptionsTypeClass,

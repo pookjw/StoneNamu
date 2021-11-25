@@ -42,7 +42,7 @@
 - (void)setAttributes {
     self.styleMask = NSWindowStyleMaskClosable | NSWindowStyleMaskMiniaturizable | NSWindowStyleMaskFullSizeContentView | NSWindowStyleMaskResizable | NSWindowStyleMaskTitled;
     self.movableByWindowBackground = YES;
-    self.contentMinSize = NSMakeSize(800, 600);
+    self.contentMinSize = NSMakeSize(1000, 600);
     self.releasedWhenClosed = NO;
     self.titlebarAppearsTransparent = NO;
     self.titleVisibility = NSWindowTitleHidden;

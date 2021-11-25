@@ -1,5 +1,5 @@
 //
-//   NSTouchBarItemIdentifierCardOptions+BlizzardHSAPIOptionType.h
+//  NSTouchBarItemIdentifierCardOptions+BlizzardHSAPIOptionType.h
 //  StoneNamu
 //
 //  Created by Jinwoo Kim on 11/1/21.
@@ -22,6 +22,6 @@ static NSTouchBarItemIdentifier const NSTouchBarItemIdentifierCardOptionsTypeKey
 static NSTouchBarItemIdentifier const NSTouchBarItemIdentifierCardOptionsTypeGameMode = @"NSTouchBarItemIdentifierCardOptionsTypeGameMode";
 static NSTouchBarItemIdentifier const NSTouchBarItemIdentifierCardOptionsTypeSort = @"NSTouchBarItemIdentifierCardOptionsTypeSort";
 
-NSArray<NSTouchBarItemIdentifier> * AllNSTouchBarItemIdentifierCardOptions(void);
+NSArray<NSTouchBarItemIdentifier> * allNSTouchBarItemIdentifierCardOptions(void);
 NSTouchBarItemIdentifier NSTouchBarItemIdentifierCardOptionsFromBlizzardHSAPIOptionType(BlizzardHSAPIOptionType type);
 BlizzardHSAPIOptionType BlizzardHSAPIOptionTypeFromNSTouchBarItemIdentifierCardOptions(NSTouchBarItemIdentifier itemIdentifier);

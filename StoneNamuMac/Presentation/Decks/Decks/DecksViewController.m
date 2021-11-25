@@ -9,11 +9,17 @@
 #import "DeckBaseCollectionViewItem.h"
 #import "DecksViewModel.h"
 #import "DecksCollectionViewLayout.h"
+#import "DecksTouchBar.h"
+#import "NSWindow+presentErrorAlert.h"
+#import <StoneNamuResources/StoneNamuResources.h>
 
-@interface DecksViewController () <NSCollectionViewDelegate>
+@interface DecksViewController () <NSCollectionViewDelegate, DecksTouchBarDelegate>
 @property (retain) NSScrollView *scrollView;
 @property (retain) NSClipView *clipView;
 @property (retain) NSCollectionView *collectionView;
+@property (assign) NSTextField *titleTextField;
+@property (assign) NSTextField *deckCodeTextField;
+@property (retain) DecksTouchBar *decksTouchBar;
 @property (retain) DecksViewModel *viewModel;
 @end
 
@@ -24,6 +30,7 @@
     [_scrollView release];
     [_clipView release];
     [_collectionView release];
+    [_decksTouchBar release];
     [_viewModel release];
     [super dealloc];
 }
@@ -32,17 +39,22 @@
     if (([object isEqual:self]) && ([keyPath isEqualToString:@"self.view.window"])) {
         if (self.view.window != nil) {
             [NSOperationQueue.mainQueue addOperationWithBlock:^{
-//                [self setCardsMenuToWindow];
-//                [self setCardOptionsToolbarToWindow];
-//                [self setCardOptionsTouchBarToWindow];
                 NSApp.menu = nil;
                 self.view.window.toolbar = nil;
                 self.view.window.touchBar = nil;
+                
+                [self setDecksMenuToWindow];
+                [self setDecksToolbarToWindow];
+                [self setDecksTouchBarToWindow];
             }];
         }
     } else {
         return [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
+}
+
+- (NSTouchBar *)makeTouchBar {
+    return self.decksTouchBar;
 }
 
 - (void)loadView {
@@ -55,6 +67,9 @@
     [super viewDidLoad];
     [self setAttributes];
     [self configureCollectionView];
+    [self configureDecksMenu];
+    [self configureDecksToolbar];
+    [self configureDecksTouchBar];
     [self configureViewModel];
     [self bind];
 }
@@ -123,6 +138,159 @@
     }];
     
     return [dataSource autorelease];
+}
+
+- (void)configureDecksMenu {
+    
+}
+
+- (void)configureDecksToolbar {
+    
+}
+
+- (void)configureDecksTouchBar {
+    DecksTouchBar *decksTouchBar = [[DecksTouchBar alloc] initWithDecksTouchBarDelegate:self];
+    self.decksTouchBar = decksTouchBar;
+    [decksTouchBar release];
+}
+
+- (void)setDecksMenuToWindow {
+    
+}
+
+- (void)clearDecksMenuFromWindow {
+    
+}
+
+- (void)setDecksToolbarToWindow {
+    
+}
+
+- (void)clearDecksToolbarFromWindow {
+    
+}
+
+- (void)setDecksTouchBarToWindow {
+    self.view.window.touchBar = self.decksTouchBar;
+}
+
+- (void)clearDecksTouchBarFromWindow {
+    
+}
+
+- (void)presentCreateNewDeckFromDeckCodeAlert {
+    [self.viewModel parseClipboardForDeckCodeWithCompletion:^(NSString * _Nullable title, NSString * _Nullable deckCode) {
+        
+        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+            NSAlert *alert = [NSAlert new];
+            NSButton *fetchButton = [alert addButtonWithTitle:[ResourcesService localizationForKey:LocalizableKeyFetch]];
+            NSButton *cancelButton = [alert addButtonWithTitle:[ResourcesService localizationForKey:LocalizableKeyCancel]];
+            NSTextField *titleTextField = [[NSTextField alloc] initWithFrame:NSMakeRect(0.0f, 0.0f, 300.0f, 20.0f)];
+            NSTextField *deckCodeTextField = [[NSTextField alloc] initWithFrame:NSMakeRect(0.0f, 0.0f, 300.0f, 20.0f)];
+            NSView *containerView = [[NSView alloc] initWithFrame:NSMakeRect(0.0f, 0.0f, 300.0f, 40.0f)];
+            
+            self.titleTextField = titleTextField;
+            self.deckCodeTextField = deckCodeTextField;
+            
+            //
+            
+            titleTextField.placeholderString = [ResourcesService localizationForKey:LocalizableKeyEnterDeckTitleHere];
+            deckCodeTextField.placeholderString = [ResourcesService localizationForKey:LocalizableKeyEnterDeckCodeHere];
+            
+            NSString *_title;
+            NSString *_deckCode;
+            
+            if (title == nil) {
+                _title = @"";
+            } else {
+                _title = title;
+            }
+            
+            if ((deckCode == nil) || ([deckCode isEqualToString:@""])) {
+#if DEBUG
+                _deckCode = @"AAEBAa0GHuUE9xPDFoO7ArW7Are7Ati7AtHBAt/EAonNAvDPAujQApDTApeHA+aIA/yjA5mpA/KsA5GxA5O6A9fOA/vRA/bWA+LeA/vfA/jjA6iKBMGfBJegBKGgBAAA";
+#else
+                _deckCode = @"";
+#endif
+            } else {
+                _deckCode = deckCode;
+            }
+            
+            titleTextField.stringValue = _title;
+            deckCodeTextField.stringValue = _deckCode;
+            
+            //
+            
+            [containerView addSubview:titleTextField];
+            [containerView addSubview:deckCodeTextField];
+            
+            titleTextField.translatesAutoresizingMaskIntoConstraints = NO;
+            deckCodeTextField.translatesAutoresizingMaskIntoConstraints = NO;
+            
+            [NSLayoutConstraint activateConstraints:@[
+                [titleTextField.topAnchor constraintEqualToAnchor:containerView.topAnchor],
+                [titleTextField.leadingAnchor constraintEqualToAnchor:containerView.leadingAnchor],
+                [titleTextField.trailingAnchor constraintEqualToAnchor:containerView.trailingAnchor],
+                [titleTextField.bottomAnchor constraintEqualToAnchor:deckCodeTextField.topAnchor],
+                [deckCodeTextField.leadingAnchor constraintEqualToAnchor:containerView.leadingAnchor],
+                [deckCodeTextField.trailingAnchor constraintEqualToAnchor:containerView.trailingAnchor],
+                [deckCodeTextField.bottomAnchor constraintEqualToAnchor:containerView.bottomAnchor]
+            ]];
+            
+            //
+            
+            fetchButton.target = self;
+            fetchButton.action = @selector(createNewDeckFromDeckCodeAlertFetchButtonTriggered:);
+            
+            //
+            
+            alert.messageText = [ResourcesService localizationForKey:LocalizableKeyLoadFromDeckCode];
+            alert.informativeText = [ResourcesService localizationForKey:LocalizableKeyPleaseEnterDeckCode];
+            alert.showsSuppressionButton = NO;
+            alert.accessoryView = containerView;
+            
+            //
+            
+            [alert beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse returnCode) {
+                
+            }];
+            
+            [alert release];
+            [titleTextField release];
+            [deckCodeTextField release];
+            [containerView release];
+        }];
+    }];
+}
+
+- (void)createNewDeckFromDeckCodeAlertFetchButtonTriggered:(NSButton *)sender {
+    NSString *title = self.titleTextField.stringValue;
+    NSString *deckCode = self.deckCodeTextField.stringValue;
+    
+    [self.view.window endSheet:self.view.window.attachedSheet];
+    
+    [self.viewModel fetchDeckCode:deckCode title:title completion:^(LocalDeck * _Nullable localDeck, HSDeck * _Nullable hsDeck, NSError * _Nullable error) {
+        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+            if (error != nil) {
+                [self.view.window presentErrorAlertWithError:error];
+                return;
+            }
+            
+            
+        }];
+    }];
+}
+
+#pragma mark - DecksTouchBarDelegate
+
+- (void)decksTouchBar:(DecksTouchBar *)touchBar createNewDeckWithDeckFormat:(HSDeckFormat)deckFormat hsCardClass:(HSCardClass)hsCardClass {
+    [self.viewModel makeLocalDeckWithClass:hsCardClass deckFormat:deckFormat completion:^(LocalDeck * _Nonnull localDeck) {
+        NSLog(@"newDeck: %@", localDeck.name);
+    }];
+}
+
+- (void)decksTouchBar:(DecksTouchBar *)touchBar createNewDeckFromDeckCodeWithIdentifier:(nonnull NSTouchBarItemIdentifier)identifier {
+    [self presentCreateNewDeckFromDeckCodeAlert];
 }
 
 @end

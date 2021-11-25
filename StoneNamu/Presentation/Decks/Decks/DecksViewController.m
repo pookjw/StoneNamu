@@ -282,7 +282,7 @@
                 textField.placeholder = [ResourcesService localizationForKey:LocalizableKeyEnterDeckCodeHere];
                 
 #if DEBUG
-                if (deckCode == nil) {
+                if ((deckCode == nil) || ([deckCode isEqualToString:@""])) {
                     textField.text = @"AAEBAa0GHuUE9xPDFoO7ArW7Are7Ati7AtHBAt/EAonNAvDPAujQApDTApeHA+aIA/yjA5mpA/KsA5GxA5O6A9fOA/vRA/bWA+LeA/vfA/jjA6iKBMGfBJegBKGgBAAA";
                 }
 #endif
