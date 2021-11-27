@@ -23,6 +23,8 @@
 		4F066CB726D6DC7100991A98 /* DeckDetailsManaCostContentItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F066CB626D6DC7100991A98 /* DeckDetailsManaCostContentItemModel.m */; };
 		4F066CBE26D71ACD00991A98 /* DeckBaseContentConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F066CBD26D71ACD00991A98 /* DeckBaseContentConfiguration.m */; };
 		4F066CC126D71B2200991A98 /* DeckBaseContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F066CC026D71B2200991A98 /* DeckBaseContentView.m */; };
+		4F0863F02751C96900B251BF /* DecksMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F0863EF2751C96900B251BF /* DecksMenu.m */; };
+		4F0863F42751D0A200B251BF /* NSUserInterfaceItemIdentifierDecks+HSDeckFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F0863F32751D0A200B251BF /* NSUserInterfaceItemIdentifierDecks+HSDeckFormat.m */; };
 		4F128D45273C044100C6A0D9 /* IntrinsicCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F128D44273C044100C6A0D9 /* IntrinsicCollectionView.m */; };
 		4F182BD126AC23600028115C /* UIViewController+presentErrorAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F182BD026AC23600028115C /* UIViewController+presentErrorAlert.m */; };
 		4F1B98A626C8235B004E1603 /* PrefsLocaleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1B98A526C8235B004E1603 /* PrefsLocaleViewController.m */; };
@@ -32,6 +34,9 @@
 		4F1E85F2273320E600CE2551 /* HSCardSpellSchool.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1E85F1273320E500CE2551 /* HSCardSpellSchool.m */; };
 		4F1FA0AC27501A270082EBF0 /* DecksTouchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1FA0AB27501A270082EBF0 /* DecksTouchBar.m */; };
 		4F1FA0AF275022B00082EBF0 /* NSTouchBarItemIdentifierDecks+HSDeckFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1FA0AE275022B00082EBF0 /* NSTouchBarItemIdentifierDecks+HSDeckFormat.m */; };
+		4F1FA0B4275064660082EBF0 /* DecksToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1FA0B3275064660082EBF0 /* DecksToolbar.m */; };
+		4F1FA0B8275065110082EBF0 /* NSToolbarIdentifierDecks+HSDeckFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1FA0B7275065110082EBF0 /* NSToolbarIdentifierDecks+HSDeckFormat.m */; };
+		4F1FA0BB2750693C0082EBF0 /* DecksMenuFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1FA0BA2750693C0082EBF0 /* DecksMenuFactory.m */; };
 		4F23C8A3273D830200C33F10 /* MainWindowRestoration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F23C8A2273D830200C33F10 /* MainWindowRestoration.m */; };
 		4F23C8AC273D997C00C33F10 /* StoneNamuResources.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F23C8AB273D997C00C33F10 /* StoneNamuResources.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4F23C8AF273D997C00C33F10 /* StoneNamuResources.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F23C8A9273D997C00C33F10 /* StoneNamuResources.framework */; };
@@ -130,7 +135,7 @@
 		4F70E28F2724359A0076735B /* BlizzardTokenAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F34383726A36492001161FE /* BlizzardTokenAPI.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		4F70E292272439940076735B /* StoneNamuErrors.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F70E291272439940076735B /* StoneNamuErrors.m */; };
 		4F7333F8272D836A00438FE0 /* CardOptionsToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F7333F7272D836A00438FE0 /* CardOptionsToolbar.m */; };
-		4F7333FB272DA77900438FE0 /* CardOptionsMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F7333FA272DA77900438FE0 /* CardOptionsMenuItem.m */; };
+		4F7333FB272DA77900438FE0 /* StorableMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F7333FA272DA77900438FE0 /* StorableMenuItem.m */; };
 		4F73ABB226E88337000FD629 /* FloatingAnimatedTransitioning.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F73ABB126E88337000FD629 /* FloatingAnimatedTransitioning.m */; };
 		4F74711726C1678F001C45C4 /* CardDetailsChildrenContentConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F74711626C1678F001C45C4 /* CardDetailsChildrenContentConfiguration.m */; };
 		4F74711A26C1698B001C45C4 /* CardDetailsChildrenContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F74711926C1698B001C45C4 /* CardDetailsChildrenContentView.m */; };
@@ -193,7 +198,7 @@
 		4F8754BC26DB91D7000CE351 /* NSIndexPath+identifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8754BB26DB91D7000CE351 /* NSIndexPath+identifier.m */; };
 		4F883F66272FF31500AF0048 /* CardOptionsSearchField.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F883F65272FF31500AF0048 /* CardOptionsSearchField.m */; };
 		4F883F6A272FFE7C00AF0048 /* CardOptionsTouchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F883F69272FFE7C00AF0048 /* CardOptionsTouchBar.m */; };
-		4F883F6E27300B1700AF0048 /* NSToolbarIdentifierCardOption+BlizzardHSAPIOptionType.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F883F6D27300B1700AF0048 /* NSToolbarIdentifierCardOption+BlizzardHSAPIOptionType.m */; };
+		4F883F6E27300B1700AF0048 /* NSToolbarIdentifierCardOptions+BlizzardHSAPIOptionType.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F883F6D27300B1700AF0048 /* NSToolbarIdentifierCardOptions+BlizzardHSAPIOptionType.m */; };
 		4F883F7127300BCB00AF0048 /* NSTouchBarItemIdentifierCardOptions+BlizzardHSAPIOptionType.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F883F7027300BCB00AF0048 /* NSTouchBarItemIdentifierCardOptions+BlizzardHSAPIOptionType.m */; };
 		4F883F74273011FC00AF0048 /* NSTextField+setLabelStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F883F73273011FC00AF0048 /* NSTextField+setLabelStyle.m */; };
 		4F8F976526D469700024FC06 /* InsetsLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8F976426D469700024FC06 /* InsetsLabel.m */; };
@@ -253,8 +258,8 @@
 		4FC402C6273873BC00D25523 /* HelpMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC402C5273873BC00D25523 /* HelpMenuItem.m */; };
 		4FC402C92738755F00D25523 /* BaseMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC402C82738755F00D25523 /* BaseMenu.m */; };
 		4FC402CD2738759200D25523 /* CardOptionsMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC402CC2738759200D25523 /* CardOptionsMenu.m */; };
-		4FC48A852739E6B3001240FE /* NSUserInterfaceItemIdentifierCardOption+BlizzardHSAPIOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC48A842739E6B3001240FE /* NSUserInterfaceItemIdentifierCardOption+BlizzardHSAPIOption.m */; };
-		4FC48A882739EF48001240FE /* CardOptionsFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC48A872739EF48001240FE /* CardOptionsFactory.m */; };
+		4FC48A852739E6B3001240FE /* NSUserInterfaceItemIdentifierCardOptions+BlizzardHSAPIOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC48A842739E6B3001240FE /* NSUserInterfaceItemIdentifierCardOptions+BlizzardHSAPIOption.m */; };
+		4FC48A882739EF48001240FE /* CardOptionsMenuFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC48A872739EF48001240FE /* CardOptionsMenuFactory.m */; };
 		4FCC22B126ECA3C4004997AA /* DeckImageRenderServiceIntroContentConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FCC22B026ECA3C4004997AA /* DeckImageRenderServiceIntroContentConfiguration.m */; };
 		4FCC22B426ECA4B7004997AA /* DeckImageRenderServiceIntroContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FCC22B326ECA4B7004997AA /* DeckImageRenderServiceIntroContentView.m */; };
 		4FCC22C426ECA99B004997AA /* HSYear.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FCC22C326ECA99B004997AA /* HSYear.m */; };
@@ -500,6 +505,11 @@
 		4F066CBD26D71ACD00991A98 /* DeckBaseContentConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckBaseContentConfiguration.m; sourceTree = "<group>"; };
 		4F066CBF26D71B2200991A98 /* DeckBaseContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckBaseContentView.h; sourceTree = "<group>"; };
 		4F066CC026D71B2200991A98 /* DeckBaseContentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckBaseContentView.m; sourceTree = "<group>"; };
+		4F0863EE2751C96900B251BF /* DecksMenu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DecksMenu.h; sourceTree = "<group>"; };
+		4F0863EF2751C96900B251BF /* DecksMenu.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DecksMenu.m; sourceTree = "<group>"; };
+		4F0863F12751C98100B251BF /* DecksMenuDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DecksMenuDelegate.h; sourceTree = "<group>"; };
+		4F0863F22751D01300B251BF /* NSUserInterfaceItemIdentifierDecks+HSDeckFormat.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSUserInterfaceItemIdentifierDecks+HSDeckFormat.h"; sourceTree = "<group>"; };
+		4F0863F32751D0A200B251BF /* NSUserInterfaceItemIdentifierDecks+HSDeckFormat.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSUserInterfaceItemIdentifierDecks+HSDeckFormat.m"; sourceTree = "<group>"; };
 		4F128D43273C044100C6A0D9 /* IntrinsicCollectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IntrinsicCollectionView.h; sourceTree = "<group>"; };
 		4F128D44273C044100C6A0D9 /* IntrinsicCollectionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IntrinsicCollectionView.m; sourceTree = "<group>"; };
 		4F138422274C52DE007E68E4 /* CardDetailsChildrenContentImageContentCollectionViewItemDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardDetailsChildrenContentImageContentCollectionViewItemDelegate.h; sourceTree = "<group>"; };
@@ -520,6 +530,13 @@
 		4F1FA0AD27501AE40082EBF0 /* NSTouchBarItemIdentifierDecks+HSDeckFormat.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSTouchBarItemIdentifierDecks+HSDeckFormat.h"; sourceTree = "<group>"; };
 		4F1FA0AE275022B00082EBF0 /* NSTouchBarItemIdentifierDecks+HSDeckFormat.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSTouchBarItemIdentifierDecks+HSDeckFormat.m"; sourceTree = "<group>"; };
 		4F1FA0B0275048310082EBF0 /* NSDiffableDataSourceSnapshot+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSDiffableDataSourceSnapshot+Private.h"; sourceTree = "<group>"; };
+		4F1FA0B2275064660082EBF0 /* DecksToolbar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DecksToolbar.h; sourceTree = "<group>"; };
+		4F1FA0B3275064660082EBF0 /* DecksToolbar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DecksToolbar.m; sourceTree = "<group>"; };
+		4F1FA0B52750647C0082EBF0 /* DecksToolbarDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DecksToolbarDelegate.h; sourceTree = "<group>"; };
+		4F1FA0B6275065080082EBF0 /* NSToolbarIdentifierDecks+HSDeckFormat.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSToolbarIdentifierDecks+HSDeckFormat.h"; sourceTree = "<group>"; };
+		4F1FA0B7275065110082EBF0 /* NSToolbarIdentifierDecks+HSDeckFormat.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSToolbarIdentifierDecks+HSDeckFormat.m"; sourceTree = "<group>"; };
+		4F1FA0B92750693C0082EBF0 /* DecksMenuFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DecksMenuFactory.h; sourceTree = "<group>"; };
+		4F1FA0BA2750693C0082EBF0 /* DecksMenuFactory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DecksMenuFactory.m; sourceTree = "<group>"; };
 		4F23C8A1273D830200C33F10 /* MainWindowRestoration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainWindowRestoration.h; sourceTree = "<group>"; };
 		4F23C8A2273D830200C33F10 /* MainWindowRestoration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainWindowRestoration.m; sourceTree = "<group>"; };
 		4F23C8A9273D997C00C33F10 /* StoneNamuResources.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StoneNamuResources.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -672,8 +689,8 @@
 		4F70E2932724399A0076735B /* StoneNamuErrors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoneNamuErrors.h; sourceTree = "<group>"; };
 		4F7333F6272D836A00438FE0 /* CardOptionsToolbar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardOptionsToolbar.h; sourceTree = "<group>"; };
 		4F7333F7272D836A00438FE0 /* CardOptionsToolbar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardOptionsToolbar.m; sourceTree = "<group>"; };
-		4F7333F9272DA77900438FE0 /* CardOptionsMenuItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardOptionsMenuItem.h; sourceTree = "<group>"; };
-		4F7333FA272DA77900438FE0 /* CardOptionsMenuItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardOptionsMenuItem.m; sourceTree = "<group>"; };
+		4F7333F9272DA77900438FE0 /* StorableMenuItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StorableMenuItem.h; sourceTree = "<group>"; };
+		4F7333FA272DA77900438FE0 /* StorableMenuItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StorableMenuItem.m; sourceTree = "<group>"; };
 		4F7333FC272DAF1600438FE0 /* CardOptionsToolbarDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardOptionsToolbarDelegate.h; sourceTree = "<group>"; };
 		4F73ABB026E88337000FD629 /* FloatingAnimatedTransitioning.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FloatingAnimatedTransitioning.h; sourceTree = "<group>"; };
 		4F73ABB126E88337000FD629 /* FloatingAnimatedTransitioning.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FloatingAnimatedTransitioning.m; sourceTree = "<group>"; };
@@ -720,8 +737,8 @@
 		4F883F68272FFE7C00AF0048 /* CardOptionsTouchBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardOptionsTouchBar.h; sourceTree = "<group>"; };
 		4F883F69272FFE7C00AF0048 /* CardOptionsTouchBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardOptionsTouchBar.m; sourceTree = "<group>"; };
 		4F883F6B272FFE9B00AF0048 /* CardOptionsTouchBarDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardOptionsTouchBarDelegate.h; sourceTree = "<group>"; };
-		4F883F6C27300B0E00AF0048 /* NSToolbarIdentifierCardOption+BlizzardHSAPIOptionType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSToolbarIdentifierCardOption+BlizzardHSAPIOptionType.h"; sourceTree = "<group>"; };
-		4F883F6D27300B1700AF0048 /* NSToolbarIdentifierCardOption+BlizzardHSAPIOptionType.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSToolbarIdentifierCardOption+BlizzardHSAPIOptionType.m"; sourceTree = "<group>"; };
+		4F883F6C27300B0E00AF0048 /* NSToolbarIdentifierCardOptions+BlizzardHSAPIOptionType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSToolbarIdentifierCardOptions+BlizzardHSAPIOptionType.h"; sourceTree = "<group>"; };
+		4F883F6D27300B1700AF0048 /* NSToolbarIdentifierCardOptions+BlizzardHSAPIOptionType.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSToolbarIdentifierCardOptions+BlizzardHSAPIOptionType.m"; sourceTree = "<group>"; };
 		4F883F6F27300BA200AF0048 /* NSTouchBarItemIdentifierCardOptions+BlizzardHSAPIOptionType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSTouchBarItemIdentifierCardOptions+BlizzardHSAPIOptionType.h"; sourceTree = "<group>"; };
 		4F883F7027300BCB00AF0048 /* NSTouchBarItemIdentifierCardOptions+BlizzardHSAPIOptionType.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSTouchBarItemIdentifierCardOptions+BlizzardHSAPIOptionType.m"; sourceTree = "<group>"; };
 		4F883F72273011FC00AF0048 /* NSTextField+setLabelStyle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSTextField+setLabelStyle.h"; sourceTree = "<group>"; };
@@ -853,10 +870,10 @@
 		4FC402CB2738759200D25523 /* CardOptionsMenu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardOptionsMenu.h; sourceTree = "<group>"; };
 		4FC402CC2738759200D25523 /* CardOptionsMenu.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardOptionsMenu.m; sourceTree = "<group>"; };
 		4FC48A822739E295001240FE /* CardOptionsMenuDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardOptionsMenuDelegate.h; sourceTree = "<group>"; };
-		4FC48A832739E528001240FE /* NSUserInterfaceItemIdentifierCardOption+BlizzardHSAPIOption.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSUserInterfaceItemIdentifierCardOption+BlizzardHSAPIOption.h"; sourceTree = "<group>"; };
-		4FC48A842739E6B3001240FE /* NSUserInterfaceItemIdentifierCardOption+BlizzardHSAPIOption.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSUserInterfaceItemIdentifierCardOption+BlizzardHSAPIOption.m"; sourceTree = "<group>"; };
-		4FC48A862739EF36001240FE /* CardOptionsFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardOptionsFactory.h; sourceTree = "<group>"; };
-		4FC48A872739EF48001240FE /* CardOptionsFactory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardOptionsFactory.m; sourceTree = "<group>"; };
+		4FC48A832739E528001240FE /* NSUserInterfaceItemIdentifierCardOptions+BlizzardHSAPIOption.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSUserInterfaceItemIdentifierCardOptions+BlizzardHSAPIOption.h"; sourceTree = "<group>"; };
+		4FC48A842739E6B3001240FE /* NSUserInterfaceItemIdentifierCardOptions+BlizzardHSAPIOption.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSUserInterfaceItemIdentifierCardOptions+BlizzardHSAPIOption.m"; sourceTree = "<group>"; };
+		4FC48A862739EF36001240FE /* CardOptionsMenuFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardOptionsMenuFactory.h; sourceTree = "<group>"; };
+		4FC48A872739EF48001240FE /* CardOptionsMenuFactory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardOptionsMenuFactory.m; sourceTree = "<group>"; };
 		4FCC22AF26ECA3C4004997AA /* DeckImageRenderServiceIntroContentConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckImageRenderServiceIntroContentConfiguration.h; sourceTree = "<group>"; };
 		4FCC22B026ECA3C4004997AA /* DeckImageRenderServiceIntroContentConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckImageRenderServiceIntroContentConfiguration.m; sourceTree = "<group>"; };
 		4FCC22B226ECA4B7004997AA /* DeckImageRenderServiceIntroContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckImageRenderServiceIntroContentView.h; sourceTree = "<group>"; };
@@ -1284,6 +1301,11 @@
 		4F1FA0A62750198F0082EBF0 /* Menu */ = {
 			isa = PBXGroup;
 			children = (
+				4F0863F12751C98100B251BF /* DecksMenuDelegate.h */,
+				4F0863EE2751C96900B251BF /* DecksMenu.h */,
+				4F0863EF2751C96900B251BF /* DecksMenu.m */,
+				4F0863F22751D01300B251BF /* NSUserInterfaceItemIdentifierDecks+HSDeckFormat.h */,
+				4F0863F32751D0A200B251BF /* NSUserInterfaceItemIdentifierDecks+HSDeckFormat.m */,
 			);
 			path = Menu;
 			sourceTree = "<group>";
@@ -1291,6 +1313,11 @@
 		4F1FA0A7275019980082EBF0 /* Toolbar */ = {
 			isa = PBXGroup;
 			children = (
+				4F1FA0B52750647C0082EBF0 /* DecksToolbarDelegate.h */,
+				4F1FA0B2275064660082EBF0 /* DecksToolbar.h */,
+				4F1FA0B3275064660082EBF0 /* DecksToolbar.m */,
+				4F1FA0B6275065080082EBF0 /* NSToolbarIdentifierDecks+HSDeckFormat.h */,
+				4F1FA0B7275065110082EBF0 /* NSToolbarIdentifierDecks+HSDeckFormat.m */,
 			);
 			path = Toolbar;
 			sourceTree = "<group>";
@@ -1305,6 +1332,24 @@
 				4F1FA0AE275022B00082EBF0 /* NSTouchBarItemIdentifierDecks+HSDeckFormat.m */,
 			);
 			path = TouchBar;
+			sourceTree = "<group>";
+		};
+		4F1FA0B1275064430082EBF0 /* Factory */ = {
+			isa = PBXGroup;
+			children = (
+				4F1FA0B92750693C0082EBF0 /* DecksMenuFactory.h */,
+				4F1FA0BA2750693C0082EBF0 /* DecksMenuFactory.m */,
+			);
+			path = Factory;
+			sourceTree = "<group>";
+		};
+		4F1FA0BC27506AE00082EBF0 /* StorableMenuItem */ = {
+			isa = PBXGroup;
+			children = (
+				4F7333F9272DA77900438FE0 /* StorableMenuItem.h */,
+				4F7333FA272DA77900438FE0 /* StorableMenuItem.m */,
+			);
+			path = StorableMenuItem;
 			sourceTree = "<group>";
 		};
 		4F23C8AA273D997C00C33F10 /* StoneNamuResources */ = {
@@ -1382,14 +1427,12 @@
 			isa = PBXGroup;
 			children = (
 				4FC48A822739E295001240FE /* CardOptionsMenuDelegate.h */,
-				4FC48A832739E528001240FE /* NSUserInterfaceItemIdentifierCardOption+BlizzardHSAPIOption.h */,
-				4FC48A842739E6B3001240FE /* NSUserInterfaceItemIdentifierCardOption+BlizzardHSAPIOption.m */,
 				4FC402CB2738759200D25523 /* CardOptionsMenu.h */,
 				4FC402CC2738759200D25523 /* CardOptionsMenu.m */,
-				4F7333F9272DA77900438FE0 /* CardOptionsMenuItem.h */,
-				4F7333FA272DA77900438FE0 /* CardOptionsMenuItem.m */,
 				4F883F64272FF31500AF0048 /* CardOptionsSearchField.h */,
 				4F883F65272FF31500AF0048 /* CardOptionsSearchField.m */,
+				4FC48A832739E528001240FE /* NSUserInterfaceItemIdentifierCardOptions+BlizzardHSAPIOption.h */,
+				4FC48A842739E6B3001240FE /* NSUserInterfaceItemIdentifierCardOptions+BlizzardHSAPIOption.m */,
 			);
 			path = Menu;
 			sourceTree = "<group>";
@@ -1708,10 +1751,10 @@
 			isa = PBXGroup;
 			children = (
 				4F7333FC272DAF1600438FE0 /* CardOptionsToolbarDelegate.h */,
-				4F883F6C27300B0E00AF0048 /* NSToolbarIdentifierCardOption+BlizzardHSAPIOptionType.h */,
-				4F883F6D27300B1700AF0048 /* NSToolbarIdentifierCardOption+BlizzardHSAPIOptionType.m */,
 				4F7333F6272D836A00438FE0 /* CardOptionsToolbar.h */,
 				4F7333F7272D836A00438FE0 /* CardOptionsToolbar.m */,
+				4F883F6C27300B0E00AF0048 /* NSToolbarIdentifierCardOptions+BlizzardHSAPIOptionType.h */,
+				4F883F6D27300B1700AF0048 /* NSToolbarIdentifierCardOptions+BlizzardHSAPIOptionType.m */,
 			);
 			path = Toolbar;
 			sourceTree = "<group>";
@@ -1802,6 +1845,7 @@
 				4FD4E027274EE4440037D867 /* DecksCollectionViewLayout.h */,
 				4FD4E028274EE4440037D867 /* DecksCollectionViewLayout.m */,
 				4FD4E021274EE2AA0037D867 /* Base */,
+				4F1FA0B1275064430082EBF0 /* Factory */,
 				4F1FA0A62750198F0082EBF0 /* Menu */,
 				4F1FA0A7275019980082EBF0 /* Toolbar */,
 				4F1FA0A82750199E0082EBF0 /* TouchBar */,
@@ -1844,6 +1888,7 @@
 				4FD4E014274ED7CD0037D867 /* HSCardDraggableImageView */,
 				4F4738B32746BBA4000C0C85 /* SelectedBackgroundCollectionViewItem */,
 				4FC402B727386D0E00D25523 /* DynamicMenuToolbarItem */,
+				4F1FA0BC27506AE00082EBF0 /* StorableMenuItem */,
 				4FC402AF2738684600D25523 /* Menu */,
 				4FC402B627386D0600D25523 /* SpinnerView */,
 			);
@@ -2136,8 +2181,8 @@
 		4FC48A892739FE7B001240FE /* Factory */ = {
 			isa = PBXGroup;
 			children = (
-				4FC48A862739EF36001240FE /* CardOptionsFactory.h */,
-				4FC48A872739EF48001240FE /* CardOptionsFactory.m */,
+				4FC48A862739EF36001240FE /* CardOptionsMenuFactory.h */,
+				4FC48A872739EF48001240FE /* CardOptionsMenuFactory.m */,
 			);
 			path = Factory;
 			sourceTree = "<group>";
@@ -3215,12 +3260,14 @@
 				F303D63F2741549800569E20 /* NSTabViewController+selectTabViewItem.m in Sources */,
 				F3CCE2842742BFF7004B5B26 /* MainListCollectionViewItem.m in Sources */,
 				4F1FA0AF275022B00082EBF0 /* NSTouchBarItemIdentifierDecks+HSDeckFormat.m in Sources */,
+				4F1FA0B4275064660082EBF0 /* DecksToolbar.m in Sources */,
 				4F83FBDF272E7226002D2387 /* NSView+isDarkMode.m in Sources */,
 				4FE857622700913A0008C2FB /* MainSplitViewController.m in Sources */,
-				4FC48A882739EF48001240FE /* CardOptionsFactory.m in Sources */,
+				4FC48A882739EF48001240FE /* CardOptionsMenuFactory.m in Sources */,
 				F3CCE2902742C442004B5B26 /* MainListItemModel.m in Sources */,
 				4FE8576D27009B5C0008C2FB /* CardsViewModel.m in Sources */,
 				F31581012741231700DBD6D4 /* AppDelegate.m in Sources */,
+				4F1FA0BB2750693C0082EBF0 /* DecksMenuFactory.m in Sources */,
 				F303D6392741507400569E20 /* PrefsCardsViewController.m in Sources */,
 				4FE85708270089BD0008C2FB /* main.m in Sources */,
 				4F23C8A3273D830200C33F10 /* MainWindowRestoration.m in Sources */,
@@ -3229,8 +3276,9 @@
 				4FDE9B6B274AF05200AB0E02 /* CardDetailsChildrenContentImageContentCollectionViewItem.m in Sources */,
 				4FDE9B67274AEFF600AB0E02 /* CardDetailsChildrenContentCollectionViewItemItemModel.m in Sources */,
 				4FDE9B64274AEFEE00AB0E02 /* CardDetailsChildrenContentCollectionViewItemSectionModel.m in Sources */,
-				4F883F6E27300B1700AF0048 /* NSToolbarIdentifierCardOption+BlizzardHSAPIOptionType.m in Sources */,
+				4F883F6E27300B1700AF0048 /* NSToolbarIdentifierCardOptions+BlizzardHSAPIOptionType.m in Sources */,
 				4F4892E92724727000126131 /* CardCollectionViewItem.m in Sources */,
+				4F0863F02751C96900B251BF /* DecksMenu.m in Sources */,
 				4F4738D42746DD11000C0C85 /* CardDetailsCollectionViewLayout.m in Sources */,
 				F303D64227415BFF00569E20 /* NSProcessInfo+isEnabledRestoration.m in Sources */,
 				F31580ED2740D69000DBD6D4 /* PrefsWindow.m in Sources */,
@@ -3250,7 +3298,8 @@
 				F303D63C274150B200569E20 /* PrefsDataViewController.m in Sources */,
 				F3862A3127428FC70061C20C /* PrefsDataViewModel.m in Sources */,
 				4FE8576A270093CF0008C2FB /* CardsViewController.m in Sources */,
-				4FC48A852739E6B3001240FE /* NSUserInterfaceItemIdentifierCardOption+BlizzardHSAPIOption.m in Sources */,
+				4FC48A852739E6B3001240FE /* NSUserInterfaceItemIdentifierCardOptions+BlizzardHSAPIOption.m in Sources */,
+				4F1FA0B8275065110082EBF0 /* NSToolbarIdentifierDecks+HSDeckFormat.m in Sources */,
 				4FD4E029274EE4440037D867 /* DecksCollectionViewLayout.m in Sources */,
 				4F4892E227246E2B00126131 /* MainWindow.m in Sources */,
 				F3CCE28D2742C435004B5B26 /* MainListSectionModel.m in Sources */,
@@ -3260,9 +3309,10 @@
 				4FE8577327009C570008C2FB /* CardItemModel.m in Sources */,
 				4F883F74273011FC00AF0048 /* NSTextField+setLabelStyle.m in Sources */,
 				4F4738C02746BFFF000C0C85 /* CardDetailsViewController.m in Sources */,
+				4F0863F42751D0A200B251BF /* NSUserInterfaceItemIdentifierDecks+HSDeckFormat.m in Sources */,
 				F3CCE2872742C17F004B5B26 /* MainListCollectionViewLayout.m in Sources */,
 				4FDE9B53274ACE6700AB0E02 /* CardDetailsSectionModel.m in Sources */,
-				4F7333FB272DA77900438FE0 /* CardOptionsMenuItem.m in Sources */,
+				4F7333FB272DA77900438FE0 /* StorableMenuItem.m in Sources */,
 				4FC402C6273873BC00D25523 /* HelpMenuItem.m in Sources */,
 				4F4738CF2746D5A5000C0C85 /* CardDetailsBaseCollectionViewItem.m in Sources */,
 				4FC402C92738755F00D25523 /* BaseMenu.m in Sources */,

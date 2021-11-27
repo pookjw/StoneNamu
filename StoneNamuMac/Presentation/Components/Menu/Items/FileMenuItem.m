@@ -21,7 +21,7 @@
 }
 
 - (void)configureSubMenus {
-    NSMenu *appSubMenu = [[NSMenu alloc] initWithTitle:@"File (Demo)"];
+    NSMenu *fileSubMenu = [[NSMenu alloc] initWithTitle:@"File (Demo)"];
     
     //
     
@@ -34,13 +34,13 @@
     
     newItem.target = NSApp.delegate;
     
-    self.submenu = appSubMenu;
-    appSubMenu.itemArray = @[
+    self.submenu = fileSubMenu;
+    fileSubMenu.itemArray = @[
         newItem,
         closeItem
     ];
     
-    [appSubMenu release];
+    [fileSubMenu release];
     [newItem release];
     [closeItem release];
 }

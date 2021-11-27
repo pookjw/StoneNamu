@@ -6,11 +6,11 @@
 //
 
 #import "CardOptionsToolbar.h"
-#import "CardOptionsMenuItem.h"
+#import "StorableMenuItem.h"
 #import "CardOptionsSearchField.h"
 #import "DynamicMenuToolbarItem.h"
-#import "NSToolbarIdentifierCardOption+BlizzardHSAPIOptionType.h"
-#import "CardOptionsFactory.h"
+#import "NSToolbarIdentifierCardOptions+BlizzardHSAPIOptionType.h"
+#import "CardOptionsMenuFactory.h"
 #import <StoneNamuResources/StoneNamuResources.h>
 
 @interface CardOptionsToolbar () <NSToolbarDelegate, NSSearchFieldDelegate>
@@ -217,8 +217,8 @@
         
         //
         
-        item.image = [CardOptionsFactory imageForCardOptionsWithValue:value optionType:optionType];
-        item.title = [CardOptionsFactory titleForCardOptionsWithValue:value optionType:optionType];
+        item.image = [CardOptionsMenuFactory imageForCardOptionsWithValue:value optionType:optionType];
+        item.title = [CardOptionsMenuFactory titleForCardOptionsWithValue:value optionType:optionType];
         
         [self updateStateOfMenuToolbarItem:item];
     }];
@@ -228,7 +228,7 @@
     NSToolbarItemIdentifier itemIdentifier = menuToolbarItem.itemIdentifier;
     BlizzardHSAPIOptionType optionType = BlizzardHSAPIOptionTypeFromNSToolbarIdentifierCardOption(itemIdentifier);
     
-    return [CardOptionsFactory menuForOptionType:optionType target:self];
+    return [CardOptionsMenuFactory menuForOptionType:optionType target:self];
 }
 
 - (void)updateStateOfMenuToolbarItem:(DynamicMenuToolbarItem *)menuToolbarItem {
@@ -237,13 +237,13 @@
     NSString *selectedValue = self.options[optionType];
     
     [menuToolbarItem.menu.itemArray enumerateObjectsUsingBlock:^(NSMenuItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        CardOptionsMenuItem *item = (CardOptionsMenuItem *)obj;
+        StorableMenuItem *item = (StorableMenuItem *)obj;
         
-        if (![item isKindOfClass:[CardOptionsMenuItem class]]) return;
+        if (![item isKindOfClass:[StorableMenuItem class]]) return;
         
-        if ([item.key[optionType] isEqualToString:selectedValue]) {
+        if ([item.userInfo[optionType] isEqualToString:selectedValue]) {
             item.state = NSControlStateValueOn;
-        } else if ([@"" isEqualToString:item.key[optionType]] && (selectedValue == nil)) {
+        } else if ([@"" isEqualToString:item.userInfo[optionType]] && (selectedValue == nil)) {
             item.state = NSControlStateValueOn;
         } else {
             item.state = NSControlStateValueOff;
@@ -267,9 +267,9 @@
     return result;
 }
 
-- (void)keyMenuItemTriggered:(CardOptionsMenuItem *)sender {
-    NSString *key = sender.key.allKeys.firstObject;
-    NSString *value = sender.key.allValues.firstObject;
+- (void)keyMenuItemTriggered:(StorableMenuItem *)sender {
+    NSString *key = sender.userInfo.allKeys.firstObject;
+    NSString *value = sender.userInfo.allValues.firstObject;
     
     if ([value isEqualToString:@""]) {
         [self.options removeObjectForKey:key];

@@ -9,16 +9,20 @@
 #import "DeckBaseCollectionViewItem.h"
 #import "DecksViewModel.h"
 #import "DecksCollectionViewLayout.h"
+#import "DecksMenu.h"
+#import "DecksToolbar.h"
 #import "DecksTouchBar.h"
 #import "NSWindow+presentErrorAlert.h"
 #import <StoneNamuResources/StoneNamuResources.h>
 
-@interface DecksViewController () <NSCollectionViewDelegate, DecksTouchBarDelegate>
+@interface DecksViewController () <NSCollectionViewDelegate, DecksMenuDelegate, DecksToolbarDelegate, DecksTouchBarDelegate>
 @property (retain) NSScrollView *scrollView;
 @property (retain) NSClipView *clipView;
 @property (retain) NSCollectionView *collectionView;
 @property (assign) NSTextField *titleTextField;
 @property (assign) NSTextField *deckCodeTextField;
+@property (retain) DecksMenu *decksMenu;
+@property (retain) DecksToolbar *decksToolbar;
 @property (retain) DecksTouchBar *decksTouchBar;
 @property (retain) DecksViewModel *viewModel;
 @end
@@ -30,6 +34,8 @@
     [_scrollView release];
     [_clipView release];
     [_collectionView release];
+    [_decksMenu release];
+    [_decksToolbar release];
     [_decksTouchBar release];
     [_viewModel release];
     [super dealloc];
@@ -39,10 +45,6 @@
     if (([object isEqual:self]) && ([keyPath isEqualToString:@"self.view.window"])) {
         if (self.view.window != nil) {
             [NSOperationQueue.mainQueue addOperationWithBlock:^{
-                NSApp.menu = nil;
-                self.view.window.toolbar = nil;
-                self.view.window.touchBar = nil;
-                
                 [self setDecksMenuToWindow];
                 [self setDecksToolbarToWindow];
                 [self setDecksTouchBarToWindow];
@@ -141,11 +143,15 @@
 }
 
 - (void)configureDecksMenu {
-    
+    DecksMenu *decksMenu = [[DecksMenu alloc] initWithDecksMenuDelegate:self];
+    self.decksMenu = decksMenu;
+    [decksMenu release];
 }
 
 - (void)configureDecksToolbar {
-    
+    DecksToolbar *decksToolbar = [[DecksToolbar alloc] initWithIdentifier:NSToolbarIdentifierDecksToolbar decksToolbarDelegate:self];
+    self.decksToolbar = decksToolbar;
+    [decksToolbar release];
 }
 
 - (void)configureDecksTouchBar {
@@ -155,19 +161,19 @@
 }
 
 - (void)setDecksMenuToWindow {
-    
+    NSApp.mainMenu = self.decksMenu;
 }
 
 - (void)clearDecksMenuFromWindow {
-    
+    self.view.window.menu = nil;
 }
 
 - (void)setDecksToolbarToWindow {
-    
+    self.view.window.toolbar = self.decksToolbar;
 }
 
 - (void)clearDecksToolbarFromWindow {
-    
+    self.view.window.toolbar = nil;
 }
 
 - (void)setDecksTouchBarToWindow {
@@ -175,7 +181,7 @@
 }
 
 - (void)clearDecksTouchBarFromWindow {
-    
+    self.view.window.touchBar = nil;
 }
 
 - (void)presentCreateNewDeckFromDeckCodeAlert {
@@ -279,6 +285,30 @@
             
         }];
     }];
+}
+
+#pragma mark - DecksMenuDelegate
+
+- (void)decksMenu:(DecksMenu *)decksMenu createNewDeckWithDeckFormat:(HSDeckFormat)deckFormat hsCardClass:(HSCardClass)hsCardClass {
+    [self.viewModel makeLocalDeckWithClass:hsCardClass deckFormat:deckFormat completion:^(LocalDeck * _Nonnull localDeck) {
+        NSLog(@"newDeck: %@", localDeck.name);
+    }];
+}
+
+- (void)decksMenu:(DecksMenu *)decksMenu createNewDeckFromDeckCodeWithIdentifier:(NSUserInterfaceItemIdentifier)identifier {
+    [self presentCreateNewDeckFromDeckCodeAlert];
+}
+
+#pragma mark - DecksToolbarDelegate
+
+- (void)decksToolbar:(DecksToolbar *)decksToolbar createNewDeckWithDeckFormat:(HSDeckFormat)deckFormat hsCardClass:(HSCardClass)hsCardClass {
+    [self.viewModel makeLocalDeckWithClass:hsCardClass deckFormat:deckFormat completion:^(LocalDeck * _Nonnull localDeck) {
+        NSLog(@"newDeck: %@", localDeck.name);
+    }];
+}
+
+- (void)decksToolbar:(DecksToolbar *)decksToolbar createNewDeckFromDeckCodeWithIdentifier:(NSTouchBarItemIdentifier)identifier {
+    [self presentCreateNewDeckFromDeckCodeAlert];
 }
 
 #pragma mark - DecksTouchBarDelegate

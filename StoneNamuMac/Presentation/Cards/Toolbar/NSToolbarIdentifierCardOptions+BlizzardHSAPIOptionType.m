@@ -5,7 +5,7 @@
 //  Created by Jinwoo Kim on 11/1/21.
 //
 
-#import "NSToolbarIdentifierCardOption+BlizzardHSAPIOptionType.h"
+#import "NSToolbarIdentifierCardOptions+BlizzardHSAPIOptionType.h"
 
 NSArray<NSToolbarIdentifier> * allNSToolbarIdentifierCardOptionsType(void) {
     return @[

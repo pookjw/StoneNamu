@@ -22,16 +22,16 @@ NSTouchBarItemIdentifier NSTouchBarItemIdentifierDecksFromHSDeckFormat(HSDeckFor
     } else if ([deckFormat isEqualToString:HSDeckFormatClassic]) {
         return NSTouchBarItemIdentifierDecksCreateNewClassicDeck;
     } else {
-        return @"";
+        return NSTouchBarItemIdentifierDecksCreateNewDeckFromDeckCode;
     }
 }
 
-HSDeckFormat HSDeckFormatFromNSTouchBarItemIdentifierDecks(NSTouchBarItemIdentifier itemIdentifiers) {
-    if ([itemIdentifiers isEqualToString:NSTouchBarItemIdentifierDecksCreateNewStandardDeck]) {
+HSDeckFormat HSDeckFormatFromNSTouchBarItemIdentifierDecks(NSTouchBarItemIdentifier itemIdentifier) {
+    if ([itemIdentifier isEqualToString:NSTouchBarItemIdentifierDecksCreateNewStandardDeck]) {
         return HSDeckFormatStandard;
-    } else if ([itemIdentifiers isEqualToString:NSTouchBarItemIdentifierDecksCreateNewWildDeck]) {
+    } else if ([itemIdentifier isEqualToString:NSTouchBarItemIdentifierDecksCreateNewWildDeck]) {
         return HSDeckFormatWild;
-    } else if ([itemIdentifiers isEqualToString:NSTouchBarItemIdentifierDecksCreateNewClassicDeck]) {
+    } else if ([itemIdentifier isEqualToString:NSTouchBarItemIdentifierDecksCreateNewClassicDeck]) {
         return HSDeckFormatClassic;
     } else {
         return @"";

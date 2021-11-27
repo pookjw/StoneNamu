@@ -15,4 +15,4 @@ static NSTouchBarItemIdentifier const NSTouchBarItemIdentifierDecksCreateNewDeck
 
 NSArray<NSTouchBarItemIdentifier> * allNSTouchBarItemIdentifierDecks(void);
 NSTouchBarItemIdentifier NSTouchBarItemIdentifierDecksFromHSDeckFormat(HSDeckFormat deckFormat);
-HSDeckFormat HSDeckFormatFromNSTouchBarItemIdentifierDecks(NSTouchBarItemIdentifier itemIdentifiers);
+HSDeckFormat HSDeckFormatFromNSTouchBarItemIdentifierDecks(NSTouchBarItemIdentifier itemIdentifier);

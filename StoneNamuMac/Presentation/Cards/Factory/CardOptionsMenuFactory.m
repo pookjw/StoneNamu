@@ -1,16 +1,16 @@
 //
-//  CardOptionsFactory.m
+//  CardOptionsMenuFactory.m
 //  StoneNamuMac
 //
 //  Created by Jinwoo Kim on 11/9/21.
 //
 
-#import "CardOptionsFactory.h"
-#import "CardOptionsMenuItem.h"
+#import "CardOptionsMenuFactory.h"
+#import "StorableMenuItem.h"
 #import "CardOptionsSearchField.h"
 #import <StoneNamuResources/StoneNamuResources.h>
 
-@implementation CardOptionsFactory
+@implementation CardOptionsMenuFactory
 
 + (SEL)keyMenuItemTriggeredSelector {
     return NSSelectorFromString(@"keyMenuItemTriggered:");
@@ -283,10 +283,10 @@
     
     [dic enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSString * _Nonnull obj, BOOL * _Nonnull stop) {
         if (![filterArray containsObject:key]) {
-            CardOptionsMenuItem *item = [[CardOptionsMenuItem alloc] initWithTitle:obj
-                                                                            action:CardOptionsFactory.keyMenuItemTriggeredSelector
-                                                                     keyEquivalent:@""
-                                                                               key:@{type: key}];
+            StorableMenuItem *item = [[StorableMenuItem alloc] initWithTitle:obj
+                                                                      action:CardOptionsMenuFactory.keyMenuItemTriggeredSelector
+                                                               keyEquivalent:@""
+                                                                    userInfo:@{type: key}];
             item.target = target;
             
             [arr addObject:item];
@@ -294,9 +294,9 @@
         }
     }];
     
-    NSComparator comparator = ^NSComparisonResult(CardOptionsMenuItem *lhsItem, CardOptionsMenuItem *rhsItem) {
-        NSUInteger lhs = converter(lhsItem.key[type]);
-        NSUInteger rhs = converter(rhsItem.key[type]);
+    NSComparator comparator = ^NSComparisonResult(StorableMenuItem *lhsItem, StorableMenuItem *rhsItem) {
+        NSUInteger lhs = converter(lhsItem.userInfo[type]);
+        NSUInteger rhs = converter(rhsItem.userInfo[type]);
         
         if (ascending) {
             if (lhs > rhs) {
@@ -320,10 +320,10 @@
     [arr sortUsingComparator:comparator];
     
     if (showEmptyItem) {
-        CardOptionsMenuItem *emptyItem = [[CardOptionsMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyAll]
-                                                                             action:CardOptionsFactory.keyMenuItemTriggeredSelector
-                                                                      keyEquivalent:@""
-                                                                                key:@{type: @""}];
+        StorableMenuItem *emptyItem = [[StorableMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyAll]
+                                                                       action:CardOptionsMenuFactory.keyMenuItemTriggeredSelector
+                                                                keyEquivalent:@""
+                                                                     userInfo:@{type: @""}];
         emptyItem.target = target;
         
         [arr insertObject:emptyItem atIndex:0];
@@ -338,7 +338,7 @@
 
 + (NSMenuItem *)searchFieldItemWithOptionType:(BlizzardHSAPIOptionType)type
                           searchFieldDelegate:(nonnull id<NSSearchFieldDelegate>)searchFieldDelegate {
-    CardOptionsMenuItem *item = [[CardOptionsMenuItem alloc] initWithTitle:@"" action:nil keyEquivalent:@"" key:@{type: @""}];
+    StorableMenuItem *item = [[StorableMenuItem alloc] initWithTitle:@"" action:nil keyEquivalent:@"" userInfo:@{type: @""}];
     CardOptionsSearchField *searchField = [[CardOptionsSearchField alloc] initWithKey:@{type: @""}];
     
     searchField.frame = CGRectMake(0, 0, 300, 20);

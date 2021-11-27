@@ -1,5 +1,5 @@
 //
-//  CardOptionsFactory.h
+//  CardOptionsMenuFactory.h
 //  StoneNamu
 //
 //  Created by Jinwoo Kim on 11/9/21.
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CardOptionsFactory : NSObject
+@interface CardOptionsMenuFactory : NSObject
 @property (class, readonly) SEL keyMenuItemTriggeredSelector;
 + (BOOL)hasValueForValue:(NSString * _Nullable)value;
 + (NSString * _Nullable)titleForCardOptionsWithValue:(NSString * _Nullable)value optionType:(BlizzardHSAPIOptionType)optionType;

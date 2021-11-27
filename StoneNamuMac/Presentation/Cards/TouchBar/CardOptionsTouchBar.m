@@ -8,7 +8,7 @@
 #import "CardOptionsTouchBar.h"
 #import "NSTouchBarItemIdentifierCardOptions+BlizzardHSAPIOptionType.h"
 #import "NSScrubber+Private.h"
-#import "CardOptionsFactory.h"
+#import "CardOptionsMenuFactory.h"
 #import <StoneNamuResources/StoneNamuResources.h>
 
 static NSTouchBarCustomizationIdentifier const NSTouchBarCustomizationIdentifierCardOptionsTouchBar = @"NSTouchBarCustomizationIdentifierCardOptionsTouchBar";
@@ -536,7 +536,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
             NSPopoverTouchBarItem * _Nullable popover = [self popoverTouchBarItemFromOptionType:optionType];
             
             if (popover != nil) {
-                popover.collapsedRepresentationImage = [CardOptionsFactory imageForCardOptionsWithValue:nil optionType:optionType];
+                popover.collapsedRepresentationImage = [CardOptionsMenuFactory imageForCardOptionsWithValue:nil optionType:optionType];
             }
         }
     }];
@@ -573,7 +573,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
             NSPopoverTouchBarItem * _Nullable popover = [self popoverTouchBarItemFromOptionType:optionType];
             
             if (popover != nil) {
-                popover.collapsedRepresentationImage = [CardOptionsFactory imageForCardOptionsWithValue:obj1 optionType:optionType];
+                popover.collapsedRepresentationImage = [CardOptionsMenuFactory imageForCardOptionsWithValue:obj1 optionType:optionType];
             }
         }
     }];
@@ -588,9 +588,9 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     BlizzardHSAPIOptionType optionType = [self optionTypeFromScrubber:scrubber];
     NSString * _Nullable value = self.options[optionType];
     
-    popoverItem.collapsedRepresentationImage = [CardOptionsFactory imageForCardOptionsWithValue:value optionType:optionType];
-    popoverItem.collapsedRepresentationLabel = [CardOptionsFactory titleForCardOptionsWithValue:nil optionType:optionType];
-    popoverItem.customizationLabel = [CardOptionsFactory titleForCardOptionsWithValue:nil optionType:optionType];
+    popoverItem.collapsedRepresentationImage = [CardOptionsMenuFactory imageForCardOptionsWithValue:value optionType:optionType];
+    popoverItem.collapsedRepresentationLabel = [CardOptionsMenuFactory titleForCardOptionsWithValue:nil optionType:optionType];
+    popoverItem.customizationLabel = [CardOptionsMenuFactory titleForCardOptionsWithValue:nil optionType:optionType];
     popoverItem.popoverTouchBar = touchBar;
     popoverItem.pressAndHoldTouchBar = touchBar;
     touchBar.delegate = self;
@@ -970,7 +970,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     BlizzardHSAPIOptionType optionType = [self optionTypeFromScrubber:scrubber];
     NSString *newValue = keys[selectedIndex];
     
-    if (![CardOptionsFactory hasValueForValue:newValue]) {
+    if (![CardOptionsMenuFactory hasValueForValue:newValue]) {
         self.options[optionType] = nil;
     } else if ((newValue == nil) && (self.options[optionType] == nil)) {
         return;

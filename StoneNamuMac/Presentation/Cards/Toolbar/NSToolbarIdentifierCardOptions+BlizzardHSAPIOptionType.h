@@ -1,5 +1,5 @@
 //
-//  NSToolbarIdentifierCardOption+BlizzardHSAPIOptionType.h
+//  NSToolbarIdentifierCardOptions+BlizzardHSAPIOptionType.h
 //  StoneNamu
 //
 //  Created by Jinwoo Kim on 11/1/21.

@@ -6,10 +6,10 @@
 //
 
 #import "CardOptionsMenu.h"
-#import "CardOptionsFactory.h"
-#import "CardOptionsMenuItem.h"
+#import "CardOptionsMenuFactory.h"
+#import "StorableMenuItem.h"
 #import "CardOptionsSearchField.h"
-#import "NSUserInterfaceItemIdentifierCardOption+BlizzardHSAPIOption.h"
+#import "NSUserInterfaceItemIdentifierCardOptions+BlizzardHSAPIOption.h"
 #import <StoneNamuResources/StoneNamuResources.h>
 
 @interface CardOptionsMenu () <NSSearchFieldDelegate>
@@ -87,13 +87,13 @@
     [self.allItems enumerateObjectsUsingBlock:^(NSMenuItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         
         NSUserInterfaceItemIdentifier identifier = obj.identifier;
-        BlizzardHSAPIOptionType optionType = BlizzardHSAPIOptionTypeFromNSUserInterfaceItemIdentifierCardOption(identifier);
+        BlizzardHSAPIOptionType optionType = BlizzardHSAPIOptionTypeFromNSUserInterfaceItemIdentifierCardOptions(identifier);
         NSString * _Nullable value = options[optionType];
         
         //
         
-        obj.image = [CardOptionsFactory imageForCardOptionsWithValue:value optionType:optionType];
-        obj.title = [CardOptionsFactory titleForCardOptionsWithValue:value optionType:optionType];
+        obj.image = [CardOptionsMenuFactory imageForCardOptionsWithValue:value optionType:optionType];
+        obj.title = [CardOptionsMenuFactory titleForCardOptionsWithValue:value optionType:optionType];
         
         [self updateStateOfItem:obj];
     }];
@@ -117,7 +117,7 @@
                                                                       action:nil
                                                                keyEquivalent:@""];
     self.optionTypeTextFilterItem = optionTypeTextFilterItem;
-    optionTypeTextFilterItem.identifier = NSUserInterfaceItemIdentifierCardOptionTextFilter;
+    optionTypeTextFilterItem.identifier = NSUserInterfaceItemIdentifierCardOptionsTextFilter;
     optionTypeTextFilterItem.submenu = [self menuForMenuItem:optionTypeTextFilterItem];
     
     //
@@ -126,7 +126,7 @@
                                                                action:nil
                                                         keyEquivalent:@""];
     self.optionTypeSetItem = optionTypeSetItem;
-    optionTypeSetItem.identifier = NSUserInterfaceItemIdentifierCardOptionSet;
+    optionTypeSetItem.identifier = NSUserInterfaceItemIdentifierCardOptionsSet;
     optionTypeSetItem.submenu = [self menuForMenuItem:optionTypeSetItem];
     
     //
@@ -135,7 +135,7 @@
                                                                  action:nil
                                                           keyEquivalent:@""];
     self.optionTypeClassItem = optionTypeClassItem;
-    optionTypeClassItem.identifier = NSUserInterfaceItemIdentifierCardOptionClass;
+    optionTypeClassItem.identifier = NSUserInterfaceItemIdentifierCardOptionsClass;
     optionTypeClassItem.submenu = [self menuForMenuItem:optionTypeClassItem];
     
     //
@@ -144,7 +144,7 @@
                                                                     action:nil
                                                              keyEquivalent:@""];
     self.optionTypeManaCostItem = optionTypeManaCostItem;
-    optionTypeManaCostItem.identifier = NSUserInterfaceItemIdentifierCardOptionManaCost;
+    optionTypeManaCostItem.identifier = NSUserInterfaceItemIdentifierCardOptionsManaCost;
     optionTypeManaCostItem.submenu = [self menuForMenuItem:optionTypeManaCostItem];
     
     //
@@ -153,7 +153,7 @@
                                                                   action:nil
                                                            keyEquivalent:@""];
     self.optionTypeAttackItem = optionTypeAttackItem;
-    optionTypeAttackItem.identifier = NSUserInterfaceItemIdentifierCardOptionAttack;
+    optionTypeAttackItem.identifier = NSUserInterfaceItemIdentifierCardOptionsAttack;
     optionTypeAttackItem.submenu = [self menuForMenuItem:optionTypeAttackItem];
     
     //
@@ -162,7 +162,7 @@
                                                                   action:nil
                                                            keyEquivalent:@""];
     self.optionTypeHealthItem = optionTypeHealthItem;
-    optionTypeHealthItem.identifier = NSUserInterfaceItemIdentifierCardOptionHealth;
+    optionTypeHealthItem.identifier = NSUserInterfaceItemIdentifierCardOptionsHealth;
     optionTypeHealthItem.submenu = [self menuForMenuItem:optionTypeHealthItem];
     
     //
@@ -171,7 +171,7 @@
                                                                        action:nil
                                                                 keyEquivalent:@""];
     self.optionTypeCollectibleItem = optionTypeCollectibleItem;
-    optionTypeCollectibleItem.identifier = NSUserInterfaceItemIdentifierCardOptionCollectible;
+    optionTypeCollectibleItem.identifier = NSUserInterfaceItemIdentifierCardOptionsCollectible;
     optionTypeCollectibleItem.submenu = [self menuForMenuItem:optionTypeCollectibleItem];
     
     //
@@ -180,7 +180,7 @@
                                                                   action:nil
                                                            keyEquivalent:@""];
     self.optionTypeRarityItem = optionTypeRarityItem;
-    optionTypeRarityItem.identifier = NSUserInterfaceItemIdentifierCardOptionRarity;
+    optionTypeRarityItem.identifier = NSUserInterfaceItemIdentifierCardOptionsRarity;
     optionTypeRarityItem.submenu = [self menuForMenuItem:optionTypeRarityItem];
     
     //
@@ -189,7 +189,7 @@
                                                                 action:nil
                                                          keyEquivalent:@""];
     self.optionTypeTypeItem = optionTypeTypeItem;
-    optionTypeTypeItem.identifier = NSUserInterfaceItemIdentifierCardOptionType;
+    optionTypeTypeItem.identifier = NSUserInterfaceItemIdentifierCardOptionsType;
     optionTypeTypeItem.submenu = [self menuForMenuItem:optionTypeTypeItem];
     
     //
@@ -198,7 +198,7 @@
                                                                       action:nil
                                                                keyEquivalent:@""];
     self.optionTypeMinionTypeItem = optionTypeMinionTypeItem;
-    optionTypeMinionTypeItem.identifier = NSUserInterfaceItemIdentifierCardOptionMinionType;
+    optionTypeMinionTypeItem.identifier = NSUserInterfaceItemIdentifierCardOptionsMinionType;
     optionTypeMinionTypeItem.submenu = [self menuForMenuItem:optionTypeMinionTypeItem];
     
     //
@@ -207,7 +207,7 @@
                                                                        action:nil
                                                                 keyEquivalent:@""];
     self.optionTypeSpellSchoolItem = optionTypeSpellSchoolItem;
-    optionTypeSpellSchoolItem.identifier = NSUserInterfaceItemIdentifierCardOptionSpellSchool;
+    optionTypeSpellSchoolItem.identifier = NSUserInterfaceItemIdentifierCardOptionsSpellSchool;
     optionTypeSpellSchoolItem.submenu = [self menuForMenuItem:optionTypeSpellSchoolItem];
     
     //
@@ -216,7 +216,7 @@
                                                                    action:nil
                                                             keyEquivalent:@""];
     self.optionTypeKeywordItem = optionTypeKeywordItem;
-    optionTypeKeywordItem.identifier = NSUserInterfaceItemIdentifierCardOptionKeyword;
+    optionTypeKeywordItem.identifier = NSUserInterfaceItemIdentifierCardOptionsKeyword;
     optionTypeKeywordItem.submenu = [self menuForMenuItem:optionTypeKeywordItem];
     
     //
@@ -225,7 +225,7 @@
                                                                     action:nil
                                                              keyEquivalent:@""];
     self.optionTypeGameModeItem = optionTypeGameModeItem;
-    optionTypeGameModeItem.identifier = NSUserInterfaceItemIdentifierCardOptionGameMode;
+    optionTypeGameModeItem.identifier = NSUserInterfaceItemIdentifierCardOptionsGameMode;
     optionTypeGameModeItem.submenu = [self menuForMenuItem:optionTypeGameModeItem];
     
     //
@@ -234,7 +234,7 @@
                                                                 action:nil
                                                          keyEquivalent:@""];
     self.optionTypeSortItem = optionTypeSortItem;
-    optionTypeSortItem.identifier = NSUserInterfaceItemIdentifierCardOptionSort;
+    optionTypeSortItem.identifier = NSUserInterfaceItemIdentifierCardOptionsSort;
     optionTypeSortItem.submenu = [self menuForMenuItem:optionTypeSortItem];
     
     //
@@ -276,9 +276,9 @@
 
 - (NSMenu *)menuForMenuItem:(NSMenuItem *)item {
     NSUserInterfaceItemIdentifier itemIdentifier = item.identifier;
-    BlizzardHSAPIOptionType optionType = BlizzardHSAPIOptionTypeFromNSUserInterfaceItemIdentifierCardOption(itemIdentifier);
+    BlizzardHSAPIOptionType optionType = BlizzardHSAPIOptionTypeFromNSUserInterfaceItemIdentifierCardOptions(itemIdentifier);
     
-    return [CardOptionsFactory menuForOptionType:optionType target:self];
+    return [CardOptionsMenuFactory menuForOptionType:optionType target:self];
 }
 
 - (NSMenuItem * _Nullable)itemForOptionType:(BlizzardHSAPIOptionType)optionType {
@@ -286,7 +286,7 @@
     
     [self.allItems enumerateObjectsUsingBlock:^(NSMenuItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         NSUserInterfaceItemIdentifier itemIdentifier = obj.identifier;
-        BlizzardHSAPIOptionType tmp = BlizzardHSAPIOptionTypeFromNSUserInterfaceItemIdentifierCardOption(itemIdentifier);
+        BlizzardHSAPIOptionType tmp = BlizzardHSAPIOptionTypeFromNSUserInterfaceItemIdentifierCardOptions(itemIdentifier);
         
         if ([optionType isEqualToString:tmp]) {
             result = obj;
@@ -297,9 +297,9 @@
     return result;
 }
 
-- (void)keyMenuItemTriggered:(CardOptionsMenuItem *)sender {
-    NSString *key = sender.key.allKeys.firstObject;
-    NSString *value = sender.key.allValues.firstObject;
+- (void)keyMenuItemTriggered:(StorableMenuItem *)sender {
+    NSString *key = sender.userInfo.allKeys.firstObject;
+    NSString *value = sender.userInfo.allValues.firstObject;
     
     if ([value isEqualToString:@""]) {
         [self.options removeObjectForKey:key];
@@ -313,17 +313,17 @@
 
 - (void)updateStateOfItem:(NSMenuItem *)item {
     NSUserInterfaceItemIdentifier itemIdentifier = item.identifier;
-    BlizzardHSAPIOptionType optionType = BlizzardHSAPIOptionTypeFromNSUserInterfaceItemIdentifierCardOption(itemIdentifier);
+    BlizzardHSAPIOptionType optionType = BlizzardHSAPIOptionTypeFromNSUserInterfaceItemIdentifierCardOptions(itemIdentifier);
     NSString *selectedValue = self.options[optionType];
     
     [item.submenu.itemArray enumerateObjectsUsingBlock:^(NSMenuItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        CardOptionsMenuItem *item = (CardOptionsMenuItem *)obj;
+        StorableMenuItem *item = (StorableMenuItem *)obj;
         
-        if (![item isKindOfClass:[CardOptionsMenuItem class]]) return;
+        if (![item isKindOfClass:[StorableMenuItem class]]) return;
         
-        if ([item.key[optionType] isEqualToString:selectedValue]) {
+        if ([item.userInfo[optionType] isEqualToString:selectedValue]) {
             item.state = NSControlStateValueOn;
-        } else if ([@"" isEqualToString:item.key[optionType]] && (selectedValue == nil)) {
+        } else if ([@"" isEqualToString:item.userInfo[optionType]] && (selectedValue == nil)) {
             item.state = NSControlStateValueOn;
         } else {
             item.state = NSControlStateValueOff;
