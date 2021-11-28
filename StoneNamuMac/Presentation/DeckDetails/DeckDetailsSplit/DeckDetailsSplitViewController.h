@@ -1,5 +1,5 @@
 //
-//  DeckDetailsViewController.h
+//  DeckDetailsSplitViewController.h
 //  StoneNamuMac
 //
 //  Created by Jinwoo Kim on 11/28/21.
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface DeckDetailsViewController : NSViewController
+@interface DeckDetailsSplitViewController : NSSplitViewController
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithLocalDeck:(LocalDeck *)localDeck;

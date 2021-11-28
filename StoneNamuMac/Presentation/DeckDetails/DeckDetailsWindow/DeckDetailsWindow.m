@@ -6,14 +6,14 @@
 //
 
 #import "DeckDetailsWindow.h"
-#import "DeckDetailsViewController.h"
+#import "DeckDetailsSplitViewController.h"
 #import "NSProcessInfo+isEnabledRestoration.h"
 #import "NSViewController+loadViewIfNeeded.h"
 
 static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDetailsWindow = @"NSUserInterfaceItemIdentifierDeckDetailsWindow";
 
 @interface DeckDetailsWindow () <NSWindowDelegate>
-@property (retain) DeckDetailsViewController *deckDetailsViewController;
+@property (retain) DeckDetailsSplitViewController *deckDetailsSplitViewController;
 @end
 
 @implementation DeckDetailsWindow
@@ -23,14 +23,14 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
     
     if (self) {
         [self setAttributes];
-        [self configureDeckDetailsViewControllerWithLocalDeck:localDeck];
+        [self configureDeckDetailsSplitViewControllerWithLocalDeck:localDeck];
     }
     
     return self;
 }
 
 - (void)dealloc {
-    [_deckDetailsViewController release];
+    [_deckDetailsSplitViewController release];
     [super dealloc];
 }
 
@@ -47,12 +47,12 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
     self.identifier = NSUserInterfaceItemIdentifierDeckDetailsWindow;
 }
 
-- (void)configureDeckDetailsViewControllerWithLocalDeck:(LocalDeck *)localDeck {
-    DeckDetailsViewController *deckDetailsViewController = [[DeckDetailsViewController alloc] initWithLocalDeck:localDeck presentEditorIfNoCards:YES];
-    self.deckDetailsViewController = deckDetailsViewController;
-    [deckDetailsViewController loadViewIfNeeded];
-    self.contentViewController = deckDetailsViewController;
-    [deckDetailsViewController release];
+- (void)configureDeckDetailsSplitViewControllerWithLocalDeck:(LocalDeck *)localDeck {
+    DeckDetailsSplitViewController *deckDetailsSplitViewController = [[DeckDetailsSplitViewController alloc] initWithLocalDeck:localDeck];
+    self.deckDetailsSplitViewController = deckDetailsSplitViewController;
+    [deckDetailsSplitViewController loadViewIfNeeded];
+    self.contentViewController = deckDetailsSplitViewController;
+    [deckDetailsSplitViewController release];
 }
 
 @end

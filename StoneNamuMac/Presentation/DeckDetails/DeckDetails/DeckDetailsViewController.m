@@ -13,7 +13,7 @@
 
 @implementation DeckDetailsViewController
 
-- (instancetype)initWithLocalDeck:(LocalDeck *)localDeck presentEditorIfNoCards:(BOOL)shouldPresentDeckEditor {
+- (instancetype)initWithLocalDeck:(LocalDeck *)localDeck {
     self = [self init];
     
     if (self) {
