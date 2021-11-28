@@ -10,6 +10,8 @@
 #import "PrefsTabViewController.h"
 #import "NSProcessInfo+isEnabledRestoration.h"
 
+static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierPrefsWindow = @"NSUserInterfaceItemIdentifierPrefsWindow";
+
 @interface PrefsWindow () <NSWindowDelegate>
 @property (retain) PrefsTabViewController *prefsTabViewController;
 @end

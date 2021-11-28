@@ -83,10 +83,6 @@
     [rightBarButtonItems release];
 }
 
-- (void)addHSCardsToLocalDeck:(NSArray<HSCard *> *)hsCards {
-    [self.viewModel addHSCards:hsCards];
-}
-
 - (void)setAttributes {
     self.view.backgroundColor = UIColor.systemBackgroundColor;
 }
@@ -627,7 +623,7 @@
 
 - (void)collectionView:(UICollectionView *)collectionView performDropWithCoordinator:(id<UICollectionViewDropCoordinator>)coordinator {
     [coordinator.session loadObjectsOfClass:[HSCard class] completion:^(NSArray<__kindof id<NSItemProviderReading>> * _Nonnull objects) {
-        [self addHSCardsToLocalDeck:objects];
+        [self.viewModel addHSCards:objects];
     }];
 }
 

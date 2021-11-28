@@ -10,6 +10,7 @@
 #import "CardsViewController.h"
 #import "DecksViewController.h"
 #import "NSViewController+loadViewIfNeeded.h"
+#import "NSSplitViewController+removeSplitViewItemAtIndex.h"
 
 @interface MainSplitViewController () <MainListViewControllerDelegate>
 @property (retain) MainListViewController *mainListViewController;
@@ -30,7 +31,7 @@
     [super viewDidLoad];
     [self setAttributes];
     [self configureViewControllers];
-    [self presentCardViewController];
+    [self.mainListViewController selectItemModelType:MainListItemModelTypeCards];
 }
 
 - (void)restoreStateWithCoder:(NSCoder *)coder {
@@ -40,14 +41,14 @@
 }
 
 - (void)setAttributes {
-//    self.preferredContentSize = NSMakeSize(300, 300);
+    
 }
 
 - (void)configureViewControllers {
-    MainListViewController *mainMenuViewController = [[MainListViewController alloc] initWithDelegate:self];
-    self.mainListViewController = mainMenuViewController;
-    [mainMenuViewController loadViewIfNeeded];
-    NSSplitViewItem *mainMenuItem = [NSSplitViewItem sidebarWithViewController:mainMenuViewController];
+    MainListViewController *mainListViewController = [[MainListViewController alloc] initWithDelegate:self];
+    self.mainListViewController = mainListViewController;
+    [mainListViewController loadViewIfNeeded];
+    NSSplitViewItem *mainMenuItem = [NSSplitViewItem sidebarWithViewController:mainListViewController];
     [self addSplitViewItem:mainMenuItem];
     
     CardsViewController *cardsViewController = [CardsViewController new];
@@ -60,32 +61,28 @@
     
     //
     
-    [mainMenuViewController selectItemModelType:MainListItemModelTypeCards];
-    
-    //
-    
-    [mainMenuViewController release];
+    [mainListViewController release];
     [cardsViewController release];
     [decksViewController release];
 }
 
 - (void)presentCardViewController {
-    [self removeAllContentListSplitViewItems];
+    [self removeAllSplitViewItemWithoutSidebar];
     
-    NSSplitViewItem *cardsMenuItem = [NSSplitViewItem contentListWithViewController:self.cardsViewController];
-    [self addSplitViewItem:cardsMenuItem];
+    NSSplitViewItem *cardsSplitViewItem = [NSSplitViewItem splitViewItemWithViewController:self.cardsViewController];
+    [self addSplitViewItem:cardsSplitViewItem];
 }
 
 - (void)presentDecksViewController {
-    [self removeAllContentListSplitViewItems];
+    [self removeAllSplitViewItemWithoutSidebar];
     
-    NSSplitViewItem *decksMenuItem = [NSSplitViewItem contentListWithViewController:self.decksViewController];
-    [self addSplitViewItem:decksMenuItem];
+    NSSplitViewItem *decksSplitViewItem = [NSSplitViewItem splitViewItemWithViewController:self.decksViewController];
+    [self addSplitViewItem:decksSplitViewItem];
 }
 
-- (void)removeAllContentListSplitViewItems {
+- (void)removeAllSplitViewItemWithoutSidebar {
     [self.splitViewItems enumerateObjectsUsingBlock:^(__kindof NSSplitViewItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if (obj.behavior == NSSplitViewItemBehaviorContentList) {
+        if (obj.behavior != NSSplitViewItemBehaviorSidebar) {
             [self removeSplitViewItem:obj];
         }
     }];

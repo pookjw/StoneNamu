@@ -68,7 +68,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierMainList
 }
 
 - (void)setAttributes {
-    NSLayoutConstraint *widthLayout = [self.view.widthAnchor constraintGreaterThanOrEqualToConstant:300];
+    NSLayoutConstraint *widthLayout = [self.view.widthAnchor constraintGreaterThanOrEqualToConstant:200];
     [NSLayoutConstraint activateConstraints:@[
         widthLayout
     ]];

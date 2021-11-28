@@ -11,7 +11,8 @@
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 - (void)presentNewMainWindow;
 - (void)presentNewMainWindowIfNeeded;
-- (void)presentCardDetailsWithHSCard:(HSCard *)hsCard;
+- (void)presentCardDetailsWindowWithHSCard:(HSCard *)hsCard;
+- (void)presentDeckDetailsWindowWithLocalDeck:(LocalDeck *)localDeck;
 - (void)presentNewPrefsWindow;
 - (void)presentNewPrefsWindowIfNeeded;
 @end

@@ -22,7 +22,6 @@ typedef NS_ENUM(NSUInteger, DeckDetailsViewControllerRightBarButtonType) {
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithLocalDeck:(LocalDeck *)localDeck presentEditorIfNoCards:(BOOL)shouldPresentDeckEditor;
 - (void)setRightBarButtons:(DeckDetailsViewControllerRightBarButtonType)type;
-- (void)addHSCardsToLocalDeck:(NSArray<HSCard *> *)hsCards;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -9,4 +9,14 @@
 
 @implementation MainListTableCellView
 
+- (void)prepareForReuse {
+    [super prepareForReuse];
+    [self clearContents];
+}
+
+- (void)clearContents {
+    self.imageView.image = nil;
+    self.textField.stringValue = @"";
+}
+
 @end

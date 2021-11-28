@@ -77,6 +77,8 @@
     [self configureViewModel];
     [self bind];
     [self.viewModel requestDataSourceWithCard:self.hsCard];
+    
+    NSLog(@"keyword: %@", self.hsCard.slug);
 }
 
 - (void)setAttributes {

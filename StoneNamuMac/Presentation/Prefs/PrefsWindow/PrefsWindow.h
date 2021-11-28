@@ -9,8 +9,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierPrefsWindow = @"NSUserInterfaceItemIdentifierPrefsWindow";
-
 @interface PrefsWindow : NSWindow
 
 @end

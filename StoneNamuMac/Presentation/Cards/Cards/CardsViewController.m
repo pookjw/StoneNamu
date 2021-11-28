@@ -361,7 +361,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardsVie
             
             if (hsCard == nil) return;
             
-            [(AppDelegate *)NSApp.delegate presentCardDetailsWithHSCard:hsCard];
+            [(AppDelegate *)NSApp.delegate presentCardDetailsWindowWithHSCard:hsCard];
         }];
     }
 }

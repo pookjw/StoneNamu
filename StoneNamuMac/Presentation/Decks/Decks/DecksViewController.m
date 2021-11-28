@@ -13,9 +13,10 @@
 #import "DecksToolbar.h"
 #import "DecksTouchBar.h"
 #import "NSWindow+presentErrorAlert.h"
+#import "AppDelegate.h"
 #import <StoneNamuResources/StoneNamuResources.h>
 
-@interface DecksViewController () <NSCollectionViewDelegate, DecksMenuDelegate, DecksToolbarDelegate, DecksTouchBarDelegate>
+@interface DecksViewController () <NSCollectionViewDelegate, DecksMenuDelegate, DecksToolbarDelegate, DecksTouchBarDelegate, DeckBaseCollectionViewItemDelegate>
 @property (retain) NSScrollView *scrollView;
 @property (retain) NSClipView *clipView;
 @property (retain) NSCollectionView *collectionView;
@@ -77,7 +78,10 @@
 }
 
 - (void)setAttributes {
-    
+    NSLayoutConstraint *widthLayout = [self.view.widthAnchor constraintGreaterThanOrEqualToConstant:300];
+    [NSLayoutConstraint activateConstraints:@[
+        widthLayout
+    ]];
 }
 
 - (void)configureCollectionView {
@@ -134,7 +138,7 @@
     DecksDataSource *dataSource = [[DecksDataSource alloc] initWithCollectionView:self.collectionView itemProvider:^NSCollectionViewItem * _Nullable(NSCollectionView * _Nonnull collectionView, NSIndexPath * _Nonnull indexPath, DecksItemModel * _Nonnull itemModel) {
         DeckBaseCollectionViewItem *item = [collectionView makeItemWithIdentifier:NSStringFromClass([DeckBaseCollectionViewItem class]) forIndexPath:indexPath];
         
-        [item configureWithText:itemModel.localDeck.name];
+        [item configureWithLocalDeck:itemModel.localDeck deckBaseCollectionViewItemDelegate:self];
         
         return item;
     }];
@@ -182,6 +186,10 @@
 
 - (void)clearDecksTouchBarFromWindow {
     self.view.window.touchBar = nil;
+}
+
+- (void)presentDeckDetailsWithLocalDeck:(LocalDeck *)localDeck {
+    [(AppDelegate *)NSApp.delegate presentDeckDetailsWindowWithLocalDeck:localDeck];
 }
 
 - (void)presentCreateNewDeckFromDeckCodeAlert {
@@ -282,16 +290,37 @@
                 return;
             }
             
-            
+            [self presentDeckDetailsWithLocalDeck:localDeck];
         }];
     }];
+}
+
+#pragma mark - NSCollectionViewDelegate
+
+- (void)collectionView:(NSCollectionView *)collectionView didSelectItemsAtIndexPaths:(NSSet<NSIndexPath *> *)indexPaths {
+//    NSIndexPath * _Nullable indexPath = indexPaths.allObjects.lastObject;
+//
+//    if (indexPath == nil) return;
+//
+//    DecksItemModel * _Nullable itemModel = [self.viewModel.dataSource itemIdentifierForIndexPath:indexPath];
+//    LocalDeck * _Nullable localDeck = itemModel.localDeck;
+//
+//    if (localDeck == nil) return;
+//
+//    //
+//
+//    [self presentDeckDetailsWithLocalDeck:localDeck];
 }
 
 #pragma mark - DecksMenuDelegate
 
 - (void)decksMenu:(DecksMenu *)decksMenu createNewDeckWithDeckFormat:(HSDeckFormat)deckFormat hsCardClass:(HSCardClass)hsCardClass {
     [self.viewModel makeLocalDeckWithClass:hsCardClass deckFormat:deckFormat completion:^(LocalDeck * _Nonnull localDeck) {
-        NSLog(@"newDeck: %@", localDeck.name);
+        
+        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+            [self presentDeckDetailsWithLocalDeck:localDeck];
+        }];
+        
     }];
 }
 
@@ -303,7 +332,11 @@
 
 - (void)decksToolbar:(DecksToolbar *)decksToolbar createNewDeckWithDeckFormat:(HSDeckFormat)deckFormat hsCardClass:(HSCardClass)hsCardClass {
     [self.viewModel makeLocalDeckWithClass:hsCardClass deckFormat:deckFormat completion:^(LocalDeck * _Nonnull localDeck) {
-        NSLog(@"newDeck: %@", localDeck.name);
+        
+        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+            [self presentDeckDetailsWithLocalDeck:localDeck];
+        }];
+        
     }];
 }
 
@@ -315,12 +348,22 @@
 
 - (void)decksTouchBar:(DecksTouchBar *)touchBar createNewDeckWithDeckFormat:(HSDeckFormat)deckFormat hsCardClass:(HSCardClass)hsCardClass {
     [self.viewModel makeLocalDeckWithClass:hsCardClass deckFormat:deckFormat completion:^(LocalDeck * _Nonnull localDeck) {
-        NSLog(@"newDeck: %@", localDeck.name);
+        
+        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+            [self presentDeckDetailsWithLocalDeck:localDeck];
+        }];
+        
     }];
 }
 
 - (void)decksTouchBar:(DecksTouchBar *)touchBar createNewDeckFromDeckCodeWithIdentifier:(nonnull NSTouchBarItemIdentifier)identifier {
     [self presentCreateNewDeckFromDeckCodeAlert];
+}
+
+#pragma mark - DeckBaseCollectionViewItemDelegate
+
+- (void)deckBaseCollectionViewItem:(DeckBaseCollectionViewItem *)deckBaseCollectionViewItem didDoubleClickWithRecognizer:(NSClickGestureRecognizer *)recognizer {
+    [self presentDeckDetailsWithLocalDeck:deckBaseCollectionViewItem.localDeck];
 }
 
 @end

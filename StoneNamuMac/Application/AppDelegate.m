@@ -9,7 +9,7 @@
 #import "MainWindow.h"
 #import "CardDetailsWindow.h"
 #import "PrefsWindow.h"
-#import <StoneNamuCore/StoneNamuCore.h>
+#import "DeckDetailsWindow.h"
 
 @interface AppDelegate ()
 @end
@@ -55,11 +55,18 @@
     }
 }
 
-- (void)presentCardDetailsWithHSCard:(HSCard *)hsCard {
+- (void)presentCardDetailsWindowWithHSCard:(HSCard *)hsCard {
     CardDetailsWindow *cardDetailsWindow = [[CardDetailsWindow alloc] initWithHSCard:hsCard];
     [cardDetailsWindow makeKeyAndOrderFront:nil];
     [cardDetailsWindow center];
     [cardDetailsWindow release];
+}
+
+- (void)presentDeckDetailsWindowWithLocalDeck:(LocalDeck *)localDeck {
+    DeckDetailsWindow *deckDetailsWindow = [[DeckDetailsWindow alloc] initWithLocalDeck:localDeck];
+    [deckDetailsWindow makeKeyAndOrderFront:nil];
+    [deckDetailsWindow center];
+    [deckDetailsWindow release];
 }
 
 - (void)presentNewPrefsWindow {

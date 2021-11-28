@@ -12,6 +12,8 @@
 #import <StoneNamuResources/StoneNamuResources.h>
 #import "NSProcessInfo+isEnabledRestoration.h"
 
+static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierMainWindow = @"NSUserInterfaceItemIdentifierMainWindow";
+
 @interface MainWindow () <NSWindowDelegate>
 @property (retain) MainSplitViewController *mainSplitViewController;
 @end

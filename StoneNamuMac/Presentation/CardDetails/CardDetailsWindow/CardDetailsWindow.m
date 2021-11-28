@@ -10,6 +10,8 @@
 #import "CardDetailsViewController.h"
 #import "NSProcessInfo+isEnabledRestoration.h"
 
+static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDetailsWindow = @"NSUserInterfaceItemIdentifierCardDetailsWindow";
+
 @interface CardDetailsWindow () <NSWindowDelegate>
 @property (retain) CardDetailsViewController *cardDetailsViewController;
 @end

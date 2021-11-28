@@ -1,8 +1,8 @@
 //
-//  CardDetailsWindow.h
+//  DeckDetailsWindow.h
 //  StoneNamuMac
 //
-//  Created by Jinwoo Kim on 11/19/21.
+//  Created by Jinwoo Kim on 11/28/21.
 //
 
 #import <Cocoa/Cocoa.h>
@@ -10,10 +10,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CardDetailsWindow : NSWindow
+@interface DeckDetailsWindow : NSWindow
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
-- (instancetype)initWithHSCard:(HSCard *)hsCard;
+- (instancetype)initWithLocalDeck:(LocalDeck *)localDeck;
 @end
 
 NS_ASSUME_NONNULL_END

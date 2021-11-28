@@ -7,11 +7,14 @@
 
 #import <Cocoa/Cocoa.h>
 #import "SelectedBackgroundCollectionViewCell.h"
+#import "DeckBaseCollectionViewItemDelegate.h"
+#import <StoneNamuCore/StoneNamuCore.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface DeckBaseCollectionViewItem : SelectedBackgroundCollectionViewCell
-- (void)configureWithText:(NSString *)text;
+@property (readonly) LocalDeck * _Nullable localDeck;
+- (void)configureWithLocalDeck:(LocalDeck *)localDeck deckBaseCollectionViewItemDelegate:(id<DeckBaseCollectionViewItemDelegate>)deckBaseCollectionViewItemDelegate;
 @end
 
 NS_ASSUME_NONNULL_END
