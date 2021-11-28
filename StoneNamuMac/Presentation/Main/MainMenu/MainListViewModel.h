@@ -11,18 +11,16 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef NSCollectionViewDiffableDataSource<MainListSectionModel *, MainListItemModel *> MainListDataSource;
+typedef NSTableViewDiffableDataSource<MainListSectionModel *, MainListItemModel *> MainListDataSource;
 
-typedef void (^MainListViewModelIndexPathForItemModelTypeCompletion)(NSIndexPath * _Nullable);
+typedef void (^MainListViewModelRowForItemModelTypeCompletion)(NSInteger);
 
 @interface MainListViewModel : NSObject
 @property (readonly, retain) MainListDataSource *dataSource;
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithDataSource:(MainListDataSource *)dataSource;
-- (void)request;
-- (void)indexPathForItemModelType:(MainListItemModelType)type completion:(MainListViewModelIndexPathForItemModelTypeCompletion)completion;
-- (MainListItemModel * _Nullable)itemModelForndexPath:(NSIndexPath *)indexPath;
+- (void)rowForItemModelType:(MainListItemModelType)type completion:(MainListViewModelRowForItemModelTypeCompletion)completion;
 @end
 
 NS_ASSUME_NONNULL_END

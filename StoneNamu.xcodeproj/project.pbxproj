@@ -114,6 +114,9 @@
 		4F57DEA526AD96D3000E4163 /* HSCardSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F57DEA426AD96D3000E4163 /* HSCardSet.m */; };
 		4F57DEAC26ADA6E3000E4163 /* PickerItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F57DEAB26ADA6E3000E4163 /* PickerItemModel.m */; };
 		4F57DEB926ADC3CF000E4163 /* PickerItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F57DEB826ADC3CF000E4163 /* PickerItemView.m */; };
+		4F5900862752FDE000217E4A /* NSTableViewDiffableDataSource+applySnapshotAndWait.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F5900852752FDE000217E4A /* NSTableViewDiffableDataSource+applySnapshotAndWait.m */; };
+		4F5900892752FE4D00217E4A /* MainListTableCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F5900882752FE4D00217E4A /* MainListTableCellView.m */; };
+		4F59008B2752FE6100217E4A /* MainListTableCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F59008A2752FE6100217E4A /* MainListTableCellView.xib */; };
 		4F6462D62726932A00329B10 /* NSImageView+setAsyncImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F6462D52726932A00329B10 /* NSImageView+setAsyncImage.m */; };
 		4F646A5C26B7CA8000BEDB38 /* CardsCollectionViewCompositionalLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F646A5B26B7CA8000BEDB38 /* CardsCollectionViewCompositionalLayout.m */; };
 		4F646A5F26B7D05E00BEDB38 /* UIImageView+setAsyncImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F646A5E26B7D05E00BEDB38 /* UIImageView+setAsyncImage.m */; };
@@ -374,9 +377,6 @@
 		F35E230A27401B42000A2605 /* BlizzardHSAPIOptionType.strings in Resources */ = {isa = PBXBuildFile; fileRef = F35E230C27401B42000A2605 /* BlizzardHSAPIOptionType.strings */; };
 		F3862A3127428FC70061C20C /* PrefsDataViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F3862A3027428FC70061C20C /* PrefsDataViewModel.m */; };
 		F3A096FB274C807D00C7DFA4 /* HSCardPromiseProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = F3A096FA274C807D00C7DFA4 /* HSCardPromiseProvider.m */; };
-		F3CCE2812742BFCF004B5B26 /* MainListCollectionViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3CCE2802742BFCF004B5B26 /* MainListCollectionViewItem.xib */; };
-		F3CCE2842742BFF7004B5B26 /* MainListCollectionViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = F3CCE2832742BFF7004B5B26 /* MainListCollectionViewItem.m */; };
-		F3CCE2872742C17F004B5B26 /* MainListCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = F3CCE2862742C17F004B5B26 /* MainListCollectionViewLayout.m */; };
 		F3CCE28A2742C3BD004B5B26 /* MainListViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F3CCE2892742C3BD004B5B26 /* MainListViewModel.m */; };
 		F3CCE28D2742C435004B5B26 /* MainListSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F3CCE28C2742C435004B5B26 /* MainListSectionModel.m */; };
 		F3CCE2902742C442004B5B26 /* MainListItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F3CCE28F2742C442004B5B26 /* MainListItemModel.m */; };
@@ -655,6 +655,12 @@
 		4F57DEAB26ADA6E3000E4163 /* PickerItemModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PickerItemModel.m; sourceTree = "<group>"; };
 		4F57DEB726ADC3CF000E4163 /* PickerItemView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PickerItemView.h; sourceTree = "<group>"; };
 		4F57DEB826ADC3CF000E4163 /* PickerItemView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PickerItemView.m; sourceTree = "<group>"; };
+		4F5900832752FDAF00217E4A /* NSTableViewDiffableDataSource+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSTableViewDiffableDataSource+Private.h"; sourceTree = "<group>"; };
+		4F5900842752FDCB00217E4A /* NSTableViewDiffableDataSource+applySnapshotAndWait.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSTableViewDiffableDataSource+applySnapshotAndWait.h"; sourceTree = "<group>"; };
+		4F5900852752FDE000217E4A /* NSTableViewDiffableDataSource+applySnapshotAndWait.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSTableViewDiffableDataSource+applySnapshotAndWait.m"; sourceTree = "<group>"; };
+		4F5900872752FE4D00217E4A /* MainListTableCellView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainListTableCellView.h; sourceTree = "<group>"; };
+		4F5900882752FE4D00217E4A /* MainListTableCellView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainListTableCellView.m; sourceTree = "<group>"; };
+		4F59008A2752FE6100217E4A /* MainListTableCellView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainListTableCellView.xib; sourceTree = "<group>"; };
 		4F6462D42726932A00329B10 /* NSImageView+setAsyncImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSImageView+setAsyncImage.h"; sourceTree = "<group>"; };
 		4F6462D52726932A00329B10 /* NSImageView+setAsyncImage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSImageView+setAsyncImage.m"; sourceTree = "<group>"; };
 		4F646A5A26B7CA8000BEDB38 /* CardsCollectionViewCompositionalLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardsCollectionViewCompositionalLayout.h; sourceTree = "<group>"; };
@@ -1091,11 +1097,6 @@
 		F3862A3027428FC70061C20C /* PrefsDataViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrefsDataViewModel.m; sourceTree = "<group>"; };
 		F3A096F9274C807D00C7DFA4 /* HSCardPromiseProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardPromiseProvider.h; sourceTree = "<group>"; };
 		F3A096FA274C807D00C7DFA4 /* HSCardPromiseProvider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCardPromiseProvider.m; sourceTree = "<group>"; };
-		F3CCE2802742BFCF004B5B26 /* MainListCollectionViewItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainListCollectionViewItem.xib; sourceTree = "<group>"; };
-		F3CCE2822742BFF7004B5B26 /* MainListCollectionViewItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainListCollectionViewItem.h; sourceTree = "<group>"; };
-		F3CCE2832742BFF7004B5B26 /* MainListCollectionViewItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainListCollectionViewItem.m; sourceTree = "<group>"; };
-		F3CCE2852742C17F004B5B26 /* MainListCollectionViewLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainListCollectionViewLayout.h; sourceTree = "<group>"; };
-		F3CCE2862742C17F004B5B26 /* MainListCollectionViewLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainListCollectionViewLayout.m; sourceTree = "<group>"; };
 		F3CCE2882742C3BD004B5B26 /* MainListViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainListViewModel.h; sourceTree = "<group>"; };
 		F3CCE2892742C3BD004B5B26 /* MainListViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainListViewModel.m; sourceTree = "<group>"; };
 		F3CCE28B2742C435004B5B26 /* MainListSectionModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainListSectionModel.h; sourceTree = "<group>"; };
@@ -1506,6 +1507,7 @@
 			isa = PBXGroup;
 			children = (
 				4F4892D2272467E300126131 /* NSCollectionViewDiffableDataSource+Private.h */,
+				4F5900832752FDAF00217E4A /* NSTableViewDiffableDataSource+Private.h */,
 				4F1FA0B0275048310082EBF0 /* NSDiffableDataSourceSnapshot+Private.h */,
 				4F1E85EE27331DF600CE2551 /* NSScrubber+Private.h */,
 			);
@@ -2446,6 +2448,8 @@
 			children = (
 				4FE857742700A0230008C2FB /* NSCollectionViewDiffableDataSource+applySnapshotAndWait.h */,
 				4FE857752700A0230008C2FB /* NSCollectionViewDiffableDataSource+applySnapshotAndWait.m */,
+				4F5900842752FDCB00217E4A /* NSTableViewDiffableDataSource+applySnapshotAndWait.h */,
+				4F5900852752FDE000217E4A /* NSTableViewDiffableDataSource+applySnapshotAndWait.m */,
 				4FE857772700A3580008C2FB /* NSWindow+presentErrorAlert.h */,
 				4FE857782700A3580008C2FB /* NSWindow+presentErrorAlert.m */,
 				4F4892DC27246B6000126131 /* NSViewController+loadViewIfNeeded.h */,
@@ -2491,11 +2495,9 @@
 				F3CCE28C2742C435004B5B26 /* MainListSectionModel.m */,
 				F3CCE28E2742C442004B5B26 /* MainListItemModel.h */,
 				F3CCE28F2742C442004B5B26 /* MainListItemModel.m */,
-				F3CCE2822742BFF7004B5B26 /* MainListCollectionViewItem.h */,
-				F3CCE2832742BFF7004B5B26 /* MainListCollectionViewItem.m */,
-				F3CCE2802742BFCF004B5B26 /* MainListCollectionViewItem.xib */,
-				F3CCE2852742C17F004B5B26 /* MainListCollectionViewLayout.h */,
-				F3CCE2862742C17F004B5B26 /* MainListCollectionViewLayout.m */,
+				4F5900872752FE4D00217E4A /* MainListTableCellView.h */,
+				4F5900882752FE4D00217E4A /* MainListTableCellView.m */,
+				4F59008A2752FE6100217E4A /* MainListTableCellView.xib */,
 			);
 			path = MainMenu;
 			sourceTree = "<group>";
@@ -3023,9 +3025,9 @@
 				4F23C8B5273D9A2500C33F10 /* Assets.xcassets in Resources */,
 				4F23C8B8273D9A5900C33F10 /* InfoPlist.strings in Resources */,
 				4F4738D12746D5B7000C0C85 /* CardDetailsBaseCollectionViewItem.xib in Resources */,
-				F3CCE2812742BFCF004B5B26 /* MainListCollectionViewItem.xib in Resources */,
 				4FDE9B5E274AEE8C00AB0E02 /* CardDetailsChildrenContentCollectionViewItem.xib in Resources */,
 				4FDE9B6D274AF05C00AB0E02 /* CardDetailsChildrenContentImageContentCollectionViewItem.xib in Resources */,
+				4F59008B2752FE6100217E4A /* MainListTableCellView.xib in Resources */,
 				4FD4E026274EE2E80037D867 /* DeckBaseCollectionViewItem.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3258,7 +3260,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F303D63F2741549800569E20 /* NSTabViewController+selectTabViewItem.m in Sources */,
-				F3CCE2842742BFF7004B5B26 /* MainListCollectionViewItem.m in Sources */,
 				4F1FA0AF275022B00082EBF0 /* NSTouchBarItemIdentifierDecks+HSDeckFormat.m in Sources */,
 				4F1FA0B4275064660082EBF0 /* DecksToolbar.m in Sources */,
 				4F83FBDF272E7226002D2387 /* NSView+isDarkMode.m in Sources */,
@@ -3310,7 +3311,6 @@
 				4F883F74273011FC00AF0048 /* NSTextField+setLabelStyle.m in Sources */,
 				4F4738C02746BFFF000C0C85 /* CardDetailsViewController.m in Sources */,
 				4F0863F42751D0A200B251BF /* NSUserInterfaceItemIdentifierDecks+HSDeckFormat.m in Sources */,
-				F3CCE2872742C17F004B5B26 /* MainListCollectionViewLayout.m in Sources */,
 				4FDE9B53274ACE6700AB0E02 /* CardDetailsSectionModel.m in Sources */,
 				4F7333FB272DA77900438FE0 /* StorableMenuItem.m in Sources */,
 				4FC402C6273873BC00D25523 /* HelpMenuItem.m in Sources */,
@@ -3323,6 +3323,7 @@
 				4F883F6A272FFE7C00AF0048 /* CardOptionsTouchBar.m in Sources */,
 				4FE85767270092F30008C2FB /* MainListViewController.m in Sources */,
 				4F98C28F27284DC900865CCD /* SpinnerView.m in Sources */,
+				4F5900862752FDE000217E4A /* NSTableViewDiffableDataSource+applySnapshotAndWait.m in Sources */,
 				4FC402BD27386F3100D25523 /* EditMenuItem.m in Sources */,
 				4F466EF1272851090035C569 /* NSViewController+SpinnerView.m in Sources */,
 				4F659208274DD5470017888C /* NSImage+pngData.m in Sources */,
@@ -3337,6 +3338,7 @@
 				4F7333F8272D836A00438FE0 /* CardOptionsToolbar.m in Sources */,
 				4FD4E020274EDCD10037D867 /* DecksItemModel.m in Sources */,
 				4FDE9B5B274AEBF500AB0E02 /* CardDetailsChildrenContentCollectionViewItem.m in Sources */,
+				4F5900892752FE4D00217E4A /* MainListTableCellView.m in Sources */,
 				4FD4E017274ED7DF0037D867 /* HSCardDraggableImageView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

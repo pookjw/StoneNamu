@@ -56,7 +56,7 @@
     [super viewDidLoad];
     [self setAttributes];
     [self configureRightBarButtonItems];
-    [self configureCollectionView];
+    [self configureTableView];
     [self configureViewModel];
 }
 
@@ -91,7 +91,7 @@
     self.navigationController.navigationBar.prefersLargeTitles = YES;
 }
 
-- (void)configureCollectionView {
+- (void)configureTableView {
     UICollectionLayoutListConfiguration *layoutConfiguration = [[UICollectionLayoutListConfiguration alloc] initWithAppearance:UICollectionLayoutListAppearanceSidebar];
     layoutConfiguration.headerMode = UICollectionLayoutListHeaderModeSupplementary;
     layoutConfiguration.footerMode = UICollectionLayoutListFooterModeSupplementary;

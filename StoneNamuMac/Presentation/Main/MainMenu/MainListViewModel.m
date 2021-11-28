@@ -6,7 +6,7 @@
 //
 
 #import "MainListViewModel.h"
-#import "NSCollectionViewDiffableDataSource+applySnapshotAndWait.h"
+#import "NSTableViewDiffableDataSource+applySnapshotAndWait.h"
 
 @interface MainListViewModel ()
 @property (retain) NSOperationQueue *queue;
@@ -26,6 +26,8 @@
         queue.maxConcurrentOperationCount = 1;
         self.queue = queue;
         [queue release];
+        
+        [self request];
     }
     
     return self;
@@ -69,7 +71,7 @@
     }];
 }
 
-- (void)indexPathForItemModelType:(MainListItemModelType)type completion:(MainListViewModelIndexPathForItemModelTypeCompletion)completion {
+- (void)rowForItemModelType:(MainListItemModelType)type completion:(MainListViewModelRowForItemModelTypeCompletion)completion {
     [self.queue addOperationWithBlock:^{
         MainListItemModel * _Nullable __block itemModel = nil;
         
@@ -81,16 +83,12 @@
         }];
         
         if (itemModel == nil) {
-            completion(nil);
+            completion(-1);
             return;
         }
         
-        completion([self.dataSource indexPathForItemIdentifier:itemModel]);
+        completion([self.dataSource rowForItemIdentifier:itemModel]);
     }];
-}
-
-- (MainListItemModel * _Nullable)itemModelForndexPath:(NSIndexPath *)indexPath {
-    return [self.dataSource itemIdentifierForIndexPath:indexPath];
 }
 
 @end

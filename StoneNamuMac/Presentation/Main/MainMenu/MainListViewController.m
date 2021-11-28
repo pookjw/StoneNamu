@@ -6,15 +6,17 @@
 //
 
 #import "MainListViewController.h"
-#import "MainListCollectionViewLayout.h"
-#import "MainListCollectionViewItem.h"
+#import "MainListTableCellView.h"
 #import "MainListViewModel.h"
 
-@interface MainListViewController () <NSCollectionViewDelegate>
+static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierMainListTableColumn = @"NSUserInterfaceItemIdentifierMainListTableColumn";
+
+@interface MainListViewController () <NSTableViewDelegate>
 @property (weak) id<MainListViewControllerDelegate> delegate;
 @property (retain) NSScrollView *scrollView;
 @property (retain) NSClipView *clipView;
-@property (retain) NSCollectionView *collectionView;
+@property (retain) NSTableView *tableView;
+@property (retain) NSTableColumn *tableColumn;
 @property (retain) MainListViewModel *viewModel;
 @end
 
@@ -33,7 +35,8 @@
 - (void)dealloc {
     [_scrollView release];
     [_clipView release];
-    [_collectionView release];
+    [_tableView release];
+    [_tableColumn release];
     [_viewModel release];
     [super dealloc];
 }
@@ -47,17 +50,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setAttributes];
-    [self configureCollectionView];
+    [self configureTableView];
     [self configureViewModel];
-    [self.viewModel request];
 }
 
 - (void)selectItemModelType:(MainListItemModelType)type {
-    [self.viewModel indexPathForItemModelType:type completion:^(NSIndexPath * _Nullable indexPath) {
-        if (indexPath == nil) return;
+    [self.viewModel rowForItemModelType:type completion:^(NSInteger row) {
+        if (row < 0) return;
+        
+        NSIndexSet *indexSet = [[NSIndexSet alloc] initWithIndex:row];
         
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
-            [self.collectionView selectItemsAtIndexPaths:[NSSet setWithArray:@[indexPath]] scrollPosition:NSCollectionViewScrollPositionCenteredVertically];
+            [self.tableView selectRowIndexes:indexSet byExtendingSelection:NO];
+            [indexSet release];
         }];
     }];
 }
@@ -69,17 +74,17 @@
     ]];
 }
 
-- (void)configureCollectionView {
+- (void)configureTableView {
     NSScrollView *scrollView = [NSScrollView new];
     NSClipView *clipView = [NSClipView new];
-    NSCollectionView *collectionView = [NSCollectionView new];
+    NSTableView *tableView = [NSTableView new];
     
     self.scrollView = scrollView;
     self.clipView = clipView;
-    self.collectionView = collectionView;
+    self.tableView = tableView;
     
     scrollView.contentView = clipView;
-    clipView.documentView = collectionView;
+    clipView.documentView = tableView;
     clipView.postsBoundsChangedNotifications = YES;
 
     [self.view addSubview:scrollView];
@@ -91,23 +96,28 @@
         [scrollView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor]
     ]];
     
-    MainListCollectionViewLayout *layout = [MainListCollectionViewLayout new];
-    collectionView.collectionViewLayout = layout;
-    [layout release];
+    //
     
-    NSNib *nib = [[NSNib alloc] initWithNibNamed:NSStringFromClass([MainListCollectionViewItem class]) bundle:NSBundle.mainBundle];
-    [collectionView registerNib:nib forItemWithIdentifier:NSStringFromClass([MainListCollectionViewItem class])];
+    NSNib *nib = [[NSNib alloc] initWithNibNamed:NSStringFromClass([MainListTableCellView class]) bundle:NSBundle.mainBundle];
+    [tableView registerNib:nib forIdentifier:NSStringFromClass([MainListTableCellView class])];
     [nib release];
     
-    collectionView.selectable = YES;
-    collectionView.allowsMultipleSelection = NO;
-    collectionView.allowsEmptySelection = NO;
-    collectionView.delegate = self;
-    collectionView.backgroundColors = @[NSColor.clearColor];
+    NSTableColumn *tableColumn = [[NSTableColumn alloc] initWithIdentifier:NSUserInterfaceItemIdentifierMainListTableColumn];
+    self.tableColumn = tableColumn;
+    [tableView addTableColumn:tableColumn];
+    [tableColumn release];
+    
+    tableView.headerView = nil;
+    tableView.wantsLayer = YES;
+    tableView.layer.backgroundColor = NSColor.clearColor.CGColor;
+    tableView.style = NSTableViewStyleSourceList;
+    tableView.rowSizeStyle = NSTableViewRowSizeStyleDefault;
+    tableView.delegate = self;
+    tableView.allowsEmptySelection = NO;
     
     [scrollView release];
     [clipView release];
-    [collectionView release];
+    [tableView release];
 }
 
 - (void)configureViewModel {
@@ -117,23 +127,30 @@
 }
 
 - (MainListDataSource *)makeDataSource {
-    MainListDataSource *dataSource = [[MainListDataSource alloc] initWithCollectionView:self.collectionView itemProvider:^NSCollectionViewItem * _Nullable(NSCollectionView * _Nonnull collectionView, NSIndexPath * _Nonnull indexPath, MainListItemModel * _Nonnull itemModel) {
+    MainListDataSource *dataSource = [[MainListDataSource alloc] initWithTableView:self.tableView cellProvider:^NSView * _Nonnull(NSTableView * _Nonnull tableView, NSTableColumn * _Nonnull column, NSInteger row, MainListItemModel * _Nonnull itemModel) {
         
-        MainListCollectionViewItem *item = (MainListCollectionViewItem *)[collectionView makeItemWithIdentifier:NSStringFromClass([MainListCollectionViewItem class]) forIndexPath:indexPath];
+        MainListTableCellView *view = (MainListTableCellView *)[tableView makeViewWithIdentifier:NSStringFromClass([MainListTableCellView class]) owner:self];
         
-        item.imageView.image = itemModel.image;
-        item.textField.stringValue = itemModel.primaryText;
+        view.imageView.image = itemModel.image;
+        view.textField.stringValue = itemModel.primaryText;
         
-        return item;
+        return view;
     }];
     
     return [dataSource autorelease];
 }
 
-#pragma mark - NSCollectionViewDelegate
+#pragma mark - NSTableViewDelegate
 
-- (void)collectionView:(NSCollectionView *)collectionView didSelectItemsAtIndexPaths:(NSSet<NSIndexPath *> *)indexPaths {
-    MainListItemModel * _Nullable itemModel = [self.viewModel itemModelForndexPath:indexPaths.allObjects.firstObject];
+- (void)tableViewSelectionDidChange:(NSNotification *)notification {
+    NSTableView *tableView = (NSTableView *)notification.object;
+    
+    if ((tableView == nil) || (![tableView isKindOfClass:[NSTableView class]])) return;
+    
+    MainListItemModel * _Nullable itemModel = [self.viewModel.dataSource itemIdentifierForRow:tableView.selectedRow];
+    
+    if (itemModel == nil) return;
+    
     [self.delegate mainListViewController:self didChangeSelectedItemModelType:itemModel.type];
 }
 
