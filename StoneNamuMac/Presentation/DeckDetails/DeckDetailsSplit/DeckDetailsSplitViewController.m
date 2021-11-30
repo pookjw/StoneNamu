@@ -40,7 +40,6 @@
     [deckAddCardsViewController loadViewIfNeeded];
     NSSplitViewItem *deckAddCardsSplitViewItem = [NSSplitViewItem contentListWithViewController:deckAddCardsViewController];
     [self addSplitViewItem:deckAddCardsSplitViewItem];
-    [deckAddCardsSplitViewItem release];
     
     //
     
@@ -49,7 +48,6 @@
     [deckDetailsViewController loadViewIfNeeded];
     NSSplitViewItem *deckDetailsSplitViewItem = [NSSplitViewItem contentListWithViewController:deckDetailsViewController];
     [self addSplitViewItem:deckDetailsSplitViewItem];
-    [deckDetailsSplitViewItem release];
     
     //
     
