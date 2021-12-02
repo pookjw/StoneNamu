@@ -32,7 +32,7 @@
 - (void)configureWithLocalDeck:(LocalDeck *)localDeck deckBaseCollectionViewItemDelegate:(id<DeckBaseCollectionViewItemDelegate>)deckBaseCollectionViewItemDelegate {
     [self->_localDeck release];
     self->_localDeck = [localDeck retain];
-    self.textField.stringValue = localDeck.name;
+    self.textField.stringValue = [NSString stringWithFormat:@"%@ (%@)", localDeck.name, localDeck.format];
     self.deckBaseCollectionViewItemDelegate = deckBaseCollectionViewItemDelegate;
 }
 

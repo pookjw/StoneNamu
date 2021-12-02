@@ -87,7 +87,7 @@
 }
 
 - (void)keyMenuItemTriggered:(StorableMenuItem *)sender {
-    HSDeckFormat hsDeckFormat = HSDeckFormatFromNSUserInterfaceItemIdentifierDecks(sender.identifier);
+    HSDeckFormat hsDeckFormat = sender.userInfo.allKeys.firstObject;
     HSCardClass hsCardClass = HSCardClassFromNSString(sender.userInfo.allValues.firstObject);
     [self.decksMenuDelegate decksMenu:self createNewDeckWithDeckFormat:hsDeckFormat hsCardClass:hsCardClass];
 }

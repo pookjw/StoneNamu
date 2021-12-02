@@ -23,7 +23,7 @@
         StorableMenuItem *item = [[StorableMenuItem alloc] initWithTitle:obj
                                                                   action:DecksMenuFactory.keyMenuItemTriggeredSelector
                                                            keyEquivalent:@""
-                                                                userInfo:@{@"type": key}];
+                                                                userInfo:@{deckFormat: key}];
         item.target = target;
         
         [itemArray addObject:item];

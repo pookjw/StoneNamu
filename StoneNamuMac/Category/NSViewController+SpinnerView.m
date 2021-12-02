@@ -76,15 +76,19 @@
             subview.wantsLayer = YES;
 
             [CATransaction begin];
+            
+            [CATransaction setCompletionBlock:^{
+                [subview removeFromSuperview];
+            }];
+            
             CABasicAnimation *fade = [CABasicAnimation animationWithKeyPath:@"opacity"];
             fade.duration = ANIMATION_DURATION;
             fade.fromValue = [NSNumber numberWithFloat:1.0f];
             fade.toValue = [NSNumber numberWithFloat:0.0f];
             fade.removedOnCompletion = YES;
-            [CATransaction setCompletionBlock:^{
-                [subview removeFromSuperview];
-            }];
+            
             [subview.layer addAnimation:fade forKey:@"fadeOut"];
+            
             [CATransaction commit];
 
             subview.layer.opacity = 0.0f;

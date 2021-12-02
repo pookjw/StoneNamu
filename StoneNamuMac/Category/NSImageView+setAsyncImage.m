@@ -176,15 +176,19 @@ static NSString * const NSImageViewAsyncImageCategorySessionTaskKey = @"NSImageV
     self.wantsLayer = YES;
 
     [CATransaction begin];
+    
+    [CATransaction setCompletionBlock:^{
+        self.layer.opacity = 1.0f;
+    }];
+    
     CABasicAnimation *fade = [CABasicAnimation animationWithKeyPath:@"opacity"];
     fade.duration = 0.3f;
     fade.fromValue = [NSNumber numberWithFloat:0.0f];
     fade.toValue = [NSNumber numberWithFloat:1.0f];
     fade.removedOnCompletion = YES;
-    [CATransaction setCompletionBlock:^{
-        self.alphaValue = 1.0f;
-    }];
+    
     [self.layer addAnimation:fade forKey:@"fade"];
+    
     [CATransaction commit];
 }
 
