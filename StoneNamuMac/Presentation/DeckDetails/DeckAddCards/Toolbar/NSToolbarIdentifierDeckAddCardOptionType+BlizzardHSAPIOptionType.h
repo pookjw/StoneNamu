@@ -1,0 +1,28 @@
+//
+//  NSToolbarIdentifierDeckAddCardOptionType+BlizzardHSAPIOptionType.h
+//  StoneNamu
+//
+//  Created by Jinwoo Kim on 12/3/21.
+//
+
+#import <Cocoa/Cocoa.h>
+#import <StoneNamuCore/StoneNamuCore.h>
+
+static NSToolbarIdentifier const NSToolbarIdentifierDeckAddCardOptionsTypeTextFilter = @"NSToolbarIdentifierDeckAddCardOptionsTypeTextFilter";
+static NSToolbarIdentifier const NSToolbarIdentifierDeckAddCardOptionsTypeSet = @"NSToolbarIdentifierDeckAddCardOptionsTypeSet";
+static NSToolbarIdentifier const NSToolbarIdentifierDeckAddCardOptionsTypeClass = @"NSToolbarIdentifierDeckAddCardOptionsTypeClass";
+static NSToolbarIdentifier const NSToolbarIdentifierDeckAddCardOptionsTypeManaCost = @"NSToolbarIdentifierDeckAddCardOptionsTypeManaCost";
+static NSToolbarIdentifier const NSToolbarIdentifierDeckAddCardOptionsTypeAttack = @"NSToolbarIdentifierDeckAddCardOptionsTypeAttack";
+static NSToolbarIdentifier const NSToolbarIdentifierDeckAddCardOptionsTypeHealth = @"NSToolbarIdentifierDeckAddCardOptionsTypeHealth";
+static NSToolbarIdentifier const NSToolbarIdentifierDeckAddCardOptionsTypeCollecticle = @"NSToolbarIdentifierDeckAddCardOptionsTypeCollecticle";
+static NSToolbarIdentifier const NSToolbarIdentifierDeckAddCardOptionsTypeRarity = @"NSToolbarIdentifierDeckAddCardOptionsTypeRarity";
+static NSToolbarIdentifier const NSToolbarIdentifierDeckAddCardOptionsTypeType = @"NSToolbarIdentifierDeckAddCardOptionsTypeType";
+static NSToolbarIdentifier const NSToolbarIdentifierDeckAddCardOptionsTypeMinionType = @"NSToolbarIdentifierDeckAddCardOptionsTypeMinionType";
+static NSToolbarIdentifier const NSToolbarIdentifierDeckAddCardOptionsTypeSpellSchool = @"NSToolbarIdentifierDeckAddCardOptionsTypeSpellSchool";
+static NSToolbarIdentifier const NSToolbarIdentifierDeckAddCardOptionsTypeKeyword = @"NSToolbarIdentifierDeckAddCardOptionsTypeKeyword";
+static NSToolbarIdentifier const NSToolbarIdentifierDeckAddCardOptionsTypeGameMode = @"NSToolbarIdentifierDeckAddCardOptionsTypeGameMode";
+static NSToolbarIdentifier const NSToolbarIdentifierDeckAddCardOptionsTypeSort = @"NSToolbarIdentifierDeckAddCardOptionsTypeSort";
+
+NSArray<NSToolbarIdentifier> * allNSToolbarIdentifierDeckAddCardOptionsType(void);
+NSToolbarIdentifier NSToolbarIdentifierCardOptionFromBlizzardHSAPIOptionType(BlizzardHSAPIOptionType type);
+BlizzardHSAPIOptionType BlizzardHSAPIOptionTypeFromNSToolbarIdentifierCardOptionType(NSToolbarIdentifier itemIdentifier);

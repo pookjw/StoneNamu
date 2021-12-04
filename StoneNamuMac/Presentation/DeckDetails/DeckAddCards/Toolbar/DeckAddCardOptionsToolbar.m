@@ -1,20 +1,20 @@
 //
-//  CardOptionsToolbar.m
+//  DeckAddCardOptionsToolbar.m
 //  StoneNamuMac
 //
-//  Created by Jinwoo Kim on 10/30/21.
+//  Created by Jinwoo Kim on 12/3/21.
 //
 
-#import "CardOptionsToolbar.h"
+#import "DeckAddCardOptionsToolbar.h"
 #import "StorableMenuItem.h"
 #import "StorableSearchField.h"
 #import "DynamicMenuToolbarItem.h"
 #import "NSToolbarIdentifierCardOptionType+BlizzardHSAPIOptionType.h"
-#import "CardOptionsMenuFactory.h"
+#import "DeckAddCardOptionsMenuFactory.h"
 #import <StoneNamuResources/StoneNamuResources.h>
 
-@interface CardOptionsToolbar () <NSToolbarDelegate, NSSearchFieldDelegate>
-@property (weak) id<CardOptionsToolbarDelegate> cardOptionsToolbarDelegate;
+@interface DeckAddCardOptionsToolbar () <NSToolbarDelegate, NSSearchFieldDelegate>
+@property (weak) id<DeckAddCardOptionsToolbarDelegate> deckAddCardOptionsToolbarDelegate;
 @property (retain) DynamicMenuToolbarItem *optionTypeTextFilterItem;
 @property (retain) DynamicMenuToolbarItem *optionTypeSetItem;
 @property (retain) DynamicMenuToolbarItem *optionTypeClassItem;
@@ -33,9 +33,9 @@
 @property (retain) NSMutableDictionary<NSString *, NSString *> *options;
 @end
 
-@implementation CardOptionsToolbar
+@implementation DeckAddCardOptionsToolbar
 
-- (instancetype)initWithIdentifier:(NSToolbarIdentifier)identifier options:(NSDictionary<NSString *, NSString *> * _Nullable)options cardOptionsToolbarDelegate:(id<CardOptionsToolbarDelegate>)cardOptionsToolbarDelegate {
+- (instancetype)initWithIdentifier:(NSToolbarIdentifier)identifier options:(NSDictionary<NSString *, NSString *> * _Nullable)options deckAddCardOptionsToolbarDelegate:(id<DeckAddCardOptionsToolbarDelegate>)deckAddCardOptionsToolbarDelegate {
     self = [self initWithIdentifier:identifier];
     
     if (self) {
@@ -43,7 +43,7 @@
         self.options = mutableOptions;
         [mutableOptions release];
         
-        self.cardOptionsToolbarDelegate = cardOptionsToolbarDelegate;
+        self.deckAddCardOptionsToolbarDelegate = deckAddCardOptionsToolbarDelegate;
         [self setAttributes];
         [self configureToolbarItems];
         [self updateItemsWithOptions:options];
@@ -217,8 +217,8 @@
         
         //
         
-        item.image = [CardOptionsMenuFactory imageForCardOptionsWithValue:value optionType:optionType];
-        item.title = [CardOptionsMenuFactory titleForCardOptionsWithValue:value optionType:optionType];
+        item.image = [DeckAddCardOptionsMenuFactory imageForDeckAddCardOptionTypeWithValue:value optionType:optionType];
+        item.title = [DeckAddCardOptionsMenuFactory titleForDeckAddCardOptionTypeWithValue:value optionType:optionType];
         
         [self updateStateOfMenuToolbarItem:item];
     }];
@@ -228,7 +228,7 @@
     NSToolbarItemIdentifier itemIdentifier = menuToolbarItem.itemIdentifier;
     BlizzardHSAPIOptionType optionType = BlizzardHSAPIOptionTypeFromNSToolbarIdentifierCardOptionType(itemIdentifier);
     
-    return [CardOptionsMenuFactory menuForOptionType:optionType target:self];
+    return [DeckAddCardOptionsMenuFactory menuForOptionType:optionType target:self];
 }
 
 - (void)updateStateOfMenuToolbarItem:(DynamicMenuToolbarItem *)menuToolbarItem {
@@ -278,7 +278,7 @@
     }
     
     [self updateItemsWithOptions:self.options];
-    [self.cardOptionsToolbarDelegate cardOptionsToolbar:self changedOption:self.options];
+    [self.deckAddCardOptionsToolbarDelegate deckAddCardOptionsToolbar:self changedOption:self.options];
 }
 
 #pragma mark - NSToolbarDelegate
@@ -326,7 +326,7 @@
         }
         
         [self updateItemsWithOptions:self.options];
-        [self.cardOptionsToolbarDelegate cardOptionsToolbar:self changedOption:self.options];
+        [self.deckAddCardOptionsToolbarDelegate deckAddCardOptionsToolbar:self changedOption:self.options];
     }
 }
 

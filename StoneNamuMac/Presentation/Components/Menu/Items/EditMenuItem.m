@@ -25,11 +25,11 @@
     //
     
     NSMenuItem *undoItem = [[NSMenuItem alloc] initWithTitle:@"Undo"
-                                                          action:@selector(undo:)
-                                                   keyEquivalent:@"z"];
+                                                      action:@selector(undo:)
+                                               keyEquivalent:@"z"];
     NSMenuItem *redoItem = [[NSMenuItem alloc] initWithTitle:@"Redo"
-                                                          action:@selector(redo:)
-                                                   keyEquivalent:@"z"];
+                                                      action:@selector(redo:)
+                                               keyEquivalent:@"z"];
     
     redoItem.keyEquivalentModifierMask = NSEventModifierFlagShift | NSEventModifierFlagCommand;
     

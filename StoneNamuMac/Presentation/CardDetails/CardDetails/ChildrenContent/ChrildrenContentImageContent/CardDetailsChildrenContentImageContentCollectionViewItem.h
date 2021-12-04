@@ -7,12 +7,12 @@
 
 #import <Cocoa/Cocoa.h>
 #import <StoneNamuCore/StoneNamuCore.h>
-#import "SelectedBackgroundCollectionViewCell.h"
+#import "SelectedBackgroundCollectionViewItem.h"
 #import "CardDetailsChildrenContentImageContentCollectionViewItemDelegate.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CardDetailsChildrenContentImageContentCollectionViewItem : SelectedBackgroundCollectionViewCell
+@interface CardDetailsChildrenContentImageContentCollectionViewItem : SelectedBackgroundCollectionViewItem
 - (void)configureWithHSCard:(HSCard *)hsCard delegate:(id<CardDetailsChildrenContentImageContentCollectionViewItemDelegate>)delegate;
 @end
 

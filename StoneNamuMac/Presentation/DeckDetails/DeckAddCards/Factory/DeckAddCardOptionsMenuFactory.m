@@ -1,16 +1,16 @@
 //
-//  CardOptionsMenuFactory.m
+//  DeckAddCardOptionsMenuFactory.m
 //  StoneNamuMac
 //
-//  Created by Jinwoo Kim on 11/9/21.
+//  Created by Jinwoo Kim on 12/3/21.
 //
 
-#import "CardOptionsMenuFactory.h"
+#import "DeckAddCardOptionsMenuFactory.h"
 #import "StorableMenuItem.h"
 #import "StorableSearchField.h"
 #import <StoneNamuResources/StoneNamuResources.h>
 
-@implementation CardOptionsMenuFactory
+@implementation DeckAddCardOptionsMenuFactory
 
 + (SEL)keyMenuItemTriggeredSelector {
     return NSSelectorFromString(@"keyMenuItemTriggered:");
@@ -20,7 +20,7 @@
     return ((value != nil) && (![value isEqualToString:@""]));
 }
 
-+ (NSString *)titleForCardOptionTypeWithValue:(NSString *)value optionType:(BlizzardHSAPIOptionType)optionType {
++ (NSString *)titleForDeckAddCardOptionTypeWithValue:(NSString *)value optionType:(BlizzardHSAPIOptionType)optionType {
     
     BOOL hasValue = [self hasValueForValue:value];
     
@@ -113,7 +113,7 @@
     }
 }
 
-+ (NSImage *)imageForCardOptionTypeWithValue:(NSString *)value optionType:(BlizzardHSAPIOptionType)optionType {
++ (NSImage *)imageForDeckAddCardOptionTypeWithValue:(NSString *)value optionType:(BlizzardHSAPIOptionType)optionType {
     BOOL hasValue = [self hasValueForValue:value];
     return [ResourcesService imageForBlizzardHSAPIOptionType:optionType fill:hasValue];
 }
@@ -284,7 +284,7 @@
     [dic enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSString * _Nonnull obj, BOOL * _Nonnull stop) {
         if (![filterArray containsObject:key]) {
             StorableMenuItem *item = [[StorableMenuItem alloc] initWithTitle:obj
-                                                                      action:CardOptionsMenuFactory.keyMenuItemTriggeredSelector
+                                                                      action:DeckAddCardOptionsMenuFactory.keyMenuItemTriggeredSelector
                                                                keyEquivalent:@""
                                                                     userInfo:@{type: key}];
             item.target = target;
@@ -321,7 +321,7 @@
     
     if (showEmptyItem) {
         StorableMenuItem *emptyItem = [[StorableMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyAll]
-                                                                       action:CardOptionsMenuFactory.keyMenuItemTriggeredSelector
+                                                                       action:DeckAddCardOptionsMenuFactory.keyMenuItemTriggeredSelector
                                                                 keyEquivalent:@""
                                                                      userInfo:@{type: @""}];
         emptyItem.target = target;

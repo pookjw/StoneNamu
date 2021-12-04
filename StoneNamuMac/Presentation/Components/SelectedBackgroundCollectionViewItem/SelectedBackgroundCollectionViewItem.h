@@ -1,5 +1,5 @@
 //
-//  SelectedBackgroundCollectionViewCell.h
+//  SelectedBackgroundCollectionViewItem.h
 //  StoneNamuMac
 //
 //  Created by Jinwoo Kim on 11/19/21.
@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SelectedBackgroundCollectionViewCell : NSCollectionViewItem
+@interface SelectedBackgroundCollectionViewItem : NSCollectionViewItem
 
 @end
 

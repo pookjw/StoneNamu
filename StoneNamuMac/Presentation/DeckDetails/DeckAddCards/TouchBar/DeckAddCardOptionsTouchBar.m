@@ -1,21 +1,21 @@
 //
-//  CardOptionsTouchBar.m
+//  DeckAddOptionsTouchBar.m
 //  StoneNamuMac
 //
-//  Created by Jinwoo Kim on 11/1/21.
+//  Created by Jinwoo Kim on 12/3/21.
 //
 
-#import "CardOptionsTouchBar.h"
+#import "DeckAddCardOptionsTouchBar.h"
 #import "NSTouchBarItemIdentifierCardOptionType+BlizzardHSAPIOptionType.h"
 #import "NSScrubber+Private.h"
-#import "CardOptionsMenuFactory.h"
+#import "DeckAddCardOptionsMenuFactory.h"
 #import <StoneNamuResources/StoneNamuResources.h>
 
-static NSTouchBarCustomizationIdentifier const NSTouchBarCustomizationIdentifierCardOptionsTouchBar = @"NSTouchBarCustomizationIdentifierCardOptionsTouchBar";
+static NSTouchBarCustomizationIdentifier const NSTouchBarCustomizationIdentifierDeckAddCardOptionsTouchBar = @"NSTouchBarCustomizationIdentifierDeckAddCardOptionsTouchBar";
 static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubberTextItemViewReuseIdentifier = @"NSUserInterfaceItemIdentifierNSScrubberTextItemViewReuseIdentifier";
 
-@interface CardOptionsTouchBar () <NSTouchBarDelegate, NSScrubberDataSource, NSScrubberDelegate>
-@property (weak) id<CardOptionsTouchBarDelegate> cardOptionsTouchBarDelegate;
+@interface DeckAddCardOptionsTouchBar () <NSTouchBarDelegate, NSScrubberDataSource, NSScrubberDelegate>
+@property (weak) id<DeckAddCardOptionsTouchBarDelegate> deckAddCardOptionsTouchBarDelegate;
 @property (retain) NSArray<NSPopoverTouchBarItem *> *allPopoverItems;
 @property (retain) NSArray<NSScrubber *> *allScrubbers;
 @property (retain) NSMutableDictionary<NSString *, NSString *> *options;
@@ -86,9 +86,9 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
 @property (retain) NSScrubber *optionTypeSortScrubber;
 @end
 
-@implementation CardOptionsTouchBar
+@implementation DeckAddCardOptionsTouchBar
 
-- (instancetype)initWithOptions:(NSDictionary<NSString *,NSString *> * _Nullable)options cardOptionsTouchBarDelegate:(id<CardOptionsTouchBarDelegate>)cardOptionsTouchBarDelegate {
+- (instancetype)initWithOptions:(NSDictionary<NSString *,NSString *> *)options deckAddCardOptionsTouchBarDelegate:(id<DeckAddCardOptionsTouchBarDelegate>)deckAddCardOptionsTouchBarDelegate {
     self = [self init];
     
     if (self) {
@@ -96,7 +96,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
         self.options = mutableOptions;
         [mutableOptions release];
         
-        self.cardOptionsTouchBarDelegate = cardOptionsTouchBarDelegate;
+        self.deckAddCardOptionsTouchBarDelegate = deckAddCardOptionsTouchBarDelegate;
         
         //
         
@@ -183,7 +183,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
 
 - (void)setAttributes {
     self.delegate = self;
-    self.customizationIdentifier = NSTouchBarCustomizationIdentifierCardOptionsTouchBar;
+    self.customizationIdentifier = NSTouchBarCustomizationIdentifierDeckAddCardOptionsTouchBar;
     self.defaultItemIdentifiers = allNSTouchBarItemIdentifierCardOptionTypes();
     self.customizationAllowedItemIdentifiers = allNSTouchBarItemIdentifierCardOptionTypes();
 }
@@ -536,7 +536,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
             NSPopoverTouchBarItem * _Nullable popover = [self popoverTouchBarItemFromOptionType:optionType];
             
             if (popover != nil) {
-                popover.collapsedRepresentationImage = [CardOptionsMenuFactory imageForCardOptionsWithValue:nil optionType:optionType];
+                popover.collapsedRepresentationImage = [DeckAddCardOptionsMenuFactory imageForDeckAddCardOptionTypeWithValue:nil optionType:optionType];
             }
         }
     }];
@@ -573,7 +573,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
             NSPopoverTouchBarItem * _Nullable popover = [self popoverTouchBarItemFromOptionType:optionType];
             
             if (popover != nil) {
-                popover.collapsedRepresentationImage = [CardOptionsMenuFactory imageForCardOptionsWithValue:obj1 optionType:optionType];
+                popover.collapsedRepresentationImage = [DeckAddCardOptionsMenuFactory imageForDeckAddCardOptionTypeWithValue:obj1 optionType:optionType];
             }
         }
     }];
@@ -588,9 +588,9 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     BlizzardHSAPIOptionType optionType = [self optionTypeFromScrubber:scrubber];
     NSString * _Nullable value = self.options[optionType];
     
-    popoverItem.collapsedRepresentationImage = [CardOptionsMenuFactory imageForCardOptionsWithValue:value optionType:optionType];
-    popoverItem.collapsedRepresentationLabel = [CardOptionsMenuFactory titleForCardOptionsWithValue:nil optionType:optionType];
-    popoverItem.customizationLabel = [CardOptionsMenuFactory titleForCardOptionsWithValue:nil optionType:optionType];
+    popoverItem.collapsedRepresentationImage = [DeckAddCardOptionsMenuFactory imageForDeckAddCardOptionTypeWithValue:value optionType:optionType];
+    popoverItem.collapsedRepresentationLabel = [DeckAddCardOptionsMenuFactory titleForDeckAddCardOptionTypeWithValue:nil optionType:optionType];
+    popoverItem.customizationLabel = [DeckAddCardOptionsMenuFactory titleForDeckAddCardOptionTypeWithValue:nil optionType:optionType];
     popoverItem.popoverTouchBar = touchBar;
     popoverItem.pressAndHoldTouchBar = touchBar;
     touchBar.delegate = self;
@@ -970,7 +970,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     BlizzardHSAPIOptionType optionType = [self optionTypeFromScrubber:scrubber];
     NSString *newValue = keys[selectedIndex];
     
-    if (![CardOptionsMenuFactory hasValueForValue:newValue]) {
+    if (![DeckAddCardOptionsMenuFactory hasValueForValue:newValue]) {
         self.options[optionType] = nil;
     } else if ((newValue == nil) && (self.options[optionType] == nil)) {
         return;
@@ -980,7 +980,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
         self.options[optionType] = keys[selectedIndex];
     }
     
-    [self.cardOptionsTouchBarDelegate cardOptionsTouchBar:self changedOption:self.options];
+    [self.deckAddCardOptionsTouchBarDelegate deckAddCardOptionsTouchBar:self changedOption:self.options];
 }
 
 @end

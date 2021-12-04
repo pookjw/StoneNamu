@@ -1,13 +1,13 @@
 //
-//  SelectedBackgroundCollectionViewCell.m
+//  SelectedBackgroundCollectionViewItem.m
 //  StoneNamuMac
 //
 //  Created by Jinwoo Kim on 11/19/21.
 //
 
-#import "SelectedBackgroundCollectionViewCell.h"
+#import "SelectedBackgroundCollectionViewItem.h"
 
-@implementation SelectedBackgroundCollectionViewCell
+@implementation SelectedBackgroundCollectionViewItem
 
 - (void)dealloc {
     [self removeObserver:self forKeyPath:@"self.view.window"];

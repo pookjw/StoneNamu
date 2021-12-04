@@ -5,14 +5,13 @@
 //  Created by Jinwoo Kim on 10/24/21.
 //
 
-#import <Cocoa/Cocoa.h>
-#import <StoneNamuCore/StoneNamuCore.h>
-#import "SelectedBackgroundCollectionViewCell.h"
+#import "SelectedBackgroundCollectionViewItem.h"
 #import "CardCollectionViewItemDelegate.h"
+#import <StoneNamuCore/StoneNamuCore.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CardCollectionViewItem : SelectedBackgroundCollectionViewCell
+@interface CardCollectionViewItem : SelectedBackgroundCollectionViewItem
 - (void)configureWithHSCard:(HSCard *)hsCard delegate:(id<CardCollectionViewItemDelegate>)delegate;
 @end
 

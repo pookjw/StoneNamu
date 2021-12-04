@@ -5,7 +5,6 @@
 //  Created by Jinwoo Kim on 11/8/21.
 //
 
-#import <Cocoa/Cocoa.h>
 #import "BaseMenu.h"
 #import "CardOptionsMenuDelegate.h"
 
