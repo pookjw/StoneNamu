@@ -25,10 +25,6 @@
     [self addGesture];
 }
 
-- (void)prepareForReuse {
-    [super prepareForReuse];
-}
-
 - (void)configureWithHSCard:(HSCard *)hsCard delegate:(nonnull id<CardCollectionViewItemDelegate>)delegate {
     self.hsCard = hsCard;
     self.delegte = delegate;

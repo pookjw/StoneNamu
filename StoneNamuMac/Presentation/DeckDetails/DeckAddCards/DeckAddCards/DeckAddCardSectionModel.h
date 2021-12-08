@@ -1,8 +1,8 @@
 //
 //  DeckAddCardSectionModel.h
-//  StoneNamu
+//  StoneNamuMac
 //
-//  Created by Jinwoo Kim on 7/24/21.
+//  Created by Jinwoo Kim on 12/8/21.
 //
 
 #import <Foundation/Foundation.h>
@@ -10,7 +10,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSUInteger, DeckAddCardSectionModelType) {
-    DeckCardsSectionModelTypeCards
+    DeckAddCardSectionModelTypeCards
 };
 
 @interface DeckAddCardSectionModel : NSObject

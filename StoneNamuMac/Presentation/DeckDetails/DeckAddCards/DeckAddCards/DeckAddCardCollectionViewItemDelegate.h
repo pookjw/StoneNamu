@@ -5,8 +5,14 @@
 //  Created by Jinwoo Kim on 12/3/21.
 //
 
-#ifndef DeckAddCardCollectionViewItemDelegate_h
-#define DeckAddCardCollectionViewItemDelegate_h
+#import <Cocoa/Cocoa.h>
 
+@class DeckAddCardCollectionViewItem;
 
-#endif /* DeckAddCardCollectionViewItemDelegate_h */
+NS_ASSUME_NONNULL_BEGIN
+
+@protocol DeckAddCardCollectionViewItemDelegate <NSObject>
+- (void)deckAddCardCollectionViewItem:(DeckAddCardCollectionViewItem *)deckAddCardCollectionViewItem didClickWithRecognizer:(NSClickGestureRecognizer *)recognizer;
+@end
+
+NS_ASSUME_NONNULL_END

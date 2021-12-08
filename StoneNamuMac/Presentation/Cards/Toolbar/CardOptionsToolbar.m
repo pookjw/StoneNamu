@@ -217,8 +217,8 @@
         
         //
         
-        item.image = [CardOptionsMenuFactory imageForCardOptionsWithValue:value optionType:optionType];
-        item.title = [CardOptionsMenuFactory titleForCardOptionsWithValue:value optionType:optionType];
+        item.image = [CardOptionsMenuFactory imageForCardOptionTypeWithValue:value optionType:optionType];
+        item.title = [CardOptionsMenuFactory titleForCardOptionTypeWithValue:value optionType:optionType];
         
         [self updateStateOfMenuToolbarItem:item];
     }];

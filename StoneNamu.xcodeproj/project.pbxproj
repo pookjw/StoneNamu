@@ -390,6 +390,10 @@
 		F31581012741231700DBD6D4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F31581002741231700DBD6D4 /* AppDelegate.m */; };
 		F35E230A27401B42000A2605 /* BlizzardHSAPIOptionType.strings in Resources */ = {isa = PBXBuildFile; fileRef = F35E230C27401B42000A2605 /* BlizzardHSAPIOptionType.strings */; };
 		F3862A3127428FC70061C20C /* PrefsDataViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F3862A3027428FC70061C20C /* PrefsDataViewModel.m */; };
+		F38FEE4F27604A4400A00485 /* DeckAddCardCollectionViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = F38FEE4E27604A4400A00485 /* DeckAddCardCollectionViewItem.xib */; };
+		F38FEE5227604C1D00A00485 /* DeckAddCardSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F38FEE5127604C1D00A00485 /* DeckAddCardSectionModel.m */; };
+		F38FEE5527604C6800A00485 /* DeckAddCardItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F38FEE5427604C6800A00485 /* DeckAddCardItemModel.m */; };
+		F38FEE5827604C9A00A00485 /* DeckAddCardsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F38FEE5727604C9A00A00485 /* DeckAddCardsViewModel.m */; };
 		F3A096FB274C807D00C7DFA4 /* HSCardPromiseProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = F3A096FA274C807D00C7DFA4 /* HSCardPromiseProvider.m */; };
 		F3CCE28A2742C3BD004B5B26 /* MainListViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F3CCE2892742C3BD004B5B26 /* MainListViewModel.m */; };
 		F3CCE28D2742C435004B5B26 /* MainListSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F3CCE28C2742C435004B5B26 /* MainListSectionModel.m */; };
@@ -1142,6 +1146,13 @@
 		F35E230D27401B43000A2605 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/BlizzardHSAPIOptionType.strings; sourceTree = "<group>"; };
 		F3862A2F27428FC70061C20C /* PrefsDataViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefsDataViewModel.h; sourceTree = "<group>"; };
 		F3862A3027428FC70061C20C /* PrefsDataViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrefsDataViewModel.m; sourceTree = "<group>"; };
+		F38FEE4E27604A4400A00485 /* DeckAddCardCollectionViewItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DeckAddCardCollectionViewItem.xib; sourceTree = "<group>"; };
+		F38FEE5027604C1D00A00485 /* DeckAddCardSectionModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckAddCardSectionModel.h; sourceTree = "<group>"; };
+		F38FEE5127604C1D00A00485 /* DeckAddCardSectionModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckAddCardSectionModel.m; sourceTree = "<group>"; };
+		F38FEE5327604C6800A00485 /* DeckAddCardItemModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckAddCardItemModel.h; sourceTree = "<group>"; };
+		F38FEE5427604C6800A00485 /* DeckAddCardItemModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckAddCardItemModel.m; sourceTree = "<group>"; };
+		F38FEE5627604C9A00A00485 /* DeckAddCardsViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckAddCardsViewModel.h; sourceTree = "<group>"; };
+		F38FEE5727604C9A00A00485 /* DeckAddCardsViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckAddCardsViewModel.m; sourceTree = "<group>"; };
 		F3A096F9274C807D00C7DFA4 /* HSCardPromiseProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardPromiseProvider.h; sourceTree = "<group>"; };
 		F3A096FA274C807D00C7DFA4 /* HSCardPromiseProvider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCardPromiseProvider.m; sourceTree = "<group>"; };
 		F3CCE2882742C3BD004B5B26 /* MainListViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainListViewModel.h; sourceTree = "<group>"; };
@@ -2652,9 +2663,16 @@
 			children = (
 				4F5900A12753503F00217E4A /* DeckAddCardsViewController.h */,
 				4F5900A22753503F00217E4A /* DeckAddCardsViewController.m */,
+				F38FEE5627604C9A00A00485 /* DeckAddCardsViewModel.h */,
+				F38FEE5727604C9A00A00485 /* DeckAddCardsViewModel.m */,
+				F38FEE5027604C1D00A00485 /* DeckAddCardSectionModel.h */,
+				F38FEE5127604C1D00A00485 /* DeckAddCardSectionModel.m */,
+				F38FEE5327604C6800A00485 /* DeckAddCardItemModel.h */,
+				F38FEE5427604C6800A00485 /* DeckAddCardItemModel.m */,
 				4FF3CD522759802F00ACA5AC /* DeckAddCardCollectionViewItemDelegate.h */,
 				4FF3CD4F27597FF700ACA5AC /* DeckAddCardCollectionViewItem.h */,
 				4FF3CD5027597FF700ACA5AC /* DeckAddCardCollectionViewItem.m */,
+				F38FEE4E27604A4400A00485 /* DeckAddCardCollectionViewItem.xib */,
 			);
 			path = DeckAddCards;
 			sourceTree = "<group>";
@@ -3195,6 +3213,7 @@
 				4F4738D12746D5B7000C0C85 /* CardDetailsBaseCollectionViewItem.xib in Resources */,
 				4FDE9B5E274AEE8C00AB0E02 /* CardDetailsChildrenContentCollectionViewItem.xib in Resources */,
 				4FDE9B6D274AF05C00AB0E02 /* CardDetailsChildrenContentImageContentCollectionViewItem.xib in Resources */,
+				F38FEE4F27604A4400A00485 /* DeckAddCardCollectionViewItem.xib in Resources */,
 				4F59008B2752FE6100217E4A /* MainListTableCellView.xib in Resources */,
 				4FD4E026274EE2E80037D867 /* DeckBaseCollectionViewItem.xib in Resources */,
 			);
@@ -3466,6 +3485,7 @@
 				4F4892DE27246B6000126131 /* NSViewController+loadViewIfNeeded.m in Sources */,
 				F3A096FB274C807D00C7DFA4 /* HSCardPromiseProvider.m in Sources */,
 				4FE857792700A3580008C2FB /* NSWindow+presentErrorAlert.m in Sources */,
+				F38FEE5827604C9A00A00485 /* DeckAddCardsViewModel.m in Sources */,
 				4F883F66272FF31500AF0048 /* StorableSearchField.m in Sources */,
 				4F59009527531C4D00217E4A /* NSSplitViewController+removeSplitViewItemAtIndex.m in Sources */,
 				4F1FA0AC27501A270082EBF0 /* DecksTouchBar.m in Sources */,
@@ -3498,7 +3518,9 @@
 				4FC402C92738755F00D25523 /* BaseMenu.m in Sources */,
 				4F6462D62726932A00329B10 /* NSImageView+setAsyncImage.m in Sources */,
 				4FC402BA27386D2500D25523 /* FileMenuItem.m in Sources */,
+				F38FEE5527604C6800A00485 /* DeckAddCardItemModel.m in Sources */,
 				4FD4E024274EE2CB0037D867 /* DeckBaseCollectionViewItem.m in Sources */,
+				F38FEE5227604C1D00A00485 /* DeckAddCardSectionModel.m in Sources */,
 				4F4738B62746BBCF000C0C85 /* SelectedBackgroundCollectionViewItem.m in Sources */,
 				4F883F6A272FFE7C00AF0048 /* CardOptionsTouchBar.m in Sources */,
 				4FE85767270092F30008C2FB /* MainListViewController.m in Sources */,

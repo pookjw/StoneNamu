@@ -6,11 +6,13 @@
 //
 
 #import "SelectedBackgroundCollectionViewItem.h"
+#import "DeckAddCardCollectionViewItemDelegate.h"
+#import <StoneNamuCore/StoneNamuCore.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface DeckAddCardCollectionViewItem : SelectedBackgroundCollectionViewItem
-
+- (void)configureWithHSCard:(HSCard *)hsCard delegate:(id<DeckAddCardCollectionViewItemDelegate>)delegate;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -536,7 +536,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
             NSPopoverTouchBarItem * _Nullable popover = [self popoverTouchBarItemFromOptionType:optionType];
             
             if (popover != nil) {
-                popover.collapsedRepresentationImage = [CardOptionsMenuFactory imageForCardOptionsWithValue:nil optionType:optionType];
+                popover.collapsedRepresentationImage = [CardOptionsMenuFactory imageForCardOptionTypeWithValue:nil optionType:optionType];
             }
         }
     }];
@@ -573,7 +573,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
             NSPopoverTouchBarItem * _Nullable popover = [self popoverTouchBarItemFromOptionType:optionType];
             
             if (popover != nil) {
-                popover.collapsedRepresentationImage = [CardOptionsMenuFactory imageForCardOptionsWithValue:obj1 optionType:optionType];
+                popover.collapsedRepresentationImage = [CardOptionsMenuFactory imageForCardOptionTypeWithValue:obj1 optionType:optionType];
             }
         }
     }];
@@ -588,9 +588,9 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     BlizzardHSAPIOptionType optionType = [self optionTypeFromScrubber:scrubber];
     NSString * _Nullable value = self.options[optionType];
     
-    popoverItem.collapsedRepresentationImage = [CardOptionsMenuFactory imageForCardOptionsWithValue:value optionType:optionType];
-    popoverItem.collapsedRepresentationLabel = [CardOptionsMenuFactory titleForCardOptionsWithValue:nil optionType:optionType];
-    popoverItem.customizationLabel = [CardOptionsMenuFactory titleForCardOptionsWithValue:nil optionType:optionType];
+    popoverItem.collapsedRepresentationImage = [CardOptionsMenuFactory imageForCardOptionTypeWithValue:value optionType:optionType];
+    popoverItem.collapsedRepresentationLabel = [CardOptionsMenuFactory titleForCardOptionTypeWithValue:nil optionType:optionType];
+    popoverItem.customizationLabel = [CardOptionsMenuFactory titleForCardOptionTypeWithValue:nil optionType:optionType];
     popoverItem.popoverTouchBar = touchBar;
     popoverItem.pressAndHoldTouchBar = touchBar;
     touchBar.delegate = self;

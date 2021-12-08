@@ -92,8 +92,8 @@
         
         //
         
-        obj.image = [CardOptionsMenuFactory imageForCardOptionsWithValue:value optionType:optionType];
-        obj.title = [CardOptionsMenuFactory titleForCardOptionsWithValue:value optionType:optionType];
+        obj.image = [CardOptionsMenuFactory imageForCardOptionTypeWithValue:value optionType:optionType];
+        obj.title = [CardOptionsMenuFactory titleForCardOptionTypeWithValue:value optionType:optionType];
         
         [self updateStateOfItem:obj];
     }];

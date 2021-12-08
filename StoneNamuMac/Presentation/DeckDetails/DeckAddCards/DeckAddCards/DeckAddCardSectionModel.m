@@ -1,8 +1,8 @@
 //
 //  DeckAddCardSectionModel.m
-//  StoneNamu
+//  StoneNamuMac
 //
-//  Created by Jinwoo Kim on 7/24/21.
+//  Created by Jinwoo Kim on 12/8/21.
 //
 
 #import "DeckAddCardSectionModel.h"
