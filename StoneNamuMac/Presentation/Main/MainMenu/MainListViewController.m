@@ -10,6 +10,7 @@
 #import "MainListViewModel.h"
 
 static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierMainListTableColumn = @"NSUserInterfaceItemIdentifierMainListTableColumn";
+static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierMainListTableCellView = @"NSUserInterfaceItemIdentifierMainListTableCellView";
 
 @interface MainListViewController () <NSTableViewDelegate>
 @property (weak) id<MainListViewControllerDelegate> delegate;
@@ -99,7 +100,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierMainList
     //
     
     NSNib *nib = [[NSNib alloc] initWithNibNamed:NSStringFromClass([MainListTableCellView class]) bundle:NSBundle.mainBundle];
-    [tableView registerNib:nib forIdentifier:NSStringFromClass([MainListTableCellView class])];
+    [tableView registerNib:nib forIdentifier:NSUserInterfaceItemIdentifierMainListTableCellView];
     [nib release];
     
     NSTableColumn *tableColumn = [[NSTableColumn alloc] initWithIdentifier:NSUserInterfaceItemIdentifierMainListTableColumn];
@@ -129,7 +130,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierMainList
 - (MainListDataSource *)makeDataSource {
     MainListDataSource *dataSource = [[MainListDataSource alloc] initWithTableView:self.tableView cellProvider:^NSView * _Nonnull(NSTableView * _Nonnull tableView, NSTableColumn * _Nonnull column, NSInteger row, MainListItemModel * _Nonnull itemModel) {
         
-        MainListTableCellView *view = (MainListTableCellView *)[tableView makeViewWithIdentifier:NSStringFromClass([MainListTableCellView class]) owner:self];
+        MainListTableCellView *view = (MainListTableCellView *)[tableView makeViewWithIdentifier:NSUserInterfaceItemIdentifierMainListTableCellView owner:self];
         
         view.imageView.image = itemModel.image;
         view.textField.stringValue = itemModel.primaryText;

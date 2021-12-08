@@ -18,7 +18,8 @@
 #import <StoneNamuCore/StoneNamuCore.h>
 #import <StoneNamuResources/StoneNamuResources.h>
 
-static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardsViewController = @"NSUserInterfaceItemIdentifierCardsViewController";
+static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddCardsViewController = @"NSUserInterfaceItemIdentifierDeckAddCardsViewController";
+static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddCardCollectionViewItem = @"NSUserInterfaceItemIdentifierDeckAddCardCollectionViewItem";
 
 @interface DeckAddCardsViewController () <NSCollectionViewDelegate, DeckAddCardOptionsMenuDelegate, DeckAddCardOptionsToolbarDelegate, DeckAddCardOptionsTouchBarDelegate, DeckAddCardCollectionViewItemDelegate>
 @property (retain) NSScrollView *scrollView;
@@ -135,7 +136,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardsVie
 }
 
 - (void)setAttributes {
-    self.identifier = NSUserInterfaceItemIdentifierCardsViewController;
+    self.identifier = NSUserInterfaceItemIdentifierDeckAddCardsViewController;
 }
 
 - (void)configureCollectionView {
@@ -167,7 +168,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardsVie
     [flowLayout release];
     
     NSNib *nib = [[NSNib alloc] initWithNibNamed:NSStringFromClass([DeckAddCardCollectionViewItem class]) bundle:NSBundle.mainBundle];
-    [collectionView registerNib:nib forItemWithIdentifier:NSStringFromClass([DeckAddCardCollectionViewItem class])];
+    [collectionView registerNib:nib forItemWithIdentifier:NSUserInterfaceItemIdentifierDeckAddCardCollectionViewItem];
     [nib release];
 
     collectionView.selectable = YES;
@@ -258,7 +259,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardsVie
     DeckAddCardsDataSource *dataSource = [[DeckAddCardsDataSource alloc] initWithCollectionView:self.collectionView
                                                                      itemProvider:^NSCollectionViewItem * _Nullable(NSCollectionView * _Nonnull collectionView, NSIndexPath * _Nonnull indexPath, DeckAddCardItemModel * _Nonnull itemModel) {
         
-        DeckAddCardCollectionViewItem *item = (DeckAddCardCollectionViewItem *)[collectionView makeItemWithIdentifier:NSStringFromClass([DeckAddCardCollectionViewItem class]) forIndexPath:indexPath];
+        DeckAddCardCollectionViewItem *item = (DeckAddCardCollectionViewItem *)[collectionView makeItemWithIdentifier:NSUserInterfaceItemIdentifierDeckAddCardCollectionViewItem forIndexPath:indexPath];
         [item configureWithHSCard:itemModel.hsCard delegate:unretainedSelf];
         
         return item;

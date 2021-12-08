@@ -19,6 +19,7 @@
 #import <StoneNamuResources/StoneNamuResources.h>
 
 static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardsViewController = @"NSUserInterfaceItemIdentifierCardsViewController";
+static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardCollectionViewItem = @"NSUserInterfaceItemIdentifierCardCollectionViewItem";
 
 @interface CardsViewController () <NSCollectionViewDelegate, CardOptionsMenuDelegate, CardOptionsToolbarDelegate, CardOptionsTouchBarDelegate, CardCollectionViewItemDelegate>
 @property (retain) NSScrollView *scrollView;
@@ -157,7 +158,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardsVie
     [flowLayout release];
     
     NSNib *nib = [[NSNib alloc] initWithNibNamed:NSStringFromClass([CardCollectionViewItem class]) bundle:NSBundle.mainBundle];
-    [collectionView registerNib:nib forItemWithIdentifier:NSStringFromClass([CardCollectionViewItem class])];
+    [collectionView registerNib:nib forItemWithIdentifier:NSUserInterfaceItemIdentifierCardCollectionViewItem];
     [nib release];
 
     collectionView.selectable = YES;
@@ -248,7 +249,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardsVie
     CardsDataSource *dataSource = [[CardsDataSource alloc] initWithCollectionView:self.collectionView
                                                                      itemProvider:^NSCollectionViewItem * _Nullable(NSCollectionView * _Nonnull collectionView, NSIndexPath * _Nonnull indexPath, CardItemModel * _Nonnull itemModel) {
         
-        CardCollectionViewItem *item = (CardCollectionViewItem *)[collectionView makeItemWithIdentifier:NSStringFromClass([CardCollectionViewItem class]) forIndexPath:indexPath];
+        CardCollectionViewItem *item = (CardCollectionViewItem *)[collectionView makeItemWithIdentifier:NSUserInterfaceItemIdentifierCardCollectionViewItem forIndexPath:indexPath];
         [item configureWithHSCard:itemModel.hsCard delegate:unretainedSelf];
         
         return item;

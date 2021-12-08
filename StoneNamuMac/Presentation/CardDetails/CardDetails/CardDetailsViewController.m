@@ -15,6 +15,8 @@
 #import "NSViewController+SpinnerView.h"
 #import "HSCardDraggableImageView.h"
 
+static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDetailsBaseCollectionViewItem = @"NSUserInterfaceItemIdentifierCardDetailsBaseCollectionViewItem";
+
 @interface CardDetailsViewController () <NSCollectionViewDelegate>
 @property (retain) NSVisualEffectView *blurView;
 @property (retain) NSStackView *stackView;
@@ -154,7 +156,7 @@
     [layout release];
 
     NSNib *baseNib = [[NSNib alloc] initWithNibNamed:NSStringFromClass([CardDetailsBaseCollectionViewItem class]) bundle:NSBundle.mainBundle];
-    [collectionView registerNib:baseNib forItemWithIdentifier:NSStringFromClass([CardDetailsBaseCollectionViewItem class])];
+    [collectionView registerNib:baseNib forItemWithIdentifier:NSUserInterfaceItemIdentifierCardDetailsBaseCollectionViewItem];
     [baseNib release];
     
     NSNib *childrenContentNib = [[NSNib alloc] initWithNibNamed:NSStringFromClass([CardDetailsChildrenContentCollectionViewItem class]) bundle:NSBundle.mainBundle];
@@ -221,7 +223,7 @@
         
         switch (itemModel.type) {
             case CardDetailsItemModelTypeChildren: {
-                CardDetailsChildrenContentCollectionViewItem *item = (CardDetailsChildrenContentCollectionViewItem *)[collectionView makeItemWithIdentifier:NSStringFromClass([CardDetailsChildrenContentCollectionViewItem class]) forIndexPath:indexPath];
+                CardDetailsChildrenContentCollectionViewItem *item = (CardDetailsChildrenContentCollectionViewItem *)[collectionView makeItemWithIdentifier:NSUserInterfaceItemIdentifierCardDetailsBaseCollectionViewItem forIndexPath:indexPath];
                 
                 [item configureWithChildCards:itemModel.childCards];
                 
