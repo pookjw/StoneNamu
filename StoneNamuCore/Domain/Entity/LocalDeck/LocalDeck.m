@@ -34,12 +34,10 @@
     return cards;
 }
 
-- (void)setHsCards:(NSArray<NSNumber *> *)hsCards {
+- (void)setHsCards:(NSArray<HSCard *> *)hsCards {
     NSError * _Nullable error = nil;
-    NSArray<NSNumber *> *hsCardsCopy = [hsCards copy];
     
-    NSData *hsCardsData = [NSKeyedArchiver archivedDataWithRootObject:hsCardsCopy requiringSecureCoding:YES error:&error];
-    [hsCardsCopy release];
+    NSData *hsCardsData = [NSKeyedArchiver archivedDataWithRootObject:hsCards requiringSecureCoding:YES error:&error];
     
     if (error) {
         NSLog(@"%@", error.localizedDescription);

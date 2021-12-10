@@ -75,7 +75,7 @@
     innerCollectionView.delegate = self;
     innerCollectionView.backgroundColors = @[NSColor.clearColor];
     
-    [innerCollectionView registerForDraggedTypes:@[NSPasteboardTypeFileURL, NSPasteboardTypePNG]];
+    [innerCollectionView registerForDraggedTypes:HSCardPromiseProvider.pasteboardTypes];
     [innerCollectionView setDraggingSourceOperationMask:NSDragOperationCopy forLocal:NO];
     
     [scrollView release];

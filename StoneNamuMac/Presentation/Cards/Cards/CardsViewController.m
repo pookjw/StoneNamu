@@ -166,7 +166,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardColl
     collectionView.allowsEmptySelection = YES;
     collectionView.delegate = self;
     
-    [collectionView registerForDraggedTypes:@[NSPasteboardTypeFileURL, NSPasteboardTypePNG]];
+    [collectionView registerForDraggedTypes:HSCardPromiseProvider.pasteboardTypes];
     [collectionView setDraggingSourceOperationMask:NSDragOperationCopy forLocal:NO];
     
     [scrollView release];
