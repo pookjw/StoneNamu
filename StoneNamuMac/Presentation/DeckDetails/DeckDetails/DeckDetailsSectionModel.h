@@ -9,8 +9,17 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface DeckDetailsSectionModel : NSObject
+typedef NS_ENUM(NSUInteger, DeckDetailsSectionModelType) {
+    DeckDetailsSectionModelTypeCards,
+    DeckDetailsSectionModelTypeManaCostGraph
+};
 
+@interface DeckDetailsSectionModel : NSObject
+@property (readonly) DeckDetailsSectionModelType type;
+@property (copy) NSString * _Nullable headerText;
++ (instancetype)new NS_UNAVAILABLE;
+- (instancetype)init NS_UNAVAILABLE;
+- (instancetype)initWithType:(DeckDetailsSectionModelType)type;
 @end
 
 NS_ASSUME_NONNULL_END

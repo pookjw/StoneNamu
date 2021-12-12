@@ -12,11 +12,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef NSCollectionViewDiffableDataSource<DecksSectionModel *, DecksItemModel *> DecksDataSource;
+
 typedef void (^DecksViewModelFetchDeckCodeCompletion)(LocalDeck * _Nullable, HSDeck * _Nullable, NSError * _Nullable);
 typedef void (^DecksViewModelMakeLocalDeckCompletion)(LocalDeck *);
 typedef void (^DecksViewModelParseClipboardCompletion)(NSString * _Nullable, NSString * _Nullable);
-
-typedef NSCollectionViewDiffableDataSource<DecksSectionModel *, DecksItemModel *> DecksDataSource;
 
 @interface DecksViewModel : NSObject
 @property (retain) DecksDataSource *dataSource;

@@ -11,13 +11,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef NSCollectionViewDiffableDataSource<DeckAddCardSectionModel *, DeckAddCardItemModel *> DeckAddCardsDataSource;
+
 static NSNotificationName const NSNotificationNameDeckAddCardsViewModelError = @"NSNotificationNameDeckAddCardsViewModelError";
 static NSString * const DeckAddCardsViewModelErrorNotificationErrorKey = @"DeckAddCardsViewModelErrorNotificationErrorKey";
 
 static NSNotificationName const NSNotificationNameDeckAddCardsViewModelStartedLoadingDataSource = @"NSNotificationNameDeckAddCardsViewModelStartedLoadingDataSource";
 static NSNotificationName const NSNotificationNameDeckAddCardsViewModelEndedLoadingDataSource = @"NSNotificationNameDeckAddCardsViewModelEndedLoadingDataSource";
-
-typedef NSCollectionViewDiffableDataSource<DeckAddCardSectionModel *, DeckAddCardItemModel *> DeckAddCardsDataSource;
 
 @interface DeckAddCardsViewModel : NSObject
 @property (readonly, retain) DeckAddCardsDataSource *dataSource;

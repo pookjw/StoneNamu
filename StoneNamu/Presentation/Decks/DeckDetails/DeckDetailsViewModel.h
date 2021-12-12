@@ -12,7 +12,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef UICollectionViewDiffableDataSource<DeckDetailsSectionModel *, DeckDetailsItemModel *> DecksDetailsDataSource;
+typedef UICollectionViewDiffableDataSource<DeckDetailsSectionModel *, DeckDetailsItemModel *> DeckDetailsDataSource;
 
 typedef void (^DeckDetailsViewModelExportDeckCodeCompletion)(NSString * _Nullable);
 
@@ -30,11 +30,11 @@ static NSString * const DeckDetailsViewModelApplyingSnapshotToDataSourceWasDoneC
 @interface DeckDetailsViewModel : NSObject
 @property (retain) NSIndexPath * _Nullable contextMenuIndexPath;
 @property (readonly, retain) LocalDeck * _Nullable localDeck;
-@property (readonly, retain) DecksDetailsDataSource *dataSource;
+@property (readonly, retain) DeckDetailsDataSource *dataSource;
 @property BOOL shouldPresentDeckEditor;
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
-- (instancetype)initWithDataSource:(DecksDetailsDataSource *)dataSource;
+- (instancetype)initWithDataSource:(DeckDetailsDataSource *)dataSource;
 - (void)requestDataSourceWithLocalDeck:(LocalDeck *)localDeck;
 - (void)addHSCards:(NSArray<HSCard *> *)hsCards;
 

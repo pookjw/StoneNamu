@@ -15,9 +15,9 @@
 @property (retain) InsetsLabel *costLabel;
 @property (retain) UIProgressView *progressView;
 @property (retain) InsetsLabel *countLabel;
-@property (readonly, nonatomic) NSNumber *cardManaCost;
-@property (readonly, nonatomic) NSNumber *percentage;
-@property (readonly, nonatomic) NSNumber *cardCount;
+@property (readonly, nonatomic) NSUInteger cardManaCost;
+@property (readonly, nonatomic) float percentage;
+@property (readonly, nonatomic) NSUInteger cardCount;
 @property (readonly, nonatomic) BOOL isDarkMode;
 @end
 
@@ -157,7 +157,7 @@
     DeckDetailsManaCostGraphContentConfiguration *newContentConfig = [(DeckDetailsManaCostGraphContentConfiguration *)configuration copy];
     self->configuration = newContentConfig;
     
-    if ((oldContentConfig == nil) || (![newContentConfig.cardManaCost isEqualToNumber:oldContentConfig.cardManaCost])) {
+    if ((oldContentConfig == nil) || (newContentConfig.cardManaCost != oldContentConfig.cardManaCost)) {
         [self updateCostLabel];
     }
     
@@ -167,26 +167,26 @@
     [oldContentConfig release];
 }
 
-- (NSNumber * _Nullable)cardManaCost {
+- (NSUInteger)cardManaCost {
     DeckDetailsManaCostGraphContentConfiguration *contentConfig = (DeckDetailsManaCostGraphContentConfiguration *)self.configuration;
     
-    if (![contentConfig isKindOfClass:[DeckDetailsManaCostGraphContentConfiguration class]]) return nil;
+    if (![contentConfig isKindOfClass:[DeckDetailsManaCostGraphContentConfiguration class]]) return 0;
     
     return contentConfig.cardManaCost;
 }
 
-- (NSNumber * _Nullable)percentage {
+- (float)percentage {
     DeckDetailsManaCostGraphContentConfiguration *contentConfig = (DeckDetailsManaCostGraphContentConfiguration *)self.configuration;
     
-    if (![contentConfig isKindOfClass:[DeckDetailsManaCostGraphContentConfiguration class]]) return nil;
+    if (![contentConfig isKindOfClass:[DeckDetailsManaCostGraphContentConfiguration class]]) return 0.0f;
     
     return contentConfig.percentage;
 }
 
-- (NSNumber * _Nullable)cardCount {
+- (NSUInteger)cardCount {
     DeckDetailsManaCostGraphContentConfiguration *contentConfig = (DeckDetailsManaCostGraphContentConfiguration *)self.configuration;
     
-    if (![contentConfig isKindOfClass:[DeckDetailsManaCostGraphContentConfiguration class]]) return nil;
+    if (![contentConfig isKindOfClass:[DeckDetailsManaCostGraphContentConfiguration class]]) return 0;
     
     return contentConfig.cardCount;
 }
@@ -201,15 +201,15 @@
 }
 
 - (void)updateCostLabel {
-    if (self.cardManaCost.unsignedIntegerValue == 10) {
+    if (self.cardManaCost == 10) {
         self.costLabel.text = @"10+";
     } else {
-        self.costLabel.text = self.cardManaCost.stringValue;
+        self.costLabel.text = [NSString stringWithFormat:@"%lu", self.cardManaCost];
     }
 }
 
 - (void)updateProgressLabel {
-    [self.progressView setProgress:self.percentage.floatValue animated:YES];
+    [self.progressView setProgress:self.percentage animated:NO];
 }
 
 - (void)updateCountLabel {
@@ -219,7 +219,7 @@
         self.countLabel.backgroundColor = UIColor.systemGrayColor;
     }
     
-    self.countLabel.text = [NSString stringWithFormat:@"%@", self.cardCount.stringValue];
+    self.countLabel.text = [NSString stringWithFormat:@"%lu", self.cardCount];
 }
 
 @end

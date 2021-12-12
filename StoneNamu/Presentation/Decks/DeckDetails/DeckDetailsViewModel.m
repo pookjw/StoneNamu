@@ -6,7 +6,6 @@
 //
 
 #import "DeckDetailsViewModel.h"
-#import <StoneNamuCore/StoneNamuCore.h>
 #import <StoneNamuResources/StoneNamuResources.h>
 #import "NSDiffableDataSourceSnapshot+sort.h"
 #import "UICollectionViewDiffableDataSource+applySnapshotAndWait.h"
@@ -20,7 +19,7 @@
 
 @implementation DeckDetailsViewModel
 
-- (instancetype)initWithDataSource:(DecksDetailsDataSource *)dataSource {
+- (instancetype)initWithDataSource:(DeckDetailsDataSource *)dataSource {
     self = [self init];
     
     if (self) {
@@ -127,18 +126,16 @@
 }
 
 - (void)increaseAtIndexPath:(NSIndexPath *)indexPath {
-    NSIndexPath *copyIndexPath = [indexPath copy];
+    DeckDetailsItemModel *itemModel = [self.dataSource itemIdentifierForIndexPath:indexPath];
+    HSCard *hsCard = itemModel.hsCard;
     
-    DeckDetailsItemModel *itemModel = [self.dataSource itemIdentifierForIndexPath:copyIndexPath];
-    HSCard *copyHSCard = [itemModel.hsCard copy];
-    
-    [self.localDeckUseCase increaseHSCards:[NSSet setWithArray:@[copyHSCard]] toLocalDeck:self.localDeck validation:^(NSError * _Nullable error) {
+    [self.localDeckUseCase increaseHSCards:[NSSet setWithArray:@[hsCard]] toLocalDeck:self.localDeck validation:^(NSError * _Nullable error) {
         if (error != nil) {
             [self postErrorOccurredNotification:error];
         } else {
             
             NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
-            DeckDetailsItemModel *itemModel = [self.dataSource itemIdentifierForIndexPath:copyIndexPath];
+            DeckDetailsItemModel *itemModel = [self.dataSource itemIdentifierForIndexPath:indexPath];
             
             itemModel.hsCardCount = [NSNumber numberWithUnsignedInteger:itemModel.hsCardCount.unsignedIntegerValue + 1];
             [snapshot reconfigureItemsWithIdentifiers:@[itemModel]];
@@ -152,33 +149,27 @@
                 [self postApplyingSnapshotToDataSourceWasDoneNotification];
             }];
         }
-        
-        [copyIndexPath release];
     }];
-    
-    [copyHSCard release];
 }
 
 - (BOOL)decreaseAtIndexPath:(NSIndexPath *)indexPath {
-    NSIndexPath *copyIndexPath = [indexPath copy];
-    
-    DeckDetailsItemModel *itemModel = [self.dataSource itemIdentifierForIndexPath:copyIndexPath];
+    DeckDetailsItemModel *itemModel = [self.dataSource itemIdentifierForIndexPath:indexPath];
     
     if (itemModel.hsCardCount.unsignedIntegerValue <= 1) {
-        [self deleteAtIndexPath:copyIndexPath];
-        [copyIndexPath release];
+        [self deleteAtIndexPath:indexPath];
+        [indexPath release];
         return NO;
     }
     
-    HSCard *copyHSCard = [itemModel.hsCard copy];
+    HSCard *hsCard = itemModel.hsCard;
     
-    [self.localDeckUseCase decreaseHSCards:[NSSet setWithArray:@[copyHSCard]] toLocalDeck:self.localDeck validation:^(NSError * _Nullable error) {
+    [self.localDeckUseCase decreaseHSCards:[NSSet setWithArray:@[hsCard]] toLocalDeck:self.localDeck validation:^(NSError * _Nullable error) {
         if (error != nil) {
             [self postErrorOccurredNotification:error];
         } else {
             
             NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
-            DeckDetailsItemModel *itemModel = [self.dataSource itemIdentifierForIndexPath:copyIndexPath];
+            DeckDetailsItemModel *itemModel = [self.dataSource itemIdentifierForIndexPath:indexPath];
             
             itemModel.hsCardCount = [NSNumber numberWithUnsignedInteger:(itemModel.hsCardCount.unsignedIntegerValue - 1)];
             [snapshot reconfigureItemsWithIdentifiers:@[itemModel]];
@@ -192,11 +183,7 @@
                 [self postApplyingSnapshotToDataSourceWasDoneNotification];
             }];
         }
-        
-        [copyIndexPath release];
     }];
-    
-    [copyHSCard release];
     
     return YES;
 }
@@ -446,7 +433,7 @@
     BOOL __block shouldReconfigure = NO;
     
     [snapshot.sectionIdentifiers enumerateObjectsUsingBlock:^(DeckDetailsSectionModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if (obj.type == DeckDetailsSectionModelTypeGraph) {
+        if (obj.type == DeckDetailsSectionModelTypeManaCostGraph) {
             [snapshot deleteSectionsWithIdentifiers:@[obj]];
             shouldReconfigure = YES;
             *stop = YES;
@@ -459,7 +446,7 @@
         [manaDictionary release];
         return;
     } else {
-        DeckDetailsSectionModel *sectionModel = [[DeckDetailsSectionModel alloc] initWithType:DeckDetailsSectionModelTypeGraph];
+        DeckDetailsSectionModel *sectionModel = [[DeckDetailsSectionModel alloc] initWithType:DeckDetailsSectionModelTypeManaCostGraph];
         [snapshot appendSectionsWithIdentifiers:@[sectionModel]];
         
         //
@@ -532,21 +519,21 @@
 - (void)localDeckChangesReceived:(NSNotification *)notification {
     if (self.localDeck != nil) {
         [self.localDeckUseCase refreshObject:self.localDeck mergeChanges:NO completion:^{
-            [self requestDataSourceWithLocalDeck:self.localDeck];
+            if (self.localDeck.managedObjectContext == nil) {
+                [self postShouldDismissNoficiation];
+            } else {
+                [self requestDataSourceWithLocalDeck:self.localDeck];
+            }
         }];
     }
 }
 
 - (void)localDeckDeleteAllReceived:(NSNotification *)notification {
-    [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameDeckDetailsViewModelShouldDismiss
-                                                      object:self
-                                                    userInfo:nil];
+    [self postShouldDismissNoficiation];
 }
 
 - (void)dataCacheDeleteAllReceived:(NSNotification *)notification {
-    [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameDeckDetailsViewModelShouldDismiss
-                                                      object:self
-                                                    userInfo:nil];
+    [self postShouldDismissNoficiation];
 }
 
 - (void)postApplyingSnapshotToDataSourceWasDoneNotification {
@@ -574,6 +561,12 @@
                                                       object:self
                                                     userInfo:userInfo];
     [userInfo release];
+}
+
+- (void)postShouldDismissNoficiation {
+    [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameDeckDetailsViewModelShouldDismiss
+                                                      object:self
+                                                    userInfo:nil];
 }
 
 - (void)postDidChangeLocalDeckNameNotification:(NSString *)name {

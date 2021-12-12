@@ -52,6 +52,7 @@
     //
     
     [deckAddCardsViewController release];
+    [deckDetailsViewController release];
 }
 
 #pragma mark - NSSplitViewDelegate

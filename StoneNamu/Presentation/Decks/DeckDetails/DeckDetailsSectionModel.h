@@ -11,7 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSUInteger, DeckDetailsSectionModelType) {
     DeckDetailsSectionModelTypeCards,
-    DeckDetailsSectionModelTypeGraph
+    DeckDetailsSectionModelTypeManaCostGraph
 };
 
 @interface DeckDetailsSectionModel : NSObject

@@ -7,8 +7,14 @@
 
 #import "DeckDetailsViewController.h"
 #import "HSCardPromiseProvider.h"
+#import "DeckDetailsCardColledtionViewItem.h"
+#import "DeckDetailsManaCostGraphCollectionViewItem.h"
+#import "DeckDetailsViewModel.h"
 #import <StoneNamuCore/StoneNamuCore.h>
 #import <StoneNamuResources/StoneNamuResources.h>
+
+static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDetailsCardColledtionViewItem = @"NSUserInterfaceItemIdentifierDeckDetailsCardColledtionViewItem";
+static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDetailsManaCostGraphCollectionViewItem = @"NSUserInterfaceItemIdentifierDeckDetailsManaCostGraphCollectionViewItem";
 
 @interface DeckDetailsViewController () <NSCollectionViewDelegate>
 @property (retain) NSScrollView *scrollView;
@@ -82,9 +88,13 @@
     collectionView.collectionViewLayout = flowLayout;
     [flowLayout release];
     
-//    NSNib *nib = [[NSNib alloc] initWithNibNamed:NSStringFromClass([CardCollectionViewItem class]) bundle:NSBundle.mainBundle];
-//    [collectionView registerNib:nib forItemWithIdentifier:NSUserInterfaceItemIdentifierCardCollectionViewItem];
-//    [nib release];
+    NSNib *cardsNib = [[NSNib alloc] initWithNibNamed:NSStringFromClass([DeckDetailsCardColledtionViewItem class]) bundle:NSBundle.mainBundle];
+    [collectionView registerNib:cardsNib forItemWithIdentifier:NSUserInterfaceItemIdentifierDeckDetailsCardColledtionViewItem];
+    [cardsNib release];
+    
+    NSNib *manaCostGraphNib = [[NSNib alloc] initWithNibNamed:NSStringFromClass([DeckDetailsManaCostGraphCollectionViewItem class]) bundle:NSBundle.mainBundle];
+    [collectionView registerNib:manaCostGraphNib forItemWithIdentifier:NSUserInterfaceItemIdentifierDeckDetailsManaCostGraphCollectionViewItem];
+    [manaCostGraphNib release];
 
     collectionView.selectable = YES;
     collectionView.allowsMultipleSelection = YES;

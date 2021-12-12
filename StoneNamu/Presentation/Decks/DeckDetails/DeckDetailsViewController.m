@@ -254,10 +254,10 @@
     [viewModel release];
 }
 
-- (DecksDetailsDataSource *)makeDataSource {
+- (DeckDetailsDataSource *)makeDataSource {
     UICollectionViewCellRegistration *cellRegistration = [self makeCellRegistration];
     
-    DecksDetailsDataSource *dataSource = [[DecksDetailsDataSource alloc] initWithCollectionView:self.collectionView cellProvider:^UICollectionViewCell * _Nullable(UICollectionView * _Nonnull collectionView, NSIndexPath * _Nonnull indexPath, id  _Nonnull itemIdentifier) {
+    DeckDetailsDataSource *dataSource = [[DeckDetailsDataSource alloc] initWithCollectionView:self.collectionView cellProvider:^UICollectionViewCell * _Nullable(UICollectionView * _Nonnull collectionView, NSIndexPath * _Nonnull indexPath, id  _Nonnull itemIdentifier) {
         
         UICollectionViewCell *cell = [collectionView dequeueConfiguredReusableCellWithRegistration:cellRegistration forIndexPath:indexPath item:itemIdentifier];
         
@@ -280,7 +280,9 @@
         
         switch (itemModel.type) {
             case DeckDetailsItemModelTypeManaCostGraph: {
-                DeckDetailsManaCostGraphContentConfiguration *configuration = [[DeckDetailsManaCostGraphContentConfiguration alloc] initWithCost:itemModel.graphManaCost percentage:itemModel.graphPercentage cardCount:itemModel.graphCount];
+                DeckDetailsManaCostGraphContentConfiguration *configuration = [[DeckDetailsManaCostGraphContentConfiguration alloc] initWithCost:itemModel.graphManaCost.unsignedIntegerValue
+                                                                                                                                      percentage:itemModel.graphPercentage.floatValue
+                                                                                                                                       cardCount:itemModel.graphCount.unsignedIntegerValue];
                 cell.contentConfiguration = configuration;
                 [configuration release];
                 break;
@@ -426,21 +428,23 @@
 
 - (void)shouldDismissReceived:(NSNotification *)notification {
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
-        [self.navigationController popViewControllerAnimated:YES];
+        if (self.splitViewController) {
+            [self.splitViewController setViewController:nil forColumn:UISplitViewControllerColumnSecondary];
+        } else {
+            [self.navigationController popViewControllerAnimated:YES];
+        }
     }];
 }
 
 - (void)didChangeLocalDeckNameReceived:(NSNotification *)noficiation {
-    NSString *name = [noficiation.userInfo[DeckDetailsViewModelDidChangeLocalDeckNameItemKey] copy];
-    
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
+        NSString *name = noficiation.userInfo[DeckDetailsViewModelDidChangeLocalDeckNameItemKey];
         self.title = name;
-        [name release];
     }];
 }
 
 - (void)errorOccurredReceived:(NSNotification *)notification {
-    NSError *error = [(NSError *)notification.userInfo[DeckDetailsViewModelErrorOccurredItemKey] copy];
+    NSError *error = (NSError *)notification.userInfo[DeckDetailsViewModelErrorOccurredItemKey];
     
     if (error) {
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
@@ -455,21 +459,18 @@
             if (shouldPresent) {
                 [self presentErrorAlertWithError:error];
             }
-            
-            [error release];
         }];
     }
 }
 
 - (void)applyingSnapshotToDataSourceWasDoneReceived:(NSNotification *)notification {
-    BOOL hasCards = [(NSNumber *)notification.userInfo[DeckDetailsViewModelApplyingSnapshotToDataSourceWasDoneHasAnyCardsItemKey] boolValue];
-    NSString * _Nullable headerText = [notification.userInfo[DeckDetailsViewModelApplyingSnapshotToDataSourceWasDoneCardsHeaderTextKey] copy];
-    
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
+        BOOL hasCards = [(NSNumber *)notification.userInfo[DeckDetailsViewModelApplyingSnapshotToDataSourceWasDoneHasAnyCardsItemKey] boolValue];
+        NSString * _Nullable headerText = notification.userInfo[DeckDetailsViewModelApplyingSnapshotToDataSourceWasDoneCardsHeaderTextKey];
+        
         [self removeAllSpinnerview];
         [self dealWithDataSourceHasCards:hasCards];
         [self updateSectionHeaderViewWithHeaderText:headerText];
-        [headerText release];
     }];
 }
 

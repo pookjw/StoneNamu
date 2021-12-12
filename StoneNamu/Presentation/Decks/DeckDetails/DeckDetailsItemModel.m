@@ -33,27 +33,6 @@
     [super dealloc];
 }
 
-- (id)copyWithZone:(NSZone *)zone {
-    id copy = [[self class] new];
-    
-    if (copy) {
-        DeckDetailsItemModel *_copy = (DeckDetailsItemModel *)copy;
-        [_copy->_hsCard release];
-        _copy->_hsCard = [self.hsCard copyWithZone:zone];
-        [_copy->_hsCardCount release];
-        [_copy->_hsCardCount copyWithZone:zone];
-        _copy->_type = self.type;
-        [_copy->_graphManaCost release];
-        _copy->_graphManaCost = [self.graphManaCost copyWithZone:zone];
-        [_copy->_graphPercentage release];
-        _copy->_graphPercentage = [self.graphPercentage copyWithZone:zone];
-        [_copy->_graphCount release];
-        _copy->_graphCount = [self.graphCount copyWithZone:zone];
-    }
-    
-    return copy;
-}
-
 - (BOOL)isEqual:(id)object {
     DeckDetailsItemModel *toCompare = (DeckDetailsItemModel *)object;
     
