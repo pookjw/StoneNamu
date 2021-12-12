@@ -11,7 +11,7 @@
 #import "DeckDetailsViewModel.h"
 #import "UIViewController+presentErrorAlert.h"
 #import "DeckDetailsCardContentConfiguration.h"
-#import "DeckDetailsManaCostContentConfiguration.h"
+#import "DeckDetailsManaCostGraphContentConfiguration.h"
 #import "CardDetailsViewController.h"
 #import "UIViewController+SpinnerView.h"
 #import "DeckAddCardSplitViewController.h"
@@ -280,14 +280,14 @@
         
         switch (itemModel.type) {
             case DeckDetailsItemModelTypeCost: {
-                DeckDetailsManaCostContentConfiguration *configuration = [[DeckDetailsManaCostContentConfiguration alloc] initWithManaDictionary:itemModel.manaDictionary];
+                DeckDetailsManaCostGraphContentConfiguration *configuration = [[DeckDetailsManaCostGraphContentConfiguration alloc] initWithCost:itemModel.cardManaCost percentage:itemModel.percentage cardCount:itemModel.cardCount];
                 cell.contentConfiguration = configuration;
                 [configuration release];
                 break;
             }
             case DeckDetailsItemModelTypeCard: {
                 DeckDetailsCardContentConfiguration *configuration = [[DeckDetailsCardContentConfiguration alloc] initWithHSCard:itemModel.hsCard
-                                                                                                                     hsCardCount:itemModel.hsCardCount];
+                                                                                                                     hsCardCount:itemModel.hsCardCount.unsignedIntegerValue];
                 cell.contentConfiguration = configuration;
                 [configuration release];
                 break;

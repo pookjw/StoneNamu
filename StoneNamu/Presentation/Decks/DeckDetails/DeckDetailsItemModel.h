@@ -18,8 +18,12 @@ typedef NS_ENUM(NSUInteger, DeckDetailsItemModelType) {
 @interface DeckDetailsItemModel : NSObject <NSCopying>
 @property (readonly) DeckDetailsItemModelType type;
 @property (copy) HSCard * _Nullable hsCard;
-@property NSUInteger hsCardCount;
-@property (copy) NSDictionary<NSNumber *, NSNumber *> * _Nullable manaDictionary;
+@property (copy) NSNumber * _Nullable hsCardCount;
+
+@property (copy) NSNumber * _Nullable cardManaCost;
+@property (copy) NSNumber * _Nullable percentage;
+@property (copy) NSNumber * _Nullable cardCount;
+
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithType:(DeckDetailsItemModelType)type;

@@ -8,7 +8,6 @@
 #import "DeckDetailsManaCostGraphContentView.h"
 #import "InsetsLabel.h"
 #import "DeckDetailsManaCostGraphContentConfiguration.h"
-#import "DeckDetailsManaCostContentViewModel.h"
 
 @interface DeckDetailsManaCostGraphContentView ()
 @property (class, readonly, nonatomic) UIFont *labelFont;
@@ -202,15 +201,15 @@
 }
 
 - (void)updateCostLabel {
-    if (self.cardManaCost.unsignedIntegerValue == (DeckDetailsManaCostContentViewModelCountOfData - 1)) {
-        self.costLabel.text = [NSString stringWithFormat:@"%@+", self.cardManaCost.stringValue];
+    if (self.cardManaCost.unsignedIntegerValue == 10) {
+        self.costLabel.text = @"10+";
     } else {
         self.costLabel.text = self.cardManaCost.stringValue;
     }
 }
 
 - (void)updateProgressLabel {
-    self.progressView.progress = self.percentage.floatValue;
+    [self.progressView setProgress:self.percentage.floatValue animated:YES];
 }
 
 - (void)updateCountLabel {
