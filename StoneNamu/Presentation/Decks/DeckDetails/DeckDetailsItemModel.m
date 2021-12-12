@@ -16,9 +16,9 @@
         self.hsCard = nil;
         self.hsCardCount = nil;
         self->_type = type;
-        self.cardManaCost = nil;
-        self.percentage = nil;
-        self.cardCount = nil;
+        self.graphManaCost = nil;
+        self.graphPercentage = nil;
+        self.graphCount = nil;
     }
     
     return self;
@@ -27,9 +27,9 @@
 - (void)dealloc {
     [_hsCard release];
     [_hsCardCount release];
-    [_cardManaCost release];
-    [_percentage release];
-    [_cardCount release];
+    [_graphManaCost release];
+    [_graphPercentage release];
+    [_graphCount release];
     [super dealloc];
 }
 
@@ -43,12 +43,12 @@
         [_copy->_hsCardCount release];
         [_copy->_hsCardCount copyWithZone:zone];
         _copy->_type = self.type;
-        [_copy->_cardManaCost release];
-        _copy->_cardManaCost = [self.cardManaCost copyWithZone:zone];
-        [_copy->_percentage release];
-        _copy->_percentage = [self.percentage copyWithZone:zone];
-        [_copy->_cardCount release];
-        _copy->_cardCount = [self.cardCount copyWithZone:zone];
+        [_copy->_graphManaCost release];
+        _copy->_graphManaCost = [self.graphManaCost copyWithZone:zone];
+        [_copy->_graphPercentage release];
+        _copy->_graphPercentage = [self.graphPercentage copyWithZone:zone];
+        [_copy->_graphCount release];
+        _copy->_graphCount = [self.graphCount copyWithZone:zone];
     }
     
     return copy;
@@ -63,11 +63,11 @@
     
     return (self.type == toCompare.type) &&
     ([self.hsCard isEqual:toCompare.hsCard] || ((self.hsCard == nil) && (toCompare.hsCard == nil))) &&
-    ([self.cardManaCost isEqualToNumber:toCompare.cardManaCost] || ((self.cardManaCost == nil) && (toCompare.cardManaCost == nil)));
+    ([self.graphManaCost isEqualToNumber:toCompare.graphManaCost] || ((self.graphManaCost == nil) && (toCompare.graphManaCost == nil)));
 }
 
 - (NSUInteger)hash {
-    return self.type ^ self.hsCard.hash ^ self.cardManaCost.hash;
+    return self.type ^ self.hsCard.hash ^ self.graphManaCost.hash;
 }
 
 @end

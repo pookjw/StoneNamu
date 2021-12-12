@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSUInteger, DeckDetailsItemModelType) {
-    DeckDetailsItemModelTypeCost,
+    DeckDetailsItemModelTypeManaCostGraph,
     DeckDetailsItemModelTypeCard
 };
 
@@ -20,9 +20,9 @@ typedef NS_ENUM(NSUInteger, DeckDetailsItemModelType) {
 @property (copy) HSCard * _Nullable hsCard;
 @property (copy) NSNumber * _Nullable hsCardCount;
 
-@property (copy) NSNumber * _Nullable cardManaCost;
-@property (copy) NSNumber * _Nullable percentage;
-@property (copy) NSNumber * _Nullable cardCount;
+@property (copy) NSNumber * _Nullable graphManaCost;
+@property (copy) NSNumber * _Nullable graphPercentage;
+@property (copy) NSNumber * _Nullable graphCount;
 
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;

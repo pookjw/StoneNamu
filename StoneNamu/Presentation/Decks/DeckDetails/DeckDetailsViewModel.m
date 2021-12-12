@@ -402,8 +402,8 @@
             HSCard *obj2Card = obj2.hsCard;
             
             return [obj1Card compare:obj2Card];
-        } else if ((obj1.type == DeckDetailsItemModelTypeCost) && (obj2.type == DeckDetailsItemModelTypeCost)) {
-            return [obj1.cardManaCost compare:obj2.cardManaCost];
+        } else if ((obj1.type == DeckDetailsItemModelTypeManaCostGraph) && (obj2.type == DeckDetailsItemModelTypeManaCostGraph)) {
+            return [obj1.graphManaCost compare:obj2.graphManaCost];
         } else {
             return NSOrderedSame;
         }
@@ -465,17 +465,17 @@
         //
         
         [manaDictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber * _Nonnull key, NSNumber * _Nonnull obj, BOOL * _Nonnull stop) {
-            DeckDetailsItemModel *itemModel = [[DeckDetailsItemModel alloc] initWithType:DeckDetailsItemModelTypeCost];
+            DeckDetailsItemModel *itemModel = [[DeckDetailsItemModel alloc] initWithType:DeckDetailsItemModelTypeManaCostGraph];
             
-            itemModel.cardManaCost = key;
+            itemModel.graphManaCost = key;
             
             if (highestCostCount == 0) {
-                itemModel.percentage = [NSNumber numberWithFloat:0.0f];
+                itemModel.graphPercentage = [NSNumber numberWithFloat:0.0f];
             } else {
-                itemModel.percentage = [NSNumber numberWithFloat:(obj.floatValue / (float)highestCostCount)];
+                itemModel.graphPercentage = [NSNumber numberWithFloat:(obj.floatValue / (float)highestCostCount)];
             }
             
-            itemModel.cardCount = obj;
+            itemModel.graphCount = obj;
             
             [snapshot appendItemsWithIdentifiers:@[itemModel] intoSectionWithIdentifier:sectionModel];
             

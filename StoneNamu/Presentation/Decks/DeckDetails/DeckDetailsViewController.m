@@ -279,8 +279,8 @@
         DeckDetailsItemModel *itemModel = (DeckDetailsItemModel *)item;
         
         switch (itemModel.type) {
-            case DeckDetailsItemModelTypeCost: {
-                DeckDetailsManaCostGraphContentConfiguration *configuration = [[DeckDetailsManaCostGraphContentConfiguration alloc] initWithCost:itemModel.cardManaCost percentage:itemModel.percentage cardCount:itemModel.cardCount];
+            case DeckDetailsItemModelTypeManaCostGraph: {
+                DeckDetailsManaCostGraphContentConfiguration *configuration = [[DeckDetailsManaCostGraphContentConfiguration alloc] initWithCost:itemModel.graphManaCost percentage:itemModel.graphPercentage cardCount:itemModel.graphCount];
                 cell.contentConfiguration = configuration;
                 [configuration release];
                 break;
