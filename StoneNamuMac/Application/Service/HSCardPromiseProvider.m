@@ -17,10 +17,6 @@
     return @[NSPasteboardTypeHSCard];
 }
 
-- (NSPasteboardWritingOptions)writingOptionsForType:(NSPasteboardType)type pasteboard:(NSPasteboard *)pasteboard {
-    return NSPasteboardWritingPromised;
-}
-
 - (id)pasteboardPropertyListForType:(NSPasteboardType)type {
     if ([type isEqualToString:NSPasteboardTypeHSCard]) {
         NSData *hsCardsData = [NSKeyedArchiver archivedDataWithRootObject:self requiringSecureCoding:YES error:nil];
@@ -43,12 +39,11 @@
 @implementation HSCardPromiseProvider
 
 + (NSArray<NSPasteboardType> *)pasteboardTypes {
-    return @[NSPasteboardTypeFileURL, NSPasteboardTypePNG, NSPasteboardTypeHSCard];
+    return [NSFilePromiseReceiver.readableDraggedTypes arrayByAddingObjectsFromArray:@[NSPasteboardTypeFileURL, NSPasteboardTypePNG, NSPasteboardTypeHSCard]];
 }
 
 - (instancetype)initWithHSCard:(HSCard *)hsCard image:(NSImage *)image {
     self = [self initWithFileType:UTTypePNG.identifier delegate:self];
-    NSLog(@"- result: %@", UTTypePNG.identifier);
     
     if (self) {
         self.hsCard = hsCard;
@@ -56,7 +51,7 @@
         
         NSOperationQueue *queue = [NSOperationQueue new];
         self.queue = queue;
-        queue.qualityOfService = NSQualityOfServiceBackground;
+        queue.qualityOfService = NSQualityOfServiceUserInitiated;
         [queue release];
         
         //
@@ -64,7 +59,8 @@
         NSURL *imageURL = [[[NSFileManager.defaultManager temporaryDirectory] URLByAppendingPathComponent:hsCard.slug] URLByAppendingPathExtension:@"png"];
         self.imageURL = imageURL;
         
-        self.imageFileName = [NSString stringWithFormat:@"%@.png", hsCard.name];
+        NSString *imageFileName = [NSString stringWithFormat:@"%@.png", hsCard.name];
+        self.imageFileName = imageFileName;
     }
     
     return self;
@@ -85,12 +81,6 @@
 
 - (id)pasteboardPropertyListForType:(NSPasteboardType)type {
     if ([type isEqualToString:NSPasteboardTypeFileURL]) {
-        NSData *imagePNGData = self.image.pngData;
-        if ([NSFileManager.defaultManager fileExistsAtPath:self.imageURL.path]) {
-            [NSFileManager.defaultManager removeItemAtURL:self.imageURL error:nil];
-        }
-        NSLog(@"- result: %@", [self.imageURL pasteboardPropertyListForType:NSPasteboardTypeFileURL]);
-        [imagePNGData writeToURL:self.imageURL options:NSDataWritingAtomic error:nil];
         return [self.imageURL pasteboardPropertyListForType:NSPasteboardTypeFileURL];
     } else if ([type isEqualToString:NSPasteboardTypePNG]) {
         return self.image.pngData;
@@ -113,8 +103,6 @@
 
 - (void)filePromiseProvider:(nonnull NSFilePromiseProvider *)filePromiseProvider writePromiseToURL:(nonnull NSURL *)url completionHandler:(nonnull void (^)(NSError * _Nullable))completionHandler {
     
-    NSError * _Nullable error = nil;
-    
     NSURL *newURL = url;
     NSUInteger index = 1;
     
@@ -124,8 +112,23 @@
         index += 1;
     }
     
-    [NSFileManager.defaultManager copyItemAtURL:self.imageURL toURL:newURL error:&error];
+    //
     
+    NSError * _Nullable error = nil;
+    
+    NSData *imagePNGData = self.image.pngData;
+    if ([NSFileManager.defaultManager fileExistsAtPath:self.imageURL.path]) {
+        [NSFileManager.defaultManager removeItemAtURL:self.imageURL error:nil];
+    }
+    
+    [imagePNGData writeToURL:self.imageURL options:NSDataWritingAtomic error:&error];
+    
+    if (error != nil) {
+        completionHandler(error);
+        return;
+    }
+    
+    [NSFileManager.defaultManager copyItemAtURL:self.imageURL toURL:newURL error:&error];
     completionHandler(error);
 }
 
