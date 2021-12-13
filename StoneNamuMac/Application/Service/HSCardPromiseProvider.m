@@ -31,6 +31,7 @@
 @interface HSCardPromiseProvider () <NSFilePromiseProviderDelegate>
 @property (copy) HSCard *hsCard;
 @property (retain) NSImage *image;
+@property (retain) NSData *pngData;
 @property (retain) NSURL *imageURL;
 @property (retain) NSString *imageFileName;
 @property (retain) NSOperationQueue *queue;
@@ -49,6 +50,9 @@
         self.hsCard = hsCard;
         self.image = image;
         
+        NSData *pngData = image.pngData;
+        self.pngData = pngData;
+        
         NSOperationQueue *queue = [NSOperationQueue new];
         self.queue = queue;
         queue.qualityOfService = NSQualityOfServiceUserInitiated;
@@ -61,6 +65,12 @@
         
         NSString *imageFileName = [NSString stringWithFormat:@"%@.png", hsCard.name];
         self.imageFileName = imageFileName;
+        
+        if ([NSFileManager.defaultManager fileExistsAtPath:self.imageURL.path]) {
+            [NSFileManager.defaultManager removeItemAtURL:self.imageURL error:nil];
+        }
+        
+        [pngData writeToURL:self.imageURL options:NSDataWritingAtomic error:nil];
     }
     
     return self;
@@ -69,6 +79,7 @@
 - (void)dealloc {
     [_hsCard release];
     [_image release];
+    [_pngData release];
     [_imageURL release];
     [_imageFileName release];
     [_queue release];
@@ -83,7 +94,7 @@
     if ([type isEqualToString:NSPasteboardTypeFileURL]) {
         return [self.imageURL pasteboardPropertyListForType:NSPasteboardTypeFileURL];
     } else if ([type isEqualToString:NSPasteboardTypePNG]) {
-        return self.image.pngData;
+        return self.pngData;
     } else if ([type isEqualToString:NSPasteboardTypeHSCard]) {
         return [self.hsCard pasteboardPropertyListForType:NSPasteboardTypeHSCard];
     } else {
