@@ -1,19 +1,19 @@
 //
-//  CardDetailsChildrenContentImageContentView.m
-//  CardDetailsChildrenContentImageContentView
+//  CardDetailsChildContentView.m
+//  CardDetailsChildContentView
 //
 //  Created by Jinwoo Kim on 8/9/21.
 //
 
-#import "CardDetailsChildrenContentImageContentView.h"
+#import "CardDetailsChildContentView.h"
 #import "UIImageView+setAsyncImage.h"
-#import "CardDetailsChildrenContentImageConfiguration.h"
+#import "CardDetailsChildContentConfiguration.h"
 
-@interface CardDetailsChildrenContentImageContentView ()
+@interface CardDetailsChildContentView ()
 @property (readonly, nonatomic) HSCard * _Nullable hsCard;
 @end
 
-@implementation CardDetailsChildrenContentImageContentView
+@implementation CardDetailsChildContentView
 
 @synthesize configuration;
 
@@ -55,8 +55,8 @@
 }
 
 - (void)setConfiguration:(id<UIContentConfiguration>)configuration {
-    CardDetailsChildrenContentImageConfiguration *oldContentConfig = (CardDetailsChildrenContentImageConfiguration *)self.configuration;
-    CardDetailsChildrenContentImageConfiguration *newContentConfig = [(CardDetailsChildrenContentImageConfiguration *)configuration copy];
+    CardDetailsChildContentConfiguration *oldContentConfig = (CardDetailsChildContentConfiguration *)self.configuration;
+    CardDetailsChildContentConfiguration *newContentConfig = [(CardDetailsChildContentConfiguration *)configuration copy];
     self->configuration = newContentConfig;
     
     if (![newContentConfig.hsCard isEqual:oldContentConfig.hsCard]) {
@@ -68,11 +68,11 @@
 }
 
 - (HSCard * _Nullable)hsCard {
-    if (![self.configuration isKindOfClass:[CardDetailsChildrenContentImageConfiguration class]]) {
+    if (![self.configuration isKindOfClass:[CardDetailsChildContentConfiguration class]]) {
         return nil;
     }
     
-    CardDetailsChildrenContentImageConfiguration *contentConfiguration = (CardDetailsChildrenContentImageConfiguration *)self.configuration;
+    CardDetailsChildContentConfiguration *contentConfiguration = (CardDetailsChildContentConfiguration *)self.configuration;
     return contentConfiguration.hsCard;
 }
 

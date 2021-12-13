@@ -20,21 +20,21 @@
     if (self) {
         self->_type = type;
         self.value = value;
-        [self->_childCards release];
-        self->_childCards = nil;
+        [self->_childHSCard release];
+        self->_childHSCard = nil;
     }
     
     return self;
 }
 
-- (instancetype)initWithType:(CardDetailsItemModelType)type childCards:(NSArray<HSCard *> *)childCards {
+- (instancetype)initWithType:(CardDetailsItemModelType)type childHSCard:(HSCard *)childHSCard {
     self = [self init];
     
     if (self) {
         self->_type = type;
         self.value = nil;
-        [self->_childCards release];
-        self->_childCards = [childCards copy];
+        [self->_childHSCard release];
+        self->_childHSCard = [childHSCard copy];
     }
     
     return self;
@@ -42,7 +42,7 @@
 
 - (void)dealloc {
     [_value release];
-    [_childCards release];
+    [_childHSCard release];
     [super dealloc];
 }
 
@@ -53,11 +53,12 @@
     
     CardDetailsItemModel *toCompare = (CardDetailsItemModel *)object;
     
-    return self.type == toCompare.type;
+    return self.type == toCompare.type &&
+    ([self.childHSCard isEqual:toCompare.childHSCard] || ((self.childHSCard == nil) && (toCompare.childHSCard == nil)));
 }
 
 - (NSUInteger)hash {
-    return self.type;
+    return self.type ^ self.childHSCard.hash;
 }
 
 - (NSString * _Nullable)primaryText {
@@ -80,7 +81,7 @@
             return [ResourcesService localizationForKey:LocalizableKeyCardArtist];
         case CardDetailsItemModelTypeCollectible:
             return [ResourcesService localizationForKey:LocalizableKeyCardCollectible];
-        case CardDetailsItemModelTypeChildren:
+        case CardDetailsItemModelTypeChild:
             return nil;
         default:
             return nil;

@@ -8,11 +8,12 @@
 #import "CardDetailsViewController.h"
 #import "DynamicPresentationController.h"
 #import "UIImageView+setAsyncImage.h"
+#import "CardDetailsCollectionViewLayout.h"
 #import "CardDetailsLayoutCompactViewController.h"
 #import "CardDetailsLayoutRegularViewController.h"
 #import "CardDetailsViewModel.h"
 #import "CardDetailsBasicContentConfiguration.h"
-#import "CardDetailsChildrenContentConfiguration.h"
+#import "CardDetailsChildContentConfiguration.h"
 #import "PhotosService.h"
 #import "UIScrollView+scrollToTop.h"
 #import "UIViewController+SpinnerView.h"
@@ -20,9 +21,10 @@
 #import "UIViewController+targetedPreviewWithClearBackgroundForView.h"
 #import "UIImage+imageWithGrayScale.h"
 #import "DynamicAnimatedTransitioning.h"
+#import "CardDetailsChildContentView.h"
 #import <StoneNamuResources/StoneNamuResources.h>
 
-@interface CardDetailsViewController () <UICollectionViewDelegate, UIViewControllerTransitioningDelegate, UIContextMenuInteractionDelegate, UIDragInteractionDelegate, CardDetailsChildrenContentConfigurationDelegate>
+@interface CardDetailsViewController () <UICollectionViewDelegate, UICollectionViewDragDelegate, UIViewControllerTransitioningDelegate, UIContextMenuInteractionDelegate, UIDragInteractionDelegate>
 @property (retain) UIImageView * _Nullable sourceImageView;
 @property (retain) UIImageView *primaryImageView;
 @property (retain) UIButton *closeButton;
@@ -180,25 +182,15 @@
 }
 
 - (void)configureCollectionView {
-    UICollectionLayoutListConfiguration *layoutConfiguration = [[UICollectionLayoutListConfiguration alloc] initWithAppearance:UICollectionLayoutListAppearanceInsetGrouped];
-    layoutConfiguration.backgroundColor = UIColor.clearColor;
-    layoutConfiguration.showsSeparators = YES;
-    
-    UIListSeparatorConfiguration *separatorConfiguration = [[UIListSeparatorConfiguration alloc] initWithListAppearance:UICollectionLayoutListAppearanceInsetGrouped];
-    
-    UIVibrancyEffect *effect = [UIVibrancyEffect effectForBlurEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleDark] style:UIVibrancyEffectStyleSeparator];
-    separatorConfiguration.visualEffect = effect;
-    
-    layoutConfiguration.separatorConfiguration = separatorConfiguration;
-    [separatorConfiguration release];
-    
-    UICollectionViewCompositionalLayout *layout = [UICollectionViewCompositionalLayout layoutWithListConfiguration:layoutConfiguration];
-    [layoutConfiguration release];
+    CardDetailsCollectionViewLayout *layout = [CardDetailsCollectionViewLayout new];
     
     UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:layout];
     self.collectionView = collectionView;
     
+    [layout release];
+    
     collectionView.delegate = self;
+    collectionView.dragDelegate = self;
     collectionView.backgroundColor = UIColor.clearColor;
     collectionView.alpha = 0.0f;
     
@@ -352,8 +344,6 @@
 }
 
 - (UICollectionViewCellRegistration *)makeCellRegistration {
-    CardDetailsViewController * __block unretainedSelf = self;
-    
     UICollectionViewCellRegistration *cellRegistration = [UICollectionViewCellRegistration registrationWithCellClass:[UICollectionViewListCell class]
                                                                                                 configurationHandler:^(__kindof UICollectionViewListCell * _Nonnull cell, NSIndexPath * _Nonnull indexPath, id  _Nonnull item) {
         if (![item isKindOfClass:[CardDetailsItemModel class]]) {
@@ -365,10 +355,8 @@
         CardDetailsItemModel *itemModel = (CardDetailsItemModel *)item;
         
         switch (itemModel.type) {
-            case CardDetailsItemModelTypeChildren: {
-                NSArray<HSCard *> *childCards = (itemModel.childCards == nil) ? @[] : itemModel.childCards;
-                CardDetailsChildrenContentConfiguration *configuration = [[CardDetailsChildrenContentConfiguration alloc] initWithChildCards:childCards];
-                configuration.delegate = unretainedSelf;
+            case CardDetailsItemModelTypeChild: {
+                CardDetailsChildContentConfiguration *configuration = [[CardDetailsChildContentConfiguration alloc] initWithHSCard:itemModel.childHSCard];
                 cell.contentConfiguration = configuration;
                 [configuration release];
                 break;
@@ -393,7 +381,20 @@
 }
 
 - (NSArray<UIDragItem *> *)makeDragItemsForPrimaryImageView {
-    return [self.viewModel makeDragItemFromImage:self.primaryImageView.image];
+    return [self.viewModel makeDragItemFromImage:self.primaryImageView.image indexPath:nil];
+}
+
+- (NSArray<UIDragItem *> *)makeDragItemsFromIndexPath:(NSIndexPath *)indexPath {
+    UICollectionViewListCell * _Nullable cell = (UICollectionViewListCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
+    
+    UIImage * _Nullable image = nil;
+    
+    CardDetailsChildContentView *contentView = (CardDetailsChildContentView *)cell.contentView;
+    if ([contentView isKindOfClass:[CardDetailsChildContentView class]]) {
+        image = contentView.imageView.image;
+    }
+    
+    return [self.viewModel makeDragItemFromImage:image indexPath:indexPath];
 }
 
 - (UITargetedPreview *)targetedPreviewWithClearBackgroundFromIdentifier:(NSString *)identifier {
@@ -403,32 +404,89 @@
     return [self targetedPreviewWithClearBackgroundForView:cell];
 }
 
+- (void)presentCardDetailsViewControllerFromIndexPath:(NSIndexPath *)indexPath {
+    CardDetailsItemModel * _Nullable itemModel = [self.viewModel.dataSource itemIdentifierForIndexPath:indexPath];
+    if (itemModel == nil) return;
+    if (itemModel.childHSCard == nil) return;
+    
+    //
+    
+    UICollectionViewListCell * _Nullable cell = (UICollectionViewListCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
+    if (cell == nil) return;
+    CardDetailsChildContentView *contentView = (CardDetailsChildContentView *)cell.contentView;
+    if (![contentView isKindOfClass:[CardDetailsChildContentView class]]) return;
+    
+    //
+    
+    HSCard *hsCard = itemModel.childHSCard;
+    
+    CardDetailsViewController *vc = [[CardDetailsViewController alloc] initWithHSCard:hsCard sourceImageView:contentView.imageView];
+    [vc loadViewIfNeeded];
+    [self presentViewController:vc animated:YES completion:^{}];
+    [vc release];
+}
+
 #pragma mark - UICollectionViewDelegate
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    [self presentCardDetailsViewControllerFromIndexPath:indexPath];
+}
 
 - (UIContextMenuConfiguration *)collectionView:(UICollectionView *)collectionView contextMenuConfigurationForItemAtIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point {
     
+    self.viewModel.contextMenuIndexPath = nil;
+    
     CardDetailsItemModel * _Nullable itemModel = [self.viewModel.dataSource itemIdentifierForIndexPath:indexPath];
     if (itemModel == nil) return nil;
-    if (itemModel.secondaryText == nil) return nil;
-    if ([itemModel.secondaryText isEqualToString:@""]) return nil;
     
-    UIContextMenuConfiguration *configuration = [UIContextMenuConfiguration configurationWithIdentifier:indexPath.identifier
-                                                                                        previewProvider:nil
-                                                                                         actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> * _Nonnull suggestedActions) {
-        UIAction *copyAction = [UIAction actionWithTitle:[ResourcesService localizationForKey:LocalizableKeyCopy]
-                                                   image:[UIImage systemImageNamed:@"doc.on.doc"]
-                                              identifier:nil
-                                                 handler:^(__kindof UIAction * _Nonnull action) {
+    switch (itemModel.type) {
+        case CardDetailsItemModelTypeChild: {
+            if (itemModel.childHSCard == nil) return nil;
+            self.viewModel.contextMenuIndexPath = indexPath;
             
-            UIPasteboard.generalPasteboard.string = itemModel.secondaryText;
+            UIContextMenuConfiguration *configuration = [UIContextMenuConfiguration configurationWithIdentifier:indexPath.identifier
+                                                                                                previewProvider:nil
+                                                                                                 actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> * _Nonnull suggestedActions) {
+                
+                UIAction *saveAction = [UIAction actionWithTitle:[ResourcesService localizationForKey:LocalizableKeySave]
+                                                           image:[UIImage systemImageNamed:@"square.and.arrow.down"]
+                                                      identifier:nil
+                                                         handler:^(__kindof UIAction * _Nonnull action) {
+                    [PhotosService.sharedInstance saveImageURL:itemModel.childHSCard.image fromViewController:self completionHandler:^(BOOL success, NSError * _Nonnull error) {}];
+                }];
+                
+                UIMenu *menu = [UIMenu menuWithTitle:itemModel.childHSCard.name
+                                            children:@[saveAction]];
+                
+                return menu;
             }];
-        
-        UIMenu *menu = [UIMenu menuWithChildren:@[copyAction]];
-        
-        return menu;
-    }];
-    
-    return configuration;
+               
+            return configuration;
+        }
+        default: {
+            if (itemModel.secondaryText == nil) return nil;
+            if ([itemModel.secondaryText isEqualToString:@""]) return nil;
+            self.viewModel.contextMenuIndexPath = indexPath;
+            
+            UIContextMenuConfiguration *configuration = [UIContextMenuConfiguration configurationWithIdentifier:indexPath.identifier
+                                                                                                previewProvider:nil
+                                                                                                 actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> * _Nonnull suggestedActions) {
+                UIAction *copyAction = [UIAction actionWithTitle:[ResourcesService localizationForKey:LocalizableKeyCopy]
+                                                           image:[UIImage systemImageNamed:@"doc.on.doc"]
+                                                      identifier:nil
+                                                         handler:^(__kindof UIAction * _Nonnull action) {
+                    
+                    UIPasteboard.generalPasteboard.string = itemModel.secondaryText;
+                    }];
+                
+                UIMenu *menu = [UIMenu menuWithChildren:@[copyAction]];
+                
+                return menu;
+            }];
+            
+            return configuration;
+        }
+    }
 }
 
 - (UITargetedPreview *)collectionView:(UICollectionView *)collectionView previewForHighlightingContextMenuWithConfiguration:(UIContextMenuConfiguration *)configuration {
@@ -437,6 +495,30 @@
 
 - (UITargetedPreview *)collectionView:(UICollectionView *)collectionView previewForDismissingContextMenuWithConfiguration:(UIContextMenuConfiguration *)configuration {
     return [self targetedPreviewWithClearBackgroundFromIdentifier:(NSString *)configuration.identifier];
+}
+
+- (void)collectionView:(UICollectionView *)collectionView willPerformPreviewActionForMenuWithConfiguration:(UIContextMenuConfiguration *)configuration animator:(id<UIContextMenuInteractionCommitAnimating>)animator {
+    NSIndexPath * _Nullable indexPath = self.viewModel.contextMenuIndexPath;
+    
+    if (indexPath == nil) {
+        return;
+    }
+    
+    self.viewModel.contextMenuIndexPath = nil;
+    
+    [animator addAnimations:^{
+        [self presentCardDetailsViewControllerFromIndexPath:indexPath];
+    }];
+}
+
+#pragma mark - UICollectionViewDragDelegate
+
+- (NSArray<UIDragItem *> *)collectionView:(UICollectionView *)collectionView itemsForBeginningDragSession:(id<UIDragSession>)session atIndexPath:(NSIndexPath *)indexPath {
+    return [self makeDragItemsFromIndexPath:indexPath];
+}
+
+- (NSArray<UIDragItem *> *)collectionView:(UICollectionView *)collectionView itemsForAddingToDragSession:(id<UIDragSession>)session atIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point {
+    return [self makeDragItemsFromIndexPath:indexPath];
 }
 
 #pragma mark - UIViewControllerTransitioningDelegate
@@ -501,15 +583,6 @@
 
 - (NSArray<UIDragItem *> *)dragInteraction:(UIDragInteraction *)interaction itemsForAddingToSession:(id<UIDragSession>)session withTouchAtPoint:(CGPoint)point {
     return [self makeDragItemsForPrimaryImageView];
-}
-
-#pragma mark - CardDetailsChildrenContentConfigurationDelegate
-
-- (void)cardDetailsChildrenContentConfigurationDidTapImageView:(UIImageView *)imageView hsCard:(HSCard *)hsCard {
-    CardDetailsViewController *vc = [[CardDetailsViewController alloc] initWithHSCard:hsCard sourceImageView:imageView];
-    [vc autorelease];
-    [vc loadViewIfNeeded];
-    [self presentViewController:vc animated:YES completion:^{}];
 }
 
 @end

@@ -23,6 +23,7 @@
     if (self) {
         [self->_dataSource release];
         self->_dataSource = [dataSource retain];
+        self.contextMenuIndexPath = nil;
         
         HSCardUseCaseImpl *hsCardUseCase = [HSCardUseCaseImpl new];
         self.hsCardUseCase = hsCardUseCase;
@@ -39,6 +40,7 @@
 
 - (void)dealloc {
     [_dataSource release];
+    [_contextMenuIndexPath release];
     [_hsCardUseCase release];
     [_queue release];
     [_hsCard release];
@@ -119,8 +121,22 @@
     }];
 }
 
-- (NSArray<UIDragItem *> *)makeDragItemFromImage:(UIImage * _Nullable)image {
-    UIDragItem *dragItem = [DragItemService.sharedInstance makeDragItemsFromHSCard:self.hsCard image:image];
+- (NSArray<UIDragItem *> *)makeDragItemFromImage:(UIImage * _Nullable)image indexPath:(NSIndexPath * _Nullable)indexPath {
+    UIDragItem *dragItem;
+    
+    if (indexPath == nil) {
+        // dragging for primaryImageView
+        dragItem = [DragItemService.sharedInstance makeDragItemsFromHSCard:self.hsCard image:image];
+    } else {
+        // dragging for collectionView
+        HSCard * _Nullable hsCard = [self.dataSource itemIdentifierForIndexPath:indexPath].childHSCard;
+        
+        if (hsCard == nil) {
+            return @[];
+        } else {
+            dragItem = [DragItemService.sharedInstance makeDragItemsFromHSCard:hsCard image:image];
+        }
+    }
     
     return @[dragItem];
 }
@@ -178,12 +194,13 @@
         
         [snapshot appendSectionsWithIdentifiers:@[sectionModelChildren]];
         
-        CardDetailsItemModel *childCardsItem = [[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeChildren childCards:childCards];
-        
-        [snapshot appendItemsWithIdentifiers:@[childCardsItem] intoSectionWithIdentifier:sectionModelChildren];
+        [childCards enumerateObjectsUsingBlock:^(HSCard * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            CardDetailsItemModel *childCardItem = [[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeChild childHSCard:obj];
+            [snapshot appendItemsWithIdentifiers:@[childCardItem] intoSectionWithIdentifier:sectionModelChildren];
+            [childCardItem release];
+        }];
         
         [sectionModelChildren release];
-        [childCardsItem release];
         
         [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
             [snapshot release];

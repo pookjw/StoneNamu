@@ -1,14 +1,14 @@
 //
-//  CardDetailsChildrenContentImageConfiguration.m
-//  CardDetailsChildrenContentImageConfiguration
+//  CardDetailsChildContentConfiguration.m
+//  CardDetailsChildContentConfiguration
 //
 //  Created by Jinwoo Kim on 8/9/21.
 //
 
-#import "CardDetailsChildrenContentImageConfiguration.h"
-#import "CardDetailsChildrenContentImageContentView.h"
+#import "CardDetailsChildContentConfiguration.h"
+#import "CardDetailsChildContentView.h"
 
-@implementation CardDetailsChildrenContentImageConfiguration
+@implementation CardDetailsChildContentConfiguration
 
 - (instancetype)initWithHSCard:(HSCard *)hsCard {
     self = [self init];
@@ -30,7 +30,7 @@
     id copy = [[self class] new];
     
     if (copy) {
-        CardDetailsChildrenContentImageConfiguration *_copy = (CardDetailsChildrenContentImageConfiguration *)copy;
+        CardDetailsChildContentConfiguration *_copy = (CardDetailsChildContentConfiguration *)copy;
         [_copy->_hsCard release];
         _copy->_hsCard = [self.hsCard copyWithZone:zone];
     }
@@ -39,7 +39,7 @@
 }
 
 - (nonnull __kindof UIView<UIContentView> *)makeContentView {
-    CardDetailsChildrenContentImageContentView *contentView = [CardDetailsChildrenContentImageContentView new];
+    CardDetailsChildContentView *contentView = [CardDetailsChildContentView new];
     contentView.configuration = self;
     return [contentView autorelease];
 }
