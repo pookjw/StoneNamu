@@ -16,6 +16,7 @@
 #import "HSCardDraggableImageView.h"
 
 static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDetailsBaseCollectionViewItem = @"NSUserInterfaceItemIdentifierCardDetailsBaseCollectionViewItem";
+static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDetailsChildrenContentCollectionViewItem = @"NSUserInterfaceItemIdentifierCardDetailsChildrenContentCollectionViewItem";
 
 @interface CardDetailsViewController () <NSCollectionViewDelegate>
 @property (retain) NSVisualEffectView *blurView;
@@ -160,7 +161,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeta
     [baseNib release];
     
     NSNib *childrenContentNib = [[NSNib alloc] initWithNibNamed:NSStringFromClass([CardDetailsChildrenContentCollectionViewItem class]) bundle:NSBundle.mainBundle];
-    [collectionView registerNib:childrenContentNib forItemWithIdentifier:NSStringFromClass([CardDetailsChildrenContentCollectionViewItem class])];
+    [collectionView registerNib:childrenContentNib forItemWithIdentifier:NSUserInterfaceItemIdentifierCardDetailsChildrenContentCollectionViewItem];
     [childrenContentNib release];
     
     collectionView.postsBoundsChangedNotifications = YES;
@@ -223,14 +224,14 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeta
         
         switch (itemModel.type) {
             case CardDetailsItemModelTypeChildren: {
-                CardDetailsChildrenContentCollectionViewItem *item = (CardDetailsChildrenContentCollectionViewItem *)[collectionView makeItemWithIdentifier:NSUserInterfaceItemIdentifierCardDetailsBaseCollectionViewItem forIndexPath:indexPath];
+                CardDetailsChildrenContentCollectionViewItem *item = (CardDetailsChildrenContentCollectionViewItem *)[collectionView makeItemWithIdentifier:NSUserInterfaceItemIdentifierCardDetailsChildrenContentCollectionViewItem forIndexPath:indexPath];
                 
                 [item configureWithChildCards:itemModel.childCards];
                 
                 return item;
             }
             default: {
-                CardDetailsBaseCollectionViewItem *item = (CardDetailsBaseCollectionViewItem *)[collectionView makeItemWithIdentifier:NSStringFromClass([CardDetailsBaseCollectionViewItem class]) forIndexPath:indexPath];
+                CardDetailsBaseCollectionViewItem *item = (CardDetailsBaseCollectionViewItem *)[collectionView makeItemWithIdentifier:NSUserInterfaceItemIdentifierCardDetailsBaseCollectionViewItem forIndexPath:indexPath];
                 
                 [item configureWithLeadingText:itemModel.primaryText trailingText:itemModel.secondaryText];
                 
