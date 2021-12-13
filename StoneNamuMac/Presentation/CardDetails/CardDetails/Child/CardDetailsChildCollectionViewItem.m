@@ -1,19 +1,19 @@
 //
-//  CardDetailsChildrenContentImageContentCollectionViewItem.m
+//  CardDetailsChildCollectionViewItem.m
 //  StoneNamuMac
 //
 //  Created by Jinwoo Kim on 11/22/21.
 //
 
-#import "CardDetailsChildrenContentImageContentCollectionViewItem.h"
+#import "CardDetailsChildCollectionViewItem.h"
 #import "NSImageView+setAsyncImage.h"
 
-@interface CardDetailsChildrenContentImageContentCollectionViewItem ()
+@interface CardDetailsChildCollectionViewItem ()
 @property (copy) HSCard * _Nullable hsCard;
-@property (weak) id<CardDetailsChildrenContentImageContentCollectionViewItemDelegate> delegate;
+@property (weak) id<CardDetailsChildCollectionViewItemDelegate> delegate;
 @end
 
-@implementation CardDetailsChildrenContentImageContentCollectionViewItem
+@implementation CardDetailsChildCollectionViewItem
 
 - (void)dealloc {
     [_hsCard release];
@@ -29,7 +29,7 @@
     [super prepareForReuse];
 }
 
-- (void)configureWithHSCard:(HSCard *)hsCard delegate:(nonnull id<CardDetailsChildrenContentImageContentCollectionViewItemDelegate>)delegate {
+- (void)configureWithHSCard:(HSCard *)hsCard delegate:(nonnull id<CardDetailsChildCollectionViewItemDelegate>)delegate {
     self.hsCard = hsCard;
     self.delegate = delegate;
     

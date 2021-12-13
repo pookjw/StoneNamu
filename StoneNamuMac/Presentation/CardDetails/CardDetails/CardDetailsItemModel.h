@@ -20,18 +20,18 @@ typedef NS_ENUM(NSUInteger, CardDetailsItemModelType) {
     CardDetailsItemModelTypeClass,
     CardDetailsItemModelTypeArtist,
     CardDetailsItemModelTypeCollectible,
-    CardDetailsItemModelTypeChildren
+    CardDetailsItemModelTypeChild
 };
 
 @interface CardDetailsItemModel : NSObject
 @property (readonly) CardDetailsItemModelType type;
 @property (readonly, nonatomic) NSString * _Nullable primaryText;
 @property (readonly, nonatomic) NSString * _Nullable secondaryText;
-@property (readonly, nonatomic, copy) NSArray<HSCard *> * _Nullable childCards;
+@property (readonly, nonatomic, copy) HSCard *childHSCard;
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithType:(CardDetailsItemModelType)type value:(NSString * _Nullable)value;
-- (instancetype)initWithType:(CardDetailsItemModelType)type childCards:(NSArray<HSCard *> *)childCards;
+- (instancetype)initWithType:(CardDetailsItemModelType)type childHSCard:(HSCard *)childHSCard;
 @end
 
 NS_ASSUME_NONNULL_END

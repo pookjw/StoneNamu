@@ -8,6 +8,7 @@
 #import "CardDetailsViewModel.h"
 #import <StoneNamuResources/StoneNamuResources.h>
 #import "NSCollectionViewDiffableDataSource+applySnapshotAndWait.h"
+#import "NSDiffableDataSourceSnapshot+sort.h"
 
 @interface CardDetailsViewModel ()
 @property (retain) NSOperationQueue *queue;
@@ -171,12 +172,21 @@
         
         [snapshot appendSectionsWithIdentifiers:@[sectionModelChildren]];
         
-        CardDetailsItemModel *childCardsItem = [[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeChildren childCards:childCards];
+        [childCards enumerateObjectsUsingBlock:^(HSCard * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            CardDetailsItemModel *childCardItem = [[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeChild childHSCard:obj];
+            [snapshot appendItemsWithIdentifiers:@[childCardItem] intoSectionWithIdentifier:sectionModelChildren];
+            [childCardItem release];
+        }];
         
-        [snapshot appendItemsWithIdentifiers:@[childCardsItem] intoSectionWithIdentifier:sectionModelChildren];
+        //
+        
+        [snapshot sortItemsWithSectionIdentifiers:@[sectionModelChildren] usingComparator:^NSComparisonResult(CardDetailsItemModel * _Nonnull obj1, CardDetailsItemModel * _Nonnull obj2) {
+            return [obj1.childHSCard compare:obj2.childHSCard];
+        }];
         
         [sectionModelChildren release];
-        [childCardsItem release];
+        
+        //
         
         [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
             [snapshot release];

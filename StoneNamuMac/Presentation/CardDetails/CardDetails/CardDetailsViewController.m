@@ -10,15 +10,17 @@
 #import "NSTextField+setLabelStyle.h"
 #import "NSImageView+setAsyncImage.h"
 #import "CardDetailsBaseCollectionViewItem.h"
-#import "CardDetailsChildrenContentCollectionViewItem.h"
+#import "CardDetailsChildCollectionViewItem.h"
 #import "CardDetailsCollectionViewLayout.h"
 #import "NSViewController+SpinnerView.h"
 #import "HSCardDraggableImageView.h"
+#import "HSCardPromiseProvider.h"
+#import "AppDelegate.h"
 
 static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDetailsBaseCollectionViewItem = @"NSUserInterfaceItemIdentifierCardDetailsBaseCollectionViewItem";
-static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDetailsChildrenContentCollectionViewItem = @"NSUserInterfaceItemIdentifierCardDetailsChildrenContentCollectionViewItem";
+static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDetailsChildCollectionViewItem = @"NSUserInterfaceItemIdentifierCardDetailsChildCollectionViewItem";
 
-@interface CardDetailsViewController () <NSCollectionViewDelegate>
+@interface CardDetailsViewController () <NSCollectionViewDelegate, CardDetailsChildCollectionViewItemDelegate>
 @property (retain) NSVisualEffectView *blurView;
 @property (retain) NSStackView *stackView;
 @property (retain) HSCardDraggableImageView *imageView;
@@ -160,16 +162,19 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeta
     [collectionView registerNib:baseNib forItemWithIdentifier:NSUserInterfaceItemIdentifierCardDetailsBaseCollectionViewItem];
     [baseNib release];
     
-    NSNib *childrenContentNib = [[NSNib alloc] initWithNibNamed:NSStringFromClass([CardDetailsChildrenContentCollectionViewItem class]) bundle:NSBundle.mainBundle];
-    [collectionView registerNib:childrenContentNib forItemWithIdentifier:NSUserInterfaceItemIdentifierCardDetailsChildrenContentCollectionViewItem];
-    [childrenContentNib release];
+    NSNib *childNib = [[NSNib alloc] initWithNibNamed:NSStringFromClass([CardDetailsChildCollectionViewItem class]) bundle:NSBundle.mainBundle];
+    [collectionView registerNib:childNib forItemWithIdentifier:NSUserInterfaceItemIdentifierCardDetailsChildCollectionViewItem];
+    [childNib release];
     
     collectionView.postsBoundsChangedNotifications = YES;
     collectionView.selectable = YES;
-    collectionView.allowsMultipleSelection = NO;
+    collectionView.allowsMultipleSelection = YES;
     collectionView.allowsEmptySelection = NO;
     collectionView.delegate = self;
     collectionView.backgroundColors = @[NSColor.clearColor];
+    
+    [collectionView registerForDraggedTypes:HSCardPromiseProvider.pasteboardTypes];
+    [collectionView setDraggingSourceOperationMask:NSDragOperationCopy forLocal:NO];
     
     [scrollView release];
     [clipView release];
@@ -223,10 +228,10 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeta
     CardDetailsDataSource *dataSource = [[CardDetailsDataSource alloc] initWithCollectionView:self.collectionView itemProvider:^NSCollectionViewItem * _Nullable(NSCollectionView * _Nonnull collectionView, NSIndexPath * _Nonnull indexPath, CardDetailsItemModel * _Nonnull itemModel) {
         
         switch (itemModel.type) {
-            case CardDetailsItemModelTypeChildren: {
-                CardDetailsChildrenContentCollectionViewItem *item = (CardDetailsChildrenContentCollectionViewItem *)[collectionView makeItemWithIdentifier:NSUserInterfaceItemIdentifierCardDetailsChildrenContentCollectionViewItem forIndexPath:indexPath];
+            case CardDetailsItemModelTypeChild: {
+                CardDetailsChildCollectionViewItem *item = (CardDetailsChildCollectionViewItem *)[collectionView makeItemWithIdentifier:NSUserInterfaceItemIdentifierCardDetailsChildCollectionViewItem forIndexPath:indexPath];
                 
-                [item configureWithChildCards:itemModel.childCards];
+                [item configureWithHSCard:itemModel.childHSCard delegate:self];
                 
                 return item;
             }
@@ -244,5 +249,64 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeta
 }
 
 #pragma mark - NSCollectionViewDelegate
+
+- (NSSet<NSIndexPath *> *)collectionView:(NSCollectionView *)collectionView shouldSelectItemsAtIndexPaths:(NSSet<NSIndexPath *> *)indexPaths {
+    NSMutableSet<NSIndexPath *> *mutableIndexPaths = [indexPaths mutableCopy];
+    
+    [mutableIndexPaths enumerateObjectsUsingBlock:^(NSIndexPath * _Nonnull obj, BOOL * _Nonnull stop) {
+        HSCard * _Nullable hsCard = [self.viewModel.dataSource itemIdentifierForIndexPath:obj].childHSCard;
+        
+        if (hsCard == nil) {
+            [mutableIndexPaths removeObject:obj];
+        }
+    }];
+    
+    return [mutableIndexPaths autorelease];
+}
+
+- (BOOL)collectionView:(NSCollectionView *)collectionView canDragItemsAtIndexPaths:(NSSet<NSIndexPath *> *)indexPaths withEvent:(NSEvent *)event {
+    BOOL result __block = NO;
+
+    [indexPaths enumerateObjectsUsingBlock:^(NSIndexPath * _Nonnull obj, BOOL * _Nonnull stop) {
+        HSCard * _Nullable hsCard = [self.viewModel.dataSource itemIdentifierForIndexPath:obj].childHSCard;
+
+        if (hsCard != nil) {
+            result = YES;
+            *stop = YES;
+            return;
+        }
+    }];
+
+    return result;
+}
+
+- (id<NSPasteboardWriting>)collectionView:(NSCollectionView *)collectionView pasteboardWriterForItemAtIndexPath:(NSIndexPath *)indexPath {
+    CardDetailsChildCollectionViewItem * _Nullable item = (CardDetailsChildCollectionViewItem *)[collectionView itemAtIndexPath:indexPath];
+    
+    if (item == nil) return nil;
+    if (![item isKindOfClass:[CardDetailsChildCollectionViewItem class]]) return nil;
+    
+    HSCard * _Nullable hsCard = [self.viewModel.dataSource itemIdentifierForIndexPath:indexPath].childHSCard;
+    
+    if (hsCard == nil) return nil;
+    
+    HSCardPromiseProvider *provider = [[HSCardPromiseProvider alloc] initWithHSCard:hsCard image:item.imageView.image];
+    
+    return [provider autorelease];
+}
+
+#pragma mark - CardDetailsChildCollectionViewItemDelegate
+
+- (void)cardDetailsChildrenContentImageContentCollectionViewItem:(CardDetailsChildCollectionViewItem *)cardDetailsChildrenContentImageContentCollectionViewItem didDoubleClickWithRecognizer:(NSClickGestureRecognizer *)recognizer {
+    NSArray<NSIndexPath *> *selectionIndexPaths = self.collectionView.selectionIndexPaths.allObjects;
+    
+    [selectionIndexPaths enumerateObjectsUsingBlock:^(NSIndexPath * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        HSCard * _Nullable hsCard = [self.viewModel.dataSource itemIdentifierForIndexPath:obj].childHSCard;
+        
+        if (hsCard == nil) return;
+        
+        [(AppDelegate *)NSApp.delegate presentCardDetailsWindowWithHSCard:hsCard];
+    }];
+}
 
 @end

@@ -8,6 +8,7 @@
 #import "CardDetailsViewModel.h"
 #import <StoneNamuResources/StoneNamuResources.h>
 #import "UICollectionViewDiffableDataSource+applySnapshotAndWait.h"
+#import "NSDiffableDataSourceSnapshot+sort.h"
 #import "DragItemService.h"
 
 @interface CardDetailsViewModel ()
@@ -200,7 +201,15 @@
             [childCardItem release];
         }];
         
+        //
+        
+        [snapshot sortItemsWithSectionIdentifiers:@[sectionModelChildren] usingComparator:^NSComparisonResult(CardDetailsItemModel * _Nonnull obj1, CardDetailsItemModel * _Nonnull obj2) {
+            return [obj1.childHSCard compare:obj2.childHSCard];
+        }];
+        
         [sectionModelChildren release];
+        
+        //
         
         [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
             [snapshot release];

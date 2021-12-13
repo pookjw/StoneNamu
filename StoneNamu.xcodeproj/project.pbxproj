@@ -299,15 +299,9 @@
 		4FDE8E0126F1281100959B97 /* NSNumber+stringWithSepearatedDecimalNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FDE8E0026F1281100959B97 /* NSNumber+stringWithSepearatedDecimalNumber.m */; };
 		4FDE9B53274ACE6700AB0E02 /* CardDetailsSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FDE9B52274ACE6700AB0E02 /* CardDetailsSectionModel.m */; };
 		4FDE9B56274ACE7100AB0E02 /* CardDetailsItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FDE9B55274ACE7100AB0E02 /* CardDetailsItemModel.m */; };
-		4FDE9B5B274AEBF500AB0E02 /* CardDetailsChildrenContentCollectionViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FDE9B59274AEBF500AB0E02 /* CardDetailsChildrenContentCollectionViewItem.m */; };
-		4FDE9B5E274AEE8C00AB0E02 /* CardDetailsChildrenContentCollectionViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4FDE9B5D274AEE8C00AB0E02 /* CardDetailsChildrenContentCollectionViewItem.xib */; };
-		4FDE9B61274AEFE600AB0E02 /* CardDetailsChildrenContentCollectionViewItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FDE9B60274AEFE600AB0E02 /* CardDetailsChildrenContentCollectionViewItemModel.m */; };
-		4FDE9B64274AEFEE00AB0E02 /* CardDetailsChildrenContentCollectionViewItemSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FDE9B63274AEFEE00AB0E02 /* CardDetailsChildrenContentCollectionViewItemSectionModel.m */; };
-		4FDE9B67274AEFF600AB0E02 /* CardDetailsChildrenContentCollectionViewItemItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FDE9B66274AEFF600AB0E02 /* CardDetailsChildrenContentCollectionViewItemItemModel.m */; };
-		4FDE9B6B274AF05200AB0E02 /* CardDetailsChildrenContentImageContentCollectionViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FDE9B6A274AF05200AB0E02 /* CardDetailsChildrenContentImageContentCollectionViewItem.m */; };
-		4FDE9B6D274AF05C00AB0E02 /* CardDetailsChildrenContentImageContentCollectionViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4FDE9B6C274AF05C00AB0E02 /* CardDetailsChildrenContentImageContentCollectionViewItem.xib */; };
+		4FDE9B6B274AF05200AB0E02 /* CardDetailsChildCollectionViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FDE9B6A274AF05200AB0E02 /* CardDetailsChildCollectionViewItem.m */; };
+		4FDE9B6D274AF05C00AB0E02 /* CardDetailsChildCollectionViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4FDE9B6C274AF05C00AB0E02 /* CardDetailsChildCollectionViewItem.xib */; };
 		4FDE9B70274AF1C300AB0E02 /* NSDiffableDataSourceSnapshot+sort.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FDE9B6F274AF1C200AB0E02 /* NSDiffableDataSourceSnapshot+sort.m */; };
-		4FDE9B73274AF27400AB0E02 /* CardDetailsChildrenContentCollectionViewItemCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FDE9B72274AF27400AB0E02 /* CardDetailsChildrenContentCollectionViewItemCollectionViewLayout.m */; };
 		4FE85708270089BD0008C2FB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE85707270089BD0008C2FB /* main.m */; };
 		4FE857622700913A0008C2FB /* MainSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE857612700913A0008C2FB /* MainSplitViewController.m */; };
 		4FE85767270092F30008C2FB /* MainListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE85766270092F30008C2FB /* MainListViewController.m */; };
@@ -522,7 +516,7 @@
 		4F0863F32751D0A200B251BF /* NSUserInterfaceItemIdentifierDecks+HSDeckFormat.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSUserInterfaceItemIdentifierDecks+HSDeckFormat.m"; sourceTree = "<group>"; };
 		4F128D43273C044100C6A0D9 /* IntrinsicCollectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IntrinsicCollectionView.h; sourceTree = "<group>"; };
 		4F128D44273C044100C6A0D9 /* IntrinsicCollectionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IntrinsicCollectionView.m; sourceTree = "<group>"; };
-		4F138422274C52DE007E68E4 /* CardDetailsChildrenContentImageContentCollectionViewItemDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardDetailsChildrenContentImageContentCollectionViewItemDelegate.h; sourceTree = "<group>"; };
+		4F138422274C52DE007E68E4 /* CardDetailsChildCollectionViewItemDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardDetailsChildCollectionViewItemDelegate.h; sourceTree = "<group>"; };
 		4F182BCF26AC23600028115C /* UIViewController+presentErrorAlert.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+presentErrorAlert.h"; sourceTree = "<group>"; };
 		4F182BD026AC23600028115C /* UIViewController+presentErrorAlert.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+presentErrorAlert.m"; sourceTree = "<group>"; };
 		4F1B98A426C8235B004E1603 /* PrefsLocaleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefsLocaleViewController.h; sourceTree = "<group>"; };
@@ -958,22 +952,11 @@
 		4FDE9B52274ACE6700AB0E02 /* CardDetailsSectionModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardDetailsSectionModel.m; sourceTree = "<group>"; };
 		4FDE9B54274ACE7100AB0E02 /* CardDetailsItemModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardDetailsItemModel.h; sourceTree = "<group>"; };
 		4FDE9B55274ACE7100AB0E02 /* CardDetailsItemModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardDetailsItemModel.m; sourceTree = "<group>"; };
-		4FDE9B58274AEBF500AB0E02 /* CardDetailsChildrenContentCollectionViewItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardDetailsChildrenContentCollectionViewItem.h; sourceTree = "<group>"; };
-		4FDE9B59274AEBF500AB0E02 /* CardDetailsChildrenContentCollectionViewItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardDetailsChildrenContentCollectionViewItem.m; sourceTree = "<group>"; };
-		4FDE9B5D274AEE8C00AB0E02 /* CardDetailsChildrenContentCollectionViewItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CardDetailsChildrenContentCollectionViewItem.xib; sourceTree = "<group>"; };
-		4FDE9B5F274AEFE600AB0E02 /* CardDetailsChildrenContentCollectionViewItemModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardDetailsChildrenContentCollectionViewItemModel.h; sourceTree = "<group>"; };
-		4FDE9B60274AEFE600AB0E02 /* CardDetailsChildrenContentCollectionViewItemModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardDetailsChildrenContentCollectionViewItemModel.m; sourceTree = "<group>"; };
-		4FDE9B62274AEFEE00AB0E02 /* CardDetailsChildrenContentCollectionViewItemSectionModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardDetailsChildrenContentCollectionViewItemSectionModel.h; sourceTree = "<group>"; };
-		4FDE9B63274AEFEE00AB0E02 /* CardDetailsChildrenContentCollectionViewItemSectionModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardDetailsChildrenContentCollectionViewItemSectionModel.m; sourceTree = "<group>"; };
-		4FDE9B65274AEFF600AB0E02 /* CardDetailsChildrenContentCollectionViewItemItemModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardDetailsChildrenContentCollectionViewItemItemModel.h; sourceTree = "<group>"; };
-		4FDE9B66274AEFF600AB0E02 /* CardDetailsChildrenContentCollectionViewItemItemModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardDetailsChildrenContentCollectionViewItemItemModel.m; sourceTree = "<group>"; };
-		4FDE9B69274AF05200AB0E02 /* CardDetailsChildrenContentImageContentCollectionViewItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardDetailsChildrenContentImageContentCollectionViewItem.h; sourceTree = "<group>"; };
-		4FDE9B6A274AF05200AB0E02 /* CardDetailsChildrenContentImageContentCollectionViewItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardDetailsChildrenContentImageContentCollectionViewItem.m; sourceTree = "<group>"; };
-		4FDE9B6C274AF05C00AB0E02 /* CardDetailsChildrenContentImageContentCollectionViewItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CardDetailsChildrenContentImageContentCollectionViewItem.xib; sourceTree = "<group>"; };
+		4FDE9B69274AF05200AB0E02 /* CardDetailsChildCollectionViewItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardDetailsChildCollectionViewItem.h; sourceTree = "<group>"; };
+		4FDE9B6A274AF05200AB0E02 /* CardDetailsChildCollectionViewItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardDetailsChildCollectionViewItem.m; sourceTree = "<group>"; };
+		4FDE9B6C274AF05C00AB0E02 /* CardDetailsChildCollectionViewItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CardDetailsChildCollectionViewItem.xib; sourceTree = "<group>"; };
 		4FDE9B6E274AF1C200AB0E02 /* NSDiffableDataSourceSnapshot+sort.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDiffableDataSourceSnapshot+sort.h"; sourceTree = "<group>"; };
 		4FDE9B6F274AF1C200AB0E02 /* NSDiffableDataSourceSnapshot+sort.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDiffableDataSourceSnapshot+sort.m"; sourceTree = "<group>"; };
-		4FDE9B71274AF27400AB0E02 /* CardDetailsChildrenContentCollectionViewItemCollectionViewLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardDetailsChildrenContentCollectionViewItemCollectionViewLayout.h; sourceTree = "<group>"; };
-		4FDE9B72274AF27400AB0E02 /* CardDetailsChildrenContentCollectionViewItemCollectionViewLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardDetailsChildrenContentCollectionViewItemCollectionViewLayout.m; sourceTree = "<group>"; };
 		4FE097C326A329B400BF3A6D /* BlizzardAPIRegionHost.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlizzardAPIRegionHost.h; sourceTree = "<group>"; };
 		4FE097C626A331FE00BF3A6D /* HSCardRarity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardRarity.h; sourceTree = "<group>"; };
 		4FE097CA26A33C7500BF3A6D /* HSCardClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardClass.h; sourceTree = "<group>"; };
@@ -1509,7 +1492,7 @@
 				4FDE9B54274ACE7100AB0E02 /* CardDetailsItemModel.h */,
 				4FDE9B55274ACE7100AB0E02 /* CardDetailsItemModel.m */,
 				4F4738CC2746D588000C0C85 /* Base */,
-				4FDE9B57274AEBBE00AB0E02 /* ChildrenContent */,
+				4FDE9B68274AF02100AB0E02 /* Child */,
 			);
 			path = CardDetails;
 			sourceTree = "<group>";
@@ -2423,34 +2406,15 @@
 			path = About;
 			sourceTree = "<group>";
 		};
-		4FDE9B57274AEBBE00AB0E02 /* ChildrenContent */ = {
+		4FDE9B68274AF02100AB0E02 /* Child */ = {
 			isa = PBXGroup;
 			children = (
-				4FDE9B58274AEBF500AB0E02 /* CardDetailsChildrenContentCollectionViewItem.h */,
-				4FDE9B59274AEBF500AB0E02 /* CardDetailsChildrenContentCollectionViewItem.m */,
-				4FDE9B5D274AEE8C00AB0E02 /* CardDetailsChildrenContentCollectionViewItem.xib */,
-				4FDE9B5F274AEFE600AB0E02 /* CardDetailsChildrenContentCollectionViewItemModel.h */,
-				4FDE9B60274AEFE600AB0E02 /* CardDetailsChildrenContentCollectionViewItemModel.m */,
-				4FDE9B71274AF27400AB0E02 /* CardDetailsChildrenContentCollectionViewItemCollectionViewLayout.h */,
-				4FDE9B72274AF27400AB0E02 /* CardDetailsChildrenContentCollectionViewItemCollectionViewLayout.m */,
-				4FDE9B62274AEFEE00AB0E02 /* CardDetailsChildrenContentCollectionViewItemSectionModel.h */,
-				4FDE9B63274AEFEE00AB0E02 /* CardDetailsChildrenContentCollectionViewItemSectionModel.m */,
-				4FDE9B65274AEFF600AB0E02 /* CardDetailsChildrenContentCollectionViewItemItemModel.h */,
-				4FDE9B66274AEFF600AB0E02 /* CardDetailsChildrenContentCollectionViewItemItemModel.m */,
-				4FDE9B68274AF02100AB0E02 /* ChrildrenContentImageContent */,
+				4F138422274C52DE007E68E4 /* CardDetailsChildCollectionViewItemDelegate.h */,
+				4FDE9B69274AF05200AB0E02 /* CardDetailsChildCollectionViewItem.h */,
+				4FDE9B6A274AF05200AB0E02 /* CardDetailsChildCollectionViewItem.m */,
+				4FDE9B6C274AF05C00AB0E02 /* CardDetailsChildCollectionViewItem.xib */,
 			);
-			path = ChildrenContent;
-			sourceTree = "<group>";
-		};
-		4FDE9B68274AF02100AB0E02 /* ChrildrenContentImageContent */ = {
-			isa = PBXGroup;
-			children = (
-				4F138422274C52DE007E68E4 /* CardDetailsChildrenContentImageContentCollectionViewItemDelegate.h */,
-				4FDE9B69274AF05200AB0E02 /* CardDetailsChildrenContentImageContentCollectionViewItem.h */,
-				4FDE9B6A274AF05200AB0E02 /* CardDetailsChildrenContentImageContentCollectionViewItem.m */,
-				4FDE9B6C274AF05C00AB0E02 /* CardDetailsChildrenContentImageContentCollectionViewItem.xib */,
-			);
-			path = ChrildrenContentImageContent;
+			path = Child;
 			sourceTree = "<group>";
 		};
 		4FE097C126A3288500BF3A6D /* API */ = {
@@ -3197,8 +3161,7 @@
 				4F23C8B5273D9A2500C33F10 /* Assets.xcassets in Resources */,
 				4F23C8B8273D9A5900C33F10 /* InfoPlist.strings in Resources */,
 				4F4738D12746D5B7000C0C85 /* CardDetailsBaseCollectionViewItem.xib in Resources */,
-				4FDE9B5E274AEE8C00AB0E02 /* CardDetailsChildrenContentCollectionViewItem.xib in Resources */,
-				4FDE9B6D274AF05C00AB0E02 /* CardDetailsChildrenContentImageContentCollectionViewItem.xib in Resources */,
+				4FDE9B6D274AF05C00AB0E02 /* CardDetailsChildCollectionViewItem.xib in Resources */,
 				F38FEE4F27604A4400A00485 /* DeckAddCardCollectionViewItem.xib in Resources */,
 				4F59008B2752FE6100217E4A /* MainListTableCellView.xib in Resources */,
 				4FD4E026274EE2E80037D867 /* DeckBaseCollectionViewItem.xib in Resources */,
@@ -3441,9 +3404,7 @@
 				4F59009F2753502400217E4A /* DeckDetailsSplitViewController.m in Sources */,
 				4FC402C0273870C200D25523 /* ViewMenuItem.m in Sources */,
 				4FC402C3273872A900D25523 /* WindowMenuItem.m in Sources */,
-				4FDE9B6B274AF05200AB0E02 /* CardDetailsChildrenContentImageContentCollectionViewItem.m in Sources */,
-				4FDE9B67274AEFF600AB0E02 /* CardDetailsChildrenContentCollectionViewItemItemModel.m in Sources */,
-				4FDE9B64274AEFEE00AB0E02 /* CardDetailsChildrenContentCollectionViewItemSectionModel.m in Sources */,
+				4FDE9B6B274AF05200AB0E02 /* CardDetailsChildCollectionViewItem.m in Sources */,
 				4F90DA672766313F007982AE /* DeckDetailsItemModel.m in Sources */,
 				4F883F6E27300B1700AF0048 /* NSToolbarIdentifierCardOptionType+BlizzardHSAPIOptionType.m in Sources */,
 				4F4892E92724727000126131 /* CardCollectionViewItem.m in Sources */,
@@ -3456,7 +3417,6 @@
 				4F883F7127300BCB00AF0048 /* NSTouchBarItemIdentifierCardOptionType+BlizzardHSAPIOptionType.m in Sources */,
 				4F83FBDC272E6F5D002D2387 /* DynamicMenuToolbarItem.m in Sources */,
 				4F90DA6F276641C8007982AE /* DeckDetailsCardCollectionViewItem.m in Sources */,
-				4FDE9B73274AF27400AB0E02 /* CardDetailsChildrenContentCollectionViewItemCollectionViewLayout.m in Sources */,
 				4FE8577027009C4D0008C2FB /* CardSectionModel.m in Sources */,
 				F303D63427414E8700569E20 /* PrefsTabViewController.m in Sources */,
 				F303D645274162CB00569E20 /* PrefsCardsViewModel.m in Sources */,
@@ -3516,13 +3476,11 @@
 				4FD4E01A274EDC950037D867 /* DecksViewModel.m in Sources */,
 				4F90DA612766312F007982AE /* DeckDetailsViewModel.m in Sources */,
 				4FC402CD2738759200D25523 /* CardOptionsMenu.m in Sources */,
-				4FDE9B61274AEFE600AB0E02 /* CardDetailsChildrenContentCollectionViewItemModel.m in Sources */,
 				4F4738CB2746D25C000C0C85 /* CardDetailsViewModel.m in Sources */,
 				4FE857762700A0230008C2FB /* NSCollectionViewDiffableDataSource+applySnapshotAndWait.m in Sources */,
 				4F4738BD2746BFCD000C0C85 /* CardDetailsWindow.m in Sources */,
 				4F7333F8272D836A00438FE0 /* CardOptionsToolbar.m in Sources */,
 				4FD4E020274EDCD10037D867 /* DecksItemModel.m in Sources */,
-				4FDE9B5B274AEBF500AB0E02 /* CardDetailsChildrenContentCollectionViewItem.m in Sources */,
 				4F5900892752FE4D00217E4A /* MainListTableCellView.m in Sources */,
 				4FF3CD422759774000ACA5AC /* DeckAddCardOptionsToolbar.m in Sources */,
 				4FD4E017274ED7DF0037D867 /* HSCardDraggableImageView.m in Sources */,
