@@ -41,8 +41,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setAttributes];
-    [self bind];
+    [self _setAttributes];
+    [self _bind];
     [self updateBackgroundColor];
 }
 
@@ -56,7 +56,7 @@
     [self updateBackgroundColor];
 }
 
-- (void)setAttributes {
+- (void)_setAttributes {
     self.view.wantsLayer = YES;
 }
 
@@ -72,7 +72,7 @@
     }
 }
 
-- (void)bind {
+- (void)_bind {
     [self addObserver:self forKeyPath:@"self.view.window" options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:nil];
 }
 

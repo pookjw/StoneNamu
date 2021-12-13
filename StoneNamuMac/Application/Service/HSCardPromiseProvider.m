@@ -47,9 +47,8 @@
 }
 
 - (instancetype)initWithHSCard:(HSCard *)hsCard image:(NSImage *)image {
-    UTType *type = [UTType typeWithFilenameExtension:@"png"];
-    
-    self = [self initWithFileType:type.identifier delegate:self];
+    self = [self initWithFileType:UTTypePNG.identifier delegate:self];
+    NSLog(@"- result: %@", UTTypePNG.identifier);
     
     if (self) {
         self.hsCard = hsCard;
@@ -57,7 +56,7 @@
         
         NSOperationQueue *queue = [NSOperationQueue new];
         self.queue = queue;
-        queue.qualityOfService = NSQualityOfServiceUserInteractive;
+        queue.qualityOfService = NSQualityOfServiceBackground;
         [queue release];
         
         //
@@ -65,7 +64,7 @@
         NSURL *imageURL = [[[NSFileManager.defaultManager temporaryDirectory] URLByAppendingPathComponent:hsCard.slug] URLByAppendingPathExtension:@"png"];
         self.imageURL = imageURL;
         
-        self.imageFileName = [[NSURL URLWithString:hsCard.name] URLByAppendingPathExtension:@"png"].path;
+        self.imageFileName = [NSString stringWithFormat:@"%@.png", hsCard.name];
     }
     
     return self;
@@ -90,8 +89,9 @@
         if ([NSFileManager.defaultManager fileExistsAtPath:self.imageURL.path]) {
             [NSFileManager.defaultManager removeItemAtURL:self.imageURL error:nil];
         }
+        NSLog(@"- result: %@", [self.imageURL pasteboardPropertyListForType:NSPasteboardTypeFileURL]);
         [imagePNGData writeToURL:self.imageURL options:NSDataWritingAtomic error:nil];
-        return [self.imageURL pasteboardPropertyListForType:NSPasteboardTypeURL];
+        return [self.imageURL pasteboardPropertyListForType:NSPasteboardTypeFileURL];
     } else if ([type isEqualToString:NSPasteboardTypePNG]) {
         return self.image.pngData;
     } else if ([type isEqualToString:NSPasteboardTypeHSCard]) {

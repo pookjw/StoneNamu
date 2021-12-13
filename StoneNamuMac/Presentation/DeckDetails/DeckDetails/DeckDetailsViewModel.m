@@ -124,6 +124,20 @@
     }];
 }
 
+- (void)addHSCardsWithDatas:(NSArray<NSData *> *)datas {
+    [self.queue addOperationWithBlock:^{
+        NSMutableArray<HSCard *> *hsCards = [@[] mutableCopy];
+        
+        [datas enumerateObjectsUsingBlock:^(NSData * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            HSCard *hsCard = [NSKeyedUnarchiver unarchivedObjectOfClasses:HSCard.unarchvingClasses fromData:obj error:nil];
+            [hsCards addObject:hsCard];
+        }];
+        
+        [self addHSCards:hsCards];
+        [hsCards release];
+    }];
+}
+
 - (void)increaseAtIndexPath:(NSIndexPath *)indexPath {
     DeckDetailsItemModel *itemModel = [self.dataSource itemIdentifierForIndexPath:indexPath];
     HSCard *hsCard = itemModel.hsCard;

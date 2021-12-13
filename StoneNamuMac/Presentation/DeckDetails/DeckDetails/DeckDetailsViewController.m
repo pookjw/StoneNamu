@@ -7,19 +7,22 @@
 
 #import "DeckDetailsViewController.h"
 #import "HSCardPromiseProvider.h"
-#import "DeckDetailsCardColledtionViewItem.h"
+#import "DeckDetailsCardCollectionViewItem.h"
 #import "DeckDetailsManaCostGraphCollectionViewItem.h"
 #import "DeckDetailsViewModel.h"
+#import "NSViewController+loadViewIfNeeded.h"
+#import "DeckDetailsCollectionViewLayout.h"
 #import <StoneNamuCore/StoneNamuCore.h>
 #import <StoneNamuResources/StoneNamuResources.h>
 
-static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDetailsCardColledtionViewItem = @"NSUserInterfaceItemIdentifierDeckDetailsCardColledtionViewItem";
+static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDetailsCardCollectionViewItem = @"NSUserInterfaceItemIdentifierDeckDetailsCardCollectionViewItem";
 static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDetailsManaCostGraphCollectionViewItem = @"NSUserInterfaceItemIdentifierDeckDetailsManaCostGraphCollectionViewItem";
 
 @interface DeckDetailsViewController () <NSCollectionViewDelegate>
 @property (retain) NSScrollView *scrollView;
 @property (retain) NSClipView *clipView;
 @property (retain) NSCollectionView *collectionView;
+@property (retain) DeckDetailsViewModel *viewModel;
 @end
 
 @implementation DeckDetailsViewController
@@ -28,7 +31,8 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
     self = [self init];
     
     if (self) {
-        
+        [self loadViewIfNeeded];
+        [self.viewModel requestDataSourceWithLocalDeck:localDeck];
     }
     
     return self;
@@ -38,6 +42,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
     [_scrollView release];
     [_clipView release];
     [_collectionView release];
+    [_viewModel release];
     [super dealloc];
 }
 
@@ -51,6 +56,8 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
     [super viewDidLoad];
     [self setAttributes];
     [self configureCollectionView];
+    [self configureViewModel];
+    [self bind];
 }
 
 - (void)setAttributes {
@@ -82,14 +89,12 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
         [scrollView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor]
     ]];
     
-    NSCollectionViewFlowLayout *flowLayout = [NSCollectionViewFlowLayout new];
-    flowLayout.itemSize = NSMakeSize(200, 270);
-    flowLayout.minimumLineSpacing = 0.0f;
-    collectionView.collectionViewLayout = flowLayout;
-    [flowLayout release];
+    DeckDetailsCollectionViewLayout *layout = [DeckDetailsCollectionViewLayout new];
+    collectionView.collectionViewLayout = layout;
+    [layout release];
     
-    NSNib *cardsNib = [[NSNib alloc] initWithNibNamed:NSStringFromClass([DeckDetailsCardColledtionViewItem class]) bundle:NSBundle.mainBundle];
-    [collectionView registerNib:cardsNib forItemWithIdentifier:NSUserInterfaceItemIdentifierDeckDetailsCardColledtionViewItem];
+    NSNib *cardsNib = [[NSNib alloc] initWithNibNamed:NSStringFromClass([DeckDetailsCardCollectionViewItem class]) bundle:NSBundle.mainBundle];
+    [collectionView registerNib:cardsNib forItemWithIdentifier:NSUserInterfaceItemIdentifierDeckDetailsCardCollectionViewItem];
     [cardsNib release];
     
     NSNib *manaCostGraphNib = [[NSNib alloc] initWithNibNamed:NSStringFromClass([DeckDetailsManaCostGraphCollectionViewItem class]) bundle:NSBundle.mainBundle];
@@ -109,6 +114,54 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
     [collectionView release];
 }
 
+- (void)configureViewModel {
+    DeckDetailsViewModel *viewModel = [[DeckDetailsViewModel alloc] initWithDataSource:[self makeDataSource]];
+    self.viewModel = viewModel;
+    [viewModel release];
+}
+
+- (DeckDetailsDataSource *)makeDataSource {
+    DeckDetailsDataSource *dataSource = [[DeckDetailsDataSource alloc] initWithCollectionView:self.collectionView
+                                                                                 itemProvider:^NSCollectionViewItem * _Nullable(NSCollectionView * _Nonnull collectionView, NSIndexPath * _Nonnull indexPath, DeckDetailsItemModel * _Nonnull itemModel) {
+        
+        switch (itemModel.type) {
+            case DeckDetailsItemModelTypeCard: {
+                DeckDetailsCardCollectionViewItem *item = (DeckDetailsCardCollectionViewItem *)[collectionView makeItemWithIdentifier:NSUserInterfaceItemIdentifierDeckDetailsCardCollectionViewItem forIndexPath:indexPath];
+                
+                [item configureWithHSCard:itemModel.hsCard hsCardCount:itemModel.hsCardCount.unsignedIntegerValue];
+                
+                return item;
+            }
+            case DeckDetailsItemModelTypeManaCostGraph: {
+                DeckDetailsManaCostGraphCollectionViewItem *item = (DeckDetailsManaCostGraphCollectionViewItem *)[collectionView makeItemWithIdentifier:NSUserInterfaceItemIdentifierDeckDetailsManaCostGraphCollectionViewItem forIndexPath:indexPath];
+                
+                [item configureWithManaCost:itemModel.graphManaCost.unsignedIntegerValue
+                                 percentage:itemModel.graphPercentage.floatValue
+                                  cardCount:itemModel.graphCount.unsignedIntegerValue];
+                
+                return item;
+            }
+            default:
+                return nil;
+        }
+    }];
+    
+    return [dataSource autorelease];
+}
+
+- (void)bind {
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(applyingSnapshotToDataSourceWasDoneReceived:)
+                                               name:NSNotificationNameDeckDetailsViewModelApplyingSnapshotToDataSourceWasDone
+                                             object:self.viewModel];
+}
+
+- (void)applyingSnapshotToDataSourceWasDoneReceived:(NSNotification *)notification {
+    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+//        [self.collectionView.collectionViewLayout invalidateLayout];
+    }];
+}
+
 #pragma mark - NSCollectionViewDelegate
 
 - (NSDragOperation)collectionView:(NSCollectionView *)collectionView validateDrop:(id<NSDraggingInfo>)draggingInfo proposedIndexPath:(NSIndexPath * _Nonnull *)proposedDropIndexPath dropOperation:(NSCollectionViewDropOperation *)proposedDropOperation {
@@ -119,13 +172,15 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
     
     NSPasteboard *pasteboard = draggingInfo.draggingPasteboard;
     NSArray<NSPasteboardItem *> *items = pasteboard.pasteboardItems;
+    NSMutableArray<NSData *> *datas = [@[] mutableCopy];
     
     [items enumerateObjectsUsingBlock:^(NSPasteboardItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         NSData *data = [obj dataForType:NSPasteboardTypeHSCard];
-        HSCard *hsCard = [NSKeyedUnarchiver unarchivedObjectOfClasses:HSCard.unarchvingClasses fromData:data error:nil];
-        
-        NSLog(@"result: %@", hsCard.name);
+        [datas addObject:data];
     }];
+    
+    [self.viewModel addHSCardsWithDatas:datas];
+    [datas release];
     
     return YES;
 }

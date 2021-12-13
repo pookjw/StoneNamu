@@ -135,10 +135,12 @@
 }
 
 - (DecksDataSource *)makeDataSource {
+    DecksViewController * __block unretainedSelf = self;
+    
     DecksDataSource *dataSource = [[DecksDataSource alloc] initWithCollectionView:self.collectionView itemProvider:^NSCollectionViewItem * _Nullable(NSCollectionView * _Nonnull collectionView, NSIndexPath * _Nonnull indexPath, DecksItemModel * _Nonnull itemModel) {
         DeckBaseCollectionViewItem *item = [collectionView makeItemWithIdentifier:NSStringFromClass([DeckBaseCollectionViewItem class]) forIndexPath:indexPath];
         
-        [item configureWithLocalDeck:itemModel.localDeck deckBaseCollectionViewItemDelegate:self];
+        [item configureWithLocalDeck:itemModel.localDeck deckBaseCollectionViewItemDelegate:unretainedSelf];
         
         return item;
     }];

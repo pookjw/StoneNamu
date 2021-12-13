@@ -1,15 +1,15 @@
 //
-//  DeckDetailsCardColledtionViewItem.m
+//  DeckDetailsCardCollectionViewItem.m
 //  StoneNamuMac
 //
 //  Created by Jinwoo Kim on 12/12/21.
 //
 
-#import "DeckDetailsCardColledtionViewItem.h"
+#import "DeckDetailsCardCollectionViewItem.h"
 #import <QuartzCore/QuartzCore.h>
 #import "NSImageView+setAsyncImage.h"
 
-@interface DeckDetailsCardColledtionViewItem ()
+@interface DeckDetailsCardCollectionViewItem ()
 @property (assign) IBOutlet NSView *containerView;
 @property (retain) IBOutlet NSLayoutConstraint *containerViewHeightConstraint;
 @property (retain) IBOutlet NSView *manaCostContainerView;
@@ -22,7 +22,7 @@
 @property (retain) CAGradientLayer *imageViewGradientLayer;
 @end
 
-@implementation DeckDetailsCardColledtionViewItem
+@implementation DeckDetailsCardCollectionViewItem
 
 - (void)dealloc {
     [_containerViewHeightConstraint release];

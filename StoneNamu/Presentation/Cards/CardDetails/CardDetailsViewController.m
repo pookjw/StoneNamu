@@ -352,6 +352,8 @@
 }
 
 - (UICollectionViewCellRegistration *)makeCellRegistration {
+    CardDetailsViewController * __block unretainedSelf = self;
+    
     UICollectionViewCellRegistration *cellRegistration = [UICollectionViewCellRegistration registrationWithCellClass:[UICollectionViewListCell class]
                                                                                                 configurationHandler:^(__kindof UICollectionViewListCell * _Nonnull cell, NSIndexPath * _Nonnull indexPath, id  _Nonnull item) {
         if (![item isKindOfClass:[CardDetailsItemModel class]]) {
@@ -366,7 +368,7 @@
             case CardDetailsItemModelTypeChildren: {
                 NSArray<HSCard *> *childCards = (itemModel.childCards == nil) ? @[] : itemModel.childCards;
                 CardDetailsChildrenContentConfiguration *configuration = [[CardDetailsChildrenContentConfiguration alloc] initWithChildCards:childCards];
-                configuration.delegate = self;
+                configuration.delegate = unretainedSelf;
                 cell.contentConfiguration = configuration;
                 [configuration release];
                 break;

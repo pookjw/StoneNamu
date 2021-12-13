@@ -8,7 +8,7 @@
 #import "DeckDetailsManaCostGraphCollectionViewItem.h"
 
 @interface DeckDetailsManaCostGraphCollectionViewItem ()
-@property (assign) IBOutlet NSView *containerView;
+@property (retain) IBOutlet NSView *containerView;
 @property (retain) IBOutlet NSLayoutConstraint *containreViewHeightConstraint;
 @property (retain) IBOutlet NSView *costContainerView;
 @property (retain) IBOutlet NSLayoutConstraint *costContainerWidthConstraint;
@@ -22,6 +22,7 @@
 @implementation DeckDetailsManaCostGraphCollectionViewItem
 
 - (void)dealloc {
+    [_containerView release];
     [_containreViewHeightConstraint release];
     [_costContainerView release];
     [_costContainerWidthConstraint release];
@@ -29,7 +30,7 @@
     [_levelIndicator release];
     [_countContainerView release];
     [_countContainerViewWidthConstraint release];
-    [_costLabel release];
+    [_countLabel release];
     [super dealloc];
 }
 

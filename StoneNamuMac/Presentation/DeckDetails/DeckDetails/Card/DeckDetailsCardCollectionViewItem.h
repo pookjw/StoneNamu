@@ -1,5 +1,5 @@
 //
-//  DeckDetailsCardColledtionViewItem.h
+//  DeckDetailsCardCollectionViewItem.h
 //  StoneNamuMac
 //
 //  Created by Jinwoo Kim on 12/12/21.
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface DeckDetailsCardColledtionViewItem : SelectedBackgroundCollectionViewItem
+@interface DeckDetailsCardCollectionViewItem : SelectedBackgroundCollectionViewItem
 - (void)configureWithHSCard:(HSCard *)hsCard hsCardCount:(NSUInteger)hsCardCount;
 @end
 
