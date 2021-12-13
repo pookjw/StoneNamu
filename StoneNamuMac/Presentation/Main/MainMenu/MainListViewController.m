@@ -15,7 +15,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierMainList
 @interface MainListViewController () <NSTableViewDelegate>
 @property (weak) id<MainListViewControllerDelegate> delegate;
 @property (retain) NSScrollView *scrollView;
-@property (retain) NSClipView *clipView;
 @property (retain) NSTableView *tableView;
 @property (retain) NSTableColumn *tableColumn;
 @property (retain) MainListViewModel *viewModel;
@@ -35,7 +34,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierMainList
 
 - (void)dealloc {
     [_scrollView release];
-    [_clipView release];
     [_tableView release];
     [_tableColumn release];
     [_viewModel release];
@@ -77,16 +75,12 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierMainList
 
 - (void)configureTableView {
     NSScrollView *scrollView = [NSScrollView new];
-    NSClipView *clipView = [NSClipView new];
     NSTableView *tableView = [NSTableView new];
     
     self.scrollView = scrollView;
-    self.clipView = clipView;
     self.tableView = tableView;
     
-    scrollView.contentView = clipView;
-    clipView.documentView = tableView;
-    clipView.postsBoundsChangedNotifications = YES;
+    scrollView.documentView = tableView;
 
     [self.view addSubview:scrollView];
     scrollView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -117,7 +111,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierMainList
     tableView.allowsEmptySelection = NO;
     
     [scrollView release];
-    [clipView release];
     [tableView release];
 }
 

@@ -23,7 +23,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardColl
 
 @interface CardsViewController () <NSCollectionViewDelegate, CardOptionsMenuDelegate, CardOptionsToolbarDelegate, CardOptionsTouchBarDelegate, CardCollectionViewItemDelegate>
 @property (retain) NSScrollView *scrollView;
-@property (retain) NSClipView *clipView;
 @property (retain) NSCollectionView *collectionView;
 @property (retain) CardsViewModel *viewModel;
 @property (retain) CardOptionsMenu *cardOptionsMenu;
@@ -36,7 +35,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardColl
 - (void)dealloc {
     [self removeObserver:self forKeyPath:@"self.view.window"];
     [_scrollView release];
-    [_clipView release];
     [_collectionView release];
     [_viewModel release];
     [_cardOptionsMenu release];
@@ -131,16 +129,13 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardColl
 
 - (void)configureCollectionView {
     NSScrollView *scrollView = [NSScrollView new];
-    NSClipView *clipView = [NSClipView new];
     NSCollectionView *collectionView = [NSCollectionView new];
     
     self.scrollView = scrollView;
-    self.clipView = clipView;
     self.collectionView = collectionView;
     
-    scrollView.contentView = clipView;
-    clipView.documentView = collectionView;
-    clipView.postsBoundsChangedNotifications = YES;
+    scrollView.documentView = collectionView;
+    scrollView.contentView.postsBoundsChangedNotifications = YES;
 
     [self.view addSubview:scrollView];
     scrollView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -170,7 +165,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardColl
     [collectionView setDraggingSourceOperationMask:NSDragOperationCopy forLocal:NO];
     
     [scrollView release];
-    [clipView release];
     [collectionView release];
 }
 
@@ -206,7 +200,8 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardColl
 
 - (void)scrollViewDidEndLiveScrollReceived:(NSNotification *)notification {
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
-        if ((self.clipView.bounds.origin.y + self.clipView.bounds.size.height) >= self.collectionView.collectionViewLayout.collectionViewContentSize.height) {
+        NSRect bounds = self.scrollView.contentView.bounds;
+        if ((bounds.origin.y + bounds.size.height) >= self.collectionView.collectionViewLayout.collectionViewContentSize.height) {
             BOOL requested = [self requestDataSourceWithOptions:self.viewModel.options reset:NO];
             
             if (requested) {

@@ -25,7 +25,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeta
 @property (retain) NSStackView *stackView;
 @property (retain) HSCardDraggableImageView *imageView;
 @property (retain) NSScrollView *scrollView;
-@property (retain) NSClipView *clipView;
 @property (retain) NSCollectionView *collectionView;
 @property (retain) CardDetailsViewModel *viewModel;
 @end
@@ -50,7 +49,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeta
     [_stackView release];
     [_imageView release];
     [_scrollView release];
-    [_clipView release];
     [_collectionView release];
     [_viewModel release];
     [super dealloc];
@@ -141,16 +139,12 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeta
 
 - (void)configureCollectionView {
     NSScrollView *scrollView = [NSScrollView new];
-    NSClipView *clipView = [NSClipView new];
     NSCollectionView *collectionView = [NSCollectionView new];
     
     self.scrollView = scrollView;
-    self.clipView = clipView;
     self.collectionView = collectionView;
     
-    scrollView.contentView = clipView;
-    clipView.documentView = collectionView;
-    clipView.postsBoundsChangedNotifications = YES;
+    scrollView.documentView = collectionView;
 
     [self.stackView addArrangedSubview:scrollView];
 
@@ -166,7 +160,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeta
     [collectionView registerNib:childNib forItemWithIdentifier:NSUserInterfaceItemIdentifierCardDetailsChildCollectionViewItem];
     [childNib release];
     
-    collectionView.postsBoundsChangedNotifications = YES;
+    collectionView.postsBoundsChangedNotifications = NO;
     collectionView.selectable = YES;
     collectionView.allowsMultipleSelection = YES;
     collectionView.allowsEmptySelection = NO;
@@ -177,7 +171,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeta
     [collectionView setDraggingSourceOperationMask:NSDragOperationCopy forLocal:NO];
     
     [scrollView release];
-    [clipView release];
     [collectionView release];
 }
 

@@ -20,7 +20,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
 
 @interface DeckDetailsViewController () <NSCollectionViewDelegate>
 @property (retain) NSScrollView *scrollView;
-@property (retain) NSClipView *clipView;
 @property (retain) NSCollectionView *collectionView;
 @property (retain) DeckDetailsViewModel *viewModel;
 @end
@@ -40,7 +39,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
 
 - (void)dealloc {
     [_scrollView release];
-    [_clipView release];
     [_collectionView release];
     [_viewModel release];
     [super dealloc];
@@ -61,7 +59,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
 }
 
 - (void)setAttributes {
-    NSLayoutConstraint *widthLayout = [self.view.widthAnchor constraintGreaterThanOrEqualToConstant:300];
+    NSLayoutConstraint *widthLayout = [self.view.widthAnchor constraintEqualToConstant:300];
     [NSLayoutConstraint activateConstraints:@[
         widthLayout
     ]];
@@ -69,16 +67,12 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
 
 - (void)configureCollectionView {
     NSScrollView *scrollView = [NSScrollView new];
-    NSClipView *clipView = [NSClipView new];
     NSCollectionView *collectionView = [NSCollectionView new];
     
     self.scrollView = scrollView;
-    self.clipView = clipView;
     self.collectionView = collectionView;
     
-    scrollView.contentView = clipView;
-    clipView.documentView = collectionView;
-    clipView.postsBoundsChangedNotifications = NO;
+    scrollView.documentView = collectionView;
 
     [self.view addSubview:scrollView];
     scrollView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -110,7 +104,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
     [collectionView setDraggingSourceOperationMask:NSDragOperationCopy forLocal:NO];
     
     [scrollView release];
-    [clipView release];
     [collectionView release];
 }
 
@@ -128,7 +121,8 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
             case DeckDetailsItemModelTypeCard: {
                 DeckDetailsCardCollectionViewItem *item = (DeckDetailsCardCollectionViewItem *)[collectionView makeItemWithIdentifier:NSUserInterfaceItemIdentifierDeckDetailsCardCollectionViewItem forIndexPath:indexPath];
                 
-                [item configureWithHSCard:itemModel.hsCard hsCardCount:itemModel.hsCardCount.unsignedIntegerValue];
+                [item configureWithHSCard:itemModel.hsCard
+                              hsCardCount:itemModel.hsCardCount.unsignedIntegerValue];
                 
                 return item;
             }
@@ -163,6 +157,10 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
 }
 
 #pragma mark - NSCollectionViewDelegate
+
+- (void)collectionView:(NSCollectionView *)collectionView didSelectItemsAtIndexPaths:(NSSet<NSIndexPath *> *)indexPaths {
+    NSLog(@"%@", indexPaths);
+}
 
 - (NSDragOperation)collectionView:(NSCollectionView *)collectionView validateDrop:(id<NSDraggingInfo>)draggingInfo proposedIndexPath:(NSIndexPath * _Nonnull *)proposedDropIndexPath dropOperation:(NSCollectionViewDropOperation *)proposedDropOperation {
     return NSDragOperationCopy;

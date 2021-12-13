@@ -18,7 +18,6 @@
 
 @interface DecksViewController () <NSCollectionViewDelegate, DecksMenuDelegate, DecksToolbarDelegate, DecksTouchBarDelegate, DeckBaseCollectionViewItemDelegate>
 @property (retain) NSScrollView *scrollView;
-@property (retain) NSClipView *clipView;
 @property (retain) NSCollectionView *collectionView;
 @property (assign) NSTextField *titleTextField;
 @property (assign) NSTextField *deckCodeTextField;
@@ -33,7 +32,6 @@
 - (void)dealloc {
     [self removeObserver:self forKeyPath:@"self.view.window"];
     [_scrollView release];
-    [_clipView release];
     [_collectionView release];
     [_decksMenu release];
     [_decksToolbar release];
@@ -86,16 +84,12 @@
 
 - (void)configureCollectionView {
     NSScrollView *scrollView = [NSScrollView new];
-    NSClipView *clipView = [NSClipView new];
     NSCollectionView *collectionView = [NSCollectionView new];
     
     self.scrollView = scrollView;
-    self.clipView = clipView;
     self.collectionView = collectionView;
     
-    scrollView.contentView = clipView;
-    clipView.documentView = collectionView;
-    clipView.postsBoundsChangedNotifications = YES;
+    scrollView.documentView = collectionView;
 
     [self.view addSubview:scrollView];
     scrollView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -120,7 +114,6 @@
     collectionView.delegate = self;
     
     [scrollView release];
-    [clipView release];
     [collectionView release];
 }
 

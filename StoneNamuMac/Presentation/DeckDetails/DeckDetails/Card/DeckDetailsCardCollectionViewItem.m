@@ -73,7 +73,8 @@
 
 
 - (void)setAttributes {
-    
+    self.manaCostContainerView.wantsLayer = YES;
+    self.manaCostContainerView.layer.backgroundColor = NSColor.systemBlueColor.CGColor;
 }
 
 - (void)bind {
