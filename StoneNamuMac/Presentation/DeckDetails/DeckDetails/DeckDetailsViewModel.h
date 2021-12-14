@@ -29,7 +29,6 @@ static NSString * const DeckDetailsViewModelApplyingSnapshotToDataSourceWasDoneC
 @interface DeckDetailsViewModel : NSObject
 @property (readonly, retain) LocalDeck * _Nullable localDeck;
 @property (readonly, retain) DeckDetailsDataSource *dataSource;
-@property BOOL shouldPresentDeckEditor;
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithDataSource:(DeckDetailsDataSource *)dataSource;

@@ -27,7 +27,6 @@
         [self->_localDeck release];
         self->_localDeck = nil;
         self->_dataSource = [dataSource retain];
-        self.shouldPresentDeckEditor = YES;
         
         NSOperationQueue *queue = [NSOperationQueue new];
         queue.qualityOfService = NSQualityOfServiceUserInitiated;
