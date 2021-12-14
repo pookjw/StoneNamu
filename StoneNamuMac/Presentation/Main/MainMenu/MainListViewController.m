@@ -121,9 +121,11 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierMainList
 }
 
 - (MainListDataSource *)makeDataSource {
+    MainListViewController * __block unretainedSelf = self;
+    
     MainListDataSource *dataSource = [[MainListDataSource alloc] initWithTableView:self.tableView cellProvider:^NSView * _Nonnull(NSTableView * _Nonnull tableView, NSTableColumn * _Nonnull column, NSInteger row, MainListItemModel * _Nonnull itemModel) {
         
-        MainListTableCellView *view = (MainListTableCellView *)[tableView makeViewWithIdentifier:NSUserInterfaceItemIdentifierMainListTableCellView owner:self];
+        MainListTableCellView *view = (MainListTableCellView *)[tableView makeViewWithIdentifier:NSUserInterfaceItemIdentifierMainListTableCellView owner:unretainedSelf];
         
         view.imageView.image = itemModel.image;
         view.textField.stringValue = itemModel.primaryText;
