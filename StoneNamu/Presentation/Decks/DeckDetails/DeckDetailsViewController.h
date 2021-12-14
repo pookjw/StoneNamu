@@ -17,7 +17,7 @@ typedef NS_ENUM(NSUInteger, DeckDetailsViewControllerRightBarButtonType) {
 };
 
 @interface DeckDetailsViewController : UIViewController
-@property (weak) id<DeckDetailsViewControllerDelegate> delegate;
+@property (assign) id<DeckDetailsViewControllerDelegate> delegate;
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithLocalDeck:(LocalDeck *)localDeck presentEditorIfNoCards:(BOOL)shouldPresentDeckEditor;

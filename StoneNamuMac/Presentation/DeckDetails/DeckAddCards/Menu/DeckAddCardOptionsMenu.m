@@ -13,7 +13,7 @@
 #import <StoneNamuResources/StoneNamuResources.h>
 
 @interface DeckAddCardOptionsMenu () <NSSearchFieldDelegate>
-@property (weak) id<DeckAddCardOptionsMenuDelegate> deckAddCardOptionsMenuDelegate;
+@property (assign) id<DeckAddCardOptionsMenuDelegate> deckAddCardOptionsMenuDelegate;
 
 @property (retain) NSMenuItem *optionsMenuItem;
 @property (retain) NSMenu *optionsSubMenu;

@@ -8,7 +8,7 @@
 #import "DeckBaseCollectionViewItem.h"
 
 @interface DeckBaseCollectionViewItem ()
-@property (weak) id<DeckBaseCollectionViewItemDelegate> deckBaseCollectionViewItemDelegate;
+@property (assign) id<DeckBaseCollectionViewItemDelegate> deckBaseCollectionViewItemDelegate;
 @end
 
 @implementation DeckBaseCollectionViewItem

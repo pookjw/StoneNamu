@@ -10,7 +10,7 @@
 
 @interface CardDetailsChildCollectionViewItem ()
 @property (copy) HSCard * _Nullable hsCard;
-@property (weak) id<CardDetailsChildCollectionViewItemDelegate> delegate;
+@property (assign) id<CardDetailsChildCollectionViewItemDelegate> delegate;
 @end
 
 @implementation CardDetailsChildCollectionViewItem

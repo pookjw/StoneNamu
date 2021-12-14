@@ -12,7 +12,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface DeckAddCardOptionsViewController : UIViewController
-@property (weak) id<DeckAddCardOptionsViewControllerDelegate> delegate;
+@property (assign) id<DeckAddCardOptionsViewControllerDelegate> delegate;
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithOptions:(NSDictionary<NSString *, NSString *> * _Nullable)options localDeck:(LocalDeck *)localDeck;

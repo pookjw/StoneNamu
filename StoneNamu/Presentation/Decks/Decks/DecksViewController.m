@@ -18,8 +18,8 @@
 @property (retain) UICollectionView *collectionView;
 @property (retain) UIBarButtonItem *addBarButtonItem;
 @property (retain) DecksViewModel *viewModel;
-@property (weak) UITextField * _Nullable deckCodeTextField;
-@property (weak) UIAlertAction * _Nullable deckCodeAlertAction;
+@property (assign) UITextField * _Nullable deckCodeTextField;
+@property (assign) UIAlertAction * _Nullable deckCodeAlertAction;
 @property (retain) UIViewController * _Nullable contextViewController;
 @end
 

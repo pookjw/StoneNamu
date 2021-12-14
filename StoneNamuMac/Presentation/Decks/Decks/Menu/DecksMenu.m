@@ -12,7 +12,7 @@
 #import <StoneNamuResources/StoneNamuResources.h>
 
 @interface DecksMenu ()
-@property (weak) id<DecksMenuDelegate> decksMenuDelegate;
+@property (assign) id<DecksMenuDelegate> decksMenuDelegate;
 
 @property (retain) NSMenuItem *createNewDeckStandardDeckItem;
 @property (retain) NSMenuItem *createNewDeckWildDeckItem;

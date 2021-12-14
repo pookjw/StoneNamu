@@ -13,7 +13,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierMainList
 static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierMainListTableCellView = @"NSUserInterfaceItemIdentifierMainListTableCellView";
 
 @interface MainListViewController () <NSTableViewDelegate>
-@property (weak) id<MainListViewControllerDelegate> delegate;
+@property (assign) id<MainListViewControllerDelegate> delegate;
 @property (retain) NSScrollView *scrollView;
 @property (retain) NSTableView *tableView;
 @property (retain) NSTableColumn *tableColumn;

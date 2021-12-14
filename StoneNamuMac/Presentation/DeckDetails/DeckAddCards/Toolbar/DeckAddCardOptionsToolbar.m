@@ -14,7 +14,7 @@
 #import <StoneNamuResources/StoneNamuResources.h>
 
 @interface DeckAddCardOptionsToolbar () <NSToolbarDelegate, NSSearchFieldDelegate>
-@property (weak) id<DeckAddCardOptionsToolbarDelegate> deckAddCardOptionsToolbarDelegate;
+@property (assign) id<DeckAddCardOptionsToolbarDelegate> deckAddCardOptionsToolbarDelegate;
 @property (retain) DynamicMenuToolbarItem *optionTypeTextFilterItem;
 @property (retain) DynamicMenuToolbarItem *optionTypeSetItem;
 @property (retain) DynamicMenuToolbarItem *optionTypeClassItem;

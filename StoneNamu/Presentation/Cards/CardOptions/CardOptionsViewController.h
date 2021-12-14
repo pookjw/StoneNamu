@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CardOptionsViewController : UIViewController
-@property (weak) id<CardOptionsViewControllerDelegate> delegate;
+@property (assign) id<CardOptionsViewControllerDelegate> delegate;
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithOptions:(NSDictionary<NSString *, NSString *> * _Nullable)options;

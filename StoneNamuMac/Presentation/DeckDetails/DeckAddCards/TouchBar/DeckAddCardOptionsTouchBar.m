@@ -15,7 +15,7 @@ static NSTouchBarCustomizationIdentifier const NSTouchBarCustomizationIdentifier
 static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubberTextItemViewReuseIdentifier = @"NSUserInterfaceItemIdentifierNSScrubberTextItemViewReuseIdentifier";
 
 @interface DeckAddCardOptionsTouchBar () <NSTouchBarDelegate, NSScrubberDataSource, NSScrubberDelegate>
-@property (weak) id<DeckAddCardOptionsTouchBarDelegate> deckAddCardOptionsTouchBarDelegate;
+@property (assign) id<DeckAddCardOptionsTouchBarDelegate> deckAddCardOptionsTouchBarDelegate;
 @property (retain) NSArray<NSPopoverTouchBarItem *> *allPopoverItems;
 @property (retain) NSArray<NSScrubber *> *allScrubbers;
 @property (retain) NSMutableDictionary<NSString *, NSString *> *options;

@@ -13,7 +13,7 @@
 #import <StoneNamuResources/StoneNamuResources.h>
 
 @interface DecksToolbar () <NSToolbarDelegate>
-@property (weak) id<DecksToolbarDelegate> decksToolbarDelegate;
+@property (assign) id<DecksToolbarDelegate> decksToolbarDelegate;
 @property (retain) DynamicMenuToolbarItem *createNewDeckStandardDeckItem;
 @property (retain) DynamicMenuToolbarItem *createNewDeckWildDeckItem;
 @property (retain) DynamicMenuToolbarItem *createNewDeckClassicDeckItem;
