@@ -395,6 +395,10 @@
     NSMutableDictionary<NSNumber *, NSNumber *> *manaDictionary = [@{} mutableCopy];
     NSUInteger __block highestCostCount = 0;
     
+    for (NSUInteger i = 0; i <= 10; i++) {
+        manaDictionary[[NSNumber numberWithUnsignedInteger:i]] = @0;
+    }
+    
     for (DeckDetailsItemModel *itemModel in snapshot.itemIdentifiers) {
         if (itemModel.type != DeckDetailsItemModelTypeCard) continue;
         
