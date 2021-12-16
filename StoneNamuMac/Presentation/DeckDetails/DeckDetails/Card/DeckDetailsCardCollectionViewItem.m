@@ -37,11 +37,15 @@
     [super dealloc];
 }
 
+- (void)viewDidLayout {
+    [super viewDidLayout];
+    [self updateGradientLayer];
+}
+
 - (void)awakeFromNib {
     [super awakeFromNib];
     [self configureImageViewGradientLayer];
     [self setAttributes];
-    [self bind];
     [self clearContents];
 }
 
@@ -75,19 +79,6 @@
 - (void)setAttributes {
     self.manaCostContainerView.wantsLayer = YES;
     self.manaCostContainerView.layer.backgroundColor = NSColor.systemBlueColor.CGColor;
-}
-
-- (void)bind {
-    [NSNotificationCenter.defaultCenter addObserver:self
-                                           selector:@selector(containerViewDidChangeFrame:)
-                                               name:NSViewFrameDidChangeNotification
-                                             object:self.containerView];
-}
-
-- (void)containerViewDidChangeFrame:(NSNotification *)notification {
-    [NSOperationQueue.mainQueue addOperationWithBlock:^{
-        [self updateGradientLayer];
-    }];
 }
 
 - (void)clearContents {

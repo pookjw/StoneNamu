@@ -34,6 +34,13 @@
                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="Rk5-kZ-hV6">
                         <rect key="frame" x="0.0" y="0.0" width="498" height="60"/>
                         <subviews>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="J1K-J2-iDf">
+                                <rect key="frame" x="210" y="0.0" width="228" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="J1K-J2-iDf" secondAttribute="height" multiplier="243:64" id="JVD-4P-KSm"/>
+                                </constraints>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="jCe-bH-Wsn"/>
+                            </imageView>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="AzD-Gn-MAJ">
                                 <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
                                 <subviews>
@@ -52,13 +59,6 @@
                                     <constraint firstItem="gwd-77-XMc" firstAttribute="centerY" secondItem="AzD-Gn-MAJ" secondAttribute="centerY" id="DGb-hP-Vmm"/>
                                 </constraints>
                             </customView>
-                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="J1K-J2-iDf">
-                                <rect key="frame" x="210" y="0.0" width="228" height="60"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="J1K-J2-iDf" secondAttribute="height" multiplier="243:64" id="JVD-4P-KSm"/>
-                                </constraints>
-                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="jCe-bH-Wsn"/>
-                            </imageView>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="USu-Qu-gwK">
                                 <rect key="frame" x="68" y="22" width="362" height="16"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="dwF-wC-nal">
