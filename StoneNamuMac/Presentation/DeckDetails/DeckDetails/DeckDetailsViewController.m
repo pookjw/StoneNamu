@@ -8,19 +8,20 @@
 #import "DeckDetailsViewController.h"
 #import "HSCardPromiseProvider.h"
 #import "DeckDetailsCardCollectionViewItem.h"
-#import "DeckDetailsManaCostGraphCollectionViewItem.h"
 #import "DeckDetailsViewModel.h"
 #import "NSViewController+loadViewIfNeeded.h"
+#import "NSWindow+topBarHeight.h"
 #import "DeckDetailsCollectionViewLayout.h"
+#import "DeckDetailsManaCostGraphView.h"
 #import <StoneNamuCore/StoneNamuCore.h>
 #import <StoneNamuResources/StoneNamuResources.h>
 
 static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDetailsCardCollectionViewItem = @"NSUserInterfaceItemIdentifierDeckDetailsCardCollectionViewItem";
-static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDetailsManaCostGraphCollectionViewItem = @"NSUserInterfaceItemIdentifierDeckDetailsManaCostGraphCollectionViewItem";
 
 @interface DeckDetailsViewController () <NSCollectionViewDelegate>
 @property (retain) NSScrollView *scrollView;
 @property (retain) NSCollectionView *collectionView;
+@property (retain) DeckDetailsManaCostGraphView *manaCostGraphView;
 @property (retain) DeckDetailsViewModel *viewModel;
 @end
 
@@ -40,6 +41,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
 - (void)dealloc {
     [_scrollView release];
     [_collectionView release];
+    [_manaCostGraphView release];
     [_viewModel release];
     [super dealloc];
 }
@@ -54,12 +56,18 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
     [super viewDidLoad];
     [self setAttributes];
     [self configureCollectionView];
+    [self configureManaCostGraphView];
     [self configureViewModel];
     [self bind];
 }
 
+- (void)viewDidLayout {
+    [super viewDidLayout];
+    [self updateScrollViewContentInsets];
+}
+
 - (void)setAttributes {
-    NSLayoutConstraint *widthLayout = [self.view.widthAnchor constraintEqualToConstant:300];
+    NSLayoutConstraint *widthLayout = [self.view.widthAnchor constraintEqualToConstant:300.0f];
     [NSLayoutConstraint activateConstraints:@[
         widthLayout
     ]];
@@ -72,6 +80,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
     self.scrollView = scrollView;
     self.collectionView = collectionView;
     
+    scrollView.automaticallyAdjustsContentInsets = NO;
     scrollView.documentView = collectionView;
 
     [self.view addSubview:scrollView];
@@ -90,10 +99,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
     NSNib *cardsNib = [[NSNib alloc] initWithNibNamed:NSStringFromClass([DeckDetailsCardCollectionViewItem class]) bundle:NSBundle.mainBundle];
     [collectionView registerNib:cardsNib forItemWithIdentifier:NSUserInterfaceItemIdentifierDeckDetailsCardCollectionViewItem];
     [cardsNib release];
-    
-    NSNib *manaCostGraphNib = [[NSNib alloc] initWithNibNamed:NSStringFromClass([DeckDetailsManaCostGraphCollectionViewItem class]) bundle:NSBundle.mainBundle];
-    [collectionView registerNib:manaCostGraphNib forItemWithIdentifier:NSUserInterfaceItemIdentifierDeckDetailsManaCostGraphCollectionViewItem];
-    [manaCostGraphNib release];
 
     collectionView.selectable = YES;
     collectionView.allowsMultipleSelection = YES;
@@ -105,6 +110,24 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
     
     [scrollView release];
     [collectionView release];
+}
+
+- (void)configureManaCostGraphView {
+    DeckDetailsManaCostGraphView *manaCostGraphView = [DeckDetailsManaCostGraphView new];
+    self.manaCostGraphView = manaCostGraphView;
+    
+    [self.view addSubview:manaCostGraphView];
+    manaCostGraphView.translatesAutoresizingMaskIntoConstraints = NO;
+    manaCostGraphView.wantsLayer = YES;
+    manaCostGraphView.layer.backgroundColor = NSColor.blueColor.CGColor;
+    
+    [NSLayoutConstraint activateConstraints:@[
+        [manaCostGraphView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor],
+        [manaCostGraphView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor],
+        [manaCostGraphView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor],
+    ]];
+    
+    [manaCostGraphView release];
 }
 
 - (void)configureViewModel {
@@ -126,21 +149,19 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
                 
                 return item;
             }
-            case DeckDetailsItemModelTypeManaCostGraph: {
-                DeckDetailsManaCostGraphCollectionViewItem *item = (DeckDetailsManaCostGraphCollectionViewItem *)[collectionView makeItemWithIdentifier:NSUserInterfaceItemIdentifierDeckDetailsManaCostGraphCollectionViewItem forIndexPath:indexPath];
-                
-                [item configureWithManaCost:itemModel.graphManaCost.unsignedIntegerValue
-                                 percentage:itemModel.graphPercentage.floatValue
-                                  cardCount:itemModel.graphCount.unsignedIntegerValue];
-                
-                return item;
-            }
             default:
                 return nil;
         }
     }];
     
     return [dataSource autorelease];
+}
+
+- (void)updateScrollViewContentInsets {
+    self.scrollView.contentInsets = NSEdgeInsetsMake(self.view.window.topBarHeight,
+                                                     0.0f,
+                                                     self.manaCostGraphView.frame.size.height,
+                                                     0.0f);
 }
 
 - (void)bind {
@@ -151,8 +172,10 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
 }
 
 - (void)applyingSnapshotToDataSourceWasDoneReceived:(NSNotification *)notification {
+    NSArray<DeckDetailsManaCostGraph *> *manaCostGraphDatas = notification.userInfo[DeckDetailsViewModelApplyingSnapshotToDataSourceWasDoneManaGraphDatasKey];
+    
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
-//        [self.collectionView.collectionViewLayout invalidateLayout];
+        [self.manaCostGraphView configureWithDatas:manaCostGraphDatas];
     }];
 }
 
