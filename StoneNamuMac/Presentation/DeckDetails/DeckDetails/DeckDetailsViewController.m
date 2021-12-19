@@ -64,6 +64,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
         if (self.view.window != nil) {
             [NSOperationQueue.mainQueue addOperationWithBlock:^{
                 self.view.window.title = self.viewModel.localDeck.name;
+                self.view.window.subtitle = [ResourcesService localizationForHSCardClass:self.viewModel.localDeck.classId.unsignedIntegerValue];
                 [self updateScrollViewContentInsets];
             }];
         }
