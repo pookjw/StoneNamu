@@ -173,7 +173,11 @@
     UIAlertAction *doneAction = [UIAlertAction actionWithTitle:[ResourcesService localizationForKey:LocalizableKeyDone]
                                                          style:UIAlertActionStyleDefault
                                                        handler:^(UIAlertAction * _Nonnull action) {
-        [self.viewModel updateDeckName:alert.textFields.firstObject.text];
+        NSString *text = alert.textFields.firstObject.text;
+        
+        if (text.length > 0) {
+            [self.viewModel updateDeckName:alert.textFields.firstObject.text];
+        }
     }];
     
     [alert addAction:cancelAction];

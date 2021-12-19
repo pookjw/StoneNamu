@@ -15,6 +15,7 @@
 #import "DeckDetailsManaCostGraphView.h"
 #import "ClickableCollectionView.h"
 #import "AppDelegate.h"
+#import "NSViewController+SpinnerView.h"
 #import <StoneNamuCore/StoneNamuCore.h>
 #import <StoneNamuResources/StoneNamuResources.h>
 
@@ -25,6 +26,9 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
 @property (retain) ClickableCollectionView *collectionView;
 @property (retain) NSMenu *collectionViewMenu;
 @property (retain) DeckDetailsManaCostGraphView *manaCostGraphView;
+@property (retain) NSMenu *moreMenu;
+@property (retain) NSButton *moreMenuButton;
+@property (assign) NSTextField *deckNameTextField;
 @property (retain) DeckDetailsViewModel *viewModel;
 @end
 
@@ -47,6 +51,8 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
     [_collectionView release];
     [_collectionViewMenu release];
     [_manaCostGraphView release];
+    [_moreMenu release];
+    [_moreMenuButton release];
     [_viewModel release];
     [super dealloc];
 }
@@ -55,6 +61,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
     if (([object isEqual:self]) && ([keyPath isEqualToString:@"self.view.window"])) {
         if (self.view.window != nil) {
             [NSOperationQueue.mainQueue addOperationWithBlock:^{
+                self.view.window.title = self.viewModel.localDeck.name;
                 [self updateScrollViewContentInsets];
             }];
         }
@@ -75,6 +82,8 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
     [self configureCollectionView];
     [self configureCollectionViewMenu];
     [self configureManaCostGraphView];
+    [self configureMoreMenu];
+    [self configureMoreMenuButton];
     [self configureViewModel];
     [self bind];
 }
@@ -136,8 +145,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
     
     menu.delegate = self;
     
-    
-    
     [menu release];
 }
 
@@ -155,6 +162,118 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
     ]];
     
     [manaCostGraphView release];
+}
+
+- (void)configureMoreMenu {
+    NSMenu *moreMenu = [NSMenu new];
+    self.moreMenu = moreMenu;
+    
+    NSMenuItem *editDeckNameItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyEditDeckName]
+                                                              action:@selector(editDeckNameItemTriggered:)
+                                                       keyEquivalent:@""];
+    
+    NSMenuItem *saveAsImageItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeySaveAsImage]
+                                                             action:@selector(saveAsImageItemTriggered:)
+                                                      keyEquivalent:@""];
+    
+    NSMenuItem *exportDeckCodeItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyExportDeckCode]
+                                                                action:@selector(exportDeckCodeItemTriggered:)
+                                                         keyEquivalent:@""];
+    
+    moreMenu.itemArray = @[editDeckNameItem, saveAsImageItem, exportDeckCodeItem];
+    
+    [editDeckNameItem release];
+    [saveAsImageItem release];
+    [exportDeckCodeItem release];
+    
+    [moreMenu release];
+}
+
+- (void)editDeckNameItemTriggered:(NSMenuItem *)sender {
+    NSAlert *alert = [NSAlert new];
+    NSButton *donebutton = [alert addButtonWithTitle:[ResourcesService localizationForKey:LocalizableKeyDone]];
+    NSButton *cancelButton = [alert addButtonWithTitle:[ResourcesService localizationForKey:LocalizableKeyCancel]];
+    NSTextField *deckNameTextField = [[NSTextField alloc] initWithFrame:NSMakeRect(0.0f, 0.0f, 300.0f, 20.0f)];
+    
+    self.deckNameTextField = deckNameTextField;
+    
+    //
+    
+    donebutton.target = self;
+    donebutton.action = @selector(editDeckNameItemDoneButtonTriggered:);
+    
+    //
+    
+    NSString * _Nullable text = self.viewModel.localDeck.name;
+    
+    if (text == nil) {
+        deckNameTextField.stringValue = @"";
+    } else {
+        deckNameTextField.stringValue = text;
+    }
+    
+    //
+    
+    alert.messageText = [ResourcesService localizationForKey:LocalizableKeyEditDeckNameTitle];
+    alert.showsSuppressionButton = NO;
+    alert.accessoryView = deckNameTextField;
+    
+    //
+    
+    [alert beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse returnCode) {
+        
+    }];
+    
+    [alert release];
+    [deckNameTextField release];
+}
+
+- (void)editDeckNameItemDoneButtonTriggered:(NSButton *)sender {
+    [self.viewModel updateDeckName:self.deckNameTextField.stringValue];
+    [self.view.window endSheet:self.view.window.attachedSheet];
+}
+
+- (void)saveAsImageItemTriggered:(NSMenuItem *)sender {
+    
+}
+
+- (void)exportDeckCodeItemTriggered:(NSMenuItem *)sender {
+    [self addSpinnerView];
+    
+    [self.viewModel exportLocalizedDeckCodeWithCompletion:^(NSString * _Nullable string) {
+        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+            [self removeAllSpinnerview];
+            
+            NSLog(@"- result: %@", string);
+        }];
+    }];
+}
+
+- (void)configureMoreMenuButton {
+    NSButton *moreMenuButton = [NSButton new];
+    self.moreMenuButton = moreMenuButton;
+    
+    moreMenuButton.image = [NSImage imageWithSystemSymbolName:@"ellipsis" accessibilityDescription:nil];
+    moreMenuButton.bezelStyle = NSBezelStyleCircular;
+    moreMenuButton.target = self;
+    moreMenuButton.action = @selector(moreMenuButtonTriggered:);
+    moreMenuButton.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    [self.view addSubview:moreMenuButton];
+    [NSLayoutConstraint activateConstraints:@[
+        [moreMenuButton.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor],
+        [moreMenuButton.bottomAnchor constraintEqualToAnchor:self.manaCostGraphView.topAnchor]
+    ]];
+    
+    [moreMenuButton release];
+}
+
+- (void)moreMenuButtonTriggered:(NSButton *)sender {
+    NSEvent * _Nullable currentEvent = NSApp.currentEvent;
+    
+    if (currentEvent != nil) {
+        [NSMenu popUpContextMenu:self.moreMenu withEvent:currentEvent forView:sender];
+    }
 }
 
 - (void)configureViewModel {
@@ -205,6 +324,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
     NSArray<DeckDetailsManaCostGraphData *> *manaCostGraphDatas = notification.userInfo[DeckDetailsViewModelApplyingSnapshotToDataSourceWasDoneManaGraphDatasKey];
     
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
+        self.view.window.title = self.viewModel.localDeck.name;
         [self.manaCostGraphView configureWithDatas:manaCostGraphDatas];
     }];
 }

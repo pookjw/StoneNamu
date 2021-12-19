@@ -130,10 +130,10 @@
     
     [self.blurView addSubview:stackView];
     [NSLayoutConstraint activateConstraints:@[
-        [stackView.topAnchor constraintEqualToAnchor:self.blurView.topAnchor],
-        [stackView.leadingAnchor constraintEqualToAnchor:self.blurView.leadingAnchor],
-        [stackView.trailingAnchor constraintEqualToAnchor:self.blurView.trailingAnchor],
-        [stackView.bottomAnchor constraintEqualToAnchor:self.blurView.bottomAnchor]
+        [stackView.topAnchor constraintEqualToAnchor:self.blurView.safeAreaLayoutGuide.topAnchor],
+        [stackView.leadingAnchor constraintEqualToAnchor:self.blurView.safeAreaLayoutGuide.leadingAnchor],
+        [stackView.trailingAnchor constraintEqualToAnchor:self.blurView.safeAreaLayoutGuide.trailingAnchor],
+        [stackView.bottomAnchor constraintEqualToAnchor:self.blurView.safeAreaLayoutGuide.bottomAnchor]
     ]];
     
     [stackView release];

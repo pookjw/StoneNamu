@@ -40,7 +40,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
     self.contentMinSize = NSMakeSize(1000, 600);
     self.releasedWhenClosed = NO;
     self.titlebarAppearsTransparent = NO;
-    self.titleVisibility = NSWindowTitleHidden;
+    self.titleVisibility = NSWindowTitleVisible;
     self.delegate = self;
     self.restorable = NSProcessInfo.processInfo.isEnabledRestoration;
 //    self.restorationClass = [MainWindowRestoration class];

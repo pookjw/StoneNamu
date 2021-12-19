@@ -203,6 +203,11 @@
             
             //
             
+            fetchButton.target = self;
+            fetchButton.action = @selector(createNewDeckFromDeckCodeAlertFetchButtonTriggered:);
+            
+            //
+            
             titleTextField.placeholderString = [ResourcesService localizationForKey:LocalizableKeyEnterDeckTitleHere];
             deckCodeTextField.placeholderString = [ResourcesService localizationForKey:LocalizableKeyEnterDeckCodeHere];
             
@@ -245,11 +250,6 @@
                 [deckCodeTextField.trailingAnchor constraintEqualToAnchor:containerView.trailingAnchor],
                 [deckCodeTextField.bottomAnchor constraintEqualToAnchor:containerView.bottomAnchor]
             ]];
-            
-            //
-            
-            fetchButton.target = self;
-            fetchButton.action = @selector(createNewDeckFromDeckCodeAlertFetchButtonTriggered:);
             
             //
             
