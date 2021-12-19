@@ -43,6 +43,7 @@
     [_blurView release];
     [_stackView release];
     [_zeroBaseView release];
+    [_oneBaseView release];
     [_twoBaseView release];
     [_threeBaseView release];
     [_fourBaseView release];
