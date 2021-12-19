@@ -137,7 +137,7 @@
 }
 
 - (void)updateFilledView {
-    self.filledViewHeightConstraint.constant = self.bounds.size.height * self.data.percentage;
+    self.filledViewHeightConstraint.constant = self.backgroundView.bounds.size.height * self.data.percentage;
 }
 
 @end

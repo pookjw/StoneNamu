@@ -39,11 +39,24 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
 }
 
 - (void)dealloc {
+    [self removeObserver:self forKeyPath:@"self.view.window"];
     [_scrollView release];
     [_collectionView release];
     [_manaCostGraphView release];
     [_viewModel release];
     [super dealloc];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+    if (([object isEqual:self]) && ([keyPath isEqualToString:@"self.view.window"])) {
+        if (self.view.window != nil) {
+            [NSOperationQueue.mainQueue addOperationWithBlock:^{
+                [self updateScrollViewContentInsets];
+            }];
+        }
+    } else {
+        return [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
 }
 
 - (void)loadView {
@@ -163,6 +176,8 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
 }
 
 - (void)bind {
+    [self addObserver:self forKeyPath:@"self.view.window" options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:nil];
+    
     [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(applyingSnapshotToDataSourceWasDoneReceived:)
                                                name:NSNotificationNameDeckDetailsViewModelApplyingSnapshotToDataSourceWasDone

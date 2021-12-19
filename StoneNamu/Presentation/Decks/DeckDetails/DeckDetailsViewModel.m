@@ -324,8 +324,14 @@
                     if ([hsCard isEqual:obj.hsCard]) {
                         exists = YES;
                         *stop = YES;
+                        
+                        NSUInteger hsCardCount = [hsCards countOfObject:hsCard];
+                        
+                        if (obj.hsCardCount.unsignedIntegerValue != hsCardCount) {
+                            [snapshot reconfigureItemsWithIdentifiers:@[obj]];
+                        }
+                        
                         obj.hsCardCount = [NSNumber numberWithUnsignedInteger:[hsCards countOfObject:hsCard]];
-                        [snapshot reconfigureItemsWithIdentifiers:@[obj]];
                     }
                 }];
                 
