@@ -175,14 +175,11 @@
 }
 
 - (void)deleteHSCards:(NSSet<HSCard *> *)hsCards toLocalDeck:(LocalDeck *)localDeck validation:(LocalDeckUseCaseFetchWithValidation)validation {
-    NSSet<HSCard *> *copyHSCards = [hsCards copy];
-    
     [self.localDeckRepository.queue addBarrierBlock:^{
         validation(nil);
         
         NSMutableArray<HSCard *> *mutableCards = [localDeck.hsCards mutableCopy];
-        [mutableCards removeObjectsInArray:copyHSCards.allObjects];
-        [copyHSCards release];
+        [mutableCards removeObjectsInArray:hsCards.allObjects];
         
         localDeck.hsCards = mutableCards;
         [mutableCards release];

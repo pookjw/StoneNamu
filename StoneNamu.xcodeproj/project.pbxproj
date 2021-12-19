@@ -190,6 +190,7 @@
 		4F7F5858272430C90080D6C3 /* BlizzardAPIImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FA56BEC26A213B2002D9FA0 /* BlizzardAPIImpl.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		4F7F585B272430D90080D6C3 /* HSCardRepositoryImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FA05F7426A309C7000E93BC /* HSCardRepositoryImpl.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		4F82D25B276F3CCF00CE06BE /* DeckDetailsManaCostGraphBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F82D25A276F3CCF00CE06BE /* DeckDetailsManaCostGraphBaseView.m */; };
+		4F82D263276F6B4300CE06BE /* ClickableCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F82D262276F6B4300CE06BE /* ClickableCollectionView.m */; };
 		4F83FBDC272E6F5D002D2387 /* DynamicMenuToolbarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F83FBDB272E6F5D002D2387 /* DynamicMenuToolbarItem.m */; };
 		4F83FBDF272E7226002D2387 /* NSView+isDarkMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F83FBDE272E7226002D2387 /* NSView+isDarkMode.m */; };
 		4F8635EC2746AE98000EC94F /* StoneNamuError.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F8635EA2746AE98000EC94F /* StoneNamuError.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -737,6 +738,8 @@
 		4F7EC55326EB2B0D00A7758D /* DeckImageRenderServiceItemModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckImageRenderServiceItemModel.m; sourceTree = "<group>"; };
 		4F82D259276F3CCF00CE06BE /* DeckDetailsManaCostGraphBaseView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckDetailsManaCostGraphBaseView.h; sourceTree = "<group>"; };
 		4F82D25A276F3CCF00CE06BE /* DeckDetailsManaCostGraphBaseView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckDetailsManaCostGraphBaseView.m; sourceTree = "<group>"; };
+		4F82D261276F6B4300CE06BE /* ClickableCollectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClickableCollectionView.h; sourceTree = "<group>"; };
+		4F82D262276F6B4300CE06BE /* ClickableCollectionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ClickableCollectionView.m; sourceTree = "<group>"; };
 		4F83FBDA272E6F5D002D2387 /* DynamicMenuToolbarItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DynamicMenuToolbarItem.h; sourceTree = "<group>"; };
 		4F83FBDB272E6F5D002D2387 /* DynamicMenuToolbarItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DynamicMenuToolbarItem.m; sourceTree = "<group>"; };
 		4F83FBDD272E7226002D2387 /* NSView+isDarkMode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSView+isDarkMode.h"; sourceTree = "<group>"; };
@@ -1884,6 +1887,15 @@
 			path = Base;
 			sourceTree = "<group>";
 		};
+		4F82D260276F6B2900CE06BE /* ClickableCollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				4F82D261276F6B4300CE06BE /* ClickableCollectionView.h */,
+				4F82D262276F6B4300CE06BE /* ClickableCollectionView.m */,
+			);
+			path = ClickableCollectionView;
+			sourceTree = "<group>";
+		};
 		4F8754B326DB875D000CE351 /* SpinnerView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1986,6 +1998,7 @@
 		4F98C28C27284D8F00865CCD /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				4F82D260276F6B2900CE06BE /* ClickableCollectionView */,
 				4FF3CD362759741600ACA5AC /* StorableSearchField */,
 				4FD4E014274ED7CD0037D867 /* HSCardDraggableImageView */,
 				4F4738B32746BBA4000C0C85 /* SelectedBackgroundCollectionViewItem */,
@@ -3433,6 +3446,7 @@
 				4F0863F02751C96900B251BF /* DecksMenu.m in Sources */,
 				4F4738D42746DD11000C0C85 /* CardDetailsCollectionViewLayout.m in Sources */,
 				F303D64227415BFF00569E20 /* NSProcessInfo+isEnabledRestoration.m in Sources */,
+				4F82D263276F6B4300CE06BE /* ClickableCollectionView.m in Sources */,
 				4FF3CD3B275974EF00ACA5AC /* DeckAddCardOptionsMenu.m in Sources */,
 				F31580ED2740D69000DBD6D4 /* PrefsWindow.m in Sources */,
 				4FC402B22738686500D25523 /* AppMenuItem.m in Sources */,

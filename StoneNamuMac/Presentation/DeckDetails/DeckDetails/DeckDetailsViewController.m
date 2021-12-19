@@ -13,14 +13,16 @@
 #import "NSWindow+topBarHeight.h"
 #import "DeckDetailsCollectionViewLayout.h"
 #import "DeckDetailsManaCostGraphView.h"
+#import "ClickableCollectionView.h"
 #import <StoneNamuCore/StoneNamuCore.h>
 #import <StoneNamuResources/StoneNamuResources.h>
 
 static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDetailsCardCollectionViewItem = @"NSUserInterfaceItemIdentifierDeckDetailsCardCollectionViewItem";
 
-@interface DeckDetailsViewController () <NSCollectionViewDelegate>
+@interface DeckDetailsViewController () <NSCollectionViewDelegate, NSMenuDelegate>
 @property (retain) NSScrollView *scrollView;
-@property (retain) NSCollectionView *collectionView;
+@property (retain) ClickableCollectionView *collectionView;
+@property (retain) NSMenu *collectionViewMenu;
 @property (retain) DeckDetailsManaCostGraphView *manaCostGraphView;
 @property (retain) DeckDetailsViewModel *viewModel;
 @end
@@ -42,6 +44,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
     [self removeObserver:self forKeyPath:@"self.view.window"];
     [_scrollView release];
     [_collectionView release];
+    [_collectionViewMenu release];
     [_manaCostGraphView release];
     [_viewModel release];
     [super dealloc];
@@ -69,6 +72,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
     [super viewDidLoad];
     [self setAttributes];
     [self configureCollectionView];
+    [self configureCollectionViewMenu];
     [self configureManaCostGraphView];
     [self configureViewModel];
     [self bind];
@@ -88,14 +92,14 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
 
 - (void)configureCollectionView {
     NSScrollView *scrollView = [NSScrollView new];
-    NSCollectionView *collectionView = [NSCollectionView new];
+    ClickableCollectionView *collectionView = [ClickableCollectionView new];
     
     self.scrollView = scrollView;
     self.collectionView = collectionView;
     
     scrollView.automaticallyAdjustsContentInsets = NO;
     scrollView.documentView = collectionView;
-
+    
     [self.view addSubview:scrollView];
     scrollView.translatesAutoresizingMaskIntoConstraints = NO;
     [NSLayoutConstraint activateConstraints:@[
@@ -112,7 +116,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
     NSNib *cardsNib = [[NSNib alloc] initWithNibNamed:NSStringFromClass([DeckDetailsCardCollectionViewItem class]) bundle:NSBundle.mainBundle];
     [collectionView registerNib:cardsNib forItemWithIdentifier:NSUserInterfaceItemIdentifierDeckDetailsCardCollectionViewItem];
     [cardsNib release];
-
+    
     collectionView.selectable = YES;
     collectionView.allowsMultipleSelection = YES;
     collectionView.allowsEmptySelection = YES;
@@ -123,6 +127,17 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
     
     [scrollView release];
     [collectionView release];
+}
+
+- (void)configureCollectionViewMenu {
+    NSMenu *menu = [NSMenu new];
+    self.collectionView.menu = menu;
+    
+    menu.delegate = self;
+    
+    
+    
+    [menu release];
 }
 
 - (void)configureManaCostGraphView {
@@ -192,6 +207,22 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
     }];
 }
 
+- (void)increaseCardCount:(NSMenuItem *)sender {
+    [self.collectionView.selectionIndexPaths enumerateObjectsUsingBlock:^(NSIndexPath * _Nonnull obj, BOOL * _Nonnull stop) {
+        [self.viewModel increaseAtIndexPath:obj];
+    }];
+}
+
+- (void)decreaseCardCount:(NSMenuItem *)sender {
+    [self.collectionView.selectionIndexPaths enumerateObjectsUsingBlock:^(NSIndexPath * _Nonnull obj, BOOL * _Nonnull stop) {
+        [self.viewModel decreaseAtIndexPath:obj];
+    }];
+}
+
+- (void)deleteCards:(NSMenuItem *)sender {
+    [self.viewModel deleteAtIndexPathes:self.collectionView.selectionIndexPaths];
+}
+
 #pragma mark - NSCollectionViewDelegate
 
 - (void)collectionView:(NSCollectionView *)collectionView didSelectItemsAtIndexPaths:(NSSet<NSIndexPath *> *)indexPaths {
@@ -217,6 +248,54 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
     [datas release];
     
     return YES;
+}
+
+#pragma mark - NSMenuDelegate
+
+- (void)menuWillOpen:(NSMenu *)menu {
+    NSMutableArray<NSMenuItem *> *itemArray = [@[] mutableCopy];
+    
+    NSUInteger count = self.collectionView.selectionIndexPaths.count;
+    
+    switch (count) {
+        case 0: {
+            break;
+        }
+        case 1: {
+            NSMenuItem *increaseItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyIncreaseCardCount]
+                                                                  action:@selector(increaseCardCount:)
+                                                           keyEquivalent:@""];
+            
+            NSMenuItem *decreaseItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyDecreaseCardCount]
+                                                                  action:@selector(decreaseCardCount:)
+                                                           keyEquivalent:@""];
+            
+            NSMenuItem *deleteItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyDelete]
+                                                                action:@selector(deleteCards:)
+                                                         keyEquivalent:@""];
+            
+            [itemArray addObjectsFromArray:@[increaseItem, decreaseItem, deleteItem]];
+            
+            [increaseItem release];
+            [decreaseItem release];
+            [deleteItem release];
+            
+            break;
+        }
+        default: {
+            NSMenuItem *deleteItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyDelete]
+                                                                action:@selector(deleteCards:)
+                                                         keyEquivalent:@""];
+            
+            [itemArray addObject:deleteItem];
+            
+            [deleteItem release];
+            break;
+        }
+    }
+    
+    menu.itemArray = itemArray;
+    [itemArray release];
 }
 
 @end

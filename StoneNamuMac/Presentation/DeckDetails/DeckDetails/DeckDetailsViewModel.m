@@ -167,8 +167,7 @@
     DeckDetailsItemModel *itemModel = [self.dataSource itemIdentifierForIndexPath:indexPath];
     
     if (itemModel.hsCardCount.unsignedIntegerValue <= 1) {
-        [self deleteAtIndexPath:indexPath];
-        [indexPath release];
+        [self deleteHSCards:[NSSet setWithArray:@[itemModel.hsCard]]];
         return NO;
     }
     
@@ -198,18 +197,20 @@
     return YES;
 }
 
-- (void)deleteAtIndexPath:(NSIndexPath *)indexPath {
-    HSCard * _Nullable hsCard = [self.dataSource itemIdentifierForIndexPath:indexPath].hsCard;
+- (void)deleteAtIndexPathes:(NSSet<NSIndexPath *> *)indexPathes {
+    NSMutableSet<HSCard *> *hsCards = [NSMutableSet<HSCard *> new];
     
-    if (hsCard) {
-        [self deleteHSCard:hsCard];
-    }
+    [indexPathes enumerateObjectsUsingBlock:^(NSIndexPath * _Nonnull obj, BOOL * _Nonnull stop) {
+        DeckDetailsItemModel *itemModel = [self.dataSource itemIdentifierForIndexPath:obj];
+        [hsCards addObject:itemModel.hsCard];
+    }];
+    
+    [self deleteHSCards:hsCards];
+    [hsCards autorelease];
 }
 
-- (void)deleteHSCard:(HSCard *)hsCard {
-    HSCard *copyHSCard = [hsCard copy];
-    
-    [self.localDeckUseCase deleteHSCards:[NSSet setWithArray:@[hsCard]] toLocalDeck:self.localDeck validation:^(NSError * _Nullable error) {
+- (void)deleteHSCards:(NSSet<HSCard *> *)hsCards {
+    [self.localDeckUseCase deleteHSCards:hsCards toLocalDeck:self.localDeck validation:^(NSError * _Nullable error) {
         if (error != nil) {
             [self postErrorOccurredNotification:error];
         } else {
@@ -217,9 +218,8 @@
             NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
             
             [snapshot.itemIdentifiers enumerateObjectsUsingBlock:^(DeckDetailsItemModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                if ((obj.type == DeckDetailsItemModelTypeCard) && [copyHSCard isEqual:obj.hsCard]) {
+                if ((obj.type == DeckDetailsItemModelTypeCard) && [hsCards containsObject:obj.hsCard]) {
                     [snapshot deleteItemsWithIdentifiers:@[obj]];
-                    *stop = YES;
                 }
             }];
             
@@ -231,8 +231,6 @@
                 [self postApplyingSnapshotToDataSourceWasDoneNotification];
             }];
         }
-        
-        [copyHSCard release];
     }];
 }
 
