@@ -56,7 +56,7 @@
 
 - (void)prepareForReuse {
     [super prepareForReuse];
-    [self clearContents];
+//    [self clearContents];
 }
 
 - (void)configureWithHSCard:(HSCard *)hsCard hsCardCount:(NSUInteger)hsCardCount delegate:(nonnull id<DeckDetailsCardCollectionViewItemDelegate>)delegate {

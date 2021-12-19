@@ -16,6 +16,7 @@
 #import "ClickableCollectionView.h"
 #import "AppDelegate.h"
 #import "NSViewController+SpinnerView.h"
+#import "NSWindow+presentErrorAlert.h"
 #import <StoneNamuCore/StoneNamuCore.h>
 #import <StoneNamuResources/StoneNamuResources.h>
 
@@ -381,16 +382,54 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
     [self addObserver:self forKeyPath:@"self.view.window" options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:nil];
     
     [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(shouldDismissReceived:)
+                                               name:NSNotificationNameDeckDetailsViewModelShouldDismiss
+                                             object:self.viewModel];
+    
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(didChangeLocalDeckReceived:)
+                                               name:NSNotificationNameDeckDetailsViewModelDidChangeLocalDeck
+                                             object:self.viewModel];
+    
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(errorOccurredReceived:)
+                                               name:NSNotificationNameDeckDetailsViewModelErrorOccurred
+                                             object:self.viewModel];
+    
+    [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(applyingSnapshotToDataSourceWasDoneReceived:)
                                                name:NSNotificationNameDeckDetailsViewModelApplyingSnapshotToDataSourceWasDone
                                              object:self.viewModel];
+}
+
+- (void)shouldDismissReceived:(NSNotification *)notification {
+    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+        [self.view.window close];
+    }];
+}
+
+- (void)didChangeLocalDeckReceived:(NSNotification *)notification {
+    NSString *name = notification.userInfo[DeckDetailsViewModelDidChangeLocalDeckNameItemKey];
+    
+    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+        self.view.window.title = name;
+    }];
+}
+
+- (void)errorOccurredReceived:(NSNotification *)notification {
+    NSError * _Nullable error = notification.userInfo[DeckDetailsViewModelErrorOccurredItemKey];
+    
+    if (error != nil) {
+        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+            [self.view.window presentErrorAlertWithError:error];
+        }];
+    }
 }
 
 - (void)applyingSnapshotToDataSourceWasDoneReceived:(NSNotification *)notification {
     NSArray<DeckDetailsManaCostGraphData *> *manaCostGraphDatas = notification.userInfo[DeckDetailsViewModelApplyingSnapshotToDataSourceWasDoneManaGraphDatasKey];
     
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
-        self.view.window.title = self.viewModel.localDeck.name;
         [self.manaCostGraphView configureWithDatas:manaCostGraphDatas];
     }];
 }
