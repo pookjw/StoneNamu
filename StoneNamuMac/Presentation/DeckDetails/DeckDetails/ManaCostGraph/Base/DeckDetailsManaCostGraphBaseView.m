@@ -137,7 +137,12 @@
 }
 
 - (void)updateFilledView {
-    self.filledViewHeightConstraint.constant = self.backgroundView.bounds.size.height * self.data.percentage;
+    [NSAnimationContext runAnimationGroup:^(NSAnimationContext * _Nonnull context) {
+        context.duration = 0.2f;
+        [self.filledViewHeightConstraint animator].constant = self.backgroundView.bounds.size.height * self.data.percentage;
+        
+        [self.filledView layoutSubtreeIfNeeded];
+    }];
 }
 
 @end
