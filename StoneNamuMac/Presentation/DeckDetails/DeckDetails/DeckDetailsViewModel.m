@@ -10,7 +10,7 @@
 #import "NSDiffableDataSourceSnapshot+sort.h"
 #import "NSCollectionViewDiffableDataSource+applySnapshotAndWait.h"
 #import "NSDiffableDataSourceSnapshot+Private.h"
-#import "DeckDetailsManaCostGraph.h"
+#import "DeckDetailsManaCostGraphData.h"
 
 @interface DeckDetailsViewModel ()
 @property (retain) NSOperationQueue *queue;
@@ -315,8 +315,14 @@
                     if ([hsCard isEqual:obj.hsCard]) {
                         exists = YES;
                         *stop = YES;
+                        
+                        NSUInteger hsCardCount = [hsCards countOfObject:hsCard];
+                        
+                        if (obj.hsCardCount.unsignedIntegerValue != hsCardCount) {
+                            [snapshot reconfigureItemsWithIdentifiers:@[obj]];
+                        }
+                        
                         obj.hsCardCount = [NSNumber numberWithUnsignedInteger:[hsCards countOfObject:hsCard]];
-                        [snapshot reconfigureItemsWithIdentifiers:@[obj]];
                     }
                 }];
                 
@@ -505,7 +511,7 @@
     //
     
     NSDictionary<NSNumber *, NSNumber *> *manaCostGraphDics = [self manaCostGraphFromSnapshot:snapshot];
-    NSMutableArray<DeckDetailsManaCostGraph *> *manaCostGraphDatas = [@[] mutableCopy];
+    NSMutableArray<DeckDetailsManaCostGraphData *> *manaCostGraphDatas = [@[] mutableCopy];
     NSUInteger highestCostCount = [(NSNumber *)manaCostGraphDics[[NSNumber numberWithInteger:-1]] unsignedIntegerValue];
     
     [[self manaCostGraphFromSnapshot:snapshot] enumerateKeysAndObjectsUsingBlock:^(NSNumber * _Nonnull key, NSNumber * _Nonnull obj, BOOL * _Nonnull stop) {
@@ -513,7 +519,7 @@
             return;
         }
         
-        DeckDetailsManaCostGraph *data = [[DeckDetailsManaCostGraph alloc] initWithManaCost:key.unsignedIntegerValue
+        DeckDetailsManaCostGraphData *data = [[DeckDetailsManaCostGraphData alloc] initWithManaCost:key.unsignedIntegerValue
                                                                                  percentage:(float)obj.unsignedIntegerValue / (float)highestCostCount
                                                                                       count:obj.unsignedIntegerValue];
         [manaCostGraphDatas addObject:data];

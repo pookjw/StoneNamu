@@ -10,7 +10,8 @@
 #import "NSImageView+setAsyncImage.h"
 
 @interface DeckDetailsCardCollectionViewItem ()
-@property (assign) IBOutlet NSView *containerView;
+@property (copy) HSCard *hsCard;
+@property (retain) IBOutlet NSView *containerView;
 @property (retain) IBOutlet NSLayoutConstraint *containerViewHeightConstraint;
 @property (retain) IBOutlet NSView *manaCostContainerView;
 @property (retain) IBOutlet NSLayoutConstraint *manaCostContainerViewWidthConstraint;
@@ -25,6 +26,8 @@
 @implementation DeckDetailsCardCollectionViewItem
 
 - (void)dealloc {
+    [_hsCard release];
+    [_containerView release];
     [_containerViewHeightConstraint release];
     [_manaCostContainerView release];
     [_manaCostContainerViewWidthConstraint release];
@@ -55,10 +58,15 @@
 }
 
 - (void)configureWithHSCard:(HSCard *)hsCard hsCardCount:(NSUInteger)hsCardCount {
-    self.manaCostLabel.stringValue = [NSString stringWithFormat:@"%lu", hsCard.manaCost];
-    self.nameLabel.stringValue = hsCard.name;
     self.countLabel.stringValue = [NSString stringWithFormat:@"%lu", hsCardCount];
-    [self.imageView setAsyncImageWithURL:hsCard.cropImage indicator:YES];
+    
+    if (![hsCard isEqual:self.hsCard]) {
+        self.manaCostLabel.stringValue = [NSString stringWithFormat:@"%lu", hsCard.manaCost];
+        self.nameLabel.stringValue = hsCard.name;
+        [self.imageView setAsyncImageWithURL:hsCard.cropImage indicator:YES];
+    }
+    
+    self.hsCard = hsCard;
 }
 
 - (void)configureImageViewGradientLayer {

@@ -1,5 +1,5 @@
 //
-//  DeckDetailsManaCostGraph.h
+//  DeckDetailsManaCostGraphData.h
 //  StoneNamuMac
 //
 //  Created by Jinwoo Kim on 12/16/21.
@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface DeckDetailsManaCostGraph : NSObject
+@interface DeckDetailsManaCostGraphData : NSObject <NSCopying>
 @property (readonly) NSUInteger manaCost;
 @property (readonly) float percentage;
 @property (readonly) NSUInteger count;

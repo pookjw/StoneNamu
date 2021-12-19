@@ -67,7 +67,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
 }
 
 - (void)setAttributes {
-    NSLayoutConstraint *widthLayout = [self.view.widthAnchor constraintEqualToConstant:300.0f];
+    NSLayoutConstraint *widthLayout = [self.view.widthAnchor constraintEqualToConstant:400.0f];
     [NSLayoutConstraint activateConstraints:@[
         widthLayout
     ]];
@@ -118,8 +118,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
     
     [self.view addSubview:manaCostGraphView];
     manaCostGraphView.translatesAutoresizingMaskIntoConstraints = NO;
-    manaCostGraphView.wantsLayer = YES;
-    manaCostGraphView.layer.backgroundColor = NSColor.blueColor.CGColor;
     
     [NSLayoutConstraint activateConstraints:@[
         [manaCostGraphView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor],
@@ -172,7 +170,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
 }
 
 - (void)applyingSnapshotToDataSourceWasDoneReceived:(NSNotification *)notification {
-    NSArray<DeckDetailsManaCostGraph *> *manaCostGraphDatas = notification.userInfo[DeckDetailsViewModelApplyingSnapshotToDataSourceWasDoneManaGraphDatasKey];
+    NSArray<DeckDetailsManaCostGraphData *> *manaCostGraphDatas = notification.userInfo[DeckDetailsViewModelApplyingSnapshotToDataSourceWasDoneManaGraphDatasKey];
     
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
         [self.manaCostGraphView configureWithDatas:manaCostGraphDatas];

@@ -189,6 +189,7 @@
 		4F7F5857272430C90080D6C3 /* BlizzardAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FA05F6B26A30639000E93BC /* BlizzardAPI.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		4F7F5858272430C90080D6C3 /* BlizzardAPIImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FA56BEC26A213B2002D9FA0 /* BlizzardAPIImpl.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		4F7F585B272430D90080D6C3 /* HSCardRepositoryImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FA05F7426A309C7000E93BC /* HSCardRepositoryImpl.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		4F82D25B276F3CCF00CE06BE /* DeckDetailsManaCostGraphBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F82D25A276F3CCF00CE06BE /* DeckDetailsManaCostGraphBaseView.m */; };
 		4F83FBDC272E6F5D002D2387 /* DynamicMenuToolbarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F83FBDB272E6F5D002D2387 /* DynamicMenuToolbarItem.m */; };
 		4F83FBDF272E7226002D2387 /* NSView+isDarkMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F83FBDE272E7226002D2387 /* NSView+isDarkMode.m */; };
 		4F8635EC2746AE98000EC94F /* StoneNamuError.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F8635EA2746AE98000EC94F /* StoneNamuError.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -388,7 +389,7 @@
 		F3CCE28A2742C3BD004B5B26 /* MainListViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F3CCE2892742C3BD004B5B26 /* MainListViewModel.m */; };
 		F3CCE28D2742C435004B5B26 /* MainListSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F3CCE28C2742C435004B5B26 /* MainListSectionModel.m */; };
 		F3CCE2902742C442004B5B26 /* MainListItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F3CCE28F2742C442004B5B26 /* MainListItemModel.m */; };
-		F3DBBC30276B2D0C00A63078 /* DeckDetailsManaCostGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = F3DBBC2F276B2D0C00A63078 /* DeckDetailsManaCostGraph.m */; };
+		F3DBBC30276B2D0C00A63078 /* DeckDetailsManaCostGraphData.m in Sources */ = {isa = PBXBuildFile; fileRef = F3DBBC2F276B2D0C00A63078 /* DeckDetailsManaCostGraphData.m */; };
 		F3DBBC33276B2E0C00A63078 /* DeckDetailsManaCostGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = F3DBBC32276B2E0C00A63078 /* DeckDetailsManaCostGraphView.m */; };
 		F3DBBC36276B371E00A63078 /* NSWindow+topBarHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = F3DBBC35276B371E00A63078 /* NSWindow+topBarHeight.m */; };
 /* End PBXBuildFile section */
@@ -734,6 +735,8 @@
 		4F7EC55026EB2B0500A7758D /* DeckImageRenderServiceSectionModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckImageRenderServiceSectionModel.m; sourceTree = "<group>"; };
 		4F7EC55226EB2B0D00A7758D /* DeckImageRenderServiceItemModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckImageRenderServiceItemModel.h; sourceTree = "<group>"; };
 		4F7EC55326EB2B0D00A7758D /* DeckImageRenderServiceItemModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckImageRenderServiceItemModel.m; sourceTree = "<group>"; };
+		4F82D259276F3CCF00CE06BE /* DeckDetailsManaCostGraphBaseView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckDetailsManaCostGraphBaseView.h; sourceTree = "<group>"; };
+		4F82D25A276F3CCF00CE06BE /* DeckDetailsManaCostGraphBaseView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckDetailsManaCostGraphBaseView.m; sourceTree = "<group>"; };
 		4F83FBDA272E6F5D002D2387 /* DynamicMenuToolbarItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DynamicMenuToolbarItem.h; sourceTree = "<group>"; };
 		4F83FBDB272E6F5D002D2387 /* DynamicMenuToolbarItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DynamicMenuToolbarItem.m; sourceTree = "<group>"; };
 		4F83FBDD272E7226002D2387 /* NSView+isDarkMode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSView+isDarkMode.h"; sourceTree = "<group>"; };
@@ -1133,8 +1136,8 @@
 		F3CCE28C2742C435004B5B26 /* MainListSectionModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainListSectionModel.m; sourceTree = "<group>"; };
 		F3CCE28E2742C442004B5B26 /* MainListItemModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainListItemModel.h; sourceTree = "<group>"; };
 		F3CCE28F2742C442004B5B26 /* MainListItemModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainListItemModel.m; sourceTree = "<group>"; };
-		F3DBBC2E276B2D0C00A63078 /* DeckDetailsManaCostGraph.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckDetailsManaCostGraph.h; sourceTree = "<group>"; };
-		F3DBBC2F276B2D0C00A63078 /* DeckDetailsManaCostGraph.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckDetailsManaCostGraph.m; sourceTree = "<group>"; };
+		F3DBBC2E276B2D0C00A63078 /* DeckDetailsManaCostGraphData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckDetailsManaCostGraphData.h; sourceTree = "<group>"; };
+		F3DBBC2F276B2D0C00A63078 /* DeckDetailsManaCostGraphData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckDetailsManaCostGraphData.m; sourceTree = "<group>"; };
 		F3DBBC31276B2E0C00A63078 /* DeckDetailsManaCostGraphView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckDetailsManaCostGraphView.h; sourceTree = "<group>"; };
 		F3DBBC32276B2E0C00A63078 /* DeckDetailsManaCostGraphView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckDetailsManaCostGraphView.m; sourceTree = "<group>"; };
 		F3DBBC34276B371E00A63078 /* NSWindow+topBarHeight.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSWindow+topBarHeight.h"; sourceTree = "<group>"; };
@@ -1870,6 +1873,15 @@
 				4FEC8A0326EB87860061BBF4 /* Cell */,
 			);
 			path = DeckImageRenderService;
+			sourceTree = "<group>";
+		};
+		4F82D258276F3CB900CE06BE /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				4F82D259276F3CCF00CE06BE /* DeckDetailsManaCostGraphBaseView.h */,
+				4F82D25A276F3CCF00CE06BE /* DeckDetailsManaCostGraphBaseView.m */,
+			);
+			path = Base;
 			sourceTree = "<group>";
 		};
 		4F8754B326DB875D000CE351 /* SpinnerView */ = {
@@ -2847,10 +2859,11 @@
 		F3DBBC2D276B2CE700A63078 /* ManaCostGraph */ = {
 			isa = PBXGroup;
 			children = (
-				F3DBBC2E276B2D0C00A63078 /* DeckDetailsManaCostGraph.h */,
-				F3DBBC2F276B2D0C00A63078 /* DeckDetailsManaCostGraph.m */,
+				F3DBBC2E276B2D0C00A63078 /* DeckDetailsManaCostGraphData.h */,
+				F3DBBC2F276B2D0C00A63078 /* DeckDetailsManaCostGraphData.m */,
 				F3DBBC31276B2E0C00A63078 /* DeckDetailsManaCostGraphView.h */,
 				F3DBBC32276B2E0C00A63078 /* DeckDetailsManaCostGraphView.m */,
+				4F82D258276F3CB900CE06BE /* Base */,
 			);
 			path = ManaCostGraph;
 			sourceTree = "<group>";
@@ -3413,7 +3426,7 @@
 				4FC402C0273870C200D25523 /* ViewMenuItem.m in Sources */,
 				4FC402C3273872A900D25523 /* WindowMenuItem.m in Sources */,
 				4FDE9B6B274AF05200AB0E02 /* CardDetailsChildCollectionViewItem.m in Sources */,
-				F3DBBC30276B2D0C00A63078 /* DeckDetailsManaCostGraph.m in Sources */,
+				F3DBBC30276B2D0C00A63078 /* DeckDetailsManaCostGraphData.m in Sources */,
 				4F90DA672766313F007982AE /* DeckDetailsItemModel.m in Sources */,
 				4F883F6E27300B1700AF0048 /* NSToolbarIdentifierCardOptionType+BlizzardHSAPIOptionType.m in Sources */,
 				4F4892E92724727000126131 /* CardCollectionViewItem.m in Sources */,
@@ -3463,6 +3476,7 @@
 				4F7333FB272DA77900438FE0 /* StorableMenuItem.m in Sources */,
 				4FC402C6273873BC00D25523 /* HelpMenuItem.m in Sources */,
 				4F4738CF2746D5A5000C0C85 /* CardDetailsBaseCollectionViewItem.m in Sources */,
+				4F82D25B276F3CCF00CE06BE /* DeckDetailsManaCostGraphBaseView.m in Sources */,
 				4FC402C92738755F00D25523 /* BaseMenu.m in Sources */,
 				4F6462D62726932A00329B10 /* NSImageView+setAsyncImage.m in Sources */,
 				4FC402BA27386D2500D25523 /* FileMenuItem.m in Sources */,
