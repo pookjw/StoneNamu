@@ -10,7 +10,7 @@
 
 @interface DeckAddCardCollectionViewItem ()
 @property (copy) HSCard * _Nullable hsCard;
-@property (assign) id<DeckAddCardCollectionViewItemDelegate> delegte;
+@property (assign) id<DeckAddCardCollectionViewItemDelegate> delegate;
 @end
 
 
@@ -28,7 +28,7 @@
 
 - (void)configureWithHSCard:(HSCard *)hsCard delegate:(nonnull id<DeckAddCardCollectionViewItemDelegate>)delegate {
     self.hsCard = hsCard;
-    self.delegte = delegate;
+    self.delegate = delegate;
     
     [self.imageView setAsyncImageWithURL:hsCard.image indicator:YES];
 }
@@ -44,7 +44,7 @@
 }
 
 - (void)gestureTriggered:(NSClickGestureRecognizer *)sender {
-    [self.delegte deckAddCardCollectionViewItem:self didClickWithRecognizer:sender];
+    [self.delegate deckAddCardCollectionViewItem:self didClickWithRecognizer:sender];
 }
 
 @end

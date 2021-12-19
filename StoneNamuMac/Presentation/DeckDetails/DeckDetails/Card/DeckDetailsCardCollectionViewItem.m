@@ -11,6 +11,7 @@
 
 @interface DeckDetailsCardCollectionViewItem ()
 @property (copy) HSCard *hsCard;
+@property (assign) id<DeckDetailsCardCollectionViewItemDelegate> delegate;
 @property (retain) IBOutlet NSView *containerView;
 @property (retain) IBOutlet NSLayoutConstraint *containerViewHeightConstraint;
 @property (retain) IBOutlet NSView *manaCostContainerView;
@@ -47,6 +48,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    [self addGesture];
     [self configureImageViewGradientLayer];
     [self setAttributes];
     [self clearContents];
@@ -57,7 +59,7 @@
     [self clearContents];
 }
 
-- (void)configureWithHSCard:(HSCard *)hsCard hsCardCount:(NSUInteger)hsCardCount {
+- (void)configureWithHSCard:(HSCard *)hsCard hsCardCount:(NSUInteger)hsCardCount delegate:(nonnull id<DeckDetailsCardCollectionViewItemDelegate>)delegate {
     self.countLabel.stringValue = [NSString stringWithFormat:@"%lu", hsCardCount];
     
     if (![hsCard isEqual:self.hsCard]) {
@@ -67,6 +69,21 @@
     }
     
     self.hsCard = hsCard;
+    self.delegate = delegate;
+}
+
+- (void)addGesture {
+    NSClickGestureRecognizer *gesture = [[NSClickGestureRecognizer alloc] initWithTarget:self action:@selector(gestureTriggered:)];
+    gesture.numberOfClicksRequired = 2;
+    gesture.delaysPrimaryMouseButtonEvents = NO;
+    
+    [self.view addGestureRecognizer:gesture];
+    
+    [gesture release];
+}
+
+- (void)gestureTriggered:(NSClickGestureRecognizer *)sender {
+    [self.delegate deckDetailsCardCollectionViewItem:self didDoubleClickWithRecognizer:sender];
 }
 
 - (void)configureImageViewGradientLayer {

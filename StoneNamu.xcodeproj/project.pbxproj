@@ -740,6 +740,7 @@
 		4F82D25A276F3CCF00CE06BE /* DeckDetailsManaCostGraphBaseView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckDetailsManaCostGraphBaseView.m; sourceTree = "<group>"; };
 		4F82D261276F6B4300CE06BE /* ClickableCollectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClickableCollectionView.h; sourceTree = "<group>"; };
 		4F82D262276F6B4300CE06BE /* ClickableCollectionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ClickableCollectionView.m; sourceTree = "<group>"; };
+		4F82D264276F6E9300CE06BE /* DeckDetailsCardCollectionViewItemDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckDetailsCardCollectionViewItemDelegate.h; sourceTree = "<group>"; };
 		4F83FBDA272E6F5D002D2387 /* DynamicMenuToolbarItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DynamicMenuToolbarItem.h; sourceTree = "<group>"; };
 		4F83FBDB272E6F5D002D2387 /* DynamicMenuToolbarItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DynamicMenuToolbarItem.m; sourceTree = "<group>"; };
 		4F83FBDD272E7226002D2387 /* NSView+isDarkMode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSView+isDarkMode.h"; sourceTree = "<group>"; };
@@ -1975,6 +1976,7 @@
 		4F90DA6B2766417A007982AE /* Card */ = {
 			isa = PBXGroup;
 			children = (
+				4F82D264276F6E9300CE06BE /* DeckDetailsCardCollectionViewItemDelegate.h */,
 				4F90DA6D276641C8007982AE /* DeckDetailsCardCollectionViewItem.h */,
 				4F90DA6E276641C8007982AE /* DeckDetailsCardCollectionViewItem.m */,
 				4F90DA7327664203007982AE /* DeckDetailsCardCollectionViewItem.xib */,

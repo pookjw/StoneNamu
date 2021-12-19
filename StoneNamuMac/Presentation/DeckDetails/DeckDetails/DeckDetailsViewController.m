@@ -14,12 +14,13 @@
 #import "DeckDetailsCollectionViewLayout.h"
 #import "DeckDetailsManaCostGraphView.h"
 #import "ClickableCollectionView.h"
+#import "AppDelegate.h"
 #import <StoneNamuCore/StoneNamuCore.h>
 #import <StoneNamuResources/StoneNamuResources.h>
 
 static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDetailsCardCollectionViewItem = @"NSUserInterfaceItemIdentifierDeckDetailsCardCollectionViewItem";
 
-@interface DeckDetailsViewController () <NSCollectionViewDelegate, NSMenuDelegate>
+@interface DeckDetailsViewController () <NSCollectionViewDelegate, NSMenuDelegate, DeckDetailsCardCollectionViewItemDelegate>
 @property (retain) NSScrollView *scrollView;
 @property (retain) ClickableCollectionView *collectionView;
 @property (retain) NSMenu *collectionViewMenu;
@@ -171,7 +172,8 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
                 DeckDetailsCardCollectionViewItem *item = (DeckDetailsCardCollectionViewItem *)[collectionView makeItemWithIdentifier:NSUserInterfaceItemIdentifierDeckDetailsCardCollectionViewItem forIndexPath:indexPath];
                 
                 [item configureWithHSCard:itemModel.hsCard
-                              hsCardCount:itemModel.hsCardCount.unsignedIntegerValue];
+                              hsCardCount:itemModel.hsCardCount.unsignedIntegerValue
+                                 delegate:self];
                 
                 return item;
             }
@@ -226,7 +228,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
 #pragma mark - NSCollectionViewDelegate
 
 - (void)collectionView:(NSCollectionView *)collectionView didSelectItemsAtIndexPaths:(NSSet<NSIndexPath *> *)indexPaths {
-    NSLog(@"%@", indexPaths);
+
 }
 
 - (NSDragOperation)collectionView:(NSCollectionView *)collectionView validateDrop:(id<NSDraggingInfo>)draggingInfo proposedIndexPath:(NSIndexPath * _Nonnull *)proposedDropIndexPath dropOperation:(NSCollectionViewDropOperation *)proposedDropOperation {
@@ -296,6 +298,18 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
     
     menu.itemArray = itemArray;
     [itemArray release];
+}
+
+#pragma mark - DeckDetailsCardCollectionViewItemDelegate
+
+- (void)deckDetailsCardCollectionViewItem:(DeckDetailsCardCollectionViewItem *)deckDetailsCardCollectionViewItem didDoubleClickWithRecognizer:(NSClickGestureRecognizer *)recognizer {
+    [self.collectionView.selectionIndexPaths enumerateObjectsUsingBlock:^(NSIndexPath * _Nonnull obj, BOOL * _Nonnull stop) {
+        HSCard * _Nullable hsCard = [self.viewModel.dataSource itemIdentifierForIndexPath:obj].hsCard;
+        
+        if (hsCard != nil) {
+            [(AppDelegate *)NSApp.delegate presentCardDetailsWindowWithHSCard:hsCard];
+        }
+    }];
 }
 
 @end
