@@ -12,9 +12,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface DeckAddCardItemModel : NSObject
 @property (readonly, copy) HSCard *hsCard;
+@property NSUInteger count;
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
-- (instancetype)initWithCard:(HSCard *)hsCard;
+- (instancetype)initWithCard:(HSCard *)hsCard count:(NSUInteger)count;
 @end
 
 NS_ASSUME_NONNULL_END

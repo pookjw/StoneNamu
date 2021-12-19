@@ -12,7 +12,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface DeckAddCardCollectionViewItem : SelectedBackgroundCollectionViewItem
-- (void)configureWithHSCard:(HSCard *)hsCard delegate:(id<DeckAddCardCollectionViewItemDelegate>)delegate;
+- (void)configureWithHSCard:(HSCard *)hsCard count:(NSUInteger)count delegate:(nonnull id<DeckAddCardCollectionViewItemDelegate>)delegate;
 @end
 
 NS_ASSUME_NONNULL_END

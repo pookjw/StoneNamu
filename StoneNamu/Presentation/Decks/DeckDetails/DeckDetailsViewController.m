@@ -389,7 +389,7 @@
         UIContextualAction *deleteAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive
                                                                                    title:nil
                                                                                  handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
-            [self.viewModel deleteAtIndexPathes:[NSSet setWithArray:@[indexPath]]];
+            [self.viewModel deleteAtIndexPathes:[NSSet setWithObject:indexPath]];
         }];
         
         deleteAction.image = [UIImage systemImageNamed:@"trash"];
@@ -564,7 +564,7 @@
                                                              image:[UIImage systemImageNamed:@"trash"]
                                                         identifier:nil
                                                            handler:^(__kindof UIAction * _Nonnull action) {
-                    [self.viewModel deleteAtIndexPathes:[NSSet setWithArray:@[indexPath]]];
+                    [self.viewModel deleteAtIndexPathes:[NSSet setWithObject:indexPath]];
                 }];
                 deleteAction.attributes = UIMenuElementAttributesDestructive;
                 

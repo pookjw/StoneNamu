@@ -394,11 +394,7 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     [collectionView deselectItemAtIndexPath:indexPath animated:NO];
     
-    DeckAddCardItemModel * _Nullable itemModel = [self.viewModel.dataSource itemIdentifierForIndexPath:indexPath];
-    if (itemModel == nil) return;
-    
-    HSCard *hsCard = itemModel.card;
-    [self.viewModel addHSCards:@[hsCard]];
+    [self.viewModel addHSCardsFromIndexPathes:[NSSet setWithObject:indexPath]];
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
@@ -434,7 +430,7 @@
                                              identifier:nil
                                                 handler:^(__kindof UIAction * _Nonnull action) {
             
-            [self.viewModel addHSCards:@[itemModel.card]];
+            [self.viewModel addHSCards:[NSSet setWithObject:itemModel.card]];
         }];
         
         UIMenu *menu = [UIMenu menuWithTitle:itemModel.card.name
@@ -479,7 +475,7 @@
 
 - (void)dropInteraction:(UIDropInteraction *)interaction performDrop:(id<UIDropSession>)session {
     [session loadObjectsOfClass:[HSCard class] completion:^(NSArray<__kindof id<NSItemProviderReading>> * _Nonnull objects) {
-        [self.viewModel addHSCards:objects];
+        [self.viewModel addHSCards:[NSSet setWithArray:objects]];
     }];
 }
 

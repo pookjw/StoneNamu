@@ -34,7 +34,8 @@ typedef UICollectionViewDiffableDataSource<DeckAddCardSectionModel *, DeckAddCar
 - (instancetype)initWithDataSource:(CardsDataSource *)dataSource;
 - (BOOL)requestDataSourceWithOptions:(NSDictionary<NSString *,id> * _Nullable)options reset:(BOOL)reset;
 - (NSArray<UIDragItem *> *)makeDragItemFromIndexPath:(NSIndexPath *)indexPath image:(UIImage * _Nullable)image;
-- (void)addHSCards:(NSArray<HSCard *> *)hsCards;
+- (void)addHSCards:(NSSet<HSCard *> *)hsCards;
+- (void)addHSCardsFromIndexPathes:(NSSet<NSIndexPath *> *)indexPathes;
 @end
 
 NS_ASSUME_NONNULL_END

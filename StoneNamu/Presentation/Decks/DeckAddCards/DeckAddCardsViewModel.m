@@ -62,8 +62,6 @@
         self.page = [NSNumber numberWithUnsignedInt:1];
         self.isFetching = NO;
         
-        [self observePrefsChange];
-        [self observeDataCachesDeleted];
         [self startObserving];
     }
     
@@ -231,11 +229,28 @@
     return @[dragItem];
 }
 
-- (void)addHSCards:(NSArray<HSCard *> *)hsCards {
-    [self.localDeckUseCase addHSCards:hsCards toLocalDeck:self.localDeck validation:^(NSError * _Nullable error) {
+- (void)addHSCards:(NSSet<HSCard *> *)hsCards {
+    [self.localDeckUseCase addHSCards:hsCards.allObjects toLocalDeck:self.localDeck validation:^(NSError * _Nullable error) {
         if (error != nil) {
             [self postError:error];
         }
+    }];
+}
+
+- (void)addHSCardsFromIndexPathes:(NSSet<NSIndexPath *> *)indexPathes {
+    [self.queue addBarrierBlock:^{
+        NSMutableSet<HSCard *> *hsCards = [NSMutableSet<HSCard *> new];
+        
+        [indexPathes enumerateObjectsUsingBlock:^(NSIndexPath * _Nonnull obj, BOOL * _Nonnull stop) {
+            HSCard * _Nullable hsCard = [self.dataSource itemIdentifierForIndexPath:obj].card;
+            
+            if (hsCard != nil) {
+                [hsCards addObject:hsCard];
+            }
+        }];
+        
+        [self addHSCards:hsCards];
+        [hsCards autorelease];
     }];
 }
 
@@ -260,12 +275,10 @@
         NSMutableArray<DeckAddCardItemModel *> *itemModels = [@[] mutableCopy];
         
         for (HSCard *card in cards) {
-            @autoreleasepool {
-                NSUInteger count = [localDeckCards countOfObject:card];
-                DeckAddCardItemModel *itemModel = [[DeckAddCardItemModel alloc] initWithCard:card count:count];
-                [itemModels addObject:itemModel];
-                [itemModel release];
-            }
+            NSUInteger count = [localDeckCards countOfObject:card];
+            DeckAddCardItemModel *itemModel = [[DeckAddCardItemModel alloc] initWithCard:card count:count];
+            [itemModels addObject:itemModel];
+            [itemModel release];
         }
         
         [snapshot appendItemsWithIdentifiers:[[itemModels copy] autorelease] intoSectionWithIdentifier:sectionModel];
@@ -306,6 +319,24 @@
                                            selector:@selector(localDeckChangesReceived:)
                                                name:NSNotificationNameLocalDeckUseCaseObserveData
                                              object:self.localDeckUseCase];
+    
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(prefsChangedEventReceived:)
+                                               name:NSNotificationNamePrefsUseCaseObserveData
+                                             object:self.prefsUseCase];
+    
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(dataCacheDeletedEventReceived:)
+                                               name:NSNotificationNameDataCacheUseCaseDeleteAll
+                                             object:nil];
+}
+
+- (void)prefsChangedEventReceived:(NSNotification *)notification {
+    [self requestDataSourceWithOptions:self.options reset:YES];
+}
+
+- (void)dataCacheDeletedEventReceived:(NSNotification *)notification {
+    [self requestDataSourceWithOptions:self.options reset:YES];
 }
 
 - (void)localDeckChangesReceived:(NSNotification *)notification {
@@ -339,28 +370,6 @@
     [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameDeckAddCardsViewModelLocalDeckHasChanged
                                                       object:self
                                                     userInfo:nil];
-}
-
-- (void)observePrefsChange {
-    [NSNotificationCenter.defaultCenter addObserver:self
-                                           selector:@selector(prefsChangedEventReceived:)
-                                               name:NSNotificationNamePrefsUseCaseObserveData
-                                             object:self.prefsUseCase];
-}
-
-- (void)prefsChangedEventReceived:(NSNotification *)notification {
-    [self requestDataSourceWithOptions:self.options reset:YES];
-}
-
-- (void)observeDataCachesDeleted {
-    [NSNotificationCenter.defaultCenter addObserver:self
-                                           selector:@selector(dataCacheDeletedEventReceived:)
-                                               name:NSNotificationNameDataCacheUseCaseDeleteAll
-                                             object:nil];
-}
-
-- (void)dataCacheDeletedEventReceived:(NSNotification *)notification {
-    [self requestDataSourceWithOptions:self.options reset:YES];
 }
 
 @end

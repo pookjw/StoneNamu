@@ -11,6 +11,8 @@
 @interface DeckAddCardCollectionViewItem ()
 @property (copy) HSCard * _Nullable hsCard;
 @property (assign) id<DeckAddCardCollectionViewItemDelegate> delegate;
+
+@property (retain) IBOutlet NSTextField *countLabel;
 @end
 
 
@@ -18,6 +20,7 @@
 
 -(void)dealloc {
     [_hsCard release];
+    [_countLabel release];
     [super dealloc];
 }
 
@@ -26,10 +29,11 @@
     [self addGesture];
 }
 
-- (void)configureWithHSCard:(HSCard *)hsCard delegate:(nonnull id<DeckAddCardCollectionViewItemDelegate>)delegate {
+- (void)configureWithHSCard:(HSCard *)hsCard count:(NSUInteger)count delegate:(nonnull id<DeckAddCardCollectionViewItemDelegate>)delegate {
     self.hsCard = hsCard;
     self.delegate = delegate;
     
+    self.countLabel.stringValue = [NSString stringWithFormat:@"%lu", count];
     [self.imageView setAsyncImageWithURL:hsCard.image indicator:YES];
 }
 

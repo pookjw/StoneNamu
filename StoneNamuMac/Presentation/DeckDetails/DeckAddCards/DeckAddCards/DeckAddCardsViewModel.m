@@ -8,6 +8,7 @@
 #import "DeckAddCardsViewModel.h"
 #import <StoneNamuCore/StoneNamuCore.h>
 #import "NSCollectionViewDiffableDataSource+applySnapshotAndWait.h"
+#import "NSDiffableDataSourceSnapshot+Private.h"
 
 @interface DeckAddCardsViewModel ()
 @property (retain) id<HSCardUseCase> hsCardUseCase;
@@ -18,6 +19,7 @@
 @property (retain) NSOperationQueue *queue;
 @property (retain) id<PrefsUseCase> prefsUseCase;
 @property (retain) id<DataCacheUseCase> dataCacheUseCase;
+@property (retain) id<LocalDeckUseCase> localDeckUseCase;
 @end
 
 @implementation DeckAddCardsViewModel
@@ -26,6 +28,8 @@
     self = [self init];
     
     if (self) {
+        self.localDeck = nil;
+        
         [self->_dataSource release];
         self->_dataSource = [dataSource retain];
         
@@ -47,18 +51,22 @@
         self.dataCacheUseCase = dataCacheUseCase;
         [dataCacheUseCase release];
         
+        LocalDeckUseCaseImpl *localDeckUseCase = [LocalDeckUseCaseImpl new];
+        self.localDeckUseCase = localDeckUseCase;
+        [localDeckUseCase release];
+        
         self.pageCount = nil;
         self.page = [NSNumber numberWithUnsignedInt:1];
         self.isFetching = NO;
         
-        [self observePrefsChange];
-        [self observeDataCachesDeleted];
+        [self startObserving];
     }
     
     return self;
 }
 
 - (void)dealloc {
+    [_localDeck release];
     [_dataSource release];
     [_hsCardUseCase release];
     [_pageCount release];
@@ -67,6 +75,7 @@
     [_options release];
     [_prefsUseCase release];
     [_dataCacheUseCase release];
+    [_localDeckUseCase release];
     [super dealloc];
 }
 
@@ -88,7 +97,7 @@
     NSBlockOperation * __block op = [NSBlockOperation new];
     
     [op addExecutionBlock:^{
-       NSDictionary<NSString *, NSString *> *defaultOptions = BlizzardHSAPIDefaultOptions();
+        NSDictionary<NSString *, NSString *> *defaultOptions = [self optionsForLocalDeckClassId];
         
         if (options == nil) {
             [self->_options release];
@@ -156,6 +165,27 @@
     return YES;
 }
 
+- (NSDictionary<NSString *, NSString *> *)optionsForLocalDeckClassId {
+    if (self.localDeck == nil) return BlizzardHSAPIDefaultOptions();
+
+    NSMutableDictionary<NSString *, NSString *> *options = [BlizzardHSAPIDefaultOptions() mutableCopy];
+    options[BlizzardHSAPIOptionTypeClass] = NSStringFromHSCardClass(self.localDeck.classId.unsignedIntegerValue);
+
+    HSCardSet cardSet;
+    if ([self.localDeck.format isEqualToString:HSDeckFormatStandard]) {
+        cardSet = HSCardSetStandardCards;
+    } else if ([self.localDeck.format isEqualToString:HSDeckFormatWild]) {
+        cardSet = HSCardSetWildCards;
+    } else if ([self.localDeck.format isEqualToString:HSDeckFormatClassic]) {
+        cardSet = HSCardSetClassicCards;
+    } else {
+        cardSet = HSCardSetWildCards;
+    }
+    options[BlizzardHSAPIOptionTypeSet] = NSStringFromHSCardSet(cardSet);
+
+    return [options autorelease];
+}
+
 - (void)resetDataSource{
     [self.queue cancelAllOperations];
     
@@ -178,6 +208,31 @@
     return ![self.pageCount isEqual:self.page];
 }
 
+- (void)addHSCards:(NSSet<HSCard *> *)hsCards {
+    [self.localDeckUseCase addHSCards:hsCards.allObjects toLocalDeck:self.localDeck validation:^(NSError * _Nullable error) {
+        if (error != nil) {
+            [self postError:error];
+        }
+    }];
+}
+
+- (void)addHSCardsFromIndexPathes:(NSSet<NSIndexPath *> *)indexPathes {
+    [self.queue addBarrierBlock:^{
+        NSMutableSet<HSCard *> *hsCards = [NSMutableSet<HSCard *> new];
+        
+        [indexPathes enumerateObjectsUsingBlock:^(NSIndexPath * _Nonnull obj, BOOL * _Nonnull stop) {
+            HSCard * _Nullable hsCard = [self.dataSource itemIdentifierForIndexPath:obj].hsCard;
+            
+            if (hsCard != nil) {
+                [hsCards addObject:hsCard];
+            }
+        }];
+        
+        [self addHSCards:hsCards];
+        [hsCards autorelease];
+    }];
+}
+
 - (void)updateDataSourceWithCards:(NSArray<HSCard *> *)cards completion:(void (^)(void))completion {
     [self.queue addBarrierBlock:^{
         NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
@@ -197,10 +252,12 @@
             [_sectionModel autorelease];
         }
         
+        NSArray<HSCard *> *localDeckCards = self.localDeck.hsCards;
         NSMutableArray<DeckAddCardItemModel *> *itemModels = [@[] mutableCopy];
         
         for (HSCard *card in cards) {
-            DeckAddCardItemModel *itemModel = [[DeckAddCardItemModel alloc] initWithCard:card];
+            NSUInteger count = [localDeckCards countOfObject:card];
+            DeckAddCardItemModel *itemModel = [[DeckAddCardItemModel alloc] initWithCard:card count:count];
             [itemModels addObject:itemModel];
             [itemModel release];
         }
@@ -215,6 +272,62 @@
             [self postEndedLoadingDataSource];
         }];
     }];
+}
+
+- (void)updateItemCountToDataSource {
+    [self.queue addBarrierBlock:^{
+        NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
+        
+        NSArray<HSCard *> *localDeckCards = self.localDeck.hsCards;
+        
+        for (DeckAddCardItemModel *itemModel in snapshot.itemIdentifiers) {
+            NSUInteger count = [localDeckCards countOfObject:itemModel.hsCard];
+            
+            if (itemModel.count != count) {
+                itemModel.count = count;
+                [snapshot reconfigureItemsWithIdentifiers:@[itemModel]];
+            }
+        }
+        
+        [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
+            [snapshot release];
+        }];
+    }];
+}
+
+- (void)startObserving {
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(localDeckChangesReceived:)
+                                               name:NSNotificationNameLocalDeckUseCaseObserveData
+                                             object:self.localDeckUseCase];
+    
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(prefsChangedEventReceived:)
+                                               name:NSNotificationNamePrefsUseCaseObserveData
+                                             object:self.prefsUseCase];
+    
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(dataCacheDeletedEventReceived:)
+                                               name:NSNotificationNameDataCacheUseCaseDeleteAll
+                                             object:nil];
+}
+
+- (void)prefsChangedEventReceived:(NSNotification *)notification {
+    [self requestDataSourceWithOptions:self.options reset:YES];
+}
+
+- (void)dataCacheDeletedEventReceived:(NSNotification *)notification {
+    [self requestDataSourceWithOptions:self.options reset:YES];
+}
+
+
+- (void)localDeckChangesReceived:(NSNotification *)notification {
+    if (self.localDeck != nil) {
+        [self.localDeckUseCase refreshObject:self.localDeck mergeChanges:NO completion:^{
+            [self updateItemCountToDataSource];
+            [self postLocalDeckHasChanged];
+        }];
+    }
 }
 
 - (void)postError:(NSError *)error {
@@ -235,26 +348,11 @@
                                                     userInfo:nil];
 }
 
-- (void)observePrefsChange {
-    [NSNotificationCenter.defaultCenter addObserver:self
-                                           selector:@selector(prefsChangedEventReceived:)
-                                               name:NSNotificationNamePrefsUseCaseObserveData
-                                             object:self.prefsUseCase];
-}
 
-- (void)prefsChangedEventReceived:(NSNotification *)notification {
-    [self requestDataSourceWithOptions:self.options reset:YES];
-}
-
-- (void)observeDataCachesDeleted {
-    [NSNotificationCenter.defaultCenter addObserver:self
-                                           selector:@selector(dataCacheDeletedEventReceived:)
-                                               name:NSNotificationNameDataCacheUseCaseDeleteAll
-                                             object:nil];
-}
-
-- (void)dataCacheDeletedEventReceived:(NSNotification *)notification {
-    [self requestDataSourceWithOptions:self.options reset:YES];
+- (void)postLocalDeckHasChanged {
+    [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameDeckAddCardsViewModelLocalDeckHasChanged
+                                                      object:self
+                                                    userInfo:nil];
 }
 
 @end

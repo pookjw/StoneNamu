@@ -54,8 +54,7 @@
         self.page = [NSNumber numberWithUnsignedInt:1];
         self.isFetching = NO;
         
-        [self observePrefsChange];
-        [self observeDataCachesDeleted];
+        [self startObserving];
     }
     
     return self;
@@ -227,6 +226,26 @@
     }];
 }
 
+- (void)startObserving {
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(prefsChangedEventReceived:)
+                                               name:NSNotificationNamePrefsUseCaseObserveData
+                                             object:self.prefsUseCase];
+    
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(dataCacheDeletedEventReceived:)
+                                               name:NSNotificationNameDataCacheUseCaseDeleteAll
+                                             object:nil];
+}
+
+- (void)prefsChangedEventReceived:(NSNotification *)notification {
+    [self requestDataSourceWithOptions:self.options reset:YES];
+}
+
+- (void)dataCacheDeletedEventReceived:(NSNotification *)notification {
+    [self requestDataSourceWithOptions:self.options reset:YES];
+}
+
 - (void)postError:(NSError *)error {
     [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameCardsViewModelError
                                                       object:self
@@ -243,28 +262,6 @@
     [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameCardsViewModelEndedLoadingDataSource
                                                       object:self
                                                     userInfo:nil];
-}
-
-- (void)observePrefsChange {
-    [NSNotificationCenter.defaultCenter addObserver:self
-                                           selector:@selector(prefsChangedEventReceived:)
-                                               name:NSNotificationNamePrefsUseCaseObserveData
-                                             object:self.prefsUseCase];
-}
-
-- (void)prefsChangedEventReceived:(NSNotification *)notification {
-    [self requestDataSourceWithOptions:self.options reset:YES];
-}
-
-- (void)observeDataCachesDeleted {
-    [NSNotificationCenter.defaultCenter addObserver:self
-                                           selector:@selector(dataCacheDeletedEventReceived:)
-                                               name:NSNotificationNameDataCacheUseCaseDeleteAll
-                                             object:nil];
-}
-
-- (void)dataCacheDeletedEventReceived:(NSNotification *)notification {
-    [self requestDataSourceWithOptions:self.options reset:YES];
 }
 
 @end

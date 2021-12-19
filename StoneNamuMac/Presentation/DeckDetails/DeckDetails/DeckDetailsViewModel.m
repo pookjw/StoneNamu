@@ -141,7 +141,7 @@
     DeckDetailsItemModel *itemModel = [self.dataSource itemIdentifierForIndexPath:indexPath];
     HSCard *hsCard = itemModel.hsCard;
     
-    [self.localDeckUseCase increaseHSCards:[NSSet setWithArray:@[hsCard]] toLocalDeck:self.localDeck validation:^(NSError * _Nullable error) {
+    [self.localDeckUseCase increaseHSCards:[NSSet setWithObject:hsCard] toLocalDeck:self.localDeck validation:^(NSError * _Nullable error) {
         if (error != nil) {
             [self postErrorOccurredNotification:error];
         } else {
@@ -167,13 +167,13 @@
     DeckDetailsItemModel *itemModel = [self.dataSource itemIdentifierForIndexPath:indexPath];
     
     if (itemModel.hsCardCount.unsignedIntegerValue <= 1) {
-        [self deleteHSCards:[NSSet setWithArray:@[itemModel.hsCard]]];
+        [self deleteHSCards:[NSSet setWithObject:itemModel.hsCard]];
         return NO;
     }
     
     HSCard *hsCard = itemModel.hsCard;
     
-    [self.localDeckUseCase decreaseHSCards:[NSSet setWithArray:@[hsCard]] toLocalDeck:self.localDeck validation:^(NSError * _Nullable error) {
+    [self.localDeckUseCase decreaseHSCards:[NSSet setWithObject:hsCard] toLocalDeck:self.localDeck validation:^(NSError * _Nullable error) {
         if (error != nil) {
             [self postErrorOccurredNotification:error];
         } else {

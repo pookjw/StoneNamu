@@ -9,12 +9,13 @@
 
 @implementation DeckAddCardItemModel
 
-- (instancetype)initWithCard:(HSCard *)hsCard {
+- (instancetype)initWithCard:(HSCard *)hsCard count:(NSUInteger)count {
     self = [self init];
     
     if (self) {
         [self->_hsCard release];
         self->_hsCard = [hsCard copy];
+        self.count = count;
     }
     
     return self;

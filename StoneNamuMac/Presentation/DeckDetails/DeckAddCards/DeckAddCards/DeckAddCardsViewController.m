@@ -15,6 +15,7 @@
 #import "DeckAddCardOptionsTouchBar.h"
 #import "AppDelegate.h"
 #import "HSCardPromiseProvider.h"
+#import "NSViewController+loadViewIfNeeded.h"
 #import <StoneNamuCore/StoneNamuCore.h>
 #import <StoneNamuResources/StoneNamuResources.h>
 
@@ -36,7 +37,9 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
     self = [self init];
     
     if (self) {
-        
+        [self loadViewIfNeeded];
+        self.viewModel.localDeck = localDeck;
+        [self requestDataSourceWithOptions:nil reset:NO];
     }
     
     return self;
@@ -68,7 +71,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
     [self configureDeckAddCardOptionsTouchBar];
     [self configureViewModel];
     [self bind];
-    [self requestDataSourceWithOptions:nil reset:NO];
 }
 
 - (NSTouchBar *)makeTouchBar {
@@ -167,7 +169,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
     [nib release];
 
     collectionView.selectable = YES;
-    collectionView.allowsMultipleSelection = YES;
+    collectionView.allowsMultipleSelection = NO;
     collectionView.allowsEmptySelection = YES;
     collectionView.delegate = self;
     
@@ -255,7 +257,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
                                                                      itemProvider:^NSCollectionViewItem * _Nullable(NSCollectionView * _Nonnull collectionView, NSIndexPath * _Nonnull indexPath, DeckAddCardItemModel * _Nonnull itemModel) {
         
         DeckAddCardCollectionViewItem *item = (DeckAddCardCollectionViewItem *)[collectionView makeItemWithIdentifier:NSUserInterfaceItemIdentifierDeckAddCardCollectionViewItem forIndexPath:indexPath];
-        [item configureWithHSCard:itemModel.hsCard delegate:unretainedSelf];
+        [item configureWithHSCard:itemModel.hsCard count:itemModel.count delegate:unretainedSelf];
         
         return item;
     }];
@@ -308,6 +310,11 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
 
 #pragma mark - NSCollectionViewDelegate
 
+- (void)collectionView:(NSCollectionView *)collectionView didSelectItemsAtIndexPaths:(NSSet<NSIndexPath *> *)indexPaths {
+    [collectionView deselectItemsAtIndexPaths:indexPaths];
+    [self.viewModel addHSCardsFromIndexPathes:indexPaths];
+}
+
 - (BOOL)collectionView:(NSCollectionView *)collectionView canDragItemsAtIndexPaths:(NSSet<NSIndexPath *> *)indexPaths withEvent:(NSEvent *)event {
     BOOL result __block = YES;
 
@@ -359,17 +366,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
 #pragma mark - DeckAddCardCollectionViewItemDelegate
 
 - (void)deckAddCardCollectionViewItem:(DeckAddCardCollectionViewItem *)deckAddCardCollectionViewItem didClickWithRecognizer:(NSClickGestureRecognizer *)recognizer {
-    @autoreleasepool {
-        NSArray<NSIndexPath *> *selectionIndexPaths = self.collectionView.selectionIndexPaths.allObjects;
-        
-        [selectionIndexPaths enumerateObjectsUsingBlock:^(NSIndexPath * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            HSCard * _Nullable hsCard = [self.viewModel.dataSource itemIdentifierForIndexPath:obj].hsCard;
-            
-            if (hsCard == nil) return;
-            
-            [(AppDelegate *)NSApp.delegate presentCardDetailsWindowWithHSCard:hsCard];
-        }];
-    }
+    
 }
 
 @end
