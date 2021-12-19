@@ -172,14 +172,17 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
     NSMenuItem *editDeckNameItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyEditDeckName]
                                                               action:@selector(editDeckNameItemTriggered:)
                                                        keyEquivalent:@""];
+    editDeckNameItem.image = [NSImage imageWithSystemSymbolName:@"pencil" accessibilityDescription:nil];
     
     NSMenuItem *saveAsImageItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeySaveAsImage]
                                                              action:@selector(saveAsImageItemTriggered:)
                                                       keyEquivalent:@""];
+    saveAsImageItem.image = [NSImage imageWithSystemSymbolName:@"photo" accessibilityDescription:nil];
     
     NSMenuItem *exportDeckCodeItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyExportDeckCode]
                                                                 action:@selector(exportDeckCodeItemTriggered:)
                                                          keyEquivalent:@""];
+    exportDeckCodeItem.image = [NSImage imageWithSystemSymbolName:@"square.and.arrow.up" accessibilityDescription:nil];
     
     moreMenu.itemArray = @[editDeckNameItem, saveAsImageItem, exportDeckCodeItem];
     
@@ -450,14 +453,17 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
             NSMenuItem *increaseItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyIncreaseCardCount]
                                                                   action:@selector(increaseCardCount:)
                                                            keyEquivalent:@""];
+            increaseItem.image = [NSImage imageWithSystemSymbolName:@"plus" accessibilityDescription:nil];
             
             NSMenuItem *decreaseItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyDecreaseCardCount]
                                                                   action:@selector(decreaseCardCount:)
                                                            keyEquivalent:@""];
+            decreaseItem.image = [NSImage imageWithSystemSymbolName:@"minus" accessibilityDescription:nil];
             
             NSMenuItem *deleteItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyDelete]
                                                                 action:@selector(deleteCards:)
                                                          keyEquivalent:@""];
+            deleteItem.image = [NSImage imageWithSystemSymbolName:@"trash" accessibilityDescription:nil];
             
             [itemArray addObjectsFromArray:@[increaseItem, decreaseItem, deleteItem]];
             
@@ -471,6 +477,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
             NSMenuItem *deleteItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyDelete]
                                                                 action:@selector(deleteCards:)
                                                          keyEquivalent:@""];
+            deleteItem.image = [NSImage imageWithSystemSymbolName:@"trash" accessibilityDescription:nil];
             
             [itemArray addObject:deleteItem];
             
