@@ -29,6 +29,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
 @property (retain) NSMenu *moreMenu;
 @property (retain) NSButton *moreMenuButton;
 @property (assign) NSTextField *deckNameTextField;
+@property (assign) NSTextView *deckCodeTextView;
 @property (retain) DeckDetailsViewModel *viewModel;
 @end
 
@@ -191,7 +192,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
 
 - (void)editDeckNameItemTriggered:(NSMenuItem *)sender {
     NSAlert *alert = [NSAlert new];
-    NSButton *donebutton = [alert addButtonWithTitle:[ResourcesService localizationForKey:LocalizableKeyDone]];
+    NSButton *doneButton = [alert addButtonWithTitle:[ResourcesService localizationForKey:LocalizableKeyDone]];
     NSButton *cancelButton = [alert addButtonWithTitle:[ResourcesService localizationForKey:LocalizableKeyCancel]];
     NSTextField *deckNameTextField = [[NSTextField alloc] initWithFrame:NSMakeRect(0.0f, 0.0f, 300.0f, 20.0f)];
     
@@ -199,8 +200,8 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
     
     //
     
-    donebutton.target = self;
-    donebutton.action = @selector(editDeckNameItemDoneButtonTriggered:);
+    doneButton.target = self;
+    doneButton.action = @selector(editDeckNameItemDoneButtonTriggered:);
     
     //
     
@@ -244,9 +245,63 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
             [self removeAllSpinnerview];
             
-            NSLog(@"- result: %@", string);
+            if (string == nil) return;
+            
+            //
+            
+            NSAlert *alert = [NSAlert new];
+            NSButton *shareButton = [alert addButtonWithTitle:[ResourcesService localizationForKey:LocalizableKeyShare]];
+            NSButton *copyButton = [alert addButtonWithTitle:[ResourcesService localizationForKey:LocalizableKeyCopy]];
+            NSButton *cancelButton = [alert addButtonWithTitle:[ResourcesService localizationForKey:LocalizableKeyCancel]];
+            NSScrollView *scrollView = [[NSScrollView alloc] initWithFrame:NSMakeRect(0.0f, 0.0f, 300.0f, 200.0f)];
+            NSTextView *deckCodeTextView = [[NSTextView alloc] initWithFrame:scrollView.bounds];
+            
+            self.deckCodeTextView = deckCodeTextView;
+            
+            //
+            
+            shareButton.target = self;
+            shareButton.action = @selector(exportDeckCodeItemShareButtonTriggered:);
+            
+            copyButton.target = self;
+            copyButton.action = @selector(exportDeckCodeItemCopyButtonTriggered:);
+            
+            //
+            
+            
+            scrollView.documentView = deckCodeTextView;
+            deckCodeTextView.string = string;
+            
+            //
+            
+            alert.messageText = [ResourcesService localizationForKey:LocalizableKeyResult];
+            alert.showsSuppressionButton = NO;
+            alert.accessoryView = scrollView;
+            
+            //
+            
+            [alert beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse returnCode) {
+                
+            }];
+            
+            [alert release];
+            [scrollView release];
+            [deckCodeTextView release];
         }];
     }];
+}
+
+- (void)exportDeckCodeItemShareButtonTriggered:(NSButton *)sender {
+    NSSharingServicePicker *picker = [[NSSharingServicePicker alloc] initWithItems:@[self.deckCodeTextView.string]];
+    
+    [picker showRelativeToRect:CGRectZero ofView:sender preferredEdge:NSRectEdgeMinY];
+    
+    [picker release];
+}
+
+- (void)exportDeckCodeItemCopyButtonTriggered:(NSButton *)sender {
+    [NSPasteboard.generalPasteboard clearContents];
+    [NSPasteboard.generalPasteboard setString:self.deckCodeTextView.string forType:NSPasteboardTypeString];
 }
 
 - (void)configureMoreMenuButton {
