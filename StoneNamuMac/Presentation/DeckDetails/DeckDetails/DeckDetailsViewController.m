@@ -235,7 +235,15 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
 }
 
 - (void)saveAsImageItemTriggered:(NSMenuItem *)sender {
+    NSAlert *alert = [NSAlert new];
     
+    alert.messageText = @"TODO";
+    
+    [alert beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse returnCode) {
+        
+    }];
+    
+    [alert release];
 }
 
 - (void)exportDeckCodeItemTriggered:(NSMenuItem *)sender {
