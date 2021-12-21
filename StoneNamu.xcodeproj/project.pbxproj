@@ -20,6 +20,7 @@
 		4F066CAB26D6D2D800991A98 /* DeckDetailsManaCostGraphContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F066CAA26D6D2D800991A98 /* DeckDetailsManaCostGraphContentView.m */; };
 		4F066CBE26D71ACD00991A98 /* DeckBaseContentConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F066CBD26D71ACD00991A98 /* DeckBaseContentConfiguration.m */; };
 		4F066CC126D71B2200991A98 /* DeckBaseContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F066CC026D71B2200991A98 /* DeckBaseContentView.m */; };
+		4F0755E92772356000B8EFD5 /* HSCardSaveImageService.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F0755E82772356000B8EFD5 /* HSCardSaveImageService.m */; };
 		4F0863F02751C96900B251BF /* DecksMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F0863EF2751C96900B251BF /* DecksMenu.m */; };
 		4F0863F42751D0A200B251BF /* NSUserInterfaceItemIdentifierDecks+HSDeckFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F0863F32751D0A200B251BF /* NSUserInterfaceItemIdentifierDecks+HSDeckFormat.m */; };
 		4F128D45273C044100C6A0D9 /* IntrinsicCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F128D44273C044100C6A0D9 /* IntrinsicCollectionView.m */; };
@@ -512,6 +513,8 @@
 		4F066CBD26D71ACD00991A98 /* DeckBaseContentConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckBaseContentConfiguration.m; sourceTree = "<group>"; };
 		4F066CBF26D71B2200991A98 /* DeckBaseContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckBaseContentView.h; sourceTree = "<group>"; };
 		4F066CC026D71B2200991A98 /* DeckBaseContentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckBaseContentView.m; sourceTree = "<group>"; };
+		4F0755E72772356000B8EFD5 /* HSCardSaveImageService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardSaveImageService.h; sourceTree = "<group>"; };
+		4F0755E82772356000B8EFD5 /* HSCardSaveImageService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCardSaveImageService.m; sourceTree = "<group>"; };
 		4F0863EE2751C96900B251BF /* DecksMenu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DecksMenu.h; sourceTree = "<group>"; };
 		4F0863EF2751C96900B251BF /* DecksMenu.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DecksMenu.m; sourceTree = "<group>"; };
 		4F0863F12751C98100B251BF /* DecksMenuDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DecksMenuDelegate.h; sourceTree = "<group>"; };
@@ -2859,6 +2862,8 @@
 			children = (
 				F3A096F9274C807D00C7DFA4 /* HSCardPromiseProvider.h */,
 				F3A096FA274C807D00C7DFA4 /* HSCardPromiseProvider.m */,
+				4F0755E72772356000B8EFD5 /* HSCardSaveImageService.h */,
+				4F0755E82772356000B8EFD5 /* HSCardSaveImageService.m */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -3502,6 +3507,7 @@
 				4F466EF1272851090035C569 /* NSViewController+SpinnerView.m in Sources */,
 				4F659208274DD5470017888C /* NSImage+pngData.m in Sources */,
 				F3CCE28A2742C3BD004B5B26 /* MainListViewModel.m in Sources */,
+				4F0755E92772356000B8EFD5 /* HSCardSaveImageService.m in Sources */,
 				F303D648274171C700569E20 /* PrefsCardsMenuItem.m in Sources */,
 				4FD4E01A274EDC950037D867 /* DecksViewModel.m in Sources */,
 				4F90DA612766312F007982AE /* DeckDetailsViewModel.m in Sources */,

@@ -41,8 +41,8 @@
     }
     
     return (self.type == toCompare.type) &&
-    ([self.hsCard isEqual:toCompare.hsCard] || ((self.hsCard == nil) && (toCompare.hsCard == nil))) &&
-    ([self.graphManaCost isEqualToNumber:toCompare.graphManaCost] || ((self.graphManaCost == nil) && (toCompare.graphManaCost == nil)));
+    (((self.hsCard == nil) && (toCompare.hsCard == nil)) || ([self.hsCard isEqual:toCompare.hsCard])) &&
+    (((self.graphManaCost == nil) && (toCompare.graphManaCost == nil)) || ([self.graphManaCost isEqualToNumber:toCompare.graphManaCost]));
 }
 
 - (NSUInteger)hash {

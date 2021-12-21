@@ -17,6 +17,7 @@ static NSPasteboardType const NSPasteboardTypeHSCard = @"com.pookjw.StoneNamu.NS
 
 @interface HSCardPromiseProvider : NSFilePromiseProvider
 @property (class, readonly, nonatomic) NSArray<NSPasteboardType> *pasteboardTypes;
++ (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithFileType:(NSString *)fileType delegate:(id <NSFilePromiseProviderDelegate>)delegate NS_UNAVAILABLE;
 - (instancetype)initWithHSCard:(HSCard *)hsCard image:(NSImage *)image;

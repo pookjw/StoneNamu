@@ -356,13 +356,11 @@
             
             [snapshot deleteItemsWithIdentifiers:willBeDeletedItems];
             [willBeDeletedItems release];
+            
+            [self addCostGraphItemToSnapshot:snapshot];
+            [self updateCardsSectionHeaderTitleFromSnapshot:snapshot];
+            [self sortSnapshot:snapshot];
         }
-        
-        //
-        
-        [self addCostGraphItemToSnapshot:snapshot];
-        [self updateCardsSectionHeaderTitleFromSnapshot:snapshot];
-        [self sortSnapshot:snapshot];
         
         //
         
@@ -438,50 +436,66 @@
     
     //
     
-    BOOL __block shouldReconfigure = NO;
-    
-    [snapshot.sectionIdentifiers enumerateObjectsUsingBlock:^(DeckDetailsSectionModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if (obj.type == DeckDetailsSectionModelTypeManaCostGraph) {
-            [snapshot deleteSectionsWithIdentifiers:@[obj]];
-            shouldReconfigure = YES;
-            *stop = YES;
-        }
-    }];
-    
-    //
-    
     if (manaDictionary.count == 0) {
         [manaDictionary release];
         return;
     } else {
-        DeckDetailsSectionModel *sectionModel = [[DeckDetailsSectionModel alloc] initWithType:DeckDetailsSectionModelTypeManaCostGraph];
-        [snapshot appendSectionsWithIdentifiers:@[sectionModel]];
+        DeckDetailsSectionModel * _Nullable __block sectionModel = nil;
+        
+        [snapshot.sectionIdentifiers enumerateObjectsUsingBlock:^(DeckDetailsSectionModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if (obj.type == DeckDetailsSectionModelTypeManaCostGraph) {
+                sectionModel = obj;
+                *stop = YES;
+            }
+        }];
+        
+        if (sectionModel == nil) {
+            sectionModel = [[DeckDetailsSectionModel alloc] initWithType:DeckDetailsSectionModelTypeManaCostGraph];
+            [snapshot appendSectionsWithIdentifiers:@[sectionModel]];
+            [sectionModel autorelease];
+        }
         
         //
         
-        [manaDictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber * _Nonnull key, NSNumber * _Nonnull obj, BOOL * _Nonnull stop) {
-            DeckDetailsItemModel *itemModel = [[DeckDetailsItemModel alloc] initWithType:DeckDetailsItemModelTypeManaCostGraph];
+        [manaDictionary enumerateKeysAndObjectsUsingBlock:^(NSNumber * _Nonnull key, NSNumber * _Nonnull obj1, BOOL * _Nonnull stop) {
+            BOOL __block hasItemModel = NO;
             
-            itemModel.graphManaCost = key;
+            [[snapshot itemIdentifiersInSectionWithIdentifier:sectionModel] enumerateObjectsUsingBlock:^(DeckDetailsItemModel * _Nonnull obj2, NSUInteger idx, BOOL * _Nonnull stop) {
+                if ([key isEqualToNumber:obj2.graphManaCost]) {
+                    if (highestCostCount == 0) {
+                        obj2.graphPercentage = [NSNumber numberWithFloat:0.0f];
+                    } else {
+                        obj2.graphPercentage = [NSNumber numberWithFloat:(obj1.floatValue / (float)highestCostCount)];
+                    }
+                    
+                    obj2.graphCount = obj1;
+                    
+                    [snapshot reconfigureItemsWithIdentifiers:@[obj2]];
+                    
+                    hasItemModel = YES;
+                    *stop = YES;
+                }
+            }];
             
-            if (highestCostCount == 0) {
-                itemModel.graphPercentage = [NSNumber numberWithFloat:0.0f];
-            } else {
-                itemModel.graphPercentage = [NSNumber numberWithFloat:(obj.floatValue / (float)highestCostCount)];
+            if (!hasItemModel) {
+                DeckDetailsItemModel *itemModel = [[DeckDetailsItemModel alloc] initWithType:DeckDetailsItemModelTypeManaCostGraph];
+                
+                itemModel.graphManaCost = key;
+                
+                if (highestCostCount == 0) {
+                    itemModel.graphPercentage = [NSNumber numberWithFloat:0.0f];
+                } else {
+                    itemModel.graphPercentage = [NSNumber numberWithFloat:(obj1.floatValue / (float)highestCostCount)];
+                }
+                
+                itemModel.graphCount = obj1;
+                
+                [snapshot appendItemsWithIdentifiers:@[itemModel] intoSectionWithIdentifier:sectionModel];
+                
+                [itemModel release];
             }
-            
-            itemModel.graphCount = obj;
-            
-            [snapshot appendItemsWithIdentifiers:@[itemModel] intoSectionWithIdentifier:sectionModel];
-            
-            if (shouldReconfigure) {
-                [snapshot reconfigureItemsWithIdentifiers:@[itemModel]];
-            }
-            
-            [itemModel release];
         }];
         
-        [sectionModel release];
         [manaDictionary release];
     }
 }

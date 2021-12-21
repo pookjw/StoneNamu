@@ -16,6 +16,7 @@
 #import "AppDelegate.h"
 #import "HSCardPromiseProvider.h"
 #import "ClickableCollectionView.h"
+#import "HSCardSaveImageService.h"
 #import <StoneNamuCore/StoneNamuCore.h>
 #import <StoneNamuResources/StoneNamuResources.h>
 
@@ -184,6 +185,9 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardColl
     showDetailItem.image = [NSImage imageWithSystemSymbolName:@"list.bullet" accessibilityDescription:nil];
     showDetailItem.target = self;
     
+    NSMenuItem *saveImageItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeySave]
+                                                           action:<#(nullable SEL)#> keyEquivalent:<#(nonnull NSString *)#>]
+    
     collectionViewMenu.itemArray = @[showDetailItem];
     
     [showDetailItem release];
@@ -196,6 +200,10 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardColl
 
 - (void)showDetailItemTriggered:(NSMenuItem *)sender {
     [self presentCardDetailsViewControllerWithIndexPaths:self.collectionView.interactingIndexPaths];
+}
+
+- (void)saveImageItemTriggered:(NSMenuItem *)sender {
+//    HSCardSaveImageService *service = 
 }
 
 - (void)configureViewModel {

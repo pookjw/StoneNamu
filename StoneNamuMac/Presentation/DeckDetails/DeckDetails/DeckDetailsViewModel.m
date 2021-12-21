@@ -347,12 +347,10 @@
             
             [snapshot deleteItemsWithIdentifiers:willBeDeletedItems];
             [willBeDeletedItems release];
+            
+            [self updateCardsSectionHeaderTitleFromSnapshot:snapshot];
+            [self sortSnapshot:snapshot];
         }
-        
-        //
-        
-        [self updateCardsSectionHeaderTitleFromSnapshot:snapshot];
-        [self sortSnapshot:snapshot];
         
         //
         
