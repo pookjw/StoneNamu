@@ -56,6 +56,7 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     [self updateGradientLayer];
+    [self updateCountLabel];
 }
 
 - (void)configureCardSetImageView {
