@@ -213,6 +213,7 @@
                 }
             }];
             
+            [self addCostGraphItemToSnapshot:snapshot];
             [self updateCardsSectionHeaderTitleFromSnapshot:snapshot];
             [self sortSnapshot:snapshot];
             
