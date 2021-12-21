@@ -522,9 +522,17 @@
             return;
         }
         
+        float percentage;
+        
+        if (highestCostCount == 0) {
+            percentage = 0.0f;
+        } else {
+            percentage = (float)obj.unsignedIntegerValue / (float)highestCostCount;
+        }
+        
         DeckDetailsManaCostGraphData *data = [[DeckDetailsManaCostGraphData alloc] initWithManaCost:key.unsignedIntegerValue
-                                                                                 percentage:(float)obj.unsignedIntegerValue / (float)highestCostCount
-                                                                                      count:obj.unsignedIntegerValue];
+                                                                                         percentage:percentage
+                                                                                              count:obj.unsignedIntegerValue];
         [manaCostGraphDatas addObject:data];
         [data release];
     }];
