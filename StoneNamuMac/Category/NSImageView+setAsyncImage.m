@@ -17,10 +17,10 @@ static NSString * const NSImageViewAsyncImageCategoryCurrentURLKey = @"NSImageVi
 static NSString * const NSImageViewAsyncImageCategorySessionTaskKey = @"NSImageViewAsyncImageCategorySessionTaskKey";
 
 @interface NSImageView (setAsyncImage)
-@property (nonatomic, retain) SpinnerView * _Nullable spinnerView;
-@property (nonatomic, retain) id<DataCacheUseCase> _Nullable dataCacheUseCase;
-@property (nonatomic, retain) NSURL * _Nullable currentURL;
-@property (nonatomic, retain) NSURLSessionTask * _Nullable sessionTask;
+@property (retain, nonatomic) SpinnerView * _Nullable spinnerView;
+@property (retain, nonatomic) id<DataCacheUseCase> _Nullable dataCacheUseCase;
+@property (retain, nonatomic) NSURL * _Nullable currentURL;
+@property (retain, nonatomic) NSURLSessionTask * _Nullable sessionTask;
 @end
 
 @implementation NSImageView (setAsyncImage)

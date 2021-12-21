@@ -512,6 +512,7 @@
 		4F066CBD26D71ACD00991A98 /* DeckBaseContentConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckBaseContentConfiguration.m; sourceTree = "<group>"; };
 		4F066CBF26D71B2200991A98 /* DeckBaseContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckBaseContentView.h; sourceTree = "<group>"; };
 		4F066CC026D71B2200991A98 /* DeckBaseContentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckBaseContentView.m; sourceTree = "<group>"; };
+		4F0704342771C3FE00E7FFDC /* ClickableCollectionViewDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClickableCollectionViewDelegate.h; sourceTree = "<group>"; };
 		4F0863EE2751C96900B251BF /* DecksMenu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DecksMenu.h; sourceTree = "<group>"; };
 		4F0863EF2751C96900B251BF /* DecksMenu.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DecksMenu.m; sourceTree = "<group>"; };
 		4F0863F12751C98100B251BF /* DecksMenuDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DecksMenuDelegate.h; sourceTree = "<group>"; };
@@ -1891,6 +1892,7 @@
 		4F82D260276F6B2900CE06BE /* ClickableCollectionView */ = {
 			isa = PBXGroup;
 			children = (
+				4F0704342771C3FE00E7FFDC /* ClickableCollectionViewDelegate.h */,
 				4F82D261276F6B4300CE06BE /* ClickableCollectionView.h */,
 				4F82D262276F6B4300CE06BE /* ClickableCollectionView.m */,
 			);

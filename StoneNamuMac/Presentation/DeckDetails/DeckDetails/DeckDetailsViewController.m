@@ -23,6 +23,8 @@
 static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDetailsCardCollectionViewItem = @"NSUserInterfaceItemIdentifierDeckDetailsCardCollectionViewItem";
 
 @interface DeckDetailsViewController () <NSCollectionViewDelegate, NSMenuDelegate, DeckDetailsCardCollectionViewItemDelegate>
+@property (readonly, nonatomic) NSArray<NSMenuItem *> *menuItemsForSingleItem;
+@property (readonly, nonatomic) NSArray<NSMenuItem *> *menuItemsForMultipleItems;
 @property (retain) NSScrollView *scrollView;
 @property (retain) ClickableCollectionView *collectionView;
 @property (retain) NSMenu *collectionViewMenu;
@@ -435,20 +437,79 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
     }];
 }
 
+- (NSArray<NSMenuItem *> *)menuItemsForSingleItem {
+    NSMenuItem *increaseItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyIncreaseCardCount]
+                                                          action:@selector(increaseCardCount:)
+                                                   keyEquivalent:@""];
+    increaseItem.image = [NSImage imageWithSystemSymbolName:@"plus" accessibilityDescription:nil];
+    
+    NSMenuItem *decreaseItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyDecreaseCardCount]
+                                                          action:@selector(decreaseCardCount:)
+                                                   keyEquivalent:@""];
+    decreaseItem.image = [NSImage imageWithSystemSymbolName:@"minus" accessibilityDescription:nil];
+    
+    NSMenuItem *deleteItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyDelete]
+                                                        action:@selector(deleteCards:)
+                                                 keyEquivalent:@""];
+    deleteItem.image = [NSImage imageWithSystemSymbolName:@"trash" accessibilityDescription:nil];
+    
+    NSArray<NSMenuItem *> *result = @[increaseItem, decreaseItem, deleteItem];
+    
+    [increaseItem release];
+    [decreaseItem release];
+    [deleteItem release];
+    
+    return result;
+}
+
+- (NSArray<NSMenuItem *> *)menuItemsForMultipleItems {
+    NSMenuItem *deleteItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyDelete]
+                                                        action:@selector(deleteCards:)
+                                                 keyEquivalent:@""];
+    deleteItem.image = [NSImage imageWithSystemSymbolName:@"trash" accessibilityDescription:nil];
+    
+    NSArray<NSMenuItem *> *result = @[deleteItem];
+    
+    [deleteItem release];
+    
+    return result;
+}
+
 - (void)increaseCardCount:(NSMenuItem *)sender {
-    [self.collectionView.selectionIndexPaths enumerateObjectsUsingBlock:^(NSIndexPath * _Nonnull obj, BOOL * _Nonnull stop) {
-        [self.viewModel increaseAtIndexPath:obj];
-    }];
+    NSIndexPath * _Nullable clickedIndexPath = self.collectionView.clickedIndexPath;
+    NSSet<NSIndexPath *> *selectionIndexPaths = self.collectionView.selectionIndexPaths;
+    
+    if ((clickedIndexPath != nil) && (![selectionIndexPaths containsObject:clickedIndexPath])) {
+        [self.viewModel increaseAtIndexPath:clickedIndexPath];
+    } else {
+        [self.collectionView.selectionIndexPaths enumerateObjectsUsingBlock:^(NSIndexPath * _Nonnull obj, BOOL * _Nonnull stop) {
+            [self.viewModel increaseAtIndexPath:obj];
+        }];
+    }
 }
 
 - (void)decreaseCardCount:(NSMenuItem *)sender {
-    [self.collectionView.selectionIndexPaths enumerateObjectsUsingBlock:^(NSIndexPath * _Nonnull obj, BOOL * _Nonnull stop) {
-        [self.viewModel decreaseAtIndexPath:obj];
-    }];
+    NSIndexPath * _Nullable clickedIndexPath = self.collectionView.clickedIndexPath;
+    NSSet<NSIndexPath *> *selectionIndexPaths = self.collectionView.selectionIndexPaths;
+    
+    if ((clickedIndexPath != nil) && (![selectionIndexPaths containsObject:clickedIndexPath])) {
+        [self.viewModel decreaseAtIndexPath:clickedIndexPath];
+    } else {
+        [self.collectionView.selectionIndexPaths enumerateObjectsUsingBlock:^(NSIndexPath * _Nonnull obj, BOOL * _Nonnull stop) {
+            [self.viewModel decreaseAtIndexPath:obj];
+        }];
+    }
 }
 
 - (void)deleteCards:(NSMenuItem *)sender {
-    [self.viewModel deleteAtIndexPathes:self.collectionView.selectionIndexPaths];
+    NSIndexPath * _Nullable clickedIndexPath = self.collectionView.clickedIndexPath;
+    NSSet<NSIndexPath *> *selectionIndexPaths = self.collectionView.selectionIndexPaths;
+    
+    if ((clickedIndexPath != nil) && (![selectionIndexPaths containsObject:clickedIndexPath])) {
+        [self.viewModel deleteAtIndexPathes:[NSSet setWithObject:clickedIndexPath]];
+    } else {
+        [self.viewModel deleteAtIndexPathes:selectionIndexPaths];
+    }
 }
 
 #pragma mark - NSCollectionViewDelegate
@@ -481,53 +542,18 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
 #pragma mark - NSMenuDelegate
 
 - (void)menuWillOpen:(NSMenu *)menu {
-    NSMutableArray<NSMenuItem *> *itemArray = [@[] mutableCopy];
+    NSIndexPath * _Nullable clickedIndexPath = self.collectionView.clickedIndexPath;
+    NSSet<NSIndexPath *> *selectionIndexPaths = self.collectionView.selectionIndexPaths;
     
-    NSUInteger count = self.collectionView.selectionIndexPaths.count;
-    
-    switch (count) {
-        case 0: {
-            break;
-        }
-        case 1: {
-            NSMenuItem *increaseItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyIncreaseCardCount]
-                                                                  action:@selector(increaseCardCount:)
-                                                           keyEquivalent:@""];
-            increaseItem.image = [NSImage imageWithSystemSymbolName:@"plus" accessibilityDescription:nil];
-            
-            NSMenuItem *decreaseItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyDecreaseCardCount]
-                                                                  action:@selector(decreaseCardCount:)
-                                                           keyEquivalent:@""];
-            decreaseItem.image = [NSImage imageWithSystemSymbolName:@"minus" accessibilityDescription:nil];
-            
-            NSMenuItem *deleteItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyDelete]
-                                                                action:@selector(deleteCards:)
-                                                         keyEquivalent:@""];
-            deleteItem.image = [NSImage imageWithSystemSymbolName:@"trash" accessibilityDescription:nil];
-            
-            [itemArray addObjectsFromArray:@[increaseItem, decreaseItem, deleteItem]];
-            
-            [increaseItem release];
-            [decreaseItem release];
-            [deleteItem release];
-            
-            break;
-        }
-        default: {
-            NSMenuItem *deleteItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyDelete]
-                                                                action:@selector(deleteCards:)
-                                                         keyEquivalent:@""];
-            deleteItem.image = [NSImage imageWithSystemSymbolName:@"trash" accessibilityDescription:nil];
-            
-            [itemArray addObject:deleteItem];
-            
-            [deleteItem release];
-            break;
-        }
+    if ((clickedIndexPath != nil) && (![selectionIndexPaths containsObject:clickedIndexPath])) {
+        menu.itemArray = self.menuItemsForSingleItem;
+    } else if (selectionIndexPaths.count == 1) {
+        menu.itemArray = self.menuItemsForSingleItem;
+    } else if (selectionIndexPaths.count > 1) {
+        menu.itemArray = self.menuItemsForMultipleItems;
+    } else {
+        menu.itemArray = @[];
     }
-    
-    menu.itemArray = itemArray;
-    [itemArray release];
 }
 
 #pragma mark - DeckDetailsCardCollectionViewItemDelegate
