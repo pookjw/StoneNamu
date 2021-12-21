@@ -136,7 +136,7 @@
         ClickableCollectionViewItem *item = (ClickableCollectionViewItem *)obj;
         
         if ([item isKindOfClass:[ClickableCollectionViewItem class]]) {
-            item.clicked = NO;
+            item.clicked = isClicked;
         }
     }];
 }
