@@ -40,6 +40,7 @@ static NSString * const DeckDetailsViewModelApplyingSnapshotToDataSourceWasDoneM
 - (void)increaseAtIndexPath:(NSIndexPath *)indexPath;
 - (BOOL)decreaseAtIndexPath:(NSIndexPath *)indexPath;
 - (void)deleteAtIndexPathes:(NSSet<NSIndexPath *> *)indexPathes;
+- (void)deleteLocalDeck;
 
 - (void)exportLocalizedDeckCodeWithCompletion:(DeckDetailsViewModelExportDeckCodeCompletion)completion;
 - (void)updateDeckName:(NSString *)name;

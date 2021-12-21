@@ -363,6 +363,11 @@
     }];
 }
 
+- (void)deleteLocalDeck {
+    [self.localDeckUseCase deleteLocalDeck:self.localDeck];
+    [self postShouldDismissNoficiation];
+}
+
 - (void)sortSnapshot:(NSDiffableDataSourceSnapshot *)snapshot {
     [snapshot sortSectionsUsingComparator:^NSComparisonResult(DeckDetailsSectionModel *obj1, DeckDetailsSectionModel *obj2) {
         if (obj1.type < obj2.type) {

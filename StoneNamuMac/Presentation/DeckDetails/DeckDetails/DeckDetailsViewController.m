@@ -174,28 +174,42 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
     NSMenu *moreMenu = [NSMenu new];
     self.moreMenu = moreMenu;
     
+    NSMenuItem *deleteItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyDelete]
+                                                        action:@selector(deleteItemTriggered:)
+                                                 keyEquivalent:@""];
+    deleteItem.image = [NSImage imageWithSystemSymbolName:@"trash" accessibilityDescription:nil];
+    deleteItem.target = self;
+    
     NSMenuItem *editDeckNameItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyEditDeckName]
                                                               action:@selector(editDeckNameItemTriggered:)
                                                        keyEquivalent:@""];
     editDeckNameItem.image = [NSImage imageWithSystemSymbolName:@"pencil" accessibilityDescription:nil];
+    editDeckNameItem.target = self;
     
     NSMenuItem *saveAsImageItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeySaveAsImage]
                                                              action:@selector(saveAsImageItemTriggered:)
                                                       keyEquivalent:@""];
     saveAsImageItem.image = [NSImage imageWithSystemSymbolName:@"photo" accessibilityDescription:nil];
+    saveAsImageItem.target = self;
     
     NSMenuItem *exportDeckCodeItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyExportDeckCode]
                                                                 action:@selector(exportDeckCodeItemTriggered:)
                                                          keyEquivalent:@""];
     exportDeckCodeItem.image = [NSImage imageWithSystemSymbolName:@"square.and.arrow.up" accessibilityDescription:nil];
+    exportDeckCodeItem.target = self;
     
-    moreMenu.itemArray = @[editDeckNameItem, saveAsImageItem, exportDeckCodeItem];
+    moreMenu.itemArray = @[deleteItem, editDeckNameItem, saveAsImageItem, exportDeckCodeItem];
     
+    [deleteItem release];
     [editDeckNameItem release];
     [saveAsImageItem release];
     [exportDeckCodeItem release];
     
     [moreMenu release];
+}
+
+- (void)deleteItemTriggered:(NSMenuItem *)sender {
+    [self.viewModel deleteLocalDeck];
 }
 
 - (void)editDeckNameItemTriggered:(NSMenuItem *)sender {
