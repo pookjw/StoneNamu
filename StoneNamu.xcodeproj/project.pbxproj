@@ -81,7 +81,7 @@
 		4F466EF1272851090035C569 /* NSViewController+SpinnerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F466EF0272851090035C569 /* NSViewController+SpinnerView.m */; };
 		4F466EF5272889B00035C569 /* NSArray+string.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F466EF3272889B00035C569 /* NSArray+string.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4F466EF6272889B00035C569 /* NSArray+string.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F466EF4272889B00035C569 /* NSArray+string.m */; };
-		4F4738B62746BBCF000C0C85 /* SelectedBackgroundCollectionViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4738B52746BBCF000C0C85 /* SelectedBackgroundCollectionViewItem.m */; };
+		4F4738B62746BBCF000C0C85 /* ClickableCollectionViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4738B52746BBCF000C0C85 /* ClickableCollectionViewItem.m */; };
 		4F4738BD2746BFCD000C0C85 /* CardDetailsWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4738BC2746BFCD000C0C85 /* CardDetailsWindow.m */; };
 		4F4738C02746BFFF000C0C85 /* CardDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4738BF2746BFFF000C0C85 /* CardDetailsViewController.m */; };
 		4F4738CB2746D25C000C0C85 /* CardDetailsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4738CA2746D25C000C0C85 /* CardDetailsViewModel.m */; };
@@ -512,7 +512,6 @@
 		4F066CBD26D71ACD00991A98 /* DeckBaseContentConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckBaseContentConfiguration.m; sourceTree = "<group>"; };
 		4F066CBF26D71B2200991A98 /* DeckBaseContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckBaseContentView.h; sourceTree = "<group>"; };
 		4F066CC026D71B2200991A98 /* DeckBaseContentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckBaseContentView.m; sourceTree = "<group>"; };
-		4F0704342771C3FE00E7FFDC /* ClickableCollectionViewDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClickableCollectionViewDelegate.h; sourceTree = "<group>"; };
 		4F0863EE2751C96900B251BF /* DecksMenu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DecksMenu.h; sourceTree = "<group>"; };
 		4F0863EF2751C96900B251BF /* DecksMenu.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DecksMenu.m; sourceTree = "<group>"; };
 		4F0863F12751C98100B251BF /* DecksMenuDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DecksMenuDelegate.h; sourceTree = "<group>"; };
@@ -608,8 +607,8 @@
 		4F466EF0272851090035C569 /* NSViewController+SpinnerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSViewController+SpinnerView.m"; sourceTree = "<group>"; };
 		4F466EF3272889B00035C569 /* NSArray+string.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSArray+string.h"; sourceTree = "<group>"; };
 		4F466EF4272889B00035C569 /* NSArray+string.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSArray+string.m"; sourceTree = "<group>"; };
-		4F4738B42746BBCF000C0C85 /* SelectedBackgroundCollectionViewItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectedBackgroundCollectionViewItem.h; sourceTree = "<group>"; };
-		4F4738B52746BBCF000C0C85 /* SelectedBackgroundCollectionViewItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelectedBackgroundCollectionViewItem.m; sourceTree = "<group>"; };
+		4F4738B42746BBCF000C0C85 /* ClickableCollectionViewItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClickableCollectionViewItem.h; sourceTree = "<group>"; };
+		4F4738B52746BBCF000C0C85 /* ClickableCollectionViewItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ClickableCollectionViewItem.m; sourceTree = "<group>"; };
 		4F4738B72746BD83000C0C85 /* CardCollectionViewItemDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardCollectionViewItemDelegate.h; sourceTree = "<group>"; };
 		4F4738BB2746BFCD000C0C85 /* CardDetailsWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardDetailsWindow.h; sourceTree = "<group>"; };
 		4F4738BC2746BFCD000C0C85 /* CardDetailsWindow.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardDetailsWindow.m; sourceTree = "<group>"; };
@@ -1472,15 +1471,6 @@
 			path = TextActivity;
 			sourceTree = "<group>";
 		};
-		4F4738B32746BBA4000C0C85 /* SelectedBackgroundCollectionViewItem */ = {
-			isa = PBXGroup;
-			children = (
-				4F4738B42746BBCF000C0C85 /* SelectedBackgroundCollectionViewItem.h */,
-				4F4738B52746BBCF000C0C85 /* SelectedBackgroundCollectionViewItem.m */,
-			);
-			path = SelectedBackgroundCollectionViewItem;
-			sourceTree = "<group>";
-		};
 		4F4738B82746BEC4000C0C85 /* CardDetails */ = {
 			isa = PBXGroup;
 			children = (
@@ -1892,9 +1882,10 @@
 		4F82D260276F6B2900CE06BE /* ClickableCollectionView */ = {
 			isa = PBXGroup;
 			children = (
-				4F0704342771C3FE00E7FFDC /* ClickableCollectionViewDelegate.h */,
 				4F82D261276F6B4300CE06BE /* ClickableCollectionView.h */,
 				4F82D262276F6B4300CE06BE /* ClickableCollectionView.m */,
+				4F4738B42746BBCF000C0C85 /* ClickableCollectionViewItem.h */,
+				4F4738B52746BBCF000C0C85 /* ClickableCollectionViewItem.m */,
 			);
 			path = ClickableCollectionView;
 			sourceTree = "<group>";
@@ -2005,7 +1996,6 @@
 				4F82D260276F6B2900CE06BE /* ClickableCollectionView */,
 				4FF3CD362759741600ACA5AC /* StorableSearchField */,
 				4FD4E014274ED7CD0037D867 /* HSCardDraggableImageView */,
-				4F4738B32746BBA4000C0C85 /* SelectedBackgroundCollectionViewItem */,
 				4FC402B727386D0E00D25523 /* DynamicMenuToolbarItem */,
 				4F1FA0BC27506AE00082EBF0 /* StorableMenuItem */,
 				4FC402AF2738684600D25523 /* Menu */,
@@ -3501,7 +3491,7 @@
 				F38FEE5527604C6800A00485 /* DeckAddCardItemModel.m in Sources */,
 				4FD4E024274EE2CB0037D867 /* DeckBaseCollectionViewItem.m in Sources */,
 				F38FEE5227604C1D00A00485 /* DeckAddCardSectionModel.m in Sources */,
-				4F4738B62746BBCF000C0C85 /* SelectedBackgroundCollectionViewItem.m in Sources */,
+				4F4738B62746BBCF000C0C85 /* ClickableCollectionViewItem.m in Sources */,
 				4F883F6A272FFE7C00AF0048 /* CardOptionsTouchBar.m in Sources */,
 				4FE85767270092F30008C2FB /* MainListViewController.m in Sources */,
 				4FF3CD46275977C600ACA5AC /* NSToolbarIdentifierDeckAddCardOptionType+BlizzardHSAPIOptionType.m in Sources */,

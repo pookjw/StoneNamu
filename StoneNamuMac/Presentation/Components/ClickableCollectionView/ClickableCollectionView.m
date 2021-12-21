@@ -6,9 +6,11 @@
 //
 
 #import "ClickableCollectionView.h"
+#import "ClickableCollectionViewItem.h"
 
 @interface ClickableCollectionView ()
-@property (readonly, nonatomic) id<ClickableCollectionViewDelegate> _Nullable clickedItem;
+@property (readonly, nonatomic) ClickableCollectionViewItem * _Nullable clickedItem;
+@property (copy) NSIndexPath * _Nullable trackingIndexPath;
 @end
 
 @implementation ClickableCollectionView
@@ -45,6 +47,7 @@
 
 - (void)dealloc {
     [_clickedIndexPath release];
+    [_trackingIndexPath release];
     [super dealloc];
 }
 
@@ -60,10 +63,12 @@
     [super rightMouseDown:event];
 }
 
-- (id<ClickableCollectionViewDelegate> _Nullable)clickedItem {
-    id<ClickableCollectionViewDelegate> _Nullable item = (id<ClickableCollectionViewDelegate>)[self itemAtIndexPath:self.clickedIndexPath];
+- (ClickableCollectionViewItem * _Nullable)clickedItem {
+    if (self.clickedIndexPath == nil) return nil;
     
-    if ((item == nil) || (![item conformsToProtocol:@protocol(ClickableCollectionViewDelegate)])) {
+    ClickableCollectionViewItem * _Nullable item = (ClickableCollectionViewItem *)[self itemAtIndexPath:self.clickedIndexPath];
+    
+    if ((item == nil) || (![item isKindOfClass:[ClickableCollectionViewItem class]])) {
         return nil;
     } else {
         return item;
@@ -84,24 +89,55 @@
 
 - (void)menuDidBeginTracking:(NSNotification *)notification {
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
-        id<ClickableCollectionViewDelegate> _Nullable clickedItem = self.clickedItem;
+        id _Nullable menuObject = notification.object;
+        
+        if ((menuObject == nil) || (![menuObject isEqual:self.menu])) {
+            return;
+        }
+        
+        ClickableCollectionViewItem * _Nullable clickedItem = self.clickedItem;
         
         if (clickedItem != nil) {
-            [clickedItem clickableCollectionView:self didClick:YES];
+            self.trackingIndexPath = self.clickedIndexPath;
+            [self setClickedToAllItems:NO];
+            clickedItem.clicked = YES;
         }
     }];
 }
 
 - (void)menuDidEndTracking:(NSNotification *)notification {
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
-        id<ClickableCollectionViewDelegate> _Nullable clickedItem = self.clickedItem;
+        id _Nullable menuObject = notification.object;
         
-        if (clickedItem != nil) {
-            [clickedItem clickableCollectionView:self didClick:NO];
+        if ((menuObject == nil) || (![menuObject isEqual:self.menu])) {
+            return;
         }
         
-        [self->_clickedIndexPath release];
-        self->_clickedIndexPath = nil;
+        /*
+         Normally, if you click right-mouse-down, cycle will be
+         rightMouseDown: -> menuDidBeginTracking: -> menuDidEndTracking:
+         When this cycle ends, we need to clear clickedIndexPath.
+         
+         But when NSMenu is activated and click right-mouse-down again, cycle will be
+         rightMouseDown: -> menuDidEndTracking: -> menuDidBeginTracking: -> menuDidEndTracking:
+         in this cycle, we don't want to clear clickedIndexPath at first call of menuDidEndTracking:. To prevent this, we have to check trackingIndexPath.
+         */
+        if ((self.trackingIndexPath != nil) && ([self.trackingIndexPath isEqual:self.clickedIndexPath])) {
+            [self->_clickedIndexPath release];
+            self->_clickedIndexPath = nil;
+        }
+        
+        [self setClickedToAllItems:NO];
+    }];
+}
+
+- (void)setClickedToAllItems:(BOOL)isClicked {
+    [self.visibleItems enumerateObjectsUsingBlock:^(NSCollectionViewItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        ClickableCollectionViewItem *item = (ClickableCollectionViewItem *)obj;
+        
+        if ([item isKindOfClass:[ClickableCollectionViewItem class]]) {
+            item.clicked = NO;
+        }
     }];
 }
 

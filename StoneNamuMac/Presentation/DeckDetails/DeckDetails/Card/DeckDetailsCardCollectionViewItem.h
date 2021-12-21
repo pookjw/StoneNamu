@@ -5,13 +5,13 @@
 //  Created by Jinwoo Kim on 12/12/21.
 //
 
-#import "SelectedBackgroundCollectionViewItem.h"
+#import "ClickableCollectionViewItem.h"
 #import "DeckDetailsCardCollectionViewItemDelegate.h"
 #import <StoneNamuCore/StoneNamuCore.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface DeckDetailsCardCollectionViewItem : SelectedBackgroundCollectionViewItem
+@interface DeckDetailsCardCollectionViewItem : ClickableCollectionViewItem
 - (void)configureWithHSCard:(HSCard *)hsCard hsCardCount:(NSUInteger)hsCardCount delegate:(id<DeckDetailsCardCollectionViewItemDelegate>)delegate;
 @end
 

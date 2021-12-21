@@ -8,9 +8,8 @@
 #import "DeckDetailsCardCollectionViewItem.h"
 #import <QuartzCore/QuartzCore.h>
 #import "NSImageView+setAsyncImage.h"
-#import "ClickableCollectionViewDelegate.h"
 
-@interface DeckDetailsCardCollectionViewItem () <ClickableCollectionViewDelegate>
+@interface DeckDetailsCardCollectionViewItem ()
 @property (copy) HSCard *hsCard;
 @property (assign) id<DeckDetailsCardCollectionViewItemDelegate> delegate;
 @property (retain) IBOutlet NSView *containerView;
@@ -103,9 +102,6 @@
 
 
 - (void)setAttributes {
-    self.containerView.wantsLayer = YES;
-    self.containerView.layer.borderWidth = 8.0f;
-    self.containerView.layer.borderColor = NSColor.clearColor.CGColor;
     self.manaCostContainerView.wantsLayer = YES;
     self.manaCostContainerView.layer.backgroundColor = NSColor.systemBlueColor.CGColor;
 }
@@ -122,16 +118,6 @@
     [CATransaction setDisableActions:YES];
     self.imageViewGradientLayer.frame = self.imageView.bounds;
     [CATransaction commit];
-}
-
-#pragma mark - ClickableCollectionViewDelegate
-
-- (void)clickableCollectionView:(ClickableCollectionView *)clickableCollectionView didClick:(BOOL)didClick {
-    if (didClick && !self.isSelected) {
-        self.containerView.layer.borderColor = NSColor.controlAccentColor.CGColor;
-    } else {
-        self.containerView.layer.borderColor = NSColor.clearColor.CGColor;
-    }
 }
 
 @end

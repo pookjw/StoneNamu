@@ -6,7 +6,6 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "ClickableCollectionViewDelegate.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
