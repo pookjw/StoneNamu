@@ -145,12 +145,13 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
 }
 
 - (void)configureCollectionViewMenu {
-    NSMenu *menu = [NSMenu new];
-    self.collectionView.menu = menu;
+    NSMenu *collectionViewMenu = [NSMenu new];
+    self.collectionViewMenu = collectionViewMenu;
     
-    menu.delegate = self;
+    collectionViewMenu.delegate = self;
+    self.collectionView.menu = collectionViewMenu;
     
-    [menu release];
+    [collectionViewMenu release];
 }
 
 - (void)configureManaCostGraphView {
@@ -442,16 +443,19 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
                                                           action:@selector(increaseCardCount:)
                                                    keyEquivalent:@""];
     increaseItem.image = [NSImage imageWithSystemSymbolName:@"plus" accessibilityDescription:nil];
+    increaseItem.target = self;
     
     NSMenuItem *decreaseItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyDecreaseCardCount]
                                                           action:@selector(decreaseCardCount:)
                                                    keyEquivalent:@""];
     decreaseItem.image = [NSImage imageWithSystemSymbolName:@"minus" accessibilityDescription:nil];
+    decreaseItem.target = self;
     
     NSMenuItem *deleteItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyDelete]
                                                         action:@selector(deleteCards:)
                                                  keyEquivalent:@""];
     deleteItem.image = [NSImage imageWithSystemSymbolName:@"trash" accessibilityDescription:nil];
+    deleteItem.target = self;
     
     NSArray<NSMenuItem *> *result = @[increaseItem, decreaseItem, deleteItem];
     
@@ -476,46 +480,25 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
 }
 
 - (void)increaseCardCount:(NSMenuItem *)sender {
-    NSIndexPath * _Nullable clickedIndexPath = self.collectionView.clickedIndexPath;
-    NSSet<NSIndexPath *> *selectionIndexPaths = self.collectionView.selectionIndexPaths;
-    
-    if ((clickedIndexPath != nil) && (![selectionIndexPaths containsObject:clickedIndexPath])) {
-        [self.viewModel increaseAtIndexPath:clickedIndexPath];
-    } else {
-        [self.collectionView.selectionIndexPaths enumerateObjectsUsingBlock:^(NSIndexPath * _Nonnull obj, BOOL * _Nonnull stop) {
-            [self.viewModel increaseAtIndexPath:obj];
-        }];
-    }
+    [self.collectionView.interactingIndexPaths enumerateObjectsUsingBlock:^(NSIndexPath * _Nonnull obj, BOOL * _Nonnull stop) {
+        [self.viewModel increaseAtIndexPath:obj];
+    }];
 }
 
 - (void)decreaseCardCount:(NSMenuItem *)sender {
-    NSIndexPath * _Nullable clickedIndexPath = self.collectionView.clickedIndexPath;
-    NSSet<NSIndexPath *> *selectionIndexPaths = self.collectionView.selectionIndexPaths;
-    
-    if ((clickedIndexPath != nil) && (![selectionIndexPaths containsObject:clickedIndexPath])) {
-        [self.viewModel decreaseAtIndexPath:clickedIndexPath];
-    } else {
-        [self.collectionView.selectionIndexPaths enumerateObjectsUsingBlock:^(NSIndexPath * _Nonnull obj, BOOL * _Nonnull stop) {
-            [self.viewModel decreaseAtIndexPath:obj];
-        }];
-    }
+    [self.collectionView.interactingIndexPaths enumerateObjectsUsingBlock:^(NSIndexPath * _Nonnull obj, BOOL * _Nonnull stop) {
+        [self.viewModel decreaseAtIndexPath:obj];
+    }];
 }
 
 - (void)deleteCards:(NSMenuItem *)sender {
-    NSIndexPath * _Nullable clickedIndexPath = self.collectionView.clickedIndexPath;
-    NSSet<NSIndexPath *> *selectionIndexPaths = self.collectionView.selectionIndexPaths;
-    
-    if ((clickedIndexPath != nil) && (![selectionIndexPaths containsObject:clickedIndexPath])) {
-        [self.viewModel deleteAtIndexPathes:[NSSet setWithObject:clickedIndexPath]];
-    } else {
-        [self.viewModel deleteAtIndexPathes:selectionIndexPaths];
-    }
+    [self.viewModel deleteAtIndexPathes:self.collectionView.interactingIndexPaths];
 }
 
 #pragma mark - NSCollectionViewDelegate
 
 - (void)collectionView:(NSCollectionView *)collectionView didSelectItemsAtIndexPaths:(NSSet<NSIndexPath *> *)indexPaths {
-
+    
 }
 
 - (NSDragOperation)collectionView:(NSCollectionView *)collectionView validateDrop:(id<NSDraggingInfo>)draggingInfo proposedIndexPath:(NSIndexPath * _Nonnull *)proposedDropIndexPath dropOperation:(NSCollectionViewDropOperation *)proposedDropOperation {
@@ -542,17 +525,16 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
 #pragma mark - NSMenuDelegate
 
 - (void)menuWillOpen:(NSMenu *)menu {
-    NSIndexPath * _Nullable clickedIndexPath = self.collectionView.clickedIndexPath;
-    NSSet<NSIndexPath *> *selectionIndexPaths = self.collectionView.selectionIndexPaths;
-    
-    if ((clickedIndexPath != nil) && (![selectionIndexPaths containsObject:clickedIndexPath])) {
-        menu.itemArray = self.menuItemsForSingleItem;
-    } else if (selectionIndexPaths.count == 1) {
-        menu.itemArray = self.menuItemsForSingleItem;
-    } else if (selectionIndexPaths.count > 1) {
-        menu.itemArray = self.menuItemsForMultipleItems;
-    } else {
-        menu.itemArray = @[];
+    if ([menu isEqual:self.collectionViewMenu]) {
+        NSSet<NSIndexPath *> *selectionIndexPaths = self.collectionView.interactingIndexPaths;
+        
+        if (selectionIndexPaths.count == 1) {
+            menu.itemArray = self.menuItemsForSingleItem;
+        } else if (selectionIndexPaths.count > 1) {
+            menu.itemArray = self.menuItemsForMultipleItems;
+        } else {
+            menu.itemArray = @[];
+        }
     }
 }
 

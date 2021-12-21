@@ -15,11 +15,13 @@
 #import "NSWindow+presentErrorAlert.h"
 #import "AppDelegate.h"
 #import "NSViewController+SpinnerView.h"
+#import "ClickableCollectionView.h"
 #import <StoneNamuResources/StoneNamuResources.h>
 
 @interface DecksViewController () <NSCollectionViewDelegate, DecksMenuDelegate, DecksToolbarDelegate, DecksTouchBarDelegate, DeckBaseCollectionViewItemDelegate>
 @property (retain) NSScrollView *scrollView;
-@property (retain) NSCollectionView *collectionView;
+@property (retain) ClickableCollectionView *collectionView;
+@property (retain) NSMenu *collectionViewMenu;
 @property (assign) NSTextField *titleTextField;
 @property (assign) NSTextField *deckCodeTextField;
 @property (retain) DecksMenu *decksMenu;
@@ -34,6 +36,7 @@
     [self removeObserver:self forKeyPath:@"self.view.window"];
     [_scrollView release];
     [_collectionView release];
+    [_collectionViewMenu release];
     [_decksMenu release];
     [_decksToolbar release];
     [_decksTouchBar release];
@@ -69,6 +72,7 @@
     [super viewDidLoad];
     [self setAttributes];
     [self configureCollectionView];
+    [self configureCollectionViewMenu];
     [self configureDecksMenu];
     [self configureDecksToolbar];
     [self configureDecksTouchBar];
@@ -85,7 +89,7 @@
 
 - (void)configureCollectionView {
     NSScrollView *scrollView = [NSScrollView new];
-    NSCollectionView *collectionView = [NSCollectionView new];
+    ClickableCollectionView *collectionView = [ClickableCollectionView new];
     
     self.scrollView = scrollView;
     self.collectionView = collectionView;
@@ -116,6 +120,34 @@
     
     [scrollView release];
     [collectionView release];
+}
+
+- (void)configureCollectionViewMenu {
+    NSMenu *collectionViewMenu = [NSMenu new];
+    self.collectionViewMenu = collectionViewMenu;
+    
+    //
+    
+    NSMenuItem *deleteItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyDelete]
+                                                        action:@selector(collectionViewMenuDeleteItemTriggered:)
+                                                 keyEquivalent:@""];
+    deleteItem.image = [NSImage imageWithSystemSymbolName:@"trash" accessibilityDescription:nil];
+    deleteItem.target = self;
+    
+    collectionViewMenu.itemArray = @[deleteItem];
+    
+    [deleteItem release];
+    
+    //
+    
+    self.collectionView.menu = collectionViewMenu;
+    [collectionViewMenu release];
+}
+
+- (void)collectionViewMenuDeleteItemTriggered:(NSMenuItem *)sender {
+    [self.collectionView.interactingIndexPaths enumerateObjectsUsingBlock:^(NSIndexPath * _Nonnull obj, BOOL * _Nonnull stop) {
+        [self.viewModel deleteLocalDeckFromIndexPath:obj];
+    }];
 }
 
 - (void)configureViewModel {

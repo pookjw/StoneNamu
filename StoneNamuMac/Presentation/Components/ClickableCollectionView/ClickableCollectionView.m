@@ -75,6 +75,17 @@
     }
 }
 
+- (NSSet<NSIndexPath *> *)interactingIndexPaths {
+    NSIndexPath * _Nullable clickedIndexPath = self.clickedIndexPath;
+    NSSet<NSIndexPath *> *selectionIndexPaths = self.selectionIndexPaths;
+    
+    if ((clickedIndexPath != nil) && (![selectionIndexPaths containsObject:clickedIndexPath])) {
+        return [NSSet setWithObject:clickedIndexPath];
+    } else {
+        return selectionIndexPaths;
+    }
+}
+
 - (void)_bind {
     [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(menuDidBeginTracking:)
