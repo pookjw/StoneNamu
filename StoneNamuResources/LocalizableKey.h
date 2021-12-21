@@ -66,6 +66,7 @@ static LocalizableKey const LocalizableKeyCardTextFilter = @"CARD_TEXT_FILTER";
 static LocalizableKey const LocalizableKeyDeckAddCardsNotFullTitle = @"DECK_ADD_CARDS_NOT_FULL_TITLE";
 static LocalizableKey const LocalizableKeyCardTypeTooltipDescription = @"CARD_TYPE_TOOLTIP_DESCRIPTION";
 static LocalizableKey const LocalizableKeyCardSort = @"CARD_SORT";
+static LocalizableKey const LocalizableKeyShowDetails = @"SHOW_DETAILS";
 static LocalizableKey const LocalizableKeySaveAsImage = @"SAVE_AS_IMAGE";
 static LocalizableKey const LocalizableKeyCardName = @"CARD_NAME";
 static LocalizableKey const LocalizableKeyShare = @"SHARE";

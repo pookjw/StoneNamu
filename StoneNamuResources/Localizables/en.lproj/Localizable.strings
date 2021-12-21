@@ -211,3 +211,5 @@
 "DECK_ADD_CARD_ERROR_CANNOT_ADD_NOT_COLLECTIBLE_CARD" = "You cannot add a not collectible card.";
 
 "DECK_ADD_CARD_ERROR_CANNOT_ADD_HERO_PORTRAIT_CARD" = "You cannot add a hero portrait card.";
+
+"SHOW_DETAILS" = "Show Detils";
