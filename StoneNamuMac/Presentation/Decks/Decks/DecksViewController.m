@@ -14,6 +14,7 @@
 #import "DecksTouchBar.h"
 #import "NSWindow+presentErrorAlert.h"
 #import "AppDelegate.h"
+#import "NSViewController+SpinnerView.h"
 #import <StoneNamuResources/StoneNamuResources.h>
 
 @interface DecksViewController () <NSCollectionViewDelegate, DecksMenuDelegate, DecksToolbarDelegate, DecksTouchBarDelegate, DeckBaseCollectionViewItemDelegate>
@@ -277,15 +278,38 @@
     NSString *deckCode = self.deckCodeTextField.stringValue;
     
     [self.view.window endSheet:self.view.window.attachedSheet];
-    
-    [self.viewModel fetchDeckCode:deckCode title:title completion:^(LocalDeck * _Nullable localDeck, HSDeck * _Nullable hsDeck, NSError * _Nullable error) {
-        [NSOperationQueue.mainQueue addOperationWithBlock:^{
-            if (error != nil) {
-                [self.view.window presentErrorAlertWithError:error];
-                return;
-            }
-            
-            [self presentDeckDetailsWithLocalDeck:localDeck];
+    [self fetchDeckCode:deckCode title:title];
+}
+
+- (void)fetchDeckCode:(NSString *)deckCode
+                title:(NSString * _Nullable)title {
+    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+        [self addSpinnerView];
+        
+        [self.viewModel fetchDeckCode:deckCode title:title completion:^(LocalDeck * _Nullable localDeck, HSDeck * _Nullable hsDeck, NSError * _Nullable error) {
+            [NSOperationQueue.mainQueue addOperationWithBlock:^{
+                if (error != nil) {
+                    [self.view.window presentErrorAlertWithError:error];
+                    return;
+                }
+                
+                [self removeAllSpinnerview];
+                [self presentDeckDetailsWithLocalDeck:localDeck];
+            }];
+        }];
+    }];
+}
+
+- (void)makeLocalDeckWithClass:(HSCardClass)hsCardClass
+                    deckFormat:(HSDeckFormat)deckFormat {
+    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+        [self addSpinnerView];
+        
+        [self.viewModel makeLocalDeckWithClass:hsCardClass deckFormat:deckFormat completion:^(LocalDeck * _Nonnull localDeck) {
+            [NSOperationQueue.mainQueue addOperationWithBlock:^{
+                [self removeAllSpinnerview];
+                [self presentDeckDetailsWithLocalDeck:localDeck];
+            }];
         }];
     }];
 }
@@ -310,13 +334,7 @@
 #pragma mark - DecksMenuDelegate
 
 - (void)decksMenu:(DecksMenu *)decksMenu createNewDeckWithDeckFormat:(HSDeckFormat)deckFormat hsCardClass:(HSCardClass)hsCardClass {
-    [self.viewModel makeLocalDeckWithClass:hsCardClass deckFormat:deckFormat completion:^(LocalDeck * _Nonnull localDeck) {
-        
-        [NSOperationQueue.mainQueue addOperationWithBlock:^{
-            [self presentDeckDetailsWithLocalDeck:localDeck];
-        }];
-        
-    }];
+    [self makeLocalDeckWithClass:hsCardClass deckFormat:deckFormat];
 }
 
 - (void)decksMenu:(DecksMenu *)decksMenu createNewDeckFromDeckCodeWithIdentifier:(NSUserInterfaceItemIdentifier)identifier {
@@ -326,13 +344,7 @@
 #pragma mark - DecksToolbarDelegate
 
 - (void)decksToolbar:(DecksToolbar *)decksToolbar createNewDeckWithDeckFormat:(HSDeckFormat)deckFormat hsCardClass:(HSCardClass)hsCardClass {
-    [self.viewModel makeLocalDeckWithClass:hsCardClass deckFormat:deckFormat completion:^(LocalDeck * _Nonnull localDeck) {
-        
-        [NSOperationQueue.mainQueue addOperationWithBlock:^{
-            [self presentDeckDetailsWithLocalDeck:localDeck];
-        }];
-        
-    }];
+    [self makeLocalDeckWithClass:hsCardClass deckFormat:deckFormat];
 }
 
 - (void)decksToolbar:(DecksToolbar *)decksToolbar createNewDeckFromDeckCodeWithIdentifier:(NSTouchBarItemIdentifier)identifier {
@@ -342,13 +354,7 @@
 #pragma mark - DecksTouchBarDelegate
 
 - (void)decksTouchBar:(DecksTouchBar *)touchBar createNewDeckWithDeckFormat:(HSDeckFormat)deckFormat hsCardClass:(HSCardClass)hsCardClass {
-    [self.viewModel makeLocalDeckWithClass:hsCardClass deckFormat:deckFormat completion:^(LocalDeck * _Nonnull localDeck) {
-        
-        [NSOperationQueue.mainQueue addOperationWithBlock:^{
-            [self presentDeckDetailsWithLocalDeck:localDeck];
-        }];
-        
-    }];
+    [self makeLocalDeckWithClass:hsCardClass deckFormat:deckFormat];
 }
 
 - (void)decksTouchBar:(DecksTouchBar *)touchBar createNewDeckFromDeckCodeWithIdentifier:(nonnull NSTouchBarItemIdentifier)identifier {
