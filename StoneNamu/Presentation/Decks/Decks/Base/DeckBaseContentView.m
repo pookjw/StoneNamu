@@ -273,7 +273,7 @@
     }
     
     self.countLabel.text = [NSString stringWithFormat:@"%lu / %d", count, HSDECK_MAX_TOTAL_CARDS];
-    [self.countLabel sizeToFit];
+    [self.countLabel layoutIfNeeded];
     
     self.countBlurView.layer.cornerRadius = self.countLabel.frame.size.height / 2;
     self.countBlurView.clipsToBounds = YES;
