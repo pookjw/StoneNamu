@@ -90,6 +90,8 @@
                     BOOL __block isDuplicated = NO;
                     
                     [[snapshot itemIdentifiersInSectionWithIdentifier:cardsSectionModel] enumerateObjectsUsingBlock:^(DeckDetailsItemModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                        if (obj.type != DeckDetailsItemModelTypeCard) return;
+                        
                         if ([hsCard isEqual:obj.hsCard]) {
                             obj.hsCardCount = [NSNumber numberWithUnsignedInteger:obj.hsCardCount.unsignedIntegerValue + 1];
                             [snapshot reconfigureItemsWithIdentifiers:@[obj]];
@@ -217,7 +219,9 @@
                 NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
                 
                 [snapshot.itemIdentifiers enumerateObjectsUsingBlock:^(DeckDetailsItemModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                    if ((obj.type == DeckDetailsItemModelTypeCard) && [hsCards containsObject:obj.hsCard]) {
+                    if (obj.type != DeckDetailsItemModelTypeCard) return;
+                    
+                    if ([hsCards containsObject:obj.hsCard]) {
                         [snapshot deleteItemsWithIdentifiers:@[obj]];
                     }
                 }];
