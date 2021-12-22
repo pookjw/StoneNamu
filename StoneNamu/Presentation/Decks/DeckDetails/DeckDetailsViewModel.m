@@ -90,7 +90,7 @@
                 for (HSCard *hsCard in hsCards) {
                     BOOL __block isDuplicated = NO;
                     
-                    [snapshot.itemIdentifiers enumerateObjectsUsingBlock:^(DeckDetailsItemModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    [[snapshot itemIdentifiersInSectionWithIdentifier:cardsSectionModel] enumerateObjectsUsingBlock:^(DeckDetailsItemModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
                         if ([hsCard isEqual:obj.hsCard]) {
                             obj.hsCardCount = [NSNumber numberWithUnsignedInteger:obj.hsCardCount.unsignedIntegerValue + 1];
                             [snapshot reconfigureItemsWithIdentifiers:@[obj]];
