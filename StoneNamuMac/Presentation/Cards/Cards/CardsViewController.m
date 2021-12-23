@@ -23,7 +23,7 @@
 static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardsViewController = @"NSUserInterfaceItemIdentifierCardsViewController";
 static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardCollectionViewItem = @"NSUserInterfaceItemIdentifierCardCollectionViewItem";
 
-@interface CardsViewController () <NSCollectionViewDelegate, CardOptionsMenuDelegate, CardOptionsToolbarDelegate, CardOptionsTouchBarDelegate, CardCollectionViewItemDelegate>
+@interface CardsViewController () <NSCollectionViewDelegate, NSMenuDelegate, CardOptionsMenuDelegate, CardOptionsToolbarDelegate, CardOptionsTouchBarDelegate, CardCollectionViewItemDelegate>
 @property (retain) NSScrollView *scrollView;
 @property (retain) ClickableCollectionView *collectionView;
 @property (retain) NSMenu *collectionViewMenu;
@@ -175,26 +175,12 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardColl
 
 - (void)configureCollectionViewMenu {
     NSMenu *collectionViewMenu = [NSMenu new];
+    
+    collectionViewMenu.delegate = self;
+    
     self.collectionViewMenu = collectionViewMenu;
-    
-    //
-    
-    NSMenuItem *showDetailItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyShowDetails]
-                                                            action:@selector(showDetailItemTriggered:)
-                                                     keyEquivalent:@""];
-    showDetailItem.image = [NSImage imageWithSystemSymbolName:@"list.bullet" accessibilityDescription:nil];
-    showDetailItem.target = self;
-    
-    NSMenuItem *saveImageItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeySave]
-                                                           action:<#(nullable SEL)#> keyEquivalent:<#(nonnull NSString *)#>]
-    
-    collectionViewMenu.itemArray = @[showDetailItem];
-    
-    [showDetailItem release];
-    
-    //
-    
     self.collectionView.menu = collectionViewMenu;
+    
     [collectionViewMenu release];
 }
 
@@ -203,7 +189,19 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardColl
 }
 
 - (void)saveImageItemTriggered:(NSMenuItem *)sender {
-//    HSCardSaveImageService *service = 
+    [self.viewModel hsCardsFromIndexPathsWithCompletion:self.collectionView.interactingIndexPaths completion:^(NSSet<HSCard *> * _Nonnull hsCards) {
+        if (hsCards.count == 0) return;
+        
+        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+            HSCardSaveImageService *service = [[HSCardSaveImageService alloc] initWithHSCards:hsCards];
+            
+            [service beginSheetModalForWindow:self.view.window completion:^(BOOL success, NSError * _Nullable error) {
+                
+            }];
+            
+            [service release];
+        }];
+    }];
 }
 
 - (void)configureViewModel {
@@ -374,6 +372,35 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardColl
     HSCardPromiseProvider *provider = [[HSCardPromiseProvider alloc] initWithHSCard:itemModel.hsCard image:item.imageView.image];
     
     return [provider autorelease];
+}
+
+#pragma mark - NSMenuDelegate
+
+- (void)menuWillOpen:(NSMenu *)menu {
+    if ([menu isEqual:self.collectionViewMenu]) {
+        NSSet<NSIndexPath *> *interactingIndexPaths = self.collectionView.interactingIndexPaths;
+        
+        if (interactingIndexPaths.count > 0) {
+            NSMenuItem *showDetailItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyShowDetails]
+                                                                    action:@selector(showDetailItemTriggered:)
+                                                             keyEquivalent:@""];
+            showDetailItem.image = [NSImage imageWithSystemSymbolName:@"list.bullet" accessibilityDescription:nil];
+            showDetailItem.target = self;
+            
+            NSMenuItem *saveImageItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeySave]
+                                                                   action:@selector(saveImageItemTriggered:)
+                                                            keyEquivalent:@""];
+            saveImageItem.image = [NSImage imageWithSystemSymbolName:@"square.and.arrow.down" accessibilityDescription:nil];
+            showDetailItem.target = self;
+            
+            menu.itemArray = @[showDetailItem, saveImageItem];
+            
+            [showDetailItem release];
+            [saveImageItem release];
+        } else {
+            menu.itemArray = @[];
+        }
+    }
 }
 
 #pragma mark - CardOptionsMenuDelegate

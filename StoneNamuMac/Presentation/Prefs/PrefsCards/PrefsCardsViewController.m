@@ -9,7 +9,7 @@
 #import "NSTextField+setLabelStyle.h"
 #import <StoneNamuResources/StoneNamuResources.h>
 #import "PrefsCardsViewModel.h"
-#import "PrefsCardsMenuItem.h"
+#import "StorableMenuItem.h"
 
 @interface PrefsCardsViewController ()
 @property (retain) NSGridView *gridView;
@@ -97,26 +97,29 @@
     self.localeMenu = localeMenu;
     localeMenuButton.menu = localeMenu;
     
-    NSMutableArray<PrefsCardsMenuItem *> *itemArray = [@[] mutableCopy];
+    NSMutableArray<StorableMenuItem *> *itemArray = [@[] mutableCopy];
     
     [blizzardHSAPILocales() enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        PrefsCardsMenuItem *menuItem = [[PrefsCardsMenuItem alloc] initWithKey:obj];
-        menuItem.title = [ResourcesService localizationForBlizzardHSAPILocale:obj];
-        menuItem.target = self;
-        menuItem.action = @selector(didTriggerLocaleItem:);
+        StorableMenuItem *item = [[StorableMenuItem alloc] initWithTitle:[ResourcesService localizationForBlizzardHSAPILocale:obj]
+                                                                  action:@selector(didTriggerLocaleItem:)
+                                                           keyEquivalent:@""
+                                                                userInfo:@{@"key": obj}];
+        item.target = self;
         
-        [itemArray addObject:menuItem];
-        [menuItem release];
+        [itemArray addObject:item];
+        [item release];
     }];
     
     [itemArray sortUsingComparator:^NSComparisonResult(NSMenuItem *obj1, NSMenuItem *obj2) {
         return [obj1.title compare:obj2.title];
     }];
     
-    PrefsCardsMenuItem *autoItem = [[PrefsCardsMenuItem alloc] initWithKey:nil];
-    autoItem.title = [ResourcesService localizationForKey:LocalizableKeyAuto];
+    StorableMenuItem *autoItem = [[StorableMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyAuto]
+                                                                  action:@selector(didTriggerLocaleItem:)
+                                                           keyEquivalent:@""
+                                                                userInfo:nil];
     autoItem.target = self;
-    autoItem.action = @selector(didTriggerLocaleItem:);
+    
     [itemArray insertObject:autoItem atIndex:0];
     [autoItem release];
     
@@ -140,6 +143,10 @@
     NSPopUpButton *regionMenuButton = [NSPopUpButton new];
     self.regionMenuButton = regionMenuButton;
     regionMenuButton.pullsDown = NO;
+    regionMenuButton.translatesAutoresizingMaskIntoConstraints = NO;
+    [NSLayoutConstraint activateConstraints:@[
+        [regionMenuButton.widthAnchor constraintEqualToConstant:150.0f]
+    ]];
     
     [self.gridView addRowWithViews:@[regionLabel, regionMenuButton]];
     
@@ -148,18 +155,15 @@
     NSMenu *regionMenu = [NSMenu new];
     self.regionMenu = regionMenu;
     regionMenuButton.menu = regionMenu;
-    regionMenuButton.translatesAutoresizingMaskIntoConstraints = NO;
-    [NSLayoutConstraint activateConstraints:@[
-        [regionMenuButton.widthAnchor constraintEqualToConstant:150.0f]
-    ]];
     
-    NSMutableArray<PrefsCardsMenuItem *> *itemArray = [@[] mutableCopy];
+    NSMutableArray<StorableMenuItem *> *itemArray = [@[] mutableCopy];
     
     [blizzardHSAPIRegionsForAPI() enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        PrefsCardsMenuItem *menuItem = [[PrefsCardsMenuItem alloc] initWithKey:obj];
-        menuItem.title = [ResourcesService localizationForBlizzardAPIRegionHost:BlizzardAPIRegionHostFromNSStringForAPI(obj)];
+        StorableMenuItem *menuItem = [[StorableMenuItem alloc] initWithTitle:[ResourcesService localizationForBlizzardAPIRegionHost:BlizzardAPIRegionHostFromNSStringForAPI(obj)]
+                                                                      action:@selector(didTriggerRegionItem:)
+                                                               keyEquivalent:@""
+                                                                    userInfo:@{@"key": obj}];
         menuItem.target = self;
-        menuItem.action = @selector(didTriggerRegionItem:);
         
         [itemArray addObject:menuItem];
         [menuItem release];
@@ -169,10 +173,12 @@
         return [obj1.title compare:obj2.title];
     }];
     
-    PrefsCardsMenuItem *autoItem = [[PrefsCardsMenuItem alloc] initWithKey:nil];
-    autoItem.title = [ResourcesService localizationForKey:LocalizableKeyAuto];
+    StorableMenuItem *autoItem = [[StorableMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyAuto]
+                                                                  action:@selector(didTriggerRegionItem:)
+                                                           keyEquivalent:@""
+                                                                userInfo:nil];
     autoItem.target = self;
-    autoItem.action = @selector(didTriggerRegionItem:);
+    
     [itemArray insertObject:autoItem atIndex:0];
     [autoItem release];
     
@@ -228,16 +234,18 @@
 
 - (void)updateLocaleMenuWithPrefs:(Prefs *)prefs {
     [self.localeMenu.itemArray enumerateObjectsUsingBlock:^(NSMenuItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        PrefsCardsMenuItem *item = (PrefsCardsMenuItem *)obj;
+        StorableMenuItem *item = (StorableMenuItem *)obj;
         
-        if (![item isKindOfClass:[PrefsCardsMenuItem class]]) return;
+        if (![item isKindOfClass:[StorableMenuItem class]]) return;
         
-        if (item.key == nil) {
+        NSString * _Nullable key = item.userInfo.allValues.firstObject;
+        
+        if (key == nil) {
             if (prefs.locale == nil) {
                 [self.localeMenuButton selectItem:item];
             }
         } else {
-            if ([item.key isEqualToString:prefs.locale]) {
+            if ([key isEqualToString:prefs.locale]) {
                 [self.localeMenuButton selectItem:item];
             }
         }
@@ -246,28 +254,30 @@
 
 - (void)updateRegionMenuWithPrefs:(Prefs *)prefs {
     [self.regionMenu.itemArray enumerateObjectsUsingBlock:^(NSMenuItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        PrefsCardsMenuItem *item = (PrefsCardsMenuItem *)obj;
+        StorableMenuItem *item = (StorableMenuItem *)obj;
         
-        if (![item isKindOfClass:[PrefsCardsMenuItem class]]) return;
+        if (![item isKindOfClass:[StorableMenuItem class]]) return;
         
-        if (item.key == nil) {
+        NSString * _Nullable key = item.userInfo.allValues.firstObject;
+        
+        if (key == nil) {
             if (prefs.locale == nil) {
                 [self.regionMenuButton selectItem:item];
             }
         } else {
-            if ([item.key isEqualToString:prefs.apiRegionHost]) {
+            if ([key isEqualToString:prefs.apiRegionHost]) {
                 [self.regionMenuButton selectItem:item];
             }
         }
     }];
 }
 
-- (void)didTriggerLocaleItem:(PrefsCardsMenuItem *)sender {
-    [self.viewModel updateLocale:sender.key];
+- (void)didTriggerLocaleItem:(StorableMenuItem *)sender {
+    [self.viewModel updateLocale:sender.userInfo.allValues.firstObject];
 }
 
-- (void)didTriggerRegionItem:(PrefsCardsMenuItem *)sender {
-    [self.viewModel updateRegionHost:sender.key];
+- (void)didTriggerRegionItem:(StorableMenuItem *)sender {
+    [self.viewModel updateRegionHost:sender.userInfo.allValues.firstObject];
 }
 
 @end

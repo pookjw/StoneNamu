@@ -16,6 +16,7 @@
 		4F03F57626C7B62200FC9155 /* PrefsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F03F57526C7B62200FC9155 /* PrefsViewModel.m */; };
 		4F03F57926C7B62C00FC9155 /* PrefsSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F03F57826C7B62C00FC9155 /* PrefsSectionModel.m */; };
 		4F03F57C26C7B63600FC9155 /* PrefsItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F03F57B26C7B63600FC9155 /* PrefsItemModel.m */; };
+		4F049DE12774533900E41AEA /* NSImage+dataUsingType.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F049DE02774533900E41AEA /* NSImage+dataUsingType.m */; };
 		4F066CA826D6D2C300991A98 /* DeckDetailsManaCostGraphContentConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F066CA726D6D2C300991A98 /* DeckDetailsManaCostGraphContentConfiguration.m */; };
 		4F066CAB26D6D2D800991A98 /* DeckDetailsManaCostGraphContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F066CAA26D6D2D800991A98 /* DeckDetailsManaCostGraphContentView.m */; };
 		4F066CBE26D71ACD00991A98 /* DeckBaseContentConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F066CBD26D71ACD00991A98 /* DeckBaseContentConfiguration.m */; };
@@ -133,7 +134,6 @@
 		4F646A7726B7E8C100BEDB38 /* DataCacheRepositoryImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F646A7526B7E8C100BEDB38 /* DataCacheRepositoryImpl.m */; };
 		4F646A7B26B7F08500BEDB38 /* DataCacheUseCaseImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F646A7926B7F08500BEDB38 /* DataCacheUseCaseImpl.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4F646A7C26B7F08500BEDB38 /* DataCacheUseCaseImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F646A7A26B7F08500BEDB38 /* DataCacheUseCaseImpl.m */; };
-		4F659208274DD5470017888C /* NSImage+pngData.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F659207274DD5470017888C /* NSImage+pngData.m */; };
 		4F68198226D73F2F00033AEE /* DeckBaseContentViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F68198126D73F2F00033AEE /* DeckBaseContentViewModel.m */; };
 		4F6A139C26B251EE0089A13A /* HSCardKeyword.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F6A139B26B251EE0089A13A /* HSCardKeyword.m */; };
 		4F6A13A526B267D60089A13A /* HSCardGameMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F6A13A426B267D60089A13A /* HSCardGameMode.m */; };
@@ -378,7 +378,6 @@
 		F303D63F2741549800569E20 /* NSTabViewController+selectTabViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = F303D63E2741549800569E20 /* NSTabViewController+selectTabViewItem.m */; };
 		F303D64227415BFF00569E20 /* NSProcessInfo+isEnabledRestoration.m in Sources */ = {isa = PBXBuildFile; fileRef = F303D64127415BFF00569E20 /* NSProcessInfo+isEnabledRestoration.m */; };
 		F303D645274162CB00569E20 /* PrefsCardsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F303D644274162CB00569E20 /* PrefsCardsViewModel.m */; };
-		F303D648274171C700569E20 /* PrefsCardsMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = F303D647274171C700569E20 /* PrefsCardsMenuItem.m */; };
 		F31580ED2740D69000DBD6D4 /* PrefsWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = F31580EC2740D69000DBD6D4 /* PrefsWindow.m */; };
 		F31581012741231700DBD6D4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F31581002741231700DBD6D4 /* AppDelegate.m */; };
 		F35E230A27401B42000A2605 /* BlizzardHSAPIOptionType.strings in Resources */ = {isa = PBXBuildFile; fileRef = F35E230C27401B42000A2605 /* BlizzardHSAPIOptionType.strings */; };
@@ -505,6 +504,8 @@
 		4F03F57826C7B62C00FC9155 /* PrefsSectionModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrefsSectionModel.m; sourceTree = "<group>"; };
 		4F03F57A26C7B63600FC9155 /* PrefsItemModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefsItemModel.h; sourceTree = "<group>"; };
 		4F03F57B26C7B63600FC9155 /* PrefsItemModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrefsItemModel.m; sourceTree = "<group>"; };
+		4F049DDF2774533900E41AEA /* NSImage+dataUsingType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSImage+dataUsingType.h"; sourceTree = "<group>"; };
+		4F049DE02774533900E41AEA /* NSImage+dataUsingType.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSImage+dataUsingType.m"; sourceTree = "<group>"; };
 		4F066CA626D6D2C300991A98 /* DeckDetailsManaCostGraphContentConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckDetailsManaCostGraphContentConfiguration.h; sourceTree = "<group>"; };
 		4F066CA726D6D2C300991A98 /* DeckDetailsManaCostGraphContentConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckDetailsManaCostGraphContentConfiguration.m; sourceTree = "<group>"; };
 		4F066CA926D6D2D800991A98 /* DeckDetailsManaCostGraphContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckDetailsManaCostGraphContentView.h; sourceTree = "<group>"; };
@@ -704,8 +705,6 @@
 		4F646A7826B7EF9100BEDB38 /* DataCacheUseCase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataCacheUseCase.h; sourceTree = "<group>"; };
 		4F646A7926B7F08500BEDB38 /* DataCacheUseCaseImpl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataCacheUseCaseImpl.h; sourceTree = "<group>"; };
 		4F646A7A26B7F08500BEDB38 /* DataCacheUseCaseImpl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DataCacheUseCaseImpl.m; sourceTree = "<group>"; };
-		4F659206274DD5470017888C /* NSImage+pngData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSImage+pngData.h"; sourceTree = "<group>"; };
-		4F659207274DD5470017888C /* NSImage+pngData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSImage+pngData.m"; sourceTree = "<group>"; };
 		4F68198026D73F2F00033AEE /* DeckBaseContentViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeckBaseContentViewModel.h; sourceTree = "<group>"; };
 		4F68198126D73F2F00033AEE /* DeckBaseContentViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeckBaseContentViewModel.m; sourceTree = "<group>"; };
 		4F6A139B26B251EE0089A13A /* HSCardKeyword.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCardKeyword.m; sourceTree = "<group>"; };
@@ -1119,8 +1118,6 @@
 		F303D64127415BFF00569E20 /* NSProcessInfo+isEnabledRestoration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSProcessInfo+isEnabledRestoration.m"; sourceTree = "<group>"; };
 		F303D643274162CB00569E20 /* PrefsCardsViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefsCardsViewModel.h; sourceTree = "<group>"; };
 		F303D644274162CB00569E20 /* PrefsCardsViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrefsCardsViewModel.m; sourceTree = "<group>"; };
-		F303D646274171C700569E20 /* PrefsCardsMenuItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefsCardsMenuItem.h; sourceTree = "<group>"; };
-		F303D647274171C700569E20 /* PrefsCardsMenuItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrefsCardsMenuItem.m; sourceTree = "<group>"; };
 		F31580EB2740D69000DBD6D4 /* PrefsWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefsWindow.h; sourceTree = "<group>"; };
 		F31580EC2740D69000DBD6D4 /* PrefsWindow.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrefsWindow.m; sourceTree = "<group>"; };
 		F31581002741231700DBD6D4 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -2542,8 +2539,8 @@
 				F303D64127415BFF00569E20 /* NSProcessInfo+isEnabledRestoration.m */,
 				4FDE9B6E274AF1C200AB0E02 /* NSDiffableDataSourceSnapshot+sort.h */,
 				4FDE9B6F274AF1C200AB0E02 /* NSDiffableDataSourceSnapshot+sort.m */,
-				4F659206274DD5470017888C /* NSImage+pngData.h */,
-				4F659207274DD5470017888C /* NSImage+pngData.m */,
+				4F049DDF2774533900E41AEA /* NSImage+dataUsingType.h */,
+				4F049DE02774533900E41AEA /* NSImage+dataUsingType.m */,
 				4F5900902753193B00217E4A /* NSViewController+splitViewController.h */,
 				4F5900912753193B00217E4A /* NSViewController+splitViewController.m */,
 				4F59009327531C4D00217E4A /* NSSplitViewController+removeSplitViewItemAtIndex.h */,
@@ -2811,8 +2808,6 @@
 				F303D6382741507400569E20 /* PrefsCardsViewController.m */,
 				F303D643274162CB00569E20 /* PrefsCardsViewModel.h */,
 				F303D644274162CB00569E20 /* PrefsCardsViewModel.m */,
-				F303D646274171C700569E20 /* PrefsCardsMenuItem.h */,
-				F303D647274171C700569E20 /* PrefsCardsMenuItem.m */,
 			);
 			path = PrefsCards;
 			sourceTree = "<group>";
@@ -3467,6 +3462,7 @@
 				F3862A3127428FC70061C20C /* PrefsDataViewModel.m in Sources */,
 				4FE8576A270093CF0008C2FB /* CardsViewController.m in Sources */,
 				4FC48A852739E6B3001240FE /* NSUserInterfaceItemIdentifierCardOptionType+BlizzardHSAPIOption.m in Sources */,
+				4F049DE12774533900E41AEA /* NSImage+dataUsingType.m in Sources */,
 				4F1FA0B8275065110082EBF0 /* NSToolbarIdentifierDecks+HSDeckFormat.m in Sources */,
 				4FD4E029274EE4440037D867 /* DecksCollectionViewLayout.m in Sources */,
 				4FF3CD4E27597D8D00ACA5AC /* NSTouchBarItemIdentifierDeckAddCardOptionType+BlizzardHSAPIOptionType.m in Sources */,
@@ -3505,10 +3501,8 @@
 				4F5900862752FDE000217E4A /* NSTableViewDiffableDataSource+applySnapshotAndWait.m in Sources */,
 				4FC402BD27386F3100D25523 /* EditMenuItem.m in Sources */,
 				4F466EF1272851090035C569 /* NSViewController+SpinnerView.m in Sources */,
-				4F659208274DD5470017888C /* NSImage+pngData.m in Sources */,
 				F3CCE28A2742C3BD004B5B26 /* MainListViewModel.m in Sources */,
 				4F0755E92772356000B8EFD5 /* HSCardSaveImageService.m in Sources */,
-				F303D648274171C700569E20 /* PrefsCardsMenuItem.m in Sources */,
 				4FD4E01A274EDC950037D867 /* DecksViewModel.m in Sources */,
 				4F90DA612766312F007982AE /* DeckDetailsViewModel.m in Sources */,
 				4FC402CD2738759200D25523 /* CardOptionsMenu.m in Sources */,

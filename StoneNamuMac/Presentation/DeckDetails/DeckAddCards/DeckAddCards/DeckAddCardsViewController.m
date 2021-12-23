@@ -16,6 +16,7 @@
 #import "AppDelegate.h"
 #import "HSCardPromiseProvider.h"
 #import "ClickableCollectionView.h"
+#import "HSCardSaveImageService.h"
 #import "NSViewController+loadViewIfNeeded.h"
 #import <StoneNamuCore/StoneNamuCore.h>
 #import <StoneNamuResources/StoneNamuResources.h>
@@ -23,7 +24,7 @@
 static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddCardsViewController = @"NSUserInterfaceItemIdentifierDeckAddCardsViewController";
 static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddCardCollectionViewItem = @"NSUserInterfaceItemIdentifierDeckAddCardCollectionViewItem";
 
-@interface DeckAddCardsViewController () <NSCollectionViewDelegate, DeckAddCardOptionsMenuDelegate, DeckAddCardOptionsToolbarDelegate, DeckAddCardOptionsTouchBarDelegate, DeckAddCardCollectionViewItemDelegate>
+@interface DeckAddCardsViewController () <NSCollectionViewDelegate, NSMenuDelegate, DeckAddCardOptionsMenuDelegate, DeckAddCardOptionsToolbarDelegate, DeckAddCardOptionsTouchBarDelegate, DeckAddCardCollectionViewItemDelegate>
 @property (retain) NSScrollView *scrollView;
 @property (retain) ClickableCollectionView *collectionView;
 @property (retain) NSMenu *collectionViewMenu;
@@ -185,28 +186,33 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
 
 - (void)configureCollectionViewMenu {
     NSMenu *collectionViewMenu = [NSMenu new];
+    
+    collectionViewMenu.delegate = self;
+    
     self.collectionViewMenu = collectionViewMenu;
-    
-    //
-    
-    NSMenuItem *showDetailItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyShowDetails]
-                                                            action:@selector(showDetailItemTriggered:)
-                                                     keyEquivalent:@""];
-    showDetailItem.image = [NSImage imageWithSystemSymbolName:@"list.bullet" accessibilityDescription:nil];
-    showDetailItem.target = self;
-    
-    collectionViewMenu.itemArray = @[showDetailItem];
-    
-    [showDetailItem release];
-    
-    //
-    
     self.collectionView.menu = collectionViewMenu;
+    
     [collectionViewMenu release];
 }
 
 - (void)showDetailItemTriggered:(NSMenuItem *)sender {
     [self presentCardDetailsViewControllerWithIndexPaths:self.collectionView.interactingIndexPaths];
+}
+
+- (void)saveImageItemTriggered:(NSMenuItem *)sender {
+    [self.viewModel hsCardsFromIndexPathsWithCompletion:self.collectionView.interactingIndexPaths completion:^(NSSet<HSCard *> * _Nonnull hsCards) {
+        if (hsCards.count == 0) return;
+        
+        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+            HSCardSaveImageService *service = [[HSCardSaveImageService alloc] initWithHSCards:hsCards];
+            
+            [service beginSheetModalForWindow:self.view.window completion:^(BOOL success, NSError * _Nullable error) {
+                
+            }];
+            
+            [service release];
+        }];
+    }];
 }
 
 - (void)configureViewModel {
@@ -382,6 +388,35 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
     HSCardPromiseProvider *provider = [[HSCardPromiseProvider alloc] initWithHSCard:itemModel.hsCard image:item.imageView.image];
     
     return [provider autorelease];
+}
+
+#pragma mark - NSMenuDelegate
+
+- (void)menuWillOpen:(NSMenu *)menu {
+    if ([menu isEqual:self.collectionViewMenu]) {
+        NSSet<NSIndexPath *> *interactingIndexPaths = self.collectionView.interactingIndexPaths;
+        
+        if (interactingIndexPaths.count > 0) {
+            NSMenuItem *showDetailItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyShowDetails]
+                                                                    action:@selector(showDetailItemTriggered:)
+                                                             keyEquivalent:@""];
+            showDetailItem.image = [NSImage imageWithSystemSymbolName:@"list.bullet" accessibilityDescription:nil];
+            showDetailItem.target = self;
+            
+            NSMenuItem *saveImageItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeySave]
+                                                                   action:@selector(saveImageItemTriggered:)
+                                                            keyEquivalent:@""];
+            saveImageItem.image = [NSImage imageWithSystemSymbolName:@"square.and.arrow.down" accessibilityDescription:nil];
+            showDetailItem.target = self;
+            
+            menu.itemArray = @[showDetailItem, saveImageItem];
+            
+            [showDetailItem release];
+            [saveImageItem release];
+        } else {
+            menu.itemArray = @[];
+        }
+    }
 }
 
 #pragma mark - DeckAddCardOptionsMenuDelegate

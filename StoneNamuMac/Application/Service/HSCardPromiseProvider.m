@@ -6,7 +6,7 @@
 //
 
 #import "HSCardPromiseProvider.h"
-#import "NSImage+pngData.h"
+#import "NSImage+dataUsingType.h"
 #import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
 
 @implementation HSCard (Pasteboard)
@@ -50,7 +50,7 @@
         self.hsCard = hsCard;
         self.image = image;
         
-        NSData *pngData = image.pngData;
+        NSData *pngData = [image dataUsingType:NSBitmapImageFileTypePNG];
         self.pngData = pngData;
         
         NSOperationQueue *queue = [NSOperationQueue new];
@@ -127,7 +127,7 @@
     
     NSError * _Nullable error = nil;
     
-    NSData *imagePNGData = self.image.pngData;
+    NSData *imagePNGData = self.pngData;
     if ([NSFileManager.defaultManager fileExistsAtPath:self.imageURL.path]) {
         [NSFileManager.defaultManager removeItemAtURL:self.imageURL error:nil];
     }

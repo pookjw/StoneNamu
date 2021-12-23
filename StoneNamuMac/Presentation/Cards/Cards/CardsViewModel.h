@@ -12,6 +12,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 typedef NSCollectionViewDiffableDataSource<CardSectionModel *, CardItemModel *> CardsDataSource;
+typedef void (^CardsViewModelHSCardsFromIndexPathsCompletion)(NSSet<HSCard *> *);
 
 static NSNotificationName const NSNotificationNameCardsViewModelError = @"NSNotificationNameCardsViewModelError";
 static NSString * const CardsViewModelErrorNotificationErrorKey = @"CardsViewModelErrorNotificationErrorKey";
@@ -26,6 +27,7 @@ static NSNotificationName const NSNotificationNameCardsViewModelEndedLoadingData
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithDataSource:(CardsDataSource *)dataSource;
 - (BOOL)requestDataSourceWithOptions:(NSDictionary<NSString *, NSString *> * _Nullable)options reset:(BOOL)reset;
+- (void)hsCardsFromIndexPathsWithCompletion:(NSSet<NSIndexPath *> *)indexPaths completion:(CardsViewModelHSCardsFromIndexPathsCompletion)completion;
 @end
 
 NS_ASSUME_NONNULL_END

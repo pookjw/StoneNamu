@@ -13,6 +13,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 typedef NSCollectionViewDiffableDataSource<DeckAddCardSectionModel *, DeckAddCardItemModel *> DeckAddCardsDataSource;
+typedef void (^DeckAddCardsViewModelHSCardsFromIndexPathsCompletion)(NSSet<HSCard *> *);
 
 static NSNotificationName const NSNotificationNameDeckAddCardsViewModelError = @"NSNotificationNameDeckAddCardsViewModelError";
 static NSString * const DeckAddCardsViewModelErrorNotificationErrorKey = @"DeckAddCardsViewModelErrorNotificationErrorKey";
@@ -32,6 +33,7 @@ static NSNotificationName const NSNotificationNameDeckAddCardsViewModelLocalDeck
 - (BOOL)requestDataSourceWithOptions:(NSDictionary<NSString *, NSString *> * _Nullable)options reset:(BOOL)reset;
 - (void)addHSCards:(NSSet<HSCard *> *)hsCards;
 - (void)addHSCardsFromIndexPathes:(NSSet<NSIndexPath *> *)indexPathes;
+- (void)hsCardsFromIndexPathsWithCompletion:(NSSet<NSIndexPath *> *)indexPaths completion:(DeckAddCardsViewModelHSCardsFromIndexPathsCompletion)completion;
 @end
 
 NS_ASSUME_NONNULL_END

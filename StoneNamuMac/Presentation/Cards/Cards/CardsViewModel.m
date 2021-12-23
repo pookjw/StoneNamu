@@ -155,6 +155,22 @@
     return YES;
 }
 
+- (void)hsCardsFromIndexPathsWithCompletion:(NSSet<NSIndexPath *> *)indexPaths completion:(CardsViewModelHSCardsFromIndexPathsCompletion)completion {
+    [self.queue addBarrierBlock:^{
+        NSMutableSet<HSCard *> *hsCards = [NSMutableSet<HSCard *> new];
+        
+        [indexPaths enumerateObjectsUsingBlock:^(NSIndexPath * _Nonnull obj, BOOL * _Nonnull stop) {
+            HSCard * _Nullable hsCard = [self.dataSource itemIdentifierForIndexPath:obj].hsCard;
+            
+            if (hsCard == nil) return;
+            
+            [hsCards addObject:hsCard];
+        }];
+        
+        completion([hsCards autorelease]);
+    }];
+}
+
 - (void)resetDataSource{
     [self.queue cancelAllOperations];
     
