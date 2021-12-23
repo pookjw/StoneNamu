@@ -125,6 +125,8 @@
             void (^writer)(NSData *, NSString *, void (^)(NSError * _Nullable)) = ^(NSData * data, NSString * name, void (^completion)(NSError * _Nullable)) {
                 NSImage *image = [[NSImage alloc] initWithData:data];
                 NSData *imageData = [image dataUsingUniformType:selectedType];
+                [image release];
+                
                 NSError * _Nullable error = nil;
                 
                 NSURL *_url = url;
