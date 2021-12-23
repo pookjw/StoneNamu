@@ -269,6 +269,27 @@
     [self.localDeckUseCase saveChanges];
 }
 
+- (NSSet<HSCard *> *)hsCardsFromIndexPaths:(NSSet<NSIndexPath *> *)indexPaths {
+    NSMutableSet<HSCard *> *hsCards = [NSMutableSet<HSCard *> new];
+    
+    [indexPaths enumerateObjectsUsingBlock:^(NSIndexPath * _Nonnull obj, BOOL * _Nonnull stop) {
+        HSCard * _Nullable hsCard = [self.dataSource itemIdentifierForIndexPath:obj].hsCard;
+        
+        if (hsCard != nil) {
+            [hsCards addObject:hsCard];
+        }
+    }];
+    
+    return [hsCards autorelease];
+}
+
+- (void)hsCardsFromIndexPaths:(NSSet<NSIndexPath *> *)indexPaths completion:(DeckDetailsViewModelHSCardsFromIndexPathsCompletion)completion {
+    [self.queue addBarrierBlock:^{
+        NSSet<HSCard *> *hsCards = [self hsCardsFromIndexPaths:indexPaths];
+        completion(hsCards);
+    }];
+}
+
 - (void)requestDataSourceWithLocalDeck:(LocalDeck *)localDeck {
     [localDeck retain];
     [self->_localDeck release];

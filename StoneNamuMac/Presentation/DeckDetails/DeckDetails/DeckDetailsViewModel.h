@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 typedef NSCollectionViewDiffableDataSource<DeckDetailsSectionModel *, DeckDetailsItemModel *> DeckDetailsDataSource;
 
 typedef void (^DeckDetailsViewModelExportDeckCodeCompletion)(NSString * _Nullable);
+typedef void (^DeckDetailsViewModelHSCardsFromIndexPathsCompletion)(NSSet<HSCard *> *);
 
 static NSNotificationName const NSNotificationNameDeckDetailsViewModelShouldDismiss = @"NSNotificationNameDeckDetailsViewModelShouldDismiss";
 static NSNotificationName const NSNotificationNameDeckDetailsViewModelDidChangeLocalDeck = @"NSNotificationNameDeckDetailsViewModelDidChangeLocalDeck";
@@ -44,6 +45,9 @@ static NSString * const DeckDetailsViewModelApplyingSnapshotToDataSourceWasDoneM
 
 - (void)exportLocalizedDeckCodeWithCompletion:(DeckDetailsViewModelExportDeckCodeCompletion)completion;
 - (void)updateDeckName:(NSString *)name;
+
+- (NSSet<HSCard *> *)hsCardsFromIndexPaths:(NSSet<NSIndexPath *> *)indexPaths;
+- (void)hsCardsFromIndexPaths:(NSSet<NSIndexPath *> *)indexPaths completion:(DeckDetailsViewModelHSCardsFromIndexPathsCompletion)completion;
 @end
 
 NS_ASSUME_NONNULL_END
