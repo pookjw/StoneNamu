@@ -13,19 +13,23 @@
 #import "CardDetailsChildCollectionViewItem.h"
 #import "CardDetailsCollectionViewLayout.h"
 #import "NSViewController+SpinnerView.h"
-#import "HSCardDraggableImageView.h"
+#import "HSCardSavableImageView.h"
 #import "HSCardPromiseProvider.h"
+#import "HSCardSaveImageService.h"
+#import "ClickableCollectionView.h"
 #import "AppDelegate.h"
+#import <StoneNamuResources/StoneNamuResources.h>
 
 static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDetailsBaseCollectionViewItem = @"NSUserInterfaceItemIdentifierCardDetailsBaseCollectionViewItem";
 static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDetailsChildCollectionViewItem = @"NSUserInterfaceItemIdentifierCardDetailsChildCollectionViewItem";
 
-@interface CardDetailsViewController () <NSCollectionViewDelegate, CardDetailsChildCollectionViewItemDelegate>
+@interface CardDetailsViewController () <NSCollectionViewDelegate, NSMenuDelegate, CardDetailsChildCollectionViewItemDelegate>
 @property (retain) NSVisualEffectView *blurView;
 @property (retain) NSStackView *stackView;
-@property (retain) HSCardDraggableImageView *imageView;
+@property (retain) HSCardSavableImageView *imageView;
 @property (retain) NSScrollView *scrollView;
-@property (retain) NSCollectionView *collectionView;
+@property (retain) ClickableCollectionView *collectionView;
+@property (retain) NSMenu *collectionViewMenu;
 @property (retain) CardDetailsViewModel *viewModel;
 @end
 
@@ -50,6 +54,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeta
     [_imageView release];
     [_scrollView release];
     [_collectionView release];
+    [_collectionViewMenu release];
     [_viewModel release];
     [super dealloc];
 }
@@ -77,6 +82,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeta
     [self configureStackView];
     [self configureImageView];
     [self configureCollectionView];
+    [self configureCollectionViewMenu];
     [self configureViewModel];
     [self bind];
     [self.viewModel requestDataSourceWithCard:self.hsCard];
@@ -129,7 +135,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeta
 }
 
 - (void)configureImageView {
-    HSCardDraggableImageView *imageView = [[HSCardDraggableImageView alloc] initWithHSCard:self.hsCard];
+    HSCardSavableImageView *imageView = [[HSCardSavableImageView alloc] initWithHSCard:self.hsCard];
     self.imageView = imageView;
     [imageView setAsyncImageWithURL:self.hsCard.image indicator:YES];
     
@@ -139,7 +145,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeta
 
 - (void)configureCollectionView {
     NSScrollView *scrollView = [NSScrollView new];
-    NSCollectionView *collectionView = [NSCollectionView new];
+    ClickableCollectionView *collectionView = [ClickableCollectionView new];
     
     self.scrollView = scrollView;
     self.collectionView = collectionView;
@@ -172,6 +178,17 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeta
     
     [scrollView release];
     [collectionView release];
+}
+
+- (void)configureCollectionViewMenu {
+    NSMenu *collectionViewMenu = [NSMenu new];
+    
+    collectionViewMenu.delegate = self;
+    
+    self.collectionViewMenu = collectionViewMenu;
+    self.collectionView.menu = collectionViewMenu;
+    
+    [collectionViewMenu release];
 }
 
 - (void)configureViewModel {
@@ -241,6 +258,22 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeta
     return [dataSource autorelease];
 }
 
+- (void)saveImageItemTriggered:(NSMenuItem *)sender {
+    NSSet<NSIndexPath *> *interactingIndexPaths = self.collectionView.interactingIndexPaths;
+    
+    [self.viewModel hsCardsFromIndexPaths:interactingIndexPaths completion:^(NSSet<HSCard *> * _Nonnull hsCards) {
+        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+            HSCardSaveImageService *service = [[HSCardSaveImageService alloc] initWithHSCards:hsCards];
+            
+            [service beginSheetModalForWindow:self.view.window completion:^(BOOL success, NSError * _Nullable error) {
+                
+            }];
+            
+            [service release];
+        }];
+    }];
+}
+
 #pragma mark - NSCollectionViewDelegate
 
 - (NSSet<NSIndexPath *> *)collectionView:(NSCollectionView *)collectionView shouldSelectItemsAtIndexPaths:(NSSet<NSIndexPath *> *)indexPaths {
@@ -288,17 +321,40 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeta
     return [provider autorelease];
 }
 
+#pragma mark - NSMenuDelegate
+
+- (void)menuWillOpen:(NSMenu *)menu {
+    if ([menu isEqual:self.collectionViewMenu]) {
+        NSSet<NSIndexPath *> *interactingIndexPaths = self.collectionView.interactingIndexPaths;
+        NSSet<HSCard *> *hsCards = [self.viewModel hsCardsFromIndexPaths:interactingIndexPaths];
+        
+        if (hsCards.count > 0) {
+            NSMenuItem *saveImageItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeySave]
+                                                                   action:@selector(saveImageItemTriggered:)
+                                                            keyEquivalent:@""];
+            saveImageItem.image = [NSImage imageWithSystemSymbolName:@"square.and.arrow.down" accessibilityDescription:nil];
+            saveImageItem.target = self;
+            
+            menu.itemArray = @[saveImageItem];
+            
+            [saveImageItem release];
+        } else {
+            menu.itemArray = @[];
+        }
+    }
+}
+
 #pragma mark - CardDetailsChildCollectionViewItemDelegate
 
 - (void)cardDetailsChildrenContentImageContentCollectionViewItem:(CardDetailsChildCollectionViewItem *)cardDetailsChildrenContentImageContentCollectionViewItem didDoubleClickWithRecognizer:(NSClickGestureRecognizer *)recognizer {
-    NSArray<NSIndexPath *> *selectionIndexPaths = self.collectionView.selectionIndexPaths.allObjects;
+    NSSet<NSIndexPath *> *selectionIndexPaths = self.collectionView.selectionIndexPaths;
     
-    [selectionIndexPaths enumerateObjectsUsingBlock:^(NSIndexPath * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        HSCard * _Nullable hsCard = [self.viewModel.dataSource itemIdentifierForIndexPath:obj].childHSCard;
-        
-        if (hsCard == nil) return;
-        
-        [(AppDelegate *)NSApp.delegate presentCardDetailsWindowWithHSCard:hsCard];
+    [self.viewModel hsCardsFromIndexPaths:selectionIndexPaths completion:^(NSSet<HSCard *> * _Nonnull hsCards) {
+        [hsCards enumerateObjectsUsingBlock:^(HSCard * _Nonnull obj, BOOL * _Nonnull stop) {
+            [NSOperationQueue.mainQueue addOperationWithBlock:^{
+                [(AppDelegate *)NSApp.delegate presentCardDetailsWindowWithHSCard:obj];
+            }];
+        }];
     }];
 }
 

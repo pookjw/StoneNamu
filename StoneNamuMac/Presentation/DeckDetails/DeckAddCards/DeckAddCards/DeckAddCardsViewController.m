@@ -407,7 +407,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
                                                                    action:@selector(saveImageItemTriggered:)
                                                             keyEquivalent:@""];
             saveImageItem.image = [NSImage imageWithSystemSymbolName:@"square.and.arrow.down" accessibilityDescription:nil];
-            showDetailItem.target = self;
+            saveImageItem.target = self;
             
             menu.itemArray = @[showDetailItem, saveImageItem];
             

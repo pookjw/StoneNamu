@@ -273,7 +273,7 @@
 		4FCC22C426ECA99B004997AA /* HSYear.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FCC22C326ECA99B004997AA /* HSYear.m */; };
 		4FCC22C826ECAC81004997AA /* DeckImageRenderServiceAppNameContentConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FCC22C726ECAC81004997AA /* DeckImageRenderServiceAppNameContentConfiguration.m */; };
 		4FCC22CB26ECAC98004997AA /* DeckImageRenderServiceAppNameContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FCC22CA26ECAC98004997AA /* DeckImageRenderServiceAppNameContentView.m */; };
-		4FD4E017274ED7DF0037D867 /* HSCardDraggableImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD4E016274ED7DF0037D867 /* HSCardDraggableImageView.m */; };
+		4FD4E017274ED7DF0037D867 /* HSCardSavableImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD4E016274ED7DF0037D867 /* HSCardSavableImageView.m */; };
 		4FD4E01A274EDC950037D867 /* DecksViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD4E019274EDC950037D867 /* DecksViewModel.m */; };
 		4FD4E01D274EDCCA0037D867 /* DecksSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD4E01C274EDCCA0037D867 /* DecksSectionModel.m */; };
 		4FD4E020274EDCD10037D867 /* DecksItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD4E01F274EDCD10037D867 /* DecksItemModel.m */; };
@@ -913,8 +913,8 @@
 		4FCC22C726ECAC81004997AA /* DeckImageRenderServiceAppNameContentConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckImageRenderServiceAppNameContentConfiguration.m; sourceTree = "<group>"; };
 		4FCC22C926ECAC98004997AA /* DeckImageRenderServiceAppNameContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckImageRenderServiceAppNameContentView.h; sourceTree = "<group>"; };
 		4FCC22CA26ECAC98004997AA /* DeckImageRenderServiceAppNameContentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckImageRenderServiceAppNameContentView.m; sourceTree = "<group>"; };
-		4FD4E015274ED7DF0037D867 /* HSCardDraggableImageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardDraggableImageView.h; sourceTree = "<group>"; };
-		4FD4E016274ED7DF0037D867 /* HSCardDraggableImageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCardDraggableImageView.m; sourceTree = "<group>"; };
+		4FD4E015274ED7DF0037D867 /* HSCardSavableImageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardSavableImageView.h; sourceTree = "<group>"; };
+		4FD4E016274ED7DF0037D867 /* HSCardSavableImageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCardSavableImageView.m; sourceTree = "<group>"; };
 		4FD4E018274EDC950037D867 /* DecksViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DecksViewModel.h; sourceTree = "<group>"; };
 		4FD4E019274EDC950037D867 /* DecksViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DecksViewModel.m; sourceTree = "<group>"; };
 		4FD4E01B274EDCCA0037D867 /* DecksSectionModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DecksSectionModel.h; sourceTree = "<group>"; };
@@ -2357,8 +2357,8 @@
 		4FD4E014274ED7CD0037D867 /* HSCardDraggableImageView */ = {
 			isa = PBXGroup;
 			children = (
-				4FD4E015274ED7DF0037D867 /* HSCardDraggableImageView.h */,
-				4FD4E016274ED7DF0037D867 /* HSCardDraggableImageView.m */,
+				4FD4E015274ED7DF0037D867 /* HSCardSavableImageView.h */,
+				4FD4E016274ED7DF0037D867 /* HSCardSavableImageView.m */,
 			);
 			path = HSCardDraggableImageView;
 			sourceTree = "<group>";
@@ -3513,7 +3513,7 @@
 				4FD4E020274EDCD10037D867 /* DecksItemModel.m in Sources */,
 				4F5900892752FE4D00217E4A /* MainListTableCellView.m in Sources */,
 				4FF3CD422759774000ACA5AC /* DeckAddCardOptionsToolbar.m in Sources */,
-				4FD4E017274ED7DF0037D867 /* HSCardDraggableImageView.m in Sources */,
+				4FD4E017274ED7DF0037D867 /* HSCardSavableImageView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

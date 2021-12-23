@@ -119,6 +119,27 @@
     }];
 }
 
+- (NSSet<HSCard *> *)hsCardsFromIndexPaths:(NSSet<NSIndexPath *> *)indexPaths {
+    NSMutableSet<HSCard *> *hsCards = [NSMutableSet<HSCard *> new];
+    
+    [indexPaths enumerateObjectsUsingBlock:^(NSIndexPath * _Nonnull obj, BOOL * _Nonnull stop) {
+        HSCard * _Nullable hsCard = [self.dataSource itemIdentifierForIndexPath:obj].childHSCard;
+        
+        if (hsCard != nil) {
+            [hsCards addObject:hsCard];
+        }
+    }];
+    
+    return [hsCards autorelease];
+}
+
+- (void)hsCardsFromIndexPaths:(NSSet<NSIndexPath *> *)indexPaths completion:(CardDetailsViewModelHSCardsFromIndexPathsCompletion)completion {
+    [self.queue addBarrierBlock:^{
+        NSSet<HSCard *> *hsCards = [self hsCardsFromIndexPaths:indexPaths];
+        completion(hsCards);
+    }];
+}
+
 - (void)loadChildCardsWithHSCard:(HSCard *)hsCard {
     NSArray<NSNumber *> *childIds = [hsCard.childIds copy];
     if (childIds.count == 0) {

@@ -1,5 +1,5 @@
 //
-//  HSCardDraggableImageView.h
+//  HSCardSavableImageView.h
 //  StoneNamuMac
 //
 //  Created by Jinwoo Kim on 11/25/21.
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface HSCardDraggableImageView : NSImageView
+@interface HSCardSavableImageView : NSImageView
 - (instancetype)initWithHSCard:(HSCard *)hsCard;
 @end
 
