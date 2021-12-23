@@ -207,7 +207,11 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
             HSCardSaveImageService *service = [[HSCardSaveImageService alloc] initWithHSCards:hsCards];
             
             [service beginSheetModalForWindow:self.view.window completion:^(BOOL success, NSError * _Nullable error) {
-                
+                if (error != nil) {
+                    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+                        [self.view.window presentErrorAlertWithError:error];
+                    }];
+                }
             }];
             
             [service release];

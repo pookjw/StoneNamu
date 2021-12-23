@@ -8,6 +8,7 @@
 #import "HSCardSavableImageView.h"
 #import "HSCardPromiseProvider.h"
 #import "HSCardSaveImageService.h"
+#import "NSWindow+presentErrorAlert.h"
 #import <StoneNamuResources/StoneNamuResources.h>
 
 @interface HSCardSavableImageView () <NSDraggingSource>
@@ -66,7 +67,11 @@
     HSCardSaveImageService *service = [[HSCardSaveImageService alloc] initWithHSCards:[NSSet setWithObject:self.hsCard]];
     
     [service beginSheetModalForWindow:self.window completion:^(BOOL success, NSError * _Nullable error) {
-        
+        if (error != nil) {
+            [NSOperationQueue.mainQueue addOperationWithBlock:^{
+                [self.window presentErrorAlertWithError:error];
+            }];
+        }
     }];
     
     [service release];

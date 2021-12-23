@@ -15,8 +15,8 @@
 #import "CardOptionsTouchBar.h"
 #import "AppDelegate.h"
 #import "HSCardPromiseProvider.h"
-#import "ClickableCollectionView.h"
 #import "HSCardSaveImageService.h"
+#import "ClickableCollectionView.h"
 #import <StoneNamuCore/StoneNamuCore.h>
 #import <StoneNamuResources/StoneNamuResources.h>
 
@@ -196,7 +196,11 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardColl
             HSCardSaveImageService *service = [[HSCardSaveImageService alloc] initWithHSCards:hsCards];
             
             [service beginSheetModalForWindow:self.view.window completion:^(BOOL success, NSError * _Nullable error) {
-                
+                if (error != nil) {
+                    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+                        [self.view.window presentErrorAlertWithError:error];
+                    }];
+                }
             }];
             
             [service release];
