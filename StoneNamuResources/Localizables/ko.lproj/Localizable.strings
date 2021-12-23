@@ -213,3 +213,5 @@
 "DECK_ADD_CARD_ERROR_CANNOT_ADD_HERO_PORTRAIT_CARD" = "영웅 초상화 카드는 추가할 수 없어요.";
 
 "SHOW_DETAILS" = "상세 보기";
+
+"FILE_FORMAT" = "파일 형식";

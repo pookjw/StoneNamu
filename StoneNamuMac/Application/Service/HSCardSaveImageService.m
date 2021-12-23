@@ -10,6 +10,7 @@
 #import "NSTextField+setLabelStyle.h"
 #import "NSImage+dataUsingType.h"
 #import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
+#import <StoneNamuResources/StoneNamuResources.h>
 
 @interface HSCardSaveImageService () <NSOpenSavePanelDelegate>
 @property (copy) NSSet<HSCard *> *hsCards;
@@ -231,7 +232,7 @@
     
     NSTextField *label = [NSTextField new];
     [label setLabelStyle];
-    label.stringValue = @"Format";
+    label.stringValue = [ResourcesService localizationForKey:LocalizableKeyFileFormat];
     
     [stackView addArrangedSubview:label];
     [label release];

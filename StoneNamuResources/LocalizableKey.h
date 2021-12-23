@@ -50,6 +50,7 @@ static LocalizableKey const LocalizableKeyDone = @"DONE";
 static LocalizableKey const LocalizableKeyCacheSize = @"CACHE_SIZE";
 static LocalizableKey const LocalizableKeyCardCollectibleTooltipDescription = @"CARD_COLLECTIBLE_TOOLTIP_DESCRIPTION";
 static LocalizableKey const LocalizableKeyCardMinionType = @"CARD_MINION_TYPE";
+static LocalizableKey const LocalizableKeyFileFormat = @"FILE_FORMAT";
 static LocalizableKey const LocalizableKeyAll = @"ALL";
 static LocalizableKey const LocalizableKeyCardMinionTypeTooltipDescription = @"CARD_MINION_TYPE_TOOLTIP_DESCRIPTION";
 static LocalizableKey const LocalizableKeyCreateNewDeck = @"CREATE_NEW_DECK";
