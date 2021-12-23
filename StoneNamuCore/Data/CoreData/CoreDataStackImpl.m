@@ -119,7 +119,8 @@ static NSMutableDictionary<NSString *, NSNumber *> * _Nullable kMigrateStatus = 
     NSManagedObjectContext *context = self.storeContainer.newBackgroundContext;
     context.automaticallyMergesChangesFromParent = YES;
     kContexts[modelName] = context;
-    _context = [context retain];
+    [self->_context release];
+    self->_context = [context retain];
 }
 
 - (void)configureQueueWithModelName:(NSString *)modelName {
@@ -128,14 +129,16 @@ static NSMutableDictionary<NSString *, NSNumber *> * _Nullable kMigrateStatus = 
     }
     
     if (kOperationQueues[modelName]) {
-        _queue = [kOperationQueues[modelName] retain];
+        [self->_queue release];
+        self->_queue = [kOperationQueues[modelName] retain];
         return;
     }
     
     NSOperationQueue *queue = [NSOperationQueue new];
     queue.qualityOfService = NSQualityOfServiceUserInitiated;
     kOperationQueues[modelName] = queue;
-    _queue = [queue retain];
+    [self->_queue release];
+    self->_queue = [queue retain];
     [queue release];
 }
 
