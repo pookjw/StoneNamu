@@ -6,6 +6,7 @@
 //
 
 #import "PhotosService.h"
+#import <Photos/Photos.h>
 #import <StoneNamuCore/StoneNamuCore.h>
 #import "StoneNamuErrors.h"
 #import <StoneNamuResources/StoneNamuResources.h>
@@ -48,7 +49,7 @@
     [super dealloc];
 }
 
-- (void)saveImage:(UIImage *)image fromViewController:(UIViewController *)viewController completionHandler:(void (^)(BOOL, NSError * _Nonnull))completionHandler {
+- (void)saveImage:(UIImage *)image fromViewController:(UIViewController *)viewController completionHandler:(PhotosServiceSaveImageCompletion)completionHandler {
     [PHPhotoLibrary requestAuthorizationForAccessLevel:PHAccessLevelAddOnly handler:^(PHAuthorizationStatus status) {
         switch (status) {
             case PHAuthorizationStatusAuthorized:
@@ -64,7 +65,7 @@
     }];
 }
 
-- (void)saveImageURL:(NSURL *)url fromViewController:(UIViewController *)viewController completionHandler:(void (^)(BOOL, NSError * _Nonnull))completionHandler {
+- (void)saveImageURL:(NSURL *)url fromViewController:(UIViewController *)viewController completionHandler:(PhotosServiceSaveImageCompletion)completionHandler {
     
     NSString *identity = url.absoluteString;
     
@@ -84,7 +85,6 @@
                     completionHandler(NO, error);
                 } else if (data) {
                     [self.dataCacheUseCase makeDataCache:data identity:url.absoluteString completion:^{
-                        [self.dataCacheUseCase saveChanges];
                         UIImage *image = [UIImage imageWithData:data];
                         [self saveImage:image fromViewController:viewController completionHandler:completionHandler];
                     }];

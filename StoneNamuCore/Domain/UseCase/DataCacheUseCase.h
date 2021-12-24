@@ -21,7 +21,6 @@ static NSNotificationName const NSNotificationNameDataCacheUseCaseObserveData = 
 - (void)deleteAllDataCaches;
 - (void)fileSizeWithCompletion:(DataCacheUseCaseFileSizeWithCompletion)completion;
 - (void)makeDataCache:(NSData *)data identity:(NSString *)identity completion:(DataCacheUseCaseMakeWithCompletion)completion;
-- (void)saveChanges;
 @end
 
 NS_ASSUME_NONNULL_END

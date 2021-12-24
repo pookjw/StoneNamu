@@ -68,12 +68,9 @@
     [self.dataCacheRepository makeDataCacheWithCompletion:^(DataCache * _Nonnull dataCache) {
         dataCache.data = data;
         dataCache.identity = identity;
+        [self.dataCacheRepository saveChanges];
         completion();
     }];
-}
-
-- (void)saveChanges {
-    [self.dataCacheRepository saveChanges];
 }
 
 - (void)startObserving {

@@ -6,16 +6,17 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <Photos/Photos.h>
 
 NS_ASSUME_NONNULL_BEGIN
+
+typedef void (^PhotosServiceSaveImageCompletion)(BOOL success, NSError * _Nullable error);
 
 @interface PhotosService : NSObject
 @property (class, readonly, nonatomic) PhotosService *sharedInstance;
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
-- (void)saveImage:(UIImage *)image fromViewController:(UIViewController *)viewController completionHandler:(void (^)(BOOL success, NSError *error))completionHandler;
-- (void)saveImageURL:(NSURL *)url fromViewController:(UIViewController *)viewController completionHandler:(void (^)(BOOL success, NSError *error))completionHandler;
+- (void)saveImage:(UIImage *)image fromViewController:(UIViewController *)viewController completionHandler:(PhotosServiceSaveImageCompletion)completionHandler;
+- (void)saveImageURL:(NSURL *)url fromViewController:(UIViewController *)viewController completionHandler:(PhotosServiceSaveImageCompletion)completionHandler;
 @end
 
 NS_ASSUME_NONNULL_END

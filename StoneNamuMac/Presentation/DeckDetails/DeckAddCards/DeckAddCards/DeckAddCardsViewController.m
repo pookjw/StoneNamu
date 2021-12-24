@@ -52,6 +52,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
     [self removeObserver:self forKeyPath:@"self.view.window"];
     [_scrollView release];
     [_collectionView release];
+    [_collectionViewMenu release];
     [_viewModel release];
     [_deckAddCardOptionsMenu release];
     [_deckAddCardOptionsToolbar release];

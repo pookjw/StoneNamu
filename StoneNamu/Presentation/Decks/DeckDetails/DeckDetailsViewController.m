@@ -189,15 +189,17 @@
 - (void)saveDeckAsImage {
     [self addSpinnerView];
     
-    DeckImageRenderService *service = [DeckImageRenderService new];
-    [service imageFromLocalDeck:self.viewModel.localDeck completion:^(UIImage * _Nonnull image) {
+    DeckImageRenderService *renderService = [DeckImageRenderService new];
+    
+    [renderService imageFromLocalDeck:self.viewModel.localDeck completion:^(UIImage * _Nonnull image) {
         [PhotosService.sharedInstance saveImage:image fromViewController:self completionHandler:^(BOOL success, NSError * _Nonnull error) {
             [NSOperationQueue.mainQueue addOperationWithBlock:^{
                 [self removeAllSpinnerview];
-                [service release];
             }];
         }];
     }];
+    
+    [renderService release];
 }
 
 - (void)exportDeckCodeAndShare {

@@ -17,6 +17,9 @@
 #import "AppDelegate.h"
 #import "NSViewController+SpinnerView.h"
 #import "NSWindow+presentErrorAlert.h"
+#import "DeckImageRenderService.h"
+#import "HSCardSaveImageService.h"
+#import "PhotosService.h"
 #import <StoneNamuCore/StoneNamuCore.h>
 #import <StoneNamuResources/StoneNamuResources.h>
 
@@ -257,15 +260,25 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
 }
 
 - (void)saveAsImageItemTriggered:(NSMenuItem *)sender {
-    NSAlert *alert = [NSAlert new];
+    DeckImageRenderService *renderService = [DeckImageRenderService new];
     
-    alert.messageText = @"TODO";
-    
-    [alert beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse returnCode) {
-        
+    [renderService imageFromLocalDeck:self.viewModel.localDeck completion:^(NSImage * _Nonnull image) {
+        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+            PhotosService *photoService = [[PhotosService alloc] initWithImages:@{self.viewModel.localDeck.name: image}];
+            
+            [photoService beginSheetModalForWindow:self.view.window completion:^(BOOL success, NSError * _Nullable error) {
+                if (error != nil) {
+                    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+                        [self.view.window presentErrorAlertWithError:error];
+                    }];
+                }
+            }];
+            
+            return;
+        }];
     }];
     
-    [alert release];
+    [renderService release];
 }
 
 - (void)exportDeckCodeItemTriggered:(NSMenuItem *)sender {

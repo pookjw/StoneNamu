@@ -90,8 +90,6 @@ static NSString * const UIImageViewAsyncImageCategorySessionTaskKey = @"UIImageV
                     completion(nil, error);
                 } else if (data) {
                     [self.dataCacheUseCase makeDataCache:data identity:url.absoluteString completion:^{
-                        [self.dataCacheUseCase saveChanges];
-                        
                         if ([self.currentURL isEqual:url]) {
                             UIImage *image = [UIImage imageWithData:data];
                             [NSOperationQueue.mainQueue addOperationWithBlock:^{

@@ -16,8 +16,7 @@ typedef void (^HSCardSaveImageServiceSheetCompletion)(BOOL success, NSError * _N
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithHSCards:(NSSet<HSCard *> *)hsCards;
-- (void)beginSheetModalForWindow:(NSWindow * _Nullable)window
-completion:(HSCardSaveImageServiceSheetCompletion)completion;
+- (void)beginSheetModalForWindow:(NSWindow * _Nullable)window completion:(HSCardSaveImageServiceSheetCompletion)completion;
 @end
 
 NS_ASSUME_NONNULL_END

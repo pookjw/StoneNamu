@@ -13,7 +13,6 @@
 #import "DeckImageRenderServiceAboutContentConfiguration.h"
 #import "DeckImageRenderServiceAppNameContentConfiguration.h"
 #import "IntrinsicCollectionView.h"
-#import <StoneNamuCore/StoneNamuCore.h>
 
 @interface DeckImageRenderService ()
 @property (retain) IntrinsicCollectionView *collectionView;
