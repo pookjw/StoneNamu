@@ -452,11 +452,22 @@
                                                            image:[UIImage systemImageNamed:@"square.and.arrow.down"]
                                                       identifier:nil
                                                          handler:^(__kindof UIAction * _Nonnull action) {
-                    [PhotosService.sharedInstance saveImageURL:itemModel.childHSCard.image fromViewController:self completionHandler:^(BOOL success, NSError * _Nonnull error) {}];
+                    PhotosService *photosService = [[PhotosService alloc] initWithHSCards:[NSSet setWithObject:itemModel.childHSCard]];
+                    [photosService beginSavingFromViewController:self completion:^(BOOL success, NSError * _Nullable error) {}];
+                    [photosService release];
+                }];
+                
+                UIAction *shareAction = [UIAction actionWithTitle:[ResourcesService localizationForKey:LocalizableKeyShare]
+                                                            image:[UIImage systemImageNamed:@"square.and.arrow.up"]
+                                                       identifier:nil
+                                                          handler:^(__kindof UIAction * _Nonnull action) {
+                    PhotosService *photosService = [[PhotosService alloc] initWithHSCards:[NSSet setWithObject:itemModel.childHSCard]];
+                    [photosService beginSharingFromViewController:self completion:^(BOOL success, NSError * _Nullable error) {}];
+                    [photosService release];
                 }];
                 
                 UIMenu *menu = [UIMenu menuWithTitle:itemModel.childHSCard.name
-                                            children:@[saveAction]];
+                                            children:@[saveAction, shareAction]];
                 
                 return menu;
             }];
@@ -563,11 +574,22 @@
                                                    image:[UIImage systemImageNamed:@"square.and.arrow.down"]
                                               identifier:nil
                                                  handler:^(__kindof UIAction * _Nonnull action) {
-            [PhotosService.sharedInstance saveImageURL:self.hsCard.image fromViewController:self completionHandler:^(BOOL success, NSError * _Nonnull error) {}];
+            PhotosService *photosService = [[PhotosService alloc] initWithHSCards:[NSSet setWithObject:self.hsCard]];
+            [photosService beginSavingFromViewController:self completion:^(BOOL success, NSError * _Nullable error) {}];
+            [photosService release];
+        }];
+        
+        UIAction *shareAction = [UIAction actionWithTitle:[ResourcesService localizationForKey:LocalizableKeyShare]
+                                                    image:[UIImage systemImageNamed:@"square.and.arrow.up"]
+                                               identifier:nil
+                                                  handler:^(__kindof UIAction * _Nonnull action) {
+            PhotosService *photosService = [[PhotosService alloc] initWithHSCards:[NSSet setWithObject:self.hsCard]];
+            [photosService beginSharingFromViewController:self completion:^(BOOL success, NSError * _Nullable error) {}];
+            [photosService release];
         }];
         
         UIMenu *menu = [UIMenu menuWithTitle:self.hsCard.name
-                                    children:@[saveAction]];
+                                    children:@[saveAction, shareAction]];
         
         return menu;
     }];

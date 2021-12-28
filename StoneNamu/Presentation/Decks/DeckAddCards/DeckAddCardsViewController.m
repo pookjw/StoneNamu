@@ -10,7 +10,6 @@
 #import "DeckAddCardContentConfiguration.h"
 #import "DeckAddCardContentView.h"
 #import "DeckAddCardCollectionViewLayout.h"
-#import "PhotosService.h"
 #import "DeckAddCardOptionsViewController.h"
 #import "CardOptionsViewControllerDelegate.h"
 #import "SheetNavigationController.h"

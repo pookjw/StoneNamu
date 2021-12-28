@@ -13,8 +13,8 @@
 #import <StoneNamuResources/StoneNamuResources.h>
 
 @interface PhotosService () <NSOpenSavePanelDelegate>
-@property (copy) NSDictionary<NSString *,NSImage *> * _Nullable images;
-@property (copy) NSDictionary<NSString *,NSURL *> * _Nullable urls;
+@property (copy) NSDictionary<NSString *, NSImage *> * _Nullable images;
+@property (copy) NSDictionary<NSString *, NSURL *> * _Nullable urls;
 @property (retain) NSSavePanel *panel;
 @property (retain) id<DataCacheUseCase> dataCacheUseCase;
 @property (retain) NSOperationQueue *queue;
@@ -47,7 +47,6 @@
     
     if (self) {
         self.images = images;
-        [self configurePanelWithNames:images.allKeys];
     }
     
     return self;
@@ -58,8 +57,20 @@
     
     if (self) {
         self.urls = urls;
-        [self configurePanelWithNames:urls.allKeys];
     }
+    
+    return self;
+}
+
+- (instancetype)initWithHSCards:(NSSet<HSCard *> *)hsCards {
+    NSMutableDictionary<NSString *, NSURL *> *urls = [@{} mutableCopy];
+    
+    [hsCards enumerateObjectsUsingBlock:^(HSCard * _Nonnull obj, BOOL * _Nonnull stop) {
+        urls[obj.name] = obj.image;
+    }];
+    
+    self = [self initWithURLs:urls];
+    [urls release];
     
     return self;
 }
@@ -73,7 +84,7 @@
     [super dealloc];
 }
 
-- (void)beginSheetModalForWindow:(NSWindow *)window completion:(PhotosServiceSaveImageCompletion)completion {
+- (void)beginSheetModalForWindow:(NSWindow *)window completion:(PhotosServiceCompletion)completion {
     void (^handler)(NSModalResponse) = ^(NSModalResponse response) {
         switch (response) {
             case NSModalResponseOK: {
@@ -87,12 +98,15 @@
                 //
                 
                 NSURL * _Nullable url;
+                NSString * _Nullable inputName;
                 
                 if ([self.panel isKindOfClass:[NSOpenPanel class]]) {
                     NSOpenPanel *openPanel = (NSOpenPanel *)self.panel;
                     url = openPanel.URLs.firstObject;
+                    inputName = nil;
                 } else {
                     url = [self.panel.URL URLByDeletingLastPathComponent];
+                    inputName = self.panel.URL.lastPathComponent;
                 }
                 
                 if (url == nil) {
@@ -102,45 +116,33 @@
                 
                 //
                 
-                NSMutableDictionary<NSString *, NSImage *> * _Nullable images = nil;
-                NSMutableDictionary<NSString *, NSURL *> * _Nullable urls = nil;
-                
                 if (self.images != nil) {
-                    images = [[@{} mutableCopy] autorelease];
-                    
-                    [self.images enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSImage * _Nonnull obj, BOOL * _Nonnull stop) {
-                        NSString *name = [NSString stringWithFormat:@"%@.%@", key, selectedType.preferredFilenameExtension];
-                        images[name] = obj;
+                    [self saveImages:self.images toURL:url desiredName:inputName contentType:selectedType completion:completion];
+                } else if (self.urls != nil) {
+                    [self imagesFromURLs:self.urls completion:^(NSDictionary<NSString *, NSImage *> * _Nullable images, NSError * _Nullable error) {
+                        if (error != nil) {
+                            completion(NO, error);
+                            return;
+                        }
+                        
+                        self.images = images;
+                        [self saveImages:self.images toURL:url desiredName:inputName contentType:selectedType completion:completion];
                     }];
-                }
-                
-                if (self.urls != nil) {
-                    urls = [[@{} mutableCopy] autorelease];
-                    
-                    [self.urls enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSURL * _Nonnull obj, BOOL * _Nonnull stop) {
-                        NSString *name = [NSString stringWithFormat:@"%@.%@", key, selectedType.preferredFilenameExtension];
-                        urls[name] = obj;
-                    }];
-                }
-                
-                //
-                
-                if (images != nil) {
-                    [self saveImages:images toURL:url contentType:selectedType completion:completion];
-                } else if (urls != nil) {
-                    [self saveImagesFromURLs:urls toURL:url contentType:selectedType completion:completion];
                 } else {
                     completion(NO, nil);
+                    return;
                 }
                 
                 break;
             }
             default: {
                 completion(NO, nil);
-                break;
+                return;
             }
         }
     };
+    
+    [self configurePanel];
     
     if (window == nil) {
         [self.panel beginWithCompletionHandler:handler];
@@ -149,13 +151,35 @@
     }
 }
 
-- (void)saveImages:(NSDictionary<NSString *, NSImage *> *)images toURL:(NSURL *)url contentType:(UTType *)contentType completion:(PhotosServiceSaveImageCompletion)completion {
+- (void)beginSharingServiceOfView:(NSView *)view {
+    [self.queue addBarrierBlock:^{
+        if (self.images != nil) {
+            [self shareImages:self.images.allValues ofView:view];
+        } else if (self.urls != nil) {
+            [self imagesFromURLs:self.urls completion:^(NSDictionary<NSString *, NSImage *> * _Nullable images, NSError * _Nullable error) {
+                self.images = images;
+                [self shareImages:images.allValues ofView:view];
+            }];
+        } else {
+            
+        }
+    }];
+}
+
+- (void)saveImages:(NSDictionary<NSString *, NSImage *> *)images toURL:(NSURL *)url desiredName:(NSString * _Nullable)desiredName contentType:(UTType *)contentType completion:(PhotosServiceCompletion)completion {
     [self.queue addBarrierBlock:^{
         NSError * __block _Nullable writeError = nil;
         
         [images enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSImage * _Nonnull obj, BOOL * _Nonnull stop) {
             NSData *imageData = [obj dataUsingUniformType:contentType];
-            NSURL *_url = [url URLByAppendingPathComponent:key];
+            NSURL *_url;
+            
+            if (desiredName != nil) {
+                _url = [url URLByAppendingPathComponent:desiredName];
+            } else {
+                _url = [[url URLByAppendingPathComponent:key] URLByAppendingPathExtension:contentType.preferredFilenameExtension];
+            }
+            
             NSError * _Nullable error = nil;
             
             [imageData writeToURL:_url options:0 error:&error];
@@ -170,7 +194,15 @@
     }];
 }
 
-- (void)saveImagesFromURLs:(NSDictionary<NSString *, NSURL *> *)urls toURL:(NSURL *)url contentType:(UTType *)contentType completion:(PhotosServiceSaveImageCompletion)completion {
+- (void)shareImages:(NSArray<NSImage *> *)images ofView:(NSView *)view {
+    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+        NSSharingServicePicker *picker = [[NSSharingServicePicker alloc] initWithItems:images];
+        [picker showRelativeToRect:NSZeroRect ofView:view preferredEdge:NSRectEdgeMinX];
+        [picker release];
+    }];
+}
+
+- (void)imagesFromURLs:(NSDictionary<NSString *, NSURL *> *)urls completion:(void (^)(NSDictionary<NSString *, NSImage *> * _Nullable images, NSError * _Nullable error))completion {
     [self.queue addBarrierBlock:^{
         SemaphoreCondition *semaphore = [[SemaphoreCondition alloc] initWithValue:-((NSInteger)self.urls.count) + 1];
         NSMutableDictionary<NSString *, NSData *> *results = [@{} mutableCopy];
@@ -244,22 +276,35 @@
         
         if (writeError != nil) {
             [images release];
-            completion(NO, [writeError autorelease]);
+            completion(nil, [writeError autorelease]);
+            return;
         } else {
-            [self saveImages:[images autorelease]
-                       toURL:url
-                 contentType:contentType
-                  completion:completion];
+            completion([images autorelease], nil);
+            return;
         }
     }];
 }
 
-- (void)configurePanelWithNames:(NSArray<NSString *> *)names {
+- (void)configurePanel {
+    NSUInteger itemCount;
+    NSString * _Nullable name;
+    
+    if (self.images != nil) {
+        itemCount = self.images.count;
+        name = self.images.allKeys.firstObject;
+    } else if (self.urls != nil) {
+        itemCount = self.urls.count;
+        name = self.urls.allKeys.firstObject;
+    } else {
+        itemCount = 0;
+        name = nil;
+    }
+    
     NSSavePanel *panel;
     
-    if (names.count == 1) {
+    if (itemCount == 1) {
         NSSavePanel *savePanel = [NSSavePanel savePanel];
-        savePanel.nameFieldStringValue = names.firstObject;
+        savePanel.nameFieldStringValue = name;
         savePanel.allowsOtherFileTypes = YES;
         
         panel = savePanel;

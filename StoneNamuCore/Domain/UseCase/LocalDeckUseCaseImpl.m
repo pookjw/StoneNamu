@@ -191,12 +191,10 @@
 }
 
 - (void)increaseHSCards:(NSSet<HSCard *> *)hsCards toLocalDeck:(LocalDeck *)localDeck validation:(LocalDeckUseCaseFetchWithValidation)validation {
-    NSSet<HSCard *> *copyHSCards = [hsCards copy];
-    
     [self.localDeckRepository.queue addBarrierBlock:^{
         NSArray<HSCard *> *localDeckHSCards = localDeck.hsCards;
         
-        for (HSCard *hsCard in copyHSCards) {
+        for (HSCard *hsCard in hsCards) {
             NSUInteger countOfContaining = 0;
             
             for (HSCard *tmp in localDeckHSCards) {
@@ -208,24 +206,21 @@
             if ((hsCard.rarityId == HSCardRarityLegendary) && countOfContaining >= HSDECK_MAX_SINGLE_LEGENDARY_CARD) {
                 NSError *error = [StoneNamuError errorWithErrorType:StoneNamuErrorTypeCannotAddSingleLegendaryCardMoreThanOne];
                 validation(error);
-                [copyHSCards release];
                 return;
             }
             
             if (countOfContaining >= HSDECK_MAX_SINGLE_CARD) {
                 NSError *error = [StoneNamuError errorWithErrorType:StoneNamuErrorTypeCannotAddSingleCardMoreThanTwo];
                 validation(error);
-                [copyHSCards release];
                 return;
             }
         }
         
         //
         
-        if ((localDeckHSCards.count + copyHSCards.count) > HSDECK_MAX_TOTAL_CARDS) {
+        if ((localDeckHSCards.count + hsCards.count) > HSDECK_MAX_TOTAL_CARDS) {
             NSError *error = [StoneNamuError errorWithErrorType:StoneNamuErrorTypeCannotAddNoMoreThanThirtyCards];
             validation(error);
-            [copyHSCards release];
             return;
         }
         
@@ -233,8 +228,7 @@
         validation(nil);
         
         NSMutableArray<HSCard *> *mutableLocalDeckHSCards = [localDeckHSCards mutableCopy];
-        [mutableLocalDeckHSCards addObjectsFromArray:copyHSCards.allObjects];
-        [copyHSCards release];
+        [mutableLocalDeckHSCards addObjectsFromArray:hsCards.allObjects];
         localDeck.hsCards = mutableLocalDeckHSCards;
         [mutableLocalDeckHSCards release];
         localDeck.deckCode = nil;
@@ -244,17 +238,14 @@
 }
 
 - (void)decreaseHSCards:(NSSet<HSCard *> *)hsCards toLocalDeck:(LocalDeck *)localDeck validation:(LocalDeckUseCaseFetchWithValidation)validation {
-    NSSet<HSCard *> *copyHSCards = [hsCards copy];
-    
     [self.localDeckRepository.queue addBarrierBlock:^{
         validation(nil);
         
         NSMutableArray<HSCard *> *mutableLocalDeckHSCards = [localDeck.hsCards mutableCopy];
         
-        for (HSCard *hsCard in copyHSCards) {
+        for (HSCard *hsCard in hsCards) {
             [mutableLocalDeckHSCards removeSingleObject:hsCard];
         }
-        [copyHSCards release];
         
         localDeck.hsCards = mutableLocalDeckHSCards;
         [mutableLocalDeckHSCards release];

@@ -15,8 +15,8 @@
 #import "CardOptionsTouchBar.h"
 #import "AppDelegate.h"
 #import "HSCardPromiseProvider.h"
-#import "HSCardSaveImageService.h"
 #import "ClickableCollectionView.h"
+#import "PhotosService.h"
 #import <StoneNamuCore/StoneNamuCore.h>
 #import <StoneNamuResources/StoneNamuResources.h>
 
@@ -193,7 +193,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardColl
         if (hsCards.count == 0) return;
         
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
-            HSCardSaveImageService *service = [[HSCardSaveImageService alloc] initWithHSCards:hsCards];
+            PhotosService *service = [[PhotosService alloc] initWithHSCards:hsCards];
             
             [service beginSheetModalForWindow:self.view.window completion:^(BOOL success, NSError * _Nullable error) {
                 if (error != nil) {
@@ -203,6 +203,26 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardColl
                 }
             }];
             
+            [service release];
+        }];
+    }];
+}
+
+- (void)shareImageItemTriggered:(NSMenuItem *)sender {
+    NSSet<NSIndexPath *> *interactingIndexPaths = self.collectionView.interactingIndexPaths;
+    
+    [self.viewModel hsCardsFromIndexPathsWithCompletion:interactingIndexPaths completion:^(NSSet<HSCard *> * _Nonnull hsCards) {
+        if (hsCards.count == 0) return;
+        
+        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+            NSView * _Nullable fromView = [self.collectionView itemAtIndexPath:interactingIndexPaths.allObjects.lastObject].view;
+            
+            if (fromView == nil) {
+                fromView = self.view;
+            }
+            
+            PhotosService *service = [[PhotosService alloc] initWithHSCards:hsCards];
+            [service beginSharingServiceOfView:fromView];
             [service release];
         }];
     }];
@@ -397,7 +417,13 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardColl
             saveImageItem.image = [NSImage imageWithSystemSymbolName:@"square.and.arrow.down" accessibilityDescription:nil];
             saveImageItem.target = self;
             
-            menu.itemArray = @[showDetailItem, saveImageItem];
+            NSMenuItem *shareImageItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyShare]
+                                                                    action:@selector(shareImageItemTriggered:)
+                                                             keyEquivalent:@""];
+            shareImageItem.image = [NSImage imageWithSystemSymbolName:@"square.and.arrow.up" accessibilityDescription:nil];
+            shareImageItem.target = self;
+            
+            menu.itemArray = @[showDetailItem, saveImageItem, shareImageItem];
             
             [showDetailItem release];
             [saveImageItem release];

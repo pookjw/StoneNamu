@@ -7,7 +7,7 @@
 
 #import "HSCardSavableImageView.h"
 #import "HSCardPromiseProvider.h"
-#import "HSCardSaveImageService.h"
+#import "PhotosService.h"
 #import "NSWindow+presentErrorAlert.h"
 #import <StoneNamuResources/StoneNamuResources.h>
 
@@ -64,7 +64,7 @@
 }
 
 - (void)saveItemTriggered:(NSMenuItem *)sender {
-    HSCardSaveImageService *service = [[HSCardSaveImageService alloc] initWithHSCards:[NSSet setWithObject:self.hsCard]];
+    PhotosService *service = [[PhotosService alloc] initWithHSCards:[NSSet setWithObject:self.hsCard]];
     
     [service beginSheetModalForWindow:self.window completion:^(BOOL success, NSError * _Nullable error) {
         if (error != nil) {

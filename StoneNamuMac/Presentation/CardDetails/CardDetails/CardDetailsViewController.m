@@ -9,13 +9,14 @@
 #import "CardDetailsViewModel.h"
 #import "NSTextField+setLabelStyle.h"
 #import "NSImageView+setAsyncImage.h"
+#import "NSWindow+presentErrorAlert.h"
 #import "CardDetailsBaseCollectionViewItem.h"
 #import "CardDetailsChildCollectionViewItem.h"
 #import "CardDetailsCollectionViewLayout.h"
 #import "NSViewController+SpinnerView.h"
 #import "HSCardSavableImageView.h"
 #import "HSCardPromiseProvider.h"
-#import "HSCardSaveImageService.h"
+#import "PhotosService.h"
 #import "ClickableCollectionView.h"
 #import "AppDelegate.h"
 #import <StoneNamuResources/StoneNamuResources.h>
@@ -263,12 +264,34 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeta
     
     [self.viewModel hsCardsFromIndexPaths:interactingIndexPaths completion:^(NSSet<HSCard *> * _Nonnull hsCards) {
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
-            HSCardSaveImageService *service = [[HSCardSaveImageService alloc] initWithHSCards:hsCards];
+            PhotosService *service = [[PhotosService alloc] initWithHSCards:hsCards];
             
             [service beginSheetModalForWindow:self.view.window completion:^(BOOL success, NSError * _Nullable error) {
-                
+                if (error != nil) {
+                    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+                        [self.view.window presentErrorAlertWithError:error];
+                    }];
+                }
             }];
             
+            [service release];
+        }];
+    }];
+}
+
+- (void)shareImageItemTriggered:(NSMenuItem *)sender {
+    NSSet<NSIndexPath *> *interactingIndexPaths = self.collectionView.interactingIndexPaths;
+    
+    [self.viewModel hsCardsFromIndexPaths:interactingIndexPaths completion:^(NSSet<HSCard *> * _Nonnull hsCards) {
+        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+            NSView * _Nullable fromView = [self.collectionView itemAtIndexPath:interactingIndexPaths.allObjects.lastObject].view;
+            
+            if (fromView == nil) {
+                fromView = self.view;
+            }
+            
+            PhotosService *service = [[PhotosService alloc] initWithHSCards:hsCards];
+            [service beginSharingServiceOfView:fromView];
             [service release];
         }];
     }];
@@ -335,7 +358,13 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeta
             saveImageItem.image = [NSImage imageWithSystemSymbolName:@"square.and.arrow.down" accessibilityDescription:nil];
             saveImageItem.target = self;
             
-            menu.itemArray = @[saveImageItem];
+            NSMenuItem *shareImageItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyShare]
+                                                                    action:@selector(shareImageItemTriggered:)
+                                                             keyEquivalent:@""];
+            shareImageItem.image = [NSImage imageWithSystemSymbolName:@"square.and.arrow.up" accessibilityDescription:nil];
+            shareImageItem.target = self;
+            
+            menu.itemArray = @[saveImageItem, shareImageItem];
             
             [saveImageItem release];
         } else {

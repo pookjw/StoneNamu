@@ -10,7 +10,7 @@
 
 void writeImageKeys(void) {
     NSFileManager *fileManager = [NSFileManager new];
-    NSURL *currentDirectoryURL = [NSURL URLWithString:[NSString stringWithFormat:@"file://%@", fileManager.currentDirectoryPath]];
+    NSURL *currentDirectoryURL = [NSURL fileURLWithPath:fileManager.currentDirectoryPath isDirectory:YES];
     NSURL *resourcesFrameworkURL = [currentDirectoryURL URLByAppendingPathComponent:@"StoneNamuResources" isDirectory:YES];
     NSURL *assetsURL = [[resourcesFrameworkURL URLByAppendingPathComponent:@"Assets" isDirectory:YES] URLByAppendingPathExtension:@"xcassets"];
     NSURL *imageKeyURL = [[resourcesFrameworkURL URLByAppendingPathComponent:@"ImageKey" isDirectory:NO] URLByAppendingPathExtension:@"h"];
@@ -81,7 +81,7 @@ void writeImageKeys(void) {
 
 void writeLocalizableKeys(void) {
     NSFileManager *fileManager = [NSFileManager new];
-    NSURL *currentDirectoryURL = [NSURL URLWithString:[NSString stringWithFormat:@"file://%@", fileManager.currentDirectoryPath]];
+    NSURL *currentDirectoryURL = [NSURL fileURLWithPath:fileManager.currentDirectoryPath isDirectory:YES];
     NSURL *resourcesFrameworkURL = [currentDirectoryURL URLByAppendingPathComponent:@"StoneNamuResources" isDirectory:YES];
     NSURL *localizableStringsURL = [[[[resourcesFrameworkURL URLByAppendingPathComponent:@"Localizables" isDirectory:YES] URLByAppendingPathComponent:@"en.lproj" isDirectory:YES] URLByAppendingPathComponent:@"Localizable" isDirectory:NO] URLByAppendingPathExtension:@"strings"];
     NSURL *localizableKeyURL = [[resourcesFrameworkURL URLByAppendingPathComponent:@"LocalizableKey" isDirectory:NO] URLByAppendingPathExtension:@"h"];

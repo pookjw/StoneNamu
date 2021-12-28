@@ -6,96 +6,141 @@
 //
 
 #import "PhotosService.h"
+#import "StoneNamuErrors.h"
 #import <Photos/Photos.h>
 #import <StoneNamuCore/StoneNamuCore.h>
-#import "StoneNamuErrors.h"
+#import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
 #import <StoneNamuResources/StoneNamuResources.h>
 
-@interface PhotosService ()
+@interface PhotosService () <UIActivityItemsConfigurationReading>
+@property (copy) NSDictionary<NSString *, UIImage *> * _Nullable images;
+@property (copy) NSDictionary<NSString *, NSURL *> * _Nullable urls;
+@property (copy) NSDictionary<NSString *, NSURL *> * _Nullable localURLs;
 @property (retain) PHPhotoLibrary *phPhotoLibrary;
 @property (retain) id<DataCacheUseCase> _Nullable dataCacheUseCase;
+@property (retain) NSOperationQueue *queue;
 @end
 
 @implementation PhotosService
-
-+ (PhotosService *)sharedInstance {
-    static PhotosService *sharedInstance = nil;
-    static dispatch_once_t onceToken;
-    
-    dispatch_once(&onceToken, ^{
-        sharedInstance = [PhotosService new];
-    });
-    
-    return sharedInstance;
-}
 
 - (instancetype)init {
     self = [super init];
     
     if (self) {
+        self.images = nil;
+        self.urls = nil;
+        
         self.phPhotoLibrary = PHPhotoLibrary.sharedPhotoLibrary;
         
         DataCacheUseCaseImpl *dataCacheUseCase = [DataCacheUseCaseImpl new];
         self.dataCacheUseCase = dataCacheUseCase;
         [dataCacheUseCase release];
+        
+        NSOperationQueue *queue = [NSOperationQueue new];
+        queue.qualityOfService = NSQualityOfServiceUserInitiated;
+        self.queue = queue;
+        [queue release];
     }
     
     return self;
 }
 
+- (instancetype)initWithImages:(NSDictionary<NSString *,UIImage *> *)images {
+    self = [self init];
+    
+    if (self) {
+        self.images = images;
+    }
+    
+    return self;
+}
+
+- (instancetype)initWithURLs:(NSDictionary<NSString *,NSURL *> *)urls {
+    self = [self init];
+    
+    if (self) {
+        self.urls = urls;
+    }
+    
+    return self;
+}
+
+- (instancetype)initWithHSCards:(NSSet<HSCard *> *)hsCards {
+    NSMutableDictionary<NSString *, NSURL *> *urls = [@{} mutableCopy];
+    
+    [hsCards enumerateObjectsUsingBlock:^(HSCard * _Nonnull obj, BOOL * _Nonnull stop) {
+        urls[obj.name] = obj.image;
+    }];
+    
+    self = [self initWithURLs:urls];
+    [urls release];
+    
+    return self;
+}
+
 - (void)dealloc {
-    [_phPhotoLibrary release];
+    [_images release];
+    [_urls release];
+    [_localURLs release];
     [_dataCacheUseCase release];
+    [_queue release];
     [super dealloc];
 }
 
-- (void)saveImage:(UIImage *)image fromViewController:(UIViewController *)viewController completionHandler:(PhotosServiceSaveImageCompletion)completionHandler {
-    [PHPhotoLibrary requestAuthorizationForAccessLevel:PHAccessLevelAddOnly handler:^(PHAuthorizationStatus status) {
-        switch (status) {
-            case PHAuthorizationStatusAuthorized:
-                [self.phPhotoLibrary performChanges:^{
-                    [PHAssetChangeRequest creationRequestForAssetFromImage:image];
-                }
-                                  completionHandler:completionHandler];
-                break;
-            default:
-                [self askPopupAndOpenAppSettingsFromViewController:viewController];
-                break;
+- (void)beginSavingFromViewController:(UIViewController *)viewController completion:(PhotosServiceCompletion)completion {
+    [self.queue addBarrierBlock:^{
+        if (self.images != nil) {
+            [self saveImages:self.images.allValues fromViewController:viewController completionHandler:completion];
+        } else if (self.urls != nil) {
+            [self imagesFromURLs:self.urls completion:^(NSDictionary<NSString *,UIImage *> * _Nullable images, NSError * _Nullable error) {
+                self.images = images;
+                [self saveImages:images.allValues fromViewController:viewController completionHandler:completion];
+            }];
+        } else {
+            completion(NO, nil);
         }
     }];
 }
 
-- (void)saveImageURL:(NSURL *)url fromViewController:(UIViewController *)viewController completionHandler:(PhotosServiceSaveImageCompletion)completionHandler {
-    
-    NSString *identity = url.absoluteString;
-    
-    [self.dataCacheUseCase dataCachesWithIdentity:identity completion:^(NSArray<NSData *> * _Nullable cachedDatas, NSError * _Nullable error) {
-        
-        NSData * _Nullable cachedData = cachedDatas.lastObject;
-        
-        if (cachedData) {
-            UIImage *image = [UIImage imageWithData:cachedData];
-            [self saveImage:image fromViewController:viewController completionHandler:completionHandler];
-        } else {
-            NSURLSession *session = [NSURLSession sessionWithConfiguration:NSURLSessionConfiguration.ephemeralSessionConfiguration];
-            
-            NSURLSessionTask *sessionTask = [session dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-                
-                if (error) {
-                    completionHandler(NO, error);
-                } else if (data) {
-                    [self.dataCacheUseCase makeDataCache:data identity:url.absoluteString completion:^{
-                        UIImage *image = [UIImage imageWithData:data];
-                        [self saveImage:image fromViewController:viewController completionHandler:completionHandler];
-                    }];
-                } else {
-                    NSError *error = DataCorruptionError();
-                    completionHandler(NO, error);
-                }
+- (void)beginSharingFromViewController:(UIViewController *)viewController completion:(nonnull PhotosServiceCompletion)completion {
+    [self.queue addBarrierBlock:^{
+        if (self.images != nil) {
+            [self shareImages:self.images fromViewController:viewController completion:completion];
+        } else if (self.urls != nil) {
+            [self imagesFromURLs:self.urls completion:^(NSDictionary<NSString *,UIImage *> * _Nullable images, NSError * _Nullable error) {
+                self.images = images;
+                [self shareImages:images fromViewController:viewController completion:completion];
             }];
-            
-            [sessionTask resume];
         }
+    }];
+}
+
+- (void)saveImages:(NSArray<UIImage *> *)images fromViewController:(UIViewController *)viewController completionHandler:(PhotosServiceCompletion)completionHandler {
+    [images enumerateObjectsUsingBlock:^(UIImage * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [PHPhotoLibrary requestAuthorizationForAccessLevel:PHAccessLevelAddOnly handler:^(PHAuthorizationStatus status) {
+            switch (status) {
+                case PHAuthorizationStatusAuthorized:
+                    [self.phPhotoLibrary performChanges:^{
+                        [PHAssetChangeRequest creationRequestForAssetFromImage:obj];
+                    }
+                                      completionHandler:^(BOOL success, NSError * _Nullable error) {
+                        if ((!success) || (error != nil)) {
+                            completionHandler(success, error);
+                            *stop = YES;
+                            return;
+                        }
+                        
+                        if (idx == (images.count - 1)) {
+                            completionHandler(YES, nil);
+                            return;
+                        }
+                    }];
+                    break;
+                default:
+                    [self askPopupAndOpenAppSettingsFromViewController:viewController];
+                    break;
+            }
+        }];
     }];
 }
 
@@ -131,6 +176,127 @@
             [UIApplication.sharedApplication openURL:url options:@{} completionHandler:^(BOOL success) {}];
         }
     }
+}
+
+- (void)shareImages:(NSDictionary<NSString *, UIImage *> *)images fromViewController:(UIViewController *)viewController completion:(PhotosServiceCompletion)completion {
+    NSURL *tmpURL = NSFileManager.defaultManager.temporaryDirectory;
+    NSMutableDictionary<NSString *, NSURL *> *localURLs = [@{} mutableCopy];
+    
+    [images enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, UIImage * _Nonnull obj, BOOL * _Nonnull stop) {
+        NSURL *targetURL = [[tmpURL URLByAppendingPathComponent:key] URLByAppendingPathExtension:UTTypePNG.preferredFilenameExtension];
+        NSData *data = UIImagePNGRepresentation(obj);
+        [data writeToURL:targetURL atomically:YES];
+        localURLs[key] = targetURL;
+    }];
+    
+    self.localURLs = localURLs;
+    [localURLs release];
+    
+    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+        UIActivityViewController *vc = [[UIActivityViewController alloc] initWithActivityItemsConfiguration:self];
+        vc.completionWithItemsHandler = ^(UIActivityType __nullable activityType, BOOL completed, NSArray * __nullable returnedItems, NSError * __nullable activityError) {
+            completion(completed, activityError);
+        };
+        [viewController presentViewController:vc animated:YES completion:^{}];
+        [vc release];
+    }];
+}
+
+- (void)imagesFromURLs:(NSDictionary<NSString *, NSURL *> *)urls completion:(void (^)(NSDictionary<NSString *, UIImage *> * _Nullable images, NSError * _Nullable error))completion {
+    [self.queue addBarrierBlock:^{
+        SemaphoreCondition *semaphore = [[SemaphoreCondition alloc] initWithValue:-((NSInteger)self.urls.count) + 1];
+        NSMutableDictionary<NSString *, NSData *> *results = [@{} mutableCopy];
+        NSError * __block _Nullable writeError = nil;
+        
+        [urls enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSURL * _Nonnull obj, BOOL * _Nonnull stop) {
+            if (writeError != nil) {
+                *stop = YES;
+                [semaphore signal];
+                return;
+            }
+            
+            [self.dataCacheUseCase dataCachesWithIdentity:obj.absoluteString completion:^(NSArray<NSData *> * _Nullable datas, NSError * _Nullable error) {
+                if (writeError != nil) {
+                    [semaphore signal];
+                    return;
+                }
+                
+                NSData * _Nullable data = datas.firstObject;
+                
+                if (data == nil) {
+                    NSURLSession *session = [NSURLSession sessionWithConfiguration:NSURLSessionConfiguration.ephemeralSessionConfiguration];
+                    
+                    NSURLSessionTask *sessionTask = [session dataTaskWithURL:obj completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+                        if (writeError != nil) {
+                            [semaphore signal];
+                            return;
+                        }
+                        
+                        if (error != nil) {
+                            writeError = [error copy];
+                            [semaphore signal];
+                            return;
+                        }
+                        
+                        [self.dataCacheUseCase makeDataCache:data identity:obj.absoluteString completion:^{
+                            if (writeError != nil) {
+                                [semaphore signal];
+                                return;
+                            }
+                            
+                            results[key] = data;
+                            [semaphore signal];
+                        }];
+                    }];
+                    
+                    [sessionTask resume];
+                } else {
+                    results[key] = data;
+                    [semaphore signal];
+                }
+            }];
+        }];
+        
+        [semaphore wait];
+        [semaphore release];
+        
+        //
+        
+        NSMutableDictionary<NSString *, UIImage *> *images = [@{} mutableCopy];
+        
+        [results enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSData * _Nonnull obj, BOOL * _Nonnull stop) {
+            UIImage *image = [[UIImage alloc] initWithData:obj];
+            images[key] = image;
+            [image release];
+        }];
+        
+        [results release];
+        
+        //
+        
+        if (writeError != nil) {
+            [images release];
+            completion(nil, [writeError autorelease]);
+            return;
+        } else {
+            completion([images autorelease], nil);
+            return;
+        }
+    }];
+}
+
+#pragma mark - UIActivityItemsConfigurationReading
+
+- (NSArray<NSItemProvider *> *)itemProvidersForActivityItemsConfiguration {
+    NSMutableArray<NSItemProvider *> *itemProvicers = [@[] mutableCopy];
+    
+    [self.localURLs enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSURL * _Nonnull obj, BOOL * _Nonnull stop) {
+        NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithContentsOfURL:obj];
+        [itemProvicers addObject:itemProvider];
+        [itemProvider release];
+    }];
+    
+    return itemProvicers;
 }
 
 @end

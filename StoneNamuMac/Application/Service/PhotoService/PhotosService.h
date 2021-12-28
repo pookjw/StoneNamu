@@ -6,17 +6,20 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import <StoneNamuCore/StoneNamuCore.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef void (^PhotosServiceSaveImageCompletion)(BOOL success, NSError * _Nullable error);
+typedef void (^PhotosServiceCompletion)(BOOL success, NSError * _Nullable error);
 
 @interface PhotosService : NSObject
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithImages:(NSDictionary<NSString *, NSImage *> *)images;
 - (instancetype)initWithURLs:(NSDictionary<NSString *, NSURL *> *)urls;
-- (void)beginSheetModalForWindow:(NSWindow * _Nullable)window completion:(PhotosServiceSaveImageCompletion)completion;
+- (instancetype)initWithHSCards:(NSSet<HSCard *> *)hsCards;
+- (void)beginSheetModalForWindow:(NSWindow * _Nullable)window completion:(PhotosServiceCompletion)completion;
+- (void)beginSharingServiceOfView:(NSView *)view;
 @end
 
 NS_ASSUME_NONNULL_END

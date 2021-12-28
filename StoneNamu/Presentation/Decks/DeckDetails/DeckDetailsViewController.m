@@ -190,13 +190,16 @@
     [self addSpinnerView];
     
     DeckImageRenderService *renderService = [DeckImageRenderService new];
+    NSString *name = self.viewModel.localDeck.name;
     
     [renderService imageFromLocalDeck:self.viewModel.localDeck completion:^(UIImage * _Nonnull image) {
-        [PhotosService.sharedInstance saveImage:image fromViewController:self completionHandler:^(BOOL success, NSError * _Nonnull error) {
+        PhotosService *photosService = [[PhotosService alloc] initWithImages:@{name: image}];
+        [photosService beginSavingFromViewController:self completion:^(BOOL success, NSError * _Nullable error) {
             [NSOperationQueue.mainQueue addOperationWithBlock:^{
                 [self removeAllSpinnerview];
             }];
         }];
+        [photosService release];
     }];
     
     [renderService release];

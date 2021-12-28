@@ -18,7 +18,6 @@
 #import "NSViewController+SpinnerView.h"
 #import "NSWindow+presentErrorAlert.h"
 #import "DeckImageRenderService.h"
-#import "HSCardSaveImageService.h"
 #import "PhotosService.h"
 #import <StoneNamuCore/StoneNamuCore.h>
 #import <StoneNamuResources/StoneNamuResources.h>
@@ -195,17 +194,24 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
     saveAsImageItem.image = [NSImage imageWithSystemSymbolName:@"photo" accessibilityDescription:nil];
     saveAsImageItem.target = self;
     
+    NSMenuItem *shareWithImageItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyShare]
+                                                                action:@selector(shareWithImageItemTriggered:)
+                                                         keyEquivalent:@""];
+    shareWithImageItem.image = [NSImage imageWithSystemSymbolName:@"square.and.arrow.up" accessibilityDescription:nil];
+    shareWithImageItem.target = self;
+    
     NSMenuItem *exportDeckCodeItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyExportDeckCode]
                                                                 action:@selector(exportDeckCodeItemTriggered:)
                                                          keyEquivalent:@""];
     exportDeckCodeItem.image = [NSImage imageWithSystemSymbolName:@"square.and.arrow.up" accessibilityDescription:nil];
     exportDeckCodeItem.target = self;
     
-    moreMenu.itemArray = @[deleteItem, editDeckNameItem, saveAsImageItem, exportDeckCodeItem];
+    moreMenu.itemArray = @[deleteItem, editDeckNameItem, saveAsImageItem, shareWithImageItem, exportDeckCodeItem];
     
     [deleteItem release];
     [editDeckNameItem release];
     [saveAsImageItem release];
+    [shareWithImageItem release];
     [exportDeckCodeItem release];
     
     [moreMenu release];
@@ -273,6 +279,22 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
                     }];
                 }
             }];
+            
+            return;
+        }];
+    }];
+    
+    [renderService release];
+}
+
+- (void)shareWithImageItemTriggered:(NSMenuItem *)sender {
+    DeckImageRenderService *renderService = [DeckImageRenderService new];
+    
+    [renderService imageFromLocalDeck:self.viewModel.localDeck completion:^(NSImage * _Nonnull image) {
+        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+            PhotosService *photoService = [[PhotosService alloc] initWithImages:@{self.viewModel.localDeck.name: image}];
+            [photoService beginSharingServiceOfView:self.moreMenuButton];
+            [photoService release];
             
             return;
         }];
@@ -473,20 +495,20 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
     showDetailItem.target = self;
     
     NSMenuItem *increaseCardItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyIncreaseCardCount]
-                                                          action:@selector(increaseCardItemTriggered:)
-                                                   keyEquivalent:@""];
+                                                              action:@selector(increaseCardItemTriggered:)
+                                                       keyEquivalent:@""];
     increaseCardItem.image = [NSImage imageWithSystemSymbolName:@"plus" accessibilityDescription:nil];
     increaseCardItem.target = self;
     
     NSMenuItem *decreaseCardItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyDecreaseCardCount]
-                                                          action:@selector(decreaseCardItemTriggered:)
-                                                   keyEquivalent:@""];
+                                                              action:@selector(decreaseCardItemTriggered:)
+                                                       keyEquivalent:@""];
     decreaseCardItem.image = [NSImage imageWithSystemSymbolName:@"minus" accessibilityDescription:nil];
     decreaseCardItem.target = self;
     
     NSMenuItem *deleteCardItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyDelete]
-                                                        action:@selector(deleteCardItemTriggered:)
-                                                 keyEquivalent:@""];
+                                                            action:@selector(deleteCardItemTriggered:)
+                                                     keyEquivalent:@""];
     deleteCardItem.image = [NSImage imageWithSystemSymbolName:@"trash" accessibilityDescription:nil];
     deleteCardItem.target = self;
     

@@ -14,6 +14,11 @@
 
 @implementation DeckImageRenderService
 
+- (void)dealloc {
+    [_queue release];
+    [super dealloc];
+}
+
 - (instancetype)init {
     self = [super init];
     
@@ -28,6 +33,9 @@
 }
 
 - (void)imageFromLocalDeck:(LocalDeck *)localDeck completion:(DeckImageRenderServiceCompletion)completion {
+    /*
+     TODO: NSCollectionView는 intrinsicContentSize를 가지고 있으므로 이걸 이용한다.
+     */
     NSView *view = [[NSView alloc] initWithFrame:NSMakeRect(0.0f, 0.0f, 300.0f, 300.0f)];
     view.wantsLayer = YES;
     view.layer.backgroundColor = NSColor.systemTealColor.CGColor;

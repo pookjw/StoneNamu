@@ -6,17 +6,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <StoneNamuCore/StoneNamuCore.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef void (^PhotosServiceSaveImageCompletion)(BOOL success, NSError * _Nullable error);
+typedef void (^PhotosServiceCompletion)(BOOL success, NSError * _Nullable error);
 
 @interface PhotosService : NSObject
-@property (class, readonly, nonatomic) PhotosService *sharedInstance;
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
-- (void)saveImage:(UIImage *)image fromViewController:(UIViewController *)viewController completionHandler:(PhotosServiceSaveImageCompletion)completionHandler;
-- (void)saveImageURL:(NSURL *)url fromViewController:(UIViewController *)viewController completionHandler:(PhotosServiceSaveImageCompletion)completionHandler;
+- (instancetype)initWithImages:(NSDictionary<NSString *, UIImage *> *)images;
+- (instancetype)initWithURLs:(NSDictionary<NSString *, NSURL *> *)urls;
+- (instancetype)initWithHSCards:(NSSet<HSCard *> *)hsCards;
+- (void)beginSavingFromViewController:(UIViewController *)viewController completion:(PhotosServiceCompletion)completion;
+- (void)beginSharingFromViewController:(UIViewController *)viewController completion:(PhotosServiceCompletion)completion;
 @end
 
 NS_ASSUME_NONNULL_END
