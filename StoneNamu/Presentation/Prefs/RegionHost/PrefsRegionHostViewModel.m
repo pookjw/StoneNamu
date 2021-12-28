@@ -94,8 +94,6 @@
         [sectionModel release];
         
         [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
-            [snapshot release];
-            
             [self.prefsUseCase fetchWithCompletion:^(Prefs * _Nullable prefs, NSError * _Nullable error) {
                 if (prefs) {
                     [self loadPrefs:prefs];
@@ -106,6 +104,7 @@
                 [self observePrefs];
             }];
         }];
+        [snapshot release];
     }];
 }
 
@@ -149,9 +148,8 @@
         
         [prefs release];
         
-        [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
-            [snapshot release];
-        }];
+        [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{}];
+        [snapshot release];
     }];
 }
 

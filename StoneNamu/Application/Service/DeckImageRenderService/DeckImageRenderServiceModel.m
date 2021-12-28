@@ -183,10 +183,11 @@
         //
         
         [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:NO completion:^{
-            [snapshot release];
-            [countOfEachCards release];
             completion(countOfCardItem);
         }];
+        
+        [snapshot release];
+        [countOfEachCards release];
     }];
 }
 

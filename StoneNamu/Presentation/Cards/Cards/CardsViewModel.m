@@ -165,9 +165,8 @@
         NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
         [snapshot deleteAllItems];
         
-        [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
-            [snapshot release];
-        }];
+        [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{}];
+        [snapshot release];
     }];
 }
 
@@ -216,13 +215,14 @@
         }
         
         [snapshot appendItemsWithIdentifiers:itemModels intoSectionWithIdentifier:sectionModel];
+        [itemModels release];
         
         [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
-            [snapshot release];
-            [itemModels release];
             completion();
             [self postEndedLoadingDataSource];
         }];
+        
+        [snapshot release];
     }];
 }
 

@@ -112,10 +112,10 @@
         [sectionModelDetail release];
         
         [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
-            [snapshot release];
             [self postEndedLoadingDataSource];
             [self loadChildCardsWithHSCard:hsCard];
         }];
+        [snapshot release];
     }];
 }
 
@@ -210,10 +210,10 @@
         //
         
         [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
-            [snapshot release];
             [self postEndedFetchingChildCards];
             [self postEndedLoadingDataSource];
         }];
+        [snapshot release];
     }];
 }
 

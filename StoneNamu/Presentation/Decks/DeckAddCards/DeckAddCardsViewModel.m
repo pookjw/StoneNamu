@@ -206,9 +206,8 @@
         NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
         [snapshot deleteAllItems];
         
-        [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
-            [snapshot release];
-        }];
+        [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{}];
+        [snapshot release];
     }];
 }
 
@@ -286,10 +285,10 @@
         [itemModels release];
         
         [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
-            [snapshot release];
             completion();
             [self postEndedLoadingDataSource];
         }];
+        [snapshot release];
     }];
 }
 
@@ -308,9 +307,8 @@
             }
         }
         
-        [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
-            [snapshot release];
-        }];
+        [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{}];
+        [snapshot release];
     }];
 }
 

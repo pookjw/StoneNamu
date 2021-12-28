@@ -114,9 +114,9 @@
                 [self sortSnapshot:snapshot];
                 
                 [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
-                    [snapshot release];
                     [self postApplyingSnapshotToDataSourceWasDoneNotification];
                 }];
+                [snapshot release];
             }];
         }
     }];
@@ -155,9 +155,9 @@
                 [self sortSnapshot:snapshot];
                 
                 [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
-                    [snapshot release];
                     [self postApplyingSnapshotToDataSourceWasDoneNotification];
                 }];
+                [snapshot release];
             }];
         }
     }];
@@ -188,9 +188,9 @@
                 [self sortSnapshot:snapshot];
                 
                 [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
-                    [snapshot release];
                     [self postApplyingSnapshotToDataSourceWasDoneNotification];
                 }];
+                [snapshot release];
             }];
         }
     }];
@@ -230,9 +230,9 @@
                 [self sortSnapshot:snapshot];
                 
                 [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
-                    [snapshot release];
                     [self postApplyingSnapshotToDataSourceWasDoneNotification];
                 }];
+                [snapshot release];
             }];
         }
     }];
@@ -378,9 +378,9 @@
         //
         
         [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
-            [snapshot release];
             [self postApplyingSnapshotToDataSourceWasDoneNotification];
         }];
+        [snapshot release];
     }];
 }
 

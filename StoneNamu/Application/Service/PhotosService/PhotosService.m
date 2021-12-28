@@ -82,6 +82,7 @@
     [_images release];
     [_urls release];
     [_localURLs release];
+    [_phPhotoLibrary release];
     [_dataCacheUseCase release];
     [_queue release];
     [super dealloc];

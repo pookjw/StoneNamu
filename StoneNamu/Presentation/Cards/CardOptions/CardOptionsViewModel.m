@@ -81,9 +81,8 @@
         [nonnullOptions release];
         [snapshot reconfigureItemsWithIdentifiers:itemModels];
         
-        [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
-            [snapshot release];
-        }];
+        [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{}];
+        [snapshot release];
     }];
 }
 
@@ -133,9 +132,8 @@
         
         [snapshot reconfigureItemsWithIdentifiers:@[itemModel]];
         
-        [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
-            [snapshot release];
-        }];
+        [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{}];
+        [snapshot release];
     }];
 }
 
@@ -195,9 +193,8 @@
         [forthSectionModel release];
         [fifthSectionModel release];
         
-        [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
-            [snapshot release];
-        }];
+        [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{}];
+        [snapshot release];
     }];
 }
 

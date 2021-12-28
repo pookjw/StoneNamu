@@ -65,9 +65,8 @@
         [cardsSectionModel release];
         [decksSectionModel release];
         
-        [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:NO completion:^{
-            [snapshot release];
-        }];
+        [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:NO completion:^{}];
+        [snapshot release];
     }];
 }
 

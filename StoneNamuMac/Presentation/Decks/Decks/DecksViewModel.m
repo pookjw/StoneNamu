@@ -114,10 +114,10 @@
                 [self sortSnapshot:snapshot];
                 
                 [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
-                    [snapshot release];
                     [self.localDeckUseCase saveChanges];
                     completion(localDeck);
                 }];
+                [snapshot release];
             }];
         }];
     }];
@@ -162,10 +162,10 @@
                 [self sortSnapshot:snapshot];
                 
                 [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
-                    [snapshot release];
                     [self.localDeckUseCase saveChanges];
                     completion(localDeck);
                 }];
+                [snapshot release];
             }];
         }];
     }];
@@ -190,20 +190,19 @@
 }
 
 - (void)deleteLocalDeck:(LocalDeck *)localDeck {[self.queue addBarrierBlock:^{
-        NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
-        
-        [snapshot.itemIdentifiers enumerateObjectsUsingBlock:^(DecksItemModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            if ([obj.localDeck isEqual:localDeck]) {
-                [snapshot deleteItemsWithIdentifiers:@[obj]];
-            }
-        }];
-        
-        [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
-            [snapshot release];
-            
-            [self.localDeckUseCase deleteLocalDeck:localDeck];
-        }];
+    NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
+    
+    [snapshot.itemIdentifiers enumerateObjectsUsingBlock:^(DecksItemModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj.localDeck isEqual:localDeck]) {
+            [snapshot deleteItemsWithIdentifiers:@[obj]];
+        }
     }];
+    
+    [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
+        [self.localDeckUseCase deleteLocalDeck:localDeck];
+    }];
+    [snapshot release];
+}];
 }
 
 - (void)parseClipboardForDeckCodeWithCompletion:(DecksViewModelParseClipboardCompletion)completion {
@@ -258,9 +257,8 @@
         
         //
         
-        [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
-            [snapshot release];
-        }];
+        [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{}];
+        [snapshot release];
     }];
 }
 
