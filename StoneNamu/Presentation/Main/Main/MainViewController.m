@@ -95,17 +95,21 @@
     
     if (self.tabBarController != nil) {
         previousViewControllers = self.tabBarController.currentViewControllers;
+        [self.tabBarController willMoveToParentViewController:self];
         [self.tabBarController deactivate];
         [self.tabBarController.view removeFromSuperview];
         [self.tabBarController removeFromParentViewController];
+        [self.tabBarController didMoveToParentViewController:nil];
         self.tabBarController = nil;
     }
 
     if (self.splitViewController != nil) {
         previousViewControllers = self.splitViewController.currentViewControllers;
+        [self.splitViewController willMoveToParentViewController:self];
         [self.splitViewController deactivate];
         [self.splitViewController.view removeFromSuperview];
         [self.splitViewController removeFromParentViewController];
+        [self.splitViewController didMoveToParentViewController:self];
         self.splitViewController = nil;
     }
     
@@ -136,6 +140,7 @@
     //
     
     if (targetViewController != nil) {
+        [targetViewController willMoveToParentViewController:self];
         [self addChildViewController:targetViewController];
         [self.view addSubview:targetViewController.view];
         targetViewController.view.translatesAutoresizingMaskIntoConstraints = NO;
@@ -151,6 +156,7 @@
         targetViewController.prefsViewController = self.prefsViewController;
         [targetViewController activate];
         [targetViewController restoreViewControllers:previousViewControllers];
+        [targetViewController didMoveToParentViewController:self];
     }
 }
 

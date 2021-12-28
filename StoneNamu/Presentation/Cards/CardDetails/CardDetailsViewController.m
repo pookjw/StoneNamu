@@ -208,6 +208,7 @@
     CardDetailsLayoutCompactViewController *compactViewController = [CardDetailsLayoutCompactViewController new];
     self.compactViewController = compactViewController;
     [compactViewController loadViewIfNeeded];
+    [compactViewController willMoveToParentViewController:self];
     [self addChildViewController:compactViewController];
     [self.view addSubview:compactViewController.view];
     compactViewController.view.translatesAutoresizingMaskIntoConstraints = NO;
@@ -217,10 +218,12 @@
         [compactViewController.view.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor],
         [compactViewController.view.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor]
     ]];
+    [compactViewController didMoveToParentViewController:self];
     
     CardDetailsLayoutRegularViewController *regularViewController = [CardDetailsLayoutRegularViewController new];
     self.regularViewController = regularViewController;
     [regularViewController loadViewIfNeeded];
+    [regularViewController willMoveToParentViewController:self];
     [self addChildViewController:regularViewController];
     [self.view addSubview:regularViewController.view];
     regularViewController.view.translatesAutoresizingMaskIntoConstraints = NO;
@@ -230,6 +233,7 @@
         [regularViewController.view.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor],
         [regularViewController.view.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor]
     ]];
+    [regularViewController didMoveToParentViewController:self];
     
     self.layoutViewControllers = @[compactViewController, regularViewController];
     
