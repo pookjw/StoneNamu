@@ -131,9 +131,8 @@
                                                                             target:self
                                                                             action:@selector(optionsBarButtonItemTriggered:)];
     
-    self.optionsBarButtonItem = optionsBarButtonItem;
     self.navigationItem.leftBarButtonItems = @[optionsBarButtonItem];
-    
+    self.optionsBarButtonItem = optionsBarButtonItem;
     [optionsBarButtonItem release];
 }
 
@@ -142,9 +141,9 @@
                                                                       style:UIBarButtonItemStyleDone
                                                                      target:self
                                                                      action:@selector(doneBarButtonTriggered:)];
-    self.doneBarButton = doneBarButton;
 
     self.navigationItem.rightBarButtonItems = @[doneBarButton];
+    self.doneBarButton = doneBarButton;
     [doneBarButton release];
 }
 
@@ -172,7 +171,6 @@
     UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:layout];
     [layout release];
     
-    self.collectionView = collectionView;
     [self.view addSubview:collectionView];
     
     collectionView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -187,6 +185,7 @@
     collectionView.delegate = self;
     collectionView.dragDelegate = self;
     
+    self.collectionView = collectionView;
     [collectionView release];
 }
 
@@ -208,8 +207,7 @@
         return cell;
     }];
     
-    [dataSource autorelease];
-    return dataSource;
+    return [dataSource autorelease];
 }
 
 - (UICollectionViewCellRegistration *)makeCellRegistration {
@@ -234,7 +232,6 @@
     }];
 
     UIButton *deckDetailsButton = [UIButton buttonWithConfiguration:[self makeDeckDetailButtonConfiguration] primaryAction:action];
-    self.deckDetailsButton = deckDetailsButton;
 
     [self.view addSubview:self.deckDetailsButton];
     deckDetailsButton.translatesAutoresizingMaskIntoConstraints = NO;
@@ -255,6 +252,8 @@
     UIContextMenuInteraction *contextMenuInteraction = [[UIContextMenuInteraction alloc] initWithDelegate:self];
     [deckDetailsButton addInteraction:contextMenuInteraction];
     [contextMenuInteraction release];
+    
+    self.deckDetailsButton = deckDetailsButton;
 }
 
 - (UIButtonConfiguration *)makeDeckDetailButtonConfiguration {

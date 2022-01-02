@@ -42,7 +42,6 @@
 
 - (void)configureAboutLabel {
     InsetsLabel *aboutLabel = [InsetsLabel new];
-    self.aboutLabel = aboutLabel;
     
     aboutLabel.contentInsets = UIEdgeInsetsMake(10, 0, 10, 0);
     aboutLabel.font = [UIFont customFontWithType:UIFontCustomFontTypeGmarketSansBold size:18];
@@ -64,6 +63,7 @@
     bottomLayout.priority = UILayoutPriorityDefaultHigh;
     bottomLayout.active = YES;
     
+    self.aboutLabel = aboutLabel;
     [aboutLabel release];
 }
 

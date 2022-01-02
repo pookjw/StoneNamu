@@ -46,20 +46,21 @@
 
 - (void)configureViewControllers {
     MainListViewController *mainListViewController = [[MainListViewController alloc] initWithDelegate:self];
-    self.mainListViewController = mainListViewController;
     [mainListViewController loadViewIfNeeded];
     NSSplitViewItem *mainMenuItem = [NSSplitViewItem sidebarWithViewController:mainListViewController];
     [self addSplitViewItem:mainMenuItem];
     
     CardsViewController *cardsViewController = [CardsViewController new];
-    self.cardsViewController = cardsViewController;
     [cardsViewController loadViewIfNeeded];
     
     DecksViewController *decksViewController = [DecksViewController new];
-    self.decksViewController = decksViewController;
     [decksViewController loadViewIfNeeded];
     
     //
+    
+    self.mainListViewController = mainListViewController;
+    self.cardsViewController = cardsViewController;
+    self.decksViewController = decksViewController;
     
     [mainListViewController release];
     [cardsViewController release];

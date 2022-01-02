@@ -61,7 +61,6 @@
 
 - (void)configureCardSetImageView {
     UIImageView *cardSetImageView = [UIImageView new];
-    self.cardSetImageView = cardSetImageView;
     
     cardSetImageView.backgroundColor = UIColor.clearColor;
     cardSetImageView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -86,12 +85,12 @@
                                                                     constant:0];
     aspectRatio.active = YES;
     
+    self.cardSetImageView = cardSetImageView;
     [cardSetImageView release];
 }
 
 - (void)configureNameLabel {
     InsetsLabel *nameLabel = [InsetsLabel new];
-    self.nameLabel = nameLabel;
     
     UIEdgeInsets contentInsets = UIEdgeInsetsMake(15, 0, 15, 15);
     nameLabel.contentInsets = contentInsets;
@@ -123,12 +122,12 @@
     bottomLayout.priority = UILayoutPriorityDefaultHigh;
     bottomLayout.active = YES;
     
+    self.nameLabel = nameLabel;
     [nameLabel release];
 }
 
 - (void)configureHeroImageView {
     UIImageView *heroImageView = [UIImageView new];
-    self.heroImageView = heroImageView;
     
     heroImageView.backgroundColor = UIColor.clearColor;
     heroImageView.contentMode = UIViewContentModeScaleAspectFill;
@@ -157,7 +156,6 @@
     //
     
     CAGradientLayer *imageViewGradientLayer = [CAGradientLayer new];
-    self.imageViewGradientLayer = imageViewGradientLayer;
     imageViewGradientLayer.colors = @[
         (id)[UIColor.whiteColor colorWithAlphaComponent:0].CGColor,
         (id)UIColor.whiteColor.CGColor
@@ -165,16 +163,17 @@
     imageViewGradientLayer.startPoint = CGPointMake(0, 0);
     imageViewGradientLayer.endPoint = CGPointMake(0.8, 0);
     heroImageView.layer.mask = imageViewGradientLayer;
+    self.imageViewGradientLayer = imageViewGradientLayer;
     [imageViewGradientLayer release];
     
     //
     
+    self.heroImageView = heroImageView;
     [heroImageView release];
 }
 
 - (void)configureCountBlurView {
     UIVisualEffectView *countBlurView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
-    self.countBlurView = countBlurView;
     
     countBlurView.translatesAutoresizingMaskIntoConstraints = NO;
     
@@ -185,12 +184,12 @@
         [countBlurView.leadingAnchor constraintEqualToAnchor:self.nameLabel.trailingAnchor]
     ]];
     
+    self.countBlurView = countBlurView;
     [countBlurView release];
 }
 
 - (void)configureCountLabel {
     InsetsLabel *countLabel = [InsetsLabel new];
-    self.countLabel = countLabel;
     
     countLabel.contentInsets = UIEdgeInsetsMake(5, 5, 5, 5);
     countLabel.backgroundColor = [UIColor.tintColor colorWithAlphaComponent:0.5];
@@ -208,6 +207,7 @@
         [countLabel.bottomAnchor constraintEqualToAnchor:self.countBlurView.contentView.bottomAnchor]
     ]];
     
+    self.countLabel = countLabel;
     [countLabel release];
 }
 

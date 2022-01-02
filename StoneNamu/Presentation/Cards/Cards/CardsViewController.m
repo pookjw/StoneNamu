@@ -75,9 +75,8 @@
                                                                             target:self
                                                                             action:@selector(optionsBarButtonItemTriggered:)];
     
-    self.optionsBarButtonItem = optionsBarButtonItem;
     self.navigationItem.leftBarButtonItems = @[optionsBarButtonItem];
-    
+    self.optionsBarButtonItem = optionsBarButtonItem;
     [optionsBarButtonItem release];
 }
 
@@ -100,8 +99,7 @@
     CardsCollectionViewCompositionalLayout *layout = [[CardsCollectionViewCompositionalLayout alloc] init];
     UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:layout];
     [layout release];
-    
-    self.collectionView = collectionView;
+
     [self.view addSubview:collectionView];
     
     collectionView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -116,6 +114,7 @@
     collectionView.delegate = self;
     collectionView.dragDelegate = self;
     
+    self.collectionView = collectionView;
     [collectionView release];
 }
 

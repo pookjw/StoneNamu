@@ -25,11 +25,11 @@
         [queue release];
         
         PrefsUseCaseImpl *prefsUseCase = [PrefsUseCaseImpl new];
-        self.prefsUseCase = prefsUseCase;
         [NSNotificationCenter.defaultCenter addObserver:self
                                                selector:@selector(didReceivePrefsChanged:)
                                                    name:NSNotificationNamePrefsUseCaseObserveData
                                                  object:prefsUseCase];
+        self.prefsUseCase = prefsUseCase;
         [prefsUseCase release];
         
         DataCacheUseCaseImpl *dataCacheUseCase = [DataCacheUseCaseImpl new];

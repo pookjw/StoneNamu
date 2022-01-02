@@ -88,7 +88,7 @@
 
 - (void)configureImageViewGradientLayer {
     CAGradientLayer *imageViewGradientLayer = [CAGradientLayer new];
-    self.imageViewGradientLayer = imageViewGradientLayer;
+
     imageViewGradientLayer.colors = @[
         (id)[NSColor.whiteColor colorWithAlphaComponent:0].CGColor,
         (id)NSColor.whiteColor.CGColor
@@ -97,6 +97,8 @@
     imageViewGradientLayer.endPoint = CGPointMake(0.8, 0);
     self.imageView.wantsLayer = YES;
     self.imageView.layer.mask = imageViewGradientLayer;
+    
+    self.imageViewGradientLayer = imageViewGradientLayer;
     [imageViewGradientLayer release];
 }
 

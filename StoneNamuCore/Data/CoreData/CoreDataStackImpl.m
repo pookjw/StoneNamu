@@ -112,7 +112,8 @@ static NSMutableDictionary<NSString *, NSNumber *> * _Nullable kMigrateStatus = 
     }
     
     if (kContexts[modelName]) {
-        _context = [kContexts[modelName] retain];
+        [self->_context release];
+        self->_context = [kContexts[modelName] retain];
         return;
     }
     

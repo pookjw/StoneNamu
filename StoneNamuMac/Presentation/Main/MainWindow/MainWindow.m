@@ -56,9 +56,11 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierMainWind
 
 - (void)configureMainSplitViewController {
     MainSplitViewController *mainSplitViewController = [MainSplitViewController new];
-    self.mainSplitViewController = mainSplitViewController;
+
     [mainSplitViewController loadViewIfNeeded];
     self.contentViewController = mainSplitViewController;
+    
+    self.mainSplitViewController = mainSplitViewController;
     [mainSplitViewController release];
 }
 

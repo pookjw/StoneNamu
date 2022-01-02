@@ -36,43 +36,43 @@
 
 - (void)configureAppMenuItem {
     AppMenuItem *appMenuItem = [AppMenuItem new];
-    self.appMenuItem = appMenuItem;
     [self addItem:appMenuItem];
+    self.appMenuItem = appMenuItem;
     [appMenuItem release];
 }
 
 - (void)configureFileMenuItem {
     FileMenuItem *fileMenuItem = [FileMenuItem new];
-    self.fileMenuItem = fileMenuItem;
     [self addItem:fileMenuItem];
+    self.fileMenuItem = fileMenuItem;
     [fileMenuItem release];
 }
 
 - (void)configureEditMenu {
     EditMenuItem *editMenuItem = [EditMenuItem new];
-    self.editMenuItem = editMenuItem;
     [self addItem:editMenuItem];
+    self.editMenuItem = editMenuItem;
     [editMenuItem release];
 }
 
 - (void)configureViewMenu {
     ViewMenuItem *viewMenuItem = [ViewMenuItem new];
-    self.viewMenuItem = viewMenuItem;
     [self addItem:viewMenuItem];
+    self.viewMenuItem = viewMenuItem;
     [viewMenuItem release];
 }
 
 - (void)configureWindowMenu {
     WindowMenuItem *windowMenuItem = [WindowMenuItem new];
-    self.windowMenuItem = windowMenuItem;
     [self addItem:windowMenuItem];
+    self.windowMenuItem = windowMenuItem;
     [windowMenuItem release];
 }
 
 - (void)configureHelpMenu {
     HelpMenuItem *helpMenuItem = [HelpMenuItem new];
-    self.helpMenuItem = helpMenuItem;
     [self addItem:helpMenuItem];
+    self.helpMenuItem = helpMenuItem;
     [helpMenuItem release];
 }
 

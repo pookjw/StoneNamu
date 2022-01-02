@@ -55,16 +55,13 @@
                                                                          style:UIBarButtonItemStylePlain
                                                                         target:self
                                                                         action:nil];
-    self.addBarButtonItem = addBarButtonItem;
-    [self replaceMenuOfAddBarButtonItem];
-    
-    //
-    
+    [self replaceMenuOfAddBarButtonItem:addBarButtonItem];
     self.navigationItem.rightBarButtonItems = @[addBarButtonItem];
+    self.addBarButtonItem = addBarButtonItem;
     [addBarButtonItem release];
 }
 
-- (void)replaceMenuOfAddBarButtonItem {
+- (void)replaceMenuOfAddBarButtonItem:(UIBarButtonItem *)addBarButtonItem {
     NSMutableArray<UIAction *> *createStandardDeckActions = [@[] mutableCopy];
     NSMutableArray<UIAction *> *createWildDeckActions = [@[] mutableCopy];
     NSMutableArray<UIAction *> *createClassicDeckActions = [@[] mutableCopy];
@@ -78,7 +75,7 @@
                                               identifier:nil
                                                  handler:^(__kindof UIAction * _Nonnull action) {
                 
-                [self replaceMenuOfAddBarButtonItem];
+                [self replaceMenuOfAddBarButtonItem:addBarButtonItem];
                 
                 [self.viewModel makeLocalDeckWithClass:HSCardClassFromNSString(key)
                                             deckFormat:HSDeckFormatStandard
@@ -100,7 +97,7 @@
                                               identifier:nil
                                                  handler:^(__kindof UIAction * _Nonnull action) {
                 
-                [self replaceMenuOfAddBarButtonItem];
+                [self replaceMenuOfAddBarButtonItem:addBarButtonItem];
                 
                 [self.viewModel makeLocalDeckWithClass:HSCardClassFromNSString(key)
                                             deckFormat:HSDeckFormatWild
@@ -122,7 +119,7 @@
                                               identifier:nil
                                                  handler:^(__kindof UIAction * _Nonnull action) {
                 
-                [self replaceMenuOfAddBarButtonItem];
+                [self replaceMenuOfAddBarButtonItem:addBarButtonItem];
                 
                 [self.viewModel makeLocalDeckWithClass:HSCardClassFromNSString(key)
                                             deckFormat:HSDeckFormatClassic
@@ -165,7 +162,7 @@
     [createWildDeckActions release];
     [createClassicDeckActions release];
     
-    self.addBarButtonItem.menu = [UIMenu menuWithChildren:@[
+    addBarButtonItem.menu = [UIMenu menuWithChildren:@[
         createDeckMenu,
         
         [UIAction actionWithTitle:[ResourcesService localizationForKey:LocalizableKeyLoadFromDeckCode]
@@ -191,7 +188,6 @@
     [layoutConfiguration release];
     
     UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:layout];
-    self.collectionView = collectionView;
     [self.view addSubview:collectionView];
     
     [collectionView setTranslatesAutoresizingMaskIntoConstraints:NO];
@@ -205,6 +201,7 @@
     collectionView.backgroundColor = UIColor.systemBackgroundColor;
     collectionView.delegate = self;
     
+    self.collectionView = collectionView;
     [collectionView release];
 }
 

@@ -45,7 +45,6 @@
 
 - (void)configureContainerViews {
     UIView *primaryImageViewContainerView = [UIView new];
-    self.primaryImageViewContainerView = primaryImageViewContainerView;
     [self.view addSubview:primaryImageViewContainerView];
     primaryImageViewContainerView.translatesAutoresizingMaskIntoConstraints = NO;
     [NSLayoutConstraint activateConstraints:@[
@@ -62,12 +61,12 @@
     ]];
     primaryImageViewContainerView.backgroundColor = UIColor.clearColor;
     
+    self.primaryImageViewContainerView = primaryImageViewContainerView;
     [primaryImageViewContainerView release];
     
     //
     
     UIView *closeButtonContainerView = [UIView new];
-    self.closeButtonContainerView = closeButtonContainerView;
     [self.view addSubview:closeButtonContainerView];
     closeButtonContainerView.translatesAutoresizingMaskIntoConstraints = NO;
     [NSLayoutConstraint activateConstraints:@[
@@ -78,12 +77,12 @@
     ]];
     closeButtonContainerView.backgroundColor = UIColor.clearColor;
     
+    self.closeButtonContainerView = closeButtonContainerView;
     [closeButtonContainerView release];
     
     //
     
     UIView *collectionViewContainerView = [UIView new];
-    self.collectionViewContainerView = collectionViewContainerView;
     [self.view addSubview:collectionViewContainerView];
     collectionViewContainerView.translatesAutoresizingMaskIntoConstraints = NO;
     [NSLayoutConstraint activateConstraints:@[
@@ -94,6 +93,7 @@
     ]];
     collectionViewContainerView.backgroundColor = UIColor.clearColor;
     
+    self.collectionViewContainerView = collectionViewContainerView;
     [collectionViewContainerView release];
     
     //
@@ -110,8 +110,6 @@
 }
 
 - (void)cardDetailsLayoutAddPrimaryImageView:(nonnull UIImageView *)primaryImageView {
-    self.primaryImageView = primaryImageView;
-    
     if (primaryImageView.superview) {
         [primaryImageView removeFromSuperview];
     }
@@ -124,11 +122,11 @@
         [primaryImageView.leadingAnchor constraintEqualToAnchor:self.primaryImageViewContainerView.leadingAnchor],
         [primaryImageView.bottomAnchor constraintEqualToAnchor:self.primaryImageViewContainerView.bottomAnchor]
     ]];
+    
+    self.primaryImageView = primaryImageView;
 }
 
 - (void)cardDetailsLayoutAddCloseButton:(UIButton *)closeButton {
-    self.closeButton = closeButton;
-    
     if (closeButton.superview) {
         [closeButton removeFromSuperview];
     }
@@ -141,11 +139,11 @@
         [closeButton.leadingAnchor constraintEqualToAnchor:self.closeButtonContainerView.layoutMarginsGuide.leadingAnchor],
         [closeButton.bottomAnchor constraintEqualToAnchor:self.closeButtonContainerView.layoutMarginsGuide.bottomAnchor]
     ]];
+    
+    self.closeButton = closeButton;
 }
 
 - (void)cardDetailsLayoutAddCollectionView:(UICollectionView *)collectionView {
-    self.collectionView = collectionView;
-    
     if (collectionView.superview) {
         [collectionView removeFromSuperview];
     }
@@ -158,6 +156,8 @@
         [collectionView.leadingAnchor constraintEqualToAnchor:self.collectionViewContainerView.leadingAnchor],
         [collectionView.bottomAnchor constraintEqualToAnchor:self.collectionViewContainerView.bottomAnchor]
     ]];
+    
+    self.collectionView = collectionView;
 }
 
 - (void)cardDetailsLayoutRemovePrimaryImageView {

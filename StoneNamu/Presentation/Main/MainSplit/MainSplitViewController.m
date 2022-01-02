@@ -54,11 +54,11 @@
 
 - (void)configureViewControllers {
     MainListViewController *mainListViewController = [MainListViewController new];
-    self.mainListViewController = mainListViewController;
     [mainListViewController loadViewIfNeeded];
     
     [self setViewController:mainListViewController forColumn:UISplitViewControllerColumnPrimary];
     
+    self.mainListViewController = mainListViewController;
     [mainListViewController release];
 }
 

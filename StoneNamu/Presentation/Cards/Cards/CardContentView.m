@@ -35,7 +35,6 @@
 
 - (void)configureImageView {
     UIImageView *imageView = [UIImageView new];
-    _imageView = [imageView retain];
     imageView.contentMode = UIViewContentModeScaleAspectFit;
     [self addSubview:imageView];
     imageView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -46,6 +45,9 @@
         [imageView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor]
     ]];
     imageView.backgroundColor = UIColor.clearColor;
+    
+    [self->_imageView release];
+    self->_imageView = [imageView retain];
     [imageView release];
 }
 

@@ -27,9 +27,9 @@
     
     if (self) {
         NSOperationQueue *queue = [NSOperationQueue new];
-        self.queue = queue;
         queue.qualityOfService = NSQualityOfServiceUserInitiated;
         [queue release];
+        self.queue = queue;
         
         [self configureCollectionView];
         [self configureModel];

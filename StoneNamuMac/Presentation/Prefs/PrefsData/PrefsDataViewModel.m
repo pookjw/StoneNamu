@@ -26,11 +26,11 @@
         [queue release];
         
         DataCacheUseCaseImpl *dataCacheUseCase = [DataCacheUseCaseImpl new];
-        self.dataCacheUseCase = dataCacheUseCase;
         [NSNotificationCenter.defaultCenter addObserver:self
                                                selector:@selector(didChangeDataCache:)
                                                    name:NSNotificationNameDataCacheUseCaseObserveData
                                                  object:dataCacheUseCase];
+        self.dataCacheUseCase = dataCacheUseCase;
         [dataCacheUseCase release];
         
         LocalDeckUseCaseImpl *localDeckUseCase = [LocalDeckUseCaseImpl new];

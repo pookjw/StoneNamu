@@ -47,7 +47,6 @@
 
 - (void)configureDeleteAllDataCacheButton {
     NSButton *deleteAllDataCacheButton = [NSButton new];
-    self.deleteAllDataCacheButton = deleteAllDataCacheButton;
     
     deleteAllDataCacheButton.title = [ResourcesService localizationForKey:LocalizableKeyDeleteAllCaches];
     deleteAllDataCacheButton.bezelStyle = NSBezelStyleRounded;
@@ -61,12 +60,12 @@
         [deleteAllDataCacheButton.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor]
     ]];
     
+    self.deleteAllDataCacheButton = deleteAllDataCacheButton;
     [deleteAllDataCacheButton release];
 }
 
 - (void)configureDataCacheSizeLabel {
     NSTextField *dataCacheSizeLabel = [NSTextField new];
-    self.dataCacheSizeLabel = dataCacheSizeLabel;
     [dataCacheSizeLabel setLabelStyle];
     
     dataCacheSizeLabel.translatesAutoresizingMaskIntoConstraints = NO;
@@ -76,12 +75,12 @@
         [dataCacheSizeLabel.centerXAnchor constraintEqualToAnchor:self.deleteAllDataCacheButton.centerXAnchor]
     ]];
     
+    self.dataCacheSizeLabel = dataCacheSizeLabel;
     [dataCacheSizeLabel release];
 }
 
 - (void)configureDeleteAllLocalDeckButton {
     NSButton *deleteAllLocalDeckButton = [NSButton new];
-    self.deleteAllLocalDeckButton = deleteAllLocalDeckButton;
     
     deleteAllLocalDeckButton.title = @"Remove All LocalDecks";
     deleteAllLocalDeckButton.bezelStyle = NSBezelStyleRounded;
@@ -95,6 +94,7 @@
         [deleteAllLocalDeckButton.centerXAnchor constraintEqualToAnchor:self.dataCacheSizeLabel.centerXAnchor]
     ]];
     
+    self.deleteAllLocalDeckButton = deleteAllLocalDeckButton;
     [deleteAllLocalDeckButton release];
 }
 

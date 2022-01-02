@@ -91,7 +91,6 @@
 
 - (void)configureContentView {
     UIView *contentView = [UIView new];
-    self.contentView = contentView;
     
     [self addSubview:contentView];
     contentView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -143,12 +142,12 @@
     
     contentView.backgroundColor = UIColor.clearColor;
     
+    self.contentView = contentView;
     [contentView release];
 }
 
 - (void)configureBaseCircularView {
     UIView *baseCircularView = [UIView new];
-    self.baseCircularView = baseCircularView;
     
     [self.contentView addSubview:baseCircularView];
     baseCircularView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -177,6 +176,7 @@
     [baseCircularView.layer addSublayer:baseCircularPathLayer];
     [baseCircularPathLayer release];
     
+    self.baseCircularView = baseCircularView;
     [baseCircularView release];
 }
 
@@ -214,7 +214,6 @@
 
 - (void)configureProgressCircularView {
     UIView *progressCircularView = [UIView new];
-    self.progressCircularView = progressCircularView;
 
     [self.contentView addSubview:progressCircularView];
     progressCircularView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -233,11 +232,11 @@
     progressCircularView.backgroundColor = UIColor.clearColor;
     
     CAShapeLayer *progressCircularLayer = [CAShapeLayer new];
-    self.progressCircularLayer = progressCircularLayer;
     progressCircularLayer.backgroundColor = UIColor.clearColor.CGColor;
     progressCircularLayer.strokeColor = UIColor.clearColor.CGColor;
     
     [progressCircularView.layer addSublayer:progressCircularLayer];
+    self.progressCircularLayer = progressCircularLayer;
     [progressCircularLayer release];
     
     //
@@ -257,6 +256,7 @@
     
     //
     
+    self.progressCircularView = progressCircularView;
     [progressCircularView release];
 }
 

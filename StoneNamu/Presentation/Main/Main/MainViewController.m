@@ -68,8 +68,8 @@
 
 - (void)configureViewControllers {
     CardsViewController *cardsViewController = [CardsViewController new];
-    self.cardsViewController = cardsViewController;
     [cardsViewController requestWithOptions:@{BlizzardHSAPIOptionTypeGameMode: NSStringFromHSCardGameMode(HSCardGameModeConstructed)}];
+    self.cardsViewController = cardsViewController;
     [cardsViewController release];
     
     DecksViewController *decksViewController = [DecksViewController new];
@@ -121,15 +121,15 @@
     switch (sizeClass) {
         case UIUserInterfaceSizeClassCompact: {
             MainTabBarController *tabBarController = [MainTabBarController new];
-            self.tabBarController = tabBarController;
             targetViewController = tabBarController;
+            self.tabBarController = tabBarController;
             [tabBarController autorelease];
             break;
         }
         case UIUserInterfaceSizeClassRegular: {
             MainSplitViewController *splitViewController = [MainSplitViewController new];
-            self.splitViewController = splitViewController;
             targetViewController = splitViewController;
+            self.splitViewController = splitViewController;
             [splitViewController autorelease];
             break;
         }

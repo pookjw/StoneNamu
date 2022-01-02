@@ -45,7 +45,6 @@
 
 - (void)configureVisualEffectView {
     UIVisualEffectView *visualEffectView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
-    self.visualEffectView = visualEffectView;
     
     visualEffectView.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview:visualEffectView];
@@ -59,13 +58,13 @@
     bottomLayout.priority = UILayoutPriorityDefaultHigh;
     bottomLayout.active = YES;
     
+    self.visualEffectView = visualEffectView;
     [visualEffectView release];
 }
 
 - (void)configureVibrancyView {
     UIVibrancyEffect *effect = [UIVibrancyEffect effectForBlurEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleDark]];
     UIVisualEffectView *vibrancyView = [[UIVisualEffectView alloc] initWithEffect:effect];
-    self.vibrancyView = vibrancyView;
     
     vibrancyView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.visualEffectView.contentView addSubview:vibrancyView];
@@ -76,6 +75,7 @@
         [vibrancyView.bottomAnchor constraintEqualToAnchor:self.visualEffectView.contentView.bottomAnchor]
     ]];
     
+    self.vibrancyView = vibrancyView;
     [vibrancyView release];
 }
 
@@ -83,7 +83,6 @@
     CGFloat margin = 15;
     
     InsetsLabel *leadingLabel = [InsetsLabel new];
-    self.leadingLabel = leadingLabel;
     
     [self.vibrancyView.contentView addSubview:leadingLabel];
     
@@ -103,7 +102,6 @@
     //
     
     InsetsLabel *trailingLabel = [InsetsLabel new];
-    self.trailingLabel = trailingLabel;
     
     [self.vibrancyView.contentView addSubview:trailingLabel];
     
@@ -140,6 +138,8 @@
     
     //
     
+    self.leadingLabel = leadingLabel;
+    self.trailingLabel = trailingLabel;
     [leadingLabel release];
     [trailingLabel release];
 }

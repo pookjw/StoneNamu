@@ -13,9 +13,12 @@
     self = [self init];
     
     if (self) {
-        _image = [image copy];
-        _title = [title copy];
-        _identity = [identity copy];
+        [self->_image release];
+        self->_image = [image copy];
+        [self->_title release];
+        self->_title = [title copy];
+        [self->_identity release];
+        self->_identity = [identity copy];
     }
     
     return self;

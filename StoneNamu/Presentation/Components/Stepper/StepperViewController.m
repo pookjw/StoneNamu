@@ -61,7 +61,6 @@
 
 - (void)configureViews {
     UIStackView *stackView = [UIStackView new];
-    self.stackView = stackView;
     [self.view addSubview:stackView];
     stackView.axis = UILayoutConstraintAxisVertical;
     stackView.spacing = 30;
@@ -72,16 +71,15 @@
     ]];
     
     UILabel *label = [UILabel new];
-    self.label = label;
     [stackView addArrangedSubview:label];
     label.text = [NSString stringWithFormat:@"%lu", (NSUInteger)self.initialValue];
     label.textAlignment = NSTextAlignmentCenter;
     label.adjustsFontForContentSizeCategory = YES;
     label.font = [UIFont preferredFontForTextStyle:UIFontTextStyleTitle2];
+    self.label = label;
     [label release];
     
     UIStepper *stepper = [UIStepper new];
-    self.stepper = stepper;
     [stackView addArrangedSubview:stepper];
     stepper.continuous = YES;
     [stepper addTarget:self action:@selector(stepperValueChanged:) forControlEvents:UIControlEventValueChanged];
@@ -89,8 +87,10 @@
     stepper.value = self.initialValue;
     stepper.minimumValue = self.range.location;
     stepper.maximumValue = self.range.location + self.range.length;
+    self.stepper = stepper;
     [stepper release];
     
+    self.stackView = stackView;
     [stackView release];
 }
 

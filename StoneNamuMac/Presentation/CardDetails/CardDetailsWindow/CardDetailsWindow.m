@@ -50,9 +50,9 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeta
 
 - (void)configureCardDetailsViewControllerWithHSCard:(HSCard *)hsCard; {
     CardDetailsViewController *cardDetailsViewController = [[CardDetailsViewController alloc] initWithHSCard:hsCard];
-    self.cardDetailsViewController = cardDetailsViewController;
     [cardDetailsViewController loadViewIfNeeded];
     self.contentViewController = cardDetailsViewController;
+    self.cardDetailsViewController = cardDetailsViewController;
     [cardDetailsViewController release];
 }
 

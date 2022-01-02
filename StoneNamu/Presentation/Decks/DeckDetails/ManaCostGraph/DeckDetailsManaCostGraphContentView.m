@@ -76,7 +76,6 @@
 
 - (void)configureCostLabel {
     InsetsLabel *costLabel = [InsetsLabel new];
-    self.costLabel = costLabel;
     
     costLabel.textAlignment = NSTextAlignmentCenter;
     costLabel.font = DeckDetailsManaCostGraphContentView.labelFont;
@@ -101,12 +100,12 @@
     bottomLayout.priority = UILayoutPriorityDefaultHigh;
     bottomLayout.active = YES;
     
+    self.costLabel = costLabel;
     [costLabel release];
 }
 
 - (void)configureProgressView {
     UIProgressView *progressView = [UIProgressView new];
-    self.progressView = progressView;
     
     progressView.tintColor = UIColor.systemCyanColor;
     progressView.backgroundColor = UIColor.clearColor;
@@ -122,12 +121,12 @@
         [progressView.bottomAnchor constraintEqualToAnchor:self.costLabel.bottomAnchor]
     ]];
     
+    self.progressView = progressView;
     [progressView release];
 }
 
 - (void)configureCountLabel {
     InsetsLabel *countLabel = [InsetsLabel new];
-    self.countLabel = countLabel;
     
     countLabel.textAlignment = NSTextAlignmentCenter;
     countLabel.font = DeckDetailsManaCostGraphContentView.labelFont;
@@ -149,6 +148,7 @@
         [countLabel.heightAnchor constraintEqualToConstant:ceilf(preferredRect.size.height)]
     ]];
     
+    self.countLabel = countLabel;
     [countLabel release];
 }
 

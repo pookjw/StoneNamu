@@ -24,8 +24,8 @@
     
     if (self) {
         NSOperationQueue *queue = [NSOperationQueue new];
-        self.queue = queue;
         queue.qualityOfService = NSQualityOfServiceUserInitiated;
+        self.queue = queue;
         [queue release];
     }
     

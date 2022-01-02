@@ -55,7 +55,6 @@
 
 - (void)configureDeckYearLabel {
     InsetsLabel *deckYearLabel = [InsetsLabel new];
-    self.deckYearLabel = deckYearLabel;
     
     deckYearLabel.contentInsets = UIEdgeInsetsMake(10, 10, 10, 10);
     deckYearLabel.font = [UIFont customFontWithType:UIFontCustomFontTypeGmarketSansMedium size:18];
@@ -76,12 +75,12 @@
     
     [deckYearLabel setContentCompressionResistancePriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
     
+    self.deckYearLabel = deckYearLabel;
     [deckYearLabel release];
 }
 
 - (void)configureArcaneDustStackView {
     UIStackView *arcaneDustStackView = [UIStackView new];
-    self.arcaneDustStackView = arcaneDustStackView;
     
     arcaneDustStackView.axis = UILayoutConstraintAxisHorizontal;
     arcaneDustStackView.backgroundColor = UIColor.clearColor;
@@ -105,12 +104,12 @@
     
     [arcaneDustStackView setContentCompressionResistancePriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
     
+    self.arcaneDustStackView = arcaneDustStackView;
     [arcaneDustStackView release];
 }
 
 - (void)configureArcaneDustImageView {
     UIImageView *arcaneDustImageView = [UIImageView new];
-    self.arcaneDustImageView = arcaneDustImageView;
     
     arcaneDustImageView.backgroundColor = UIColor.clearColor;
     arcaneDustImageView.tintColor = UIColor.cyanColor;
@@ -131,12 +130,12 @@
     [arcaneDustImageView setContentCompressionResistancePriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
     [arcaneDustImageView setContentCompressionResistancePriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisVertical];
     
+    self.arcaneDustImageView = arcaneDustImageView;
     [arcaneDustImageView release];
 }
 
 - (void)configureArcaneDustLabel {
     InsetsLabel *arcaneDustLabel = [InsetsLabel new];
-    self.arcaneDustLabel = arcaneDustLabel;
     
     arcaneDustLabel.contentInsets = UIEdgeInsetsMake(0, 0, 0, 10);
     arcaneDustLabel.font = [UIFont customFontWithType:UIFontCustomFontTypeGmarketSansMedium size:18];
@@ -158,6 +157,7 @@
     [arcaneDustLabel setContentCompressionResistancePriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
     [arcaneDustLabel setContentCompressionResistancePriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisVertical];
     
+    self.arcaneDustLabel = arcaneDustLabel;
     [arcaneDustLabel release];
 }
 

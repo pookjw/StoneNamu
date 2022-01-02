@@ -47,10 +47,6 @@
     UINavigationController *decksNavigationController = [UINavigationController new];
     UINavigationController *prefsNavigationController = [UINavigationController new];
     
-    self.cardsNavigationController = cardsNavigationController;
-    self.decksNavigationController = decksNavigationController;
-    self.prefsNavigationController = prefsNavigationController;
-    
     [cardsNavigationController loadViewIfNeeded];
     [decksNavigationController loadViewIfNeeded];
     [prefsNavigationController loadViewIfNeeded];
@@ -77,6 +73,10 @@
     [prefsTabBarItem release];
     
     [self setViewControllers:@[cardsNavigationController, decksNavigationController, prefsNavigationController] animated:NO];
+    
+    self.cardsNavigationController = cardsNavigationController;
+    self.decksNavigationController = decksNavigationController;
+    self.prefsNavigationController = prefsNavigationController;
     
     [cardsNavigationController release];
     [decksNavigationController release];

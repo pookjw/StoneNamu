@@ -80,6 +80,11 @@
     [createDeckMenuItem release];
     [createDeckMenu release];
     
+    self.createNewDeckStandardDeckItem = createNewDeckStandardDeckItem;
+    self.createNewDeckWildDeckItem = createNewDeckWildDeckItem;
+    self.createNewDeckClassicDeckItem = createNewDeckClassicDeckItem;
+    self.createNewDeckFromDeckCodeItem = createNewDeckFromDeckCodeItem;
+    
     [createNewDeckStandardDeckItem release];
     [createNewDeckWildDeckItem release];
     [createNewDeckClassicDeckItem release];

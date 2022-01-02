@@ -104,7 +104,6 @@
 
 - (void)configureBlurView {
     NSVisualEffectView *blurView = [NSVisualEffectView new];
-    self.blurView = blurView;
     
     [self addSubview:blurView];
     blurView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -117,12 +116,12 @@
         [blurView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor]
     ]];
     
+    self.blurView = blurView;
     [blurView release];
 }
 
 - (void)configureStackView {
     NSStackView *stackView = [NSStackView new];
-    self.stackView = stackView;
     
     stackView.orientation = NSUserInterfaceLayoutOrientationHorizontal;
     stackView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -136,63 +135,64 @@
         [stackView.bottomAnchor constraintEqualToAnchor:self.blurView.safeAreaLayoutGuide.bottomAnchor]
     ]];
     
+    self.stackView = stackView;
     [stackView release];
 }
 
 - (void)configureBaseViews {
     DeckDetailsManaCostGraphBaseView *zeroBaseView = [DeckDetailsManaCostGraphBaseView new];
-    self.zeroBaseView = zeroBaseView;
     [self.stackView addArrangedSubview:zeroBaseView];
+    self.zeroBaseView = zeroBaseView;
     [zeroBaseView release];
     
     DeckDetailsManaCostGraphBaseView *oneBaseView = [DeckDetailsManaCostGraphBaseView new];
-    self.oneBaseView = oneBaseView;
     [self.stackView addArrangedSubview:oneBaseView];
+    self.oneBaseView = oneBaseView;
     [oneBaseView release];
     
     DeckDetailsManaCostGraphBaseView *twoBaseView = [DeckDetailsManaCostGraphBaseView new];
-    self.twoBaseView = twoBaseView;
     [self.stackView addArrangedSubview:twoBaseView];
+    self.twoBaseView = twoBaseView;
     [twoBaseView release];
     
     DeckDetailsManaCostGraphBaseView *threeBaseView = [DeckDetailsManaCostGraphBaseView new];
-    self.threeBaseView = threeBaseView;
     [self.stackView addArrangedSubview:threeBaseView];
+    self.threeBaseView = threeBaseView;
     [threeBaseView release];
     
     DeckDetailsManaCostGraphBaseView *fourBaseView = [DeckDetailsManaCostGraphBaseView new];
-    self.fourBaseView = fourBaseView;
     [self.stackView addArrangedSubview:fourBaseView];
+    self.fourBaseView = fourBaseView;
     [fourBaseView release];
     
     DeckDetailsManaCostGraphBaseView *fiveBaseView = [DeckDetailsManaCostGraphBaseView new];
-    self.fiveBaseView = fiveBaseView;
     [self.stackView addArrangedSubview:fiveBaseView];
+    self.fiveBaseView = fiveBaseView;
     [fiveBaseView release];
     
     DeckDetailsManaCostGraphBaseView *sixBaseView = [DeckDetailsManaCostGraphBaseView new];
-    self.sixBaseView = sixBaseView;
     [self.stackView addArrangedSubview:sixBaseView];
+    self.sixBaseView = sixBaseView;
     [sixBaseView release];
     
     DeckDetailsManaCostGraphBaseView *sevenBaseView = [DeckDetailsManaCostGraphBaseView new];
-    self.sevenBaseView = sevenBaseView;
     [self.stackView addArrangedSubview:sevenBaseView];
+    self.sevenBaseView = sevenBaseView;
     [sevenBaseView release];
     
     DeckDetailsManaCostGraphBaseView *eightBaseView = [DeckDetailsManaCostGraphBaseView new];
-    self.eightBaseView = eightBaseView;
     [self.stackView addArrangedSubview:eightBaseView];
+    self.eightBaseView = eightBaseView;
     [eightBaseView release];
     
     DeckDetailsManaCostGraphBaseView *nineBaseView = [DeckDetailsManaCostGraphBaseView new];
-    self.nineBaseView = nineBaseView;
     [self.stackView addArrangedSubview:nineBaseView];
+    self.nineBaseView = nineBaseView;
     [nineBaseView release];
     
     DeckDetailsManaCostGraphBaseView *tenBaseView = [DeckDetailsManaCostGraphBaseView new];
-    self.tenBaseView = tenBaseView;
     [self.stackView addArrangedSubview:tenBaseView];
+    self.tenBaseView = tenBaseView;
     [tenBaseView release];
 }
 

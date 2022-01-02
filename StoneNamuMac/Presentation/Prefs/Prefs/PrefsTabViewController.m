@@ -48,28 +48,28 @@
 
 - (void)configureViewControllers {
     PrefsCardsViewController *prefsCardsViewController = [PrefsCardsViewController new];
-    self.prefsCardsViewController = prefsCardsViewController;
     [prefsCardsViewController loadViewIfNeeded];
+    self.prefsCardsViewController = prefsCardsViewController;
     [prefsCardsViewController release];
     
     PrefsDataViewController *prefsDataViewController = [PrefsDataViewController new];
-    self.prefsDataViewController = prefsDataViewController;
     [prefsDataViewController loadViewIfNeeded];
+    self.prefsDataViewController = prefsDataViewController;
     [prefsDataViewController release];
 }
 
 - (void)configureItems {
     NSTabViewItem *prefsCardsItem = [NSTabViewItem tabViewItemWithViewController:self.prefsCardsViewController];
-    self.prefsCardsItem = prefsCardsItem;
     prefsCardsItem.image = [NSImage imageWithSystemSymbolName:@"menucard" accessibilityDescription:nil];
     prefsCardsItem.label = [ResourcesService localizationForKey:LocalizableKeyCards];
     [self addTabViewItem:prefsCardsItem];
+    self.prefsCardsItem = prefsCardsItem;
     
     NSTabViewItem *prefsDataItem = [NSTabViewItem tabViewItemWithViewController:self.prefsDataViewController];
-    self.prefsDataItem = prefsDataItem;
     prefsDataItem.image = [NSImage imageWithSystemSymbolName:@"tray.full" accessibilityDescription:nil];
     prefsDataItem.label = [ResourcesService localizationForKey:LocalizableKeyData];
     [self addTabViewItem:prefsDataItem];
+    self.prefsDataItem = prefsDataItem;
 }
 
 - (void)tabView:(NSTabView *)tabView didSelectTabViewItem:(NSTabViewItem *)tabViewItem {

@@ -31,7 +31,6 @@
 #endif
     
     UIWindow *window = [[UIWindow alloc] initWithWindowScene:windowScene];
-    self.window = window;
 //    [self.window setTintColor:UIColor.redColor];
     
     MainViewController *mainViewController = [MainViewController new];
@@ -42,6 +41,7 @@
     [mainViewController release];
     [window makeKeyAndVisible];
     
+    self.window = window;
     [window release];
 }
 

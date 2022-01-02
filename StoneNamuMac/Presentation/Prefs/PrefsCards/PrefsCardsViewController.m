@@ -57,7 +57,6 @@
 
 - (void)configureGridView {
     NSGridView *gridView = [NSGridView new];
-    self.gridView = gridView;
     
     [self.view addSubview:gridView];
     gridView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -71,18 +70,17 @@
     gridView.xPlacement = NSGridCellPlacementTrailing;
     gridView.yPlacement = NSGridCellPlacementTop;
     
+    self.gridView = gridView;
     [gridView release];
 }
 
 - (void)configureLocaleViews {
     NSTextField *localeLabel = [NSTextField new];
-    self.localeLabel = localeLabel;
     [localeLabel setLabelStyle];
     localeLabel.font = [NSFont preferredFontForTextStyle:NSFontTextStyleBody options:@{}];
     localeLabel.stringValue = [NSString stringWithFormat:@"%@ :", [ResourcesService localizationForKey:LocalizableKeyLocale]];
     
     NSPopUpButton *localeMenuButton = [NSPopUpButton new];
-    self.localeMenuButton = localeMenuButton;
     localeMenuButton.pullsDown = NO;
     localeMenuButton.translatesAutoresizingMaskIntoConstraints = NO;
     [NSLayoutConstraint activateConstraints:@[
@@ -94,7 +92,6 @@
     //
     
     NSMenu *localeMenu = [NSMenu new];
-    self.localeMenu = localeMenu;
     localeMenuButton.menu = localeMenu;
     
     NSMutableArray<StorableMenuItem *> *itemArray = [@[] mutableCopy];
@@ -128,6 +125,10 @@
     
     //
     
+    self.localeLabel = localeLabel;
+    self.localeMenuButton = localeMenuButton;
+    self.localeMenu = localeMenu;
+    
     [localeLabel release];
     [localeMenuButton release];
     [localeMenu release];
@@ -135,13 +136,11 @@
 
 - (void)configureRegionViews {
     NSTextField *regionLabel = [NSTextField new];
-    self.regionLabel = regionLabel;
     [regionLabel setLabelStyle];
     regionLabel.font = [NSFont preferredFontForTextStyle:NSFontTextStyleBody options:@{}];
     regionLabel.stringValue = [NSString stringWithFormat:@"%@ :", [ResourcesService localizationForKey:LocalizableKeyRegion]];
     
     NSPopUpButton *regionMenuButton = [NSPopUpButton new];
-    self.regionMenuButton = regionMenuButton;
     regionMenuButton.pullsDown = NO;
     regionMenuButton.translatesAutoresizingMaskIntoConstraints = NO;
     [NSLayoutConstraint activateConstraints:@[
@@ -153,7 +152,6 @@
     //
     
     NSMenu *regionMenu = [NSMenu new];
-    self.regionMenu = regionMenu;
     regionMenuButton.menu = regionMenu;
     
     NSMutableArray<StorableMenuItem *> *itemArray = [@[] mutableCopy];
@@ -187,6 +185,10 @@
     
     //
     
+    self.regionLabel = regionLabel;
+    self.regionMenuButton = regionMenuButton;
+    self.regionMenu = regionMenu;
+    
     [regionLabel release];
     [regionMenuButton release];
     [regionMenu release];
@@ -194,7 +196,7 @@
 
 - (void)configureDescriptionLabel {
     NSTextField *descriptionLabel = [NSTextField new];
-    self.descriptionLabel = descriptionLabel;
+
     [descriptionLabel setLabelStyle];
     descriptionLabel.stringValue = [ResourcesService localizationForKey:LocalizableKeyAutoDescription];
     
@@ -205,6 +207,7 @@
         [descriptionLabel.centerXAnchor constraintEqualToAnchor:self.gridView.centerXAnchor]
     ]];
     
+    self.descriptionLabel = descriptionLabel;
     [descriptionLabel release];
 }
 

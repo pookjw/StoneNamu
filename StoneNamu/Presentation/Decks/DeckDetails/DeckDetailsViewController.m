@@ -97,7 +97,6 @@
                                                                           style:UIBarButtonItemStylePlain
                                                                          target:self
                                                                          action:nil];
-    self.menuBarButtonItem = menuBarButtonItem;
     
     UIMenu *menu = [UIMenu menuWithChildren:@[
         [UIAction actionWithTitle:[ResourcesService localizationForKey:LocalizableKeyAddCards]
@@ -131,6 +130,7 @@
     
     menuBarButtonItem.menu = menu;
     
+    self.menuBarButtonItem = menuBarButtonItem;
     [menuBarButtonItem release];
     
     //
@@ -238,7 +238,6 @@
     [layoutConfiguration release];
     
     UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:layout];
-    self.collectionView = collectionView;
     [self.view addSubview:collectionView];
     
     [collectionView setTranslatesAutoresizingMaskIntoConstraints:NO];
@@ -254,6 +253,7 @@
     collectionView.dragDelegate = self;
     collectionView.dropDelegate = self;
     
+    self.collectionView = collectionView;
     [collectionView release];
 }
 

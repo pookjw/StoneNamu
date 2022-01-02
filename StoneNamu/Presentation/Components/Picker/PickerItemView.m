@@ -59,7 +59,6 @@
 
 - (void)configureViews {
     UIImageView *imageView = [UIImageView new];
-    self.imageView = imageView;
     [self addSubview:imageView];
     imageView.translatesAutoresizingMaskIntoConstraints = NO;
     [NSLayoutConstraint activateConstraints:@[
@@ -68,8 +67,8 @@
         [imageView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor]
     ]];
     NSLayoutConstraint *imageViewWidthLayout = [imageView.widthAnchor constraintEqualToConstant:0];
-    self.imageViewWidthLayout = imageViewWidthLayout;
     imageViewWidthLayout.priority = UILayoutPriorityDefaultHigh;
+    self.imageViewWidthLayout = imageViewWidthLayout;
     NSLayoutConstraint *imageViewAspectLayout = [NSLayoutConstraint constraintWithItem:imageView
                                                                              attribute:NSLayoutAttributeHeight
                                                                              relatedBy:NSLayoutRelationEqual
@@ -80,7 +79,6 @@
     self.imageViewAspectLayout = imageViewAspectLayout;
     
     UIStackView *stackView = [UIStackView new];
-    self.stackView = stackView;
     [self addSubview:stackView];
     stackView.translatesAutoresizingMaskIntoConstraints = NO;
     [NSLayoutConstraint activateConstraints:@[
@@ -92,7 +90,6 @@
     stackView.distribution = UIStackViewDistributionFillEqually;
     
     UILabel *primaryLabel = [UILabel new];
-    self.primaryLabel = primaryLabel;
     [stackView addArrangedSubview:primaryLabel];
     primaryLabel.adjustsFontForContentSizeCategory = YES;
     primaryLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleTitle3];
@@ -100,12 +97,16 @@
     primaryLabel.adjustsFontSizeToFitWidth = YES;
     
     UILabel *secondaryLabel = [UILabel new];
-    self.secondaryLabel = secondaryLabel;
     [stackView addArrangedSubview:secondaryLabel];
     secondaryLabel.adjustsFontForContentSizeCategory = YES;
     secondaryLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
     secondaryLabel.textAlignment = NSTextAlignmentCenter;
     secondaryLabel.adjustsFontSizeToFitWidth = YES;
+    
+    self.imageView = imageView;
+    self.stackView = stackView;
+    self.primaryLabel = primaryLabel;
+    self.secondaryLabel = secondaryLabel;
     
     [imageView release];
     [stackView release];

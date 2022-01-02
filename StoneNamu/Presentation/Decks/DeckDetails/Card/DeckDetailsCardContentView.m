@@ -60,7 +60,6 @@
 
 - (void)configureNameLabel {
     InsetsLabel *nameLabel = [InsetsLabel new];
-    self.nameLabel = nameLabel;
     
     nameLabel.contentInsets = UIEdgeInsetsMake(10, 10, 10, 10);
     nameLabel.backgroundColor = UIColor.clearColor;
@@ -96,12 +95,12 @@
     
     //
     
+    self.nameLabel = nameLabel;
     [nameLabel release];
 }
 
 - (void)configureManaCostLabel {
     UILabel *manaCostLabel = [UILabel new];
-    self.manaCostLabel = manaCostLabel;
     
     manaCostLabel.backgroundColor = UIColor.systemBlueColor;
     manaCostLabel.textColor = UIColor.whiteColor;
@@ -134,12 +133,12 @@
     
     //
     
+    self.manaCostLabel = manaCostLabel;
     [manaCostLabel release];
 }
 
 - (void)configureImageView {
     UIImageView *imageView = [UIImageView new];
-    self.imageView = imageView;
     
     imageView.backgroundColor = UIColor.clearColor;
     imageView.contentMode = UIViewContentModeScaleAspectFill;
@@ -179,12 +178,12 @@
     
     //
     
+    self.imageView = imageView;
     [imageView release];
 }
 
 - (void)configureCountLabel {
     UILabel *countLabel = [UILabel new];
-    self.countLabel = countLabel;
     
     //
     
@@ -223,6 +222,7 @@
     
     //
     
+    self.countLabel = countLabel;
     [countLabel release];
 }
 

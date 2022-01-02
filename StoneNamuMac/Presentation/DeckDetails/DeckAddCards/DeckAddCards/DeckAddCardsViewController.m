@@ -148,9 +148,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
     NSScrollView *scrollView = [NSScrollView new];
     ClickableCollectionView *collectionView = [ClickableCollectionView new];
     
-    self.scrollView = scrollView;
-    self.collectionView = collectionView;
-    
     scrollView.documentView = collectionView;
     scrollView.contentView.postsBoundsChangedNotifications = YES;
 
@@ -181,6 +178,9 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
     [collectionView registerForDraggedTypes:HSCardPromiseProvider.pasteboardTypes];
     [collectionView setDraggingSourceOperationMask:NSDragOperationCopy forLocal:NO];
     
+    self.scrollView = scrollView;
+    self.collectionView = collectionView;
+    
     [scrollView release];
     [collectionView release];
 }
@@ -190,9 +190,8 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
     
     collectionViewMenu.delegate = self;
     
-    self.collectionViewMenu = collectionViewMenu;
     self.collectionView.menu = collectionViewMenu;
-    
+    self.collectionViewMenu = collectionViewMenu;
     [collectionViewMenu release];
 }
 

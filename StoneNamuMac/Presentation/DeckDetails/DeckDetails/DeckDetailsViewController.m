@@ -111,9 +111,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
     NSScrollView *scrollView = [NSScrollView new];
     ClickableCollectionView *collectionView = [ClickableCollectionView new];
     
-    self.scrollView = scrollView;
-    self.collectionView = collectionView;
-    
     scrollView.automaticallyAdjustsContentInsets = NO;
     scrollView.documentView = collectionView;
     
@@ -142,23 +139,25 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
     [collectionView registerForDraggedTypes:HSCardPromiseProvider.pasteboardTypes];
     [collectionView setDraggingSourceOperationMask:NSDragOperationCopy forLocal:NO];
     
+    self.scrollView = scrollView;
+    self.collectionView = collectionView;
+    
     [scrollView release];
     [collectionView release];
 }
 
 - (void)configureCollectionViewMenu {
     NSMenu *collectionViewMenu = [NSMenu new];
-    self.collectionViewMenu = collectionViewMenu;
     
     collectionViewMenu.delegate = self;
-    self.collectionView.menu = collectionViewMenu;
     
+    self.collectionView.menu = collectionViewMenu;
+    self.collectionViewMenu = collectionViewMenu;
     [collectionViewMenu release];
 }
 
 - (void)configureManaCostGraphView {
     DeckDetailsManaCostGraphView *manaCostGraphView = [DeckDetailsManaCostGraphView new];
-    self.manaCostGraphView = manaCostGraphView;
     
     [self.view addSubview:manaCostGraphView];
     manaCostGraphView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -169,12 +168,12 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
         [manaCostGraphView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor],
     ]];
     
+    self.manaCostGraphView = manaCostGraphView;
     [manaCostGraphView release];
 }
 
 - (void)configureMoreMenu {
     NSMenu *moreMenu = [NSMenu new];
-    self.moreMenu = moreMenu;
     
     NSMenuItem *deleteItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyDelete]
                                                         action:@selector(deleteItemTriggered:)
@@ -214,6 +213,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
     [shareWithImageItem release];
     [exportDeckCodeItem release];
     
+    self.moreMenu = moreMenu;
     [moreMenu release];
 }
 
@@ -226,8 +226,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
     NSButton *doneButton = [alert addButtonWithTitle:[ResourcesService localizationForKey:LocalizableKeyDone]];
     NSButton *cancelButton = [alert addButtonWithTitle:[ResourcesService localizationForKey:LocalizableKeyCancel]];
     NSTextField *deckNameTextField = [[NSTextField alloc] initWithFrame:NSMakeRect(0.0f, 0.0f, 300.0f, 20.0f)];
-    
-    self.deckNameTextField = deckNameTextField;
     
     //
     
@@ -257,6 +255,8 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
     }];
     
     [alert release];
+    
+    self.deckNameTextField = deckNameTextField;
     [deckNameTextField release];
 }
 
@@ -321,8 +321,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
             NSScrollView *scrollView = [[NSScrollView alloc] initWithFrame:NSMakeRect(0.0f, 0.0f, 300.0f, 200.0f)];
             NSTextView *deckCodeTextView = [[NSTextView alloc] initWithFrame:scrollView.bounds];
             
-            self.deckCodeTextView = deckCodeTextView;
-            
             //
             
             shareButton.target = self;
@@ -351,6 +349,8 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
             
             [alert release];
             [scrollView release];
+            
+            self.deckCodeTextView = deckCodeTextView;
             [deckCodeTextView release];
         }];
     }];
@@ -371,7 +371,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
 
 - (void)configureMoreMenuButton {
     NSButton *moreMenuButton = [NSButton new];
-    self.moreMenuButton = moreMenuButton;
     
     moreMenuButton.image = [NSImage imageWithSystemSymbolName:@"ellipsis" accessibilityDescription:nil];
     moreMenuButton.bezelStyle = NSBezelStyleCircular;
@@ -385,6 +384,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
         [moreMenuButton.bottomAnchor constraintEqualToAnchor:self.manaCostGraphView.topAnchor]
     ]];
     
+    self.moreMenuButton = moreMenuButton;
     [moreMenuButton release];
 }
 

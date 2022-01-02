@@ -11,7 +11,7 @@
 
 @interface PickerViewController () <UIPickerViewDataSource, UIPickerViewDelegate>
 @property (retain) UIPickerView *pickerView;
-@property (retain) NSArray<PickerItemModel *> *dataSource;
+@property (copy) NSArray<PickerItemModel *> *dataSource;
 @property (readonly) BOOL showEmptyRow;
 @property (copy) PickerViewControllerDoneCompletion doneCompletion;
 @end
@@ -31,7 +31,7 @@
     if (self) {
         self.dataSource = dataSource;
         self.navigationItem.title = title;
-        _showEmptyRow = showEmptyRow;
+        self->_showEmptyRow = showEmptyRow;
         self.doneCompletion = doneCompletion;
     }
     
@@ -75,7 +75,6 @@
 
 - (void)configurePickerView {
     UIPickerView *pickerView = [UIPickerView new];
-    self.pickerView = pickerView;
     [self.view addSubview:pickerView];
     
     pickerView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -90,6 +89,7 @@
     pickerView.dataSource = self;
     pickerView.delegate = self;
     
+    self.pickerView = pickerView;
     [pickerView release];
 }
 
@@ -119,6 +119,7 @@
 
 - (void)doneButtonTriggered:(UIBarButtonItem *)sender {
     NSInteger selectedRow = [self.pickerView selectedRowInComponent:0];
+    
     if (self.showEmptyRow) {
         if (selectedRow == 0) {
             self.doneCompletion(nil);

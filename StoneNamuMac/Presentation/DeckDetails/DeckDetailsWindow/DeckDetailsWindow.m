@@ -49,9 +49,9 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
 
 - (void)configureDeckDetailsSplitViewControllerWithLocalDeck:(LocalDeck *)localDeck {
     DeckDetailsSplitViewController *deckDetailsSplitViewController = [[DeckDetailsSplitViewController alloc] initWithLocalDeck:localDeck];
-    self.deckDetailsSplitViewController = deckDetailsSplitViewController;
     [deckDetailsSplitViewController loadViewIfNeeded];
     self.contentViewController = deckDetailsSplitViewController;
+    self.deckDetailsSplitViewController = deckDetailsSplitViewController;
     [deckDetailsSplitViewController release];
 }
 

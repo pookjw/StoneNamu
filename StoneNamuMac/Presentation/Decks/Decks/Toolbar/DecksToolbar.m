@@ -52,28 +52,24 @@
 
 - (void)configureToolbarItems {
     DynamicMenuToolbarItem *createNewDeckStandardDeckItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierDecksCreateNewStandardDeck];
-    self.createNewDeckStandardDeckItem = createNewDeckStandardDeckItem;
     createNewDeckStandardDeckItem.menu = [DecksMenuFactory menuForHSDeckFormat:HSDeckFormatStandard target:self];
     createNewDeckStandardDeckItem.title = [ResourcesService localizationForHSDeckFormat:HSDeckFormatStandard];
     createNewDeckStandardDeckItem.image = [ResourcesService imageForDeckFormat:HSDeckFormatStandard];
     [self insertItemWithItemIdentifier:NSToolbarIdentifierDecksCreateNewStandardDeck atIndex:0];
     
     DynamicMenuToolbarItem *createNewDeckWildDeckItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierDecksCreateNewWildDeck];
-    self.createNewDeckWildDeckItem = createNewDeckWildDeckItem;
     createNewDeckWildDeckItem.menu = [DecksMenuFactory menuForHSDeckFormat:HSDeckFormatWild target:self];
     createNewDeckWildDeckItem.title = [ResourcesService localizationForHSDeckFormat:HSDeckFormatWild];
     createNewDeckWildDeckItem.image = [ResourcesService imageForDeckFormat:HSDeckFormatWild];
     [self insertItemWithItemIdentifier:NSToolbarIdentifierDecksCreateNewWildDeck atIndex:1];
     
     DynamicMenuToolbarItem *createNewDeckClassicDeckItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierDecksCreateNewClassicDeck];
-    self.createNewDeckClassicDeckItem = createNewDeckClassicDeckItem;
     createNewDeckClassicDeckItem.menu = [DecksMenuFactory menuForHSDeckFormat:HSDeckFormatClassic target:self];
     createNewDeckClassicDeckItem.title = [ResourcesService localizationForHSDeckFormat:HSDeckFormatClassic];
     createNewDeckClassicDeckItem.image = [ResourcesService imageForDeckFormat:HSDeckFormatClassic];
     [self insertItemWithItemIdentifier:NSToolbarIdentifierDecksCreateNewClassicDeck atIndex:2];
     
     DynamicMenuToolbarItem *createNewDeckFromDeckCodeItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierDecksCreateNewDeckFromDeckCode];
-    self.createNewDeckFromDeckCodeItem = createNewDeckFromDeckCodeItem;
     createNewDeckFromDeckCodeItem.title = [ResourcesService localizationForKey:LocalizableKeyLoadFromDeckCode];
     createNewDeckFromDeckCodeItem.image = [NSImage imageWithSystemSymbolName:@"chevron.left.forwardslash.chevron.right" accessibilityDescription:nil];
     createNewDeckFromDeckCodeItem.showsIndicator = NO;
@@ -87,6 +83,11 @@
         createNewDeckClassicDeckItem,
         createNewDeckFromDeckCodeItem
     ];
+    
+    self.createNewDeckStandardDeckItem = createNewDeckStandardDeckItem;
+    self.createNewDeckWildDeckItem = createNewDeckWildDeckItem;
+    self.createNewDeckClassicDeckItem = createNewDeckClassicDeckItem;
+    self.createNewDeckFromDeckCodeItem = createNewDeckFromDeckCodeItem;
     
     [createNewDeckStandardDeckItem release];
     [createNewDeckWildDeckItem release];

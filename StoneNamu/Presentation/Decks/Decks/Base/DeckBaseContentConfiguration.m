@@ -33,7 +33,7 @@
     if (copy) {
         DeckBaseContentConfiguration *_copy = (DeckBaseContentConfiguration *)copy;
         [_copy->_localDeck release];
-        _copy->_localDeck= [self.localDeck retain];
+        _copy->_localDeck = [self.localDeck retain];
     }
     
     return copy;

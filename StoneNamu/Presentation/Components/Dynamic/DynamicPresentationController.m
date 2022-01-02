@@ -76,7 +76,6 @@
 
 - (void)configureVisualEffectView {
     UIVisualEffectView *visualEffectView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleDark]];
-    self.visualEffectView = visualEffectView;
     
     [self.containerView addSubview:visualEffectView];
     visualEffectView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -87,6 +86,7 @@
         [visualEffectView.bottomAnchor constraintEqualToAnchor:self.containerView.bottomAnchor]
     ]];
     
+    self.visualEffectView = visualEffectView;
     [visualEffectView release];
 }
 

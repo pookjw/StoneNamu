@@ -103,7 +103,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeta
 
 - (void)configureBlurView {
     NSVisualEffectView *blurView = [NSVisualEffectView new];
-    self.blurView = blurView;
     
     blurView.blendingMode = NSVisualEffectBlendingModeBehindWindow;
     blurView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -116,12 +115,12 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeta
         [blurView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor]
     ]];
     
+    self.blurView = blurView;
     [blurView release];
 }
 
 - (void)configureStackView {
     NSStackView *stackView = [NSStackView new];
-    self.stackView = stackView;
     
     [self.blurView addSubview:stackView];
     stackView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -132,24 +131,23 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeta
         [stackView.bottomAnchor constraintEqualToAnchor:self.blurView.safeAreaLayoutGuide.bottomAnchor]
     ]];
     
+    self.stackView = stackView;
     [stackView release];
 }
 
 - (void)configureImageView {
     HSCardSavableImageView *imageView = [[HSCardSavableImageView alloc] initWithHSCard:self.hsCard];
-    self.imageView = imageView;
-    [imageView setAsyncImageWithURL:self.hsCard.image indicator:YES];
     
+    [imageView setAsyncImageWithURL:self.hsCard.image indicator:YES];
     [self.stackView addArrangedSubview:imageView];
+    
+    self.imageView = imageView;
     [imageView release];
 }
 
 - (void)configureCollectionView {
     NSScrollView *scrollView = [NSScrollView new];
     ClickableCollectionView *collectionView = [ClickableCollectionView new];
-    
-    self.scrollView = scrollView;
-    self.collectionView = collectionView;
     
     scrollView.documentView = collectionView;
 
@@ -177,6 +175,9 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeta
     [collectionView registerForDraggedTypes:HSCardPromiseProvider.pasteboardTypes];
     [collectionView setDraggingSourceOperationMask:NSDragOperationCopy forLocal:NO];
     
+    self.scrollView = scrollView;
+    self.collectionView = collectionView;
+    
     [scrollView release];
     [collectionView release];
 }
@@ -186,9 +187,8 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeta
     
     collectionViewMenu.delegate = self;
     
-    self.collectionViewMenu = collectionViewMenu;
     self.collectionView.menu = collectionViewMenu;
-    
+    self.collectionViewMenu = collectionViewMenu;
     [collectionViewMenu release];
 }
 

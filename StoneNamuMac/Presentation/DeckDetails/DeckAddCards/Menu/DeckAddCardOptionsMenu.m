@@ -101,13 +101,13 @@
 
 - (void)configureOptionsMenu {
     NSMenuItem *optionsMenuItem = [NSMenuItem new];
-    self.optionsMenuItem = optionsMenuItem;
-    
     NSMenu *optionsSubMenu = [[NSMenu alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyCardOptionsTitleShort]];
-    self.optionsSubMenu = optionsSubMenu;
+
     optionsMenuItem.submenu = optionsSubMenu;
-    
     [self insertItem:optionsMenuItem atIndex:3];
+    
+    self.optionsMenuItem = optionsMenuItem;
+    self.optionsSubMenu = optionsSubMenu;
     [optionsMenuItem release];
     [optionsSubMenu release];
 }
@@ -116,7 +116,6 @@
     NSMenuItem *optionTypeTextFilterItem = [[NSMenuItem alloc] initWithTitle:@""
                                                                       action:nil
                                                                keyEquivalent:@""];
-    self.optionTypeTextFilterItem = optionTypeTextFilterItem;
     optionTypeTextFilterItem.identifier = NSUserInterfaceItemIdentifierDeckAddCardOptionTypeTextFilter;
     optionTypeTextFilterItem.submenu = [self menuForMenuItem:optionTypeTextFilterItem];
     
@@ -125,7 +124,6 @@
     NSMenuItem *optionTypeSetItem = [[NSMenuItem alloc] initWithTitle:@""
                                                                action:nil
                                                         keyEquivalent:@""];
-    self.optionTypeSetItem = optionTypeSetItem;
     optionTypeSetItem.identifier = NSUserInterfaceItemIdentifierDeckAddCardOptionTypeSet;
     optionTypeSetItem.submenu = [self menuForMenuItem:optionTypeSetItem];
     
@@ -134,7 +132,6 @@
     NSMenuItem *optionTypeClassItem = [[NSMenuItem alloc] initWithTitle:@""
                                                                  action:nil
                                                           keyEquivalent:@""];
-    self.optionTypeClassItem = optionTypeClassItem;
     optionTypeClassItem.identifier = NSUserInterfaceItemIdentifierDeckAddCardOptionTypeClass;
     optionTypeClassItem.submenu = [self menuForMenuItem:optionTypeClassItem];
     
@@ -143,7 +140,6 @@
     NSMenuItem *optionTypeManaCostItem = [[NSMenuItem alloc] initWithTitle:@""
                                                                     action:nil
                                                              keyEquivalent:@""];
-    self.optionTypeManaCostItem = optionTypeManaCostItem;
     optionTypeManaCostItem.identifier = NSUserInterfaceItemIdentifierDeckAddCardOptionTypeManaCost;
     optionTypeManaCostItem.submenu = [self menuForMenuItem:optionTypeManaCostItem];
     
@@ -152,7 +148,6 @@
     NSMenuItem *optionTypeAttackItem = [[NSMenuItem alloc] initWithTitle:@""
                                                                   action:nil
                                                            keyEquivalent:@""];
-    self.optionTypeAttackItem = optionTypeAttackItem;
     optionTypeAttackItem.identifier = NSUserInterfaceItemIdentifierDeckAddCardOptionTypeAttack;
     optionTypeAttackItem.submenu = [self menuForMenuItem:optionTypeAttackItem];
     
@@ -161,7 +156,6 @@
     NSMenuItem *optionTypeHealthItem = [[NSMenuItem alloc] initWithTitle:@""
                                                                   action:nil
                                                            keyEquivalent:@""];
-    self.optionTypeHealthItem = optionTypeHealthItem;
     optionTypeHealthItem.identifier = NSUserInterfaceItemIdentifierDeckAddCardOptionTypeHealth;
     optionTypeHealthItem.submenu = [self menuForMenuItem:optionTypeHealthItem];
     
@@ -170,7 +164,6 @@
     NSMenuItem *optionTypeCollectibleItem = [[NSMenuItem alloc] initWithTitle:@""
                                                                        action:nil
                                                                 keyEquivalent:@""];
-    self.optionTypeCollectibleItem = optionTypeCollectibleItem;
     optionTypeCollectibleItem.identifier = NSUserInterfaceItemIdentifierDeckAddCardOptionTypeCollectible;
     optionTypeCollectibleItem.submenu = [self menuForMenuItem:optionTypeCollectibleItem];
     
@@ -179,7 +172,6 @@
     NSMenuItem *optionTypeRarityItem = [[NSMenuItem alloc] initWithTitle:@""
                                                                   action:nil
                                                            keyEquivalent:@""];
-    self.optionTypeRarityItem = optionTypeRarityItem;
     optionTypeRarityItem.identifier = NSUserInterfaceItemIdentifierDeckAddCardOptionTypeRarity;
     optionTypeRarityItem.submenu = [self menuForMenuItem:optionTypeRarityItem];
     
@@ -188,7 +180,6 @@
     NSMenuItem *optionTypeTypeItem = [[NSMenuItem alloc] initWithTitle:@""
                                                                 action:nil
                                                          keyEquivalent:@""];
-    self.optionTypeTypeItem = optionTypeTypeItem;
     optionTypeTypeItem.identifier = NSUserInterfaceItemIdentifierDeckAddCardOptionTypeType;
     optionTypeTypeItem.submenu = [self menuForMenuItem:optionTypeTypeItem];
     
@@ -197,7 +188,6 @@
     NSMenuItem *optionTypeMinionTypeItem = [[NSMenuItem alloc] initWithTitle:@""
                                                                       action:nil
                                                                keyEquivalent:@""];
-    self.optionTypeMinionTypeItem = optionTypeMinionTypeItem;
     optionTypeMinionTypeItem.identifier = NSUserInterfaceItemIdentifierDeckAddCardOptionTypeMinionType;
     optionTypeMinionTypeItem.submenu = [self menuForMenuItem:optionTypeMinionTypeItem];
     
@@ -206,7 +196,6 @@
     NSMenuItem *optionTypeSpellSchoolItem = [[NSMenuItem alloc] initWithTitle:@""
                                                                        action:nil
                                                                 keyEquivalent:@""];
-    self.optionTypeSpellSchoolItem = optionTypeSpellSchoolItem;
     optionTypeSpellSchoolItem.identifier = NSUserInterfaceItemIdentifierDeckAddCardOptionTypeSpellSchool;
     optionTypeSpellSchoolItem.submenu = [self menuForMenuItem:optionTypeSpellSchoolItem];
     
@@ -215,7 +204,6 @@
     NSMenuItem *optionTypeKeywordItem = [[NSMenuItem alloc] initWithTitle:@""
                                                                    action:nil
                                                             keyEquivalent:@""];
-    self.optionTypeKeywordItem = optionTypeKeywordItem;
     optionTypeKeywordItem.identifier = NSUserInterfaceItemIdentifierDeckAddCardOptionTypeKeyword;
     optionTypeKeywordItem.submenu = [self menuForMenuItem:optionTypeKeywordItem];
     
@@ -224,7 +212,6 @@
     NSMenuItem *optionTypeGameModeItem = [[NSMenuItem alloc] initWithTitle:@""
                                                                     action:nil
                                                              keyEquivalent:@""];
-    self.optionTypeGameModeItem = optionTypeGameModeItem;
     optionTypeGameModeItem.identifier = NSUserInterfaceItemIdentifierDeckAddCardOptionTypeGameMode;
     optionTypeGameModeItem.submenu = [self menuForMenuItem:optionTypeGameModeItem];
     
@@ -233,7 +220,6 @@
     NSMenuItem *optionTypeSortItem = [[NSMenuItem alloc] initWithTitle:@""
                                                                 action:nil
                                                          keyEquivalent:@""];
-    self.optionTypeSortItem = optionTypeSortItem;
     optionTypeSortItem.identifier = NSUserInterfaceItemIdentifierDeckAddCardOptionTypeSort;
     optionTypeSortItem.submenu = [self menuForMenuItem:optionTypeSortItem];
     
@@ -257,6 +243,21 @@
     ];
     self.allItems = allItems;
     self.optionsSubMenu.itemArray = allItems;
+    
+    self.optionTypeTextFilterItem = optionTypeTextFilterItem;
+    self.optionTypeSetItem = optionTypeSetItem;
+    self.optionTypeClassItem = optionTypeClassItem;
+    self.optionTypeManaCostItem = optionTypeManaCostItem;
+    self.optionTypeAttackItem = optionTypeAttackItem;
+    self.optionTypeHealthItem = optionTypeHealthItem;
+    self.optionTypeCollectibleItem = optionTypeCollectibleItem;
+    self.optionTypeRarityItem = optionTypeRarityItem;
+    self.optionTypeTypeItem = optionTypeTypeItem;
+    self.optionTypeMinionTypeItem = optionTypeMinionTypeItem;
+    self.optionTypeSpellSchoolItem = optionTypeSpellSchoolItem;
+    self.optionTypeKeywordItem = optionTypeKeywordItem;
+    self.optionTypeGameModeItem = optionTypeGameModeItem;
+    self.optionTypeSortItem = optionTypeSortItem;
     
     [optionTypeTextFilterItem release];
     [optionTypeSetItem release];

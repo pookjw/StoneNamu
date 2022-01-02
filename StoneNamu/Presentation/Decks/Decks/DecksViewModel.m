@@ -28,8 +28,8 @@
         self.contextMenuIndexPath = nil;
         
         NSOperationQueue *queue = [NSOperationQueue new];
-        self.queue = queue;
         queue.qualityOfService = NSQualityOfServiceUserInitiated;
+        self.queue = queue;
         [queue release];
         
         HSDeckUseCaseImpl *hsDeckUseCase = [HSDeckUseCaseImpl new];
@@ -37,11 +37,10 @@
         [hsDeckUseCase release];
         
         LocalDeckUseCaseImpl *localDeckUseCase = [LocalDeckUseCaseImpl new];
-        self.localDeckUseCase = localDeckUseCase;
         [localDeckUseCase fetchWithCompletion:^(NSArray<LocalDeck *> * _Nullable localDeck, NSError * _Nullable error) {
             [self requestDataSourceWithLocalDecks:localDeck];
         }];
-        
+        self.localDeckUseCase = localDeckUseCase;
         [localDeckUseCase release];
         
         [self startLocalDeckObserving];

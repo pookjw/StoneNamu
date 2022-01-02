@@ -77,9 +77,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierMainList
     NSScrollView *scrollView = [NSScrollView new];
     NSTableView *tableView = [NSTableView new];
     
-    self.scrollView = scrollView;
-    self.tableView = tableView;
-    
     scrollView.documentView = tableView;
 
     [self.view addSubview:scrollView];
@@ -98,7 +95,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierMainList
     [nib release];
     
     NSTableColumn *tableColumn = [[NSTableColumn alloc] initWithIdentifier:NSUserInterfaceItemIdentifierMainListTableColumn];
-    self.tableColumn = tableColumn;
     [tableView addTableColumn:tableColumn];
     [tableColumn release];
     
@@ -109,6 +105,10 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierMainList
     tableView.rowSizeStyle = NSTableViewRowSizeStyleDefault;
     tableView.delegate = self;
     tableView.allowsEmptySelection = NO;
+    
+    self.scrollView = scrollView;
+    self.tableView = tableView;
+    self.tableColumn = tableColumn;
     
     [scrollView release];
     [tableView release];

@@ -36,7 +36,6 @@
 
 - (void)configureViewControllersWithLocalDeck:(LocalDeck *)localDeck {
     DeckAddCardsViewController *deckAddCardsViewController = [[DeckAddCardsViewController alloc] initWithLocalDeck:localDeck];
-    self.deckAddCardsViewController = deckAddCardsViewController;
     [deckAddCardsViewController loadViewIfNeeded];
     NSSplitViewItem *deckAddCardsSplitViewItem = [NSSplitViewItem contentListWithViewController:deckAddCardsViewController];
     [self addSplitViewItem:deckAddCardsSplitViewItem];
@@ -51,6 +50,8 @@
     
     //
     
+    self.deckAddCardsViewController = deckAddCardsViewController;
+    self.deckDetailsViewController = deckDetailsViewController;
     [deckAddCardsViewController release];
     [deckDetailsViewController release];
 }

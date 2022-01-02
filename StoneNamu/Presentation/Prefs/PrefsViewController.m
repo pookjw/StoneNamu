@@ -101,7 +101,6 @@
     [layoutConfiguration release];
     
     UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:layout];
-    self.collectionView = collectionView;
     [self.view addSubview:collectionView];
     
     [collectionView setTranslatesAutoresizingMaskIntoConstraints:NO];
@@ -115,6 +114,7 @@
     collectionView.backgroundColor = UIColor.systemBackgroundColor;
     collectionView.delegate = self;
     
+    self.collectionView = collectionView;
     [collectionView release];
 }
 
@@ -169,11 +169,8 @@
             [accessories addObject:[[[UICellAccessoryLabel alloc] initWithText:itemModel.accessoryText] autorelease]];
         }
         
-        NSArray<UICellAccessory *> *results = [accessories copy];
+        cell.accessories = accessories;
         [accessories release];
-        cell.accessories = results;
-        
-        [results release];
     }];
     
     return cellRegistration;

@@ -62,7 +62,6 @@
 
 - (void)configureManaLabel {
     NSTextField *manaLabel = [NSTextField new];
-    self.manaLabel = manaLabel;
     
     [manaLabel setLabelStyle];
     manaLabel.alignment = NSTextAlignmentCenter;
@@ -75,12 +74,12 @@
         [manaLabel.bottomAnchor constraintEqualToAnchor:self.bottomAnchor]
     ]];
     
+    self.manaLabel = manaLabel;
     [manaLabel release];
 }
 
 - (void)configureCountLabel {
     NSTextField *countLabel = [NSTextField new];
-    self.countLabel = countLabel;
     
     [countLabel setLabelStyle];
     countLabel.alignment = NSTextAlignmentCenter;
@@ -93,12 +92,12 @@
         [countLabel.trailingAnchor constraintEqualToAnchor:self.trailingAnchor]
     ]];
     
+    self.countLabel = countLabel;
     [countLabel release];
 }
 
 - (void)configureBackgroundView {
     NSView *backgroundView = [NSView new];
-    self.backgroundView = backgroundView;
     
     backgroundView.translatesAutoresizingMaskIntoConstraints = NO;
     
@@ -110,12 +109,12 @@
         [backgroundView.bottomAnchor constraintEqualToAnchor:self.manaLabel.topAnchor]
     ]];
     
+    self.backgroundView = backgroundView;
     [backgroundView release];
 }
 
 - (void)configureFilledView {
     NSView *filledView = [NSView new];
-    self.filledView = filledView;
     
     filledView.wantsLayer = YES;
     filledView.layer.backgroundColor = NSColor.systemGreenColor.CGColor;
@@ -133,6 +132,7 @@
         [filledView.bottomAnchor constraintEqualToAnchor:self.backgroundView.bottomAnchor]
     ]];
     
+    self.filledView = filledView;
     [filledView release];
 }
 

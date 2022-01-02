@@ -75,8 +75,8 @@
                                                                     target:self
                                                                     action:@selector(cancelButtonTriggered:)];
     
-    self.cancelButton = cancelButton;
     self.navigationItem.leftBarButtonItems = @[cancelButton];
+    self.cancelButton = cancelButton;
     [cancelButton release];
 }
 
@@ -104,7 +104,6 @@
     [layoutConfiguration release];
     
     UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:layout];
-    self.collectionView = collectionView;
     [self.view addSubview:collectionView];
     
     [collectionView setTranslatesAutoresizingMaskIntoConstraints:NO];
@@ -118,6 +117,7 @@
     collectionView.backgroundColor = UIColor.systemBackgroundColor;
     collectionView.delegate = self;
     
+    self.collectionView = collectionView;
     [collectionView release];
 }
 

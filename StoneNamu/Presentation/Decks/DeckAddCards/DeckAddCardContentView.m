@@ -43,13 +43,11 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    [self drawShapeToCountLabel];
+    [self drawShapeToCountLabel:self.countLabel];
 }
 
 - (void)configureImageView {
     UIImageView *imageView = [UIImageView new];
-    [self->_imageView release];
-    self->_imageView = [imageView retain];
     imageView.contentMode = UIViewContentModeScaleAspectFit;
     [self addSubview:imageView];
     imageView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -59,12 +57,14 @@
         [imageView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor]
     ]];
     imageView.backgroundColor = UIColor.clearColor;
+    
+    [self->_imageView release];
+    self->_imageView = [imageView retain];
     [imageView release];
 }
 
 - (void)configureCountLabel {
     InsetsLabel *countLabel = [InsetsLabel new];
-    self.countLabel = countLabel;
     
     [self addSubview:countLabel];
     
@@ -82,8 +82,9 @@
         [countLabel.bottomAnchor constraintEqualToAnchor:self.bottomAnchor]
     ]];
     
-    [self drawShapeToCountLabel];
+    [self drawShapeToCountLabel:countLabel];
     
+    self.countLabel = countLabel;
     [countLabel release];
 }
 
@@ -156,15 +157,15 @@
     
     self.countLabel.text = [NSString stringWithFormat:@"%lu / %d", count, maxCount];
     
-    [self drawShapeToCountLabel];
+    [self drawShapeToCountLabel:self.countLabel];
 }
 
-- (void)drawShapeToCountLabel {
+- (void)drawShapeToCountLabel:(InsetsLabel *)countLabel {
     // https://developer.apple.com/library/archive/documentation/2DDrawing/Conceptual/DrawingPrintingiOS/BezierPaths/BezierPaths.html
-    CGSize size = self.countLabel.bounds.size;
+    CGSize size = countLabel.bounds.size;
     UIBezierPath *path = [UIBezierPath bezierPath];
     
-    CGFloat arrowHeight = self.countLabel.contentInsets.top;
+    CGFloat arrowHeight = countLabel.contentInsets.top;
     CGFloat arrowSideLength = arrowHeight * (1 / cos(DEGREES_TO_RADIANS(30)));
     CGFloat radius = (size.height - arrowHeight) / 2;
     CGPoint leftCenter = CGPointMake(radius, size.height - radius);
@@ -219,8 +220,7 @@
     CAShapeLayer *mask = [CAShapeLayer new];
     mask.path = path.CGPath;
     
-    self.countLabel.layer.mask = mask;
-    
+    countLabel.layer.mask = mask;
     [mask release];
 }
 

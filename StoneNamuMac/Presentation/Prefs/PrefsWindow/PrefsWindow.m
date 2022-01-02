@@ -49,9 +49,10 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierPrefsWin
 
 - (void)configurePrefsTabViewController {
     PrefsTabViewController *prefsTabViewController = [PrefsTabViewController new];
-    self.prefsTabViewController = prefsTabViewController;
     [prefsTabViewController loadViewIfNeeded];
     self.contentViewController = prefsTabViewController;
+    
+    self.prefsTabViewController = prefsTabViewController;
     [prefsTabViewController release];
 }
 

@@ -193,16 +193,13 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     NSTouchBar *optionTypeSetTouchBar = [NSTouchBar new];
     NSCustomTouchBarItem *optionTypeSetItem = [[NSCustomTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierCardOptionTypeSet];
     NSScrubber *optionTypeSetScrubber = [NSScrubber new];
-    self.optionTypeSetPopoverItem = optionTypeSetPopoverItem;
-    self.optionTypeSetTouchBar = optionTypeSetTouchBar;
-    self.optionTypeSetItem = optionTypeSetItem;
-    self.optionTypeSetScrubber = optionTypeSetScrubber;
     
     [self wireItemsWithPopoverItem:optionTypeSetPopoverItem
                           touchBar:optionTypeSetTouchBar
                         customItem:optionTypeSetItem
                           scrubber:optionTypeSetScrubber
-                          itemSize:CGSizeMake(230.0f, 30.0f)];
+                          itemSize:CGSizeMake(230.0f, 30.0f)
+                        optionType:BlizzardHSAPIOptionTypeSet];
     
     //
     
@@ -210,16 +207,13 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     NSTouchBar *optionTypeClassTouchBar = [NSTouchBar new];
     NSCustomTouchBarItem *optionTypeClassItem = [[NSCustomTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierCardOptionTypeClass];
     NSScrubber *optionTypeClassScrubber = [NSScrubber new];
-    self.optionTypeClassPopoverItem = optionTypeClassPopoverItem;
-    self.optionTypeClassTouchBar = optionTypeClassTouchBar;
-    self.optionTypeClassItem = optionTypeClassItem;
-    self.optionTypeClassScrubber = optionTypeClassScrubber;
     
     [self wireItemsWithPopoverItem:optionTypeClassPopoverItem
                           touchBar:optionTypeClassTouchBar
                         customItem:optionTypeClassItem
                           scrubber:optionTypeClassScrubber
-                          itemSize:CGSizeMake(150.0f, 30.0f)];
+                          itemSize:CGSizeMake(150.0f, 30.0f)
+                        optionType:BlizzardHSAPIOptionTypeClass];
     
     //
     
@@ -227,16 +221,13 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     NSTouchBar *optionTypeManaCostTouchBar = [NSTouchBar new];
     NSCustomTouchBarItem *optionTypeManaCostItem = [[NSCustomTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierCardOptionTypeManaCost];
     NSScrubber *optionTypeManaCostScrubber = [NSScrubber new];
-    self.optionTypeManaCostPopoverItem = optionTypeManaCostPopoverItem;
-    self.optionTypeManaCostTouchBar = optionTypeManaCostTouchBar;
-    self.optionTypeManaCostItem = optionTypeManaCostItem;
-    self.optionTypeManaCostScrubber = optionTypeManaCostScrubber;
     
     [self wireItemsWithPopoverItem:optionTypeManaCostPopoverItem
                           touchBar:optionTypeManaCostTouchBar
                         customItem:optionTypeManaCostItem
                           scrubber:optionTypeManaCostScrubber
-                          itemSize:CGSizeMake(50.0f, 30.0f)];
+                          itemSize:CGSizeMake(50.0f, 30.0f)
+                        optionType:BlizzardHSAPIOptionTypeManaCost];
     
     //
     
@@ -244,16 +235,13 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     NSTouchBar *optionTypeAttackTouchBar = [NSTouchBar new];
     NSCustomTouchBarItem *optionTypeAttackItem = [[NSCustomTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierCardOptionTypeAttack];
     NSScrubber *optionTypeAttackScrubber = [NSScrubber new];
-    self.optionTypeAttackPopoverItem = optionTypeAttackPopoverItem;
-    self.optionTypeAttackTouchBar = optionTypeAttackTouchBar;
-    self.optionTypeAttackItem = optionTypeAttackItem;
-    self.optionTypeAttackScrubber = optionTypeAttackScrubber;
     
     [self wireItemsWithPopoverItem:optionTypeAttackPopoverItem
                           touchBar:optionTypeAttackTouchBar
                         customItem:optionTypeAttackItem
                           scrubber:optionTypeAttackScrubber
-                          itemSize:CGSizeMake(50.0f, 30.0f)];
+                          itemSize:CGSizeMake(50.0f, 30.0f)
+                        optionType:BlizzardHSAPIOptionTypeAttack];
     
     //
     
@@ -261,16 +249,13 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     NSTouchBar *optionTypeHealthTouchBar = [NSTouchBar new];
     NSCustomTouchBarItem *optionTypeHealthItem = [[NSCustomTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierCardOptionTypeHealth];
     NSScrubber *optionTypeHealthScrubber = [NSScrubber new];
-    self.optionTypeHealthPopoverItem = optionTypeHealthPopoverItem;
-    self.optionTypeHealthTouchBar = optionTypeHealthTouchBar;
-    self.optionTypeHealthItem = optionTypeHealthItem;
-    self.optionTypeHealthScrubber = optionTypeHealthScrubber;
     
     [self wireItemsWithPopoverItem:optionTypeHealthPopoverItem
                           touchBar:optionTypeHealthTouchBar
                         customItem:optionTypeHealthItem
                           scrubber:optionTypeHealthScrubber
-                          itemSize:CGSizeMake(50.0f, 30.0f)];
+                          itemSize:CGSizeMake(50.0f, 30.0f)
+                        optionType:BlizzardHSAPIOptionTypeHealth];
     
     //
     
@@ -278,16 +263,13 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     NSTouchBar *optionTypeCollectibleTouchBar = [NSTouchBar new];
     NSCustomTouchBarItem *optionTypeCollectibleItem = [[NSCustomTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierCardOptionTypeCollecticle];
     NSScrubber *optionTypeCollectibleScrubber = [NSScrubber new];
-    self.optionTypeCollectiblePopoverItem = optionTypeCollectiblePopoverItem;
-    self.optionTypeCollectibleTouchBar = optionTypeCollectibleTouchBar;
-    self.optionTypeCollectibleItem = optionTypeCollectibleItem;
-    self.optionTypeCollectibleScrubber = optionTypeCollectibleScrubber;
     
     [self wireItemsWithPopoverItem:optionTypeCollectiblePopoverItem
                           touchBar:optionTypeCollectibleTouchBar
                         customItem:optionTypeCollectibleItem
                           scrubber:optionTypeCollectibleScrubber
-                          itemSize:CGSizeMake(150.0f, 30.0f)];
+                          itemSize:CGSizeMake(150.0f, 30.0f)
+                        optionType:BlizzardHSAPIOptionTypeCollectible];
     
     //
     
@@ -295,16 +277,13 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     NSTouchBar *optionTypeRarityTouchBar = [NSTouchBar new];
     NSCustomTouchBarItem *optionTypeRarityItem = [[NSCustomTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierCardOptionTypeRarity];
     NSScrubber *optionTypeRarityScrubber = [NSScrubber new];
-    self.optionTypeRarityPopoverItem = optionTypeRarityPopoverItem;
-    self.optionTypeRarityTouchBar = optionTypeRarityTouchBar;
-    self.optionTypeRarityItem = optionTypeRarityItem;
-    self.optionTypeRarityScrubber = optionTypeRarityScrubber;
     
     [self wireItemsWithPopoverItem:optionTypeRarityPopoverItem
                           touchBar:optionTypeRarityTouchBar
                         customItem:optionTypeRarityItem
                           scrubber:optionTypeRarityScrubber
-                          itemSize:CGSizeMake(150.0f, 30.0f)];
+                          itemSize:CGSizeMake(150.0f, 30.0f)
+                        optionType:BlizzardHSAPIOptionTypeRarity];
     
     //
     
@@ -312,16 +291,13 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     NSTouchBar *optionTypeTypeTouchBar = [NSTouchBar new];
     NSCustomTouchBarItem *optionTypeTypeItem = [[NSCustomTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierCardOptionTypeType];
     NSScrubber *optionTypeTypeScrubber = [NSScrubber new];
-    self.optionTypeTypePopoverItem = optionTypeTypePopoverItem;
-    self.optionTypeTypeTouchBar = optionTypeTypeTouchBar;
-    self.optionTypeTypeItem = optionTypeTypeItem;
-    self.optionTypeTypeScrubber = optionTypeTypeScrubber;
     
     [self wireItemsWithPopoverItem:optionTypeTypePopoverItem
                           touchBar:optionTypeTypeTouchBar
                         customItem:optionTypeTypeItem
                           scrubber:optionTypeTypeScrubber
-                          itemSize:CGSizeMake(150.0f, 30.0f)];
+                          itemSize:CGSizeMake(150.0f, 30.0f)
+                        optionType:BlizzardHSAPIOptionTypeType];
     
     //
     
@@ -329,16 +305,13 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     NSTouchBar *optionTypeMinionTypeTouchBar = [NSTouchBar new];
     NSCustomTouchBarItem *optionTypeMinionTypeItem = [[NSCustomTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierCardOptionTypeMinionType];
     NSScrubber *optionTypeMinionTypeScrubber = [NSScrubber new];
-    self.optionTypeMinionTypePopoverItem = optionTypeMinionTypePopoverItem;
-    self.optionTypeMinionTypeTouchBar = optionTypeMinionTypeTouchBar;
-    self.optionTypeMinionTypeItem = optionTypeMinionTypeItem;
-    self.optionTypeMinionTypeScrubber = optionTypeMinionTypeScrubber;
     
     [self wireItemsWithPopoverItem:optionTypeMinionTypePopoverItem
                           touchBar:optionTypeMinionTypeTouchBar
                         customItem:optionTypeMinionTypeItem
                           scrubber:optionTypeMinionTypeScrubber
-                          itemSize:CGSizeMake(150.0f, 30.0f)];
+                          itemSize:CGSizeMake(150.0f, 30.0f)
+                        optionType:BlizzardHSAPIOptionTypeMinionType];
     
     //
     
@@ -346,16 +319,13 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     NSTouchBar *optionTypeSpellSchoolTouchBar = [NSTouchBar new];
     NSCustomTouchBarItem *optionTypeSpellSchoolItem = [[NSCustomTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierCardOptionTypeSchoolSpell];
     NSScrubber *optionTypeSpellSchoolScrubber = [NSScrubber new];
-    self.optionTypeSpellSchoolPopoverItem = optionTypeSpellSchoolPopoverItem;
-    self.optionTypeSpellSchoolTouchBar = optionTypeSpellSchoolTouchBar;
-    self.optionTypeSpellSchoolItem = optionTypeSpellSchoolItem;
-    self.optionTypeSpellSchoolScrubber = optionTypeSpellSchoolScrubber;
     
     [self wireItemsWithPopoverItem:optionTypeSpellSchoolPopoverItem
                           touchBar:optionTypeSpellSchoolTouchBar
                         customItem:optionTypeSpellSchoolItem
                           scrubber:optionTypeSpellSchoolScrubber
-                          itemSize:CGSizeMake(150.0f, 30.0f)];
+                          itemSize:CGSizeMake(150.0f, 30.0f)
+                        optionType:BlizzardHSAPIOptionTypeSpellSchool];
     
     //
     
@@ -363,16 +333,13 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     NSTouchBar *optionTypeKeywordTouchBar = [NSTouchBar new];
     NSCustomTouchBarItem *optionTypeKeywordItem = [[NSCustomTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierCardOptionTypeKeyword];
     NSScrubber *optionTypeKeywordScrubber = [NSScrubber new];
-    self.optionTypeKeywordPopoverItem = optionTypeKeywordPopoverItem;
-    self.optionTypeKeywordTouchBar = optionTypeKeywordTouchBar;
-    self.optionTypeKeywordItem = optionTypeKeywordItem;
-    self.optionTypeKeywordScrubber = optionTypeKeywordScrubber;
     
     [self wireItemsWithPopoverItem:optionTypeKeywordPopoverItem
                           touchBar:optionTypeKeywordTouchBar
                         customItem:optionTypeKeywordItem
                           scrubber:optionTypeKeywordScrubber
-                          itemSize:CGSizeMake(180.0f, 30.0f)];
+                          itemSize:CGSizeMake(180.0f, 30.0f)
+                        optionType:BlizzardHSAPIOptionTypeKeyword];
     
     //
     
@@ -380,16 +347,13 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     NSTouchBar *optionTypeGameModeTouchBar = [NSTouchBar new];
     NSCustomTouchBarItem *optionTypeGameModeItem = [[NSCustomTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierCardOptionTypeGameMode];
     NSScrubber *optionTypeGameModeScrubber = [NSScrubber new];
-    self.optionTypeGameModePopoverItem = optionTypeGameModePopoverItem;
-    self.optionTypeGameModeTouchBar = optionTypeGameModeTouchBar;
-    self.optionTypeGameModeItem = optionTypeGameModeItem;
-    self.optionTypeGameModeScrubber = optionTypeGameModeScrubber;
     
     [self wireItemsWithPopoverItem:optionTypeGameModePopoverItem
                           touchBar:optionTypeGameModeTouchBar
                         customItem:optionTypeGameModeItem
                           scrubber:optionTypeGameModeScrubber
-                          itemSize:CGSizeMake(180.0f, 30.0f)];
+                          itemSize:CGSizeMake(180.0f, 30.0f)
+                        optionType:BlizzardHSAPIOptionTypeGameMode];
     
     //
     
@@ -397,16 +361,13 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     NSTouchBar *optionTypeSortTouchBar = [NSTouchBar new];
     NSCustomTouchBarItem *optionTypeSortItem = [[NSCustomTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierCardOptionTypeSort];
     NSScrubber *optionTypeSortScrubber = [NSScrubber new];
-    self.optionTypeSortPopoverItem = optionTypeSortPopoverItem;
-    self.optionTypeSortTouchBar = optionTypeSortTouchBar;
-    self.optionTypeSortItem = optionTypeSortItem;
-    self.optionTypeSortScrubber = optionTypeSortScrubber;
     
     [self wireItemsWithPopoverItem:optionTypeSortPopoverItem
                           touchBar:optionTypeSortTouchBar
                         customItem:optionTypeSortItem
                           scrubber:optionTypeSortScrubber
-                          itemSize:CGSizeMake(200.0f, 30.0f)];
+                          itemSize:CGSizeMake(200.0f, 30.0f)
+                        optionType:BlizzardHSAPIOptionTypeSort];
     
     //
     
@@ -441,6 +402,71 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
         optionTypeGameModeScrubber,
         optionTypeSortScrubber
     ];
+    
+    self.optionTypeSetPopoverItem = optionTypeSetPopoverItem;
+    self.optionTypeSetTouchBar = optionTypeSetTouchBar;
+    self.optionTypeSetItem = optionTypeSetItem;
+    self.optionTypeSetScrubber = optionTypeSetScrubber;
+    
+    self.optionTypeClassPopoverItem = optionTypeClassPopoverItem;
+    self.optionTypeClassTouchBar = optionTypeClassTouchBar;
+    self.optionTypeClassItem = optionTypeClassItem;
+    self.optionTypeClassScrubber = optionTypeClassScrubber;
+    
+    self.optionTypeManaCostPopoverItem = optionTypeManaCostPopoverItem;
+    self.optionTypeManaCostTouchBar = optionTypeManaCostTouchBar;
+    self.optionTypeManaCostItem = optionTypeManaCostItem;
+    self.optionTypeManaCostScrubber = optionTypeManaCostScrubber;
+    
+    self.optionTypeAttackPopoverItem = optionTypeAttackPopoverItem;
+    self.optionTypeAttackTouchBar = optionTypeAttackTouchBar;
+    self.optionTypeAttackItem = optionTypeAttackItem;
+    self.optionTypeAttackScrubber = optionTypeAttackScrubber;
+    
+    self.optionTypeHealthPopoverItem = optionTypeHealthPopoverItem;
+    self.optionTypeHealthTouchBar = optionTypeHealthTouchBar;
+    self.optionTypeHealthItem = optionTypeHealthItem;
+    self.optionTypeHealthScrubber = optionTypeHealthScrubber;
+    
+    self.optionTypeCollectiblePopoverItem = optionTypeCollectiblePopoverItem;
+    self.optionTypeCollectibleTouchBar = optionTypeCollectibleTouchBar;
+    self.optionTypeCollectibleItem = optionTypeCollectibleItem;
+    self.optionTypeCollectibleScrubber = optionTypeCollectibleScrubber;
+    
+    self.optionTypeRarityPopoverItem = optionTypeRarityPopoverItem;
+    self.optionTypeRarityTouchBar = optionTypeRarityTouchBar;
+    self.optionTypeRarityItem = optionTypeRarityItem;
+    self.optionTypeRarityScrubber = optionTypeRarityScrubber;
+    
+    self.optionTypeTypePopoverItem = optionTypeTypePopoverItem;
+    self.optionTypeTypeTouchBar = optionTypeTypeTouchBar;
+    self.optionTypeTypeItem = optionTypeTypeItem;
+    self.optionTypeTypeScrubber = optionTypeTypeScrubber;
+    
+    self.optionTypeMinionTypePopoverItem = optionTypeMinionTypePopoverItem;
+    self.optionTypeMinionTypeTouchBar = optionTypeMinionTypeTouchBar;
+    self.optionTypeMinionTypeItem = optionTypeMinionTypeItem;
+    self.optionTypeMinionTypeScrubber = optionTypeMinionTypeScrubber;
+    
+    self.optionTypeSpellSchoolPopoverItem = optionTypeSpellSchoolPopoverItem;
+    self.optionTypeSpellSchoolTouchBar = optionTypeSpellSchoolTouchBar;
+    self.optionTypeSpellSchoolItem = optionTypeSpellSchoolItem;
+    self.optionTypeSpellSchoolScrubber = optionTypeSpellSchoolScrubber;
+    
+    self.optionTypeKeywordPopoverItem = optionTypeKeywordPopoverItem;
+    self.optionTypeKeywordTouchBar = optionTypeKeywordTouchBar;
+    self.optionTypeKeywordItem = optionTypeKeywordItem;
+    self.optionTypeKeywordScrubber = optionTypeKeywordScrubber;
+    
+    self.optionTypeGameModePopoverItem = optionTypeGameModePopoverItem;
+    self.optionTypeGameModeTouchBar = optionTypeGameModeTouchBar;
+    self.optionTypeGameModeItem = optionTypeGameModeItem;
+    self.optionTypeGameModeScrubber = optionTypeGameModeScrubber;
+    
+    self.optionTypeSortPopoverItem = optionTypeSortPopoverItem;
+    self.optionTypeSortTouchBar = optionTypeSortTouchBar;
+    self.optionTypeSortItem = optionTypeSortItem;
+    self.optionTypeSortScrubber = optionTypeSortScrubber;
     
     [optionTypeSetPopoverItem release];
     [optionTypeSetTouchBar release];
@@ -583,9 +609,9 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
                         touchBar:(NSTouchBar *)touchBar
                       customItem:(NSCustomTouchBarItem *)customItem
                         scrubber:(NSScrubber *)scrubber
-                        itemSize:(CGSize)itemSize {
+                        itemSize:(CGSize)itemSize
+                      optionType:(BlizzardHSAPIOptionType)optionType {
     
-    BlizzardHSAPIOptionType optionType = [self optionTypeFromScrubber:scrubber];
     NSString * _Nullable value = self.options[optionType];
     
     popoverItem.collapsedRepresentationImage = [CardOptionsMenuFactory imageForCardOptionTypeWithValue:value optionType:optionType];

@@ -76,10 +76,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     NSTouchBar *createNewDeckStandardDeckTouchBar = [NSTouchBar new];
     NSCustomTouchBarItem *createNewDeckStandardDeckItem = [[NSCustomTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierDecksCreateNewStandardDeck];
     NSScrubber *createNewDeckStandardDeckScrubber = [NSScrubber new];
-    self.createNewDeckStandardDeckPopoverItem = createNewDeckStandardDeckPopoverItem;
-    self.createNewDeckStandardDeckTouchBar = createNewDeckStandardDeckTouchBar;
-    self.createNewDeckStandardDeckItem = createNewDeckStandardDeckItem;
-    self.createNewDeckStandardDeckScrubber = createNewDeckStandardDeckScrubber;
     
     [self wireItemsWithPopoverItem:createNewDeckStandardDeckPopoverItem
                           touchBar:createNewDeckStandardDeckTouchBar
@@ -93,10 +89,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     NSTouchBar *createNewDeckWildDeckTouchBar = [NSTouchBar new];
     NSCustomTouchBarItem *createNewDeckWildDeckItem = [[NSCustomTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierDecksCreateNewWildDeck];
     NSScrubber *createNewDeckWildDeckScrubber = [NSScrubber new];
-    self.createNewDeckWildDeckPopoverItem = createNewDeckWildDeckPopoverItem;
-    self.createNewDeckWildDeckTouchBar = createNewDeckWildDeckTouchBar;
-    self.createNewDeckWildDeckItem = createNewDeckWildDeckItem;
-    self.createNewDeckWildDeckScrubber = createNewDeckWildDeckScrubber;
     
     [self wireItemsWithPopoverItem:createNewDeckWildDeckPopoverItem
                           touchBar:createNewDeckWildDeckTouchBar
@@ -110,10 +102,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     NSTouchBar *createNewDeckClassicDeckTouchBar = [NSTouchBar new];
     NSCustomTouchBarItem *createNewDeckClassicDeckItem = [[NSCustomTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierDecksCreateNewClassicDeck];
     NSScrubber *createNewDeckClassicDeckScrubber = [NSScrubber new];
-    self.createNewDeckClassicDeckPopoverItem = createNewDeckClassicDeckPopoverItem;
-    self.createNewDeckClassicDeckTouchBar = createNewDeckClassicDeckTouchBar;
-    self.createNewDeckClassicDeckItem = createNewDeckClassicDeckItem;
-    self.createNewDeckClassicDeckScrubber = createNewDeckClassicDeckScrubber;
     
     [self wireItemsWithPopoverItem:createNewDeckClassicDeckPopoverItem
                           touchBar:createNewDeckClassicDeckTouchBar
@@ -124,7 +112,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     //
     
     NSButtonTouchBarItem *createNewDeckFromDeckCodeItem = [[NSButtonTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierDecksCreateNewDeckFromDeckCode];
-    self.createNewDeckFromDeckCodeItem = createNewDeckFromDeckCodeItem;
     createNewDeckFromDeckCodeItem.target = self;
     createNewDeckFromDeckCodeItem.action = @selector(createNewDeckFromDeckCodeItemTriggered:);
     createNewDeckFromDeckCodeItem.title = [ResourcesService localizationForKey:LocalizableKeyLoadFromDeckCode];
@@ -136,6 +123,23 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
                       createNewDeckWildDeckPopoverItem,
                       createNewDeckClassicDeckPopoverItem,
                       createNewDeckFromDeckCodeItem];
+    
+    self.createNewDeckStandardDeckPopoverItem = createNewDeckStandardDeckPopoverItem;
+    self.createNewDeckStandardDeckTouchBar = createNewDeckStandardDeckTouchBar;
+    self.createNewDeckStandardDeckItem = createNewDeckStandardDeckItem;
+    self.createNewDeckStandardDeckScrubber = createNewDeckStandardDeckScrubber;
+    
+    self.createNewDeckWildDeckPopoverItem = createNewDeckWildDeckPopoverItem;
+    self.createNewDeckWildDeckTouchBar = createNewDeckWildDeckTouchBar;
+    self.createNewDeckWildDeckItem = createNewDeckWildDeckItem;
+    self.createNewDeckWildDeckScrubber = createNewDeckWildDeckScrubber;
+    
+    self.createNewDeckClassicDeckPopoverItem = createNewDeckClassicDeckPopoverItem;
+    self.createNewDeckClassicDeckTouchBar = createNewDeckClassicDeckTouchBar;
+    self.createNewDeckClassicDeckItem = createNewDeckClassicDeckItem;
+    self.createNewDeckClassicDeckScrubber = createNewDeckClassicDeckScrubber;
+    
+    self.createNewDeckFromDeckCodeItem = createNewDeckFromDeckCodeItem;
 
     [createNewDeckStandardDeckPopoverItem release];
     [createNewDeckStandardDeckTouchBar release];

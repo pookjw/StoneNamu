@@ -34,9 +34,9 @@
         [localDeckUseCase release];
         
         NSOperationQueue *queue = [NSOperationQueue new];
-        self.queue = queue;
         queue.qualityOfService = NSQualityOfServiceUserInitiated;
         [queue release];
+        self.queue = queue;
     }
     
     return self;

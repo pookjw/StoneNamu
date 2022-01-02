@@ -91,9 +91,6 @@
     NSScrollView *scrollView = [NSScrollView new];
     ClickableCollectionView *collectionView = [ClickableCollectionView new];
     
-    self.scrollView = scrollView;
-    self.collectionView = collectionView;
-    
     scrollView.documentView = collectionView;
 
     [self.view addSubview:scrollView];
@@ -118,13 +115,15 @@
     collectionView.allowsEmptySelection = NO;
     collectionView.delegate = self;
     
+    self.scrollView = scrollView;
+    self.collectionView = collectionView;
+    
     [scrollView release];
     [collectionView release];
 }
 
 - (void)configureCollectionViewMenu {
     NSMenu *collectionViewMenu = [NSMenu new];
-    self.collectionViewMenu = collectionViewMenu;
     
     //
     
@@ -141,6 +140,7 @@
     //
     
     self.collectionView.menu = collectionViewMenu;
+    self.collectionViewMenu = collectionViewMenu;
     [collectionViewMenu release];
 }
 

@@ -80,85 +80,71 @@
 
 - (void)configureToolbarItems {
     DynamicMenuToolbarItem *optionTypeTextFilterItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionTypeTextFilter];
-    self.optionTypeTextFilterItem = optionTypeTextFilterItem;
     optionTypeTextFilterItem.toolTip = [ResourcesService localizationForKey:LocalizableKeyCardTextFilterTooltipDescription];
     optionTypeTextFilterItem.menu = [self menuForMenuToolbarItem:optionTypeTextFilterItem];
     [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionTypeTextFilter atIndex:0];
     
     DynamicMenuToolbarItem *optionTypeSetItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionTypeSet];
-    self.optionTypeSetItem = optionTypeSetItem;
     optionTypeSetItem.toolTip = [ResourcesService localizationForKey:LocalizableKeyCardSetTooltipDescription];
     optionTypeSetItem.menu = [self menuForMenuToolbarItem:optionTypeSetItem];
     [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionTypeSet atIndex:1];
     
     DynamicMenuToolbarItem *optionTypeClassItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionTypeClass];
-    self.optionTypeClassItem = optionTypeClassItem;
     optionTypeClassItem.toolTip = [ResourcesService localizationForKey:LocalizableKeyCardClassTooltipDescription];
     optionTypeClassItem.menu = [self menuForMenuToolbarItem:optionTypeClassItem];
     [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionTypeClass atIndex:2];
     
     DynamicMenuToolbarItem *optionTypeManaCostItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionTypeManaCost];
-    self.optionTypeManaCostItem = optionTypeManaCostItem;
     optionTypeManaCostItem.toolTip = [ResourcesService localizationForKey:LocalizableKeyCardManaCostTooltipDescription];
     optionTypeManaCostItem.menu = [self menuForMenuToolbarItem:optionTypeManaCostItem];
     [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionTypeManaCost atIndex:3];
     
     DynamicMenuToolbarItem *optionTypeAttackItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionTypeAttack];
-    self.optionTypeAttackItem = optionTypeAttackItem;
     optionTypeAttackItem.toolTip = [ResourcesService localizationForKey:LocalizableKeyCardAttackTooltipDescription];
     optionTypeAttackItem.menu = [self menuForMenuToolbarItem:optionTypeAttackItem];
     [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionTypeAttack atIndex:4];
     
     DynamicMenuToolbarItem *optionTypeHealthItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionTypeHealth];
-    self.optionTypeHealthItem = optionTypeHealthItem;
     optionTypeHealthItem.toolTip = [ResourcesService localizationForKey:LocalizableKeyCardHealthTooltipDescription];
     optionTypeHealthItem.menu = [self menuForMenuToolbarItem:optionTypeHealthItem];
     [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionTypeHealth atIndex:5];
     
     DynamicMenuToolbarItem *optionTypeCollectibleItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionTypeCollecticle];
-    self.optionTypeCollectibleItem = optionTypeCollectibleItem;
     optionTypeCollectibleItem.toolTip = [ResourcesService localizationForKey:LocalizableKeyCardCollectibleTooltipDescription];
     optionTypeCollectibleItem.menu = [self menuForMenuToolbarItem:optionTypeCollectibleItem];
     [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionTypeCollecticle atIndex:6];
     
     DynamicMenuToolbarItem *optionTypeRarityItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionTypeRarity];
-    self.optionTypeRarityItem = optionTypeRarityItem;
     optionTypeRarityItem.toolTip = [ResourcesService localizationForKey:LocalizableKeyCardRarityTooltipDescription];
     optionTypeRarityItem.menu = [self menuForMenuToolbarItem:optionTypeRarityItem];
     [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionTypeRarity atIndex:7];
     
     DynamicMenuToolbarItem *optionTypeTypeItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionTypeType];
-    self.optionTypeTypeItem = optionTypeTypeItem;
     optionTypeTypeItem.toolTip = [ResourcesService localizationForKey:LocalizableKeyCardTypeTooltipDescription];
     optionTypeTypeItem.menu = [self menuForMenuToolbarItem:optionTypeTypeItem];
     [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionTypeType atIndex:8];
     
     DynamicMenuToolbarItem *optionTypeMinionTypeItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionTypeMinionType];
-    self.optionTypeMinionTypeItem = optionTypeMinionTypeItem;
     optionTypeMinionTypeItem.toolTip = [ResourcesService localizationForKey:LocalizableKeyCardMinionTypeTooltipDescription];
     optionTypeMinionTypeItem.menu = [self menuForMenuToolbarItem:optionTypeMinionTypeItem];
     [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionTypeMinionType atIndex:9];
     
     DynamicMenuToolbarItem *optionTypeSpellSchoolItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionTypeSpellSchool];
-    self.optionTypeSpellSchoolItem = optionTypeSpellSchoolItem;
     optionTypeSpellSchoolItem.toolTip = [ResourcesService localizationForKey:LocalizableKeyCardSpellSchoolTooltipDescription];
     optionTypeSpellSchoolItem.menu = [self menuForMenuToolbarItem:optionTypeSpellSchoolItem];
     [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionTypeSpellSchool atIndex:10];
     
     DynamicMenuToolbarItem *optionTypeKeyowrdItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionTypeKeyword];
-    self.optionTypeKeyowrdItem = optionTypeKeyowrdItem;
     optionTypeKeyowrdItem.toolTip = [ResourcesService localizationForKey:LocalizableKeyCardKeywordTooltipDescription];
     optionTypeKeyowrdItem.menu = [self menuForMenuToolbarItem:optionTypeKeyowrdItem];
     [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionTypeKeyword atIndex:11];
     
     DynamicMenuToolbarItem *optionTypeGameModeItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionTypeGameMode];
-    self.optionTypeGameModeItem = optionTypeGameModeItem;
     optionTypeGameModeItem.toolTip = [ResourcesService localizationForKey:LocalizableKeyCardGameModeTooltipDescription];
     optionTypeGameModeItem.menu = [self menuForMenuToolbarItem:optionTypeGameModeItem];
     [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionTypeGameMode atIndex:12];
     
     DynamicMenuToolbarItem *optionTypeSortItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionTypeSort];
-    self.optionTypeSortItem = optionTypeSortItem;
     optionTypeSortItem.toolTip = [ResourcesService localizationForKey:LocalizableKeyCardSortTooltipDescription];
     optionTypeSortItem.menu = [self menuForMenuToolbarItem:optionTypeSortItem];
     [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionTypeSort atIndex:13];
@@ -181,6 +167,21 @@
         optionTypeGameModeItem,
         optionTypeSortItem
     ];
+    
+    self.optionTypeTextFilterItem = optionTypeTextFilterItem;
+    self.optionTypeSetItem = optionTypeSetItem;
+    self.optionTypeClassItem = optionTypeClassItem;
+    self.optionTypeManaCostItem = optionTypeManaCostItem;
+    self.optionTypeAttackItem = optionTypeAttackItem;
+    self.optionTypeHealthItem = optionTypeHealthItem;
+    self.optionTypeCollectibleItem = optionTypeCollectibleItem;
+    self.optionTypeRarityItem = optionTypeRarityItem;
+    self.optionTypeTypeItem = optionTypeTypeItem;
+    self.optionTypeMinionTypeItem = optionTypeMinionTypeItem;
+    self.optionTypeSpellSchoolItem = optionTypeSpellSchoolItem;
+    self.optionTypeKeyowrdItem = optionTypeKeyowrdItem;
+    self.optionTypeGameModeItem = optionTypeGameModeItem;
+    self.optionTypeSortItem = optionTypeSortItem;
     
     [optionTypeTextFilterItem release];
     [optionTypeSetItem release];

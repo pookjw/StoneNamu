@@ -75,7 +75,6 @@
 
 - (void)configureContentView {
     NSView *contentView = [NSView new];
-    self.contentView = contentView;
     
     [self addSubview:contentView];
     contentView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -128,12 +127,12 @@
     contentView.wantsLayer = YES;
     contentView.layer.backgroundColor = NSColor.clearColor.CGColor;
     
+    self.contentView = contentView;
     [contentView release];
 }
 
 - (void)configureBaseCircularView {
     NSView *baseCircularView = [NSView new];
-    self.baseCircularView = baseCircularView;
     
     [self.contentView addSubview:baseCircularView];
     baseCircularView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -153,10 +152,10 @@
     baseCircularView.layer.backgroundColor = NSColor.clearColor.CGColor;
     
     CAShapeLayer *baseCircularPathLayer = [CAShapeLayer new];
-    self.baseCircularPathLayer = baseCircularPathLayer;
     baseCircularPathLayer.fillColor = NSColor.clearColor.CGColor;
     
     [baseCircularView.layer addSublayer:baseCircularPathLayer];
+    self.baseCircularPathLayer = baseCircularPathLayer;
     [baseCircularPathLayer release];
     
     [NSNotificationCenter.defaultCenter addObserver:self
@@ -164,6 +163,7 @@
                                                name:NSViewFrameDidChangeNotification
                                              object:baseCircularView];
     
+    self.baseCircularView = baseCircularView;
     [baseCircularView release];
 }
 
@@ -207,7 +207,6 @@
 
 - (void)configureProgressCircularView {
     NSView *progressCircularView = [NSView new];
-    self.progressCircularView = progressCircularView;
 
     [self.contentView addSubview:progressCircularView];
     progressCircularView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -227,11 +226,12 @@
     progressCircularView.layer.backgroundColor = NSColor.clearColor.CGColor;
     
     CAShapeLayer *progressCircularLayer = [CAShapeLayer new];
-    self.progressCircularLayer = progressCircularLayer;
     progressCircularLayer.backgroundColor = NSColor.clearColor.CGColor;
     progressCircularLayer.strokeColor = NSColor.clearColor.CGColor;
     
     [progressCircularView.layer addSublayer:progressCircularLayer];
+    
+    self.progressCircularLayer = progressCircularLayer;
     [progressCircularLayer release];
     
     //
@@ -244,7 +244,6 @@
     //
     
     CABasicAnimation *progressCircularAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
-    self.progressCircularAnimation = progressCircularAnimation;
     
     progressCircularAnimation.removedOnCompletion = NO;
     progressCircularAnimation.duration = 1.0f;
@@ -252,8 +251,11 @@
     progressCircularAnimation.fromValue = [NSNumber numberWithFloat:0.0f];
     progressCircularAnimation.toValue = [NSNumber numberWithFloat:-(M_PI * 2.0)];
     
+    self.progressCircularAnimation = progressCircularAnimation;
+    
     //
     
+    self.progressCircularView = progressCircularView;
     [progressCircularView release];
 }
 

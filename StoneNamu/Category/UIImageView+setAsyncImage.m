@@ -119,7 +119,6 @@ static NSString * const UIImageViewAsyncImageCategorySessionTaskKey = @"UIImageV
     }
     
     SpinnerView *spinnerView = [SpinnerView new];
-    self.spinnerView = spinnerView;
     [self addSubview:spinnerView];
     spinnerView.translatesAutoresizingMaskIntoConstraints = NO;
     
@@ -146,6 +145,7 @@ static NSString * const UIImageViewAsyncImageCategorySessionTaskKey = @"UIImageV
     ]];
     
     [spinnerView startAnimating];
+    self.spinnerView = spinnerView;
     [spinnerView release];
 }
 

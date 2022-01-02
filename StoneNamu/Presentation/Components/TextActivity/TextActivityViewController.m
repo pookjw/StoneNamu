@@ -65,9 +65,9 @@
                                                                             style:UIBarButtonItemStylePlain
                                                                            target:self
                                                                            action:@selector(cancelBarButtonTriggered:)];
-    self.cancelBarButtonItem = cancelBarButtonItem;
     
     self.navigationItem.leftBarButtonItems = @[cancelBarButtonItem];
+    self.cancelBarButtonItem = cancelBarButtonItem;
     [cancelBarButtonItem release];
 }
 
@@ -76,10 +76,10 @@
                                                                            style:UIBarButtonItemStyleDone
                                                                           target:self
                                                                           action:@selector(shareBarButtonTriggered:)];
-    self.shareBarButtonItem = shareBarButtonItem;
     shareBarButtonItem.enabled = NO;
     
     self.navigationItem.rightBarButtonItems = @[shareBarButtonItem];
+    self.shareBarButtonItem = shareBarButtonItem;
     [shareBarButtonItem release];
 }
 
@@ -96,7 +96,6 @@
 
 - (void)configureBlurView {
     UIVisualEffectView *blurView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleSystemChromeMaterial]];
-    self.blurView = blurView;
     
     [self.view addSubview:blurView];
     blurView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -108,12 +107,12 @@
         [blurView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor]
     ]];
     
+    self.blurView = blurView;
     [blurView release];
 }
 
 - (void)configureTextView {
     UITextView *textView = [UITextView new];
-    self.textView = textView;
     
     textView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentAlways;
     textView.delegate = self;
@@ -128,6 +127,7 @@
         [textView.bottomAnchor constraintEqualToAnchor:self.blurView.contentView.bottomAnchor]
     ]];
     
+    self.textView = textView;
     [textView release];
 }
 

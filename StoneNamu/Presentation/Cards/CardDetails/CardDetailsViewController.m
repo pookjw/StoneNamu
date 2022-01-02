@@ -126,7 +126,6 @@
 
 - (void)configurePrimaryImageView {
     UIImageView *primaryImageView = [UIImageView new];
-    self.primaryImageView = primaryImageView;
     
     primaryImageView.userInteractionEnabled = YES;
     primaryImageView.contentMode = UIViewContentModeScaleAspectFit;
@@ -144,8 +143,8 @@
     //
     
     UIContextMenuInteraction *interaction = [[UIContextMenuInteraction alloc] initWithDelegate:self];
-    self.primaryImageViewInteraction = interaction;
     [primaryImageView addInteraction:interaction];
+    self.primaryImageViewInteraction = interaction;
     [interaction release];
     
     //
@@ -156,6 +155,7 @@
     
     //
     
+    self.primaryImageView = primaryImageView;
     [primaryImageView release];
 }
 
@@ -185,17 +185,15 @@
     CardDetailsCollectionViewLayout *layout = [CardDetailsCollectionViewLayout new];
     
     UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:layout];
-    self.collectionView = collectionView;
-    
     [layout release];
     
     collectionView.delegate = self;
     collectionView.dragDelegate = self;
     collectionView.backgroundColor = UIColor.clearColor;
     collectionView.alpha = 0.0f;
-    
     collectionView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
     
+    self.collectionView = collectionView;
     [collectionView release];
 }
 
@@ -206,7 +204,6 @@
 
 - (void)configureLayoutViewControllers {
     CardDetailsLayoutCompactViewController *compactViewController = [CardDetailsLayoutCompactViewController new];
-    self.compactViewController = compactViewController;
     [compactViewController loadViewIfNeeded];
     [compactViewController willMoveToParentViewController:self];
     [self addChildViewController:compactViewController];
@@ -221,7 +218,6 @@
     [compactViewController didMoveToParentViewController:self];
     
     CardDetailsLayoutRegularViewController *regularViewController = [CardDetailsLayoutRegularViewController new];
-    self.regularViewController = regularViewController;
     [regularViewController loadViewIfNeeded];
     [regularViewController willMoveToParentViewController:self];
     [self addChildViewController:regularViewController];
@@ -236,9 +232,10 @@
     [regularViewController didMoveToParentViewController:self];
     
     self.layoutViewControllers = @[compactViewController, regularViewController];
+    self.compactViewController = compactViewController;
+    self.regularViewController = regularViewController;
     
     [self updateLayoutViewControllerWithTraitCollection:self.view.traitCollection];
-    
     [compactViewController release];
     [regularViewController release];
 }
@@ -343,8 +340,7 @@
         return cell;
     }];
     
-    [dataSource autorelease];
-    return dataSource;
+    return [dataSource autorelease];
 }
 
 - (UICollectionViewCellRegistration *)makeCellRegistration {
