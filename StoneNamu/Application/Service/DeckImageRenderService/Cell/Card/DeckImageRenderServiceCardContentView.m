@@ -153,8 +153,8 @@
                                                                      constant:0];
     
     [NSLayoutConstraint activateConstraints:@[
-        [imageView.centerYAnchor constraintEqualToAnchor:self.centerYAnchor],
-        [imageView.heightAnchor constraintEqualToAnchor:self.nameLabel.heightAnchor],
+        [imageView.topAnchor constraintEqualToAnchor:self.topAnchor],
+        [imageView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor],
         aspectLayout
     ]];
     

@@ -96,16 +96,16 @@
                     </box>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="9pE-II-V4s" firstAttribute="height" secondItem="sfH-JM-wZz" secondAttribute="height" id="31m-pR-Eux"/>
-                    <constraint firstItem="9pE-II-V4s" firstAttribute="centerY" secondItem="sfH-JM-wZz" secondAttribute="centerY" id="9p6-Ch-jvI"/>
                     <constraint firstItem="Hmv-Gq-FT8" firstAttribute="top" secondItem="sfH-JM-wZz" secondAttribute="top" id="HCb-e6-1m6"/>
                     <constraint firstItem="Hmv-Gq-FT8" firstAttribute="leading" secondItem="ONQ-ox-PBr" secondAttribute="trailing" constant="10" id="Kfs-JT-jqi"/>
                     <constraint firstItem="Hmv-Gq-FT8" firstAttribute="leading" secondItem="9pE-II-V4s" secondAttribute="trailing" id="Lrl-xQ-RYn"/>
+                    <constraint firstItem="9pE-II-V4s" firstAttribute="top" secondItem="sfH-JM-wZz" secondAttribute="top" id="M06-05-cH8"/>
                     <constraint firstAttribute="bottom" secondItem="zBZ-Ag-hCF" secondAttribute="bottom" id="NrG-zR-l40"/>
                     <constraint firstItem="ONQ-ox-PBr" firstAttribute="centerY" secondItem="sfH-JM-wZz" secondAttribute="centerY" id="TNq-Xr-806"/>
                     <constraint firstItem="zBZ-Ag-hCF" firstAttribute="top" secondItem="sfH-JM-wZz" secondAttribute="top" id="aHd-YH-60b"/>
                     <constraint firstItem="zBZ-Ag-hCF" firstAttribute="leading" secondItem="sfH-JM-wZz" secondAttribute="leading" id="kUd-YR-M4Q"/>
                     <constraint firstItem="ONQ-ox-PBr" firstAttribute="leading" secondItem="zBZ-Ag-hCF" secondAttribute="trailing" constant="10" id="qmG-MM-tjq"/>
+                    <constraint firstAttribute="bottom" secondItem="9pE-II-V4s" secondAttribute="bottom" id="vEz-An-ve8"/>
                     <constraint firstAttribute="bottom" secondItem="Hmv-Gq-FT8" secondAttribute="bottom" id="xk9-cB-Yps"/>
                     <constraint firstAttribute="trailing" secondItem="Hmv-Gq-FT8" secondAttribute="trailing" id="yyr-rv-bEb"/>
                 </constraints>
