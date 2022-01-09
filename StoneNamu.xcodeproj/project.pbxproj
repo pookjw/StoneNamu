@@ -42,6 +42,7 @@
 		4F22519A278B28EC0004DD8D /* DeckImageRenderServiceSeparatorBox.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F225199278B28EC0004DD8D /* DeckImageRenderServiceSeparatorBox.xib */; };
 		4F22519D278B3E930004DD8D /* NSNumber+stringWithSepearatedDecimalNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F22519B278B3E930004DD8D /* NSNumber+stringWithSepearatedDecimalNumber.m */; };
 		4F22519E278B3E930004DD8D /* NSNumber+stringWithSepearatedDecimalNumber.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F22519C278B3E930004DD8D /* NSNumber+stringWithSepearatedDecimalNumber.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4F2251A4278B52A20004DD8D /* NSTextField+setFontSizeToFitWithMaxFontSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2251A3278B52A20004DD8D /* NSTextField+setFontSizeToFitWithMaxFontSize.m */; };
 		4F23C8A3273D830200C33F10 /* MainWindowRestoration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F23C8A2273D830200C33F10 /* MainWindowRestoration.m */; };
 		4F23C8AC273D997C00C33F10 /* StoneNamuResources.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F23C8AB273D997C00C33F10 /* StoneNamuResources.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4F23C8AF273D997C00C33F10 /* StoneNamuResources.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F23C8A9273D997C00C33F10 /* StoneNamuResources.framework */; };
@@ -575,6 +576,8 @@
 		4F225199278B28EC0004DD8D /* DeckImageRenderServiceSeparatorBox.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DeckImageRenderServiceSeparatorBox.xib; sourceTree = "<group>"; };
 		4F22519B278B3E930004DD8D /* NSNumber+stringWithSepearatedDecimalNumber.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNumber+stringWithSepearatedDecimalNumber.m"; sourceTree = "<group>"; };
 		4F22519C278B3E930004DD8D /* NSNumber+stringWithSepearatedDecimalNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNumber+stringWithSepearatedDecimalNumber.h"; sourceTree = "<group>"; };
+		4F2251A2278B52A20004DD8D /* NSTextField+setFontSizeToFitWithMaxFontSize.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSTextField+setFontSizeToFitWithMaxFontSize.h"; sourceTree = "<group>"; };
+		4F2251A3278B52A20004DD8D /* NSTextField+setFontSizeToFitWithMaxFontSize.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSTextField+setFontSizeToFitWithMaxFontSize.m"; sourceTree = "<group>"; };
 		4F23C8A1273D830200C33F10 /* MainWindowRestoration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainWindowRestoration.h; sourceTree = "<group>"; };
 		4F23C8A2273D830200C33F10 /* MainWindowRestoration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainWindowRestoration.m; sourceTree = "<group>"; };
 		4F23C8A9273D997C00C33F10 /* StoneNamuResources.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StoneNamuResources.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2700,6 +2703,8 @@
 				4FAD720427762BD5000487B3 /* NSView+imageRendered.m */,
 				4FD4305C278205EC00E7F23A /* NSBox+setSimpleBoxStyle.h */,
 				4FD4305D278205EC00E7F23A /* NSBox+setSimpleBoxStyle.m */,
+				4F2251A2278B52A20004DD8D /* NSTextField+setFontSizeToFitWithMaxFontSize.h */,
+				4F2251A3278B52A20004DD8D /* NSTextField+setFontSizeToFitWithMaxFontSize.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -3636,6 +3641,7 @@
 				4F049DE12774533900E41AEA /* NSImage+dataUsingType.m in Sources */,
 				4F1FA0B8275065110082EBF0 /* NSToolbarIdentifierDecks+HSDeckFormat.m in Sources */,
 				4FD4E029274EE4440037D867 /* DecksCollectionViewLayout.m in Sources */,
+				4F2251A4278B52A20004DD8D /* NSTextField+setFontSizeToFitWithMaxFontSize.m in Sources */,
 				4FF3CD4E27597D8D00ACA5AC /* NSTouchBarItemIdentifierDeckAddCardOptionType+BlizzardHSAPIOptionType.m in Sources */,
 				4F5900A32753503F00217E4A /* DeckAddCardsViewController.m in Sources */,
 				4F4892E227246E2B00126131 /* MainWindow.m in Sources */,

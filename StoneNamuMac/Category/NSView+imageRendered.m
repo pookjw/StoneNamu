@@ -10,15 +10,21 @@
 @implementation NSView (imageRendered)
 
 - (NSImage *)imageRendered {
-    NSSize size = self.bounds.size;
     NSBitmapImageRep *bitRep = [self bitmapImageRepForCachingDisplayInRect:self.bounds];
-    bitRep.size = size;
     [self cacheDisplayInRect:self.bounds toBitmapImageRep:bitRep];
+
+//    NSImage *image = [[NSImage alloc] initWithSize:self.bounds.size];
+//    [image addRepresentation:bitRep];
+
+    return [[[NSImage alloc] initWithCGImage:bitRep.CGImage size:self.bounds.size] autorelease];
     
-    NSImage *image = [[NSImage alloc] initWithSize:size];
-    [image addRepresentation:bitRep];
-    
-    return [image autorelease];
+//    NSData *data = [self dataWithPDFInsideRect:self.bounds];
+//    NSPDFImageRep *pdfRep = [NSPDFImageRep imageRepWithData:data];
+//
+//    NSImage *pdfImage = [[NSImage alloc] initWithSize:self.bounds.size];
+//    [pdfImage addRepresentation:pdfRep];
+//
+//    return [pdfImage autorelease];
 }
 
 @end

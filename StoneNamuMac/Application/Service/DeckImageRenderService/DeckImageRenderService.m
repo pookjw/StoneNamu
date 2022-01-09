@@ -59,7 +59,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckImag
         [self.model updateDataSourceWithLocalDeck:localDeck
                                        completion:^(NSUInteger countOfCardItem) {
             [NSOperationQueue.mainQueue addOperationWithBlock:^{
-                self.collectionView.frame = NSMakeRect(0.0f, 0.0f, 300.0f, 1000.0f);
+                self.collectionView.frame = NSMakeRect(0.0f, 0.0f, 300.0f, 1313.0f);
                 [self.collectionView layoutSubtreeIfNeeded];
                 [self.collectionView.collectionViewLayout invalidateLayout];
                 NSSize contentSize = self.collectionView.collectionViewLayout.collectionViewContentSize;
@@ -93,7 +93,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckImag
 }
 
 - (void)configureCollectionView {
-    NSCollectionView *collectionView = [[NSCollectionView alloc] initWithFrame:NSMakeRect(0.0f, 0.0f, 300.0f, 1000.0f)];
+    NSCollectionView *collectionView = [[NSCollectionView alloc] initWithFrame:NSMakeRect(0.0f, 0.0f, 300.0f, 1313.0f)];
     
     DeckImageRenderServiceCollectionViewLayout *layout = [DeckImageRenderServiceCollectionViewLayout new];
     collectionView.collectionViewLayout = layout;

@@ -8,6 +8,7 @@
 #import "DeckImageRenderServiceCollectionViewLayout.h"
 #import "DeckImageRenderServiceModel.h"
 #import "DeckImageRenderServiceSeparatorBox.h"
+#import <StoneNamuResources/StoneNamuResources.h>
 
 @implementation DeckImageRenderServiceCollectionViewLayout
 
@@ -39,12 +40,21 @@
                 NSCollectionLayoutAnchor *seapratorContainerAnchor = [NSCollectionLayoutAnchor layoutAnchorWithEdges:NSDirectionalRectEdgeLeading | NSDirectionalRectEdgeBottom | NSDirectionalRectEdgeTrailing absoluteOffset:NSZeroPoint];
                 NSCollectionLayoutSupplementaryItem *separatorItem = [NSCollectionLayoutSupplementaryItem supplementaryItemWithLayoutSize:separatorSize elementKind:NSStringFromClass([DeckImageRenderServiceSeparatorBox class]) containerAnchor:seapratorContainerAnchor];
                 
+                NSString *string = @"99";
+                
+                CGRect rect = [string boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX)
+                                                   options:NSStringDrawingUsesLineFragmentOrigin
+                                                attributes:@{NSFontAttributeName: [ResourcesService fontForKey:FontKeyGmarketSansTTFMedium size:18.0f]}
+                                                   context:nil];
+                CGFloat margin = 20;
+                CGFloat estimatedHeight = ceilf(rect.size.height + margin);
+                
                 NSCollectionLayoutSize *itemSize = [NSCollectionLayoutSize sizeWithWidthDimension:[NSCollectionLayoutDimension fractionalWidthDimension:1.0f]
-                                                                                  heightDimension:[NSCollectionLayoutDimension estimatedDimension:41.0f]];
+                                                                                  heightDimension:[NSCollectionLayoutDimension estimatedDimension:estimatedHeight]];
                 NSCollectionLayoutItem *item = [NSCollectionLayoutItem itemWithLayoutSize:itemSize supplementaryItems:@[separatorItem]];
                 
                 NSCollectionLayoutSize *groupSize = [NSCollectionLayoutSize sizeWithWidthDimension:[NSCollectionLayoutDimension fractionalWidthDimension:1.0f]
-                                                                                   heightDimension:[NSCollectionLayoutDimension estimatedDimension:41.0f]];
+                                                                                   heightDimension:[NSCollectionLayoutDimension estimatedDimension:estimatedHeight]];
                 
                 NSCollectionLayoutGroup *group = [NSCollectionLayoutGroup horizontalGroupWithLayoutSize:groupSize subitems:@[item]];
                 

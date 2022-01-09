@@ -6,6 +6,7 @@
 //
 
 #import "DeckImageRenderServiceCardCollectionViewItem.h"
+#import "NSTextField+setFontSizeToFitWithMaxFontSize.h"
 #import <QuartzCore/QuartzCore.h>
 #import <StoneNamuResources/StoneNamuResources.h>
 
@@ -33,6 +34,7 @@
 - (void)viewDidLayout {
     [super viewDidLayout];
     [self updateGradientLayer];
+    [self.nameLabel setFontSizeToFitWithMaxFontSize:18.0f inWidth:self.view.bounds.size.width - self.manaCostBoxWidthLayout.constant - (10.0f * 2) - self.countBoxWidthLayout.constant];
 }
 
 - (void)dealloc {
@@ -132,7 +134,7 @@
     self.nameLabel.wantsLayer = YES;
     self.nameLabel.layer.shadowRadius = 2.0;
     self.nameLabel.layer.shadowOpacity = 1;
-    self.nameLabel.layer.shadowOffset = CGSizeMake(0, 0);
+    self.nameLabel.layer.shadowOffset = CGSizeZero;
     self.nameLabel.layer.shadowColor = NSColor.blackColor.CGColor;
     self.nameLabel.layer.masksToBounds = NO;
 }
