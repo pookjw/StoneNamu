@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19455" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19529" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19455"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19529"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -12,18 +12,18 @@
         <collectionViewItem id="IgK-hD-som" customClass="CardCollectionViewItem">
             <connections>
                 <outlet property="imageView" destination="dOn-gC-T2f" id="30K-FN-aBQ"/>
-                <outlet property="view" destination="0mA-ce-Dtt" id="ZF2-Ne-x6a"/>
+                <outlet property="view" destination="NGd-fg-qV6" id="uKf-E0-cnP"/>
             </connections>
         </collectionViewItem>
-        <box boxType="custom" cornerRadius="4" title="Box" id="NGd-fg-qV6">
+        <box boxType="custom" borderWidth="0.0" title="Box" titlePosition="noTitle" id="NGd-fg-qV6">
             <rect key="frame" x="0.0" y="0.0" width="177" height="114"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <view key="contentView" id="0mA-ce-Dtt">
-                <rect key="frame" x="1" y="1" width="175" height="112"/>
+                <rect key="frame" x="0.0" y="0.0" width="177" height="114"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dOn-gC-T2f">
-                        <rect key="frame" x="0.0" y="0.0" width="175" height="112"/>
+                        <rect key="frame" x="0.0" y="0.0" width="177" height="114"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="c4e-Pv-8Wo"/>
                     </imageView>
                 </subviews>

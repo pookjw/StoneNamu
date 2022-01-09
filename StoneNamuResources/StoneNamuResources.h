@@ -18,3 +18,4 @@ FOUNDATION_EXPORT const unsigned char StoneNamuResourcesVersionString[];
 #import <StoneNamuResources/ResourcesService.h>
 #import <StoneNamuResources/ImageKey.h>
 #import <StoneNamuResources/LocalizableKey.h>
+#import <StoneNamuResources/FontKey.h>

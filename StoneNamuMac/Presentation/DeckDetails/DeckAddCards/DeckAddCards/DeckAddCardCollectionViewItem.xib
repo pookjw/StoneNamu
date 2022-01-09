@@ -13,22 +13,22 @@
             <connections>
                 <outlet property="countLabel" destination="1p6-dl-VYQ" id="Mkb-YB-XCY"/>
                 <outlet property="imageView" destination="M0R-ax-VQ2" id="DvP-Rr-Dd5"/>
-                <outlet property="view" destination="rNt-hZ-whS" id="OnM-fZ-u32"/>
+                <outlet property="view" destination="76R-eh-zvV" id="QUy-25-Rta"/>
             </connections>
         </collectionViewItem>
-        <box boxType="custom" cornerRadius="4" title="Box" id="76R-eh-zvV">
+        <box boxType="custom" borderWidth="0.0" title="Box" titlePosition="noTitle" id="76R-eh-zvV">
             <rect key="frame" x="0.0" y="0.0" width="348" height="374"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <view key="contentView" id="rNt-hZ-whS">
-                <rect key="frame" x="1" y="1" width="346" height="372"/>
+                <rect key="frame" x="0.0" y="0.0" width="348" height="374"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="M0R-ax-VQ2">
-                        <rect key="frame" x="0.0" y="21" width="346" height="351"/>
+                        <rect key="frame" x="0.0" y="21" width="348" height="353"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="ATu-HR-KRe"/>
                     </imageView>
                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="nrn-kG-4ac">
-                        <rect key="frame" x="147" y="0.0" width="53" height="21"/>
+                        <rect key="frame" x="148" y="0.0" width="53" height="21"/>
                         <subviews>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1p6-dl-VYQ">
                                 <rect key="frame" x="8" y="0.0" width="37" height="16"/>

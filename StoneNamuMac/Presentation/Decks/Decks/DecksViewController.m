@@ -18,6 +18,8 @@
 #import "ClickableCollectionView.h"
 #import <StoneNamuResources/StoneNamuResources.h>
 
+static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeckBaseCollectionViewItem = @"NSUserInterfaceItemIdentifierCardDeckBaseCollectionViewItem";
+
 @interface DecksViewController () <NSCollectionViewDelegate, DecksMenuDelegate, DecksToolbarDelegate, DecksTouchBarDelegate, DeckBaseCollectionViewItemDelegate>
 @property (retain) NSScrollView *scrollView;
 @property (retain) ClickableCollectionView *collectionView;
@@ -78,6 +80,7 @@
     [self configureDecksTouchBar];
     [self configureViewModel];
     [self bind];
+    [self.viewModel requestDataSource];
 }
 
 - (void)setAttributes {
@@ -90,8 +93,6 @@
 - (void)configureCollectionView {
     NSScrollView *scrollView = [NSScrollView new];
     ClickableCollectionView *collectionView = [ClickableCollectionView new];
-    
-    scrollView.documentView = collectionView;
 
     [self.view addSubview:scrollView];
     scrollView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -107,13 +108,15 @@
     [layout release];
     
     NSNib *nib = [[NSNib alloc] initWithNibNamed:NSStringFromClass([DeckBaseCollectionViewItem class]) bundle:NSBundle.mainBundle];
-    [collectionView registerNib:nib forItemWithIdentifier:NSStringFromClass([DeckBaseCollectionViewItem class])];
+    [collectionView registerNib:nib forItemWithIdentifier:NSUserInterfaceItemIdentifierCardDeckBaseCollectionViewItem];
     [nib release];
     
     collectionView.selectable = YES;
     collectionView.allowsMultipleSelection = NO;
     collectionView.allowsEmptySelection = NO;
     collectionView.delegate = self;
+    
+    scrollView.documentView = collectionView;
     
     self.scrollView = scrollView;
     self.collectionView = collectionView;
@@ -158,13 +161,24 @@
 
 - (void)bind {
     [self addObserver:self forKeyPath:@"self.view.window" options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:nil];
+    
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(applyingSnapshotToDataSourceWasDoneReceived:)
+                                               name:NSNotificationNameDecksViewModelApplyingSnapshotToDataSourceWasDone
+                                             object:self.viewModel];
+}
+
+- (void)applyingSnapshotToDataSourceWasDoneReceived:(NSNotification *)notification {
+    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+        [self.collectionView.collectionViewLayout invalidateLayout];
+    }];
 }
 
 - (DecksDataSource *)makeDataSource {
     DecksViewController * __block unretainedSelf = self;
     
     DecksDataSource *dataSource = [[DecksDataSource alloc] initWithCollectionView:self.collectionView itemProvider:^NSCollectionViewItem * _Nullable(NSCollectionView * _Nonnull collectionView, NSIndexPath * _Nonnull indexPath, DecksItemModel * _Nonnull itemModel) {
-        DeckBaseCollectionViewItem *item = [collectionView makeItemWithIdentifier:NSStringFromClass([DeckBaseCollectionViewItem class]) forIndexPath:indexPath];
+        DeckBaseCollectionViewItem *item = [collectionView makeItemWithIdentifier:NSUserInterfaceItemIdentifierCardDeckBaseCollectionViewItem forIndexPath:indexPath];
         
         [item configureWithLocalDeck:itemModel.localDeck deckBaseCollectionViewItemDelegate:unretainedSelf];
         

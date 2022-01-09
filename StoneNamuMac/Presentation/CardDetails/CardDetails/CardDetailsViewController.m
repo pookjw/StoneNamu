@@ -148,8 +148,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeta
 - (void)configureCollectionView {
     NSScrollView *scrollView = [NSScrollView new];
     ClickableCollectionView *collectionView = [ClickableCollectionView new];
-    
-    scrollView.documentView = collectionView;
 
     [self.stackView addArrangedSubview:scrollView];
 
@@ -174,6 +172,8 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeta
     
     [collectionView registerForDraggedTypes:HSCardPromiseProvider.pasteboardTypes];
     [collectionView setDraggingSourceOperationMask:NSDragOperationCopy forLocal:NO];
+    
+    scrollView.documentView = collectionView;
     
     self.scrollView = scrollView;
     self.collectionView = collectionView;

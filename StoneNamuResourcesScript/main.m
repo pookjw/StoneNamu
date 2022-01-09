@@ -136,10 +136,79 @@ void writeLocalizableKeys(void) {
     [fileManager release];
 }
 
+void writeFontKeys(void) {
+    NSFileManager *fileManager = [NSFileManager new];
+    NSURL *currentDirectoryURL = [NSURL fileURLWithPath:fileManager.currentDirectoryPath isDirectory:YES];
+    NSURL *resourcesFrameworkURL = [currentDirectoryURL URLByAppendingPathComponent:@"StoneNamuResources" isDirectory:YES];
+    NSURL *fontsURL = [resourcesFrameworkURL URLByAppendingPathComponent:@"Fonts" isDirectory:YES];
+    NSURL *fontKeyURL = [[resourcesFrameworkURL URLByAppendingPathComponent:@"FontKey" isDirectory:NO] URLByAppendingPathExtension:@"h"];
+    
+    if (![fileManager fileExistsAtPath:resourcesFrameworkURL.path]) {
+        [NSException raise:@"StoneNamuResources was not found." format:@"Please check current directory."];
+    }
+    
+    if (![fileManager fileExistsAtPath:fontsURL.path]) {
+        [NSException raise:@"StoneNamuResources/Assets.xcassets was not found." format:@"Folder is missing."];
+    }
+    
+    //
+    
+    NSError * _Nullable error = nil;
+    
+    NSArray<NSString *> *contents = [fileManager subpathsOfDirectoryAtPath:fontsURL.path error:&error];
+    
+    if (error) {
+        [NSException raise:@"An error occured. (1)" format:@"%@", error.localizedDescription];
+    }
+    
+    NSMutableArray<NSString *> *allKeys = [@[] mutableCopy];
+    
+    [contents enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSString *key = [[[NSURL URLWithString:obj] URLByDeletingPathExtension] lastPathComponent];
+        [allKeys addObject:key];
+    }];
+    
+    //
+    
+    NSMutableString *result = [[NSMutableString alloc] initWithString:@""];
+    
+    [result appendString:@"#import <Foundation/Foundation.h>\n\n"];
+    [result appendString:@"typedef NSString * FontKey NS_STRING_ENUM;\n\n"];
+    
+    [allKeys enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [result appendString:[NSString stringWithFormat:@"static FontKey const FontKey%@ = @\"%@\";\n", obj, obj]];
+    }];
+    
+    //
+    
+    if ([fileManager fileExistsAtPath:fontKeyURL.path]) {
+        NSError * _Nullable error = nil;
+        
+        [fileManager removeItemAtURL:fontKeyURL error:&error];
+        
+        if (error) {
+            [NSException raise:@"An error occured. (2)" format:@"%@", error.localizedDescription];
+        }
+    }
+    
+    NSData *data = [result dataUsingEncoding:NSUTF8StringEncoding];
+    [result release];
+    
+    [data writeToURL:fontKeyURL options:0 error:&error];
+    
+    if (error) {
+        [NSException raise:@"An error occured. (3)" format:@"%@", error.localizedDescription];
+    }
+    
+    [fileManager release];
+    [allKeys release];
+}
+
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
         writeImageKeys();
         writeLocalizableKeys();
+        writeFontKeys();
     }
     return 0;
 }

@@ -38,6 +38,7 @@
     [self configureCollectionView];
     [self configureViewModel];
     [self configureRightBarButtonItems];
+    [self.viewModel requestDataSource];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

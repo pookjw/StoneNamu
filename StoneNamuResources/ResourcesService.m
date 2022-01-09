@@ -7,6 +7,9 @@
 
 #import <StoneNamuResources/ResourcesService.h>
 #import <StoneNamuResources/Identifier.h>
+#import <CoreText/CoreText.h>
+
+static NSArray<FontKey> * _Nullable kRegisteredFontKeys = @[];
 
 @implementation ResourcesService
 
@@ -608,6 +611,44 @@
     //
     
     return [result autorelease];
+}
+
+#if TARGET_OS_IPHONE
++ (UIFont * _Nullable)fontForKey:(FontKey)fontKey size:(CGFloat)size {
+    [self registerFontIfNeededWithName:fontKey];
+    UIFont *customFont = [UIFont fontWithName:fontKey size:size];
+    UIFont *result = [UIFontMetrics.defaultMetrics scaledFontForFont:customFont];
+    return result;
+}
+#elif TARGET_OS_OSX
++ (NSFont * _Nullable)fontForKey:(FontKey)fontKey size:(CGFloat)size {
+    [self registerFontIfNeededWithName:fontKey];
+    NSFont *customFont = [NSFont fontWithName:fontKey size:size];
+    return customFont;
+}
+#endif
+
++ (void)registerFontIfNeededWithName:(NSString *)name {
+    if ([kRegisteredFontKeys containsString:name]) {
+        return;
+    }
+    
+    NSURL *url = [[NSBundle bundleWithIdentifier:IDENTIFIER] URLForResource:name withExtension:@"ttf"];
+    NSData *data = [[NSData alloc] initWithContentsOfURL:url];
+    CGDataProviderRef provider = CGDataProviderCreateWithCFData((CFDataRef)data);
+    CGFontRef font = CGFontCreateWithDataProvider(provider);
+    
+    CFErrorRef _Nullable error = nil;
+    CTFontManagerRegisterGraphicsFont(font, &error);
+    
+    if (error != nil) {
+        NSLog(@"%@", ((NSError *)error).localizedDescription);
+        return;
+    }
+    
+    NSArray<FontKey> *new = [kRegisteredFontKeys arrayByAddingObject:name];
+    [kRegisteredFontKeys release];
+    kRegisteredFontKeys = [new copy];
 }
 
 @end

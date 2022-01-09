@@ -135,9 +135,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardColl
 - (void)configureCollectionView {
     NSScrollView *scrollView = [NSScrollView new];
     ClickableCollectionView *collectionView = [ClickableCollectionView new];
-    
-    scrollView.documentView = collectionView;
-    scrollView.contentView.postsBoundsChangedNotifications = YES;
 
     [self.view addSubview:scrollView];
     scrollView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -166,6 +163,8 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardColl
     [collectionView registerForDraggedTypes:HSCardPromiseProvider.pasteboardTypes];
     [collectionView setDraggingSourceOperationMask:NSDragOperationCopy forLocal:NO];
     
+    scrollView.documentView = collectionView;
+    scrollView.contentView.postsBoundsChangedNotifications = YES;
     
     self.scrollView = scrollView;
     self.collectionView = collectionView;

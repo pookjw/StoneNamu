@@ -67,31 +67,20 @@
     nameLabel.adjustsFontSizeToFitWidth = YES;
     nameLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleTitle3];
     nameLabel.minimumScaleFactor = 0.1;
+    [nameLabel setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
     
     [self addSubview:nameLabel];
     nameLabel.translatesAutoresizingMaskIntoConstraints = NO;
     
     //
     
-    NSString *string = @"";
-    
-    CGRect rect = [string boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX)
-                                       options:NSStringDrawingUsesLineFragmentOrigin
-                                    attributes:@{NSFontAttributeName: nameLabel.font}
-                                       context:nil];
-    CGFloat margin = nameLabel.contentInsets.top + nameLabel.contentInsets.bottom;
-    CGFloat height = ceilf(rect.size.height + margin);
-    
-    //
+    NSLayoutConstraint *bottomLayout = [nameLabel.bottomAnchor constraintEqualToAnchor:self.bottomAnchor];
+    bottomLayout.priority = UILayoutPriorityDefaultHigh;
     
     [NSLayoutConstraint activateConstraints:@[
         [nameLabel.topAnchor constraintEqualToAnchor:self.topAnchor],
-        [nameLabel.heightAnchor constraintEqualToConstant:height]
+        bottomLayout
     ]];
-    
-    NSLayoutConstraint *bottomLayout = [nameLabel.bottomAnchor constraintEqualToAnchor:self.bottomAnchor];
-    bottomLayout.priority = UILayoutPriorityDefaultHigh;
-    bottomLayout.active = YES;
     
     //
     
@@ -143,13 +132,9 @@
     imageView.backgroundColor = UIColor.clearColor;
     imageView.contentMode = UIViewContentModeScaleAspectFill;
     imageView.translatesAutoresizingMaskIntoConstraints = NO;
+    [imageView setContentHuggingPriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisVertical];
     [self addSubview:imageView];
     
-    [NSLayoutConstraint activateConstraints:@[
-        [imageView.centerYAnchor constraintEqualToAnchor:self.nameLabel.centerYAnchor],
-        [imageView.heightAnchor constraintEqualToAnchor:self.nameLabel.heightAnchor]
-    ]];
-
     NSLayoutConstraint *aspectLayout = [NSLayoutConstraint constraintWithItem:imageView
                                                                     attribute:NSLayoutAttributeWidth
                                                                     relatedBy:NSLayoutRelationEqual
@@ -157,7 +142,12 @@
                                                                     attribute:NSLayoutAttributeHeight
                                                                    multiplier:243.0 / 64.0
                                                                      constant:0];
-    aspectLayout.active = YES;
+    
+    [NSLayoutConstraint activateConstraints:@[
+        [imageView.centerYAnchor constraintEqualToAnchor:self.centerYAnchor],
+        [imageView.heightAnchor constraintEqualToAnchor:self.nameLabel.heightAnchor],
+        aspectLayout
+    ]];
     
     //
     
@@ -166,7 +156,6 @@
     //
     
     CAGradientLayer *imageViewGradientLayer = [CAGradientLayer new];
-    self.imageViewGradientLayer = imageViewGradientLayer;
     imageViewGradientLayer.colors = @[
         (id)[UIColor.whiteColor colorWithAlphaComponent:0].CGColor,
         (id)UIColor.whiteColor.CGColor
@@ -174,6 +163,7 @@
     imageViewGradientLayer.startPoint = CGPointMake(0, 0);
     imageViewGradientLayer.endPoint = CGPointMake(0.8, 0);
     imageView.layer.mask = imageViewGradientLayer;
+    self.imageViewGradientLayer = imageViewGradientLayer;
     [imageViewGradientLayer release];
     
     //

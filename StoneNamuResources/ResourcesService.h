@@ -13,6 +13,7 @@
 #endif
 #import <StoneNamuResources/ImageKey.h>
 #import <StoneNamuResources/LocalizableKey.h>
+#import <StoneNamuResources/FontKey.h>
 #import <StoneNamuCore/StoneNamuCore.h>
 
 NS_ASSUME_NONNULL_BEGIN
@@ -88,6 +89,12 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSDictionary<NSString *, NSString *> *)localizationsForHSYear;
 
 + (NSString *)localizationForHSDeck:(HSDeck *)hsDeck title:(NSString *)title;
+
+#if TARGET_OS_IPHONE
++ (UIFont * _Nullable)fontForKey:(FontKey)fontKey size:(CGFloat)size;
+#elif TARGET_OS_OSX
++ (NSFont * _Nullable)fontForKey:(FontKey)fontKey size:(CGFloat)size;
+#endif
 @end
 
 NS_ASSUME_NONNULL_END

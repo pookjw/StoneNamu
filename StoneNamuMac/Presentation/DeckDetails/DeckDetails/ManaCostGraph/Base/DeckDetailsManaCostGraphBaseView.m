@@ -7,14 +7,15 @@
 
 #import "DeckDetailsManaCostGraphBaseView.h"
 #import "NSTextField+setLabelStyle.h"
+#import "NSBox+setSimpleBoxStyle.h"
 
 @interface DeckDetailsManaCostGraphBaseView ()
 @property (copy) DeckDetailsManaCostGraphData *data;
 @property (retain) NSTextField *manaLabel;
 @property (retain) NSTextField *countLabel;
 @property (retain) NSView *backgroundView;
-@property (retain) NSView *filledView;
-@property (retain) NSLayoutConstraint *filledViewHeightConstraint;
+@property (retain) NSBox *filledBox;
+@property (retain) NSLayoutConstraint *filledBoxHeightConstraint;
 @end
 
 @implementation DeckDetailsManaCostGraphBaseView
@@ -35,8 +36,8 @@
 - (void)dealloc {
     [_data release];
     [_backgroundView release];
-    [_filledView release];
-    [_filledViewHeightConstraint release];
+    [_filledBox release];
+    [_filledBoxHeightConstraint release];
     [_manaLabel release];
     [_countLabel release];
     [super dealloc];
@@ -114,34 +115,37 @@
 }
 
 - (void)configureFilledView {
-    NSView *filledView = [NSView new];
+    NSBox *filledBox = [NSBox new];
     
-    filledView.wantsLayer = YES;
-    filledView.layer.backgroundColor = NSColor.systemGreenColor.CGColor;
-    filledView.translatesAutoresizingMaskIntoConstraints = NO;
+    [filledBox setSimpleBoxStyle];
+    filledBox.fillColor = NSColor.controlAccentColor;
+    filledBox.wantsLayer = YES;
+    filledBox.layer.cornerCurve = kCACornerCurveContinuous;
+    filledBox.layer.cornerRadius = 5.0f;
+    filledBox.translatesAutoresizingMaskIntoConstraints = NO;
     
-    [self.backgroundView addSubview:filledView];
+    [self.backgroundView addSubview:filledBox];
     
-    NSLayoutConstraint *filledViewHeightConstraint = [filledView.heightAnchor constraintEqualToConstant:0.0f];
-    self.filledViewHeightConstraint = filledViewHeightConstraint;
+    NSLayoutConstraint *filledBoxHeightConstraint = [filledBox.heightAnchor constraintEqualToConstant:0.0f];
     
     [NSLayoutConstraint activateConstraints:@[
-        filledViewHeightConstraint,
-        [filledView.leadingAnchor constraintEqualToAnchor:self.backgroundView.leadingAnchor],
-        [filledView.trailingAnchor constraintEqualToAnchor:self.backgroundView.trailingAnchor],
-        [filledView.bottomAnchor constraintEqualToAnchor:self.backgroundView.bottomAnchor]
+        filledBoxHeightConstraint,
+        [filledBox.leadingAnchor constraintEqualToAnchor:self.backgroundView.leadingAnchor],
+        [filledBox.trailingAnchor constraintEqualToAnchor:self.backgroundView.trailingAnchor],
+        [filledBox.bottomAnchor constraintEqualToAnchor:self.backgroundView.bottomAnchor]
     ]];
     
-    self.filledView = filledView;
-    [filledView release];
+    self.filledBox = filledBox;
+    self.filledBoxHeightConstraint = filledBoxHeightConstraint;
+    [filledBox release];
 }
 
 - (void)updateFilledView {
     [NSAnimationContext runAnimationGroup:^(NSAnimationContext * _Nonnull context) {
         context.duration = 0.2f;
-        [self.filledViewHeightConstraint animator].constant = self.backgroundView.bounds.size.height * self.data.percentage;
+        [self.filledBoxHeightConstraint animator].constant = self.backgroundView.bounds.size.height * self.data.percentage;
         
-        [self.filledView layoutSubtreeIfNeeded];
+        [self.filledBox layoutSubtreeIfNeeded];
     }];
 }
 

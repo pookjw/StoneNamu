@@ -8,11 +8,10 @@
 #import "DeckImageRenderServiceAppNameContentView.h"
 #import "DeckImageRenderServiceAppNameContentConfiguration.h"
 #import "InsetsLabel.h"
-#import "UIFont+customFonts.h"
 #import <StoneNamuResources/StoneNamuResources.h>
 
 @interface DeckImageRenderServiceAppNameContentView ()
-@property (retain) InsetsLabel *aboutLabel;
+@property (retain) InsetsLabel *appNameLabel;
 @end
 
 @implementation DeckImageRenderServiceAppNameContentView
@@ -32,7 +31,7 @@
 
 - (void)dealloc {
     [configuration release];
-    [_aboutLabel release];
+    [_appNameLabel release];
     [super dealloc];
 }
 
@@ -44,7 +43,7 @@
     InsetsLabel *aboutLabel = [InsetsLabel new];
     
     aboutLabel.contentInsets = UIEdgeInsetsMake(10, 0, 10, 0);
-    aboutLabel.font = [UIFont customFontWithType:UIFontCustomFontTypeGmarketSansBold size:18];
+    aboutLabel.font = [ResourcesService fontForKey:FontKeyGmarketSansTTFBold size:18.0f];
     aboutLabel.backgroundColor = UIColor.clearColor;
     aboutLabel.textColor = UIColor.whiteColor;
     aboutLabel.textAlignment = NSTextAlignmentCenter;
@@ -63,7 +62,7 @@
     bottomLayout.priority = UILayoutPriorityDefaultHigh;
     bottomLayout.active = YES;
     
-    self.aboutLabel = aboutLabel;
+    self.appNameLabel = aboutLabel;
     [aboutLabel release];
 }
 

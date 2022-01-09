@@ -37,9 +37,6 @@
         [hsDeckUseCase release];
         
         LocalDeckUseCaseImpl *localDeckUseCase = [LocalDeckUseCaseImpl new];
-        [localDeckUseCase fetchWithCompletion:^(NSArray<LocalDeck *> * _Nullable localDeck, NSError * _Nullable error) {
-            [self requestDataSourceWithLocalDecks:localDeck];
-        }];
         self.localDeckUseCase = localDeckUseCase;
         [localDeckUseCase release];
         
@@ -55,6 +52,12 @@
     [_hsDeckUseCase release];
     [_localDeckUseCase release];
     [super dealloc];
+}
+
+- (void)requestDataSource {
+    [self.localDeckUseCase fetchWithCompletion:^(NSArray<LocalDeck *> * _Nullable localDeck, NSError * _Nullable error) {
+        [self requestDataSourceWithLocalDecks:localDeck];
+    }];
 }
 
 - (void)fetchDeckCode:(NSString *)deckCode
@@ -113,6 +116,7 @@
                 [self sortSnapshot:snapshot];
                 
                 [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
+                    [self postApplyingSnapshotToDataSourceWasDone];
                     [self.localDeckUseCase saveChanges];
                     completion(localDeck);
                 }];
@@ -161,6 +165,7 @@
                 [self sortSnapshot:snapshot];
                 
                 [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
+                    [self postApplyingSnapshotToDataSourceWasDone];
                     [self.localDeckUseCase saveChanges];
                     completion(localDeck);
                 }];
@@ -198,6 +203,7 @@
     }];
     
     [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
+        [self postApplyingSnapshotToDataSourceWasDone];
         [self.localDeckUseCase deleteLocalDeck:localDeck];
     }];
     [snapshot release];
@@ -256,7 +262,9 @@
         
         //
         
-        [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{}];
+        [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
+            [self postApplyingSnapshotToDataSourceWasDone];
+        }];
         [snapshot release];
     }];
 }
@@ -287,6 +295,12 @@
     [self.localDeckUseCase fetchWithCompletion:^(NSArray<LocalDeck *> * _Nullable localDecks, NSError * _Nullable error) {
         [self requestDataSourceWithLocalDecks:localDecks];
     }];
+}
+
+- (void)postApplyingSnapshotToDataSourceWasDone {
+    [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameDecksViewModelApplyingSnapshotToDataSourceWasDone
+                                                      object:self
+                                                    userInfo:nil];
 }
 
 @end

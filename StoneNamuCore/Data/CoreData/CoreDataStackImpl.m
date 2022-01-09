@@ -8,11 +8,12 @@
 #import <StoneNamuCore/CoreDataStackImpl.h>
 #import <StoneNamuCore/SemaphoreCondition.h>
 #import <StoneNamuCore/Identifier.h>
+#import <StoneNamuCore/NSDictionary+combine.h>
 
-static NSMutableDictionary<NSString *, NSPersistentContainer *> * _Nullable kStoreContainers = nil;
-static NSMutableDictionary<NSString *, NSManagedObjectContext *> * _Nullable kContexts = nil;
-static NSMutableDictionary<NSString *, NSOperationQueue *> * _Nullable kOperationQueues = nil;
-static NSMutableDictionary<NSString *, NSNumber *> * _Nullable kMigrateStatus = nil;
+static NSDictionary<NSString *, NSPersistentContainer *> *kStoreContainers = @{};
+static NSDictionary<NSString *, NSManagedObjectContext *> *kContexts = @{};
+static NSDictionary<NSString *, NSOperationQueue *> *kOperationQueues = @{};
+static NSDictionary<NSString *, NSNumber *> *kMigrateStatus = @{};
 
 @interface CoreDataStackImpl () {
     NSManagedObjectContext *_context;
@@ -75,10 +76,6 @@ static NSMutableDictionary<NSString *, NSNumber *> * _Nullable kMigrateStatus = 
 }
 
 - (void)configureStoreContainerWithModelName:(NSString *)modelName models:(nonnull NSArray<NSString *> *)models class:(Class)class {
-    if (kStoreContainers == nil) {
-        kStoreContainers = [@{} mutableCopy];
-    }
-    
     if (kStoreContainers[modelName]) {
         [self->_storeContainer release];
         self->_storeContainer = [kStoreContainers[modelName] retain];
@@ -101,16 +98,14 @@ static NSMutableDictionary<NSString *, NSNumber *> * _Nullable kMigrateStatus = 
     [semaphore wait];
     [semaphore release];
     
-    kStoreContainers[modelName] = container;
+    NSDictionary<NSString *, NSPersistentContainer *> *new = [kStoreContainers dictionaryByAddingKey:modelName value:container];
+    [kStoreContainers release];
+    kStoreContainers = [new copy];
     [self->_storeContainer release];
     self->_storeContainer = [container retain];
 }
 
 - (void)configureContextWithModelName:(NSString *)modelName {
-    if (kContexts == nil) {
-        kContexts = [@{} mutableCopy];
-    }
-    
     if (kContexts[modelName]) {
         [self->_context release];
         self->_context = [kContexts[modelName] retain];
@@ -119,7 +114,10 @@ static NSMutableDictionary<NSString *, NSNumber *> * _Nullable kMigrateStatus = 
     
     NSManagedObjectContext *context = self.storeContainer.newBackgroundContext;
     context.automaticallyMergesChangesFromParent = YES;
-    kContexts[modelName] = context;
+    
+    NSDictionary<NSString *, NSManagedObjectContext *> *new = [kContexts dictionaryByAddingKey:modelName value:context];
+    [kContexts release];
+    kContexts = [new copy];
     [self->_context release];
     self->_context = [context retain];
 }
@@ -137,7 +135,10 @@ static NSMutableDictionary<NSString *, NSNumber *> * _Nullable kMigrateStatus = 
     
     NSOperationQueue *queue = [NSOperationQueue new];
     queue.qualityOfService = NSQualityOfServiceUserInitiated;
-    kOperationQueues[modelName] = queue;
+    
+    NSDictionary<NSString *, NSOperationQueue *> *new = [kOperationQueues dictionaryByAddingKey:modelName value:queue];
+    [kOperationQueues release];
+    kOperationQueues = [new copy];
     [self->_queue release];
     self->_queue = [queue retain];
     [queue release];
@@ -145,10 +146,6 @@ static NSMutableDictionary<NSString *, NSNumber *> * _Nullable kMigrateStatus = 
 
 - (void)performMigrationIfNeededWithModelName:(NSString *)modelName models:(nonnull NSArray<NSString *> *)models {
     if (models.count < 2) return;
-    
-    if (kMigrateStatus == nil) {
-        kMigrateStatus = [@{} mutableCopy];
-    }
     
     NSNumber * _Nullable status = kMigrateStatus[modelName];
     
@@ -204,7 +201,9 @@ static NSMutableDictionary<NSString *, NSNumber *> * _Nullable kMigrateStatus = 
     [semaphore wait];
     [semaphore release];
     
-    kMigrateStatus[modelName] = [NSNumber numberWithBool:YES];
+    NSDictionary<NSString *, NSNumber *> *new = [kMigrateStatus dictionaryByAddingKey:models value:[NSNumber numberWithBool:YES]];
+    [kMigrateStatus release];
+    kMigrateStatus = [new copy];
 }
 
 - (NSManagedObjectModel * _Nullable)modelForMomd:(NSString *)modelName mom:(NSString *)mom {

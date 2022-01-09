@@ -12,18 +12,18 @@
         <collectionViewItem id="Ifn-Gv-3N4" customClass="CardDetailsChildCollectionViewItem">
             <connections>
                 <outlet property="imageView" destination="DPz-2P-AvD" id="ls5-7l-bfB"/>
-                <outlet property="view" destination="4zv-Zw-Cjo" id="lfZ-Zm-UZV"/>
+                <outlet property="view" destination="C0n-Gk-N9c" id="BDK-2A-8tw"/>
             </connections>
         </collectionViewItem>
-        <box boxType="custom" cornerRadius="4" title="Box" id="C0n-Gk-N9c">
+        <box boxType="custom" borderWidth="0.0" title="Box" titlePosition="noTitle" id="C0n-Gk-N9c">
             <rect key="frame" x="0.0" y="0.0" width="177" height="114"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <view key="contentView" id="4zv-Zw-Cjo">
-                <rect key="frame" x="1" y="1" width="175" height="112"/>
+                <rect key="frame" x="0.0" y="0.0" width="177" height="114"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DPz-2P-AvD">
-                        <rect key="frame" x="0.0" y="0.0" width="175" height="112"/>
+                        <rect key="frame" x="0.0" y="0.0" width="177" height="114"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="StR-HI-vuU"/>
                     </imageView>
                 </subviews>

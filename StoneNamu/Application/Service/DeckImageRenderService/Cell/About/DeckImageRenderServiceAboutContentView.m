@@ -9,7 +9,6 @@
 #import "DeckImageRenderServiceAboutContentConfiguration.h"
 #import "InsetsLabel.h"
 #import <StoneNamuCore/StoneNamuCore.h>
-#import "UIFont+customFonts.h"
 #import "NSNumber+stringWithSepearatedDecimalNumber.h"
 #import <StoneNamuResources/StoneNamuResources.h>
 
@@ -33,8 +32,8 @@
         [self setAttributes];
         [self configureDeckYearLabel];
         [self configureArcaneDustStackView];
-        [self configureArcaneDustImageView];
         [self configureArcaneDustLabel];
+        [self configureArcaneDustImageView];
     }
     
     return self;
@@ -57,7 +56,7 @@
     InsetsLabel *deckYearLabel = [InsetsLabel new];
     
     deckYearLabel.contentInsets = UIEdgeInsetsMake(10, 10, 10, 10);
-    deckYearLabel.font = [UIFont customFontWithType:UIFontCustomFontTypeGmarketSansMedium size:18];
+    deckYearLabel.font = [ResourcesService fontForKey:FontKeyGmarketSansTTFMedium size:18.0f];
     deckYearLabel.backgroundColor = UIColor.clearColor;
     deckYearLabel.textColor = UIColor.whiteColor;
     
@@ -108,6 +107,23 @@
     [arcaneDustStackView release];
 }
 
+- (void)configureArcaneDustLabel {
+    InsetsLabel *arcaneDustLabel = [InsetsLabel new];
+    
+    arcaneDustLabel.contentInsets = UIEdgeInsetsMake(0, 0, 0, 10);
+    arcaneDustLabel.font = [ResourcesService fontForKey:FontKeyGmarketSansTTFMedium size:18.0f];
+    arcaneDustLabel.backgroundColor = UIColor.clearColor;
+    arcaneDustLabel.textColor = UIColor.whiteColor;
+    
+    [self.arcaneDustStackView addArrangedSubview:arcaneDustLabel];
+    
+    [arcaneDustLabel setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
+    [arcaneDustLabel setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
+    
+    self.arcaneDustLabel = arcaneDustLabel;
+    [arcaneDustLabel release];
+}
+
 - (void)configureArcaneDustImageView {
     UIImageView *arcaneDustImageView = [UIImageView new];
     
@@ -116,7 +132,7 @@
     arcaneDustImageView.contentMode = UIViewContentModeScaleToFill;
     arcaneDustImageView.image = [ResourcesService imageForKey:ImageKeyChemistry];
     
-    [self.arcaneDustStackView addArrangedSubview:arcaneDustImageView];
+    [self.arcaneDustStackView insertArrangedSubview:arcaneDustImageView atIndex:0];
     
     NSLayoutConstraint *aspectRatio = [NSLayoutConstraint constraintWithItem:arcaneDustImageView
                                                                    attribute:NSLayoutAttributeWidth
@@ -125,40 +141,17 @@
                                                                    attribute:NSLayoutAttributeHeight
                                                                   multiplier:1
                                                                     constant:0];
-    aspectRatio.active = YES;
     
-    [arcaneDustImageView setContentCompressionResistancePriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
-    [arcaneDustImageView setContentCompressionResistancePriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisVertical];
+    [NSLayoutConstraint activateConstraints:@[
+        aspectRatio,
+        [arcaneDustImageView.heightAnchor constraintEqualToAnchor:self.arcaneDustLabel.heightAnchor]
+    ]];
+    
+    [arcaneDustImageView setContentHuggingPriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
+    [arcaneDustImageView setContentHuggingPriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisVertical];
     
     self.arcaneDustImageView = arcaneDustImageView;
     [arcaneDustImageView release];
-}
-
-- (void)configureArcaneDustLabel {
-    InsetsLabel *arcaneDustLabel = [InsetsLabel new];
-    
-    arcaneDustLabel.contentInsets = UIEdgeInsetsMake(0, 0, 0, 10);
-    arcaneDustLabel.font = [UIFont customFontWithType:UIFontCustomFontTypeGmarketSansMedium size:18];
-    arcaneDustLabel.backgroundColor = UIColor.clearColor;
-    arcaneDustLabel.textColor = UIColor.whiteColor;
-    
-    [self.arcaneDustStackView addArrangedSubview:arcaneDustLabel];
-    
-    CGRect rect = [@"9" boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX)
-                                     options:NSStringDrawingUsesLineFragmentOrigin
-                                  attributes:@{NSFontAttributeName: arcaneDustLabel.font}
-                                     context:nil];
-    
-    [NSLayoutConstraint activateConstraints:@[
-        [arcaneDustLabel.heightAnchor constraintEqualToAnchor:self.arcaneDustImageView.heightAnchor],
-        [arcaneDustLabel.heightAnchor constraintEqualToConstant:ceilf(rect.size.height)]
-    ]];
-    
-    [arcaneDustLabel setContentCompressionResistancePriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
-    [arcaneDustLabel setContentCompressionResistancePriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisVertical];
-    
-    self.arcaneDustLabel = arcaneDustLabel;
-    [arcaneDustLabel release];
 }
 
 //

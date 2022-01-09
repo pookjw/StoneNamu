@@ -35,8 +35,8 @@
         
         NSOperationQueue *queue = [NSOperationQueue new];
         queue.qualityOfService = NSQualityOfServiceUserInitiated;
-        [queue release];
         self.queue = queue;
+        [queue release];
     }
     
     return self;
@@ -50,7 +50,7 @@
     [super dealloc];
 }
 
-- (void)updateDataSourcdWithLocalDeck:(LocalDeck *)localDeck completion:(DeckImageRenderServiceModelUpdateWithCompletion)completion {
+- (void)updateDataSourceWithLocalDeck:(LocalDeck *)localDeck completion:(DeckImageRenderServiceModelUpdateWithCompletion)completion {
     [self.queue addBarrierBlock:^{
         NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
         [snapshot deleteAllItems];

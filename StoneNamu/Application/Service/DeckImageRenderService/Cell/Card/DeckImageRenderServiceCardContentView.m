@@ -8,7 +8,7 @@
 #import "DeckImageRenderServiceCardContentView.h"
 #import "DeckImageRenderServiceCardContentConfiguration.h"
 #import "InsetsLabel.h"
-#import "UIFont+customFonts.h"
+#import <StoneNamuResources/StoneNamuResources.h>
 
 @interface DeckImageRenderServiceCardContentView ()
 @property (readonly, nonatomic) HSCard * _Nullable hsCard;
@@ -65,39 +65,28 @@
     nameLabel.backgroundColor = UIColor.clearColor;
     nameLabel.textColor = UIColor.whiteColor;
     nameLabel.adjustsFontSizeToFitWidth = YES;
-    nameLabel.font = [UIFont customFontWithType:UIFontCustomFontTypeGmarketSansMedium size:18];
+    nameLabel.font = [ResourcesService fontForKey:FontKeyGmarketSansTTFMedium size:18.0f];
     nameLabel.minimumScaleFactor = 0.1;
     
     nameLabel.layer.shadowRadius = 2.0;
     nameLabel.layer.shadowOpacity = 1;
     nameLabel.layer.shadowOffset = CGSizeMake(0, 0);
     nameLabel.layer.shadowColor = UIColor.blackColor.CGColor;
-    nameLabel.layer.masksToBounds = YES;
+    nameLabel.layer.masksToBounds = NO;
+    [nameLabel setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
     
     [self addSubview:nameLabel];
     nameLabel.translatesAutoresizingMaskIntoConstraints = NO;
     
     //
     
-    NSString *string = @"";
-    
-    CGRect rect = [string boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX)
-                                       options:NSStringDrawingUsesLineFragmentOrigin
-                                    attributes:@{NSFontAttributeName: nameLabel.font}
-                                       context:nil];
-    CGFloat margin = nameLabel.contentInsets.top + nameLabel.contentInsets.bottom;
-    CGFloat height = ceilf(rect.size.height + margin);
-    
-    //
+    NSLayoutConstraint *bottomLayout = [nameLabel.bottomAnchor constraintEqualToAnchor:self.bottomAnchor];
+    bottomLayout.priority = UILayoutPriorityDefaultHigh;
     
     [NSLayoutConstraint activateConstraints:@[
         [nameLabel.topAnchor constraintEqualToAnchor:self.topAnchor],
-        [nameLabel.heightAnchor constraintEqualToConstant:height]
+        bottomLayout
     ]];
-    
-    NSLayoutConstraint *bottomLayout = [nameLabel.bottomAnchor constraintEqualToAnchor:self.bottomAnchor];
-    bottomLayout.priority = UILayoutPriorityDefaultHigh;
-    bottomLayout.active = YES;
     
     //
     
@@ -113,7 +102,7 @@
                                                      blue:217.0 / 255.0
                                                     alpha:1.0];
     manaCostLabel.textColor = UIColor.whiteColor;
-    manaCostLabel.font = [UIFont customFontWithType:UIFontCustomFontTypeGmarketSansBold size:18];
+    manaCostLabel.font = [ResourcesService fontForKey:FontKeyGmarketSansTTFBold size:18.0f];
     manaCostLabel.textAlignment = NSTextAlignmentCenter;
     
     [self addSubview:manaCostLabel];
@@ -152,21 +141,22 @@
     imageView.backgroundColor = UIColor.clearColor;
     imageView.contentMode = UIViewContentModeScaleAspectFill;
     imageView.translatesAutoresizingMaskIntoConstraints = NO;
+    [imageView setContentHuggingPriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisVertical];
     [self addSubview:imageView];
     
-    [NSLayoutConstraint activateConstraints:@[
-        [imageView.centerYAnchor constraintEqualToAnchor:self.nameLabel.centerYAnchor],
-        [imageView.heightAnchor constraintEqualToAnchor:self.nameLabel.heightAnchor]
-    ]];
-
     NSLayoutConstraint *aspectLayout = [NSLayoutConstraint constraintWithItem:imageView
                                                                     attribute:NSLayoutAttributeWidth
                                                                     relatedBy:NSLayoutRelationEqual
                                                                        toItem:imageView
                                                                     attribute:NSLayoutAttributeHeight
-                                                                   multiplier:243.0 / 64.0
+                                                                   multiplier:243.0f / 64.0f
                                                                      constant:0];
-    aspectLayout.active = YES;
+    
+    [NSLayoutConstraint activateConstraints:@[
+        [imageView.centerYAnchor constraintEqualToAnchor:self.centerYAnchor],
+        [imageView.heightAnchor constraintEqualToAnchor:self.nameLabel.heightAnchor],
+        aspectLayout
+    ]];
     
     //
     
@@ -175,7 +165,6 @@
     //
     
     CAGradientLayer *imageViewGradientLayer = [CAGradientLayer new];
-    self.imageViewGradientLayer = imageViewGradientLayer;
     imageViewGradientLayer.colors = @[
         (id)[UIColor.whiteColor colorWithAlphaComponent:0].CGColor,
         (id)UIColor.whiteColor.CGColor
@@ -183,6 +172,7 @@
     imageViewGradientLayer.startPoint = CGPointMake(0, 0);
     imageViewGradientLayer.endPoint = CGPointMake(0.8, 0);
     imageView.layer.mask = imageViewGradientLayer;
+    self.imageViewGradientLayer = imageViewGradientLayer;
     [imageViewGradientLayer release];
     
     //
@@ -205,7 +195,7 @@
                                            green:191.0 / 255.0
                                             blue:0 / 255.0
                                            alpha:1.0];
-    countLabel.font = [UIFont customFontWithType:UIFontCustomFontTypeGmarketSansBold size:18];
+    countLabel.font = [ResourcesService fontForKey:FontKeyGmarketSansTTFBold size:18.0f];
     countLabel.textAlignment = NSTextAlignmentCenter;
     
     [self addSubview:countLabel];
@@ -315,7 +305,6 @@
     //
     
     self.imageView.image = self.hsCardImage;
-    NSLog(@"%@", self.hsCardImage);
     [self updateGradientLayer];
 }
 

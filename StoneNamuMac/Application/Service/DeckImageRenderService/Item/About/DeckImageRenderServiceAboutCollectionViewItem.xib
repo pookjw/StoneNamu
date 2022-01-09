@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19529" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19529"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner"/>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <collectionViewItem id="hfi-OT-Dkt" customClass="DeckImageRenderServiceAboutCollectionViewItem">
+            <connections>
+                <outlet property="arcaneDustImageView" destination="LdX-ZO-4OS" id="Bdd-qy-phu"/>
+                <outlet property="arcaneDustLabel" destination="3vU-84-E5D" id="WWU-jm-zUg"/>
+                <outlet property="deckYearLabel" destination="jHL-wA-iIH" id="yOa-Hu-zoW"/>
+                <outlet property="view" destination="PbN-X5-DWE" id="5I6-DK-CeZ"/>
+            </connections>
+        </collectionViewItem>
+        <box boxType="custom" borderWidth="0.0" title="Box" titlePosition="noTitle" id="PbN-X5-DWE">
+            <rect key="frame" x="0.0" y="0.0" width="565" height="36"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <view key="contentView" id="WJ8-Fl-hoD">
+                <rect key="frame" x="0.0" y="0.0" width="565" height="36"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <subviews>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jHL-wA-iIH">
+                        <rect key="frame" x="8" y="10" width="37" height="16"/>
+                        <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="7J3-r7-nFD">
+                            <font key="font" usesAppearanceFont="YES"/>
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1rT-AC-rjV">
+                        <rect key="frame" x="506" y="10" width="49" height="16"/>
+                        <subviews>
+                            <imageView horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="LdX-ZO-4OS">
+                                <rect key="frame" x="0.0" y="0.0" width="16" height="16"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="chemistry" id="fvK-wQ-PFS"/>
+                                <color key="contentTintColor" name="systemCyanColor" catalog="System" colorSpace="catalog"/>
+                            </imageView>
+                            <textField horizontalHuggingPriority="1000" verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="3vU-84-E5D">
+                                <rect key="frame" x="14" y="0.0" width="37" height="16"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="mg3-Zc-B50">
+                                    <font key="font" usesAppearanceFont="YES"/>
+                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="LdX-ZO-4OS" firstAttribute="width" secondItem="3vU-84-E5D" secondAttribute="height" id="tJN-9s-etQ"/>
+                            <constraint firstItem="LdX-ZO-4OS" firstAttribute="height" secondItem="3vU-84-E5D" secondAttribute="height" id="u3j-4e-PNj"/>
+                        </constraints>
+                        <visibilityPriorities>
+                            <integer value="1000"/>
+                            <integer value="1000"/>
+                        </visibilityPriorities>
+                        <customSpacing>
+                            <real value="3.4028234663852886e+38"/>
+                            <real value="3.4028234663852886e+38"/>
+                        </customSpacing>
+                    </stackView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="1rT-AC-rjV" secondAttribute="bottom" constant="10" id="7LN-ww-hJ4"/>
+                    <constraint firstItem="jHL-wA-iIH" firstAttribute="leading" secondItem="WJ8-Fl-hoD" secondAttribute="leading" constant="10" id="SDt-Xd-EVd"/>
+                    <constraint firstItem="jHL-wA-iIH" firstAttribute="top" secondItem="WJ8-Fl-hoD" secondAttribute="top" constant="10" id="bwo-25-BUo"/>
+                    <constraint firstAttribute="trailing" secondItem="1rT-AC-rjV" secondAttribute="trailing" constant="10" id="ip4-4Q-JTo"/>
+                    <constraint firstItem="1rT-AC-rjV" firstAttribute="top" secondItem="WJ8-Fl-hoD" secondAttribute="top" constant="10" id="qC4-7N-qu7"/>
+                    <constraint firstAttribute="bottom" secondItem="jHL-wA-iIH" secondAttribute="bottom" constant="10" id="tf3-zS-Nyy"/>
+                </constraints>
+            </view>
+            <color key="fillColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <point key="canvasLocation" x="271.5" y="232"/>
+        </box>
+    </objects>
+    <resources>
+        <image name="chemistry" width="48" height="48"/>
+    </resources>
+</document>

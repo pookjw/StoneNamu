@@ -111,9 +111,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
     NSScrollView *scrollView = [NSScrollView new];
     ClickableCollectionView *collectionView = [ClickableCollectionView new];
     
-    scrollView.automaticallyAdjustsContentInsets = NO;
-    scrollView.documentView = collectionView;
-    
     [self.view addSubview:scrollView];
     scrollView.translatesAutoresizingMaskIntoConstraints = NO;
     [NSLayoutConstraint activateConstraints:@[
@@ -138,6 +135,9 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
     
     [collectionView registerForDraggedTypes:HSCardPromiseProvider.pasteboardTypes];
     [collectionView setDraggingSourceOperationMask:NSDragOperationCopy forLocal:NO];
+    
+    scrollView.automaticallyAdjustsContentInsets = NO;
+    scrollView.documentView = collectionView;
     
     self.scrollView = scrollView;
     self.collectionView = collectionView;
@@ -268,7 +268,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
 - (void)saveAsImageItemTriggered:(NSMenuItem *)sender {
     DeckImageRenderService *renderService = [DeckImageRenderService new];
     
-    [renderService imageFromLocalDeck:self.viewModel.localDeck completion:^(NSImage * _Nonnull image) {
+    [renderService imageFromLocalDeck:self.viewModel.localDeck fromWindow:self.view.window completion:^(NSImage * _Nonnull image) {
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
             PhotosService *photoService = [[PhotosService alloc] initWithImages:@{self.viewModel.localDeck.name: image}];
             
@@ -290,7 +290,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
 - (void)shareWithImageItemTriggered:(NSMenuItem *)sender {
     DeckImageRenderService *renderService = [DeckImageRenderService new];
     
-    [renderService imageFromLocalDeck:self.viewModel.localDeck completion:^(NSImage * _Nonnull image) {
+    [renderService imageFromLocalDeck:self.viewModel.localDeck fromWindow:self.view.window completion:^(NSImage * _Nonnull image) {
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
             PhotosService *photoService = [[PhotosService alloc] initWithImages:@{self.viewModel.localDeck.name: image}];
             [photoService beginSharingServiceOfView:self.moreMenuButton];
@@ -464,9 +464,11 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
 - (void)didChangeLocalDeckReceived:(NSNotification *)notification {
     NSString *name = notification.userInfo[DeckDetailsViewModelDidChangeLocalDeckNameItemKey];
     
-    [NSOperationQueue.mainQueue addOperationWithBlock:^{
-        self.view.window.title = name;
-    }];
+    if (name != nil) {
+        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+            self.view.window.title = name;
+        }];
+    }
 }
 
 - (void)errorOccurredReceived:(NSNotification *)notification {

@@ -12,18 +12,18 @@
         <collectionViewItem id="rij-dT-aio" customClass="DeckBaseCollectionViewItem">
             <connections>
                 <outlet property="textField" destination="ToN-mv-sq6" id="6hs-1X-hBe"/>
-                <outlet property="view" destination="v1i-GJ-Qha" id="kMJ-do-ayx"/>
+                <outlet property="view" destination="XQT-2m-onK" id="MmT-wf-7Sc"/>
             </connections>
         </collectionViewItem>
-        <box boxType="custom" cornerRadius="4" title="Box" id="XQT-2m-onK">
-            <rect key="frame" x="0.0" y="0.0" width="391" height="18"/>
+        <box boxType="custom" borderWidth="0.0" title="Box" titlePosition="noTitle" id="XQT-2m-onK">
+            <rect key="frame" x="0.0" y="0.0" width="391" height="16"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <view key="contentView" id="v1i-GJ-Qha">
-                <rect key="frame" x="1" y="1" width="389" height="16"/>
+                <rect key="frame" x="0.0" y="0.0" width="391" height="16"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ToN-mv-sq6">
-                        <rect key="frame" x="-2" y="0.0" width="393" height="16"/>
+                        <rect key="frame" x="-2" y="0.0" width="395" height="16"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="yhn-A3-ajm">
                             <font key="font" usesAppearanceFont="YES"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>

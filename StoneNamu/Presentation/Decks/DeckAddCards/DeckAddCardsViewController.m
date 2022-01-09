@@ -233,7 +233,7 @@
 
     UIButton *deckDetailsButton = [UIButton buttonWithConfiguration:[self makeDeckDetailButtonConfiguration] primaryAction:action];
 
-    [self.view addSubview:self.deckDetailsButton];
+    [self.view addSubview:deckDetailsButton];
     deckDetailsButton.translatesAutoresizingMaskIntoConstraints = NO;
 
     [NSLayoutConstraint activateConstraints:@[

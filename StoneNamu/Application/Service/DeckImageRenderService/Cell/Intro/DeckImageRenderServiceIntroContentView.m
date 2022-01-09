@@ -10,7 +10,6 @@
 #import "InsetsLabel.h"
 #import <StoneNamuCore/StoneNamuCore.h>
 #import <StoneNamuResources/StoneNamuResources.h>
-#import "UIFont+customFonts.h"
 
 @interface DeckImageRenderServiceIntroContentView ()
 @property (retain) UIImageView *heroImageView;
@@ -20,7 +19,6 @@
 @property (retain) InsetsLabel *classLabel;
 @property (retain) InsetsLabel *deckFormatLabel;
 @property (retain) UIView *backgroundView;
-@property (retain) CAGradientLayer *gradientLayer;
 @end
 
 @implementation DeckImageRenderServiceIntroContentView
@@ -53,13 +51,7 @@
     [_nameLabel release];
     [_deckFormatLabel release];
     [_backgroundView release];
-    [_gradientLayer release];
     [super dealloc];
-}
-
-- (void)layoutSubviews {
-    [super layoutSubviews];
-    [self updateGradientLayer];
 }
 
 - (void)setAttributes {
@@ -86,7 +78,7 @@
                                                                    relatedBy:NSLayoutRelationEqual
                                                                       toItem:heroImageView
                                                                    attribute:NSLayoutAttributeHeight
-                                                                  multiplier:243 / 64
+                                                                  multiplier:243.0f / 64.0f
                                                                     constant:0];
     aspectRatio.priority = UILayoutPriorityDefaultHigh;
     aspectRatio.active = YES;
@@ -99,7 +91,7 @@
     UIStackView *primaryStackView = [UIStackView new];
     
     primaryStackView.axis = UILayoutConstraintAxisVertical;
-    primaryStackView.backgroundColor = [UIColor.blackColor colorWithAlphaComponent:0.6];
+    primaryStackView.backgroundColor = [UIColor.blackColor colorWithAlphaComponent:0.5f];
     primaryStackView.translatesAutoresizingMaskIntoConstraints = NO;
     
     [self addSubview:primaryStackView];
@@ -118,16 +110,16 @@
     InsetsLabel *nameLabel = [InsetsLabel new];
     
     nameLabel.contentInsets = UIEdgeInsetsMake(10, 10, 0, 10);
-    nameLabel.font = [UIFont customFontWithType:UIFontCustomFontTypeGmarketSansBold size:18];
+    nameLabel.font = [ResourcesService fontForKey:FontKeyGmarketSansTTFBold size:18.0f];
     nameLabel.backgroundColor = UIColor.clearColor;
     nameLabel.textColor = UIColor.whiteColor;
     nameLabel.textAlignment = NSTextAlignmentCenter;
     
     nameLabel.layer.shadowRadius = 2.0;
     nameLabel.layer.shadowOpacity = 1;
-    nameLabel.layer.shadowOffset = CGSizeMake(0, 0);
+    nameLabel.layer.shadowOffset = CGSizeZero;
     nameLabel.layer.shadowColor = UIColor.blackColor.CGColor;
-    nameLabel.layer.masksToBounds = YES;
+    nameLabel.layer.masksToBounds = NO;
     
     [self.primaryStackView addArrangedSubview:nameLabel];
     
@@ -151,7 +143,7 @@
     InsetsLabel *classLabel = [InsetsLabel new];
     
     classLabel.contentInsets = UIEdgeInsetsMake(10, 10, 10, 10);
-    classLabel.font = [UIFont customFontWithType:UIFontCustomFontTypeGmarketSansMedium size:15];
+    classLabel.font = [ResourcesService fontForKey:FontKeyGmarketSansTTFMedium size:18.0f];
     classLabel.backgroundColor = UIColor.clearColor;
     classLabel.textColor = UIColor.whiteColor;
     classLabel.textAlignment = NSTextAlignmentLeft;
@@ -160,7 +152,7 @@
     classLabel.layer.shadowOpacity = 1.0f;
     classLabel.layer.shadowOffset = CGSizeZero;
     classLabel.layer.shadowColor = UIColor.blackColor.CGColor;
-    classLabel.layer.masksToBounds = YES;
+    classLabel.layer.masksToBounds = NO;
     
     [self.secondaryStackView addArrangedSubview:classLabel];
     [classLabel setContentCompressionResistancePriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
@@ -173,16 +165,16 @@
     InsetsLabel *deckFormatLabel = [InsetsLabel new];
     
     deckFormatLabel.contentInsets = UIEdgeInsetsMake(10, 10, 10, 10);
-    deckFormatLabel.font = [UIFont customFontWithType:UIFontCustomFontTypeGmarketSansMedium size:15];
+    deckFormatLabel.font = [ResourcesService fontForKey:FontKeyGmarketSansTTFMedium size:18.0f];
     deckFormatLabel.backgroundColor = UIColor.clearColor;
     deckFormatLabel.textColor = UIColor.whiteColor;
     deckFormatLabel.textAlignment = NSTextAlignmentRight;
     
     deckFormatLabel.layer.shadowRadius = 2.0;
     deckFormatLabel.layer.shadowOpacity = 1;
-    deckFormatLabel.layer.shadowOffset = CGSizeMake(0, 0);
+    deckFormatLabel.layer.shadowOffset = CGSizeZero;
     deckFormatLabel.layer.shadowColor = UIColor.blackColor.CGColor;
-    deckFormatLabel.layer.masksToBounds = YES;
+    deckFormatLabel.layer.masksToBounds = NO;
     
     [self.secondaryStackView addArrangedSubview:deckFormatLabel];
     [deckFormatLabel setContentCompressionResistancePriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
@@ -194,7 +186,7 @@
 - (void)configureBackgroundView {
     UIView *backgroundView = [UIView new];
     
-    backgroundView.backgroundColor = [UIColor.blackColor colorWithAlphaComponent:0.6];
+    backgroundView.backgroundColor = [UIColor.blackColor colorWithAlphaComponent:0.5f];
     backgroundView.translatesAutoresizingMaskIntoConstraints = NO;
     
     [self addSubview:backgroundView];
@@ -205,26 +197,8 @@
         [backgroundView.bottomAnchor constraintEqualToAnchor:self.primaryStackView.topAnchor]
     ]];
     
-    CAGradientLayer *gradientLayer = [CAGradientLayer new];
-    gradientLayer.colors = @[
-        (id)[UIColor.whiteColor colorWithAlphaComponent:0].CGColor,
-        (id)UIColor.whiteColor.CGColor
-    ];
-    gradientLayer.startPoint = CGPointMake(0, 0);
-    gradientLayer.endPoint = CGPointMake(0, 1);
-    self.gradientLayer = gradientLayer;
-    self.backgroundView.layer.mask = gradientLayer;
-    [gradientLayer release];
-    
     self.backgroundView = backgroundView;
     [backgroundView release];
-}
-
-- (void)updateGradientLayer {
-    [CATransaction begin];
-    [CATransaction setDisableActions:YES];
-    self.gradientLayer.frame = self.backgroundView.bounds;
-    [CATransaction commit];
 }
 
 //

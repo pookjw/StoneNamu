@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef NSCollectionViewDiffableDataSource<DecksSectionModel *, DecksItemModel *> DecksDataSource;
 
+static NSNotificationName NSNotificationNameDecksViewModelApplyingSnapshotToDataSourceWasDone = @"NSNotificationNameDecksViewModelApplyingSnapshotToDataSourceWasDone";
+
 typedef void (^DecksViewModelFetchDeckCodeCompletion)(LocalDeck * _Nullable, HSDeck * _Nullable, NSError * _Nullable);
 typedef void (^DecksViewModelMakeLocalDeckCompletion)(LocalDeck *);
 typedef void (^DecksViewModelParseClipboardCompletion)(NSString * _Nullable, NSString * _Nullable);
@@ -23,6 +25,7 @@ typedef void (^DecksViewModelParseClipboardCompletion)(NSString * _Nullable, NSS
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithDataSource:(DecksDataSource *)dataSource;
+- (void)requestDataSource;
 - (void)fetchDeckCode:(NSString *)deckCode title:(NSString * _Nullable)title completion:(DecksViewModelFetchDeckCodeCompletion)completion;
 - (void)makeLocalDeckWithClass:(HSCardClass)hsCardClass deckFormat:(HSDeckFormat)deckFormat completion:(DecksViewModelMakeLocalDeckCompletion)completion;
 - (void)deleteLocalDeckFromIndexPath:(NSIndexPath *)indexPath;

@@ -28,8 +28,8 @@
     if (self) {
         NSOperationQueue *queue = [NSOperationQueue new];
         queue.qualityOfService = NSQualityOfServiceUserInitiated;
-        [queue release];
         self.queue = queue;
+        [queue release];
         
         [self configureCollectionView];
         [self configureModel];
@@ -49,13 +49,13 @@
     [self.queue addBarrierBlock:^{
         SemaphoreCondition *semaphore = [[SemaphoreCondition alloc] initWithValue:0];
         
-        [self.model updateDataSourcdWithLocalDeck:localDeck
+        [self.model updateDataSourceWithLocalDeck:localDeck
                                        completion:^(NSUInteger countOfCardItem){
             [NSOperationQueue.mainQueue addOperationWithBlock:^{
                 self.collectionView.frame = CGRectMake(0, 0, 300, self.collectionView.contentSize.height);
                 UIImage *image = self.collectionView.imageRendered;
-                [semaphore signal];
                 completion(image);
+                [semaphore signal];
             }];
         }];
         

@@ -15,7 +15,7 @@
     bitRep.size = size;
     [self cacheDisplayInRect:self.bounds toBitmapImageRep:bitRep];
     
-    NSImage *image= [[NSImage alloc] initWithSize:size];
+    NSImage *image = [[NSImage alloc] initWithSize:size];
     [image addRepresentation:bitRep];
     
     return [image autorelease];

@@ -9,6 +9,16 @@
 
 @implementation IntrinsicCollectionView
 
+- (instancetype)init {
+    self = [super init];
+    
+    if (self) {
+        [self bind];
+    }
+    
+    return self;
+}
+
 - (instancetype)initWithFrame:(CGRect)frame collectionViewLayout:(UICollectionViewLayout *)layout {
     self = [super initWithFrame:frame collectionViewLayout:layout];
     

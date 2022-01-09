@@ -24,12 +24,6 @@
 	<true/>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Please allow accessing to Photo Library to save photo.</string>
-	<key>UIAppFonts</key>
-	<array>
-		<string>GmarketSansTTFBold.ttf</string>
-		<string>GmarketSansTTFLight.ttf</string>
-		<string>GmarketSansTTFMedium.ttf</string>
-	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

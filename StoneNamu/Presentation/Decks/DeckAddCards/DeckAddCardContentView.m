@@ -69,7 +69,7 @@
     [self addSubview:countLabel];
     
     countLabel.contentInsets = UIEdgeInsetsMake(5, 10, 0, 10);;
-    countLabel.layer.masksToBounds = YES;
+    countLabel.layer.masksToBounds = NO;
     countLabel.textAlignment = NSTextAlignmentCenter;
     countLabel.backgroundColor = UIColor.tintColor;
     countLabel.textColor = UIColor.whiteColor;

@@ -56,7 +56,6 @@
     
     if (indexPath != nil) {
         [self->_clickedIndexPath release];
-        self->_clickedIndexPath = nil;
         self->_clickedIndexPath = [indexPath copy];
     }
     

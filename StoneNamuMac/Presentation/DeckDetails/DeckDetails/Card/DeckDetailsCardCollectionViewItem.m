@@ -14,7 +14,7 @@
 @property (assign) id<DeckDetailsCardCollectionViewItemDelegate> delegate;
 @property (retain) IBOutlet NSView *containerView;
 @property (retain) IBOutlet NSLayoutConstraint *containerViewHeightConstraint;
-@property (retain) IBOutlet NSView *manaCostContainerView;
+@property (retain) IBOutlet NSBox *manaCostContainerBox;
 @property (retain) IBOutlet NSLayoutConstraint *manaCostContainerViewWidthConstraint;
 @property (retain) IBOutlet NSTextField *manaCostLabel;
 @property (retain) IBOutlet NSTextField *nameLabel;
@@ -30,7 +30,7 @@
     [_hsCard release];
     [_containerView release];
     [_containerViewHeightConstraint release];
-    [_manaCostContainerView release];
+    [_manaCostContainerBox release];
     [_manaCostContainerViewWidthConstraint release];
     [_manaCostLabel release];
     [_nameLabel release];
@@ -104,8 +104,7 @@
 
 
 - (void)setAttributes {
-    self.manaCostContainerView.wantsLayer = YES;
-    self.manaCostContainerView.layer.backgroundColor = NSColor.systemBlueColor.CGColor;
+    
 }
 
 - (void)clearContents {

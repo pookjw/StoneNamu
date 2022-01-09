@@ -11,19 +11,21 @@
 
 - (void)dealloc {
     [self removeObserver:self forKeyPath:@"self.view.window"];
+    [self removeObserver:self forKeyPath:@"self.view.effectiveAppearance"];
     [super dealloc];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
     if (([object isEqual:self]) && ([keyPath isEqualToString:@"self.view.window"])) {
-        [NSNotificationCenter.defaultCenter removeObserver:self];
+        [NSNotificationCenter.defaultCenter removeObserver:self
+                                                      name:NSWindowDidBecomeMainNotification
+                                                    object:nil];
+        
+        [NSNotificationCenter.defaultCenter removeObserver:self
+                                                      name:NSWindowDidResignMainNotification
+                                                    object:nil];
         
         if (self.view.window != nil) {
-            [NSNotificationCenter.defaultCenter addObserver:self
-                                                   selector:@selector(didChangeSystemColors:)
-                                                       name:NSSystemColorsDidChangeNotification
-                                                     object:nil];
-            
             [NSNotificationCenter.defaultCenter addObserver:self
                                                    selector:@selector(didBecomeMain:)
                                                        name:NSWindowDidBecomeMainNotification
@@ -34,6 +36,8 @@
                                                        name:NSWindowDidResignMainNotification
                                                      object:self.view.window];
         }
+    } else if (([object isEqual:self] && ([keyPath isEqualToString:@"self.view.effectiveAppearance"]))) {
+        [self updateBackgroundColor];
     } else {
         return [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
@@ -96,6 +100,12 @@
 
 - (void)_bind {
     [self addObserver:self forKeyPath:@"self.view.window" options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:nil];
+    [self addObserver:self forKeyPath:@"self.view.effectiveAppearance" options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:nil];
+    
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(didChangeSystemColors:)
+                                               name:NSSystemColorsDidChangeNotification
+                                             object:nil];
 }
 
 - (void)didChangeSystemColors:(NSNotification *)notification {
