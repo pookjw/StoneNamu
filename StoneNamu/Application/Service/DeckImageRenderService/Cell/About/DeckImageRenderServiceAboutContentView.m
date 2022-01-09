@@ -9,7 +9,6 @@
 #import "DeckImageRenderServiceAboutContentConfiguration.h"
 #import "InsetsLabel.h"
 #import <StoneNamuCore/StoneNamuCore.h>
-#import "NSNumber+stringWithSepearatedDecimalNumber.h"
 #import <StoneNamuResources/StoneNamuResources.h>
 
 @interface DeckImageRenderServiceAboutContentView ()
