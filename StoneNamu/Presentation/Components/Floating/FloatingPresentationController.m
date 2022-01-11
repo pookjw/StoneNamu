@@ -61,7 +61,7 @@
     
     self.presentedView.layer.cornerRadius = FLOATINGPRESENTATIONCONTROLLER_CORNERRADIUS;
     self.presentedView.layer.cornerCurve = kCACornerCurveContinuous;
-    self.presentedView.layer.masksToBounds = NO;
+    self.presentedView.layer.masksToBounds = YES;
 }
 
 - (void)dismissalTransitionWillBegin {
