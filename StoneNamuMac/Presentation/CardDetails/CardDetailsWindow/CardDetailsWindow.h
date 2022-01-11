@@ -11,8 +11,6 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CardDetailsWindow : NSWindow
-+ (instancetype)new NS_UNAVAILABLE;
-- (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithHSCard:(HSCard *)hsCard;
 @end
 

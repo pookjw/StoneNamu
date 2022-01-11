@@ -6,7 +6,7 @@
 //
 
 #import "FileMenuItem.h"
-#import "AppDelegate.h"
+#import "WindowsService.h"
 
 @implementation FileMenuItem
 
@@ -32,7 +32,7 @@
                                                        action:@selector(performClose:)
                                                 keyEquivalent:@"w"];
     
-    newItem.target = NSApp.delegate;
+    newItem.target = [WindowsService class];
     
     self.submenu = fileSubMenu;
     fileSubMenu.itemArray = @[

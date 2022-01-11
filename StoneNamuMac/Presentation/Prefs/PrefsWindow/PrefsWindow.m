@@ -9,6 +9,7 @@
 #import "NSViewController+loadViewIfNeeded.h"
 #import "PrefsTabViewController.h"
 #import "NSProcessInfo+isEnabledRestoration.h"
+#import "PrefsWindowRestoration.h"
 
 static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierPrefsWindow = @"NSUserInterfaceItemIdentifierPrefsWindow";
 
@@ -34,6 +35,16 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierPrefsWin
     [super dealloc];
 }
 
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder backgroundQueue:(NSOperationQueue *)queue {
+    [super encodeRestorableStateWithCoder:coder backgroundQueue:queue];
+    [self.prefsTabViewController encodeRestorableStateWithCoder:coder backgroundQueue:queue];
+}
+
+- (void)restoreStateWithCoder:(NSCoder *)coder {
+    [super restoreStateWithCoder:coder];
+    [self.prefsTabViewController restoreStateWithCoder:coder];
+}
+
 - (void)setAttributes {
     self.styleMask = NSWindowStyleMaskClosable | NSWindowStyleMaskTitled;
     self.movableByWindowBackground = NO;
@@ -43,7 +54,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierPrefsWin
     self.titleVisibility = NSWindowTitleVisible;
     self.delegate = self;
     self.restorable = NSProcessInfo.processInfo.isEnabledRestoration;
-//        self.restorationClass = [MainWindowRestoration class];
+    self.restorationClass = [PrefsWindowRestoration class];
     self.identifier = NSUserInterfaceItemIdentifierPrefsWindow;
 }
 

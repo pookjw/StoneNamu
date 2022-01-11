@@ -13,7 +13,7 @@
 #import "CardOptionsMenu.h"
 #import "CardOptionsToolbar.h"
 #import "CardOptionsTouchBar.h"
-#import "AppDelegate.h"
+#import "WindowsService.h"
 #import "HSCardPromiseProvider.h"
 #import "ClickableCollectionView.h"
 #import "PhotosService.h"
@@ -70,16 +70,18 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardColl
     return self.cardOptionsTouchBar;
 }
 
-- (void)encodeRestorableStateWithCoder:(NSCoder *)coder {
-    [super encodeRestorableStateWithCoder:coder];
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder backgroundQueue:(NSOperationQueue *)queue {
+    [super encodeRestorableStateWithCoder:coder backgroundQueue:queue];
     
-    [coder encodeObject:self.viewModel.options forKey:@"options"];
+    [queue addOperationWithBlock:^{
+        [coder encodeObject:self.viewModel.options forKey:@"options"];
+    }];
 }
 
 - (void)restoreStateWithCoder:(NSCoder *)coder {
     [super restoreStateWithCoder:coder];
     
-    NSDictionary<NSString *, NSString *> *options = [coder decodeObjectOfClass:[NSDictionary<NSString *, NSString *> class] forKey:@"options"];
+    NSDictionary<NSString *, id> *options = [coder decodeObjectOfClass:[NSDictionary<NSString *, id> class] forKey:@"options"];
     [self requestDataSourceWithOptions:options reset:YES];
 }
 
@@ -116,8 +118,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardColl
                                             selector:@selector(undoOptions:)
                                               object:self.viewModel.options];
         }
-        
-        [self invalidateRestorableState];
     }
     
     return requested;
@@ -292,7 +292,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardColl
 - (void)endedLoadingDataSourceReceived:(NSNotification *)notification {
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
         [self removeAllSpinnerview];
-        [self updateOptionInterfaceWithOptions:self.viewModel.options];
+//        [self updateOptionInterfaceWithOptions:self.viewModel.options];
     }];
 }
 
@@ -360,7 +360,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardColl
         
         if (hsCard == nil) return;
         
-        [(AppDelegate *)NSApp.delegate presentCardDetailsWindowWithHSCard:hsCard];
+        [WindowsService presentCardDetailsWindowWithHSCard:hsCard];
     }];
 }
 

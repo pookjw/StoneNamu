@@ -21,6 +21,9 @@
     self = [self init];
     
     if (self) {
+        [self->_hsCard release];
+        self->_hsCard = nil;
+        
         [self->_dataSource release];
         self->_dataSource = [dataSource retain];
         
@@ -238,7 +241,7 @@
 - (void)postEndedFetchingChildCards {
     [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameCardDetailsViewModelEndedFetchingChildCards
                                                       object:self
-                                                    userInfo:nil];
+                                                    userInfo:@{NSNotificationNameCardDetailsViewModelEndedLoadingDataSourceHSCardItemKey: self.hsCard}];
 }
 
 @end

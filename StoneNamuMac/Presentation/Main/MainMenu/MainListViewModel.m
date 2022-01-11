@@ -9,7 +9,6 @@
 #import "NSTableViewDiffableDataSource+applySnapshotAndWait.h"
 
 @interface MainListViewModel ()
-@property (retain) NSOperationQueue *queue;
 @end
 
 @implementation MainListViewModel
@@ -23,9 +22,8 @@
         
         NSOperationQueue *queue = [NSOperationQueue new];
         queue.qualityOfService = NSQualityOfServiceUserInitiated;
-        queue.maxConcurrentOperationCount = 1;
-        self.queue = queue;
-        [queue release];
+        [self->_queue release];
+        self->_queue = queue;
         
         [self request];
     }
@@ -40,7 +38,7 @@
 }
 
 - (void)request {
-    [self.queue addOperationWithBlock:^{
+    [self.queue addBarrierBlock:^{
         NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
         
         [snapshot deleteAllItems];
@@ -71,7 +69,7 @@
 }
 
 - (void)rowForItemModelType:(MainListItemModelType)type completion:(MainListViewModelRowForItemModelTypeCompletion)completion {
-    [self.queue addOperationWithBlock:^{
+    [self.queue addBarrierBlock:^{
         MainListItemModel * _Nullable __block itemModel = nil;
         
         [self.dataSource.snapshot.itemIdentifiers enumerateObjectsUsingBlock:^(MainListItemModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {

@@ -11,6 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface HSCardSavableImageView : NSImageView
+@property (nonatomic, copy) HSCard *hsCard;
 - (instancetype)initWithHSCard:(HSCard *)hsCard;
 @end
 

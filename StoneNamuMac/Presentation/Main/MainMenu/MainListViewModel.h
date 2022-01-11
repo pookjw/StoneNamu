@@ -17,6 +17,7 @@ typedef void (^MainListViewModelRowForItemModelTypeCompletion)(NSInteger);
 
 @interface MainListViewModel : NSObject
 @property (readonly, retain) MainListDataSource *dataSource;
+@property (readonly, retain) NSOperationQueue *queue;
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithDataSource:(MainListDataSource *)dataSource;

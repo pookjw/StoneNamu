@@ -14,7 +14,7 @@
 #import "DeckDetailsCollectionViewLayout.h"
 #import "DeckDetailsManaCostGraphView.h"
 #import "ClickableCollectionView.h"
-#import "AppDelegate.h"
+#import "WindowsService.h"
 #import "NSViewController+SpinnerView.h"
 #import "NSWindow+presentErrorAlert.h"
 #import "DeckImageRenderService.h"
@@ -550,7 +550,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
     [self.viewModel hsCardsFromIndexPaths:interactingIndexPaths completion:^(NSSet<HSCard *> * _Nonnull hsCards) {
         [hsCards enumerateObjectsUsingBlock:^(HSCard * _Nonnull obj, BOOL * _Nonnull stop) {
             [NSOperationQueue.mainQueue addOperationWithBlock:^{
-                [(AppDelegate *)NSApp.delegate presentCardDetailsWindowWithHSCard:obj];
+                [WindowsService presentCardDetailsWindowWithHSCard:obj];
             }];
         }];
     }];
@@ -621,7 +621,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
     [self.viewModel hsCardsFromIndexPaths:self.collectionView.selectionIndexPaths completion:^(NSSet<HSCard *> * _Nonnull hsCards) {
         [hsCards enumerateObjectsUsingBlock:^(HSCard * _Nonnull obj, BOOL * _Nonnull stop) {
             [NSOperationQueue.mainQueue addOperationWithBlock:^{
-                [(AppDelegate *)NSApp.delegate presentCardDetailsWindowWithHSCard:obj];
+                [WindowsService presentCardDetailsWindowWithHSCard:obj];
             }];
         }];
     }];

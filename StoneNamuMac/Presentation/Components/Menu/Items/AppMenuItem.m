@@ -6,6 +6,7 @@
 //
 
 #import "AppMenuItem.h"
+#import "WindowsService.h"
 
 @implementation AppMenuItem
 
@@ -43,7 +44,7 @@
                                                       action:@selector(terminate:)
                                                keyEquivalent:@"q"];
     
-    prefsItem.target = NSApp.delegate;
+    prefsItem.target = [WindowsService class];
     hideOthersItem.keyEquivalentModifierMask = NSEventModifierFlagShift | NSEventModifierFlagCommand;
     
     self.submenu = appSubMenu;

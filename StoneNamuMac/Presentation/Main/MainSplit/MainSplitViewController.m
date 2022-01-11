@@ -34,6 +34,12 @@
     [self.mainListViewController selectItemModelType:MainListItemModelTypeCards];
 }
 
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder backgroundQueue:(NSOperationQueue *)queue {
+    [super encodeRestorableStateWithCoder:coder backgroundQueue:queue];
+    [self.mainListViewController encodeRestorableStateWithCoder:coder backgroundQueue:queue];
+    [self.cardsViewController encodeRestorableStateWithCoder:coder backgroundQueue:queue];
+}
+
 - (void)restoreStateWithCoder:(NSCoder *)coder {
     [super restoreStateWithCoder:coder];
     [self.mainListViewController restoreStateWithCoder:coder];

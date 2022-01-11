@@ -22,6 +22,7 @@
 @implementation PrefsTabViewController
 
 - (void)dealloc {
+    [self removeObserver:self forKeyPath:@"self.view.window"];
     [_prefsCardsViewController release];
     [_prefsDataViewController release];
     [_prefsCardsItem release];
@@ -29,21 +30,47 @@
     [super dealloc];
 }
 
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+    if (([object isEqual:self]) && ([keyPath isEqualToString:@"self.view.window"])) {
+        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+            self.view.window.title = self.tabViewItems[self.selectedTabViewItemIndex].label;
+        }];
+    } else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setAttributes];
+    [self bind];
     [self configureViewControllers];
     [self configureItems];
 }
 
-- (void)viewWillAppear {
-    [super viewWillAppear];
-    self.view.window.title = self.tabViewItems[self.selectedTabViewItemIndex].label;
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder backgroundQueue:(NSOperationQueue *)queue {
+    [super encodeRestorableStateWithCoder:coder backgroundQueue:queue];
+    
+    NSInteger selectedTabViewItemIndex = self.selectedTabViewItemIndex;
+    [queue addOperationWithBlock:^{
+        [coder encodeInteger:selectedTabViewItemIndex forKey:@"selectedTabViewItemIndex"];
+    }];
+}
+
+- (void)restoreStateWithCoder:(NSCoder *)coder {
+    [super restoreStateWithCoder:coder];
+    
+    NSInteger selectedTabViewItemIndex = [coder decodeIntegerForKey:@"selectedTabViewItemIndex"];
+    [self setSelectedTabViewItemIndex:selectedTabViewItemIndex];
 }
 
 - (void)setAttributes {
     self.preferredContentSize = NSMakeSize(500, 300);
     self.tabStyle = NSTabViewControllerTabStyleToolbar;
+}
+
+- (void)bind {
+    [self addObserver:self forKeyPath:@"self.view.window" options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:nil];
 }
 
 - (void)configureViewControllers {

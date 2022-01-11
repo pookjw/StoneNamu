@@ -129,6 +129,10 @@
 		4F59009B2753280400217E4A /* DeckDetailsWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F59009A2753280400217E4A /* DeckDetailsWindow.m */; };
 		4F59009F2753502400217E4A /* DeckDetailsSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F59009E2753502400217E4A /* DeckDetailsSplitViewController.m */; };
 		4F5900A32753503F00217E4A /* DeckAddCardsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F5900A22753503F00217E4A /* DeckAddCardsViewController.m */; };
+		4F6302D9278DE4DA00AF075D /* WindowsService.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F6302D8278DE4DA00AF075D /* WindowsService.m */; };
+		4F6302DC278DF0CF00AF075D /* PrefsWindowRestoration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F6302DB278DF0CF00AF075D /* PrefsWindowRestoration.m */; };
+		4F6302DF278DF32E00AF075D /* CardDetailsWindowRestoration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F6302DE278DF32E00AF075D /* CardDetailsWindowRestoration.m */; };
+		4F6302E2278DFA6700AF075D /* DeckDetailsWindowRestoration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F6302E1278DFA6700AF075D /* DeckDetailsWindowRestoration.m */; };
 		4F6462D62726932A00329B10 /* NSImageView+setAsyncImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F6462D52726932A00329B10 /* NSImageView+setAsyncImage.m */; };
 		4F646A5C26B7CA8000BEDB38 /* CardsCollectionViewCompositionalLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F646A5B26B7CA8000BEDB38 /* CardsCollectionViewCompositionalLayout.m */; };
 		4F646A5F26B7D05E00BEDB38 /* UIImageView+setAsyncImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F646A5E26B7D05E00BEDB38 /* UIImageView+setAsyncImage.m */; };
@@ -715,6 +719,14 @@
 		4F59009E2753502400217E4A /* DeckDetailsSplitViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckDetailsSplitViewController.m; sourceTree = "<group>"; };
 		4F5900A12753503F00217E4A /* DeckAddCardsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckAddCardsViewController.h; sourceTree = "<group>"; };
 		4F5900A22753503F00217E4A /* DeckAddCardsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckAddCardsViewController.m; sourceTree = "<group>"; };
+		4F6302D7278DE4DA00AF075D /* WindowsService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WindowsService.h; sourceTree = "<group>"; };
+		4F6302D8278DE4DA00AF075D /* WindowsService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WindowsService.m; sourceTree = "<group>"; };
+		4F6302DA278DF0CF00AF075D /* PrefsWindowRestoration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefsWindowRestoration.h; sourceTree = "<group>"; };
+		4F6302DB278DF0CF00AF075D /* PrefsWindowRestoration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrefsWindowRestoration.m; sourceTree = "<group>"; };
+		4F6302DD278DF32E00AF075D /* CardDetailsWindowRestoration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardDetailsWindowRestoration.h; sourceTree = "<group>"; };
+		4F6302DE278DF32E00AF075D /* CardDetailsWindowRestoration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardDetailsWindowRestoration.m; sourceTree = "<group>"; };
+		4F6302E0278DFA6700AF075D /* DeckDetailsWindowRestoration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckDetailsWindowRestoration.h; sourceTree = "<group>"; };
+		4F6302E1278DFA6700AF075D /* DeckDetailsWindowRestoration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckDetailsWindowRestoration.m; sourceTree = "<group>"; };
 		4F6462D42726932A00329B10 /* NSImageView+setAsyncImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSImageView+setAsyncImage.h"; sourceTree = "<group>"; };
 		4F6462D52726932A00329B10 /* NSImageView+setAsyncImage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSImageView+setAsyncImage.m"; sourceTree = "<group>"; };
 		4F646A5A26B7CA8000BEDB38 /* CardsCollectionViewCompositionalLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardsCollectionViewCompositionalLayout.h; sourceTree = "<group>"; };
@@ -1565,6 +1577,8 @@
 			children = (
 				4F4738BB2746BFCD000C0C85 /* CardDetailsWindow.h */,
 				4F4738BC2746BFCD000C0C85 /* CardDetailsWindow.m */,
+				4F6302DD278DF32E00AF075D /* CardDetailsWindowRestoration.h */,
+				4F6302DE278DF32E00AF075D /* CardDetailsWindowRestoration.m */,
 			);
 			path = CardDetailsWindow;
 			sourceTree = "<group>";
@@ -1805,6 +1819,8 @@
 			children = (
 				4F5900992753280400217E4A /* DeckDetailsWindow.h */,
 				4F59009A2753280400217E4A /* DeckDetailsWindow.m */,
+				4F6302E0278DFA6700AF075D /* DeckDetailsWindowRestoration.h */,
+				4F6302E1278DFA6700AF075D /* DeckDetailsWindowRestoration.m */,
 			);
 			path = DeckDetailsWindow;
 			sourceTree = "<group>";
@@ -1828,6 +1844,15 @@
 				4FF3CD4727597D1000ACA5AC /* TouchBar */,
 			);
 			path = DeckAddCards;
+			sourceTree = "<group>";
+		};
+		4F6302D6278DE4BF00AF075D /* WindowsService */ = {
+			isa = PBXGroup;
+			children = (
+				4F6302D7278DE4DA00AF075D /* WindowsService.h */,
+				4F6302D8278DE4DA00AF075D /* WindowsService.m */,
+			);
+			path = WindowsService;
 			sourceTree = "<group>";
 		};
 		4F646A6026B7D71800BEDB38 /* Cache */ = {
@@ -2997,6 +3022,8 @@
 			children = (
 				F31580EB2740D69000DBD6D4 /* PrefsWindow.h */,
 				F31580EC2740D69000DBD6D4 /* PrefsWindow.m */,
+				4F6302DA278DF0CF00AF075D /* PrefsWindowRestoration.h */,
+				4F6302DB278DF0CF00AF075D /* PrefsWindowRestoration.m */,
 			);
 			path = PrefsWindow;
 			sourceTree = "<group>";
@@ -3013,6 +3040,7 @@
 		F3A096F8274C806000C7DFA4 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				4F6302D6278DE4BF00AF075D /* WindowsService */,
 				4FAD720627762E29000487B3 /* PhotoService */,
 				4FAD71FF27762B89000487B3 /* DeckImageRenderService */,
 				4FAD71FD27762B78000487B3 /* HSCardPromiseProvider */,
@@ -3578,18 +3606,21 @@
 			files = (
 				F303D63F2741549800569E20 /* NSTabViewController+selectTabViewItem.m in Sources */,
 				4F1FA0AF275022B00082EBF0 /* NSTouchBarItemIdentifierDecks+HSDeckFormat.m in Sources */,
+				4F6302D9278DE4DA00AF075D /* WindowsService.m in Sources */,
 				4F1FA0B4275064660082EBF0 /* DecksToolbar.m in Sources */,
 				4F83FBDF272E7226002D2387 /* NSView+isDarkMode.m in Sources */,
 				4FE857622700913A0008C2FB /* MainSplitViewController.m in Sources */,
 				4F225198278B28DF0004DD8D /* DeckImageRenderServiceSeparatorBox.m in Sources */,
 				F3DBBC33276B2E0C00A63078 /* DeckDetailsManaCostGraphView.m in Sources */,
 				4FC48A882739EF48001240FE /* CardOptionsMenuFactory.m in Sources */,
+				4F6302DF278DF32E00AF075D /* CardDetailsWindowRestoration.m in Sources */,
 				4FF3CD352759730900ACA5AC /* DeckAddCardOptionsMenuFactory.m in Sources */,
 				F3CCE2902742C442004B5B26 /* MainListItemModel.m in Sources */,
 				4FE8576D27009B5C0008C2FB /* CardsViewModel.m in Sources */,
 				F3DBBC36276B371E00A63078 /* NSWindow+topBarHeight.m in Sources */,
 				4F5900922753193B00217E4A /* NSViewController+splitViewController.m in Sources */,
 				F31581012741231700DBD6D4 /* AppDelegate.m in Sources */,
+				4F6302DC278DF0CF00AF075D /* PrefsWindowRestoration.m in Sources */,
 				4FD430582782032000E7F23A /* DeckImageRenderServiceAboutCollectionViewItem.m in Sources */,
 				4F1FA0BB2750693C0082EBF0 /* DecksMenuFactory.m in Sources */,
 				4FD4305B2782033400E7F23A /* DeckImageRenderServiceAppNameCollectionViewItem.m in Sources */,
@@ -3685,6 +3716,7 @@
 				4F90DA612766312F007982AE /* DeckDetailsViewModel.m in Sources */,
 				4FC402CD2738759200D25523 /* CardOptionsMenu.m in Sources */,
 				4F4738CB2746D25C000C0C85 /* CardDetailsViewModel.m in Sources */,
+				4F6302E2278DFA6700AF075D /* DeckDetailsWindowRestoration.m in Sources */,
 				4FE857762700A0230008C2FB /* NSCollectionViewDiffableDataSource+applySnapshotAndWait.m in Sources */,
 				4F4738BD2746BFCD000C0C85 /* CardDetailsWindow.m in Sources */,
 				4F7333F8272D836A00438FE0 /* CardOptionsToolbar.m in Sources */,

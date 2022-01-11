@@ -53,15 +53,36 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierMainList
     [self configureViewModel];
 }
 
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder backgroundQueue:(NSOperationQueue *)queue {
+    [super encodeRestorableStateWithCoder:coder backgroundQueue:queue];
+    
+    NSIndexSet *selectedRowIndexes = self.tableView.selectedRowIndexes;
+    
+    [queue addOperationWithBlock:^{
+        [coder encodeObject:selectedRowIndexes forKey:@"selectedRowIndexes"];
+    }];
+}
+
+- (void)restoreStateWithCoder:(NSCoder *)coder {
+    [super restoreStateWithCoder:coder];
+    
+    NSIndexSet *selectedRowIndexes = [coder decodeObjectOfClass:[NSIndexSet class] forKey:@"selectedRowIndexes"];
+    
+    [self.viewModel.queue addBarrierBlock:^{
+        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+            [self.tableView selectRowIndexes:selectedRowIndexes byExtendingSelection:NO];
+        }];
+    }];
+}
+
 - (void)selectItemModelType:(MainListItemModelType)type {
     [self.viewModel rowForItemModelType:type completion:^(NSInteger row) {
         if (row < 0) return;
-        
-        NSIndexSet *indexSet = [[NSIndexSet alloc] initWithIndex:row];
-        
+
+        NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:row];
+
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
             [self.tableView selectRowIndexes:indexSet byExtendingSelection:NO];
-            [indexSet release];
         }];
     }];
 }
@@ -78,7 +99,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierMainList
     NSTableView *tableView = [NSTableView new];
     
     scrollView.documentView = tableView;
-
+    
     [self.view addSubview:scrollView];
     scrollView.translatesAutoresizingMaskIntoConstraints = NO;
     [NSLayoutConstraint activateConstraints:@[

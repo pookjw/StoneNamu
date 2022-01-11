@@ -9,20 +9,29 @@
 #import "HSCardPromiseProvider.h"
 #import "PhotosService.h"
 #import "NSWindow+presentErrorAlert.h"
+#import "NSImageView+setAsyncImage.h"
 #import <StoneNamuResources/StoneNamuResources.h>
 
 @interface HSCardSavableImageView () <NSDraggingSource>
-@property (copy) HSCard *hsCard;
 @end
 
 @implementation HSCardSavableImageView
+
+- (instancetype)init {
+    self = [super init];
+    
+    if (self) {
+        [self configureMenu];
+    }
+    
+    return self;
+}
 
 - (instancetype)initWithHSCard:(HSCard *)hsCard {
     self = [self init];
     
     if (self) {
         self.hsCard = hsCard;
-        [self configureMenu];
     }
     
     return self;
@@ -31,6 +40,15 @@
 - (void)dealloc {
     [_hsCard release];
     [super dealloc];
+}
+
+- (void)setHsCard:(HSCard *)hsCard {
+    [self willChangeValueForKey:@"hsCard"];
+    [self->_hsCard release];
+    self->_hsCard = [hsCard copy];
+    [self didChangeValueForKey:@"hsCard"];
+    
+    [self setAsyncImageWithURL:hsCard.image indicator:YES];
 }
 
 - (void)mouseDown:(NSEvent *)event {

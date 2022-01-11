@@ -13,7 +13,7 @@
 #import "DeckAddCardOptionsMenu.h"
 #import "DeckAddCardOptionsToolbar.h"
 #import "DeckAddCardOptionsTouchBar.h"
-#import "AppDelegate.h"
+#import "WindowsService.h"
 #import "HSCardPromiseProvider.h"
 #import "PhotosService.h"
 #import "ClickableCollectionView.h"
@@ -128,8 +128,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
                                             selector:@selector(undoOptions:)
                                               object:self.viewModel.options];
         }
-        
-        [self invalidateRestorableState];
     }
     
     return requested;
@@ -305,7 +303,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
 - (void)endedLoadingDataSourceReceived:(NSNotification *)notification {
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
         [self removeAllSpinnerview];
-        [self updateOptionInterfaceWithOptions:self.viewModel.options];
+//        [self updateOptionInterfaceWithOptions:self.viewModel.options];
     }];
 }
 
@@ -373,7 +371,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
         
         if (hsCard == nil) return;
         
-        [(AppDelegate *)NSApp.delegate presentCardDetailsWindowWithHSCard:hsCard];
+        [WindowsService presentCardDetailsWindowWithHSCard:hsCard];
     }];
 }
 

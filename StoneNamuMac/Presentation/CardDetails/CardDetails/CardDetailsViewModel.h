@@ -17,12 +17,13 @@ typedef void (^CardDetailsViewModelHSCardsFromIndexPathsCompletion)(NSSet<HSCard
 
 static NSNotificationName const NSNotificationNameCardDetailsViewModelStartedLoadingDataSource = @"NSNotificationNameCardDetailsViewModelStartedLoadingDataSource";
 static NSNotificationName const NSNotificationNameCardDetailsViewModelEndedLoadingDataSource = @"NSNotificationNameCardDetailsViewModelEndedLoadingDataSource";
+static NSNotificationName const NSNotificationNameCardDetailsViewModelEndedLoadingDataSourceHSCardItemKey = @"NSNotificationNameCardDetailsViewModelEndedLoadingDataSourceHSCardItemKey";
 
 static NSNotificationName const NSNotificationNameCardDetailsViewModelStartedFetchingChildCards = @"NSNotificationNameCardDetailsViewModelStartedFetchingChildCards";
 static NSNotificationName const NSNotificationNameCardDetailsViewModelEndedFetchingChildCards = @"NSNotificationNameCardDetailsViewModelEndedFetchingChildCards";
 
 @interface CardDetailsViewModel : NSObject
-@property (copy) HSCard *hsCard;
+@property (readonly, copy) HSCard * _Nullable hsCard;
 @property (readonly, retain) CardDetailsDataSource *dataSource;
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;

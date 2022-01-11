@@ -18,7 +18,8 @@
 #import "HSCardPromiseProvider.h"
 #import "PhotosService.h"
 #import "ClickableCollectionView.h"
-#import "AppDelegate.h"
+#import "WindowsService.h"
+#import "NSViewController+loadViewIfNeeded.h"
 #import <StoneNamuResources/StoneNamuResources.h>
 
 static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDetailsBaseCollectionViewItem = @"NSUserInterfaceItemIdentifierCardDetailsBaseCollectionViewItem";
@@ -36,12 +37,23 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeta
 
 @implementation CardDetailsViewController
 
-- (instancetype)initWithHSCard:(HSCard *)hsCard {
+- (instancetype)init {
+    self = [super init];
+    
+    if (self) {
+        [self loadViewIfNeeded];
+    }
+    
+    return self;
+}
+
+- (instancetype)initWithHSCard:(HSCard * _Nullable)hsCard {
     self = [self init];
     
     if (self) {
-        [self->_hsCard release];
-        self->_hsCard = [hsCard copy];
+        if (hsCard != nil) {
+            [self requestWithHSCard:hsCard];
+        }
     }
     
     return self;
@@ -49,7 +61,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeta
 
 - (void)dealloc {
     [self removeObserver:self forKeyPath:@"self.view.window"];
-    [_hsCard release];
     [_blurView release];
     [_stackView release];
     [_imageView release];
@@ -63,7 +74,9 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeta
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
     if (([object isEqual:self]) && ([keyPath isEqualToString:@"self.view.window"])) {
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
-            self.view.window.title = self.hsCard.name;
+            if (self.viewModel.hsCard != nil) {
+                self.view.window.title = self.viewModel.hsCard.name;
+            }
         }];
     } else {
         return [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
@@ -86,9 +99,31 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeta
     [self configureCollectionViewMenu];
     [self configureViewModel];
     [self bind];
-    [self.viewModel requestDataSourceWithCard:self.hsCard];
+}
+
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder backgroundQueue:(NSOperationQueue *)queue {
+    [super encodeRestorableStateWithCoder:coder backgroundQueue:queue];
     
-    NSLog(@"keyword: %@", self.hsCard.slug);
+    [queue addOperationWithBlock:^{
+        if (self.viewModel.hsCard != nil) {
+            [coder encodeObject:self.viewModel.hsCard forKey:@"hsCard"];
+        }
+    }];
+}
+
+- (void)restoreStateWithCoder:(NSCoder *)coder {
+    [super restoreStateWithCoder:coder];
+    
+    HSCard * _Nullable hsCard = [coder decodeObjectOfClass:[HSCard class] forKey:@"hsCard"];
+    if (hsCard != nil) {
+        [self requestWithHSCard:hsCard];
+    }
+}
+
+- (void)requestWithHSCard:(HSCard *)hsCard {
+    self.view.window.title = hsCard.name;
+    self.imageView.hsCard = hsCard;
+    [self.viewModel requestDataSourceWithCard:hsCard];
 }
 
 - (void)setAttributes {
@@ -136,9 +171,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeta
 }
 
 - (void)configureImageView {
-    HSCardSavableImageView *imageView = [[HSCardSavableImageView alloc] initWithHSCard:self.hsCard];
-    
-    [imageView setAsyncImageWithURL:self.hsCard.image indicator:YES];
+    HSCardSavableImageView *imageView = [HSCardSavableImageView new];
     [self.stackView addArrangedSubview:imageView];
     
     self.imageView = imageView;
@@ -218,8 +251,14 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeta
 }
 
 - (void)endedLoadingDataSourceReceived:(NSNotification *)notification {
+    HSCard * _Nullable hsCard = notification.userInfo[NSNotificationNameCardDetailsViewModelEndedLoadingDataSourceHSCardItemKey];
+    
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
         [self.collectionView.collectionViewLayout invalidateLayout];
+        
+        if (hsCard != nil) {
+            self.view.window.title = hsCard.name;
+        }
     }];
 }
 
@@ -381,7 +420,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeta
     [self.viewModel hsCardsFromIndexPaths:selectionIndexPaths completion:^(NSSet<HSCard *> * _Nonnull hsCards) {
         [hsCards enumerateObjectsUsingBlock:^(HSCard * _Nonnull obj, BOOL * _Nonnull stop) {
             [NSOperationQueue.mainQueue addOperationWithBlock:^{
-                [(AppDelegate *)NSApp.delegate presentCardDetailsWindowWithHSCard:obj];
+                [WindowsService presentCardDetailsWindowWithHSCard:obj];
             }];
         }];
     }];

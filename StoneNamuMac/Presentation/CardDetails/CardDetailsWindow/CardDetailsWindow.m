@@ -9,6 +9,7 @@
 #import "NSViewController+loadViewIfNeeded.h"
 #import "CardDetailsViewController.h"
 #import "NSProcessInfo+isEnabledRestoration.h"
+#import "CardDetailsWindowRestoration.h"
 
 static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDetailsWindow = @"NSUserInterfaceItemIdentifierCardDetailsWindow";
 
@@ -18,12 +19,22 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeta
 
 @implementation CardDetailsWindow
 
+- (instancetype)init {
+    self = [super init];
+    
+    if (self) {
+        [self setAttributes];
+        [self configureCardDetailsViewController];
+    }
+    
+    return self;
+}
+
 - (instancetype)initWithHSCard:(HSCard *)hsCard {
     self = [self init];
     
     if (self) {
-        [self setAttributes];
-        [self configureCardDetailsViewControllerWithHSCard:hsCard];
+        [self.cardDetailsViewController requestWithHSCard:hsCard];
     }
     
     return self;
@@ -32,6 +43,16 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeta
 - (void)dealloc {
     [_cardDetailsViewController release];
     [super dealloc];
+}
+
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder backgroundQueue:(NSOperationQueue *)queue {
+    [super encodeRestorableStateWithCoder:coder backgroundQueue:queue];
+    [self.cardDetailsViewController encodeRestorableStateWithCoder:coder backgroundQueue:queue];
+}
+
+- (void)restoreStateWithCoder:(NSCoder *)coder {
+    [super restoreStateWithCoder:coder];
+    [self.cardDetailsViewController restoreStateWithCoder:coder];
 }
 
 - (void)setAttributes {
@@ -44,12 +65,12 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeta
     self.titleVisibility = NSWindowTitleVisible;
     self.delegate = self;
     self.restorable = NSProcessInfo.processInfo.isEnabledRestoration;
-//        self.restorationClass = [MainWindowRestoration class];
+    self.restorationClass = [CardDetailsWindowRestoration class];
     self.identifier = NSUserInterfaceItemIdentifierCardDetailsWindow;
 }
 
-- (void)configureCardDetailsViewControllerWithHSCard:(HSCard *)hsCard; {
-    CardDetailsViewController *cardDetailsViewController = [[CardDetailsViewController alloc] initWithHSCard:hsCard];
+- (void)configureCardDetailsViewController; {
+    CardDetailsViewController *cardDetailsViewController = [[CardDetailsViewController alloc] initWithHSCard:nil];
     [cardDetailsViewController loadViewIfNeeded];
     self.contentViewController = cardDetailsViewController;
     self.cardDetailsViewController = cardDetailsViewController;

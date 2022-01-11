@@ -13,7 +13,7 @@
 #import "DecksToolbar.h"
 #import "DecksTouchBar.h"
 #import "NSWindow+presentErrorAlert.h"
-#import "AppDelegate.h"
+#import "WindowsService.h"
 #import "NSViewController+SpinnerView.h"
 #import "ClickableCollectionView.h"
 #import <StoneNamuResources/StoneNamuResources.h>
@@ -231,7 +231,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeck
 }
 
 - (void)presentDeckDetailsWithLocalDeck:(LocalDeck *)localDeck {
-    [(AppDelegate *)NSApp.delegate presentDeckDetailsWindowWithLocalDeck:localDeck];
+    [WindowsService presentDeckDetailsWindowWithLocalDeck:localDeck];
 }
 
 - (void)presentCreateNewDeckFromDeckCodeAlert {

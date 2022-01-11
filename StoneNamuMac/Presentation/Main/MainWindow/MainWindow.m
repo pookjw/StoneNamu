@@ -36,6 +36,11 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierMainWind
     [super dealloc];
 }
 
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder backgroundQueue:(NSOperationQueue *)queue {
+    [super encodeRestorableStateWithCoder:coder backgroundQueue:queue];
+    [self.mainSplitViewController encodeRestorableStateWithCoder:coder backgroundQueue:queue];
+}
+
 - (void)restoreStateWithCoder:(NSCoder *)coder {
     [super restoreStateWithCoder:coder];
     [self.mainSplitViewController restoreStateWithCoder:coder];
