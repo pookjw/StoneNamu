@@ -164,13 +164,12 @@ DeckAddCardOptionItemModelType DeckAddCardOptionItemModelTypeFromNSString(NSStri
             }
                                        ascending:NO];
         case DeckAddCardOptionItemModelTypeClass: {
-            NSDictionary<NSString *, NSString *> *oldLocalizables = [ResourcesService localizationsForHSCardClass];
-            NSDictionary<NSString *, NSString *> *newLocalizables = @{
-                NSStringFromHSCardClass(self.classId): oldLocalizables[NSStringFromHSCardClass(self.classId)],
-                NSStringFromHSCardClass(HSCardClassNeutral): oldLocalizables[NSStringFromHSCardClass(HSCardClassNeutral)]
+            NSDictionary<NSString *, NSString *> *localizables = @{
+                NSStringFromHSCardClass(self.classId): [ResourcesService localizationForHSCardClass:self.classId],
+                NSStringFromHSCardClass(HSCardClassNeutral): [ResourcesService localizationForHSCardClass:HSCardClassNeutral]
             };
             
-            return [self pickerItemModelsFromDic:newLocalizables
+            return [self pickerItemModelsFromDic:localizables
                                      filterArray:@[NSStringFromHSCardClass(HSCardClassDeathKnight)]
                                      imageSource:^UIImage * _Nullable(NSString * key) {
                 return nil;

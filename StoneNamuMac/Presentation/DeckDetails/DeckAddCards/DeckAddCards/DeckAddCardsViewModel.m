@@ -122,18 +122,9 @@
             [self->_options release];
             self->_options = [defaultOptions copy];
         } else {
+            NSDictionary *mutableDic = [options dictionaryByCombiningWithDictionary:defaultOptions shouldOverride:NO];
             [self->_options release];
-            
-            NSMutableDictionary *mutableDic = [options mutableCopy];
-            
-            for (NSString *key in defaultOptions.allKeys) {
-                if (mutableDic[key] == nil) {
-                    mutableDic[key] = defaultOptions[key];
-                }
-            }
-            
             self->_options = [mutableDic copy];
-            [mutableDic release];
         }
         
         NSMutableDictionary *mutableDic = [self.options mutableCopy];

@@ -7,6 +7,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "DeckAddCardOptionsToolbarDelegate.h"
+#import <StoneNamuCore/StoneNamuCore.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -16,8 +17,8 @@ static NSToolbarIdentifier const NSToolbarIdentifierDeckAddCardOptionsToolbar = 
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithIdentifier:(NSToolbarIdentifier)identifier NS_UNAVAILABLE;
-- (instancetype)initWithIdentifier:(NSToolbarIdentifier)identifier options:(NSDictionary<NSString *, NSString *> * _Nullable)options deckAddCardOptionsToolbarDelegate:(id<DeckAddCardOptionsToolbarDelegate>)deckAddCardOptionsToolbarDelegate;
-- (void)updateItemsWithOptions:(NSDictionary<NSString *, NSString *> * _Nullable)options;
+- (instancetype)initWithIdentifier:(NSToolbarIdentifier)identifier options:(NSDictionary<NSString *, NSString *> * _Nullable)options deckFormat:(HSDeckFormat)deckFormat classId:(HSCardClass)classId deckAddCardOptionsToolbarDelegate:(id<DeckAddCardOptionsToolbarDelegate>)deckAddCardOptionsToolbarDelegate;
+- (void)updateItemsWithOptions:(NSDictionary<NSString *, NSString *> * _Nullable)options deckFormat:(HSDeckFormat)deckFormat classId:(HSCardClass)classId;
 @end
 
 NS_ASSUME_NONNULL_END

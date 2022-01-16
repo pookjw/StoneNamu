@@ -17,7 +17,7 @@
 
 + (NSMenu *)menuForHSDeckFormat:(HSDeckFormat)deckFormat target:(id _Nullable)target {
     NSMutableArray<NSMenuItem *> *itemArray = [NSMutableArray<NSMenuItem *> new];
-    NSDictionary<NSString *, NSString *> *dic = [ResourcesService localizationsForHSCardClassForFormat:deckFormat];
+    NSDictionary<NSString *, NSString *> *dic = [ResourcesService localizationsForHSCardClassForHSDeckFormat:deckFormat];
     
     [dic enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSString * _Nonnull obj, BOOL * _Nonnull stop) {
         StorableMenuItem *item = [[StorableMenuItem alloc] initWithTitle:obj

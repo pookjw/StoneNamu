@@ -87,12 +87,21 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardColl
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
     if (([object isEqual:self]) && ([keyPath isEqualToString:@"self.view.window"])) {
-        if (self.view.window != nil) {
-            [NSOperationQueue.mainQueue addOperationWithBlock:^{
-                [self setCardsMenuToWindow];
+        [NSNotificationCenter.defaultCenter removeObserver:self name:NSWindowDidBecomeMainNotification object:nil];
+        
+        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+            if (self.view.window.isMainWindow) {
+                [self windowDidBecomeMainReceived:nil];
+            } else {
                 [self setCardOptionsToolbarToWindow];
-                [self setCardOptionsTouchBarToWindow];
-            }];
+            }
+        }];
+        
+        if (self.view.window != nil) {
+            [NSNotificationCenter.defaultCenter addObserver:self
+                                                   selector:@selector(windowDidBecomeMainReceived:)
+                                                       name:NSWindowDidBecomeMainNotification
+                                                     object:self.view.window];
         }
     } else {
         return [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
@@ -135,7 +144,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardColl
 - (void)configureCollectionView {
     NSScrollView *scrollView = [NSScrollView new];
     ClickableCollectionView *collectionView = [ClickableCollectionView new];
-
+    
     [self.view addSubview:scrollView];
     scrollView.translatesAutoresizingMaskIntoConstraints = NO;
     [NSLayoutConstraint activateConstraints:@[
@@ -154,7 +163,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardColl
     NSNib *nib = [[NSNib alloc] initWithNibNamed:NSStringFromClass([CardCollectionViewItem class]) bundle:NSBundle.mainBundle];
     [collectionView registerNib:nib forItemWithIdentifier:NSUserInterfaceItemIdentifierCardCollectionViewItem];
     [nib release];
-
+    
     collectionView.selectable = YES;
     collectionView.allowsMultipleSelection = YES;
     collectionView.allowsEmptySelection = YES;
@@ -283,6 +292,14 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardColl
     }];
 }
 
+- (void)windowDidBecomeMainReceived:(NSNotification *)notification {
+    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+        [self setCardsMenuToWindow];
+        [self setCardOptionsToolbarToWindow];
+        [self setCardOptionsTouchBarToWindow];
+    }];
+}
+
 - (void)startedLoadingDataSourceReceived:(NSNotification *)notification {
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
         [self addSpinnerView];
@@ -292,7 +309,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardColl
 - (void)endedLoadingDataSourceReceived:(NSNotification *)notification {
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
         [self removeAllSpinnerview];
-//        [self updateOptionInterfaceWithOptions:self.viewModel.options];
+        //        [self updateOptionInterfaceWithOptions:self.viewModel.options];
     }];
 }
 
@@ -368,17 +385,17 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardColl
 
 - (BOOL)collectionView:(NSCollectionView *)collectionView canDragItemsAtIndexPaths:(NSSet<NSIndexPath *> *)indexPaths withEvent:(NSEvent *)event {
     BOOL result __block = YES;
-
+    
     [indexPaths enumerateObjectsUsingBlock:^(NSIndexPath * _Nonnull obj, BOOL * _Nonnull stop) {
         CardItemModel * _Nullable itemModel = [self.viewModel.dataSource itemIdentifierForIndexPath:obj];
-
+        
         if (itemModel == nil) {
             result = NO;
             *stop = YES;
             return;
         }
     }];
-
+    
     return result;
 }
 

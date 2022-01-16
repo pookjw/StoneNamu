@@ -118,13 +118,13 @@
     return [ResourcesService imageForBlizzardHSAPIOptionType:optionType fill:hasValue];
 }
 
-+ (NSMenu *)menuForOptionType:(BlizzardHSAPIOptionType)optionType target:(nonnull id<NSSearchFieldDelegate>)target {
++ (NSMenu *)menuForOptionType:(BlizzardHSAPIOptionType)optionType deckFormat:(HSDeckFormat)deckFormat classId:(HSCardClass)classId target:(nonnull id<NSSearchFieldDelegate>)target {
     NSMenu *menu = [NSMenu new];
     
     NSArray<NSMenuItem *> *itemArray;
     
     if ([optionType isEqualToString:BlizzardHSAPIOptionTypeSet]) {
-        itemArray = [self itemArrayFromDic:[ResourcesService localizationsForHSCardSet]
+        itemArray = [self itemArrayFromDic:[ResourcesService localizationsForHSCardSetForHSDeckFormat:deckFormat]
                                 optionType:optionType
                              showEmptyItem:YES
                                filterArray:nil
@@ -135,7 +135,12 @@
                                  ascending:NO
                                     target:target];
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeClass]) {
-        itemArray = [self itemArrayFromDic:[ResourcesService localizationsForHSCardClass]
+        NSDictionary<NSString *, NSString *> *localizables = @{
+            NSStringFromHSCardClass(classId): [ResourcesService localizationForHSCardClass:classId],
+            NSStringFromHSCardClass(HSCardClassNeutral): [ResourcesService localizationForHSCardClass:HSCardClassNeutral]
+        };
+        
+        itemArray = [self itemArrayFromDic:localizables
                                 optionType:optionType
                              showEmptyItem:YES
                                filterArray:@[NSStringFromHSCardClass(HSCardClassDeathKnight)]

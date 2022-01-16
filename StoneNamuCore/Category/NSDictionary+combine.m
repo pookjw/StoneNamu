@@ -17,11 +17,13 @@
     return [result autorelease];
 }
 
-- (NSDictionary *)dictionaryByCombiningWithDictionary:(NSDictionary *)dictionary {
+- (NSDictionary *)dictionaryByCombiningWithDictionary:(NSDictionary *)dictionary shouldOverride:(BOOL)shouldOverride {
     NSMutableDictionary *mutable = [self mutableCopy];
     
     [dictionary enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-        mutable[key] = obj;
+        if ((mutable[key] == nil) || (shouldOverride)) {
+            mutable[key] = obj;
+        }
     }];
     
     NSDictionary *result = [mutable copy];

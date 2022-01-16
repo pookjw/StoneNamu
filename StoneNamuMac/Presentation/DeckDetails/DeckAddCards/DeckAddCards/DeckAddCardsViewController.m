@@ -114,12 +114,21 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
     if (([object isEqual:self]) && ([keyPath isEqualToString:@"self.view.window"])) {
+        [NSNotificationCenter.defaultCenter removeObserver:self name:NSWindowDidBecomeMainNotification object:nil];
+        
+        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+            if (self.view.window.isMainWindow) {
+                [self windowDidBecomeMainReceived:nil];
+            } else {
+                [self setDeckAddCardOptionsToolbarToWindow];
+            }
+        }];
+        
         if (self.view.window != nil) {
-            [NSOperationQueue.mainQueue addOperationWithBlock:^{
-                [self setCardsMenuToWindow];
-                [self setCardOptionsToolbarToWindow];
-                [self setCardOptionsTouchBarToWindow];
-            }];
+            [NSNotificationCenter.defaultCenter addObserver:self
+                                                   selector:@selector(windowDidBecomeMainReceived:)
+                                                       name:NSWindowDidBecomeMainNotification
+                                                     object:self.view.window];
         }
     } else {
         return [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
@@ -127,9 +136,9 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
 }
 
 - (void)updateOptionInterfaceWithOptions:(NSDictionary<NSString *, NSString *> * _Nullable)options {
-    [self.deckAddCardOptionsMenu updateItemsWithOptions:options];
-    [self.deckAddCardOptionsToolbar updateItemsWithOptions:options];
-    [self.deckAddCardOptionsTouchBar updateItemsWithOptions:options];
+    [self.deckAddCardOptionsMenu updateItemsWithOptions:options deckFormat:self.viewModel.localDeck.format classId:self.viewModel.localDeck.classId.unsignedIntegerValue];
+    [self.deckAddCardOptionsToolbar updateItemsWithOptions:options deckFormat:self.viewModel.localDeck.format classId:self.viewModel.localDeck.classId.unsignedIntegerValue];
+    [self.deckAddCardOptionsTouchBar updateItemsWithOptions:options deckFormat:self.viewModel.localDeck.format];
 }
 
 - (BOOL)requestDataSourceWithOptions:(NSDictionary<NSString *, NSString *> * _Nullable)options reset:(BOOL)reset {
@@ -324,6 +333,14 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
     }];
 }
 
+- (void)windowDidBecomeMainReceived:(NSNotification *)notification {
+    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+        [self setDeckAddCardOptionsMenuToWindow];
+        [self setDeckAddCardOptionsToolbarToWindow];
+        [self setDeckAddCardOptionsTouchBarToWindow];
+    }];
+}
+
 - (DeckAddCardsDataSource *)makeDataSource {
     DeckAddCardsViewController * __block unretainedSelf = self;
     
@@ -340,24 +357,24 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
 }
 
 - (void)configureDeckAddCardOptionsMenu {
-    DeckAddCardOptionsMenu *deckAddCardOptionsMenu = [[DeckAddCardOptionsMenu alloc] initWithOptions:self.viewModel.options deckAddCardOptionsMenuDelegate:self];
+    DeckAddCardOptionsMenu *deckAddCardOptionsMenu = [[DeckAddCardOptionsMenu alloc] initWithOptions:self.viewModel.options deckFormat:self.viewModel.localDeck.format classId:self.viewModel.localDeck.classId.unsignedIntegerValue deckAddCardOptionsMenuDelegate:self];
     self.deckAddCardOptionsMenu = deckAddCardOptionsMenu;
     [deckAddCardOptionsMenu release];
 }
 
 - (void)configureDeckAddCardOptionsToolbar {
-    DeckAddCardOptionsToolbar *deckAddCardOptionsToolbar = [[DeckAddCardOptionsToolbar alloc] initWithIdentifier:NSToolbarIdentifierDeckAddCardOptionsToolbar options:self.viewModel.options deckAddCardOptionsToolbarDelegate:self];
+    DeckAddCardOptionsToolbar *deckAddCardOptionsToolbar = [[DeckAddCardOptionsToolbar alloc] initWithIdentifier:NSToolbarIdentifierDeckAddCardOptionsToolbar options:self.viewModel.options deckFormat:self.viewModel.localDeck.format classId:self.viewModel.localDeck.classId.unsignedIntegerValue deckAddCardOptionsToolbarDelegate:self];
     self.deckAddCardOptionsToolbar = deckAddCardOptionsToolbar;
     [deckAddCardOptionsToolbar release];
 }
 
 - (void)configureDeckAddCardOptionsTouchBar {
-    DeckAddCardOptionsTouchBar *deckAddCardOptionsTouchBar = [[DeckAddCardOptionsTouchBar alloc] initWithOptions:self.viewModel.options deckAddCardOptionsTouchBarDelegate:self];
+    DeckAddCardOptionsTouchBar *deckAddCardOptionsTouchBar = [[DeckAddCardOptionsTouchBar alloc] initWithOptions:self.viewModel.options deckFormat:self.viewModel.localDeck.format deckAddCardOptionsTouchBarDelegate:self];
     self.deckAddCardOptionsTouchBar = deckAddCardOptionsTouchBar;
     [deckAddCardOptionsTouchBar release];
 }
 
-- (void)setCardsMenuToWindow {
+- (void)setDeckAddCardOptionsMenuToWindow {
     NSApp.mainMenu = self.deckAddCardOptionsMenu;
 }
 
@@ -365,7 +382,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
     self.view.window.menu = nil;
 }
 
-- (void)setCardOptionsTouchBarToWindow {
+- (void)setDeckAddCardOptionsTouchBarToWindow {
     self.view.window.touchBar = self.deckAddCardOptionsTouchBar;
 }
 
@@ -373,7 +390,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
     self.view.window.touchBar = nil;
 }
 
-- (void)setCardOptionsToolbarToWindow {
+- (void)setDeckAddCardOptionsToolbarToWindow {
     self.view.window.toolbar = self.deckAddCardOptionsToolbar;
     [self.deckAddCardOptionsToolbar validateVisibleItems];
 }

@@ -14,6 +14,8 @@
 #import <StoneNamuResources/StoneNamuResources.h>
 
 @interface DeckAddCardOptionsToolbar () <NSToolbarDelegate, NSSearchFieldDelegate>
+@property (copy) HSDeckFormat deckFormat;
+@property HSCardClass classId;
 @property (assign) id<DeckAddCardOptionsToolbarDelegate> deckAddCardOptionsToolbarDelegate;
 @property (retain) DynamicMenuToolbarItem *optionTypeTextFilterItem;
 @property (retain) DynamicMenuToolbarItem *optionTypeSetItem;
@@ -35,7 +37,7 @@
 
 @implementation DeckAddCardOptionsToolbar
 
-- (instancetype)initWithIdentifier:(NSToolbarIdentifier)identifier options:(NSDictionary<NSString *, NSString *> * _Nullable)options deckAddCardOptionsToolbarDelegate:(id<DeckAddCardOptionsToolbarDelegate>)deckAddCardOptionsToolbarDelegate {
+- (instancetype)initWithIdentifier:(NSToolbarIdentifier)identifier options:(NSDictionary<NSString *, NSString *> * _Nullable)options deckFormat:(HSDeckFormat)deckFormat classId:(HSCardClass)classId deckAddCardOptionsToolbarDelegate:(id<DeckAddCardOptionsToolbarDelegate>)deckAddCardOptionsToolbarDelegate {
     self = [self initWithIdentifier:identifier];
     
     if (self) {
@@ -43,16 +45,20 @@
         self.options = mutableOptions;
         [mutableOptions release];
         
+        self.deckFormat = deckFormat;
+        self.classId = classId;
+        
         self.deckAddCardOptionsToolbarDelegate = deckAddCardOptionsToolbarDelegate;
         [self setAttributes];
         [self configureToolbarItems];
-        [self updateItemsWithOptions:options];
+        [self updateItemsWithOptions:options deckFormat:deckFormat classId:classId];
     }
     
     return self;
 }
 
 - (void)dealloc {
+    [_deckFormat release];
     [_optionTypeTextFilterItem release];
     [_optionTypeSetItem release];
     [_optionTypeClassItem release];
@@ -201,10 +207,25 @@
     [self validateVisibleItems];
 }
 
-- (void)updateItemsWithOptions:(NSDictionary<NSString *, NSString *> * _Nullable)options {
+- (void)updateToolbarItems {
+    [self.optionTypeAllItems enumerateObjectsUsingBlock:^(DynamicMenuToolbarItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        obj.menu = [self menuForMenuToolbarItem:obj];
+    }];
+}
+
+- (void)updateItemsWithOptions:(NSDictionary<NSString *, NSString *> * _Nullable)options deckFormat:(nonnull HSDeckFormat)deckFormat classId:(HSCardClass)classId {
     NSMutableDictionary<NSString *, NSString *> *mutableOptions = [options mutableCopy];
     self.options = mutableOptions;
     [mutableOptions release];
+    
+    BOOL shouldReconfigure = ((deckFormat != nil) && (!([deckFormat isEqualToString:self.deckFormat]) || (self.classId != classId)));
+    
+    self.deckFormat = deckFormat;
+    self.classId = classId;
+    
+    if (shouldReconfigure) {
+        [self updateToolbarItems];
+    }
     
     [self.optionTypeAllItems enumerateObjectsUsingBlock:^(NSMenuToolbarItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         
@@ -229,7 +250,7 @@
     NSToolbarItemIdentifier itemIdentifier = menuToolbarItem.itemIdentifier;
     BlizzardHSAPIOptionType optionType = BlizzardHSAPIOptionTypeFromNSToolbarIdentifierCardOptionType(itemIdentifier);
     
-    return [DeckAddCardOptionsMenuFactory menuForOptionType:optionType target:self];
+    return [DeckAddCardOptionsMenuFactory menuForOptionType:optionType deckFormat:self.deckFormat classId:self.classId target:self];
 }
 
 - (void)updateStateOfMenuToolbarItem:(DynamicMenuToolbarItem *)menuToolbarItem {
@@ -278,7 +299,7 @@
         self.options[key] = value;
     }
     
-    [self updateItemsWithOptions:self.options];
+    [self updateItemsWithOptions:self.options deckFormat:self.deckFormat classId:self.classId];
     [self.deckAddCardOptionsToolbarDelegate deckAddCardOptionsToolbar:self changedOption:self.options];
 }
 
@@ -326,7 +347,7 @@
             self.options[key] = value;
         }
         
-        [self updateItemsWithOptions:self.options];
+        [self updateItemsWithOptions:self.options deckFormat:self.deckFormat classId:self.classId];
         [self.deckAddCardOptionsToolbarDelegate deckAddCardOptionsToolbar:self changedOption:self.options];
     }
 }

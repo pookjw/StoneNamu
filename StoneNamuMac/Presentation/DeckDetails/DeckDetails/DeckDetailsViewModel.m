@@ -26,7 +26,6 @@
     
     if (self) {
         [self->_localDeck release];
-        self->_localDeck = nil;
         self->_dataSource = [dataSource retain];
         
         NSOperationQueue *queue = [NSOperationQueue new];

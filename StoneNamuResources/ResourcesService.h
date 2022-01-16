@@ -55,7 +55,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSString *)localizationForHSCardClass:(HSCardClass)hsCardClass;
 + (NSDictionary<NSString *, NSString *> *)localizationsForHSCardClass;
-+ (NSDictionary<NSString *, NSString *> *)localizationsForHSCardClassForFormat:(HSDeckFormat)hsDeckFormat;
++ (NSDictionary<NSString *, NSString *> *)localizationsForHSCardClassForHSDeckFormat:(HSDeckFormat)hsDeckFormat;
 
 + (NSString *)localizationForHSCardRarity:(HSCardRarity)hsCardRarity;
 + (NSDictionary<NSString *, NSString *> *)localizationsForHSCardRarity;

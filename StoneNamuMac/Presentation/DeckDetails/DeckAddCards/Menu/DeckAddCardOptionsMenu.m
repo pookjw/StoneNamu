@@ -13,6 +13,8 @@
 #import <StoneNamuResources/StoneNamuResources.h>
 
 @interface DeckAddCardOptionsMenu () <NSSearchFieldDelegate>
+@property (copy) HSDeckFormat deckFormat;
+@property HSCardClass classId;
 @property (assign) id<DeckAddCardOptionsMenuDelegate> deckAddCardOptionsMenuDelegate;
 
 @property (retain) NSMenuItem *optionsMenuItem;
@@ -39,7 +41,7 @@
 
 @implementation DeckAddCardOptionsMenu
 
-- (instancetype)initWithOptions:(NSDictionary<NSString *,NSString *> *)options deckAddCardOptionsMenuDelegate:(id<DeckAddCardOptionsMenuDelegate>)deckAddCardOptionsMenuDelegate {
+- (instancetype)initWithOptions:(NSDictionary<NSString *,NSString *> *)options deckFormat:(HSDeckFormat)deckFormat classId:(HSCardClass)classId deckAddCardOptionsMenuDelegate:(id<DeckAddCardOptionsMenuDelegate>)deckAddCardOptionsMenuDelegate {
     self = [self init];
     
     if (self) {
@@ -47,6 +49,8 @@
         self.options = mutableOptions;
         [mutableOptions release];
         
+        self.deckFormat = deckFormat;
+        self.classId = classId;
         self.deckAddCardOptionsMenuDelegate = deckAddCardOptionsMenuDelegate;
         [self configureOptionsMenu];
         [self configureOptionsItems];
@@ -56,6 +60,8 @@
 }
 
 - (void)dealloc {
+    [_deckFormat release];
+    
     [_optionsMenuItem release];
     [_optionsSubMenu release];
     
@@ -79,10 +85,19 @@
     [super dealloc];
 }
 
-- (void)updateItemsWithOptions:(NSDictionary<NSString *,NSString *> *)options {
+- (void)updateItemsWithOptions:(NSDictionary<NSString *,NSString *> *)options deckFormat:(HSDeckFormat _Nullable)deckFormat classId:(HSCardClass)classId {
     NSMutableDictionary<NSString *, NSString *> *mutableOptions = [options mutableCopy];
     self.options = mutableOptions;
     [mutableOptions release];
+    
+    BOOL shouldReconfigure = ((deckFormat != nil) && (!([deckFormat isEqualToString:self.deckFormat]) || (self.classId != classId)));
+    
+    self.deckFormat = deckFormat;
+    self.classId = classId;
+    
+    if (shouldReconfigure) {
+        [self updateOptionsItems];
+    }
     
     [self.allItems enumerateObjectsUsingBlock:^(NSMenuItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         
@@ -239,10 +254,10 @@
         optionTypeKeywordItem,
         optionTypeGameModeItem,
         optionTypeSortItem
-        
     ];
     self.allItems = allItems;
     self.optionsSubMenu.itemArray = allItems;
+    [self.optionsSubMenu update];
     
     self.optionTypeTextFilterItem = optionTypeTextFilterItem;
     self.optionTypeSetItem = optionTypeSetItem;
@@ -275,11 +290,17 @@
     [optionTypeSortItem release];
 }
 
+- (void)updateOptionsItems {
+    [self.allItems enumerateObjectsUsingBlock:^(NSMenuItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        obj.submenu = [self menuForMenuItem:obj];
+    }];
+}
+
 - (NSMenu *)menuForMenuItem:(NSMenuItem *)item {
     NSUserInterfaceItemIdentifier itemIdentifier = item.identifier;
     BlizzardHSAPIOptionType optionType = BlizzardHSAPIOptionTypeFromNSUserInterfaceItemIdentifierDeckAddCardOptionType(itemIdentifier);
     
-    return [DeckAddCardOptionsMenuFactory menuForOptionType:optionType target:self];
+    return [DeckAddCardOptionsMenuFactory menuForOptionType:optionType deckFormat:self.deckFormat classId:self.classId target:self];
 }
 
 - (NSMenuItem * _Nullable)itemForOptionType:(BlizzardHSAPIOptionType)optionType {
@@ -308,7 +329,7 @@
         self.options[key] = value;
     }
     
-    [self updateItemsWithOptions:self.options];
+    [self updateItemsWithOptions:self.options deckFormat:self.deckFormat classId:self.classId];
     [self.deckAddCardOptionsMenuDelegate deckAddCardOptionsMenu:self changedOption:self.options];
 }
 
@@ -353,7 +374,7 @@
             self.options[key] = value;
         }
         
-        [self updateItemsWithOptions:self.options];
+        [self updateItemsWithOptions:self.options deckFormat:self.deckFormat classId:self.classId];
         [self.deckAddCardOptionsMenuDelegate deckAddCardOptionsMenu:self changedOption:self.options];
     }
 }

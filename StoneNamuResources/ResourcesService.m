@@ -326,7 +326,7 @@ static NSArray<FontKey> * _Nullable kRegisteredFontKeys = @[];
     return [result autorelease];
 }
 
-+ (NSDictionary<NSString *,NSString *> *)localizationsForHSCardClassForFormat:(HSDeckFormat)hsDeckFormat {
++ (NSDictionary<NSString *,NSString *> *)localizationsForHSCardClassForHSDeckFormat:(HSDeckFormat)hsDeckFormat {
     NSMutableDictionary<NSString *, NSString *> *dic = [@{} mutableCopy];
     
     [hsCardClassesForFormat(hsDeckFormat) enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {

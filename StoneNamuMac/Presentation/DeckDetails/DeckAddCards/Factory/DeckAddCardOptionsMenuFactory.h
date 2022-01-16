@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (BOOL)hasValueForValue:(NSString * _Nullable)value;
 + (NSString * _Nullable)titleForDeckAddCardOptionTypeWithValue:(NSString * _Nullable)value optionType:(BlizzardHSAPIOptionType)optionType;
 + (NSImage * _Nullable)imageForDeckAddCardOptionTypeWithValue:(NSString * _Nullable)value optionType:(BlizzardHSAPIOptionType)optionType;
-+ (NSMenu *)menuForOptionType:(BlizzardHSAPIOptionType)optionType target:(id<NSSearchFieldDelegate>)target;
++ (NSMenu *)menuForOptionType:(BlizzardHSAPIOptionType)optionType deckFormat:(HSDeckFormat)deckFormat classId:(HSCardClass)classId target:(id<NSSearchFieldDelegate>)target;
 @end
 
 NS_ASSUME_NONNULL_END

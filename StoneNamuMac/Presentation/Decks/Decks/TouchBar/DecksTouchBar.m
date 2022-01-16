@@ -209,11 +209,11 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
 
 - (NSDictionary<NSString *, NSString *> *)dicFromScrubber:(NSScrubber *)scrubber {
     if ([scrubber isEqual:self.createNewDeckStandardDeckScrubber]) {
-        return [ResourcesService localizationsForHSCardClassForFormat:HSDeckFormatStandard];
+        return [ResourcesService localizationsForHSCardClassForHSDeckFormat:HSDeckFormatStandard];
     } else if ([scrubber isEqual:self.createNewDeckWildDeckScrubber]) {
-        return [ResourcesService localizationsForHSCardClassForFormat:HSDeckFormatWild];
+        return [ResourcesService localizationsForHSCardClassForHSDeckFormat:HSDeckFormatWild];
     } else if ([scrubber isEqual:self.createNewDeckClassicDeckScrubber]) {
-        return [ResourcesService localizationsForHSCardClassForFormat:HSDeckFormatClassic];
+        return [ResourcesService localizationsForHSCardClassForHSDeckFormat:HSDeckFormatClassic];
     } else {
         return @{};
     }
