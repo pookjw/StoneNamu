@@ -67,14 +67,7 @@
     cardSetImageView.contentMode = UIViewContentModeScaleAspectFit;
     [self addSubview:cardSetImageView];
     
-    [NSLayoutConstraint activateConstraints:@[
-        [cardSetImageView.topAnchor constraintEqualToAnchor:self.topAnchor],
-        [cardSetImageView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor]
-    ]];
-    
-    NSLayoutConstraint *bottomLayout = [cardSetImageView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor];
-    bottomLayout.priority = UILayoutPriorityDefaultHigh;
-    bottomLayout.active = YES;
+    [cardSetImageView setContentHuggingPriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisVertical];
     
     NSLayoutConstraint *aspectRatio = [NSLayoutConstraint constraintWithItem:cardSetImageView
                                                                    attribute:NSLayoutAttributeWidth
@@ -83,7 +76,12 @@
                                                                    attribute:NSLayoutAttributeHeight
                                                                   multiplier:1
                                                                     constant:0];
-    aspectRatio.active = YES;
+    
+    [NSLayoutConstraint activateConstraints:@[
+        [cardSetImageView.topAnchor constraintEqualToAnchor:self.topAnchor],
+        [cardSetImageView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor],
+        aspectRatio
+    ]];
     
     self.cardSetImageView = cardSetImageView;
     [cardSetImageView release];
@@ -96,31 +94,23 @@
     nameLabel.contentInsets = contentInsets;
     nameLabel.backgroundColor = UIColor.clearColor;
     nameLabel.textColor = nil;
+    nameLabel.adjustsFontForContentSizeCategory = YES;
     nameLabel.adjustsFontSizeToFitWidth = YES;
     nameLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleTitle3];
     nameLabel.minimumScaleFactor = 0.1;
-    
-    NSString *string = @"";
-    CGRect rect = [string boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX)
-                                       options:NSStringDrawingUsesLineFragmentOrigin
-                                    attributes:@{NSFontAttributeName: nameLabel.font}
-                                       context:nil];
     
     [self addSubview:nameLabel];
     
     //
     
+    [nameLabel setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
+    
     nameLabel.translatesAutoresizingMaskIntoConstraints = NO;
     [NSLayoutConstraint activateConstraints:@[
         [nameLabel.topAnchor constraintEqualToAnchor:self.topAnchor],
         [nameLabel.leadingAnchor constraintEqualToAnchor:self.cardSetImageView.trailingAnchor],
-        [nameLabel.heightAnchor constraintEqualToConstant:ceilf(rect.size.height + contentInsets.top + contentInsets.bottom)],
-        [self.cardSetImageView.heightAnchor constraintEqualToAnchor:nameLabel.heightAnchor]
+        [nameLabel.bottomAnchor constraintEqualToAnchor:self.bottomAnchor]
     ]];
-    
-    NSLayoutConstraint *bottomLayout = [nameLabel.bottomAnchor constraintEqualToAnchor:self.bottomAnchor];
-    bottomLayout.priority = UILayoutPriorityDefaultHigh;
-    bottomLayout.active = YES;
     
     self.nameLabel = nameLabel;
     [nameLabel release];
@@ -134,20 +124,22 @@
     heroImageView.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview:heroImageView];
     
-    [NSLayoutConstraint activateConstraints:@[
-        [heroImageView.centerYAnchor constraintEqualToAnchor:self.centerYAnchor],
-        [heroImageView.heightAnchor constraintEqualToAnchor:self.nameLabel.heightAnchor],
-        [heroImageView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor]
-    ]];
+    [heroImageView setContentHuggingPriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisVertical];
     
     NSLayoutConstraint *aspectLayout = [NSLayoutConstraint constraintWithItem:heroImageView
                                                                     attribute:NSLayoutAttributeWidth
                                                                     relatedBy:NSLayoutRelationEqual
                                                                        toItem:heroImageView
                                                                     attribute:NSLayoutAttributeHeight
-                                                                   multiplier:243.0 / 64.0
+                                                                   multiplier:243.0f / 64.0f
                                                                      constant:0];
-    aspectLayout.active = YES;
+    
+    [NSLayoutConstraint activateConstraints:@[
+        [heroImageView.topAnchor constraintEqualToAnchor:self.topAnchor],
+        [heroImageView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
+        [heroImageView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor],
+        aspectLayout
+    ]];
     
     //
     

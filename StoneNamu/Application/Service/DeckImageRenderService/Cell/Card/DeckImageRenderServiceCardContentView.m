@@ -80,12 +80,9 @@
     
     //
     
-    NSLayoutConstraint *bottomLayout = [nameLabel.bottomAnchor constraintEqualToAnchor:self.bottomAnchor];
-    bottomLayout.priority = UILayoutPriorityDefaultHigh;
-    
     [NSLayoutConstraint activateConstraints:@[
         [nameLabel.topAnchor constraintEqualToAnchor:self.topAnchor],
-        bottomLayout
+        [nameLabel.bottomAnchor constraintEqualToAnchor:self.bottomAnchor]
     ]];
     
     //
@@ -105,6 +102,8 @@
     manaCostLabel.font = [ResourcesService fontForKey:FontKeyGmarketSansTTFBold size:18.0f];
     manaCostLabel.textAlignment = NSTextAlignmentCenter;
     
+    [manaCostLabel setContentHuggingPriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisVertical];
+    
     [self addSubview:manaCostLabel];
     manaCostLabel.translatesAutoresizingMaskIntoConstraints = NO;
     
@@ -122,8 +121,8 @@
     //
     
     [NSLayoutConstraint activateConstraints:@[
-        [manaCostLabel.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
         [manaCostLabel.topAnchor constraintEqualToAnchor:self.topAnchor],
+        [manaCostLabel.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
         [manaCostLabel.trailingAnchor constraintEqualToAnchor:self.nameLabel.leadingAnchor],
         [manaCostLabel.bottomAnchor constraintEqualToAnchor:self.bottomAnchor],
         [manaCostLabel.widthAnchor constraintEqualToConstant:width]
@@ -141,6 +140,7 @@
     imageView.backgroundColor = UIColor.clearColor;
     imageView.contentMode = UIViewContentModeScaleAspectFill;
     imageView.translatesAutoresizingMaskIntoConstraints = NO;
+    
     [imageView setContentHuggingPriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisVertical];
     [self addSubview:imageView];
     
@@ -153,8 +153,8 @@
                                                                      constant:0];
     
     [NSLayoutConstraint activateConstraints:@[
-        [imageView.centerYAnchor constraintEqualToAnchor:self.centerYAnchor],
-        [imageView.heightAnchor constraintEqualToAnchor:self.nameLabel.heightAnchor],
+        [imageView.topAnchor constraintEqualToAnchor:self.topAnchor],
+        [imageView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor],
         aspectLayout
     ]];
     
@@ -197,6 +197,8 @@
                                            alpha:1.0];
     countLabel.font = [ResourcesService fontForKey:FontKeyGmarketSansTTFBold size:18.0f];
     countLabel.textAlignment = NSTextAlignmentCenter;
+    
+    [countLabel setContentHuggingPriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisVertical];
     
     [self addSubview:countLabel];
     countLabel.translatesAutoresizingMaskIntoConstraints = NO;

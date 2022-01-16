@@ -16,8 +16,10 @@
 @property (readonly, nonatomic) BOOL isDarkMode;
 @property (retain) UIImageView *imageView;
 @property (retain) UILabel *manaCostLabel;
+@property (retain) NSLayoutConstraint *manaCostLabelWidthLayout;
 @property (retain) InsetsLabel *nameLabel;
 @property (retain) UILabel *countLabel;
+@property (retain) NSLayoutConstraint *countLabelWidthLayout;
 @property (retain) CAGradientLayer *imageViewGradientLayer;
 @end
 
@@ -43,8 +45,10 @@
     [configuration release];
     [_imageView release];
     [_manaCostLabel release];
+    [_manaCostLabelWidthLayout release];
     [_nameLabel release];
     [_countLabel release];
+    [_countLabelWidthLayout release];
     [_imageViewGradientLayer release];
     [super dealloc];
 }
@@ -64,6 +68,7 @@
     nameLabel.contentInsets = UIEdgeInsetsMake(10, 10, 10, 10);
     nameLabel.backgroundColor = UIColor.clearColor;
     nameLabel.textColor = nil;
+    nameLabel.adjustsFontForContentSizeCategory = YES;
     nameLabel.adjustsFontSizeToFitWidth = YES;
     nameLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleTitle3];
     nameLabel.minimumScaleFactor = 0.1;
@@ -74,12 +79,9 @@
     
     //
     
-    NSLayoutConstraint *bottomLayout = [nameLabel.bottomAnchor constraintEqualToAnchor:self.bottomAnchor];
-    bottomLayout.priority = UILayoutPriorityDefaultHigh;
-    
     [NSLayoutConstraint activateConstraints:@[
         [nameLabel.topAnchor constraintEqualToAnchor:self.topAnchor],
-        bottomLayout
+        [nameLabel.bottomAnchor constraintEqualToAnchor:self.bottomAnchor]
     ]];
     
     //
@@ -93,6 +95,8 @@
     
     manaCostLabel.backgroundColor = UIColor.systemBlueColor;
     manaCostLabel.textColor = UIColor.whiteColor;
+    manaCostLabel.adjustsFontForContentSizeCategory = YES;
+    manaCostLabel.adjustsFontSizeToFitWidth = YES;
     manaCostLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleTitle2];
     manaCostLabel.textAlignment = NSTextAlignmentCenter;
     
@@ -101,6 +105,26 @@
     
     //
     
+    CGFloat width = [self preferredWidthWithManaCostLabel:manaCostLabel];
+    NSLayoutConstraint *manaCostLabelWidthLayout = [manaCostLabel.widthAnchor constraintEqualToConstant:width];
+    
+    [NSLayoutConstraint activateConstraints:@[
+        [manaCostLabel.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
+        [manaCostLabel.topAnchor constraintEqualToAnchor:self.topAnchor],
+        [manaCostLabel.trailingAnchor constraintEqualToAnchor:self.nameLabel.leadingAnchor],
+        [manaCostLabel.bottomAnchor constraintEqualToAnchor:self.bottomAnchor],
+        manaCostLabelWidthLayout
+    ]];
+    
+    self.manaCostLabelWidthLayout = manaCostLabelWidthLayout;
+    
+    //
+    
+    self.manaCostLabel = manaCostLabel;
+    [manaCostLabel release];
+}
+
+- (CGFloat)preferredWidthWithManaCostLabel:(UILabel *)manaCostLabel {
     NSString *string = @"99";
     
     CGRect rect = [string boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX)
@@ -110,20 +134,7 @@
     CGFloat margin = 10;
     CGFloat width = ceilf(rect.size.width + margin);
     
-    //
-    
-    [NSLayoutConstraint activateConstraints:@[
-        [manaCostLabel.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
-        [manaCostLabel.topAnchor constraintEqualToAnchor:self.topAnchor],
-        [manaCostLabel.trailingAnchor constraintEqualToAnchor:self.nameLabel.leadingAnchor],
-        [manaCostLabel.bottomAnchor constraintEqualToAnchor:self.bottomAnchor],
-        [manaCostLabel.widthAnchor constraintEqualToConstant:width]
-    ]];
-    
-    //
-    
-    self.manaCostLabel = manaCostLabel;
-    [manaCostLabel release];
+    return width;
 }
 
 - (void)configureImageView {
@@ -144,8 +155,8 @@
                                                                      constant:0];
     
     [NSLayoutConstraint activateConstraints:@[
-        [imageView.centerYAnchor constraintEqualToAnchor:self.centerYAnchor],
-        [imageView.heightAnchor constraintEqualToAnchor:self.nameLabel.heightAnchor],
+        [imageView.topAnchor constraintEqualToAnchor:self.topAnchor],
+        [imageView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor],
         aspectLayout
     ]];
     
@@ -177,6 +188,8 @@
     
     //
     
+    countLabel.adjustsFontForContentSizeCategory = YES;
+    countLabel.adjustsFontSizeToFitWidth = YES;
     countLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleTitle2];
     countLabel.textAlignment = NSTextAlignmentCenter;
     
@@ -185,6 +198,27 @@
     
     //
     
+    CGFloat width = [self preferredWidthWithCountLabel:countLabel];
+    NSLayoutConstraint *countLabelWidthLayout = [countLabel.widthAnchor constraintEqualToConstant:width];
+    
+    [NSLayoutConstraint activateConstraints:@[
+        [countLabel.topAnchor constraintEqualToAnchor:self.topAnchor],
+        [countLabel.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
+        [countLabel.bottomAnchor constraintEqualToAnchor:self.bottomAnchor],
+        [countLabel.leadingAnchor constraintEqualToAnchor:self.imageView.trailingAnchor],
+        [countLabel.leadingAnchor constraintEqualToAnchor:self.nameLabel.trailingAnchor],
+        countLabelWidthLayout
+    ]];
+    
+    self.countLabelWidthLayout = countLabelWidthLayout;
+    
+    //
+    
+    self.countLabel = countLabel;
+    [countLabel release];
+}
+
+- (CGFloat)preferredWidthWithCountLabel:(UILabel *)countLabel {
     NSString *integerString = @"9";
     CGRect integerRect = [integerString boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX)
                                                      options:NSStringDrawingUsesLineFragmentOrigin
@@ -199,21 +233,7 @@
     CGFloat margin = 10;
     CGFloat width = ceilf(MAX(integerRect.size.width, starRect.size.width) + margin);
     
-    //
-    
-    [NSLayoutConstraint activateConstraints:@[
-        [countLabel.topAnchor constraintEqualToAnchor:self.topAnchor],
-        [countLabel.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
-        [countLabel.bottomAnchor constraintEqualToAnchor:self.bottomAnchor],
-        [countLabel.leadingAnchor constraintEqualToAnchor:self.imageView.trailingAnchor],
-        [countLabel.leadingAnchor constraintEqualToAnchor:self.nameLabel.trailingAnchor],
-        [countLabel.widthAnchor constraintEqualToConstant:width]
-    ]];
-    
-    //
-    
-    self.countLabel = countLabel;
-    [countLabel release];
+    return width;
 }
 
 - (void)setConfiguration:(id<UIContentConfiguration>)configuration {
@@ -225,6 +245,7 @@
         [self updateViewFromHSCard];
     }
     
+    self.manaCostLabelWidthLayout.constant = [self preferredWidthWithManaCostLabel:self.manaCostLabel];
     [self updateCountLabel];
     
     [oldContentConfig release];
@@ -313,6 +334,8 @@
     } else {
         self.countLabel.backgroundColor = UIColor.systemGrayColor;
     }
+    
+    self.countLabelWidthLayout.constant = [self preferredWidthWithCountLabel:self.countLabel];
 }
 
 - (void)updateGradientLayer {
