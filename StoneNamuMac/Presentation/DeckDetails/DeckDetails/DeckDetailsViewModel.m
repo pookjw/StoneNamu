@@ -65,8 +65,7 @@
 - (void)requestDataSourceFromURIRepresentation:(NSURL *)URIRepresentation completion:(DeckDetailsViewModelLoadFromRIRepresentationCompletion)completion {
     [self.localDeckUseCase fetchUsingURI:URIRepresentation completion:^(NSArray<LocalDeck *> * _Nullable localDecks, NSError * _Nullable error) {
         if (error != nil) {
-//            [self postError:error];
-            // TODO: dismiss
+            [self postErrorOccurredNotification:error];
             completion(NO);
             return;
         }
@@ -74,8 +73,7 @@
         LocalDeck * _Nullable localDeck = localDecks.firstObject;
         
         if (localDeck == nil) {
-//            [self post]
-            // TODO: dismiss
+            [self postShouldDismissNoficiation];
             completion(NO);
             return;
         }
