@@ -19,18 +19,20 @@
 #import "NSWindow+presentErrorAlert.h"
 #import "DeckImageRenderService.h"
 #import "PhotosService.h"
+#import "HSCardDroppableView.h"
 #import <StoneNamuCore/StoneNamuCore.h>
 #import <StoneNamuResources/StoneNamuResources.h>
 
 static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDetailsCardCollectionViewItem = @"NSUserInterfaceItemIdentifierDeckDetailsCardCollectionViewItem";
 
-@interface DeckDetailsViewController () <NSCollectionViewDelegate, NSMenuDelegate, DeckDetailsCardCollectionViewItemDelegate>
+@interface DeckDetailsViewController () <NSCollectionViewDelegate, NSMenuDelegate, DeckDetailsCardCollectionViewItemDelegate, HSCardDroppableViewDelegate>
 @property (readonly, nonatomic) NSArray<NSMenuItem *> *menuItemsForSingleItem;
 @property (readonly, nonatomic) NSArray<NSMenuItem *> *menuItemsForMultipleItems;
 @property (retain) NSScrollView *scrollView;
 @property (retain) ClickableCollectionView *collectionView;
 @property (retain) NSMenu *collectionViewMenu;
 @property (retain) DeckDetailsManaCostGraphView *manaCostGraphView;
+@property (retain) HSCardDroppableView *hsCardDroppableView;
 @property (retain) NSMenu *moreMenu;
 @property (retain) NSButton *moreMenuButton;
 @property (assign) NSTextField *deckNameTextField;
@@ -57,6 +59,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
     [_collectionView release];
     [_collectionViewMenu release];
     [_manaCostGraphView release];
+    [_hsCardDroppableView release];
     [_moreMenu release];
     [_moreMenuButton release];
     [_viewModel release];
@@ -91,6 +94,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
     [self configureCollectionView];
     [self configureCollectionViewMenu];
     [self configureManaCostGraphView];
+    [self configureHSCardDroppableView];
     [self configureMoreMenu];
     [self configureMoreMenuButton];
     [self configureViewModel];
@@ -190,6 +194,21 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
     
     self.manaCostGraphView = manaCostGraphView;
     [manaCostGraphView release];
+}
+
+- (void)configureHSCardDroppableView {
+    HSCardDroppableView *hsCardDroppableView = [[HSCardDroppableView alloc] initWithDelegate:self asynchronous:YES];
+    [self.view addSubview:hsCardDroppableView];
+    
+    hsCardDroppableView.translatesAutoresizingMaskIntoConstraints = NO;
+    [NSLayoutConstraint activateConstraints:@[
+        [hsCardDroppableView.topAnchor constraintEqualToAnchor:self.view.topAnchor],
+        [hsCardDroppableView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor],
+        [hsCardDroppableView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor],
+        [hsCardDroppableView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor]
+    ]];
+    
+    self.hsCardDroppableView = hsCardDroppableView;
 }
 
 - (void)configureMoreMenu {
@@ -598,25 +617,51 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
     
 }
 
-- (NSDragOperation)collectionView:(NSCollectionView *)collectionView validateDrop:(id<NSDraggingInfo>)draggingInfo proposedIndexPath:(NSIndexPath * _Nonnull *)proposedDropIndexPath dropOperation:(NSCollectionViewDropOperation *)proposedDropOperation {
-    return NSDragOperationCopy;
-}
+//- (NSDragOperation)collectionView:(NSCollectionView *)collectionView validateDrop:(id<NSDraggingInfo>)draggingInfo proposedIndexPath:(NSIndexPath * _Nonnull *)proposedDropIndexPath dropOperation:(NSCollectionViewDropOperation *)proposedDropOperation {
+//    return NSDragOperationCopy;
+//}
+//
+//- (BOOL)collectionView:(NSCollectionView *)collectionView acceptDrop:(id<NSDraggingInfo>)draggingInfo indexPath:(NSIndexPath *)indexPath dropOperation:(NSCollectionViewDropOperation)dropOperation {
+//
+//    NSPasteboard *pasteboard = draggingInfo.draggingPasteboard;
+//    NSArray<NSPasteboardItem *> *items = pasteboard.pasteboardItems;
+//    NSMutableArray<NSData *> *datas = [@[] mutableCopy];
+//
+//    [items enumerateObjectsUsingBlock:^(NSPasteboardItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//        NSData *data = [obj dataForType:NSPasteboardTypeHSCard];
+//        [datas addObject:data];
+//    }];
+//
+//    [self.viewModel addHSCardsWithDatas:datas];
+//    [datas release];
+//
+//    return YES;
+//}
 
-- (BOOL)collectionView:(NSCollectionView *)collectionView acceptDrop:(id<NSDraggingInfo>)draggingInfo indexPath:(NSIndexPath *)indexPath dropOperation:(NSCollectionViewDropOperation)dropOperation {
+- (BOOL)collectionView:(NSCollectionView *)collectionView canDragItemsAtIndexPaths:(NSSet<NSIndexPath *> *)indexPaths withEvent:(NSEvent *)event {
+    BOOL __block result = YES;
     
-    NSPasteboard *pasteboard = draggingInfo.draggingPasteboard;
-    NSArray<NSPasteboardItem *> *items = pasteboard.pasteboardItems;
-    NSMutableArray<NSData *> *datas = [@[] mutableCopy];
-    
-    [items enumerateObjectsUsingBlock:^(NSPasteboardItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        NSData *data = [obj dataForType:NSPasteboardTypeHSCard];
-        [datas addObject:data];
+    [indexPaths enumerateObjectsUsingBlock:^(NSIndexPath * _Nonnull obj, BOOL * _Nonnull stop) {
+        DeckDetailsItemModel * _Nullable itemModel = [self.viewModel.dataSource itemIdentifierForIndexPath:obj];
+        
+        if (itemModel == nil) {
+            result = NO;
+            *stop = YES;
+            return;
+        }
     }];
     
-    [self.viewModel addHSCardsWithDatas:datas];
-    [datas release];
+    return result;
+}
+
+- (id<NSPasteboardWriting>)collectionView:(NSCollectionView *)collectionView pasteboardWriterForItemAtIndexPath:(NSIndexPath *)indexPath {
+    DeckDetailsItemModel * _Nullable itemModel = (DeckDetailsItemModel *)[self.viewModel.dataSource itemIdentifierForIndexPath:indexPath];
     
-    return YES;
+    if (itemModel == nil) return nil;
+    
+    HSCardPromiseProvider *provider = [[HSCardPromiseProvider alloc] initWithHSCard:itemModel.hsCard image:nil];
+    
+    return [provider autorelease];
 }
 
 #pragma mark - NSMenuDelegate
@@ -645,6 +690,12 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
             }];
         }];
     }];
+}
+
+#pragma mark - HSCardDroppableViewDelegate
+
+- (void)hsCardDroppableView:(HSCardDroppableView *)view didAcceptDropWithHSCards:(NSArray<HSCard *> *)hsCards {
+    [self.viewModel addHSCards:hsCards];
 }
 
 @end

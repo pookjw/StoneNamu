@@ -20,7 +20,7 @@ static NSPasteboardType const NSPasteboardTypeHSCard = @"com.pookjw.StoneNamu.NS
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithFileType:(NSString *)fileType delegate:(id <NSFilePromiseProviderDelegate>)delegate NS_UNAVAILABLE;
-- (instancetype)initWithHSCard:(HSCard *)hsCard image:(NSImage *)image;
+- (instancetype)initWithHSCard:(HSCard *)hsCard image:(NSImage * _Nullable)image;
 @end
 
 NS_ASSUME_NONNULL_END
