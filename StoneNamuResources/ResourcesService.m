@@ -636,10 +636,13 @@ static NSArray<FontKey> * _Nullable kRegisteredFontKeys = @[];
     NSURL *url = [[NSBundle bundleWithIdentifier:IDENTIFIER] URLForResource:name withExtension:@"ttf"];
     NSData *data = [[NSData alloc] initWithContentsOfURL:url];
     CGDataProviderRef provider = CGDataProviderCreateWithCFData((CFDataRef)data);
+    [data release];
     CGFontRef font = CGFontCreateWithDataProvider(provider);
+    CGDataProviderRelease(provider);
     
     CFErrorRef _Nullable error = nil;
     CTFontManagerRegisterGraphicsFont(font, &error);
+    CGFontRelease(font);
     
     if (error != nil) {
         NSLog(@"%@", ((NSError *)error).localizedDescription);
