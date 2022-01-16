@@ -100,6 +100,31 @@
     }];
 }
 
+- (void)fetchUsingURI:(NSURL *)uri completion:(LocalDeckRepositoryFetchWithCompletion)completion {
+    [self.queue addBarrierBlock:^{
+        NSManagedObjectContext *context = self.coreDataStack.context;
+        
+        [context performBlockAndWait:^{
+            NSManagedObjectID * _Nullable objectId = [context.persistentStoreCoordinator managedObjectIDForURIRepresentation:uri];
+            
+            if (objectId == nil) {
+                completion(nil, nil);
+                return;
+            }
+            
+            NSError * _Nullable error = nil;
+            LocalDeck * _Nullable localDeck = [context existingObjectWithID:objectId error:&error];
+            
+            if (error != nil) {
+                completion(nil, error);
+                return;
+            }
+            
+            completion(@[localDeck], nil);
+        }];
+    }];
+}
+
 - (void)refreshObject:(NSManagedObject *)object mergeChanges:(BOOL)flag completion:(nonnull LocalDeckRepositoryRefreshObjectCompletion)completion {
     [self.queue addBarrierBlock:^{
         NSManagedObjectContext *context = self.coreDataStack.context;

@@ -56,7 +56,7 @@
 
 - (void)requestDataSource {
     [self.localDeckUseCase fetchWithCompletion:^(NSArray<LocalDeck *> * _Nullable localDeck, NSError * _Nullable error) {
-        [self requestDataSourceWithLocalDecks:localDeck];
+        [self requestDataSourceFromLocalDecks:localDeck];
     }];
 }
 
@@ -233,7 +233,7 @@
     return nil;
 }
 
-- (void)requestDataSourceWithLocalDecks:(NSArray<LocalDeck *> *)localDecks {
+- (void)requestDataSourceFromLocalDecks:(NSArray<LocalDeck *> *)localDecks {
     [self.queue addBarrierBlock:^{
         NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
         
@@ -293,7 +293,7 @@
 
 - (void)localDeckChangesReceived:(NSNotification *)notification {
     [self.localDeckUseCase fetchWithCompletion:^(NSArray<LocalDeck *> * _Nullable localDecks, NSError * _Nullable error) {
-        [self requestDataSourceWithLocalDecks:localDecks];
+        [self requestDataSourceFromLocalDecks:localDecks];
     }];
 }
 

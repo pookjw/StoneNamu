@@ -38,7 +38,7 @@
         [self loadViewIfNeeded];
         [self addSpinnerView];
         self.viewModel.shouldPresentDeckEditor = shouldPresentDeckEditor;
-        [self.viewModel requestDataSourceWithLocalDeck:localDeck];
+        [self.viewModel requestDataSourceFromLocalDeck:localDeck];
     }
     
     return self;

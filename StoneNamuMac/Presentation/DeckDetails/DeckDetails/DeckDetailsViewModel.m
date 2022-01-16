@@ -62,6 +62,32 @@
     [super dealloc];
 }
 
+- (void)requestDataSourceFromURIRepresentation:(NSURL *)URIRepresentation completion:(DeckDetailsViewModelLoadFromRIRepresentationCompletion)completion {
+    [self.localDeckUseCase fetchUsingURI:URIRepresentation completion:^(NSArray<LocalDeck *> * _Nullable localDecks, NSError * _Nullable error) {
+        if (error != nil) {
+//            [self postError:error];
+            // TODO: dismiss
+            completion(NO);
+            return;
+        }
+        
+        LocalDeck * _Nullable localDeck = localDecks.firstObject;
+        
+        if (localDeck == nil) {
+//            [self post]
+            // TODO: dismiss
+            completion(NO);
+            return;
+        }
+        
+        [self->_localDeck release];
+        self->_localDeck = [localDeck retain];
+        
+        [self requestDataSourceFromLocalDeck:localDeck];
+        completion(YES);
+    }];
+}
+
 - (void)addHSCards:(NSArray<HSCard *> *)hsCards {
     [self.localDeckUseCase addHSCards:hsCards toLocalDeck:self.localDeck validation:^(NSError * _Nullable error) {
         if (error != nil) {
@@ -290,7 +316,7 @@
     }];
 }
 
-- (void)requestDataSourceWithLocalDeck:(LocalDeck *)localDeck {
+- (void)requestDataSourceFromLocalDeck:(LocalDeck *)localDeck {
     [localDeck retain];
     [self->_localDeck release];
     self->_localDeck = localDeck;
@@ -495,7 +521,7 @@
             if (self.localDeck.managedObjectContext == nil) {
                 [self postShouldDismissNoficiation];
             } else {
-                [self requestDataSourceWithLocalDeck:self.localDeck];
+                [self requestDataSourceFromLocalDeck:self.localDeck];
             }
         }];
     }

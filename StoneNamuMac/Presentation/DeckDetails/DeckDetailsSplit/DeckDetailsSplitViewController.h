@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface DeckDetailsSplitViewController : NSSplitViewController
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
-- (instancetype)initWithLocalDeck:(LocalDeck *)localDeck;
+- (instancetype)initWithLocalDeck:(LocalDeck * _Nullable)localDeck;
 @end
 
 NS_ASSUME_NONNULL_END

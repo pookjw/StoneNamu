@@ -35,7 +35,7 @@ static NSString * const DeckDetailsViewModelApplyingSnapshotToDataSourceWasDoneC
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithDataSource:(DeckDetailsDataSource *)dataSource;
-- (void)requestDataSourceWithLocalDeck:(LocalDeck *)localDeck;
+- (void)requestDataSourceFromLocalDeck:(LocalDeck *)localDeck;
 - (void)addHSCards:(NSArray<HSCard *> *)hsCards;
 
 - (void)increaseAtIndexPath:(NSIndexPath *)indexPath;

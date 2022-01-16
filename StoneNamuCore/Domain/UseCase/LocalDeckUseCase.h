@@ -24,6 +24,7 @@ static NSNotificationName const NSNotificationNameLocalDeckUseCaseDeleteAll = @"
 @protocol LocalDeckUseCase <NSObject>
 - (void)saveChanges;
 - (void)fetchWithCompletion:(LocalDeckUseCaseFetchWithCompletion)completion;
+- (void)fetchUsingURI:(NSURL *)uri completion:(LocalDeckUseCaseFetchWithCompletion)completion;
 - (void)refreshObject:(NSManagedObject *)object mergeChanges:(BOOL)flag completion:(LocalDeckUseCaseRefreshObjectWithCompletion)completion;
 - (void)deleteLocalDeck:(LocalDeck *)localDeck;
 - (void)deleteAllLocalDecks;

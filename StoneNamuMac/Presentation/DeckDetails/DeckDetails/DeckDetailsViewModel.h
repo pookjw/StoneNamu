@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef NSCollectionViewDiffableDataSource<DeckDetailsSectionModel *, DeckDetailsItemModel *> DeckDetailsDataSource;
 
+typedef void (^DeckDetailsViewModelLoadFromRIRepresentationCompletion)(BOOL result);
 typedef void (^DeckDetailsViewModelExportDeckCodeCompletion)(NSString * _Nullable);
 typedef void (^DeckDetailsViewModelHSCardsFromIndexPathsCompletion)(NSSet<HSCard *> *);
 
@@ -34,7 +35,8 @@ static NSString * const DeckDetailsViewModelApplyingSnapshotToDataSourceWasDoneM
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithDataSource:(DeckDetailsDataSource *)dataSource;
-- (void)requestDataSourceWithLocalDeck:(LocalDeck *)localDeck;
+- (void)requestDataSourceFromURIRepresentation:(NSURL *)URIRepresentation completion:(DeckDetailsViewModelLoadFromRIRepresentationCompletion)completion;
+- (void)requestDataSourceFromLocalDeck:(LocalDeck *)localDeck;
 - (void)addHSCards:(NSArray<HSCard *> *)hsCards;
 - (void)addHSCardsWithDatas:(NSArray<NSData *> *)datas;
 

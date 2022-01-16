@@ -79,8 +79,27 @@
     [super dealloc];
 }
 
+- (void)loadLocalDeckFromURIRepresentation:(NSURL *)URIRepresentation completion:(DeckAddCardsViewModelLoadFromRIRepresentationCompletion)completion {
+    [self.localDeckUseCase fetchUsingURI:URIRepresentation completion:^(NSArray<LocalDeck *> * _Nullable localDecks, NSError * _Nullable error) {
+        if (error != nil) {
+//            [self postError:error];
+            completion(NO);
+            return;
+        }
+        
+        LocalDeck * _Nullable localDeck = localDecks.firstObject;
+        
+        if (localDeck == nil) {
+            completion(NO);
+            return;
+        }
+        
+        self.localDeck = localDeck;
+        completion(YES);
+    }];
+}
+
 - (BOOL)requestDataSourceWithOptions:(NSDictionary<NSString *,NSString *> *)options reset:(BOOL)reset {
-    
     if (reset) {
         [self postStartedLoadingDataSource];
         [self resetDataSource];

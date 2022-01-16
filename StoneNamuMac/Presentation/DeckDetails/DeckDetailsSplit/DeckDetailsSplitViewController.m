@@ -17,7 +17,7 @@
 
 @implementation DeckDetailsSplitViewController
 
-- (instancetype)initWithLocalDeck:(LocalDeck *)localDeck {
+- (instancetype)initWithLocalDeck:(LocalDeck * _Nullable)localDeck {
     self = [self init];
     
     if (self) {
@@ -34,7 +34,19 @@
     [super dealloc];
 }
 
-- (void)configureViewControllersWithLocalDeck:(LocalDeck *)localDeck {
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder backgroundQueue:(NSOperationQueue *)queue {
+    [super encodeRestorableStateWithCoder:coder backgroundQueue:queue];
+    [self.deckAddCardsViewController encodeRestorableStateWithCoder:coder backgroundQueue:queue];
+    [self.deckDetailsViewController encodeRestorableStateWithCoder:coder backgroundQueue:queue];
+}
+
+- (void)restoreStateWithCoder:(NSCoder *)coder {
+    [super restoreStateWithCoder:coder];
+    [self.deckAddCardsViewController restoreStateWithCoder:coder];
+    [self.deckDetailsViewController restoreStateWithCoder:coder];
+}
+
+- (void)configureViewControllersWithLocalDeck:(LocalDeck * _Nullable)localDeck {
     DeckAddCardsViewController *deckAddCardsViewController = [[DeckAddCardsViewController alloc] initWithLocalDeck:localDeck];
     [deckAddCardsViewController loadViewIfNeeded];
     NSSplitViewItem *deckAddCardsSplitViewItem = [NSSplitViewItem contentListWithViewController:deckAddCardsViewController];
@@ -43,7 +55,6 @@
     //
     
     DeckDetailsViewController *deckDetailsViewController = [[DeckDetailsViewController alloc] initWithLocalDeck:localDeck];
-    self.deckDetailsViewController = deckDetailsViewController;
     [deckDetailsViewController loadViewIfNeeded];
     NSSplitViewItem *deckDetailsSplitViewItem = [NSSplitViewItem contentListWithViewController:deckDetailsViewController];
     [self addSplitViewItem:deckDetailsSplitViewItem];

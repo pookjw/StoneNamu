@@ -278,7 +278,7 @@
     [self.localDeckUseCase saveChanges];
 }
 
-- (void)requestDataSourceWithLocalDeck:(LocalDeck *)localDeck {
+- (void)requestDataSourceFromLocalDeck:(LocalDeck *)localDeck {
     [localDeck retain];
     [self->_localDeck release];
     self->_localDeck = localDeck;
@@ -565,7 +565,7 @@
             if (self.localDeck.managedObjectContext == nil) {
                 [self postShouldDismissNoficiation];
             } else {
-                [self requestDataSourceWithLocalDeck:self.localDeck];
+                [self requestDataSourceFromLocalDeck:self.localDeck];
             }
         }];
     }

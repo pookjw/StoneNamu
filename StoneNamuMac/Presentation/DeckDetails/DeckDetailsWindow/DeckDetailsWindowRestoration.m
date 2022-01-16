@@ -11,10 +11,10 @@
 @implementation DeckDetailsWindowRestoration
 
 + (void)restoreWindowWithIdentifier:(NSUserInterfaceItemIdentifier)identifier state:(NSCoder *)state completionHandler:(void (^)(NSWindow * _Nullable, NSError * _Nullable))completionHandler {
-//    DeckDetailsWindow *window = [DeckDetailsWindow new];
-//    [window restoreStateWithCoder:state];
-//    [window makeKeyAndOrderFront:nil];
-//    completionHandler([window autorelease], nil);
+    DeckDetailsWindow *window = [[DeckDetailsWindow alloc] initWithLocalDeck:nil];
+    [window restoreStateWithCoder:state];
+    [window makeKeyAndOrderFront:nil];
+    completionHandler([window autorelease], nil);
 }
 
 @end

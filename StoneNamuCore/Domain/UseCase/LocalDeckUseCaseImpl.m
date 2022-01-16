@@ -48,6 +48,10 @@
     [self.localDeckRepository fetchWithCompletion:completion];
 }
 
+- (void)fetchUsingURI:(NSURL *)uri completion:(LocalDeckUseCaseFetchWithCompletion)completion {
+    [self.localDeckRepository fetchUsingURI:uri completion:completion];
+}
+
 - (void)refreshObject:(NSManagedObject *)object mergeChanges:(BOOL)flag completion:(nonnull LocalDeckUseCaseRefreshObjectWithCompletion)completion {
     [self.localDeckRepository refreshObject:object mergeChanges:flag completion:completion];
 }

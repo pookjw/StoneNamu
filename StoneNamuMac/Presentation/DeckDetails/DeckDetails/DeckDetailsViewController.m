@@ -45,7 +45,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
     
     if (self) {
         [self loadViewIfNeeded];
-        [self.viewModel requestDataSourceWithLocalDeck:localDeck];
+        [self.viewModel requestDataSourceFromLocalDeck:localDeck];
     }
     
     return self;
@@ -67,8 +67,10 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
     if (([object isEqual:self]) && ([keyPath isEqualToString:@"self.view.window"])) {
         if (self.view.window != nil) {
             [NSOperationQueue.mainQueue addOperationWithBlock:^{
-                self.view.window.title = self.viewModel.localDeck.name;
-                self.view.window.subtitle = [ResourcesService localizationForHSCardClass:self.viewModel.localDeck.classId.unsignedIntegerValue];
+                if (self.viewModel.localDeck != nil) {
+                    self.view.window.title = self.viewModel.localDeck.name;
+                    self.view.window.subtitle = [ResourcesService localizationForHSCardClass:self.viewModel.localDeck.classId.unsignedIntegerValue];
+                }
                 [self updateScrollViewContentInsets];
             }];
         }
@@ -98,6 +100,24 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
 - (void)viewDidLayout {
     [super viewDidLayout];
     [self updateScrollViewContentInsets];
+}
+
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder backgroundQueue:(NSOperationQueue *)queue {
+    [super encodeRestorableStateWithCoder:coder backgroundQueue:queue];
+    
+    [queue addOperationWithBlock:^{
+        [coder encodeObject:self.viewModel.localDeck.objectID.URIRepresentation forKey:@"URIRepresentation"];
+    }];
+}
+
+- (void)restoreStateWithCoder:(NSCoder *)coder {
+    [super restoreStateWithCoder:coder];
+    
+    NSURL * _Nullable URIRepresentation = [coder decodeObjectOfClass:[NSURL class] forKey:@"URIRepresentation"];
+    
+    if (URIRepresentation != nil) {
+        [self.viewModel requestDataSourceFromURIRepresentation:URIRepresentation completion:^(BOOL result) {}];
+    }
 }
 
 - (void)setAttributes {

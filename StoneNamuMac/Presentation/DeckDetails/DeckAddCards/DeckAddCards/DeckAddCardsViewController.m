@@ -42,7 +42,10 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
     if (self) {
         [self loadViewIfNeeded];
         self.viewModel.localDeck = localDeck;
-        [self requestDataSourceWithOptions:nil reset:NO];
+        
+        if (localDeck != nil) {
+            [self requestDataSourceWithOptions:nil reset:NO];
+        }
     }
     
     return self;
@@ -82,17 +85,31 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
     return self.deckAddCardOptionsTouchBar;
 }
 
-- (void)encodeRestorableStateWithCoder:(NSCoder *)coder {
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder backgroundQueue:(nonnull NSOperationQueue *)queue {
     [super encodeRestorableStateWithCoder:coder];
     
-    [coder encodeObject:self.viewModel.options forKey:@"options"];
+    [queue addOperationWithBlock:^{
+        [coder encodeObject:self.viewModel.options forKey:@"options"];
+        [coder encodeObject:self.viewModel.localDeck.objectID.URIRepresentation forKey:@"URIRepresentation"];
+    }];
 }
 
 - (void)restoreStateWithCoder:(NSCoder *)coder {
     [super restoreStateWithCoder:coder];
     
     NSDictionary<NSString *, NSString *> *options = [coder decodeObjectOfClass:[NSDictionary<NSString *, NSString *> class] forKey:@"options"];
-    [self requestDataSourceWithOptions:options reset:YES];
+    
+    NSURL * _Nullable URIRepresentation = [coder decodeObjectOfClass:[NSURL class] forKey:@"URIRepresentation"];
+    
+    if (URIRepresentation != nil) {
+        [self.viewModel loadLocalDeckFromURIRepresentation:URIRepresentation completion:^(BOOL result) {
+            if (result) {
+                [NSOperationQueue.mainQueue addOperationWithBlock:^{
+                    [self requestDataSourceWithOptions:options reset:YES];
+                }];
+            }
+        }];
+    }
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {

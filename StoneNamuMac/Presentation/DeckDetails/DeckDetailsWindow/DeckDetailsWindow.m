@@ -9,6 +9,7 @@
 #import "DeckDetailsSplitViewController.h"
 #import "NSProcessInfo+isEnabledRestoration.h"
 #import "NSViewController+loadViewIfNeeded.h"
+#import "DeckDetailsWindowRestoration.h"
 
 static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDetailsWindow = @"NSUserInterfaceItemIdentifierDeckDetailsWindow";
 
@@ -18,7 +19,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
 
 @implementation DeckDetailsWindow
 
-- (instancetype)initWithLocalDeck:(LocalDeck *)localDeck {
+- (instancetype)initWithLocalDeck:(LocalDeck * _Nullable)localDeck {
     self = [self init];
     
     if (self) {
@@ -34,6 +35,16 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
     [super dealloc];
 }
 
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder backgroundQueue:(NSOperationQueue *)queue {
+    [super encodeRestorableStateWithCoder:coder backgroundQueue:queue];
+    [self.deckDetailsSplitViewController encodeRestorableStateWithCoder:coder backgroundQueue:queue];
+}
+
+- (void)restoreStateWithCoder:(NSCoder *)coder {
+    [super restoreStateWithCoder:coder];
+    [self.deckDetailsSplitViewController restoreStateWithCoder:coder];
+}
+
 - (void)setAttributes {
     self.styleMask = NSWindowStyleMaskClosable | NSWindowStyleMaskMiniaturizable | NSWindowStyleMaskFullSizeContentView | NSWindowStyleMaskResizable | NSWindowStyleMaskTitled;
     self.movableByWindowBackground = YES;
@@ -43,11 +54,11 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
     self.titleVisibility = NSWindowTitleVisible;
     self.delegate = self;
     self.restorable = NSProcessInfo.processInfo.isEnabledRestoration;
-//    self.restorationClass = [MainWindowRestoration class];
+    self.restorationClass = [DeckDetailsWindowRestoration class];
     self.identifier = NSUserInterfaceItemIdentifierDeckDetailsWindow;
 }
 
-- (void)configureDeckDetailsSplitViewControllerWithLocalDeck:(LocalDeck *)localDeck {
+- (void)configureDeckDetailsSplitViewControllerWithLocalDeck:(LocalDeck * _Nullable)localDeck {
     DeckDetailsSplitViewController *deckDetailsSplitViewController = [[DeckDetailsSplitViewController alloc] initWithLocalDeck:localDeck];
     [deckDetailsSplitViewController loadViewIfNeeded];
     self.contentViewController = deckDetailsSplitViewController;
