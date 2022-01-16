@@ -9,7 +9,6 @@
 #import "NSImageView+setAsyncImage.h"
 
 @interface DeckAddCardCollectionViewItem ()
-@property (copy) HSCard * _Nullable hsCard;
 @property (assign) id<DeckAddCardCollectionViewItemDelegate> delegate;
 
 @property (retain) IBOutlet NSTextField *countLabel;
@@ -26,15 +25,17 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    self.appearanceTypes = ClickableCollectionViewItemAppearanceTypeClicked | ClickableCollectionViewItemAppearanceTypeHighlighted;
     [self addGesture];
 }
 
 - (void)configureWithHSCard:(HSCard *)hsCard count:(NSUInteger)count delegate:(nonnull id<DeckAddCardCollectionViewItemDelegate>)delegate {
-    self.hsCard = hsCard;
+    [self->_hsCard release];
+    self->_hsCard = [hsCard copy];
     self.delegate = delegate;
     
     self.countLabel.stringValue = [NSString stringWithFormat:@"%lu", count];
-    [self.imageView setAsyncImageWithURL:hsCard.image indicator:YES];
+    [self.imageView setAsyncImageWithURL:self.hsCard.image indicator:YES];
 }
 
 - (void)addGesture {

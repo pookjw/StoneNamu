@@ -126,7 +126,7 @@
     if ([optionType isEqualToString:BlizzardHSAPIOptionTypeSet]) {
         itemArray = [self itemArrayFromDic:[ResourcesService localizationsForHSCardSetForHSDeckFormat:deckFormat]
                                 optionType:optionType
-                             showEmptyItem:YES
+                             showEmptyItem:NO
                                filterArray:nil
                                imageSource:nil
                                  converter:^NSUInteger(NSString * key) {
@@ -142,7 +142,7 @@
         
         itemArray = [self itemArrayFromDic:localizables
                                 optionType:optionType
-                             showEmptyItem:YES
+                             showEmptyItem:NO
                                filterArray:@[NSStringFromHSCardClass(HSCardClassDeathKnight)]
                                imageSource:nil
                                  converter:^NSUInteger(NSString * key) {

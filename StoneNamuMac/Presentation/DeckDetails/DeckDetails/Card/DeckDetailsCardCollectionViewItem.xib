@@ -11,12 +11,11 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <collectionViewItem id="zdc-B5-0x4" customClass="DeckDetailsCardCollectionViewItem">
             <connections>
+                <outlet property="cardImageView" destination="J1K-J2-iDf" id="qcU-zu-qJx"/>
                 <outlet property="containerView" destination="Rk5-kZ-hV6" id="Yd4-ZF-HGm"/>
-                <outlet property="containerViewHeightConstraint" destination="k8J-AE-pmx" id="Lfu-Fj-Nh9"/>
-                <outlet property="countContainerView" destination="rAm-sz-d94" id="bDn-rS-GiS"/>
-                <outlet property="countContainerViewWidthConstraint" destination="FFl-80-Chw" id="cNz-Cq-xdI"/>
+                <outlet property="countContainerBox" destination="rhw-N4-7Fe" id="aiG-b5-TUn"/>
+                <outlet property="countContainerViewWidthConstraint" destination="LAM-rm-pNp" id="g3q-3u-eyk"/>
                 <outlet property="countLabel" destination="2Dm-4K-YRG" id="IQw-j5-69f"/>
-                <outlet property="imageView" destination="J1K-J2-iDf" id="A1a-LR-WOw"/>
                 <outlet property="manaCostContainerBox" destination="m5p-Qd-geH" id="VWM-Ky-2kh"/>
                 <outlet property="manaCostContainerViewWidthConstraint" destination="ePp-AI-J59" id="iSO-10-W32"/>
                 <outlet property="manaCostLabel" destination="gwd-77-XMc" id="VGC-BC-IRv"/>
@@ -25,33 +24,33 @@
             </connections>
         </collectionViewItem>
         <box boxType="custom" borderWidth="0.0" title="Box" titlePosition="noTitle" id="RPy-7G-Ttr">
-            <rect key="frame" x="0.0" y="0.0" width="500" height="60"/>
+            <rect key="frame" x="0.0" y="0.0" width="500" height="36"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <view key="contentView" id="1gN-ik-EDO">
-                <rect key="frame" x="0.0" y="0.0" width="500" height="60"/>
+                <rect key="frame" x="0.0" y="0.0" width="500" height="36"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="Rk5-kZ-hV6">
-                        <rect key="frame" x="0.0" y="0.0" width="500" height="60"/>
+                        <rect key="frame" x="0.0" y="0.0" width="500" height="36"/>
                         <subviews>
-                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="J1K-J2-iDf">
-                                <rect key="frame" x="212" y="0.0" width="228" height="60"/>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="J1K-J2-iDf">
+                                <rect key="frame" x="303" y="0.0" width="137" height="36"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="J1K-J2-iDf" secondAttribute="height" multiplier="243:64" id="JVD-4P-KSm"/>
                                 </constraints>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="jCe-bH-Wsn"/>
                             </imageView>
                             <box boxType="custom" borderWidth="0.0" title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="m5p-Qd-geH">
-                                <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                                <rect key="frame" x="0.0" y="0.0" width="60" height="36"/>
                                 <view key="contentView" id="WtX-ig-kIN">
-                                    <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="60" height="36"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gwd-77-XMc">
-                                            <rect key="frame" x="12" y="22" width="37" height="16"/>
+                                            <rect key="frame" x="9" y="9" width="42" height="19"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="frz-kv-pmi">
-                                                <font key="font" usesAppearanceFont="YES"/>
-                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <font key="font" textStyle="title3" name=".SFNS-Regular"/>
+                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
@@ -66,46 +65,53 @@
                                 </constraints>
                                 <color key="fillColor" name="systemBlueColor" catalog="System" colorSpace="catalog"/>
                             </box>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="USu-Qu-gwK">
-                                <rect key="frame" x="58" y="22" width="374" height="16"/>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="USu-Qu-gwK">
+                                <rect key="frame" x="68" y="10" width="364" height="16"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="dwF-wC-nal">
-                                    <font key="font" usesAppearanceFont="YES"/>
+                                    <font key="font" textStyle="title3" name=".SFNS-Regular"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="rAm-sz-d94">
-                                <rect key="frame" x="440" y="0.0" width="60" height="60"/>
-                                <subviews>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2Dm-4K-YRG">
-                                        <rect key="frame" x="12" y="22" width="37" height="16"/>
-                                        <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="cd7-v1-h1k">
-                                            <font key="font" usesAppearanceFont="YES"/>
-                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
-                                    </textField>
-                                </subviews>
+                            <box boxType="custom" borderType="none" borderWidth="0.0" title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="rhw-N4-7Fe">
+                                <rect key="frame" x="440" y="0.0" width="60" height="36"/>
+                                <view key="contentView" id="tdy-hJ-zHl">
+                                    <rect key="frame" x="0.0" y="0.0" width="60" height="36"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2Dm-4K-YRG">
+                                            <rect key="frame" x="9" y="9" width="42" height="19"/>
+                                            <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="cd7-v1-h1k">
+                                                <font key="font" textStyle="title3" name=".SFNS-Regular"/>
+                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="2Dm-4K-YRG" firstAttribute="centerX" secondItem="tdy-hJ-zHl" secondAttribute="centerX" id="N4d-UT-9GK"/>
+                                        <constraint firstItem="2Dm-4K-YRG" firstAttribute="centerY" secondItem="tdy-hJ-zHl" secondAttribute="centerY" id="b2r-eg-pft"/>
+                                    </constraints>
+                                </view>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="60" id="FFl-80-Chw"/>
-                                    <constraint firstItem="2Dm-4K-YRG" firstAttribute="centerY" secondItem="rAm-sz-d94" secondAttribute="centerY" id="U0K-iH-KM9"/>
-                                    <constraint firstItem="2Dm-4K-YRG" firstAttribute="centerX" secondItem="rAm-sz-d94" secondAttribute="centerX" id="qnm-kb-BYs"/>
+                                    <constraint firstAttribute="width" constant="60" id="LAM-rm-pNp"/>
                                 </constraints>
-                            </customView>
+                                <color key="fillColor" name="systemGrayColor" catalog="System" colorSpace="catalog"/>
+                            </box>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="m5p-Qd-geH" secondAttribute="bottom" id="0VR-6s-EQp"/>
-                            <constraint firstItem="rAm-sz-d94" firstAttribute="top" secondItem="Rk5-kZ-hV6" secondAttribute="top" id="0a7-CT-vr2"/>
-                            <constraint firstItem="USu-Qu-gwK" firstAttribute="leading" secondItem="m5p-Qd-geH" secondAttribute="trailing" id="8DH-q6-aJj"/>
-                            <constraint firstAttribute="bottom" secondItem="rAm-sz-d94" secondAttribute="bottom" id="CTw-LX-EOj"/>
-                            <constraint firstItem="USu-Qu-gwK" firstAttribute="centerY" secondItem="Rk5-kZ-hV6" secondAttribute="centerY" id="M0A-1k-BOT"/>
-                            <constraint firstItem="rAm-sz-d94" firstAttribute="leading" secondItem="USu-Qu-gwK" secondAttribute="trailing" constant="10" id="OXB-UK-lpx"/>
-                            <constraint firstItem="rAm-sz-d94" firstAttribute="leading" secondItem="J1K-J2-iDf" secondAttribute="trailing" id="QGF-Aq-QXa"/>
+                            <constraint firstItem="USu-Qu-gwK" firstAttribute="leading" secondItem="m5p-Qd-geH" secondAttribute="trailing" constant="10" id="8DH-q6-aJj"/>
+                            <constraint firstItem="rhw-N4-7Fe" firstAttribute="top" secondItem="Rk5-kZ-hV6" secondAttribute="top" id="AHj-5s-wrF"/>
+                            <constraint firstAttribute="bottom" secondItem="USu-Qu-gwK" secondAttribute="bottom" constant="10" id="Fej-fz-63v"/>
+                            <constraint firstAttribute="trailing" secondItem="rhw-N4-7Fe" secondAttribute="trailing" id="FoY-7n-7ay"/>
+                            <constraint firstItem="USu-Qu-gwK" firstAttribute="top" secondItem="Rk5-kZ-hV6" secondAttribute="top" constant="10" id="RjC-fW-jD7"/>
                             <constraint firstAttribute="bottom" secondItem="J1K-J2-iDf" secondAttribute="bottom" id="RsA-0P-Awd"/>
+                            <constraint firstAttribute="bottom" secondItem="rhw-N4-7Fe" secondAttribute="bottom" id="SSv-av-oj1"/>
                             <constraint firstItem="J1K-J2-iDf" firstAttribute="top" secondItem="Rk5-kZ-hV6" secondAttribute="top" id="aAs-iJ-EQY"/>
                             <constraint firstItem="m5p-Qd-geH" firstAttribute="top" secondItem="Rk5-kZ-hV6" secondAttribute="top" id="cba-bW-clM"/>
-                            <constraint firstAttribute="trailing" secondItem="rAm-sz-d94" secondAttribute="trailing" id="gL2-sS-3Nl"/>
-                            <constraint firstAttribute="height" constant="60" id="k8J-AE-pmx"/>
+                            <constraint firstItem="rhw-N4-7Fe" firstAttribute="leading" secondItem="USu-Qu-gwK" secondAttribute="trailing" constant="10" id="mI7-PE-XBT"/>
+                            <constraint firstItem="J1K-J2-iDf" firstAttribute="trailing" secondItem="rhw-N4-7Fe" secondAttribute="leading" id="qxA-2g-0aK"/>
                             <constraint firstItem="m5p-Qd-geH" firstAttribute="leading" secondItem="Rk5-kZ-hV6" secondAttribute="leading" id="tk9-c3-L2I"/>
                         </constraints>
                     </customView>

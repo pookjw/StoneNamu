@@ -20,9 +20,11 @@
 #import "DeckImageRenderService.h"
 #import "PhotosService.h"
 #import "HSCardDroppableView.h"
+#import "DeckDetailsSeparatorBox.h"
 #import <StoneNamuCore/StoneNamuCore.h>
 #import <StoneNamuResources/StoneNamuResources.h>
 
+static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDetailsSeparatorBox = @"NSUserInterfaceItemIdentifierDeckDetailsSeparatorBox";
 static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDetailsCardCollectionViewItem = @"NSUserInterfaceItemIdentifierDeckDetailsCardCollectionViewItem";
 
 @interface DeckDetailsViewController () <NSCollectionViewDelegate, NSMenuDelegate, DeckDetailsCardCollectionViewItemDelegate, HSCardDroppableViewDelegate>
@@ -151,6 +153,10 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
     NSNib *cardsNib = [[NSNib alloc] initWithNibNamed:NSStringFromClass([DeckDetailsCardCollectionViewItem class]) bundle:NSBundle.mainBundle];
     [collectionView registerNib:cardsNib forItemWithIdentifier:NSUserInterfaceItemIdentifierDeckDetailsCardCollectionViewItem];
     [cardsNib release];
+    
+    NSNib *separatorNib = [[NSNib alloc] initWithNibNamed:NSStringFromClass([DeckDetailsSeparatorBox class]) bundle:NSBundle.mainBundle];
+    [collectionView registerNib:separatorNib forSupplementaryViewOfKind:NSStringFromClass([DeckDetailsSeparatorBox class]) withIdentifier:NSUserInterfaceItemIdentifierDeckDetailsSeparatorBox];
+    [separatorNib release];
     
     collectionView.selectable = YES;
     collectionView.allowsMultipleSelection = YES;
@@ -459,6 +465,15 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
                 return nil;
         }
     }];
+    
+    dataSource.supplementaryViewProvider = ^NSView * _Nullable(NSCollectionView * _Nonnull collectionView, NSString * _Nonnull elementKind, NSIndexPath * _Nonnull indexPath) {
+        if ([elementKind isEqualToString:NSStringFromClass([DeckDetailsSeparatorBox class])]) {
+            DeckDetailsSeparatorBox *view = (DeckDetailsSeparatorBox *)[collectionView makeSupplementaryViewOfKind:elementKind withIdentifier:NSUserInterfaceItemIdentifierDeckDetailsSeparatorBox forIndexPath:indexPath];
+            return view;
+        } else {
+            return nil;
+        }
+    };
     
     return [dataSource autorelease];
 }

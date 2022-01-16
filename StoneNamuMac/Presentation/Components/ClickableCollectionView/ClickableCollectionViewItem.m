@@ -9,6 +9,26 @@
 
 @implementation ClickableCollectionViewItem
 
+- (instancetype)init {
+    self = [super init];
+    
+    if (self) {
+        self.appearanceTypes = ClickableCollectionViewItemAppearanceTypeClicked | ClickableCollectionViewItemAppearanceTypeSelected | ClickableCollectionViewItemAppearanceTypeHighlighted;
+    }
+    
+    return self;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)coder {
+    self = [super initWithCoder:coder];
+    
+    if (self) {
+        self.appearanceTypes = ClickableCollectionViewItemAppearanceTypeClicked | ClickableCollectionViewItemAppearanceTypeSelected | ClickableCollectionViewItemAppearanceTypeHighlighted;
+    }
+    
+    return self;
+}
+
 - (void)dealloc {
     [self removeObserver:self forKeyPath:@"self.view.window"];
     [self removeObserver:self forKeyPath:@"self.view.effectiveAppearance"];
@@ -52,7 +72,10 @@
 
 - (void)setSelected:(BOOL)selected {
     [super setSelected:selected];
-    [self updateBackgroundColor];
+    
+    if (self.appearanceTypes & ClickableCollectionViewItemAppearanceTypeSelected) {
+        [self updateBackgroundColor];
+    }
 }
 
 - (void)setClicked:(BOOL)clicked {
@@ -60,12 +83,17 @@
     self->_clicked = clicked;
     [self didChangeValueForKey:@"clicked"];
     
-    [self updateBorderColor];
+    if (self.appearanceTypes & ClickableCollectionViewItemAppearanceTypeClicked) {
+        [self updateBorderColor];
+    }
 }
 
 - (void)setHighlightState:(NSCollectionViewItemHighlightState)highlightState {
     [super setHighlightState:highlightState];
-    [self updateBackgroundColor];
+    
+    if (self.appearanceTypes & ClickableCollectionViewItemAppearanceTypeHighlighted) {
+        [self updateBackgroundColor];
+    }
 }
 
 - (void)_setAttributes {

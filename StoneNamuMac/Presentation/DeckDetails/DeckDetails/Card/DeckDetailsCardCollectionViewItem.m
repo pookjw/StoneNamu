@@ -13,15 +13,15 @@
 @property (copy) HSCard *hsCard;
 @property (assign) id<DeckDetailsCardCollectionViewItemDelegate> delegate;
 @property (retain) IBOutlet NSView *containerView;
-@property (retain) IBOutlet NSLayoutConstraint *containerViewHeightConstraint;
+@property (retain) IBOutlet NSImageView *cardImageView;
 @property (retain) IBOutlet NSBox *manaCostContainerBox;
 @property (retain) IBOutlet NSLayoutConstraint *manaCostContainerViewWidthConstraint;
 @property (retain) IBOutlet NSTextField *manaCostLabel;
 @property (retain) IBOutlet NSTextField *nameLabel;
-@property (retain) IBOutlet NSView *countContainerView;
+@property (retain) IBOutlet NSBox *countContainerBox;
 @property (retain) IBOutlet NSLayoutConstraint *countContainerViewWidthConstraint;
 @property (retain) IBOutlet NSTextField *countLabel;
-@property (retain) CAGradientLayer *imageViewGradientLayer;
+@property (retain) CAGradientLayer *cardImageViewGradientLayer;
 @end
 
 @implementation DeckDetailsCardCollectionViewItem
@@ -29,15 +29,15 @@
 - (void)dealloc {
     [_hsCard release];
     [_containerView release];
-    [_containerViewHeightConstraint release];
+    [_cardImageView release];
     [_manaCostContainerBox release];
     [_manaCostContainerViewWidthConstraint release];
     [_manaCostLabel release];
     [_nameLabel release];
-    [_countContainerView release];
+    [_countContainerBox release];
     [_countContainerViewWidthConstraint release];
     [_countLabel release];
-    [_imageViewGradientLayer release];
+    [_cardImageViewGradientLayer release];
     [super dealloc];
 }
 
@@ -60,12 +60,19 @@
 }
 
 - (void)configureWithHSCard:(HSCard *)hsCard hsCardCount:(NSUInteger)hsCardCount delegate:(nonnull id<DeckDetailsCardCollectionViewItemDelegate>)delegate {
-    self.countLabel.stringValue = [NSString stringWithFormat:@"%lu", hsCardCount];
     
     if (![hsCard isEqual:self.hsCard]) {
         self.manaCostLabel.stringValue = [NSString stringWithFormat:@"%lu", hsCard.manaCost];
         self.nameLabel.stringValue = hsCard.name;
-        [self.imageView setAsyncImageWithURL:hsCard.cropImage indicator:YES];
+        [self.cardImageView setAsyncImageWithURL:hsCard.cropImage indicator:YES];
+    }
+    
+    if ((hsCard.rarityId == HSCardRarityLegendary) && (hsCardCount == 1)) {
+        self.countLabel.stringValue = @"★";
+        self.countLabel.textColor = NSColor.systemOrangeColor;
+    } else {
+        self.countLabel.stringValue = [NSString stringWithFormat:@"%lu", hsCardCount];
+        self.countLabel.textColor = NSColor.whiteColor;
     }
     
     self.hsCard = hsCard;
@@ -87,24 +94,24 @@
 }
 
 - (void)configureImageViewGradientLayer {
-    CAGradientLayer *imageViewGradientLayer = [CAGradientLayer new];
-
-    imageViewGradientLayer.colors = @[
-        (id)[NSColor.whiteColor colorWithAlphaComponent:0].CGColor,
-        (id)NSColor.whiteColor.CGColor
-    ];
-    imageViewGradientLayer.startPoint = CGPointMake(0, 0);
-    imageViewGradientLayer.endPoint = CGPointMake(0.8, 0);
-    self.imageView.wantsLayer = YES;
-    self.imageView.layer.mask = imageViewGradientLayer;
-    
-    self.imageViewGradientLayer = imageViewGradientLayer;
-    [imageViewGradientLayer release];
+//    CAGradientLayer *cardImageViewGradientLayer = [CAGradientLayer new];
+//
+//    cardImageViewGradientLayer.colors = @[
+//        (id)[NSColor.whiteColor colorWithAlphaComponent:0].CGColor,
+//        (id)NSColor.whiteColor.CGColor
+//    ];
+//    cardImageViewGradientLayer.startPoint = CGPointMake(0, 0);
+//    cardImageViewGradientLayer.endPoint = CGPointMake(0.8, 0);
+//    self.cardImageView.wantsLayer = YES;
+//    self.cardImageView.layer.mask = cardImageViewGradientLayer;
+//
+//    self.cardImageViewGradientLayer = cardImageViewGradientLayer;
+//    [cardImageViewGradientLayer release];
 }
 
-
 - (void)setAttributes {
-    
+    self.manaCostContainerViewWidthConstraint.constant = [self preferredWidthWithManaCostLabel:self.manaCostLabel];
+    self.countContainerViewWidthConstraint.constant = [self preferredWidthWithCountLabel:self.countLabel];
 }
 
 - (void)clearContents {
@@ -115,10 +122,41 @@
 }
 
 - (void)updateGradientLayer {
-    [CATransaction begin];
-    [CATransaction setDisableActions:YES];
-    self.imageViewGradientLayer.frame = self.imageView.bounds;
-    [CATransaction commit];
+//    [CATransaction begin];
+//    [CATransaction setDisableActions:YES];
+//    self.cardImageViewGradientLayer.frame = self.cardImageView.bounds;
+//    [CATransaction commit];
+}
+
+- (CGFloat)preferredWidthWithManaCostLabel:(NSTextField *)manaCostLabel {
+    NSString *string = @"99";
+    
+    CGRect rect = [string boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX)
+                                       options:NSStringDrawingUsesLineFragmentOrigin
+                                    attributes:@{NSFontAttributeName: manaCostLabel.font}
+                                       context:nil];
+    CGFloat margin = 10;
+    CGFloat width = ceilf(rect.size.width + margin);
+    
+    return width;
+}
+
+- (CGFloat)preferredWidthWithCountLabel:(NSTextField *)countLabel {
+    NSString *integerString = @"9";
+    CGRect integerRect = [integerString boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX)
+                                                     options:NSStringDrawingUsesLineFragmentOrigin
+                                                  attributes:@{NSFontAttributeName: countLabel.font}
+                                                     context:nil];
+    
+    NSString *starString = @"★";
+    CGRect starRect = [starString boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX)
+                                               options:NSStringDrawingUsesLineFragmentOrigin
+                                            attributes:@{NSFontAttributeName: countLabel.font}
+                                               context:nil];
+    CGFloat margin = 10;
+    CGFloat width = ceilf(MAX(integerRect.size.width, starRect.size.width) + margin);
+    
+    return width;
 }
 
 @end

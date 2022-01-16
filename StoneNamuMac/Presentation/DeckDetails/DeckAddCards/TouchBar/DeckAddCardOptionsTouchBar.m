@@ -19,6 +19,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
 @property (retain) NSArray<NSPopoverTouchBarItem *> *allPopoverItems;
 @property (retain) NSArray<NSScrubber *> *allScrubbers;
 @property (copy) HSDeckFormat deckFormat;
+@property HSCardClass classId;
 @property (retain) NSMutableDictionary<NSString *, NSString *> *options;
 
 @property (retain) NSPopoverTouchBarItem *optionTypeSetPopoverItem;
@@ -89,7 +90,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
 
 @implementation DeckAddCardOptionsTouchBar
 
-- (instancetype)initWithOptions:(NSDictionary<NSString *,NSString *> *)options deckFormat:(HSDeckFormat)deckFormat deckAddCardOptionsTouchBarDelegate:(id<DeckAddCardOptionsTouchBarDelegate>)deckAddCardOptionsTouchBarDelegate {
+- (instancetype)initWithOptions:(NSDictionary<NSString *,NSString *> *)options deckFormat:(HSDeckFormat)deckFormat classId:(HSCardClass)classId deckAddCardOptionsTouchBarDelegate:(id<DeckAddCardOptionsTouchBarDelegate>)deckAddCardOptionsTouchBarDelegate {
     self = [self init];
     
     if (self) {
@@ -98,13 +99,14 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
         [mutableOptions release];
         
         self.deckFormat = deckFormat;
+        self.classId = classId;
         self.deckAddCardOptionsTouchBarDelegate = deckAddCardOptionsTouchBarDelegate;
         
         //
         
         [self configureTouchBarItems];
         [self setAttributes];
-        [self updateItemsWithOptions:options deckFormat:deckFormat];
+        [self updateItemsWithOptions:options deckFormat:deckFormat classId:self.classId];
     }
     
     return self;
@@ -537,15 +539,16 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     [optionTypeSortScrubber release];
 }
 
-- (void)updateItemsWithOptions:(NSDictionary<NSString *,NSString *> *)options deckFormat:(HSDeckFormat)deckFormat {
+- (void)updateItemsWithOptions:(NSDictionary<NSString *,NSString *> *)options deckFormat:(HSDeckFormat)deckFormat classId:(HSCardClass)classId {
     BOOL shouldChangePosition = ![options isEqualToDictionary:self.options];
     
     NSMutableDictionary<NSString *, NSString *> *mutableOptions = [options mutableCopy];
     self.options = mutableOptions;
     [mutableOptions release];
     
-    BOOL shouldUpdate = ((deckFormat != nil) && (![deckFormat isEqualToString:self.deckFormat]));
+    BOOL shouldUpdate = ((deckFormat != nil) && (![deckFormat isEqualToString:self.deckFormat] || (classId != self.classId)));
     self.deckFormat = deckFormat;
+    self.classId = classId;
     
     //
     
@@ -730,9 +733,9 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
 
 - (BOOL)hasEmptyRowAtScrubber:(NSScrubber *)scrubber {
     if ([scrubber isEqual:self.optionTypeSetScrubber]) {
-        return YES;
+        return NO;
     } else if ([scrubber isEqual:self.optionTypeClassScrubber]) {
-        return YES;
+        return NO;
     } else if ([scrubber isEqual:self.optionTypeManaCostScrubber]) {
         return YES;
     } else if ([scrubber isEqual:self.optionTypeAttackScrubber]) {
@@ -766,8 +769,10 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
         mutableDic = [[ResourcesService localizationsForHSCardSetForHSDeckFormat:self.deckFormat] mutableCopy];
         filterKeys = nil;
     } else if ([scrubber isEqual:self.optionTypeClassScrubber]) {
-        mutableDic = [[ResourcesService localizationsForHSCardClassForHSDeckFormat:self.deckFormat] mutableCopy];
-        filterKeys = @[NSStringFromHSCardClass(HSCardClassDeathKnight)];
+        mutableDic = [[NSMutableDictionary alloc] initWithDictionary:@{
+            NSStringFromHSCardClass(self.classId): [ResourcesService localizationForHSCardClass:self.classId],
+            NSStringFromHSCardClass(HSCardClassNeutral): [ResourcesService localizationForHSCardClass:HSCardClassNeutral]
+        }];
     } else if ([scrubber isEqual:self.optionTypeManaCostScrubber] || [scrubber isEqual:self.optionTypeAttackScrubber] || [scrubber isEqual:self.optionTypeHealthScrubber]) {
         mutableDic = [@{@"1": @"1",
                 @"2": @"2",

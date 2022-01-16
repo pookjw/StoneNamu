@@ -138,7 +138,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
 - (void)updateOptionInterfaceWithOptions:(NSDictionary<NSString *, NSString *> * _Nullable)options {
     [self.deckAddCardOptionsMenu updateItemsWithOptions:options deckFormat:self.viewModel.localDeck.format classId:self.viewModel.localDeck.classId.unsignedIntegerValue];
     [self.deckAddCardOptionsToolbar updateItemsWithOptions:options deckFormat:self.viewModel.localDeck.format classId:self.viewModel.localDeck.classId.unsignedIntegerValue];
-    [self.deckAddCardOptionsTouchBar updateItemsWithOptions:options deckFormat:self.viewModel.localDeck.format];
+    [self.deckAddCardOptionsTouchBar updateItemsWithOptions:options deckFormat:self.viewModel.localDeck.format classId:self.viewModel.localDeck.classId.unsignedIntegerValue];
 }
 
 - (BOOL)requestDataSourceWithOptions:(NSDictionary<NSString *, NSString *> * _Nullable)options reset:(BOOL)reset {
@@ -369,7 +369,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
 }
 
 - (void)configureDeckAddCardOptionsTouchBar {
-    DeckAddCardOptionsTouchBar *deckAddCardOptionsTouchBar = [[DeckAddCardOptionsTouchBar alloc] initWithOptions:self.viewModel.options deckFormat:self.viewModel.localDeck.format deckAddCardOptionsTouchBarDelegate:self];
+    DeckAddCardOptionsTouchBar *deckAddCardOptionsTouchBar = [[DeckAddCardOptionsTouchBar alloc] initWithOptions:self.viewModel.options deckFormat:self.viewModel.localDeck.format classId:self.viewModel.localDeck.classId.unsignedIntegerValue deckAddCardOptionsTouchBarDelegate:self];
     self.deckAddCardOptionsTouchBar = deckAddCardOptionsTouchBar;
     [deckAddCardOptionsTouchBar release];
 }
@@ -413,7 +413,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
 
 - (void)collectionView:(NSCollectionView *)collectionView didSelectItemsAtIndexPaths:(NSSet<NSIndexPath *> *)indexPaths {
     [collectionView deselectItemsAtIndexPaths:indexPaths];
-    [self.viewModel addHSCardsFromIndexPathes:indexPaths];
+//    [self.viewModel addHSCardsFromIndexPathes:indexPaths];
 }
 
 - (BOOL)collectionView:(NSCollectionView *)collectionView canDragItemsAtIndexPaths:(NSSet<NSIndexPath *> *)indexPaths withEvent:(NSEvent *)event {
@@ -502,7 +502,11 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
 #pragma mark - DeckAddCardCollectionViewItemDelegate
 
 - (void)deckAddCardCollectionViewItem:(DeckAddCardCollectionViewItem *)deckAddCardCollectionViewItem didClickWithRecognizer:(NSClickGestureRecognizer *)recognizer {
+    HSCard * _Nullable hsCard = deckAddCardCollectionViewItem.hsCard;
     
+    if (hsCard == nil) return;
+    
+    [self.viewModel addHSCards:[NSSet setWithObject:hsCard]];
 }
 
 @end

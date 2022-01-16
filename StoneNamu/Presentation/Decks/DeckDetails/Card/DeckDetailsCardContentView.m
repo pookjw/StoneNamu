@@ -188,6 +188,7 @@
     
     //
     
+    countLabel.backgroundColor = UIColor.systemGrayColor;
     countLabel.adjustsFontForContentSizeCategory = YES;
     countLabel.adjustsFontSizeToFitWidth = YES;
     countLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleTitle2];
@@ -327,12 +328,6 @@
     } else {
         self.countLabel.text = [NSString stringWithFormat:@"%lu", self.hsCardCount];
         self.countLabel.textColor = UIColor.whiteColor;
-    }
-    
-    if (self.isDarkMode) {
-        self.countLabel.backgroundColor = UIColor.systemGray2Color;
-    } else {
-        self.countLabel.backgroundColor = UIColor.systemGrayColor;
     }
     
     self.countLabelWidthLayout.constant = [self preferredWidthWithCountLabel:self.countLabel];

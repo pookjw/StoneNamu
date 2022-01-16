@@ -145,6 +145,8 @@
 		4F646A7B26B7F08500BEDB38 /* DataCacheUseCaseImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F646A7926B7F08500BEDB38 /* DataCacheUseCaseImpl.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4F646A7C26B7F08500BEDB38 /* DataCacheUseCaseImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F646A7A26B7F08500BEDB38 /* DataCacheUseCaseImpl.m */; };
 		4F646BF52794799200340C07 /* HSCardDroppableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F646BF42794799200340C07 /* HSCardDroppableView.m */; };
+		4F646BFA27948FFD00340C07 /* DeckDetailsSeparatorBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F646BF927948FFD00340C07 /* DeckDetailsSeparatorBox.m */; };
+		4F646BFC2794900B00340C07 /* DeckDetailsSeparatorBox.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F646BFB2794900B00340C07 /* DeckDetailsSeparatorBox.xib */; };
 		4F68198226D73F2F00033AEE /* DeckBaseContentViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F68198126D73F2F00033AEE /* DeckBaseContentViewModel.m */; };
 		4F6A139C26B251EE0089A13A /* HSCardKeyword.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F6A139B26B251EE0089A13A /* HSCardKeyword.m */; };
 		4F6A13A526B267D60089A13A /* HSCardGameMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F6A13A426B267D60089A13A /* HSCardGameMode.m */; };
@@ -749,6 +751,9 @@
 		4F646BF32794799200340C07 /* HSCardDroppableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardDroppableView.h; sourceTree = "<group>"; };
 		4F646BF42794799200340C07 /* HSCardDroppableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCardDroppableView.m; sourceTree = "<group>"; };
 		4F646BF627947A0300340C07 /* HSCardDroppableViewDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardDroppableViewDelegate.h; sourceTree = "<group>"; };
+		4F646BF827948FFD00340C07 /* DeckDetailsSeparatorBox.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckDetailsSeparatorBox.h; sourceTree = "<group>"; };
+		4F646BF927948FFD00340C07 /* DeckDetailsSeparatorBox.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckDetailsSeparatorBox.m; sourceTree = "<group>"; };
+		4F646BFB2794900B00340C07 /* DeckDetailsSeparatorBox.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DeckDetailsSeparatorBox.xib; sourceTree = "<group>"; };
 		4F68198026D73F2F00033AEE /* DeckBaseContentViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeckBaseContentViewModel.h; sourceTree = "<group>"; };
 		4F68198126D73F2F00033AEE /* DeckBaseContentViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeckBaseContentViewModel.m; sourceTree = "<group>"; };
 		4F6A139B26B251EE0089A13A /* HSCardKeyword.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCardKeyword.m; sourceTree = "<group>"; };
@@ -1813,6 +1818,7 @@
 				4F90DA652766313F007982AE /* DeckDetailsItemModel.h */,
 				4F90DA662766313F007982AE /* DeckDetailsItemModel.m */,
 				4F90DA6B2766417A007982AE /* Card */,
+				4F646BF727948FD900340C07 /* Separator */,
 				F3DBBC2D276B2CE700A63078 /* ManaCostGraph */,
 			);
 			path = DeckDetails;
@@ -1908,6 +1914,16 @@
 				4F646BF42794799200340C07 /* HSCardDroppableView.m */,
 			);
 			path = HSCardDroppableView;
+			sourceTree = "<group>";
+		};
+		4F646BF727948FD900340C07 /* Separator */ = {
+			isa = PBXGroup;
+			children = (
+				4F646BF827948FFD00340C07 /* DeckDetailsSeparatorBox.h */,
+				4F646BF927948FFD00340C07 /* DeckDetailsSeparatorBox.m */,
+				4F646BFB2794900B00340C07 /* DeckDetailsSeparatorBox.xib */,
+			);
+			path = Separator;
 			sourceTree = "<group>";
 		};
 		4F6A13AF26B2733D0089A13A /* Stepper */ = {
@@ -3391,6 +3407,7 @@
 				4F23C8B5273D9A2500C33F10 /* Assets.xcassets in Resources */,
 				4F23C8B8273D9A5900C33F10 /* InfoPlist.strings in Resources */,
 				4F4738D12746D5B7000C0C85 /* CardDetailsBaseCollectionViewItem.xib in Resources */,
+				4F646BFC2794900B00340C07 /* DeckDetailsSeparatorBox.xib in Resources */,
 				4F73EB68278209F500D65FDB /* DeckImageRenderServiceAboutCollectionViewItem.xib in Resources */,
 				4FDE9B6D274AF05C00AB0E02 /* CardDetailsChildCollectionViewItem.xib in Resources */,
 				4F22519A278B28EC0004DD8D /* DeckImageRenderServiceSeparatorBox.xib in Resources */,
@@ -3718,6 +3735,7 @@
 				4FD4E024274EE2CB0037D867 /* DeckBaseCollectionViewItem.m in Sources */,
 				F38FEE5227604C1D00A00485 /* DeckAddCardSectionModel.m in Sources */,
 				4F4738B62746BBCF000C0C85 /* ClickableCollectionViewItem.m in Sources */,
+				4F646BFA27948FFD00340C07 /* DeckDetailsSeparatorBox.m in Sources */,
 				4F883F6A272FFE7C00AF0048 /* CardOptionsTouchBar.m in Sources */,
 				4FE85767270092F30008C2FB /* MainListViewController.m in Sources */,
 				4FF3CD46275977C600ACA5AC /* NSToolbarIdentifierDeckAddCardOptionType+BlizzardHSAPIOptionType.m in Sources */,
