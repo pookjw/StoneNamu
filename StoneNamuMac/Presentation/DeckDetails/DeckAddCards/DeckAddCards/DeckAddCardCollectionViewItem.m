@@ -17,7 +17,7 @@
 
 @implementation DeckAddCardCollectionViewItem
 
--(void)dealloc {
+- (void)dealloc {
     [_hsCard release];
     [_countLabel release];
     [super dealloc];
