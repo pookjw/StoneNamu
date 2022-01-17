@@ -309,7 +309,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardColl
 - (void)endedLoadingDataSourceReceived:(NSNotification *)notification {
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
         [self removeAllSpinnerview];
-        //        [self updateOptionInterfaceWithOptions:self.viewModel.options];
+        [self updateOptionInterfaceWithOptions:self.viewModel.options];
     }];
 }
 

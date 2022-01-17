@@ -218,6 +218,22 @@
         
         //
         
+        NSSearchField * _Nullable searchField = (NSSearchField * _Nullable)obj.menu.itemArray.firstObject.view;
+        
+        if ((searchField != nil) && ([searchField isKindOfClass:[NSSearchField class]])) {
+            NSString *stringValue;
+            
+            if (value == nil) {
+                stringValue = @"";
+            } else {
+                stringValue = value;
+            }
+            
+            searchField.stringValue = stringValue;
+        }
+        
+        //
+        
         item.image = [CardOptionsMenuFactory imageForCardOptionTypeWithValue:value optionType:optionType];
         item.title = [CardOptionsMenuFactory titleForCardOptionTypeWithValue:value optionType:optionType];
         

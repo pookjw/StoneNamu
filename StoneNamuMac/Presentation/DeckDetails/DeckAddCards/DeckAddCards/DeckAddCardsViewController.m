@@ -329,7 +329,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
 - (void)endedLoadingDataSourceReceived:(NSNotification *)notification {
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
         [self removeAllSpinnerview];
-//        [self updateOptionInterfaceWithOptions:self.viewModel.options];
+        [self updateOptionInterfaceWithOptions:self.viewModel.options];
     }];
 }
 

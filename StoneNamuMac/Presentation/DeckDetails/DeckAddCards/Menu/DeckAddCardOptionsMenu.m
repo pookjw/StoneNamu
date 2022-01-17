@@ -107,6 +107,22 @@
         
         //
         
+        NSSearchField * _Nullable searchField = (NSSearchField * _Nullable)obj.submenu.itemArray.firstObject.view;
+        
+        if ((searchField != nil) && ([searchField isKindOfClass:[NSSearchField class]])) {
+            NSString *stringValue;
+            
+            if (value == nil) {
+                stringValue = @"";
+            } else {
+                stringValue = value;
+            }
+            
+            searchField.stringValue = stringValue;
+        }
+        
+        //
+        
         obj.image = [DeckAddCardOptionsMenuFactory imageForDeckAddCardOptionTypeWithValue:value optionType:optionType];
         obj.title = [DeckAddCardOptionsMenuFactory titleForDeckAddCardOptionTypeWithValue:value optionType:optionType];
         
