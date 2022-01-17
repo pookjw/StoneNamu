@@ -57,7 +57,7 @@
 }
 
 - (NSSize)intrinsicContentSize {
-    return NSMakeSize(300.0f, 100.0f);
+    return NSMakeSize(300.0f, 120.0f);
 }
 
 - (void)configureWithDatas:(NSArray<DeckDetailsManaCostGraphData *> *)datas {
@@ -129,10 +129,10 @@
     
     [self.blurView addSubview:stackView];
     [NSLayoutConstraint activateConstraints:@[
-        [stackView.topAnchor constraintEqualToAnchor:self.blurView.safeAreaLayoutGuide.topAnchor],
-        [stackView.leadingAnchor constraintEqualToAnchor:self.blurView.safeAreaLayoutGuide.leadingAnchor],
-        [stackView.trailingAnchor constraintEqualToAnchor:self.blurView.safeAreaLayoutGuide.trailingAnchor],
-        [stackView.bottomAnchor constraintEqualToAnchor:self.blurView.safeAreaLayoutGuide.bottomAnchor]
+        [stackView.topAnchor constraintEqualToAnchor:self.blurView.layoutMarginsGuide.topAnchor],
+        [stackView.leadingAnchor constraintEqualToAnchor:self.blurView.layoutMarginsGuide.leadingAnchor],
+        [stackView.trailingAnchor constraintEqualToAnchor:self.blurView.layoutMarginsGuide.trailingAnchor],
+        [stackView.bottomAnchor constraintEqualToAnchor:self.blurView.layoutMarginsGuide.bottomAnchor]
     ]];
     
     self.stackView = stackView;

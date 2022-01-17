@@ -127,9 +127,8 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
 }
 
 - (void)setAttributes {
-    NSLayoutConstraint *widthLayout = [self.view.widthAnchor constraintEqualToConstant:400.0f];
     [NSLayoutConstraint activateConstraints:@[
-        widthLayout
+        [self.view.widthAnchor constraintGreaterThanOrEqualToConstant:300.0f]
     ]];
 }
 

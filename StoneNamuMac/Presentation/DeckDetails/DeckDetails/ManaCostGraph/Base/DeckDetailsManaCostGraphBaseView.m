@@ -24,6 +24,7 @@
     self = [super init];
     
     if (self) {
+        [self setAttributes];
         [self configureManaLabel];
         [self configureCountLabel];
         [self configureBackgroundView];
@@ -48,6 +49,11 @@
     [self updateFilledView];
 }
 
+- (void)setAttributes {
+    self.wantsLayer = YES;
+    self.layer.masksToBounds = NO;
+}
+
 - (void)configureWithData:(DeckDetailsManaCostGraphData *)data {
     self.data = data;
     
@@ -67,11 +73,11 @@
     [manaLabel setLabelStyle];
     manaLabel.alignment = NSTextAlignmentCenter;
     manaLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    manaLabel.font = [NSFont preferredFontForTextStyle:NSFontTextStyleHeadline options:@{}];
     
     [self addSubview:manaLabel];
     [NSLayoutConstraint activateConstraints:@[
-        [manaLabel.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
-        [manaLabel.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
+        [manaLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor],
         [manaLabel.bottomAnchor constraintEqualToAnchor:self.bottomAnchor]
     ]];
     
@@ -85,12 +91,12 @@
     [countLabel setLabelStyle];
     countLabel.alignment = NSTextAlignmentCenter;
     countLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    countLabel.font = [NSFont preferredFontForTextStyle:NSFontTextStyleSubheadline options:@{}];
     
     [self addSubview:countLabel];
     [NSLayoutConstraint activateConstraints:@[
         [countLabel.topAnchor constraintEqualToAnchor:self.topAnchor],
-        [countLabel.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
-        [countLabel.trailingAnchor constraintEqualToAnchor:self.trailingAnchor]
+        [countLabel.centerXAnchor constraintEqualToAnchor:self.centerXAnchor]
     ]];
     
     self.countLabel = countLabel;
