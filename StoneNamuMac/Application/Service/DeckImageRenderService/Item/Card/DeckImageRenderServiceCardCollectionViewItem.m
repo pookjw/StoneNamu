@@ -29,6 +29,7 @@
     [self configureCountBoxWidthLayout];
     [self configureCardImageViewGradientLayer];
     [self configureNameLabelLayer];
+    [self bind];
 }
 
 - (void)viewDidLayout {
@@ -80,6 +81,8 @@
 }
 
 - (void)setAttributes {
+    self.cardImageView.wantsLayer = YES;
+    self.cardImageView.postsFrameChangedNotifications = YES;
     self.nameLabel.font = [ResourcesService fontForKey:FontKeyGmarketSansTTFMedium size:18.0f];
     self.manaCostLabel.font = [ResourcesService fontForKey:FontKeyGmarketSansTTFBold size:18.0f];
     self.countLabel.font = [ResourcesService fontForKey:FontKeyGmarketSansTTFBold size:18.0f];
@@ -124,7 +127,6 @@
     ];
     cardImageViewGradientLayer.startPoint = CGPointMake(0, 0);
     cardImageViewGradientLayer.endPoint = CGPointMake(0.8, 0);
-    self.cardImageView.wantsLayer = YES;
     self.cardImageView.layer.mask = cardImageViewGradientLayer;
     self.cardImageViewGradientLayer = cardImageViewGradientLayer;
     [cardImageViewGradientLayer release];
@@ -137,6 +139,15 @@
     self.nameLabel.layer.shadowOffset = CGSizeZero;
     self.nameLabel.layer.shadowColor = NSColor.blackColor.CGColor;
     self.nameLabel.layer.masksToBounds = NO;
+}
+
+- (void)bind {
+    [NSNotificationCenter.defaultCenter addObserverForName:NSViewFrameDidChangeNotification
+                                                    object:self.cardImageView
+                                                     queue:NSOperationQueue.mainQueue
+                                                usingBlock:^(NSNotification * _Nonnull note) {
+        [self updateGradientLayer];
+    }];
 }
 
 - (void)updateGradientLayer {
