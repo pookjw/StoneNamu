@@ -150,9 +150,9 @@
     //
     
     if (count > 0) {
-        self.countLabel.alpha = 1.0;
+        self.countLabel.alpha = 1.0f;
     } else {
-        self.countLabel.alpha = 0.0;
+        self.countLabel.alpha = 0.0f;
     }
     
     self.countLabel.text = [NSString stringWithFormat:@"%lu / %d", count, maxCount];

@@ -94,9 +94,9 @@
     //
     
     if (self.count > 0) {
-        self.countLabelContainerBox.layer.opacity = 1.0;
+        self.countLabelContainerBox.layer.opacity = 1.0f;
     } else {
-        self.countLabel.layer.opacity = 0.0;
+        self.countLabelContainerBox.layer.opacity = 0.0f;
     }
     
     self.countLabel.stringValue = [NSString stringWithFormat:@"%lu / %d", self.count, maxCount];
