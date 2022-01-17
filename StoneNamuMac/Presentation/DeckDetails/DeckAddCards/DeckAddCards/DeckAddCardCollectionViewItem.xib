@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19529"/>
+        <capability name="System colors introduced in macOS 10.14" minToolsVersion="10.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -12,6 +13,7 @@
         <collectionViewItem id="aRv-n0-Zs7" customClass="DeckAddCardCollectionViewItem">
             <connections>
                 <outlet property="countLabel" destination="1p6-dl-VYQ" id="Mkb-YB-XCY"/>
+                <outlet property="countLabelContainerBox" destination="km6-4n-jSP" id="AYb-0Y-aVR"/>
                 <outlet property="imageView" destination="M0R-ax-VQ2" id="DvP-Rr-Dd5"/>
                 <outlet property="view" destination="76R-eh-zvV" id="QUy-25-Rta"/>
             </connections>
@@ -27,33 +29,38 @@
                         <rect key="frame" x="0.0" y="21" width="348" height="353"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="ATu-HR-KRe"/>
                     </imageView>
-                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="nrn-kG-4ac">
+                    <box boxType="custom" borderWidth="0.0" title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="km6-4n-jSP">
                         <rect key="frame" x="148" y="0.0" width="53" height="21"/>
-                        <subviews>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1p6-dl-VYQ">
-                                <rect key="frame" x="8" y="0.0" width="37" height="16"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="lNi-jz-zoA">
-                                    <font key="font" usesAppearanceFont="YES"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                        </subviews>
-                        <constraints>
-                            <constraint firstAttribute="bottom" secondItem="1p6-dl-VYQ" secondAttribute="bottom" id="80P-fo-Wbg"/>
-                            <constraint firstAttribute="trailing" secondItem="1p6-dl-VYQ" secondAttribute="trailing" constant="10" id="LJd-mZ-pOK"/>
-                            <constraint firstItem="1p6-dl-VYQ" firstAttribute="leading" secondItem="nrn-kG-4ac" secondAttribute="leading" constant="10" id="R5y-lb-9pl"/>
-                            <constraint firstItem="1p6-dl-VYQ" firstAttribute="top" secondItem="nrn-kG-4ac" secondAttribute="top" constant="5" id="lZR-rV-X1U"/>
-                        </constraints>
-                    </customView>
+                        <view key="contentView" id="3Uh-GG-iT0">
+                            <rect key="frame" x="0.0" y="0.0" width="53" height="21"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1p6-dl-VYQ">
+                                    <rect key="frame" x="8" y="0.0" width="37" height="16"/>
+                                    <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="lNi-jz-zoA">
+                                        <font key="font" usesAppearanceFont="YES"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="1p6-dl-VYQ" firstAttribute="top" secondItem="3Uh-GG-iT0" secondAttribute="top" constant="5" id="1r3-me-NIA"/>
+                                <constraint firstAttribute="bottom" secondItem="1p6-dl-VYQ" secondAttribute="bottom" id="Nzv-7d-1zb"/>
+                                <constraint firstAttribute="trailing" secondItem="1p6-dl-VYQ" secondAttribute="trailing" constant="10" id="hgW-zh-Wwg"/>
+                                <constraint firstItem="1p6-dl-VYQ" firstAttribute="leading" secondItem="3Uh-GG-iT0" secondAttribute="leading" constant="10" id="itX-od-Wdt"/>
+                            </constraints>
+                        </view>
+                        <color key="fillColor" name="controlAccentColor" catalog="System" colorSpace="catalog"/>
+                    </box>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="bottom" secondItem="km6-4n-jSP" secondAttribute="bottom" id="2P4-te-xpC"/>
                     <constraint firstItem="M0R-ax-VQ2" firstAttribute="top" secondItem="rNt-hZ-whS" secondAttribute="top" id="8aB-VF-UNg"/>
-                    <constraint firstItem="nrn-kG-4ac" firstAttribute="centerX" secondItem="rNt-hZ-whS" secondAttribute="centerX" id="Byo-fz-app"/>
+                    <constraint firstItem="km6-4n-jSP" firstAttribute="centerX" secondItem="rNt-hZ-whS" secondAttribute="centerX" id="Vcf-vp-1EG"/>
                     <constraint firstItem="M0R-ax-VQ2" firstAttribute="leading" secondItem="rNt-hZ-whS" secondAttribute="leading" id="cRx-px-UPE"/>
-                    <constraint firstItem="nrn-kG-4ac" firstAttribute="top" secondItem="M0R-ax-VQ2" secondAttribute="bottom" id="mI4-DR-U1F"/>
                     <constraint firstAttribute="trailing" secondItem="M0R-ax-VQ2" secondAttribute="trailing" id="oNZ-ix-bpx"/>
-                    <constraint firstAttribute="bottom" secondItem="nrn-kG-4ac" secondAttribute="bottom" id="wqj-1X-obP"/>
+                    <constraint firstItem="km6-4n-jSP" firstAttribute="top" secondItem="M0R-ax-VQ2" secondAttribute="bottom" id="zTi-Gj-0hf"/>
                 </constraints>
             </view>
             <point key="canvasLocation" x="113" y="84"/>

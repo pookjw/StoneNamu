@@ -12,7 +12,7 @@
 #import "InsetsLabel.h"
 #import "UIImage+imageWithGrayScale.h"
 
-#define DEGREES_TO_RADIANS(degrees) ((M_PI * degrees) / 180)
+#define DEGREES_TO_RADIANS(degrees) ((M_PI * degrees) / 180.0f)
 
 @interface DeckAddCardContentView ()
 @property (readonly, nonatomic) HSCard * _Nullable hsCard;
@@ -166,32 +166,32 @@
     UIBezierPath *path = [UIBezierPath bezierPath];
     
     CGFloat arrowHeight = countLabel.contentInsets.top;
-    CGFloat arrowSideLength = arrowHeight * (1 / cos(DEGREES_TO_RADIANS(30)));
-    CGFloat radius = (size.height - arrowHeight) / 2;
+    CGFloat arrowSideLength = arrowHeight * (1.0f / cos(DEGREES_TO_RADIANS(30.0f)));
+    CGFloat radius = (size.height - arrowHeight) / 2.0f;
     CGPoint leftCenter = CGPointMake(radius, size.height - radius);
     CGPoint rightCenter = CGPointMake(size.width - radius, leftCenter.y);
     
     [path moveToPoint:CGPointMake(leftCenter.x,
                                   leftCenter.y - radius)];
-    [path addLineToPoint:CGPointMake((size.width - arrowSideLength) / 2,
+    [path addLineToPoint:CGPointMake((size.width - arrowSideLength) / 2.0f,
                                      leftCenter.y - radius)];
-    [path addLineToPoint:CGPointMake(size.width / 2,
-                                     0)];
-    [path addLineToPoint:CGPointMake((size.width + arrowSideLength) / 2,
+    [path addLineToPoint:CGPointMake(size.width / 2.0f,
+                                     0.0f)];
+    [path addLineToPoint:CGPointMake((size.width + arrowSideLength) / 2.0f,
                                      rightCenter.y - radius)];
     [path addLineToPoint:CGPointMake(rightCenter.x,
                                      rightCenter.y - radius)];
     
     [path addArcWithCenter:rightCenter
                     radius:radius
-                startAngle:DEGREES_TO_RADIANS(270)
-                  endAngle:DEGREES_TO_RADIANS(0)
+                startAngle:DEGREES_TO_RADIANS(270.0f)
+                  endAngle:DEGREES_TO_RADIANS(0.0f)
                  clockwise:YES];
     
     [path addArcWithCenter:rightCenter
                     radius:radius
-                startAngle:DEGREES_TO_RADIANS(0)
-                  endAngle:DEGREES_TO_RADIANS(90)
+                startAngle:DEGREES_TO_RADIANS(0.0f)
+                  endAngle:DEGREES_TO_RADIANS(90.0f)
                  clockwise:YES];
     
     [path addLineToPoint:CGPointMake(rightCenter.x,
@@ -201,14 +201,14 @@
     
     [path addArcWithCenter:leftCenter
                     radius:radius
-                startAngle:DEGREES_TO_RADIANS(90)
-                  endAngle:DEGREES_TO_RADIANS(180)
+                startAngle:DEGREES_TO_RADIANS(90.0f)
+                  endAngle:DEGREES_TO_RADIANS(180.0f)
                  clockwise:YES];
     
     [path addArcWithCenter:leftCenter
                     radius:radius
-                startAngle:DEGREES_TO_RADIANS(180)
-                  endAngle:DEGREES_TO_RADIANS(270)
+                startAngle:DEGREES_TO_RADIANS(180.0f)
+                  endAngle:DEGREES_TO_RADIANS(270.0f)
                  clockwise:YES];
     
     [path addLineToPoint:CGPointMake(leftCenter.x,

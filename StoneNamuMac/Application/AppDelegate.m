@@ -24,6 +24,10 @@
 }
 
 - (BOOL)applicationShouldHandleReopen:(NSApplication *)sender hasVisibleWindows:(BOOL)flag {
+    if (NSApp.windows.count > 0) {
+        return NO;
+    }
+    
     return [WindowsService presentNewMainWindowIfNeeded];
 }
 
