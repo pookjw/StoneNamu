@@ -9,6 +9,7 @@
 #import <StoneNamuResources/StoneNamuResources.h>
 
 @interface DeckImageRenderServiceIntroCollectionViewItem ()
+@property (retain) IBOutlet NSBox *heroImageViewContainerBox;
 @property (retain) IBOutlet NSImageView *heroImageView;
 @property (retain) IBOutlet NSBox *backgroundBox;
 @property (retain) IBOutlet NSTextField *nameLabel;
@@ -25,6 +26,7 @@
 }
 
 - (void)dealloc {
+    [_heroImageViewContainerBox release];
     [_heroImageView release];
     [_backgroundBox release];
     [_nameLabel release];
@@ -34,7 +36,13 @@
 }
 
 - (void)configureWithClassId:(HSCardClass)classId deckName:(NSString *)deckName deckFormat:(HSDeckFormat)deckFormat isEasterEgg:(BOOL)isEasterEgg {
-    self.heroImageView.image = [ResourcesService portraitImageForClassId:classId];
+    if (isEasterEgg) {
+        self.heroImageViewContainerBox.fillColor = NSColor.grayColor;
+        self.heroImageView.image = [ResourcesService imageForKey:ImageKeyPnamuEasteregg1];
+    } else {
+        self.heroImageViewContainerBox.fillColor = NSColor.clearColor;
+        self.heroImageView.image = [ResourcesService portraitImageForClassId:classId];
+    }
     
     self.nameLabel.stringValue = deckName;
     self.classLabel.stringValue = [ResourcesService localizationForHSCardClass:classId];

@@ -59,15 +59,16 @@
     //
     
     BOOL deckName = (((self.deckName == nil) && (toCompare.deckName == nil)) || ([self.deckName isEqualToString:toCompare.deckName]));
+    BOOL isEasterEgg = (self.isEasterEgg == toCompare.isEasterEgg);
     BOOL classId = (self.classId == toCompare.classId);
     BOOL deckFormat = (((self.deckFormat == nil) && (toCompare.deckFormat == nil)) || ([self.deckFormat isEqualToString:toCompare.deckFormat]));
     BOOL hsCard = (((self.hsCard == nil) && (toCompare.hsCard == nil)) || ([self.hsCard isEqual:toCompare.hsCard]));
     
-    return (type && totalArcaneDust && deckName && classId && deckFormat && hsCard);
+    return (type && totalArcaneDust && deckName && isEasterEgg && classId && deckFormat && hsCard);
 }
 
 - (NSUInteger)hash {
-    return self.type ^ self.totalArcaneDust.hash ^ self.deckName.hash ^ self.classId ^ self.deckFormat.hash ^ self.hsCard.hash;
+    return self.type ^ self.totalArcaneDust.hash ^ self.deckName.hash ^ self.isEasterEgg ^ self.classId ^ self.deckFormat.hash ^ self.hsCard.hash;
 }
 
 
