@@ -52,6 +52,7 @@
     [self configureImageViewGradientLayer];
     [self setAttributes];
     [self clearContents];
+    [self bind];
 }
 
 - (void)prepareForReuse {
@@ -94,24 +95,25 @@
 }
 
 - (void)configureImageViewGradientLayer {
-//    CAGradientLayer *cardImageViewGradientLayer = [CAGradientLayer new];
-//
-//    cardImageViewGradientLayer.colors = @[
-//        (id)[NSColor.whiteColor colorWithAlphaComponent:0].CGColor,
-//        (id)NSColor.whiteColor.CGColor
-//    ];
-//    cardImageViewGradientLayer.startPoint = CGPointMake(0, 0);
-//    cardImageViewGradientLayer.endPoint = CGPointMake(0.8, 0);
-//    self.cardImageView.wantsLayer = YES;
-//    self.cardImageView.layer.mask = cardImageViewGradientLayer;
-//
-//    self.cardImageViewGradientLayer = cardImageViewGradientLayer;
-//    [cardImageViewGradientLayer release];
+    CAGradientLayer *cardImageViewGradientLayer = [CAGradientLayer new];
+
+    cardImageViewGradientLayer.colors = @[
+        (id)[NSColor.whiteColor colorWithAlphaComponent:0].CGColor,
+        (id)NSColor.whiteColor.CGColor
+    ];
+    cardImageViewGradientLayer.startPoint = CGPointMake(0, 0);
+    cardImageViewGradientLayer.endPoint = CGPointMake(0.8, 0);
+    self.cardImageView.wantsLayer = YES;
+    self.cardImageView.layer.mask = cardImageViewGradientLayer;
+
+    self.cardImageViewGradientLayer = cardImageViewGradientLayer;
+    [cardImageViewGradientLayer release];
 }
 
 - (void)setAttributes {
     self.manaCostContainerViewWidthConstraint.constant = [self preferredWidthWithManaCostLabel:self.manaCostLabel];
     self.countContainerViewWidthConstraint.constant = [self preferredWidthWithCountLabel:self.countLabel];
+    self.cardImageView.postsFrameChangedNotifications = YES;
 }
 
 - (void)clearContents {
@@ -121,11 +123,24 @@
     self.imageView.image = nil;
 }
 
+- (void)bind {
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(cardImageViewDidChangeFrame:)
+                                               name:NSViewFrameDidChangeNotification
+                                             object:self.cardImageView];
+}
+
+- (void)cardImageViewDidChangeFrame:(NSNotification *)notification {
+    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+        [self updateGradientLayer];
+    }];
+}
+
 - (void)updateGradientLayer {
-//    [CATransaction begin];
-//    [CATransaction setDisableActions:YES];
-//    self.cardImageViewGradientLayer.frame = self.cardImageView.bounds;
-//    [CATransaction commit];
+    [CATransaction begin];
+    [CATransaction setDisableActions:YES];
+    self.cardImageViewGradientLayer.frame = self.cardImageView.bounds;
+    [CATransaction commit];
 }
 
 - (CGFloat)preferredWidthWithManaCostLabel:(NSTextField *)manaCostLabel {
