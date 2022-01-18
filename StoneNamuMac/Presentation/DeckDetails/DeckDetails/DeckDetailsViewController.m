@@ -447,6 +447,8 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
 }
 
 - (DeckDetailsDataSource *)makeDataSource {
+    DeckDetailsViewController * __block unretainedSelf = self;
+    
     DeckDetailsDataSource *dataSource = [[DeckDetailsDataSource alloc] initWithCollectionView:self.collectionView
                                                                                  itemProvider:^NSCollectionViewItem * _Nullable(NSCollectionView * _Nonnull collectionView, NSIndexPath * _Nonnull indexPath, DeckDetailsItemModel * _Nonnull itemModel) {
         
@@ -456,7 +458,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
                 
                 [item configureWithHSCard:itemModel.hsCard
                               hsCardCount:itemModel.hsCardCount.unsignedIntegerValue
-                                 delegate:self];
+                                 delegate:unretainedSelf];
                 
                 return item;
             }

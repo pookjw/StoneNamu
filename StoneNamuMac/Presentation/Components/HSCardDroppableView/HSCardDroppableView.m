@@ -25,6 +25,7 @@
             NSOperationQueue *queue = [NSOperationQueue new];
             queue.qualityOfService = NSQualityOfServiceUserInitiated;
             self.queue = queue;
+            [queue release];
         }
         
         [self registerForDraggedTypes:@[NSPasteboardTypeHSCard]];
