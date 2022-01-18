@@ -171,6 +171,7 @@
 		4F74712F26C1760C001C45C4 /* CardDetailsChildContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F74712E26C1760C001C45C4 /* CardDetailsChildContentView.m */; };
 		4F7C688827973AC600A56D1C /* NSApplication+actualWindows.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F7C688727973AC600A56D1C /* NSApplication+actualWindows.m */; };
 		4F7C688B27973D1A00A56D1C /* NSImage+imageWithGrayScale.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F7C688A27973D1A00A56D1C /* NSImage+imageWithGrayScale.m */; };
+		4F7C689327974D7000A56D1C /* VibrancyTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F7C689127974D6F00A56D1C /* VibrancyTextField.m */; };
 		4F7EC54426EB26BE00A7758D /* UIView+imageRendered.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F7EC54326EB26BE00A7758D /* UIView+imageRendered.m */; };
 		4F7EC54726EB290B00A7758D /* DeckImageRenderService.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F7EC54626EB290B00A7758D /* DeckImageRenderService.m */; };
 		4F7EC54E26EB2A3700A7758D /* DeckImageRenderServiceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F7EC54D26EB2A3700A7758D /* DeckImageRenderServiceModel.m */; };
@@ -793,6 +794,8 @@
 		4F7C688727973AC600A56D1C /* NSApplication+actualWindows.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSApplication+actualWindows.m"; sourceTree = "<group>"; };
 		4F7C688927973D1A00A56D1C /* NSImage+imageWithGrayScale.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSImage+imageWithGrayScale.h"; sourceTree = "<group>"; };
 		4F7C688A27973D1A00A56D1C /* NSImage+imageWithGrayScale.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSImage+imageWithGrayScale.m"; sourceTree = "<group>"; };
+		4F7C689127974D6F00A56D1C /* VibrancyTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VibrancyTextField.m; sourceTree = "<group>"; };
+		4F7C689227974D7000A56D1C /* VibrancyTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VibrancyTextField.h; sourceTree = "<group>"; };
 		4F7EC54226EB26BE00A7758D /* UIView+imageRendered.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+imageRendered.h"; sourceTree = "<group>"; };
 		4F7EC54326EB26BE00A7758D /* UIView+imageRendered.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+imageRendered.m"; sourceTree = "<group>"; };
 		4F7EC54526EB290B00A7758D /* DeckImageRenderService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckImageRenderService.h; sourceTree = "<group>"; };
@@ -1972,6 +1975,15 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+		4F7C6890279747CF00A56D1C /* VibrancyTextField */ = {
+			isa = PBXGroup;
+			children = (
+				4F7C689227974D7000A56D1C /* VibrancyTextField.h */,
+				4F7C689127974D6F00A56D1C /* VibrancyTextField.m */,
+			);
+			path = VibrancyTextField;
+			sourceTree = "<group>";
+		};
 		4F7EC54826EB29FF00A7758D /* PhotosService */ = {
 			isa = PBXGroup;
 			children = (
@@ -2137,6 +2149,7 @@
 				4F1FA0BC27506AE00082EBF0 /* StorableMenuItem */,
 				4FC402AF2738684600D25523 /* Menu */,
 				4FC402B627386D0600D25523 /* SpinnerView */,
+				4F7C6890279747CF00A56D1C /* VibrancyTextField */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -3669,6 +3682,7 @@
 				F303D6392741507400569E20 /* PrefsCardsViewController.m in Sources */,
 				4FE85708270089BD0008C2FB /* main.m in Sources */,
 				4FF3CD3E2759754B00ACA5AC /* NSUserInterfaceItemIdentifierDeckAddCardOptionType+BlizzardHSAPIOption.m in Sources */,
+				4F7C689327974D7000A56D1C /* VibrancyTextField.m in Sources */,
 				4F23C8A3273D830200C33F10 /* MainWindowRestoration.m in Sources */,
 				4F59009F2753502400217E4A /* DeckDetailsSplitViewController.m in Sources */,
 				4FC402C0273870C200D25523 /* ViewMenuItem.m in Sources */,

@@ -7,8 +7,6 @@
 
 #import "CardDetailsViewController.h"
 #import "CardDetailsViewModel.h"
-#import "NSTextField+setLabelStyle.h"
-#import "NSImageView+setAsyncImage.h"
 #import "NSWindow+presentErrorAlert.h"
 #import "CardDetailsBaseCollectionViewItem.h"
 #import "CardDetailsChildCollectionViewItem.h"

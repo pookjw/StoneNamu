@@ -6,11 +6,12 @@
 //
 
 #import "CardDetailsBaseCollectionViewItem.h"
+#import "VibrancyTextField.h"
 #import <StoneNamuResources/StoneNamuResources.h>
 
 @interface CardDetailsBaseCollectionViewItem ()
-@property (retain) IBOutlet NSTextField *leadingLabel;
-@property (retain) IBOutlet NSTextField *trailingLabel;
+@property (retain) IBOutlet VibrancyTextField *leadingLabel;
+@property (retain) IBOutlet VibrancyTextField *trailingLabel;
 @end
 
 @implementation CardDetailsBaseCollectionViewItem
@@ -24,6 +25,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     [self clearContents];
+    [self setAttributes];
 }
 
 - (void)prepareForReuse {
@@ -39,6 +41,11 @@
     } else {
         self.trailingLabel.stringValue = trailingText;
     }
+}
+
+- (void)setAttributes {
+    self.leadingLabel.textColor = NSColor.systemGrayColor;
+    self.trailingLabel.textColor = NSColor.systemGrayColor;
 }
 
 - (void)clearContents {
