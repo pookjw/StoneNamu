@@ -8,6 +8,7 @@
 #import "CardDetailsCollectionViewLayout.h"
 #import "CardDetailsSectionModel.h"
 #import "CardDetailsBackgroundBox.h"
+#import "CardDetailsSeparatorBox.h"
 
 @implementation CardDetailsCollectionViewLayout
 
@@ -16,9 +17,14 @@
         
         switch (section) {
             case CardDetailsSectionModelTypeBase: case CardDetailsSectionModelTypeDetail: {
+                NSCollectionLayoutSize *separatorSize = [NSCollectionLayoutSize sizeWithWidthDimension:[NSCollectionLayoutDimension fractionalWidthDimension:1.0f]
+                                                                                       heightDimension:[NSCollectionLayoutDimension absoluteDimension:0.5f]];
+                NSCollectionLayoutAnchor *seapratorContainerAnchor = [NSCollectionLayoutAnchor layoutAnchorWithEdges:NSDirectionalRectEdgeLeading | NSDirectionalRectEdgeBottom | NSDirectionalRectEdgeTrailing absoluteOffset:NSZeroPoint];
+                NSCollectionLayoutSupplementaryItem *separatorItem = [NSCollectionLayoutSupplementaryItem supplementaryItemWithLayoutSize:separatorSize elementKind:NSStringFromClass([CardDetailsSeparatorBox class]) containerAnchor:seapratorContainerAnchor];
+                
                 NSCollectionLayoutSize *itemSize = [NSCollectionLayoutSize sizeWithWidthDimension:[NSCollectionLayoutDimension fractionalWidthDimension:1.0f]
                                                                                   heightDimension:[NSCollectionLayoutDimension estimatedDimension:50.0f]];
-                NSCollectionLayoutItem *item = [NSCollectionLayoutItem itemWithLayoutSize:itemSize];
+                NSCollectionLayoutItem *item = [NSCollectionLayoutItem itemWithLayoutSize:itemSize supplementaryItems:@[separatorItem]];
                 
                 NSCollectionLayoutSize *groupSize = [NSCollectionLayoutSize sizeWithWidthDimension:[NSCollectionLayoutDimension fractionalWidthDimension:1.0f]
                                                                                    heightDimension:[NSCollectionLayoutDimension estimatedDimension:50.0f]];

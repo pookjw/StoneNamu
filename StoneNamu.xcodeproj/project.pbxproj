@@ -174,6 +174,8 @@
 		4F7C689327974D7000A56D1C /* VibrancyTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F7C689127974D6F00A56D1C /* VibrancyTextField.m */; };
 		4F7C6897279751E700A56D1C /* CardDetailsBackgroundBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F7C6896279751E700A56D1C /* CardDetailsBackgroundBox.m */; };
 		4F7C6899279751F800A56D1C /* CardDetailsBackgroundBox.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F7C6898279751F800A56D1C /* CardDetailsBackgroundBox.xib */; };
+		4F7C689D27975D1900A56D1C /* CardDetailsSeparatorBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F7C689C27975D1900A56D1C /* CardDetailsSeparatorBox.m */; };
+		4F7C689F27975D1F00A56D1C /* CardDetailsSeparatorBox.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F7C689E27975D1F00A56D1C /* CardDetailsSeparatorBox.xib */; };
 		4F7EC54426EB26BE00A7758D /* UIView+imageRendered.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F7EC54326EB26BE00A7758D /* UIView+imageRendered.m */; };
 		4F7EC54726EB290B00A7758D /* DeckImageRenderService.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F7EC54626EB290B00A7758D /* DeckImageRenderService.m */; };
 		4F7EC54E26EB2A3700A7758D /* DeckImageRenderServiceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F7EC54D26EB2A3700A7758D /* DeckImageRenderServiceModel.m */; };
@@ -801,6 +803,9 @@
 		4F7C6895279751E700A56D1C /* CardDetailsBackgroundBox.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardDetailsBackgroundBox.h; sourceTree = "<group>"; };
 		4F7C6896279751E700A56D1C /* CardDetailsBackgroundBox.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardDetailsBackgroundBox.m; sourceTree = "<group>"; };
 		4F7C6898279751F800A56D1C /* CardDetailsBackgroundBox.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CardDetailsBackgroundBox.xib; sourceTree = "<group>"; };
+		4F7C689B27975D1900A56D1C /* CardDetailsSeparatorBox.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardDetailsSeparatorBox.h; sourceTree = "<group>"; };
+		4F7C689C27975D1900A56D1C /* CardDetailsSeparatorBox.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardDetailsSeparatorBox.m; sourceTree = "<group>"; };
+		4F7C689E27975D1F00A56D1C /* CardDetailsSeparatorBox.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CardDetailsSeparatorBox.xib; sourceTree = "<group>"; };
 		4F7EC54226EB26BE00A7758D /* UIView+imageRendered.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+imageRendered.h"; sourceTree = "<group>"; };
 		4F7EC54326EB26BE00A7758D /* UIView+imageRendered.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+imageRendered.m"; sourceTree = "<group>"; };
 		4F7EC54526EB290B00A7758D /* DeckImageRenderService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckImageRenderService.h; sourceTree = "<group>"; };
@@ -1591,6 +1596,7 @@
 				4FDE9B55274ACE7100AB0E02 /* CardDetailsItemModel.m */,
 				4F4738CC2746D588000C0C85 /* Base */,
 				4F7C68942797514000A56D1C /* Background */,
+				4F7C689A27975D0700A56D1C /* Separator */,
 				4FDE9B68274AF02100AB0E02 /* Child */,
 			);
 			path = CardDetails;
@@ -1998,6 +2004,16 @@
 				4F7C6898279751F800A56D1C /* CardDetailsBackgroundBox.xib */,
 			);
 			path = Background;
+			sourceTree = "<group>";
+		};
+		4F7C689A27975D0700A56D1C /* Separator */ = {
+			isa = PBXGroup;
+			children = (
+				4F7C689B27975D1900A56D1C /* CardDetailsSeparatorBox.h */,
+				4F7C689C27975D1900A56D1C /* CardDetailsSeparatorBox.m */,
+				4F7C689E27975D1F00A56D1C /* CardDetailsSeparatorBox.xib */,
+			);
+			path = Separator;
 			sourceTree = "<group>";
 		};
 		4F7EC54826EB29FF00A7758D /* PhotosService */ = {
@@ -3444,6 +3460,7 @@
 				4F73EB66278209DC00D65FDB /* DeckImageRenderServiceCardCollectionViewItem.xib in Resources */,
 				4F4892EB272474D600126131 /* CardCollectionViewItem.xib in Resources */,
 				4F23C8B5273D9A2500C33F10 /* Assets.xcassets in Resources */,
+				4F7C689F27975D1F00A56D1C /* CardDetailsSeparatorBox.xib in Resources */,
 				4F23C8B8273D9A5900C33F10 /* InfoPlist.strings in Resources */,
 				4F4738D12746D5B7000C0C85 /* CardDetailsBaseCollectionViewItem.xib in Resources */,
 				4F7C6899279751F800A56D1C /* CardDetailsBackgroundBox.xib in Resources */,
@@ -3691,6 +3708,7 @@
 				4FE8576D27009B5C0008C2FB /* CardsViewModel.m in Sources */,
 				F3DBBC36276B371E00A63078 /* NSWindow+topBarHeight.m in Sources */,
 				4F5900922753193B00217E4A /* NSViewController+splitViewController.m in Sources */,
+				4F7C689D27975D1900A56D1C /* CardDetailsSeparatorBox.m in Sources */,
 				F31581012741231700DBD6D4 /* AppDelegate.m in Sources */,
 				4F6302DC278DF0CF00AF075D /* PrefsWindowRestoration.m in Sources */,
 				4FD430582782032000E7F23A /* DeckImageRenderServiceAboutCollectionViewItem.m in Sources */,

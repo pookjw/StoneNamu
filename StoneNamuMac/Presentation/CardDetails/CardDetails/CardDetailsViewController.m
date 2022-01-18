@@ -18,10 +18,12 @@
 #import "ClickableCollectionView.h"
 #import "WindowsService.h"
 #import "NSViewController+loadViewIfNeeded.h"
+#import "CardDetailsSeparatorBox.h"
 #import <StoneNamuResources/StoneNamuResources.h>
 
 static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDetailsBaseCollectionViewItem = @"NSUserInterfaceItemIdentifierCardDetailsBaseCollectionViewItem";
 static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDetailsChildCollectionViewItem = @"NSUserInterfaceItemIdentifierCardDetailsChildCollectionViewItem";
+static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDetailsSeparatorBox = @"NSUserInterfaceItemIdentifierCardDetailsSeparatorBox";
 
 @interface CardDetailsViewController () <NSCollectionViewDelegate, NSMenuDelegate, CardDetailsChildCollectionViewItemDelegate>
 @property (retain) NSVisualEffectView *blurView;
@@ -194,6 +196,10 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeta
     [collectionView registerNib:childNib forItemWithIdentifier:NSUserInterfaceItemIdentifierCardDetailsChildCollectionViewItem];
     [childNib release];
     
+    NSNib *separatorNib = [[NSNib alloc] initWithNibNamed:NSStringFromClass([CardDetailsSeparatorBox class]) bundle:NSBundle.mainBundle];
+    [collectionView registerNib:separatorNib forSupplementaryViewOfKind:NSStringFromClass([CardDetailsSeparatorBox class]) withIdentifier:NSUserInterfaceItemIdentifierCardDetailsSeparatorBox];
+    [separatorNib release];
+    
     collectionView.postsBoundsChangedNotifications = NO;
     collectionView.selectable = YES;
     collectionView.allowsMultipleSelection = YES;
@@ -300,6 +306,21 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeta
             }
         }
     }];
+    
+    dataSource.supplementaryViewProvider = ^NSView * _Nullable(NSCollectionView * _Nonnull collectionView, NSString * _Nonnull elementKind, NSIndexPath * _Nonnull indexPath) {
+        if ([elementKind isEqualToString:NSStringFromClass([CardDetailsSeparatorBox class])]) {
+            NSUInteger numberOfItems = [collectionView numberOfItemsInSection:indexPath.section];
+            
+            if (indexPath.item == (numberOfItems - 1)) {
+                return nil;
+            }
+            
+            CardDetailsSeparatorBox *view = (CardDetailsSeparatorBox *)[collectionView makeSupplementaryViewOfKind:elementKind withIdentifier:NSUserInterfaceItemIdentifierCardDetailsSeparatorBox forIndexPath:indexPath];
+            return view;
+        } else {
+            return nil;
+        }
+    };
     
     return [dataSource autorelease];
 }
