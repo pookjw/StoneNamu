@@ -10,7 +10,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UIImage (imageWithGrayScale)
-@property BOOL isGrayScaleApplied;
+@property (readonly) BOOL isGrayScaleApplied;
 @property UIImage * _Nullable imageBeforeGrayScale;
 - (UIImage *)imageWithGrayScale;
 @end

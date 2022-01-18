@@ -170,6 +170,7 @@
 		4F74712C26C175FE001C45C4 /* CardDetailsChildContentConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F74712B26C175FE001C45C4 /* CardDetailsChildContentConfiguration.m */; };
 		4F74712F26C1760C001C45C4 /* CardDetailsChildContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F74712E26C1760C001C45C4 /* CardDetailsChildContentView.m */; };
 		4F7C688827973AC600A56D1C /* NSApplication+actualWindows.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F7C688727973AC600A56D1C /* NSApplication+actualWindows.m */; };
+		4F7C688B27973D1A00A56D1C /* NSImage+imageWithGrayScale.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F7C688A27973D1A00A56D1C /* NSImage+imageWithGrayScale.m */; };
 		4F7EC54426EB26BE00A7758D /* UIView+imageRendered.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F7EC54326EB26BE00A7758D /* UIView+imageRendered.m */; };
 		4F7EC54726EB290B00A7758D /* DeckImageRenderService.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F7EC54626EB290B00A7758D /* DeckImageRenderService.m */; };
 		4F7EC54E26EB2A3700A7758D /* DeckImageRenderServiceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F7EC54D26EB2A3700A7758D /* DeckImageRenderServiceModel.m */; };
@@ -790,6 +791,8 @@
 		4F74712E26C1760C001C45C4 /* CardDetailsChildContentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardDetailsChildContentView.m; sourceTree = "<group>"; };
 		4F7C688627973AC600A56D1C /* NSApplication+actualWindows.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSApplication+actualWindows.h"; sourceTree = "<group>"; };
 		4F7C688727973AC600A56D1C /* NSApplication+actualWindows.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSApplication+actualWindows.m"; sourceTree = "<group>"; };
+		4F7C688927973D1A00A56D1C /* NSImage+imageWithGrayScale.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSImage+imageWithGrayScale.h"; sourceTree = "<group>"; };
+		4F7C688A27973D1A00A56D1C /* NSImage+imageWithGrayScale.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSImage+imageWithGrayScale.m"; sourceTree = "<group>"; };
 		4F7EC54226EB26BE00A7758D /* UIView+imageRendered.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+imageRendered.h"; sourceTree = "<group>"; };
 		4F7EC54326EB26BE00A7758D /* UIView+imageRendered.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+imageRendered.m"; sourceTree = "<group>"; };
 		4F7EC54526EB290B00A7758D /* DeckImageRenderService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckImageRenderService.h; sourceTree = "<group>"; };
@@ -2766,6 +2769,8 @@
 				4F2251A3278B52A20004DD8D /* NSTextField+setFontSizeToFitWithMaxFontSize.m */,
 				4F7C688627973AC600A56D1C /* NSApplication+actualWindows.h */,
 				4F7C688727973AC600A56D1C /* NSApplication+actualWindows.m */,
+				4F7C688927973D1A00A56D1C /* NSImage+imageWithGrayScale.h */,
+				4F7C688A27973D1A00A56D1C /* NSImage+imageWithGrayScale.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -3669,6 +3674,7 @@
 				4FC402C0273870C200D25523 /* ViewMenuItem.m in Sources */,
 				4FC402C3273872A900D25523 /* WindowMenuItem.m in Sources */,
 				4FDE9B6B274AF05200AB0E02 /* CardDetailsChildCollectionViewItem.m in Sources */,
+				4F7C688B27973D1A00A56D1C /* NSImage+imageWithGrayScale.m in Sources */,
 				F3DBBC30276B2D0C00A63078 /* DeckDetailsManaCostGraphData.m in Sources */,
 				4F90DA672766313F007982AE /* DeckDetailsItemModel.m in Sources */,
 				4F883F6E27300B1700AF0048 /* NSToolbarIdentifierCardOptionType+BlizzardHSAPIOptionType.m in Sources */,

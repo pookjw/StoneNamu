@@ -12,9 +12,9 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <collectionViewItem id="aRv-n0-Zs7" customClass="DeckAddCardCollectionViewItem">
             <connections>
+                <outlet property="cardImageView" destination="M0R-ax-VQ2" id="W9c-Ik-sZR"/>
                 <outlet property="countLabel" destination="1p6-dl-VYQ" id="Mkb-YB-XCY"/>
                 <outlet property="countLabelContainerBox" destination="km6-4n-jSP" id="AYb-0Y-aVR"/>
-                <outlet property="imageView" destination="M0R-ax-VQ2" id="DvP-Rr-Dd5"/>
                 <outlet property="view" destination="76R-eh-zvV" id="QUy-25-Rta"/>
             </connections>
         </collectionViewItem>

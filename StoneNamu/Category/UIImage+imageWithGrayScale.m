@@ -20,6 +20,11 @@ static NSString * const UIImageGrayScaleCategoryImageBeforeGrayScale = @"UIImage
 
 - (BOOL)isGrayScaleApplied {
     NSNumber *value = objc_getAssociatedObject(self, &UIImageGrayScaleCategoryIsGrayScaleApplied);
+    
+    if (value == NULL) {
+        return NO;
+    }
+    
     return value.boolValue;
 }
 
@@ -28,7 +33,13 @@ static NSString * const UIImageGrayScaleCategoryImageBeforeGrayScale = @"UIImage
 }
 
 - (UIImage * _Nullable)imageBeforeGrayScale {
-    return objc_getAssociatedObject(self, &UIImageGrayScaleCategoryImageBeforeGrayScale);
+    UIImage *imageBeforeGrayScale = objc_getAssociatedObject(self, &UIImageGrayScaleCategoryImageBeforeGrayScale);
+    
+    if (imageBeforeGrayScale == NULL) {
+        return nil;
+    }
+    
+    return imageBeforeGrayScale;
 }
 
 - (void)setImageBeforeGrayScale:(UIImage *)imageBeforeGrayScale {

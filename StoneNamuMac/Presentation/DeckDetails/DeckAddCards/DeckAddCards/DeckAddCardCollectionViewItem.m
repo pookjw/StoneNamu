@@ -7,6 +7,7 @@
 
 #import "DeckAddCardCollectionViewItem.h"
 #import "NSImageView+setAsyncImage.h"
+#import "NSImage+imageWithGrayScale.h"
 #import <QuartzCore/QuartzCore.h>
 
 #define DEGREES_TO_RADIANS(degrees) ((M_PI * degrees) / 180.0f)
@@ -14,6 +15,7 @@
 @interface DeckAddCardCollectionViewItem ()
 @property NSUInteger count;
 @property (assign) id<DeckAddCardCollectionViewItemDelegate> delegate;
+@property (retain) IBOutlet NSImageView *cardImageView;
 @property (retain) IBOutlet NSBox *countLabelContainerBox;
 @property (retain) IBOutlet NSTextField *countLabel;
 @end
@@ -22,6 +24,7 @@
 
 - (void)dealloc {
     [_hsCard release];
+    [_cardImageView release];
     [_countLabelContainerBox release];
     [_countLabel release];
     [super dealloc];
@@ -40,13 +43,24 @@
 }
 
 - (void)configureWithHSCard:(HSCard *)hsCard count:(NSUInteger)count delegate:(nonnull id<DeckAddCardCollectionViewItemDelegate>)delegate {
+    BOOL shouldUpdateImage = !([hsCard isEqual:self.hsCard]);
+    
     [self->_hsCard release];
     self->_hsCard = [hsCard copy];
     self.count = count;
     self.delegate = delegate;
     
     [self updateCountLabel];
-    [self.imageView setAsyncImageWithURL:self.hsCard.image indicator:YES];
+    
+    if (shouldUpdateImage) {
+        [self.cardImageView setAsyncImageWithURL:self.hsCard.image indicator:YES completion:^(NSImage * _Nullable image, NSError * _Nullable error) {
+            [NSOperationQueue.mainQueue addOperationWithBlock:^{
+                [self updateGrayScaleToImageView];
+            }];
+        }];
+    } else {
+        [self updateGrayScaleToImageView];
+    }
 }
 
 - (void)setAttributes {
@@ -138,6 +152,31 @@
     
     self.countLabelContainerBox.layer.mask = mask;
     [mask release];
+}
+
+- (void)updateGrayScaleToImageView {
+    BOOL shouldApplyGrayScale;
+    
+    if ((self.hsCard.rarityId == HSCardRarityLegendary) && (self.count == HSDECK_MAX_SINGLE_LEGENDARY_CARD)) {
+        shouldApplyGrayScale = YES;
+    } else if (self.count == HSDECK_MAX_SINGLE_CARD) {
+        shouldApplyGrayScale = YES;
+    } else {
+        shouldApplyGrayScale = NO;
+    }
+    
+    if (shouldApplyGrayScale) {
+        if (self.cardImageView.image.isGrayScaleApplied) return;
+        
+        NSImage *newImage = [self.cardImageView.image imageWithGrayScale];
+        self.cardImageView.image = newImage;
+    } else {
+        if (self.cardImageView.image.imageBeforeGrayScale) {
+            self.cardImageView.image = self.imageView.image.imageBeforeGrayScale;
+        } else {
+            
+        }
+    }
 }
 
 @end
