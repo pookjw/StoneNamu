@@ -172,6 +172,8 @@
 		4F7C688827973AC600A56D1C /* NSApplication+actualWindows.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F7C688727973AC600A56D1C /* NSApplication+actualWindows.m */; };
 		4F7C688B27973D1A00A56D1C /* NSImage+imageWithGrayScale.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F7C688A27973D1A00A56D1C /* NSImage+imageWithGrayScale.m */; };
 		4F7C689327974D7000A56D1C /* VibrancyTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F7C689127974D6F00A56D1C /* VibrancyTextField.m */; };
+		4F7C6897279751E700A56D1C /* CardDetailsBackgroundBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F7C6896279751E700A56D1C /* CardDetailsBackgroundBox.m */; };
+		4F7C6899279751F800A56D1C /* CardDetailsBackgroundBox.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F7C6898279751F800A56D1C /* CardDetailsBackgroundBox.xib */; };
 		4F7EC54426EB26BE00A7758D /* UIView+imageRendered.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F7EC54326EB26BE00A7758D /* UIView+imageRendered.m */; };
 		4F7EC54726EB290B00A7758D /* DeckImageRenderService.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F7EC54626EB290B00A7758D /* DeckImageRenderService.m */; };
 		4F7EC54E26EB2A3700A7758D /* DeckImageRenderServiceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F7EC54D26EB2A3700A7758D /* DeckImageRenderServiceModel.m */; };
@@ -796,6 +798,9 @@
 		4F7C688A27973D1A00A56D1C /* NSImage+imageWithGrayScale.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSImage+imageWithGrayScale.m"; sourceTree = "<group>"; };
 		4F7C689127974D6F00A56D1C /* VibrancyTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VibrancyTextField.m; sourceTree = "<group>"; };
 		4F7C689227974D7000A56D1C /* VibrancyTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VibrancyTextField.h; sourceTree = "<group>"; };
+		4F7C6895279751E700A56D1C /* CardDetailsBackgroundBox.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardDetailsBackgroundBox.h; sourceTree = "<group>"; };
+		4F7C6896279751E700A56D1C /* CardDetailsBackgroundBox.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardDetailsBackgroundBox.m; sourceTree = "<group>"; };
+		4F7C6898279751F800A56D1C /* CardDetailsBackgroundBox.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CardDetailsBackgroundBox.xib; sourceTree = "<group>"; };
 		4F7EC54226EB26BE00A7758D /* UIView+imageRendered.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+imageRendered.h"; sourceTree = "<group>"; };
 		4F7EC54326EB26BE00A7758D /* UIView+imageRendered.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+imageRendered.m"; sourceTree = "<group>"; };
 		4F7EC54526EB290B00A7758D /* DeckImageRenderService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckImageRenderService.h; sourceTree = "<group>"; };
@@ -1585,6 +1590,7 @@
 				4FDE9B54274ACE7100AB0E02 /* CardDetailsItemModel.h */,
 				4FDE9B55274ACE7100AB0E02 /* CardDetailsItemModel.m */,
 				4F4738CC2746D588000C0C85 /* Base */,
+				4F7C68942797514000A56D1C /* Background */,
 				4FDE9B68274AF02100AB0E02 /* Child */,
 			);
 			path = CardDetails;
@@ -1982,6 +1988,16 @@
 				4F7C689127974D6F00A56D1C /* VibrancyTextField.m */,
 			);
 			path = VibrancyTextField;
+			sourceTree = "<group>";
+		};
+		4F7C68942797514000A56D1C /* Background */ = {
+			isa = PBXGroup;
+			children = (
+				4F7C6895279751E700A56D1C /* CardDetailsBackgroundBox.h */,
+				4F7C6896279751E700A56D1C /* CardDetailsBackgroundBox.m */,
+				4F7C6898279751F800A56D1C /* CardDetailsBackgroundBox.xib */,
+			);
+			path = Background;
 			sourceTree = "<group>";
 		};
 		4F7EC54826EB29FF00A7758D /* PhotosService */ = {
@@ -3430,6 +3446,7 @@
 				4F23C8B5273D9A2500C33F10 /* Assets.xcassets in Resources */,
 				4F23C8B8273D9A5900C33F10 /* InfoPlist.strings in Resources */,
 				4F4738D12746D5B7000C0C85 /* CardDetailsBaseCollectionViewItem.xib in Resources */,
+				4F7C6899279751F800A56D1C /* CardDetailsBackgroundBox.xib in Resources */,
 				4F646BFC2794900B00340C07 /* DeckDetailsSeparatorBox.xib in Resources */,
 				4F73EB68278209F500D65FDB /* DeckImageRenderServiceAboutCollectionViewItem.xib in Resources */,
 				4FDE9B6D274AF05C00AB0E02 /* CardDetailsChildCollectionViewItem.xib in Resources */,
@@ -3681,6 +3698,7 @@
 				4FD4305B2782033400E7F23A /* DeckImageRenderServiceAppNameCollectionViewItem.m in Sources */,
 				F303D6392741507400569E20 /* PrefsCardsViewController.m in Sources */,
 				4FE85708270089BD0008C2FB /* main.m in Sources */,
+				4F7C6897279751E700A56D1C /* CardDetailsBackgroundBox.m in Sources */,
 				4FF3CD3E2759754B00ACA5AC /* NSUserInterfaceItemIdentifierDeckAddCardOptionType+BlizzardHSAPIOption.m in Sources */,
 				4F7C689327974D7000A56D1C /* VibrancyTextField.m in Sources */,
 				4F23C8A3273D830200C33F10 /* MainWindowRestoration.m in Sources */,

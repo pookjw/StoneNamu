@@ -7,6 +7,7 @@
 
 #import "CardDetailsCollectionViewLayout.h"
 #import "CardDetailsSectionModel.h"
+#import "CardDetailsBackgroundBox.h"
 
 @implementation CardDetailsCollectionViewLayout
 
@@ -25,6 +26,12 @@
                 NSCollectionLayoutGroup *group = [NSCollectionLayoutGroup horizontalGroupWithLayoutSize:groupSize subitems:@[item]];
                 
                 NSCollectionLayoutSection *layoutSection = [NSCollectionLayoutSection sectionWithGroup:group];
+                NSCollectionLayoutDecorationItem *backgroundItem = [NSCollectionLayoutDecorationItem backgroundDecorationItemWithElementKind:NSCollectionViewDecorationElementKindCardDetailsBackgroundBox];
+                
+                NSDirectionalEdgeInsets contentInsets = NSDirectionalEdgeInsetsMake(15.0f, 15.0f, 15.0f, 15.0f);
+                backgroundItem.contentInsets = contentInsets;
+                layoutSection.contentInsets = contentInsets;
+                layoutSection.decorationItems = @[backgroundItem];
                 
                 return layoutSection;
             }
@@ -33,7 +40,7 @@
                                                                                   heightDimension:[NSCollectionLayoutDimension fractionalHeightDimension:1.0f]];
                 
                 NSCollectionLayoutItem *item = [NSCollectionLayoutItem itemWithLayoutSize:itemSize];
-                item.contentInsets = NSDirectionalEdgeInsetsMake(0.0f, 0.0f, 0.0f, 0.0f);
+                item.contentInsets = NSDirectionalEdgeInsetsZero;
                 
                 NSCollectionLayoutSize *groupSize = [NSCollectionLayoutSize sizeWithWidthDimension:[NSCollectionLayoutDimension absoluteDimension:200.0f]
                                                                                    heightDimension:[NSCollectionLayoutDimension absoluteDimension:300.0f]];
@@ -41,9 +48,11 @@
                 NSCollectionLayoutGroup *group = [NSCollectionLayoutGroup horizontalGroupWithLayoutSize:groupSize subitems:@[item]];
                 
                 NSCollectionLayoutSection *layoutSection = [NSCollectionLayoutSection sectionWithGroup:group];
+                
+                NSDirectionalEdgeInsets contentInsets = NSDirectionalEdgeInsetsMake(15.0f, 15.0f, 15.0f, 15.0f);
+                layoutSection.contentInsets = contentInsets;
                 layoutSection.interGroupSpacing = 0.0f;
-                layoutSection.orthogonalScrollingBehavior = NSCollectionLayoutSectionOrthogonalScrollingBehaviorContinuousGroupLeadingBoundary;
-                layoutSection.contentInsets = NSDirectionalEdgeInsetsMake(0.0f, 0.0f, 0.0f, 0.0f);
+                layoutSection.orthogonalScrollingBehavior = NSCollectionLayoutSectionOrthogonalScrollingBehaviorContinuous;
                 
                 return layoutSection;
             }
@@ -52,8 +61,11 @@
         }
     }];
     
-    return self;
+    NSNib *backgroundNib = [[NSNib alloc] initWithNibNamed:NSStringFromClass([CardDetailsBackgroundBox class]) bundle:NSBundle.mainBundle];
+    [self registerNib:backgroundNib forDecorationViewOfKind:NSCollectionViewDecorationElementKindCardDetailsBackgroundBox];
+    [backgroundNib release];
     
+    return self;
 }
 
 @end

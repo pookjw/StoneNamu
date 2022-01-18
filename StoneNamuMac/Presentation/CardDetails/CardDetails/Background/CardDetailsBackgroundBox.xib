@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19529" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19529"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner"/>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <box identifier="NSCollectionViewDecorationElementKindCardDetailsBackgroundBox" boxType="custom" borderWidth="0.0" title="Box" titlePosition="noTitle" id="ulD-4E-e2q" customClass="CardDetailsBackgroundBox">
+            <rect key="frame" x="0.0" y="0.0" width="177" height="114"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <view key="contentView" id="O5q-H5-PgI">
+                <rect key="frame" x="0.0" y="0.0" width="177" height="114"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <subviews>
+                    <visualEffectView blendingMode="withinWindow" material="selection" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="IhE-eH-09Q">
+                        <rect key="frame" x="0.0" y="0.0" width="177" height="114"/>
+                    </visualEffectView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="IhE-eH-09Q" firstAttribute="top" secondItem="O5q-H5-PgI" secondAttribute="top" id="JVS-IX-pPh"/>
+                    <constraint firstAttribute="trailing" secondItem="IhE-eH-09Q" secondAttribute="trailing" id="Xn9-XB-TtU"/>
+                    <constraint firstItem="IhE-eH-09Q" firstAttribute="leading" secondItem="O5q-H5-PgI" secondAttribute="leading" id="fTN-Vk-ZLq"/>
+                    <constraint firstAttribute="bottom" secondItem="IhE-eH-09Q" secondAttribute="bottom" id="xh6-we-1Ee"/>
+                </constraints>
+            </view>
+            <color key="fillColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+            <connections>
+                <outlet property="blurView" destination="IhE-eH-09Q" id="igV-Pb-uYB"/>
+            </connections>
+            <point key="canvasLocation" x="139" y="154"/>
+        </box>
+    </objects>
+</document>
