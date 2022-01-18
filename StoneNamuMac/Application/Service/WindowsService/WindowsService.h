@@ -11,12 +11,16 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WindowsService : NSObject
-+ (void)presentNewMainWindow;
-+ (BOOL)presentNewMainWindowIfNeeded;
-+ (void)presentCardDetailsWindowWithHSCard:(HSCard *)hsCard;
-+ (void)presentDeckDetailsWindowWithLocalDeck:(LocalDeck *)localDeck;
-+ (void)presentNewPrefsWindow;
-+ (BOOL)presentNewPrefsWindowIfNeeded;
+@property (class, readonly, nonatomic) WindowsService *sharedInstance;
++ (instancetype)new NS_UNAVAILABLE;
+- (instancetype)init NS_UNAVAILABLE;
+- (void)startWindowsObserving;
+- (void)presentNewMainWindow;
+- (BOOL)presentNewMainWindowIfNeeded;
+- (void)presentCardDetailsWindowWithHSCard:(HSCard *)hsCard;
+- (void)presentDeckDetailsWindowWithLocalDeck:(LocalDeck *)localDeck;
+- (void)presentNewPrefsWindow;
+- (BOOL)presentNewPrefsWindowIfNeeded;
 @end
 
 NS_ASSUME_NONNULL_END

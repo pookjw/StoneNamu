@@ -7,6 +7,7 @@
 
 #import "AppDelegate.h"
 #import "WindowsService.h"
+#import "NSApplication+actualWindows.h"
 
 @interface AppDelegate ()
 @end
@@ -15,7 +16,8 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     NSApp.automaticCustomizeTouchBarMenuItemEnabled = YES;
-    [WindowsService presentNewMainWindowIfNeeded];
+    [WindowsService.sharedInstance startWindowsObserving];
+    [WindowsService.sharedInstance presentNewMainWindowIfNeeded];
 }
 
 - (BOOL)applicationSupportsSecureRestorableState:(NSApplication *)app {
@@ -24,11 +26,11 @@
 }
 
 - (BOOL)applicationShouldHandleReopen:(NSApplication *)sender hasVisibleWindows:(BOOL)flag {
-    if (NSApp.windows.count > 0) {
+    if (NSApp.actualWindows.count > 0) {
         return NO;
     }
     
-    return [WindowsService presentNewMainWindowIfNeeded];
+    return [WindowsService.sharedInstance presentNewMainWindowIfNeeded];
 }
 
 @end

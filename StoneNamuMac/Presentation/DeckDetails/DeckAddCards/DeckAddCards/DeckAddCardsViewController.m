@@ -405,7 +405,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
         
         if (hsCard == nil) return;
         
-        [WindowsService presentCardDetailsWindowWithHSCard:hsCard];
+        [WindowsService.sharedInstance presentCardDetailsWindowWithHSCard:hsCard];
     }];
 }
 

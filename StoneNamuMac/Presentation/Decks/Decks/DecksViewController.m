@@ -231,7 +231,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeck
 }
 
 - (void)presentDeckDetailsWithLocalDeck:(LocalDeck *)localDeck {
-    [WindowsService presentDeckDetailsWindowWithLocalDeck:localDeck];
+    [WindowsService.sharedInstance presentDeckDetailsWindowWithLocalDeck:localDeck];
 }
 
 - (void)presentCreateNewDeckFromDeckCodeAlert {

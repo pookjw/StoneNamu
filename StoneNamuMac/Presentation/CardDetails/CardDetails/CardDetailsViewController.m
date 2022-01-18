@@ -420,7 +420,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeta
     [self.viewModel hsCardsFromIndexPaths:selectionIndexPaths completion:^(NSSet<HSCard *> * _Nonnull hsCards) {
         [hsCards enumerateObjectsUsingBlock:^(HSCard * _Nonnull obj, BOOL * _Nonnull stop) {
             [NSOperationQueue.mainQueue addOperationWithBlock:^{
-                [WindowsService presentCardDetailsWindowWithHSCard:obj];
+                [WindowsService.sharedInstance presentCardDetailsWindowWithHSCard:obj];
             }];
         }];
     }];

@@ -605,7 +605,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
     [self.viewModel hsCardsFromIndexPaths:interactingIndexPaths completion:^(NSSet<HSCard *> * _Nonnull hsCards) {
         [hsCards enumerateObjectsUsingBlock:^(HSCard * _Nonnull obj, BOOL * _Nonnull stop) {
             [NSOperationQueue.mainQueue addOperationWithBlock:^{
-                [WindowsService presentCardDetailsWindowWithHSCard:obj];
+                [WindowsService.sharedInstance presentCardDetailsWindowWithHSCard:obj];
             }];
         }];
     }];
@@ -702,7 +702,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
     [self.viewModel hsCardsFromIndexPaths:self.collectionView.selectionIndexPaths completion:^(NSSet<HSCard *> * _Nonnull hsCards) {
         [hsCards enumerateObjectsUsingBlock:^(HSCard * _Nonnull obj, BOOL * _Nonnull stop) {
             [NSOperationQueue.mainQueue addOperationWithBlock:^{
-                [WindowsService presentCardDetailsWindowWithHSCard:obj];
+                [WindowsService.sharedInstance presentCardDetailsWindowWithHSCard:obj];
             }];
         }];
     }];
