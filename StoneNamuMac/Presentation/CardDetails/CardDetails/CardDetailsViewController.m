@@ -276,13 +276,15 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeta
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
         [self removeAllSpinnerview];
         
-        [self.collectionView.subviews enumerateObjectsUsingBlock:^(__kindof NSView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            NSScrollView *scrollView = (NSScrollView *)obj;
-            
-            if ([scrollView isKindOfClass:[NSScrollView class]]) {
-                scrollView.drawsBackground = NO;
-            }
-        }];
+        // _NSCollectionViewNestedDocumentView
+        
+//        [self.collectionView.subviews enumerateObjectsUsingBlock:^(__kindof NSView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//            NSScrollView *scrollView = (NSScrollView *)obj;
+//
+//            if ([scrollView isKindOfClass:[NSScrollView class]]) {
+//                scrollView.drawsBackground = NO;
+//            }
+//        }];
     }];
 }
 

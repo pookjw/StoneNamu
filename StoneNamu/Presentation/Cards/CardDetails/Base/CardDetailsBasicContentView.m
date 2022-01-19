@@ -7,7 +7,7 @@
 
 #import "CardDetailsBasicContentView.h"
 #import "CardDetailsBasicContentConfiguration.h"
-#import "NSString+clearedHTML.h"
+#import "NSString+attributedStringWhenHTML.h"
 #import "InsetsLabel.h"
 #import <StoneNamuResources/StoneNamuResources.h>
 
@@ -150,18 +150,19 @@
     self->configuration = [content copy];
     
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
-        NSString * _Nullable clearedLeadingText = content.leadingText.clearedHTML;
-        if ((clearedLeadingText == nil) || ([clearedLeadingText isEqualToString:@""])) {
+        NSString * _Nullable leadingText = content.leadingText;
+        if ((leadingText == nil) || ([leadingText isEqualToString:@""])) {
             self.leadingLabel.text = [ResourcesService localizationForKey:LocalizableKeyEmpty];
         } else {
-            self.leadingLabel.text = clearedLeadingText;
+            self.leadingLabel.text = leadingText;
         }
         
-        NSString * _Nullable clearedTrailingText = content.trailingText.clearedHTML;
-        if ((clearedTrailingText == nil) || ([clearedTrailingText isEqualToString:@""])) {
+        NSString * _Nullable trailingText = content.trailingText.attributedStringWhenHTML.string;
+        
+        if ((trailingText == nil) || ([trailingText isEqualToString:@""])) {
             self.trailingLabel.text = [ResourcesService localizationForKey:LocalizableKeyEmpty];
         } else {
-            self.trailingLabel.text = clearedTrailingText;
+            self.trailingLabel.text = trailingText;
         }
         
         [self invalidateIntrinsicContentSize];
