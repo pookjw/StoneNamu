@@ -77,14 +77,14 @@
 
 - (BOOL)presentNewMainWindowIfNeeded {
     MainWindow * _Nullable __block mainWindow = nil;
-
+    
     [NSApp.windows enumerateObjectsUsingBlock:^(NSWindow * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([obj isKindOfClass:[MainWindow class]]) {
             mainWindow = (MainWindow *)obj;
             *stop = YES;
         }
     }];
-
+    
     if (mainWindow) {
         [mainWindow makeKeyAndOrderFront:nil];
         return NO;
