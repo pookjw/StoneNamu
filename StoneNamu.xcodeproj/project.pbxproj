@@ -289,6 +289,7 @@
 		4FB8510326C18DE200E3C89D /* NSManagedObject+_fetchRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FB8510126C18DE200E3C89D /* NSManagedObject+_fetchRequest.m */; };
 		4FB8C35E2797E64600D06E7D /* NSString+attributedStringWhenHTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F7C68A127975F3600A56D1C /* NSString+attributedStringWhenHTML.m */; };
 		4FB8C3612797EA0800D06E7D /* NSString+attributedStringWhenHTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FB8C35F2797EA0800D06E7D /* NSString+attributedStringWhenHTML.m */; };
+		4FB8C3682797F36400D06E7D /* NSCollectionView+setOrthogonalScrollViewDrawsBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FB8C3672797F36400D06E7D /* NSCollectionView+setOrthogonalScrollViewDrawsBackground.m */; };
 		4FC094F926CD712100A7D373 /* HSDeckUseCaseImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FC094F726CD712100A7D373 /* HSDeckUseCaseImpl.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4FC094FA26CD712100A7D373 /* HSDeckUseCaseImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC094F826CD712100A7D373 /* HSDeckUseCaseImpl.m */; };
 		4FC094FD26CD77C400A7D373 /* DecksViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC094FC26CD77C400A7D373 /* DecksViewModel.m */; };
@@ -966,6 +967,8 @@
 		4FB8510426C18EDB00E3C89D /* PrefsRepository.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefsRepository.h; sourceTree = "<group>"; };
 		4FB8C35F2797EA0800D06E7D /* NSString+attributedStringWhenHTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+attributedStringWhenHTML.m"; sourceTree = "<group>"; };
 		4FB8C3602797EA0800D06E7D /* NSString+attributedStringWhenHTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+attributedStringWhenHTML.h"; sourceTree = "<group>"; };
+		4FB8C3662797F36400D06E7D /* NSCollectionView+setOrthogonalScrollViewDrawsBackground.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSCollectionView+setOrthogonalScrollViewDrawsBackground.h"; sourceTree = "<group>"; };
+		4FB8C3672797F36400D06E7D /* NSCollectionView+setOrthogonalScrollViewDrawsBackground.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSCollectionView+setOrthogonalScrollViewDrawsBackground.m"; sourceTree = "<group>"; };
 		4FC094F626CD711000A7D373 /* HSDeckUseCase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSDeckUseCase.h; sourceTree = "<group>"; };
 		4FC094F726CD712100A7D373 /* HSDeckUseCaseImpl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSDeckUseCaseImpl.h; sourceTree = "<group>"; };
 		4FC094F826CD712100A7D373 /* HSDeckUseCaseImpl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSDeckUseCaseImpl.m; sourceTree = "<group>"; };
@@ -2821,6 +2824,8 @@
 				4F7C688A27973D1A00A56D1C /* NSImage+imageWithGrayScale.m */,
 				4F7C68A027975F3600A56D1C /* NSString+attributedStringWhenHTML.h */,
 				4F7C68A127975F3600A56D1C /* NSString+attributedStringWhenHTML.m */,
+				4FB8C3662797F36400D06E7D /* NSCollectionView+setOrthogonalScrollViewDrawsBackground.h */,
+				4FB8C3672797F36400D06E7D /* NSCollectionView+setOrthogonalScrollViewDrawsBackground.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -3803,6 +3808,7 @@
 				4FD4E024274EE2CB0037D867 /* DeckBaseCollectionViewItem.m in Sources */,
 				F38FEE5227604C1D00A00485 /* DeckAddCardSectionModel.m in Sources */,
 				4F4738B62746BBCF000C0C85 /* ClickableCollectionViewItem.m in Sources */,
+				4FB8C3682797F36400D06E7D /* NSCollectionView+setOrthogonalScrollViewDrawsBackground.m in Sources */,
 				4F646BFA27948FFD00340C07 /* DeckDetailsSeparatorBox.m in Sources */,
 				4F883F6A272FFE7C00AF0048 /* CardOptionsTouchBar.m in Sources */,
 				4FE85767270092F30008C2FB /* MainListViewController.m in Sources */,

@@ -8,6 +8,7 @@
 #import "AppDelegate.h"
 #import "WindowsService.h"
 #import "NSApplication+actualWindows.h"
+#import "NSCollectionView+setOrthogonalScrollViewDrawsBackground.h"
 
 @interface AppDelegate ()
 @end
@@ -16,6 +17,7 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     NSApp.automaticCustomizeTouchBarMenuItemEnabled = YES;
+    [NSCollectionView setOrthogonalScrollViewDrawsBackground:NO];
     [WindowsService.sharedInstance startWindowsObserving];
     [WindowsService.sharedInstance presentNewMainWindowIfNeeded];
 }

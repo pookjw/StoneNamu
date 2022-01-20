@@ -275,16 +275,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeta
 - (void)endedChildCardsReceived:(NSNotification *)notification {
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
         [self removeAllSpinnerview];
-        
-        // _NSCollectionViewNestedDocumentView
-        
-//        [self.collectionView.subviews enumerateObjectsUsingBlock:^(__kindof NSView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-//            NSScrollView *scrollView = (NSScrollView *)obj;
-//
-//            if ([scrollView isKindOfClass:[NSScrollView class]]) {
-//                scrollView.drawsBackground = NO;
-//            }
-//        }];
     }];
 }
 
