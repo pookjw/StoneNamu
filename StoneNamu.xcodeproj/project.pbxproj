@@ -147,7 +147,6 @@
 		4F646BF52794799200340C07 /* HSCardDroppableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F646BF42794799200340C07 /* HSCardDroppableView.m */; };
 		4F646BFA27948FFD00340C07 /* DeckDetailsSeparatorBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F646BF927948FFD00340C07 /* DeckDetailsSeparatorBox.m */; };
 		4F646BFC2794900B00340C07 /* DeckDetailsSeparatorBox.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F646BFB2794900B00340C07 /* DeckDetailsSeparatorBox.xib */; };
-		4F68198226D73F2F00033AEE /* DeckBaseContentViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F68198126D73F2F00033AEE /* DeckBaseContentViewModel.m */; };
 		4F6A139C26B251EE0089A13A /* HSCardKeyword.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F6A139B26B251EE0089A13A /* HSCardKeyword.m */; };
 		4F6A13A526B267D60089A13A /* HSCardGameMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F6A13A426B267D60089A13A /* HSCardGameMode.m */; };
 		4F6A13AE26B26F0E0089A13A /* HSCardSort.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F6A13AD26B26F0E0089A13A /* HSCardSort.m */; };
@@ -763,8 +762,6 @@
 		4F646BF827948FFD00340C07 /* DeckDetailsSeparatorBox.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckDetailsSeparatorBox.h; sourceTree = "<group>"; };
 		4F646BF927948FFD00340C07 /* DeckDetailsSeparatorBox.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckDetailsSeparatorBox.m; sourceTree = "<group>"; };
 		4F646BFB2794900B00340C07 /* DeckDetailsSeparatorBox.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DeckDetailsSeparatorBox.xib; sourceTree = "<group>"; };
-		4F68198026D73F2F00033AEE /* DeckBaseContentViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeckBaseContentViewModel.h; sourceTree = "<group>"; };
-		4F68198126D73F2F00033AEE /* DeckBaseContentViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeckBaseContentViewModel.m; sourceTree = "<group>"; };
 		4F6A139B26B251EE0089A13A /* HSCardKeyword.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCardKeyword.m; sourceTree = "<group>"; };
 		4F6A13A326B267BF0089A13A /* HSCardGameMode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardGameMode.h; sourceTree = "<group>"; };
 		4F6A13A426B267D60089A13A /* HSCardGameMode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCardGameMode.m; sourceTree = "<group>"; };
@@ -1330,8 +1327,6 @@
 				4F066CBD26D71ACD00991A98 /* DeckBaseContentConfiguration.m */,
 				4F066CBF26D71B2200991A98 /* DeckBaseContentView.h */,
 				4F066CC026D71B2200991A98 /* DeckBaseContentView.m */,
-				4F68198026D73F2F00033AEE /* DeckBaseContentViewModel.h */,
-				4F68198126D73F2F00033AEE /* DeckBaseContentViewModel.m */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -3636,7 +3631,6 @@
 				4F4976EC26ABFF6900860809 /* CardOptionItemModel.m in Sources */,
 				4FA56BBD26A2105A002D9FA0 /* main.m in Sources */,
 				4F7EC55126EB2B0500A7758D /* DeckImageRenderServiceSectionModel.m in Sources */,
-				4F68198226D73F2F00033AEE /* DeckBaseContentViewModel.m in Sources */,
 				4FFDD65326CAC274008E5B45 /* UIView+scrollToTopForRecursiveView.m in Sources */,
 				4F57DEAC26ADA6E3000E4163 /* PickerItemModel.m in Sources */,
 				4F066CC126D71B2200991A98 /* DeckBaseContentView.m in Sources */,

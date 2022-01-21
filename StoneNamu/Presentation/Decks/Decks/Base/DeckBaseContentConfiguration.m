@@ -10,13 +10,14 @@
 
 @implementation DeckBaseContentConfiguration
 
-- (instancetype)initWithLocalDeck:(LocalDeck *)localDeck {
+- (instancetype)initWithLocalDeck:(LocalDeck *)localDeck isEasterEgg:(BOOL)isEasterEgg {
     self = [self init];
     
     if (self) {
         [self->_localDeck release];
         self->_localDeck = [localDeck retain];
         self->_isDarkMode = NO;
+        self->_isEasterEgg = isEasterEgg;
     }
     
     return self;
@@ -34,6 +35,7 @@
         DeckBaseContentConfiguration *_copy = (DeckBaseContentConfiguration *)copy;
         [_copy->_localDeck release];
         _copy->_localDeck = [self.localDeck retain];
+        _copy->_isEasterEgg = self.isEasterEgg;
     }
     
     return copy;

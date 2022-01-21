@@ -9,13 +9,14 @@
 
 @implementation DecksItemModel
 
-- (instancetype)initWithType:(DecksItemModelType)type localDeck:(LocalDeck *)localDeck {
+- (instancetype)initWithType:(DecksItemModelType)type localDeck:(LocalDeck *)localDeck isEasterEgg:(BOOL)isEasterEgg {
     self = [self init];
     
     if (self) {
         self->_type = type;
         [self->_localDeck release];
         self->_localDeck = [localDeck retain];
+        self->_isEasterEgg = isEasterEgg;
     }
     
     return self;
@@ -35,11 +36,12 @@
     
     return (self.type == toCompare.type) &&
     ([self.localDeck isEqual:toCompare.localDeck]) &&
-    (((self.localDeck.name == nil) && (toCompare.localDeck.name == nil)) || [self.localDeck.name isEqualToString:toCompare.localDeck.name]);
+    (((self.localDeck.name == nil) && (toCompare.localDeck.name == nil)) || [self.localDeck.name isEqualToString:toCompare.localDeck.name]) &&
+    (self.isEasterEgg == toCompare.isEasterEgg);
 }
 
 - (NSUInteger)hash {
-    return self.type ^ self.localDeck.hash;
+    return self.type ^ self.localDeck.hash ^ self.isEasterEgg;
 }
 
 @end

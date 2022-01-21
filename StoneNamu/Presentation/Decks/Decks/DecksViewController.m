@@ -234,7 +234,7 @@
         
         DecksItemModel *itemModel = (DecksItemModel *)item;
         
-        DeckBaseContentConfiguration *configuration = [[DeckBaseContentConfiguration alloc] initWithLocalDeck:itemModel.localDeck];
+        DeckBaseContentConfiguration *configuration = [[DeckBaseContentConfiguration alloc] initWithLocalDeck:itemModel.localDeck isEasterEgg:itemModel.isEasterEgg];
         cell.contentConfiguration = configuration;
         [configuration release];
     }];

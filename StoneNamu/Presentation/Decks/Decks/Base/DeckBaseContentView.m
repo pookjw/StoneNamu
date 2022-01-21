@@ -8,7 +8,6 @@
 #import "DeckBaseContentView.h"
 #import "DeckBaseContentConfiguration.h"
 #import "InsetsLabel.h"
-#import "DeckBaseContentViewModel.h"
 #import <StoneNamuResources/StoneNamuResources.h>
 
 @interface DeckBaseContentView ()
@@ -19,7 +18,8 @@
 @property (retain) UIVisualEffectView *countBlurView;
 @property (retain) InsetsLabel *countLabel;
 @property (readonly, nonatomic) LocalDeck * _Nullable localDeck;
-@property (retain) DeckBaseContentViewModel *viewModel;
+@property (readonly, nonatomic) BOOL isDarkMode;
+@property (readonly, nonatomic) BOOL isEasterEgg;
 @end
 
 @implementation DeckBaseContentView
@@ -35,7 +35,6 @@
         [self configureHeroImageView];
         [self configureCountBlurView];
         [self configureCountLabel];
-        [self configureViewModel];
     }
     
     return self;
@@ -49,7 +48,6 @@
     [_imageViewGradientLayer release];
     [_countBlurView release];
     [_countLabel release];
-    [_viewModel release];
     [super dealloc];
 }
 
@@ -203,12 +201,6 @@
     [countLabel release];
 }
 
-- (void)configureViewModel {
-    DeckBaseContentViewModel *viewModel = [DeckBaseContentViewModel new];
-    self.viewModel = viewModel;
-    [viewModel release];
-}
-
 - (void)setConfiguration:(id<UIContentConfiguration>)configuration {
     DeckBaseContentConfiguration *oldContentConfig = self.configuration;
     DeckBaseContentConfiguration *newContentConfig = [(DeckBaseContentConfiguration *)configuration copy];
@@ -242,6 +234,16 @@
     return contentConfiguration.isDarkMode;
 }
 
+- (BOOL)isEasterEgg {
+    DeckBaseContentConfiguration *contentConfiguration = (DeckBaseContentConfiguration *)self.configuration;
+    
+    if (![self.configuration isKindOfClass:[DeckBaseContentConfiguration class]]) {
+        return NO;
+    }
+    
+    return contentConfiguration.isEasterEgg;
+}
+
 - (void)updateCardSetImageView {
     UIEdgeInsets inset = UIEdgeInsetsMake(-8, -8, -8, -8);
     self.cardSetImageView.image = [[ResourcesService imageForDeckFormat:self.localDeck.format] imageWithAlignmentRectInsets:inset];
@@ -252,7 +254,15 @@
 }
 
 - (void)updateHeroImageView {
-    self.heroImageView.image = [self.viewModel portraitImageOfLocalDeck:self.localDeck];
+    UIImage *image;
+    
+    if (self.isEasterEgg) {
+        image = [ResourcesService imageForKey:ImageKeyPnamuEasteregg1];
+    } else {
+        image = [ResourcesService portraitImageForClassId:self.localDeck.classId.unsignedIntegerValue];;
+    }
+    
+    self.heroImageView.image = image;
     [self updateGradientLayer];
 }
 

@@ -12,10 +12,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface DeckBaseContentConfiguration : NSObject <UIContentConfiguration>
 @property (readonly, retain) LocalDeck *localDeck;
+@property (readonly) BOOL isEasterEgg;
 @property (readonly) BOOL isDarkMode;
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
-- (instancetype)initWithLocalDeck:(LocalDeck *)localDeck;
+- (instancetype)initWithLocalDeck:(LocalDeck *)localDeck isEasterEgg:(BOOL)isEasterEgg;
 @end
 
 NS_ASSUME_NONNULL_END
