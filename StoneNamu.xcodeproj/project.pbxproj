@@ -62,6 +62,8 @@
 		4F23C8E0273DA70300C33F10 /* NSString+convertToCamelCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F23C8DF273DA70300C33F10 /* NSString+convertToCamelCase.m */; };
 		4F2438ED26CD8CCF0041BB84 /* DecksSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2438EC26CD8CCF0041BB84 /* DecksSectionModel.m */; };
 		4F2438F026CD8DE40041BB84 /* DecksItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2438EF26CD8DE40041BB84 /* DecksItemModel.m */; };
+		4F2444E1279B25BF009A2113 /* DeckBackgroundBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2444E0279B25BF009A2113 /* DeckBackgroundBox.m */; };
+		4F2444E3279B25D0009A2113 /* DeckBackgroundBox.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F2444E2279B25D0009A2113 /* DeckBackgroundBox.xib */; };
 		4F248383271DA25800A231BF /* FloatingPresentationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F248382271DA25800A231BF /* FloatingPresentationController.m */; };
 		4F248386271DA64C00A231BF /* UIView+floatingConstraints.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F248385271DA64C00A231BF /* UIView+floatingConstraints.m */; };
 		4F248389271DAE5300A231BF /* FloatingNaigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F248388271DAE5300A231BF /* FloatingNaigationController.m */; };
@@ -617,6 +619,9 @@
 		4F2438EC26CD8CCF0041BB84 /* DecksSectionModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DecksSectionModel.m; sourceTree = "<group>"; };
 		4F2438EE26CD8DE40041BB84 /* DecksItemModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DecksItemModel.h; sourceTree = "<group>"; };
 		4F2438EF26CD8DE40041BB84 /* DecksItemModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DecksItemModel.m; sourceTree = "<group>"; };
+		4F2444DF279B25BF009A2113 /* DeckBackgroundBox.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckBackgroundBox.h; sourceTree = "<group>"; };
+		4F2444E0279B25BF009A2113 /* DeckBackgroundBox.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckBackgroundBox.m; sourceTree = "<group>"; };
+		4F2444E2279B25D0009A2113 /* DeckBackgroundBox.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DeckBackgroundBox.xib; sourceTree = "<group>"; };
 		4F248381271DA25800A231BF /* FloatingPresentationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FloatingPresentationController.h; sourceTree = "<group>"; };
 		4F248382271DA25800A231BF /* FloatingPresentationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FloatingPresentationController.m; sourceTree = "<group>"; };
 		4F248384271DA64C00A231BF /* UIView+floatingConstraints.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+floatingConstraints.h"; sourceTree = "<group>"; };
@@ -1519,6 +1524,16 @@
 			path = Util;
 			sourceTree = "<group>";
 		};
+		4F2444DE279B2598009A2113 /* Background */ = {
+			isa = PBXGroup;
+			children = (
+				4F2444DF279B25BF009A2113 /* DeckBackgroundBox.h */,
+				4F2444E0279B25BF009A2113 /* DeckBackgroundBox.m */,
+				4F2444E2279B25D0009A2113 /* DeckBackgroundBox.xib */,
+			);
+			path = Background;
+			sourceTree = "<group>";
+		};
 		4F248380271DA1D600A231BF /* Floating */ = {
 			isa = PBXGroup;
 			children = (
@@ -2123,6 +2138,7 @@
 				4FD4E027274EE4440037D867 /* DecksCollectionViewLayout.h */,
 				4FD4E028274EE4440037D867 /* DecksCollectionViewLayout.m */,
 				4FD4E021274EE2AA0037D867 /* Base */,
+				4F2444DE279B2598009A2113 /* Background */,
 				4F1FA0B1275064430082EBF0 /* Factory */,
 				4F1FA0A62750198F0082EBF0 /* Menu */,
 				4F1FA0A7275019980082EBF0 /* Toolbar */,
@@ -3475,6 +3491,7 @@
 				4F22519A278B28EC0004DD8D /* DeckImageRenderServiceSeparatorBox.xib in Resources */,
 				F38FEE4F27604A4400A00485 /* DeckAddCardCollectionViewItem.xib in Resources */,
 				4F73EB64278209AC00D65FDB /* DeckImageRenderServiceIntroCollectionViewItem.xib in Resources */,
+				4F2444E3279B25D0009A2113 /* DeckBackgroundBox.xib in Resources */,
 				4F59008B2752FE6100217E4A /* MainListTableCellView.xib in Resources */,
 				4FD4E026274EE2E80037D867 /* DeckBaseCollectionViewItem.xib in Resources */,
 				4F73EB6A27820A0A00D65FDB /* DeckImageRenderServiceAppNameCollectionViewItem.xib in Resources */,
@@ -3707,6 +3724,7 @@
 				F3DBBC33276B2E0C00A63078 /* DeckDetailsManaCostGraphView.m in Sources */,
 				4FC48A882739EF48001240FE /* CardOptionsMenuFactory.m in Sources */,
 				4F6302DF278DF32E00AF075D /* CardDetailsWindowRestoration.m in Sources */,
+				4F2444E1279B25BF009A2113 /* DeckBackgroundBox.m in Sources */,
 				4FF3CD352759730900ACA5AC /* DeckAddCardOptionsMenuFactory.m in Sources */,
 				F3CCE2902742C442004B5B26 /* MainListItemModel.m in Sources */,
 				4FE8576D27009B5C0008C2FB /* CardsViewModel.m in Sources */,

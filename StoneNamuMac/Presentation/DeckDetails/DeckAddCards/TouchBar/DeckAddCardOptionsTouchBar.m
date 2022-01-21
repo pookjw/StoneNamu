@@ -1010,6 +1010,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     NSArray<NSString *> *keys = [self sortedKeysFromScrubber:scrubber];
     BlizzardHSAPIOptionType optionType = [self optionTypeFromScrubber:scrubber];
     NSString *newValue = keys[selectedIndex];
+    NSMutableDictionary<NSString *, NSString *> *oldOptions = [[self.options mutableCopy] autorelease];
     
     if (![DeckAddCardOptionsMenuFactory hasValueForValue:newValue]) {
         self.options[optionType] = nil;
@@ -1021,7 +1022,9 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
         self.options[optionType] = keys[selectedIndex];
     }
     
-    [self.deckAddCardOptionsTouchBarDelegate deckAddCardOptionsTouchBar:self changedOption:self.options];
+    if (![oldOptions isEqualToDictionary:self.options]) {
+        [self.deckAddCardOptionsTouchBarDelegate deckAddCardOptionsTouchBar:self changedOption:self.options];
+    }
 }
 
 @end

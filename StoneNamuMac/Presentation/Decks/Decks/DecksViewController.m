@@ -16,6 +16,7 @@
 #import "WindowsService.h"
 #import "NSViewController+SpinnerView.h"
 #import "ClickableCollectionView.h"
+#import "DeckBackgroundBox.h"
 #import <StoneNamuResources/StoneNamuResources.h>
 
 static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeckBaseCollectionViewItem = @"NSUserInterfaceItemIdentifierCardDeckBaseCollectionViewItem";
@@ -83,6 +84,11 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeck
     [self.viewModel requestDataSource];
 }
 
+- (void)viewDidAppear {
+    [super viewDidAppear];
+    [self.collectionView reloadData];
+}
+
 - (void)setAttributes {
     NSLayoutConstraint *widthLayout = [self.view.widthAnchor constraintGreaterThanOrEqualToConstant:300];
     [NSLayoutConstraint activateConstraints:@[
@@ -107,9 +113,13 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeck
     collectionView.collectionViewLayout = layout;
     [layout release];
     
-    NSNib *nib = [[NSNib alloc] initWithNibNamed:NSStringFromClass([DeckBaseCollectionViewItem class]) bundle:NSBundle.mainBundle];
-    [collectionView registerNib:nib forItemWithIdentifier:NSUserInterfaceItemIdentifierCardDeckBaseCollectionViewItem];
-    [nib release];
+    NSNib *baseNib = [[NSNib alloc] initWithNibNamed:NSStringFromClass([DeckBaseCollectionViewItem class]) bundle:NSBundle.mainBundle];
+    [collectionView registerNib:baseNib forItemWithIdentifier:NSUserInterfaceItemIdentifierCardDeckBaseCollectionViewItem];
+    [baseNib release];
+    
+    NSNib *backgroundNib = [[NSNib alloc] initWithNibNamed:NSStringFromClass([DeckBackgroundBox class]) bundle:NSBundle.mainBundle];
+    [collectionView registerNib:backgroundNib forSupplementaryViewOfKind:NSCollectionViewDecorationElementKindDeckBackgroundBox withIdentifier:NSUserInterfaceItemIdentifierDeckBackgroundBox];
+    [backgroundNib release];
     
     collectionView.selectable = YES;
     collectionView.allowsMultipleSelection = NO;
@@ -180,10 +190,22 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeck
     DecksDataSource *dataSource = [[DecksDataSource alloc] initWithCollectionView:self.collectionView itemProvider:^NSCollectionViewItem * _Nullable(NSCollectionView * _Nonnull collectionView, NSIndexPath * _Nonnull indexPath, DecksItemModel * _Nonnull itemModel) {
         DeckBaseCollectionViewItem *item = [collectionView makeItemWithIdentifier:NSUserInterfaceItemIdentifierCardDeckBaseCollectionViewItem forIndexPath:indexPath];
         
-        [item configureWithLocalDeck:itemModel.localDeck deckBaseCollectionViewItemDelegate:unretainedSelf];
+        [item configureWithLocalDeck:itemModel.localDeck isEasterEgg:itemModel.isEasterEgg deckBaseCollectionViewItemDelegate:unretainedSelf];
         
         return item;
     }];
+    
+    dataSource.supplementaryViewProvider = ^NSView * _Nullable(NSCollectionView * _Nonnull collectionView, NSString * _Nonnull elementKind, NSIndexPath * _Nonnull indexPath) {
+        DeckBackgroundBox *view = [collectionView makeSupplementaryViewOfKind:NSCollectionViewDecorationElementKindDeckBackgroundBox withIdentifier:NSUserInterfaceItemIdentifierDeckBackgroundBox forIndexPath:indexPath];
+        
+        if ((indexPath.item % 2) == 0) {
+            [view configureWithType:DeckBackgroundBoxTypePrimary];
+        } else {
+            [view configureWithType:DeckBackgroundBoxTypeSecondary];
+        }
+        
+        return view;
+    };
     
     return [dataSource autorelease];
 }

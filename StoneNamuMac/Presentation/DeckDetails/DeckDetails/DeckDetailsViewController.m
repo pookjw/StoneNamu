@@ -512,7 +512,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
                                              object:self.viewModel];
     
     [NSNotificationCenter.defaultCenter addObserver:self
-                                           selector:@selector(viewFrameDidChangeReceived:)
+                                           selector:@selector(viewDidChangeFrame:)
                                                name:NSViewFrameDidChangeNotification
                                              object:self.view];
 }
@@ -551,7 +551,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
     }];
 }
 
-- (void)viewFrameDidChangeReceived:(NSNotification *)notification {
+- (void)viewDidChangeFrame:(NSNotification *)notification {
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
         [self updateScrollViewContentInsets];
     }];

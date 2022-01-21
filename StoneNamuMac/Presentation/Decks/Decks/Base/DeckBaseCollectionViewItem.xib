@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19529"/>
+        <capability name="System colors introduced in macOS 10.14" minToolsVersion="10.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -11,34 +12,62 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <collectionViewItem id="rij-dT-aio" customClass="DeckBaseCollectionViewItem">
             <connections>
-                <outlet property="textField" destination="ToN-mv-sq6" id="6hs-1X-hBe"/>
+                <outlet property="cardSetImageView" destination="6iB-ex-wiy" id="eEu-Ix-1l8"/>
+                <outlet property="heroImageView" destination="y3f-fa-6c1" id="hyw-BT-7IB"/>
+                <outlet property="nameLabel" destination="gK1-J1-hmO" id="xxq-uS-iFn"/>
                 <outlet property="view" destination="XQT-2m-onK" id="MmT-wf-7Sc"/>
             </connections>
         </collectionViewItem>
         <box boxType="custom" borderWidth="0.0" title="Box" titlePosition="noTitle" id="XQT-2m-onK">
-            <rect key="frame" x="0.0" y="0.0" width="391" height="16"/>
+            <rect key="frame" x="0.0" y="0.0" width="163" height="49"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <view key="contentView" id="v1i-GJ-Qha">
-                <rect key="frame" x="0.0" y="0.0" width="391" height="16"/>
+                <rect key="frame" x="0.0" y="0.0" width="163" height="49"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ToN-mv-sq6">
-                        <rect key="frame" x="-2" y="0.0" width="395" height="16"/>
-                        <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="yhn-A3-ajm">
-                            <font key="font" usesAppearanceFont="YES"/>
+                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="y3f-fa-6c1">
+                        <rect key="frame" x="-23" y="0.0" width="186" height="49"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="y3f-fa-6c1" secondAttribute="height" multiplier="243 : 64" id="SLk-40-OW1"/>
+                        </constraints>
+                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="rogue_portrait" id="zII-by-Fm5"/>
+                    </imageView>
+                    <imageView horizontalHuggingPriority="1000" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6iB-ex-wiy">
+                        <rect key="frame" x="0.0" y="0.0" width="49" height="49"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="6iB-ex-wiy" secondAttribute="height" id="E4p-ZM-r2f"/>
+                        </constraints>
+                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="standard" id="2JX-lM-C1m"/>
+                        <color key="contentTintColor" name="controlAccentColor" catalog="System" colorSpace="catalog"/>
+                    </imageView>
+                    <textField horizontalHuggingPriority="750" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="gK1-J1-hmO">
+                        <rect key="frame" x="47" y="15" width="103" height="19"/>
+                        <textFieldCell key="cell" lineBreakMode="truncatingTail" title="Multiline Label" id="WyX-vv-xWe">
+                            <font key="font" textStyle="title3" name=".SFNS-Regular"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="ToN-mv-sq6" secondAttribute="bottom" id="YSq-t7-vBi"/>
-                    <constraint firstItem="ToN-mv-sq6" firstAttribute="top" secondItem="v1i-GJ-Qha" secondAttribute="top" id="gtz-st-8HP"/>
-                    <constraint firstAttribute="trailing" secondItem="ToN-mv-sq6" secondAttribute="trailing" id="rrl-Zf-FX0"/>
-                    <constraint firstItem="ToN-mv-sq6" firstAttribute="leading" secondItem="v1i-GJ-Qha" secondAttribute="leading" id="xrc-e1-J8e"/>
+                    <constraint firstItem="6iB-ex-wiy" firstAttribute="top" secondItem="v1i-GJ-Qha" secondAttribute="top" id="4LO-as-xHI"/>
+                    <constraint firstAttribute="bottom" secondItem="gK1-J1-hmO" secondAttribute="bottom" constant="15" id="Aie-aA-I9O"/>
+                    <constraint firstAttribute="trailing" secondItem="gK1-J1-hmO" secondAttribute="trailing" constant="15" id="DLR-1I-x5A"/>
+                    <constraint firstItem="gK1-J1-hmO" firstAttribute="top" secondItem="v1i-GJ-Qha" secondAttribute="top" constant="15" id="EXm-X6-5E8"/>
+                    <constraint firstItem="gK1-J1-hmO" firstAttribute="leading" secondItem="6iB-ex-wiy" secondAttribute="trailing" id="IQc-9M-rGj"/>
+                    <constraint firstItem="y3f-fa-6c1" firstAttribute="top" secondItem="v1i-GJ-Qha" secondAttribute="top" id="JRe-y3-F71"/>
+                    <constraint firstItem="6iB-ex-wiy" firstAttribute="leading" secondItem="v1i-GJ-Qha" secondAttribute="leading" id="NvD-Mh-MQD"/>
+                    <constraint firstAttribute="bottom" secondItem="y3f-fa-6c1" secondAttribute="bottom" id="c85-Gg-dhI"/>
+                    <constraint firstAttribute="trailing" secondItem="y3f-fa-6c1" secondAttribute="trailing" id="fNv-mN-h6U"/>
+                    <constraint firstAttribute="bottom" secondItem="6iB-ex-wiy" secondAttribute="bottom" id="id7-vY-TTY"/>
                 </constraints>
             </view>
-            <point key="canvasLocation" x="-180.5" y="133"/>
+            <color key="fillColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="calibratedRGB"/>
+            <point key="canvasLocation" x="-78.5" y="198"/>
         </box>
     </objects>
+    <resources>
+        <image name="rogue_portrait" width="896" height="236"/>
+        <image name="standard" width="100" height="100"/>
+    </resources>
 </document>

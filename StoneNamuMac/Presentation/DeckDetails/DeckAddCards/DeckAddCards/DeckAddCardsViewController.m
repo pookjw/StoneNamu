@@ -44,7 +44,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
         self.viewModel.localDeck = localDeck;
         
         if (localDeck != nil) {
-            [self requestDataSourceWithOptions:nil reset:NO];
+            [self requestDataSourceWithOptions:nil reset:YES];
         }
     }
     

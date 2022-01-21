@@ -11,10 +11,12 @@
 #import <StoneNamuResources/StoneNamuResources.h>
 
 @interface DeckBaseContentView ()
+@property (retain) UIStackView *stackView;
 @property (retain) UIImageView *cardSetImageView;
 @property (retain) InsetsLabel *nameLabel;
 @property (retain) UIImageView *heroImageView;
-@property (retain) CAGradientLayer *imageViewGradientLayer;
+@property (retain) CAGradientLayer *heroImageViewGradientLayer;
+@property (retain) UIView *countBlurContainerView;
 @property (retain) UIVisualEffectView *countBlurView;
 @property (retain) InsetsLabel *countLabel;
 @property (readonly, nonatomic) LocalDeck * _Nullable localDeck;
@@ -30,6 +32,7 @@
     self = [super init];
     
     if (self) {
+        [self configureStackView];
         [self configureCardSetImageView];
         [self configureNameLabel];
         [self configureHeroImageView];
@@ -42,10 +45,12 @@
 
 - (void)dealloc {
     [configuration release];
+    [_stackView release];
     [_cardSetImageView release];
     [_nameLabel release];
     [_heroImageView release];
-    [_imageViewGradientLayer release];
+    [_heroImageViewGradientLayer release];
+    [_countBlurContainerView release];
     [_countBlurView release];
     [_countLabel release];
     [super dealloc];
@@ -57,14 +62,37 @@
     [self updateCountLabel];
 }
 
+- (void)configureStackView {
+    UIStackView *stackView = [UIStackView new];
+    
+    stackView.backgroundColor = UIColor.clearColor;
+    stackView.axis = UILayoutConstraintAxisHorizontal;
+    stackView.distribution = UIStackViewDistributionFill;
+    stackView.alignment = UIStackViewAlignmentFill;
+    
+    stackView.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    [self addSubview:stackView];
+    [NSLayoutConstraint activateConstraints:@[
+        [stackView.topAnchor constraintEqualToAnchor:self.topAnchor],
+        [stackView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
+        [stackView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
+        [stackView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor]
+    ]];
+    
+    self.stackView = stackView;
+    [stackView release];
+}
+
 - (void)configureCardSetImageView {
     UIImageView *cardSetImageView = [UIImageView new];
     
     cardSetImageView.backgroundColor = UIColor.clearColor;
-    cardSetImageView.translatesAutoresizingMaskIntoConstraints = NO;
     cardSetImageView.contentMode = UIViewContentModeScaleAspectFit;
-    [self addSubview:cardSetImageView];
     
+    [self.stackView addArrangedSubview:cardSetImageView];
+    
+    [cardSetImageView setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
     [cardSetImageView setContentHuggingPriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisVertical];
     
     NSLayoutConstraint *aspectRatio = [NSLayoutConstraint constraintWithItem:cardSetImageView
@@ -74,12 +102,7 @@
                                                                    attribute:NSLayoutAttributeHeight
                                                                   multiplier:1
                                                                     constant:0];
-    
-    [NSLayoutConstraint activateConstraints:@[
-        [cardSetImageView.topAnchor constraintEqualToAnchor:self.topAnchor],
-        [cardSetImageView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor],
-        aspectRatio
-    ]];
+    aspectRatio.active = YES;
     
     self.cardSetImageView = cardSetImageView;
     [cardSetImageView release];
@@ -88,27 +111,22 @@
 - (void)configureNameLabel {
     InsetsLabel *nameLabel = [InsetsLabel new];
     
-    UIEdgeInsets contentInsets = UIEdgeInsetsMake(15, 0, 15, 15);
+    UIEdgeInsets contentInsets = UIEdgeInsetsMake(15.0f, 0.0f, 15.0f, 15.0f);
     nameLabel.contentInsets = contentInsets;
     nameLabel.backgroundColor = UIColor.clearColor;
     nameLabel.textColor = nil;
+    nameLabel.numberOfLines = 1;
     nameLabel.adjustsFontForContentSizeCategory = YES;
-    nameLabel.adjustsFontSizeToFitWidth = YES;
+    nameLabel.adjustsFontSizeToFitWidth = NO;
     nameLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleTitle3];
-    nameLabel.minimumScaleFactor = 0.1;
+    nameLabel.minimumScaleFactor = 0.1f;
     
-    [self addSubview:nameLabel];
+    [self.stackView addArrangedSubview:nameLabel];
     
     //
     
+    [nameLabel setContentHuggingPriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
     [nameLabel setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
-    
-    nameLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    [NSLayoutConstraint activateConstraints:@[
-        [nameLabel.topAnchor constraintEqualToAnchor:self.topAnchor],
-        [nameLabel.leadingAnchor constraintEqualToAnchor:self.cardSetImageView.trailingAnchor],
-        [nameLabel.bottomAnchor constraintEqualToAnchor:self.bottomAnchor]
-    ]];
     
     self.nameLabel = nameLabel;
     [nameLabel release];
@@ -130,7 +148,7 @@
                                                                        toItem:heroImageView
                                                                     attribute:NSLayoutAttributeHeight
                                                                    multiplier:243.0f / 64.0f
-                                                                     constant:0];
+                                                                     constant:0.0f];
     
     [NSLayoutConstraint activateConstraints:@[
         [heroImageView.topAnchor constraintEqualToAnchor:self.topAnchor],
@@ -141,20 +159,20 @@
     
     //
     
-    [self bringSubviewToFront:self.nameLabel];
+    [self bringSubviewToFront:self.stackView];
     
     //
     
-    CAGradientLayer *imageViewGradientLayer = [CAGradientLayer new];
-    imageViewGradientLayer.colors = @[
-        (id)[UIColor.whiteColor colorWithAlphaComponent:0].CGColor,
+    CAGradientLayer *heroImageViewGradientLayer = [CAGradientLayer new];
+    heroImageViewGradientLayer.colors = @[
+        (id)[UIColor.whiteColor colorWithAlphaComponent:0.0f].CGColor,
         (id)UIColor.whiteColor.CGColor
     ];
-    imageViewGradientLayer.startPoint = CGPointMake(0, 0);
-    imageViewGradientLayer.endPoint = CGPointMake(0.8, 0);
-    heroImageView.layer.mask = imageViewGradientLayer;
-    self.imageViewGradientLayer = imageViewGradientLayer;
-    [imageViewGradientLayer release];
+    heroImageViewGradientLayer.startPoint = CGPointMake(0.0f, 0.0f);
+    heroImageViewGradientLayer.endPoint = CGPointMake(0.8f, 0.0f);
+    heroImageView.layer.mask = heroImageViewGradientLayer;
+    self.heroImageViewGradientLayer = heroImageViewGradientLayer;
+    [heroImageViewGradientLayer release];
     
     //
     
@@ -163,29 +181,38 @@
 }
 
 - (void)configureCountBlurView {
+    UIView *countBlurContainerView = [UIView new];
     UIVisualEffectView *countBlurView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
     
+    countBlurContainerView.backgroundColor = UIColor.clearColor;
+    countBlurView.clipsToBounds = YES;
     countBlurView.translatesAutoresizingMaskIntoConstraints = NO;
     
-    [self addSubview:countBlurView];
-    
+    [countBlurContainerView addSubview:countBlurView];
     [NSLayoutConstraint activateConstraints:@[
-        [countBlurView.centerYAnchor constraintEqualToAnchor:self.nameLabel.centerYAnchor],
-        [countBlurView.leadingAnchor constraintEqualToAnchor:self.nameLabel.trailingAnchor]
+        [countBlurContainerView.topAnchor constraintEqualToAnchor:countBlurView.topAnchor constant:-5.0f],
+        [countBlurContainerView.leadingAnchor constraintEqualToAnchor:countBlurView.leadingAnchor],
+        [countBlurContainerView.trailingAnchor constraintEqualToAnchor:countBlurView.trailingAnchor constant:10.0f],
+        [countBlurContainerView.bottomAnchor constraintEqualToAnchor:countBlurView.bottomAnchor constant:5.0f]
     ]];
     
+    [self.stackView addArrangedSubview:countBlurContainerView];
+    
+    self.countBlurContainerView = countBlurContainerView;
     self.countBlurView = countBlurView;
+    [countBlurContainerView release];
     [countBlurView release];
 }
 
 - (void)configureCountLabel {
     InsetsLabel *countLabel = [InsetsLabel new];
     
-    countLabel.contentInsets = UIEdgeInsetsMake(5, 5, 5, 5);
-    countLabel.backgroundColor = [UIColor.tintColor colorWithAlphaComponent:0.5];
+    countLabel.contentInsets = UIEdgeInsetsMake(0.0f, 5.0f, 0.0f, 5.0f);
+    countLabel.backgroundColor = [UIColor.tintColor colorWithAlphaComponent:0.5f];
     countLabel.textColor = UIColor.whiteColor;
     countLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline];
     
+    [countLabel setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
     countLabel.translatesAutoresizingMaskIntoConstraints = NO;
     
     [self.countBlurView.contentView addSubview:countLabel];
@@ -245,7 +272,7 @@
 }
 
 - (void)updateCardSetImageView {
-    UIEdgeInsets inset = UIEdgeInsetsMake(-8, -8, -8, -8);
+    UIEdgeInsets inset = UIEdgeInsetsMake(-8.0f, -8.0f, -8.0f, -8.0f);
     self.cardSetImageView.image = [[ResourcesService imageForDeckFormat:self.localDeck.format] imageWithAlignmentRectInsets:inset];
 }
 
@@ -259,7 +286,7 @@
     if (self.isEasterEgg) {
         image = [ResourcesService imageForKey:ImageKeyPnamuEasteregg1];
     } else {
-        image = [ResourcesService portraitImageForClassId:self.localDeck.classId.unsignedIntegerValue];;
+        image = [ResourcesService portraitImageForClassId:self.localDeck.classId.unsignedIntegerValue];
     }
     
     self.heroImageView.image = image;
@@ -270,22 +297,19 @@
     NSUInteger count = self.localDeck.hsCards.count;
     
     if (count >= HSDECK_MAX_TOTAL_CARDS) {
-        self.countBlurView.alpha = 0.0;
+        self.countBlurContainerView.hidden = YES;
     } else {
-        self.countBlurView.alpha = 1.0;
+        self.countBlurContainerView.hidden = NO;
     }
     
     self.countLabel.text = [NSString stringWithFormat:@"%lu / %d", count, HSDECK_MAX_TOTAL_CARDS];
-    [self.countLabel layoutIfNeeded];
-    
-    self.countBlurView.layer.cornerRadius = self.countLabel.frame.size.height / 2;
-    self.countBlurView.clipsToBounds = YES;
+    self.countBlurView.layer.cornerRadius = self.countBlurView.frame.size.height / 2.0f;
 }
 
 - (void)updateGradientLayer {
     [CATransaction begin];
     [CATransaction setDisableActions:YES];
-    self.imageViewGradientLayer.frame = self.heroImageView.bounds;
+    self.heroImageViewGradientLayer.frame = self.heroImageView.bounds;
     [CATransaction commit];
 }
 

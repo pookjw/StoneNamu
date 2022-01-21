@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface DeckBaseCollectionViewItem : ClickableCollectionViewItem
 @property (readonly) LocalDeck * _Nullable localDeck;
-- (void)configureWithLocalDeck:(LocalDeck *)localDeck deckBaseCollectionViewItemDelegate:(id<DeckBaseCollectionViewItemDelegate>)deckBaseCollectionViewItemDelegate;
+- (void)configureWithLocalDeck:(LocalDeck *)localDeck isEasterEgg:(BOOL)isEasterEgg deckBaseCollectionViewItemDelegate:(id<DeckBaseCollectionViewItemDelegate>)deckBaseCollectionViewItemDelegate;
 @end
 
 NS_ASSUME_NONNULL_END

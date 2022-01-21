@@ -63,7 +63,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardColl
     [self configureCardOptionsTouchBar];
     [self configureViewModel];
     [self bind];
-    [self requestDataSourceWithOptions:nil reset:NO];
+    [self requestDataSourceWithOptions:nil reset:YES];
 }
 
 - (NSTouchBar *)makeTouchBar {

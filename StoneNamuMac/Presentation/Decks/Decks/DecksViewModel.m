@@ -109,7 +109,9 @@
                 localDeck.name = [ResourcesService localizationForHSCardClass:hsCardClass];
                 localDeck.classId = [NSNumber numberWithUnsignedInteger:hsCardClass];
                 
-                DecksItemModel *itemModel = [[DecksItemModel alloc] initWithType:DecksItemModelTypeDeck localDeck:localDeck];
+                BOOL isEasterEgg = [self.localDeckUseCase isEasterEggDeckFromLocalDeck:localDeck];
+                
+                DecksItemModel *itemModel = [[DecksItemModel alloc] initWithType:DecksItemModelTypeDeck localDeck:localDeck isEasterEgg:isEasterEgg];
                 
                 [snapshot appendItemsWithIdentifiers:@[itemModel] intoSectionWithIdentifier:sectionModel];
                 [itemModel release];
@@ -158,7 +160,9 @@
                     localDeck.name = title;
                 }
                 
-                DecksItemModel *itemModel = [[DecksItemModel alloc] initWithType:DecksItemModelTypeDeck localDeck:localDeck];
+                BOOL isEasterEgg = [self.localDeckUseCase isEasterEggDeckFromLocalDeck:localDeck];
+                
+                DecksItemModel *itemModel = [[DecksItemModel alloc] initWithType:DecksItemModelTypeDeck localDeck:localDeck isEasterEgg:isEasterEgg];
                 
                 [snapshot appendItemsWithIdentifiers:@[itemModel] intoSectionWithIdentifier:sectionModel];
                 [itemModel release];
@@ -247,7 +251,8 @@
         NSMutableArray<DecksItemModel *> *itemModels = [@[] mutableCopy];
         
         for (LocalDeck *localDeck in localDecks) {
-            DecksItemModel *itemModel = [[DecksItemModel alloc] initWithType:DecksItemModelTypeDeck localDeck:localDeck];
+            BOOL isEasterEgg = [self.localDeckUseCase isEasterEggDeckFromLocalDeck:localDeck];
+            DecksItemModel *itemModel = [[DecksItemModel alloc] initWithType:DecksItemModelTypeDeck localDeck:localDeck isEasterEgg:isEasterEgg];
             [itemModels addObject:itemModel];
             [itemModel release];
         }
