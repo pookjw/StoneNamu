@@ -103,10 +103,10 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
     [self bind];
 }
 
-- (void)viewDidLayout {
-    [super viewDidLayout];
-    [self updateScrollViewContentInsets];
-}
+//- (void)viewDidLayout {
+//    [super viewDidLayout];
+//    [self updateScrollViewContentInsets];
+//}
 
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder backgroundQueue:(NSOperationQueue *)queue {
     [super encodeRestorableStateWithCoder:coder backgroundQueue:queue];
@@ -130,6 +130,8 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
     [NSLayoutConstraint activateConstraints:@[
         [self.view.widthAnchor constraintGreaterThanOrEqualToConstant:300.0f]
     ]];
+    
+    self.view.postsFrameChangedNotifications = YES;
 }
 
 - (void)configureCollectionView {
@@ -508,6 +510,11 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
                                            selector:@selector(applyingSnapshotToDataSourceWasDoneReceived:)
                                                name:NSNotificationNameDeckDetailsViewModelApplyingSnapshotToDataSourceWasDone
                                              object:self.viewModel];
+    
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(viewFrameDidChangeReceived:)
+                                               name:NSViewFrameDidChangeNotification
+                                             object:self.view];
 }
 
 - (void)shouldDismissReceived:(NSNotification *)notification {
@@ -541,6 +548,12 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
     
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
         [self.manaCostGraphView configureWithDatas:manaCostGraphDatas];
+    }];
+}
+
+- (void)viewFrameDidChangeReceived:(NSNotification *)notification {
+    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+        [self updateScrollViewContentInsets];
     }];
 }
 
