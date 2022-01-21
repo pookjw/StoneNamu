@@ -12,7 +12,7 @@
 - (void)configureWithType:(DeckBackgroundBoxType)type {
     switch (type) {
         case DeckBackgroundBoxTypePrimary:
-            self.fillColor = NSColor.windowBackgroundColor;
+            self.fillColor = NSColor.clearColor;
             break;
         case DeckBackgroundBoxTypeSecondary:
             self.fillColor = NSColor.underPageBackgroundColor;
