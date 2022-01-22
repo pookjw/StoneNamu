@@ -26,7 +26,7 @@ static NSNotificationName const NSNotificationNameLocalDeckUseCaseDeleteAll = @"
 - (void)fetchWithCompletion:(LocalDeckUseCaseFetchWithCompletion)completion;
 - (void)fetchUsingURI:(NSURL *)uri completion:(LocalDeckUseCaseFetchWithCompletion)completion;
 - (void)refreshObject:(NSManagedObject *)object mergeChanges:(BOOL)flag completion:(LocalDeckUseCaseRefreshObjectWithCompletion)completion;
-- (void)deleteLocalDeck:(LocalDeck *)localDeck;
+- (void)deleteLocalDecks:(NSSet<LocalDeck *> *)localDecks;
 - (void)deleteAllLocalDecks;
 
 - (BOOL)isEasterEggDeckFromLocalDeck:(LocalDeck *)localDeck;

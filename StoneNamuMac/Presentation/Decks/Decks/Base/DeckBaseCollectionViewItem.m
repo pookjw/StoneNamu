@@ -13,7 +13,7 @@
 @property (retain) IBOutlet NSImageView *cardSetImageView;
 @property (retain) IBOutlet NSTextField *nameLabel;
 @property (retain) IBOutlet NSImageView *heroImageView;
-@property (retain) IBOutlet NSVisualEffectView *countLabelBlurView;
+@property (retain) IBOutlet NSBox *countLabelContainerBox;
 @property (retain) IBOutlet NSTextField *countLabel;
 @property (retain) CAGradientLayer *heroImageViewGradientLayer;
 @property BOOL isEasterEgg;
@@ -26,7 +26,7 @@
     [_cardSetImageView release];
     [_nameLabel release];
     [_heroImageView release];
-    [_countLabelBlurView release];
+    [_countLabelContainerBox release];
     [_countLabel release];
     [_heroImageViewGradientLayer release];
     [super dealloc];
@@ -39,7 +39,21 @@
     [self bind];
     [self clearContents];
     [self addGesture];
-    
+}
+
+- (void)viewDidLayout {
+    [super viewDidLayout];
+    [self updateCountLabelLayer];
+}
+
+- (void)setSelected:(BOOL)selected {
+    [super setSelected:selected];
+    [self updateStates];
+}
+
+- (void)setHighlightState:(NSCollectionViewItemHighlightState)highlightState {
+    [super setHighlightState:highlightState];
+    [self updateStates];
 }
 
 - (void)prepareForReuse {
@@ -59,12 +73,35 @@
         self.heroImageView.image = [ResourcesService portraitImageForClassId:localDeck.classId.unsignedIntegerValue];
     }
     
-    self.nameLabel.stringValue = localDeck.name;
+    NSString *name;
+    
+    if (localDeck.name == nil) {
+        name = @"";
+    } else {
+        name = localDeck.name;
+    }
+    self.nameLabel.stringValue = name;
+    
+    NSUInteger count = localDeck.hsCards.count;
+    
+    if (count >= HSDECK_MAX_TOTAL_CARDS) {
+        self.countLabelContainerBox.hidden = YES;
+    } else {
+        self.countLabelContainerBox.hidden = NO;
+    }
+    
+    self.countLabel.stringValue = [NSString stringWithFormat:@"%lu / %d", count, HSDECK_MAX_TOTAL_CARDS];
+    [self updateCountLabelLayer];
+    
+    [self updateStates];
 }
 
 - (void)setAttributes {
     self.view.postsFrameChangedNotifications = YES;
     self.heroImageView.wantsLayer = YES;
+    self.countLabelContainerBox.wantsLayer = YES;
+    self.countLabelContainerBox.layer.cornerCurve = kCACornerCurveContinuous;
+    self.countLabelContainerBox.layer.masksToBounds = YES;
 }
 
 - (void)configureHeroImageViewGradientLayer {
@@ -116,6 +153,24 @@
     [CATransaction setDisableActions:YES];
     self.heroImageViewGradientLayer.frame = self.heroImageView.bounds;
     [CATransaction commit];
+}
+
+- (void)updateCountLabelLayer {
+    [self.countLabel sizeToFit];
+    [self.countLabelContainerBox layoutSubtreeIfNeeded];
+    self.countLabelContainerBox.layer.cornerRadius = self.countLabelContainerBox.frame.size.height / 2.0f;
+}
+
+- (void)updateStates {
+    if ((self.isSelected) || (self.highlightState == NSCollectionViewItemHighlightForSelection)) {
+        self.cardSetImageView.contentTintColor = NSColor.windowBackgroundColor;
+        self.countLabelContainerBox.fillColor = NSColor.windowBackgroundColor;
+        self.countLabel.textColor = NSColor.controlAccentColor;
+    } else {
+        self.cardSetImageView.contentTintColor = NSColor.controlAccentColor;
+        self.countLabelContainerBox.fillColor = NSColor.controlAccentColor;
+        self.countLabel.textColor = NSColor.whiteColor;
+    }
 }
 
 @end

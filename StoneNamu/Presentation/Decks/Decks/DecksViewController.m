@@ -248,7 +248,7 @@
         UIContextualAction *deleteAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive
                                                                                    title:nil
                                                                                  handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
-            [self.viewModel deleteLocalDeckFromIndexPath:indexPath];
+            [self.viewModel deleteLocalDecksFromIndexPaths:[NSSet setWithObject:indexPath]];
         }];
         
         deleteAction.image = [UIImage systemImageNamed:@"trash"];
@@ -364,8 +364,13 @@
 #pragma mark - UICollectionViewDelegate
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    DecksItemModel *itemModel = [self.viewModel.dataSource itemIdentifierForIndexPath:indexPath];
-    [self presentDeckDetailsWithLocalDeck:itemModel.localDeck indexPath:indexPath scrollToItem:NO];
+    [self.viewModel localDecksFromIndexPaths:[NSSet setWithObject:indexPath] completion:^(NSSet<LocalDeck *> * _Nonnull localDecks) {
+        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+            [localDecks enumerateObjectsUsingBlock:^(LocalDeck * _Nonnull obj, BOOL * _Nonnull stop) {
+                [self presentDeckDetailsWithLocalDeck:obj indexPath:indexPath scrollToItem:NO];
+            }];
+        }];
+    }];
 }
 
 - (UIContextMenuConfiguration *)collectionView:(UICollectionView *)collectionView contextMenuConfigurationForItemAtIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point {

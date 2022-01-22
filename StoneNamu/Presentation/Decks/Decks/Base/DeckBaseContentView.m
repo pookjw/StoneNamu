@@ -112,6 +112,7 @@
     UIEdgeInsets contentInsets = UIEdgeInsetsMake(15.0f, 0.0f, 15.0f, 15.0f);
     nameLabel.contentInsets = contentInsets;
     nameLabel.backgroundColor = UIColor.clearColor;
+    nameLabel.layer.cornerCurve = kCACornerCurveContinuous;
     nameLabel.textColor = nil;
     nameLabel.numberOfLines = 1;
     nameLabel.adjustsFontForContentSizeCategory = YES;
@@ -123,7 +124,7 @@
     
     //
     
-    [nameLabel setContentCompressionResistancePriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
+    [nameLabel setContentCompressionResistancePriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
     [nameLabel setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
     
     self.nameLabel = nameLabel;
@@ -191,7 +192,8 @@
 - (void)configureCountLabel {
     InsetsLabel *countLabel = [InsetsLabel new];
     
-    countLabel.contentInsets = UIEdgeInsetsMake(0.0f, 5.0f, 0.0f, 5.0f);
+    countLabel.contentInsets = UIEdgeInsetsMake(0.0f, 10.0f, 0.0f, 10.0f);
+    countLabel.layer.masksToBounds = YES;
     countLabel.backgroundColor = UIColor.tintColor;
     countLabel.textColor = UIColor.whiteColor;
     countLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline];
@@ -203,10 +205,10 @@
     [self.countLabelContainerView addSubview:countLabel];
     
     [NSLayoutConstraint activateConstraints:@[
-        [countLabel.topAnchor constraintEqualToAnchor:self.countLabelContainerView.topAnchor],
+        [countLabel.topAnchor constraintEqualToAnchor:self.countLabelContainerView.topAnchor constant:10.0f],
         [countLabel.leadingAnchor constraintEqualToAnchor:self.countLabelContainerView.leadingAnchor],
-        [countLabel.trailingAnchor constraintEqualToAnchor:self.countLabelContainerView.trailingAnchor],
-        [countLabel.bottomAnchor constraintEqualToAnchor:self.countLabelContainerView.bottomAnchor]
+        [countLabel.trailingAnchor constraintEqualToAnchor:self.countLabelContainerView.trailingAnchor constant:-5.0f],
+        [countLabel.bottomAnchor constraintEqualToAnchor:self.countLabelContainerView.bottomAnchor constant:-10.0f]
     ]];
     
     self.countLabel = countLabel;
@@ -288,6 +290,8 @@
     }
     
     self.countLabel.text = [NSString stringWithFormat:@"%lu / %d", count, HSDECK_MAX_TOTAL_CARDS];
+    [self.countLabel sizeToFit];
+    [self.countLabelContainerView layoutIfNeeded];
     self.countLabel.layer.cornerRadius = self.countLabel.frame.size.height / 2.0f;
 }
 

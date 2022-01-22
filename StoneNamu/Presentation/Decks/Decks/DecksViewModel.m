@@ -179,38 +179,41 @@
     }];
 }
 
-- (void)deleteLocalDeckFromIndexPath:(NSIndexPath *)indexPath {
-    NSIndexPath *copyIndexPath = [indexPath copy];
-    
+- (void)deleteLocalDecksFromIndexPaths:(NSSet<NSIndexPath *> *)indexPaths {
     [self.queue addBarrierBlock:^{
-        DecksItemModel * _Nullable itemModel = [self.dataSource itemIdentifierForIndexPath:copyIndexPath];
-        [copyIndexPath release];
-        if (itemModel == nil) return;
+        NSMutableSet<LocalDeck *> *localDecks = [NSMutableSet new];
         
-        switch (itemModel.type) {
-            case DecksItemModelTypeDeck:
-                [self deleteLocalDeck:itemModel.localDeck];
-                break;
-            default:
-                break;
-        }
+        [indexPaths enumerateObjectsUsingBlock:^(NSIndexPath * _Nonnull obj, BOOL * _Nonnull stop) {
+            DecksItemModel * _Nullable itemModel = [self.dataSource itemIdentifierForIndexPath:obj];
+            
+            if (itemModel == nil) return;
+            
+            [localDecks addObject:itemModel.localDeck];
+        }];
+        
+        [self deleteLocalDecks:localDecks];
+        [localDecks autorelease];
     }];
 }
 
-- (void)deleteLocalDeck:(LocalDeck *)localDeck {[self.queue addBarrierBlock:^{
-    NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
-    
-    [snapshot.itemIdentifiers enumerateObjectsUsingBlock:^(DecksItemModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if ([obj.localDeck isEqual:localDeck]) {
-            [snapshot deleteItemsWithIdentifiers:@[obj]];
-        }
+- (void)deleteLocalDecks:(NSSet<LocalDeck *> *)localDecks {
+    [self.queue addBarrierBlock:^{
+        NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
+        
+        [snapshot.itemIdentifiers enumerateObjectsUsingBlock:^(DecksItemModel *obj1, NSUInteger idx, BOOL * _Nonnull stop1) {
+            [localDecks enumerateObjectsUsingBlock:^(LocalDeck * _Nonnull obj2, BOOL * _Nonnull stop2) {
+                if ([obj1.localDeck isEqual:obj2]) {
+                    [snapshot deleteItemsWithIdentifiers:@[obj1]];
+                    *stop2 = YES;
+                }
+            }];
+        }];
+        
+        [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
+            [self.localDeckUseCase deleteLocalDecks:localDecks];
+        }];
+        [snapshot release];
     }];
-    
-    [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
-        [self.localDeckUseCase deleteLocalDeck:localDeck];
-    }];
-    [snapshot release];
-}];
 }
 
 - (void)parseClipboardForDeckCodeWithCompletion:(DecksViewModelParseClipboardCompletion)completion {
@@ -234,6 +237,22 @@
     }
     
     return nil;
+}
+
+- (void)localDecksFromIndexPaths:(NSSet<NSIndexPath *> *)indexPaths completion:(DecksViewModelLocalDecksFromIndexPathsCompletion)completion {
+    [self.queue addBarrierBlock:^{
+        NSMutableSet<LocalDeck *> *localDecks = [NSMutableSet new];
+        
+        [indexPaths enumerateObjectsUsingBlock:^(NSIndexPath * _Nonnull obj, BOOL * _Nonnull stop) {
+            DecksItemModel * _Nullable itemModel = [self.dataSource itemIdentifierForIndexPath:obj];
+            
+            if (itemModel == nil) return;
+            
+            [localDecks addObject:itemModel.localDeck];
+        }];
+        
+        completion([localDecks autorelease]);
+    }];
 }
 
 - (void)requestDataSourceFromLocalDecks:(NSArray<LocalDeck *> *)localDecks {

@@ -19,6 +19,7 @@ static NSNotificationName NSNotificationNameDecksViewModelApplyingSnapshotToData
 typedef void (^DecksViewModelFetchDeckCodeCompletion)(LocalDeck * _Nullable, HSDeck * _Nullable, NSError * _Nullable);
 typedef void (^DecksViewModelMakeLocalDeckCompletion)(LocalDeck *);
 typedef void (^DecksViewModelParseClipboardCompletion)(NSString * _Nullable, NSString * _Nullable);
+typedef void (^DecksViewModelLocalDecksFromIndexPathsCompletion)(NSSet<LocalDeck *> *localDecks);
 
 @interface DecksViewModel : NSObject
 @property (retain) DecksDataSource *dataSource;
@@ -28,9 +29,9 @@ typedef void (^DecksViewModelParseClipboardCompletion)(NSString * _Nullable, NSS
 - (void)requestDataSource;
 - (void)fetchDeckCode:(NSString *)deckCode title:(NSString * _Nullable)title completion:(DecksViewModelFetchDeckCodeCompletion)completion;
 - (void)makeLocalDeckWithClass:(HSCardClass)hsCardClass deckFormat:(HSDeckFormat)deckFormat completion:(DecksViewModelMakeLocalDeckCompletion)completion;
-- (void)deleteLocalDeckFromIndexPath:(NSIndexPath *)indexPath;
+- (void)deleteLocalDecksFromIndexPaths:(NSSet<NSIndexPath *> *)indexPaths;
 - (void)parseClipboardForDeckCodeWithCompletion:(DecksViewModelParseClipboardCompletion)completion;
-- (NSIndexPath * _Nullable)indexPathForLocalDeck:(LocalDeck *)localDeck;
+- (void)localDecksFromIndexPaths:(NSSet<NSIndexPath *> *)indexPaths completion:(DecksViewModelLocalDecksFromIndexPathsCompletion)completion;
 @end
 
 NS_ASSUME_NONNULL_END

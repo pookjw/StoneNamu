@@ -309,7 +309,6 @@
 		4FCC22C426ECA99B004997AA /* HSYear.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FCC22C326ECA99B004997AA /* HSYear.m */; };
 		4FCC22C826ECAC81004997AA /* DeckImageRenderServiceAppNameContentConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FCC22C726ECAC81004997AA /* DeckImageRenderServiceAppNameContentConfiguration.m */; };
 		4FCC22CB26ECAC98004997AA /* DeckImageRenderServiceAppNameContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FCC22CA26ECAC98004997AA /* DeckImageRenderServiceAppNameContentView.m */; };
-		4FD1B92D279BFBA200E029F0 /* View.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4FD1B92C279BFBA200E029F0 /* View.xib */; };
 		4FD430422782029600E7F23A /* DeckImageRenderServiceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD430412782029600E7F23A /* DeckImageRenderServiceModel.m */; };
 		4FD43045278202A600E7F23A /* DeckImageRenderServiceSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD43044278202A600E7F23A /* DeckImageRenderServiceSectionModel.m */; };
 		4FD43048278202AF00E7F23A /* DeckImageRenderServiceItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD43047278202AF00E7F23A /* DeckImageRenderServiceItemModel.m */; };
@@ -1008,7 +1007,6 @@
 		4FCC22C726ECAC81004997AA /* DeckImageRenderServiceAppNameContentConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckImageRenderServiceAppNameContentConfiguration.m; sourceTree = "<group>"; };
 		4FCC22C926ECAC98004997AA /* DeckImageRenderServiceAppNameContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckImageRenderServiceAppNameContentView.h; sourceTree = "<group>"; };
 		4FCC22CA26ECAC98004997AA /* DeckImageRenderServiceAppNameContentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckImageRenderServiceAppNameContentView.m; sourceTree = "<group>"; };
-		4FD1B92C279BFBA200E029F0 /* View.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = View.xib; sourceTree = "<group>"; };
 		4FD430402782029600E7F23A /* DeckImageRenderServiceModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckImageRenderServiceModel.h; sourceTree = "<group>"; };
 		4FD430412782029600E7F23A /* DeckImageRenderServiceModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckImageRenderServiceModel.m; sourceTree = "<group>"; };
 		4FD43043278202A600E7F23A /* DeckImageRenderServiceSectionModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckImageRenderServiceSectionModel.h; sourceTree = "<group>"; };
@@ -1334,7 +1332,6 @@
 				4F066CBD26D71ACD00991A98 /* DeckBaseContentConfiguration.m */,
 				4F066CBF26D71B2200991A98 /* DeckBaseContentView.h */,
 				4F066CC026D71B2200991A98 /* DeckBaseContentView.m */,
-				4FD1B92C279BFBA200E029F0 /* View.xib */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -3470,7 +3467,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4FD1B92D279BFBA200E029F0 /* View.xib in Resources */,
 				4FA56BB726A2105A002D9FA0 /* Assets.xcassets in Resources */,
 				4F9DFBBD26B30764002AACDE /* LaunchScreen.storyboard in Resources */,
 				4F9DFBB726B2FD2E002AACDE /* InfoPlist.strings in Resources */,

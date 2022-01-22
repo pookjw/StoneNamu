@@ -38,13 +38,16 @@
     return self.coreDataStack.queue;
 }
 
-- (void)deleteLocalDeck:(nonnull LocalDeck *)localDeck {
+- (void)deleteLocalDecks:(NSSet<LocalDeck *> *)localDecks {
     [self.queue addBarrierBlock:^{
         NSManagedObjectContext *context = self.coreDataStack.context;
         
         [context performBlockAndWait:^{
-            [context deleteObject:localDeck];
+            [localDecks enumerateObjectsUsingBlock:^(LocalDeck * _Nonnull obj, BOOL * _Nonnull stop) {
+                [context deleteObject:obj];
+            }];
         }];
+        
         [self saveChanges];
     }];
 }

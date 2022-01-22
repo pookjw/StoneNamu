@@ -408,7 +408,7 @@
 }
 
 - (void)deleteLocalDeck {
-    [self.localDeckUseCase deleteLocalDeck:self.localDeck];
+    [self.localDeckUseCase deleteLocalDecks:[NSSet setWithObject:self.localDeck]];
     [self postShouldDismissNoficiation];
 }
 

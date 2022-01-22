@@ -122,8 +122,8 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeck
     [backgroundNib release];
     
     collectionView.selectable = YES;
-    collectionView.allowsMultipleSelection = NO;
-    collectionView.allowsEmptySelection = NO;
+    collectionView.allowsMultipleSelection = YES;
+    collectionView.allowsEmptySelection = YES;
     collectionView.delegate = self;
     
     scrollView.documentView = collectionView;
@@ -158,9 +158,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeck
 }
 
 - (void)collectionViewMenuDeleteItemTriggered:(NSMenuItem *)sender {
-    [self.collectionView.interactingIndexPaths enumerateObjectsUsingBlock:^(NSIndexPath * _Nonnull obj, BOOL * _Nonnull stop) {
-        [self.viewModel deleteLocalDeckFromIndexPath:obj];
-    }];
+    [self.viewModel deleteLocalDecksFromIndexPaths:self.collectionView.interactingIndexPaths];
 }
 
 - (void)configureViewModel {
@@ -432,15 +430,13 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeck
 #pragma mark - DeckBaseCollectionViewItemDelegate
 
 - (void)deckBaseCollectionViewItem:(DeckBaseCollectionViewItem *)deckBaseCollectionViewItem didDoubleClickWithRecognizer:(NSClickGestureRecognizer *)recognizer {
-    NSIndexPath * _Nullable indexPath = [self.collectionView indexPathForItem:deckBaseCollectionViewItem];
-    
-    if (indexPath == nil) return;
-    
-    DecksItemModel * _Nullable itemModel = [self.viewModel.dataSource itemIdentifierForIndexPath:indexPath];
-    
-    if (itemModel == nil) return;
-    
-    [self presentDeckDetailsWithLocalDeck:itemModel.localDeck];
+    [self.viewModel localDecksFromIndexPaths:self.collectionView.selectionIndexPaths completion:^(NSSet<LocalDeck *> * _Nonnull localDecks) {
+        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+            [localDecks enumerateObjectsUsingBlock:^(LocalDeck * _Nonnull obj, BOOL * _Nonnull stop) {
+                [self presentDeckDetailsWithLocalDeck:obj];
+            }];
+        }];
+    }];
 }
 
 @end

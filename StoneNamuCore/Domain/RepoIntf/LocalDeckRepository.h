@@ -24,7 +24,7 @@ static NSNotificationName const NSNotificationNameLocalDeckRepositoryDeleteAll =
 - (void)fetchWithCompletion:(LocalDeckRepositoryFetchWithCompletion)completion;
 - (void)fetchUsingURI:(NSURL *)uri completion:(LocalDeckRepositoryFetchWithCompletion)completion;
 - (void)refreshObject:(NSManagedObject *)object mergeChanges:(BOOL)flag completion:(LocalDeckRepositoryRefreshObjectCompletion)completion;
-- (void)deleteLocalDeck:(LocalDeck *)localDeck;
+- (void)deleteLocalDecks:(NSSet<LocalDeck *> *)localDecks;
 - (void)deleteAllLocalDecks;
 - (void)makeLocalDeckWithCompletion:(LocalDeckRepositoryMakeWithCompletion)completion;
 @end

@@ -36,8 +36,8 @@
     [super dealloc];
 }
 
-- (void)deleteLocalDeck:(nonnull LocalDeck *)localDeck {
-    [self.localDeckRepository deleteLocalDeck:localDeck];
+- (void)deleteLocalDecks:(NSSet<LocalDeck *> *)localDecks {
+    [self.localDeckRepository deleteLocalDecks:localDecks];
 }
 
 - (void)deleteAllLocalDecks {
