@@ -80,8 +80,10 @@
 
 - (void)setClicked:(BOOL)clicked {
     [self willChangeValueForKey:@"clicked"];
+    [self willChangeValueForKey:@"isClicked"];
     self->_clicked = clicked;
     [self didChangeValueForKey:@"clicked"];
+    [self didChangeValueForKey:@"isClicked"];
     
     if (self.appearanceTypes & ClickableCollectionViewItemAppearanceTypeClicked) {
         [self updateBorderColor];

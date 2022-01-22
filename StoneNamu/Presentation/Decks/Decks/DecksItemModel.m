@@ -41,7 +41,7 @@
 }
 
 - (NSUInteger)hash {
-    return self.type ^ self.localDeck.hash ^ self.isEasterEgg;
+    return self.type ^ self.localDeck.name.hash ^ self.isEasterEgg;
 }
 
 @end

@@ -119,8 +119,8 @@
                 [self sortSnapshot:snapshot];
                 
                 [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
-                    [self.localDeckUseCase saveChanges];
                     completion(localDeck);
+                    [self.localDeckUseCase saveChanges];
                 }];
                 
                 [snapshot release];
@@ -170,8 +170,8 @@
                 [self sortSnapshot:snapshot];
                 
                 [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
-                    [self.localDeckUseCase saveChanges];
                     completion(localDeck);
+                    [self.localDeckUseCase saveChanges];
                 }];
                 [snapshot release];
             }];

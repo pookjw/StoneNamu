@@ -26,13 +26,13 @@
     //
     
     NSMenuItem *newItem = [[NSMenuItem alloc] initWithTitle:@"New Window (Demo)"
-                                                       action:@selector(presentNewMainWindow)
-                                                keyEquivalent:@"n"];
+                                                     action:@selector(presentNewMainWindow:)
+                                              keyEquivalent:@"n"];
     NSMenuItem *closeItem = [[NSMenuItem alloc] initWithTitle:@"Close (Demo)"
                                                        action:@selector(performClose:)
                                                 keyEquivalent:@"w"];
     
-    newItem.target = [WindowsService class];
+    newItem.target = self;
     
     self.submenu = fileSubMenu;
     fileSubMenu.itemArray = @[
@@ -43,6 +43,10 @@
     [fileSubMenu release];
     [newItem release];
     [closeItem release];
+}
+
+- (void)presentNewMainWindow:(NSMenuItem *)sender {
+    [WindowsService.sharedInstance presentNewMainWindow];
 }
 
 @end
