@@ -29,7 +29,7 @@
                                                        action:@selector(orderFrontStandardAboutPanel:)
                                                 keyEquivalent:@""];
     NSMenuItem *prefsItem = [[NSMenuItem alloc] initWithTitle:@"Preferences (Demo)"
-                                                       action:NSSelectorFromString(@"presentNewPrefsWindowIfNeeded")
+                                                       action:@selector(presentNewPrefsWindowIfNeeded:)
                                                 keyEquivalent:@","];
     NSMenuItem *hideItem = [[NSMenuItem alloc] initWithTitle:@"Hide StoneNamu (Demo)"
                                                       action:@selector(hide:)
@@ -44,7 +44,7 @@
                                                       action:@selector(terminate:)
                                                keyEquivalent:@"q"];
     
-    prefsItem.target = [WindowsService class];
+    prefsItem.target = self;
     hideOthersItem.keyEquivalentModifierMask = NSEventModifierFlagShift | NSEventModifierFlagCommand;
     
     self.submenu = appSubMenu;
@@ -67,6 +67,10 @@
     [hideOthersItem release];
     [showAllItem release];
     [quitItem release];
+}
+
+- (void)presentNewPrefsWindowIfNeeded:(NSMenuItem *)sender {
+    [WindowsService.sharedInstance presentNewPrefsWindowIfNeeded];
 }
 
 @end

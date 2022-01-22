@@ -432,7 +432,15 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeck
 #pragma mark - DeckBaseCollectionViewItemDelegate
 
 - (void)deckBaseCollectionViewItem:(DeckBaseCollectionViewItem *)deckBaseCollectionViewItem didDoubleClickWithRecognizer:(NSClickGestureRecognizer *)recognizer {
-    [self presentDeckDetailsWithLocalDeck:deckBaseCollectionViewItem.localDeck];
+    NSIndexPath * _Nullable indexPath = [self.collectionView indexPathForItem:deckBaseCollectionViewItem];
+    
+    if (indexPath == nil) return;
+    
+    DecksItemModel * _Nullable itemModel = [self.viewModel.dataSource itemIdentifierForIndexPath:indexPath];
+    
+    if (itemModel == nil) return;
+    
+    [self presentDeckDetailsWithLocalDeck:itemModel.localDeck];
 }
 
 @end

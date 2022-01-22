@@ -13,6 +13,8 @@
 @property (retain) IBOutlet NSImageView *cardSetImageView;
 @property (retain) IBOutlet NSTextField *nameLabel;
 @property (retain) IBOutlet NSImageView *heroImageView;
+@property (retain) IBOutlet NSVisualEffectView *countLabelBlurView;
+@property (retain) IBOutlet NSTextField *countLabel;
 @property (retain) CAGradientLayer *heroImageViewGradientLayer;
 @property BOOL isEasterEgg;
 @property (assign) id<DeckBaseCollectionViewItemDelegate> deckBaseCollectionViewItemDelegate;
@@ -24,8 +26,9 @@
     [_cardSetImageView release];
     [_nameLabel release];
     [_heroImageView release];
+    [_countLabelBlurView release];
+    [_countLabel release];
     [_heroImageViewGradientLayer release];
-    [_localDeck release];
     [super dealloc];
 }
 
@@ -45,8 +48,6 @@
 }
 
 - (void)configureWithLocalDeck:(LocalDeck *)localDeck isEasterEgg:(BOOL)isEasterEgg deckBaseCollectionViewItemDelegate:(id<DeckBaseCollectionViewItemDelegate>)deckBaseCollectionViewItemDelegate {
-    [self->_localDeck release];
-    self->_localDeck = [localDeck retain];
     self.isEasterEgg = isEasterEgg;
     self.deckBaseCollectionViewItemDelegate = deckBaseCollectionViewItemDelegate;
     
@@ -55,7 +56,7 @@
     if (isEasterEgg) {
         self.heroImageView.image = [ResourcesService imageForKey:ImageKeyPnamuEasteregg1];
     } else {
-        self.heroImageView.image = [ResourcesService portraitImageForClassId:self.localDeck.classId.unsignedIntegerValue];
+        self.heroImageView.image = [ResourcesService portraitImageForClassId:localDeck.classId.unsignedIntegerValue];
     }
     
     self.nameLabel.stringValue = localDeck.name;
