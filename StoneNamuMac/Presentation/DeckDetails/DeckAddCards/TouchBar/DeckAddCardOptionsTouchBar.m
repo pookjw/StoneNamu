@@ -552,40 +552,14 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     
     //
     
-    [self.allScrubbers enumerateObjectsUsingBlock:^(NSScrubber * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if ([self hasEmptyRowAtScrubber:obj]) {
-            NSArray<NSString *> *keys = [self sortedKeysFromScrubber:obj];
-            NSUInteger index = [keys indexOfString:@""];
-            BlizzardHSAPIOptionType optionType = [self optionTypeFromScrubber:obj];
-            
-            if (shouldChangePosition) {
-                if ([obj respondsToSelector:@selector(_interactiveSelectItemAtIndex:animated:)]) {
-                    // this will excute `scrubber:didSelectItemAtIndex:`
-                    [obj _interactiveSelectItemAtIndex:index animated:YES];
-                }
-                [obj scrollItemAtIndex:index toAlignment:NSScrubberAlignmentCenter];
-            }
-            
-            //
-            
-            NSPopoverTouchBarItem * _Nullable popover = [self popoverTouchBarItemFromOptionType:optionType];
-            
-            if (popover != nil) {
-                popover.collapsedRepresentationImage = [DeckAddCardOptionsMenuFactory imageForDeckAddCardOptionTypeWithValue:nil optionType:optionType];
-            }
-        }
-        
-        if (shouldUpdate) {
-            [obj reloadData];
-        }
-    }];
-    
-    //
-    
     [options enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSString * _Nonnull obj1, BOOL * _Nonnull stop) {
         NSScrubber * _Nullable scrubber = [self scrubberFromOptionType:key];
         
         if (scrubber != nil) {
+            if (shouldUpdate) {
+                [scrubber reloadData];
+            }
+            
             NSArray<NSString *> *keys = [self sortedKeysFromScrubber:scrubber];
             NSInteger __block index = -1;
             

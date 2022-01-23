@@ -104,7 +104,7 @@
 }
 
 - (void)resetButtonTriggered:(UIBarButtonItem *)sender {
-    [self.delegate cardOptionsViewController:self defaultOptionsIsNeededWithCompletion:^(NSDictionary<NSString *,NSString *> * _Nonnull options) {
+    [self.delegate cardOptionsViewController:self defaultOptionsAreNeededWithCompletion:^(NSDictionary<NSString *,NSString *> * _Nonnull options) {
         [self.viewModel updateDataSourceWithOptions:options];
     }];
 }

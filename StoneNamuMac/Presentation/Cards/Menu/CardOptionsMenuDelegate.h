@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol CardOptionsMenuDelegate <NSObject>
 - (void)cardOptionsMenu:(CardOptionsMenu *)menu changedOption:(NSDictionary<NSString *, NSString *> *)options;
+- (void)cardOptionsMenu:(CardOptionsMenu *)menu defaultOptionsAreNeedWithSender:(NSMenuItem *)sender;
 @end
 
 NS_ASSUME_NONNULL_END

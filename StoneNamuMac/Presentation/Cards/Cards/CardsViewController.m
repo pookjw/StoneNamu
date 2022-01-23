@@ -116,13 +116,9 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardColl
 }
 
 - (BOOL)requestDataSourceWithOptions:(NSDictionary<NSString *, NSString *> * _Nullable)options reset:(BOOL)reset {
-    [self updateOptionInterfaceWithOptions:options];
-    
     BOOL requested = [self.viewModel requestDataSourceWithOptions:options reset:reset];
     
     if (requested) {
-        [self addSpinnerView];
-        
         if (reset) {
             [self.undoManager registerUndoWithTarget:self
                                             selector:@selector(undoOptions:)
@@ -307,8 +303,14 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardColl
 }
 
 - (void)startedLoadingDataSourceReceived:(NSNotification *)notification {
+    NSDictionary<NSString *, NSString *> * _Nullable options = notification.userInfo[NSNotificationNameCardsViewModelStartedLoadingDataSourceOptionsKey];
+    
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
         [self addSpinnerView];
+        
+        if (options != nil) {
+            [self updateOptionInterfaceWithOptions:options];
+        }
     }];
 }
 
@@ -477,6 +479,10 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardColl
 
 - (void)cardOptionsMenu:(CardOptionsMenu *)menu changedOption:(NSDictionary<NSString *,NSString *> *)options {
     [self requestDataSourceWithOptions:options reset:YES];
+}
+
+- (void)cardOptionsMenu:(CardOptionsMenu *)menu defaultOptionsAreNeedWithSender:(NSMenuItem *)sender {
+    [self requestDataSourceWithOptions:nil reset:YES];
 }
 
 #pragma mark - CardOptionsToolbarDelegate

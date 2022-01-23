@@ -12,6 +12,8 @@
 #import "NSUserInterfaceItemIdentifierCardOptionType+BlizzardHSAPIOption.h"
 #import <StoneNamuResources/StoneNamuResources.h>
 
+static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardOptionsMenuResetOptions = @"NSUserInterfaceItemIdentifierCardOptionsMenuResetOptions";
+
 @interface CardOptionsMenu () <NSSearchFieldDelegate>
 @property (assign) id<CardOptionsMenuDelegate> cardOptionsMenuDelegate;
 
@@ -32,7 +34,9 @@
 @property (retain) NSMenuItem *optionTypeKeywordItem;
 @property (retain) NSMenuItem *optionTypeGameModeItem;
 @property (retain) NSMenuItem *optionTypeSortItem;
-@property (retain) NSArray<NSMenuItem *> *allItems;
+@property (retain) NSArray<NSMenuItem *> *allOptionsItems;
+
+@property (retain) NSMenuItem *resetOptionsItem;
 
 @property (retain) NSMutableDictionary<NSString *, NSString *> *options;
 @end
@@ -50,6 +54,7 @@
         self.cardOptionsMenuDelegate = cardOptionsMenuDelegate;
         [self configureOptionsMenu];
         [self configureOptionsItems];
+        [self configureResetOptionsItem];
     }
     
     return self;
@@ -73,8 +78,9 @@
     [_optionTypeKeywordItem release];
     [_optionTypeGameModeItem release];
     [_optionTypeSortItem release];
+    [_allOptionsItems release];
     
-    [_allItems release];
+    [_resetOptionsItem release];
     [_options release];
     [super dealloc];
 }
@@ -84,7 +90,7 @@
     self.options = mutableOptions;
     [mutableOptions release];
     
-    [self.allItems enumerateObjectsUsingBlock:^(NSMenuItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    [self.allOptionsItems enumerateObjectsUsingBlock:^(NSMenuItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         
         NSUserInterfaceItemIdentifier identifier = obj.identifier;
         BlizzardHSAPIOptionType optionType = BlizzardHSAPIOptionTypeFromNSUserInterfaceItemIdentifierCardOptionType(identifier);
@@ -241,7 +247,7 @@
     
     //
     
-    NSArray *allItems = @[
+    NSArray *allOptionsItems = @[
         optionTypeTextFilterItem,
         optionTypeSetItem,
         optionTypeClassItem,
@@ -255,10 +261,10 @@
         optionTypeKeywordItem,
         optionTypeGameModeItem,
         optionTypeSortItem
-        
     ];
-    self.allItems = allItems;
-    self.optionsSubMenu.itemArray = allItems;
+    
+    self.allOptionsItems = allOptionsItems;
+    self.optionsSubMenu.itemArray = allOptionsItems;
     
     self.optionTypeTextFilterItem = optionTypeTextFilterItem;
     self.optionTypeSetItem = optionTypeSetItem;
@@ -291,6 +297,23 @@
     [optionTypeSortItem release];
 }
 
+- (void)configureResetOptionsItem {
+    NSMenuItem *resetOptionsItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyReset]
+                                                              action:@selector(resetOptionsItemTriggered:)
+                                                       keyEquivalent:@""];
+    resetOptionsItem.target = self;
+    resetOptionsItem.identifier = NSUserInterfaceItemIdentifierCardOptionsMenuResetOptions;
+    
+    NSMutableArray<NSMenuItem *> *itemArray = [self.optionsSubMenu.itemArray mutableCopy];
+    [itemArray addObject:[NSMenuItem separatorItem]];
+    [itemArray addObject:resetOptionsItem];
+    self.optionsSubMenu.itemArray = itemArray;
+    [itemArray release];
+    
+    self.resetOptionsItem = resetOptionsItem;
+    [resetOptionsItem release];
+}
+
 - (NSMenu *)menuForMenuItem:(NSMenuItem *)item {
     NSUserInterfaceItemIdentifier itemIdentifier = item.identifier;
     BlizzardHSAPIOptionType optionType = BlizzardHSAPIOptionTypeFromNSUserInterfaceItemIdentifierCardOptionType(itemIdentifier);
@@ -301,7 +324,7 @@
 - (NSMenuItem * _Nullable)itemForOptionType:(BlizzardHSAPIOptionType)optionType {
     NSMenuItem * _Nullable __block result = nil;
     
-    [self.allItems enumerateObjectsUsingBlock:^(NSMenuItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    [self.allOptionsItems enumerateObjectsUsingBlock:^(NSMenuItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         NSUserInterfaceItemIdentifier itemIdentifier = obj.identifier;
         BlizzardHSAPIOptionType tmp = BlizzardHSAPIOptionTypeFromNSUserInterfaceItemIdentifierCardOptionType(itemIdentifier);
         
@@ -346,6 +369,10 @@
             item.state = NSControlStateValueOff;
         }
     }];
+}
+
+- (void)resetOptionsItemTriggered:(NSMenuItem *)sender {
+    [self.cardOptionsMenuDelegate cardOptionsMenu:self defaultOptionsAreNeedWithSender:sender];
 }
 
 #pragma mark - NSSearchFieldDelegate

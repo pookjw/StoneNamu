@@ -105,7 +105,7 @@
 }
 
 - (void)resetButtonTriggered:(UIBarButtonItem *)sender {
-    [self.delegate deckAddCardOptionsViewController:self defaultOptionsIsNeededWithCompletion:^(NSDictionary<NSString *,NSString *> * _Nonnull options) {
+    [self.delegate deckAddCardOptionsViewController:self defaultOptionsAreNeededWithCompletion:^(NSDictionary<NSString *,NSString *> * _Nonnull options) {
         [self.viewModel updateDataSourceWithOptions:options];
     }];
 }

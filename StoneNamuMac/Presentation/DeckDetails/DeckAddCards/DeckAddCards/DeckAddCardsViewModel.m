@@ -79,7 +79,7 @@
     [super dealloc];
 }
 
-- (void)loadLocalDeckFromURIRepresentation:(NSURL *)URIRepresentation completion:(DeckAddCardsViewModelLoadFromRIRepresentationCompletion)completion {
+- (void)loadLocalDeckFromURIRepresentation:(NSURL *)URIRepresentation completion:(DeckAddCardsViewModelLoadFromURIRepresentationCompletion)completion {
     [self.localDeckUseCase fetchUsingURI:URIRepresentation completion:^(NSArray<LocalDeck *> * _Nullable localDecks, NSError * _Nullable error) {
         if (error != nil) {
 //            [self postError:error];
@@ -101,12 +101,11 @@
 
 - (BOOL)requestDataSourceWithOptions:(NSDictionary<NSString *,NSString *> *)options reset:(BOOL)reset {
     if (reset) {
-        [self postStartedLoadingDataSource];
         [self resetDataSource];
     } else {
         if (self.isFetching) return NO;
         if (!self.canLoadMore) return NO;
-        [self postStartedLoadingDataSource];
+        [self.queue cancelAllOperations];
     }
     
     //
@@ -122,10 +121,16 @@
             [self->_options release];
             self->_options = [defaultOptions copy];
         } else {
-            NSDictionary *mutableDic = [options dictionaryByCombiningWithDictionary:defaultOptions shouldOverride:NO];
+            NSDictionary *dic = [options dictionaryByCombiningWithDictionary:defaultOptions shouldOverride:NO];
             [self->_options release];
-            self->_options = [mutableDic copy];
+            self->_options = [dic copy];
         }
+        
+        //
+        
+        [self postStartedLoadingDataSourceWithOptions:self.options];
+        
+        //
         
         NSMutableDictionary *mutableDic = [self.options mutableCopy];
         
@@ -360,10 +365,10 @@
                                                     userInfo:@{DeckAddCardsViewModelErrorNotificationErrorKey: error}];
 }
 
-- (void)postStartedLoadingDataSource {
+- (void)postStartedLoadingDataSourceWithOptions:(NSDictionary<NSString *, NSString *> *)options {
     [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameDeckAddCardsViewModelStartedLoadingDataSource
                                                       object:self
-                                                    userInfo:nil];
+                                                    userInfo:@{NSNotificationNameDeckAddCardsViewModelStartedLoadingDataSourceOptionsKey: options}];
 }
 
 - (void)postEndedLoadingDataSource {

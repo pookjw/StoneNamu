@@ -142,13 +142,9 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
 }
 
 - (BOOL)requestDataSourceWithOptions:(NSDictionary<NSString *, NSString *> * _Nullable)options reset:(BOOL)reset {
-    [self updateOptionInterfaceWithOptions:options];
-    
     BOOL requested = [self.viewModel requestDataSourceWithOptions:options reset:reset];
     
     if (requested) {
-        [self addSpinnerView];
-        
         if (reset) {
             [self.undoManager registerUndoWithTarget:self
                                             selector:@selector(undoOptions:)
@@ -321,8 +317,14 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
 }
 
 - (void)startedLoadingDataSourceReceived:(NSNotification *)notification {
+    NSDictionary<NSString *, NSString *> * _Nullable options = notification.userInfo[NSNotificationNameDeckAddCardsViewModelStartedLoadingDataSourceOptionsKey];
+    
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
         [self addSpinnerView];
+        
+        if (options != nil) {
+            [self updateOptionInterfaceWithOptions:options];
+        }
     }];
 }
 
@@ -485,6 +487,10 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
 
 - (void)deckAddCardOptionsMenu:(DeckAddCardOptionsMenu *)menu changedOption:(NSDictionary<NSString *,NSString *> *)options {
     [self requestDataSourceWithOptions:options reset:YES];
+}
+
+- (void)deckAddCardOptionsMenu:(DeckAddCardOptionsMenu *)menu defaultOptionsAreNeedWithSender:(NSMenuItem *)sender {
+    [self requestDataSourceWithOptions:nil reset:YES];
 }
 
 #pragma mark - DeckAddCardOptionsToolbarDelegate

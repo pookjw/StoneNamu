@@ -328,7 +328,7 @@
     [self.viewModel requestDataSourceWithOptions:options reset:YES];
 }
 
-- (void)cardOptionsViewController:(CardOptionsViewController *)viewController defaultOptionsIsNeededWithCompletion:(CardOptionsViewControllerDelegateDefaultOptionsIsNeededCompletion)completion {
+- (void)cardOptionsViewController:(CardOptionsViewController *)viewController defaultOptionsAreNeededWithCompletion:(CardOptionsViewControllerDelegateDefaultOptionsAreNeededCompletion)completion {
     completion(self.viewModel.defaultOptions);
 }
 

@@ -11,6 +11,7 @@
 
 @interface CardsViewModel ()
 @property (retain) id<HSCardUseCase> hsCardUseCase;
+@property (readonly, nonatomic) NSDictionary<NSString *, NSString *> *defaultOptions;
 @property (retain) NSNumber * _Nullable pageCount;
 @property (retain) NSNumber *page;
 @property (nonatomic, readonly) BOOL canLoadMore;
@@ -69,15 +70,17 @@
     [super dealloc];
 }
 
+- (NSDictionary<NSString *,NSString *> *)defaultOptions {
+    return BlizzardHSAPIDefaultOptions();
+}
+
 - (BOOL)requestDataSourceWithOptions:(NSDictionary<NSString *,NSString *> *)options reset:(BOOL)reset {
-    
     if (reset) {
-        [self postStartedLoadingDataSource];
         [self resetDataSource];
     } else {
         if (self.isFetching) return NO;
         if (!self.canLoadMore) return NO;
-        [self postStartedLoadingDataSource];
+        [self.queue cancelAllOperations];
     }
     
     //
@@ -87,7 +90,7 @@
     NSBlockOperation * __block op = [NSBlockOperation new];
     
     [op addExecutionBlock:^{
-       NSDictionary<NSString *, NSString *> *defaultOptions = BlizzardHSAPIDefaultOptions();
+       NSDictionary<NSString *, NSString *> *defaultOptions = self.defaultOptions;
         
         if (options == nil) {
             [self->_options release];
@@ -106,6 +109,12 @@
             self->_options = [mutableDic copy];
             [mutableDic release];
         }
+        
+        //
+        
+        [self postStartedLoadingDataSourceWithOptions:self.options];
+        
+        //
         
         NSMutableDictionary *mutableDic = [self.options mutableCopy];
         
@@ -261,10 +270,10 @@
                                                     userInfo:@{CardsViewModelErrorNotificationErrorKey: error}];
 }
 
-- (void)postStartedLoadingDataSource {
+- (void)postStartedLoadingDataSourceWithOptions:(NSDictionary<NSString *, NSString *> *)options {
     [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameCardsViewModelStartedLoadingDataSource
                                                       object:self
-                                                    userInfo:nil];
+                                                    userInfo:@{NSNotificationNameCardsViewModelStartedLoadingDataSourceOptionsKey: options}];
 }
 
 - (void)postEndedLoadingDataSource {

@@ -543,32 +543,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     
     //
     
-    [self.allScrubbers enumerateObjectsUsingBlock:^(NSScrubber * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if ([self hasEmptyRowAtScrubber:obj]) {
-            NSArray<NSString *> *keys = [self sortedKeysFromScrubber:obj];
-            NSUInteger index = [keys indexOfString:@""];
-            BlizzardHSAPIOptionType optionType = [self optionTypeFromScrubber:obj];
-            
-            if (shouldChangePosition) {
-                if ([obj respondsToSelector:@selector(_interactiveSelectItemAtIndex:animated:)]) {
-                    // this will excute `scrubber:didSelectItemAtIndex:`
-                    [obj _interactiveSelectItemAtIndex:index animated:YES];
-                }
-                [obj scrollItemAtIndex:index toAlignment:NSScrubberAlignmentCenter];
-            }
-            
-            //
-            
-            NSPopoverTouchBarItem * _Nullable popover = [self popoverTouchBarItemFromOptionType:optionType];
-            
-            if (popover != nil) {
-                popover.collapsedRepresentationImage = [CardOptionsMenuFactory imageForCardOptionTypeWithValue:nil optionType:optionType];
-            }
-        }
-    }];
-    
-    //
-    
     [options enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSString * _Nonnull obj1, BOOL * _Nonnull stop) {
         NSScrubber * _Nullable scrubber = [self scrubberFromOptionType:key];
         
@@ -588,7 +562,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
             if (shouldChangePosition) {
                 if ([scrubber respondsToSelector:@selector(_interactiveSelectItemAtIndex:animated:)]) {
                     // this will excute `scrubber:didSelectItemAtIndex:`
-                    [scrubber _interactiveSelectItemAtIndex:index animated:YES];
+                    [scrubber setSelectedIndex:index animated:YES];
                 }
                 [scrubber scrollItemAtIndex:index toAlignment:NSScrubberAlignmentCenter];
             }
@@ -995,7 +969,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     NSArray<NSString *> *keys = [self sortedKeysFromScrubber:scrubber];
     BlizzardHSAPIOptionType optionType = [self optionTypeFromScrubber:scrubber];
     NSString *newValue = keys[selectedIndex];
-    NSMutableDictionary<NSString *, NSString *> *oldOptions = [[self.options mutableCopy] autorelease];
     
     if (![CardOptionsMenuFactory hasValueForValue:newValue]) {
         self.options[optionType] = nil;
@@ -1005,10 +978,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
         return;
     } else {
         self.options[optionType] = keys[selectedIndex];
-    }
-    
-    if (![oldOptions isEqualToDictionary:self.options]) {
-        [self.cardOptionsTouchBarDelegate cardOptionsTouchBar:self changedOption:self.options];
     }
 }
 

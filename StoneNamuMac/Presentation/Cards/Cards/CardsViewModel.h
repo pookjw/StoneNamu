@@ -18,6 +18,7 @@ static NSNotificationName const NSNotificationNameCardsViewModelError = @"NSNoti
 static NSString * const CardsViewModelErrorNotificationErrorKey = @"CardsViewModelErrorNotificationErrorKey";
 
 static NSNotificationName const NSNotificationNameCardsViewModelStartedLoadingDataSource = @"NSNotificationNameCardsViewModelStartedLoadingDataSource";
+static NSNotificationName const NSNotificationNameCardsViewModelStartedLoadingDataSourceOptionsKey = @"NSNotificationNameCardsViewModelStartedLoadingDataSourceOptionsKey";
 static NSNotificationName const NSNotificationNameCardsViewModelEndedLoadingDataSource = @"NSNotificationNameCardsViewModelEndedLoadingDataSource";
 
 @interface CardsViewModel : NSObject

@@ -489,7 +489,7 @@
     [self.viewModel requestDataSourceWithOptions:options reset:YES];
 }
 
-- (void)deckAddCardOptionsViewController:(DeckAddCardOptionsViewController *)viewController defaultOptionsIsNeededWithCompletion:(DeckAddCardOptionsViewControllerDelegateDefaultOptionsIsNeededCompletion)completion {
+- (void)deckAddCardOptionsViewController:(DeckAddCardOptionsViewController *)viewController defaultOptionsAreNeededWithCompletion:(DeckAddCardOptionsViewControllerDelegateDefaultOptionsAreNeededCompletion)completion {
     [self.viewModel defaultOptionsWithCompletion:^(NSDictionary<NSString *,NSString *> * _Nonnull options) {
         completion(options);
     }];

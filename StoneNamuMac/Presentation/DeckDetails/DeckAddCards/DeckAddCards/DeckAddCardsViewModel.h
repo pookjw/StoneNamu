@@ -13,13 +13,14 @@
 NS_ASSUME_NONNULL_BEGIN
 
 typedef NSCollectionViewDiffableDataSource<DeckAddCardSectionModel *, DeckAddCardItemModel *> DeckAddCardsDataSource;
-typedef void (^DeckAddCardsViewModelLoadFromRIRepresentationCompletion)(BOOL result);
+typedef void (^DeckAddCardsViewModelLoadFromURIRepresentationCompletion)(BOOL result);
 typedef void (^DeckAddCardsViewModelHSCardsFromIndexPathsCompletion)(NSSet<HSCard *> *);
 
 static NSNotificationName const NSNotificationNameDeckAddCardsViewModelError = @"NSNotificationNameDeckAddCardsViewModelError";
 static NSString * const DeckAddCardsViewModelErrorNotificationErrorKey = @"DeckAddCardsViewModelErrorNotificationErrorKey";
 
 static NSNotificationName const NSNotificationNameDeckAddCardsViewModelStartedLoadingDataSource = @"NSNotificationNameDeckAddCardsViewModelStartedLoadingDataSource";
+static NSNotificationName const NSNotificationNameDeckAddCardsViewModelStartedLoadingDataSourceOptionsKey = @"NSNotificationNameDeckAddCardsViewModelStartedLoadingDataSourceOptionsKey";
 static NSNotificationName const NSNotificationNameDeckAddCardsViewModelEndedLoadingDataSource = @"NSNotificationNameDeckAddCardsViewModelEndedLoadingDataSource";
 
 static NSNotificationName const NSNotificationNameDeckAddCardsViewModelLocalDeckHasChanged = @"NSNotificationNameDeckAddCardsViewModelLocalDeckHasChanged";
@@ -31,7 +32,7 @@ static NSNotificationName const NSNotificationNameDeckAddCardsViewModelLocalDeck
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithDataSource:(DeckAddCardsDataSource *)dataSource;
-- (void)loadLocalDeckFromURIRepresentation:(NSURL *)URIRepresentation completion:(DeckAddCardsViewModelLoadFromRIRepresentationCompletion)completion;
+- (void)loadLocalDeckFromURIRepresentation:(NSURL *)URIRepresentation completion:(DeckAddCardsViewModelLoadFromURIRepresentationCompletion)completion;
 - (BOOL)requestDataSourceWithOptions:(NSDictionary<NSString *, NSString *> * _Nullable)options reset:(BOOL)reset;
 - (void)addHSCards:(NSSet<HSCard *> *)hsCards;
 - (void)addHSCardsFromIndexPathes:(NSSet<NSIndexPath *> *)indexPathes;
