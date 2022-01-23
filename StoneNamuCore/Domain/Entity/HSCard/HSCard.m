@@ -351,10 +351,6 @@
     return @[kHSCardType];
 }
 
-- (NSArray<NSString *> *)writableTypeIdentifiersForItemProvider {
-    return @[kHSCardType];
-}
-
 #pragma mark - NSItemProviderReading
 
 + (instancetype)objectWithItemProviderData:(NSData *)data typeIdentifier:(NSString *)typeIdentifier error:(NSError * _Nullable *)outError {
