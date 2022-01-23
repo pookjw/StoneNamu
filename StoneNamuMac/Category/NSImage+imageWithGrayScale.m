@@ -14,11 +14,6 @@ static NSString * const NSImageGrayScaleCategoryImageBeforeGrayScale = @"NSImage
 
 @implementation NSImage (imageWithGrayScale)
 
-- (void)dealloc {
-    objc_removeAssociatedObjects(self);
-    [super dealloc];
-}
-
 - (BOOL)isGrayScaleApplied {
     NSNumber *value = objc_getAssociatedObject(self, &NSImageGrayScaleCategoryIsGrayScaleApplied);
     
