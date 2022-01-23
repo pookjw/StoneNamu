@@ -402,6 +402,7 @@
     
     if (error != nil) {
         NSLog(@"%@", error);
+        [coder release];
         return nil;
     }
     
