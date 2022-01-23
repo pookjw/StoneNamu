@@ -13,6 +13,7 @@
 @property (retain) IBOutlet NSImageView *cardSetImageView;
 @property (retain) IBOutlet NSTextField *nameLabel;
 @property (retain) IBOutlet NSImageView *heroImageView;
+@property (retain) IBOutlet NSView *countLabelContainerView;
 @property (retain) IBOutlet NSBox *countLabelContainerBox;
 @property (retain) IBOutlet NSTextField *countLabel;
 @property (retain) CAGradientLayer *heroImageViewGradientLayer;
@@ -26,6 +27,7 @@
     [_cardSetImageView release];
     [_nameLabel release];
     [_heroImageView release];
+    [_countLabelContainerView release];
     [_countLabelContainerBox release];
     [_countLabel release];
     [_heroImageViewGradientLayer release];
@@ -85,9 +87,9 @@
     NSUInteger count = localDeck.hsCards.count;
     
     if (count >= HSDECK_MAX_TOTAL_CARDS) {
-        self.countLabelContainerBox.hidden = YES;
+        self.countLabelContainerView.hidden = YES;
     } else {
-        self.countLabelContainerBox.hidden = NO;
+        self.countLabelContainerView.hidden = NO;
     }
     
     self.countLabel.stringValue = [NSString stringWithFormat:@"%lu / %d", count, HSDECK_MAX_TOTAL_CARDS];

@@ -17,6 +17,7 @@
 #import "HSCardPromiseProvider.h"
 #import "ClickableCollectionView.h"
 #import "PhotosService.h"
+#import "NSPasteboardNameStoneNamuPasteboard.h"
 #import <StoneNamuCore/StoneNamuCore.h>
 #import <StoneNamuResources/StoneNamuResources.h>
 
@@ -235,6 +236,11 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardColl
     }];
 }
 
+- (void)copyItemTriggered:(NSMenuItem *)sender {
+    NSArray<HSCard *> *hsCards = [self.viewModel hsCardsFromIndexPaths:self.collectionView.interactingIndexPaths].allObjects;
+    [self copyHSCards:hsCards];
+}
+
 - (void)configureViewModel {
     CardsViewModel *viewModel = [[CardsViewModel alloc] initWithDataSource:[self makeDataSource]];
     self.viewModel = viewModel;
@@ -381,6 +387,17 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardColl
     }];
 }
 
+- (void)copy:(id)sender {
+    NSArray<HSCard *> *hsCards = [self.viewModel hsCardsFromIndexPaths:self.collectionView.selectionIndexPaths].allObjects;
+    [self copyHSCards:hsCards];
+}
+
+- (void)copyHSCards:(NSArray<HSCard *> *)hsCards {
+    NSPasteboard *pb = [NSPasteboard pasteboardWithName:NSPasteboardNameStoneNamuPasteboard];
+    [pb clearContents];
+    [pb writeObjects:hsCards];
+}
+
 #pragma mark - NSCollectionViewDelegate
 
 - (BOOL)collectionView:(NSCollectionView *)collectionView canDragItemsAtIndexPaths:(NSSet<NSIndexPath *> *)indexPaths withEvent:(NSEvent *)event {
@@ -438,10 +455,18 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardColl
             shareImageItem.image = [NSImage imageWithSystemSymbolName:@"square.and.arrow.up" accessibilityDescription:nil];
             shareImageItem.target = self;
             
-            menu.itemArray = @[showDetailItem, saveImageItem, shareImageItem];
+            NSMenuItem *copyItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyCopy]
+                                                              action:@selector(copyItemTriggered:)
+                                                       keyEquivalent:@""];
+            copyItem.image = [NSImage imageWithSystemSymbolName:@"doc.on.doc" accessibilityDescription:nil];
+            copyItem.target = self;
+            
+            menu.itemArray = @[showDetailItem, saveImageItem, shareImageItem, copyItem];
             
             [showDetailItem release];
             [saveImageItem release];
+            [shareImageItem release];
+            [copyItem release];
         } else {
             menu.itemArray = @[];
         }

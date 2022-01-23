@@ -28,6 +28,7 @@ static NSNotificationName const NSNotificationNameCardsViewModelEndedLoadingData
 - (instancetype)initWithDataSource:(CardsDataSource *)dataSource;
 - (BOOL)requestDataSourceWithOptions:(NSDictionary<NSString *, NSString *> * _Nullable)options reset:(BOOL)reset;
 - (void)hsCardsFromIndexPathsWithCompletion:(NSSet<NSIndexPath *> *)indexPaths completion:(CardsViewModelHSCardsFromIndexPathsCompletion)completion;
+- (NSSet<HSCard *> *)hsCardsFromIndexPaths:(NSSet<NSIndexPath *> *)indexPaths;
 @end
 
 NS_ASSUME_NONNULL_END

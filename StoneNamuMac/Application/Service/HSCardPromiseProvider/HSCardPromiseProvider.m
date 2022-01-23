@@ -9,25 +9,6 @@
 #import "NSImage+dataUsingType.h"
 #import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
 
-@implementation HSCard (Pasteboard)
-
-#pragma mark - NSPasteboardWriting
-
-- (nonnull NSArray<NSPasteboardType> *)writableTypesForPasteboard:(nonnull NSPasteboard *)pasteboard {
-    return @[NSPasteboardTypeHSCard];
-}
-
-- (id)pasteboardPropertyListForType:(NSPasteboardType)type {
-    if ([type isEqualToString:NSPasteboardTypeHSCard]) {
-        NSData *hsCardsData = [NSKeyedArchiver archivedDataWithRootObject:self requiringSecureCoding:YES error:nil];
-        return hsCardsData;
-    } else {
-        return nil;
-    }
-}
-
-@end
-
 @interface HSCardPromiseProvider () <NSFilePromiseProviderDelegate>
 @property (copy) HSCard *hsCard;
 @property (retain) NSImage * _Nullable image;

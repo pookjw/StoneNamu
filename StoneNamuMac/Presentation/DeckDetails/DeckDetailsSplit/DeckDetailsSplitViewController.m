@@ -67,6 +67,10 @@
     [deckDetailsViewController release];
 }
 
+- (void)paste:(id)sender {
+    [self.deckDetailsViewController performSelector:@selector(paste:) withObject:sender];
+}
+
 #pragma mark - NSSplitViewDelegate
 
 - (BOOL)splitView:(NSSplitView *)splitView canCollapseSubview:(NSView *)subview {

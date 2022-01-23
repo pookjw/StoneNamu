@@ -21,6 +21,7 @@
 #import "PhotosService.h"
 #import "HSCardDroppableView.h"
 #import "DeckDetailsSeparatorBox.h"
+#import "NSPasteboardNameStoneNamuPasteboard.h"
 #import <StoneNamuCore/StoneNamuCore.h>
 #import <StoneNamuResources/StoneNamuResources.h>
 
@@ -68,6 +69,13 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
     [super dealloc];
 }
 
+- (void)paste:(id)sender {
+    NSPasteboard *pb = [NSPasteboard pasteboardWithName:NSPasteboardNameStoneNamuPasteboard];
+    NSArray<HSCard *> * _Nullable hsCards = [pb readObjectsForClasses:@[[HSCard class]] options:nil];
+    if (hsCards == nil) return;
+    [self.viewModel addHSCards:hsCards];
+}
+
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
     if (([object isEqual:self]) && ([keyPath isEqualToString:@"self.view.window"])) {
         if (self.view.window != nil) {
@@ -102,11 +110,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
     [self configureViewModel];
     [self bind];
 }
-
-//- (void)viewDidLayout {
-//    [super viewDidLayout];
-//    [self updateScrollViewContentInsets];
-//}
 
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder backgroundQueue:(NSOperationQueue *)queue {
     [super encodeRestorableStateWithCoder:coder backgroundQueue:queue];
@@ -279,6 +282,8 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
     doneButton.action = @selector(editDeckNameItemDoneButtonTriggered:);
     
     //
+    
+    deckNameTextField.lineBreakMode = NSLineBreakByCharWrapping;
     
     NSString * _Nullable text = self.viewModel.localDeck.name;
     

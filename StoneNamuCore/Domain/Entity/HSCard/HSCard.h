@@ -16,13 +16,24 @@
 #import <StoneNamuCore/HSCardKeyword.h>
 #import <StoneNamuCore/HSCardGameMode.h>
 #import <StoneNamuCore/HSCardSort.h>
+#import <TargetConditionals.h>
+
+#if TARGET_OS_OSX
+#import <Cocoa/Cocoa.h>
+#endif
 
 #define kHSCardType @"kHSCardType"
 #define HSCARD_LATEST_VERSION 1
 
 NS_ASSUME_NONNULL_BEGIN
 
+#if TARGET_OS_OSX
+static NSPasteboardType const NSPasteboardTypeHSCard = @"com.pookjw.StoneNamu.NSPasteboardTypeHSCard";
+
+@interface HSCard : NSObject <NSCopying, NSCoding, NSSecureCoding, NSItemProviderWriting, NSItemProviderReading, NSPasteboardWriting, NSPasteboardReading>
+#else
 @interface HSCard : NSObject <NSCopying, NSCoding, NSSecureCoding, NSItemProviderWriting, NSItemProviderReading>
+#endif
 @property (readonly) NSUInteger cardId;
 @property (readonly) HSCardCollectible collectible;
 @property (readonly, copy) NSString *slug;

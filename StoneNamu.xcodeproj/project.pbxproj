@@ -1036,6 +1036,7 @@
 		4FD4E025274EE2E80037D867 /* DeckBaseCollectionViewItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DeckBaseCollectionViewItem.xib; sourceTree = "<group>"; };
 		4FD4E027274EE4440037D867 /* DecksCollectionViewLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DecksCollectionViewLayout.h; sourceTree = "<group>"; };
 		4FD4E028274EE4440037D867 /* DecksCollectionViewLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DecksCollectionViewLayout.m; sourceTree = "<group>"; };
+		4FD796E2279C6E7A0055668C /* NSPasteboardNameStoneNamuPasteboard.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSPasteboardNameStoneNamuPasteboard.h; sourceTree = "<group>"; };
 		4FD87F8A2719C9EC003EED4B /* MainListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainListViewController.h; sourceTree = "<group>"; };
 		4FD87F8B2719C9EC003EED4B /* MainListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainListViewController.m; sourceTree = "<group>"; };
 		4FD87F8E2719CA15003EED4B /* MainSplitViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainSplitViewController.h; sourceTree = "<group>"; };
@@ -2769,6 +2770,7 @@
 				4FE856FF270089BC0008C2FB /* AppDelegate.h */,
 				F31581002741231700DBD6D4 /* AppDelegate.m */,
 				4FE85707270089BD0008C2FB /* main.m */,
+				4FD796E2279C6E7A0055668C /* NSPasteboardNameStoneNamuPasteboard.h */,
 				4F23C8B4273D9A2500C33F10 /* Assets.xcassets */,
 				4F23C8BA273D9A5900C33F10 /* InfoPlist.strings */,
 				F3A096F8274C806000C7DFA4 /* Service */,

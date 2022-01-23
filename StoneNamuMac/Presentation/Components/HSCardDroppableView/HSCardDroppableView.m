@@ -49,31 +49,21 @@
 
 - (BOOL)performDragOperation:(id<NSDraggingInfo>)sender {
     NSPasteboard *pasteboard = sender.draggingPasteboard;
-    NSArray<NSPasteboardItem *> *items = pasteboard.pasteboardItems;
     
     if (self.queue == nil) {
-        NSArray<HSCard *> *hsCards = [self hsCardsFromPasteboardItems:items];
-        [self.delegate hsCardDroppableView:self didAcceptDropWithHSCards:hsCards];
+        [self processWithPasteboard:pasteboard];
     } else {
         [self.queue addOperationWithBlock:^{
-            NSArray<HSCard *> *hsCards = [self hsCardsFromPasteboardItems:items];
-            [self.delegate hsCardDroppableView:self didAcceptDropWithHSCards:hsCards];
+            [self processWithPasteboard:pasteboard];
         }];
     }
     
     return YES;
 }
 
-- (NSArray<HSCard *> *)hsCardsFromPasteboardItems:(NSArray<NSPasteboardItem *> *)pasteboardItems {
-    NSMutableArray<HSCard *> *hsCards = [@[] mutableCopy];
-    
-    [pasteboardItems enumerateObjectsUsingBlock:^(NSPasteboardItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        NSData *data = [obj dataForType:NSPasteboardTypeHSCard];
-        HSCard *hsCard = [NSKeyedUnarchiver unarchivedObjectOfClasses:HSCard.unarchvingClasses fromData:data error:nil];
-        [hsCards addObject:hsCard];
-    }];
-    
-    return [hsCards autorelease];
+- (void)processWithPasteboard:(NSPasteboard *)pasteboard {
+    NSArray<HSCard *> *hsCards = [pasteboard readObjectsForClasses:@[[HSCard class]] options:nil];
+    [self.delegate hsCardDroppableView:self didAcceptDropWithHSCards:hsCards];
 }
 
 @end

@@ -265,15 +265,15 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeck
             NSTextField *deckCodeTextField = [[NSTextField alloc] initWithFrame:NSMakeRect(0.0f, 0.0f, 300.0f, 20.0f)];
             NSView *containerView = [[NSView alloc] initWithFrame:NSMakeRect(0.0f, 0.0f, 300.0f, 40.0f)];
             
-            self.titleTextField = titleTextField;
-            self.deckCodeTextField = deckCodeTextField;
-            
             //
             
             fetchButton.target = self;
             fetchButton.action = @selector(createNewDeckFromDeckCodeAlertFetchButtonTriggered:);
             
             //
+            
+            titleTextField.lineBreakMode = NSLineBreakByCharWrapping;
+            deckCodeTextField.lineBreakMode = NSLineBreakByCharWrapping;
             
             titleTextField.placeholderString = [ResourcesService localizationForKey:LocalizableKeyEnterDeckTitleHere];
             deckCodeTextField.placeholderString = [ResourcesService localizationForKey:LocalizableKeyEnterDeckCodeHere];
@@ -331,6 +331,8 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeck
                 
             }];
             
+            self.titleTextField = titleTextField;
+            self.deckCodeTextField = deckCodeTextField;
             [alert release];
             [titleTextField release];
             [deckCodeTextField release];

@@ -10,11 +10,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-static NSPasteboardType const NSPasteboardTypeHSCard = @"com.pookjw.StoneNamu.NSPasteboardTypeHSCard";
-
-@interface HSCard (Pasteboard) <NSPasteboardWriting>
-@end
-
 @interface HSCardPromiseProvider : NSFilePromiseProvider
 @property (class, readonly, nonatomic) NSArray<NSPasteboardType> *pasteboardTypes;
 + (instancetype)new NS_UNAVAILABLE;

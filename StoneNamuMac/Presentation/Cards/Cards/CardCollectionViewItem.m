@@ -22,6 +22,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    [self setAttributes];
     [self addGesture];
 }
 
@@ -30,6 +31,12 @@
     self.delegte = delegate;
     
     [self.imageView setAsyncImageWithURL:hsCard.image indicator:YES];
+}
+
+- (void)setAttributes {
+    self.view.wantsLayer = YES;
+    self.view.layer.cornerRadius = 15.0f;
+    self.view.layer.cornerCurve = kCACornerCurveContinuous;
 }
 
 - (void)addGesture {

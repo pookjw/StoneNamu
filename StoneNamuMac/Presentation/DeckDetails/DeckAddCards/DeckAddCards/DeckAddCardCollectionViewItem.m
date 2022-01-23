@@ -64,6 +64,10 @@
 }
 
 - (void)setAttributes {
+    self.view.wantsLayer = YES;
+    self.view.layer.cornerRadius = 15.0f;
+    self.view.layer.cornerCurve = kCACornerCurveContinuous;
+    
     self.countLabelContainerBox.wantsLayer = YES;
     self.appearanceTypes = ClickableCollectionViewItemAppearanceTypeClicked | ClickableCollectionViewItemAppearanceTypeHighlighted;
     self.countLabelContainerBox.postsFrameChangedNotifications = YES;

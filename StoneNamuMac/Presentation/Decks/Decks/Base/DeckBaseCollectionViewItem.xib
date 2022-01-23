@@ -15,6 +15,7 @@
                 <outlet property="cardSetImageView" destination="6iB-ex-wiy" id="eEu-Ix-1l8"/>
                 <outlet property="countLabel" destination="Af6-sX-ojR" id="mvY-Ok-s9u"/>
                 <outlet property="countLabelContainerBox" destination="d2L-IU-st4" id="abv-GW-ZvR"/>
+                <outlet property="countLabelContainerView" destination="9b4-SB-q1m" id="cxQ-U7-lzr"/>
                 <outlet property="heroImageView" destination="y3f-fa-6c1" id="hyw-BT-7IB"/>
                 <outlet property="nameLabel" destination="gK1-J1-hmO" id="xxq-uS-iFn"/>
                 <outlet property="view" destination="XQT-2m-onK" id="MmT-wf-7Sc"/>

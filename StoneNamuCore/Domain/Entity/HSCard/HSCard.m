@@ -261,45 +261,43 @@
 #pragma mark - NSCoding
 
 - (instancetype)initWithCoder:(NSCoder *)coder {
-    id object = [self init];
+    self = [self init];
     
-    if (object) {
-        HSCard *cardObject = (HSCard *)object;
-        
+    if (self) {
         NSUInteger version = [coder decodeIntegerForKey:@"version"];
         
-        cardObject->_cardId = [coder decodeIntegerForKey:@"cardId"];
-        cardObject->_collectible = [coder decodeIntegerForKey:@"collectible"];
-        cardObject->_slug = [[coder decodeObjectOfClass:[NSString class] forKey:@"slug"] copy];
-        cardObject->_classId = [coder decodeIntegerForKey:@"classId"];
-        cardObject->_multiClassIds = [[coder decodeObjectOfClass:[NSArray<NSNumber *> class] forKey:@"multiClassIds"] copy];
+        self->_cardId = [coder decodeIntegerForKey:@"cardId"];
+        self->_collectible = [coder decodeIntegerForKey:@"collectible"];
+        self->_slug = [[coder decodeObjectOfClass:[NSString class] forKey:@"slug"] copy];
+        self->_classId = [coder decodeIntegerForKey:@"classId"];
+        self->_multiClassIds = [[coder decodeObjectOfClass:[NSArray<NSNumber *> class] forKey:@"multiClassIds"] copy];
         if (version == 0) {
             NSUInteger minionTypeId = [coder decodeIntegerForKey:@"minionTypeId"];
-            cardObject->_minionTypeId = [[NSNumber numberWithUnsignedInteger:minionTypeId] copy];
+            self->_minionTypeId = [[NSNumber numberWithUnsignedInteger:minionTypeId] copy];
         } else if (version == 1) {
-            cardObject->_minionTypeId = [[coder decodeObjectOfClass:[NSNumber class] forKey:@"minionTypeId"] copy];
+            self->_minionTypeId = [[coder decodeObjectOfClass:[NSNumber class] forKey:@"minionTypeId"] copy];
         }
-        cardObject->_spellSchoolId = [[coder decodeObjectOfClass:[NSNumber class] forKey:@"spellSchoolId"] copy];
-        cardObject->_cardTypeId = [coder decodeIntegerForKey:@"cardTypeId"];
-        cardObject->_cardSetId = [coder decodeIntegerForKey:@"cardSetId"];
-        cardObject->_rarityId = [coder decodeIntegerForKey:@"rarityId"];
-        cardObject->_artistName = [[coder decodeObjectOfClass:[NSString class] forKey:@"artistName"] copy];
-        cardObject->_health = [coder decodeIntegerForKey:@"health"];
-        cardObject->_attack = [coder decodeIntegerForKey:@"attack"];
-        cardObject->_manaCost = [coder decodeIntegerForKey:@"manaCost"];
-        cardObject->_name = [[coder decodeObjectOfClass:[NSString class] forKey:@"name"] copy];
-        cardObject->_text = [[coder decodeObjectOfClass:[NSString class] forKey:@"text"] copy];
-        cardObject->_image = [[coder decodeObjectOfClass:[NSURL class] forKey:@"image"] copy];
-        cardObject->_imageGold = [[coder decodeObjectOfClass:[NSURL class] forKey:@"imageGold"] copy];
-        cardObject->_flavorText = [[coder decodeObjectOfClass:[NSString class] forKey:@"flavorText"] copy];
-        cardObject->_cropImage = [[coder decodeObjectOfClass:[NSURL class] forKey:@"cropImage"] copy];
-        cardObject->_childIds = [[coder decodeObjectOfClass:[NSArray<NSNumber *> class] forKey:@"childIds"] copy];
-        cardObject->_gameModes = [[coder decodeObjectOfClass:[NSArray<NSNumber *> class] forKey:@"gameModes"] copy];
-        cardObject->_parentId = [coder decodeIntegerForKey:@"parentId"];
-        cardObject->_version = HSCARD_LATEST_VERSION;
+        self->_spellSchoolId = [[coder decodeObjectOfClass:[NSNumber class] forKey:@"spellSchoolId"] copy];
+        self->_cardTypeId = [coder decodeIntegerForKey:@"cardTypeId"];
+        self->_cardSetId = [coder decodeIntegerForKey:@"cardSetId"];
+        self->_rarityId = [coder decodeIntegerForKey:@"rarityId"];
+        self->_artistName = [[coder decodeObjectOfClass:[NSString class] forKey:@"artistName"] copy];
+        self->_health = [coder decodeIntegerForKey:@"health"];
+        self->_attack = [coder decodeIntegerForKey:@"attack"];
+        self->_manaCost = [coder decodeIntegerForKey:@"manaCost"];
+        self->_name = [[coder decodeObjectOfClass:[NSString class] forKey:@"name"] copy];
+        self->_text = [[coder decodeObjectOfClass:[NSString class] forKey:@"text"] copy];
+        self->_image = [[coder decodeObjectOfClass:[NSURL class] forKey:@"image"] copy];
+        self->_imageGold = [[coder decodeObjectOfClass:[NSURL class] forKey:@"imageGold"] copy];
+        self->_flavorText = [[coder decodeObjectOfClass:[NSString class] forKey:@"flavorText"] copy];
+        self->_cropImage = [[coder decodeObjectOfClass:[NSURL class] forKey:@"cropImage"] copy];
+        self->_childIds = [[coder decodeObjectOfClass:[NSArray<NSNumber *> class] forKey:@"childIds"] copy];
+        self->_gameModes = [[coder decodeObjectOfClass:[NSArray<NSNumber *> class] forKey:@"gameModes"] copy];
+        self->_parentId = [coder decodeIntegerForKey:@"parentId"];
+        self->_version = HSCARD_LATEST_VERSION;
     }
     
-    return object;
+    return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)coder {
@@ -370,5 +368,54 @@
 - (NSItemProviderRepresentationVisibility)itemProviderVisibilityForRepresentationWithTypeIdentifier:(NSString *)typeIdentifier {
     return NSItemProviderRepresentationVisibilityOwnProcess;
 }
+
+#if TARGET_OS_OSX
+
+#pragma mark - NSPasteboardWriting
+
+- (nonnull NSArray<NSPasteboardType> *)writableTypesForPasteboard:(nonnull NSPasteboard *)pasteboard {
+    return @[NSPasteboardTypeHSCard];
+}
+
+- (id)pasteboardPropertyListForType:(NSPasteboardType)type {
+    if ([type isEqualToString:NSPasteboardTypeHSCard]) {
+        NSData *hsCardsData = [NSKeyedArchiver archivedDataWithRootObject:self requiringSecureCoding:YES error:nil];
+        return hsCardsData;
+    } else {
+        return nil;
+    }
+}
+
+#pragma mark - NSPasteboardReading
+
++ (NSArray<NSPasteboardType> *)readableTypesForPasteboard:(NSPasteboard *)pasteboard {
+    return @[NSPasteboardTypeHSCard];
+}
+
++ (NSPasteboardReadingOptions)readingOptionsForType:(NSPasteboardType)type pasteboard:(NSPasteboard *)pasteboard {
+    return NSPasteboardReadingAsKeyedArchive;
+}
+
+- (id)initWithPasteboardPropertyList:(id)propertyList ofType:(NSPasteboardType)type {
+    if (![type isEqualToString:NSPasteboardTypeHSCard]) {
+        return nil;
+    }
+    
+    NSError * _Nullable error = nil;
+    NSKeyedUnarchiver *coder = [[NSKeyedUnarchiver alloc] initForReadingFromData:propertyList error:&error];
+    
+    if (error != nil) {
+        NSLog(@"%@", error);
+        return nil;
+    }
+    
+    self = [self initWithCoder:coder];
+    [coder finishDecoding];
+    [coder release];
+    
+    return self;
+}
+
+#endif
 
 @end

@@ -105,27 +105,41 @@
 }
 
 - (void)updateBackgroundColor {
-    if ((self.isSelected) || (self.highlightState == NSCollectionViewItemHighlightForSelection)) {
+    NSColor * _Nullable backgroundColor;
+    
+    if (self.isSelected) {
         if (self.view.window.isMainWindow) {
-            self.view.layer.backgroundColor = NSColor.controlAccentColor.CGColor;
+            backgroundColor = NSColor.controlAccentColor;
         } else {
-            self.view.layer.backgroundColor = NSColor.systemGrayColor.CGColor;
+            backgroundColor = NSColor.systemGrayColor;
+        }
+    } else if (self.highlightState == NSCollectionViewItemHighlightForSelection) {
+        if (self.view.window.isMainWindow) {
+            backgroundColor = [NSColor.controlAccentColor colorWithAlphaComponent:0.5f];
+        } else {
+            backgroundColor = [NSColor.systemGrayColor colorWithAlphaComponent:0.5f];
         }
     } else {
-        self.view.layer.backgroundColor = nil;
+        backgroundColor = nil;
     }
+    
+    self.view.layer.backgroundColor = backgroundColor.CGColor;
 }
 
 - (void)updateBorderColor {
+    NSColor * _Nullable borderColor;
+    
     if ((self.isClicked) && (!self.isSelected) && (!(self.highlightState == NSCollectionViewItemHighlightForSelection))) {
         if (self.view.window.isMainWindow) {
-            self.view.layer.borderColor = NSColor.controlAccentColor.CGColor;
+            borderColor = NSColor.controlAccentColor;
         } else {
-            self.view.layer.borderColor = NSColor.systemGrayColor.CGColor;
+            borderColor = NSColor.systemGrayColor;
         }
     } else {
-        self.view.layer.borderColor = NSColor.clearColor.CGColor;
+        borderColor = NSColor.clearColor;
     }
+    
+    self.view.layer.borderColor = borderColor.CGColor;
 }
 
 - (void)_bind {
