@@ -489,6 +489,12 @@
     [self.viewModel requestDataSourceWithOptions:options reset:YES];
 }
 
+- (void)deckAddCardOptionsViewController:(DeckAddCardOptionsViewController *)viewController defaultOptionsIsNeededWithCompletion:(DeckAddCardOptionsViewControllerDelegateDefaultOptionsIsNeededCompletion)completion {
+    [self.viewModel defaultOptionsWithCompletion:^(NSDictionary<NSString *,NSString *> * _Nonnull options) {
+        completion(options);
+    }];
+}
+
 #pragma mark - UIContextMenuInteractionDelegate
 
 - (nullable UIContextMenuConfiguration *)contextMenuInteraction:(nonnull UIContextMenuInteraction *)interaction configurationForMenuAtLocation:(CGPoint)location {

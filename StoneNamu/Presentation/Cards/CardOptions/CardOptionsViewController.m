@@ -15,12 +15,13 @@
 @interface CardOptionsViewController () <UICollectionViewDelegate>
 @property (retain) UICollectionView *collectionView;
 @property (retain) UIBarButtonItem *cancelButton;
+@property (retain) UIBarButtonItem *resetButton;
 @property (retain) CardOptionsViewModel *viewModel;
 @end
 
 @implementation CardOptionsViewController
 
-- (instancetype)initWithOptions:(NSDictionary<NSString *,NSString *> *)options {
+- (instancetype)initWithOptions:(NSDictionary<NSString *, NSString *> *)options {
     self = [self init];
     
     if (self) {
@@ -34,15 +35,16 @@
 - (void)dealloc {
     [_collectionView release];
     [_cancelButton release];
+    [_resetButton release];
     [_viewModel release];
     [super dealloc];
 }
 
 - (void)setCancelButtonHidden:(BOOL)hidden {
     if (hidden) {
-        self.navigationItem.leftBarButtonItems = @[];
+        self.navigationItem.leftBarButtonItems = @[self.resetButton];
     } else {
-        self.navigationItem.leftBarButtonItems = @[self.cancelButton];
+        self.navigationItem.leftBarButtonItems = @[self.cancelButton, self.resetButton];
     }
 }
 
@@ -75,9 +77,16 @@
                                                                     target:self
                                                                     action:@selector(cancelButtonTriggered:)];
     
-    self.navigationItem.leftBarButtonItems = @[cancelButton];
+    UIBarButtonItem *resetButton = [[UIBarButtonItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyReset]
+                                                                    style:UIBarButtonItemStylePlain
+                                                                   target:self
+                                                                   action:@selector(resetButtonTriggered:)];
+    
+    self.navigationItem.leftBarButtonItems = @[cancelButton, resetButton];
     self.cancelButton = cancelButton;
+    self.resetButton = resetButton;
     [cancelButton release];
+    [resetButton release];
 }
 
 - (void)configureRightBarButtonItems {
@@ -92,6 +101,12 @@
 
 - (void)cancelButtonTriggered:(UIBarButtonItem *)sender {
     [self dismissViewControllerAnimated:YES completion:^{}];
+}
+
+- (void)resetButtonTriggered:(UIBarButtonItem *)sender {
+    [self.delegate cardOptionsViewController:self defaultOptionsIsNeededWithCompletion:^(NSDictionary<NSString *,NSString *> * _Nonnull options) {
+        [self.viewModel updateDataSourceWithOptions:options];
+    }];
 }
 
 - (void)fetchButtonTriggered:(UIBarButtonItem *)sender {

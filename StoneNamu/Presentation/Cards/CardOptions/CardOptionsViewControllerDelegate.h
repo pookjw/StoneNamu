@@ -11,8 +11,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class CardOptionsViewController;
 
+typedef void (^CardOptionsViewControllerDelegateDefaultOptionsIsNeededCompletion)(NSDictionary<NSString *, NSString *> *options);
+
 @protocol CardOptionsViewControllerDelegate <NSObject>
 - (void)cardOptionsViewController:(CardOptionsViewController *)viewController doneWithOptions:(NSDictionary<NSString *, NSString *> *)options;
+- (void)cardOptionsViewController:(CardOptionsViewController *)viewController defaultOptionsIsNeededWithCompletion:(CardOptionsViewControllerDelegateDefaultOptionsIsNeededCompletion)completion;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -34,7 +34,7 @@
     [super dealloc];
 }
 
-- (NSDictionary<NSString *,NSString *> * _Nullable)options {
+- (NSDictionary<NSString *, NSString *> * _Nullable)options {
     return self.viewModel.options;
 }
 
@@ -326,6 +326,10 @@
     }
     
     [self.viewModel requestDataSourceWithOptions:options reset:YES];
+}
+
+- (void)cardOptionsViewController:(CardOptionsViewController *)viewController defaultOptionsIsNeededWithCompletion:(CardOptionsViewControllerDelegateDefaultOptionsIsNeededCompletion)completion {
+    completion(self.viewModel.defaultOptions);
 }
 
 @end

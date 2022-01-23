@@ -27,7 +27,7 @@ static NSNotificationName const NSNotificationNameDeckAddCardsViewModelLocalDeck
 @interface DeckAddCardsViewModel : NSObject
 @property (retain) LocalDeck * _Nullable localDeck;
 @property (readonly, retain) DeckAddCardsDataSource *dataSource;
-@property (readonly, copy) NSDictionary<NSString *, id> * _Nullable options;
+@property (readonly, copy) NSDictionary<NSString *, NSString *> * _Nullable options;
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithDataSource:(DeckAddCardsDataSource *)dataSource;

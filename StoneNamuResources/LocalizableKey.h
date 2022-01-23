@@ -12,6 +12,7 @@ static LocalizableKey const LocalizableKeyCardRarity = @"CARD_RARITY";
 static LocalizableKey const LocalizableKeyCardType = @"CARD_TYPE";
 static LocalizableKey const LocalizableKeyEnterDeckTitleHere = @"ENTER_DECK_TITLE_HERE";
 static LocalizableKey const LocalizableKeyCardClassTooltipDescription = @"CARD_CLASS_TOOLTIP_DESCRIPTION";
+static LocalizableKey const LocalizableKeyReset = @"RESET";
 static LocalizableKey const LocalizableKeyEditDeckName = @"EDIT_DECK_NAME";
 static LocalizableKey const LocalizableKeyPleaseEnterDeckCode = @"PLEASE_ENTER_DECK_CODE";
 static LocalizableKey const LocalizableKeyExportDeckCode = @"EXPORT_DECK_CODE";

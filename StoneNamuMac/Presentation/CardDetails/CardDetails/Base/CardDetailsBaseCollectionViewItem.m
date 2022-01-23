@@ -25,8 +25,8 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    [self clearContents];
     [self setAttributes];
+    [self clearContents];
 }
 
 - (void)prepareForReuse {

@@ -73,8 +73,11 @@
     [super dealloc];
 }
 
-- (BOOL)requestDataSourceWithOptions:(NSDictionary<NSString *,id> * _Nullable)options reset:(BOOL)reset {
-    
+- (NSDictionary<NSString *,NSString *> *)defaultOptions {
+    return BlizzardHSAPIDefaultOptions();
+}
+
+- (BOOL)requestDataSourceWithOptions:(NSDictionary<NSString *, NSString *> * _Nullable)options reset:(BOOL)reset {
     if (reset) {
         [self postStartedLoadingDataSource];
         [self resetDataSource];
@@ -91,7 +94,7 @@
     NSBlockOperation * __block op = [NSBlockOperation new];
     
     [op addExecutionBlock:^{
-        NSDictionary<NSString *, NSString *> *defaultOptions = BlizzardHSAPIDefaultOptions();
+        NSDictionary<NSString *, NSString *> *defaultOptions = self.defaultOptions;
         NSMutableDictionary<NSString *, NSString *> *mutableOptions = [options mutableCopy];
         
         if (options == nil) {

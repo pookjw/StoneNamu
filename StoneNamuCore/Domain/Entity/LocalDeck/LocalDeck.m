@@ -18,13 +18,18 @@
 @dynamic timestamp;
 
 - (NSArray<HSCard *> *)hsCards {
-    if (self.hsCardsData == nil) {
+    // sometimes it releases unexpectedly
+    NSData * _Nullable hsCardsData = [self.hsCardsData retain];
+    
+    if (hsCardsData == nil) {
+        [hsCardsData release];
         return @[];
     }
     
     NSError * _Nullable error = nil;
     
-    NSArray<HSCard *> *cards = [NSKeyedUnarchiver unarchivedObjectOfClasses:HSCard.unarchvingClasses fromData:self.hsCardsData error:&error];
+    NSArray<HSCard *> *cards = [NSKeyedUnarchiver unarchivedObjectOfClasses:HSCard.unarchvingClasses fromData:hsCardsData error:&error];
+    [hsCardsData release];
     
     if (error) {
         NSLog(@"%@", error.localizedDescription);

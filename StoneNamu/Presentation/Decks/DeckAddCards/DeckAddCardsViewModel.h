@@ -20,19 +20,22 @@ static NSNotificationName const NSNotificationNameDeckAddCardsViewModelEndedLoad
 
 static NSNotificationName const NSNotificationNameDeckAddCardsViewModelLocalDeckHasChanged = @"NSNotificationNameDeckAddCardsViewModelLocalDeckHasChanged";
 
+typedef void (^DeckAddCardsViewModelDefaultOptionsCompletion)(NSDictionary<NSString *, NSString *> *options);
+
 typedef UICollectionViewDiffableDataSource<DeckAddCardSectionModel *, DeckAddCardItemModel *> CardsDataSource;
 
 @interface DeckAddCardsViewModel : NSObject
 @property (retain) LocalDeck * _Nullable localDeck;
 @property (retain) NSIndexPath * _Nullable contextMenuIndexPath;
 @property (readonly, retain) CardsDataSource *dataSource;
-@property (readonly, copy) NSDictionary<NSString *, id> * _Nullable options;
+@property (readonly, copy) NSDictionary<NSString *, NSString *> * _Nullable options;
 @property (readonly, nonatomic) BOOL isLocalDeckCardFull;
 @property (readonly, nonatomic) NSUInteger countOfLocalDeckCards;
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithDataSource:(CardsDataSource *)dataSource;
-- (BOOL)requestDataSourceWithOptions:(NSDictionary<NSString *,id> * _Nullable)options reset:(BOOL)reset;
+- (void)defaultOptionsWithCompletion:(DeckAddCardsViewModelDefaultOptionsCompletion)completion;
+- (BOOL)requestDataSourceWithOptions:(NSDictionary<NSString *, NSString *> * _Nullable)options reset:(BOOL)reset;
 - (NSArray<UIDragItem *> *)makeDragItemFromIndexPath:(NSIndexPath *)indexPath image:(UIImage * _Nullable)image;
 - (void)addHSCards:(NSSet<HSCard *> *)hsCards;
 - (void)addHSCardsFromIndexPathes:(NSSet<NSIndexPath *> *)indexPathes;

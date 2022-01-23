@@ -12,6 +12,7 @@
 
 @interface DeckAddCardsViewModel ()
 @property (retain) id<HSCardUseCase> hsCardUseCase;
+@property (readonly, nonatomic) NSDictionary<NSString *, NSString *> *defaultOptions;
 @property (retain) NSNumber * _Nullable pageCount;
 @property (retain) NSNumber *page;
 @property (nonatomic, readonly) BOOL canLoadMore;
@@ -83,6 +84,33 @@
     [super dealloc];
 }
 
+- (void)defaultOptionsWithCompletion:(DeckAddCardsViewModelDefaultOptionsCompletion)completion {
+    [self.queue addOperationWithBlock:^{
+        completion(self.defaultOptions);
+    }];
+}
+
+- (NSDictionary<NSString *, NSString *> *)defaultOptions {
+    if (self.localDeck == nil) return BlizzardHSAPIDefaultOptions();
+
+    NSMutableDictionary<NSString *, NSString *> *options = [BlizzardHSAPIDefaultOptions() mutableCopy];
+    options[BlizzardHSAPIOptionTypeClass] = NSStringFromHSCardClass(self.localDeck.classId.unsignedIntegerValue);
+
+    HSCardSet cardSet;
+    if ([self.localDeck.format isEqualToString:HSDeckFormatStandard]) {
+        cardSet = HSCardSetStandardCards;
+    } else if ([self.localDeck.format isEqualToString:HSDeckFormatWild]) {
+        cardSet = HSCardSetWildCards;
+    } else if ([self.localDeck.format isEqualToString:HSDeckFormatClassic]) {
+        cardSet = HSCardSetClassicCards;
+    } else {
+        cardSet = HSCardSetWildCards;
+    }
+    options[BlizzardHSAPIOptionTypeSet] = NSStringFromHSCardSet(cardSet);
+
+    return [options autorelease];
+}
+
 - (BOOL)isLocalDeckCardFull {
     return (self.countOfLocalDeckCards >= HSDECK_MAX_TOTAL_CARDS);
 }
@@ -91,8 +119,7 @@
     return self.localDeck.hsCards.count;
 }
 
-- (BOOL)requestDataSourceWithOptions:(NSDictionary<NSString *,id> * _Nullable)options reset:(BOOL)reset {
-    
+- (BOOL)requestDataSourceWithOptions:(NSDictionary<NSString *, NSString *> * _Nullable)options reset:(BOOL)reset {
     if (reset) {
         [self postStartedLoadingDataSource];
         [self resetDataSource];
@@ -109,7 +136,7 @@
     NSBlockOperation * __block op = [NSBlockOperation new];
     
     [op addExecutionBlock:^{
-        NSDictionary<NSString *, NSString *> *defaultOptions = [self optionsForLocalDeckClassId];
+        NSDictionary<NSString *, NSString *> *defaultOptions = self.defaultOptions;
         
         if (options == nil) {
             [self->_options release];
@@ -168,27 +195,6 @@
     [op release];
     
     return YES;
-}
-
-- (NSDictionary<NSString *, NSString *> *)optionsForLocalDeckClassId {
-    if (self.localDeck == nil) return BlizzardHSAPIDefaultOptions();
-
-    NSMutableDictionary<NSString *, NSString *> *options = [BlizzardHSAPIDefaultOptions() mutableCopy];
-    options[BlizzardHSAPIOptionTypeClass] = NSStringFromHSCardClass(self.localDeck.classId.unsignedIntegerValue);
-
-    HSCardSet cardSet;
-    if ([self.localDeck.format isEqualToString:HSDeckFormatStandard]) {
-        cardSet = HSCardSetStandardCards;
-    } else if ([self.localDeck.format isEqualToString:HSDeckFormatWild]) {
-        cardSet = HSCardSetWildCards;
-    } else if ([self.localDeck.format isEqualToString:HSDeckFormatClassic]) {
-        cardSet = HSCardSetClassicCards;
-    } else {
-        cardSet = HSCardSetWildCards;
-    }
-    options[BlizzardHSAPIOptionTypeSet] = NSStringFromHSCardSet(cardSet);
-
-    return [options autorelease];
 }
 
 - (void)resetDataSource {
