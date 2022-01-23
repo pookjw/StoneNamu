@@ -540,7 +540,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
 }
 
 - (void)updateItemsWithOptions:(NSDictionary<NSString *,NSString *> *)options deckFormat:(HSDeckFormat)deckFormat classId:(HSCardClass)classId {
-    BOOL shouldChangePosition = ![options isEqualToDictionary:self.options];
+    if ([options isEqualToDictionary:self.options]) return;
     
     NSMutableDictionary<NSString *, NSString *> *mutableOptions = [options mutableCopy];
     self.options = mutableOptions;
@@ -552,42 +552,34 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     
     //
     
-    [options enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSString * _Nonnull obj1, BOOL * _Nonnull stop) {
-        NSScrubber * _Nullable scrubber = [self scrubberFromOptionType:key];
+    [self.allScrubbers enumerateObjectsUsingBlock:^(NSScrubber * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (shouldUpdate) {
+            [obj reloadData];
+        }
         
-        if (scrubber != nil) {
-            if (shouldUpdate) {
-                [scrubber reloadData];
-            }
-            
-            NSArray<NSString *> *keys = [self sortedKeysFromScrubber:scrubber];
-            NSInteger __block index = -1;
-            
-            [keys enumerateObjectsUsingBlock:^(NSString * _Nonnull obj2, NSUInteger idx, BOOL * _Nonnull stop) {
-                if ([obj2 isEqualToString:obj1]) {
-                    index = idx;
-                    *stop = YES;
-                }
-            }];
-            
-            if (index == -1) return;
-            
-            if (shouldChangePosition) {
-                if ([scrubber respondsToSelector:@selector(_interactiveSelectItemAtIndex:animated:)]) {
-                    // this will excute `scrubber:didSelectItemAtIndex:`
-                    [scrubber _interactiveSelectItemAtIndex:index animated:YES];
-                }
-                [scrubber scrollItemAtIndex:index toAlignment:NSScrubberAlignmentCenter];
-            }
-            
-            //
-            
-            BlizzardHSAPIOptionType optionType = [self optionTypeFromScrubber:scrubber];
-            NSPopoverTouchBarItem * _Nullable popover = [self popoverTouchBarItemFromOptionType:optionType];
-            
-            if (popover != nil) {
-                popover.collapsedRepresentationImage = [DeckAddCardOptionsMenuFactory imageForDeckAddCardOptionTypeWithValue:obj1 optionType:optionType];
-            }
+        NSArray<NSString *> *keys = [self sortedKeysFromScrubber:obj];
+        
+        if (keys.count == 0) return;
+        
+        BlizzardHSAPIOptionType optionType = [self optionTypeFromScrubber:obj];
+        
+        NSString * _Nullable value = options[optionType];
+        if (value == nil) {
+            value = @"";
+        }
+        
+        NSUInteger oldIndex = obj.selectedIndex;
+        NSUInteger index = [keys indexOfString:value];
+        
+        if (oldIndex != index) {
+            [obj scrollItemAtIndex:index toAlignment:NSScrubberAlignmentCenter];
+            [obj setSelectedIndex:index animated:YES];
+        }
+        
+        NSPopoverTouchBarItem * _Nullable popover = [self popoverTouchBarItemFromOptionType:optionType];
+                    
+        if (popover != nil) {
+            popover.collapsedRepresentationImage = [DeckAddCardOptionsMenuFactory imageForDeckAddCardOptionTypeWithValue:value optionType:optionType];
         }
     }];
 }
@@ -984,7 +976,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     NSArray<NSString *> *keys = [self sortedKeysFromScrubber:scrubber];
     BlizzardHSAPIOptionType optionType = [self optionTypeFromScrubber:scrubber];
     NSString *newValue = keys[selectedIndex];
-    NSMutableDictionary<NSString *, NSString *> *oldOptions = [[self.options mutableCopy] autorelease];
     
     if (![DeckAddCardOptionsMenuFactory hasValueForValue:newValue]) {
         self.options[optionType] = nil;
@@ -996,9 +987,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
         self.options[optionType] = keys[selectedIndex];
     }
     
-    if (![oldOptions isEqualToDictionary:self.options]) {
-        [self.deckAddCardOptionsTouchBarDelegate deckAddCardOptionsTouchBar:self changedOption:self.options];
-    }
+    [self.deckAddCardOptionsTouchBarDelegate deckAddCardOptionsTouchBar:self changedOption:self.options];
 }
 
 @end

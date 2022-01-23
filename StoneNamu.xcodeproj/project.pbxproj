@@ -1836,7 +1836,6 @@
 			children = (
 				4F590098275327F100217E4A /* DeckDetailsWindow */,
 				4F59009C2753500200217E4A /* DeckDetailsSplit */,
-				4F5900A02753502700217E4A /* DeckAddCards */,
 				4F590097275327EA00217E4A /* DeckDetails */,
 			);
 			path = DeckDetails;
@@ -2120,30 +2119,9 @@
 		4F8FDEE82744260300BA84D2 /* Decks */ = {
 			isa = PBXGroup;
 			children = (
-				4F8FDEE92744260C00BA84D2 /* Decks */,
-			);
-			path = Decks;
-			sourceTree = "<group>";
-		};
-		4F8FDEE92744260C00BA84D2 /* Decks */ = {
-			isa = PBXGroup;
-			children = (
-				4F8FDEEA2744261900BA84D2 /* DecksViewController.h */,
-				4F8FDEEB2744261900BA84D2 /* DecksViewController.m */,
-				4FD4E018274EDC950037D867 /* DecksViewModel.h */,
-				4FD4E019274EDC950037D867 /* DecksViewModel.m */,
-				4FD4E01B274EDCCA0037D867 /* DecksSectionModel.h */,
-				4FD4E01C274EDCCA0037D867 /* DecksSectionModel.m */,
-				4FD4E01E274EDCD10037D867 /* DecksItemModel.h */,
-				4FD4E01F274EDCD10037D867 /* DecksItemModel.m */,
-				4FD4E027274EE4440037D867 /* DecksCollectionViewLayout.h */,
-				4FD4E028274EE4440037D867 /* DecksCollectionViewLayout.m */,
-				4FD4E021274EE2AA0037D867 /* Base */,
-				4F2444DE279B2598009A2113 /* Background */,
-				4F1FA0B1275064430082EBF0 /* Factory */,
-				4F1FA0A62750198F0082EBF0 /* Menu */,
-				4F1FA0A7275019980082EBF0 /* Toolbar */,
-				4F1FA0A82750199E0082EBF0 /* TouchBar */,
+				4FD796F8279DAABE0055668C /* Decks */,
+				4F59008C275312C800217E4A /* DeckDetails */,
+				4F5900A02753502700217E4A /* DeckAddCards */,
 			);
 			path = Decks;
 			sourceTree = "<group>";
@@ -2661,6 +2639,29 @@
 			path = Base;
 			sourceTree = "<group>";
 		};
+		4FD796F8279DAABE0055668C /* Decks */ = {
+			isa = PBXGroup;
+			children = (
+				4F8FDEEA2744261900BA84D2 /* DecksViewController.h */,
+				4F8FDEEB2744261900BA84D2 /* DecksViewController.m */,
+				4FD4E018274EDC950037D867 /* DecksViewModel.h */,
+				4FD4E019274EDC950037D867 /* DecksViewModel.m */,
+				4FD4E01B274EDCCA0037D867 /* DecksSectionModel.h */,
+				4FD4E01C274EDCCA0037D867 /* DecksSectionModel.m */,
+				4FD4E01E274EDCD10037D867 /* DecksItemModel.h */,
+				4FD4E01F274EDCD10037D867 /* DecksItemModel.m */,
+				4FD4E027274EE4440037D867 /* DecksCollectionViewLayout.h */,
+				4FD4E028274EE4440037D867 /* DecksCollectionViewLayout.m */,
+				4FD4E021274EE2AA0037D867 /* Base */,
+				4F2444DE279B2598009A2113 /* Background */,
+				4F1FA0B1275064430082EBF0 /* Factory */,
+				4F1FA0A62750198F0082EBF0 /* Menu */,
+				4F1FA0A7275019980082EBF0 /* Toolbar */,
+				4F1FA0A82750199E0082EBF0 /* TouchBar */,
+			);
+			path = Decks;
+			sourceTree = "<group>";
+		};
 		4FD87F892719C9CD003EED4B /* MainList */ = {
 			isa = PBXGroup;
 			children = (
@@ -2785,7 +2786,6 @@
 				4FE85764270092CF0008C2FB /* Cards */,
 				4F4738B82746BEC4000C0C85 /* CardDetails */,
 				4F8FDEE82744260300BA84D2 /* Decks */,
-				4F59008C275312C800217E4A /* DeckDetails */,
 				F31580E92740D65A00DBD6D4 /* Prefs */,
 				4F98C28C27284D8F00865CCD /* Components */,
 			);
