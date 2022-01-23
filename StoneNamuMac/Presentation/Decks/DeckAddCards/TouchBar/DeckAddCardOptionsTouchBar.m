@@ -572,7 +572,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
         NSUInteger index = [keys indexOfString:value];
         
         if (oldIndex != index) {
-            [obj scrollItemAtIndex:index toAlignment:NSScrubberAlignmentCenter];
+            [obj scrollItemAtIndex:index toAlignment:NSScrubberAlignmentCenter animated:YES];
             [obj setSelectedIndex:index animated:YES];
         }
         
