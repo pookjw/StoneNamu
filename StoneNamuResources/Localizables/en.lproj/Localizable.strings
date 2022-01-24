@@ -148,7 +148,7 @@
 
 "DECKS" = "Decks";
 
-"CREATE_NEW_DECK" = "Create New Deck";
+"CREATE_A_NEW_DECK" = "Create a New Deck";
 
 "LOAD_FROM_DECK_CODE" = "Load From Deck Code";
 
@@ -217,3 +217,55 @@
 "FILE_FORMAT" = "File Format";
 
 "RESET" = "Reset";
+
+"APP_MENU_ABOUT_STONEMANU" = "About StoneNamu";
+
+"APP_MENU_PREFERENCES" = "Preferences...";
+
+"APP_MENU_HIDE_STONEMANU" = "Hide StoneNamu";
+
+"APP_MENU_HIDE_OTHERS" = "Hide Others";
+
+"APP_MEHU_SHOW_ALL" = "Show All";
+
+"APP_MEHU_QUIT_STONEMANU" = "Quit StoneNamu";
+
+"FLIE_MENU_TITLE" = "File";
+
+"FILE_MENU_NEW_WINDOW" = "New Window";
+
+"FLIE_MENU_CLOSE" = "Close";
+
+"FILE_MENU_CREATE_A_NEW_DECK" = "Create a New Deck";
+
+"EDIT_MENU_TITLE" = "Edit";
+
+"EDIT_MENU_UNDO" = "Undo";
+
+"EDIT_MENU_REDO" = "Redo";
+
+"EDIT_MENU_CUT" = "Cut";
+
+"EDIT_MENU_COPY" = "Copy";
+
+"EDIT_MENU_PASTE" = "Paste";
+
+"EDIT_MENU_PASTE_AND_MATCH_STYLE" = "Paste and Match Style";
+
+"EDIT_MENU_SELECT_ALL" = "Select All";
+
+"VIEW_MENU_TITLE" = "View";
+
+"VIEW_MENU_CUSTOMIZE_TOOLBAR" = "Customize Toolbar...";
+
+"WINDOW_MENU_TITLE" = "Window";
+
+"WINDOW_MENU_MINIMIZE" = "Minimize";
+
+"WINDOW_MENU_ZOOM" = "Zoom";
+
+"WINDOW_MENU_BRING_ALL_TO_FRONT" = "Bring All to Front";
+
+"HELP_MENU_TITLE" = "Help";
+
+"HELP_MENU_HELP" = "Help";

@@ -6,6 +6,7 @@
 //
 
 #import "WindowMenuItem.h"
+#import <StoneNamuResources/StoneNamuResources.h>
 
 @implementation WindowMenuItem
 
@@ -20,17 +21,17 @@
 }
 
 - (void)configureSubMenus {
-    NSMenu *windowSubMenu = [[NSMenu alloc] initWithTitle:@"Window (Demo)"];
+    NSMenu *windowSubMenu = [[NSMenu alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyWindowMenuTitle]];
     
     //
     
-    NSMenuItem *minimizeItem = [[NSMenuItem alloc] initWithTitle:@"Minimize (Demo)"
+    NSMenuItem *minimizeItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyWindowMenuMinimize]
                                                           action:@selector(performMiniaturize:)
                                                    keyEquivalent:@"m"];
-    NSMenuItem *zoomItem = [[NSMenuItem alloc] initWithTitle:@"Zoom (Demo)"
+    NSMenuItem *zoomItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyWindowMenuZoom]
                                                       action:@selector(performZoom:)
                                                keyEquivalent:@""];
-    NSMenuItem *bringItem = [[NSMenuItem alloc] initWithTitle:@"Bring All to Front (Demo)"
+    NSMenuItem *bringItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyWindowMenuBringAllToFront]
                                                        action:@selector(arrangeInFront:)
                                                 keyEquivalent:@""];
     

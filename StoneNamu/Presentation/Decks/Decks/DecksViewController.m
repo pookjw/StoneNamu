@@ -137,7 +137,7 @@
     
     //
     
-    UIMenu *createDeckMenu = [UIMenu menuWithTitle:[ResourcesService localizationForKey:LocalizableKeyCreateNewDeck]
+    UIMenu *createDeckMenu = [UIMenu menuWithTitle:[ResourcesService localizationForKey:LocalizableKeyCreateANewDeck]
                                               children:@[
         
         [UIMenu menuWithTitle:[ResourcesService localizationForHSDeckFormat:HSDeckFormatStandard]

@@ -47,25 +47,35 @@
 
 - (void)configureCreateDeckItems {
     NSMenu *fileSubMenu = self.fileMenuItem.submenu;
-    NSMenuItem *createDeckMenuItem = [[NSMenuItem alloc] initWithTitle:@"Create New Deck... (Demo)" action:nil keyEquivalent:@""];
+    NSMenuItem *createDeckMenuItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyFileMenuCreateANewDeck]
+                                                                action:nil
+                                                         keyEquivalent:@""];
     NSMenu *createDeckMenu = [NSMenu new];
     
     //
     
-    fileSubMenu.itemArray = [fileSubMenu.itemArray arrayByAddingObject:createDeckMenuItem];
+    
+    fileSubMenu.itemArray = [fileSubMenu.itemArray arrayByAddingObjectsFromArray:@[[NSMenuItem separatorItem],
+                                                                                    createDeckMenuItem]];
     createDeckMenuItem.submenu = createDeckMenu;
     
     //
     
-    NSMenuItem *createNewDeckStandardDeckItem = [[NSMenuItem alloc] initWithTitle:@"Create Standard Deck (Demo)" action:nil keyEquivalent:@""];
+    NSMenuItem *createNewDeckStandardDeckItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForHSDeckFormat:HSDeckFormatStandard]
+                                                                           action:nil
+                                                                    keyEquivalent:@""];
     createNewDeckStandardDeckItem.submenu = [DecksMenuFactory menuForHSDeckFormat:HSDeckFormatStandard target:self];
     createNewDeckStandardDeckItem.identifier = NSUserInterfaceItemIdentifierDecksCreateNewStandardDeck;
     
-    NSMenuItem *createNewDeckWildDeckItem = [[NSMenuItem alloc] initWithTitle:@"Create Wild Deck (Demo)" action:nil keyEquivalent:@""];
+    NSMenuItem *createNewDeckWildDeckItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForHSDeckFormat:HSDeckFormatWild]
+                                                                       action:nil
+                                                                keyEquivalent:@""];
     createNewDeckWildDeckItem.submenu = [DecksMenuFactory menuForHSDeckFormat:HSDeckFormatWild target:self];
     createNewDeckWildDeckItem.identifier = NSUserInterfaceItemIdentifierDecksCreateNewWildDeck;
     
-    NSMenuItem *createNewDeckClassicDeckItem = [[NSMenuItem alloc] initWithTitle:@"Create Classic Deck" action:nil keyEquivalent:@""];
+    NSMenuItem *createNewDeckClassicDeckItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForHSDeckFormat:HSDeckFormatClassic]
+                                                                          action:nil
+                                                                   keyEquivalent:@""];
     createNewDeckClassicDeckItem.submenu = [DecksMenuFactory menuForHSDeckFormat:HSDeckFormatClassic target:self];
     createNewDeckClassicDeckItem.identifier = NSUserInterfaceItemIdentifierDecksCreateNewClassicDeck;
     

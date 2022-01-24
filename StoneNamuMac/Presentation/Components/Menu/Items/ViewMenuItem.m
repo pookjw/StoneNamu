@@ -6,6 +6,7 @@
 //
 
 #import "ViewMenuItem.h"
+#import <StoneNamuResources/StoneNamuResources.h>
 
 @implementation ViewMenuItem
 
@@ -20,14 +21,14 @@
 }
 
 - (void)configureSubMenus {
-    NSMenu *viewSubMenu = [[NSMenu alloc] initWithTitle:@"View (Demo)"];
+    NSMenu *viewSubMenu = [[NSMenu alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyViewMenuTitle]];
     
     //
     
     NSMenuItem *toggleToolbarItem = [[NSMenuItem alloc] initWithTitle:@""
                                                                    action:@selector(toggleToolbarShown:)
                                                             keyEquivalent:@"t"];
-    NSMenuItem *customizeToolbarItem = [[NSMenuItem alloc] initWithTitle:@"Customize Toolbar... (Demo)"
+    NSMenuItem *customizeToolbarItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyViewMenuCustomizeToolbar]
                                                                       action:@selector(runToolbarCustomizationPalette:)
                                                                keyEquivalent:@""];
     NSMenuItem *customizeTouchBarItem = [[NSMenuItem alloc] initWithTitle:@""

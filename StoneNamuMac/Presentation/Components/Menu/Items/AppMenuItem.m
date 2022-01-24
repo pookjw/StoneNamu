@@ -7,6 +7,7 @@
 
 #import "AppMenuItem.h"
 #import "WindowsService.h"
+#import <StoneNamuResources/StoneNamuResources.h>
 
 @implementation AppMenuItem
 
@@ -25,22 +26,22 @@
     
     //
     
-    NSMenuItem *aboutItem = [[NSMenuItem alloc] initWithTitle:@"About StoneNamu (Demo)"
+    NSMenuItem *aboutItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyAppMenuAboutStonemanu]
                                                        action:@selector(orderFrontStandardAboutPanel:)
                                                 keyEquivalent:@""];
-    NSMenuItem *prefsItem = [[NSMenuItem alloc] initWithTitle:@"Preferences (Demo)"
+    NSMenuItem *prefsItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyAppMenuPreferences]
                                                        action:@selector(presentNewPrefsWindowIfNeeded:)
                                                 keyEquivalent:@","];
-    NSMenuItem *hideItem = [[NSMenuItem alloc] initWithTitle:@"Hide StoneNamu (Demo)"
+    NSMenuItem *hideItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyAppMenuHideStonemanu]
                                                       action:@selector(hide:)
                                                keyEquivalent:@"h"];
-    NSMenuItem *hideOthersItem = [[NSMenuItem alloc] initWithTitle:@"Hide Others (Demo)"
+    NSMenuItem *hideOthersItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyAppMenuHideOthers]
                                                             action:@selector(hideOtherApplications:)
                                                      keyEquivalent:@"h"];
-    NSMenuItem *showAllItem = [[NSMenuItem alloc] initWithTitle:@"Show All (Demo)"
+    NSMenuItem *showAllItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyAppMehuShowAll]
                                                          action:@selector(unhideAllApplications:)
                                                   keyEquivalent:@""];
-    NSMenuItem *quitItem = [[NSMenuItem alloc] initWithTitle:@"Quit StoneNamu (Demo)"
+    NSMenuItem *quitItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyAppMehuQuitStonemanu]
                                                       action:@selector(terminate:)
                                                keyEquivalent:@"q"];
     

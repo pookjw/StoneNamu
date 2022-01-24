@@ -6,6 +6,7 @@
 //
 
 #import "HelpMenuItem.h"
+#import <StoneNamuResources/StoneNamuResources.h>
 
 @implementation HelpMenuItem
 
@@ -20,23 +21,23 @@
 }
 
 - (void)configureSubMenus {
-    NSMenu *helpSubMenu = [[NSMenu alloc] initWithTitle:@"Help (Demo)"];
+    NSMenu *helpSubMenu = [[NSMenu alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyHelpMenuTitle]];
     
     //
     
-    NSMenuItem *helpItem = [[NSMenuItem alloc] initWithTitle:@"Help (Demo)"
-                                                      action:@selector(showHelp:)
-                                               keyEquivalent:@"?"];
+//    NSMenuItem *helpItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyHelpMenuHelp]
+//                                                      action:@selector(showHelp:)
+//                                               keyEquivalent:@"?"];
     
     //
     
     self.submenu = helpSubMenu;
-    helpSubMenu.itemArray = @[
-        helpItem
-    ];
+//    helpSubMenu.itemArray = @[
+//        helpItem
+//    ];
     
     [helpSubMenu release];
-    [helpItem release];
+//    [helpItem release];
 }
 
 @end

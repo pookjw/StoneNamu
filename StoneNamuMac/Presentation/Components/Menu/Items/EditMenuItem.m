@@ -6,6 +6,7 @@
 //
 
 #import "EditMenuItem.h"
+#import <StoneNamuResources/StoneNamuResources.h>
 
 @implementation EditMenuItem
 
@@ -20,31 +21,37 @@
 }
 
 - (void)configureSubMenus {
-    NSMenu *editSubMenu = [[NSMenu alloc] initWithTitle:@"Edit (Demo)"];
+    NSMenu *editSubMenu = [[NSMenu alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyEditMenuTitle]];
     
     //
     
-    NSMenuItem *undoItem = [[NSMenuItem alloc] initWithTitle:@"Undo"
+    NSMenuItem *undoItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyEditMenuUndo]
                                                       action:NSSelectorFromString(@"undo:")
                                                keyEquivalent:@"z"];
-    NSMenuItem *redoItem = [[NSMenuItem alloc] initWithTitle:@"Redo"
+    NSMenuItem *redoItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyEditMenuRedo]
                                                       action:NSSelectorFromString(@"redo:")
                                                keyEquivalent:@"z"];
-    NSMenuItem *cutItem = [[NSMenuItem alloc] initWithTitle:@"Cut (Demo)"
+    NSMenuItem *cutItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyEditMenuCut]
                                                      action:@selector(cut:)
                                               keyEquivalent:@"x"];
-    NSMenuItem *copyItem = [[NSMenuItem alloc] initWithTitle:@"Copy (Demo)"
+    NSMenuItem *copyItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyEditMenuCopy]
                                                       action:@selector(copy:)
                                                keyEquivalent:@"c"];
-    NSMenuItem *pasteItem = [[NSMenuItem alloc] initWithTitle:@"Paste (Demo)"
+    NSMenuItem *pasteItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyEditMenuPaste]
                                                        action:@selector(paste:)
                                                 keyEquivalent:@"v"];
-    NSMenuItem *pasteAsPlainTextItem = [[NSMenuItem alloc] initWithTitle:@"Paste and Match Style (Demo)" action:@selector(pasteAsPlainText:) keyEquivalent:@"v"];
-    NSMenuItem *deleteItem = [[NSMenuItem alloc] initWithTitle:@"Delete (Demo)" action:@selector(delete:) keyEquivalent:@""];
-    NSMenuItem *selectAllItem = [[NSMenuItem alloc] initWithTitle:@"Select All (Demo)" action:@selector(selectAll:) keyEquivalent:@"a"];
+    NSMenuItem *pasteAndPlainTextItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyEditMenuPasteAndMatchStyle]
+                                                                  action:@selector(pasteAsPlainText:)
+                                                           keyEquivalent:@"v"];
+    NSMenuItem *deleteItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:NSNotificationNameLocalDeckUseCaseDeleteAll]
+                                                        action:@selector(delete:)
+                                                 keyEquivalent:@""];
+    NSMenuItem *selectAllItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyEditMenuSelectAll]
+                                                           action:@selector(selectAll:)
+                                                    keyEquivalent:@"a"];
     
     redoItem.keyEquivalentModifierMask = NSEventModifierFlagShift | NSEventModifierFlagCommand;
-    pasteAsPlainTextItem.keyEquivalentModifierMask = NSEventModifierFlagOption | NSEventModifierFlagShift | NSEventModifierFlagCommand;
+    pasteAndPlainTextItem.keyEquivalentModifierMask = NSEventModifierFlagOption | NSEventModifierFlagShift | NSEventModifierFlagCommand;
     
     //
     
@@ -56,7 +63,7 @@
         cutItem,
         copyItem,
         pasteItem,
-        pasteAsPlainTextItem,
+        pasteAndPlainTextItem,
         selectAllItem
     ];
     
@@ -66,7 +73,7 @@
     [cutItem release];
     [copyItem release];
     [pasteItem release];
-    [pasteAsPlainTextItem release];
+    [pasteAndPlainTextItem release];
     [deleteItem release];
     [selectAllItem release];
 }

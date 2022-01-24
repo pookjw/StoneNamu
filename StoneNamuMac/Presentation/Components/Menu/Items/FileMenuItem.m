@@ -7,6 +7,7 @@
 
 #import "FileMenuItem.h"
 #import "WindowsService.h"
+#import <StoneNamuResources/StoneNamuResources.h>
 
 @implementation FileMenuItem
 
@@ -21,14 +22,14 @@
 }
 
 - (void)configureSubMenus {
-    NSMenu *fileSubMenu = [[NSMenu alloc] initWithTitle:@"File (Demo)"];
+    NSMenu *fileSubMenu = [[NSMenu alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyFlieMenuTitle]];
     
     //
     
-    NSMenuItem *newItem = [[NSMenuItem alloc] initWithTitle:@"New Window (Demo)"
+    NSMenuItem *newItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyFileMenuNewWindow]
                                                      action:@selector(presentNewMainWindow:)
                                               keyEquivalent:@"n"];
-    NSMenuItem *closeItem = [[NSMenuItem alloc] initWithTitle:@"Close (Demo)"
+    NSMenuItem *closeItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyFlieMenuClose]
                                                        action:@selector(performClose:)
                                                 keyEquivalent:@"w"];
     
