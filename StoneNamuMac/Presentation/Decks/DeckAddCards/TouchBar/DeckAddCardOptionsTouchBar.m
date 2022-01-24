@@ -577,7 +577,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
         }
         
         NSPopoverTouchBarItem * _Nullable popover = [self popoverTouchBarItemFromOptionType:optionType];
-                    
+        
         if (popover != nil) {
             popover.collapsedRepresentationImage = [DeckAddCardOptionsMenuFactory imageForDeckAddCardOptionTypeWithValue:value optionType:optionType];
         }
@@ -740,16 +740,17 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
             NSStringFromHSCardClass(HSCardClassNeutral): [ResourcesService localizationForHSCardClass:HSCardClassNeutral]
         }];
     } else if ([scrubber isEqual:self.optionTypeManaCostScrubber] || [scrubber isEqual:self.optionTypeAttackScrubber] || [scrubber isEqual:self.optionTypeHealthScrubber]) {
-        mutableDic = [@{@"1": @"1",
-                @"2": @"2",
-                @"3": @"3",
-                @"4": @"4",
-                @"5": @"5",
-                @"6": @"6",
-                @"7": @"7",
-                @"8": @"8",
-                @"9": @"9",
-                @"10": @"10+"} mutableCopy];
+        mutableDic = [@{@"0": @"0",
+                        @"1": @"1",
+                        @"2": @"2",
+                        @"3": @"3",
+                        @"4": @"4",
+                        @"5": @"5",
+                        @"6": @"6",
+                        @"7": @"7",
+                        @"8": @"8",
+                        @"9": @"9",
+                        @"10": @"10+"} mutableCopy];
         filterKeys = nil;
     } else if ([scrubber isEqual:self.optionTypeCollectibleScrubber]) {
         mutableDic = [[ResourcesService localizationsForHSCardCollectible] mutableCopy];

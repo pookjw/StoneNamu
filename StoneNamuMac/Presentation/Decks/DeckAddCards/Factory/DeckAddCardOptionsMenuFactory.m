@@ -151,7 +151,8 @@
                                  ascending:YES
                                     target:target];
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeManaCost] || ([optionType isEqualToString:BlizzardHSAPIOptionTypeAttack] || ([optionType isEqualToString:BlizzardHSAPIOptionTypeHealth]))) {
-        itemArray = [self itemArrayFromDic:@{@"1": @"1",
+        itemArray = [self itemArrayFromDic:@{@"0": @"0",
+                                             @"1": @"1",
                                              @"2": @"2",
                                              @"3": @"3",
                                              @"4": @"4",
