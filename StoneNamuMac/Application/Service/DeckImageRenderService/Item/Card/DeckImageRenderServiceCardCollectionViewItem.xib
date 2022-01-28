@@ -27,7 +27,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="223" height="36"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
-                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9pE-II-V4s">
+                    <imageView verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9pE-II-V4s">
                         <rect key="frame" x="1" y="0.0" width="137" height="36"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="9pE-II-V4s" secondAttribute="height" multiplier="243 : 64" id="SPI-fq-Dc4"/>
@@ -40,7 +40,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="85" height="36"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <textField horizontalHuggingPriority="1000" verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="qM9-BN-gOv">
+                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qM9-BN-gOv">
                                     <rect key="frame" x="8" y="10" width="69" height="16"/>
                                     <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Label" id="ZJQ-pF-b1U">
                                         <font key="font" usesAppearanceFont="YES"/>
@@ -61,7 +61,7 @@
                         </constraints>
                         <color key="fillColor" red="0.12941176470588234" green="0.42745098039215684" blue="0.85098039215686272" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </box>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="ONQ-ox-PBr">
+                    <textField verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="ONQ-ox-PBr">
                         <rect key="frame" x="93" y="10" width="37" height="16"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="IVW-1E-ggP">
                             <font key="font" metaFont="system"/>
@@ -75,7 +75,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="85" height="36"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IlX-Ig-vGT">
+                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IlX-Ig-vGT">
                                     <rect key="frame" x="24" y="10" width="37" height="16"/>
                                     <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="Uwu-Fg-ZUq">
                                         <font key="font" usesAppearanceFont="YES"/>
