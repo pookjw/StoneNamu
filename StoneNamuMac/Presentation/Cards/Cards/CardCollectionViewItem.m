@@ -7,8 +7,10 @@
 
 #import "CardCollectionViewItem.h"
 #import "NSImageView+setAsyncImage.h"
+#import "HSCardPopoverDetailView.h"
 
 @interface CardCollectionViewItem ()
+@property (retain) IBOutlet HSCardPopoverDetailView *hsCardPopoverDetailView;
 @property (copy) HSCard * _Nullable hsCard;
 @property (assign) id<CardCollectionViewItemDelegate> delegte;
 @end
@@ -16,6 +18,7 @@
 @implementation CardCollectionViewItem
 
 - (void)dealloc {
+    [_hsCardPopoverDetailView release];
     [_hsCard release];
     [super dealloc];
 }
@@ -30,6 +33,7 @@
     self.hsCard = hsCard;
     self.delegte = delegate;
     
+    self.hsCardPopoverDetailView.hsCard = hsCard;
     [self.imageView setAsyncImageWithURL:hsCard.image indicator:YES];
 }
 

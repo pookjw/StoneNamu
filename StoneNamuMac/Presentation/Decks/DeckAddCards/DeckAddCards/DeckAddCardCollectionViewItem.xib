@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19529" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="20034" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="20034"/>
         <capability name="System colors introduced in macOS 10.14" minToolsVersion="10.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -15,6 +15,7 @@
                 <outlet property="cardImageView" destination="M0R-ax-VQ2" id="W9c-Ik-sZR"/>
                 <outlet property="countLabel" destination="1p6-dl-VYQ" id="Mkb-YB-XCY"/>
                 <outlet property="countLabelContainerBox" destination="km6-4n-jSP" id="AYb-0Y-aVR"/>
+                <outlet property="hsCardPopoverDetailView" destination="Ikv-eN-Khj" id="7JD-pO-W22"/>
                 <outlet property="view" destination="76R-eh-zvV" id="QUy-25-Rta"/>
             </connections>
         </collectionViewItem>
@@ -53,11 +54,18 @@
                         </view>
                         <color key="fillColor" name="controlAccentColor" catalog="System" colorSpace="catalog"/>
                     </box>
+                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="Ikv-eN-Khj" customClass="HSCardPopoverDetailView">
+                        <rect key="frame" x="0.0" y="0.0" width="348" height="374"/>
+                    </customView>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="km6-4n-jSP" secondAttribute="bottom" id="2P4-te-xpC"/>
                     <constraint firstItem="M0R-ax-VQ2" firstAttribute="top" secondItem="rNt-hZ-whS" secondAttribute="top" id="8aB-VF-UNg"/>
+                    <constraint firstItem="Ikv-eN-Khj" firstAttribute="leading" secondItem="rNt-hZ-whS" secondAttribute="leading" id="Jx6-c7-F47"/>
+                    <constraint firstAttribute="bottom" secondItem="Ikv-eN-Khj" secondAttribute="bottom" id="QgC-WY-q94"/>
                     <constraint firstItem="km6-4n-jSP" firstAttribute="centerX" secondItem="rNt-hZ-whS" secondAttribute="centerX" id="Vcf-vp-1EG"/>
+                    <constraint firstAttribute="trailing" secondItem="Ikv-eN-Khj" secondAttribute="trailing" id="XFs-20-UE6"/>
+                    <constraint firstItem="Ikv-eN-Khj" firstAttribute="top" secondItem="rNt-hZ-whS" secondAttribute="top" id="Zm6-YQ-6So"/>
                     <constraint firstItem="M0R-ax-VQ2" firstAttribute="leading" secondItem="rNt-hZ-whS" secondAttribute="leading" id="cRx-px-UPE"/>
                     <constraint firstAttribute="trailing" secondItem="M0R-ax-VQ2" secondAttribute="trailing" id="oNZ-ix-bpx"/>
                     <constraint firstItem="km6-4n-jSP" firstAttribute="top" secondItem="M0R-ax-VQ2" secondAttribute="bottom" id="zTi-Gj-0hf"/>

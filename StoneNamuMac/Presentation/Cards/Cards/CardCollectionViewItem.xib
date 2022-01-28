@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19529" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="20034" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="20034"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -11,6 +11,7 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <collectionViewItem id="IgK-hD-som" customClass="CardCollectionViewItem">
             <connections>
+                <outlet property="hsCardPopoverDetailView" destination="iyl-O6-9x5" id="cZx-Zx-TuP"/>
                 <outlet property="imageView" destination="dOn-gC-T2f" id="30K-FN-aBQ"/>
                 <outlet property="view" destination="NGd-fg-qV6" id="uKf-E0-cnP"/>
             </connections>
@@ -26,12 +27,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="177" height="114"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="c4e-Pv-8Wo"/>
                     </imageView>
+                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="iyl-O6-9x5" customClass="HSCardPopoverDetailView">
+                        <rect key="frame" x="0.0" y="0.0" width="177" height="114"/>
+                    </customView>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="bottom" secondItem="iyl-O6-9x5" secondAttribute="bottom" id="EBu-bv-9r8"/>
+                    <constraint firstItem="iyl-O6-9x5" firstAttribute="top" secondItem="0mA-ce-Dtt" secondAttribute="top" id="JP8-t2-Mkc"/>
                     <constraint firstItem="dOn-gC-T2f" firstAttribute="top" secondItem="0mA-ce-Dtt" secondAttribute="top" id="bgD-9Z-uMd"/>
                     <constraint firstItem="dOn-gC-T2f" firstAttribute="leading" secondItem="0mA-ce-Dtt" secondAttribute="leading" id="e9R-PH-ZCM"/>
                     <constraint firstAttribute="bottom" secondItem="dOn-gC-T2f" secondAttribute="bottom" id="lEP-TD-aHc"/>
+                    <constraint firstAttribute="trailing" secondItem="iyl-O6-9x5" secondAttribute="trailing" id="mIm-b7-zgR"/>
                     <constraint firstAttribute="trailing" secondItem="dOn-gC-T2f" secondAttribute="trailing" id="miY-Xe-P6d"/>
+                    <constraint firstItem="iyl-O6-9x5" firstAttribute="leading" secondItem="0mA-ce-Dtt" secondAttribute="leading" id="qIZ-CF-Brg"/>
                 </constraints>
             </view>
             <point key="canvasLocation" x="140" y="154"/>

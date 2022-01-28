@@ -8,6 +8,7 @@
 #import "DeckAddCardCollectionViewItem.h"
 #import "NSImageView+setAsyncImage.h"
 #import "NSImage+imageWithGrayScale.h"
+#import "HSCardPopoverDetailView.h"
 #import <QuartzCore/QuartzCore.h>
 
 #define DEGREES_TO_RADIANS(degrees) ((M_PI * degrees) / 180.0f)
@@ -18,6 +19,7 @@
 @property (retain) IBOutlet NSImageView *cardImageView;
 @property (retain) IBOutlet NSBox *countLabelContainerBox;
 @property (retain) IBOutlet NSTextField *countLabel;
+@property (retain) IBOutlet HSCardPopoverDetailView *hsCardPopoverDetailView;
 @end
 
 @implementation DeckAddCardCollectionViewItem
@@ -27,6 +29,7 @@
     [_cardImageView release];
     [_countLabelContainerBox release];
     [_countLabel release];
+    [_hsCardPopoverDetailView release];
     [super dealloc];
 }
 
@@ -49,6 +52,8 @@
     self->_hsCard = [hsCard copy];
     self.count = count;
     self.delegate = delegate;
+    
+    self.hsCardPopoverDetailView.hsCard = hsCard;
     
     [self updateCountLabel];
     
@@ -84,6 +89,7 @@
 }
 
 - (void)gestureTriggered:(NSClickGestureRecognizer *)sender {
+    if (self.hsCardPopoverDetailView.isShown) return;
     [self.delegate deckAddCardCollectionViewItem:self didClickWithRecognizer:sender];
 }
 

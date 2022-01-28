@@ -253,6 +253,7 @@
 		4F90709C26D3606300BA7614 /* DeckDetailsCardContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F90709B26D3606300BA7614 /* DeckDetailsCardContentView.m */; };
 		4F9070A126D3803800BA7614 /* UIImage+averageColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F9070A026D3803800BA7614 /* UIImage+averageColor.m */; };
 		4F9070A426D3836600BA7614 /* UIColor+invertedColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F9070A326D3836600BA7614 /* UIColor+invertedColor.m */; };
+		4F90862F27A453D9003F6597 /* HSCardPopoverDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F90862E27A453D9003F6597 /* HSCardPopoverDetailView.m */; };
 		4F90DA612766312F007982AE /* DeckDetailsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F90DA602766312F007982AE /* DeckDetailsViewModel.m */; };
 		4F90DA6427663138007982AE /* DeckDetailsSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F90DA6327663138007982AE /* DeckDetailsSectionModel.m */; };
 		4F90DA672766313F007982AE /* DeckDetailsItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F90DA662766313F007982AE /* DeckDetailsItemModel.m */; };
@@ -889,6 +890,8 @@
 		4F9070A026D3803800BA7614 /* UIImage+averageColor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+averageColor.m"; sourceTree = "<group>"; };
 		4F9070A226D3836600BA7614 /* UIColor+invertedColor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+invertedColor.h"; sourceTree = "<group>"; };
 		4F9070A326D3836600BA7614 /* UIColor+invertedColor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIColor+invertedColor.m"; sourceTree = "<group>"; };
+		4F90862D27A453D9003F6597 /* HSCardPopoverDetailView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardPopoverDetailView.h; sourceTree = "<group>"; };
+		4F90862E27A453D9003F6597 /* HSCardPopoverDetailView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCardPopoverDetailView.m; sourceTree = "<group>"; };
 		4F90DA5F2766312F007982AE /* DeckDetailsViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckDetailsViewModel.h; sourceTree = "<group>"; };
 		4F90DA602766312F007982AE /* DeckDetailsViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckDetailsViewModel.m; sourceTree = "<group>"; };
 		4F90DA6227663138007982AE /* DeckDetailsSectionModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckDetailsSectionModel.h; sourceTree = "<group>"; };
@@ -2142,6 +2145,15 @@
 			path = DeckAddCardOptions;
 			sourceTree = "<group>";
 		};
+		4F90862C27A45376003F6597 /* HSCardPopoverDetailView */ = {
+			isa = PBXGroup;
+			children = (
+				4F90862D27A453D9003F6597 /* HSCardPopoverDetailView.h */,
+				4F90862E27A453D9003F6597 /* HSCardPopoverDetailView.m */,
+			);
+			path = HSCardPopoverDetailView;
+			sourceTree = "<group>";
+		};
 		4F90DA6B2766417A007982AE /* Card */ = {
 			isa = PBXGroup;
 			children = (
@@ -2171,6 +2183,7 @@
 			children = (
 				4F82D260276F6B2900CE06BE /* ClickableCollectionView */,
 				4FF3CD362759741600ACA5AC /* StorableSearchField */,
+				4F90862C27A45376003F6597 /* HSCardPopoverDetailView */,
 				4FD4E014274ED7CD0037D867 /* HSCardDraggableImageView */,
 				4F646BF22794797200340C07 /* HSCardDroppableView */,
 				4FC402B727386D0E00D25523 /* DynamicMenuToolbarItem */,
@@ -3719,6 +3732,7 @@
 				F303D63F2741549800569E20 /* NSTabViewController+selectTabViewItem.m in Sources */,
 				4F1FA0AF275022B00082EBF0 /* NSTouchBarItemIdentifierDecks+HSDeckFormat.m in Sources */,
 				4F6302D9278DE4DA00AF075D /* WindowsService.m in Sources */,
+				4F90862F27A453D9003F6597 /* HSCardPopoverDetailView.m in Sources */,
 				4F1FA0B4275064660082EBF0 /* DecksToolbar.m in Sources */,
 				4F83FBDF272E7226002D2387 /* NSView+isDarkMode.m in Sources */,
 				4FE857622700913A0008C2FB /* MainSplitViewController.m in Sources */,

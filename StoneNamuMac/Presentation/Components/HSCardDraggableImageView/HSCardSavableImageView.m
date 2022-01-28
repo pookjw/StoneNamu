@@ -51,8 +51,8 @@
     [self setAsyncImageWithURL:hsCard.image indicator:YES];
 }
 
-- (void)mouseDown:(NSEvent *)event {
-    [super mouseDown:event];
+- (void)mouseDragged:(NSEvent *)event {
+    [super mouseDragged:event];
     
     HSCardPromiseProvider *pasteboardItem = [[HSCardPromiseProvider alloc] initWithHSCard:self.hsCard image:self.image];
     NSDraggingItem *draggingItem = [[NSDraggingItem alloc] initWithPasteboardWriter:pasteboardItem];

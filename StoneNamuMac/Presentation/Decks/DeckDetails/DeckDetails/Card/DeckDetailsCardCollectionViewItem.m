@@ -8,6 +8,7 @@
 #import "DeckDetailsCardCollectionViewItem.h"
 #import <QuartzCore/QuartzCore.h>
 #import "NSImageView+setAsyncImage.h"
+#import "HSCardPopoverDetailView.h"
 
 @interface DeckDetailsCardCollectionViewItem ()
 @property (copy) HSCard *hsCard;
@@ -21,6 +22,7 @@
 @property (retain) IBOutlet NSBox *countContainerBox;
 @property (retain) IBOutlet NSLayoutConstraint *countContainerViewWidthConstraint;
 @property (retain) IBOutlet NSTextField *countLabel;
+@property (retain) IBOutlet HSCardPopoverDetailView *hsCardPopoverDetailView;
 @property (retain) CAGradientLayer *cardImageViewGradientLayer;
 @end
 
@@ -37,6 +39,7 @@
     [_countContainerBox release];
     [_countContainerViewWidthConstraint release];
     [_countLabel release];
+    [_hsCardPopoverDetailView release];
     [_cardImageViewGradientLayer release];
     [super dealloc];
 }
@@ -61,6 +64,8 @@
 }
 
 - (void)configureWithHSCard:(HSCard *)hsCard hsCardCount:(NSUInteger)hsCardCount delegate:(nonnull id<DeckDetailsCardCollectionViewItemDelegate>)delegate {
+    
+    self.hsCardPopoverDetailView.hsCard = hsCard;
     
     if (![hsCard isEqual:self.hsCard]) {
         self.manaCostLabel.stringValue = [NSString stringWithFormat:@"%lu", hsCard.manaCost];

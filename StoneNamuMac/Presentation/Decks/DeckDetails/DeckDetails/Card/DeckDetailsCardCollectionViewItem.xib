@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19529" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="20034" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="20034"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -16,6 +16,7 @@
                 <outlet property="countContainerBox" destination="rhw-N4-7Fe" id="aiG-b5-TUn"/>
                 <outlet property="countContainerViewWidthConstraint" destination="LAM-rm-pNp" id="g3q-3u-eyk"/>
                 <outlet property="countLabel" destination="2Dm-4K-YRG" id="IQw-j5-69f"/>
+                <outlet property="hsCardPopoverDetailView" destination="ZFB-v2-TXp" id="JHu-UZ-nof"/>
                 <outlet property="manaCostContainerBox" destination="m5p-Qd-geH" id="VWM-Ky-2kh"/>
                 <outlet property="manaCostContainerViewWidthConstraint" destination="ePp-AI-J59" id="iSO-10-W32"/>
                 <outlet property="manaCostLabel" destination="gwd-77-XMc" id="VGC-BC-IRv"/>
@@ -115,11 +116,18 @@
                             <constraint firstItem="m5p-Qd-geH" firstAttribute="leading" secondItem="Rk5-kZ-hV6" secondAttribute="leading" id="tk9-c3-L2I"/>
                         </constraints>
                     </customView>
+                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="ZFB-v2-TXp" customClass="HSCardPopoverDetailView">
+                        <rect key="frame" x="0.0" y="0.0" width="500" height="36"/>
+                    </customView>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="bottom" secondItem="ZFB-v2-TXp" secondAttribute="bottom" id="37m-p8-moQ"/>
+                    <constraint firstItem="ZFB-v2-TXp" firstAttribute="leading" secondItem="1gN-ik-EDO" secondAttribute="leading" id="DkE-Os-TXm"/>
+                    <constraint firstItem="ZFB-v2-TXp" firstAttribute="top" secondItem="1gN-ik-EDO" secondAttribute="top" id="JrQ-z0-kFZ"/>
                     <constraint firstItem="Rk5-kZ-hV6" firstAttribute="top" secondItem="1gN-ik-EDO" secondAttribute="top" id="L6y-2Y-O9b"/>
                     <constraint firstItem="Rk5-kZ-hV6" firstAttribute="leading" secondItem="1gN-ik-EDO" secondAttribute="leading" id="L8f-oJ-Fd5"/>
                     <constraint firstAttribute="bottom" secondItem="Rk5-kZ-hV6" secondAttribute="bottom" id="R4U-el-3kE"/>
+                    <constraint firstAttribute="trailing" secondItem="ZFB-v2-TXp" secondAttribute="trailing" id="bTZ-uR-17x"/>
                     <constraint firstAttribute="trailing" secondItem="Rk5-kZ-hV6" secondAttribute="trailing" id="i8O-w6-GO1"/>
                 </constraints>
             </view>

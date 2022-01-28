@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19529" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="20034" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="20034"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -11,6 +11,7 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <collectionViewItem id="Ifn-Gv-3N4" customClass="CardDetailsChildCollectionViewItem">
             <connections>
+                <outlet property="hsCardPopoverDetailView" destination="ON5-Ns-tJC" id="fnT-mp-2kq"/>
                 <outlet property="imageView" destination="DPz-2P-AvD" id="ls5-7l-bfB"/>
                 <outlet property="view" destination="C0n-Gk-N9c" id="BDK-2A-8tw"/>
             </connections>
@@ -26,10 +27,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="177" height="114"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="StR-HI-vuU"/>
                     </imageView>
+                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="ON5-Ns-tJC" customClass="HSCardPopoverDetailView">
+                        <rect key="frame" x="0.0" y="0.0" width="177" height="114"/>
+                    </customView>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="DPz-2P-AvD" secondAttribute="bottom" id="2kZ-gu-jkZ"/>
+                    <constraint firstAttribute="bottom" secondItem="ON5-Ns-tJC" secondAttribute="bottom" id="ABq-ON-Ywl"/>
+                    <constraint firstAttribute="trailing" secondItem="ON5-Ns-tJC" secondAttribute="trailing" id="Ixm-HV-5FE"/>
                     <constraint firstAttribute="trailing" secondItem="DPz-2P-AvD" secondAttribute="trailing" id="JgD-Z0-OLD"/>
+                    <constraint firstItem="ON5-Ns-tJC" firstAttribute="top" secondItem="4zv-Zw-Cjo" secondAttribute="top" id="OQ9-nU-b4E"/>
+                    <constraint firstItem="ON5-Ns-tJC" firstAttribute="leading" secondItem="4zv-Zw-Cjo" secondAttribute="leading" id="Z6T-5z-3AE"/>
                     <constraint firstItem="DPz-2P-AvD" firstAttribute="top" secondItem="4zv-Zw-Cjo" secondAttribute="top" id="aWV-2x-rsX"/>
                     <constraint firstItem="DPz-2P-AvD" firstAttribute="leading" secondItem="4zv-Zw-Cjo" secondAttribute="leading" id="jFb-8D-OGm"/>
                 </constraints>

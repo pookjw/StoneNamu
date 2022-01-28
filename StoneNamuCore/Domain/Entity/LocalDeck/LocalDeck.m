@@ -18,8 +18,12 @@
 @dynamic timestamp;
 
 - (NSArray<HSCard *> *)hsCards {
+    NSData * _Nullable hsCardsData = self.hsCardsData;
+    
+    if (hsCardsData == nil) return @[];
+    
     // sometimes it releases unexpectedly
-    NSData * _Nullable hsCardsData = [self.hsCardsData retain];
+    [hsCardsData retain];
     
     if (hsCardsData == nil) {
         [hsCardsData release];
