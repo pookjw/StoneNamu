@@ -50,11 +50,20 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeck
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
     if (([object isEqual:self]) && ([keyPath isEqualToString:@"self.view.window"])) {
         if (self.view.window != nil) {
+            [NSNotificationCenter.defaultCenter removeObserver:self name:NSWindowDidBecomeMainNotification object:nil];
+            
             [NSOperationQueue.mainQueue addOperationWithBlock:^{
-                [self setDecksMenuToWindow];
-                [self setDecksToolbarToWindow];
-                [self setDecksTouchBarToWindow];
+                if (self.view.window.isMainWindow) {
+                    [self windowDidBecomeMainReceived:nil];
+                }
             }];
+            
+            if (self.view.window != nil) {
+                [NSNotificationCenter.defaultCenter addObserver:self
+                                                       selector:@selector(windowDidBecomeMainReceived:)
+                                                           name:NSWindowDidBecomeMainNotification
+                                                         object:self.view.window];
+            }
         }
     } else {
         return [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
@@ -179,6 +188,14 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeck
 - (void)applyingSnapshotToDataSourceWasDoneReceived:(NSNotification *)notification {
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
         [self.collectionView.collectionViewLayout invalidateLayout];
+    }];
+}
+
+- (void)windowDidBecomeMainReceived:(NSNotification *)notification {
+    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+        [self setDecksMenuToWindow];
+        [self setDecksToolbarToWindow];
+        [self setDecksTouchBarToWindow];
     }];
 }
 

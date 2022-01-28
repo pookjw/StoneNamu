@@ -93,8 +93,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardColl
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
             if (self.view.window.isMainWindow) {
                 [self windowDidBecomeMainReceived:nil];
-            } else {
-                [self setCardOptionsToolbarToWindow];
             }
         }];
         
