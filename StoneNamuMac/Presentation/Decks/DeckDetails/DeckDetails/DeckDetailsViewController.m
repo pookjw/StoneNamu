@@ -36,8 +36,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
 @property (retain) NSMenu *collectionViewMenu;
 @property (retain) DeckDetailsManaCostGraphView *manaCostGraphView;
 @property (retain) HSCardDroppableView *hsCardDroppableView;
-@property (retain) NSMenu *moreMenu;
-@property (retain) NSButton *moreMenuButton;
 @property (assign) NSTextField *deckNameTextField;
 @property (assign) NSTextView *deckCodeTextView;
 @property (retain) DeckDetailsViewModel *viewModel;
@@ -63,8 +61,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
     [_collectionViewMenu release];
     [_manaCostGraphView release];
     [_hsCardDroppableView release];
-    [_moreMenu release];
-    [_moreMenuButton release];
     [_viewModel release];
     [super dealloc];
 }
@@ -92,6 +88,144 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
     }
 }
 
+- (void)saveAsImageItemTriggered:(NSMenuItem *)sender {
+    DeckImageRenderService *renderService = [DeckImageRenderService new];
+    
+    [renderService imageFromLocalDeck:self.viewModel.localDeck fromWindow:self.view.window completion:^(NSImage * _Nonnull image) {
+        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+            PhotosService *photoService = [[PhotosService alloc] initWithImages:@{self.viewModel.localDeck.name: image}];
+            
+            [photoService beginSheetModalForWindow:self.view.window completion:^(BOOL success, NSError * _Nullable error) {
+                if (error != nil) {
+                    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+                        [self.view.window presentErrorAlertWithError:error];
+                    }];
+                }
+            }];
+            
+            return;
+        }];
+    }];
+    
+    [renderService release];
+}
+
+- (void)exportDeckCodeItemTriggered:(NSMenuItem *)sender {
+    [self addSpinnerView];
+    
+    [self.viewModel exportLocalizedDeckCodeWithCompletion:^(NSString * _Nullable string) {
+        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+            [self removeAllSpinnerview];
+            
+            if (string == nil) return;
+            
+            //
+            
+            NSAlert *alert = [NSAlert new];
+            NSButton *shareButton = [alert addButtonWithTitle:[ResourcesService localizationForKey:LocalizableKeyShare]];
+            NSButton *copyButton = [alert addButtonWithTitle:[ResourcesService localizationForKey:LocalizableKeyCopy]];
+            NSButton *cancelButton = [alert addButtonWithTitle:[ResourcesService localizationForKey:LocalizableKeyCancel]];
+            NSScrollView *scrollView = [[NSScrollView alloc] initWithFrame:NSMakeRect(0.0f, 0.0f, 300.0f, 200.0f)];
+            NSTextView *deckCodeTextView = [[NSTextView alloc] initWithFrame:scrollView.bounds];
+            
+            //
+            
+            shareButton.target = self;
+            shareButton.action = @selector(exportDeckCodeItemShareButtonTriggered:);
+            
+            copyButton.target = self;
+            copyButton.action = @selector(exportDeckCodeItemCopyButtonTriggered:);
+            
+            //
+            
+            
+            scrollView.documentView = deckCodeTextView;
+            deckCodeTextView.string = string;
+            
+            //
+            
+            alert.messageText = [ResourcesService localizationForKey:LocalizableKeyResult];
+            alert.showsSuppressionButton = NO;
+            alert.accessoryView = scrollView;
+            
+            //
+            
+            [alert beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse returnCode) {
+                
+            }];
+            
+            [alert release];
+            [scrollView release];
+            
+            self.deckCodeTextView = deckCodeTextView;
+            [deckCodeTextView release];
+        }];
+    }];
+}
+
+- (void)exportDeckCodeItemShareButtonTriggered:(NSButton *)sender {
+    NSSharingServicePicker *picker = [[NSSharingServicePicker alloc] initWithItems:@[self.deckCodeTextView.string]];
+    
+    [picker showRelativeToRect:CGRectZero ofView:sender preferredEdge:NSRectEdgeMinY];
+    
+    [picker release];
+}
+
+- (void)exportDeckCodeItemCopyButtonTriggered:(NSButton *)sender {
+    [NSPasteboard.generalPasteboard clearContents];
+    [NSPasteboard.generalPasteboard setString:self.deckCodeTextView.string forType:NSPasteboardTypeString];
+}
+
+- (void)editDeckNameItemTriggered:(NSMenuItem *)sender {
+    NSAlert *alert = [NSAlert new];
+    NSButton *doneButton = [alert addButtonWithTitle:[ResourcesService localizationForKey:LocalizableKeyDone]];
+    NSButton *cancelButton = [alert addButtonWithTitle:[ResourcesService localizationForKey:LocalizableKeyCancel]];
+    NSTextField *deckNameTextField = [[NSTextField alloc] initWithFrame:NSMakeRect(0.0f, 0.0f, 300.0f, 20.0f)];
+    
+    //
+    
+    doneButton.target = self;
+    doneButton.action = @selector(editDeckNameItemDoneButtonTriggered:);
+    
+    //
+    
+    deckNameTextField.lineBreakMode = NSLineBreakByCharWrapping;
+    
+    NSString * _Nullable text = self.viewModel.localDeck.name;
+    
+    if (text == nil) {
+        deckNameTextField.stringValue = @"";
+    } else {
+        deckNameTextField.stringValue = text;
+    }
+    
+    //
+    
+    alert.messageText = [ResourcesService localizationForKey:LocalizableKeyEditDeckNameTitle];
+    alert.showsSuppressionButton = NO;
+    alert.accessoryView = deckNameTextField;
+    
+    //
+    
+    [alert beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse returnCode) {
+        
+    }];
+    
+    [alert release];
+    
+    self.deckNameTextField = deckNameTextField;
+    [deckNameTextField release];
+}
+
+- (void)editDeckNameItemDoneButtonTriggered:(NSButton *)sender {
+    [self.viewModel updateDeckName:self.deckNameTextField.stringValue];
+    [self.view.window endSheet:self.view.window.attachedSheet];
+}
+
+- (void)deleteItemTriggered:(NSMenuItem *)sender {
+    [self.viewModel deleteLocalDeck];
+}
+
 - (void)loadView {
     NSView *view = [NSView new];
     self.view = view;
@@ -105,8 +239,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
     [self configureCollectionViewMenu];
     [self configureManaCostGraphView];
     [self configureHSCardDroppableView];
-    [self configureMoreMenu];
-    [self configureMoreMenuButton];
     [self configureViewModel];
     [self bind];
 }
@@ -219,232 +351,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
     ]];
     
     self.hsCardDroppableView = hsCardDroppableView;
-}
-
-- (void)configureMoreMenu {
-    NSMenu *moreMenu = [NSMenu new];
-    
-    NSMenuItem *deleteItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyDelete]
-                                                        action:@selector(deleteItemTriggered:)
-                                                 keyEquivalent:@""];
-    deleteItem.image = [NSImage imageWithSystemSymbolName:@"trash" accessibilityDescription:nil];
-    deleteItem.target = self;
-    
-    NSMenuItem *editDeckNameItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyEditDeckName]
-                                                              action:@selector(editDeckNameItemTriggered:)
-                                                       keyEquivalent:@""];
-    editDeckNameItem.image = [NSImage imageWithSystemSymbolName:@"pencil" accessibilityDescription:nil];
-    editDeckNameItem.target = self;
-    
-    NSMenuItem *saveAsImageItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeySaveAsImage]
-                                                             action:@selector(saveAsImageItemTriggered:)
-                                                      keyEquivalent:@""];
-    saveAsImageItem.image = [NSImage imageWithSystemSymbolName:@"photo" accessibilityDescription:nil];
-    saveAsImageItem.target = self;
-    
-    NSMenuItem *shareWithImageItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyShare]
-                                                                action:@selector(shareWithImageItemTriggered:)
-                                                         keyEquivalent:@""];
-    shareWithImageItem.image = [NSImage imageWithSystemSymbolName:@"square.and.arrow.up" accessibilityDescription:nil];
-    shareWithImageItem.target = self;
-    
-    NSMenuItem *exportDeckCodeItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyExportDeckCode]
-                                                                action:@selector(exportDeckCodeItemTriggered:)
-                                                         keyEquivalent:@""];
-    exportDeckCodeItem.image = [NSImage imageWithSystemSymbolName:@"square.and.arrow.up" accessibilityDescription:nil];
-    exportDeckCodeItem.target = self;
-    
-    moreMenu.itemArray = @[deleteItem, editDeckNameItem, saveAsImageItem, shareWithImageItem, exportDeckCodeItem];
-    
-    [deleteItem release];
-    [editDeckNameItem release];
-    [saveAsImageItem release];
-    [shareWithImageItem release];
-    [exportDeckCodeItem release];
-    
-    self.moreMenu = moreMenu;
-    [moreMenu release];
-}
-
-- (void)deleteItemTriggered:(NSMenuItem *)sender {
-    [self.viewModel deleteLocalDeck];
-}
-
-- (void)editDeckNameItemTriggered:(NSMenuItem *)sender {
-    NSAlert *alert = [NSAlert new];
-    NSButton *doneButton = [alert addButtonWithTitle:[ResourcesService localizationForKey:LocalizableKeyDone]];
-    NSButton *cancelButton = [alert addButtonWithTitle:[ResourcesService localizationForKey:LocalizableKeyCancel]];
-    NSTextField *deckNameTextField = [[NSTextField alloc] initWithFrame:NSMakeRect(0.0f, 0.0f, 300.0f, 20.0f)];
-    
-    //
-    
-    doneButton.target = self;
-    doneButton.action = @selector(editDeckNameItemDoneButtonTriggered:);
-    
-    //
-    
-    deckNameTextField.lineBreakMode = NSLineBreakByCharWrapping;
-    
-    NSString * _Nullable text = self.viewModel.localDeck.name;
-    
-    if (text == nil) {
-        deckNameTextField.stringValue = @"";
-    } else {
-        deckNameTextField.stringValue = text;
-    }
-    
-    //
-    
-    alert.messageText = [ResourcesService localizationForKey:LocalizableKeyEditDeckNameTitle];
-    alert.showsSuppressionButton = NO;
-    alert.accessoryView = deckNameTextField;
-    
-    //
-    
-    [alert beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse returnCode) {
-        
-    }];
-    
-    [alert release];
-    
-    self.deckNameTextField = deckNameTextField;
-    [deckNameTextField release];
-}
-
-- (void)editDeckNameItemDoneButtonTriggered:(NSButton *)sender {
-    [self.viewModel updateDeckName:self.deckNameTextField.stringValue];
-    [self.view.window endSheet:self.view.window.attachedSheet];
-}
-
-- (void)saveAsImageItemTriggered:(NSMenuItem *)sender {
-    DeckImageRenderService *renderService = [DeckImageRenderService new];
-    
-    [renderService imageFromLocalDeck:self.viewModel.localDeck fromWindow:self.view.window completion:^(NSImage * _Nonnull image) {
-        [NSOperationQueue.mainQueue addOperationWithBlock:^{
-            PhotosService *photoService = [[PhotosService alloc] initWithImages:@{self.viewModel.localDeck.name: image}];
-            
-            [photoService beginSheetModalForWindow:self.view.window completion:^(BOOL success, NSError * _Nullable error) {
-                if (error != nil) {
-                    [NSOperationQueue.mainQueue addOperationWithBlock:^{
-                        [self.view.window presentErrorAlertWithError:error];
-                    }];
-                }
-            }];
-            
-            return;
-        }];
-    }];
-    
-    [renderService release];
-}
-
-- (void)shareWithImageItemTriggered:(NSMenuItem *)sender {
-    DeckImageRenderService *renderService = [DeckImageRenderService new];
-    
-    [renderService imageFromLocalDeck:self.viewModel.localDeck fromWindow:self.view.window completion:^(NSImage * _Nonnull image) {
-        [NSOperationQueue.mainQueue addOperationWithBlock:^{
-            PhotosService *photoService = [[PhotosService alloc] initWithImages:@{self.viewModel.localDeck.name: image}];
-            [photoService beginSharingServiceOfView:self.moreMenuButton];
-            [photoService release];
-            
-            return;
-        }];
-    }];
-    
-    [renderService release];
-}
-
-- (void)exportDeckCodeItemTriggered:(NSMenuItem *)sender {
-    [self addSpinnerView];
-    
-    [self.viewModel exportLocalizedDeckCodeWithCompletion:^(NSString * _Nullable string) {
-        [NSOperationQueue.mainQueue addOperationWithBlock:^{
-            [self removeAllSpinnerview];
-            
-            if (string == nil) return;
-            
-            //
-            
-            NSAlert *alert = [NSAlert new];
-            NSButton *shareButton = [alert addButtonWithTitle:[ResourcesService localizationForKey:LocalizableKeyShare]];
-            NSButton *copyButton = [alert addButtonWithTitle:[ResourcesService localizationForKey:LocalizableKeyCopy]];
-            NSButton *cancelButton = [alert addButtonWithTitle:[ResourcesService localizationForKey:LocalizableKeyCancel]];
-            NSScrollView *scrollView = [[NSScrollView alloc] initWithFrame:NSMakeRect(0.0f, 0.0f, 300.0f, 200.0f)];
-            NSTextView *deckCodeTextView = [[NSTextView alloc] initWithFrame:scrollView.bounds];
-            
-            //
-            
-            shareButton.target = self;
-            shareButton.action = @selector(exportDeckCodeItemShareButtonTriggered:);
-            
-            copyButton.target = self;
-            copyButton.action = @selector(exportDeckCodeItemCopyButtonTriggered:);
-            
-            //
-            
-            
-            scrollView.documentView = deckCodeTextView;
-            deckCodeTextView.string = string;
-            
-            //
-            
-            alert.messageText = [ResourcesService localizationForKey:LocalizableKeyResult];
-            alert.showsSuppressionButton = NO;
-            alert.accessoryView = scrollView;
-            
-            //
-            
-            [alert beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse returnCode) {
-                
-            }];
-            
-            [alert release];
-            [scrollView release];
-            
-            self.deckCodeTextView = deckCodeTextView;
-            [deckCodeTextView release];
-        }];
-    }];
-}
-
-- (void)exportDeckCodeItemShareButtonTriggered:(NSButton *)sender {
-    NSSharingServicePicker *picker = [[NSSharingServicePicker alloc] initWithItems:@[self.deckCodeTextView.string]];
-    
-    [picker showRelativeToRect:CGRectZero ofView:sender preferredEdge:NSRectEdgeMinY];
-    
-    [picker release];
-}
-
-- (void)exportDeckCodeItemCopyButtonTriggered:(NSButton *)sender {
-    [NSPasteboard.generalPasteboard clearContents];
-    [NSPasteboard.generalPasteboard setString:self.deckCodeTextView.string forType:NSPasteboardTypeString];
-}
-
-- (void)configureMoreMenuButton {
-    NSButton *moreMenuButton = [NSButton new];
-    
-    moreMenuButton.image = [NSImage imageWithSystemSymbolName:@"ellipsis" accessibilityDescription:nil];
-    moreMenuButton.bezelStyle = NSBezelStyleCircular;
-    moreMenuButton.target = self;
-    moreMenuButton.action = @selector(moreMenuButtonTriggered:);
-    moreMenuButton.translatesAutoresizingMaskIntoConstraints = NO;
-    
-    [self.view addSubview:moreMenuButton];
-    [NSLayoutConstraint activateConstraints:@[
-        [moreMenuButton.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor],
-        [moreMenuButton.bottomAnchor constraintEqualToAnchor:self.manaCostGraphView.topAnchor]
-    ]];
-    
-    self.moreMenuButton = moreMenuButton;
-    [moreMenuButton release];
-}
-
-- (void)moreMenuButtonTriggered:(NSButton *)sender {
-    NSEvent * _Nullable currentEvent = NSApp.currentEvent;
-    
-    if (currentEvent != nil) {
-        [NSMenu popUpContextMenu:self.moreMenu withEvent:currentEvent forView:sender];
-    }
 }
 
 - (void)configureViewModel {

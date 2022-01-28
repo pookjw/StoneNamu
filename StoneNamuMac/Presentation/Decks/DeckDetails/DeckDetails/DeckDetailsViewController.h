@@ -14,6 +14,11 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithLocalDeck:(LocalDeck *)localDeck;
+
+- (void)saveAsImageItemTriggered:(NSMenuItem *)sender;
+- (void)exportDeckCodeItemTriggered:(NSMenuItem *)sender;
+- (void)editDeckNameItemTriggered:(NSMenuItem *)sender;
+- (void)deleteItemTriggered:(NSMenuItem *)sender;
 @end
 
 NS_ASSUME_NONNULL_END

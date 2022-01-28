@@ -19,6 +19,11 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
 @property HSCardClass classId;
 @property (assign) id<DeckAddCardOptionsMenuDelegate> deckAddCardOptionsMenuDelegate;
 
+@property (retain) NSMenuItem *saveAsImageItem;
+@property (retain) NSMenuItem *exportDeckCodeItem;
+@property (retain) NSMenuItem *editDeckNameItem;
+@property (retain) NSMenuItem *deleteItem;
+
 @property (retain) NSMenuItem *optionsMenuItem;
 @property (retain) NSMenu *optionsSubMenu;
 
@@ -56,6 +61,15 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
         self.deckFormat = deckFormat;
         self.classId = classId;
         self.deckAddCardOptionsMenuDelegate = deckAddCardOptionsMenuDelegate;
+        
+        [self.fileMenuItem.submenu addItem:[NSMenuItem separatorItem]];
+        [self configureSaveAsImageItem];
+        [self configureExportDeckCodeItem];
+        
+        [self.editMenuItem.submenu addItem:[NSMenuItem separatorItem]];
+        [self configureEditDeckNameItem];
+        [self configureDeleteItem];
+        
         [self configureOptionsMenu];
         [self configureOptionsItems];
         [self configureResetOptionsItem];
@@ -66,6 +80,11 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
 
 - (void)dealloc {
     [_deckFormat release];
+    
+    [_saveAsImageItem release];
+    [_exportDeckCodeItem release];
+    [_editDeckNameItem release];
+    [_deleteItem release];
     
     [_optionsMenuItem release];
     [_optionsSubMenu release];
@@ -134,6 +153,54 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
         
         [self updateStateOfItem:obj];
     }];
+}
+
+- (void)configureSaveAsImageItem {
+    NSMenuItem *saveAsImageItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeySaveAsImage]
+                                                             action:NSSelectorFromString(@"saveAsImageItemTriggered:")
+                                                      keyEquivalent:@""];
+//    saveAsImageItem.image = [NSImage imageWithSystemSymbolName:@"photo" accessibilityDescription:nil];
+    
+    [self.fileMenuItem.submenu addItem:saveAsImageItem];
+    
+    self.saveAsImageItem = saveAsImageItem;
+    [saveAsImageItem release];
+}
+
+- (void)configureExportDeckCodeItem {
+    NSMenuItem *exportDeckCodeItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyExportDeckCode]
+                                                                action:NSSelectorFromString(@"exportDeckCodeItemTriggered:")
+                                                         keyEquivalent:@""];
+//    exportDeckCodeItem.image = [NSImage imageWithSystemSymbolName:@"square.and.arrow.up" accessibilityDescription:nil];
+    
+    [self.fileMenuItem.submenu addItem:exportDeckCodeItem];
+    
+    self.exportDeckCodeItem = exportDeckCodeItem;
+    [exportDeckCodeItem release];
+}
+
+- (void)configureEditDeckNameItem {
+    NSMenuItem *editDeckNameItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyEditDeckName]
+                                                              action:NSSelectorFromString(@"editDeckNameItemTriggered:")
+                                                       keyEquivalent:@""];
+//    editDeckNameItem.image = [NSImage imageWithSystemSymbolName:@"pencil" accessibilityDescription:nil];
+    
+    [self.editMenuItem.submenu addItem:editDeckNameItem];
+    
+    self.editDeckNameItem = editDeckNameItem;
+    [editDeckNameItem release];
+}
+
+- (void)configureDeleteItem {
+    NSMenuItem *deleteItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyDeleteDeck]
+                                                        action:NSSelectorFromString(@"deleteItemTriggered:")
+                                                 keyEquivalent:@""];
+//    deleteItem.image = [NSImage imageWithSystemSymbolName:@"trash" accessibilityDescription:nil];
+    
+    [self.editMenuItem.submenu addItem:deleteItem];
+    
+    self.deleteItem = deleteItem;
+    [deleteItem release];
 }
 
 - (void)configureOptionsMenu {

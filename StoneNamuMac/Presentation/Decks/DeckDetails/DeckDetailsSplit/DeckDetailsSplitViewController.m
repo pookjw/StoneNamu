@@ -6,13 +6,9 @@
 //
 
 #import "DeckDetailsSplitViewController.h"
-#import "DeckAddCardsViewController.h"
-#import "DeckDetailsViewController.h"
 #import "NSViewController+loadViewIfNeeded.h"
 
 @interface DeckDetailsSplitViewController ()
-@property (retain) DeckAddCardsViewController *deckAddCardsViewController;
-@property (retain) DeckDetailsViewController *deckDetailsViewController;
 @end
 
 @implementation DeckDetailsSplitViewController
@@ -61,8 +57,10 @@
     
     //
     
-    self.deckAddCardsViewController = deckAddCardsViewController;
-    self.deckDetailsViewController = deckDetailsViewController;
+    [self->_deckAddCardsViewController release];
+    self->_deckAddCardsViewController = [deckAddCardsViewController retain];
+    [self->_deckDetailsViewController release];
+    self->_deckDetailsViewController = [deckDetailsViewController retain];
     [deckAddCardsViewController release];
     [deckDetailsViewController release];
 }

@@ -66,4 +66,20 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
     [deckDetailsSplitViewController release];
 }
 
+- (void)saveAsImageItemTriggered:(NSMenuItem *)sender {
+    [self.deckDetailsSplitViewController.deckDetailsViewController saveAsImageItemTriggered:sender];
+}
+
+- (void)exportDeckCodeItemTriggered:(NSMenuItem *)sender {
+    [self.deckDetailsSplitViewController.deckDetailsViewController exportDeckCodeItemTriggered:sender];
+}
+
+- (void)editDeckNameItemTriggered:(NSMenuItem *)sender {
+    [self.deckDetailsSplitViewController.deckDetailsViewController editDeckNameItemTriggered:sender];
+}
+
+- (void)deleteItemTriggered:(NSMenuItem *)sender {
+    [self.deckDetailsSplitViewController.deckDetailsViewController deleteItemTriggered:sender];
+}
+
 @end

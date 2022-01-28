@@ -16,6 +16,7 @@ static LocalizableKey const LocalizableKeyEditMenuPaste = @"EDIT_MENU_PASTE";
 static LocalizableKey const LocalizableKeyCardOptionsTitleShort = @"CARD_OPTIONS_TITLE_SHORT";
 static LocalizableKey const LocalizableKeyCardArtist = @"CARD_ARTIST";
 static LocalizableKey const LocalizableKeyPookjw = @"POOKJW";
+static LocalizableKey const LocalizableKeyDeleteDeck = @"DELETE_DECK";
 static LocalizableKey const LocalizableKeyCopy = @"COPY";
 static LocalizableKey const LocalizableKeyEditMenuRedo = @"EDIT_MENU_REDO";
 static LocalizableKey const LocalizableKeyDeckAddCardErrorCannotAddNotCollectibleCard = @"DECK_ADD_CARD_ERROR_CANNOT_ADD_NOT_COLLECTIBLE_CARD";
