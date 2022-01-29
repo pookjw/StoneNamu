@@ -18,6 +18,7 @@
 @property (retain) IBOutlet NSTextField *countLabel;
 @property (retain) IBOutlet NSLayoutConstraint *countBoxWidthLayout;
 @property (retain) CAGradientLayer *cardImageViewGradientLayer;
+@property (retain) id<NSObject> observer;
 @end
 
 @implementation DeckImageRenderServiceCardCollectionViewItem
@@ -39,6 +40,7 @@
 }
 
 - (void)dealloc {
+    [NSNotificationCenter.defaultCenter removeObserver:self.observer];
     [_cardImageView release];
     [_manaCostLabel release];
     [_manaCostBoxWidthLayout release];
@@ -46,6 +48,7 @@
     [_countLabel release];
     [_countBoxWidthLayout release];
     [_cardImageViewGradientLayer release];
+    [_observer release];
     [super dealloc];
 }
 
@@ -142,10 +145,10 @@
 }
 
 - (void)bind {
-    [NSNotificationCenter.defaultCenter addObserverForName:NSViewFrameDidChangeNotification
-                                                    object:self.cardImageView
-                                                     queue:NSOperationQueue.mainQueue
-                                                usingBlock:^(NSNotification * _Nonnull note) {
+    self.observer = [NSNotificationCenter.defaultCenter addObserverForName:NSViewFrameDidChangeNotification
+                                                                    object:self.cardImageView
+                                                                     queue:NSOperationQueue.mainQueue
+                                                                usingBlock:^(NSNotification * _Nonnull note) {
         [self updateGradientLayer];
     }];
 }
