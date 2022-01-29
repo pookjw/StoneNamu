@@ -66,6 +66,23 @@
     }
 }
 
+- (void)keyDown:(NSEvent *)event {
+    NSString * _Nullable characters = event.characters;
+    NSScrollView * _Nullable scrollView = (NSScrollView * _Nullable)self.superview.superview;
+    
+    if ((scrollView != nil) && ([scrollView isKindOfClass:[NSScrollView class]])) {
+        if ([characters isEqualToString:@""]) {
+            [scrollView pageUp:self];
+        } else if ([characters isEqualToString:@""]) {
+            [scrollView pageDown:self];
+        } else {
+            [super keyDown:event];
+        }
+    } else {
+        [super keyDown:event];
+    }
+}
+
 - (void)rightMouseDown:(NSEvent *)event {
     NSIndexPath * _Nullable indexPath = [self indexPathForItemAtPoint:[self convertPoint:event.locationInWindow fromView:nil]];
     
