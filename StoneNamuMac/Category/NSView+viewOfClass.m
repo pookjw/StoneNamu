@@ -14,7 +14,13 @@
         if ([subview isKindOfClass:class]) {
             return subview;
         } else {
-            return [subview subviewOfClass:class];
+            NSView * _Nullable result = [subview subviewOfClass:class];
+            
+            if (result != nil) {
+                return result;
+            } else {
+                continue;
+            }
         }
     }
     
