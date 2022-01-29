@@ -528,27 +528,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
     
 }
 
-//- (NSDragOperation)collectionView:(NSCollectionView *)collectionView validateDrop:(id<NSDraggingInfo>)draggingInfo proposedIndexPath:(NSIndexPath * _Nonnull *)proposedDropIndexPath dropOperation:(NSCollectionViewDropOperation *)proposedDropOperation {
-//    return NSDragOperationCopy;
-//}
-//
-//- (BOOL)collectionView:(NSCollectionView *)collectionView acceptDrop:(id<NSDraggingInfo>)draggingInfo indexPath:(NSIndexPath *)indexPath dropOperation:(NSCollectionViewDropOperation)dropOperation {
-//
-//    NSPasteboard *pasteboard = draggingInfo.draggingPasteboard;
-//    NSArray<NSPasteboardItem *> *items = pasteboard.pasteboardItems;
-//    NSMutableArray<NSData *> *datas = [@[] mutableCopy];
-//
-//    [items enumerateObjectsUsingBlock:^(NSPasteboardItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-//        NSData *data = [obj dataForType:NSPasteboardTypeHSCard];
-//        [datas addObject:data];
-//    }];
-//
-//    [self.viewModel addHSCardsWithDatas:datas];
-//    [datas release];
-//
-//    return YES;
-//}
-
 - (BOOL)collectionView:(NSCollectionView *)collectionView canDragItemsAtIndexPaths:(NSSet<NSIndexPath *> *)indexPaths withEvent:(NSEvent *)event {
     BOOL __block result = YES;
     

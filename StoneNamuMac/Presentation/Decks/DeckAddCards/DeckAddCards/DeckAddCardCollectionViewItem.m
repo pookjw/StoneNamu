@@ -33,6 +33,10 @@
     [super dealloc];
 }
 
+- (NSImage *)cardImage {
+    return self.cardImageView.image;
+}
+
 - (void)viewDidLayout {
     [super viewDidLayout];
     [self drawShapeToCountLabelContainerBox];
