@@ -7,6 +7,7 @@
 
 #import "ClickableCollectionView.h"
 #import "ClickableCollectionViewItem.h"
+#import "NSView+viewOfClass.h"
 
 @interface ClickableCollectionView ()
 @property (readonly, nonatomic) ClickableCollectionViewItem * _Nullable clickedItem;
@@ -68,13 +69,18 @@
 
 - (void)keyDown:(NSEvent *)event {
     NSString * _Nullable characters = event.characters;
-    NSScrollView * _Nullable scrollView = (NSScrollView * _Nullable)self.superview.superview;
+    NSScrollView * _Nullable scrollView = (NSScrollView * _Nullable)[self superviewOfClass:[NSScrollView class]];
     
     if ((scrollView != nil) && ([scrollView isKindOfClass:[NSScrollView class]])) {
         if ([characters isEqualToString:@""]) {
             [scrollView pageUp:self];
         } else if ([characters isEqualToString:@""]) {
             [scrollView pageDown:self];
+        } else if ([characters isEqualToString:@""]) {
+            [scrollView.documentView scrollPoint:CGPointMake(0.0f, -scrollView.contentInsets.top)];
+        } else if ([characters isEqualToString:@""]) {
+            NSPoint point = NSMakePoint(0.0f, scrollView.documentView.bounds.size.height);
+            [scrollView.documentView scrollPoint:point];
         } else {
             [super keyDown:event];
         }
