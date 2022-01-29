@@ -10,7 +10,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSCollectionView (setOrthogonalScrollViewDrawsBackground)
-+ (void)setOrthogonalScrollViewDrawsBackground:(BOOL)drawsBackground;
+@property (class) BOOL orthogonalScrollViewDrawsBackground;
 @end
 
 NS_ASSUME_NONNULL_END

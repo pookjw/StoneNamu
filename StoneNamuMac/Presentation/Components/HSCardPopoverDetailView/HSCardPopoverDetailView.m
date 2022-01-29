@@ -7,12 +7,35 @@
 
 #import "HSCardPopoverDetailView.h"
 #import "CardDetailsViewController.h"
+#import "NSPopover+Private.h"
+#import "NSView+DraggingNotification.h"
 
 @interface HSCardPopoverDetailView () <NSPopoverDelegate>
 @property (retain) NSPopover * _Nullable popover;
+@property BOOL completed;
 @end
 
 @implementation HSCardPopoverDetailView
+
+- (instancetype)initWithCoder:(NSCoder *)coder {
+    self = [super initWithCoder:coder];
+    
+    if (self) {
+        [self bind];
+    }
+    
+    return self;
+}
+
+- (instancetype)initWithFrame:(NSRect)frameRect {
+    self = [super initWithFrame:frameRect];
+    
+    if (self) {
+        [self bind];
+    }
+    
+    return self;
+}
 
 - (void)dealloc {
     [_hsCard release];
@@ -26,39 +49,80 @@
 
 - (void)mouseDown:(NSEvent *)event {
     [super mouseDown:event];
-    
-    [self.popover performClose:nil];
+    [self reset];
 }
 
 - (void)pressureChangeWithEvent:(NSEvent *)event {
     [super pressureChangeWithEvent:event];
     
-    if (event.stage == 2) {
-        if (self.hsCard == nil) return;
-        if (self.isShown) return;
+    if (self.hsCard == nil) return;
+    
+    if ((event.pressure >= 0.5f) && (self.popover == nil)) {
+        NSPopover *popover = [NSPopover new];
+        CardDetailsViewController *vc = [[CardDetailsViewController alloc] initWithHSCard:self.hsCard];
         
-        if (self.popover == nil) {
-            NSPopover *popover = [NSPopover new];
-            CardDetailsViewController *vc = [[CardDetailsViewController alloc] initWithHSCard:self.hsCard];
-            
-            popover.contentViewController = vc;
-            [vc release];
-            
-            popover.delegate = self;
-            popover.behavior = NSPopoverBehaviorSemitransient;
-            
-            self.popover = popover;
-            [popover release];
+        popover.contentViewController = vc;
+        [vc release];
+        
+        popover.delegate = self;
+        popover.behavior = NSPopoverBehaviorSemitransient;
+        
+        [popover showRelativeToRect:self.frame ofView:self preferredEdge:NSRectEdgeMinY];
+        
+        self.popover = popover;
+        [popover release];
+    } else if (self.popover != nil) {
+        if (!self.completed) {
+            if (event.stage == 2) {
+                self.popover._popoverWindow.alphaValue = 1.0f;
+                self.completed = YES;
+            } else if (event.stage == 0) {
+                [self reset];
+            } else {
+                self.popover._popoverWindow.alphaValue = event.pressure;
+            }
         }
-        
-        [self.popover showRelativeToRect:self.frame ofView:self preferredEdge:NSRectEdgeMinY];
+    }
+}
+
+- (BOOL)performDragOperation:(id<NSDraggingInfo>)sender {
+    return [super performDragOperation:sender];
+}
+
+- (void)reset {
+    self.completed = NO;
+    [self.popover performClose:nil];
+    self.popover = nil;
+}
+
+- (void)bind {
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(didBeginDraggingSessionReceived:)
+                                               name:NSViewDidBeginDraggingSession
+                                             object:nil];
+}
+
+- (void)didBeginDraggingSessionReceived:(NSNotification *)notification {
+    NSView * _Nullable targetView = notification.object;
+    
+    if (targetView != nil) {
+        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+            if ([targetView.window isEqual:self.window]) {
+                [self reset];
+            }
+        }];
     }
 }
 
 #pragma mark - <NSPopoverDelegate>
 
+- (void)popoverWillShow:(NSNotification *)notification {
+    _NSPopoverWindow *window = ((NSPopover *)notification.object)._popoverWindow;
+    window.alphaValue = 0.0f;
+}
+
 - (void)didCloseMenu:(NSMenu *)menu withEvent:(NSEvent *)event {
-    self.popover = nil;
+    [self reset];
 }
 
 @end

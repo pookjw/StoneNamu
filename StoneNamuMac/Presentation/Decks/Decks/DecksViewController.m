@@ -65,6 +65,10 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeck
                                                          object:self.view.window];
             }
         }
+    } else if (([object isEqual:self.collectionView]) && ([keyPath isEqualToString:@"selectionIndexPaths"])) {
+        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+            [self updateDecksMenuWithSelectionIndexPaths:self.collectionView.selectionIndexPaths];
+        }];
     } else {
         return [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
@@ -178,6 +182,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeck
 
 - (void)bind {
     [self addObserver:self forKeyPath:@"self.view.window" options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:nil];
+    [self.collectionView addObserver:self forKeyPath:@"selectionIndexPaths" options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:nil];
     
     [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(applyingSnapshotToDataSourceWasDoneReceived:)
@@ -188,6 +193,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeck
 - (void)applyingSnapshotToDataSourceWasDoneReceived:(NSNotification *)notification {
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
         [self.collectionView.collectionViewLayout invalidateLayout];
+        [self updateDecksMenuWithSelectionIndexPaths:self.collectionView.selectionIndexPaths];
     }];
 }
 
@@ -227,6 +233,8 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeck
 
 - (void)configureDecksMenu {
     DecksMenu *decksMenu = [[DecksMenu alloc] initWithDecksMenuDelegate:self];
+    decksMenu.editDeckNameItem.enabled = NO;
+    decksMenu.deleteItem.enabled = NO;
     self.decksMenu = decksMenu;
     [decksMenu release];
 }
@@ -397,6 +405,24 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeck
             }];
         }];
     }];
+}
+
+- (void)updateDecksMenuWithSelectionIndexPaths:(NSSet<NSIndexPath *> *)indexPaths {
+    if (indexPaths.count == 0) {
+        self.decksMenu.editDeckNameItem.enabled = NO;
+        self.decksMenu.deleteItem.enabled = NO;
+    } else {
+        self.decksMenu.editDeckNameItem.enabled = YES;
+        self.decksMenu.deleteItem.enabled = YES;
+    }
+}
+
+- (void)editDeckNameItemTriggered:(NSMenuItem *)sender {
+    
+}
+
+- (void)deleteItemTriggered:(NSMenuItem *)sender {
+    [self.viewModel deleteLocalDecksFromIndexPaths:self.collectionView.selectionIndexPaths];
 }
 
 #pragma mark - NSCollectionViewDelegate

@@ -30,6 +30,10 @@
     if (self) {
         self.decksMenuDelegate = decksMenuDelegate;
         
+        [self.editMenuItem.submenu addItem:[NSMenuItem separatorItem]];
+        [self configureEditDeckNameItem];
+        [self configureDeleteItem];
+        
         [self configureCreateDeckItems];
     }
     
@@ -37,12 +41,38 @@
 }
 
 - (void)dealloc {
+    [_editDeckNameItem release];
+    [_deleteItem release];
     [_createNewDeckStandardDeckItem release];
     [_createNewDeckWildDeckItem release];
     [_createNewDeckClassicDeckItem release];
     [_createNewDeckFromDeckCodeItem release];
     [_allItems release];
     [super dealloc];
+}
+
+- (void)configureEditDeckNameItem {
+    NSMenuItem *editDeckNameItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyEditDeckName]
+                                                              action:NSSelectorFromString(@"editDeckNameItemTriggered:")
+                                                       keyEquivalent:@""];
+    
+    [self.editMenuItem.submenu addItem:editDeckNameItem];
+    
+    [self->_editDeckNameItem release];
+    self->_editDeckNameItem = [editDeckNameItem retain];
+    [editDeckNameItem release];
+}
+
+- (void)configureDeleteItem {
+    NSMenuItem *deleteItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyDeleteDeck]
+                                                        action:NSSelectorFromString(@"deleteItemTriggered:")
+                                                 keyEquivalent:@""];
+    
+    [self.editMenuItem.submenu addItem:deleteItem];
+    
+    [self->_deleteItem release];
+    self->_deleteItem = [deleteItem retain];
+    [deleteItem release];
 }
 
 - (void)configureCreateDeckItems {
