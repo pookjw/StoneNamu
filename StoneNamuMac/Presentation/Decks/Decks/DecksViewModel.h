@@ -30,6 +30,8 @@ typedef void (^DecksViewModelLocalDecksFromIndexPathsCompletion)(NSSet<LocalDeck
 - (void)fetchDeckCode:(NSString *)deckCode title:(NSString * _Nullable)title completion:(DecksViewModelFetchDeckCodeCompletion)completion;
 - (void)makeLocalDeckWithClass:(HSCardClass)hsCardClass deckFormat:(HSDeckFormat)deckFormat completion:(DecksViewModelMakeLocalDeckCompletion)completion;
 - (void)deleteLocalDecksFromIndexPaths:(NSSet<NSIndexPath *> *)indexPaths;
+- (void)updateDeckName:(NSString *)name forLocalDeck:(LocalDeck *)localDeck;
+- (void)updateDeckName:(NSString *)name forIndexPath:(NSIndexPath *)indexPath;
 - (void)parseClipboardForDeckCodeWithCompletion:(DecksViewModelParseClipboardCompletion)completion;
 - (void)localDecksFromIndexPaths:(NSSet<NSIndexPath *> *)indexPaths completion:(DecksViewModelLocalDecksFromIndexPathsCompletion)completion;
 @end

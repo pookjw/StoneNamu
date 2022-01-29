@@ -259,26 +259,54 @@
     [self.queue addBarrierBlock:^{
         NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
         
-        [snapshot deleteAllItems];
+        DecksSectionModel * _Nullable __block sectionModel = nil;
         
-        DecksSectionModel *sectionModel = [[DecksSectionModel alloc] initWithType:DecksSectionModelTypeNoName];
-        [snapshot appendSectionsWithIdentifiers:@[sectionModel]];
+        [snapshot.sectionIdentifiers enumerateObjectsUsingBlock:^(DecksSectionModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if (obj.type == DecksSectionModelTypeNoName) {
+                sectionModel = obj;
+                *stop = YES;
+                return;
+            }
+        }];
+        
+        if (sectionModel == nil) {
+            sectionModel = [[DecksSectionModel alloc] initWithType:DecksSectionModelTypeNoName];
+            [snapshot appendSectionsWithIdentifiers:@[sectionModel]];
+            [sectionModel autorelease];
+        }
         
         //
         
-        NSMutableArray<DecksItemModel *> *itemModels = [@[] mutableCopy];
+        NSMutableArray<DecksItemModel *> *oldItemModels = [[snapshot itemIdentifiersInSectionWithIdentifier:sectionModel] mutableCopy];
         
         for (LocalDeck *localDeck in localDecks) {
+            DecksItemModel * _Nullable __block itemModel = nil;
+            NSUInteger __block index = 0;
+            
+            [oldItemModels enumerateObjectsUsingBlock:^(DecksItemModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                if ([localDeck isEqual:obj.localDeck]) {
+                    itemModel = obj;
+                    index = idx;
+                    *stop = YES;
+                    return;
+                }
+            }];
+            
             BOOL isEasterEgg = [self.localDeckUseCase isEasterEggDeckFromLocalDeck:localDeck];
-            DecksItemModel *itemModel = [[DecksItemModel alloc] initWithType:DecksItemModelTypeDeck localDeck:localDeck isEasterEgg:isEasterEgg];
-            [itemModels addObject:itemModel];
-            [itemModel release];
+            
+            if (itemModel == nil) {
+                itemModel = [[DecksItemModel alloc] initWithType:DecksItemModelTypeDeck localDeck:localDeck isEasterEgg:isEasterEgg];
+                [snapshot appendItemsWithIdentifiers:@[itemModel] intoSectionWithIdentifier:sectionModel];
+                [itemModel autorelease];
+            } else {
+                itemModel.isEasterEgg = isEasterEgg;
+                [snapshot reconfigureItemsWithIdentifiers:@[itemModel]];
+                [oldItemModels removeObjectAtIndex:index];
+            }
         }
         
-        [snapshot appendItemsWithIdentifiers:itemModels intoSectionWithIdentifier:sectionModel];
-        [snapshot reconfigureItemsWithIdentifiers:itemModels];
-        [itemModels release];
-        [sectionModel release];
+        [snapshot deleteItemsWithIdentifiers:oldItemModels];
+        [oldItemModels release];
         
         [self sortSnapshot:snapshot];
         

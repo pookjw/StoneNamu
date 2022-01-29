@@ -22,6 +22,7 @@
 #import "HSCardDroppableView.h"
 #import "DeckDetailsSeparatorBox.h"
 #import "NSPasteboardNameStoneNamuPasteboard.h"
+#import "NSAlert+presentTextFieldAlert.h"
 #import <StoneNamuCore/StoneNamuCore.h>
 #import <StoneNamuResources/StoneNamuResources.h>
 
@@ -177,44 +178,14 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
 }
 
 - (void)editDeckNameItemTriggered:(NSMenuItem *)sender {
-    NSAlert *alert = [NSAlert new];
-    NSButton *doneButton = [alert addButtonWithTitle:[ResourcesService localizationForKey:LocalizableKeyDone]];
-    NSButton *cancelButton = [alert addButtonWithTitle:[ResourcesService localizationForKey:LocalizableKeyCancel]];
-    NSTextField *deckNameTextField = [[NSTextField alloc] initWithFrame:NSMakeRect(0.0f, 0.0f, 300.0f, 20.0f)];
-    
-    //
-    
-    doneButton.target = self;
-    doneButton.action = @selector(editDeckNameItemDoneButtonTriggered:);
-    
-    //
-    
-    deckNameTextField.lineBreakMode = NSLineBreakByCharWrapping;
-    
-    NSString * _Nullable text = self.viewModel.localDeck.name;
-    
-    if (text == nil) {
-        deckNameTextField.stringValue = @"";
-    } else {
-        deckNameTextField.stringValue = text;
-    }
-    
-    //
-    
-    alert.messageText = [ResourcesService localizationForKey:LocalizableKeyEditDeckNameTitle];
-    alert.showsSuppressionButton = NO;
-    alert.accessoryView = deckNameTextField;
-    
-    //
-    
-    [alert beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse returnCode) {
-        
-    }];
-    
-    [alert release];
-    
+    NSTextField *deckNameTextField = [NSAlert presentTextFieldAlertWithMessageText:[ResourcesService localizationForKey:LocalizableKeyEditDeckNameTitle]
+                                                                   informativeText:nil
+                                                                     textFieldText:self.viewModel.localDeck.name
+                                                                            target:self
+                                                                            action:@selector(editDeckNameItemDoneButtonTriggered:)
+                                                                            window:self.view.window
+                                                                 completionHandler:^(NSModalResponse returnCode) {}];
     self.deckNameTextField = deckNameTextField;
-    [deckNameTextField release];
 }
 
 - (void)editDeckNameItemDoneButtonTriggered:(NSButton *)sender {

@@ -17,16 +17,18 @@
 #import "NSViewController+SpinnerView.h"
 #import "ClickableCollectionView.h"
 #import "DeckBackgroundBox.h"
+#import "NSAlert+presentTextFieldAlert.h"
 #import <StoneNamuResources/StoneNamuResources.h>
 
 static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeckBaseCollectionViewItem = @"NSUserInterfaceItemIdentifierCardDeckBaseCollectionViewItem";
 
-@interface DecksViewController () <NSCollectionViewDelegate, DecksMenuDelegate, DecksToolbarDelegate, DecksTouchBarDelegate, DeckBaseCollectionViewItemDelegate>
+@interface DecksViewController () <NSCollectionViewDelegate, NSMenuItemValidation, DecksMenuDelegate, DecksToolbarDelegate, DecksTouchBarDelegate, DeckBaseCollectionViewItemDelegate>
 @property (retain) NSScrollView *scrollView;
 @property (retain) ClickableCollectionView *collectionView;
 @property (retain) NSMenu *collectionViewMenu;
 @property (assign) NSTextField *titleTextField;
 @property (assign) NSTextField *deckCodeTextField;
+@property (assign) NSTextField *deckNameTextField;
 @property (retain) DecksMenu *decksMenu;
 @property (retain) DecksToolbar *decksToolbar;
 @property (retain) DecksTouchBar *decksTouchBar;
@@ -65,10 +67,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeck
                                                          object:self.view.window];
             }
         }
-    } else if (([object isEqual:self.collectionView]) && ([keyPath isEqualToString:@"selectionIndexPaths"])) {
-        [NSOperationQueue.mainQueue addOperationWithBlock:^{
-            [self updateDecksMenuWithSelectionIndexPaths:self.collectionView.selectionIndexPaths];
-        }];
     } else {
         return [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
@@ -182,7 +180,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeck
 
 - (void)bind {
     [self addObserver:self forKeyPath:@"self.view.window" options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:nil];
-    [self.collectionView addObserver:self forKeyPath:@"selectionIndexPaths" options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:nil];
     
     [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(applyingSnapshotToDataSourceWasDoneReceived:)
@@ -193,7 +190,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeck
 - (void)applyingSnapshotToDataSourceWasDoneReceived:(NSNotification *)notification {
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
         [self.collectionView.collectionViewLayout invalidateLayout];
-        [self updateDecksMenuWithSelectionIndexPaths:self.collectionView.selectionIndexPaths];
+        [self.decksMenu update];
     }];
 }
 
@@ -281,11 +278,10 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeck
 
 - (void)presentCreateNewDeckFromDeckCodeAlert {
     [self.viewModel parseClipboardForDeckCodeWithCompletion:^(NSString * _Nullable title, NSString * _Nullable deckCode) {
-        
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
             NSAlert *alert = [NSAlert new];
             NSButton *fetchButton = [alert addButtonWithTitle:[ResourcesService localizationForKey:LocalizableKeyFetch]];
-            NSButton *cancelButton = [alert addButtonWithTitle:[ResourcesService localizationForKey:LocalizableKeyCancel]];
+            [alert addButtonWithTitle:[ResourcesService localizationForKey:LocalizableKeyCancel]];
             NSTextField *titleTextField = [[NSTextField alloc] initWithFrame:NSMakeRect(0.0f, 0.0f, 300.0f, 20.0f)];
             NSTextField *deckCodeTextField = [[NSTextField alloc] initWithFrame:NSMakeRect(0.0f, 0.0f, 300.0f, 20.0f)];
             NSView *containerView = [[NSView alloc] initWithFrame:NSMakeRect(0.0f, 0.0f, 300.0f, 40.0f)];
@@ -407,22 +403,34 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeck
     }];
 }
 
-- (void)updateDecksMenuWithSelectionIndexPaths:(NSSet<NSIndexPath *> *)indexPaths {
-    if (indexPaths.count == 0) {
-        self.decksMenu.editDeckNameItem.enabled = NO;
-        self.decksMenu.deleteItem.enabled = NO;
-    } else {
-        self.decksMenu.editDeckNameItem.enabled = YES;
-        self.decksMenu.deleteItem.enabled = YES;
-    }
+- (void)editDeckNameItemTriggered:(NSMenuItem *)sender {
+    [self.viewModel localDecksFromIndexPaths:self.collectionView.interactingIndexPaths completion:^(NSSet<LocalDeck *> * _Nonnull localDecks) {
+        if (localDecks.count == 0) return;
+        
+        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+            NSTextField *deckNameTextField = [NSAlert presentTextFieldAlertWithMessageText:[ResourcesService localizationForKey:LocalizableKeyEditDeckNameTitle]
+                                                                           informativeText:nil
+                                                                             textFieldText:localDecks.allObjects.firstObject.name
+                                                                                    target:self
+                                                                                    action:@selector(editDeckNameItemDoneButtonTriggered:)
+                                                                                    window:self.view.window
+                                                                         completionHandler:^(NSModalResponse returnCode) {}];
+            self.deckNameTextField = deckNameTextField;
+        }];
+    }];
 }
 
-- (void)editDeckNameItemTriggered:(NSMenuItem *)sender {
+- (void)editDeckNameItemDoneButtonTriggered:(NSButton *)sender {
+    NSSet<NSIndexPath *> *interactingIndexPaths = self.collectionView.interactingIndexPaths;
     
+    if (interactingIndexPaths.count == 0) return;
+    
+    [self.viewModel updateDeckName:self.deckNameTextField.stringValue forIndexPath:interactingIndexPaths.allObjects.firstObject];
+    [self.view.window endSheet:self.view.window.attachedSheet];
 }
 
 - (void)deleteItemTriggered:(NSMenuItem *)sender {
-    [self.viewModel deleteLocalDecksFromIndexPaths:self.collectionView.selectionIndexPaths];
+    [self.viewModel deleteLocalDecksFromIndexPaths:self.collectionView.interactingIndexPaths];
 }
 
 #pragma mark - NSCollectionViewDelegate
@@ -440,6 +448,28 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeck
 //    //
 //
 //    [self presentDeckDetailsWithLocalDeck:localDeck];
+}
+
+#pragma mark - NSMenuItemValidation
+
+- (BOOL)validateMenuItem:(NSMenuItem *)menuItem {
+    NSUInteger count = self.collectionView.interactingIndexPaths.count;
+    
+    if ([menuItem isEqual:self.decksMenu.editDeckNameItem]) {
+        if (count == 1) {
+            return YES;
+        } else {
+            return NO;
+        }
+    } else if ([menuItem isEqual:self.decksMenu.deleteItem]) {
+        if (count == 0) {
+            return NO;
+        } else {
+            return YES;
+        }
+    } else {
+        return YES;
+    }
 }
 
 #pragma mark - DecksMenuDelegate

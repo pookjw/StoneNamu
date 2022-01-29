@@ -344,6 +344,7 @@
 		4FDE9B6D274AF05C00AB0E02 /* CardDetailsChildCollectionViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4FDE9B6C274AF05C00AB0E02 /* CardDetailsChildCollectionViewItem.xib */; };
 		4FDE9B70274AF1C300AB0E02 /* NSDiffableDataSourceSnapshot+sort.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FDE9B6F274AF1C200AB0E02 /* NSDiffableDataSourceSnapshot+sort.m */; };
 		4FDEAB5027A52CB80087A0F2 /* NSView+DraggingNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FDEAB4F27A52CB80087A0F2 /* NSView+DraggingNotification.m */; };
+		4FDEAB5327A589550087A0F2 /* NSAlert+presentTextFieldAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FDEAB5227A589550087A0F2 /* NSAlert+presentTextFieldAlert.m */; };
 		4FE85708270089BD0008C2FB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE85707270089BD0008C2FB /* main.m */; };
 		4FE857622700913A0008C2FB /* MainSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE857612700913A0008C2FB /* MainSplitViewController.m */; };
 		4FE85767270092F30008C2FB /* MainListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE85766270092F30008C2FB /* MainListViewController.m */; };
@@ -1076,6 +1077,8 @@
 		4FDEAB4A27A517530087A0F2 /* NSPopover+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSPopover+Private.h"; sourceTree = "<group>"; };
 		4FDEAB4E27A52CB00087A0F2 /* NSView+DraggingNotification.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSView+DraggingNotification.h"; sourceTree = "<group>"; };
 		4FDEAB4F27A52CB80087A0F2 /* NSView+DraggingNotification.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSView+DraggingNotification.m"; sourceTree = "<group>"; };
+		4FDEAB5127A589550087A0F2 /* NSAlert+presentTextFieldAlert.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSAlert+presentTextFieldAlert.h"; sourceTree = "<group>"; };
+		4FDEAB5227A589550087A0F2 /* NSAlert+presentTextFieldAlert.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSAlert+presentTextFieldAlert.m"; sourceTree = "<group>"; };
 		4FE097C326A329B400BF3A6D /* BlizzardAPIRegionHost.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlizzardAPIRegionHost.h; sourceTree = "<group>"; };
 		4FE097C626A331FE00BF3A6D /* HSCardRarity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardRarity.h; sourceTree = "<group>"; };
 		4FE097CA26A33C7500BF3A6D /* HSCardClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardClass.h; sourceTree = "<group>"; };
@@ -2861,6 +2864,8 @@
 				4FB8C3672797F36400D06E7D /* NSCollectionView+setOrthogonalScrollViewDrawsBackground.m */,
 				4FDEAB4E27A52CB00087A0F2 /* NSView+DraggingNotification.h */,
 				4FDEAB4F27A52CB80087A0F2 /* NSView+DraggingNotification.m */,
+				4FDEAB5127A589550087A0F2 /* NSAlert+presentTextFieldAlert.h */,
+				4FDEAB5227A589550087A0F2 /* NSAlert+presentTextFieldAlert.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -3808,6 +3813,7 @@
 				4FDE9B70274AF1C300AB0E02 /* NSDiffableDataSourceSnapshot+sort.m in Sources */,
 				F303D63C274150B200569E20 /* PrefsDataViewController.m in Sources */,
 				4FDEAB5027A52CB80087A0F2 /* NSView+DraggingNotification.m in Sources */,
+				4FDEAB5327A589550087A0F2 /* NSAlert+presentTextFieldAlert.m in Sources */,
 				4FAD720927762EE3000487B3 /* PhotosService.m in Sources */,
 				F3862A3127428FC70061C20C /* PrefsDataViewModel.m in Sources */,
 				4FE8576A270093CF0008C2FB /* CardsViewController.m in Sources */,
