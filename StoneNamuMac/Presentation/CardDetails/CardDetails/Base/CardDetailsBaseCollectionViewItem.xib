@@ -17,24 +17,24 @@
             </connections>
         </collectionViewItem>
         <box boxType="custom" borderWidth="0.0" title="Box" titlePosition="noTitle" id="vW4-gX-OVm">
-            <rect key="frame" x="0.0" y="0.0" width="567" height="51"/>
+            <rect key="frame" x="0.0" y="0.0" width="567" height="46"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <view key="contentView" id="9dm-Cv-eQb">
-                <rect key="frame" x="0.0" y="0.0" width="567" height="51"/>
+                <rect key="frame" x="0.0" y="0.0" width="567" height="46"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <textField horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6B2-NX-hTP" customClass="VibrancyTextField">
-                        <rect key="frame" x="13" y="15" width="46" height="21"/>
+                        <rect key="frame" x="13" y="15" width="40" height="16"/>
                         <textFieldCell key="cell" lineBreakMode="charWrapping" title="Label" id="Cyh-M1-jf6">
-                            <font key="font" textStyle="title2" name=".SFNS-Regular"/>
+                            <font key="font" textStyle="headline" name=".SFNS-Bold"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="npZ-E5-AKi" customClass="VibrancyTextField">
-                        <rect key="frame" x="70" y="15" width="484" height="21"/>
+                        <rect key="frame" x="64" y="15" width="490" height="16"/>
                         <textFieldCell key="cell" lineBreakMode="charWrapping" alignment="right" title="Label" id="hPG-ys-SOU">
-                            <font key="font" textStyle="title2" name=".SFNS-Regular"/>
+                            <font key="font" textStyle="body" name=".SFNS-Regular"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
