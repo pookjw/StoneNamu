@@ -125,7 +125,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
             NSAlert *alert = [NSAlert new];
             NSButton *shareButton = [alert addButtonWithTitle:[ResourcesService localizationForKey:LocalizableKeyShare]];
             NSButton *copyButton = [alert addButtonWithTitle:[ResourcesService localizationForKey:LocalizableKeyCopy]];
-            NSButton *cancelButton = [alert addButtonWithTitle:[ResourcesService localizationForKey:LocalizableKeyCancel]];
+            [alert addButtonWithTitle:[ResourcesService localizationForKey:LocalizableKeyCancel]];
             NSScrollView *scrollView = [[NSScrollView alloc] initWithFrame:NSMakeRect(0.0f, 0.0f, 300.0f, 200.0f)];
             NSTextView *deckCodeTextView = [[NSTextView alloc] initWithFrame:scrollView.bounds];
             

@@ -299,27 +299,21 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeck
             titleTextField.placeholderString = [ResourcesService localizationForKey:LocalizableKeyEnterDeckTitleHere];
             deckCodeTextField.placeholderString = [ResourcesService localizationForKey:LocalizableKeyEnterDeckCodeHere];
             
-            NSString *_title;
-            NSString *_deckCode;
-            
             if (title == nil) {
-                _title = @"";
+                titleTextField.stringValue = @"";
             } else {
-                _title = title;
+                titleTextField.stringValue = title;
             }
             
             if ((deckCode == nil) || ([deckCode isEqualToString:@""])) {
 #if DEBUG
-                _deckCode = @"AAEBAa0GHuUE9xPDFoO7ArW7Are7Ati7AtHBAt/EAonNAvDPAujQApDTApeHA+aIA/yjA5mpA/KsA5GxA5O6A9fOA/vRA/bWA+LeA/vfA/jjA6iKBMGfBJegBKGgBAAA";
+                deckCodeTextField.stringValue = @"AAEBAa0GHuUE9xPDFoO7ArW7Are7Ati7AtHBAt/EAonNAvDPAujQApDTApeHA+aIA/yjA5mpA/KsA5GxA5O6A9fOA/vRA/bWA+LeA/vfA/jjA6iKBMGfBJegBKGgBAAA";
 #else
-                _deckCode = @"";
+                deckCodeTextField.stringValue = @"";
 #endif
             } else {
-                _deckCode = deckCode;
+                deckCodeTextField.stringValue = deckCode;
             }
-            
-            titleTextField.stringValue = _title;
-            deckCodeTextField.stringValue = _deckCode;
             
             //
             

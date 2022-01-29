@@ -25,17 +25,24 @@
     
     deckNameTextField.lineBreakMode = NSLineBreakByCharWrapping;
     
-    NSString * _Nullable text = textFieldText;
-    
-    if (text == nil) {
+    if (textFieldText == nil) {
         deckNameTextField.stringValue = @"";
     } else {
-        deckNameTextField.stringValue = text;
+        deckNameTextField.stringValue = textFieldText;
     }
     
-    //
+    if (messageText == nil) {
+        alert.messageText = @"";
+    } else {
+        alert.messageText = messageText;
+    }
     
-    alert.messageText = [ResourcesService localizationForKey:LocalizableKeyEditDeckNameTitle];
+    if (informativeText == nil) {
+        alert.informativeText = @"";
+    } else {
+        alert.informativeText = informativeText;
+    }
+    
     alert.showsSuppressionButton = NO;
     alert.accessoryView = deckNameTextField;
     

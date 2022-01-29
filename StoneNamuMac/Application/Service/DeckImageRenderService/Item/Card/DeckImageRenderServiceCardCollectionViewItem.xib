@@ -63,6 +63,9 @@
                     </box>
                     <textField verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="ONQ-ox-PBr">
                         <rect key="frame" x="93" y="10" width="37" height="16"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="16" id="VEp-q9-Udg"/>
+                        </constraints>
                         <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="IVW-1E-ggP">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
