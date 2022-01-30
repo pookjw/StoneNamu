@@ -120,7 +120,7 @@
             backgroundColor = [NSColor.systemGrayColor colorWithAlphaComponent:0.5f];
         }
     } else {
-        backgroundColor = nil;
+        backgroundColor = NSColor.clearColor;
     }
     
     self.view.layer.backgroundColor = backgroundColor.CGColor;
