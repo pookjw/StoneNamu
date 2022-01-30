@@ -74,8 +74,10 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardColl
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder backgroundQueue:(NSOperationQueue *)queue {
     [super encodeRestorableStateWithCoder:coder backgroundQueue:queue];
     
+    NSDictionary<NSString *, NSString *> *options = self.viewModel.options;
+    
     [queue addOperationWithBlock:^{
-        [coder encodeObject:self.viewModel.options forKey:@"options"];
+        [coder encodeObject:options forKey:@"options"];
     }];
 }
 
