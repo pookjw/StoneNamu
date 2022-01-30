@@ -310,6 +310,7 @@
                 [itemModel autorelease];
             } else {
                 itemModel.isEasterEgg = isEasterEgg;
+                itemModel.count = count;
                 [snapshot reconfigureItemsWithIdentifiers:@[itemModel]];
                 [oldItemModels removeObjectAtIndex:index];
             }

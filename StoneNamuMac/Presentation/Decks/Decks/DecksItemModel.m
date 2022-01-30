@@ -36,13 +36,11 @@
     }
     
     return (self.type == toCompare.type) &&
-    ([self.localDeck isEqual:toCompare.localDeck]) &&
-    (self.isEasterEgg == toCompare.isEasterEgg) &&
-    (self.count == toCompare.count);
+    ([self.localDeck isEqual:toCompare.localDeck]);
 }
 
 - (NSUInteger)hash {
-    return self.type ^ self.isEasterEgg ^ self.count;
+    return self.type ^ self.localDeck.hash;
 }
 
 @end

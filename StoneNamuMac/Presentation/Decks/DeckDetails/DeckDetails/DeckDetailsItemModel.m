@@ -16,9 +16,6 @@
         self.hsCard = nil;
         self.hsCardCount = nil;
         self->_type = type;
-        self.graphManaCost = nil;
-        self.graphPercentage = nil;
-        self.graphCount = nil;
     }
     
     return self;
@@ -27,9 +24,6 @@
 - (void)dealloc {
     [_hsCard release];
     [_hsCardCount release];
-    [_graphManaCost release];
-    [_graphPercentage release];
-    [_graphCount release];
     [super dealloc];
 }
 
@@ -41,12 +35,11 @@
     }
     
     return (self.type == toCompare.type) &&
-    (((self.hsCard == nil) && (toCompare.hsCard == nil)) || ([self.hsCard isEqual:toCompare.hsCard])) &&
-    (((self.graphManaCost == nil) && (toCompare.graphManaCost == nil)) || ([self.graphManaCost isEqualToNumber:toCompare.graphManaCost]));
+    (((self.hsCard == nil) && (toCompare.hsCard == nil)) || ([self.hsCard isEqual:toCompare.hsCard]));
 }
 
 - (NSUInteger)hash {
-    return self.type ^ self.hsCard.hash ^ self.graphManaCost.hash;
+    return self.type ^ self.hsCard.hash;
 }
 
 @end

@@ -19,10 +19,6 @@ typedef NS_ENUM(NSUInteger, DeckDetailsItemModelType) {
 @property (copy) HSCard * _Nullable hsCard;
 @property (copy) NSNumber * _Nullable hsCardCount;
 
-@property (copy) NSNumber * _Nullable graphManaCost;
-@property (copy) NSNumber * _Nullable graphPercentage;
-@property (copy) NSNumber * _Nullable graphCount;
-
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithType:(DeckDetailsItemModelType)type;
