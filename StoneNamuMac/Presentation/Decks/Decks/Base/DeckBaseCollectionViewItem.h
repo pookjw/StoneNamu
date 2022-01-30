@@ -13,7 +13,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface DeckBaseCollectionViewItem : ClickableCollectionViewItem
-- (void)configureWithLocalDeck:(LocalDeck *)localDeck isEasterEgg:(BOOL)isEasterEgg deckBaseCollectionViewItemDelegate:(id<DeckBaseCollectionViewItemDelegate>)deckBaseCollectionViewItemDelegate;
+- (void)configureWithLocalDeck:(LocalDeck *)localDeck isEasterEgg:(BOOL)isEasterEgg count:(NSUInteger)count deckBaseCollectionViewItemDelegate:(id<DeckBaseCollectionViewItemDelegate>)deckBaseCollectionViewItemDelegate;
 @end
 
 NS_ASSUME_NONNULL_END

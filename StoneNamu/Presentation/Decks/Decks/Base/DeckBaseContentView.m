@@ -21,6 +21,7 @@
 @property (readonly, nonatomic) LocalDeck * _Nullable localDeck;
 @property (readonly, nonatomic) BOOL isDarkMode;
 @property (readonly, nonatomic) BOOL isEasterEgg;
+@property (readonly, nonatomic) NSUInteger count;
 @end
 
 @implementation DeckBaseContentView
@@ -258,6 +259,16 @@
     return contentConfiguration.isEasterEgg;
 }
 
+- (NSUInteger)count {
+    DeckBaseContentConfiguration *contentConfiguration = (DeckBaseContentConfiguration *)self.configuration;
+    
+    if (![self.configuration isKindOfClass:[DeckBaseContentConfiguration class]]) {
+        return NO;
+    }
+    
+    return contentConfiguration.count;
+}
+
 - (void)updateCardSetImageView {
     UIEdgeInsets inset = UIEdgeInsetsMake(-8.0f, -8.0f, -8.0f, -8.0f);
     self.cardSetImageView.image = [[ResourcesService imageForDeckFormat:self.localDeck.format] imageWithAlignmentRectInsets:inset];
@@ -281,7 +292,7 @@
 }
 
 - (void)updateCountLabel {
-    NSUInteger count = self.localDeck.hsCards.count;
+    NSUInteger count = self.count;
     
     if (count >= HSDECK_MAX_TOTAL_CARDS) {
         self.countLabelContainerView.hidden = YES;

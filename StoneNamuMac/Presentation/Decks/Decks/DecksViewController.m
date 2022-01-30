@@ -208,7 +208,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeck
     DecksDataSource *dataSource = [[DecksDataSource alloc] initWithCollectionView:self.collectionView itemProvider:^NSCollectionViewItem * _Nullable(NSCollectionView * _Nonnull collectionView, NSIndexPath * _Nonnull indexPath, DecksItemModel * _Nonnull itemModel) {
         DeckBaseCollectionViewItem *item = [collectionView makeItemWithIdentifier:NSUserInterfaceItemIdentifierCardDeckBaseCollectionViewItem forIndexPath:indexPath];
         
-        [item configureWithLocalDeck:itemModel.localDeck isEasterEgg:itemModel.isEasterEgg deckBaseCollectionViewItemDelegate:unretainedSelf];
+        [item configureWithLocalDeck:itemModel.localDeck isEasterEgg:itemModel.isEasterEgg count:itemModel.count deckBaseCollectionViewItemDelegate:unretainedSelf];
         
         return item;
     }];

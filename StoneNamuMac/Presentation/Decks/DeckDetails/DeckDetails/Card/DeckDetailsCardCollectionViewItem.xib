@@ -25,30 +25,30 @@
             </connections>
         </collectionViewItem>
         <box boxType="custom" borderWidth="0.0" title="Box" titlePosition="noTitle" id="RPy-7G-Ttr">
-            <rect key="frame" x="0.0" y="0.0" width="500" height="36"/>
+            <rect key="frame" x="0.0" y="0.0" width="500" height="39"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <view key="contentView" id="1gN-ik-EDO">
-                <rect key="frame" x="0.0" y="0.0" width="500" height="36"/>
+                <rect key="frame" x="0.0" y="0.0" width="500" height="39"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="Rk5-kZ-hV6">
-                        <rect key="frame" x="0.0" y="0.0" width="500" height="36"/>
+                        <rect key="frame" x="0.0" y="0.0" width="500" height="39"/>
                         <subviews>
                             <imageView horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="J1K-J2-iDf">
-                                <rect key="frame" x="303" y="0.0" width="137" height="36"/>
+                                <rect key="frame" x="292" y="0.0" width="148" height="39"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="J1K-J2-iDf" secondAttribute="height" multiplier="243:64" id="JVD-4P-KSm"/>
                                 </constraints>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="jCe-bH-Wsn"/>
                             </imageView>
                             <box boxType="custom" borderWidth="0.0" title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="m5p-Qd-geH">
-                                <rect key="frame" x="0.0" y="0.0" width="60" height="36"/>
+                                <rect key="frame" x="0.0" y="0.0" width="60" height="39"/>
                                 <view key="contentView" id="WtX-ig-kIN">
-                                    <rect key="frame" x="0.0" y="0.0" width="60" height="36"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="60" height="39"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gwd-77-XMc">
-                                            <rect key="frame" x="9" y="9" width="42" height="19"/>
+                                            <rect key="frame" x="9" y="10" width="42" height="19"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="frz-kv-pmi">
                                                 <font key="font" textStyle="title3" name=".SFNS-Regular"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -66,8 +66,8 @@
                                 </constraints>
                                 <color key="fillColor" name="systemBlueColor" catalog="System" colorSpace="catalog"/>
                             </box>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="USu-Qu-gwK">
-                                <rect key="frame" x="68" y="10" width="364" height="16"/>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="USu-Qu-gwK">
+                                <rect key="frame" x="68" y="10" width="364" height="19"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="dwF-wC-nal">
                                     <font key="font" textStyle="title3" name=".SFNS-Regular"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -75,13 +75,13 @@
                                 </textFieldCell>
                             </textField>
                             <box boxType="custom" borderType="none" borderWidth="0.0" title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="rhw-N4-7Fe">
-                                <rect key="frame" x="440" y="0.0" width="60" height="36"/>
+                                <rect key="frame" x="440" y="0.0" width="60" height="39"/>
                                 <view key="contentView" id="tdy-hJ-zHl">
-                                    <rect key="frame" x="0.0" y="0.0" width="60" height="36"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="60" height="39"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2Dm-4K-YRG">
-                                            <rect key="frame" x="9" y="9" width="42" height="19"/>
+                                            <rect key="frame" x="9" y="10" width="42" height="19"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="cd7-v1-h1k">
                                                 <font key="font" textStyle="title3" name=".SFNS-Regular"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -117,7 +117,7 @@
                         </constraints>
                     </customView>
                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="ZFB-v2-TXp" customClass="HSCardPopoverDetailView">
-                        <rect key="frame" x="0.0" y="0.0" width="500" height="36"/>
+                        <rect key="frame" x="0.0" y="0.0" width="500" height="39"/>
                     </customView>
                 </subviews>
                 <constraints>

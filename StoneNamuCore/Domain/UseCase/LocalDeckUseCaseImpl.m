@@ -67,9 +67,9 @@
     [self.localDeckRepository saveChanges];
 }
 
-- (BOOL)isEasterEggDeckFromLocalDeck:(LocalDeck *)localDeck {
+- (BOOL)isEasterEggDeckFromHSCards:(NSSet<HSCard *> *)hsCards {
     NSArray<NSString *> *easterEggs = @[@"피나무", @"pnamu"];
-    NSMutableArray<HSCard *> *allCards = [[[NSSet setWithArray:localDeck.hsCards] allObjects] mutableCopy];
+    NSMutableArray<HSCard *> *allCards = [[hsCards allObjects] mutableCopy];
     
     [allCards sortUsingComparator:^NSComparisonResult(HSCard * _Nonnull obj1, HSCard * _Nonnull obj2) {
         return [obj1 compare:obj2];
@@ -96,6 +96,10 @@
     [firstNames release];
     
     return result;
+}
+
+- (BOOL)isEasterEggDeckFromLocalDeck:(LocalDeck *)localDeck {
+    return [self isEasterEggDeckFromHSCards:[NSSet setWithArray:localDeck.hsCards]];
 }
 
 - (void)addHSCards:(NSArray<HSCard *> *)hsCards toLocalDeck:(LocalDeck *)localDeck validation:(LocalDeckUseCaseFetchWithValidation)validation {

@@ -9,7 +9,7 @@
 
 @implementation DecksItemModel
 
-- (instancetype)initWithType:(DecksItemModelType)type localDeck:(LocalDeck *)localDeck isEasterEgg:(BOOL)isEasterEgg {
+- (instancetype)initWithType:(DecksItemModelType)type localDeck:(LocalDeck *)localDeck isEasterEgg:(BOOL)isEasterEgg count:(NSUInteger)count {
     self = [self init];
     
     if (self) {
@@ -17,6 +17,7 @@
         [self->_localDeck release];
         self->_localDeck = [localDeck retain];
         self.isEasterEgg = isEasterEgg;
+        self.count = count;
     }
     
     return self;
@@ -36,11 +37,12 @@
     
     return (self.type == toCompare.type) &&
     ([self.localDeck isEqual:toCompare.localDeck]) &&
-    (self.isEasterEgg == toCompare.isEasterEgg);
+    (self.isEasterEgg == toCompare.isEasterEgg) &&
+    (self.count == toCompare.count);
 }
 
 - (NSUInteger)hash {
-    return self.type ^ self.isEasterEgg;
+    return self.type ^ self.isEasterEgg ^ self.count;
 }
 
 @end

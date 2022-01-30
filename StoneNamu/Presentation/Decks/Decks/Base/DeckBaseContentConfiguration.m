@@ -10,7 +10,7 @@
 
 @implementation DeckBaseContentConfiguration
 
-- (instancetype)initWithLocalDeck:(LocalDeck *)localDeck isEasterEgg:(BOOL)isEasterEgg {
+- (instancetype)initWithLocalDeck:(LocalDeck *)localDeck isEasterEgg:(BOOL)isEasterEgg count:(NSUInteger)count {
     self = [self init];
     
     if (self) {
@@ -18,6 +18,7 @@
         self->_localDeck = [localDeck retain];
         self->_isDarkMode = NO;
         self->_isEasterEgg = isEasterEgg;
+        self->_count = count;
     }
     
     return self;
@@ -36,6 +37,7 @@
         [_copy->_localDeck release];
         _copy->_localDeck = [self.localDeck retain];
         _copy->_isEasterEgg = self.isEasterEgg;
+        _copy->_count = self.count;
     }
     
     return copy;

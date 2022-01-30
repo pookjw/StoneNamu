@@ -225,19 +225,33 @@ static NSDictionary<NSString *, NSNumber *> *kMigrateStatus = @{};
 
 - (void)bind {
     [NSNotificationCenter.defaultCenter addObserver:self
-                                           selector:@selector(didReceiveChangeEvent:)
+                                           selector:@selector(didReceiveSave:)
                                                name:NSManagedObjectContextDidSaveNotification
                                              object:self.context];
     
     if ([self.storeContainer isKindOfClass:[NSPersistentCloudKitContainer class]]) {
         [NSNotificationCenter.defaultCenter addObserver:self
-                                               selector:@selector(didReceiveChangeEvent:)
+                                               selector:@selector(didReceiveChangesOfCloud:)
                                                    name:NSPersistentCloudKitContainerEventChangedNotification
                                                  object:self.storeContainer];
     }
 }
 
-- (void)didReceiveChangeEvent:(NSNotification *)notification {
+- (void)didReceiveSave:(NSNotification *)notification {
+    [self postChangedNotification];
+}
+
+- (void)didReceiveChangesOfCloud:(NSNotification *)notification {
+    NSPersistentCloudKitContainerEvent * _Nullable event = notification.userInfo[NSPersistentCloudKitContainerEventUserInfoKey];
+    
+    if (event == nil) return;
+    
+    if ((event.succeeded) && (event.type == NSPersistentCloudKitContainerEventTypeExport)) {
+        [self postChangedNotification];
+    }
+}
+
+- (void)postChangedNotification {
     [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameCoreDataStackDidChange
                                                       object:self
                                                     userInfo:nil];

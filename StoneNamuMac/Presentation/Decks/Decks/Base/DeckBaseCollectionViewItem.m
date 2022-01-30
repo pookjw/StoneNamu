@@ -63,7 +63,7 @@
     [self clearContents];
 }
 
-- (void)configureWithLocalDeck:(LocalDeck *)localDeck isEasterEgg:(BOOL)isEasterEgg deckBaseCollectionViewItemDelegate:(id<DeckBaseCollectionViewItemDelegate>)deckBaseCollectionViewItemDelegate {
+- (void)configureWithLocalDeck:(LocalDeck *)localDeck isEasterEgg:(BOOL)isEasterEgg count:(NSUInteger)count deckBaseCollectionViewItemDelegate:(id<DeckBaseCollectionViewItemDelegate>)deckBaseCollectionViewItemDelegate {
     self.isEasterEgg = isEasterEgg;
     self.deckBaseCollectionViewItemDelegate = deckBaseCollectionViewItemDelegate;
     
@@ -83,8 +83,6 @@
         name = localDeck.name;
     }
     self.nameLabel.stringValue = name;
-    
-    NSUInteger count = localDeck.hsCards.count;
     
     if (count >= HSDECK_MAX_TOTAL_CARDS) {
         self.countLabelContainerView.hidden = YES;

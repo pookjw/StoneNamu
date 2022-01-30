@@ -14,9 +14,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly, retain) LocalDeck *localDeck;
 @property (readonly) BOOL isEasterEgg;
 @property (readonly) BOOL isDarkMode;
+@property (readonly) NSUInteger count;
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
-- (instancetype)initWithLocalDeck:(LocalDeck *)localDeck isEasterEgg:(BOOL)isEasterEgg;
+- (instancetype)initWithLocalDeck:(LocalDeck *)localDeck isEasterEgg:(BOOL)isEasterEgg count:(NSUInteger)count;
 @end
 
 NS_ASSUME_NONNULL_END
