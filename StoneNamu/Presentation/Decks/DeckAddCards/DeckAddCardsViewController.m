@@ -38,7 +38,6 @@
         self.contextViewController = nil;
         [self loadViewIfNeeded];
         self.viewModel.localDeck = localDeck;
-        [self addSpinnerView];
         [self.viewModel requestDataSourceWithOptions:nil reset:YES];
         [self updateDeckDetailButtonText];
     }
@@ -114,11 +113,6 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self configureNavigation];
-}
-
-- (void)requestDataSourceWithOptions:(NSDictionary<NSString *,NSString *> * _Nullable)options {
-    [self addSpinnerView];
-    [self.viewModel requestDataSourceWithOptions:options reset:YES];
 }
 
 - (void)setAttributes {
@@ -405,11 +399,7 @@
     CGRect bounds = self.collectionView.bounds;
     
     if ((contentOffset.y + bounds.size.height) >= (contentSize.height)) {
-        BOOL requested = [self.viewModel requestDataSourceWithOptions:self.viewModel.options reset:NO];
-        
-        if (requested) {
-            [self addSpinnerView];
-        }
+       [self.viewModel requestDataSourceWithOptions:self.viewModel.options reset:NO];
     }
 }
 
@@ -487,7 +477,6 @@
 
 - (void)deckAddCardOptionsViewController:(DeckAddCardOptionsViewController *)viewController doneWithOptions:(NSDictionary<NSString *,NSString *> *)options {
     [viewController dismissViewControllerAnimated:YES completion:^{}];
-    [self addSpinnerView];
     [self.viewModel requestDataSourceWithOptions:options reset:YES];
 }
 
