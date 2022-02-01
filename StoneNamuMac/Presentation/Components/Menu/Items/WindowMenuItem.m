@@ -49,7 +49,9 @@
         zoomItem,
         [NSMenuItem separatorItem],
         bringItem,
+#if DEBUG
         centerItem
+#endif
     ];
     
     [windowSubMenu release];
