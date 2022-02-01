@@ -156,6 +156,10 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeck
     [collectionViewMenu release];
 }
 
+- (void)showDetailItemTriggered:(NSMenuItem *)sender {
+    [self presentDeckDetailsWithInteractingItems];
+}
+
 - (void)collectionViewMenuDeleteItemTriggered:(NSMenuItem *)sender {
     [self.viewModel deleteLocalDecksFromIndexPaths:self.collectionView.interactingIndexPaths];
 }
@@ -262,6 +266,16 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeck
 
 - (void)presentDeckDetailsWithLocalDeck:(LocalDeck *)localDeck {
     [WindowsService.sharedInstance presentDeckDetailsWindowWithLocalDeck:localDeck];
+}
+
+- (void)presentDeckDetailsWithInteractingItems {
+    [self.viewModel localDecksFromIndexPaths:self.collectionView.interactingIndexPaths completion:^(NSSet<LocalDeck *> * _Nonnull localDecks) {
+        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+            [localDecks enumerateObjectsUsingBlock:^(LocalDeck * _Nonnull obj, BOOL * _Nonnull stop) {
+                [self presentDeckDetailsWithLocalDeck:obj];
+            }];
+        }];
+    }];
 }
 
 - (void)presentCreateNewDeckFromDeckCodeAlert {
@@ -440,6 +454,16 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeck
     if ([menu isEqual:self.collectionViewMenu]) {
         NSMutableArray<NSMenuItem *> *itemArray = [NSMutableArray<NSMenuItem *> new];
         
+        NSMenuItem *showDetailItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyShowDetails]
+                                                                action:@selector(showDetailItemTriggered:)
+                                                         keyEquivalent:@""];
+        showDetailItem.image = [NSImage imageWithSystemSymbolName:@"list.bullet" accessibilityDescription:nil];
+        showDetailItem.target = self;
+        [itemArray addObject:showDetailItem];
+        [showDetailItem release];
+        
+        [itemArray addObject:[NSMenuItem separatorItem]];
+        
         NSMenuItem *deleteItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyDelete]
                                                             action:@selector(collectionViewMenuDeleteItemTriggered:)
                                                      keyEquivalent:@""];
@@ -518,13 +542,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeck
 #pragma mark - DeckBaseCollectionViewItemDelegate
 
 - (void)deckBaseCollectionViewItem:(DeckBaseCollectionViewItem *)deckBaseCollectionViewItem didDoubleClickWithRecognizer:(NSClickGestureRecognizer *)recognizer {
-    [self.viewModel localDecksFromIndexPaths:self.collectionView.selectionIndexPaths completion:^(NSSet<LocalDeck *> * _Nonnull localDecks) {
-        [NSOperationQueue.mainQueue addOperationWithBlock:^{
-            [localDecks enumerateObjectsUsingBlock:^(LocalDeck * _Nonnull obj, BOOL * _Nonnull stop) {
-                [self presentDeckDetailsWithLocalDeck:obj];
-            }];
-        }];
-    }];
+    [self presentDeckDetailsWithInteractingItems];
 }
 
 @end

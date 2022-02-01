@@ -463,7 +463,11 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardColl
             copyItem.image = [NSImage imageWithSystemSymbolName:@"doc.on.doc" accessibilityDescription:nil];
             copyItem.target = self;
             
-            menu.itemArray = @[showDetailItem, saveImageItem, shareImageItem, copyItem];
+            menu.itemArray = @[showDetailItem,
+                               [NSMenuItem separatorItem],
+                               saveImageItem,
+                               shareImageItem,
+                               copyItem];
             
             [showDetailItem release];
             [saveImageItem release];

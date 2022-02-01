@@ -37,6 +37,7 @@ static NSNotificationName const NSNotificationNameDeckAddCardsViewModelLocalDeck
 - (void)addHSCards:(NSSet<HSCard *> *)hsCards;
 - (void)addHSCardsFromIndexPathes:(NSSet<NSIndexPath *> *)indexPathes;
 - (void)hsCardsFromIndexPathsWithCompletion:(NSSet<NSIndexPath *> *)indexPaths completion:(DeckAddCardsViewModelHSCardsFromIndexPathsCompletion)completion;
+- (NSSet<HSCard *> *)hsCardsFromIndexPaths:(NSSet<NSIndexPath *> *)indexPaths;
 @end
 
 NS_ASSUME_NONNULL_END

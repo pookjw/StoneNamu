@@ -203,18 +203,22 @@
 
 - (void)hsCardsFromIndexPathsWithCompletion:(NSSet<NSIndexPath *> *)indexPaths completion:(DeckAddCardsViewModelHSCardsFromIndexPathsCompletion)completion {
     [self.queue addBarrierBlock:^{
-        NSMutableSet<HSCard *> *hsCards = [NSMutableSet<HSCard *> new];
-        
-        [indexPaths enumerateObjectsUsingBlock:^(NSIndexPath * _Nonnull obj, BOOL * _Nonnull stop) {
-            HSCard * _Nullable hsCard = [self.dataSource itemIdentifierForIndexPath:obj].hsCard;
-            
-            if (hsCard == nil) return;
-            
-            [hsCards addObject:hsCard];
-        }];
-        
-        completion([hsCards autorelease]);
+        completion([self hsCardsFromIndexPaths:indexPaths]);
     }];
+}
+
+- (NSSet<HSCard *> *)hsCardsFromIndexPaths:(NSSet<NSIndexPath *> *)indexPaths {
+    NSMutableSet<HSCard *> *hsCards = [NSMutableSet<HSCard *> new];
+    
+    [indexPaths enumerateObjectsUsingBlock:^(NSIndexPath * _Nonnull obj, BOOL * _Nonnull stop) {
+        HSCard * _Nullable hsCard = [self.dataSource itemIdentifierForIndexPath:obj].hsCard;
+        
+        if (hsCard == nil) return;
+        
+        [hsCards addObject:hsCard];
+    }];
+    
+    return [hsCards autorelease];
 }
 
 - (void)resetDataSource{

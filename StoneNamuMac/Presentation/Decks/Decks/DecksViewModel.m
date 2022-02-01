@@ -309,9 +309,13 @@
                 [snapshot appendItemsWithIdentifiers:@[itemModel] intoSectionWithIdentifier:sectionModel];
                 [itemModel autorelease];
             } else {
+                BOOL shouldReconfigure = ((itemModel.isEasterEgg == isEasterEgg) && (itemModel.count == count));
                 itemModel.isEasterEgg = isEasterEgg;
                 itemModel.count = count;
-                [snapshot reconfigureItemsWithIdentifiers:@[itemModel]];
+                
+                if (shouldReconfigure) {
+                    [snapshot reconfigureItemsWithIdentifiers:@[itemModel]];
+                }
                 [oldItemModels removeObjectAtIndex:index];
             }
         }
