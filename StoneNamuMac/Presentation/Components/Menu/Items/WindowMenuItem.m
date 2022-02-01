@@ -35,6 +35,12 @@
                                                        action:@selector(arrangeInFront:)
                                                 keyEquivalent:@""];
     
+#if DEBUG
+    NSMenuItem *centerItem = [[NSMenuItem alloc] initWithTitle:@"Center"
+                                                        action:@selector(center)
+                                                 keyEquivalent:@""];
+#endif
+    
     //
     
     self.submenu = windowSubMenu;
@@ -42,13 +48,17 @@
         minimizeItem,
         zoomItem,
         [NSMenuItem separatorItem],
-        bringItem
+        bringItem,
+        centerItem
     ];
     
     [windowSubMenu release];
     [minimizeItem release];
     [zoomItem release];
     [bringItem release];
+#if DEBUG
+    [centerItem release];
+#endif
 }
 
 @end
