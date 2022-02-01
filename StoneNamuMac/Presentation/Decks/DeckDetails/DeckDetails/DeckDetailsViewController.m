@@ -78,8 +78,20 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
         if (self.view.window != nil) {
             [NSOperationQueue.mainQueue addOperationWithBlock:^{
                 if (self.viewModel.localDeck != nil) {
-                    self.view.window.title = self.viewModel.localDeck.name;
-                    self.view.window.subtitle = [ResourcesService localizationForHSCardClass:self.viewModel.localDeck.classId.unsignedIntegerValue];
+                    NSString * _Nullable title = self.viewModel.localDeck.name;
+                    NSString * _Nullable subtitle = self.viewModel.windowSubtitle;
+                    
+                    if (title != nil) {
+                        self.view.window.title = title;
+                    } else {
+                        self.view.window.title = @"";
+                    }
+                    
+                    if (subtitle != nil) {
+                        self.view.window.subtitle = subtitle;
+                    } else {
+                        self.view.window.subtitle = @"";
+                    }
                 }
                 [self updateScrollViewContentInsets];
             }];
@@ -394,6 +406,11 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
                                              object:self.viewModel];
     
     [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(shouldChangeWindowSubtitleReceived:)
+                                               name:NSNotificationNameDeckDetailsViewModelShouldChangeWindowSubtitle
+                                             object:self.viewModel];
+    
+    [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(viewDidChangeFrame:)
                                                name:NSViewFrameDidChangeNotification
                                              object:self.view];
@@ -430,6 +447,18 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
     
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
         [self.manaCostGraphView configureWithDatas:manaCostGraphDatas];
+    }];
+}
+
+- (void)shouldChangeWindowSubtitleReceived:(NSNotification *)notification {
+    NSString * _Nullable text = notification.userInfo[DeckDetailsViewModelShouldChangeWindowSubtitleTextKey];
+    
+    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+        if (text != nil) {
+            self.view.window.subtitle = text;
+        } else {
+            self.view.window.subtitle = @"";
+        }
     }];
 }
 

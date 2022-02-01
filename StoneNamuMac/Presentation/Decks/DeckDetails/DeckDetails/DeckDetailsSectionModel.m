@@ -13,7 +13,6 @@
     self = [self init];
     
     if (self) {
-        self.headerText = nil;
         self->_type = type;
     }
     
@@ -21,7 +20,6 @@
 }
 
 - (void)dealloc {
-    [_headerText release];
     [super dealloc];
 }
 

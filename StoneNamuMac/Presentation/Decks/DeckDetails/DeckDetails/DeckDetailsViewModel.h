@@ -26,12 +26,15 @@ static NSString * const DeckDetailsViewModelErrorOccurredItemKey = @"DeckDetails
 
 static NSNotificationName const NSNotificationNameDeckDetailsViewModelApplyingSnapshotToDataSourceWasDone = @"NSNotificationNameDeckDetailsViewModelApplyingSnapshotToDataSourceWasDone";
 static NSString * const DeckDetailsViewModelApplyingSnapshotToDataSourceWasDoneHasAnyCardsItemKey = @"DeckDetailsViewModelApplyingSnapshotToDataSourceWasDoneHasAnyCardsItemKey";
-static NSString * const DeckDetailsViewModelApplyingSnapshotToDataSourceWasDoneCardsHeaderTextKey = @"DeckDetailsViewModelApplyingSnapshotToDataSourceWasDoneCardsHeaderTextKey";
 static NSString * const DeckDetailsViewModelApplyingSnapshotToDataSourceWasDoneManaGraphDatasKey = @"DeckDetailsViewModelApplyingSnapshotToDataSourceWasDoneManaGraphDatasKey";
+
+static NSNotificationName const NSNotificationNameDeckDetailsViewModelShouldChangeWindowSubtitle = @"NSNotificationNameDeckDetailsViewModelShouldChangeWindowSubtitle";
+static NSString * const DeckDetailsViewModelShouldChangeWindowSubtitleTextKey = @"DeckDetailsViewModelShouldChangeWindowSubTitleTextKey";
 
 @interface DeckDetailsViewModel : NSObject
 @property (readonly, retain) LocalDeck * _Nullable localDeck;
 @property (readonly, retain) DeckDetailsDataSource *dataSource;
+@property (readonly, retain) NSString * _Nullable windowSubtitle;
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithDataSource:(DeckDetailsDataSource *)dataSource;

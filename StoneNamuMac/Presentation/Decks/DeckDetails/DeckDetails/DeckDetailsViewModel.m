@@ -52,6 +52,7 @@
 }
 
 - (void)dealloc {
+    [_windowSubtitle release];
     [_queue release];
     [_dataSource release];
     [_localDeck release];
@@ -133,13 +134,14 @@
                     }
                 }
                 
-                [self updateCardsSectionHeaderTitleFromSnapshot:snapshot];
                 [self sortSnapshot:snapshot];
                 
                 [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
+                    [self updateShouldChangeWindowTitleFromSnapshot:snapshot];
+                    [snapshot release];
+                    
                     [self postApplyingSnapshotToDataSourceWasDoneNotification];
                 }];
-                [snapshot release];
             }];
         }
     }];
@@ -174,13 +176,14 @@
                 itemModel.hsCardCount = [NSNumber numberWithUnsignedInteger:itemModel.hsCardCount.unsignedIntegerValue + 1];
                 [snapshot reconfigureItemsWithIdentifiers:@[itemModel]];
                 
-                [self updateCardsSectionHeaderTitleFromSnapshot:snapshot];
                 [self sortSnapshot:snapshot];
                 
                 [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
+                    [self updateShouldChangeWindowTitleFromSnapshot:snapshot];
+                    [snapshot release];
+                    
                     [self postApplyingSnapshotToDataSourceWasDoneNotification];
                 }];
-                [snapshot release];
             }];
         }
     }];
@@ -207,13 +210,14 @@
                 itemModel.hsCardCount = [NSNumber numberWithUnsignedInteger:(itemModel.hsCardCount.unsignedIntegerValue - 1)];
                 [snapshot reconfigureItemsWithIdentifiers:@[itemModel]];
                 
-                [self updateCardsSectionHeaderTitleFromSnapshot:snapshot];
                 [self sortSnapshot:snapshot];
                 
                 [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
+                    [self updateShouldChangeWindowTitleFromSnapshot:snapshot];
+                    [snapshot release];
+                    
                     [self postApplyingSnapshotToDataSourceWasDoneNotification];
                 }];
-                [snapshot release];
             }];
         }
     }];
@@ -249,13 +253,14 @@
                     }
                 }];
                 
-                [self updateCardsSectionHeaderTitleFromSnapshot:snapshot];
                 [self sortSnapshot:snapshot];
                 
                 [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
+                    [self updateShouldChangeWindowTitleFromSnapshot:snapshot];
+                    [snapshot release];
+                    
                     [self postApplyingSnapshotToDataSourceWasDoneNotification];
                 }];
-                [snapshot release];
             }];
         }
     }];
@@ -395,15 +400,16 @@
             [willBeDeletedItems release];
         }
         
-        [self updateCardsSectionHeaderTitleFromSnapshot:snapshot];
         [self sortSnapshot:snapshot];
         
         //
         
         [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
+            [self updateShouldChangeWindowTitleFromSnapshot:snapshot];
+            [snapshot release];
+            
             [self postApplyingSnapshotToDataSourceWasDoneNotification];
         }];
-        [snapshot release];
     }];
 }
 
@@ -434,12 +440,22 @@
     }];
 }
 
-- (void)updateCardsSectionHeaderTitleFromSnapshot:(NSDiffableDataSourceSnapshot *)snapshot {
+- (void)updateShouldChangeWindowTitleFromSnapshot:(NSDiffableDataSourceSnapshot *)snapshot {
     for (DeckDetailsSectionModel *sectionModel in snapshot.sectionIdentifiers) {
         @autoreleasepool {
             if (sectionModel.type == DeckDetailsSectionModelTypeCards) {
-                NSString *headerText = [NSString stringWithFormat:[ResourcesService localizationForKey:LocalizableKeyCardCount], [self totalCardsInSnapshot:snapshot], HSDECK_MAX_TOTAL_CARDS];
-                sectionModel.headerText = headerText;
+                NSString *classText = [ResourcesService localizationForHSCardClass:self.localDeck.classId.unsignedIntegerValue];
+                NSString *countText = [NSString stringWithFormat:[ResourcesService localizationForKey:LocalizableKeyCardCount], [self totalCardsInSnapshot:snapshot], HSDECK_MAX_TOTAL_CARDS];
+                
+                NSString *finalText = [NSString stringWithFormat:@"%@ (%@)", classText, countText];
+                
+                [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameDeckDetailsViewModelShouldChangeWindowSubtitle
+                                                                  object:self
+                                                                userInfo:@{DeckDetailsViewModelShouldChangeWindowSubtitleTextKey: finalText}];
+                
+                [self->_windowSubtitle release];
+                self->_windowSubtitle = [finalText copy];
+                break;
             }
         }
     }
@@ -539,21 +555,6 @@
     BOOL hasCards = ([self totalCardsInSnapshot:self.dataSource.snapshot] > 0);
     
     userInfo[DeckDetailsViewModelApplyingSnapshotToDataSourceWasDoneHasAnyCardsItemKey] = [NSNumber numberWithBool:hasCards];
-    
-    //
-    
-    NSString * _Nullable __block headerText = nil;
-    
-    [snapshot.sectionIdentifiers enumerateObjectsUsingBlock:^(DeckDetailsSectionModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if (obj.type == DeckDetailsSectionModelTypeCards) {
-            headerText = obj.headerText;
-            *stop = YES;
-        }
-    }];
-    
-    if (headerText != nil) {
-        userInfo[DeckDetailsViewModelApplyingSnapshotToDataSourceWasDoneCardsHeaderTextKey] = headerText;
-    }
     
     //
     
