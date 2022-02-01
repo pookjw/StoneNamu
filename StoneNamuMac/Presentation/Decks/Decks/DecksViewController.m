@@ -22,7 +22,7 @@
 
 static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeckBaseCollectionViewItem = @"NSUserInterfaceItemIdentifierCardDeckBaseCollectionViewItem";
 
-@interface DecksViewController () <NSCollectionViewDelegate, NSMenuItemValidation, DecksMenuDelegate, DecksToolbarDelegate, DecksTouchBarDelegate, DeckBaseCollectionViewItemDelegate>
+@interface DecksViewController () <NSCollectionViewDelegate, NSMenuDelegate, NSMenuItemValidation, DecksMenuDelegate, DecksToolbarDelegate, DecksTouchBarDelegate, DeckBaseCollectionViewItemDelegate>
 @property (retain) NSScrollView *scrollView;
 @property (retain) ClickableCollectionView *collectionView;
 @property (retain) NSMenu *collectionViewMenu;
@@ -149,19 +149,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeck
 - (void)configureCollectionViewMenu {
     NSMenu *collectionViewMenu = [NSMenu new];
     
-    //
-    
-    NSMenuItem *deleteItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyDelete]
-                                                        action:@selector(collectionViewMenuDeleteItemTriggered:)
-                                                 keyEquivalent:@""];
-    deleteItem.image = [NSImage imageWithSystemSymbolName:@"trash" accessibilityDescription:nil];
-    deleteItem.target = self;
-    
-    collectionViewMenu.itemArray = @[deleteItem];
-    
-    [deleteItem release];
-    
-    //
+    collectionViewMenu.delegate = self;
     
     self.collectionView.menu = collectionViewMenu;
     self.collectionViewMenu = collectionViewMenu;
@@ -399,12 +387,13 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeck
 
 - (void)editDeckNameItemTriggered:(NSMenuItem *)sender {
     [self.viewModel localDecksFromIndexPaths:self.collectionView.interactingIndexPaths completion:^(NSSet<LocalDeck *> * _Nonnull localDecks) {
-        if (localDecks.count == 0) return;
+        LocalDeck * _Nullable localDeck = localDecks.allObjects.firstObject;
+        if (localDeck == nil) return;
         
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
             NSTextField *deckNameTextField = [NSAlert presentTextFieldAlertWithMessageText:[ResourcesService localizationForKey:LocalizableKeyEditDeckNameTitle]
                                                                            informativeText:nil
-                                                                             textFieldText:localDecks.allObjects.firstObject.name
+                                                                             textFieldText:localDeck.name
                                                                                     target:self
                                                                                     action:@selector(editDeckNameItemDoneButtonTriggered:)
                                                                                     window:self.view.window
@@ -415,12 +404,13 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeck
 }
 
 - (void)editDeckNameItemDoneButtonTriggered:(NSButton *)sender {
+    [self.view.window endSheet:self.view.window.attachedSheet];
+    
     NSSet<NSIndexPath *> *interactingIndexPaths = self.collectionView.interactingIndexPaths;
     
     if (interactingIndexPaths.count == 0) return;
     
     [self.viewModel updateDeckName:self.deckNameTextField.stringValue forIndexPath:interactingIndexPaths.allObjects.firstObject];
-    [self.view.window endSheet:self.view.window.attachedSheet];
 }
 
 - (void)deleteItemTriggered:(NSMenuItem *)sender {
@@ -442,6 +432,35 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeck
 //    //
 //
 //    [self presentDeckDetailsWithLocalDeck:localDeck];
+}
+
+#pragma mark - NSMenuDelegate
+
+- (void)menuWillOpen:(NSMenu *)menu {
+    if ([menu isEqual:self.collectionViewMenu]) {
+        NSMutableArray<NSMenuItem *> *itemArray = [NSMutableArray<NSMenuItem *> new];
+        
+        NSMenuItem *deleteItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyDelete]
+                                                            action:@selector(collectionViewMenuDeleteItemTriggered:)
+                                                     keyEquivalent:@""];
+        deleteItem.image = [NSImage imageWithSystemSymbolName:@"trash" accessibilityDescription:nil];
+        deleteItem.target = self;
+        [itemArray addObject:deleteItem];
+        [deleteItem release];
+        
+        if (self.collectionView.interactingIndexPaths.count == 1) {
+            NSMenuItem *editDeckNameItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyEditDeckName]
+                                                                      action:@selector(editDeckNameItemTriggered:)
+                                                               keyEquivalent:@""];
+            editDeckNameItem.image = [NSImage imageWithSystemSymbolName:@"pencil" accessibilityDescription:nil];
+            editDeckNameItem.target = self;
+            [itemArray addObject:editDeckNameItem];
+            [editDeckNameItem release];
+        }
+        
+        menu.itemArray = itemArray;
+        [itemArray release];
+    }
 }
 
 #pragma mark - NSMenuItemValidation
