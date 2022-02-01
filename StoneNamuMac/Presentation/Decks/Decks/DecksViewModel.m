@@ -27,6 +27,8 @@
         [self->_dataSource release];
         self->_dataSource = [dataSource retain];
         
+        self.interactingObjectIDs = nil;
+        
         NSOperationQueue *queue = [NSOperationQueue new];
         queue.qualityOfService = NSQualityOfServiceUserInitiated;
         self.queue = queue;
@@ -49,6 +51,7 @@
 - (void)dealloc {
     [_queue release];
     [_dataSource release];
+    [_interactingObjectIDs release];
     [_hsDeckUseCase release];
     [_localDeckUseCase release];
     [super dealloc];
@@ -183,23 +186,6 @@
     }];
 }
 
-- (void)deleteLocalDecksFromIndexPaths:(NSSet<NSIndexPath *> *)indexPaths {
-    [self.queue addBarrierBlock:^{
-        NSMutableSet<LocalDeck *> *localDecks = [NSMutableSet new];
-        
-        [indexPaths enumerateObjectsUsingBlock:^(NSIndexPath * _Nonnull obj, BOOL * _Nonnull stop) {
-            DecksItemModel * _Nullable itemModel = [self.dataSource itemIdentifierForIndexPath:obj];
-            
-            if (itemModel == nil) return;
-            
-            [localDecks addObject:itemModel.localDeck];
-        }];
-        
-        [self deleteLocalDecks:localDecks];
-        [localDecks autorelease];
-    }];
-}
-
 - (void)deleteLocalDecks:(NSSet<LocalDeck *> *)localDecks {
     [self.queue addBarrierBlock:^{
         NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
@@ -221,17 +207,27 @@
     }];
 }
 
+- (void)deleteLocalDecksFromObjectIDs:(NSSet<NSManagedObjectID *> *)objectIDs {
+    [self.localDeckUseCase fetchUsingObjectIDs:objectIDs completion:^(NSSet<LocalDeck *> * _Nullable localDecks, NSError * _Nullable error) {
+        if (localDecks != nil) {
+            [self deleteLocalDecks:localDecks];
+        }
+    }];
+}
+
 - (void)updateDeckName:(NSString *)name forLocalDeck:(LocalDeck *)localDeck {
     localDeck.name = name;
     [localDeck updateTimestamp];
     [self.localDeckUseCase saveChanges];
 }
 
-- (void)updateDeckName:(NSString *)name forIndexPath:(NSIndexPath *)indexPath {
-    [self localDecksFromIndexPaths:[NSSet setWithObject:indexPath] completion:^(NSSet<LocalDeck *> * _Nonnull localDecks) {
-        if (localDecks.count == 0) return;
+- (void)updateDeckName:(NSString *)name forObjectID:(NSManagedObjectID *)objectID {
+    [self.localDeckUseCase fetchUsingObjectIDs:[NSSet setWithObject:objectID] completion:^(NSSet<LocalDeck *> * _Nullable localDecks, NSError * _Nullable error) {
+        LocalDeck * _Nullable localDeck = localDecks.allObjects.firstObject;
         
-        [self updateDeckName:name forLocalDeck:localDecks.allObjects.firstObject];
+        if (localDeck != nil) {
+            [self updateDeckName:name forLocalDeck:localDeck];
+        }
     }];
 }
 
@@ -249,20 +245,33 @@
 
 - (void)localDecksFromIndexPaths:(NSSet<NSIndexPath *> *)indexPaths completion:(DecksViewModelLocalDecksFromIndexPathsCompletion)completion {
     [self.queue addBarrierBlock:^{
-        NSMutableSet<LocalDeck *> *localDecks = [NSMutableSet new];
-        
-        [indexPaths enumerateObjectsUsingBlock:^(NSIndexPath * _Nonnull obj, BOOL * _Nonnull stop) {
-            DecksItemModel * _Nullable itemModel = [self.dataSource itemIdentifierForIndexPath:obj];
-            
-            if (itemModel == nil) return;
-            
-            [localDecks addObject:itemModel.localDeck];
-        }];
-        
-        completion([localDecks autorelease]);
+        completion([self localDecksFromIndexPaths:indexPaths]);
     }];
 }
 
+- (NSSet<LocalDeck *> *)localDecksFromIndexPaths:(NSSet<NSIndexPath *> *)indexPaths {
+    NSMutableSet<LocalDeck *> *localDecks = [NSMutableSet new];
+    
+    [indexPaths enumerateObjectsUsingBlock:^(NSIndexPath * _Nonnull obj, BOOL * _Nonnull stop) {
+        DecksItemModel * _Nullable itemModel = [self.dataSource itemIdentifierForIndexPath:obj];
+        
+        if (itemModel == nil) return;
+        
+        [localDecks addObject:itemModel.localDeck];
+    }];
+    
+    return [localDecks autorelease];
+}
+
+- (NSSet<NSManagedObjectID *> *)objectIDsFromLocalDecks:(NSSet<LocalDeck *> *)localDecks {
+    NSMutableSet<NSManagedObjectID *> *objectIDs = [NSMutableSet<NSManagedObjectID *> new];
+    
+    [localDecks enumerateObjectsUsingBlock:^(LocalDeck * _Nonnull obj, BOOL * _Nonnull stop) {
+        [objectIDs addObject:obj.objectID];
+    }];
+    
+    return [objectIDs autorelease];
+}
 - (void)requestDataSourceFromLocalDecks:(NSArray<LocalDeck *> *)localDecks {
     [self.queue addBarrierBlock:^{
         NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];

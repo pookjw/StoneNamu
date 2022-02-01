@@ -103,6 +103,31 @@
     }];
 }
 
+- (void)fetchUsingObjectIDs:(NSSet<NSManagedObjectID *> *)objectIds completion:(LocalDeckRepositoryFetchUsingObjectIDsWithCompletion)completion {
+    [self.queue addBarrierBlock:^{
+        NSManagedObjectContext *context = self.coreDataStack.context;
+        
+        [context performBlockAndWait:^{
+            NSMutableSet<LocalDeck *> *localDecks = [NSMutableSet<LocalDeck *> new];
+            
+            NSError * _Nullable __block error = nil;
+            
+            [objectIds enumerateObjectsUsingBlock:^(NSManagedObjectID * _Nonnull obj, BOOL * _Nonnull stop) {
+                LocalDeck * _Nullable localDeck = [context existingObjectWithID:obj error:&error];
+                [localDecks addObject:localDeck];
+            }];
+            
+            if (error != nil) {
+                [localDecks release];
+                completion(nil, error);
+                return;
+            }
+            
+            completion([localDecks autorelease], nil);
+        }];
+    }];
+}
+
 - (void)fetchUsingURI:(NSURL *)uri completion:(LocalDeckRepositoryFetchWithCompletion)completion {
     [self.queue addBarrierBlock:^{
         NSManagedObjectContext *context = self.coreDataStack.context;

@@ -334,6 +334,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
     ]];
     
     self.hsCardDroppableView = hsCardDroppableView;
+    [hsCardDroppableView release];
 }
 
 - (void)configureViewModel {

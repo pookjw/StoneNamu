@@ -48,6 +48,10 @@
     [self.localDeckRepository fetchWithCompletion:completion];
 }
 
+- (void)fetchUsingObjectIDs:(NSSet<NSManagedObjectID *> *)objectIds completion:(LocalDeckUseCaseFetchUsingObjectIDsWithCompletion)completion {
+    [self.localDeckRepository fetchUsingObjectIDs:objectIds completion:completion];
+}
+
 - (void)fetchUsingURI:(NSURL *)uri completion:(LocalDeckUseCaseFetchWithCompletion)completion {
     [self.localDeckRepository fetchUsingURI:uri completion:completion];
 }

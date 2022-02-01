@@ -11,6 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 typedef void (^LocalDeckRepositoryFetchWithCompletion)(NSArray<LocalDeck *> * _Nullable, NSError * _Nullable);
+typedef void (^LocalDeckRepositoryFetchUsingObjectIDsWithCompletion)(NSSet<LocalDeck *> * _Nullable, NSError * _Nullable);
 typedef void (^LocalDeckRepositoryMakeWithCompletion)(LocalDeck *);
 typedef void (^LocalDeckRepositoryRefreshObjectCompletion)(void);
 
@@ -22,6 +23,7 @@ static NSNotificationName const NSNotificationNameLocalDeckRepositoryDeleteAll =
 @property (readonly, nonatomic) NSOperationQueue *queue;
 - (void)saveChanges;
 - (void)fetchWithCompletion:(LocalDeckRepositoryFetchWithCompletion)completion;
+- (void)fetchUsingObjectIDs:(NSSet<NSManagedObjectID *> *)objectIds completion:(LocalDeckRepositoryFetchUsingObjectIDsWithCompletion)completion;
 - (void)fetchUsingURI:(NSURL *)uri completion:(LocalDeckRepositoryFetchWithCompletion)completion;
 - (void)refreshObject:(NSManagedObject *)object mergeChanges:(BOOL)flag completion:(LocalDeckRepositoryRefreshObjectCompletion)completion;
 - (void)deleteLocalDecks:(NSSet<LocalDeck *> *)localDecks;

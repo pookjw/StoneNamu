@@ -156,14 +156,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeck
     [collectionViewMenu release];
 }
 
-- (void)showDetailItemTriggered:(NSMenuItem *)sender {
-    [self presentDeckDetailsWithInteractingItems];
-}
-
-- (void)collectionViewMenuDeleteItemTriggered:(NSMenuItem *)sender {
-    [self.viewModel deleteLocalDecksFromIndexPaths:self.collectionView.interactingIndexPaths];
-}
-
 - (void)configureViewModel {
     DecksViewModel *viewModel = [[DecksViewModel alloc] initWithDataSource:[self makeDataSource]];
     self.viewModel = viewModel;
@@ -399,6 +391,10 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeck
     }];
 }
 
+- (void)showDetailItemTriggered:(NSMenuItem *)sender {
+    [self presentDeckDetailsWithInteractingItems];
+}
+
 - (void)editDeckNameItemTriggered:(NSMenuItem *)sender {
     [self.viewModel localDecksFromIndexPaths:self.collectionView.interactingIndexPaths completion:^(NSSet<LocalDeck *> * _Nonnull localDecks) {
         LocalDeck * _Nullable localDeck = localDecks.allObjects.firstObject;
@@ -420,15 +416,19 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeck
 - (void)editDeckNameItemDoneButtonTriggered:(NSButton *)sender {
     [self.view.window endSheet:self.view.window.attachedSheet];
     
-    NSSet<NSIndexPath *> *interactingIndexPaths = self.collectionView.interactingIndexPaths;
+    NSManagedObjectID *objectID = self.viewModel.interactingObjectIDs.allObjects.firstObject;
     
-    if (interactingIndexPaths.count == 0) return;
+    if (objectID == nil) return;
     
-    [self.viewModel updateDeckName:self.deckNameTextField.stringValue forIndexPath:interactingIndexPaths.allObjects.firstObject];
+    [self.viewModel updateDeckName:self.deckNameTextField.stringValue forObjectID:objectID];
 }
 
 - (void)deleteItemTriggered:(NSMenuItem *)sender {
-    [self.viewModel deleteLocalDecksFromIndexPaths:self.collectionView.interactingIndexPaths];
+    NSSet<NSManagedObjectID *> * _Nullable objectIDs = self.viewModel.interactingObjectIDs;
+    
+    if (objectIDs == nil) return;
+    
+    [self.viewModel deleteLocalDecksFromObjectIDs:objectIDs];
 }
 
 #pragma mark - NSCollectionViewDelegate
@@ -452,6 +452,9 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeck
 
 - (void)menuWillOpen:(NSMenu *)menu {
     if ([menu isEqual:self.collectionViewMenu]) {
+        NSSet<LocalDeck *> *localDecks = [self.viewModel localDecksFromIndexPaths:self.collectionView.interactingIndexPaths];
+        self.viewModel.interactingObjectIDs = [self.viewModel objectIDsFromLocalDecks:localDecks];
+        
         NSMutableArray<NSMenuItem *> *itemArray = [NSMutableArray<NSMenuItem *> new];
         
         NSMenuItem *showDetailItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyShowDetails]
@@ -465,14 +468,14 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeck
         [itemArray addObject:[NSMenuItem separatorItem]];
         
         NSMenuItem *deleteItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyDelete]
-                                                            action:@selector(collectionViewMenuDeleteItemTriggered:)
+                                                            action:@selector(deleteItemTriggered:)
                                                      keyEquivalent:@""];
         deleteItem.image = [NSImage imageWithSystemSymbolName:@"trash" accessibilityDescription:nil];
         deleteItem.target = self;
         [itemArray addObject:deleteItem];
         [deleteItem release];
         
-        if (self.collectionView.interactingIndexPaths.count == 1) {
+        if (localDecks.count == 1) {
             NSMenuItem *editDeckNameItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyEditDeckName]
                                                                       action:@selector(editDeckNameItemTriggered:)
                                                                keyEquivalent:@""];
@@ -490,7 +493,9 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeck
 #pragma mark - NSMenuItemValidation
 
 - (BOOL)validateMenuItem:(NSMenuItem *)menuItem {
-    NSUInteger count = self.collectionView.interactingIndexPaths.count;
+    NSSet<LocalDeck *> *localDecks = [self.viewModel localDecksFromIndexPaths:self.collectionView.interactingIndexPaths];
+    self.viewModel.interactingObjectIDs = [self.viewModel objectIDsFromLocalDecks:localDecks];
+    NSUInteger count = localDecks.count;
     
     if ([menuItem isEqual:self.decksMenu.editDeckNameItem]) {
         if (count == 1) {

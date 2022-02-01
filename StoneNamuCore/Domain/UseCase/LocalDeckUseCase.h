@@ -13,6 +13,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 typedef void (^LocalDeckUseCaseFetchWithCompletion)(NSArray<LocalDeck *> * _Nullable, NSError * _Nullable);
+typedef void (^LocalDeckUseCaseFetchUsingObjectIDsWithCompletion)(NSSet<LocalDeck *> * _Nullable, NSError * _Nullable);
 typedef void (^LocalDeckUseCaseRefreshObjectWithCompletion)(void);
 typedef void (^LocalDeckUseCaseFetchWithValidation)(NSError * _Nullable);
 typedef void (^LocalDeckUseCaseMakeWithCompletion)(LocalDeck *);
@@ -24,6 +25,7 @@ static NSNotificationName const NSNotificationNameLocalDeckUseCaseDeleteAll = @"
 @protocol LocalDeckUseCase <NSObject>
 - (void)saveChanges;
 - (void)fetchWithCompletion:(LocalDeckUseCaseFetchWithCompletion)completion;
+- (void)fetchUsingObjectIDs:(NSSet<NSManagedObjectID *> *)objectIds completion:(LocalDeckUseCaseFetchUsingObjectIDsWithCompletion)completion;
 - (void)fetchUsingURI:(NSURL *)uri completion:(LocalDeckUseCaseFetchWithCompletion)completion;
 - (void)refreshObject:(NSManagedObject *)object mergeChanges:(BOOL)flag completion:(LocalDeckUseCaseRefreshObjectWithCompletion)completion;
 - (void)deleteLocalDecks:(NSSet<LocalDeck *> *)localDecks;
