@@ -227,8 +227,10 @@
 }
 
 - (void)configureDeckDetailsButton {
+    DeckAddCardsViewController * __block unretainedSelf = self;
+    
     UIAction *action = [UIAction actionWithHandler:^(__kindof UIAction * _Nonnull action) {
-        [self presentDeckDetailsViewController];
+        [unretainedSelf presentDeckDetailsViewController];
     }];
 
     UIButton *deckDetailsButton = [UIButton buttonWithConfiguration:[self makeDeckDetailButtonConfiguration] primaryAction:action];

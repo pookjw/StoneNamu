@@ -180,12 +180,14 @@
     self.headerCellRegistration = [self makeHeaderCellRegistration];
     self.footerCellRegistration = [self makeFooterCellRegistration];
     
+    PrefsViewController * __block unretainedSelf = self;
+    
     UICollectionViewDiffableDataSourceSupplementaryViewProvider provider = ^UICollectionReusableView * _Nullable(UICollectionView * _Nonnull collectionView, NSString * _Nonnull elementKind, NSIndexPath * _Nonnull indexPath) {
         
         if ([elementKind isEqualToString:UICollectionElementKindSectionHeader]) {
-            return [collectionView dequeueConfiguredReusableSupplementaryViewWithRegistration:self.headerCellRegistration forIndexPath:indexPath];
+            return [collectionView dequeueConfiguredReusableSupplementaryViewWithRegistration:unretainedSelf.headerCellRegistration forIndexPath:indexPath];
         } else if ([elementKind isEqualToString:UICollectionElementKindSectionFooter]) {
-            return [collectionView dequeueConfiguredReusableSupplementaryViewWithRegistration:self.footerCellRegistration forIndexPath:indexPath];
+            return [collectionView dequeueConfiguredReusableSupplementaryViewWithRegistration:unretainedSelf.footerCellRegistration forIndexPath:indexPath];
         } else {
             return nil;
         }
@@ -195,11 +197,13 @@
 }
 
 - (UICollectionViewSupplementaryRegistration *)makeHeaderCellRegistration {
+    PrefsViewController * __block unretainedSelf = self;
+    
     UICollectionViewSupplementaryRegistration *registration = [UICollectionViewSupplementaryRegistration registrationWithSupplementaryClass:[UICollectionViewListCell class]
                                                                                                                                 elementKind:UICollectionElementKindSectionHeader
                                                                                                                        configurationHandler:^(__kindof UICollectionViewListCell * _Nonnull supplementaryView, NSString * _Nonnull elementKind, NSIndexPath * _Nonnull indexPath) {
         
-        NSString * _Nullable text = [self.viewModel headerTextFromIndexPath:indexPath];
+        NSString * _Nullable text = [unretainedSelf.viewModel headerTextFromIndexPath:indexPath];
         
         UIListContentConfiguration *configuration = [UIListContentConfiguration groupedHeaderConfiguration];
         configuration.text = text;
@@ -211,11 +215,13 @@
 }
 
 - (UICollectionViewSupplementaryRegistration *)makeFooterCellRegistration {
+    PrefsViewController * __block unretainedSelf = self;
+    
     UICollectionViewSupplementaryRegistration *registration = [UICollectionViewSupplementaryRegistration registrationWithSupplementaryClass:[UICollectionViewListCell class]
                                                                                                                                 elementKind:UICollectionElementKindSectionFooter
                                                                                                                        configurationHandler:^(__kindof UICollectionViewListCell * _Nonnull supplementaryView, NSString * _Nonnull elementKind, NSIndexPath * _Nonnull indexPath) {
         
-        NSString * _Nullable text = [self.viewModel footerTextFromIndexPath:indexPath];
+        NSString * _Nullable text = [unretainedSelf.viewModel footerTextFromIndexPath:indexPath];
         
         UIListContentConfiguration *configuration = [UIListContentConfiguration groupedFooterConfiguration];
         configuration.text = text;

@@ -92,39 +92,40 @@
 }
 
 - (void)configureRightBarButtonItems {
-    
     UIBarButtonItem *menuBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"ellipsis"]
                                                                           style:UIBarButtonItemStylePlain
                                                                          target:self
                                                                          action:nil];
+    
+    DeckDetailsViewController * __block unretainedSelf = self;
     
     UIMenu *menu = [UIMenu menuWithChildren:@[
         [UIAction actionWithTitle:[ResourcesService localizationForKey:LocalizableKeyAddCards]
                             image:[UIImage systemImageNamed:@"plus"]
                        identifier:nil
                           handler:^(__kindof UIAction * _Nonnull action) {
-            [self presentDeckAddCardsViewController];
+            [unretainedSelf presentDeckAddCardsViewController];
         }],
         
         [UIAction actionWithTitle:[ResourcesService localizationForKey:LocalizableKeyEditDeckName]
                             image:[UIImage systemImageNamed:@"pencil"]
                        identifier:nil
                           handler:^(__kindof UIAction * _Nonnull action) {
-            [self presentEditLocalDeckNameAlert];
+            [unretainedSelf presentEditLocalDeckNameAlert];
         }],
         
         [UIAction actionWithTitle:[ResourcesService localizationForKey:LocalizableKeySaveAsImage]
                             image:[UIImage systemImageNamed:@"photo"]
                        identifier:nil
                           handler:^(__kindof UIAction * _Nonnull action) {
-            [self saveDeckAsImage];
+            [unretainedSelf saveDeckAsImage];
         }],
         
         [UIAction actionWithTitle:[ResourcesService localizationForKey:LocalizableKeyExportDeckCode]
                             image:[UIImage systemImageNamed:@"square.and.arrow.up"]
                        identifier:nil
                           handler:^(__kindof UIAction * _Nonnull action) {
-            [self exportDeckCodeAndShare];
+            [unretainedSelf exportDeckCodeAndShare];
         }]
     ]];
     
@@ -266,7 +267,7 @@
 - (DeckDetailsDataSource *)makeDataSource {
     UICollectionViewCellRegistration *cellRegistration = [self makeCellRegistration];
     
-    DeckDetailsDataSource *dataSource = [[DeckDetailsDataSource alloc] initWithCollectionView:self.collectionView cellProvider:^UICollectionViewCell * _Nullable(UICollectionView * _Nonnull collectionView, NSIndexPath * _Nonnull indexPath, id  _Nonnull itemIdentifier) {
+    DeckDetailsDataSource *dataSource = [[DeckDetailsDataSource alloc] initWithCollectionView:self.collectionView cellProvider:^UICollectionViewCell * _Nullable(UICollectionView * _Nonnull collectionView, NSIndexPath * _Nonnull indexPath, id _Nonnull itemIdentifier) {
         
         UICollectionViewCell *cell = [collectionView dequeueConfiguredReusableCellWithRegistration:cellRegistration forIndexPath:indexPath item:itemIdentifier];
         
@@ -314,10 +315,12 @@
 - (UICollectionViewDiffableDataSourceSupplementaryViewProvider)makeSupplementaryViewProvider {
     self.headerCellRegistration = [self makeHeaderCellRegistration];
     
+    DeckDetailsViewController * __block unretainedSelf = self;
+    
     UICollectionViewDiffableDataSourceSupplementaryViewProvider provider = ^UICollectionReusableView * _Nullable(UICollectionView * _Nonnull collectionView, NSString * _Nonnull elementKind, NSIndexPath * _Nonnull indexPath) {
         
         if ([elementKind isEqualToString:UICollectionElementKindSectionHeader]) {
-            return [collectionView dequeueConfiguredReusableSupplementaryViewWithRegistration:self.headerCellRegistration forIndexPath:indexPath];
+            return [collectionView dequeueConfiguredReusableSupplementaryViewWithRegistration:unretainedSelf.headerCellRegistration forIndexPath:indexPath];
         } else {
             return nil;
         }
@@ -327,11 +330,13 @@
 }
 
 - (UICollectionViewSupplementaryRegistration *)makeHeaderCellRegistration {
+    DeckDetailsViewController * __block unretainedSelf = self;
+    
     UICollectionViewSupplementaryRegistration *registration = [UICollectionViewSupplementaryRegistration registrationWithSupplementaryClass:[UICollectionViewListCell class]
                                                                                                                                 elementKind:UICollectionElementKindSectionHeader
                                                                                                                        configurationHandler:^(__kindof UICollectionViewListCell * _Nonnull supplementaryView, NSString * _Nonnull elementKind, NSIndexPath * _Nonnull indexPath) {
         
-        DeckDetailsSectionModel *sectionModel = [self.viewModel.dataSource sectionIdentifierForIndex:indexPath.section];
+        DeckDetailsSectionModel *sectionModel = [unretainedSelf.viewModel.dataSource sectionIdentifierForIndex:indexPath.section];
         NSString * _Nullable headerText = nil;
         NSUInteger tag = 0;
         
@@ -357,9 +362,11 @@
 }
 
 - (UICollectionLayoutListSwipeActionsConfigurationProvider)makeTrailingSwipeProvider {
+    DeckDetailsViewController * __block unretainedSelf = self;
+    
     UICollectionLayoutListSwipeActionsConfigurationProvider provider = ^UISwipeActionsConfiguration * _Nullable(NSIndexPath *indexPath) {
         
-        DeckDetailsItemModel *itemModel = [self.viewModel.dataSource itemIdentifierForIndexPath:indexPath];
+        DeckDetailsItemModel *itemModel = [unretainedSelf.viewModel.dataSource itemIdentifierForIndexPath:indexPath];
         
         if (itemModel.type != DeckDetailsItemModelTypeCard) {
             return nil;
@@ -371,7 +378,7 @@
                                                                                       title:nil
                                                                                     handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
             
-            BOOL shouldComplete = [self.viewModel decreaseAtIndexPath:indexPath];
+            BOOL shouldComplete = [unretainedSelf.viewModel decreaseAtIndexPath:indexPath];
             
             if (shouldComplete) {
                 completionHandler(YES);
@@ -386,7 +393,7 @@
         UIContextualAction *incrementAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal
                                                                                       title:nil
                                                                                     handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
-            [self.viewModel increaseAtIndexPath:indexPath];
+            [unretainedSelf.viewModel increaseAtIndexPath:indexPath];
             completionHandler(YES);
         }];
         
@@ -398,7 +405,7 @@
         UIContextualAction *deleteAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive
                                                                                    title:nil
                                                                                  handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
-            [self.viewModel deleteAtIndexPathes:[NSSet setWithObject:indexPath]];
+            [unretainedSelf.viewModel deleteAtIndexPathes:[NSSet setWithObject:indexPath]];
         }];
         
         deleteAction.image = [UIImage systemImageNamed:@"trash"];

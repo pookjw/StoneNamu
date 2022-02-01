@@ -173,8 +173,10 @@
     buttonConfiguration.baseForegroundColor = UIColor.whiteColor;
     buttonConfiguration.background = backgroundConfiguration;
     
+    CardDetailsViewController * __block unretainedSelf = self;
+    
     UIAction *action = [UIAction actionWithHandler:^(__kindof UIAction * _Nonnull action) {
-        [self dismissViewControllerAnimated:YES completion:^{}];
+        [unretainedSelf dismissViewControllerAnimated:YES completion:^{}];
     }];
     
     UIButton *closeButton = [UIButton buttonWithConfiguration:buttonConfiguration primaryAction:action];

@@ -63,26 +63,29 @@
 }
 
 - (void)replaceMenuOfAddBarButtonItem:(UIBarButtonItem *)addBarButtonItem {
-    NSMutableArray<UIAction *> *createStandardDeckActions = [@[] mutableCopy];
-    NSMutableArray<UIAction *> *createWildDeckActions = [@[] mutableCopy];
-    NSMutableArray<UIAction *> *createClassicDeckActions = [@[] mutableCopy];
+    /* UIMenu initializer doesn't copy children so should mark __block */
+    NSMutableArray<UIAction *> * __block createStandardDeckActions = [@[] mutableCopy];
+    NSMutableArray<UIAction *> * __block createWildDeckActions = [@[] mutableCopy];
+    NSMutableArray<UIAction *> * __block createClassicDeckActions = [@[] mutableCopy];
     
     NSDictionary<NSString *, NSString *> *localizable = [ResourcesService localizationsForHSCardClass];
     
     for (NSString *key in hsCardClassesForFormat(HSDeckFormatStandard)) {
         @autoreleasepool {
+            DecksViewController * __block unretainedSelf = self;
+            
             UIAction *standardAction = [UIAction actionWithTitle:localizable[key]
                                                    image:nil
                                               identifier:nil
                                                  handler:^(__kindof UIAction * _Nonnull action) {
                 
-                [self replaceMenuOfAddBarButtonItem:addBarButtonItem];
+                [unretainedSelf replaceMenuOfAddBarButtonItem:addBarButtonItem];
                 
-                [self.viewModel makeLocalDeckWithClass:HSCardClassFromNSString(key)
+                [unretainedSelf.viewModel makeLocalDeckWithClass:HSCardClassFromNSString(key)
                                             deckFormat:HSDeckFormatStandard
                                             completion:^(LocalDeck * _Nonnull localDeck) {
                     [NSOperationQueue.mainQueue addOperationWithBlock:^{
-                        [self presentDeckDetailsWithLocalDeck:localDeck indexPath:nil scrollToItem:YES];
+                        [unretainedSelf presentDeckDetailsWithLocalDeck:localDeck indexPath:nil scrollToItem:YES];
                     }];
                 }];
             }];
@@ -93,18 +96,20 @@
     
     for (NSString *key in hsCardClassesForFormat(HSDeckFormatWild)) {
         @autoreleasepool {
+            DecksViewController * __block unretainedSelf = self;
+            
             UIAction *wildAction = [UIAction actionWithTitle:localizable[key]
                                                    image:nil
                                               identifier:nil
                                                  handler:^(__kindof UIAction * _Nonnull action) {
                 
-                [self replaceMenuOfAddBarButtonItem:addBarButtonItem];
+                [unretainedSelf replaceMenuOfAddBarButtonItem:addBarButtonItem];
                 
-                [self.viewModel makeLocalDeckWithClass:HSCardClassFromNSString(key)
+                [unretainedSelf.viewModel makeLocalDeckWithClass:HSCardClassFromNSString(key)
                                             deckFormat:HSDeckFormatWild
                                             completion:^(LocalDeck * _Nonnull localDeck) {
                     [NSOperationQueue.mainQueue addOperationWithBlock:^{
-                        [self presentDeckDetailsWithLocalDeck:localDeck indexPath:nil scrollToItem:YES];
+                        [unretainedSelf presentDeckDetailsWithLocalDeck:localDeck indexPath:nil scrollToItem:YES];
                     }];
                 }];
             }];
@@ -115,18 +120,20 @@
     
     for (NSString *key in hsCardClassesForFormat(HSDeckFormatClassic)) {
         @autoreleasepool {
+            DecksViewController * __block unretainedSelf = self;
+            
             UIAction *classicAction = [UIAction actionWithTitle:localizable[key]
                                                    image:nil
                                               identifier:nil
                                                  handler:^(__kindof UIAction * _Nonnull action) {
                 
-                [self replaceMenuOfAddBarButtonItem:addBarButtonItem];
+                [unretainedSelf replaceMenuOfAddBarButtonItem:addBarButtonItem];
                 
-                [self.viewModel makeLocalDeckWithClass:HSCardClassFromNSString(key)
+                [unretainedSelf.viewModel makeLocalDeckWithClass:HSCardClassFromNSString(key)
                                             deckFormat:HSDeckFormatClassic
                                             completion:^(LocalDeck * _Nonnull localDeck) {
                     [NSOperationQueue.mainQueue addOperationWithBlock:^{
-                        [self presentDeckDetailsWithLocalDeck:localDeck indexPath:nil scrollToItem:YES];
+                        [unretainedSelf presentDeckDetailsWithLocalDeck:localDeck indexPath:nil scrollToItem:YES];
                     }];
                 }];
             }];
@@ -163,6 +170,8 @@
     [createWildDeckActions release];
     [createClassicDeckActions release];
     
+    DecksViewController * __block unretainedSelf = self;
+    
     addBarButtonItem.menu = [UIMenu menuWithChildren:@[
         createDeckMenu,
         
@@ -170,7 +179,7 @@
                             image:[UIImage systemImageNamed:@"arrow.down.square"]
                        identifier:nil
                           handler:^(__kindof UIAction * _Nonnull action) {
-            [self presentTextFieldAndFetchDeckCode];
+            [unretainedSelf presentTextFieldAndFetchDeckCode];
         }]
     ]];
 }
@@ -243,12 +252,14 @@
 }
 
 - (UICollectionLayoutListSwipeActionsConfigurationProvider)makeTrailingSwipeProvider {
+    DecksViewController * __block unretainedSelf = self;
+    
     UICollectionLayoutListSwipeActionsConfigurationProvider provider = ^UISwipeActionsConfiguration * _Nullable(NSIndexPath *indexPath) {
         
         UIContextualAction *deleteAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive
                                                                                    title:nil
                                                                                  handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
-            [self.viewModel deleteLocalDecksFromIndexPaths:[NSSet setWithObject:indexPath]];
+            [unretainedSelf.viewModel deleteLocalDecksFromIndexPaths:[NSSet setWithObject:indexPath]];
         }];
         
         deleteAction.image = [UIImage systemImageNamed:@"trash"];
