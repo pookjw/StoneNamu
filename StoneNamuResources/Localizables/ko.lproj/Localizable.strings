@@ -148,7 +148,7 @@
 
 "DECKS" = "덱";
 
-"CREATE_NEW_A_DECK" = "새로운 덱 만들기";
+"CREATE_A_NEW_DECK" = "새로운 덱 만들기";
 
 "LOAD_FROM_DECK_CODE" = "덱코드에서 불러오기";
 
