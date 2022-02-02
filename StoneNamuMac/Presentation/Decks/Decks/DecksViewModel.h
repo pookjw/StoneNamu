@@ -21,6 +21,7 @@ typedef void (^DecksViewModelFetchDeckCodeCompletion)(LocalDeck * _Nullable, HSD
 typedef void (^DecksViewModelMakeLocalDeckCompletion)(LocalDeck *);
 typedef void (^DecksViewModelParseClipboardCompletion)(NSString * _Nullable, NSString * _Nullable);
 typedef void (^DecksViewModelLocalDecksFromIndexPathsCompletion)(NSSet<LocalDeck *> *localDecks);
+typedef void (^DecksViewModelLocalDecksFromObjectIDsCompletion)(NSSet<LocalDeck *> *localDecks, NSError * _Nullable error);
 
 @interface DecksViewModel : NSObject
 @property (retain) DecksDataSource *dataSource;
@@ -39,6 +40,7 @@ typedef void (^DecksViewModelLocalDecksFromIndexPathsCompletion)(NSSet<LocalDeck
 - (void)localDecksFromIndexPaths:(NSSet<NSIndexPath *> *)indexPaths completion:(DecksViewModelLocalDecksFromIndexPathsCompletion)completion;
 - (NSSet<LocalDeck *> *)localDecksFromIndexPaths:(NSSet<NSIndexPath *> *)indexPaths;
 - (NSSet<NSManagedObjectID *> *)objectIDsFromLocalDecks:(NSSet<LocalDeck *> *)localDecks;
+- (void)localDecksFromObjectIDs:(NSSet<NSManagedObjectID *> *)objectIDs completion:(DecksViewModelLocalDecksFromObjectIDsCompletion)completion;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -208,7 +208,7 @@
 }
 
 - (void)deleteLocalDecksFromObjectIDs:(NSSet<NSManagedObjectID *> *)objectIDs {
-    [self.localDeckUseCase fetchUsingObjectIDs:objectIDs completion:^(NSSet<LocalDeck *> * _Nullable localDecks, NSError * _Nullable error) {
+    [self localDecksFromObjectIDs:objectIDs completion:^(NSSet<LocalDeck *> * _Nullable localDecks, NSError * _Nullable error) {
         if (localDecks != nil) {
             [self deleteLocalDecks:localDecks];
         }
@@ -222,7 +222,7 @@
 }
 
 - (void)updateDeckName:(NSString *)name forObjectID:(NSManagedObjectID *)objectID {
-    [self.localDeckUseCase fetchUsingObjectIDs:[NSSet setWithObject:objectID] completion:^(NSSet<LocalDeck *> * _Nullable localDecks, NSError * _Nullable error) {
+    [self localDecksFromObjectIDs:[NSSet setWithObject:objectID] completion:^(NSSet<LocalDeck *> * _Nullable localDecks, NSError * _Nullable error) {
         LocalDeck * _Nullable localDeck = localDecks.allObjects.firstObject;
         
         if (localDeck != nil) {
@@ -272,6 +272,11 @@
     
     return [objectIDs autorelease];
 }
+
+- (void)localDecksFromObjectIDs:(NSSet<NSManagedObjectID *> *)objectIDs completion:(DecksViewModelLocalDecksFromObjectIDsCompletion)completion {
+    [self.localDeckUseCase fetchUsingObjectIDs:objectIDs completion:completion];
+}
+
 - (void)requestDataSourceFromLocalDecks:(NSArray<LocalDeck *> *)localDecks {
     [self.queue addBarrierBlock:^{
         NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];

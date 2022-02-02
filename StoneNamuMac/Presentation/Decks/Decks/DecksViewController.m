@@ -270,6 +270,20 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeck
     }];
 }
 
+- (void)presentDeckDetailsWithInteractingObjectIDs {
+    NSSet<NSManagedObjectID *> * _Nullable objectIDs = self.viewModel.interactingObjectIDs;
+    
+    if (objectIDs == nil) return;
+    
+    [self.viewModel localDecksFromObjectIDs:objectIDs completion:^(NSSet<LocalDeck *> * _Nonnull localDecks, NSError * _Nullable error) {
+        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+            [localDecks enumerateObjectsUsingBlock:^(LocalDeck * _Nonnull obj, BOOL * _Nonnull stop) {
+                [self presentDeckDetailsWithLocalDeck:obj];
+            }];
+        }];
+    }];
+}
+
 - (void)presentCreateNewDeckFromDeckCodeAlert {
     [self.viewModel parseClipboardForDeckCodeWithCompletion:^(NSString * _Nullable title, NSString * _Nullable deckCode) {
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
@@ -392,7 +406,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeck
 }
 
 - (void)showDetailItemTriggered:(NSMenuItem *)sender {
-    [self presentDeckDetailsWithInteractingItems];
+    [self presentDeckDetailsWithInteractingObjectIDs];
 }
 
 - (void)editDeckNameItemTriggered:(NSMenuItem *)sender {
