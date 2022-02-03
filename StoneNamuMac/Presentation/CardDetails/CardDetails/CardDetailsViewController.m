@@ -104,11 +104,13 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeta
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder backgroundQueue:(NSOperationQueue *)queue {
     [super encodeRestorableStateWithCoder:coder backgroundQueue:queue];
     
-    [queue addOperationWithBlock:^{
-        if (self.viewModel.hsCard != nil) {
-            [coder encodeObject:self.viewModel.hsCard forKey:@"hsCard"];
-        }
-    }];
+    HSCard * _Nullable hsCard = self.viewModel.hsCard;
+    
+    if (hsCard != nil) {
+        [queue addOperationWithBlock:^{
+            [coder encodeObject:hsCard forKey:@"hsCard"];
+        }];
+    }
 }
 
 - (void)restoreStateWithCoder:(NSCoder *)coder {
@@ -279,13 +281,15 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeta
 }
 
 - (CardDetailsDataSource *)makeDataSource {
+    CardDetailsViewController * __block unretainedSelf = self;
+    
     CardDetailsDataSource *dataSource = [[CardDetailsDataSource alloc] initWithCollectionView:self.collectionView itemProvider:^NSCollectionViewItem * _Nullable(NSCollectionView * _Nonnull collectionView, NSIndexPath * _Nonnull indexPath, CardDetailsItemModel * _Nonnull itemModel) {
         
         switch (itemModel.type) {
             case CardDetailsItemModelTypeChild: {
                 CardDetailsChildCollectionViewItem *item = (CardDetailsChildCollectionViewItem *)[collectionView makeItemWithIdentifier:NSUserInterfaceItemIdentifierCardDetailsChildCollectionViewItem forIndexPath:indexPath];
                 
-                [item configureWithHSCard:itemModel.childHSCard delegate:self];
+                [item configureWithHSCard:itemModel.childHSCard delegate:unretainedSelf];
                 
                 return item;
             }
