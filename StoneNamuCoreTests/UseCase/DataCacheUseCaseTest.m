@@ -34,19 +34,20 @@
     NSData *testData = [testString dataUsingEncoding:NSUTF8StringEncoding];
     
     [self.dataCacheUseCase deleteAllDataCaches];
-    [self.dataCacheUseCase makeDataCache:testData identity:testIdentity];
-    [self.dataCacheUseCase dataCachesWithIdentity:testIdentity completion:^(NSArray<NSData *> * _Nullable datas, NSError * _Nullable error) {
-        XCTAssertNil(error);
-        
-        [datas enumerateObjectsUsingBlock:^(NSData * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            NSString *string = [[NSString alloc] initWithData:obj encoding:NSUTF8StringEncoding];
+    [self.dataCacheUseCase makeDataCache:testData identity:testIdentity completion:^{
+        [self.dataCacheUseCase dataCachesWithIdentity:testIdentity completion:^(NSArray<NSData *> * _Nullable datas, NSError * _Nullable error) {
+            XCTAssertNil(error);
             
-            if ([string isEqualToString:testString]) {
-                [expectation fulfill];
-                *stop = YES;
-            }
-            
-            [string release];
+            [datas enumerateObjectsUsingBlock:^(NSData * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                NSString *string = [[NSString alloc] initWithData:obj encoding:NSUTF8StringEncoding];
+                
+                if ([string isEqualToString:testString]) {
+                    [expectation fulfill];
+                    *stop = YES;
+                }
+                
+                [string release];
+            }];
         }];
     }];
     
