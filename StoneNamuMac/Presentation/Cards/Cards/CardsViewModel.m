@@ -11,7 +11,7 @@
 
 @interface CardsViewModel ()
 @property (retain) id<HSCardUseCase> hsCardUseCase;
-@property (readonly, nonatomic) NSDictionary<NSString *, NSString *> *defaultOptions;
+@property (readonly, nonatomic) NSDictionary<NSString *, NSSet<NSString *> *> *defaultOptions;
 @property (retain) NSNumber * _Nullable pageCount;
 @property (retain) NSNumber *page;
 @property (nonatomic, readonly) BOOL canLoadMore;
@@ -70,11 +70,11 @@
     [super dealloc];
 }
 
-- (NSDictionary<NSString *,NSString *> *)defaultOptions {
+- (NSDictionary<NSString *, NSSet<NSString *> *> *)defaultOptions {
     return BlizzardHSAPIDefaultOptions();
 }
 
-- (BOOL)requestDataSourceWithOptions:(NSDictionary<NSString *,NSString *> *)options reset:(BOOL)reset {
+- (BOOL)requestDataSourceWithOptions:(NSDictionary<NSString *, NSSet<NSString *> *> * _Nullable)options reset:(BOOL)reset {
     if (reset) {
         [self resetDataSource];
     } else {
@@ -87,27 +87,20 @@
     
     self.isFetching = YES;
     
+    //
+    
     NSBlockOperation * __block op = [NSBlockOperation new];
     
     [op addExecutionBlock:^{
-       NSDictionary<NSString *, NSString *> *defaultOptions = self.defaultOptions;
+        NSDictionary<NSString *, NSSet<NSString *> *> *defaultOptions = self.defaultOptions;
+        NSDictionary<NSString *, NSSet<NSString *> *> * _Nullable finalOptions = [options dictionaryByCombiningWithDictionary:defaultOptions shouldOverride:NO];
         
-        if (options == nil) {
+        if (finalOptions == nil) {
             [self->_options release];
             self->_options = [defaultOptions copy];
         } else {
             [self->_options release];
-            
-            NSMutableDictionary *mutableDic = [options mutableCopy];
-            
-            for (NSString *key in defaultOptions.allKeys) {
-                if (mutableDic[key] == nil) {
-                    mutableDic[key] = defaultOptions[key];
-                }
-            }
-            
-            self->_options = [mutableDic copy];
-            [mutableDic release];
+            self->_options = [finalOptions copy];
         }
         
         //
@@ -116,22 +109,20 @@
         
         //
         
-        NSMutableDictionary *mutableDic = [self.options mutableCopy];
+        NSMutableDictionary<NSString *, NSSet<NSString *> *> *mutableDic = [self.options mutableCopy];
         
         if (self.pageCount != nil) {
             // Next page
             NSNumber *nextPage = [NSNumber numberWithUnsignedInt:[self.page unsignedIntValue] + 1];
-            mutableDic[BlizzardHSAPIOptionTypePage] = [nextPage stringValue];
+            mutableDic[BlizzardHSAPIOptionTypePage] = [NSSet setWithObject:[nextPage stringValue]];
         } else {
             // Initial data
-            mutableDic[BlizzardHSAPIOptionTypePage] = [self.page stringValue];
+            mutableDic[BlizzardHSAPIOptionTypePage] = [NSSet setWithObject:[self.page stringValue]];
         }
         
         SemaphoreCondition *semaphore = [[SemaphoreCondition alloc] initWithValue:0];
         
         [self.hsCardUseCase fetchWithOptions:mutableDic completionHandler:^(NSArray<HSCard *> * _Nullable cards, NSNumber *pageCount, NSNumber *page, NSError * _Nullable error) {
-            
-            [mutableDic release];
             
             if (op.isCancelled) {
                 [semaphore signal];
@@ -155,6 +146,7 @@
             }];
         }];
         
+        [mutableDic release];
         [semaphore wait];
     }];
     
@@ -270,7 +262,7 @@
                                                     userInfo:@{CardsViewModelErrorNotificationErrorKey: error}];
 }
 
-- (void)postStartedLoadingDataSourceWithOptions:(NSDictionary<NSString *, NSString *> *)options {
+- (void)postStartedLoadingDataSourceWithOptions:(NSDictionary<NSString *, NSSet<NSString *> *> *)options {
     [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameCardsViewModelStartedLoadingDataSource
                                                       object:self
                                                     userInfo:@{NSNotificationNameCardsViewModelStartedLoadingDataSourceOptionsKey: options}];

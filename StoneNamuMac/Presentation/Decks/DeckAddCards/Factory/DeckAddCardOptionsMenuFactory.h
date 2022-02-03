@@ -10,11 +10,18 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+static NSString * const DeckAddCardOptionsMenuFactoryStorableMenuItemOptionTypeKey = @"DeckAddCardOptionsMenuFactoryStorableMenuItemOptionTypeKey";
+static NSString * const DeckAddCardOptionsMenuFactoryStorableMenuItemValueKey = @"DeckAddCardOptionsMenuFactoryStorableMenuItemValueKey";
+static NSString * const DeckAddCardOptionsMenuFactoryStorableMenuItemShowsEmptyItemKey = @"DeckAddCardOptionsMenuFactoryStorableMenuItemShowsEmptyItemKey";
+static NSString * const DeckAddCardOptionsMenuFactoryStorableMenuItemSuppoertsMultipleSelection = @"DeckAddCardOptionsMenuFactoryStorableMenuItemSuppoertsMultipleSelection";
+
 @interface DeckAddCardOptionsMenuFactory : NSObject
 @property (class, readonly) SEL keyMenuItemTriggeredSelector;
-+ (BOOL)hasValueForValue:(NSString * _Nullable)value;
-+ (NSString * _Nullable)titleForDeckAddCardOptionTypeWithValue:(NSString * _Nullable)value optionType:(BlizzardHSAPIOptionType)optionType;
-+ (NSImage * _Nullable)imageForDeckAddCardOptionTypeWithValue:(NSString * _Nullable)value optionType:(BlizzardHSAPIOptionType)optionType;
++ (BOOL)hasValueForValues:(NSSet<NSString *> * _Nullable)values;
++ (BOOL)hasEmptyItemAtOptionType:(BlizzardHSAPIOptionType)optionType;
++ (BOOL)supportsMultipleSelectionFromOptionType:(BlizzardHSAPIOptionType)optionType;
++ (NSString * _Nullable)titleForOptionType:(BlizzardHSAPIOptionType)optionType;
++ (NSImage * _Nullable)imageForCardOptionTypeWithValues:(NSSet<NSString *> * _Nullable)values optionType:(BlizzardHSAPIOptionType)optionType;
 + (NSMenu *)menuForOptionType:(BlizzardHSAPIOptionType)optionType deckFormat:(HSDeckFormat)deckFormat classId:(HSCardClass)classId target:(id<NSSearchFieldDelegate>)target;
 @end
 

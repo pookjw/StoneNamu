@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class CardOptionsToolbar;
 
 @protocol CardOptionsToolbarDelegate <NSObject>
-- (void)cardOptionsToolbar:(CardOptionsToolbar *)toolbar changedOption:(NSDictionary<NSString *, NSString *> *)options;
+- (void)cardOptionsToolbar:(CardOptionsToolbar *)toolbar changedOption:(NSDictionary<NSString *, NSSet<NSString *> *> *)options;
 @end
 
 NS_ASSUME_NONNULL_END

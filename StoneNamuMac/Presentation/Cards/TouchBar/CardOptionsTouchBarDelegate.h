@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class CardOptionsTouchBar;
 
 @protocol CardOptionsTouchBarDelegate <NSObject>
-- (void)cardOptionsTouchBar:(CardOptionsTouchBar *)touchBar changedOption:(NSDictionary<NSString *, NSString *> *)options;
+- (void)cardOptionsTouchBar:(CardOptionsTouchBar *)touchBar changedOption:(NSDictionary<NSString *, NSSet<NSString *> *> *)options;
 @end
 
 NS_ASSUME_NONNULL_END

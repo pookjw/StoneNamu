@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class DeckAddCardOptionsTouchBar;
 
 @protocol DeckAddCardOptionsTouchBarDelegate <NSObject>
-- (void)deckAddCardOptionsTouchBar:(DeckAddCardOptionsTouchBar *)touchBar changedOption:(NSDictionary<NSString *, NSString *> *)options;
+- (void)deckAddCardOptionsTouchBar:(DeckAddCardOptionsTouchBar *)touchBar changedOption:(NSDictionary<NSString *, NSSet<NSString *> *> *)options;
 @end
 
 NS_ASSUME_NONNULL_END

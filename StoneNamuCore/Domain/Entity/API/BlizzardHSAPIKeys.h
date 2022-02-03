@@ -6,6 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <StoneNamuCore/LocalDeck.h>
 
 /*
  https://develop.battle.net/documentation/hearthstone/game-data-apis
@@ -36,6 +37,7 @@ static BlizzardHSAPIOptionType const BlizzardHSAPIOptionTypeIds = @"ids";
 static BlizzardHSAPIOptionType const BlizzardHSAPIOptionTypeCode = @"code";
 static BlizzardHSAPIOptionType const BlizzardHSAPIOptionTypeHero = @"hero";
 
-NSDictionary<BlizzardHSAPIOptionType, NSString *> *BlizzardHSAPIDefaultOptions(void);
+NSDictionary<BlizzardHSAPIOptionType, NSSet<NSString *> *> *BlizzardHSAPIDefaultOptions(void);
+NSDictionary<BlizzardHSAPIOptionType, NSSet<NSString *> *> *BlizzardHSAPIDefaultOptionsUsingLocalDeck(LocalDeck *);
 
 NS_ASSUME_NONNULL_END

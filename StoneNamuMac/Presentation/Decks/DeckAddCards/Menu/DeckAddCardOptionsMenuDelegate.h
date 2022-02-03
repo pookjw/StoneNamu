@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class DeckAddCardOptionsMenu;
 
 @protocol DeckAddCardOptionsMenuDelegate <NSObject>
-- (void)deckAddCardOptionsMenu:(DeckAddCardOptionsMenu *)menu changedOption:(NSDictionary<NSString *, NSString *> *)options;
+- (void)deckAddCardOptionsMenu:(DeckAddCardOptionsMenu *)menu changedOption:(NSDictionary<NSString *, NSSet<NSString *> *> *)options;
 - (void)deckAddCardOptionsMenu:(DeckAddCardOptionsMenu *)menu defaultOptionsAreNeedWithSender:(NSMenuItem *)sender;
 @end
 

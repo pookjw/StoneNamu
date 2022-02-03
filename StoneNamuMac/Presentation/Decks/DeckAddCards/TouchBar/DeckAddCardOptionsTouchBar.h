@@ -15,8 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithCoder:(NSCoder *)coder NS_UNAVAILABLE;
-- (instancetype)initWithOptions:(NSDictionary<NSString *, NSString *> * _Nullable)options deckFormat:(HSDeckFormat)deckFormat classId:(HSCardClass)classId deckAddCardOptionsTouchBarDelegate:(id<DeckAddCardOptionsTouchBarDelegate>)deckAddCardOptionsTouchBarDelegate;
-- (void)updateItemsWithOptions:(NSDictionary<NSString *, NSString *> * _Nullable)options deckFormat:(HSDeckFormat)deckFormat classId:(HSCardClass)classId;
+- (instancetype)initWithOptions:(NSDictionary<NSString *, NSSet<NSString *> *> * _Nullable)options deckFormat:(HSDeckFormat)deckFormat classId:(HSCardClass)classId deckAddCardOptionsTouchBarDelegate:(id<DeckAddCardOptionsTouchBarDelegate>)deckAddCardOptionsTouchBarDelegate;
+- (void)updateItemsWithOptions:(NSDictionary<NSString *, NSSet<NSString *> *> * _Nullable)options deckFormat:(HSDeckFormat)deckFormat classId:(HSCardClass)classId;
 @end
 
 NS_ASSUME_NONNULL_END

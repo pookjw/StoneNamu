@@ -45,16 +45,16 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
 
 @property (retain) NSMenuItem *resetOptionsItem;
 
-@property (retain) NSMutableDictionary<NSString *, NSString *> *options;
+@property (retain) NSMutableDictionary<NSString *, NSSet<NSString *> *> *options;
 @end
 
 @implementation DeckAddCardOptionsMenu
 
-- (instancetype)initWithOptions:(NSDictionary<NSString *,NSString *> *)options deckFormat:(HSDeckFormat)deckFormat classId:(HSCardClass)classId deckAddCardOptionsMenuDelegate:(id<DeckAddCardOptionsMenuDelegate>)deckAddCardOptionsMenuDelegate {
+- (instancetype)initWithOptions:(NSDictionary<NSString *, NSSet<NSString *> *> *)options deckFormat:(HSDeckFormat)deckFormat classId:(HSCardClass)classId deckAddCardOptionsMenuDelegate:(id<DeckAddCardOptionsMenuDelegate>)deckAddCardOptionsMenuDelegate {
     self = [self init];
     
     if (self) {
-        NSMutableDictionary<NSString *, NSString *> *mutableOptions = [options mutableCopy];
+        NSMutableDictionary<NSString *, NSSet<NSString *> *> *mutableOptions = [options mutableCopy];
         self.options = mutableOptions;
         [mutableOptions release];
         
@@ -110,8 +110,8 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
     [super dealloc];
 }
 
-- (void)updateItemsWithOptions:(NSDictionary<NSString *,NSString *> *)options deckFormat:(HSDeckFormat _Nullable)deckFormat classId:(HSCardClass)classId {
-    NSMutableDictionary<NSString *, NSString *> *mutableOptions = [options mutableCopy];
+- (void)updateItemsWithOptions:(NSDictionary<NSString *, NSSet<NSString *> *> *)options deckFormat:(HSDeckFormat _Nullable)deckFormat classId:(HSCardClass)classId {
+    NSMutableDictionary<NSString *, NSSet<NSString *> *> *mutableOptions = [options mutableCopy];
     self.options = mutableOptions;
     [mutableOptions release];
     
@@ -128,28 +128,26 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
         
         NSUserInterfaceItemIdentifier identifier = obj.identifier;
         BlizzardHSAPIOptionType optionType = BlizzardHSAPIOptionTypeFromNSUserInterfaceItemIdentifierDeckAddCardOptionType(identifier);
-        NSString * _Nullable value = options[optionType];
+        NSSet<NSString *> * _Nullable values = options[optionType];
         
         //
         
         NSSearchField * _Nullable searchField = (NSSearchField * _Nullable)obj.submenu.itemArray.firstObject.view;
         
         if ((searchField != nil) && ([searchField isKindOfClass:[NSSearchField class]])) {
-            NSString *stringValue;
+            NSString * _Nullable stringValue = values.allObjects.firstObject;
             
-            if (value == nil) {
-                stringValue = @"";
+            if (stringValue == nil) {
+                searchField.stringValue = @"";
             } else {
-                stringValue = value;
+                searchField.stringValue = stringValue;
             }
-            
-            searchField.stringValue = stringValue;
         }
         
         //
         
-        obj.image = [DeckAddCardOptionsMenuFactory imageForDeckAddCardOptionTypeWithValue:value optionType:optionType];
-        obj.title = [DeckAddCardOptionsMenuFactory titleForDeckAddCardOptionTypeWithValue:value optionType:optionType];
+        obj.image = [DeckAddCardOptionsMenuFactory imageForCardOptionTypeWithValues:values optionType:optionType];
+        obj.title = [DeckAddCardOptionsMenuFactory titleForOptionType:optionType];
         
         [self updateStateOfItem:obj];
     }];
@@ -426,13 +424,51 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
 }
 
 - (void)keyMenuItemTriggered:(StorableMenuItem *)sender {
-    NSString *key = sender.userInfo.allKeys.firstObject;
-    NSString *value = sender.userInfo.allValues.firstObject;
+    NSDictionary<NSString *, id> *userInfo = sender.userInfo;
+    
+    BOOL showsEmptyItem;
+    BOOL supportsMultipleSelection;
+    
+    if (userInfo[DeckAddCardOptionsMenuFactoryStorableMenuItemShowsEmptyItemKey]) {
+        showsEmptyItem = [(NSNumber *)userInfo[DeckAddCardOptionsMenuFactoryStorableMenuItemShowsEmptyItemKey] boolValue];
+    } else {
+        showsEmptyItem = NO;
+    }
+    
+    if (userInfo[DeckAddCardOptionsMenuFactoryStorableMenuItemSuppoertsMultipleSelection]) {
+        supportsMultipleSelection = [(NSNumber *)userInfo[DeckAddCardOptionsMenuFactoryStorableMenuItemSuppoertsMultipleSelection] boolValue];
+    } else {
+        supportsMultipleSelection = NO;
+    }
+    
+    NSString *key = userInfo[DeckAddCardOptionsMenuFactoryStorableMenuItemOptionTypeKey];
+    NSString *value = userInfo[DeckAddCardOptionsMenuFactoryStorableMenuItemValueKey];
+    
+    //
     
     if ([value isEqualToString:@""]) {
         [self.options removeObjectForKey:key];
+    } else if (!supportsMultipleSelection) {
+        self.options[key] = [NSSet setWithObject:value];
     } else {
-        self.options[key] = value;
+        NSMutableSet<NSString *> * _Nullable values = [self.options[key] mutableCopy];
+        if (values == nil) {
+            values = [NSMutableSet<NSString *> new];
+        }
+        
+        if ([values.allObjects containsString:value]) {
+            [values removeObject:value];
+        } else {
+            [values addObject:value];
+        }
+        
+        if (values.count > 0) {
+            self.options[key] = values;
+        } else if (showsEmptyItem) {
+//            [self.options removeObjectForKey:key];
+        }
+        
+        [values release];
     }
     
     [self updateItemsWithOptions:self.options deckFormat:self.deckFormat classId:self.classId];
@@ -442,19 +478,31 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
 - (void)updateStateOfItem:(NSMenuItem *)item {
     NSUserInterfaceItemIdentifier itemIdentifier = item.identifier;
     BlizzardHSAPIOptionType optionType = BlizzardHSAPIOptionTypeFromNSUserInterfaceItemIdentifierDeckAddCardOptionType(itemIdentifier);
-    NSString *selectedValue = self.options[optionType];
+    
+    NSArray<NSString *> * _Nullable values = self.options[optionType].allObjects;
+    BOOL shouldSelectEmptyValue = ((values == nil) || (values.count == 0));
     
     [item.submenu.itemArray enumerateObjectsUsingBlock:^(NSMenuItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         StorableMenuItem *item = (StorableMenuItem *)obj;
         
         if (![item isKindOfClass:[StorableMenuItem class]]) return;
         
-        if ([item.userInfo[optionType] isEqualToString:selectedValue]) {
-            item.state = NSControlStateValueOn;
-        } else if ([@"" isEqualToString:item.userInfo[optionType]] && (selectedValue == nil)) {
-            item.state = NSControlStateValueOn;
+        NSString *itemValue = item.userInfo[DeckAddCardOptionsMenuFactoryStorableMenuItemValueKey];
+        
+        if (shouldSelectEmptyValue) {
+            if ([@"" isEqualToString:itemValue]) {
+                item.state = NSControlStateValueOn;
+            } else {
+                item.state = NSControlStateValueOff;
+            }
         } else {
-            item.state = NSControlStateValueOff;
+            if ([@"" isEqualToString:itemValue]) {
+                item.state = NSControlStateValueOff;
+            } else if ([values containsString:itemValue]) {
+                item.state = NSControlStateValueOn;
+            } else {
+                item.state = NSControlStateValueOff;
+            }
         }
     }];
 }
@@ -481,7 +529,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
         if ([value isEqualToString:@""]) {
             [self.options removeObjectForKey:key];
         } else {
-            self.options[key] = value;
+            self.options[key] = [NSSet setWithObject:value];
         }
         
         [self updateItemsWithOptions:self.options deckFormat:self.deckFormat classId:self.classId];

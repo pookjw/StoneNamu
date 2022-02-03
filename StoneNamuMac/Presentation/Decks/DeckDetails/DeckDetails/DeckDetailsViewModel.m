@@ -333,72 +333,68 @@
     [self.queue addBarrierBlock:^{
         NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
         
-        if (hsCards.count == 0) {
-            [snapshot deleteAllItems];
-        } else {
-            DeckDetailsSectionModel * __block _Nullable sectionModel = nil;
-            
-            [snapshot.sectionIdentifiers enumerateObjectsUsingBlock:^(DeckDetailsSectionModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                if (obj.type == DeckDetailsSectionModelTypeCards) {
-                    sectionModel = obj;
-                    *stop = YES;
-                }
-            }];
-            
-            if (sectionModel == nil) {
-                sectionModel = [[DeckDetailsSectionModel alloc] initWithType:DeckDetailsSectionModelTypeCards];
-                [snapshot appendSectionsWithIdentifiers:@[sectionModel]];
-                [sectionModel autorelease];
+        DeckDetailsSectionModel * __block _Nullable sectionModel = nil;
+        
+        [snapshot.sectionIdentifiers enumerateObjectsUsingBlock:^(DeckDetailsSectionModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if (obj.type == DeckDetailsSectionModelTypeCards) {
+                sectionModel = obj;
+                *stop = YES;
             }
+        }];
+        
+        if (sectionModel == nil) {
+            sectionModel = [[DeckDetailsSectionModel alloc] initWithType:DeckDetailsSectionModelTypeCards];
+            [snapshot appendSectionsWithIdentifiers:@[sectionModel]];
+            [sectionModel autorelease];
+        }
+        
+        //
+        
+        NSMutableArray<HSCard *> *addedHSCards = [@[] mutableCopy];
+        
+        for (HSCard *hsCard in hsCards) {
+            if ([addedHSCards containsObject:hsCard]) continue;
+            [addedHSCards addObject:hsCard];
             
-            //
-            
-            NSMutableArray<HSCard *> *addedHSCards = [@[] mutableCopy];
-            
-            for (HSCard *hsCard in hsCards) {
-                if ([addedHSCards containsObject:hsCard]) continue;
-                [addedHSCards addObject:hsCard];
-                
-                BOOL __block exists = NO;
-                
-                [[snapshot itemIdentifiersInSectionWithIdentifier:sectionModel] enumerateObjectsUsingBlock:^(DeckDetailsItemModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                    if ([hsCard isEqual:obj.hsCard]) {
-                        exists = YES;
-                        *stop = YES;
-                        
-                        NSUInteger hsCardCount = [hsCards countOfObject:hsCard];
-                        
-                        if (obj.hsCardCount.unsignedIntegerValue != hsCardCount) {
-                            obj.hsCardCount = [NSNumber numberWithUnsignedInteger:hsCardCount];
-                            [snapshot reconfigureItemsWithIdentifiers:@[obj]];
-                        }
-                    }
-                }];
-                
-                if (!exists) {
-                    DeckDetailsItemModel *itemModel = [[DeckDetailsItemModel alloc] initWithType:DeckDetailsItemModelTypeCard];
-                    itemModel.hsCard = hsCard;
-                    itemModel.hsCardCount = [NSNumber numberWithUnsignedInteger:[hsCards countOfObject:hsCard]];
-                    [snapshot appendItemsWithIdentifiers:@[itemModel] intoSectionWithIdentifier:sectionModel];
-                    [itemModel release];
-                }
-            }
-            
-            [addedHSCards release];
-            
-            //
-            
-            NSMutableArray<DeckDetailsItemModel *> *willBeDeletedItems = [@[] mutableCopy];
+            BOOL __block exists = NO;
             
             [[snapshot itemIdentifiersInSectionWithIdentifier:sectionModel] enumerateObjectsUsingBlock:^(DeckDetailsItemModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                if (![hsCards containsObject:obj.hsCard]) {
-                    [snapshot deleteItemsWithIdentifiers:@[obj]];
+                if ([hsCard isEqual:obj.hsCard]) {
+                    exists = YES;
+                    *stop = YES;
+                    
+                    NSUInteger hsCardCount = [hsCards countOfObject:hsCard];
+                    
+                    if (obj.hsCardCount.unsignedIntegerValue != hsCardCount) {
+                        obj.hsCardCount = [NSNumber numberWithUnsignedInteger:hsCardCount];
+                        [snapshot reconfigureItemsWithIdentifiers:@[obj]];
+                    }
                 }
             }];
             
-            [snapshot deleteItemsWithIdentifiers:willBeDeletedItems];
-            [willBeDeletedItems release];
+            if (!exists) {
+                DeckDetailsItemModel *itemModel = [[DeckDetailsItemModel alloc] initWithType:DeckDetailsItemModelTypeCard];
+                itemModel.hsCard = hsCard;
+                itemModel.hsCardCount = [NSNumber numberWithUnsignedInteger:[hsCards countOfObject:hsCard]];
+                [snapshot appendItemsWithIdentifiers:@[itemModel] intoSectionWithIdentifier:sectionModel];
+                [itemModel release];
+            }
         }
+        
+        [addedHSCards release];
+        
+        //
+        
+        NSMutableArray<DeckDetailsItemModel *> *willBeDeletedItems = [@[] mutableCopy];
+        
+        [[snapshot itemIdentifiersInSectionWithIdentifier:sectionModel] enumerateObjectsUsingBlock:^(DeckDetailsItemModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if (![hsCards containsObject:obj.hsCard]) {
+                [snapshot deleteItemsWithIdentifiers:@[obj]];
+            }
+        }];
+        
+        [snapshot deleteItemsWithIdentifiers:willBeDeletedItems];
+        [willBeDeletedItems release];
         
         [self sortSnapshot:snapshot];
         

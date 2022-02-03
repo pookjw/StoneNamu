@@ -10,6 +10,7 @@
 #import <StoneNamuCore/BlizzardHSAPIKeys.h>
 #import <StoneNamuCore/BlizzardHSAPILocale.h>
 #import <StoneNamuCore/PrefsUseCaseImpl.h>
+#import <StoneNamuCore/NSDictionary+combine.h>
 
 @interface HSDeckUseCaseImpl ()
 @property (retain) id<HSDeckRepository> hsDeckRepository;
@@ -88,7 +89,15 @@
             apiRegionHost = Prefs.alternativeAPIRegionHost;
         }
         
-        completion([prefs addLocalKeyIfNeedToOptions:options], [NSNumber numberWithUnsignedInteger:BlizzardAPIRegionHostFromNSStringForAPI(apiRegionHost)]);
+        NSString *locale;
+        
+        if (prefs.locale) {
+            locale = prefs.locale;
+        } else {
+            locale = Prefs.alternativeLocale;
+        }
+        
+        completion([options dictionaryByAddingKey:BlizzardHSAPIOptionTypeLocale value:locale shouldOverride:YES], [NSNumber numberWithUnsignedInteger:BlizzardAPIRegionHostFromNSStringForAPI(apiRegionHost)]);
     }];
 }
 

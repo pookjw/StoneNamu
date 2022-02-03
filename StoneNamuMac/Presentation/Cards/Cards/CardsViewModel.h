@@ -23,11 +23,11 @@ static NSNotificationName const NSNotificationNameCardsViewModelEndedLoadingData
 
 @interface CardsViewModel : NSObject
 @property (readonly, retain) CardsDataSource *dataSource;
-@property (readonly, copy) NSDictionary<NSString *, id> * _Nullable options;
+@property (readonly, copy) NSDictionary<NSString *, NSSet<NSString *> *> * _Nullable options;
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithDataSource:(CardsDataSource *)dataSource;
-- (BOOL)requestDataSourceWithOptions:(NSDictionary<NSString *, NSString *> * _Nullable)options reset:(BOOL)reset;
+- (BOOL)requestDataSourceWithOptions:(NSDictionary<NSString *, NSSet<NSString *> *> * _Nullable)options reset:(BOOL)reset;
 - (void)hsCardsFromIndexPathsWithCompletion:(NSSet<NSIndexPath *> *)indexPaths completion:(CardsViewModelHSCardsFromIndexPathsCompletion)completion;
 - (NSSet<HSCard *> *)hsCardsFromIndexPaths:(NSSet<NSIndexPath *> *)indexPaths;
 @end

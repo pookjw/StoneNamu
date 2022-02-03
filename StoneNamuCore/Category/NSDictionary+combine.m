@@ -9,12 +9,16 @@
 
 @implementation NSDictionary (combine)
 
-- (NSDictionary *)dictionaryByAddingKey:(id)key value:(id)value {
-    NSMutableDictionary *mutable = [self mutableCopy];
-    mutable[key] = value;
-    NSDictionary *result = [mutable copy];
-    [mutable release];
-    return [result autorelease];
+- (NSDictionary *)dictionaryByAddingKey:(id)key value:(id)value shouldOverride:(BOOL)shouldOverride {
+    if ((self[key] == nil) || (shouldOverride)) {
+        NSMutableDictionary *mutable = [self mutableCopy];
+        mutable[key] = value;
+        NSDictionary *result = [mutable copy];
+        [mutable release];
+        return [result autorelease];
+    } else {
+        return [[self copy] autorelease];
+    }
 }
 
 - (NSDictionary *)dictionaryByCombiningWithDictionary:(NSDictionary *)dictionary shouldOverride:(BOOL)shouldOverride {

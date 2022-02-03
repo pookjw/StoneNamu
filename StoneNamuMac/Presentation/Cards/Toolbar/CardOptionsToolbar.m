@@ -30,16 +30,16 @@
 @property (retain) DynamicMenuToolbarItem *optionTypeGameModeItem;
 @property (retain) DynamicMenuToolbarItem *optionTypeSortItem;
 @property (retain) NSArray<DynamicMenuToolbarItem *> *optionTypeAllItems;
-@property (retain) NSMutableDictionary<NSString *, NSString *> *options;
+@property (retain) NSMutableDictionary<NSString *, NSSet<NSString *> *> *options;
 @end
 
 @implementation CardOptionsToolbar
 
-- (instancetype)initWithIdentifier:(NSToolbarIdentifier)identifier options:(NSDictionary<NSString *, NSString *> * _Nullable)options cardOptionsToolbarDelegate:(id<CardOptionsToolbarDelegate>)cardOptionsToolbarDelegate {
+- (instancetype)initWithIdentifier:(NSToolbarIdentifier)identifier options:(NSDictionary<NSString *, NSSet<NSString *> *> * _Nullable)options cardOptionsToolbarDelegate:(id<CardOptionsToolbarDelegate>)cardOptionsToolbarDelegate {
     self = [self initWithIdentifier:identifier];
     
     if (self) {
-        NSMutableDictionary<NSString *, NSString *> *mutableOptions = [options mutableCopy];
+        NSMutableDictionary<NSString *, NSSet<NSString *> *> *mutableOptions = [options mutableCopy];
         self.options = mutableOptions;
         [mutableOptions release];
         
@@ -201,8 +201,8 @@
     [self validateVisibleItems];
 }
 
-- (void)updateItemsWithOptions:(NSDictionary<NSString *, NSString *> * _Nullable)options {
-    NSMutableDictionary<NSString *, NSString *> *mutableOptions = [options mutableCopy];
+- (void)updateItemsWithOptions:(NSDictionary<NSString *, NSSet<NSString *> *> * _Nullable)options {
+    NSMutableDictionary<NSString *, NSSet<NSString *> *> *mutableOptions = [options mutableCopy];
     self.options = mutableOptions;
     [mutableOptions release];
     
@@ -214,28 +214,26 @@
         
         NSToolbarItemIdentifier itemIdentifier = item.itemIdentifier;
         BlizzardHSAPIOptionType optionType = BlizzardHSAPIOptionTypeFromNSToolbarIdentifierCardOptionType(itemIdentifier);
-        NSString * _Nullable value = options[optionType];
+        NSSet<NSString *> * _Nullable values = options[optionType];
         
         //
         
         NSSearchField * _Nullable searchField = (NSSearchField * _Nullable)obj.menu.itemArray.firstObject.view;
         
         if ((searchField != nil) && ([searchField isKindOfClass:[NSSearchField class]])) {
-            NSString *stringValue;
+            NSString * _Nullable stringValue = values.allObjects.firstObject;
             
-            if (value == nil) {
-                stringValue = @"";
+            if (stringValue == nil) {
+                searchField.stringValue = @"";
             } else {
-                stringValue = value;
+                searchField.stringValue = stringValue;
             }
-            
-            searchField.stringValue = stringValue;
         }
         
         //
         
-        item.image = [CardOptionsMenuFactory imageForCardOptionTypeWithValue:value optionType:optionType];
-        item.title = [CardOptionsMenuFactory titleForCardOptionTypeWithValue:value optionType:optionType];
+        obj.image = [CardOptionsMenuFactory imageForCardOptionTypeWithValues:values optionType:optionType];
+        obj.title = [CardOptionsMenuFactory titleForOptionType:optionType];
         
         [self updateStateOfMenuToolbarItem:item];
     }];
@@ -251,19 +249,31 @@
 - (void)updateStateOfMenuToolbarItem:(DynamicMenuToolbarItem *)menuToolbarItem {
     NSToolbarItemIdentifier itemIdentifier = menuToolbarItem.itemIdentifier;
     BlizzardHSAPIOptionType optionType = BlizzardHSAPIOptionTypeFromNSToolbarIdentifierCardOptionType(itemIdentifier);
-    NSString *selectedValue = self.options[optionType];
+    
+    NSArray<NSString *> * _Nullable values = self.options[optionType].allObjects;
+    BOOL shouldSelectEmptyValue = ((values == nil) || (values.count == 0));
     
     [menuToolbarItem.menu.itemArray enumerateObjectsUsingBlock:^(NSMenuItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         StorableMenuItem *item = (StorableMenuItem *)obj;
         
         if (![item isKindOfClass:[StorableMenuItem class]]) return;
         
-        if ([item.userInfo[optionType] isEqualToString:selectedValue]) {
-            item.state = NSControlStateValueOn;
-        } else if ([@"" isEqualToString:item.userInfo[optionType]] && (selectedValue == nil)) {
-            item.state = NSControlStateValueOn;
+        NSString *itemValue = item.userInfo[CardOptionsMenuFactoryStorableMenuItemValueKey];
+        
+        if (shouldSelectEmptyValue) {
+            if ([@"" isEqualToString:itemValue]) {
+                item.state = NSControlStateValueOn;
+            } else {
+                item.state = NSControlStateValueOff;
+            }
         } else {
-            item.state = NSControlStateValueOff;
+            if ([@"" isEqualToString:itemValue]) {
+                item.state = NSControlStateValueOff;
+            } else if ([values containsString:itemValue]) {
+                item.state = NSControlStateValueOn;
+            } else {
+                item.state = NSControlStateValueOff;
+            }
         }
     }];
 }
@@ -285,13 +295,51 @@
 }
 
 - (void)keyMenuItemTriggered:(StorableMenuItem *)sender {
-    NSString *key = sender.userInfo.allKeys.firstObject;
-    NSString *value = sender.userInfo.allValues.firstObject;
+    NSDictionary<NSString *, id> *userInfo = sender.userInfo;
+    
+    BOOL showsEmptyItem;
+    BOOL supportsMultipleSelection;
+    
+    if (userInfo[CardOptionsMenuFactoryStorableMenuItemShowsEmptyItemKey]) {
+        showsEmptyItem = [(NSNumber *)userInfo[CardOptionsMenuFactoryStorableMenuItemShowsEmptyItemKey] boolValue];
+    } else {
+        showsEmptyItem = NO;
+    }
+    
+    if (userInfo[CardOptionsMenuFactoryStorableMenuItemSuppoertsMultipleSelection]) {
+        supportsMultipleSelection = [(NSNumber *)userInfo[CardOptionsMenuFactoryStorableMenuItemSuppoertsMultipleSelection] boolValue];
+    } else {
+        supportsMultipleSelection = NO;
+    }
+    
+    NSString *key = userInfo[CardOptionsMenuFactoryStorableMenuItemOptionTypeKey];
+    NSString *value = userInfo[CardOptionsMenuFactoryStorableMenuItemValueKey];
+    
+    //
     
     if ([value isEqualToString:@""]) {
         [self.options removeObjectForKey:key];
+    } else if (!supportsMultipleSelection) {
+        self.options[key] = [NSSet setWithObject:value];
     } else {
-        self.options[key] = value;
+        NSMutableSet<NSString *> * _Nullable values = [self.options[key] mutableCopy];
+        if (values == nil) {
+            values = [NSMutableSet<NSString *> new];
+        }
+        
+        if ([values.allObjects containsString:value]) {
+            [values removeObject:value];
+        } else {
+            [values addObject:value];
+        }
+        
+        if (values.count > 0) {
+            self.options[key] = values;
+        } else if (showsEmptyItem) {
+//            [self.options removeObjectForKey:key];
+        }
+        
+        [values release];
     }
     
     [self updateItemsWithOptions:self.options];
@@ -339,7 +387,7 @@
         if ([value isEqualToString:@""]) {
             [self.options removeObjectForKey:key];
         } else {
-            self.options[key] = value;
+            self.options[key] = [NSSet setWithObject:value];
         }
         
         [self updateItemsWithOptions:self.options];

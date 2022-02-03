@@ -11,6 +11,7 @@
 #import <StoneNamuCore/BlizzardHSAPILocale.h>
 #import <StoneNamuCore/PrefsUseCaseImpl.h>
 #import <StoneNamuCore/DataCacheUseCaseImpl.h>
+#import <StoneNamuCore/NSDictionary+combine.h>
 
 @interface HSCardUseCaseImpl ()
 @property (retain) id<HSCardRepository> hsCardRepository;
@@ -41,30 +42,29 @@
     [super dealloc];
 }
 
-- (void)fetchWithOptions:(NSDictionary<NSString *, id> * _Nullable)options
+- (void)fetchWithOptions:(NSDictionary<NSString *, NSSet<NSString *> *> * _Nullable)options
        completionHandler:(HSCardUseCaseCardsCompletion)completion {
-    [self fetchPrefsWithOptions:options completion:^(NSDictionary *finalOptions, NSNumber *region) {
+    [self fetchPrefsWithOptions:options completion:^(NSDictionary *prefOptions, NSNumber *region) {
         [self.hsCardRepository fetchCardsAtRegion:region.unsignedIntegerValue
-                                      withOptions:finalOptions
+                                      withOptions:prefOptions
                                 completionHandler:completion];
     }];
 }
 
 - (void)fetchWithIdOrSlug:(NSString *)idOrSlug
-              withOptions:(NSDictionary<NSString *, id> * _Nullable)options
+              withOptions:(NSDictionary<NSString *, NSSet<NSString *> *> * _Nullable)options
         completionHandler:(HSCardUseCaseCardCompletion)completion {
     
-    [self fetchPrefsWithOptions:options completion:^(NSDictionary *finalOptions, NSNumber *region) {
+    [self fetchPrefsWithOptions:options completion:^(NSDictionary *prefOptions, NSNumber *region) {
         [self.hsCardRepository fetchCardAtRegion:region.unsignedIntegerValue
                                     withIdOrSlug:idOrSlug
-                                     withOptions:finalOptions
+                                     withOptions:prefOptions
                                completionHandler:completion];
     }];
 }
 
-- (void)fetchPrefsWithOptions:(NSDictionary * _Nullable)options completion:(void (^)(NSDictionary *, NSNumber *))completion {
+- (void)fetchPrefsWithOptions:(NSDictionary<NSString *, NSSet<NSString *> *> * _Nullable)options completion:(void (^)(NSDictionary<NSString *, NSString *> *prefOptions, NSNumber *region))completion {
     [self.prefsUseCase fetchWithCompletion:^(Prefs * _Nullable prefs, NSError * _Nullable error) {
-        
         NSString *apiRegionHost;
         
         if (prefs.apiRegionHost) {
@@ -73,7 +73,29 @@
             apiRegionHost = Prefs.alternativeAPIRegionHost;
         }
         
-        completion([prefs addLocalKeyIfNeedToOptions:options], [NSNumber numberWithUnsignedInteger:BlizzardAPIRegionHostFromNSStringForAPI(apiRegionHost)]);
+        //
+        
+        NSString *locale;
+        
+        if (prefs.locale) {
+            locale = prefs.locale;
+        } else {
+            locale = Prefs.alternativeLocale;
+        }
+        
+        //
+        
+        NSMutableDictionary<NSString *, NSString *> *prefOptions = [NSMutableDictionary<NSString *, NSString *> new];
+        
+        [options enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSSet<NSString *> * _Nonnull obj, BOOL * _Nonnull stop) {
+            if (obj.count > 0) {
+                prefOptions[key] = [obj.allObjects componentsJoinedByString:@","];
+            }
+        }];
+        
+        prefOptions[BlizzardHSAPIOptionTypeLocale] = locale;
+        
+        completion([prefOptions autorelease], [NSNumber numberWithUnsignedInteger:BlizzardAPIRegionHostFromNSStringForAPI(apiRegionHost)]);
     }];
 }
 

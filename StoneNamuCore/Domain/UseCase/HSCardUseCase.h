@@ -15,12 +15,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol HSCardUseCase <NSObject>
 
-- (void)fetchWithOptions:(NSDictionary<NSString *, id> * _Nullable)options
-         completionHandler:(HSCardUseCaseCardsCompletion)completion;
+- (void)fetchWithOptions:(NSDictionary<NSString *, NSSet<NSString *> *> * _Nullable)options
+       completionHandler:(HSCardUseCaseCardsCompletion)completion;
 
 - (void)fetchWithIdOrSlug:(NSString *)idOrSlug
-               withOptions:(NSDictionary<NSString *, id> * _Nullable)options
-         completionHandler:(HSCardUseCaseCardCompletion)completion;
+              withOptions:(NSDictionary<NSString *, NSSet<NSString *> *> * _Nullable)options
+        completionHandler:(HSCardUseCaseCardCompletion)completion;
 
 @end
 

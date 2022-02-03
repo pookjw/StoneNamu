@@ -98,7 +98,7 @@ static NSDictionary<NSString *, NSNumber *> *kMigrateStatus = @{};
     [semaphore wait];
     [semaphore release];
     
-    NSDictionary<NSString *, NSPersistentContainer *> *new = [kStoreContainers dictionaryByAddingKey:modelName value:container];
+    NSDictionary<NSString *, NSPersistentContainer *> *new = [kStoreContainers dictionaryByAddingKey:modelName value:container shouldOverride:YES];
     [kStoreContainers release];
     kStoreContainers = [new copy];
     [self->_storeContainer release];
@@ -115,7 +115,7 @@ static NSDictionary<NSString *, NSNumber *> *kMigrateStatus = @{};
     NSManagedObjectContext *context = self.storeContainer.newBackgroundContext;
     context.automaticallyMergesChangesFromParent = YES;
     
-    NSDictionary<NSString *, NSManagedObjectContext *> *new = [kContexts dictionaryByAddingKey:modelName value:context];
+    NSDictionary<NSString *, NSManagedObjectContext *> *new = [kContexts dictionaryByAddingKey:modelName value:context shouldOverride:YES];
     [kContexts release];
     kContexts = [new copy];
     [self->_context release];
@@ -136,7 +136,7 @@ static NSDictionary<NSString *, NSNumber *> *kMigrateStatus = @{};
     NSOperationQueue *queue = [NSOperationQueue new];
     queue.qualityOfService = NSQualityOfServiceUserInitiated;
     
-    NSDictionary<NSString *, NSOperationQueue *> *new = [kOperationQueues dictionaryByAddingKey:modelName value:queue];
+    NSDictionary<NSString *, NSOperationQueue *> *new = [kOperationQueues dictionaryByAddingKey:modelName value:queue shouldOverride:YES];
     [kOperationQueues release];
     kOperationQueues = [new copy];
     [self->_queue release];
@@ -201,7 +201,7 @@ static NSDictionary<NSString *, NSNumber *> *kMigrateStatus = @{};
     [semaphore wait];
     [semaphore release];
     
-    NSDictionary<NSString *, NSNumber *> *new = [kMigrateStatus dictionaryByAddingKey:models value:[NSNumber numberWithBool:YES]];
+    NSDictionary<NSString *, NSNumber *> *new = [kMigrateStatus dictionaryByAddingKey:models value:[NSNumber numberWithBool:YES] shouldOverride:YES];
     [kMigrateStatus release];
     kMigrateStatus = [new copy];
 }

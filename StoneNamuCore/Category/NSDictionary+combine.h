@@ -10,7 +10,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSDictionary (combine)
-- (NSDictionary *)dictionaryByAddingKey:(id)key value:(id)value;
+- (NSDictionary *)dictionaryByAddingKey:(id)key value:(id)value shouldOverride:(BOOL)shouldOverride;
 - (NSDictionary *)dictionaryByCombiningWithDictionary:(NSDictionary *)dictionary shouldOverride:(BOOL)shouldOverride;
 @end
 

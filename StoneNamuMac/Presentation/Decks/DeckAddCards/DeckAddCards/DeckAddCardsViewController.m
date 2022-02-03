@@ -89,16 +89,24 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder backgroundQueue:(nonnull NSOperationQueue *)queue {
     [super encodeRestorableStateWithCoder:coder];
     
+    NSDictionary<NSString *, NSSet<NSString *> *> * _Nullable options = self.viewModel.options;
+    NSURL * _Nullable uri = self.viewModel.localDeck.objectID.URIRepresentation;
+    
     [queue addOperationWithBlock:^{
-        [coder encodeObject:self.viewModel.options forKey:@"options"];
-        [coder encodeObject:self.viewModel.localDeck.objectID.URIRepresentation forKey:@"URIRepresentation"];
+        if (options != nil) {
+            [coder encodeObject:options forKey:@"options"];
+        }
+        
+        if (uri != nil) {
+            [coder encodeObject:uri forKey:@"URIRepresentation"];
+        }
     }];
 }
 
 - (void)restoreStateWithCoder:(NSCoder *)coder {
     [super restoreStateWithCoder:coder];
     
-    NSDictionary<NSString *, NSString *> *options = [coder decodeObjectOfClass:[NSDictionary<NSString *, NSString *> class] forKey:@"options"];
+    NSDictionary<NSString *, NSSet<NSString *> *> *options = [coder decodeObjectOfClasses:[NSSet setWithArray:@[NSDictionary.class, NSSet.class, NSString.class]] forKey:@"options"];
     
     NSURL * _Nullable URIRepresentation = [coder decodeObjectOfClass:[NSURL class] forKey:@"URIRepresentation"];
     
@@ -136,13 +144,13 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
     }
 }
 
-- (void)updateOptionInterfaceWithOptions:(NSDictionary<NSString *, NSString *> * _Nullable)options {
+- (void)updateOptionInterfaceWithOptions:(NSDictionary<NSString *, NSSet<NSString *> *> * _Nullable)options {
     [self.deckAddCardOptionsMenu updateItemsWithOptions:options deckFormat:self.viewModel.localDeck.format classId:self.viewModel.localDeck.classId.unsignedIntegerValue];
     [self.deckAddCardOptionsToolbar updateItemsWithOptions:options deckFormat:self.viewModel.localDeck.format classId:self.viewModel.localDeck.classId.unsignedIntegerValue];
     [self.deckAddCardOptionsTouchBar updateItemsWithOptions:options deckFormat:self.viewModel.localDeck.format classId:self.viewModel.localDeck.classId.unsignedIntegerValue];
 }
 
-- (BOOL)requestDataSourceWithOptions:(NSDictionary<NSString *, NSString *> * _Nullable)options reset:(BOOL)reset {
+- (BOOL)requestDataSourceWithOptions:(NSDictionary<NSString *, NSSet<NSString *> *> * _Nullable)options reset:(BOOL)reset {
     BOOL requested = [self.viewModel requestDataSourceWithOptions:options reset:reset];
     
     if (requested) {
@@ -156,7 +164,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
     return requested;
 }
 
-- (void)undoOptions:(NSDictionary<NSString *, NSString *> *)options {
+- (void)undoOptions:(NSDictionary<NSString *, NSSet<NSString *> *> *)options {
     [self updateOptionInterfaceWithOptions:options];
     [self.viewModel requestDataSourceWithOptions:options reset:YES];
 }
@@ -323,7 +331,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
 }
 
 - (void)startedLoadingDataSourceReceived:(NSNotification *)notification {
-    NSDictionary<NSString *, NSString *> * _Nullable options = notification.userInfo[NSNotificationNameDeckAddCardsViewModelStartedLoadingDataSourceOptionsKey];
+    NSDictionary<NSString *, NSSet<NSString *> *> * _Nullable options = notification.userInfo[NSNotificationNameDeckAddCardsViewModelStartedLoadingDataSourceOptionsKey];
     
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
         [self addSpinnerView];
@@ -509,7 +517,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
 
 #pragma mark - DeckAddCardOptionsMenuDelegate
 
-- (void)deckAddCardOptionsMenu:(DeckAddCardOptionsMenu *)menu changedOption:(NSDictionary<NSString *,NSString *> *)options {
+- (void)deckAddCardOptionsMenu:(DeckAddCardOptionsMenu *)menu changedOption:(NSDictionary<NSString *,NSSet<NSString *> *> *)options {
     [self requestDataSourceWithOptions:options reset:YES];
 }
 
@@ -519,13 +527,13 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
 
 #pragma mark - DeckAddCardOptionsToolbarDelegate
 
-- (void)deckAddCardOptionsToolbar:(DeckAddCardOptionsToolbar *)toolbar changedOption:(NSDictionary<NSString *,NSString *> *)options {
+- (void)deckAddCardOptionsToolbar:(DeckAddCardOptionsToolbar *)toolbar changedOption:(NSDictionary<NSString *,NSSet<NSString *> *> *)options {
     [self requestDataSourceWithOptions:options reset:YES];
 }
 
 #pragma mark - DeckAddCardOptionsTouchBarDelegate
 
-- (void)deckAddCardOptionsTouchBar:(DeckAddCardOptionsTouchBar *)touchBar changedOption:(NSDictionary<NSString *,NSString *> *)options {
+- (void)deckAddCardOptionsTouchBar:(DeckAddCardOptionsTouchBar *)touchBar changedOption:(NSDictionary<NSString *,NSSet<NSString *> *> *)options {
     [self requestDataSourceWithOptions:options reset:YES];
 }
 

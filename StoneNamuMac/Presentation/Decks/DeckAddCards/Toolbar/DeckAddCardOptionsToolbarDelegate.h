@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class DeckAddCardOptionsToolbar;
 
 @protocol DeckAddCardOptionsToolbarDelegate <NSObject>
-- (void)deckAddCardOptionsToolbar:(DeckAddCardOptionsToolbar *)toolbar changedOption:(NSDictionary<NSString *, NSString *> *)options;
+- (void)deckAddCardOptionsToolbar:(DeckAddCardOptionsToolbar *)toolbar changedOption:(NSDictionary<NSString *, NSSet<NSString *> *> *)options;
 @end
 
 NS_ASSUME_NONNULL_END

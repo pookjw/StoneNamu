@@ -68,11 +68,13 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierMainList
     
     NSIndexSet *selectedRowIndexes = [coder decodeObjectOfClass:[NSIndexSet class] forKey:@"selectedRowIndexes"];
     
-    [self.viewModel.queue addBarrierBlock:^{
-        [NSOperationQueue.mainQueue addOperationWithBlock:^{
-            [self.tableView selectRowIndexes:selectedRowIndexes byExtendingSelection:NO];
+    if (selectedRowIndexes.count > 1) {
+        [self.viewModel.queue addBarrierBlock:^{
+            [NSOperationQueue.mainQueue addOperationWithBlock:^{
+                [self.tableView selectRowIndexes:selectedRowIndexes byExtendingSelection:NO];
+            }];
         }];
-    }];
+    }
 }
 
 - (void)selectItemModelType:(MainListItemModelType)type {

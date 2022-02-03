@@ -28,12 +28,12 @@ static NSNotificationName const NSNotificationNameDeckAddCardsViewModelLocalDeck
 @interface DeckAddCardsViewModel : NSObject
 @property (retain) LocalDeck * _Nullable localDeck;
 @property (readonly, retain) DeckAddCardsDataSource *dataSource;
-@property (readonly, copy) NSDictionary<NSString *, NSString *> * _Nullable options;
+@property (readonly, copy) NSDictionary<NSString *, NSSet<NSString *> *> * _Nullable options;
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithDataSource:(DeckAddCardsDataSource *)dataSource;
 - (void)loadLocalDeckFromURIRepresentation:(NSURL *)URIRepresentation completion:(DeckAddCardsViewModelLoadFromURIRepresentationCompletion)completion;
-- (BOOL)requestDataSourceWithOptions:(NSDictionary<NSString *, NSString *> * _Nullable)options reset:(BOOL)reset;
+- (BOOL)requestDataSourceWithOptions:(NSDictionary<NSString *, NSSet<NSString *> *> * _Nullable)options reset:(BOOL)reset;
 - (void)addHSCards:(NSSet<HSCard *> *)hsCards;
 - (void)addHSCardsFromIndexPathes:(NSSet<NSIndexPath *> *)indexPathes;
 - (void)hsCardsFromIndexPathsWithCompletion:(NSSet<NSIndexPath *> *)indexPaths completion:(DeckAddCardsViewModelHSCardsFromIndexPathsCompletion)completion;

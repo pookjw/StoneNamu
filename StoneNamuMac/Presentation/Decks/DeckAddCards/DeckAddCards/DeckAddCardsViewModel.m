@@ -115,15 +115,15 @@
     NSBlockOperation * __block op = [NSBlockOperation new];
     
     [op addExecutionBlock:^{
-        NSDictionary<NSString *, NSString *> *defaultOptions = [self optionsForLocalDeckClassId];
+        NSDictionary<NSString *, NSSet<NSString *> *> *defaultOptions = [self optionsForLocalDeckClassId];
+        NSDictionary<NSString *, NSSet<NSString *> *> * _Nullable finalOptions = [options dictionaryByCombiningWithDictionary:defaultOptions shouldOverride:NO];
         
-        if (options == nil) {
+        if (finalOptions == nil) {
             [self->_options release];
             self->_options = [defaultOptions copy];
         } else {
-            NSDictionary *dic = [options dictionaryByCombiningWithDictionary:defaultOptions shouldOverride:NO];
             [self->_options release];
-            self->_options = [dic copy];
+            self->_options = [finalOptions copy];
         }
         
         //
@@ -137,17 +137,15 @@
         if (self.pageCount != nil) {
             // Next page
             NSNumber *nextPage = [NSNumber numberWithUnsignedInt:[self.page unsignedIntValue] + 1];
-            mutableDic[BlizzardHSAPIOptionTypePage] = [nextPage stringValue];
+            mutableDic[BlizzardHSAPIOptionTypePage] = [NSSet setWithObject:[nextPage stringValue]];
         } else {
             // Initial data
-            mutableDic[BlizzardHSAPIOptionTypePage] = [self.page stringValue];
+            mutableDic[BlizzardHSAPIOptionTypePage] = [NSSet setWithObject:[self.page stringValue]];
         }
         
         SemaphoreCondition *semaphore = [[SemaphoreCondition alloc] initWithValue:0];
         
         [self.hsCardUseCase fetchWithOptions:mutableDic completionHandler:^(NSArray<HSCard *> * _Nullable cards, NSNumber *pageCount, NSNumber *page, NSError * _Nullable error) {
-            
-            [mutableDic release];
             
             if (op.isCancelled) {
                 [semaphore signal];
@@ -171,6 +169,7 @@
             }];
         }];
         
+        [mutableDic release];
         [semaphore wait];
     }];
     
@@ -180,11 +179,11 @@
     return YES;
 }
 
-- (NSDictionary<NSString *, NSString *> *)optionsForLocalDeckClassId {
+- (NSDictionary<NSString *, NSSet<NSString *> *> *)optionsForLocalDeckClassId {
     if (self.localDeck == nil) return BlizzardHSAPIDefaultOptions();
 
-    NSMutableDictionary<NSString *, NSString *> *options = [BlizzardHSAPIDefaultOptions() mutableCopy];
-    options[BlizzardHSAPIOptionTypeClass] = NSStringFromHSCardClass(self.localDeck.classId.unsignedIntegerValue);
+    NSMutableDictionary<NSString *, NSSet<NSString *> *> *options = [BlizzardHSAPIDefaultOptions() mutableCopy];
+    options[BlizzardHSAPIOptionTypeClass] = [NSSet setWithArray:@[NSStringFromHSCardClass(self.localDeck.classId.unsignedIntegerValue), NSStringFromHSCardClass(HSCardClassNeutral)]];
 
     HSCardSet cardSet;
     if ([self.localDeck.format isEqualToString:HSDeckFormatStandard]) {
@@ -196,7 +195,7 @@
     } else {
         cardSet = HSCardSetWildCards;
     }
-    options[BlizzardHSAPIOptionTypeSet] = NSStringFromHSCardSet(cardSet);
+    options[BlizzardHSAPIOptionTypeSet] = [NSSet setWithObject:NSStringFromHSCardSet(cardSet)];
 
     return [options autorelease];
 }
@@ -369,7 +368,7 @@
                                                     userInfo:@{DeckAddCardsViewModelErrorNotificationErrorKey: error}];
 }
 
-- (void)postStartedLoadingDataSourceWithOptions:(NSDictionary<NSString *, NSString *> *)options {
+- (void)postStartedLoadingDataSourceWithOptions:(NSDictionary<NSString *, NSSet<NSString *> *> *)options {
     [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameDeckAddCardsViewModelStartedLoadingDataSource
                                                       object:self
                                                     userInfo:@{NSNotificationNameDeckAddCardsViewModelStartedLoadingDataSourceOptionsKey: options}];

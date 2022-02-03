@@ -74,7 +74,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardColl
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder backgroundQueue:(NSOperationQueue *)queue {
     [super encodeRestorableStateWithCoder:coder backgroundQueue:queue];
     
-    NSDictionary<NSString *, NSString *> *options = self.viewModel.options;
+    NSDictionary<NSString *, NSSet<NSString *> *> *options = self.viewModel.options;
     
     [queue addOperationWithBlock:^{
         [coder encodeObject:options forKey:@"options"];
@@ -84,7 +84,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardColl
 - (void)restoreStateWithCoder:(NSCoder *)coder {
     [super restoreStateWithCoder:coder];
     
-    NSDictionary<NSString *, id> *options = [coder decodeObjectOfClass:[NSDictionary<NSString *, id> class] forKey:@"options"];
+    NSDictionary<NSString *, NSSet<NSString *> *> *options = [coder decodeObjectOfClasses:[NSSet setWithArray:@[NSDictionary.class, NSSet.class, NSString.class]] forKey:@"options"];
     [self requestDataSourceWithOptions:options reset:YES];
 }
 
@@ -109,13 +109,13 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardColl
     }
 }
 
-- (void)updateOptionInterfaceWithOptions:(NSDictionary<NSString *, NSString *> * _Nullable)options {
+- (void)updateOptionInterfaceWithOptions:(NSDictionary<NSString *, NSSet<NSString *> *> * _Nullable)options {
     [self.cardOptionsMenu updateItemsWithOptions:options];
     [self.cardOptionsToolbar updateItemsWithOptions:options];
     [self.cardOptionsTouchBar updateItemsWithOptions:options];
 }
 
-- (BOOL)requestDataSourceWithOptions:(NSDictionary<NSString *, NSString *> * _Nullable)options reset:(BOOL)reset {
+- (BOOL)requestDataSourceWithOptions:(NSDictionary<NSString *, NSSet<NSString *> *> * _Nullable)options reset:(BOOL)reset {
     BOOL requested = [self.viewModel requestDataSourceWithOptions:options reset:reset];
     
     if (requested) {
@@ -129,7 +129,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardColl
     return requested;
 }
 
-- (void)undoOptions:(NSDictionary<NSString *, NSString *> *)options {
+- (void)undoOptions:(NSDictionary<NSString *, NSSet<NSString *> *> *)options {
     [self updateOptionInterfaceWithOptions:options];
     [self.viewModel requestDataSourceWithOptions:options reset:YES];
 }
@@ -303,7 +303,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardColl
 }
 
 - (void)startedLoadingDataSourceReceived:(NSNotification *)notification {
-    NSDictionary<NSString *, NSString *> * _Nullable options = notification.userInfo[NSNotificationNameCardsViewModelStartedLoadingDataSourceOptionsKey];
+    NSDictionary<NSString *, NSSet<NSString *> *> * _Nullable options = notification.userInfo[NSNotificationNameCardsViewModelStartedLoadingDataSourceOptionsKey];
     
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
         [self addSpinnerView];
@@ -481,7 +481,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardColl
 
 #pragma mark - CardOptionsMenuDelegate
 
-- (void)cardOptionsMenu:(CardOptionsMenu *)menu changedOption:(NSDictionary<NSString *,NSString *> *)options {
+- (void)cardOptionsMenu:(CardOptionsMenu *)menu changedOption:(NSDictionary<NSString *,NSSet<NSString *> *> *)options {
     [self requestDataSourceWithOptions:options reset:YES];
 }
 
@@ -491,13 +491,13 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardColl
 
 #pragma mark - CardOptionsToolbarDelegate
 
-- (void)cardOptionsToolbar:(CardOptionsToolbar *)toolbar changedOption:(NSDictionary<NSString *,NSString *> *)options {
+- (void)cardOptionsToolbar:(CardOptionsToolbar *)toolbar changedOption:(NSDictionary<NSString *,NSSet<NSString *> *> *)options {
     [self requestDataSourceWithOptions:options reset:YES];
 }
 
 #pragma mark - CardOptionsTouchBarDelegate
 
-- (void)cardOptionsTouchBar:(CardOptionsTouchBar *)touchBar changedOption:(NSDictionary<NSString *,NSString *> *)options {
+- (void)cardOptionsTouchBar:(CardOptionsTouchBar *)touchBar changedOption:(NSDictionary<NSString *,NSSet<NSString *> *> *)options {
     [self requestDataSourceWithOptions:options reset:YES];
 }
 
