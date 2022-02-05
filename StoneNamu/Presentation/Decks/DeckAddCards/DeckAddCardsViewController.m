@@ -39,7 +39,12 @@
         [self loadViewIfNeeded];
         self.viewModel.localDeck = localDeck;
         [self.viewModel requestDataSourceWithOptions:nil reset:YES];
-        [self updateDeckDetailButtonText];
+        
+        [self.viewModel countOfLocalDeckCardsWithCompletion:^(NSNumber * _Nullable countOfLocalDeckCards, BOOL isFull) {
+            [NSOperationQueue.mainQueue addOperationWithBlock:^{
+                [self updateDeckDetailButtonTextWithCount:countOfLocalDeckCards];
+            }];
+        }];
     }
     
     return self;
@@ -75,28 +80,32 @@
 }
 
 - (void)requestDismissWithPromptIfNeeded {
-    if (self.viewModel.isLocalDeckCardFull) {
-        [self dismissViewControllerAnimated:YES completion:^{}];
-    } else {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:[ResourcesService localizationForKey:LocalizableKeyDeckAddCardsNotFullTitle]
-                                                                       message:[NSString stringWithFormat:[ResourcesService localizationForKey:LocalizableKeyDeckAddCardsNotFullDescription], HSDECK_MAX_TOTAL_CARDS, self.viewModel.countOfLocalDeckCards]
-                                                                preferredStyle:UIAlertControllerStyleAlert];
-        
-        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:[ResourcesService localizationForKey:LocalizableKeyNo]
-                                                               style:UIAlertActionStyleCancel
-                                                             handler:^(UIAlertAction * _Nonnull action) {}];
-        
-        UIAlertAction *dismissAction = [UIAlertAction actionWithTitle:[ResourcesService localizationForKey:LocalizableKeyYes]
-                                                                style:UIAlertActionStyleDefault
-                                                              handler:^(UIAlertAction * _Nonnull action) {
-            [self dismissViewControllerAnimated:YES completion:^{}];
+    [self.viewModel countOfLocalDeckCardsWithCompletion:^(NSNumber * _Nullable countOfLocalDeckCards, BOOL isFull) {
+        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+            if ((isFull) || (countOfLocalDeckCards == nil)) {
+                [self dismissViewControllerAnimated:YES completion:^{}];
+            } else {
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:[ResourcesService localizationForKey:LocalizableKeyDeckAddCardsNotFullTitle]
+                                                                               message:[NSString stringWithFormat:[ResourcesService localizationForKey:LocalizableKeyDeckAddCardsNotFullDescription], HSDECK_MAX_TOTAL_CARDS, countOfLocalDeckCards.unsignedIntegerValue]
+                                                                        preferredStyle:UIAlertControllerStyleAlert];
+                
+                UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:[ResourcesService localizationForKey:LocalizableKeyNo]
+                                                                       style:UIAlertActionStyleCancel
+                                                                     handler:^(UIAlertAction * _Nonnull action) {}];
+                
+                UIAlertAction *dismissAction = [UIAlertAction actionWithTitle:[ResourcesService localizationForKey:LocalizableKeyYes]
+                                                                        style:UIAlertActionStyleDefault
+                                                                      handler:^(UIAlertAction * _Nonnull action) {
+                    [self dismissViewControllerAnimated:YES completion:^{}];
+                }];
+                
+                [alert addAction:cancelAction];
+                [alert addAction:dismissAction];
+                
+                [self presentViewController:alert animated:YES completion:^{}];
+            }
         }];
-        
-        [alert addAction:cancelAction];
-        [alert addAction:dismissAction];
-        
-        [self presentViewController:alert animated:YES completion:^{}];
-    }
+    }];
 }
 
 - (void)viewDidLoad {
@@ -320,9 +329,13 @@
 }
 
 - (void)localDeckHasChangedReceived:(NSNotification *)notification {
-    [NSOperationQueue.mainQueue addOperationWithBlock:^{
-        [self updateDeckDetailButtonText];
-    }];
+    NSNumber * _Nullable count = notification.userInfo[DeckAddCardsViewModelLocalDeckHasChangedCountOfLocalDeckCardsItemKey];
+    
+    if (count != nil) {
+        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+            [self updateDeckDetailButtonTextWithCount:count];
+        }];
+    }
 }
 
 - (NSArray<UIDragItem *> *)makeDragItemsFromIndexPath:(NSIndexPath *)indexPath {
@@ -372,9 +385,9 @@
     return [nvc autorelease];
 }
 
-- (void)updateDeckDetailButtonText {
+- (void)updateDeckDetailButtonTextWithCount:(NSNumber *)count {
     UIButtonConfiguration *buttonConfiguration = [self makeDeckDetailButtonConfiguration];
-    NSAttributedString *title = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%lu / %d", self.viewModel.countOfLocalDeckCards, HSDECK_MAX_TOTAL_CARDS]
+    NSAttributedString *title = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ / %d", count.stringValue, HSDECK_MAX_TOTAL_CARDS]
                                                                 attributes:@{NSFontAttributeName: [UIFont preferredFontForTextStyle:UIFontTextStyleTitle2],
                                                                              NSForegroundColorAttributeName: UIColor.whiteColor}];
     buttonConfiguration.attributedTitle = title;

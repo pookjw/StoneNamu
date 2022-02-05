@@ -6,10 +6,9 @@
 //
 
 #import "CardOptionItemModel.h"
-#import <StoneNamuCore/StoneNamuCore.h>
 #import <StoneNamuResources/StoneNamuResources.h>
 
-NSString * NSStringFromCardOptionItemModelType(CardOptionItemModelType type) {
+BlizzardHSAPIOptionType BlizzardHSAPIOptionTypeFromCardOptionItemModelType(CardOptionItemModelType type) {
     switch (type) {
         case CardOptionItemModelTypeSet:
             return BlizzardHSAPIOptionTypeSet;
@@ -44,7 +43,7 @@ NSString * NSStringFromCardOptionItemModelType(CardOptionItemModelType type) {
     }
 }
 
-CardOptionItemModelType CardOptionItemModelTypeFromNSString(NSString * key) {
+CardOptionItemModelType CardOptionItemModelTypeFromBlizzardHSAPIOptionType(BlizzardHSAPIOptionType key) {
     if ([key isEqualToString:BlizzardHSAPIOptionTypeSet]) {
         return CardOptionItemModelTypeSet;
     } else if ([key isEqualToString:BlizzardHSAPIOptionTypeClass]) {
@@ -92,7 +91,7 @@ CardOptionItemModelType CardOptionItemModelTypeFromNSString(NSString * key) {
 }
 
 - (void)dealloc {
-    [_value release];
+    [_values release];
     [super dealloc];
 }
 
@@ -103,7 +102,7 @@ CardOptionItemModelType CardOptionItemModelTypeFromNSString(NSString * key) {
     
     CardOptionItemModel *toCompare = (CardOptionItemModel *)object;
     
-    return (self.type == toCompare.type) && ([self.value isEqualToString:toCompare.value]);
+    return (self.type == toCompare.type);
 }
 
 - (NSUInteger)hash {
@@ -117,11 +116,11 @@ CardOptionItemModelType CardOptionItemModelTypeFromNSString(NSString * key) {
         case CardOptionItemModelTypeClass:
             return CardOptionItemModelValueSetTypePickerWithEmptyRow;
         case CardOptionItemModelTypeManaCost:
-            return CardOptionItemModelValueSetTypeStepper;
+            return CardOptionItemModelValueSetTypePickerWithEmptyRow;
         case CardOptionItemModelTypeAttack:
-            return CardOptionItemModelValueSetTypeStepper;
+            return CardOptionItemModelValueSetTypePickerWithEmptyRow;
         case CardOptionItemModelTypeHealth:
-            return CardOptionItemModelValueSetTypeStepper;
+            return CardOptionItemModelValueSetTypePickerWithEmptyRow;
         case CardOptionItemModelTypeCollectible:
             return CardOptionItemModelValueSetTypePicker;
         case CardOptionItemModelTypeRarity:
@@ -317,30 +316,87 @@ CardOptionItemModelType CardOptionItemModelTypeFromNSString(NSString * key) {
 }
 
 - (NSString * _Nullable)accessoryText {
+    NSString *(^ converter)(NSString *);
+    
     switch (self.type) {
-        case CardOptionItemModelTypeSet:
-            return [ResourcesService localizationForHSCardSet:HSCardSetFromNSString(self.value)];
-        case CardOptionItemModelTypeClass:
-            return [ResourcesService localizationForHSCardClass:HSCardClassFromNSString(self.value)];
-        case CardOptionItemModelTypeCollectible:
-            return [ResourcesService localizationForHSCardCollectible:HSCardCollectibleFromNSString(self.value)];
-        case CardOptionItemModelTypeRarity:
-            return [ResourcesService localizationForHSCardRarity:HSCardRarityFromNSString(self.value)];
-        case CardOptionItemModelTypeType:
-            return [ResourcesService localizationForHSCardType:HSCardTypeFromNSString(self.value)];
-        case CardOptionItemModelTypeMinionType:
-            return [ResourcesService localizationForHSCardMinionType:HSCardMinionTypeFromNSString(self.value)];
-        case CardOptionItemModelTypeSpellSchool:
-            return [ResourcesService localizationForHSCardSpellSchool:HSCardSpellSchoolFromNSString(self.value)];
-        case CardOptionItemModelTypeKeyword:
-            return [ResourcesService localizationForHSCardKeyword:HSCardKeywordFromNSString(self.value)];
-        case CardOptionItemModelTypeGameMode:
-            return [ResourcesService localizationForHSCardGameMode:HSCardGameModeFromNSString(self.value)];
-        case CardOptionItemModelTypeSort:
-            return [ResourcesService localizationForHSCardSort:HSCardSortFromNSString(self.value)];
-        default:
-            return self.value;
+        case CardOptionItemModelTypeSet: {
+            converter = ^NSString * (NSString *value) {
+                return [ResourcesService localizationForHSCardSet:HSCardSetFromNSString(value)];
+            };
+            break;
+        }
+        case CardOptionItemModelTypeClass: {
+            converter = ^NSString * (NSString *value) {
+                return [ResourcesService localizationForHSCardClass:HSCardClassFromNSString(value)];
+            };
+            break;
+        }
+        case CardOptionItemModelTypeCollectible: {
+            converter = ^NSString * (NSString *value) {
+                return [ResourcesService localizationForHSCardCollectible:HSCardCollectibleFromNSString(value)];
+            };
+            break;
+        }
+        case CardOptionItemModelTypeRarity: {
+            converter = ^NSString * (NSString *value) {
+                return [ResourcesService localizationForHSCardRarity:HSCardRarityFromNSString(value)];
+            };
+            break;
+        }
+        case CardOptionItemModelTypeType: {
+            converter = ^NSString * (NSString *value) {
+                return [ResourcesService localizationForHSCardType:HSCardTypeFromNSString(value)];
+            };
+            break;
+        }
+        case CardOptionItemModelTypeMinionType: {
+            converter = ^NSString * (NSString *value) {
+                return [ResourcesService localizationForHSCardMinionType:HSCardMinionTypeFromNSString(value)];
+            };
+            break;
+        }
+        case CardOptionItemModelTypeSpellSchool: {
+            converter = ^NSString * (NSString *value) {
+                return [ResourcesService localizationForHSCardSpellSchool:HSCardSpellSchoolFromNSString(value)];
+            };
+            break;
+        }
+        case CardOptionItemModelTypeKeyword: {
+            converter = ^NSString * (NSString *value) {
+                return [ResourcesService localizationForHSCardKeyword:HSCardKeywordFromNSString(value)];
+            };
+            break;
+        }
+        case CardOptionItemModelTypeGameMode: {
+            converter = ^NSString * (NSString *value) {
+                return [ResourcesService localizationForHSCardGameMode:HSCardGameModeFromNSString(value)];
+            };
+            break;
+        }
+        case CardOptionItemModelTypeSort: {
+            converter = ^NSString * (NSString *value) {
+                return [ResourcesService localizationForHSCardSort:HSCardSortFromNSString(value)];
+            };
+            break;
+        }
+        default: {
+            converter = ^NSString * (NSString *value) {
+                return value;
+            };
+            break;
+        }
     }
+    
+    NSMutableArray<NSString *> *texts = [NSMutableArray<NSString *> new];
+    
+    [self.values enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, BOOL * _Nonnull stop) {
+        [texts addObject:converter(obj)];
+    }];
+    
+    NSString *text = [texts componentsJoinedByString:@", "];
+    [texts release];
+    
+    return text;
 }
 
 - (NSString * _Nullable)toolTip {

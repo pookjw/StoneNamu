@@ -11,8 +11,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CardsViewController : UIViewController <CardOptionsViewControllerDelegate>
-@property (readonly, copy) NSDictionary<NSString *, NSString *> * _Nullable options;
-- (void)requestWithOptions:(NSDictionary<NSString *, NSString *> * _Nullable)options;
+@property (readonly, copy) NSDictionary<NSString *, NSSet<NSString *> *> * _Nullable options;
+- (void)requestWithOptions:(NSDictionary<NSString *, NSSet<NSString *> *> * _Nullable)options;
 - (void)setOptionsBarButtonItemHidden:(BOOL)hidden;
 @end
 

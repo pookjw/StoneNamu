@@ -67,6 +67,8 @@
 		4F248383271DA25800A231BF /* FloatingPresentationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F248382271DA25800A231BF /* FloatingPresentationController.m */; };
 		4F248386271DA64C00A231BF /* UIView+floatingConstraints.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F248385271DA64C00A231BF /* UIView+floatingConstraints.m */; };
 		4F248389271DAE5300A231BF /* FloatingNaigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F248388271DAE5300A231BF /* FloatingNaigationController.m */; };
+		4F273FB427ADC5B000F6D3B8 /* NSSet+hasValuesWhenStringType.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F273FB227ADC5B000F6D3B8 /* NSSet+hasValuesWhenStringType.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4F273FB527ADC5B000F6D3B8 /* NSSet+hasValuesWhenStringType.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F273FB327ADC5B000F6D3B8 /* NSSet+hasValuesWhenStringType.m */; };
 		4F29FD732722EAB700753E8D /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F29FD722722EAB700753E8D /* MainViewController.m */; };
 		4F34385026A36FBA001161FE /* StoneNamuCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F34384826A36FBA001161FE /* StoneNamuCore.framework */; };
 		4F34385826A36FBA001161FE /* StoneNamuCore.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F34384A26A36FBA001161FE /* StoneNamuCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -632,6 +634,8 @@
 		4F248385271DA64C00A231BF /* UIView+floatingConstraints.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+floatingConstraints.m"; sourceTree = "<group>"; };
 		4F248387271DAE5300A231BF /* FloatingNaigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FloatingNaigationController.h; sourceTree = "<group>"; };
 		4F248388271DAE5300A231BF /* FloatingNaigationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FloatingNaigationController.m; sourceTree = "<group>"; };
+		4F273FB227ADC5B000F6D3B8 /* NSSet+hasValuesWhenStringType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSSet+hasValuesWhenStringType.h"; sourceTree = "<group>"; };
+		4F273FB327ADC5B000F6D3B8 /* NSSet+hasValuesWhenStringType.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSSet+hasValuesWhenStringType.m"; sourceTree = "<group>"; };
 		4F29FD712722EAB700753E8D /* MainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		4F29FD722722EAB700753E8D /* MainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		4F34383726A36492001161FE /* BlizzardTokenAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlizzardTokenAPI.h; sourceTree = "<group>"; };
@@ -1945,6 +1949,8 @@
 				4F2251922789E72E0004DD8D /* NSDictionary+combine.m */,
 				4F22519C278B3E930004DD8D /* NSNumber+stringWithSepearatedDecimalNumber.h */,
 				4F22519B278B3E930004DD8D /* NSNumber+stringWithSepearatedDecimalNumber.m */,
+				4F273FB227ADC5B000F6D3B8 /* NSSet+hasValuesWhenStringType.h */,
+				4F273FB327ADC5B000F6D3B8 /* NSSet+hasValuesWhenStringType.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -3267,6 +3273,7 @@
 				4F646A7626B7E8C100BEDB38 /* DataCacheRepositoryImpl.h in Headers */,
 				4F7F581827242F9E0080D6C3 /* BlizzardHSAPILocale.h in Headers */,
 				4F2251932789E72E0004DD8D /* NSDictionary+combine.h in Headers */,
+				4F273FB427ADC5B000F6D3B8 /* NSSet+hasValuesWhenStringType.h in Headers */,
 				4F7F581327242F650080D6C3 /* Prefs.h in Headers */,
 				4F7F5857272430C90080D6C3 /* BlizzardAPI.h in Headers */,
 				4F7F582327242FE70080D6C3 /* HSCardRarity.h in Headers */,
@@ -3570,6 +3577,7 @@
 				4F6A139C26B251EE0089A13A /* HSCardKeyword.m in Sources */,
 				4FFDD68526CADEEA008E5B45 /* HSDeckRepositoryImpl.m in Sources */,
 				4F646A7C26B7F08500BEDB38 /* DataCacheUseCaseImpl.m in Sources */,
+				4F273FB527ADC5B000F6D3B8 /* NSSet+hasValuesWhenStringType.m in Sources */,
 				4F03F55826C79C2D00FC9155 /* PrefsRepositoryImpl.m in Sources */,
 				4F34386726A37022001161FE /* HSCardRepositoryImpl.m in Sources */,
 				4F34386526A3700C001161FE /* BlizzardAPIRegionHost.m in Sources */,

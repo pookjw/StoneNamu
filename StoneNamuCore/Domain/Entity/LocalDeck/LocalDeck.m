@@ -18,6 +18,12 @@
 @dynamic timestamp;
 
 - (NSArray<HSCard *> *)hsCards {
+#if DEBUG
+    if (NSThread.isMainThread) {
+        NSString *message = @"Do not run -[LocalDeck hsCards] at Main Thread.";
+        [NSException raise:message format:@""];
+    }
+#endif
     NSData * _Nullable hsCardsData = self.hsCardsData;
     
     if (hsCardsData == nil) return @[];
@@ -44,6 +50,13 @@
 }
 
 - (void)setHsCards:(NSArray<HSCard *> *)hsCards {
+#if DEBUG
+    if (NSThread.isMainThread) {
+        NSString *message = @"Do not run -[LocalDeck setHsCards:] at Main Thread.";
+        [NSException raise:message format:@""];
+    }
+#endif
+    
     NSError * _Nullable error = nil;
     
     NSData *hsCardsData = [NSKeyedArchiver archivedDataWithRootObject:hsCards requiringSecureCoding:YES error:&error];

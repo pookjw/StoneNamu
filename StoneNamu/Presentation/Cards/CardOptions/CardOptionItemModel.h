@@ -6,6 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <StoneNamuCore/StoneNamuCore.h>
 #import "PickerItemModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -30,16 +31,15 @@ typedef NS_ENUM(NSUInteger, CardOptionItemModelType) {
 typedef NS_ENUM(NSUInteger, CardOptionItemModelValueSetType) {
     CardOptionItemModelValueSetTypeTextField,
     CardOptionItemModelValueSetTypePicker,
-    CardOptionItemModelValueSetTypePickerWithEmptyRow,
-    CardOptionItemModelValueSetTypeStepper
+    CardOptionItemModelValueSetTypePickerWithEmptyRow
 };
 
-NSString * NSStringFromCardOptionItemModelType(CardOptionItemModelType);
-CardOptionItemModelType CardOptionItemModelTypeFromNSString(NSString *);
+BlizzardHSAPIOptionType BlizzardHSAPIOptionTypeFromCardOptionItemModelType(CardOptionItemModelType);
+CardOptionItemModelType CardOptionItemModelTypeFromBlizzardHSAPIOptionType(BlizzardHSAPIOptionType);
 
 @interface CardOptionItemModel : NSObject
 @property (readonly) CardOptionItemModelType type;
-@property (copy) NSString * _Nullable value;
+@property (copy) NSSet<NSString *> * _Nullable values;
 @property (readonly, nonatomic) CardOptionItemModelValueSetType valueSetType;
 @property (readonly, nonatomic) NSArray<PickerItemModel *> * _Nullable pickerDataSource;
 @property (readonly, nonatomic) NSRange stepperRange;

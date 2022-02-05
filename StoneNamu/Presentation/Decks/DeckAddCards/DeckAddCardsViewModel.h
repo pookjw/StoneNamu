@@ -19,8 +19,10 @@ static NSNotificationName const NSNotificationNameDeckAddCardsViewModelStartedLo
 static NSNotificationName const NSNotificationNameDeckAddCardsViewModelEndedLoadingDataSource = @"NSNotificationNameDeckAddCardsViewModelEndedLoadingDataSource";
 
 static NSNotificationName const NSNotificationNameDeckAddCardsViewModelLocalDeckHasChanged = @"NSNotificationNameDeckAddCardsViewModelLocalDeckHasChanged";
+static NSString * const DeckAddCardsViewModelLocalDeckHasChangedCountOfLocalDeckCardsItemKey = @"DeckAddCardsViewModelLocalDeckHasChangedCountOfLocalDeckCardsItemKey";
 
 typedef void (^DeckAddCardsViewModelDefaultOptionsCompletion)(NSDictionary<NSString *, NSString *> *options);
+typedef void (^DeckAddCardsViewModelCountOfLocalDeckCardsCompletion)(NSNumber * _Nullable countOfLocalDeckCards, BOOL isFull);
 
 typedef UICollectionViewDiffableDataSource<DeckAddCardSectionModel *, DeckAddCardItemModel *> CardsDataSource;
 
@@ -29,12 +31,11 @@ typedef UICollectionViewDiffableDataSource<DeckAddCardSectionModel *, DeckAddCar
 @property (retain) NSIndexPath * _Nullable contextMenuIndexPath;
 @property (readonly, retain) CardsDataSource *dataSource;
 @property (readonly, copy) NSDictionary<NSString *, NSString *> * _Nullable options;
-@property (readonly, nonatomic) BOOL isLocalDeckCardFull;
-@property (readonly, nonatomic) NSUInteger countOfLocalDeckCards;
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithDataSource:(CardsDataSource *)dataSource;
 - (void)defaultOptionsWithCompletion:(DeckAddCardsViewModelDefaultOptionsCompletion)completion;
+- (void)countOfLocalDeckCardsWithCompletion:(DeckAddCardsViewModelCountOfLocalDeckCardsCompletion)completion;
 - (BOOL)requestDataSourceWithOptions:(NSDictionary<NSString *, NSString *> * _Nullable)options reset:(BOOL)reset;
 - (NSArray<UIDragItem *> *)makeDragItemFromIndexPath:(NSIndexPath *)indexPath image:(UIImage * _Nullable)image;
 - (void)addHSCards:(NSSet<HSCard *> *)hsCards;

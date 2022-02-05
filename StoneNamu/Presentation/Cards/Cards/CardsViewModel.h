@@ -22,12 +22,12 @@ typedef UICollectionViewDiffableDataSource<CardSectionModel *, CardItemModel *> 
 @interface CardsViewModel : NSObject
 @property (retain) NSIndexPath * _Nullable contextMenuIndexPath;
 @property (readonly, retain) CardsDataSource *dataSource;
-@property (readonly, copy) NSDictionary<NSString *, NSString *> * _Nullable options;
-@property (readonly, nonatomic) NSDictionary<NSString *, NSString *> *defaultOptions;
+@property (readonly, copy) NSDictionary<NSString *, NSSet<NSString *> *> * _Nullable options;
+@property (readonly, nonatomic) NSDictionary<NSString *, NSSet<NSString *> *> *defaultOptions;
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithDataSource:(CardsDataSource *)dataSource;
-- (BOOL)requestDataSourceWithOptions:(NSDictionary<NSString *, NSString *> * _Nullable)options reset:(BOOL)reset;
+- (BOOL)requestDataSourceWithOptions:(NSDictionary<NSString *, NSSet<NSString *> *> * _Nullable)options reset:(BOOL)reset;
 - (NSArray<UIDragItem *> *)makeDragItemFromIndexPath:(NSIndexPath *)indexPath image:(UIImage * _Nullable)image;
 @end
 

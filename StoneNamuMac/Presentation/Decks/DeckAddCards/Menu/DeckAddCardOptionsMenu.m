@@ -520,7 +520,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
         return;
     }
     
-    if ([[notification.userInfo objectForKey:@"NSTextMovement"] integerValue] == NSReturnTextMovement) {
+    if ([[notification.userInfo objectForKey:@"NSTextMovement"] integerValue] == NSTextMovementReturn) {
         NSString *key = searchField.userInfo.allKeys.firstObject;
         NSString *value = searchField.stringValue;
         

@@ -17,7 +17,6 @@ static NSString * const DeckAddCardOptionsMenuFactoryStorableMenuItemSuppoertsMu
 
 @interface DeckAddCardOptionsMenuFactory : NSObject
 @property (class, readonly) SEL keyMenuItemTriggeredSelector;
-+ (BOOL)hasValueForValues:(NSSet<NSString *> * _Nullable)values;
 + (BOOL)hasEmptyItemAtOptionType:(BlizzardHSAPIOptionType)optionType;
 + (BOOL)supportsMultipleSelectionFromOptionType:(BlizzardHSAPIOptionType)optionType;
 + (NSString * _Nullable)titleForOptionType:(BlizzardHSAPIOptionType)optionType;

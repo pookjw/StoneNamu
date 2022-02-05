@@ -235,11 +235,12 @@
                                                              style:UIAlertActionStyleDefault
                                                            handler:^(UIAlertAction * _Nonnull action) {
             
-            UITextField * _Nullable textField = vc.textFields.firstObject;
+            NSString * _Nullable text = vc.textFields.firstObject.text;
             
-            if (textField) {
-                [[itemModel retain] autorelease];
-                [self.viewModel updateItem:itemModel withValue:textField.text];
+            if (text != nil) {
+                [self.viewModel updateItem:itemModel withValue:[NSSet setWithObject:text]];
+            } else {
+                [self.viewModel updateItem:itemModel withValue:nil];
             }
         }];
         

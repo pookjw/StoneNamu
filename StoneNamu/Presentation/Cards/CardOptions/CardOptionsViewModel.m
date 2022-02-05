@@ -19,8 +19,8 @@
     self = [self init];
     
     if (self) {
-        _dataSource = dataSource;
-        [_dataSource retain];
+        [self->_dataSource release];
+        self->_dataSource = [dataSource retain];
         
         NSOperationQueue *queue = [NSOperationQueue new];
         queue.qualityOfService = NSQualityOfServiceUserInitiated;
@@ -39,47 +39,65 @@
     [super dealloc];
 }
 
-- (NSDictionary<NSString *,id> *)options {
+- (NSDictionary<NSString *, NSSet<NSString *> *> *)options {
     NSDiffableDataSourceSnapshot *snapshot = self.dataSource.snapshot;
     NSArray<CardOptionItemModel *> *itemModels = snapshot.itemIdentifiers;
     
-    NSMutableDictionary *dic = [@{} mutableCopy];
+    NSMutableDictionary<NSString *, NSSet<NSString *> *> *dic = [NSMutableDictionary<NSString *, NSSet<NSString *> *> new];
     
-    for (CardOptionItemModel *itemModel in itemModels) {
-        if ((itemModel.value) && (![itemModel.value isEqualToString:@""])) {
-            dic[NSStringFromCardOptionItemModelType(itemModel.type)] = itemModel.value;
+    [itemModels enumerateObjectsUsingBlock:^(CardOptionItemModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSSet<NSString *> * _Nullable values = obj.values;
+        
+        if (values == nil) return;
+        if (values.count == 0) return;
+        
+        BOOL __block hasEmptyValue = YES;
+        
+        [values enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, BOOL * _Nonnull stop) {
+            if (![obj isEqualToString:@""]) {
+                hasEmptyValue = NO;
+                *stop = YES;
+            }
+        }];
+        
+        if (!hasEmptyValue) {
+            dic[BlizzardHSAPIOptionTypeFromCardOptionItemModelType(obj.type)] = values;
         }
-    }
+    }];
     
-    NSDictionary *result = [[dic copy] autorelease];
-    [dic release];
-    
-    return result;
+    return [dic autorelease];
 }
 
-- (void)updateDataSourceWithOptions:(NSDictionary<NSString *,NSString *> * _Nullable)options {
+- (void)updateDataSourceWithOptions:(NSDictionary<NSString *, NSSet<NSString *> *> * _Nullable)options {
     [self.queue addBarrierBlock:^{
-        NSDictionary<NSString *, NSString *> *nonnullOptions;
+        NSDictionary<NSString *, NSSet<NSString *> *> *nonnullOptions;
         
         if (options) {
-            nonnullOptions = [options copy];
+            nonnullOptions = options;
         } else {
-            nonnullOptions = [@{} retain];
+            nonnullOptions = @{};
         }
         
         //
         
         NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
-        NSArray<CardOptionItemModel *> *itemModels = snapshot.itemIdentifiers;
+        NSMutableArray<CardOptionItemModel *> *toBeReconfiguredItemModels = [NSMutableArray<CardOptionItemModel *> new];
         
-        for (CardOptionItemModel *itemModel in itemModels) {
-            NSString *key = NSStringFromCardOptionItemModelType(itemModel.type);
-            NSString * _Nullable value = nonnullOptions[key];
-            itemModel.value = value;
-        }
+        [snapshot.itemIdentifiers enumerateObjectsUsingBlock:^(CardOptionItemModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSString *key = BlizzardHSAPIOptionTypeFromCardOptionItemModelType(obj.type);
+            NSSet<NSString *> * _Nullable oldValues = obj.values;
+            NSSet<NSString *> * _Nullable newValues = nonnullOptions[key];
+            
+            if ((oldValues == nil) && (newValues == nil)) {
+                
+            } else if (((oldValues == nil) && (newValues != nil)) || ((oldValues != nil) && (newValues == nil)) || (![oldValues isEqualToSet:newValues])) {
+                obj.values = newValues;
+                [toBeReconfiguredItemModels addObject:obj];
+            }
+        }];
         
-        [nonnullOptions release];
-        [snapshot reconfigureItemsWithIdentifiers:itemModels];
+        [snapshot reconfigureItemsWithIdentifiers:toBeReconfiguredItemModels];
+        [toBeReconfiguredItemModels release];
         
         [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{}];
         [snapshot release];
@@ -87,50 +105,102 @@
 }
 
 - (void)handleSelectionForIndexPath:(NSIndexPath *)indexPath {
-    CardOptionItemModel *itemModel = [self.dataSource itemIdentifierForIndexPath:indexPath];
-    
-    switch (itemModel.valueSetType) {
-        case CardOptionItemModelValueSetTypeTextField:
-            [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameCardOptionsViewModelPresentTextField
-                                                              object:self
-                                                            userInfo:@{
-                CardOptionsViewModelPresentNotificationItemKey: itemModel
-            }];
-            break;
-        case CardOptionItemModelValueSetTypePicker:
-            [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameCardOptionsViewModelPresentPicker
-                                                              object:self
-                                                            userInfo:@{
-                CardOptionsViewModelPresentNotificationItemKey: itemModel,
-                CardOptionsViewModelPresentPickerNotificationShowEmptyRowKey: [NSNumber numberWithBool:NO]
-            }];
-            break;
-        case CardOptionItemModelValueSetTypePickerWithEmptyRow:
-            [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameCardOptionsViewModelPresentPicker
-                                                              object:self
-                                                            userInfo:@{
-                CardOptionsViewModelPresentNotificationItemKey: itemModel,
-                CardOptionsViewModelPresentPickerNotificationShowEmptyRowKey: [NSNumber numberWithBool:YES]
-            }];
-            break;
-        case CardOptionItemModelValueSetTypeStepper: {
-            [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameCardOptionsViewModelPresentStepper
-                                                              object:self
-                                                            userInfo:@{
-                CardOptionsViewModelPresentNotificationItemKey: itemModel
-            }];
+    [self.queue addBarrierBlock:^{
+        CardOptionItemModel *itemModel = [self.dataSource itemIdentifierForIndexPath:indexPath];
+        BlizzardHSAPIOptionType optionType = BlizzardHSAPIOptionTypeFromCardOptionItemModelType(itemModel.type);
+        NSSet<NSString *> * _Nullable values = itemModel.values;
+        
+        switch (itemModel.valueSetType) {
+            case CardOptionItemModelValueSetTypeTextField: {
+                NSDictionary *userInfo;
+                
+                if ((values == nil) || (!values.hasValuesWhenStringType)) {
+                    userInfo = @{CardOptionsViewModelPresentTextFieldOptionTypeItemKey: optionType};
+                } else {
+                    userInfo = @{CardOptionsViewModelPresentTextFieldOptionTypeItemKey: optionType,
+                                 CardOptionsViewModelPresentTextFieldTextItemKey: values.allObjects.firstObject};
+                }
+                
+                [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameCardOptionsViewModelPresentTextField
+                                                                  object:self
+                                                                userInfo:userInfo];
+                break;
+            }
+            case CardOptionItemModelValueSetTypePicker: {
+                NSDictionary *userInfo;
+                
+                if ((values == nil) || (!values.hasValuesWhenStringType)) {
+                    userInfo = @{CardOptionsViewModelPresentPickerNotificationOptionTypeItemKey: optionType,
+                                 CardOptionsViewModelPresentPickerNotificationShowEmptyRowItemKey: @NO};
+                } else {
+                    userInfo = @{CardOptionsViewModelPresentPickerNotificationOptionTypeItemKey: optionType,
+                                 CardOptionsViewModelPresentPickerNotificationValuesItemKey: values,
+                                 CardOptionsViewModelPresentPickerNotificationShowEmptyRowItemKey: @NO};
+                }
+                
+                [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameCardOptionsViewModelPresentPicker
+                                                                  object:self
+                                                                userInfo:userInfo];
+                break;
+            }
+            case CardOptionItemModelValueSetTypePickerWithEmptyRow: {
+                NSDictionary *userInfo;
+                
+                if ((values == nil) || (!values.hasValuesWhenStringType)) {
+                    userInfo = @{CardOptionsViewModelPresentPickerNotificationOptionTypeItemKey: optionType,
+                                 CardOptionsViewModelPresentPickerNotificationShowEmptyRowItemKey: @YES};
+                } else {
+                    userInfo = @{CardOptionsViewModelPresentPickerNotificationOptionTypeItemKey: optionType,
+                                 CardOptionsViewModelPresentPickerNotificationValuesItemKey: values,
+                                 CardOptionsViewModelPresentPickerNotificationShowEmptyRowItemKey: @YES};
+                }
+                
+                [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameCardOptionsViewModelPresentPicker
+                                                                  object:self
+                                                                userInfo:userInfo];
+                break;
+            }
+            default:
+                break;
         }
-        default:
-            break;
-    }
+    }];
 }
 
-- (void)updateItem:(CardOptionItemModel *)itemModel withValue:(NSString * _Nullable)value {
+- (void)updateItem:(CardOptionItemModel *)itemModel withValues:(NSSet<NSString *> * _Nullable)values {
     [self.queue addBarrierBlock:^{
         NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
-        itemModel.value = value;
+        itemModel.values = values;
         
         [snapshot reconfigureItemsWithIdentifiers:@[itemModel]];
+        
+        [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{}];
+        [snapshot release];
+    }];
+}
+
+- (void)updateOptionType:(BlizzardHSAPIOptionType)optionType withValues:(NSSet<NSString *> *)values {
+    [self.queue addBarrierBlock:^{
+        NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
+        NSMutableArray<CardOptionItemModel *> *toBeReconfiguredItemModels = [NSMutableArray<CardOptionItemModel *> new];
+        
+        [snapshot.itemIdentifiers enumerateObjectsUsingBlock:^(CardOptionItemModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            BlizzardHSAPIOptionType tmp = BlizzardHSAPIOptionTypeFromCardOptionItemModelType(obj.type);
+            
+            if ([tmp isEqualToString:optionType]) {
+                NSSet<NSString *> * _Nullable oldValues = obj.values;
+                NSSet<NSString *> * _Nullable newValues = values;
+                
+                if ((oldValues == nil) && (newValues == nil)) {
+                    
+                } else if (((oldValues == nil) && (newValues != nil)) || ((oldValues != nil) && (newValues == nil)) || (![oldValues isEqualToSet:newValues])) {
+                    obj.values = newValues;
+                    [toBeReconfiguredItemModels addObject:obj];
+                }
+            }
+        }];
+        
+        [snapshot reconfigureItemsWithIdentifiers:toBeReconfiguredItemModels];
+        [toBeReconfiguredItemModels release];
         
         [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{}];
         [snapshot release];

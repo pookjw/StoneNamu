@@ -68,7 +68,7 @@
 
 - (void)configureViewControllers {
     CardsViewController *cardsViewController = [CardsViewController new];
-    [cardsViewController requestWithOptions:@{BlizzardHSAPIOptionTypeGameMode: NSStringFromHSCardGameMode(HSCardGameModeConstructed)}];
+    [cardsViewController requestWithOptions:nil];
     self.cardsViewController = cardsViewController;
     [cardsViewController release];
     

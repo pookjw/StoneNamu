@@ -9,7 +9,6 @@
 #import "CardOptionsViewModel.h"
 #import "SheetNavigationController.h"
 #import "PickerViewController.h"
-#import "StepperViewController.h"
 #import <StoneNamuResources/StoneNamuResources.h>
 
 @interface CardOptionsViewController () <UICollectionViewDelegate>
@@ -21,7 +20,7 @@
 
 @implementation CardOptionsViewController
 
-- (instancetype)initWithOptions:(NSDictionary<NSString *, NSString *> *)options {
+- (instancetype)initWithOptions:(NSDictionary<NSString *, NSSet<NSString *> *> *)options {
     self = [self init];
     
     if (self) {
@@ -104,7 +103,7 @@
 }
 
 - (void)resetButtonTriggered:(UIBarButtonItem *)sender {
-    [self.delegate cardOptionsViewController:self defaultOptionsAreNeededWithCompletion:^(NSDictionary<NSString *,NSString *> * _Nonnull options) {
+    [self.delegate cardOptionsViewController:self defaultOptionsAreNeededWithCompletion:^(NSDictionary<NSString *, NSSet<NSString *> *> * _Nonnull options) {
         [self.viewModel updateDataSourceWithOptions:options];
     }];
 }
@@ -186,7 +185,7 @@
         
         //
         
-        if (itemModel.value) {
+        if (itemModel.values) {
             cell.accessories = @[
                 [[[UICellAccessoryLabel alloc] initWithText:itemModel.accessoryText] autorelease]
             ];
@@ -208,23 +207,23 @@
                                            selector:@selector(presentPickerEventReceived:)
                                                name:NSNotificationNameCardOptionsViewModelPresentPicker
                                              object:self.viewModel];
-    
-    [NSNotificationCenter.defaultCenter addObserver:self
-                                           selector:@selector(presentStepperEventReceived:)
-                                               name:NSNotificationNameCardOptionsViewModelPresentStepper
-                                             object:self.viewModel];
 }
 
 - (void)presentTextFieldEventReceived:(NSNotification *)notification {
-    CardOptionItemModel *itemModel = notification.userInfo[CardOptionsViewModelPresentNotificationItemKey];
+    BlizzardHSAPIOptionType _Nullable optionType = notification.userInfo[CardOptionsViewModelPresentTextFieldOptionTypeItemKey];
+    
+    if (optionType == nil) return;
+    
+    NSString * _Nullable text = notification.userInfo[CardOptionsViewModelPresentTextFieldTextItemKey];
+    NSString *title = [ResourcesService localizationForBlizzardHSAPIOptionType:optionType];
     
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
-        UIAlertController *vc = [UIAlertController alertControllerWithTitle:itemModel.text
+        UIAlertController *vc = [UIAlertController alertControllerWithTitle:title
                                                                     message:nil
                                                              preferredStyle:UIAlertControllerStyleAlert];
         
         [vc addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-            textField.text = itemModel.value;
+            textField.text = text;
         }];
         
         UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:[ResourcesService localizationForKey:LocalizableKeyCancel]
@@ -235,11 +234,12 @@
                                                              style:UIAlertActionStyleDefault
                                                            handler:^(UIAlertAction * _Nonnull action) {
             
-            UITextField * _Nullable textField = vc.textFields.firstObject;
+            NSString * _Nullable text = vc.textFields.firstObject.text;
             
-            if (textField) {
-                [[itemModel retain] autorelease];
-                [self.viewModel updateItem:itemModel withValue:textField.text];
+            if (text != nil) {
+                [self.viewModel updateOptionType:optionType withValues:[NSSet setWithObject:text]];
+            } else {
+                [self.viewModel updateOptionType:optionType withValues:nil];
             }
         }];
         
@@ -252,60 +252,26 @@
 }
 
 - (void)presentPickerEventReceived:(NSNotification *)notification {
-    CardOptionItemModel *itemModel = notification.userInfo[CardOptionsViewModelPresentNotificationItemKey];
-    BOOL showEmptyRow = [(NSNumber *)notification.userInfo[CardOptionsViewModelPresentPickerNotificationShowEmptyRowKey] boolValue];
-    
-    [NSOperationQueue.mainQueue addOperationWithBlock:^{
-        PickerViewController *vc = [[PickerViewController alloc] initWithDataSource:itemModel.pickerDataSource
-                                                                              title:itemModel.text
-                                                                       showEmptyRow:showEmptyRow
-                                                                     doneCompletion:^(PickerItemModel * _Nullable pickerItemModel) {
-            [self.viewModel updateItem:itemModel withValue:pickerItemModel.identity];
-        }];
-        SheetNavigationController *nvc = [[SheetNavigationController alloc] initWithRootViewController:vc];
-        [nvc loadViewIfNeeded];
-        
-        [self presentViewController:nvc animated:YES completion:^{
-            [vc selectIdentity:itemModel.value animated:YES];
-        }];
-        
-        [vc release];
-        [nvc release];
-    }];
-}
-
-- (void)presentStepperEventReceived:(NSNotification *)notification {
-    CardOptionItemModel *itemModel = notification.userInfo[CardOptionsViewModelPresentNotificationItemKey];
-    NSRange range = itemModel.stepperRange;
-    BOOL showPlusMarkWhenReachedToMax = itemModel.showPlusMarkWhenReachedToMaxOnStepper;
-    
-    NSUInteger value;
-    if (itemModel.value) {
-        value = (NSUInteger)[itemModel.value integerValue];
-    } else {
-        value = 0;
-    }
-    
-    [NSOperationQueue.mainQueue addOperationWithBlock:^{
-        StepperViewController *vc = [[StepperViewController alloc] initWithRange:range
-                                                                           title:itemModel.text
-                                                                           value:value
-                                                                 clearCompletion:^{
-            [self.viewModel updateItem:itemModel withValue:nil];
-        }
-                                                                  doneCompletion:^(NSUInteger value) {
-            [self.viewModel updateItem:itemModel withValue:[[NSNumber numberWithUnsignedInteger:value] stringValue]];
-        }];
-        
-        vc.showPlusMarkWhenReachedToMax = showPlusMarkWhenReachedToMax;
-        SheetNavigationController *nvc = [[SheetNavigationController alloc] initWithRootViewController:vc];
-        [nvc loadViewIfNeeded];
-        
-        [self presentViewController:nvc animated:YES completion:^{}];
-        
-        [vc release];
-        [nvc release];
-    }];
+//    CardOptionItemModel *itemModel = notification.userInfo[CardOptionsViewModelPresentNotificationItemKey];
+//    BOOL showEmptyRow = [(NSNumber *)notification.userInfo[CardOptionsViewModelPresentPickerNotificationShowEmptyRowKey] boolValue];
+//
+//    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+//        PickerViewController *vc = [[PickerViewController alloc] initWithDataSource:itemModel.pickerDataSource
+//                                                                              title:itemModel.text
+//                                                                       showEmptyRow:showEmptyRow
+//                                                                     doneCompletion:^(PickerItemModel * _Nullable pickerItemModel) {
+//            [self.viewModel updateItem:itemModel withValues:[NSSet setWithObject:pickerItemModel.identity]];
+//        }];
+//        SheetNavigationController *nvc = [[SheetNavigationController alloc] initWithRootViewController:vc];
+//        [nvc loadViewIfNeeded];
+//
+//        [self presentViewController:nvc animated:YES completion:^{
+//            [vc selectIdentity:itemModel.values animated:YES];
+//        }];
+//
+//        [vc release];
+//        [nvc release];
+//    }];
 }
 
 #pragma mark - UICollectionViewDelegate

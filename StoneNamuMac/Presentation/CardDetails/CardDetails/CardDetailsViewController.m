@@ -123,6 +123,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeta
 }
 
 - (void)requestWithHSCard:(HSCard *)hsCard {
+    NSLog(@"%@", hsCard.slug);
     self.view.window.title = hsCard.name;
     self.imageView.hsCard = hsCard;
     [self.viewModel requestDataSourceWithCard:hsCard];

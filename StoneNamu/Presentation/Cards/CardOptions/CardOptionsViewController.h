@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (assign) id<CardOptionsViewControllerDelegate> delegate;
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
-- (instancetype)initWithOptions:(NSDictionary<NSString *, NSString *> * _Nullable)options;
+- (instancetype)initWithOptions:(NSDictionary<NSString *, NSSet<NSString *> *> * _Nullable)options;
 - (void)setCancelButtonHidden:(BOOL)hidden;
 @end
 NS_ASSUME_NONNULL_END

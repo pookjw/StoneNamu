@@ -34,11 +34,11 @@
     [super dealloc];
 }
 
-- (NSDictionary<NSString *, NSString *> * _Nullable)options {
+- (NSDictionary<NSString *, NSSet<NSString *> *> * _Nullable)options {
     return self.viewModel.options;
 }
 
-- (void)requestWithOptions:(NSDictionary<NSString *,NSString *> *)options {
+- (void)requestWithOptions:(NSDictionary<NSString *, NSSet<NSString *> *> *)options {
     [self loadViewIfNeeded];
     [self.viewModel requestDataSourceWithOptions:options reset:YES];
 }
@@ -319,7 +319,7 @@
 
 #pragma mark - CardOptionsViewControllerDelegate
 
-- (void)cardOptionsViewController:(CardOptionsViewController *)viewController doneWithOptions:(NSDictionary<NSString *,NSString *> *)options {
+- (void)cardOptionsViewController:(CardOptionsViewController *)viewController doneWithOptions:(NSDictionary<NSString *, NSSet<NSString *> *> *)options {
 //    if (self.splitViewController.isCollapsed) {
     if ([self.navigationItem.leftBarButtonItems containsObject:self.optionsBarButtonItem]) {
         [viewController dismissViewControllerAnimated:YES completion:^{}];

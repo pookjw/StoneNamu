@@ -5,7 +5,7 @@
 //  Created by Jinwoo Kim on 9/15/21.
 //
 
-#import "NSNumber+stringWithSepearatedDecimalNumber.h"
+#import <StoneNamuCore/NSNumber+stringWithSepearatedDecimalNumber.h>
 
 @implementation NSNumber (stringWithSepearatedDecimalNumber)
 

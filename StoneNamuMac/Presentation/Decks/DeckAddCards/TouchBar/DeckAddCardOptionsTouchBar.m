@@ -715,7 +715,13 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     
     if ((optionType != nil) && ([DeckAddCardOptionsMenuFactory supportsMultipleSelectionFromOptionType:optionType])) {
         NSSet<NSString *> * _Nullable values = self.options[optionType];
-        BOOL hasValue = [DeckAddCardOptionsMenuFactory hasValueForValues:values];
+        BOOL hasValue;
+        
+        if (values == nil) {
+            hasValue = NO;
+        } else {
+            hasValue = values.hasValuesWhenStringType;
+        }
         
         item.wantsLayer = YES;
         item.layer.cornerCurve = kCACornerCurveContinuous;

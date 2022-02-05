@@ -73,11 +73,11 @@
     [super dealloc];
 }
 
-- (NSDictionary<NSString *,NSString *> *)defaultOptions {
+- (NSDictionary<NSString *, NSSet<NSString *> *> *)defaultOptions {
     return BlizzardHSAPIDefaultOptions();
 }
 
-- (BOOL)requestDataSourceWithOptions:(NSDictionary<NSString *, NSString *> * _Nullable)options reset:(BOOL)reset {
+- (BOOL)requestDataSourceWithOptions:(NSDictionary<NSString *, NSSet<NSString *> *> * _Nullable)options reset:(BOOL)reset {
     if (reset) {
         [self resetDataSource];
     } else {
@@ -93,23 +93,15 @@
     NSBlockOperation * __block op = [NSBlockOperation new];
     
     [op addExecutionBlock:^{
-        NSDictionary<NSString *, NSString *> *defaultOptions = self.defaultOptions;
-        NSMutableDictionary<NSString *, NSString *> *mutableOptions = [options mutableCopy];
+        NSDictionary<NSString *, NSSet<NSString *> *> *defaultOptions = self.defaultOptions;
+        NSDictionary<NSString *, NSSet<NSString *> *> * _Nullable finalOptions = [options dictionaryByCombiningWithDictionary:defaultOptions shouldOverride:NO];
         
-        if (options == nil) {
-            mutableOptions = [defaultOptions mutableCopy];
-            
+        if (finalOptions == nil) {
             [self->_options release];
-            self->_options = [mutableOptions copy];
+            self->_options = [defaultOptions copy];
         } else {
-            for (NSString *key in defaultOptions.allKeys) {
-                if (mutableOptions[key] == nil) {
-                    mutableOptions[key] = defaultOptions[key];
-                }
-            }
-            
             [self->_options release];
-            self->_options = [mutableOptions copy];
+            self->_options = [finalOptions copy];
         }
         
         //
@@ -118,20 +110,20 @@
         
         //
         
+        NSMutableDictionary<NSString *, NSSet<NSString *> *> *mutableDic = [self.options mutableCopy];
+        
         if (self.pageCount != nil) {
             // Next page
             NSNumber *nextPage = [NSNumber numberWithUnsignedInt:[self.page unsignedIntValue] + 1];
-            mutableOptions[BlizzardHSAPIOptionTypePage] = [nextPage stringValue];
+            mutableDic[BlizzardHSAPIOptionTypePage] = [NSSet setWithObject:[nextPage stringValue]];
         } else {
             // Initial data
-            mutableOptions[BlizzardHSAPIOptionTypePage] = [self.page stringValue];
+            mutableDic[BlizzardHSAPIOptionTypePage] = [NSSet setWithObject:[self.page stringValue]];
         }
         
         SemaphoreCondition *semaphore = [[SemaphoreCondition alloc] initWithValue:0];
         
-        [self.hsCardUseCase fetchWithOptions:mutableOptions completionHandler:^(NSArray<HSCard *> * _Nullable cards, NSNumber *pageCount, NSNumber *page, NSError * _Nullable error) {
-            
-            [mutableOptions release];
+        [self.hsCardUseCase fetchWithOptions:mutableDic completionHandler:^(NSArray<HSCard *> * _Nullable cards, NSNumber *pageCount, NSNumber *page, NSError * _Nullable error) {
             
             if (op.isCancelled) {
                 [semaphore signal];
@@ -155,6 +147,7 @@
             }];
         }];
         
+        [mutableDic release];
         [semaphore wait];
     }];
     

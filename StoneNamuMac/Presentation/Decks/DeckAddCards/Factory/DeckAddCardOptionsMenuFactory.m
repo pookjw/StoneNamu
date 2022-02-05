@@ -16,22 +16,6 @@
     return NSSelectorFromString(@"keyMenuItemTriggered:");
 }
 
-+ (BOOL)hasValueForValues:(NSSet<NSString *> * _Nullable)values {
-    if (values == nil) return NO;
-    if (values.count == 0) return NO;
-    
-    BOOL __block hasEmptyValue = YES;
-    
-    [values.allObjects enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if (![obj isEqualToString:@""]) {
-            hasEmptyValue = NO;
-            *stop = YES;
-        }
-    }];
-    
-    return !hasEmptyValue;
-}
-
 + (BOOL)hasEmptyItemAtOptionType:(BlizzardHSAPIOptionType)optionType {
     if ([optionType isEqualToString:BlizzardHSAPIOptionTypeSet]) {
         return YES;
@@ -81,7 +65,14 @@
 }
 
 + (NSImage *)imageForCardOptionTypeWithValues:(NSSet<NSString *> *)values optionType:(BlizzardHSAPIOptionType)optionType {
-    BOOL hasValue = [self hasValueForValues:values];
+    BOOL hasValue;
+    
+    if (values == nil) {
+        hasValue = NO;
+    } else {
+        hasValue = values.hasValuesWhenStringType;
+    }
+    
     return [ResourcesService imageForBlizzardHSAPIOptionType:optionType fill:hasValue];
 }
 

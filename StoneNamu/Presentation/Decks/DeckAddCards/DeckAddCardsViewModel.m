@@ -90,6 +90,18 @@
     }];
 }
 
+- (void)countOfLocalDeckCardsWithCompletion:(DeckAddCardsViewModelCountOfLocalDeckCardsCompletion)completion {
+    [self.queue addOperationWithBlock:^{
+        NSNumber * _Nullable count = nil;
+        
+        if (self.localDeck != nil) {
+            count = [NSNumber numberWithUnsignedInteger:self.localDeck.hsCards.count];
+        }
+        BOOL isFull = count.unsignedIntegerValue >= HSDECK_MAX_TOTAL_CARDS;
+        completion(count, isFull);
+    }];
+}
+
 - (NSDictionary<NSString *, NSString *> *)defaultOptions {
     if (self.localDeck == nil) return BlizzardHSAPIDefaultOptions();
 
@@ -109,14 +121,6 @@
     options[BlizzardHSAPIOptionTypeSet] = NSStringFromHSCardSet(cardSet);
 
     return [options autorelease];
-}
-
-- (BOOL)isLocalDeckCardFull {
-    return (self.countOfLocalDeckCards >= HSDECK_MAX_TOTAL_CARDS);
-}
-
-- (NSUInteger)countOfLocalDeckCards {
-    return self.localDeck.hsCards.count;
 }
 
 - (BOOL)requestDataSourceWithOptions:(NSDictionary<NSString *, NSString *> * _Nullable)options reset:(BOOL)reset {
@@ -368,9 +372,11 @@
 }
 
 - (void)postLocalDeckHasChanged {
-    [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameDeckAddCardsViewModelLocalDeckHasChanged
-                                                      object:self
-                                                    userInfo:nil];
+    [self countOfLocalDeckCardsWithCompletion:^(NSNumber * _Nullable countOfLocalDeckCards, BOOL isFull) {
+        [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameDeckAddCardsViewModelLocalDeckHasChanged
+                                                          object:self
+                                                        userInfo:@{DeckAddCardsViewModelLocalDeckHasChangedCountOfLocalDeckCardsItemKey: countOfLocalDeckCards}];
+    }];
 }
 
 @end
