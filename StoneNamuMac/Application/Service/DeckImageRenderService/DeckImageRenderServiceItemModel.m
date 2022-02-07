@@ -14,8 +14,11 @@
     
     if (self) {
         self->_type = type;
+        self.classSlug = nil;
+        self.className = nil;
         self.totalArcaneDust = nil;
         self.deckName = nil;
+        self.raritySlug = nil;
         self.isEasterEgg = NO;
         self.deckFormat = nil;
         self.hsCard = nil;
@@ -26,9 +29,12 @@
 }
 
 - (void)dealloc {
+    [_classSlug release];
+    [_className release];
     [_totalArcaneDust release];
     [_deckName release];
-    [_hsYearCurrent release];
+    [_raritySlug release];
+    [_hsYearCurrentName release];
     [_deckFormat release];
     [_hsCard release];
     [_hsCardImage release];
@@ -43,33 +49,20 @@
     }
     
     BOOL type = (self.type == toCompare.type);
-    
-    //
-    
-    BOOL totalArcaneDust;
-    
-    if ((self.totalArcaneDust == nil) && (toCompare.totalArcaneDust == nil)) {
-        totalArcaneDust = YES;
-    } else if ((self.totalArcaneDust == nil) || (toCompare.totalArcaneDust == nil)) {
-        totalArcaneDust = NO;
-    } else {
-        totalArcaneDust = [self.totalArcaneDust isEqualToNumber:toCompare.totalArcaneDust];
-    }
-    
-    //
-    
-    BOOL deckName = (((self.deckName == nil) && (toCompare.deckName == nil)) || ([self.deckName isEqualToString:toCompare.deckName]));
+    BOOL classSlug = compareNullableValues(self.classSlug, toCompare.classSlug, @selector(isEqualToString:));
+    BOOL className = compareNullableValues(self.className, toCompare.className, @selector(isEqualToString:));
+    BOOL totalArcaneDust = compareNullableValues(self.totalArcaneDust, toCompare.totalArcaneDust, @selector(isEqualToNumber:));
+    BOOL raritySlug = compareNullableValues(self.raritySlug, toCompare.raritySlug, @selector(isEqualToString:));
+    BOOL deckName = compareNullableValues(self.deckName, toCompare.deckName, @selector(isEqualToString:));
     BOOL isEasterEgg = (self.isEasterEgg == toCompare.isEasterEgg);
-    BOOL classId = (self.classId == toCompare.classId);
-    BOOL deckFormat = (((self.deckFormat == nil) && (toCompare.deckFormat == nil)) || ([self.deckFormat isEqualToString:toCompare.deckFormat]));
-    BOOL hsCard = (((self.hsCard == nil) && (toCompare.hsCard == nil)) || ([self.hsCard isEqual:toCompare.hsCard]));
+    BOOL deckFormat = compareNullableValues(self.deckFormat, toCompare.deckFormat, @selector(isEqualToString:));
+    BOOL hsCard = compareNullableValues(self.hsCard, toCompare.hsCard, @selector(isEqual:));
     
-    return (type && totalArcaneDust && deckName && isEasterEgg && classId && deckFormat && hsCard);
+    return (type && classSlug && className && totalArcaneDust && raritySlug && deckName && isEasterEgg && deckFormat && hsCard);
 }
 
 - (NSUInteger)hash {
-    return self.type ^ self.totalArcaneDust.hash ^ self.deckName.hash ^ self.isEasterEgg ^ self.classId ^ self.deckFormat.hash ^ self.hsCard.hash;
+    return self.type ^ self.classSlug.hash ^ self.className.hash ^ self.totalArcaneDust.hash ^ self.deckName.hash ^ self.isEasterEgg ^ self.deckFormat.hash ^ self.hsCard.hash;
 }
-
 
 @end

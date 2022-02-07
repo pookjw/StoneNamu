@@ -169,6 +169,11 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeck
                                            selector:@selector(applyingSnapshotToDataSourceWasDoneReceived:)
                                                name:NSNotificationNameDecksViewModelApplyingSnapshotToDataSourceWasDone
                                              object:self.viewModel];
+    
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(shouldUpdateOptionsReceived:)
+                                               name:NSNotificationNameDecksViewModelShouldUpdateOptions
+                                             object:self.viewModel];
 }
 
 - (void)applyingSnapshotToDataSourceWasDoneReceived:(NSNotification *)notification {
@@ -186,13 +191,26 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeck
     }];
 }
 
+- (void)shouldUpdateOptionsReceived:(NSNotification *)notification {
+    NSDictionary<HSDeckFormat, NSDictionary<NSString *, NSString *> *> * _Nullable slugsAndNames = notification.userInfo[DecksViewModelShouldUpdateOptionsSlugsAndNamesItemKey];
+    NSDictionary<HSDeckFormat, NSDictionary<NSString *, NSNumber *> *> * _Nullable slugsAndIds = notification.userInfo[DecksViewModelShouldUpdateOptionsSlugsAndIdsItemKey];
+    
+    if ((slugsAndNames) && (slugsAndIds)) {
+        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+            [self.decksMenu updateWithSlugsAndNames:slugsAndNames slugsAndIds:slugsAndIds];
+            [self.decksToolbar updateWithSlugsAndNames:slugsAndNames slugsAndIds:slugsAndIds];
+            [self.decksTouchBar updateWithSlugsAndNames:slugsAndNames slugsAndIds:slugsAndIds];
+        }];
+    }
+}
+
 - (DecksDataSource *)makeDataSource {
     DecksViewController * __block unretainedSelf = self;
     
     DecksDataSource *dataSource = [[DecksDataSource alloc] initWithCollectionView:self.collectionView itemProvider:^NSCollectionViewItem * _Nullable(NSCollectionView * _Nonnull collectionView, NSIndexPath * _Nonnull indexPath, DecksItemModel * _Nonnull itemModel) {
         DeckBaseCollectionViewItem *item = [collectionView makeItemWithIdentifier:NSUserInterfaceItemIdentifierCardDeckBaseCollectionViewItem forIndexPath:indexPath];
         
-        [item configureWithLocalDeck:itemModel.localDeck isEasterEgg:itemModel.isEasterEgg count:itemModel.count deckBaseCollectionViewItemDelegate:unretainedSelf];
+        [item configureWithLocalDeck:itemModel.localDeck classSlug:itemModel.classSlug isEasterEgg:itemModel.isEasterEgg count:itemModel.count deckBaseCollectionViewItemDelegate:unretainedSelf];
         
         return item;
     }];
@@ -391,12 +409,12 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeck
     }];
 }
 
-- (void)makeLocalDeckWithClass:(HSCardClass)hsCardClass
-                    deckFormat:(HSDeckFormat)deckFormat {
+- (void)makeLocalDeckWithClassSlug:(NSString *)classSlug
+                        deckFormat:(HSDeckFormat)deckFormat {
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
         [self addSpinnerView];
         
-        [self.viewModel makeLocalDeckWithClass:hsCardClass deckFormat:deckFormat completion:^(LocalDeck * _Nonnull localDeck) {
+        [self.viewModel makeLocalDeckWithClassSlug:classSlug deckFormat:deckFormat completion:^(LocalDeck * _Nonnull localDeck) {
             [NSOperationQueue.mainQueue addOperationWithBlock:^{
                 [self removeAllSpinnerview];
                 [self presentDeckDetailsWithLocalDeck:localDeck];
@@ -530,8 +548,8 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeck
 
 #pragma mark - DecksMenuDelegate
 
-- (void)decksMenu:(DecksMenu *)decksMenu createNewDeckWithDeckFormat:(HSDeckFormat)deckFormat hsCardClass:(HSCardClass)hsCardClass {
-    [self makeLocalDeckWithClass:hsCardClass deckFormat:deckFormat];
+- (void)decksMenu:(DecksMenu *)decksMenu createNewDeckWithDeckFormat:(HSDeckFormat)deckFormat classSlug:(NSString *)classSlug {
+    [self makeLocalDeckWithClassSlug:classSlug deckFormat:deckFormat];
 }
 
 - (void)decksMenu:(DecksMenu *)decksMenu createNewDeckFromDeckCodeWithIdentifier:(NSUserInterfaceItemIdentifier)identifier {
@@ -540,8 +558,8 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeck
 
 #pragma mark - DecksToolbarDelegate
 
-- (void)decksToolbar:(DecksToolbar *)decksToolbar createNewDeckWithDeckFormat:(HSDeckFormat)deckFormat hsCardClass:(HSCardClass)hsCardClass {
-    [self makeLocalDeckWithClass:hsCardClass deckFormat:deckFormat];
+- (void)decksToolbar:(DecksToolbar *)decksToolbar createNewDeckWithDeckFormat:(HSDeckFormat)deckFormat classSlug:(NSString *)classSlug {
+    [self makeLocalDeckWithClassSlug:classSlug deckFormat:deckFormat];
 }
 
 - (void)decksToolbar:(DecksToolbar *)decksToolbar createNewDeckFromDeckCodeWithIdentifier:(NSTouchBarItemIdentifier)identifier {
@@ -550,8 +568,8 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeck
 
 #pragma mark - DecksTouchBarDelegate
 
-- (void)decksTouchBar:(DecksTouchBar *)touchBar createNewDeckWithDeckFormat:(HSDeckFormat)deckFormat hsCardClass:(HSCardClass)hsCardClass {
-    [self makeLocalDeckWithClass:hsCardClass deckFormat:deckFormat];
+- (void)decksTouchBar:(DecksTouchBar *)touchBar createNewDeckWithDeckFormat:(HSDeckFormat)deckFormat classSlug:(NSString *)classSlug {
+    [self makeLocalDeckWithClassSlug:classSlug deckFormat:deckFormat];
 }
 
 - (void)decksTouchBar:(DecksTouchBar *)touchBar createNewDeckFromDeckCodeWithIdentifier:(nonnull NSTouchBarItemIdentifier)identifier {

@@ -67,7 +67,7 @@
         
         prefs.locale = locale;
         [self.prefsUseCase saveChanges];
-        [self.dataCacheUseCase deleteAllDataCaches];
+//        [self.dataCacheUseCase deleteAllDataCaches];
     }];
 }
 
@@ -80,7 +80,7 @@
         
         prefs.apiRegionHost = regionHost;
         [self.prefsUseCase saveChanges];
-        [self.dataCacheUseCase deleteAllDataCaches];
+//        [self.dataCacheUseCase deleteAllDataCaches];
     }];
 }
 

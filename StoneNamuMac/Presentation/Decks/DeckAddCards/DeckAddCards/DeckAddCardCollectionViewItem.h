@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface DeckAddCardCollectionViewItem : ClickableCollectionViewItem
 @property (readonly, nonatomic) NSImage * _Nullable cardImage;
 @property (readonly, copy) HSCard * _Nullable hsCard;
-- (void)configureWithHSCard:(HSCard *)hsCard count:(NSUInteger)count delegate:(nonnull id<DeckAddCardCollectionViewItemDelegate>)delegate;
+- (void)configureWithHSCard:(HSCard *)hsCard count:(NSUInteger)count isLegendary:(BOOL)isLegendary delegate:(nonnull id<DeckAddCardCollectionViewItemDelegate>)delegate;
 @end
 
 NS_ASSUME_NONNULL_END

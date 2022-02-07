@@ -7,7 +7,6 @@
 
 #import <Foundation/Foundation.h>
 #import <StoneNamuCore/HSDeck.h>
-#import <StoneNamuCore/HSCardHero.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -20,7 +19,7 @@ typedef void (^HSDeckUseCaseFetchDeckByCardListCompletion)(HSDeck * _Nullable, N
 - (void)fetchDeckByDeckCode:(NSString *)deckCode
                  completion:(HSDeckUseCaseFetchDeckByDeckCodeCompletion)completion;
 - (void)fetchDeckByCardList:(NSArray<NSNumber *> *)cardList
-                    classId:(HSCardClass)classId
+                    classId:(NSNumber *)classId
                  completion:(HSDeckUseCaseFetchDeckByCardListCompletion)completion;
 
 @end

@@ -115,7 +115,7 @@
 - (void)makeDataCacheWithCompletion:(DataCacheRepositoryMakeWithCompletion)completion {
     [self.coreDataStack.queue addBarrierBlock:^{
         DataCache *dataCache = [[DataCache alloc] initWithContext:self.coreDataStack.context];
-        completion(dataCache);
+        completion([dataCache autorelease]);
     }];
 }
 

@@ -21,6 +21,10 @@ static NSNotificationName const NSNotificationNameCardsViewModelStartedLoadingDa
 static NSNotificationName const NSNotificationNameCardsViewModelStartedLoadingDataSourceOptionsKey = @"NSNotificationNameCardsViewModelStartedLoadingDataSourceOptionsKey";
 static NSNotificationName const NSNotificationNameCardsViewModelEndedLoadingDataSource = @"NSNotificationNameCardsViewModelEndedLoadingDataSource";
 
+static NSNotificationName const NSNotificationNameCardsViewModelShouldUpdateOptions = @"NSNotificationNameCardsViewModelShouldUpdateOptions";
+static NSString * const CardsViewModelShouldUpdateOptionsSlugsAndNamesItemKey = @"CardsViewModelShouldUpdateOptionsSlugsAndNamesItemKey";
+static NSString * const CardsViewModelShouldUpdateOptionsSlugsAndIdsItemKey = @"CardsViewModelShouldUpdateOptionsSlugsAndIdsItemKey";
+
 @interface CardsViewModel : NSObject
 @property (readonly, retain) CardsDataSource *dataSource;
 @property (readonly, copy) NSDictionary<NSString *, NSSet<NSString *> *> * _Nullable options;

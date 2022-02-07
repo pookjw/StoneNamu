@@ -28,8 +28,6 @@
 		4F1B98A626C8235B004E1603 /* PrefsLocaleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1B98A526C8235B004E1603 /* PrefsLocaleViewController.m */; };
 		4F1B98A926C82382004E1603 /* PrefsRegionHostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1B98A826C82382004E1603 /* PrefsRegionHostViewController.m */; };
 		4F1B98AC26C824D9004E1603 /* UIViewController+animatedForSelectedIndexPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1B98AB26C824D9004E1603 /* UIViewController+animatedForSelectedIndexPath.m */; };
-		4F1E85F0273320CA00CE2551 /* HSCardSpellSchool.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F1E85EF273320C500CE2551 /* HSCardSpellSchool.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4F1E85F2273320E600CE2551 /* HSCardSpellSchool.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1E85F1273320E500CE2551 /* HSCardSpellSchool.m */; };
 		4F1FA0AC27501A270082EBF0 /* DecksTouchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1FA0AB27501A270082EBF0 /* DecksTouchBar.m */; };
 		4F1FA0AF275022B00082EBF0 /* NSTouchBarItemIdentifierDecks+HSDeckFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1FA0AE275022B00082EBF0 /* NSTouchBarItemIdentifierDecks+HSDeckFormat.m */; };
 		4F1FA0B4275064660082EBF0 /* DecksToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1FA0B3275064660082EBF0 /* DecksToolbar.m */; };
@@ -69,6 +67,37 @@
 		4F248389271DAE5300A231BF /* FloatingNaigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F248388271DAE5300A231BF /* FloatingNaigationController.m */; };
 		4F273FB427ADC5B000F6D3B8 /* NSSet+hasValuesWhenStringType.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F273FB227ADC5B000F6D3B8 /* NSSet+hasValuesWhenStringType.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4F273FB527ADC5B000F6D3B8 /* NSSet+hasValuesWhenStringType.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F273FB327ADC5B000F6D3B8 /* NSSet+hasValuesWhenStringType.m */; };
+		4F273FC427AE720700F6D3B8 /* HSMetaData.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F273FC227AE720700F6D3B8 /* HSMetaData.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4F273FC527AE720700F6D3B8 /* HSMetaData.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F273FC327AE720700F6D3B8 /* HSMetaData.m */; };
+		4F273FC827AE722100F6D3B8 /* HSCardSet.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F273FC627AE722100F6D3B8 /* HSCardSet.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4F273FC927AE722100F6D3B8 /* HSCardSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F273FC727AE722100F6D3B8 /* HSCardSet.m */; };
+		4F273FCC27AE725500F6D3B8 /* HSCardSetGroups.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F273FCA27AE725500F6D3B8 /* HSCardSetGroups.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4F273FCD27AE725500F6D3B8 /* HSCardSetGroups.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F273FCB27AE725500F6D3B8 /* HSCardSetGroups.m */; };
+		4F273FD027AE726200F6D3B8 /* HSCardGameMode.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F273FCE27AE726200F6D3B8 /* HSCardGameMode.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4F273FD127AE726200F6D3B8 /* HSCardGameMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F273FCF27AE726200F6D3B8 /* HSCardGameMode.m */; };
+		4F273FD827AE72D400F6D3B8 /* HSCardType.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F273FD627AE72D400F6D3B8 /* HSCardType.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4F273FD927AE72D400F6D3B8 /* HSCardType.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F273FD727AE72D400F6D3B8 /* HSCardType.m */; };
+		4F273FDC27AE72E000F6D3B8 /* HSCardRarity.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F273FDA27AE72E000F6D3B8 /* HSCardRarity.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4F273FDD27AE72E000F6D3B8 /* HSCardRarity.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F273FDB27AE72E000F6D3B8 /* HSCardRarity.m */; };
+		4F273FE027AE72E900F6D3B8 /* HSCardClass.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F273FDE27AE72E900F6D3B8 /* HSCardClass.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4F273FE127AE72E900F6D3B8 /* HSCardClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F273FDF27AE72E900F6D3B8 /* HSCardClass.m */; };
+		4F273FE427AE72F500F6D3B8 /* HSCardMinionType.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F273FE227AE72F500F6D3B8 /* HSCardMinionType.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4F273FE527AE72F500F6D3B8 /* HSCardMinionType.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F273FE327AE72F500F6D3B8 /* HSCardMinionType.m */; };
+		4F273FE827AE72FF00F6D3B8 /* HSCardSpellSchool.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F273FE627AE72FF00F6D3B8 /* HSCardSpellSchool.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4F273FE927AE72FF00F6D3B8 /* HSCardSpellSchool.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F273FE727AE72FF00F6D3B8 /* HSCardSpellSchool.m */; };
+		4F273FEC27AE731400F6D3B8 /* HSCardMercenaryRole.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F273FEA27AE731400F6D3B8 /* HSCardMercenaryRole.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4F273FED27AE731400F6D3B8 /* HSCardMercenaryRole.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F273FEB27AE731400F6D3B8 /* HSCardMercenaryRole.m */; };
+		4F273FF027AE733600F6D3B8 /* HSCardKeyword.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F273FEE27AE733600F6D3B8 /* HSCardKeyword.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4F273FF127AE733600F6D3B8 /* HSCardKeyword.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F273FEF27AE733600F6D3B8 /* HSCardKeyword.m */; };
+		4F273FF427AE734D00F6D3B8 /* HSCardBackCategory.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F273FF227AE734D00F6D3B8 /* HSCardBackCategory.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4F273FF527AE734D00F6D3B8 /* HSCardBackCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F273FF327AE734D00F6D3B8 /* HSCardBackCategory.m */; };
+		4F273FF927AEB5C900F6D3B8 /* HSMetaDataRepositoryImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F273FF727AEB5C900F6D3B8 /* HSMetaDataRepositoryImpl.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		4F273FFA27AEB5C900F6D3B8 /* HSMetaDataRepositoryImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F273FF827AEB5C900F6D3B8 /* HSMetaDataRepositoryImpl.m */; };
+		4F273FFB27AEB66E00F6D3B8 /* HSMetaDataRepository.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F273FF627AEB52800F6D3B8 /* HSMetaDataRepository.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		4F273FFD27AEB86400F6D3B8 /* HSMetaDataUseCase.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F273FFC27AEB86100F6D3B8 /* HSMetaDataUseCase.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4F27400227AEB87D00F6D3B8 /* HSMetaDataUseCaseImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F27400027AEB87D00F6D3B8 /* HSMetaDataUseCaseImpl.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4F27400327AEB87D00F6D3B8 /* HSMetaDataUseCaseImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F27400127AEB87D00F6D3B8 /* HSMetaDataUseCaseImpl.m */; };
+		4F27402B27AEC9F100F6D3B8 /* BlizzardHSAPIKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F27402A27AEC9F100F6D3B8 /* BlizzardHSAPIKeys.m */; };
 		4F29FD732722EAB700753E8D /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F29FD722722EAB700753E8D /* MainViewController.m */; };
 		4F34385026A36FBA001161FE /* StoneNamuCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F34384826A36FBA001161FE /* StoneNamuCore.framework */; };
 		4F34385826A36FBA001161FE /* StoneNamuCore.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F34384A26A36FBA001161FE /* StoneNamuCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -85,11 +114,7 @@
 		4F414B0426CEF31D0003A0CF /* DeckDetailsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F414B0326CEF31D0003A0CF /* DeckDetailsViewModel.m */; };
 		4F414B0726CEF9F80003A0CF /* DeckDetailsSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F414B0626CEF9F80003A0CF /* DeckDetailsSectionModel.m */; };
 		4F414B0A26CEFA5E0003A0CF /* DeckDetailsItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F414B0926CEFA5E0003A0CF /* DeckDetailsItemModel.m */; };
-		4F449E9B26B178C4007CE04A /* HSCardClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F449E9A26B178C4007CE04A /* HSCardClass.m */; };
 		4F449EAC26B1884E007CE04A /* HSCardCollectible.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F449EAB26B1884E007CE04A /* HSCardCollectible.m */; };
-		4F449EAE26B1908A007CE04A /* HSCardRarity.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F449EAD26B1908A007CE04A /* HSCardRarity.m */; };
-		4F449EBD26B19445007CE04A /* HSCardType.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F449EBC26B19445007CE04A /* HSCardType.m */; };
-		4F449EC026B197C7007CE04A /* HSCardMinionType.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F449EBF26B197C7007CE04A /* HSCardMinionType.m */; };
 		4F466EF1272851090035C569 /* NSViewController+SpinnerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F466EF0272851090035C569 /* NSViewController+SpinnerView.m */; };
 		4F466EF5272889B00035C569 /* NSArray+string.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F466EF3272889B00035C569 /* NSArray+string.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4F466EF6272889B00035C569 /* NSArray+string.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F466EF4272889B00035C569 /* NSArray+string.m */; };
@@ -116,12 +141,10 @@
 		4F4976EC26ABFF6900860809 /* CardOptionItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4976EB26ABFF6900860809 /* CardOptionItemModel.m */; };
 		4F4C5E1F26D3015D00E3349B /* DragItemService.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4C5E1E26D3015D00E3349B /* DragItemService.m */; };
 		4F4C5E2226D31F0E00E3349B /* NSDiffableDataSourceSnapshot+sort.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4C5E2126D31F0E00E3349B /* NSDiffableDataSourceSnapshot+sort.m */; };
-		4F4DD75826DFBE4D00893E2B /* BlizzardHSAPIKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4DD75726DFBE4D00893E2B /* BlizzardHSAPIKeys.m */; };
 		4F4DD75926DFD54B00893E2B /* NSMutableArray+removeSingle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8F976126D45C290024FC06 /* NSMutableArray+removeSingle.m */; };
 		4F53D4BB27231D1900DE6F25 /* DeckAddCardSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F53D4B927231D1900DE6F25 /* DeckAddCardSplitViewController.m */; };
 		4F57DE9D26AD7B53000E4163 /* PickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F57DE9C26AD7B53000E4163 /* PickerViewController.m */; };
 		4F57DEA126AD7DB3000E4163 /* SheetNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F57DEA026AD7DB3000E4163 /* SheetNavigationController.m */; };
-		4F57DEA526AD96D3000E4163 /* HSCardSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F57DEA426AD96D3000E4163 /* HSCardSet.m */; };
 		4F57DEAC26ADA6E3000E4163 /* PickerItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F57DEAB26ADA6E3000E4163 /* PickerItemModel.m */; };
 		4F57DEB926ADC3CF000E4163 /* PickerItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F57DEB826ADC3CF000E4163 /* PickerItemView.m */; };
 		4F5900862752FDE000217E4A /* NSTableViewDiffableDataSource+applySnapshotAndWait.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F5900852752FDE000217E4A /* NSTableViewDiffableDataSource+applySnapshotAndWait.m */; };
@@ -151,8 +174,6 @@
 		4F646BF52794799200340C07 /* HSCardDroppableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F646BF42794799200340C07 /* HSCardDroppableView.m */; };
 		4F646BFA27948FFD00340C07 /* DeckDetailsSeparatorBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F646BF927948FFD00340C07 /* DeckDetailsSeparatorBox.m */; };
 		4F646BFC2794900B00340C07 /* DeckDetailsSeparatorBox.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F646BFB2794900B00340C07 /* DeckDetailsSeparatorBox.xib */; };
-		4F6A139C26B251EE0089A13A /* HSCardKeyword.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F6A139B26B251EE0089A13A /* HSCardKeyword.m */; };
-		4F6A13A526B267D60089A13A /* HSCardGameMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F6A13A426B267D60089A13A /* HSCardGameMode.m */; };
 		4F6A13AE26B26F0E0089A13A /* HSCardSort.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F6A13AD26B26F0E0089A13A /* HSCardSort.m */; };
 		4F6A13B226B273640089A13A /* StepperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F6A13B126B273640089A13A /* StepperViewController.m */; };
 		4F6F181626E6064D00DC210B /* NSArray+countOfObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA7A7C526E539D7005BE434 /* NSArray+countOfObject.m */; };
@@ -197,16 +218,8 @@
 		4F7F581B27242FAA0080D6C3 /* BlizzardHSAPIKeys.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FE097CC26A3409500BF3A6D /* BlizzardHSAPIKeys.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4F7F581C27242FBE0080D6C3 /* HSCard.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FA05F6E26A30940000E93BC /* HSCard.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4F7F581E27242FC40080D6C3 /* HSCardCollectible.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F449EAA26B187DB007CE04A /* HSCardCollectible.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4F7F582027242FD00080D6C3 /* HSCardClass.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FE097CA26A33C7500BF3A6D /* HSCardClass.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4F7F582327242FE70080D6C3 /* HSCardRarity.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FE097C626A331FE00BF3A6D /* HSCardRarity.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4F7F582527242FEE0080D6C3 /* HSCardSet.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F57DEA226AD86FA000E4163 /* HSCardSet.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4F7F582727242FF60080D6C3 /* HSCardType.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F449EB526B19314007CE04A /* HSCardType.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4F7F582927242FFC0080D6C3 /* HSCardMinionType.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F449EBE26B19630007CE04A /* HSCardMinionType.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4F7F582B272430030080D6C3 /* HSCardKeyword.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F449EC726B19AAE007CE04A /* HSCardKeyword.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4F7F582D2724300A0080D6C3 /* HSCardGameMode.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F6A13A326B267BF0089A13A /* HSCardGameMode.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4F7F582F272430120080D6C3 /* HSCardSort.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F6A13AC26B26EFD0089A13A /* HSCardSort.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4F7F5832272430260080D6C3 /* HSDeckFormat.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FFDD67C26CAD4FF008E5B45 /* HSDeckFormat.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4F7F58342724302E0080D6C3 /* HSYear.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FCC22C226ECA993004997AA /* HSYear.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4F7F58362724303B0080D6C3 /* DataCacheRepository.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F646A7326B7E7B900BEDB38 /* DataCacheRepository.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		4F7F58372724303B0080D6C3 /* HSCardRepository.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FA05F7326A30991000E93BC /* HSCardRepository.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		4F7F58382724303B0080D6C3 /* PrefsRepository.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FB8510426C18EDB00E3C89D /* PrefsRepository.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -307,9 +320,10 @@
 		4FC402CD2738759200D25523 /* CardOptionsMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC402CC2738759200D25523 /* CardOptionsMenu.m */; };
 		4FC48A852739E6B3001240FE /* NSUserInterfaceItemIdentifierCardOptionType+BlizzardHSAPIOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC48A842739E6B3001240FE /* NSUserInterfaceItemIdentifierCardOptionType+BlizzardHSAPIOption.m */; };
 		4FC48A882739EF48001240FE /* CardOptionsMenuFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC48A872739EF48001240FE /* CardOptionsMenuFactory.m */; };
+		4FC4DFF827AF5F8F00007AC0 /* CheckThread.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FC4DFF627AF5F8F00007AC0 /* CheckThread.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		4FC4DFF927AF5F8F00007AC0 /* CheckThread.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC4DFF727AF5F8F00007AC0 /* CheckThread.m */; };
 		4FCC22B126ECA3C4004997AA /* DeckImageRenderServiceIntroContentConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FCC22B026ECA3C4004997AA /* DeckImageRenderServiceIntroContentConfiguration.m */; };
 		4FCC22B426ECA4B7004997AA /* DeckImageRenderServiceIntroContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FCC22B326ECA4B7004997AA /* DeckImageRenderServiceIntroContentView.m */; };
-		4FCC22C426ECA99B004997AA /* HSYear.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FCC22C326ECA99B004997AA /* HSYear.m */; };
 		4FCC22C826ECAC81004997AA /* DeckImageRenderServiceAppNameContentConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FCC22C726ECAC81004997AA /* DeckImageRenderServiceAppNameContentConfiguration.m */; };
 		4FCC22CB26ECAC98004997AA /* DeckImageRenderServiceAppNameContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FCC22CA26ECAC98004997AA /* DeckImageRenderServiceAppNameContentView.m */; };
 		4FD430422782029600E7F23A /* DeckImageRenderServiceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD430412782029600E7F23A /* DeckImageRenderServiceModel.m */; };
@@ -383,6 +397,9 @@
 		4FF5729C271DC8A5007794EE /* DynamicAnimatedTransitioning.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF5729B271DC8A5007794EE /* DynamicAnimatedTransitioning.m */; };
 		4FF676CF26AAFC6A00477272 /* CardsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF676CE26AAFC6A00477272 /* CardsViewController.m */; };
 		4FFBAADB26E4FE9900DBEEDB /* UIImage+imageWithGrayScale.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FFBAADA26E4FE9900DBEEDB /* UIImage+imageWithGrayScale.m */; };
+		4FFCF7E627B1C49A00A89660 /* NSProcessInfo+isEnabledThreadSleepAtDDS.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FFCF7E527B1C49A00A89660 /* NSProcessInfo+isEnabledThreadSleepAtDDS.m */; };
+		4FFCF80727B1D48200A89660 /* compareNullableValues.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FFCF80627B1D46500A89660 /* compareNullableValues.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4FFCF80927B1D48D00A89660 /* compareNullableValues.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FFCF80827B1D48D00A89660 /* compareNullableValues.m */; };
 		4FFDD65026CAC0F7008E5B45 /* UIScrollView+scrollToTop.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FFDD64F26CAC0F7008E5B45 /* UIScrollView+scrollToTop.m */; };
 		4FFDD65326CAC274008E5B45 /* UIView+scrollToTopForRecursiveView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FFDD65226CAC274008E5B45 /* UIView+scrollToTopForRecursiveView.m */; };
 		4FFDD65826CAC419008E5B45 /* DecksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FFDD65726CAC419008E5B45 /* DecksViewController.m */; };
@@ -396,26 +413,15 @@
 		4FFDD67526CAD1EE008E5B45 /* LocalDeckUseCaseImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FFDD67326CAD1EE008E5B45 /* LocalDeckUseCaseImpl.m */; };
 		4FFDD67A26CAD40E008E5B45 /* HSDeck.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FFDD67826CAD40E008E5B45 /* HSDeck.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4FFDD67B26CAD40E008E5B45 /* HSDeck.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FFDD67926CAD40E008E5B45 /* HSDeck.m */; };
-		4FFDD68026CADB2D008E5B45 /* HSCardHero.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FFDD67E26CADB2D008E5B45 /* HSCardHero.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4FFDD68126CADB2D008E5B45 /* HSCardHero.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FFDD67F26CADB2D008E5B45 /* HSCardHero.m */; };
 		4FFDD68426CADEEA008E5B45 /* HSDeckRepositoryImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FFDD68226CADEEA008E5B45 /* HSDeckRepositoryImpl.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		4FFDD68526CADEEA008E5B45 /* HSDeckRepositoryImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FFDD68326CADEEA008E5B45 /* HSDeckRepositoryImpl.m */; };
 		F3024CED274007DD001DDE08 /* StoneNamuCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F34384826A36FBA001161FE /* StoneNamuCore.framework */; };
 		F3024D2327400ACC001DDE08 /* BlizzardAPIRegionHost.strings in Resources */ = {isa = PBXBuildFile; fileRef = F3024CF327400ACC001DDE08 /* BlizzardAPIRegionHost.strings */; };
-		F3024D2427400ACC001DDE08 /* HSCardGameMode.strings in Resources */ = {isa = PBXBuildFile; fileRef = F3024CF527400ACC001DDE08 /* HSCardGameMode.strings */; };
 		F3024D2527400ACC001DDE08 /* HSDeck.strings in Resources */ = {isa = PBXBuildFile; fileRef = F3024CF727400ACC001DDE08 /* HSDeck.strings */; };
-		F3024D2627400ACC001DDE08 /* HSCardMinionType.strings in Resources */ = {isa = PBXBuildFile; fileRef = F3024CF927400ACC001DDE08 /* HSCardMinionType.strings */; };
 		F3024D2727400ACC001DDE08 /* HSCardSort.strings in Resources */ = {isa = PBXBuildFile; fileRef = F3024CFB27400ACC001DDE08 /* HSCardSort.strings */; };
 		F3024D2827400ACC001DDE08 /* HSDeckFormat.strings in Resources */ = {isa = PBXBuildFile; fileRef = F3024CFD27400ACC001DDE08 /* HSDeckFormat.strings */; };
-		F3024D2927400ACC001DDE08 /* HSCardSpellSchool.strings in Resources */ = {isa = PBXBuildFile; fileRef = F3024CFF27400ACC001DDE08 /* HSCardSpellSchool.strings */; };
 		F3024D2A27400ACC001DDE08 /* BlizzardHSAPILocale.strings in Resources */ = {isa = PBXBuildFile; fileRef = F3024D0127400ACC001DDE08 /* BlizzardHSAPILocale.strings */; };
-		F3024D2B27400ACC001DDE08 /* HSCardType.strings in Resources */ = {isa = PBXBuildFile; fileRef = F3024D0327400ACC001DDE08 /* HSCardType.strings */; };
-		F3024D2C27400ACC001DDE08 /* HSCardClass.strings in Resources */ = {isa = PBXBuildFile; fileRef = F3024D0527400ACC001DDE08 /* HSCardClass.strings */; };
-		F3024D2D27400ACC001DDE08 /* HSYear.strings in Resources */ = {isa = PBXBuildFile; fileRef = F3024D0727400ACC001DDE08 /* HSYear.strings */; };
-		F3024D2E27400ACC001DDE08 /* HSCardSet.strings in Resources */ = {isa = PBXBuildFile; fileRef = F3024D0927400ACC001DDE08 /* HSCardSet.strings */; };
-		F3024D2F27400ACC001DDE08 /* HSCardKeyword.strings in Resources */ = {isa = PBXBuildFile; fileRef = F3024D0B27400ACC001DDE08 /* HSCardKeyword.strings */; };
 		F3024D3027400ACC001DDE08 /* HSCardCollectible.strings in Resources */ = {isa = PBXBuildFile; fileRef = F3024D0D27400ACC001DDE08 /* HSCardCollectible.strings */; };
-		F3024D3227400ACC001DDE08 /* HSCardRarity.strings in Resources */ = {isa = PBXBuildFile; fileRef = F3024D1127400ACC001DDE08 /* HSCardRarity.strings */; };
 		F303D63427414E8700569E20 /* PrefsTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F303D63327414E8700569E20 /* PrefsTabViewController.m */; };
 		F303D6392741507400569E20 /* PrefsCardsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F303D6382741507400569E20 /* PrefsCardsViewController.m */; };
 		F303D63C274150B200569E20 /* PrefsDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F303D63B274150B200569E20 /* PrefsDataViewController.m */; };
@@ -454,19 +460,26 @@
 			remoteGlobalIDString = 4F23C8A8273D997C00C33F10;
 			remoteInfo = StoneNamuResources;
 		};
+		4F27402627AEBB5600F6D3B8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4FA56B9F26A21059002D9FA0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4FA56BA626A21059002D9FA0;
+			remoteInfo = StoneNamu;
+		};
+		4F27402827AEBB5600F6D3B8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4FA56B9F26A21059002D9FA0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4FE856FC270089BC0008C2FB;
+			remoteInfo = StoneNamuMac;
+		};
 		4F34385126A36FBA001161FE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4FA56B9F26A21059002D9FA0 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 4F34384726A36FBA001161FE;
 			remoteInfo = StoneNamuCore;
-		};
-		4F34385326A36FBA001161FE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4FA56B9F26A21059002D9FA0 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 4FA56BA626A21059002D9FA0;
-			remoteInfo = StoneNamu;
 		};
 		4F34385926A36FBA001161FE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -481,13 +494,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 4F34384726A36FBA001161FE;
 			remoteInfo = StoneNamuCore;
-		};
-		4F4892CE2724632300126131 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4FA56B9F26A21059002D9FA0 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 4FE856FC270089BC0008C2FB;
-			remoteInfo = StoneNamuMac;
 		};
 		F3024CEF274007DD001DDE08 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -575,8 +581,6 @@
 		4F1B98AA26C824D9004E1603 /* UIViewController+animatedForSelectedIndexPath.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+animatedForSelectedIndexPath.h"; sourceTree = "<group>"; };
 		4F1B98AB26C824D9004E1603 /* UIViewController+animatedForSelectedIndexPath.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+animatedForSelectedIndexPath.m"; sourceTree = "<group>"; };
 		4F1E85EE27331DF600CE2551 /* NSScrubber+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSScrubber+Private.h"; sourceTree = "<group>"; };
-		4F1E85EF273320C500CE2551 /* HSCardSpellSchool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardSpellSchool.h; sourceTree = "<group>"; };
-		4F1E85F1273320E500CE2551 /* HSCardSpellSchool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCardSpellSchool.m; sourceTree = "<group>"; };
 		4F1FA0A927501A030082EBF0 /* DecksTouchBarDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DecksTouchBarDelegate.h; sourceTree = "<group>"; };
 		4F1FA0AA27501A270082EBF0 /* DecksTouchBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DecksTouchBar.h; sourceTree = "<group>"; };
 		4F1FA0AB27501A270082EBF0 /* DecksTouchBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DecksTouchBar.m; sourceTree = "<group>"; };
@@ -636,6 +640,37 @@
 		4F248388271DAE5300A231BF /* FloatingNaigationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FloatingNaigationController.m; sourceTree = "<group>"; };
 		4F273FB227ADC5B000F6D3B8 /* NSSet+hasValuesWhenStringType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSSet+hasValuesWhenStringType.h"; sourceTree = "<group>"; };
 		4F273FB327ADC5B000F6D3B8 /* NSSet+hasValuesWhenStringType.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSSet+hasValuesWhenStringType.m"; sourceTree = "<group>"; };
+		4F273FC227AE720700F6D3B8 /* HSMetaData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSMetaData.h; sourceTree = "<group>"; };
+		4F273FC327AE720700F6D3B8 /* HSMetaData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSMetaData.m; sourceTree = "<group>"; };
+		4F273FC627AE722100F6D3B8 /* HSCardSet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardSet.h; sourceTree = "<group>"; };
+		4F273FC727AE722100F6D3B8 /* HSCardSet.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCardSet.m; sourceTree = "<group>"; };
+		4F273FCA27AE725500F6D3B8 /* HSCardSetGroups.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardSetGroups.h; sourceTree = "<group>"; };
+		4F273FCB27AE725500F6D3B8 /* HSCardSetGroups.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCardSetGroups.m; sourceTree = "<group>"; };
+		4F273FCE27AE726200F6D3B8 /* HSCardGameMode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardGameMode.h; sourceTree = "<group>"; };
+		4F273FCF27AE726200F6D3B8 /* HSCardGameMode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCardGameMode.m; sourceTree = "<group>"; };
+		4F273FD627AE72D400F6D3B8 /* HSCardType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardType.h; sourceTree = "<group>"; };
+		4F273FD727AE72D400F6D3B8 /* HSCardType.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCardType.m; sourceTree = "<group>"; };
+		4F273FDA27AE72E000F6D3B8 /* HSCardRarity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardRarity.h; sourceTree = "<group>"; };
+		4F273FDB27AE72E000F6D3B8 /* HSCardRarity.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCardRarity.m; sourceTree = "<group>"; };
+		4F273FDE27AE72E900F6D3B8 /* HSCardClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardClass.h; sourceTree = "<group>"; };
+		4F273FDF27AE72E900F6D3B8 /* HSCardClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCardClass.m; sourceTree = "<group>"; };
+		4F273FE227AE72F500F6D3B8 /* HSCardMinionType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardMinionType.h; sourceTree = "<group>"; };
+		4F273FE327AE72F500F6D3B8 /* HSCardMinionType.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCardMinionType.m; sourceTree = "<group>"; };
+		4F273FE627AE72FF00F6D3B8 /* HSCardSpellSchool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardSpellSchool.h; sourceTree = "<group>"; };
+		4F273FE727AE72FF00F6D3B8 /* HSCardSpellSchool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCardSpellSchool.m; sourceTree = "<group>"; };
+		4F273FEA27AE731400F6D3B8 /* HSCardMercenaryRole.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardMercenaryRole.h; sourceTree = "<group>"; };
+		4F273FEB27AE731400F6D3B8 /* HSCardMercenaryRole.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCardMercenaryRole.m; sourceTree = "<group>"; };
+		4F273FEE27AE733600F6D3B8 /* HSCardKeyword.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardKeyword.h; sourceTree = "<group>"; };
+		4F273FEF27AE733600F6D3B8 /* HSCardKeyword.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCardKeyword.m; sourceTree = "<group>"; };
+		4F273FF227AE734D00F6D3B8 /* HSCardBackCategory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardBackCategory.h; sourceTree = "<group>"; };
+		4F273FF327AE734D00F6D3B8 /* HSCardBackCategory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCardBackCategory.m; sourceTree = "<group>"; };
+		4F273FF627AEB52800F6D3B8 /* HSMetaDataRepository.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSMetaDataRepository.h; sourceTree = "<group>"; };
+		4F273FF727AEB5C900F6D3B8 /* HSMetaDataRepositoryImpl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSMetaDataRepositoryImpl.h; sourceTree = "<group>"; };
+		4F273FF827AEB5C900F6D3B8 /* HSMetaDataRepositoryImpl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSMetaDataRepositoryImpl.m; sourceTree = "<group>"; };
+		4F273FFC27AEB86100F6D3B8 /* HSMetaDataUseCase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSMetaDataUseCase.h; sourceTree = "<group>"; };
+		4F27400027AEB87D00F6D3B8 /* HSMetaDataUseCaseImpl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSMetaDataUseCaseImpl.h; sourceTree = "<group>"; };
+		4F27400127AEB87D00F6D3B8 /* HSMetaDataUseCaseImpl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSMetaDataUseCaseImpl.m; sourceTree = "<group>"; };
+		4F27402A27AEC9F100F6D3B8 /* BlizzardHSAPIKeys.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlizzardHSAPIKeys.m; sourceTree = "<group>"; };
 		4F29FD712722EAB700753E8D /* MainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		4F29FD722722EAB700753E8D /* MainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		4F34383726A36492001161FE /* BlizzardTokenAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlizzardTokenAPI.h; sourceTree = "<group>"; };
@@ -654,15 +689,8 @@
 		4F414B0626CEF9F80003A0CF /* DeckDetailsSectionModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckDetailsSectionModel.m; sourceTree = "<group>"; };
 		4F414B0826CEFA5E0003A0CF /* DeckDetailsItemModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckDetailsItemModel.h; sourceTree = "<group>"; };
 		4F414B0926CEFA5E0003A0CF /* DeckDetailsItemModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckDetailsItemModel.m; sourceTree = "<group>"; };
-		4F449E9A26B178C4007CE04A /* HSCardClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCardClass.m; sourceTree = "<group>"; };
 		4F449EAA26B187DB007CE04A /* HSCardCollectible.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardCollectible.h; sourceTree = "<group>"; };
 		4F449EAB26B1884E007CE04A /* HSCardCollectible.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCardCollectible.m; sourceTree = "<group>"; };
-		4F449EAD26B1908A007CE04A /* HSCardRarity.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCardRarity.m; sourceTree = "<group>"; };
-		4F449EB526B19314007CE04A /* HSCardType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardType.h; sourceTree = "<group>"; };
-		4F449EBC26B19445007CE04A /* HSCardType.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCardType.m; sourceTree = "<group>"; };
-		4F449EBE26B19630007CE04A /* HSCardMinionType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardMinionType.h; sourceTree = "<group>"; };
-		4F449EBF26B197C7007CE04A /* HSCardMinionType.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCardMinionType.m; sourceTree = "<group>"; };
-		4F449EC726B19AAE007CE04A /* HSCardKeyword.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardKeyword.h; sourceTree = "<group>"; };
 		4F466EEF272851090035C569 /* NSViewController+SpinnerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSViewController+SpinnerView.h"; sourceTree = "<group>"; };
 		4F466EF0272851090035C569 /* NSViewController+SpinnerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSViewController+SpinnerView.m"; sourceTree = "<group>"; };
 		4F466EF3272889B00035C569 /* NSArray+string.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSArray+string.h"; sourceTree = "<group>"; };
@@ -710,7 +738,6 @@
 		4F4C5E2026D31F0E00E3349B /* NSDiffableDataSourceSnapshot+sort.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSDiffableDataSourceSnapshot+sort.h"; sourceTree = "<group>"; };
 		4F4C5E2126D31F0E00E3349B /* NSDiffableDataSourceSnapshot+sort.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSDiffableDataSourceSnapshot+sort.m"; sourceTree = "<group>"; };
 		4F4DD75626DFBBC000893E2B /* DeckDetailsViewControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckDetailsViewControllerDelegate.h; sourceTree = "<group>"; };
-		4F4DD75726DFBE4D00893E2B /* BlizzardHSAPIKeys.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlizzardHSAPIKeys.m; sourceTree = "<group>"; };
 		4F53D4B22722FAAF00DE6F25 /* MainLayoutProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainLayoutProtocol.h; sourceTree = "<group>"; };
 		4F53D4B927231D1900DE6F25 /* DeckAddCardSplitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeckAddCardSplitViewController.m; sourceTree = "<group>"; };
 		4F53D4BA27231D1900DE6F25 /* DeckAddCardSplitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeckAddCardSplitViewController.h; sourceTree = "<group>"; };
@@ -718,8 +745,6 @@
 		4F57DE9C26AD7B53000E4163 /* PickerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PickerViewController.m; sourceTree = "<group>"; };
 		4F57DE9F26AD7DB3000E4163 /* SheetNavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SheetNavigationController.h; sourceTree = "<group>"; };
 		4F57DEA026AD7DB3000E4163 /* SheetNavigationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SheetNavigationController.m; sourceTree = "<group>"; };
-		4F57DEA226AD86FA000E4163 /* HSCardSet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardSet.h; sourceTree = "<group>"; };
-		4F57DEA426AD96D3000E4163 /* HSCardSet.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCardSet.m; sourceTree = "<group>"; };
 		4F57DEAA26ADA6E3000E4163 /* PickerItemModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PickerItemModel.h; sourceTree = "<group>"; };
 		4F57DEAB26ADA6E3000E4163 /* PickerItemModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PickerItemModel.m; sourceTree = "<group>"; };
 		4F57DEB726ADC3CF000E4163 /* PickerItemView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PickerItemView.h; sourceTree = "<group>"; };
@@ -775,9 +800,6 @@
 		4F646BF827948FFD00340C07 /* DeckDetailsSeparatorBox.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckDetailsSeparatorBox.h; sourceTree = "<group>"; };
 		4F646BF927948FFD00340C07 /* DeckDetailsSeparatorBox.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckDetailsSeparatorBox.m; sourceTree = "<group>"; };
 		4F646BFB2794900B00340C07 /* DeckDetailsSeparatorBox.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DeckDetailsSeparatorBox.xib; sourceTree = "<group>"; };
-		4F6A139B26B251EE0089A13A /* HSCardKeyword.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCardKeyword.m; sourceTree = "<group>"; };
-		4F6A13A326B267BF0089A13A /* HSCardGameMode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardGameMode.h; sourceTree = "<group>"; };
-		4F6A13A426B267D60089A13A /* HSCardGameMode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCardGameMode.m; sourceTree = "<group>"; };
 		4F6A13AC26B26EFD0089A13A /* HSCardSort.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardSort.h; sourceTree = "<group>"; };
 		4F6A13AD26B26F0E0089A13A /* HSCardSort.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCardSort.m; sourceTree = "<group>"; };
 		4F6A13B026B273640089A13A /* StepperViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StepperViewController.h; sourceTree = "<group>"; };
@@ -1007,12 +1029,12 @@
 		4FC48A842739E6B3001240FE /* NSUserInterfaceItemIdentifierCardOptionType+BlizzardHSAPIOption.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSUserInterfaceItemIdentifierCardOptionType+BlizzardHSAPIOption.m"; sourceTree = "<group>"; };
 		4FC48A862739EF36001240FE /* CardOptionsMenuFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardOptionsMenuFactory.h; sourceTree = "<group>"; };
 		4FC48A872739EF48001240FE /* CardOptionsMenuFactory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardOptionsMenuFactory.m; sourceTree = "<group>"; };
+		4FC4DFF627AF5F8F00007AC0 /* CheckThread.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CheckThread.h; sourceTree = "<group>"; };
+		4FC4DFF727AF5F8F00007AC0 /* CheckThread.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CheckThread.m; sourceTree = "<group>"; };
 		4FCC22AF26ECA3C4004997AA /* DeckImageRenderServiceIntroContentConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckImageRenderServiceIntroContentConfiguration.h; sourceTree = "<group>"; };
 		4FCC22B026ECA3C4004997AA /* DeckImageRenderServiceIntroContentConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckImageRenderServiceIntroContentConfiguration.m; sourceTree = "<group>"; };
 		4FCC22B226ECA4B7004997AA /* DeckImageRenderServiceIntroContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckImageRenderServiceIntroContentView.h; sourceTree = "<group>"; };
 		4FCC22B326ECA4B7004997AA /* DeckImageRenderServiceIntroContentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckImageRenderServiceIntroContentView.m; sourceTree = "<group>"; };
-		4FCC22C226ECA993004997AA /* HSYear.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSYear.h; sourceTree = "<group>"; };
-		4FCC22C326ECA99B004997AA /* HSYear.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSYear.m; sourceTree = "<group>"; };
 		4FCC22C626ECAC81004997AA /* DeckImageRenderServiceAppNameContentConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckImageRenderServiceAppNameContentConfiguration.h; sourceTree = "<group>"; };
 		4FCC22C726ECAC81004997AA /* DeckImageRenderServiceAppNameContentConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeckImageRenderServiceAppNameContentConfiguration.m; sourceTree = "<group>"; };
 		4FCC22C926ECAC98004997AA /* DeckImageRenderServiceAppNameContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckImageRenderServiceAppNameContentView.h; sourceTree = "<group>"; };
@@ -1087,8 +1109,6 @@
 		4FDEAB6627A5B67A0087A0F2 /* NSView+viewOfClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSView+viewOfClass.h"; sourceTree = "<group>"; };
 		4FDEAB6727A5B67A0087A0F2 /* NSView+viewOfClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSView+viewOfClass.m"; sourceTree = "<group>"; };
 		4FE097C326A329B400BF3A6D /* BlizzardAPIRegionHost.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlizzardAPIRegionHost.h; sourceTree = "<group>"; };
-		4FE097C626A331FE00BF3A6D /* HSCardRarity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardRarity.h; sourceTree = "<group>"; };
-		4FE097CA26A33C7500BF3A6D /* HSCardClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardClass.h; sourceTree = "<group>"; };
 		4FE097CC26A3409500BF3A6D /* BlizzardHSAPIKeys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlizzardHSAPIKeys.h; sourceTree = "<group>"; };
 		4FE097CD26A3496F00BF3A6D /* BlizzardAPIRegionHost.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlizzardAPIRegionHost.m; sourceTree = "<group>"; };
 		4FE4B4B427333C22008D6FCD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -1170,6 +1190,10 @@
 		4FF676CE26AAFC6A00477272 /* CardsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardsViewController.m; sourceTree = "<group>"; };
 		4FFBAAD926E4FE9900DBEEDB /* UIImage+imageWithGrayScale.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+imageWithGrayScale.h"; sourceTree = "<group>"; };
 		4FFBAADA26E4FE9900DBEEDB /* UIImage+imageWithGrayScale.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+imageWithGrayScale.m"; sourceTree = "<group>"; };
+		4FFCF7E427B1C49A00A89660 /* NSProcessInfo+isEnabledThreadSleepAtDDS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSProcessInfo+isEnabledThreadSleepAtDDS.h"; sourceTree = "<group>"; };
+		4FFCF7E527B1C49A00A89660 /* NSProcessInfo+isEnabledThreadSleepAtDDS.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSProcessInfo+isEnabledThreadSleepAtDDS.m"; sourceTree = "<group>"; };
+		4FFCF80627B1D46500A89660 /* compareNullableValues.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = compareNullableValues.h; sourceTree = "<group>"; };
+		4FFCF80827B1D48D00A89660 /* compareNullableValues.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = compareNullableValues.m; sourceTree = "<group>"; };
 		4FFDD64E26CAC0F7008E5B45 /* UIScrollView+scrollToTop.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+scrollToTop.h"; sourceTree = "<group>"; };
 		4FFDD64F26CAC0F7008E5B45 /* UIScrollView+scrollToTop.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+scrollToTop.m"; sourceTree = "<group>"; };
 		4FFDD65126CAC274008E5B45 /* UIView+scrollToTopForRecursiveView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+scrollToTopForRecursiveView.h"; sourceTree = "<group>"; };
@@ -1192,40 +1216,20 @@
 		4FFDD67926CAD40E008E5B45 /* HSDeck.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSDeck.m; sourceTree = "<group>"; };
 		4FFDD67C26CAD4FF008E5B45 /* HSDeckFormat.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSDeckFormat.h; sourceTree = "<group>"; };
 		4FFDD67D26CAD868008E5B45 /* HSDeckRepository.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSDeckRepository.h; sourceTree = "<group>"; };
-		4FFDD67E26CADB2D008E5B45 /* HSCardHero.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardHero.h; sourceTree = "<group>"; };
-		4FFDD67F26CADB2D008E5B45 /* HSCardHero.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCardHero.m; sourceTree = "<group>"; };
 		4FFDD68226CADEEA008E5B45 /* HSDeckRepositoryImpl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSDeckRepositoryImpl.h; sourceTree = "<group>"; };
 		4FFDD68326CADEEA008E5B45 /* HSDeckRepositoryImpl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSDeckRepositoryImpl.m; sourceTree = "<group>"; };
 		F3024CF427400ACC001DDE08 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/BlizzardAPIRegionHost.strings; sourceTree = "<group>"; };
-		F3024CF627400ACC001DDE08 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/HSCardGameMode.strings; sourceTree = "<group>"; };
 		F3024CF827400ACC001DDE08 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/HSDeck.strings; sourceTree = "<group>"; };
-		F3024CFA27400ACC001DDE08 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/HSCardMinionType.strings; sourceTree = "<group>"; };
 		F3024CFC27400ACC001DDE08 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/HSCardSort.strings; sourceTree = "<group>"; };
 		F3024CFE27400ACC001DDE08 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/HSDeckFormat.strings; sourceTree = "<group>"; };
-		F3024D0027400ACC001DDE08 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/HSCardSpellSchool.strings; sourceTree = "<group>"; };
 		F3024D0227400ACC001DDE08 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/BlizzardHSAPILocale.strings; sourceTree = "<group>"; };
-		F3024D0427400ACC001DDE08 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/HSCardType.strings; sourceTree = "<group>"; };
-		F3024D0627400ACC001DDE08 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/HSCardClass.strings; sourceTree = "<group>"; };
-		F3024D0827400ACC001DDE08 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/HSYear.strings; sourceTree = "<group>"; };
-		F3024D0A27400ACC001DDE08 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/HSCardSet.strings; sourceTree = "<group>"; };
-		F3024D0C27400ACC001DDE08 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/HSCardKeyword.strings; sourceTree = "<group>"; };
 		F3024D0E27400ACC001DDE08 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/HSCardCollectible.strings; sourceTree = "<group>"; };
-		F3024D1227400ACC001DDE08 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/HSCardRarity.strings; sourceTree = "<group>"; };
 		F3024D1327400ACC001DDE08 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/BlizzardAPIRegionHost.strings; sourceTree = "<group>"; };
-		F3024D1427400ACC001DDE08 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/HSCardGameMode.strings; sourceTree = "<group>"; };
 		F3024D1527400ACC001DDE08 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/HSDeck.strings; sourceTree = "<group>"; };
-		F3024D1627400ACC001DDE08 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/HSCardMinionType.strings; sourceTree = "<group>"; };
 		F3024D1727400ACC001DDE08 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/HSCardSort.strings; sourceTree = "<group>"; };
 		F3024D1827400ACC001DDE08 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/HSDeckFormat.strings; sourceTree = "<group>"; };
-		F3024D1927400ACC001DDE08 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/HSCardSpellSchool.strings; sourceTree = "<group>"; };
 		F3024D1A27400ACC001DDE08 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/BlizzardHSAPILocale.strings; sourceTree = "<group>"; };
-		F3024D1B27400ACC001DDE08 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/HSCardType.strings; sourceTree = "<group>"; };
-		F3024D1C27400ACC001DDE08 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/HSCardClass.strings; sourceTree = "<group>"; };
-		F3024D1D27400ACC001DDE08 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/HSYear.strings; sourceTree = "<group>"; };
-		F3024D1E27400ACC001DDE08 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/HSCardSet.strings; sourceTree = "<group>"; };
-		F3024D1F27400ACC001DDE08 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/HSCardKeyword.strings; sourceTree = "<group>"; };
 		F3024D2027400ACC001DDE08 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/HSCardCollectible.strings; sourceTree = "<group>"; };
-		F3024D2227400ACC001DDE08 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/HSCardRarity.strings; sourceTree = "<group>"; };
 		F303D63227414E8700569E20 /* PrefsTabViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefsTabViewController.h; sourceTree = "<group>"; };
 		F303D63327414E8700569E20 /* PrefsTabViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrefsTabViewController.m; sourceTree = "<group>"; };
 		F303D6372741507400569E20 /* PrefsCardsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefsCardsViewController.h; sourceTree = "<group>"; };
@@ -1539,6 +1543,10 @@
 				4F4892C42724534C00126131 /* Identifier.h */,
 				4FF3E0D526CA7F81002B20EA /* SemaphoreCondition.h */,
 				4FF3E0D626CA7F81002B20EA /* SemaphoreCondition.m */,
+				4FC4DFF627AF5F8F00007AC0 /* CheckThread.h */,
+				4FC4DFF727AF5F8F00007AC0 /* CheckThread.m */,
+				4FFCF80627B1D46500A89660 /* compareNullableValues.h */,
+				4FFCF80827B1D48D00A89660 /* compareNullableValues.m */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -1564,6 +1572,45 @@
 				4F73ABB126E88337000FD629 /* FloatingAnimatedTransitioning.m */,
 			);
 			path = Floating;
+			sourceTree = "<group>";
+		};
+		4F273FB627AE6DD700F6D3B8 /* HSMetaData */ = {
+			isa = PBXGroup;
+			children = (
+				4F273FC227AE720700F6D3B8 /* HSMetaData.h */,
+				4F273FC327AE720700F6D3B8 /* HSMetaData.m */,
+				4F273FBE27AE6E7900F6D3B8 /* MetaData */,
+			);
+			path = HSMetaData;
+			sourceTree = "<group>";
+		};
+		4F273FBE27AE6E7900F6D3B8 /* MetaData */ = {
+			isa = PBXGroup;
+			children = (
+				4F273FC627AE722100F6D3B8 /* HSCardSet.h */,
+				4F273FC727AE722100F6D3B8 /* HSCardSet.m */,
+				4F273FCA27AE725500F6D3B8 /* HSCardSetGroups.h */,
+				4F273FCB27AE725500F6D3B8 /* HSCardSetGroups.m */,
+				4F273FCE27AE726200F6D3B8 /* HSCardGameMode.h */,
+				4F273FCF27AE726200F6D3B8 /* HSCardGameMode.m */,
+				4F273FD627AE72D400F6D3B8 /* HSCardType.h */,
+				4F273FD727AE72D400F6D3B8 /* HSCardType.m */,
+				4F273FDA27AE72E000F6D3B8 /* HSCardRarity.h */,
+				4F273FDB27AE72E000F6D3B8 /* HSCardRarity.m */,
+				4F273FDE27AE72E900F6D3B8 /* HSCardClass.h */,
+				4F273FDF27AE72E900F6D3B8 /* HSCardClass.m */,
+				4F273FE227AE72F500F6D3B8 /* HSCardMinionType.h */,
+				4F273FE327AE72F500F6D3B8 /* HSCardMinionType.m */,
+				4F273FE627AE72FF00F6D3B8 /* HSCardSpellSchool.h */,
+				4F273FE727AE72FF00F6D3B8 /* HSCardSpellSchool.m */,
+				4F273FEA27AE731400F6D3B8 /* HSCardMercenaryRole.h */,
+				4F273FEB27AE731400F6D3B8 /* HSCardMercenaryRole.m */,
+				4F273FEE27AE733600F6D3B8 /* HSCardKeyword.h */,
+				4F273FEF27AE733600F6D3B8 /* HSCardKeyword.m */,
+				4F273FF227AE734D00F6D3B8 /* HSCardBackCategory.h */,
+				4F273FF327AE734D00F6D3B8 /* HSCardBackCategory.m */,
+			);
+			path = MetaData;
 			sourceTree = "<group>";
 		};
 		4F34384926A36FBA001161FE /* StoneNamuCore */ = {
@@ -2248,6 +2295,8 @@
 			children = (
 				4FAA89DE26A42A1500572BB4 /* BlizzardAPIRepositoryImpl.h */,
 				4FAA89DF26A42A1500572BB4 /* BlizzardAPIRepositoryImpl.m */,
+				4F273FF727AEB5C900F6D3B8 /* HSMetaDataRepositoryImpl.h */,
+				4F273FF827AEB5C900F6D3B8 /* HSMetaDataRepositoryImpl.m */,
 				4FA05F7426A309C7000E93BC /* HSCardRepositoryImpl.h */,
 				4FA05F7526A309C7000E93BC /* HSCardRepositoryImpl.m */,
 				4FFDD68226CADEEA008E5B45 /* HSDeckRepositoryImpl.h */,
@@ -2266,6 +2315,7 @@
 			isa = PBXGroup;
 			children = (
 				4FAA89E226A42A2100572BB4 /* BlizzardAPIRepository.h */,
+				4F273FF627AEB52800F6D3B8 /* HSMetaDataRepository.h */,
 				4FA05F7326A30991000E93BC /* HSCardRepository.h */,
 				4FFDD67D26CAD868008E5B45 /* HSDeckRepository.h */,
 				4F646A7326B7E7B900BEDB38 /* DataCacheRepository.h */,
@@ -2350,6 +2400,7 @@
 		4FA56BF126A216A8002D9FA0 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
+				4F273FB627AE6DD700F6D3B8 /* HSMetaData */,
 				4FFDD65C26CAC770008E5B45 /* LocalDeck */,
 				4FB850F826C18D2C00E3C89D /* Prefs */,
 				4F646A6026B7D71800BEDB38 /* Cache */,
@@ -2363,6 +2414,9 @@
 		4FAA89D526A4260C00572BB4 /* UseCase */ = {
 			isa = PBXGroup;
 			children = (
+				4F273FFC27AEB86100F6D3B8 /* HSMetaDataUseCase.h */,
+				4F27400027AEB87D00F6D3B8 /* HSMetaDataUseCaseImpl.h */,
+				4F27400127AEB87D00F6D3B8 /* HSMetaDataUseCaseImpl.m */,
 				4FAA89D626A4266500572BB4 /* HSCardUseCase.h */,
 				4FAA89DA26A426E700572BB4 /* HSCardUseCaseImpl.h */,
 				4FAA89DB26A426E700572BB4 /* HSCardUseCaseImpl.m */,
@@ -2748,7 +2802,7 @@
 				4FA56BF226A216C1002D9FA0 /* BlizzardHSAPILocale.h */,
 				4F03F56C26C7B3CF00FC9155 /* BlizzardHSAPILocale.m */,
 				4FE097CC26A3409500BF3A6D /* BlizzardHSAPIKeys.h */,
-				4F4DD75726DFBE4D00893E2B /* BlizzardHSAPIKeys.m */,
+				4F27402A27AEC9F100F6D3B8 /* BlizzardHSAPIKeys.m */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -2760,24 +2814,6 @@
 				4FA05F6F26A30940000E93BC /* HSCard.m */,
 				4F449EAA26B187DB007CE04A /* HSCardCollectible.h */,
 				4F449EAB26B1884E007CE04A /* HSCardCollectible.m */,
-				4FE097CA26A33C7500BF3A6D /* HSCardClass.h */,
-				4F449E9A26B178C4007CE04A /* HSCardClass.m */,
-				4FFDD67E26CADB2D008E5B45 /* HSCardHero.h */,
-				4FFDD67F26CADB2D008E5B45 /* HSCardHero.m */,
-				4FE097C626A331FE00BF3A6D /* HSCardRarity.h */,
-				4F449EAD26B1908A007CE04A /* HSCardRarity.m */,
-				4F57DEA226AD86FA000E4163 /* HSCardSet.h */,
-				4F57DEA426AD96D3000E4163 /* HSCardSet.m */,
-				4F449EB526B19314007CE04A /* HSCardType.h */,
-				4F449EBC26B19445007CE04A /* HSCardType.m */,
-				4F449EBE26B19630007CE04A /* HSCardMinionType.h */,
-				4F449EBF26B197C7007CE04A /* HSCardMinionType.m */,
-				4F1E85EF273320C500CE2551 /* HSCardSpellSchool.h */,
-				4F1E85F1273320E500CE2551 /* HSCardSpellSchool.m */,
-				4F449EC726B19AAE007CE04A /* HSCardKeyword.h */,
-				4F6A139B26B251EE0089A13A /* HSCardKeyword.m */,
-				4F6A13A326B267BF0089A13A /* HSCardGameMode.h */,
-				4F6A13A426B267D60089A13A /* HSCardGameMode.m */,
 				4F6A13AC26B26EFD0089A13A /* HSCardSort.h */,
 				4F6A13AD26B26F0E0089A13A /* HSCardSort.m */,
 			);
@@ -2847,6 +2883,8 @@
 				F303D63E2741549800569E20 /* NSTabViewController+selectTabViewItem.m */,
 				F303D64027415BFF00569E20 /* NSProcessInfo+isEnabledRestoration.h */,
 				F303D64127415BFF00569E20 /* NSProcessInfo+isEnabledRestoration.m */,
+				4FFCF7E427B1C49A00A89660 /* NSProcessInfo+isEnabledThreadSleepAtDDS.h */,
+				4FFCF7E527B1C49A00A89660 /* NSProcessInfo+isEnabledThreadSleepAtDDS.m */,
 				4FDE9B6E274AF1C200AB0E02 /* NSDiffableDataSourceSnapshot+sort.h */,
 				4FDE9B6F274AF1C200AB0E02 /* NSDiffableDataSourceSnapshot+sort.m */,
 				4F049DDF2774533900E41AEA /* NSImage+dataUsingType.h */,
@@ -3101,8 +3139,6 @@
 				4FFDD67926CAD40E008E5B45 /* HSDeck.m */,
 				4FFDD67C26CAD4FF008E5B45 /* HSDeckFormat.h */,
 				4F8754B126DB6F60000CE351 /* HSDeckFormat.m */,
-				4FCC22C226ECA993004997AA /* HSYear.h */,
-				4FCC22C326ECA99B004997AA /* HSYear.m */,
 			);
 			path = HSDeck;
 			sourceTree = "<group>";
@@ -3114,19 +3150,10 @@
 				F3024CF327400ACC001DDE08 /* BlizzardAPIRegionHost.strings */,
 				F3024D0127400ACC001DDE08 /* BlizzardHSAPILocale.strings */,
 				F35E230C27401B42000A2605 /* BlizzardHSAPIOptionType.strings */,
-				F3024CF527400ACC001DDE08 /* HSCardGameMode.strings */,
 				F3024CF727400ACC001DDE08 /* HSDeck.strings */,
-				F3024CF927400ACC001DDE08 /* HSCardMinionType.strings */,
 				F3024CFB27400ACC001DDE08 /* HSCardSort.strings */,
 				F3024CFD27400ACC001DDE08 /* HSDeckFormat.strings */,
-				F3024CFF27400ACC001DDE08 /* HSCardSpellSchool.strings */,
-				F3024D0327400ACC001DDE08 /* HSCardType.strings */,
-				F3024D0527400ACC001DDE08 /* HSCardClass.strings */,
-				F3024D0727400ACC001DDE08 /* HSYear.strings */,
-				F3024D0927400ACC001DDE08 /* HSCardSet.strings */,
-				F3024D0B27400ACC001DDE08 /* HSCardKeyword.strings */,
 				F3024D0D27400ACC001DDE08 /* HSCardCollectible.strings */,
-				F3024D1127400ACC001DDE08 /* HSCardRarity.strings */,
 			);
 			path = Localizables;
 			sourceTree = "<group>";
@@ -3229,41 +3256,47 @@
 			files = (
 				4F7F583B2724303B0080D6C3 /* LocalDeckRepository.h in Headers */,
 				4FAA89DC26A426E700572BB4 /* HSCardUseCaseImpl.h in Headers */,
+				4F273FE827AE72FF00F6D3B8 /* HSCardSpellSchool.h in Headers */,
 				4F7F583A2724303B0080D6C3 /* BlizzardAPIRepository.h in Headers */,
 				4F7F58362724303B0080D6C3 /* DataCacheRepository.h in Headers */,
-				4F7F582B272430030080D6C3 /* HSCardKeyword.h in Headers */,
+				4FC4DFF827AF5F8F00007AC0 /* CheckThread.h in Headers */,
 				4F646A7B26B7F08500BEDB38 /* DataCacheUseCaseImpl.h in Headers */,
 				4F70E28F2724359A0076735B /* BlizzardTokenAPI.h in Headers */,
 				4F7F585B272430D90080D6C3 /* HSCardRepositoryImpl.h in Headers */,
-				4F7F582527242FEE0080D6C3 /* HSCardSet.h in Headers */,
+				4F273FFD27AEB86400F6D3B8 /* HSMetaDataUseCase.h in Headers */,
+				4F273FF027AE733600F6D3B8 /* HSCardKeyword.h in Headers */,
 				4F7F5858272430C90080D6C3 /* BlizzardAPIImpl.h in Headers */,
 				4F7F581B27242FAA0080D6C3 /* BlizzardHSAPIKeys.h in Headers */,
+				4F273FE427AE72F500F6D3B8 /* HSCardMinionType.h in Headers */,
 				4F646A7126B7DFB500BEDB38 /* CoreDataStackImpl.h in Headers */,
 				4FFDD67426CAD1EE008E5B45 /* LocalDeckUseCaseImpl.h in Headers */,
 				4F7F5850272430AF0080D6C3 /* CoreDataStack.h in Headers */,
+				4F273FC427AE720700F6D3B8 /* HSMetaData.h in Headers */,
 				4F7F581127242F570080D6C3 /* LocalDeck.h in Headers */,
-				4F7F582927242FFC0080D6C3 /* HSCardMinionType.h in Headers */,
+				4FFCF80727B1D48200A89660 /* compareNullableValues.h in Headers */,
+				4F273FC827AE722100F6D3B8 /* HSCardSet.h in Headers */,
 				4F7F580727242F020080D6C3 /* NSMutableArray+removeSingle.h in Headers */,
+				4F273FDC27AE72E000F6D3B8 /* HSCardRarity.h in Headers */,
+				4F273FD027AE726200F6D3B8 /* HSCardGameMode.h in Headers */,
 				4F7F584E2724308C0080D6C3 /* PrefsUseCase.h in Headers */,
-				4FFDD68026CADB2D008E5B45 /* HSCardHero.h in Headers */,
 				4F34385826A36FBA001161FE /* StoneNamuCore.h in Headers */,
-				4F1E85F0273320CA00CE2551 /* HSCardSpellSchool.h in Headers */,
+				4F273FE027AE72E900F6D3B8 /* HSCardClass.h in Headers */,
 				4FAA89D826A4266500572BB4 /* HSCardUseCase.h in Headers */,
 				4F4892C52724539600126131 /* Identifier.h in Headers */,
 				4FC094F926CD712100A7D373 /* HSDeckUseCaseImpl.h in Headers */,
-				4F7F582D2724300A0080D6C3 /* HSCardGameMode.h in Headers */,
 				4F466EF5272889B00035C569 /* NSArray+string.h in Headers */,
 				4F7F580B27242F0C0080D6C3 /* NSArray+countOfObject.h in Headers */,
 				4F7F580E27242F300080D6C3 /* NSString+arrayOfCharacters.h in Headers */,
+				4F273FF927AEB5C900F6D3B8 /* HSMetaDataRepositoryImpl.h in Headers */,
 				4F7F5854272430C20080D6C3 /* BlizzardTokenAPIImpl.h in Headers */,
 				4F03F55726C79C2D00FC9155 /* PrefsRepositoryImpl.h in Headers */,
+				4F273FFB27AEB66E00F6D3B8 /* HSMetaDataRepository.h in Headers */,
 				4F7F584F272430950080D6C3 /* LocalDeckUseCase.h in Headers */,
 				4FFDD68426CADEEA008E5B45 /* HSDeckRepositoryImpl.h in Headers */,
 				4F22519E278B3E930004DD8D /* NSNumber+stringWithSepearatedDecimalNumber.h in Headers */,
-				4F7F58342724302E0080D6C3 /* HSYear.h in Headers */,
+				4F273FD827AE72D400F6D3B8 /* HSCardType.h in Headers */,
 				4F7F580227242EA70080D6C3 /* NSManagedObject+_fetchRequest.h in Headers */,
 				4F03F56426C7A6AF00FC9155 /* PrefsUseCaseImpl.h in Headers */,
-				4F7F582027242FD00080D6C3 /* HSCardClass.h in Headers */,
 				4F8635EC2746AE98000EC94F /* StoneNamuError.h in Headers */,
 				4FFDD67A26CAD40E008E5B45 /* HSDeck.h in Headers */,
 				4F7F584D272430830080D6C3 /* DataCacheUseCase.h in Headers */,
@@ -3271,16 +3304,18 @@
 				4FAA89E026A42A1500572BB4 /* BlizzardAPIRepositoryImpl.h in Headers */,
 				4F7F581527242F7C0080D6C3 /* DataCache.h in Headers */,
 				4F646A7626B7E8C100BEDB38 /* DataCacheRepositoryImpl.h in Headers */,
+				4F273FF427AE734D00F6D3B8 /* HSCardBackCategory.h in Headers */,
+				4F273FCC27AE725500F6D3B8 /* HSCardSetGroups.h in Headers */,
 				4F7F581827242F9E0080D6C3 /* BlizzardHSAPILocale.h in Headers */,
 				4F2251932789E72E0004DD8D /* NSDictionary+combine.h in Headers */,
+				4F27400227AEB87D00F6D3B8 /* HSMetaDataUseCaseImpl.h in Headers */,
 				4F273FB427ADC5B000F6D3B8 /* NSSet+hasValuesWhenStringType.h in Headers */,
 				4F7F581327242F650080D6C3 /* Prefs.h in Headers */,
 				4F7F5857272430C90080D6C3 /* BlizzardAPI.h in Headers */,
-				4F7F582327242FE70080D6C3 /* HSCardRarity.h in Headers */,
-				4F7F582727242FF60080D6C3 /* HSCardType.h in Headers */,
 				4F7F57F227242E6D0080D6C3 /* SemaphoreCondition.h in Headers */,
 				4F7F57F127242E110080D6C3 /* BlizzardAPIRegionHost.h in Headers */,
 				4F7F584C272430760080D6C3 /* HSDeckUseCase.h in Headers */,
+				4F273FEC27AE731400F6D3B8 /* HSCardMercenaryRole.h in Headers */,
 				4F7F581E27242FC40080D6C3 /* HSCardCollectible.h in Headers */,
 				4F7F582F272430120080D6C3 /* HSCardSort.h in Headers */,
 				4F7F58392724303B0080D6C3 /* HSDeckRepository.h in Headers */,
@@ -3360,8 +3395,8 @@
 			);
 			dependencies = (
 				4F34385226A36FBA001161FE /* PBXTargetDependency */,
-				4F34385426A36FBA001161FE /* PBXTargetDependency */,
-				4F4892CF2724632300126131 /* PBXTargetDependency */,
+				4F27402727AEBB5600F6D3B8 /* PBXTargetDependency */,
+				4F27402927AEBB5600F6D3B8 /* PBXTargetDependency */,
 			);
 			name = StoneNamuCoreTests;
 			productName = StoneNamuCoreTests;
@@ -3427,7 +3462,7 @@
 					};
 					4F34384E26A36FBA001161FE = {
 						CreatedOnToolsVersion = 13.0;
-						TestTargetID = 4FE856FC270089BC0008C2FB;
+						TestTargetID = 4FA56BA626A21059002D9FA0;
 					};
 					4FA56BA626A21059002D9FA0 = {
 						CreatedOnToolsVersion = 12.5.1;
@@ -3469,23 +3504,14 @@
 				F3024D2327400ACC001DDE08 /* BlizzardAPIRegionHost.strings in Resources */,
 				4F73EB7727821EF400D65FDB /* GmarketSansTTFLight.ttf in Resources */,
 				4F73EB7827821EF400D65FDB /* GmarketSansTTFMedium.ttf in Resources */,
-				F3024D2D27400ACC001DDE08 /* HSYear.strings in Resources */,
-				F3024D2F27400ACC001DDE08 /* HSCardKeyword.strings in Resources */,
 				4F23C8C3273D9AEA00C33F10 /* Assets.xcassets in Resources */,
 				F3024D2A27400ACC001DDE08 /* BlizzardHSAPILocale.strings in Resources */,
-				F3024D2B27400ACC001DDE08 /* HSCardType.strings in Resources */,
 				F3024D2527400ACC001DDE08 /* HSDeck.strings in Resources */,
-				F3024D2627400ACC001DDE08 /* HSCardMinionType.strings in Resources */,
 				F3024D3027400ACC001DDE08 /* HSCardCollectible.strings in Resources */,
-				F3024D2C27400ACC001DDE08 /* HSCardClass.strings in Resources */,
-				F3024D2427400ACC001DDE08 /* HSCardGameMode.strings in Resources */,
 				4F23C8BE273D9ABC00C33F10 /* Localizable.strings in Resources */,
-				F3024D2927400ACC001DDE08 /* HSCardSpellSchool.strings in Resources */,
 				4F73EB7627821EF400D65FDB /* GmarketSansTTFBold.ttf in Resources */,
 				F35E230A27401B42000A2605 /* BlizzardHSAPIOptionType.strings in Resources */,
-				F3024D3227400ACC001DDE08 /* HSCardRarity.strings in Resources */,
 				F3024D2727400ACC001DDE08 /* HSCardSort.strings in Resources */,
-				F3024D2E27400ACC001DDE08 /* HSCardSet.strings in Resources */,
 				F3024D2827400ACC001DDE08 /* HSDeckFormat.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3563,18 +3589,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4F6A13A526B267D60089A13A /* HSCardGameMode.m in Sources */,
 				4F646A7726B7E8C100BEDB38 /* DataCacheRepositoryImpl.m in Sources */,
+				4FFCF80927B1D48D00A89660 /* compareNullableValues.m in Sources */,
+				4F273FC927AE722100F6D3B8 /* HSCardSet.m in Sources */,
 				4FB45F8A27346B440039CD62 /* LocalDeck_v1_to_v2.xcmappingmodel in Sources */,
-				4F449EAE26B1908A007CE04A /* HSCardRarity.m in Sources */,
+				4F273FE127AE72E900F6D3B8 /* HSCardClass.m in Sources */,
 				4F34386826A37029001161FE /* BlizzardTokenAPIImpl.m in Sources */,
+				4F273FD927AE72D400F6D3B8 /* HSCardType.m in Sources */,
+				4F273FF527AE734D00F6D3B8 /* HSCardBackCategory.m in Sources */,
+				4F273FCD27AE725500F6D3B8 /* HSCardSetGroups.m in Sources */,
 				4FFDD67126CACE97008E5B45 /* LocalDeckRepositoryImpl.m in Sources */,
+				4F27402B27AEC9F100F6D3B8 /* BlizzardHSAPIKeys.m in Sources */,
 				4FB850FF26C18D9300E3C89D /* Prefs.m in Sources */,
-				4F449EC026B197C7007CE04A /* HSCardMinionType.m in Sources */,
 				4F03F56526C7A6AF00FC9155 /* PrefsUseCaseImpl.m in Sources */,
 				4F6A13AE26B26F0E0089A13A /* HSCardSort.m in Sources */,
-				4F449EBD26B19445007CE04A /* HSCardType.m in Sources */,
-				4F6A139C26B251EE0089A13A /* HSCardKeyword.m in Sources */,
 				4FFDD68526CADEEA008E5B45 /* HSDeckRepositoryImpl.m in Sources */,
 				4F646A7C26B7F08500BEDB38 /* DataCacheUseCaseImpl.m in Sources */,
 				4F273FB527ADC5B000F6D3B8 /* NSSet+hasValuesWhenStringType.m in Sources */,
@@ -3583,17 +3611,22 @@
 				4F34386526A3700C001161FE /* BlizzardAPIRegionHost.m in Sources */,
 				4FB8510326C18DE200E3C89D /* NSManagedObject+_fetchRequest.m in Sources */,
 				4F2251942789E72E0004DD8D /* NSDictionary+combine.m in Sources */,
+				4F273FE927AE72FF00F6D3B8 /* HSCardSpellSchool.m in Sources */,
+				4F273FD127AE726200F6D3B8 /* HSCardGameMode.m in Sources */,
 				4FFDD66926CACB30008E5B45 /* LocalDeckModel.xcdatamodeld in Sources */,
+				4F27400327AEB87D00F6D3B8 /* HSMetaDataUseCaseImpl.m in Sources */,
 				4F414B0126CED5480003A0CF /* SemaphoreCondition.m in Sources */,
+				4F273FC527AE720700F6D3B8 /* HSMetaData.m in Sources */,
+				4F273FF127AE733600F6D3B8 /* HSCardKeyword.m in Sources */,
 				4F22519D278B3E930004DD8D /* NSNumber+stringWithSepearatedDecimalNumber.m in Sources */,
 				4FFDD66326CAC9B4008E5B45 /* LocalDeck.m in Sources */,
-				4FFDD68126CADB2D008E5B45 /* HSCardHero.m in Sources */,
 				4F646A7226B7DFB500BEDB38 /* CoreDataStackImpl.m in Sources */,
 				4FFDD67526CAD1EE008E5B45 /* LocalDeckUseCaseImpl.m in Sources */,
-				4F449E9B26B178C4007CE04A /* HSCardClass.m in Sources */,
+				4F273FED27AE731400F6D3B8 /* HSCardMercenaryRole.m in Sources */,
+				4F273FFA27AEB5C900F6D3B8 /* HSMetaDataRepositoryImpl.m in Sources */,
 				4FFDD67B26CAD40E008E5B45 /* HSDeck.m in Sources */,
-				4F1E85F2273320E600CE2551 /* HSCardSpellSchool.m in Sources */,
 				4F8635ED2746AE98000EC94F /* StoneNamuError.m in Sources */,
+				4F273FE527AE72F500F6D3B8 /* HSCardMinionType.m in Sources */,
 				4F03F55E26C7A15700FC9155 /* PrefsModel.xcdatamodeld in Sources */,
 				4FAA89DD26A426E700572BB4 /* HSCardUseCaseImpl.m in Sources */,
 				4FDDE4BF26F79F2D0022F87C /* NSString+arrayOfCharacters.m in Sources */,
@@ -3603,15 +3636,14 @@
 				4F4DD75926DFD54B00893E2B /* NSMutableArray+removeSingle.m in Sources */,
 				4F466EF6272889B00035C569 /* NSArray+string.m in Sources */,
 				4F646A6326B7D73400BEDB38 /* DataCacheModel.xcdatamodeld in Sources */,
+				4FC4DFF927AF5F8F00007AC0 /* CheckThread.m in Sources */,
 				4F34386426A36FED001161FE /* HSCard.m in Sources */,
-				4FCC22C426ECA99B004997AA /* HSYear.m in Sources */,
+				4F273FDD27AE72E000F6D3B8 /* HSCardRarity.m in Sources */,
 				4F449EAC26B1884E007CE04A /* HSCardCollectible.m in Sources */,
-				4F57DEA526AD96D3000E4163 /* HSCardSet.m in Sources */,
 				4F8754B226DB6F60000CE351 /* HSDeckFormat.m in Sources */,
 				4F34386926A37031001161FE /* BlizzardAPIImpl.m in Sources */,
 				4F03F56D26C7B3CF00FC9155 /* BlizzardHSAPILocale.m in Sources */,
 				4FC094FA26CD712100A7D373 /* HSDeckUseCaseImpl.m in Sources */,
-				4F4DD75826DFBE4D00893E2B /* BlizzardHSAPIKeys.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3769,6 +3801,7 @@
 				4F6302DF278DF32E00AF075D /* CardDetailsWindowRestoration.m in Sources */,
 				4F2444E1279B25BF009A2113 /* DeckBackgroundBox.m in Sources */,
 				4FF3CD352759730900ACA5AC /* DeckAddCardOptionsMenuFactory.m in Sources */,
+				4FFCF7E627B1C49A00A89660 /* NSProcessInfo+isEnabledThreadSleepAtDDS.m in Sources */,
 				F3CCE2902742C442004B5B26 /* MainListItemModel.m in Sources */,
 				4FE8576D27009B5C0008C2FB /* CardsViewModel.m in Sources */,
 				F3DBBC36276B371E00A63078 /* NSWindow+topBarHeight.m in Sources */,
@@ -3906,15 +3939,20 @@
 			target = 4F23C8A8273D997C00C33F10 /* StoneNamuResources */;
 			targetProxy = 4F23C8D0273D9D4100C33F10 /* PBXContainerItemProxy */;
 		};
+		4F27402727AEBB5600F6D3B8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4FA56BA626A21059002D9FA0 /* StoneNamu */;
+			targetProxy = 4F27402627AEBB5600F6D3B8 /* PBXContainerItemProxy */;
+		};
+		4F27402927AEBB5600F6D3B8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4FE856FC270089BC0008C2FB /* StoneNamuMac */;
+			targetProxy = 4F27402827AEBB5600F6D3B8 /* PBXContainerItemProxy */;
+		};
 		4F34385226A36FBA001161FE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 4F34384726A36FBA001161FE /* StoneNamuCore */;
 			targetProxy = 4F34385126A36FBA001161FE /* PBXContainerItemProxy */;
-		};
-		4F34385426A36FBA001161FE /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 4FA56BA626A21059002D9FA0 /* StoneNamu */;
-			targetProxy = 4F34385326A36FBA001161FE /* PBXContainerItemProxy */;
 		};
 		4F34385A26A36FBA001161FE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -3925,11 +3963,6 @@
 			isa = PBXTargetDependency;
 			target = 4F34384726A36FBA001161FE /* StoneNamuCore */;
 			targetProxy = 4F4892CC272460CD00126131 /* PBXContainerItemProxy */;
-		};
-		4F4892CF2724632300126131 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 4FE856FC270089BC0008C2FB /* StoneNamuMac */;
-			targetProxy = 4F4892CE2724632300126131 /* PBXContainerItemProxy */;
 		};
 		F3024CF0274007DD001DDE08 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -3975,15 +4008,6 @@
 			name = BlizzardAPIRegionHost.strings;
 			sourceTree = "<group>";
 		};
-		F3024CF527400ACC001DDE08 /* HSCardGameMode.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F3024CF627400ACC001DDE08 /* en */,
-				F3024D1427400ACC001DDE08 /* ko */,
-			);
-			name = HSCardGameMode.strings;
-			sourceTree = "<group>";
-		};
 		F3024CF727400ACC001DDE08 /* HSDeck.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -3991,15 +4015,6 @@
 				F3024D1527400ACC001DDE08 /* ko */,
 			);
 			name = HSDeck.strings;
-			sourceTree = "<group>";
-		};
-		F3024CF927400ACC001DDE08 /* HSCardMinionType.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F3024CFA27400ACC001DDE08 /* en */,
-				F3024D1627400ACC001DDE08 /* ko */,
-			);
-			name = HSCardMinionType.strings;
 			sourceTree = "<group>";
 		};
 		F3024CFB27400ACC001DDE08 /* HSCardSort.strings */ = {
@@ -4020,15 +4035,6 @@
 			name = HSDeckFormat.strings;
 			sourceTree = "<group>";
 		};
-		F3024CFF27400ACC001DDE08 /* HSCardSpellSchool.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F3024D0027400ACC001DDE08 /* en */,
-				F3024D1927400ACC001DDE08 /* ko */,
-			);
-			name = HSCardSpellSchool.strings;
-			sourceTree = "<group>";
-		};
 		F3024D0127400ACC001DDE08 /* BlizzardHSAPILocale.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -4038,51 +4044,6 @@
 			name = BlizzardHSAPILocale.strings;
 			sourceTree = "<group>";
 		};
-		F3024D0327400ACC001DDE08 /* HSCardType.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F3024D0427400ACC001DDE08 /* en */,
-				F3024D1B27400ACC001DDE08 /* ko */,
-			);
-			name = HSCardType.strings;
-			sourceTree = "<group>";
-		};
-		F3024D0527400ACC001DDE08 /* HSCardClass.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F3024D0627400ACC001DDE08 /* en */,
-				F3024D1C27400ACC001DDE08 /* ko */,
-			);
-			name = HSCardClass.strings;
-			sourceTree = "<group>";
-		};
-		F3024D0727400ACC001DDE08 /* HSYear.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F3024D0827400ACC001DDE08 /* en */,
-				F3024D1D27400ACC001DDE08 /* ko */,
-			);
-			name = HSYear.strings;
-			sourceTree = "<group>";
-		};
-		F3024D0927400ACC001DDE08 /* HSCardSet.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F3024D0A27400ACC001DDE08 /* en */,
-				F3024D1E27400ACC001DDE08 /* ko */,
-			);
-			name = HSCardSet.strings;
-			sourceTree = "<group>";
-		};
-		F3024D0B27400ACC001DDE08 /* HSCardKeyword.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F3024D0C27400ACC001DDE08 /* en */,
-				F3024D1F27400ACC001DDE08 /* ko */,
-			);
-			name = HSCardKeyword.strings;
-			sourceTree = "<group>";
-		};
 		F3024D0D27400ACC001DDE08 /* HSCardCollectible.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -4090,15 +4051,6 @@
 				F3024D2027400ACC001DDE08 /* ko */,
 			);
 			name = HSCardCollectible.strings;
-			sourceTree = "<group>";
-		};
-		F3024D1127400ACC001DDE08 /* HSCardRarity.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F3024D1227400ACC001DDE08 /* en */,
-				F3024D2227400ACC001DDE08 /* ko */,
-			);
-			name = HSCardRarity.strings;
 			sourceTree = "<group>";
 		};
 		F35E230C27401B42000A2605 /* BlizzardHSAPIOptionType.strings */ = {
@@ -4314,7 +4266,7 @@
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/StoneNamuMac.app/Contents/MacOS/StoneNamuMac";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/StoneNamu.app/StoneNamu";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/StoneNamuCoreTests/**";
 				USE_HEADERMAP = NO;
 			};
@@ -4343,7 +4295,7 @@
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/StoneNamuMac.app/Contents/MacOS/StoneNamuMac";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/StoneNamu.app/StoneNamu";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/StoneNamuCoreTests/**";
 				USE_HEADERMAP = NO;
 			};

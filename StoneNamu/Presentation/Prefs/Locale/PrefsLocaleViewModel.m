@@ -59,7 +59,7 @@
             if (prefs) {
                 prefs.locale = itemModel.locale;
                 [self.prefsUseCase saveChanges];
-                [self.dataCacheUseCase deleteAllDataCaches];
+//                [self.dataCacheUseCase deleteAllDataCaches];
             }
         }];
     }
@@ -132,15 +132,7 @@
         NSArray<PrefsLocaleItemModel *> *itemModels = snapshot.itemIdentifiers;
         
         for (PrefsLocaleItemModel *itemModel in itemModels) {
-            BOOL isSelected;
-            
-            if ([prefs.locale isEqualToString:itemModel.locale]) {
-                isSelected = YES;
-            } else if ((prefs.locale == nil) && (itemModel.locale == nil)) {
-                isSelected = YES;
-            } else {
-                isSelected = NO;
-            }
+            BOOL isSelected = compareNullableValues(prefs.locale, itemModel.locale, @selector(isEqualToString:));
             
             itemModel.isSelected = isSelected;
             [snapshot reconfigureItemsWithIdentifiers:@[itemModel]];

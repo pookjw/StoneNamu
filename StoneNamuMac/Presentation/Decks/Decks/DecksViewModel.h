@@ -17,6 +17,10 @@ typedef NSCollectionViewDiffableDataSource<DecksSectionModel *, DecksItemModel *
 
 static NSNotificationName NSNotificationNameDecksViewModelApplyingSnapshotToDataSourceWasDone = @"NSNotificationNameDecksViewModelApplyingSnapshotToDataSourceWasDone";
 
+static NSNotificationName const NSNotificationNameDecksViewModelShouldUpdateOptions = @"NSNotificationNameDecksViewModelShouldUpdateOptions";
+static NSString * const DecksViewModelShouldUpdateOptionsSlugsAndNamesItemKey = @"DecksViewModelShouldUpdateOptionsSlugsAndNamesItemKey";
+static NSString * const DecksViewModelShouldUpdateOptionsSlugsAndIdsItemKey = @"DecksViewModelShouldUpdateOptionsSlugsAndIdsItemKey";
+
 typedef void (^DecksViewModelFetchDeckCodeCompletion)(LocalDeck * _Nullable, HSDeck * _Nullable, NSError * _Nullable);
 typedef void (^DecksViewModelMakeLocalDeckCompletion)(LocalDeck *);
 typedef void (^DecksViewModelParseClipboardCompletion)(NSString * _Nullable, NSString * _Nullable);
@@ -31,7 +35,7 @@ typedef void (^DecksViewModelLocalDecksFromObjectIDsCompletion)(NSSet<LocalDeck 
 - (instancetype)initWithDataSource:(DecksDataSource *)dataSource;
 - (void)requestDataSource;
 - (void)fetchDeckCode:(NSString *)deckCode title:(NSString * _Nullable)title completion:(DecksViewModelFetchDeckCodeCompletion)completion;
-- (void)makeLocalDeckWithClass:(HSCardClass)hsCardClass deckFormat:(HSDeckFormat)deckFormat completion:(DecksViewModelMakeLocalDeckCompletion)completion;
+- (void)makeLocalDeckWithClassSlug:(NSString *)classSlug deckFormat:(HSDeckFormat)deckFormat completion:(DecksViewModelMakeLocalDeckCompletion)completion;
 - (void)deleteLocalDecks:(NSSet<LocalDeck *> *)localDecks;
 - (void)deleteLocalDecksFromObjectIDs:(NSSet<NSManagedObjectID *> *)objectIDs;
 - (void)updateDeckName:(NSString *)name forLocalDeck:(LocalDeck *)localDeck;

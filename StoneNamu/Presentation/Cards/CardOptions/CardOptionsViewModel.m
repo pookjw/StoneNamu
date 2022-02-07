@@ -88,9 +88,7 @@
             NSSet<NSString *> * _Nullable oldValues = obj.values;
             NSSet<NSString *> * _Nullable newValues = nonnullOptions[key];
             
-            if ((oldValues == nil) && (newValues == nil)) {
-                
-            } else if (((oldValues == nil) && (newValues != nil)) || ((oldValues != nil) && (newValues == nil)) || (![oldValues isEqualToSet:newValues])) {
+            if (!compareNullableValues(oldValues, newValues, @selector(isEqualToSet:))) {
                 obj.values = newValues;
                 [toBeReconfiguredItemModels addObject:obj];
             }
@@ -190,9 +188,7 @@
                 NSSet<NSString *> * _Nullable oldValues = obj.values;
                 NSSet<NSString *> * _Nullable newValues = values;
                 
-                if ((oldValues == nil) && (newValues == nil)) {
-                    
-                } else if (((oldValues == nil) && (newValues != nil)) || ((oldValues != nil) && (newValues == nil)) || (![oldValues isEqualToSet:newValues])) {
+                if (!compareNullableValues(oldValues, newValues, @selector(isEqualToSet:))) {
                     obj.values = newValues;
                     [toBeReconfiguredItemModels addObject:obj];
                 }

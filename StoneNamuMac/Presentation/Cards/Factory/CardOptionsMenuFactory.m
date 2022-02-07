@@ -12,11 +12,17 @@
 
 @implementation CardOptionsMenuFactory
 
-+ (SEL)keyMenuItemTriggeredSelector {
+- (void)dealloc {
+    [_slugsAndNames release];
+    [_slugsAndIds release];
+    [super dealloc];
+}
+
+- (SEL)keyMenuItemTriggeredSelector {
     return NSSelectorFromString(@"keyMenuItemTriggered:");
 }
 
-+ (BOOL)hasEmptyItemAtOptionType:(BlizzardHSAPIOptionType)optionType {
+- (BOOL)hasEmptyItemAtOptionType:(BlizzardHSAPIOptionType)optionType {
     if ([optionType isEqualToString:BlizzardHSAPIOptionTypeSet]) {
         return YES;
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeClass]) {
@@ -48,7 +54,7 @@
     }
 }
 
-+ (BOOL)supportsMultipleSelectionFromOptionType:(BlizzardHSAPIOptionType)optionType {
+- (BOOL)supportsMultipleSelectionFromOptionType:(BlizzardHSAPIOptionType)optionType {
     if ([optionType isEqualToString:BlizzardHSAPIOptionTypeSet]) {
         return NO;
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeCollectible]) {
@@ -60,11 +66,11 @@
     }
 }
 
-+ (NSString * _Nullable)titleForOptionType:(BlizzardHSAPIOptionType)optionType {
+- (NSString * _Nullable)titleForOptionType:(BlizzardHSAPIOptionType)optionType {
     return [ResourcesService localizationForBlizzardHSAPIOptionType:optionType];
 }
 
-+ (NSImage *)imageForCardOptionTypeWithValues:(NSSet<NSString *> *)values optionType:(BlizzardHSAPIOptionType)optionType {
+- (NSImage *)imageForCardOptionTypeWithValues:(NSSet<NSString *> *)values optionType:(BlizzardHSAPIOptionType)optionType {
     BOOL hasValue;
     
     if (values == nil) {
@@ -75,32 +81,34 @@
     return [ResourcesService imageForBlizzardHSAPIOptionType:optionType fill:hasValue];
 }
 
-+ (NSMenu *)menuForOptionType:(BlizzardHSAPIOptionType)optionType target:(nonnull id<NSSearchFieldDelegate>)target {
+- (NSMenu *)menuForOptionType:(BlizzardHSAPIOptionType)optionType target:(nonnull id<NSSearchFieldDelegate>)target {
     NSMenu *menu = [NSMenu new];
     
     NSArray<NSMenuItem *> *itemArray;
     
     if ([optionType isEqualToString:BlizzardHSAPIOptionTypeSet]) {
-        itemArray = [self itemArrayFromDic:[ResourcesService localizationsForHSCardSet]
+        itemArray = [self itemArrayFromDic:self.slugsAndNames[optionType]
                                 optionType:optionType
                              showEmptyItem:[self hasEmptyItemAtOptionType:optionType]
                                filterArray:nil
                                imageSource:nil
-                                 converter:^NSUInteger(NSString * key) {
-            return HSCardSetFromNSString(key);
+                                comparator:^NSComparisonResult(NSString *lhs, NSString *rhs) {
+            NSNumber *lhsNumber = self.slugsAndIds[optionType][lhs];
+            NSNumber *rhsNumber = self.slugsAndIds[optionType][rhs];
+            return [rhsNumber compare:lhsNumber];
         }
-                                 ascending:NO
                                     target:target];
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeClass]) {
-        itemArray = [self itemArrayFromDic:[ResourcesService localizationsForHSCardClass]
+        itemArray = [self itemArrayFromDic:self.slugsAndNames[optionType]
                                 optionType:optionType
                              showEmptyItem:[self hasEmptyItemAtOptionType:optionType]
-                               filterArray:@[NSStringFromHSCardClass(HSCardClassDeathKnight)]
+                               filterArray:nil
                                imageSource:nil
-                                 converter:^NSUInteger(NSString * key) {
-            return HSCardClassFromNSString(key);
+                                comparator:^NSComparisonResult(NSString *lhs, NSString *rhs) {
+            NSString *lhsName = self.slugsAndNames[optionType][lhs];
+            NSString *rhsName = self.slugsAndNames[optionType][rhs];
+            return [lhsName compare:rhsName];
         }
-                                 ascending:YES
                                     target:target];
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeManaCost] || ([optionType isEqualToString:BlizzardHSAPIOptionTypeAttack] || ([optionType isEqualToString:BlizzardHSAPIOptionTypeHealth]))) {
         itemArray = [self itemArrayFromDic:@{@"0": @"0",
@@ -118,14 +126,11 @@
                              showEmptyItem:[self hasEmptyItemAtOptionType:optionType]
                                filterArray:nil
                                imageSource:nil
-                                 converter:^NSUInteger(NSString * key) {
-            NSNumberFormatter *formatter = [NSNumberFormatter new];
-            formatter.numberStyle = NSNumberFormatterDecimalStyle;
-            NSUInteger value = [formatter numberFromString:key].unsignedIntegerValue;
-            [formatter release];
-            return value;
+                                comparator:^NSComparisonResult(NSString *lhs, NSString *rhs) {
+            NSNumber *lhsNumber = [NSNumber numberWithInteger:lhs.integerValue];
+            NSNumber *rhsNumber = [NSNumber numberWithInteger:rhs.integerValue];
+            return [lhsNumber compare:rhsNumber];
         }
-                                 ascending:YES
                                     target:target];
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeCollectible]) {
         itemArray = [self itemArrayFromDic:[ResourcesService localizationsForHSCardCollectible]
@@ -133,80 +138,87 @@
                              showEmptyItem:[self hasEmptyItemAtOptionType:optionType]
                                filterArray:nil
                                imageSource:nil
-                                 converter:^NSUInteger(NSString * key) {
-            return HSCardCollectibleFromNSString(key);
+                                comparator:^NSComparisonResult(NSString *lhs, NSString *rhs) {
+            NSNumber *lhsNumber = [NSNumber numberWithInteger:HSCardCollectibleFromNSString(lhs)];
+            NSNumber *rhsNumber = [NSNumber numberWithInteger:HSCardCollectibleFromNSString(rhs)];
+            return [lhsNumber compare:rhsNumber];
         }
-                                 ascending:YES
                                     target:target];
         
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeRarity]) {
-        itemArray = [self itemArrayFromDic:[ResourcesService localizationsForHSCardRarity]
+        itemArray = [self itemArrayFromDic:self.slugsAndNames[optionType]
                                 optionType:optionType
                              showEmptyItem:[self hasEmptyItemAtOptionType:optionType]
-                               filterArray:@[NSStringFromHSCardRarity(HSCardRarityNull)]
+                               filterArray:nil
                                imageSource:nil
-                                 converter:^NSUInteger(NSString * key) {
-            return HSCardRarityFromNSString(key);
+                                comparator:^NSComparisonResult(NSString *lhs, NSString *rhs) {
+            NSNumber *lhsNumber = self.slugsAndIds[optionType][lhs];
+            NSNumber *rhsNumber = self.slugsAndIds[optionType][rhs];
+            return [lhsNumber compare:rhsNumber];
         }
-                                 ascending:YES
                                     target:target];
         
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeType]) {
-        itemArray = [self itemArrayFromDic:[ResourcesService localizationsForHSCardType]
+        itemArray = [self itemArrayFromDic:self.slugsAndNames[optionType]
                                 optionType:optionType
                              showEmptyItem:[self hasEmptyItemAtOptionType:optionType]
                                filterArray:nil
                                imageSource:nil
-                                 converter:^NSUInteger(NSString * key) {
-            return HSCardTypeFromNSString(key);
+                                comparator:^NSComparisonResult(NSString *lhs, NSString *rhs) {
+            NSString *lhsName = self.slugsAndNames[optionType][lhs];
+            NSString *rhsName = self.slugsAndNames[optionType][rhs];
+            return [lhsName compare:rhsName];
         }
-                                 ascending:YES
                                     target:target];
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeMinionType]) {
-        itemArray = [self itemArrayFromDic:[ResourcesService localizationsForHSCardMinionType]
+        itemArray = [self itemArrayFromDic:self.slugsAndNames[optionType]
                                 optionType:optionType
                              showEmptyItem:[self hasEmptyItemAtOptionType:optionType]
                                filterArray:nil
                                imageSource:nil
-                                 converter:^NSUInteger(NSString * key) {
-            return HSCardMinionTypeFromNSString(key);
+                                comparator:^NSComparisonResult(NSString *lhs, NSString *rhs) {
+            NSString *lhsName = self.slugsAndNames[optionType][lhs];
+            NSString *rhsName = self.slugsAndNames[optionType][rhs];
+            return [lhsName compare:rhsName];
         }
-                                 ascending:YES
                                     target:target];
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeSpellSchool]) {
-        itemArray = [self itemArrayFromDic:[ResourcesService localizationsForHSCardSpellSchool]
+        itemArray = [self itemArrayFromDic:self.slugsAndNames[optionType]
                                 optionType:optionType
                              showEmptyItem:[self hasEmptyItemAtOptionType:optionType]
                                filterArray:nil
                                imageSource:nil
-                                 converter:^NSUInteger(NSString * key) {
-            return HSCardSpellSchoolFromNSString(key);
+                                comparator:^NSComparisonResult(NSString *lhs, NSString *rhs) {
+            NSString *lhsName = self.slugsAndNames[optionType][lhs];
+            NSString *rhsName = self.slugsAndNames[optionType][rhs];
+            return [lhsName compare:rhsName];
         }
-                                 ascending:YES
                                     target:target];
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeKeyword]) {
-        itemArray = [self itemArrayFromDic:[ResourcesService localizationsForHSCardKeyword]
+        itemArray = [self itemArrayFromDic:self.slugsAndNames[optionType]
                                 optionType:optionType
                              showEmptyItem:[self hasEmptyItemAtOptionType:optionType]
                                filterArray:nil
                                imageSource:nil
-                                 converter:^NSUInteger(NSString * key) {
-            return HSCardKeywordFromNSString(key);
+                                comparator:^NSComparisonResult(NSString *lhs, NSString *rhs) {
+            NSString *lhsName = self.slugsAndNames[optionType][lhs];
+            NSString *rhsName = self.slugsAndNames[optionType][rhs];
+            return [lhsName compare:rhsName];
         }
-                                 ascending:YES
                                     target:target];
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeTextFilter]) {
         itemArray = @[[self searchFieldItemWithOptionType:optionType searchFieldDelegate:target]];
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeGameMode]) {
-        itemArray = [self itemArrayFromDic:[ResourcesService localizationsForHSCardGameMode]
+        itemArray = [self itemArrayFromDic:self.slugsAndNames[optionType]
                                 optionType:optionType
                              showEmptyItem:[self hasEmptyItemAtOptionType:optionType]
                                filterArray:nil
                                imageSource:nil
-                                 converter:^NSUInteger(NSString * key) {
-            return HSCardGameModeFromNSString(key);
+                                comparator:^NSComparisonResult(NSString *lhs, NSString *rhs) {
+            NSString *lhsName = self.slugsAndNames[optionType][lhs];
+            NSString *rhsName = self.slugsAndNames[optionType][rhs];
+            return [lhsName compare:rhsName];
         }
-                                 ascending:YES
                                     target:target];
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeSort]) {
         itemArray = [self itemArrayFromDic:[ResourcesService localizationsForHSCardSort]
@@ -214,10 +226,11 @@
                              showEmptyItem:[self hasEmptyItemAtOptionType:optionType]
                                filterArray:nil
                                imageSource:nil
-                                 converter:^NSUInteger(NSString * key) {
-            return HSCardSortFromNSString(key);
+                                comparator:^NSComparisonResult(NSString *lhs, NSString *rhs) {
+            NSNumber *lhsNumber = [NSNumber numberWithInteger:HSCardSortFromNSString(lhs)];
+            NSNumber *rhsNumber = [NSNumber numberWithInteger:HSCardSortFromNSString(rhs)];
+            return [lhsNumber compare:rhsNumber];
         }
-                                 ascending:YES
                                     target:target];
     } else {
         itemArray = @[];
@@ -228,13 +241,12 @@
     return [menu autorelease];
 }
 
-+ (NSArray<NSMenuItem *> *)itemArrayFromDic:(NSDictionary<NSString *, NSString *> *)dic
+- (NSArray<NSMenuItem *> *)itemArrayFromDic:(NSDictionary<NSString *, NSString *> *)dic
                                  optionType:(BlizzardHSAPIOptionType)type
                               showEmptyItem:(BOOL)showEmptyItem
                                 filterArray:(NSArray<NSString *> * _Nullable)filterArray
                                 imageSource:(NSImage * _Nullable (^)(NSString *))imageSource
-                                  converter:(NSUInteger (^)(NSString *))converter
-                                  ascending:(BOOL)ascending
+                                 comparator:(NSComparisonResult (^)(NSString *, NSString *))comparator
                                      target:(id)target {
     
     NSMutableArray<NSMenuItem *> *arr = [@[] mutableCopy];
@@ -242,7 +254,7 @@
     [dic enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSString * _Nonnull obj, BOOL * _Nonnull stop) {
         if (![filterArray containsObject:key]) {
             StorableMenuItem *item = [[StorableMenuItem alloc] initWithTitle:obj
-                                                                      action:CardOptionsMenuFactory.keyMenuItemTriggeredSelector
+                                                                      action:self.keyMenuItemTriggeredSelector
                                                                keyEquivalent:@""
                                                                     userInfo:@{CardOptionsMenuFactoryStorableMenuItemOptionTypeKey: type,
                                                                                CardOptionsMenuFactoryStorableMenuItemValueKey: key,
@@ -255,34 +267,16 @@
         }
     }];
     
-    NSComparator comparator = ^NSComparisonResult(StorableMenuItem *lhsItem, StorableMenuItem *rhsItem) {
-        NSUInteger lhs = converter(lhsItem.userInfo[CardOptionsMenuFactoryStorableMenuItemValueKey]);
-        NSUInteger rhs = converter(rhsItem.userInfo[CardOptionsMenuFactoryStorableMenuItemValueKey]);
+    [arr sortUsingComparator:^NSComparisonResult(NSMenuItem * _Nonnull lhsItem, NSMenuItem * _Nonnull rhsItem) {
+        NSString *lhsValue = ((StorableMenuItem *)lhsItem).userInfo[CardOptionsMenuFactoryStorableMenuItemValueKey];
+        NSString *rhsValue = ((StorableMenuItem *)rhsItem).userInfo[CardOptionsMenuFactoryStorableMenuItemValueKey];
         
-        if (ascending) {
-            if (lhs > rhs) {
-                return NSOrderedDescending;
-            } else if (lhs < rhs) {
-                return NSOrderedAscending;
-            } else {
-                return NSOrderedSame;
-            }
-        } else {
-            if (lhs > rhs) {
-                return NSOrderedAscending;
-            } else if (lhs < rhs) {
-                return NSOrderedDescending;
-            } else {
-                return NSOrderedSame;
-            }
-        }
-    };
-    
-    [arr sortUsingComparator:comparator];
+        return comparator(lhsValue, rhsValue);
+    }];
     
     if (showEmptyItem) {
         StorableMenuItem *emptyItem = [[StorableMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyAll]
-                                                                       action:CardOptionsMenuFactory.keyMenuItemTriggeredSelector
+                                                                       action:self.keyMenuItemTriggeredSelector
                                                                 keyEquivalent:@""
                                                                      userInfo:@{CardOptionsMenuFactoryStorableMenuItemOptionTypeKey: type,
                                                                                 CardOptionsMenuFactoryStorableMenuItemValueKey: @"",
@@ -300,7 +294,7 @@
     return [arr autorelease];
 }
 
-+ (NSMenuItem *)searchFieldItemWithOptionType:(BlizzardHSAPIOptionType)optionType
+- (NSMenuItem *)searchFieldItemWithOptionType:(BlizzardHSAPIOptionType)optionType
                           searchFieldDelegate:(nonnull id<NSSearchFieldDelegate>)searchFieldDelegate {
     StorableMenuItem *item = [[StorableMenuItem alloc] initWithTitle:@"" action:nil keyEquivalent:@"" userInfo:@{CardOptionsMenuFactoryStorableMenuItemOptionTypeKey: optionType,
                                                                                                                  CardOptionsMenuFactoryStorableMenuItemValueKey: @"",

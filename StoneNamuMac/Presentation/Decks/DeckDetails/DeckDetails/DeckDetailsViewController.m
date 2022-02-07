@@ -354,6 +354,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
                 DeckDetailsCardCollectionViewItem *item = (DeckDetailsCardCollectionViewItem *)[collectionView makeItemWithIdentifier:NSUserInterfaceItemIdentifierDeckDetailsCardCollectionViewItem forIndexPath:indexPath];
                 
                 [item configureWithHSCard:itemModel.hsCard
+                              isLegendary:itemModel.isLegendary
                               hsCardCount:itemModel.hsCardCount.unsignedIntegerValue
                                  delegate:unretainedSelf];
                 

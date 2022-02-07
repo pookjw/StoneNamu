@@ -265,6 +265,11 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardColl
                                            selector:@selector(endedLoadingDataSourceReceived:)
                                                name:NSNotificationNameCardsViewModelEndedLoadingDataSource
                                              object:self.viewModel];
+    
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(shouldUpdateOptionsReceived:)
+                                               name:NSNotificationNameCardsViewModelShouldUpdateOptions
+                                             object:self.viewModel];
 }
 
 - (void)scrollViewDidEndLiveScrollReceived:(NSNotification *)notification {
@@ -319,6 +324,19 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardColl
         [self removeAllSpinnerview];
         [self updateOptionInterfaceWithOptions:self.viewModel.options];
     }];
+}
+
+- (void)shouldUpdateOptionsReceived:(NSNotification *)notification {
+    NSDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSString *> *> * _Nullable slugsAndNames = notification.userInfo[CardsViewModelShouldUpdateOptionsSlugsAndNamesItemKey];
+    NSDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSNumber *> *> * _Nullable slugsAndIds = notification.userInfo[CardsViewModelShouldUpdateOptionsSlugsAndIdsItemKey];
+    
+    if ((slugsAndNames) && (slugsAndIds)) {
+        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+            [self.cardOptionsMenu updateWithSlugsAndNames:slugsAndNames slugsAndIds:slugsAndIds];
+            [self.cardOptionsToolbar updateWithSlugsAndNames:slugsAndNames slugsAndIds:slugsAndIds];
+            [self.cardOptionsTouchBar updateWithSlugsAndNames:slugsAndNames slugsAndIds:slugsAndIds];
+        }];
+    }
 }
 
 - (CardsDataSource *)makeDataSource {

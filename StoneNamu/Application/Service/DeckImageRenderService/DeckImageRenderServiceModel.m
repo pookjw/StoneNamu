@@ -161,7 +161,7 @@
         DeckImageRenderServiceItemModel *aboutItemModel = [[DeckImageRenderServiceItemModel alloc] initWithType:DeckImageRenderServiceItemModelTypeAbout];
         
         aboutItemModel.totalArcaneDust = totalArcaneDust;
-        aboutItemModel.hsYearCurrent = hsYearCurrent();
+        aboutItemModel.hsYearCurrentName = hsYearCurrent();
         
         [snapshot appendItemsWithIdentifiers:@[aboutItemModel] intoSectionWithIdentifier:aboutSectionModel];
         [aboutSectionModel release];

@@ -43,9 +43,11 @@
         NSManagedObjectContext *context = self.coreDataStack.context;
         
         [context performBlockAndWait:^{
-            [localDecks enumerateObjectsUsingBlock:^(LocalDeck * _Nonnull obj, BOOL * _Nonnull stop) {
-                [context deleteObject:obj];
-            }];
+            @autoreleasepool {
+                [localDecks enumerateObjectsUsingBlock:^(LocalDeck * _Nonnull obj, BOOL * _Nonnull stop) {
+                    [context deleteObject:obj];
+                }];
+            }
         }];
         
         [self saveChanges];
@@ -108,22 +110,24 @@
         NSManagedObjectContext *context = self.coreDataStack.context;
         
         [context performBlockAndWait:^{
-            NSMutableSet<LocalDeck *> *localDecks = [NSMutableSet<LocalDeck *> new];
-            
-            NSError * _Nullable __block error = nil;
-            
-            [objectIds enumerateObjectsUsingBlock:^(NSManagedObjectID * _Nonnull obj, BOOL * _Nonnull stop) {
-                LocalDeck * _Nullable localDeck = [context existingObjectWithID:obj error:&error];
-                [localDecks addObject:localDeck];
-            }];
-            
-            if (error != nil) {
-                [localDecks release];
-                completion(nil, error);
-                return;
+            @autoreleasepool {
+                NSMutableSet<LocalDeck *> *localDecks = [NSMutableSet<LocalDeck *> new];
+                
+                NSError * _Nullable __block error = nil;
+                
+                [objectIds enumerateObjectsUsingBlock:^(NSManagedObjectID * _Nonnull obj, BOOL * _Nonnull stop) {
+                    LocalDeck * _Nullable localDeck = [context existingObjectWithID:obj error:&error];
+                    [localDecks addObject:localDeck];
+                }];
+                
+                if (error != nil) {
+                    [localDecks release];
+                    completion(nil, error);
+                    return;
+                }
+                
+                completion([localDecks autorelease], nil);
             }
-            
-            completion([localDecks autorelease], nil);
         }];
     }];
 }
@@ -133,22 +137,24 @@
         NSManagedObjectContext *context = self.coreDataStack.context;
         
         [context performBlockAndWait:^{
-            NSManagedObjectID * _Nullable objectId = [context.persistentStoreCoordinator managedObjectIDForURIRepresentation:uri];
-            
-            if (objectId == nil) {
-                completion(nil, nil);
-                return;
+            @autoreleasepool {
+                NSManagedObjectID * _Nullable objectId = [context.persistentStoreCoordinator managedObjectIDForURIRepresentation:uri];
+                
+                if (objectId == nil) {
+                    completion(nil, nil);
+                    return;
+                }
+                
+                NSError * _Nullable error = nil;
+                LocalDeck * _Nullable localDeck = [context existingObjectWithID:objectId error:&error];
+                
+                if (error != nil) {
+                    completion(nil, error);
+                    return;
+                }
+                
+                completion(@[localDeck], nil);
             }
-            
-            NSError * _Nullable error = nil;
-            LocalDeck * _Nullable localDeck = [context existingObjectWithID:objectId error:&error];
-            
-            if (error != nil) {
-                completion(nil, error);
-                return;
-            }
-            
-            completion(@[localDeck], nil);
         }];
     }];
 }

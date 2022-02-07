@@ -17,6 +17,7 @@ static NSToolbarIdentifier const NSToolbarIdentifierDecksToolbar = @"NSToolbarId
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithIdentifier:(NSToolbarIdentifier)identifier NS_UNAVAILABLE;
 - (instancetype)initWithIdentifier:(NSToolbarIdentifier)identifier decksToolbarDelegate:(id<DecksToolbarDelegate>)decksToolbarDelegate;
+- (void)updateWithSlugsAndNames:(NSDictionary<HSDeckFormat, NSDictionary<NSString *, NSString *> *> *)slugsAndNames slugsAndIds:(NSDictionary<HSDeckFormat, NSDictionary<NSString *, NSNumber *> *> *)slugsAndIds;
 @end
 
 NS_ASSUME_NONNULL_END

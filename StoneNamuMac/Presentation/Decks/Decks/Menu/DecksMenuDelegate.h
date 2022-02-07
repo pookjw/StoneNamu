@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class DecksMenu;
 
 @protocol DecksMenuDelegate <NSObject>
-- (void)decksMenu:(DecksMenu *)decksMenu createNewDeckWithDeckFormat:(HSDeckFormat)deckFormat hsCardClass:(HSCardClass)hsCardClass;
+- (void)decksMenu:(DecksMenu *)decksMenu createNewDeckWithDeckFormat:(HSDeckFormat)deckFormat classSlug:(NSString *)classSlug;
 - (void)decksMenu:(DecksMenu *)decksMenu createNewDeckFromDeckCodeWithIdentifier:(NSUserInterfaceItemIdentifier)identifier;
 @end
 

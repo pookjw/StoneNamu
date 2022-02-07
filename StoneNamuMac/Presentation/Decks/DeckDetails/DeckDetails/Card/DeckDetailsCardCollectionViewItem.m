@@ -63,7 +63,7 @@
 //    [self clearContents];
 }
 
-- (void)configureWithHSCard:(HSCard *)hsCard hsCardCount:(NSUInteger)hsCardCount delegate:(nonnull id<DeckDetailsCardCollectionViewItemDelegate>)delegate {
+- (void)configureWithHSCard:(HSCard *)hsCard isLegendary:(BOOL)isLegendary hsCardCount:(NSUInteger)hsCardCount delegate:(nonnull id<DeckDetailsCardCollectionViewItemDelegate>)delegate {
     
     self.hsCardPopoverDetailView.hsCard = hsCard;
     
@@ -73,7 +73,7 @@
         [self.cardImageView setAsyncImageWithURL:hsCard.cropImage indicator:YES];
     }
     
-    if ((hsCard.rarityId == HSCardRarityLegendary) && (hsCardCount == 1)) {
+    if ((isLegendary) && (hsCardCount == 1)) {
         self.countLabel.stringValue = @"★";
         self.countLabel.textColor = NSColor.systemOrangeColor;
     } else {

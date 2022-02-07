@@ -63,16 +63,16 @@
     [self clearContents];
 }
 
-- (void)configureWithLocalDeck:(LocalDeck *)localDeck isEasterEgg:(BOOL)isEasterEgg count:(NSUInteger)count deckBaseCollectionViewItemDelegate:(id<DeckBaseCollectionViewItemDelegate>)deckBaseCollectionViewItemDelegate {
+- (void)configureWithLocalDeck:(LocalDeck *)localDeck classSlug:(NSString *)classSlug isEasterEgg:(BOOL)isEasterEgg count:(NSUInteger)count deckBaseCollectionViewItemDelegate:(id<DeckBaseCollectionViewItemDelegate>)deckBaseCollectionViewItemDelegate {
     self.isEasterEgg = isEasterEgg;
     self.deckBaseCollectionViewItemDelegate = deckBaseCollectionViewItemDelegate;
     
-    self.cardSetImageView.image = [ResourcesService imageForCardSet:HSCardSetFromNSString(localDeck.format)];
+    self.cardSetImageView.image = [ResourcesService imageForDeckFormat:localDeck.format];
     
     if (isEasterEgg) {
         self.heroImageView.image = [ResourcesService imageForKey:ImageKeyPnamuEasteregg1];
     } else {
-        self.heroImageView.image = [ResourcesService portraitImageForClassId:localDeck.classId.unsignedIntegerValue];
+        self.heroImageView.image = [ResourcesService portraitImageForHSCardClassSlugType:classSlug];
     }
     
     NSString *name;

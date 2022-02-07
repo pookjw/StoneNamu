@@ -16,6 +16,8 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
 
 @interface CardOptionsTouchBar () <NSTouchBarDelegate, NSScrubberDataSource, NSScrubberDelegate>
 @property (assign) id<CardOptionsTouchBarDelegate> cardOptionsTouchBarDelegate;
+@property (retain) CardOptionsMenuFactory *factory;
+
 @property (retain) NSMutableDictionary<NSString *, NSSet<NSString *> *> *options;
 
 @property (retain) NSDictionary<BlizzardHSAPIOptionType, NSPopoverTouchBarItem *> *allPopoverItems;
@@ -34,6 +36,10 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
         self.options = mutableOptions;
         [mutableOptions release];
         
+        CardOptionsMenuFactory *factory = [CardOptionsMenuFactory new];
+        self.factory = factory;
+        [factory release];
+        
         self.cardOptionsTouchBarDelegate = cardOptionsTouchBarDelegate;
         
         [self configureTouchBarItems];
@@ -45,6 +51,8 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
 }
 
 - (void)dealloc {
+    [_factory release];
+    
     [_options release];
     [_allPopoverItems release];
     [_allTouchBars release];
@@ -375,6 +383,20 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     [optionTypeSortScrubber release];
 }
 
+- (void)updateWithSlugsAndNames:(NSDictionary *)slugsAndNames slugsAndIds:(NSDictionary *)slugsAndIds {
+    self.factory.slugsAndNames = slugsAndNames;
+    self.factory.slugsAndIds = slugsAndIds;
+    
+    [self.allPopoverItems enumerateKeysAndObjectsUsingBlock:^(BlizzardHSAPIOptionType  _Nonnull key, NSPopoverTouchBarItem * _Nonnull obj, BOOL * _Nonnull stop) {
+        obj.collapsedRepresentationLabel = [self.factory titleForOptionType:key];
+        obj.customizationLabel = [self.factory titleForOptionType:key];
+    }];
+    
+    [self.allScrubbers.allValues enumerateObjectsUsingBlock:^(NSScrubber * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [obj reloadData];
+    }];
+}
+
 - (void)updateItemsWithOptions:(NSDictionary<NSString *, NSSet<NSString *> *> *)options {
     if ([options isEqualToDictionary:self.options]) return;
     
@@ -385,12 +407,12 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     //
     
     [self.allPopoverItems enumerateKeysAndObjectsUsingBlock:^(BlizzardHSAPIOptionType _Nonnull key, NSPopoverTouchBarItem * _Nonnull obj, BOOL * _Nonnull stop) {
-        obj.collapsedRepresentationImage = [CardOptionsMenuFactory imageForCardOptionTypeWithValues:options[key] optionType:key];
+        obj.collapsedRepresentationImage = [self.factory imageForCardOptionTypeWithValues:options[key] optionType:key];
     }];
     
     [self.allScrubbers enumerateKeysAndObjectsUsingBlock:^(BlizzardHSAPIOptionType _Nonnull key, NSScrubber * _Nonnull obj, BOOL * _Nonnull stop) {
         
-        if ([CardOptionsMenuFactory supportsMultipleSelectionFromOptionType:key]) {
+        if ([self.factory supportsMultipleSelectionFromOptionType:key]) {
             // TODO
             [obj reloadData];
         } else {
@@ -425,11 +447,9 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
                       optionType:(BlizzardHSAPIOptionType)optionType {
     
     NSSet<NSString *> * _Nullable values = self.options[optionType];
-    BOOL supportsMultipleSelection = [CardOptionsMenuFactory supportsMultipleSelectionFromOptionType:optionType];
+    BOOL supportsMultipleSelection = [self.factory supportsMultipleSelectionFromOptionType:optionType];
     
-    popoverItem.collapsedRepresentationImage = [CardOptionsMenuFactory imageForCardOptionTypeWithValues:values optionType:optionType];
-    popoverItem.collapsedRepresentationLabel = [CardOptionsMenuFactory titleForOptionType:optionType];
-    popoverItem.customizationLabel = [CardOptionsMenuFactory titleForOptionType:optionType];
+    popoverItem.collapsedRepresentationImage = [self.factory imageForCardOptionTypeWithValues:values optionType:optionType];
     popoverItem.popoverTouchBar = touchBar;
     popoverItem.pressAndHoldTouchBar = touchBar;
     touchBar.delegate = self;
@@ -464,7 +484,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     
     if (optionType == nil) return NO;
     
-    return [CardOptionsMenuFactory hasEmptyItemAtOptionType:optionType];
+    return [self.factory hasEmptyItemAtOptionType:optionType];
 }
 
 - (NSDictionary<NSString *, NSString *> * _Nullable)dicFromScrubber:(NSScrubber *)scrubber {
@@ -476,11 +496,11 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     if (optionType == nil) return nil;
     
     if ([optionType isEqualToString:BlizzardHSAPIOptionTypeSet]) {
-        mutableDic = [[ResourcesService localizationsForHSCardSet] mutableCopy];
+        mutableDic = [self.factory.slugsAndNames[optionType] mutableCopy];
         filterKeys = nil;
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeClass]) {
-        mutableDic = [[ResourcesService localizationsForHSCardClass] mutableCopy];
-        filterKeys = @[NSStringFromHSCardClass(HSCardClassDeathKnight)];
+        mutableDic = [self.factory.slugsAndNames[optionType] mutableCopy];
+        filterKeys = nil;
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeManaCost] || [optionType isEqualToString:BlizzardHSAPIOptionTypeAttack] || [optionType isEqualToString:BlizzardHSAPIOptionTypeHealth]) {
         mutableDic = [@{@"0": @"0",
                         @"1": @"1",
@@ -495,28 +515,28 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
                         @"10": @"10+"} mutableCopy];
         filterKeys = nil;
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeCollectible]) {
-        mutableDic = [[ResourcesService localizationsForHSCardCollectible] mutableCopy];
+        mutableDic = [self.factory.slugsAndNames[optionType] mutableCopy];
         filterKeys = nil;
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeRarity]) {
-        mutableDic = [[ResourcesService localizationsForHSCardRarity] mutableCopy];
-        filterKeys = @[NSStringFromHSCardRarity(HSCardRarityNull)];
+        mutableDic = [self.factory.slugsAndNames[optionType] mutableCopy];
+        filterKeys = nil;
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeType]) {
-        mutableDic = [[ResourcesService localizationsForHSCardType] mutableCopy];
+        mutableDic = [self.factory.slugsAndNames[optionType] mutableCopy];
         filterKeys = nil;
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeMinionType]) {
-        mutableDic = [[ResourcesService localizationsForHSCardMinionType] mutableCopy];
+        mutableDic = [self.factory.slugsAndNames[optionType] mutableCopy];
         filterKeys = nil;
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeSpellSchool]) {
-        mutableDic = [[ResourcesService localizationsForHSCardSpellSchool] mutableCopy];
+        mutableDic = [self.factory.slugsAndNames[optionType] mutableCopy];
         filterKeys = nil;
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeKeyword]) {
-        mutableDic = [[ResourcesService localizationsForHSCardKeyword] mutableCopy];
+        mutableDic = [self.factory.slugsAndNames[optionType] mutableCopy];
         filterKeys = nil;
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeGameMode]) {
-        mutableDic = [[ResourcesService localizationsForHSCardGameMode] mutableCopy];
+        mutableDic = [self.factory.slugsAndNames[optionType] mutableCopy];
         filterKeys = nil;
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeSort]) {
-        mutableDic = [[ResourcesService localizationsForHSCardSort] mutableCopy];
+        mutableDic = [self.factory.slugsAndNames[optionType] mutableCopy];
         filterKeys = nil;
     }
     
@@ -548,95 +568,88 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     
     if (optionType == nil) return nil;
     
-    NSDictionary<NSString *, NSString *> * _Nullable dic = [self dicFromScrubber:scrubber];
-    NSUInteger (^__block converter)(NSString *);
-    BOOL ascending = YES;
+    NSMutableDictionary<NSString *, NSString *> * _Nullable dic = [[self dicFromScrubber:scrubber] mutableCopy];
+    [dic removeObjectForKey:@""];
+    
+    NSComparisonResult (^comparator)(NSString *, NSString *);
     
     if ([optionType isEqualToString:BlizzardHSAPIOptionTypeSet]) {
-        converter = ^NSUInteger(NSString * key) {
-            return HSCardSetFromNSString(key);
+        comparator = ^NSComparisonResult(NSString *lhs, NSString *rhs) {
+            NSNumber *lhsNumber = self.factory.slugsAndIds[optionType][lhs];
+            NSNumber *rhsNumber = self.factory.slugsAndIds[optionType][rhs];
+            return [rhsNumber compare:lhsNumber];
         };
-        ascending = NO;
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeClass]) {
-        converter = ^NSUInteger(NSString * key) {
-            return HSCardClassFromNSString(key);
+        comparator = ^NSComparisonResult(NSString *lhs, NSString *rhs) {
+            NSString *lhsName = self.factory.slugsAndNames[optionType][lhs];
+            NSString *rhsName = self.factory.slugsAndNames[optionType][rhs];
+            return [lhsName compare:rhsName];
         };
-        ascending = YES;
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeManaCost] || [optionType isEqualToString:BlizzardHSAPIOptionTypeAttack] || [optionType isEqualToString:BlizzardHSAPIOptionTypeHealth]) {
-        converter = ^NSUInteger(NSString *key) {
-            NSNumberFormatter *formatter = [NSNumberFormatter new];
-            formatter.numberStyle = NSNumberFormatterDecimalStyle;
-            NSUInteger value = [formatter numberFromString:key].unsignedIntegerValue;
-            [formatter release];
-            return value;
+        comparator = ^NSComparisonResult(NSString *lhs, NSString *rhs) {
+            NSNumber *lhsNumber = [NSNumber numberWithInteger:lhs.integerValue];
+            NSNumber *rhsNumber = [NSNumber numberWithInteger:rhs.integerValue];
+            return [lhsNumber compare:rhsNumber];
         };
-        ascending = YES;
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeCollectible]) {
-        converter = ^NSUInteger(NSString * key) {
-            return HSCardCollectibleFromNSString(key);
+        comparator = ^NSComparisonResult(NSString *lhs, NSString *rhs) {
+            NSNumber *lhsNumber = [NSNumber numberWithInteger:HSCardCollectibleFromNSString(lhs)];
+            NSNumber *rhsNumber = [NSNumber numberWithInteger:HSCardCollectibleFromNSString(rhs)];
+            return [lhsNumber compare:rhsNumber];
         };
-        ascending = YES;
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeRarity]) {
-        converter = ^NSUInteger(NSString *key) {
-            return HSCardRarityFromNSString(key);
+        comparator = ^NSComparisonResult(NSString *lhs, NSString *rhs) {
+            NSNumber *lhsNumber = self.factory.slugsAndIds[optionType][lhs];
+            NSNumber *rhsNumber = self.factory.slugsAndIds[optionType][rhs];
+            return [lhsNumber compare:rhsNumber];
         };
-        ascending = YES;
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeType]) {
-        converter = ^NSUInteger(NSString *key) {
-            return HSCardTypeFromNSString(key);
+        comparator = ^NSComparisonResult(NSString *lhs, NSString *rhs) {
+            NSString *lhsName = self.factory.slugsAndNames[optionType][lhs];
+            NSString *rhsName = self.factory.slugsAndNames[optionType][rhs];
+            return [lhsName compare:rhsName];
         };
-        ascending = YES;
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeMinionType]) {
-        converter = ^NSUInteger(NSString *key) {
-            return HSCardMinionTypeFromNSString(key);
+        comparator = ^NSComparisonResult(NSString *lhs, NSString *rhs) {
+            NSString *lhsName = self.factory.slugsAndNames[optionType][lhs];
+            NSString *rhsName = self.factory.slugsAndNames[optionType][rhs];
+            return [lhsName compare:rhsName];
         };
-        ascending = YES;
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeSpellSchool]) {
-        converter = ^NSUInteger(NSString *key) {
-            return HSCardSpellSchoolFromNSString(key);
+        comparator = ^NSComparisonResult(NSString *lhs, NSString *rhs) {
+            NSString *lhsName = self.factory.slugsAndNames[optionType][lhs];
+            NSString *rhsName = self.factory.slugsAndNames[optionType][rhs];
+            return [lhsName compare:rhsName];
         };
-        ascending = YES;
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeKeyword]) {
-        converter = ^NSUInteger(NSString *key) {
-            return HSCardKeywordFromNSString(key);
+        comparator = ^NSComparisonResult(NSString *lhs, NSString *rhs) {
+            NSString *lhsName = self.factory.slugsAndNames[optionType][lhs];
+            NSString *rhsName = self.factory.slugsAndNames[optionType][rhs];
+            return [lhsName compare:rhsName];
         };
-        ascending = YES;
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeGameMode]) {
-        converter = ^NSUInteger(NSString *key) {
-            return HSCardGameModeFromNSString(key);
+        comparator = ^NSComparisonResult(NSString *lhs, NSString *rhs) {
+            NSString *lhsName = self.factory.slugsAndNames[optionType][lhs];
+            NSString *rhsName = self.factory.slugsAndNames[optionType][rhs];
+            return [lhsName compare:rhsName];
         };
-        ascending = YES;
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeSort]) {
-        converter = ^NSUInteger(NSString *key) {
-            return HSCardSortFromNSString(key);
+        comparator = ^NSComparisonResult(NSString *lhs, NSString *rhs) {
+            NSNumber *lhsNumber = [NSNumber numberWithInteger:HSCardSortFromNSString(lhs)];
+            NSNumber *rhsNumber = [NSNumber numberWithInteger:HSCardSortFromNSString(rhs)];
+            return [lhsNumber compare:rhsNumber];
         };
-        ascending = YES;
+    } else {
+        comparator = ^NSComparisonResult(NSString *lhs, NSString *rhs) {
+            return NSOrderedSame;
+        };
     }
     
-    NSMutableArray<NSString *> *keys = [[dic.allKeys sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        HSCardSet lhs = converter(obj1);
-        HSCardSet rhs = converter(obj2);
-        
-        if (lhs < rhs) {
-            if (ascending) {
-                return NSOrderedAscending;
-            } else {
-                return NSOrderedDescending;
-            }
-        } else if (lhs > rhs) {
-            if (ascending) {
-                return NSOrderedDescending;
-            } else {
-                return NSOrderedAscending;
-            }
-        } else {
-            return NSOrderedSame;
-        }
-    }] mutableCopy];
+    NSMutableArray<NSString *> *keys = [[dic.allKeys sortedArrayUsingComparator:comparator] mutableCopy];
+    [dic release];
     
     //
     
-    [keys removeSingleString:@""];
     if ([self hasEmptyRowAtScrubber:scrubber]) {
         [keys insertObject:@"" atIndex:0];
     }
@@ -652,7 +665,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     if ([touchBar isEqual:self]) {
         NSTouchBarItem * _Nullable __block result = nil;
         
-        [self.allPopoverItems enumerateKeysAndObjectsUsingBlock:^(BlizzardHSAPIOptionType  _Nonnull key, NSPopoverTouchBarItem * _Nonnull obj, BOOL * _Nonnull stop) {
+        [self.allPopoverItems.allValues enumerateObjectsUsingBlock:^(NSPopoverTouchBarItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             if ([identifier isEqualToString:obj.identifier]) {
                 result = obj;
                 *stop = YES;
@@ -694,7 +707,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     
     BlizzardHSAPIOptionType _Nullable optionType = [self.allScrubbers allKeysForObject:scrubber].firstObject;
     
-    if ((optionType != nil) && ([CardOptionsMenuFactory supportsMultipleSelectionFromOptionType:optionType])) {
+    if ((optionType != nil) && ([self.factory supportsMultipleSelectionFromOptionType:optionType])) {
         NSSet<NSString *> * _Nullable values = self.options[optionType];
         BOOL hasValue;
         
@@ -727,8 +740,8 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     
     if (key == nil) return;
     
-    BOOL showsEmptyItem = [CardOptionsMenuFactory hasEmptyItemAtOptionType:key];
-    BOOL supportsMultipleSelection = [CardOptionsMenuFactory supportsMultipleSelectionFromOptionType:key];
+    BOOL showsEmptyItem = [self.factory hasEmptyItemAtOptionType:key];
+    BOOL supportsMultipleSelection = [self.factory supportsMultipleSelectionFromOptionType:key];
     
     NSArray<NSString *> *values = [self sortedKeysFromScrubber:scrubber];
     NSString *value = values[selectedIndex];

@@ -20,6 +20,7 @@
 @property (retain) id<PrefsUseCase> prefsUseCase;
 @property (retain) id<DataCacheUseCase> dataCacheUseCase;
 @property (retain) id<LocalDeckUseCase> localDeckUseCase;
+@property (retain) id<HSMetaDataUseCase> hsMetaDataUseCase;
 @end
 
 @implementation DeckAddCardsViewModel
@@ -39,7 +40,6 @@
         
         NSOperationQueue *queue = [NSOperationQueue new];
         queue.qualityOfService = NSQualityOfServiceUserInitiated;
-        queue.maxConcurrentOperationCount = 1;
         self.queue = queue;
         [queue release];
         
@@ -55,11 +55,16 @@
         self.localDeckUseCase = localDeckUseCase;
         [localDeckUseCase release];
         
+        HSMetaDataUseCaseImpl *hsMetaDataUseCase = [HSMetaDataUseCaseImpl new];
+        self.hsMetaDataUseCase = hsMetaDataUseCase;
+        [hsMetaDataUseCase release];
+        
         self.pageCount = nil;
         self.page = [NSNumber numberWithUnsignedInt:1];
         self.isFetching = NO;
         
         [self startObserving];
+        [self postShouldUpdateOptions];
     }
     
     return self;
@@ -76,6 +81,7 @@
     [_prefsUseCase release];
     [_dataCacheUseCase release];
     [_localDeckUseCase release];
+    [_hsMetaDataUseCase release];
     [super dealloc];
 }
 
@@ -110,12 +116,12 @@
     
     //
     
-    self.isFetching = YES;
-    
     NSBlockOperation * __block op = [NSBlockOperation new];
     
     [op addExecutionBlock:^{
-        NSDictionary<NSString *, NSSet<NSString *> *> *defaultOptions = [self optionsForLocalDeckClassId];
+        self.isFetching = YES;
+        
+        NSDictionary<NSString *, NSSet<NSString *> *> *defaultOptions = [self defaultOptions];
         NSDictionary<NSString *, NSSet<NSString *> *> * _Nullable finalOptions = [options dictionaryByCombiningWithDictionary:defaultOptions shouldOverride:NO];
         
         if (finalOptions == nil) {
@@ -149,28 +155,27 @@
             
             if (op.isCancelled) {
                 [semaphore signal];
-                [semaphore release];
+                return;
+            }
+            
+            if (error) {
+                [self postError:error];
+                [semaphore signal];
                 return;
             }
             
             [semaphore signal];
-            [semaphore release];
             
-            if (error) {
-                [self postError:error];
-            }
-            
-            [self.queue addOperationWithBlock:^{
-                [self updateDataSourceWithCards:cards completion:^{
-                    self.pageCount = pageCount;
-                    self.page = page;
-                    self.isFetching = NO;
-                }];
+            [self updateDataSourceWithCards:cards completion:^{
+                self.pageCount = pageCount;
+                self.page = page;
+                self.isFetching = NO;
             }];
         }];
         
         [mutableDic release];
         [semaphore wait];
+        [semaphore release];
     }];
     
     [self.queue addOperation:op];
@@ -179,25 +184,8 @@
     return YES;
 }
 
-- (NSDictionary<NSString *, NSSet<NSString *> *> *)optionsForLocalDeckClassId {
-    if (self.localDeck == nil) return BlizzardHSAPIDefaultOptions();
-
-    NSMutableDictionary<NSString *, NSSet<NSString *> *> *options = [BlizzardHSAPIDefaultOptions() mutableCopy];
-    options[BlizzardHSAPIOptionTypeClass] = [NSSet setWithArray:@[NSStringFromHSCardClass(self.localDeck.classId.unsignedIntegerValue), NSStringFromHSCardClass(HSCardClassNeutral)]];
-
-    HSCardSet cardSet;
-    if ([self.localDeck.format isEqualToString:HSDeckFormatStandard]) {
-        cardSet = HSCardSetStandardCards;
-    } else if ([self.localDeck.format isEqualToString:HSDeckFormatWild]) {
-        cardSet = HSCardSetWildCards;
-    } else if ([self.localDeck.format isEqualToString:HSDeckFormatClassic]) {
-        cardSet = HSCardSetClassicCards;
-    } else {
-        cardSet = HSCardSetWildCards;
-    }
-    options[BlizzardHSAPIOptionTypeSet] = [NSSet setWithObject:NSStringFromHSCardSet(cardSet)];
-
-    return [options autorelease];
+- (NSDictionary<NSString *, NSSet<NSString *> *> *)defaultOptions {
+    return BlizzardHSAPIDefaultOptions();
 }
 
 - (void)hsCardsFromIndexPathsWithCompletion:(NSSet<NSIndexPath *> *)indexPaths completion:(DeckAddCardsViewModelHSCardsFromIndexPathsCompletion)completion {
@@ -223,7 +211,7 @@
 - (void)resetDataSource{
     [self.queue cancelAllOperations];
     
-    [self.queue addOperationWithBlock:^{
+    [self.queue addBarrierBlock:^{
         self.pageCount = nil;
         self.page = [NSNumber numberWithUnsignedInt:1];
         NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
@@ -267,43 +255,47 @@
 }
 
 - (void)updateDataSourceWithCards:(NSArray<HSCard *> *)cards completion:(void (^)(void))completion {
-    [self.queue addBarrierBlock:^{
-        NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
-        
-        DeckAddCardSectionModel * _Nullable sectionModel = nil;
-        
-        for (DeckAddCardSectionModel *tmp in snapshot.sectionIdentifiers) {
-            if (tmp.type == DeckAddCardSectionModelTypeCards) {
-                sectionModel = tmp;
+    [self.hsMetaDataUseCase fetchWithCompletionHandler:^(HSMetaData * _Nullable hsMetaData, NSError * _Nullable error) {
+        [self.queue addBarrierBlock:^{
+            NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
+            
+            DeckAddCardSectionModel * _Nullable sectionModel = nil;
+            
+            for (DeckAddCardSectionModel *tmp in snapshot.sectionIdentifiers) {
+                if (tmp.type == DeckAddCardSectionModelTypeCards) {
+                    sectionModel = tmp;
+                }
             }
-        }
-        
-        if (sectionModel == nil) {
-            DeckAddCardSectionModel *_sectionModel = [[DeckAddCardSectionModel alloc] initWithType:DeckAddCardSectionModelTypeCards];
-            sectionModel = _sectionModel;
-            [snapshot appendSectionsWithIdentifiers:@[_sectionModel]];
-            [_sectionModel autorelease];
-        }
-        
-        NSArray<HSCard *> *localDeckCards = self.localDeck.hsCards;
-        NSMutableArray<DeckAddCardItemModel *> *itemModels = [@[] mutableCopy];
-        
-        for (HSCard *card in cards) {
-            NSUInteger count = [localDeckCards countOfObject:card];
-            DeckAddCardItemModel *itemModel = [[DeckAddCardItemModel alloc] initWithCard:card count:count];
-            [itemModels addObject:itemModel];
-            [itemModel release];
-        }
-        
-        [snapshot appendItemsWithIdentifiers:itemModels intoSectionWithIdentifier:sectionModel];
-        
-        [itemModels release];
-        
-        [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
-            completion();
-            [self postEndedLoadingDataSource];
+            
+            if (sectionModel == nil) {
+                DeckAddCardSectionModel *_sectionModel = [[DeckAddCardSectionModel alloc] initWithType:DeckAddCardSectionModelTypeCards];
+                sectionModel = _sectionModel;
+                [snapshot appendSectionsWithIdentifiers:@[_sectionModel]];
+                [_sectionModel autorelease];
+            }
+            
+            HSCardRarity *legendaryRarity = [self.hsMetaDataUseCase hsCardRarityFromRaritySlug:HSCardRaritySlugTypeLegendary usingHSMetaData:hsMetaData];
+            NSArray<HSCard *> *localDeckCards = self.localDeck.hsCards;
+            NSMutableArray<DeckAddCardItemModel *> *itemModels = [@[] mutableCopy];
+            
+            for (HSCard *card in cards) {
+                NSUInteger count = [localDeckCards countOfObject:card];
+                BOOL isLegendary = [legendaryRarity.rarityId isEqualToNumber:card.rarityId];
+                DeckAddCardItemModel *itemModel = [[DeckAddCardItemModel alloc] initWithCard:card count:count isLegendary:isLegendary];
+                [itemModels addObject:itemModel];
+                [itemModel release];
+            }
+            
+            [snapshot appendItemsWithIdentifiers:itemModels intoSectionWithIdentifier:sectionModel];
+            
+            [itemModels release];
+            
+            [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
+                completion();
+                [self postEndedLoadingDataSource];
+            }];
+            [snapshot release];
         }];
-        [snapshot release];
     }];
 }
 
@@ -385,6 +377,27 @@
     [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameDeckAddCardsViewModelLocalDeckHasChanged
                                                       object:self
                                                     userInfo:nil];
+}
+
+- (void)postShouldUpdateOptions {
+    [self.queue addOperationWithBlock:^{
+        [self.hsMetaDataUseCase fetchWithCompletionHandler:^(HSMetaData * _Nullable hsMetaData, NSError * _Nullable error) {
+            if (error) {
+                NSLog(@"%@", error.localizedDescription);
+                return;
+            }
+            
+            [self.queue addBarrierBlock:^{
+                NSDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSString *> *> *slugsAndNames = [self.hsMetaDataUseCase optionTypesAndSlugsAndNamesFromHSDeckFormat:self.localDeck.format withClassId:self.localDeck.classId usingHSMetaData:hsMetaData];
+                NSDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSNumber *> *> *slugsAndIds = [self.hsMetaDataUseCase optionTypesAndSlugsAndIdsFromHSDeckFormat:self.localDeck.format withClassId:self.localDeck.classId usingHSMetaData:hsMetaData];
+                
+                [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameDeckAddCardsViewModelShouldUpdateOptions
+                                                                  object:self
+                                                                userInfo:@{DeckAddCardsViewModelShouldUpdateOptionsSlugsAndNamesItemKey: slugsAndNames,
+                                                                           DeckAddCardsViewModelShouldUpdateOptionsSlugsAndIdsItemKey: slugsAndIds}];
+            }];
+        }];
+    }];
 }
 
 @end

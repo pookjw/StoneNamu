@@ -30,14 +30,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 #if TARGET_OS_IPHONE
 + (UIImage * _Nullable)imageForBlizzardHSAPIOptionType:(BlizzardHSAPIOptionType)optionType fill:(BOOL)fill;
-+ (UIImage * _Nullable)imageForCardSet:(HSCardSet)cardSet;
 + (UIImage * _Nullable)imageForDeckFormat:(HSDeckFormat)deckFormat;
-+ (UIImage * _Nullable)portraitImageForClassId:(HSCardClass)classId;
++ (UIImage * _Nullable)portraitImageForHSCardClassSlugType:(HSCardClassSlugType)hsCardClassSlugType;
 #elif TARGET_OS_OSX
 + (NSImage * _Nullable)imageForBlizzardHSAPIOptionType:(BlizzardHSAPIOptionType)optionType fill:(BOOL)fill;
-+ (NSImage * _Nullable)imageForCardSet:(HSCardSet)cardSet;
 + (NSImage * _Nullable)imageForDeckFormat:(HSDeckFormat)deckFormat;
-+ (NSImage * _Nullable)portraitImageForClassId:(HSCardClass)classId;
++ (NSImage * _Nullable)portraitImageForHSCardClassSlugType:(HSCardClassSlugType)hsCardClassSlugType;
 #endif
 
 + (NSString *)localizationForKey:(LocalizableKey)localizableKey;
@@ -53,42 +51,13 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSString *)localizationForHSCardCollectible:(HSCardCollectible)collectible;
 + (NSDictionary<NSString *, NSString *> *)localizationsForHSCardCollectible;
 
-+ (NSString *)localizationForHSCardClass:(HSCardClass)hsCardClass;
-+ (NSDictionary<NSString *, NSString *> *)localizationsForHSCardClass;
-+ (NSDictionary<NSString *, NSString *> *)localizationsForHSCardClassForHSDeckFormat:(HSDeckFormat)hsDeckFormat;
-
-+ (NSString *)localizationForHSCardRarity:(HSCardRarity)hsCardRarity;
-+ (NSDictionary<NSString *, NSString *> *)localizationsForHSCardRarity;
-
-+ (NSString *)localizationForHSCardSet:(HSCardSet)hsCardSet;
-+ (NSDictionary<NSString *, NSString *> *)localizationsForHSCardSet;
-+ (NSDictionary<NSString *, NSString *> *)localizationsForHSCardSetForHSDeckFormat:(HSDeckFormat)hsDeckFormat;
-
-+ (NSString *)localizationForHSCardType:(HSCardType)hsCardType;
-+ (NSDictionary<NSString *, NSString *> *)localizationsForHSCardType;
-
-+ (NSString *)localizationForHSCardMinionType:(HSCardMinionType)hsCardMinionType;
-+ (NSDictionary<NSString *, NSString *> *)localizationsForHSCardMinionType;
-
-+ (NSString *)localizationForHSCardSpellSchool:(HSCardSpellSchool)hsCardSpellSchool;
-+ (NSDictionary<NSString *, NSString *> *)localizationsForHSCardSpellSchool;
-
-+ (NSString *)localizationForHSCardKeyword:(HSCardKeyword)hsCardKeyword;
-+ (NSDictionary<NSString *, NSString *> *)localizationsForHSCardKeyword;
-
-+ (NSString *)localizationForHSCardGameMode:(HSCardGameMode)hsCardGameMode;
-+ (NSDictionary<NSString *, NSString *> *)localizationsForHSCardGameMode;
-
 + (NSString *)localizationForHSCardSort:(HSCardSort)hsCardSort;
 + (NSDictionary<NSString *, NSString *> *)localizationsForHSCardSort;
 
 + (NSString *)localizationForHSDeckFormat:(HSDeckFormat)hsDeckFormat;
 + (NSDictionary<NSString *, NSString *> *)localizationsForHSDeckFormat;
 
-+ (NSString *)localizationForHSYear:(HSYear)hsYear;
-+ (NSDictionary<NSString *, NSString *> *)localizationsForHSYear;
-
-+ (NSString *)localizationForHSDeck:(HSDeck *)hsDeck title:(NSString *)title;
++ (NSString *)localizationForHSDeck:(HSDeck *)hsDeck title:(NSString *)title className:(NSString *)className;
 
 #if TARGET_OS_IPHONE
 + (UIFont * _Nullable)fontForKey:(FontKey)fontKey size:(CGFloat)size;

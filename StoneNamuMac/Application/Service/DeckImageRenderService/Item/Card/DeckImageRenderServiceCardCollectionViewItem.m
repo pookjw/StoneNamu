@@ -52,31 +52,25 @@
     [super dealloc];
 }
 
-- (void)configureWithHSCard:(HSCard *)hsCard hsCardImage:(NSImage *)haCardImage hsCardCount:(NSUInteger)hsCardCount {
+- (void)configureWithHSCard:(HSCard *)hsCard hsCardImage:(NSImage *)haCardImage raritySlug:(HSCardRaritySlugType)raritySlug hsCardCount:(NSUInteger)hsCardCount {
     self.cardImageView.image = haCardImage;
     self.nameLabel.stringValue = hsCard.name;
     
-    switch (hsCard.rarityId) {
-        case HSCardRarityCommon:
-            self.nameLabel.textColor = NSColor.whiteColor;
-            break;
-        case HSCardRarityRare:
-            self.nameLabel.textColor = NSColor.cyanColor;
-            break;
-        case HSCardRarityEpic:
-            self.nameLabel.textColor = NSColor.magentaColor;
-            break;
-        case HSCardRarityLegendary:
-            self.nameLabel.textColor = NSColor.orangeColor;
-            break;
-        default:
-            self.nameLabel.textColor = NSColor.grayColor;
-            break;
+    if ([raritySlug isEqualToString:HSCardRaritySlugTypeCommon]) {
+        self.nameLabel.textColor = NSColor.whiteColor;
+    } else if ([raritySlug isEqualToString:HSCardRaritySlugTypeRare]) {
+        self.nameLabel.textColor = NSColor.cyanColor;
+    } else if ([raritySlug isEqualToString:HSCardRaritySlugTypeEpic]) {
+        self.nameLabel.textColor = NSColor.magentaColor;
+    } else if ([raritySlug isEqualToString:HSCardRaritySlugTypeLegendary]) {
+        self.nameLabel.textColor = NSColor.orangeColor;
+    } else {
+        self.nameLabel.textColor = NSColor.grayColor;
     }
     
     self.manaCostLabel.stringValue = [NSString stringWithFormat:@"%lu", hsCard.manaCost];
     
-    if ((hsCard.rarityId == HSCardRarityLegendary) && (hsCardCount == 1)) {
+    if (([raritySlug isEqualToString:HSCardRaritySlugTypeLegendary]) && (hsCardCount == 1)) {
         self.countLabel.stringValue = @"★";
     } else {
         self.countLabel.stringValue = [NSString stringWithFormat:@"%lu", hsCardCount];

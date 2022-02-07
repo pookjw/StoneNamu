@@ -34,15 +34,7 @@
         return NO;
     }
     
-    BOOL isLocaleEqual;
-    
-    if ([self.locale isEqualToString:toCompare.locale]) {
-        isLocaleEqual = YES;
-    } else if ((self.locale == nil) && (toCompare.locale == nil)) {
-        isLocaleEqual = YES;
-    } else {
-        isLocaleEqual = NO;
-    }
+    BOOL isLocaleEqual = compareNullableValues(self.locale, toCompare.locale, @selector(isEqualToString:));
     
     return (isLocaleEqual);
 }

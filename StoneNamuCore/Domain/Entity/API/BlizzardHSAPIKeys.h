@@ -14,7 +14,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef NSString * BlizzardHSAPIOptionType NS_STRING_ENUM;
+typedef NSString * BlizzardHSAPIOptionType NS_TYPED_EXTENSIBLE_ENUM;
 
 static BlizzardHSAPIOptionType const BlizzardHSAPIOptionTypeLocale = @"locale";
 static BlizzardHSAPIOptionType const BlizzardHSAPIOptionTypeSet = @"set";
@@ -38,6 +38,5 @@ static BlizzardHSAPIOptionType const BlizzardHSAPIOptionTypeCode = @"code";
 static BlizzardHSAPIOptionType const BlizzardHSAPIOptionTypeHero = @"hero";
 
 NSDictionary<BlizzardHSAPIOptionType, NSSet<NSString *> *> *BlizzardHSAPIDefaultOptions(void);
-NSDictionary<BlizzardHSAPIOptionType, NSSet<NSString *> *> *BlizzardHSAPIDefaultOptionsUsingLocalDeck(LocalDeck *);
 
 NS_ASSUME_NONNULL_END

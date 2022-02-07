@@ -13,6 +13,7 @@
 
 @interface DecksMenu ()
 @property (assign) id<DecksMenuDelegate> decksMenuDelegate;
+@property (retain) DecksMenuFactory *factory;
 
 @property (retain) NSMenuItem *createNewDeckStandardDeckItem;
 @property (retain) NSMenuItem *createNewDeckWildDeckItem;
@@ -30,6 +31,10 @@
     if (self) {
         self.decksMenuDelegate = decksMenuDelegate;
         
+        DecksMenuFactory *factory = [DecksMenuFactory new];
+        self.factory = factory;
+        [factory release];
+        
         [self.editMenuItem.submenu addItem:[NSMenuItem separatorItem]];
         [self configureEditDeckNameItem];
         [self configureDeleteItem];
@@ -41,6 +46,7 @@
 }
 
 - (void)dealloc {
+    [_factory release];
     [_editDeckNameItem release];
     [_deleteItem release];
     [_createNewDeckStandardDeckItem release];
@@ -49,6 +55,17 @@
     [_createNewDeckFromDeckCodeItem release];
     [_allItems release];
     [super dealloc];
+}
+
+- (void)updateWithSlugsAndNames:(NSDictionary<HSDeckFormat,NSDictionary<NSString *,NSString *> *> *)slugsAndNames slugsAndIds:(NSDictionary<HSDeckFormat,NSDictionary<NSString *,NSNumber *> *> *)slugsAndIds {
+    self.factory.slugsAndNames = slugsAndNames;
+    self.factory.slugsAndIds = slugsAndIds;
+    
+    [self.allItems enumerateObjectsUsingBlock:^(NSMenuItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSUserInterfaceItemIdentifier itemIdentifier = obj.identifier;
+        HSDeckFormat hsDeckFormat = HSDeckFormatFromNSUserInterfaceItemIdentifierDecks(itemIdentifier);
+        obj.submenu = [self.factory menuForHSDeckFormat:hsDeckFormat target:self];
+    }];
 }
 
 - (void)configureEditDeckNameItem {
@@ -94,19 +111,16 @@
     NSMenuItem *createNewDeckStandardDeckItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForHSDeckFormat:HSDeckFormatStandard]
                                                                            action:nil
                                                                     keyEquivalent:@""];
-    createNewDeckStandardDeckItem.submenu = [DecksMenuFactory menuForHSDeckFormat:HSDeckFormatStandard target:self];
     createNewDeckStandardDeckItem.identifier = NSUserInterfaceItemIdentifierDecksCreateNewStandardDeck;
     
     NSMenuItem *createNewDeckWildDeckItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForHSDeckFormat:HSDeckFormatWild]
                                                                        action:nil
                                                                 keyEquivalent:@""];
-    createNewDeckWildDeckItem.submenu = [DecksMenuFactory menuForHSDeckFormat:HSDeckFormatWild target:self];
     createNewDeckWildDeckItem.identifier = NSUserInterfaceItemIdentifierDecksCreateNewWildDeck;
     
     NSMenuItem *createNewDeckClassicDeckItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForHSDeckFormat:HSDeckFormatClassic]
                                                                           action:nil
                                                                    keyEquivalent:@""];
-    createNewDeckClassicDeckItem.submenu = [DecksMenuFactory menuForHSDeckFormat:HSDeckFormatClassic target:self];
     createNewDeckClassicDeckItem.identifier = NSUserInterfaceItemIdentifierDecksCreateNewClassicDeck;
     
     NSMenuItem *createNewDeckFromDeckCodeItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyLoadFromDeckCode] action:@selector(createNewDeckFromDeckCodeItemTriggered:) keyEquivalent:@""];
@@ -133,8 +147,9 @@
 
 - (void)keyMenuItemTriggered:(StorableMenuItem *)sender {
     HSDeckFormat hsDeckFormat = sender.userInfo.allKeys.firstObject;
-    HSCardClass hsCardClass = HSCardClassFromNSString(sender.userInfo.allValues.firstObject);
-    [self.decksMenuDelegate decksMenu:self createNewDeckWithDeckFormat:hsDeckFormat hsCardClass:hsCardClass];
+    NSString *classSlug = sender.userInfo.allValues.firstObject;
+    
+    [self.decksMenuDelegate decksMenu:self createNewDeckWithDeckFormat:hsDeckFormat classSlug:classSlug];
 }
 
 - (void)createNewDeckFromDeckCodeItemTriggered:(NSMenuItem *)sender {

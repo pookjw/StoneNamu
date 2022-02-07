@@ -28,7 +28,7 @@
 - (void)dealloc {
     [_totalArcaneDust release];
     [_deckName release];
-    [_hsYearCurrent release];
+    [_hsYearCurrentName release];
     [_deckFormat release];
     [_hsCard release];
     [_hsCardImage release];
@@ -58,6 +58,7 @@
     
     //
     
+#warning 
     BOOL deckName = (((self.deckName == nil) && (toCompare.deckName == nil)) || ([self.deckName isEqualToString:toCompare.deckName]));
     BOOL isEasterEgg = (self.isEasterEgg == toCompare.isEasterEgg);
     BOOL classId = (self.classId == toCompare.classId);

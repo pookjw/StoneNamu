@@ -7,13 +7,15 @@
 
 #import <StoneNamuCore/LocalDeckUseCaseImpl.h>
 #import <StoneNamuCore/LocalDeckRepositoryImpl.h>
-#import <StoneNamuCore/HSCardHero.h>
 #import <StoneNamuCore/NSMutableArray+removeSingle.h>
 #import <StoneNamuCore/StoneNamuError.h>
 #import <StoneNamuCore/NSString+arrayOfCharacters.h>
+#import <StoneNamuCore/HSMetaDataRepositoryImpl.h>
+#import <StoneNamuCore/HSMetaDataUseCaseImpl.h>
 
 @interface LocalDeckUseCaseImpl ()
 @property (retain) id<LocalDeckRepository> localDeckRepository;
+@property (retain) id<HSMetaDataUseCase> hsMetaDataUseCase;
 @end
 
 @implementation LocalDeckUseCaseImpl
@@ -25,6 +27,10 @@
         self.localDeckRepository = localDeckRepository;
         [localDeckRepository release];
         
+        HSMetaDataUseCaseImpl *hsMetaDataUseCase = [HSMetaDataUseCaseImpl new];
+        self.hsMetaDataUseCase = hsMetaDataUseCase;
+        [hsMetaDataUseCase release];
+        
         [self startObserving];
     }
     
@@ -33,6 +39,7 @@
 
 - (void)dealloc {
     [_localDeckRepository release];
+    [_hsMetaDataUseCase release];
     [super dealloc];
 }
 
@@ -107,82 +114,84 @@
 }
 
 - (void)addHSCards:(NSArray<HSCard *> *)hsCards toLocalDeck:(LocalDeck *)localDeck validation:(LocalDeckUseCaseFetchWithValidation)validation {
-    NSArray<HSCard *> *copyHSCards = [hsCards copy];
     
-    [self.localDeckRepository.queue addBarrierBlock:^{
-        NSArray<HSCard *> *localDeckHSCards = localDeck.hsCards;
-        
-        if ((localDeckHSCards.count + copyHSCards.count) > HSDECK_MAX_TOTAL_CARDS) {
-            NSError *error = [StoneNamuError errorWithErrorType:StoneNamuErrorTypeCannotAddNoMoreThanThirtyCards];
+    [self.hsMetaDataUseCase fetchWithCompletionHandler:^(HSMetaData * _Nullable hsMetaData, NSError * _Nullable error) {
+        if (error != nil) {
             validation(error);
-            [copyHSCards release];
             return;
         }
         
-        NSArray<NSNumber *> *hsCardHeroesArray = hsCardHeroes();
-        
-        for (HSCard *hsCard in copyHSCards) {
-            if ((hsCard.classId != localDeck.classId.unsignedIntegerValue) &&
-                (![hsCard.multiClassIds containsObject:localDeck.classId]) &&
-                (hsCard.classId != HSCardClassNeutral))
-            {
-                
-                NSError *error = [StoneNamuError errorWithErrorType:StoneNamuErrorTypeCannotAddDifferentClassCard];
+        [self.localDeckRepository.queue addBarrierBlock:^{
+            NSArray<HSCard *> *localDeckHSCards = localDeck.hsCards;
+
+            if ((localDeckHSCards.count + hsCards.count) > HSDECK_MAX_TOTAL_CARDS) {
+                NSError *error = [StoneNamuError errorWithErrorType:StoneNamuErrorTypeCannotAddNoMoreThanThirtyCards];
                 validation(error);
-                [copyHSCards release];
                 return;
             }
-            
-            if (hsCard.collectible != HSCardCollectibleYES) {
-                NSError *error = [StoneNamuError errorWithErrorType:StoneNamuErrorTypeCannotAddNotCollectibleCard];
-                validation(error);
-                [copyHSCards release];
-                return;
-            }
-            
-            if ([hsCardHeroesArray containsObject:[NSNumber numberWithUnsignedInteger:hsCard.parentId]]) {
-                NSError *error = [StoneNamuError errorWithErrorType:StoneNamuErrorTypeCannotAddHeroPortraitCard];
-                validation(error);
-                [copyHSCards release];
-                return;
-            }
-            
-            //
-            
-            NSUInteger countOfContaining = 0;
-            
-            for (HSCard *tmp in localDeckHSCards) {
-                if ([tmp isEqual:hsCard]) {
-                    countOfContaining += 1;
+
+            HSCardClass * _Nullable hsCardClass = [self.hsMetaDataUseCase hsCardClassFromClassId:localDeck.classId usingHSMetaData:hsMetaData];
+            HSCardClass * _Nullable neutralClass = [self.hsMetaDataUseCase hsCardClassFromClassSlug:HSCardClassSlugTypeNeutral usingHSMetaData:hsMetaData];
+            HSCardRarity * _Nullable legendaryRarity = [self.hsMetaDataUseCase hsCardRarityFromRaritySlug:HSCardRaritySlugTypeLegendary usingHSMetaData:hsMetaData];
+
+            for (HSCard *hsCard in hsCards) {
+                if ((![hsCard.classId isEqualToNumber:localDeck.classId]) &&
+                    (![hsCard.multiClassIds containsObject:localDeck.classId]) &&
+                    (![hsCard.classId isEqualToNumber:neutralClass.classId]))
+                {
+
+                    NSError *error = [StoneNamuError errorWithErrorType:StoneNamuErrorTypeCannotAddDifferentClassCard];
+                    validation(error);
+                    return;
+                }
+
+                if (hsCard.collectible != HSCardCollectibleYES) {
+                    NSError *error = [StoneNamuError errorWithErrorType:StoneNamuErrorTypeCannotAddNotCollectibleCard];
+                    validation(error);
+                    return;
+                }
+
+                NSNumber *cardId = [NSNumber numberWithUnsignedInteger:hsCard.cardId];
+                if (([hsCardClass.heroCardId isEqualToNumber:cardId]) || ([hsCardClass.alternateHeroCardIds containsObject:cardId])) {
+                    NSError *error = [StoneNamuError errorWithErrorType:StoneNamuErrorTypeCannotAddHeroPortraitCard];
+                    validation(error);
+                    return;
+                }
+
+                //
+
+                NSUInteger countOfContaining = 0;
+
+                for (HSCard *tmp in localDeckHSCards) {
+                    if ([tmp isEqual:hsCard]) {
+                        countOfContaining += 1;
+                    }
+                }
+
+                if (([hsCard.rarityId isEqualToNumber:legendaryRarity.rarityId]) && (countOfContaining >= HSDECK_MAX_SINGLE_LEGENDARY_CARD)) {
+                    NSError *error = [StoneNamuError errorWithErrorType:StoneNamuErrorTypeCannotAddSingleLegendaryCardMoreThanOne];
+                    validation(error);
+                    return;
+                }
+
+                if (countOfContaining >= HSDECK_MAX_SINGLE_CARD) {
+                    NSError *error = [StoneNamuError errorWithErrorType:StoneNamuErrorTypeCannotAddSingleCardMoreThanTwo];
+                    validation(error);
+                    return;
                 }
             }
-            
-            if ((hsCard.rarityId == HSCardRarityLegendary) && (countOfContaining >= HSDECK_MAX_SINGLE_LEGENDARY_CARD)) {
-                NSError *error = [StoneNamuError errorWithErrorType:StoneNamuErrorTypeCannotAddSingleLegendaryCardMoreThanOne];
-                validation(error);
-                [copyHSCards release];
-                return;
-            }
-            
-            if (countOfContaining >= HSDECK_MAX_SINGLE_CARD) {
-                NSError *error = [StoneNamuError errorWithErrorType:StoneNamuErrorTypeCannotAddSingleCardMoreThanTwo];
-                validation(error);
-                [copyHSCards release];
-                return;
-            }
-        }
-        
-        // validation was done
-        validation(nil);
-        
-        NSMutableArray<HSCard *> *mutableLocalDeckHSCards = [localDeckHSCards mutableCopy];
-        [mutableLocalDeckHSCards addObjectsFromArray:copyHSCards];
-        [copyHSCards release];
-        localDeck.hsCards = mutableLocalDeckHSCards;
-        [mutableLocalDeckHSCards release];
-        localDeck.deckCode = nil;
-        [localDeck updateTimestamp];
-        [self saveChanges];
+
+            // validation was done
+            validation(nil);
+
+            NSMutableArray<HSCard *> *mutableLocalDeckHSCards = [localDeckHSCards mutableCopy];
+            [mutableLocalDeckHSCards addObjectsFromArray:hsCards];
+            localDeck.hsCards = mutableLocalDeckHSCards;
+            [mutableLocalDeckHSCards release];
+            localDeck.deckCode = nil;
+            [localDeck updateTimestamp];
+            [self saveChanges];
+        }];
     }];
 }
 
@@ -203,49 +212,53 @@
 }
 
 - (void)increaseHSCards:(NSSet<HSCard *> *)hsCards toLocalDeck:(LocalDeck *)localDeck validation:(LocalDeckUseCaseFetchWithValidation)validation {
-    [self.localDeckRepository.queue addBarrierBlock:^{
-        NSArray<HSCard *> *localDeckHSCards = localDeck.hsCards;
-        
-        for (HSCard *hsCard in hsCards) {
-            NSUInteger countOfContaining = 0;
+    [self.hsMetaDataUseCase fetchWithCompletionHandler:^(HSMetaData * _Nullable hsMetaData, NSError * _Nullable error) {
+        [self.localDeckRepository.queue addBarrierBlock:^{
+            NSArray<HSCard *> *localDeckHSCards = localDeck.hsCards;
             
-            for (HSCard *tmp in localDeckHSCards) {
-                if ([tmp isEqual:hsCard]) {
-                    countOfContaining += 1;
+            for (HSCard *hsCard in hsCards) {
+                NSUInteger countOfContaining = 0;
+                
+                for (HSCard *tmp in localDeckHSCards) {
+                    if ([tmp isEqual:hsCard]) {
+                        countOfContaining += 1;
+                    }
+                }
+                
+                HSCardRarity * _Nullable legendaryRarity = [self.hsMetaDataUseCase hsCardRarityFromRaritySlug:HSCardRaritySlugTypeLegendary usingHSMetaData:hsMetaData];
+                
+                if (([hsCard.rarityId isEqualToNumber:legendaryRarity.rarityId]) && countOfContaining >= HSDECK_MAX_SINGLE_LEGENDARY_CARD) {
+                    NSError *error = [StoneNamuError errorWithErrorType:StoneNamuErrorTypeCannotAddSingleLegendaryCardMoreThanOne];
+                    validation(error);
+                    return;
+                }
+                
+                if (countOfContaining >= HSDECK_MAX_SINGLE_CARD) {
+                    NSError *error = [StoneNamuError errorWithErrorType:StoneNamuErrorTypeCannotAddSingleCardMoreThanTwo];
+                    validation(error);
+                    return;
                 }
             }
             
-            if ((hsCard.rarityId == HSCardRarityLegendary) && countOfContaining >= HSDECK_MAX_SINGLE_LEGENDARY_CARD) {
-                NSError *error = [StoneNamuError errorWithErrorType:StoneNamuErrorTypeCannotAddSingleLegendaryCardMoreThanOne];
+            //
+            
+            if ((localDeckHSCards.count + hsCards.count) > HSDECK_MAX_TOTAL_CARDS) {
+                NSError *error = [StoneNamuError errorWithErrorType:StoneNamuErrorTypeCannotAddNoMoreThanThirtyCards];
                 validation(error);
                 return;
             }
             
-            if (countOfContaining >= HSDECK_MAX_SINGLE_CARD) {
-                NSError *error = [StoneNamuError errorWithErrorType:StoneNamuErrorTypeCannotAddSingleCardMoreThanTwo];
-                validation(error);
-                return;
-            }
-        }
-        
-        //
-        
-        if ((localDeckHSCards.count + hsCards.count) > HSDECK_MAX_TOTAL_CARDS) {
-            NSError *error = [StoneNamuError errorWithErrorType:StoneNamuErrorTypeCannotAddNoMoreThanThirtyCards];
-            validation(error);
-            return;
-        }
-        
-        // validation was done
-        validation(nil);
-        
-        NSMutableArray<HSCard *> *mutableLocalDeckHSCards = [localDeckHSCards mutableCopy];
-        [mutableLocalDeckHSCards addObjectsFromArray:hsCards.allObjects];
-        localDeck.hsCards = mutableLocalDeckHSCards;
-        [mutableLocalDeckHSCards release];
-        localDeck.deckCode = nil;
-        [localDeck updateTimestamp];
-        [self saveChanges];
+            // validation was done
+            validation(nil);
+            
+            NSMutableArray<HSCard *> *mutableLocalDeckHSCards = [localDeckHSCards mutableCopy];
+            [mutableLocalDeckHSCards addObjectsFromArray:hsCards.allObjects];
+            localDeck.hsCards = mutableLocalDeckHSCards;
+            [mutableLocalDeckHSCards release];
+            localDeck.deckCode = nil;
+            [localDeck updateTimestamp];
+            [self saveChanges];
+        }];
     }];
 }
 

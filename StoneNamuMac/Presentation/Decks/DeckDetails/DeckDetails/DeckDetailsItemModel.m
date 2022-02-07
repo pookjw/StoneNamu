@@ -35,11 +35,12 @@
     }
     
     return (self.type == toCompare.type) &&
-    (((self.hsCard == nil) && (toCompare.hsCard == nil)) || ([self.hsCard isEqual:toCompare.hsCard]));
+    (compareNullableValues(self.hsCard, toCompare.hsCard, @selector(isEqual:))) &&
+    (self.isLegendary == toCompare.isLegendary);
 }
 
 - (NSUInteger)hash {
-    return self.type ^ self.hsCard.hash;
+    return self.type ^ self.hsCard.hash ^ (self.isLegendary);
 }
 
 @end

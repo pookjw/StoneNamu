@@ -15,6 +15,7 @@
 
 @interface DeckAddCardCollectionViewItem ()
 @property NSUInteger count;
+@property BOOL isLegendary;
 @property (assign) id<DeckAddCardCollectionViewItemDelegate> delegate;
 @property (retain) IBOutlet NSImageView *cardImageView;
 @property (retain) IBOutlet NSBox *countLabelContainerBox;
@@ -49,12 +50,13 @@
     [self bind];
 }
 
-- (void)configureWithHSCard:(HSCard *)hsCard count:(NSUInteger)count delegate:(nonnull id<DeckAddCardCollectionViewItemDelegate>)delegate {
+- (void)configureWithHSCard:(HSCard *)hsCard count:(NSUInteger)count isLegendary:(BOOL)isLegendary delegate:(nonnull id<DeckAddCardCollectionViewItemDelegate>)delegate {
     BOOL shouldUpdateImage = !([hsCard isEqual:self.hsCard]);
     
     [self->_hsCard release];
     self->_hsCard = [hsCard copy];
     self.count = count;
+    self.isLegendary = isLegendary;
     self.delegate = delegate;
     
     self.hsCardPopoverDetailView.hsCard = hsCard;
@@ -113,7 +115,7 @@
 - (void)updateCountLabel {
     int maxCount;
     
-    if (self.hsCard.rarityId == HSCardRarityLegendary) {
+    if (self.isLegendary) {
         maxCount = HSDECK_MAX_SINGLE_LEGENDARY_CARD;
     } else {
         maxCount = HSDECK_MAX_SINGLE_CARD;
@@ -171,7 +173,7 @@
 - (void)updateGrayScaleToImageView {
     BOOL shouldApplyGrayScale;
     
-    if ((self.hsCard.rarityId == HSCardRarityLegendary) && (self.count == HSDECK_MAX_SINGLE_LEGENDARY_CARD)) {
+    if ((self.isLegendary) && (self.count == HSDECK_MAX_SINGLE_LEGENDARY_CARD)) {
         shouldApplyGrayScale = YES;
     } else if (self.count == HSDECK_MAX_SINGLE_CARD) {
         shouldApplyGrayScale = YES;

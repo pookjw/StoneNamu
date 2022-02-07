@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface DeckImageRenderServiceAboutCollectionViewItem : NSCollectionViewItem
-- (void)configureWithTotalArcaneDust:(NSNumber *)totalArcaneDust hsYearCurrent:(HSYear)hsYearCurrent;
+- (void)configureWithTotalArcaneDust:(NSNumber *)totalArcaneDust hsYearCurrentName:(NSString *)hsYearCurrentName;
 @end
 
 NS_ASSUME_NONNULL_END

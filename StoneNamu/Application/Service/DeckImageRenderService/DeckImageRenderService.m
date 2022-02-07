@@ -139,7 +139,7 @@
             }
             case DeckImageRenderServiceItemModelTypeAbout: {
                 DeckImageRenderServiceAboutContentConfiguration *configuration = [[DeckImageRenderServiceAboutContentConfiguration alloc] initWithTotalArcaneDust:itemModel.totalArcaneDust
-                                                                                                                                                    hsYearCurrent:itemModel.hsYearCurrent];
+                                                                                                                                                    hsYearCurrent:itemModel.hsYearCurrentName];
                 cell.contentConfiguration = configuration;
                 [configuration release];
                 break;

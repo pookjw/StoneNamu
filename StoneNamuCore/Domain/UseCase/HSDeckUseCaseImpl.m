@@ -11,10 +11,12 @@
 #import <StoneNamuCore/BlizzardHSAPILocale.h>
 #import <StoneNamuCore/PrefsUseCaseImpl.h>
 #import <StoneNamuCore/NSDictionary+combine.h>
+#import <StoneNamuCore/HSMetaDataUseCaseImpl.h>
 
 @interface HSDeckUseCaseImpl ()
 @property (retain) id<HSDeckRepository> hsDeckRepository;
 @property (retain) id<PrefsUseCase> prefsUseCase;
+@property (retain) id<HSMetaDataUseCase> hsMetaDataUseCase;
 @end
 
 @implementation HSDeckUseCaseImpl
@@ -30,6 +32,10 @@
         PrefsUseCaseImpl *prefsUseCase = [PrefsUseCaseImpl new];
         self.prefsUseCase = prefsUseCase;
         [prefsUseCase release];
+        
+        HSMetaDataUseCaseImpl *hsMetaDataUseCase = [HSMetaDataUseCaseImpl new];
+        self.hsMetaDataUseCase = hsMetaDataUseCase;
+        [hsMetaDataUseCase release];
     }
     
     return self;
@@ -38,6 +44,7 @@
 - (void)dealloc {
     [_hsDeckRepository release];
     [_prefsUseCase release];
+    [_hsMetaDataUseCase release];
     [super dealloc];
 }
 
@@ -57,15 +64,21 @@
 }
 
 - (void)fetchDeckByCardList:(nonnull NSArray<NSNumber *> *)cardList
-                    classId:(HSCardClass)classId
+                    classId:(NSNumber *)classId
                  completion:(nonnull HSDeckUseCaseFetchDeckByCardListCompletion)completion {
-    NSString *strList = [cardList componentsJoinedByString:@","];
-    NSDictionary *options = @{BlizzardHSAPIOptionTypeIds: strList,
-                              BlizzardHSAPIOptionTypeHero: [NSNumber numberWithUnsignedInteger:HSCardHeroFromHSCardClass(classId)].stringValue};
-    [self fetchPrefsOptions:options completion:^(NSDictionary *finalOptions, NSNumber *region) {
-        [self.hsDeckRepository fetchDeckAtRegion:region.unsignedIntegerValue
-                                     withOptions:finalOptions
-                                      completion:completion];
+    [self.hsMetaDataUseCase fetchWithCompletionHandler:^(HSMetaData * _Nullable hsMetaData, NSError * _Nullable error) {
+        [hsMetaData.classes enumerateObjectsUsingBlock:^(HSCardClass * _Nonnull obj, BOOL * _Nonnull stop) {
+            if ([obj.classId isEqualToNumber:classId]) {
+                NSString *strList = [cardList componentsJoinedByString:@","];
+                NSDictionary *options = @{BlizzardHSAPIOptionTypeIds: strList,
+                                          BlizzardHSAPIOptionTypeHero: obj.heroCardId.stringValue};
+                [self fetchPrefsOptions:options completion:^(NSDictionary *finalOptions, NSNumber *region) {
+                    [self.hsDeckRepository fetchDeckAtRegion:region.unsignedIntegerValue
+                                                 withOptions:finalOptions
+                                                  completion:completion];
+                }];
+            }
+        }];
     }];
 }
 

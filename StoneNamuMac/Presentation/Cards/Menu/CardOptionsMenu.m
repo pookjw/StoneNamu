@@ -16,6 +16,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardOpti
 
 @interface CardOptionsMenu () <NSSearchFieldDelegate>
 @property (assign) id<CardOptionsMenuDelegate> cardOptionsMenuDelegate;
+@property (retain) CardOptionsMenuFactory *factory;
 
 @property (retain) NSMenuItem *optionsMenuItem;
 @property (retain) NSMenu *optionsSubMenu;
@@ -51,6 +52,10 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardOpti
         self.options = mutableOptions;
         [mutableOptions release];
         
+        CardOptionsMenuFactory *factory = [CardOptionsMenuFactory new];
+        self.factory = factory;
+        [factory release];
+        
         self.cardOptionsMenuDelegate = cardOptionsMenuDelegate;
         [self configureOptionsMenu];
         [self configureOptionsItems];
@@ -61,6 +66,8 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardOpti
 }
 
 - (void)dealloc {
+    [_factory release];
+    
     [_optionsMenuItem release];
     [_optionsSubMenu release];
     
@@ -83,6 +90,19 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardOpti
     [_resetOptionsItem release];
     [_options release];
     [super dealloc];
+}
+
+- (void)updateWithSlugsAndNames:(NSDictionary *)slugsAndNames slugsAndIds:(NSDictionary *)slugsAndIds {
+    self.factory.slugsAndNames = slugsAndNames;
+    self.factory.slugsAndIds = slugsAndIds;
+    
+    [self.allOptionsItems enumerateObjectsUsingBlock:^(NSMenuItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSUserInterfaceItemIdentifier itemIdentifier = obj.identifier;
+        BlizzardHSAPIOptionType optionType = BlizzardHSAPIOptionTypeFromNSUserInterfaceItemIdentifierCardOptionType(itemIdentifier);
+        
+        obj.submenu = [self.factory menuForOptionType:optionType target:self];
+        obj.title = [self.factory titleForOptionType:optionType];
+    }];
 }
 
 - (void)updateItemsWithOptions:(NSDictionary<NSString *,NSSet<NSString *> *> *)options {
@@ -112,8 +132,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardOpti
         
         //
         
-        obj.image = [CardOptionsMenuFactory imageForCardOptionTypeWithValues:values optionType:optionType];
-        obj.title = [CardOptionsMenuFactory titleForOptionType:optionType];
+        obj.image = [self.factory imageForCardOptionTypeWithValues:values optionType:optionType];
         
         [self updateStateOfItem:obj];
     }];
@@ -137,7 +156,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardOpti
                                                                       action:nil
                                                                keyEquivalent:@""];
     optionTypeTextFilterItem.identifier = NSUserInterfaceItemIdentifierCardOptionTypeTextFilter;
-    optionTypeTextFilterItem.submenu = [self menuForMenuItem:optionTypeTextFilterItem];
     
     //
     
@@ -145,7 +163,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardOpti
                                                                action:nil
                                                         keyEquivalent:@""];
     optionTypeSetItem.identifier = NSUserInterfaceItemIdentifierCardOptionTypeSet;
-    optionTypeSetItem.submenu = [self menuForMenuItem:optionTypeSetItem];
     
     //
     
@@ -153,7 +170,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardOpti
                                                                  action:nil
                                                           keyEquivalent:@""];
     optionTypeClassItem.identifier = NSUserInterfaceItemIdentifierCardOptionTypeClass;
-    optionTypeClassItem.submenu = [self menuForMenuItem:optionTypeClassItem];
     
     //
     
@@ -161,7 +177,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardOpti
                                                                     action:nil
                                                              keyEquivalent:@""];
     optionTypeManaCostItem.identifier = NSUserInterfaceItemIdentifierCardOptionTypeManaCost;
-    optionTypeManaCostItem.submenu = [self menuForMenuItem:optionTypeManaCostItem];
     
     //
     
@@ -169,7 +184,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardOpti
                                                                   action:nil
                                                            keyEquivalent:@""];
     optionTypeAttackItem.identifier = NSUserInterfaceItemIdentifierCardOptionTypeAttack;
-    optionTypeAttackItem.submenu = [self menuForMenuItem:optionTypeAttackItem];
     
     //
     
@@ -177,7 +191,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardOpti
                                                                   action:nil
                                                            keyEquivalent:@""];
     optionTypeHealthItem.identifier = NSUserInterfaceItemIdentifierCardOptionTypeHealth;
-    optionTypeHealthItem.submenu = [self menuForMenuItem:optionTypeHealthItem];
     
     //
     
@@ -185,7 +198,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardOpti
                                                                        action:nil
                                                                 keyEquivalent:@""];
     optionTypeCollectibleItem.identifier = NSUserInterfaceItemIdentifierCardOptionTypeCollectible;
-    optionTypeCollectibleItem.submenu = [self menuForMenuItem:optionTypeCollectibleItem];
     
     //
     
@@ -193,7 +205,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardOpti
                                                                   action:nil
                                                            keyEquivalent:@""];
     optionTypeRarityItem.identifier = NSUserInterfaceItemIdentifierCardOptionTypeRarity;
-    optionTypeRarityItem.submenu = [self menuForMenuItem:optionTypeRarityItem];
     
     //
     
@@ -201,7 +212,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardOpti
                                                                 action:nil
                                                          keyEquivalent:@""];
     optionTypeTypeItem.identifier = NSUserInterfaceItemIdentifierCardOptionTypeType;
-    optionTypeTypeItem.submenu = [self menuForMenuItem:optionTypeTypeItem];
     
     //
     
@@ -209,7 +219,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardOpti
                                                                       action:nil
                                                                keyEquivalent:@""];
     optionTypeMinionTypeItem.identifier = NSUserInterfaceItemIdentifierCardOptionTypeMinionType;
-    optionTypeMinionTypeItem.submenu = [self menuForMenuItem:optionTypeMinionTypeItem];
     
     //
     
@@ -217,7 +226,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardOpti
                                                                        action:nil
                                                                 keyEquivalent:@""];
     optionTypeSpellSchoolItem.identifier = NSUserInterfaceItemIdentifierCardOptionTypeSpellSchool;
-    optionTypeSpellSchoolItem.submenu = [self menuForMenuItem:optionTypeSpellSchoolItem];
     
     //
     
@@ -225,7 +233,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardOpti
                                                                    action:nil
                                                             keyEquivalent:@""];
     optionTypeKeywordItem.identifier = NSUserInterfaceItemIdentifierCardOptionTypeKeyword;
-    optionTypeKeywordItem.submenu = [self menuForMenuItem:optionTypeKeywordItem];
     
     //
     
@@ -233,7 +240,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardOpti
                                                                     action:nil
                                                              keyEquivalent:@""];
     optionTypeGameModeItem.identifier = NSUserInterfaceItemIdentifierCardOptionTypeGameMode;
-    optionTypeGameModeItem.submenu = [self menuForMenuItem:optionTypeGameModeItem];
     
     //
     
@@ -241,7 +247,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardOpti
                                                                 action:nil
                                                          keyEquivalent:@""];
     optionTypeSortItem.identifier = NSUserInterfaceItemIdentifierCardOptionTypeSort;
-    optionTypeSortItem.submenu = [self menuForMenuItem:optionTypeSortItem];
     
     //
     
@@ -310,13 +315,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardOpti
     
     self.resetOptionsItem = resetOptionsItem;
     [resetOptionsItem release];
-}
-
-- (NSMenu *)menuForMenuItem:(NSMenuItem *)item {
-    NSUserInterfaceItemIdentifier itemIdentifier = item.identifier;
-    BlizzardHSAPIOptionType optionType = BlizzardHSAPIOptionTypeFromNSUserInterfaceItemIdentifierCardOptionType(itemIdentifier);
-    
-    return [CardOptionsMenuFactory menuForOptionType:optionType target:self];
 }
 
 - (NSMenuItem * _Nullable)itemForOptionType:(BlizzardHSAPIOptionType)optionType {

@@ -2,38 +2,9 @@
 
 typedef NSString * ImageKey NS_STRING_ENUM;
 
-static ImageKey const ImageKeyRiseOfShadows = @"rise-of-shadows";
-static ImageKey const ImageKeyLegacy = @"legacy";
-static ImageKey const ImageKeyTheBoomsdayProject = @"the-boomsday-project";
-static ImageKey const ImageKeyNaxxramas = @"naxxramas";
-static ImageKey const ImageKeySaviorsOfUldum = @"saviors-of-uldum";
 static ImageKey const ImageKeyWild = @"wild";
-static ImageKey const ImageKeyTheWitchwood = @"the-witchwood";
-static ImageKey const ImageKeyRastakhansRumble = @"rastakhans-rumble";
-static ImageKey const ImageKeyScholomanceAcademy = @"scholomance-academy";
-static ImageKey const ImageKeyUnitedInStormwind = @"united-in-stormwind";
-static ImageKey const ImageKeyCore = @"core";
-static ImageKey const ImageKeyMeanStreetsOfGadgetzan = @"mean-streets-of-gadgetzan";
-static ImageKey const ImageKeyKoboldsAndCatacombs = @"kobolds-and-catacombs";
-static ImageKey const ImageKeyOneNightInKarazhan = @"one-night-in-karazhan";
-static ImageKey const ImageKeyGalakrondsAwakening = @"galakronds-awakening";
-static ImageKey const ImageKeyKnightsOfTheFrozenThrone = @"knights-of-the-frozen-throne";
-static ImageKey const ImageKeyBlackrockMountain = @"blackrock-mountain";
-static ImageKey const ImageKeyDescentOfDragons = @"descent-of-dragons";
-static ImageKey const ImageKeyTheGrandTournament = @"the-grand-tournament";
-static ImageKey const ImageKeyGoblinsVsGnomes = @"goblins-vs-gnomes";
-static ImageKey const ImageKeyAshesOfOutland = @"ashes-of-outland";
-static ImageKey const ImageKeyDemonhunterInitiate = @"demonhunter-initiate";
-static ImageKey const ImageKeyJourneyToUngoro = @"journey-to-ungoro";
 static ImageKey const ImageKeyClassicCards = @"classic-cards";
-static ImageKey const ImageKeyForgedInTheBarrens = @"forged-in-the-barrens";
-static ImageKey const ImageKeyFracturedInAlteracValley = @"fractured-in-alterac-valley";
-static ImageKey const ImageKeyWhispersOfTheOldGods = @"whispers-of-the-old-gods";
-static ImageKey const ImageKeyLeagueOfExplorers = @"league-of-explorers";
-static ImageKey const ImageKeyMadnessAtTheDarkmoonFaire = @"madness-at-the-darkmoon-faire";
 static ImageKey const ImageKeyStandard = @"standard";
-static ImageKey const ImageKeyIconCardsetArena = @"icon_cardset_arena";
-static ImageKey const ImageKeyCardsDuels = @"cards_duels";
 static ImageKey const ImageKeyPnamuEasteregg1 = @"pnamu_easteregg_1";
 static ImageKey const ImageKeyPookjw = @"pookjw";
 static ImageKey const ImageKeyPnamuEasteregg2 = @"pnamu_easteregg_2";

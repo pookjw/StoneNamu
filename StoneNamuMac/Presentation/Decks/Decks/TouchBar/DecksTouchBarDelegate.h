@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class DecksTouchBar;
 
 @protocol DecksTouchBarDelegate <NSObject>
-- (void)decksTouchBar:(DecksTouchBar *)touchBar createNewDeckWithDeckFormat:(HSDeckFormat)deckFormat hsCardClass:(HSCardClass)hsCardClass;
+- (void)decksTouchBar:(DecksTouchBar *)touchBar createNewDeckWithDeckFormat:(HSDeckFormat)deckFormat classSlug:(NSString *)classSlug;
 - (void)decksTouchBar:(DecksTouchBar *)touchBar createNewDeckFromDeckCodeWithIdentifier:(NSTouchBarItemIdentifier)identifier;
 @end
 

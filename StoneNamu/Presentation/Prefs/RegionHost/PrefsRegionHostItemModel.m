@@ -34,15 +34,7 @@
         return NO;
     }
     
-    BOOL isRegionHostEqual;
-    
-    if ([self.regionHost isEqualToString:toCompare.regionHost]) {
-        isRegionHostEqual = YES;
-    } else if ((self.regionHost == nil) && (toCompare.regionHost == nil)) {
-        isRegionHostEqual = YES;
-    } else {
-        isRegionHostEqual = NO;
-    }
+    BOOL isRegionHostEqual = compareNullableValues(self.regionHost, toCompare.regionHost, @selector(isEqualToString:));
     
     return (isRegionHostEqual);
 }

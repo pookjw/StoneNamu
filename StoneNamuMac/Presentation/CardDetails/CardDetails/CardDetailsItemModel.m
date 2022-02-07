@@ -54,7 +54,7 @@
     CardDetailsItemModel *toCompare = (CardDetailsItemModel *)object;
     
     return self.type == toCompare.type &&
-    ([self.childHSCard isEqual:toCompare.childHSCard] || ((self.childHSCard == nil) && (toCompare.childHSCard == nil)));
+    (compareNullableValues(self.childHSCard, toCompare.childHSCard, @selector(isEqual:)));
 }
 
 - (NSUInteger)hash {

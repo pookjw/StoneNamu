@@ -40,9 +40,11 @@
         return NO;
     }
     
-    return (self.type == toCompare.type) &&
-    (((self.hsCard == nil) && (toCompare.hsCard == nil)) || ([self.hsCard isEqual:toCompare.hsCard])) &&
-    (((self.graphManaCost == nil) && (toCompare.graphManaCost == nil)) || ([self.graphManaCost isEqualToNumber:toCompare.graphManaCost]));
+    BOOL type = (self.type == toCompare.type);
+    BOOL hsCard = compareNullableValues(self.hsCard, toCompare.hsCard, @selector(isEqual:));
+    BOOL graphManaCost = compareNullableValues(self.graphManaCost, toCompare.graphManaCost, @selector(isEqualToNumber:));
+    
+    return (type) && (hsCard) && (graphManaCost);
 }
 
 - (NSUInteger)hash {

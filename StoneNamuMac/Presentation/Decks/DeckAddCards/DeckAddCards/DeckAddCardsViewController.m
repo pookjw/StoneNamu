@@ -145,9 +145,9 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
 }
 
 - (void)updateOptionInterfaceWithOptions:(NSDictionary<NSString *, NSSet<NSString *> *> * _Nullable)options {
-    [self.deckAddCardOptionsMenu updateItemsWithOptions:options deckFormat:self.viewModel.localDeck.format classId:self.viewModel.localDeck.classId.unsignedIntegerValue];
-    [self.deckAddCardOptionsToolbar updateItemsWithOptions:options deckFormat:self.viewModel.localDeck.format classId:self.viewModel.localDeck.classId.unsignedIntegerValue];
-    [self.deckAddCardOptionsTouchBar updateItemsWithOptions:options deckFormat:self.viewModel.localDeck.format classId:self.viewModel.localDeck.classId.unsignedIntegerValue];
+    [self.deckAddCardOptionsMenu updateItemsWithOptions:options];
+    [self.deckAddCardOptionsToolbar updateItemsWithOptions:options];
+    [self.deckAddCardOptionsTouchBar updateItemsWithOptions:options];
 }
 
 - (BOOL)requestDataSourceWithOptions:(NSDictionary<NSString *, NSSet<NSString *> *> * _Nullable)options reset:(BOOL)reset {
@@ -301,6 +301,11 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
                                            selector:@selector(endedLoadingDataSourceReceived:)
                                                name:NSNotificationNameDeckAddCardsViewModelEndedLoadingDataSource
                                              object:self.viewModel];
+    
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(shouldUpdateOptionsReceived:)
+                                               name:NSNotificationNameDeckAddCardsViewModelShouldUpdateOptions
+                                             object:self.viewModel];
 }
 
 - (void)scrollViewDidEndLiveScrollReceived:(NSNotification *)notification {
@@ -357,6 +362,19 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
     }];
 }
 
+- (void)shouldUpdateOptionsReceived:(NSNotification *)notification {
+    NSDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSString *> *> * _Nullable slugsAndNames = notification.userInfo[DeckAddCardsViewModelShouldUpdateOptionsSlugsAndNamesItemKey];
+    NSDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSNumber *> *> * _Nullable slugsAndIds = notification.userInfo[DeckAddCardsViewModelShouldUpdateOptionsSlugsAndIdsItemKey];
+    
+    if ((slugsAndNames) && (slugsAndIds)) {
+        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+            [self.deckAddCardOptionsMenu updateWithSlugsAndNames:slugsAndNames slugsAndIds:slugsAndIds];
+            [self.deckAddCardOptionsToolbar updateWithSlugsAndNames:slugsAndNames slugsAndIds:slugsAndIds];
+            [self.deckAddCardOptionsTouchBar updateWithSlugsAndNames:slugsAndNames slugsAndIds:slugsAndIds];
+        }];
+    }
+}
+
 - (DeckAddCardsDataSource *)makeDataSource {
     DeckAddCardsViewController * __block unretainedSelf = self;
     
@@ -364,7 +382,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
                                                                      itemProvider:^NSCollectionViewItem * _Nullable(NSCollectionView * _Nonnull collectionView, NSIndexPath * _Nonnull indexPath, DeckAddCardItemModel * _Nonnull itemModel) {
         
         DeckAddCardCollectionViewItem *item = (DeckAddCardCollectionViewItem *)[collectionView makeItemWithIdentifier:NSUserInterfaceItemIdentifierDeckAddCardCollectionViewItem forIndexPath:indexPath];
-        [item configureWithHSCard:itemModel.hsCard count:itemModel.count delegate:unretainedSelf];
+        [item configureWithHSCard:itemModel.hsCard count:itemModel.count isLegendary:itemModel.isLegendary delegate:unretainedSelf];
         
         return item;
     }];
@@ -373,19 +391,19 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
 }
 
 - (void)configureDeckAddCardOptionsMenu {
-    DeckAddCardOptionsMenu *deckAddCardOptionsMenu = [[DeckAddCardOptionsMenu alloc] initWithOptions:self.viewModel.options deckFormat:self.viewModel.localDeck.format classId:self.viewModel.localDeck.classId.unsignedIntegerValue deckAddCardOptionsMenuDelegate:self];
+    DeckAddCardOptionsMenu *deckAddCardOptionsMenu = [[DeckAddCardOptionsMenu alloc] initWithOptions:self.viewModel.options deckAddCardOptionsMenuDelegate:self];
     self.deckAddCardOptionsMenu = deckAddCardOptionsMenu;
     [deckAddCardOptionsMenu release];
 }
 
 - (void)configureDeckAddCardOptionsToolbar {
-    DeckAddCardOptionsToolbar *deckAddCardOptionsToolbar = [[DeckAddCardOptionsToolbar alloc] initWithIdentifier:NSToolbarIdentifierDeckAddCardOptionsToolbar options:self.viewModel.options deckFormat:self.viewModel.localDeck.format classId:self.viewModel.localDeck.classId.unsignedIntegerValue deckAddCardOptionsToolbarDelegate:self];
+    DeckAddCardOptionsToolbar *deckAddCardOptionsToolbar = [[DeckAddCardOptionsToolbar alloc] initWithIdentifier:NSToolbarIdentifierDeckAddCardOptionsToolbar options:self.viewModel.options deckAddCardOptionsToolbarDelegate:self];
     self.deckAddCardOptionsToolbar = deckAddCardOptionsToolbar;
     [deckAddCardOptionsToolbar release];
 }
 
 - (void)configureDeckAddCardOptionsTouchBar {
-    DeckAddCardOptionsTouchBar *deckAddCardOptionsTouchBar = [[DeckAddCardOptionsTouchBar alloc] initWithOptions:self.viewModel.options deckFormat:self.viewModel.localDeck.format classId:self.viewModel.localDeck.classId.unsignedIntegerValue deckAddCardOptionsTouchBarDelegate:self];
+    DeckAddCardOptionsTouchBar *deckAddCardOptionsTouchBar = [[DeckAddCardOptionsTouchBar alloc] initWithOptions:self.viewModel.options deckAddCardOptionsTouchBarDelegate:self];
     self.deckAddCardOptionsTouchBar = deckAddCardOptionsTouchBar;
     [deckAddCardOptionsTouchBar release];
 }

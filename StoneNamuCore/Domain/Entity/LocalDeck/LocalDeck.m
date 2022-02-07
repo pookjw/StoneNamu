@@ -6,7 +6,7 @@
 //
 
 #import <StoneNamuCore/LocalDeck.h>
-#import <StoneNamuCore/HSCardHero.h>
+#import <StoneNamuCore/CheckThread.h>
 
 @implementation LocalDeck
 
@@ -18,12 +18,8 @@
 @dynamic timestamp;
 
 - (NSArray<HSCard *> *)hsCards {
-#if DEBUG
-    if (NSThread.isMainThread) {
-        NSString *message = @"Do not run -[LocalDeck hsCards] at Main Thread.";
-        [NSException raise:message format:@""];
-    }
-#endif
+    checkThread();
+    
     NSData * _Nullable hsCardsData = self.hsCardsData;
     
     if (hsCardsData == nil) return @[];
@@ -50,12 +46,7 @@
 }
 
 - (void)setHsCards:(NSArray<HSCard *> *)hsCards {
-#if DEBUG
-    if (NSThread.isMainThread) {
-        NSString *message = @"Do not run -[LocalDeck setHsCards:] at Main Thread.";
-        [NSException raise:message format:@""];
-    }
-#endif
+    checkThread();
     
     NSError * _Nullable error = nil;
     
@@ -92,8 +83,8 @@
     }
     
     self.format = hsDeck.format;
-    self.classId = [NSNumber numberWithUnsignedInteger:hsDeck.classId];
-    self.deckCode = [[hsDeck.deckCode copy] autorelease];
+    self.classId = hsDeck.classId;
+    self.deckCode = hsDeck.deckCode;
 }
 
 - (void)updateTimestamp {

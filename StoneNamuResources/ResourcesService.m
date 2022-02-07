@@ -66,10 +66,6 @@ static NSArray<FontKey> * _Nullable kRegisteredFontKeys = @[];
     }
 }
 
-+ (UIImage * _Nullable)imageForCardSet:(HSCardSet)cardSet {
-    return [ResourcesService imageForKey:NSStringFromHSCardSet(cardSet)];
-}
-
 + (UIImage * _Nullable)imageForDeckFormat:(HSDeckFormat)deckFormat {
     if ([deckFormat isEqualToString:HSDeckFormatStandard]) {
         return [ResourcesService imageForKey:ImageKeyStandard];
@@ -82,42 +78,29 @@ static NSArray<FontKey> * _Nullable kRegisteredFontKeys = @[];
     }
 }
 
-+ (UIImage * _Nullable)portraitImageForClassId:(HSCardClass)classId {
++ (UIImage * _Nullable)portraitImageForHSCardClassSlugType:(HSCardClassSlugType)hsCardClassSlugType {
     ImageKey _Nullable imageKey = nil;
     
-    switch (classId) {
-        case HSCardClassDemonHunter:
-            imageKey = ImageKeyDemonHunterPortrait;
-            break;
-        case HSCardClassDruid:
-            imageKey = ImageKeyDruidPortrait;
-            break;
-        case HSCardClassHunter:
-            imageKey = ImageKeyHunterPortrait;
-            break;
-        case HSCardClassMage:
-            imageKey = ImageKeyMagePortrait;
-            break;
-        case HSCardClassPaladin:
-            imageKey = ImageKeyPaladinPortrait;
-            break;
-        case HSCardClassPriest:
-            imageKey = ImageKeyPriestPortrait;
-            break;
-        case HSCardClassRogue:
-            imageKey = ImageKeyRoguePortrait;
-            break;
-        case HSCardClassShaman:
-            imageKey = ImageKeyShamanPortrait;
-            break;
-        case HSCardClassWarlock:
-            imageKey = ImageKeyWarlockPortrait;
-            break;
-        case HSCardClassWarrior:
-            imageKey = ImageKeyWarriorPortrait;
-            break;
-        default:
-            break;
+    if ([hsCardClassSlugType isEqualToString:HSCardClassSlugTypeDemonHunder]) {
+        imageKey = ImageKeyDemonHunterPortrait;
+    } else if ([hsCardClassSlugType isEqualToString:HSCardClassSlugTypeDruid]) {
+        imageKey = ImageKeyDruidPortrait;
+    } else if ([hsCardClassSlugType isEqualToString:HSCardClassSlugTypeHunter]) {
+        imageKey = ImageKeyHunterPortrait;
+    } else if ([hsCardClassSlugType isEqualToString:HSCardClassSlugTypeMage]) {
+        imageKey = ImageKeyMagePortrait;
+    } else if ([hsCardClassSlugType isEqualToString:HSCardClassSlugTypePaladin]) {
+        imageKey = ImageKeyPaladinPortrait;
+    } else if ([hsCardClassSlugType isEqualToString:HSCardClassSlugTypePriest]) {
+        imageKey = ImageKeyPriestPortrait;
+    } else if ([hsCardClassSlugType isEqualToString:HSCardClassSlugTypeRogue]) {
+        imageKey = ImageKeyRoguePortrait;
+    } else if ([hsCardClassSlugType isEqualToString:HSCardClassSlugTypeShaman]) {
+        imageKey = ImageKeyShamanPortrait;
+    } else if ([hsCardClassSlugType isEqualToString:HSCardClassSlugTypeWarlock]) {
+        imageKey = ImageKeyWarlockPortrait;
+    } else if ([hsCardClassSlugType isEqualToString:HSCardClassSlugTypeWarrior]) {
+        imageKey = ImageKeyWarriorPortrait;
     }
     
     if (imageKey == nil) {
@@ -169,10 +152,6 @@ static NSArray<FontKey> * _Nullable kRegisteredFontKeys = @[];
     }
 }
 
-+ (NSImage * _Nullable)imageForCardSet:(HSCardSet)cardSet {
-    return [ResourcesService imageForKey:NSStringFromHSCardSet(cardSet)];
-}
-
 + (NSImage * _Nullable)imageForDeckFormat:(HSDeckFormat)deckFormat {
     if ([deckFormat isEqualToString:HSDeckFormatStandard]) {
         return [ResourcesService imageForKey:ImageKeyStandard];
@@ -185,42 +164,29 @@ static NSArray<FontKey> * _Nullable kRegisteredFontKeys = @[];
     }
 }
 
-+ (NSImage * _Nullable)portraitImageForClassId:(HSCardClass)classId {
++ (NSImage * _Nullable)portraitImageForHSCardClassSlugType:(HSCardClassSlugType)hsCardClassSlugType {
     ImageKey _Nullable imageKey = nil;
     
-    switch (classId) {
-        case HSCardClassDemonHunter:
-            imageKey = ImageKeyDemonHunterPortrait;
-            break;
-        case HSCardClassDruid:
-            imageKey = ImageKeyDruidPortrait;
-            break;
-        case HSCardClassHunter:
-            imageKey = ImageKeyHunterPortrait;
-            break;
-        case HSCardClassMage:
-            imageKey = ImageKeyMagePortrait;
-            break;
-        case HSCardClassPaladin:
-            imageKey = ImageKeyPaladinPortrait;
-            break;
-        case HSCardClassPriest:
-            imageKey = ImageKeyPriestPortrait;
-            break;
-        case HSCardClassRogue:
-            imageKey = ImageKeyRoguePortrait;
-            break;
-        case HSCardClassShaman:
-            imageKey = ImageKeyShamanPortrait;
-            break;
-        case HSCardClassWarlock:
-            imageKey = ImageKeyWarlockPortrait;
-            break;
-        case HSCardClassWarrior:
-            imageKey = ImageKeyWarriorPortrait;
-            break;
-        default:
-            break;
+    if ([hsCardClassSlugType isEqualToString:HSCardClassSlugTypeDemonHunder]) {
+        imageKey = ImageKeyDemonHunterPortrait;
+    } else if ([hsCardClassSlugType isEqualToString:HSCardClassSlugTypeDruid]) {
+        imageKey = ImageKeyDruidPortrait;
+    } else if ([hsCardClassSlugType isEqualToString:HSCardClassSlugTypeHunter]) {
+        imageKey = ImageKeyHunterPortrait;
+    } else if ([hsCardClassSlugType isEqualToString:HSCardClassSlugTypeMage]) {
+        imageKey = ImageKeyMagePortrait;
+    } else if ([hsCardClassSlugType isEqualToString:HSCardClassSlugTypePaladin]) {
+        imageKey = ImageKeyPaladinPortrait;
+    } else if ([hsCardClassSlugType isEqualToString:HSCardClassSlugTypePriest]) {
+        imageKey = ImageKeyPriestPortrait;
+    } else if ([hsCardClassSlugType isEqualToString:HSCardClassSlugTypeRogue]) {
+        imageKey = ImageKeyRoguePortrait;
+    } else if ([hsCardClassSlugType isEqualToString:HSCardClassSlugTypeShaman]) {
+        imageKey = ImageKeyShamanPortrait;
+    } else if ([hsCardClassSlugType isEqualToString:HSCardClassSlugTypeWarlock]) {
+        imageKey = ImageKeyWarlockPortrait;
+    } else if ([hsCardClassSlugType isEqualToString:HSCardClassSlugTypeWarrior]) {
+        imageKey = ImageKeyWarriorPortrait;
     }
     
     if (imageKey == nil) {
@@ -306,192 +272,6 @@ static NSArray<FontKey> * _Nullable kRegisteredFontKeys = @[];
     return [result autorelease];
 }
 
-+ (NSString *)localizationForHSCardClass:(HSCardClass)hsCardClass {
-    return NSLocalizedStringFromTableInBundle(NSStringFromHSCardClass(hsCardClass),
-                                              @"HSCardClass",
-                                              [NSBundle bundleWithIdentifier:IDENTIFIER],
-                                              @"");
-}
-
-+ (NSDictionary<NSString *,NSString *> *)localizationsForHSCardClass {
-    NSMutableDictionary<NSString *, NSString *> *dic = [@{} mutableCopy];
-    
-    [hsCardClasses() enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        dic[obj] = [ResourcesService localizationForHSCardClass:HSCardClassFromNSString(obj)];
-    }];
-    
-    NSDictionary<NSString *, NSString *> *result = [dic copy];
-    [dic release];
-    
-    return [result autorelease];
-}
-
-+ (NSDictionary<NSString *,NSString *> *)localizationsForHSCardClassForHSDeckFormat:(HSDeckFormat)hsDeckFormat {
-    NSMutableDictionary<NSString *, NSString *> *dic = [@{} mutableCopy];
-    
-    [hsCardClassesForFormat(hsDeckFormat) enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        dic[obj] = [ResourcesService localizationForHSCardClass:HSCardClassFromNSString(obj)];
-    }];
-    
-    NSDictionary<NSString *, NSString *> *result = [[dic copy] autorelease];
-    [dic release];
-    
-    return result;
-}
-
-+ (NSString *)localizationForHSCardRarity:(HSCardRarity)hsCardRarity {
-    return NSLocalizedStringFromTableInBundle(NSStringFromHSCardRarity(hsCardRarity),
-                                              @"HSCardRarity",
-                                              [NSBundle bundleWithIdentifier:IDENTIFIER],
-                                              @"");
-}
-
-+ (NSDictionary<NSString *,NSString *> *)localizationsForHSCardRarity {
-    NSMutableDictionary<NSString *, NSString *> *dic = [@{} mutableCopy];
-    
-    [hsCardRarities() enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        dic[obj] = [ResourcesService localizationForHSCardRarity:HSCardRarityFromNSString(obj)];
-    }];
-    
-    NSDictionary<NSString *, NSString *> *result = [dic copy];
-    [dic release];
-    
-    return [result autorelease];
-}
-
-+ (NSString *)localizationForHSCardSet:(HSCardSet)hsCardSet {
-    return NSLocalizedStringFromTableInBundle(NSStringFromHSCardSet(hsCardSet),
-                                              @"HSCardSet",
-                                              [NSBundle bundleWithIdentifier:IDENTIFIER],
-                                              @"");
-}
-
-+ (NSDictionary<NSString *,NSString *> *)localizationsForHSCardSet {
-    NSMutableDictionary<NSString *, NSString *> *dic = [@{} mutableCopy];
-    
-    [hsCardSets() enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        dic[obj] = [ResourcesService localizationForHSCardSet:HSCardSetFromNSString(obj)];
-    }];
-    
-    NSDictionary<NSString *, NSString *> *result = [dic copy];
-    [dic release];
-    
-    return [result autorelease];
-}
-
-+ (NSDictionary<NSString *,NSString *> *)localizationsForHSCardSetForHSDeckFormat:(HSDeckFormat)hsDeckFormat {
-    NSMutableDictionary<NSString *, NSString *> *dic = [@{} mutableCopy];
-    
-    [hsCardSetsFromHSDeckFormat(hsDeckFormat) enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        dic[obj] = [ResourcesService localizationForHSCardSet:HSCardSetFromNSString(obj)];
-    }];
-    
-    NSDictionary<NSString *, NSString *> *result = [dic copy];
-    [dic release];
-    
-    return [result autorelease];
-}
-
-+ (NSString *)localizationForHSCardType:(HSCardType)hsCardType {
-    return NSLocalizedStringFromTableInBundle(NSStringFromHSCardType(hsCardType),
-                                              @"HSCardType",
-                                              [NSBundle bundleWithIdentifier:IDENTIFIER],
-                                              @"");
-}
-
-+ (NSDictionary<NSString *,NSString *> *)localizationsForHSCardType {
-    NSMutableDictionary<NSString *, NSString *> *dic = [@{} mutableCopy];
-    
-    [hsCardTypes() enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        dic[obj] = [ResourcesService localizationForHSCardType:HSCardTypeFromNSString(obj)];
-    }];
-    
-    NSDictionary<NSString *, NSString *> *result = [dic copy];
-    [dic release];
-    
-    return [result autorelease];
-}
-
-+ (NSString *)localizationForHSCardMinionType:(HSCardMinionType)hsCardMinionType {
-    return NSLocalizedStringFromTableInBundle(NSStringFromHSCardMinionType(hsCardMinionType),
-                                              @"HSCardMinionType",
-                                              [NSBundle bundleWithIdentifier:IDENTIFIER],
-                                              @"");
-}
-
-+ (NSDictionary<NSString *,NSString *> *)localizationsForHSCardMinionType {
-    NSMutableDictionary<NSString *, NSString *> *dic = [@{} mutableCopy];
-    
-    [hsCardMinionTypes() enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        dic[obj] = [ResourcesService localizationForHSCardMinionType:HSCardMinionTypeFromNSString(obj)];
-    }];
-    
-    NSDictionary<NSString *, NSString *> *result = [dic copy];
-    [dic release];
-    
-    return [result autorelease];
-}
-
-+ (NSString *)localizationForHSCardSpellSchool:(HSCardSpellSchool)hsCardSpellSchool {
-    return NSLocalizedStringFromTableInBundle(NSStringFromHSCardSpellSchool(hsCardSpellSchool),
-                                              @"HSCardSpellSchool",
-                                              [NSBundle bundleWithIdentifier:IDENTIFIER],
-                                              @"");
-}
-
-+ (NSDictionary<NSString *,NSString *> *)localizationsForHSCardSpellSchool {
-    NSMutableDictionary<NSString *, NSString *> *dic = [@{} mutableCopy];
-    
-    [hsCardSpellSchools() enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        dic[obj] = [ResourcesService localizationForHSCardSpellSchool:HSCardSpellSchoolFromNSString(obj)];
-    }];
-    
-    NSDictionary<NSString *, NSString *> *result = [dic copy];
-    [dic release];
-    
-    return [result autorelease];
-}
-
-+ (NSString *)localizationForHSCardKeyword:(HSCardKeyword)hsCardKeyword {
-    return NSLocalizedStringFromTableInBundle(NSStringFromHSCardKeyword(hsCardKeyword),
-                                              @"HSCardKeyword",
-                                              [NSBundle bundleWithIdentifier:IDENTIFIER],
-                                              @"");
-}
-
-+ (NSDictionary<NSString *,NSString *> *)localizationsForHSCardKeyword {
-    NSMutableDictionary<NSString *, NSString *> *dic = [@{} mutableCopy];
-    
-    [hsCardKeywords() enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        dic[obj] = [ResourcesService localizationForHSCardKeyword:HSCardKeywordFromNSString(obj)];
-    }];
-    
-    NSDictionary<NSString *, NSString *> *result = [dic copy];
-    [dic release];
-    
-    return [result autorelease];
-}
-
-+ (NSString *)localizationForHSCardGameMode:(HSCardGameMode)hsCardGameMode {
-    return NSLocalizedStringFromTableInBundle(NSStringFromHSCardGameMode(hsCardGameMode),
-                                              @"HSCardGameMode",
-                                              [NSBundle bundleWithIdentifier:IDENTIFIER],
-                                              @"");
-}
-
-+ (NSDictionary<NSString *,NSString *> *)localizationsForHSCardGameMode {
-    NSMutableDictionary<NSString *, NSString *> *dic = [@{} mutableCopy];
-    
-    [hsCardGameModes() enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        dic[obj] = [ResourcesService localizationForHSCardGameMode:HSCardGameModeFromNSString(obj)];
-    }];
-    
-    NSDictionary<NSString *, NSString *> *result = [dic copy];
-    [dic release];
-    
-    return [result autorelease];
-}
-
 + (NSString *)localizationForHSCardSort:(HSCardSort)hsCardSort {
     return NSLocalizedStringFromTableInBundle(NSStringFromHSCardSort(hsCardSort),
                                               @"HSCardSort",
@@ -532,27 +312,7 @@ static NSArray<FontKey> * _Nullable kRegisteredFontKeys = @[];
     return [result autorelease];
 }
 
-+ (NSString *)localizationForHSYear:(HSYear)hsYear {
-    return NSLocalizedStringFromTableInBundle(hsYear,
-                                              @"HSYear",
-                                              [NSBundle bundleWithIdentifier:IDENTIFIER],
-                                              @"");
-}
-
-+ (NSDictionary<NSString *,NSString *> *)localizationsForHSYear {
-    NSMutableDictionary<NSString *, NSString *> *dic = [@{} mutableCopy];
-    
-    [hsYears() enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        dic[obj] = [ResourcesService localizationForHSYear:obj];
-    }];
-    
-    NSDictionary<NSString *, NSString *> *result = [dic copy];
-    [dic release];
-    
-    return [result autorelease];
-}
-
-+ (NSString *)localizationForHSDeck:(HSDeck *)hsDeck title:(NSString *)title {
++ (NSString *)localizationForHSDeck:(HSDeck *)hsDeck title:(NSString *)title className:(nonnull NSString *)className {
     NSMutableString *result = [@"" mutableCopy];
     NSString *classTitle = NSLocalizedStringFromTableInBundle(@"CLASS",
                                                                @"HSDeck",
@@ -571,7 +331,6 @@ static NSArray<FontKey> * _Nullable kRegisteredFontKeys = @[];
                                                                [NSBundle bundleWithIdentifier:IDENTIFIER],
                                                                @"");
     
-    NSString *className = [ResourcesService localizationForHSCardClass:hsDeck.classId];
     NSString *formatName = [ResourcesService localizationForHSDeckFormat:hsDeck.format];
     
     [result appendFormat:@"### %@\n", title];

@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface DeckImageRenderServiceIntroCollectionViewItem : NSCollectionViewItem
-- (void)configureWithClassId:(HSCardClass)classId deckName:(NSString *)deckName deckFormat:(HSDeckFormat)deckFormat isEasterEgg:(BOOL)isEasterEgg;
+- (void)configureWithClassSlug:(NSString *)classSlug className:(NSString *)className deckName:(NSString *)deckName deckFormat:(HSDeckFormat)deckFormat isEasterEgg:(BOOL)isEasterEgg;
 @end
 
 NS_ASSUME_NONNULL_END

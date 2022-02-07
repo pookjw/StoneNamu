@@ -28,8 +28,8 @@
     [self setAttributes];
 }
 
-- (void)configureWithTotalArcaneDust:(NSNumber *)totalArcaneDust hsYearCurrent:(HSYear)hsYearCurrent {
-    self.deckYearLabel.stringValue = [ResourcesService localizationForHSYear:hsYearCurrent];
+- (void)configureWithTotalArcaneDust:(NSNumber *)totalArcaneDust hsYearCurrentName:(NSString *)hsYearCurrentName {
+    self.deckYearLabel.stringValue = hsYearCurrentName;
     self.arcaneDustLabel.stringValue = totalArcaneDust.stringWithSepearatedDecimalNumber;
 }
 

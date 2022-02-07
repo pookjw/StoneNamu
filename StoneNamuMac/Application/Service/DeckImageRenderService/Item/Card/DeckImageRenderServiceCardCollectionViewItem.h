@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface DeckImageRenderServiceCardCollectionViewItem : NSCollectionViewItem
-- (void)configureWithHSCard:(HSCard *)hsCard hsCardImage:(NSImage *)haCardImage hsCardCount:(NSUInteger)hsCardCount;
+- (void)configureWithHSCard:(HSCard *)hsCard hsCardImage:(NSImage *)haCardImage raritySlug:(HSCardRaritySlugType)raritySlug hsCardCount:(NSUInteger)hsCardCount;
 @end
 
 NS_ASSUME_NONNULL_END

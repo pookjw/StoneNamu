@@ -33,7 +33,7 @@ typedef NS_ENUM(NSUInteger, DeckImageRenderServiceItemModelType) {
 
 #pragma mark - DeckImageRenderServiceSectionModelTypeAppName
 @property (copy) NSNumber * _Nullable totalArcaneDust;
-@property (copy) NSString * _Nullable hsYearCurrent;
+@property (copy) NSString * _Nullable hsYearCurrentName;
 
 - (instancetype)initWithType:(DeckImageRenderServiceItemModelType)type;
 @end

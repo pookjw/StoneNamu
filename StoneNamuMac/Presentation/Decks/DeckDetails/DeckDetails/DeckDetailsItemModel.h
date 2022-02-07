@@ -18,6 +18,7 @@ typedef NS_ENUM(NSUInteger, DeckDetailsItemModelType) {
 @property (readonly) DeckDetailsItemModelType type;
 @property (copy) HSCard * _Nullable hsCard;
 @property (copy) NSNumber * _Nullable hsCardCount;
+@property BOOL isLegendary;
 
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;

@@ -135,23 +135,25 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckImag
         switch (itemModel.type) {
             case DeckImageRenderServiceItemModelTypeIntro: {
                 DeckImageRenderServiceIntroCollectionViewItem *item = [collectionView makeItemWithIdentifier:NSUserInterfaceItemIdentifierDeckImageRenderServiceIntroCollectionViewItem forIndexPath:indexPath];
-                [item configureWithClassId:itemModel.classId
-                                  deckName:itemModel.deckName
-                                deckFormat:itemModel.deckFormat
-                               isEasterEgg:itemModel.isEasterEgg];
+                [item configureWithClassSlug:itemModel.classSlug
+                                   className:itemModel.className
+                                    deckName:itemModel.deckName
+                                  deckFormat:itemModel.deckFormat
+                                 isEasterEgg:itemModel.isEasterEgg];
                 return item;
             }
             case DeckImageRenderServiceItemModelTypeCard: {
                 DeckImageRenderServiceCardCollectionViewItem *item = [collectionView makeItemWithIdentifier:NSUserInterfaceItemIdentifierDeckImageRenderServiceCardCollectionViewItem forIndexPath:indexPath];
                 [item configureWithHSCard:itemModel.hsCard
                               hsCardImage:itemModel.hsCardImage
+                               raritySlug:itemModel.raritySlug
                               hsCardCount:itemModel.hsCardCount];
                 return item;
             }
             case DeckImageRenderServiceItemModelTypeAbout: {
                 DeckImageRenderServiceAboutCollectionViewItem *item = [collectionView makeItemWithIdentifier:NSUserInterfaceItemIdentifierDeckImageRenderServiceAboutCollectionViewItem forIndexPath:indexPath];
                 [item configureWithTotalArcaneDust:itemModel.totalArcaneDust
-                                     hsYearCurrent:itemModel.hsYearCurrent];
+                                 hsYearCurrentName:itemModel.hsYearCurrentName];
                 return item;
             }
             case DeckImageRenderServiceItemModelTypeAppName: {

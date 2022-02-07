@@ -11,17 +11,23 @@
 
 @implementation DecksMenuFactory
 
-+ (SEL)keyMenuItemTriggeredSelector {
+- (void)dealloc {
+    [_slugsAndNames release];
+    [_slugsAndIds release];
+    [super dealloc];
+}
+
+- (SEL)keyMenuItemTriggeredSelector {
     return NSSelectorFromString(@"keyMenuItemTriggered:");
 }
 
-+ (NSMenu *)menuForHSDeckFormat:(HSDeckFormat)deckFormat target:(id _Nullable)target {
+- (NSMenu *)menuForHSDeckFormat:(HSDeckFormat)deckFormat target:(id _Nullable)target {
     NSMutableArray<NSMenuItem *> *itemArray = [NSMutableArray<NSMenuItem *> new];
-    NSDictionary<NSString *, NSString *> *dic = [ResourcesService localizationsForHSCardClassForHSDeckFormat:deckFormat];
+    NSDictionary<NSString *, NSString *> *dic = self.slugsAndNames[deckFormat];
     
     [dic enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSString * _Nonnull obj, BOOL * _Nonnull stop) {
         StorableMenuItem *item = [[StorableMenuItem alloc] initWithTitle:obj
-                                                                  action:DecksMenuFactory.keyMenuItemTriggeredSelector
+                                                                  action:self.keyMenuItemTriggeredSelector
                                                            keyEquivalent:@""
                                                                 userInfo:@{deckFormat: key}];
         item.target = target;
@@ -31,16 +37,7 @@
     }];
     
     [itemArray sortUsingComparator:^NSComparisonResult(StorableMenuItem* obj1, StorableMenuItem* obj2) {
-        HSCardClass lhs = HSCardClassFromNSString(obj1.userInfo.allValues.firstObject);
-        HSCardClass rhs = HSCardClassFromNSString(obj2.userInfo.allValues.firstObject);
-        
-        if (lhs > rhs) {
-            return NSOrderedDescending;
-        } else if (lhs < rhs) {
-            return NSOrderedAscending;
-        } else {
-            return NSOrderedSame;
-        }
+        return [obj1.title compare:obj2.title];
     }];
     
     //

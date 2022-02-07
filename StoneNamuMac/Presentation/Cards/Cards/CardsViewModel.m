@@ -11,6 +11,7 @@
 
 @interface CardsViewModel ()
 @property (retain) id<HSCardUseCase> hsCardUseCase;
+@property (retain) id<HSMetaDataUseCase> hsMetaDataUseCase;
 @property (readonly, nonatomic) NSDictionary<NSString *, NSSet<NSString *> *> *defaultOptions;
 @property (retain) NSNumber * _Nullable pageCount;
 @property (retain) NSNumber *page;
@@ -34,9 +35,12 @@
         self.hsCardUseCase = hsCardUseCase;
         [hsCardUseCase release];
         
+        HSMetaDataUseCaseImpl *hsMetaDataUseCase = [HSMetaDataUseCaseImpl new];
+        self.hsMetaDataUseCase = hsMetaDataUseCase;
+        [hsMetaDataUseCase release];
+        
         NSOperationQueue *queue = [NSOperationQueue new];
         queue.qualityOfService = NSQualityOfServiceUserInitiated;
-        queue.maxConcurrentOperationCount = 1;
         self.queue = queue;
         [queue release];
         
@@ -53,6 +57,7 @@
         self.isFetching = NO;
         
         [self startObserving];
+        [self postShouldUpdateOptions];
     }
     
     return self;
@@ -61,6 +66,7 @@
 - (void)dealloc {
     [_dataSource release];
     [_hsCardUseCase release];
+    [_hsMetaDataUseCase release];
     [_pageCount release];
     [_page release];
     [_queue release];
@@ -85,13 +91,11 @@
     
     //
     
-    self.isFetching = YES;
-    
-    //
-    
     NSBlockOperation * __block op = [NSBlockOperation new];
     
     [op addExecutionBlock:^{
+        self.isFetching = YES;
+        
         NSDictionary<NSString *, NSSet<NSString *> *> *defaultOptions = self.defaultOptions;
         NSDictionary<NSString *, NSSet<NSString *> *> * _Nullable finalOptions = [options dictionaryByCombiningWithDictionary:defaultOptions shouldOverride:NO];
         
@@ -126,28 +130,27 @@
             
             if (op.isCancelled) {
                 [semaphore signal];
-                [semaphore release];
+                return;
+            }
+            
+            if (error) {
+                [self postError:error];
+                [semaphore signal];
                 return;
             }
             
             [semaphore signal];
-            [semaphore release];
             
-            if (error) {
-                [self postError:error];
-            }
-            
-            [self.queue addOperationWithBlock:^{
-                [self updateDataSourceWithCards:cards completion:^{
-                    self.pageCount = pageCount;
-                    self.page = page;
-                    self.isFetching = NO;
-                }];
+            [self updateDataSourceWithCards:cards completion:^{
+                self.pageCount = pageCount;
+                self.page = page;
+                self.isFetching = NO;
             }];
         }];
         
         [mutableDic release];
         [semaphore wait];
+        [semaphore release];
     }];
     
     [self.queue addOperation:op];
@@ -176,10 +179,10 @@
     return [hsCards autorelease];
 }
 
-- (void)resetDataSource{
+- (void)resetDataSource {
     [self.queue cancelAllOperations];
     
-    [self.queue addOperationWithBlock:^{
+    [self.queue addBarrierBlock:^{
         self.pageCount = nil;
         self.page = [NSNumber numberWithUnsignedInt:1];
         NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
@@ -272,6 +275,27 @@
     [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameCardsViewModelEndedLoadingDataSource
                                                       object:self
                                                     userInfo:nil];
+}
+
+- (void)postShouldUpdateOptions {
+    [self.queue addOperationWithBlock:^{
+        [self.hsMetaDataUseCase fetchWithCompletionHandler:^(HSMetaData * _Nullable hsMetaData, NSError * _Nullable error) {
+            if (error) {
+                NSLog(@"%@", error.localizedDescription);
+                return;
+            }
+            
+            [self.queue addOperationWithBlock:^{
+                NSDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSString *> *> *slugsAndNames = [self.hsMetaDataUseCase optionTypesAndSlugsAndNamesFromHSDeckFormat:nil withClassId:nil usingHSMetaData:hsMetaData];
+                NSDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSNumber *> *> *slugsAndIds = [self.hsMetaDataUseCase optionTypesAndSlugsAndIdsFromHSDeckFormat:nil withClassId:nil usingHSMetaData:hsMetaData];
+                
+                [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameCardsViewModelShouldUpdateOptions
+                                                                  object:self
+                                                                userInfo:@{CardsViewModelShouldUpdateOptionsSlugsAndNamesItemKey: slugsAndNames,
+                                                                           CardsViewModelShouldUpdateOptionsSlugsAndIdsItemKey: slugsAndIds}];
+            }];
+        }];
+    }];
 }
 
 @end

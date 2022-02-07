@@ -14,6 +14,8 @@
 
 @interface DecksToolbar () <NSToolbarDelegate>
 @property (assign) id<DecksToolbarDelegate> decksToolbarDelegate;
+@property (retain) DecksMenuFactory *factory;
+
 @property (retain) DynamicMenuToolbarItem *createNewDeckStandardDeckItem;
 @property (retain) DynamicMenuToolbarItem *createNewDeckWildDeckItem;
 @property (retain) DynamicMenuToolbarItem *createNewDeckClassicDeckItem;
@@ -28,6 +30,11 @@
     
     if (self) {
         self.decksToolbarDelegate = decksToolbarDelegate;
+        
+        DecksMenuFactory *factory = [DecksMenuFactory new];
+        self.factory = factory;
+        [factory release];
+        
         [self setAttributes];
         [self configureToolbarItems];
     }
@@ -36,12 +43,24 @@
 }
 
 - (void)dealloc {
+    [_factory release];
     [_createNewDeckStandardDeckItem release];
     [_createNewDeckWildDeckItem release];
     [_createNewDeckClassicDeckItem release];
     [_createNewDeckFromDeckCodeItem release];
     [_allItems release];
     [super dealloc];
+}
+
+- (void)updateWithSlugsAndNames:(NSDictionary<HSDeckFormat,NSDictionary<NSString *,NSString *> *> *)slugsAndNames slugsAndIds:(NSDictionary<HSDeckFormat,NSDictionary<NSString *,NSNumber *> *> *)slugsAndIds {
+    self.factory.slugsAndNames = slugsAndNames;
+    self.factory.slugsAndIds = slugsAndIds;
+    
+    [self.allItems enumerateObjectsUsingBlock:^(DynamicMenuToolbarItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSUserInterfaceItemIdentifier itemIdentifier = obj.itemIdentifier;
+        HSDeckFormat hsDeckFormat = HSDeckFormatFromNSToolbarIdentifierDecks(itemIdentifier);
+        obj.menu = [self.factory menuForHSDeckFormat:hsDeckFormat target:self];
+    }];
 }
 
 - (void)setAttributes {
@@ -52,19 +71,16 @@
 
 - (void)configureToolbarItems {
     DynamicMenuToolbarItem *createNewDeckStandardDeckItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierDecksCreateNewStandardDeck];
-    createNewDeckStandardDeckItem.menu = [DecksMenuFactory menuForHSDeckFormat:HSDeckFormatStandard target:self];
     createNewDeckStandardDeckItem.title = [ResourcesService localizationForHSDeckFormat:HSDeckFormatStandard];
     createNewDeckStandardDeckItem.image = [ResourcesService imageForDeckFormat:HSDeckFormatStandard];
     [self insertItemWithItemIdentifier:NSToolbarIdentifierDecksCreateNewStandardDeck atIndex:0];
     
     DynamicMenuToolbarItem *createNewDeckWildDeckItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierDecksCreateNewWildDeck];
-    createNewDeckWildDeckItem.menu = [DecksMenuFactory menuForHSDeckFormat:HSDeckFormatWild target:self];
     createNewDeckWildDeckItem.title = [ResourcesService localizationForHSDeckFormat:HSDeckFormatWild];
     createNewDeckWildDeckItem.image = [ResourcesService imageForDeckFormat:HSDeckFormatWild];
     [self insertItemWithItemIdentifier:NSToolbarIdentifierDecksCreateNewWildDeck atIndex:1];
     
     DynamicMenuToolbarItem *createNewDeckClassicDeckItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierDecksCreateNewClassicDeck];
-    createNewDeckClassicDeckItem.menu = [DecksMenuFactory menuForHSDeckFormat:HSDeckFormatClassic target:self];
     createNewDeckClassicDeckItem.title = [ResourcesService localizationForHSDeckFormat:HSDeckFormatClassic];
     createNewDeckClassicDeckItem.image = [ResourcesService imageForDeckFormat:HSDeckFormatClassic];
     [self insertItemWithItemIdentifier:NSToolbarIdentifierDecksCreateNewClassicDeck atIndex:2];
@@ -99,8 +115,9 @@
 
 - (void)keyMenuItemTriggered:(StorableMenuItem *)sender {
     HSDeckFormat hsDeckFormat = sender.userInfo.allKeys.firstObject;
-    HSCardClass hsCardClass = HSCardClassFromNSString(sender.userInfo.allValues.firstObject);
-    [self.decksToolbarDelegate decksToolbar:self createNewDeckWithDeckFormat:hsDeckFormat hsCardClass:hsCardClass];
+    NSString *classSlug = sender.userInfo.allValues.firstObject;
+    
+    [self.decksToolbarDelegate decksToolbar:self createNewDeckWithDeckFormat:hsDeckFormat classSlug:classSlug];
 }
 
 - (void)createNewDeckFromDeckCodeItemTriggered:(DynamicMenuToolbarItem *)sender {

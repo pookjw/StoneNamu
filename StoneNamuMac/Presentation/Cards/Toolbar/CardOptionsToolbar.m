@@ -15,6 +15,8 @@
 
 @interface CardOptionsToolbar () <NSToolbarDelegate, NSSearchFieldDelegate>
 @property (assign) id<CardOptionsToolbarDelegate> cardOptionsToolbarDelegate;
+@property (retain) CardOptionsMenuFactory *factory;
+
 @property (retain) DynamicMenuToolbarItem *optionTypeTextFilterItem;
 @property (retain) DynamicMenuToolbarItem *optionTypeSetItem;
 @property (retain) DynamicMenuToolbarItem *optionTypeClassItem;
@@ -29,7 +31,7 @@
 @property (retain) DynamicMenuToolbarItem *optionTypeKeyowrdItem;
 @property (retain) DynamicMenuToolbarItem *optionTypeGameModeItem;
 @property (retain) DynamicMenuToolbarItem *optionTypeSortItem;
-@property (retain) NSArray<DynamicMenuToolbarItem *> *optionTypeAllItems;
+@property (retain) NSArray<DynamicMenuToolbarItem *> *allOptionsItems;
 @property (retain) NSMutableDictionary<NSString *, NSSet<NSString *> *> *options;
 @end
 
@@ -43,6 +45,10 @@
         self.options = mutableOptions;
         [mutableOptions release];
         
+        CardOptionsMenuFactory *factory = [CardOptionsMenuFactory new];
+        self.factory = factory;
+        [factory release];
+        
         self.cardOptionsToolbarDelegate = cardOptionsToolbarDelegate;
         [self setAttributes];
         [self configureToolbarItems];
@@ -53,6 +59,7 @@
 }
 
 - (void)dealloc {
+    [_factory release];
     [_optionTypeTextFilterItem release];
     [_optionTypeSetItem release];
     [_optionTypeClassItem release];
@@ -67,7 +74,7 @@
     [_optionTypeKeyowrdItem release];
     [_optionTypeGameModeItem release];
     [_optionTypeSortItem release];
-    [_optionTypeAllItems release];
+    [_allOptionsItems release];
     [_options release];
     [super dealloc];
 }
@@ -81,77 +88,63 @@
 - (void)configureToolbarItems {
     DynamicMenuToolbarItem *optionTypeTextFilterItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionTypeTextFilter];
     optionTypeTextFilterItem.toolTip = [ResourcesService localizationForKey:LocalizableKeyCardTextFilterTooltipDescription];
-    optionTypeTextFilterItem.menu = [self menuForMenuToolbarItem:optionTypeTextFilterItem];
     [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionTypeTextFilter atIndex:0];
     
     DynamicMenuToolbarItem *optionTypeSetItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionTypeSet];
     optionTypeSetItem.toolTip = [ResourcesService localizationForKey:LocalizableKeyCardSetTooltipDescription];
-    optionTypeSetItem.menu = [self menuForMenuToolbarItem:optionTypeSetItem];
     [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionTypeSet atIndex:1];
     
     DynamicMenuToolbarItem *optionTypeClassItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionTypeClass];
     optionTypeClassItem.toolTip = [ResourcesService localizationForKey:LocalizableKeyCardClassTooltipDescription];
-    optionTypeClassItem.menu = [self menuForMenuToolbarItem:optionTypeClassItem];
     [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionTypeClass atIndex:2];
     
     DynamicMenuToolbarItem *optionTypeManaCostItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionTypeManaCost];
     optionTypeManaCostItem.toolTip = [ResourcesService localizationForKey:LocalizableKeyCardManaCostTooltipDescription];
-    optionTypeManaCostItem.menu = [self menuForMenuToolbarItem:optionTypeManaCostItem];
     [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionTypeManaCost atIndex:3];
     
     DynamicMenuToolbarItem *optionTypeAttackItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionTypeAttack];
     optionTypeAttackItem.toolTip = [ResourcesService localizationForKey:LocalizableKeyCardAttackTooltipDescription];
-    optionTypeAttackItem.menu = [self menuForMenuToolbarItem:optionTypeAttackItem];
     [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionTypeAttack atIndex:4];
     
     DynamicMenuToolbarItem *optionTypeHealthItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionTypeHealth];
     optionTypeHealthItem.toolTip = [ResourcesService localizationForKey:LocalizableKeyCardHealthTooltipDescription];
-    optionTypeHealthItem.menu = [self menuForMenuToolbarItem:optionTypeHealthItem];
     [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionTypeHealth atIndex:5];
     
     DynamicMenuToolbarItem *optionTypeCollectibleItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionTypeCollecticle];
     optionTypeCollectibleItem.toolTip = [ResourcesService localizationForKey:LocalizableKeyCardCollectibleTooltipDescription];
-    optionTypeCollectibleItem.menu = [self menuForMenuToolbarItem:optionTypeCollectibleItem];
     [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionTypeCollecticle atIndex:6];
     
     DynamicMenuToolbarItem *optionTypeRarityItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionTypeRarity];
     optionTypeRarityItem.toolTip = [ResourcesService localizationForKey:LocalizableKeyCardRarityTooltipDescription];
-    optionTypeRarityItem.menu = [self menuForMenuToolbarItem:optionTypeRarityItem];
     [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionTypeRarity atIndex:7];
     
     DynamicMenuToolbarItem *optionTypeTypeItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionTypeType];
     optionTypeTypeItem.toolTip = [ResourcesService localizationForKey:LocalizableKeyCardTypeTooltipDescription];
-    optionTypeTypeItem.menu = [self menuForMenuToolbarItem:optionTypeTypeItem];
     [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionTypeType atIndex:8];
     
     DynamicMenuToolbarItem *optionTypeMinionTypeItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionTypeMinionType];
     optionTypeMinionTypeItem.toolTip = [ResourcesService localizationForKey:LocalizableKeyCardMinionTypeTooltipDescription];
-    optionTypeMinionTypeItem.menu = [self menuForMenuToolbarItem:optionTypeMinionTypeItem];
     [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionTypeMinionType atIndex:9];
     
     DynamicMenuToolbarItem *optionTypeSpellSchoolItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionTypeSpellSchool];
     optionTypeSpellSchoolItem.toolTip = [ResourcesService localizationForKey:LocalizableKeyCardSpellSchoolTooltipDescription];
-    optionTypeSpellSchoolItem.menu = [self menuForMenuToolbarItem:optionTypeSpellSchoolItem];
     [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionTypeSpellSchool atIndex:10];
     
     DynamicMenuToolbarItem *optionTypeKeyowrdItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionTypeKeyword];
     optionTypeKeyowrdItem.toolTip = [ResourcesService localizationForKey:LocalizableKeyCardKeywordTooltipDescription];
-    optionTypeKeyowrdItem.menu = [self menuForMenuToolbarItem:optionTypeKeyowrdItem];
     [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionTypeKeyword atIndex:11];
     
     DynamicMenuToolbarItem *optionTypeGameModeItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionTypeGameMode];
     optionTypeGameModeItem.toolTip = [ResourcesService localizationForKey:LocalizableKeyCardGameModeTooltipDescription];
-    optionTypeGameModeItem.menu = [self menuForMenuToolbarItem:optionTypeGameModeItem];
     [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionTypeGameMode atIndex:12];
     
     DynamicMenuToolbarItem *optionTypeSortItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionTypeSort];
     optionTypeSortItem.toolTip = [ResourcesService localizationForKey:LocalizableKeyCardSortTooltipDescription];
-    optionTypeSortItem.menu = [self menuForMenuToolbarItem:optionTypeSortItem];
     [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionTypeSort atIndex:13];
     
     //
     
-    self.optionTypeAllItems = @[
+    self.allOptionsItems = @[
         optionTypeTextFilterItem,
         optionTypeSetItem,
         optionTypeClassItem,
@@ -201,12 +194,25 @@
     [self validateVisibleItems];
 }
 
+- (void)updateWithSlugsAndNames:(NSDictionary<BlizzardHSAPIOptionType,NSDictionary<NSString *,NSString *> *> *)slugsAndNames slugsAndIds:(NSDictionary<BlizzardHSAPIOptionType,NSDictionary<NSString *,NSNumber *> *> *)slugsAndIds {
+    self.factory.slugsAndNames = slugsAndNames;
+    self.factory.slugsAndIds = slugsAndIds;
+    
+    [self.allOptionsItems enumerateObjectsUsingBlock:^(DynamicMenuToolbarItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSUserInterfaceItemIdentifier itemIdentifier = obj.itemIdentifier;
+        BlizzardHSAPIOptionType optionType = BlizzardHSAPIOptionTypeFromNSToolbarIdentifierCardOptionType(itemIdentifier);
+        
+        obj.menu = [self.factory menuForOptionType:optionType target:self];
+        obj.title = [self.factory titleForOptionType:optionType];
+    }];
+}
+
 - (void)updateItemsWithOptions:(NSDictionary<NSString *, NSSet<NSString *> *> * _Nullable)options {
     NSMutableDictionary<NSString *, NSSet<NSString *> *> *mutableOptions = [options mutableCopy];
     self.options = mutableOptions;
     [mutableOptions release];
     
-    [self.optionTypeAllItems enumerateObjectsUsingBlock:^(NSMenuToolbarItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    [self.allOptionsItems enumerateObjectsUsingBlock:^(NSMenuToolbarItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         
         DynamicMenuToolbarItem *item = (DynamicMenuToolbarItem *)obj;
         
@@ -232,18 +238,10 @@
         
         //
         
-        obj.image = [CardOptionsMenuFactory imageForCardOptionTypeWithValues:values optionType:optionType];
-        obj.title = [CardOptionsMenuFactory titleForOptionType:optionType];
+        obj.image = [self.factory imageForCardOptionTypeWithValues:values optionType:optionType];
         
         [self updateStateOfMenuToolbarItem:item];
     }];
-}
-
-- (NSMenu *)menuForMenuToolbarItem:(DynamicMenuToolbarItem *)menuToolbarItem {
-    NSToolbarItemIdentifier itemIdentifier = menuToolbarItem.itemIdentifier;
-    BlizzardHSAPIOptionType optionType = BlizzardHSAPIOptionTypeFromNSToolbarIdentifierCardOptionType(itemIdentifier);
-    
-    return [CardOptionsMenuFactory menuForOptionType:optionType target:self];
 }
 
 - (void)updateStateOfMenuToolbarItem:(DynamicMenuToolbarItem *)menuToolbarItem {
@@ -281,7 +279,7 @@
 - (DynamicMenuToolbarItem * _Nullable)menuToolbarItemForOptionType:(BlizzardHSAPIOptionType)optionType {
     DynamicMenuToolbarItem * _Nullable __block result = nil;
     
-    [self.optionTypeAllItems enumerateObjectsUsingBlock:^(DynamicMenuToolbarItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    [self.allOptionsItems enumerateObjectsUsingBlock:^(DynamicMenuToolbarItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         NSToolbarItemIdentifier itemIdentifier = obj.itemIdentifier;
         BlizzardHSAPIOptionType tmp = BlizzardHSAPIOptionTypeFromNSToolbarIdentifierCardOptionType(itemIdentifier);
         
@@ -351,7 +349,7 @@
 - (NSToolbarItem *)toolbar:(NSToolbar *)toolbar itemForItemIdentifier:(NSToolbarItemIdentifier)itemIdentifier willBeInsertedIntoToolbar:(BOOL)flag {
     NSMenuToolbarItem * _Nullable __block resultItem = nil;
     
-    [self.optionTypeAllItems enumerateObjectsUsingBlock:^(NSMenuToolbarItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    [self.allOptionsItems enumerateObjectsUsingBlock:^(NSMenuToolbarItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([itemIdentifier isEqualToString:obj.itemIdentifier]) {
             resultItem = obj;
             *stop = YES;

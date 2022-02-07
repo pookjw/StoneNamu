@@ -1,0 +1,24 @@
+//
+//  HSCardKeyword.h
+//  StoneNamuCore
+//
+//  Created by Jinwoo Kim on 2/5/22.
+//
+
+#import <Foundation/Foundation.h>
+
+NS_ASSUME_NONNULL_BEGIN
+
+@interface HSCardKeyword : NSObject <NSCopying>
+@property (readonly, copy) NSNumber *keywordId;
+@property (readonly, copy) NSString *slug;
+@property (readonly, copy) NSString *name;
+@property (readonly, copy) NSString *refText;
+@property (readonly, copy) NSString *text;
+@property (readonly, copy) NSSet<NSNumber *> *gameModes;
++ (instancetype)new NS_UNAVAILABLE;
+- (instancetype)init NS_UNAVAILABLE;
++ (HSCardKeyword * _Nullable)hsCardKeywordFromDic:(NSDictionary *)dic error:(NSError * _Nullable *)error;
+@end
+
+NS_ASSUME_NONNULL_END

@@ -13,6 +13,7 @@
 @interface CardDetailsViewModel ()
 @property (retain) NSOperationQueue *queue;
 @property (retain) id<HSCardUseCase> hsCardUseCase;
+@property (retain) id<HSMetaDataUseCase> hsMetaDataUseCase;
 @end
 
 @implementation CardDetailsViewModel
@@ -31,6 +32,10 @@
         self.hsCardUseCase = hsCardUseCase;
         [hsCardUseCase release];
         
+        HSMetaDataUseCaseImpl *hsMetaDataUseCase = [HSMetaDataUseCaseImpl new];
+        self.hsMetaDataUseCase = hsMetaDataUseCase;
+        [hsMetaDataUseCase release];
+        
         NSOperationQueue *queue = [NSOperationQueue new];
         queue.qualityOfService = NSQualityOfServiceUserInitiated;
         self.queue = queue;
@@ -43,6 +48,7 @@
 - (void)dealloc {
     [_dataSource release];
     [_hsCardUseCase release];
+    [_hsMetaDataUseCase release];
     [_queue release];
     [_hsCard release];
     [super dealloc];
@@ -50,75 +56,79 @@
 
 - (void)requestDataSourceWithCard:(HSCard *)hsCard {
     [self.queue addBarrierBlock:^{
-        [self postStartedLoadingDataSource];
-        
         [self->_hsCard release];
         self->_hsCard = [hsCard copy];
         
-        NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
+        [self postStartedLoadingDataSource];
         
-        [snapshot deleteAllItems];
-        
-        CardDetailsSectionModel *sectionModelBase = [[CardDetailsSectionModel alloc] initWithType:CardDetailsSectionModelTypeBase];
-        CardDetailsSectionModel *sectionModelDetail = [[CardDetailsSectionModel alloc] initWithType:CardDetailsSectionModelTypeDetail];
-        
-        [snapshot appendSectionsWithIdentifiers:@[sectionModelBase, sectionModelDetail]];
-        
-        //
-        
-        NSString * _Nullable cardClassValue = nil;
-        
-        if (hsCard.multiClassIds != nil) {
-            NSMutableArray *strings = [@[] mutableCopy];
-            
-            for (NSNumber *classId in hsCard.multiClassIds) {
-                [strings addObject:[ResourcesService localizationForHSCardClass:classId.unsignedIntegerValue]];
-            }
-            
-            cardClassValue = [strings componentsJoinedByString:@", "];
-            [strings release];
-        }
-        
-        if ((cardClassValue == nil) || ([cardClassValue isEqualToString:@""])) {
-            cardClassValue = [ResourcesService localizationForHSCardClass:hsCard.classId];
-        }
-        
-        @autoreleasepool {
-            [snapshot appendItemsWithIdentifiers:@[
-                [[[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeName value:hsCard.name] autorelease],
+        [self.hsMetaDataUseCase fetchWithCompletionHandler:^(HSMetaData * _Nullable hsMetaData, NSError * _Nullable error) {
+            [self.queue addBarrierBlock:^{
+                NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
                 
-                [[[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeFlavorText value:hsCard.flavorText] autorelease],
+                [snapshot deleteAllItems];
                 
-                [[[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeText value:hsCard.text] autorelease]
-            ]
-                       intoSectionWithIdentifier:sectionModelBase];
-            
-            [snapshot appendItemsWithIdentifiers:@[
-                [[[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeType value:[ResourcesService localizationForHSCardType:hsCard.cardTypeId]] autorelease],
+                CardDetailsSectionModel *sectionModelBase = [[CardDetailsSectionModel alloc] initWithType:CardDetailsSectionModelTypeBase];
+                CardDetailsSectionModel *sectionModelDetail = [[CardDetailsSectionModel alloc] initWithType:CardDetailsSectionModelTypeDetail];
                 
-                [[[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeRarity value:[ResourcesService localizationForHSCardRarity:hsCard.rarityId]] autorelease],
+                [snapshot appendSectionsWithIdentifiers:@[sectionModelBase, sectionModelDetail]];
                 
-                [[[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeSet value:[ResourcesService localizationForHSCardSet:hsCard.cardSetId]] autorelease],
+                //
                 
-                [[[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeClass value:cardClassValue] autorelease],
+                NSString * _Nullable cardClassValue = nil;
                 
-                [[[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeCollectible value:[ResourcesService localizationForHSCardCollectible:hsCard.collectible]] autorelease],
+                if (hsCard.multiClassIds != nil) {
+                    NSMutableArray *strings = [@[] mutableCopy];
+                    
+                    for (NSNumber *classId in hsCard.multiClassIds) {
+                        [strings addObject:[self.hsMetaDataUseCase hsCardClassFromClassId:classId usingHSMetaData:hsMetaData].name];
+                    }
+                    
+                    cardClassValue = [strings componentsJoinedByString:@", "];
+                    [strings release];
+                }
                 
-                [[[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeArtist value:hsCard.artistName] autorelease]
-            ]
-                       intoSectionWithIdentifier:sectionModelDetail];
-        }
-        
-        //
-        
-        [sectionModelBase release];
-        [sectionModelDetail release];
-        
-        [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
-            [self postEndedLoadingDataSource];
-            [self loadChildCardsWithHSCard:hsCard];
+                if ((cardClassValue == nil) || ([cardClassValue isEqualToString:@""])) {
+                    cardClassValue = [self.hsMetaDataUseCase hsCardClassFromClassId:hsCard.classId usingHSMetaData:hsMetaData].name;
+                }
+                
+                @autoreleasepool {
+                    [snapshot appendItemsWithIdentifiers:@[
+                        [[[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeName value:hsCard.name] autorelease],
+                        
+                        [[[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeFlavorText value:hsCard.flavorText] autorelease],
+                        
+                        [[[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeText value:hsCard.text] autorelease]
+                    ]
+                               intoSectionWithIdentifier:sectionModelBase];
+                    
+                    [snapshot appendItemsWithIdentifiers:@[
+                        [[[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeType value:[self.hsMetaDataUseCase hsCardTypeFromTypeId:hsCard.cardTypeId usingHSMetaData:hsMetaData].name] autorelease],
+                        
+                        [[[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeRarity value:[self.hsMetaDataUseCase hsCardRarityFromRarityId:hsCard.rarityId usingHSMetaData:hsMetaData].name] autorelease],
+                        
+                        [[[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeSet value:[self.hsMetaDataUseCase hsCardSetFromSetId:hsCard.cardSetId usingHSMetaData:hsMetaData].name] autorelease],
+                        
+                        [[[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeClass value:cardClassValue] autorelease],
+                        
+                        [[[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeCollectible value:[ResourcesService localizationForHSCardCollectible:hsCard.collectible]] autorelease],
+                        
+                        [[[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeArtist value:hsCard.artistName] autorelease]
+                    ]
+                               intoSectionWithIdentifier:sectionModelDetail];
+                }
+                
+                //
+                
+                [sectionModelBase release];
+                [sectionModelDetail release];
+                
+                [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
+                    [self postEndedLoadingDataSource];
+                    [self loadChildCardsWithHSCard:hsCard];
+                }];
+                [snapshot release];
+            }];
         }];
-        [snapshot release];
     }];
 }
 

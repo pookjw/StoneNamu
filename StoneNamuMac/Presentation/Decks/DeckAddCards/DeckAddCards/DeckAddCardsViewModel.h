@@ -25,6 +25,10 @@ static NSNotificationName const NSNotificationNameDeckAddCardsViewModelEndedLoad
 
 static NSNotificationName const NSNotificationNameDeckAddCardsViewModelLocalDeckHasChanged = @"NSNotificationNameDeckAddCardsViewModelLocalDeckHasChanged";
 
+static NSNotificationName const NSNotificationNameDeckAddCardsViewModelShouldUpdateOptions = @"NSNotificationNameDeckAddCardsViewModelShouldUpdateOptions";
+static NSString * const DeckAddCardsViewModelShouldUpdateOptionsSlugsAndNamesItemKey = @"DeckAddCardsViewModelShouldUpdateOptionsSlugsAndNamesItemKey";
+static NSString * const DeckAddCardsViewModelShouldUpdateOptionsSlugsAndIdsItemKey = @"DeckAddCardsViewModelShouldUpdateOptionsSlugsAndIdsItemKey";
+
 @interface DeckAddCardsViewModel : NSObject
 @property (retain) LocalDeck * _Nullable localDeck;
 @property (readonly, retain) DeckAddCardsDataSource *dataSource;

@@ -14,22 +14,13 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
 
 @interface DecksTouchBar () <NSTouchBarDelegate, NSScrubberDataSource, NSScrubberDelegate>
 @property (assign) id<DecksTouchBarDelegate> decksTouchBarDelegate;
-@property (retain) NSArray<NSTouchBarItem *> *allItems;
+@property (copy) NSDictionary<HSDeckFormat, NSDictionary<NSString *, NSString *> *> *slugsAndNames;
+@property (copy) NSDictionary<HSDeckFormat, NSDictionary<NSString *, NSNumber *> *> *slugsAndIds;
 
-@property (retain) NSPopoverTouchBarItem *createNewDeckStandardDeckPopoverItem;
-@property (retain) NSTouchBar *createNewDeckStandardDeckTouchBar;
-@property (retain) NSCustomTouchBarItem *createNewDeckStandardDeckItem;
-@property (retain) NSScrubber *createNewDeckStandardDeckScrubber;
-
-@property (retain) NSPopoverTouchBarItem *createNewDeckWildDeckPopoverItem;
-@property (retain) NSTouchBar *createNewDeckWildDeckTouchBar;
-@property (retain) NSCustomTouchBarItem *createNewDeckWildDeckItem;
-@property (retain) NSScrubber *createNewDeckWildDeckScrubber;
-
-@property (retain) NSPopoverTouchBarItem *createNewDeckClassicDeckPopoverItem;
-@property (retain) NSTouchBar *createNewDeckClassicDeckTouchBar;
-@property (retain) NSCustomTouchBarItem *createNewDeckClassicDeckItem;
-@property (retain) NSScrubber *createNewDeckClassicDeckScrubber;
+@property (retain) NSDictionary<HSDeckFormat, NSPopoverTouchBarItem *> *allPopoverItems;
+@property (retain) NSDictionary<HSDeckFormat, NSTouchBar *> *allTouchBarItems;
+@property (retain) NSDictionary<HSDeckFormat, NSCustomTouchBarItem *> *allCustomTouchBarItems;
+@property (retain) NSDictionary<HSDeckFormat, NSScrubber *> *allScrubberItems;
 
 @property (retain) NSButtonTouchBarItem *createNewDeckFromDeckCodeItem;
 @end
@@ -42,6 +33,9 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     if (self) {
         self.decksTouchBarDelegate = decksTouchBarDelegate;
         
+        self.slugsAndNames = @{};
+        self.slugsAndIds = @{};
+        
         [self configureItems];
         [self setAttributes];
     }
@@ -50,25 +44,25 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
 }
 
 - (void)dealloc {
-    [_allItems release];
+    [_slugsAndNames release];
+    [_slugsAndIds release];
     
-    [_createNewDeckStandardDeckPopoverItem release];
-    [_createNewDeckStandardDeckTouchBar release];
-    [_createNewDeckStandardDeckItem release];
-    [_createNewDeckStandardDeckScrubber release];
-    
-    [_createNewDeckWildDeckPopoverItem release];
-    [_createNewDeckWildDeckTouchBar release];
-    [_createNewDeckWildDeckItem release];
-    [_createNewDeckWildDeckScrubber release];
-    
-    [_createNewDeckClassicDeckPopoverItem release];
-    [_createNewDeckClassicDeckTouchBar release];
-    [_createNewDeckClassicDeckItem release];
-    [_createNewDeckClassicDeckScrubber release];
+    [_allPopoverItems release];
+    [_allTouchBarItems release];
+    [_allCustomTouchBarItems release];
+    [_allScrubberItems release];
     
     [_createNewDeckFromDeckCodeItem release];
     [super dealloc];
+}
+
+- (void)updateWithSlugsAndNames:(NSDictionary<HSDeckFormat,NSDictionary<NSString *,NSString *> *> *)slugsAndNames slugsAndIds:(NSDictionary<HSDeckFormat,NSDictionary<NSString *,NSNumber *> *> *)slugsAndIds {
+    self.slugsAndNames = slugsAndNames;
+    self.slugsAndIds = slugsAndIds;
+    
+    [self.allScrubberItems.allValues enumerateObjectsUsingBlock:^(NSScrubber * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [obj reloadData];
+    }];
 }
 
 - (void)configureItems {
@@ -118,26 +112,30 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     createNewDeckFromDeckCodeItem.image = [NSImage imageWithSystemSymbolName:@"chevron.left.forwardslash.chevron.right" accessibilityDescription:nil];
 
     //
-
-    self.allItems = @[createNewDeckStandardDeckPopoverItem,
-                      createNewDeckWildDeckPopoverItem,
-                      createNewDeckClassicDeckPopoverItem,
-                      createNewDeckFromDeckCodeItem];
     
-    self.createNewDeckStandardDeckPopoverItem = createNewDeckStandardDeckPopoverItem;
-    self.createNewDeckStandardDeckTouchBar = createNewDeckStandardDeckTouchBar;
-    self.createNewDeckStandardDeckItem = createNewDeckStandardDeckItem;
-    self.createNewDeckStandardDeckScrubber = createNewDeckStandardDeckScrubber;
+    self.allPopoverItems = @{
+        HSDeckFormatStandard: createNewDeckStandardDeckPopoverItem,
+        HSDeckFormatWild: createNewDeckWildDeckPopoverItem,
+        HSDeckFormatClassic: createNewDeckClassicDeckPopoverItem
+    };
     
-    self.createNewDeckWildDeckPopoverItem = createNewDeckWildDeckPopoverItem;
-    self.createNewDeckWildDeckTouchBar = createNewDeckWildDeckTouchBar;
-    self.createNewDeckWildDeckItem = createNewDeckWildDeckItem;
-    self.createNewDeckWildDeckScrubber = createNewDeckWildDeckScrubber;
+    self.allTouchBarItems = @{
+        HSDeckFormatStandard: createNewDeckStandardDeckTouchBar,
+        HSDeckFormatWild: createNewDeckWildDeckTouchBar,
+        HSDeckFormatClassic: createNewDeckClassicDeckTouchBar
+    };
     
-    self.createNewDeckClassicDeckPopoverItem = createNewDeckClassicDeckPopoverItem;
-    self.createNewDeckClassicDeckTouchBar = createNewDeckClassicDeckTouchBar;
-    self.createNewDeckClassicDeckItem = createNewDeckClassicDeckItem;
-    self.createNewDeckClassicDeckScrubber = createNewDeckClassicDeckScrubber;
+    self.allCustomTouchBarItems = @{
+        HSDeckFormatStandard: createNewDeckStandardDeckItem,
+        HSDeckFormatWild: createNewDeckWildDeckItem,
+        HSDeckFormatClassic: createNewDeckClassicDeckItem
+    };
+    
+    self.allScrubberItems = @{
+        HSDeckFormatStandard: createNewDeckStandardDeckScrubber,
+        HSDeckFormatWild: createNewDeckWildDeckScrubber,
+        HSDeckFormatClassic: createNewDeckClassicDeckScrubber
+    };
     
     self.createNewDeckFromDeckCodeItem = createNewDeckFromDeckCodeItem;
 
@@ -208,65 +206,34 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
 #pragma mark - Helper
 
 - (NSDictionary<NSString *, NSString *> *)dicFromScrubber:(NSScrubber *)scrubber {
-    if ([scrubber isEqual:self.createNewDeckStandardDeckScrubber]) {
-        return [ResourcesService localizationsForHSCardClassForHSDeckFormat:HSDeckFormatStandard];
-    } else if ([scrubber isEqual:self.createNewDeckWildDeckScrubber]) {
-        return [ResourcesService localizationsForHSCardClassForHSDeckFormat:HSDeckFormatWild];
-    } else if ([scrubber isEqual:self.createNewDeckClassicDeckScrubber]) {
-        return [ResourcesService localizationsForHSCardClassForHSDeckFormat:HSDeckFormatClassic];
-    } else {
-        return @{};
-    }
+    HSDeckFormat hsDeckFormat = [self hsDeckFormatFromScrubber:scrubber];
+    return self.slugsAndNames[hsDeckFormat];
 }
 
 - (NSArray<NSString *> *)sortedKeysFromScrubber:(NSScrubber *)scrubber {
     NSArray<NSString *> *keys = [[self dicFromScrubber:scrubber].allKeys sortedArrayUsingComparator:^NSComparisonResult(NSString * _Nonnull obj1, NSString * _Nonnull obj2) {
-        HSCardClass lhs = HSCardClassFromNSString(obj1);
-        HSCardClass rhs = HSCardClassFromNSString(obj2);
-        
-        if (lhs < rhs) {
-            return NSOrderedAscending;
-        } else if (lhs > rhs) {
-            return NSOrderedDescending;
-        } else {
-            return NSOrderedSame;
-        }
+        return [obj1 compare:obj2];
     }];
     
     return keys;
 }
 
 - (HSDeckFormat)hsDeckFormatFromScrubber:(NSScrubber *)scrubber {
-    if ([scrubber isEqual:self.createNewDeckStandardDeckScrubber]) {
-        return HSDeckFormatStandard;
-    } else if ([scrubber isEqual:self.createNewDeckWildDeckScrubber]) {
-        return HSDeckFormatWild;
-    } else if ([scrubber isEqual:self.createNewDeckClassicDeckScrubber]) {
-        return HSDeckFormatClassic;
-    } else {
-        return nil;
-    }
+    return [self.allScrubberItems allKeysForObject:scrubber].firstObject;
 }
 
 - (NSPopoverTouchBarItem *)popoverTouchBarItemFromScrubber:(NSScrubber *)scrubber {
-    if ([scrubber isEqual:self.createNewDeckStandardDeckScrubber]) {
-        return self.createNewDeckStandardDeckPopoverItem;
-    } else if ([scrubber isEqual:self.createNewDeckWildDeckScrubber]) {
-        return self.createNewDeckWildDeckPopoverItem;
-    } else if ([scrubber isEqual:self.createNewDeckClassicDeckScrubber]) {
-        return self.createNewDeckClassicDeckPopoverItem;
-    } else {
-        return nil;
-    }
+    HSDeckFormat hsDeckFormat = [self hsDeckFormatFromScrubber:scrubber];
+    return self.allPopoverItems[hsDeckFormat];
 }
 
 #pragma mark - NSTouchBarDelegate
 
 - (NSTouchBarItem *)touchBar:(NSTouchBar *)touchBar makeItemForIdentifier:(NSTouchBarItemIdentifier)identifier {
     if ([touchBar isEqual:self]) {
-        NSTouchBarItem * _Nullable __block result = nil;
+        NSPopoverTouchBarItem * _Nullable __block result = nil;
         
-        [self.allItems enumerateObjectsUsingBlock:^(NSTouchBarItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [self.allPopoverItems.allValues enumerateObjectsUsingBlock:^(NSPopoverTouchBarItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             if ([identifier isEqualToString:obj.identifier]) {
                 result = obj;
                 *stop = YES;
@@ -274,14 +241,12 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
         }];
         
         return result;
-    } else if ([touchBar isEqual:self.createNewDeckStandardDeckTouchBar]) {
-        return self.createNewDeckStandardDeckItem;
-    } else if ([touchBar isEqual:self.createNewDeckWildDeckTouchBar]) {
-        return self.createNewDeckWildDeckItem;
-    } else if ([touchBar isEqual:self.createNewDeckClassicDeckTouchBar]) {
-        return self.createNewDeckClassicDeckItem;
     } else {
-        return nil;
+        HSDeckFormat _Nullable hsDeckFormat = [self.allTouchBarItems allKeysForObject:touchBar].firstObject;
+        
+        if (hsDeckFormat == nil) return nil;
+        
+        return self.allCustomTouchBarItems[hsDeckFormat];
     }
 }
 
@@ -316,9 +281,12 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
 - (void)scrubber:(NSScrubber *)scrubber didSelectItemAtIndex:(NSInteger)selectedIndex {
     HSDeckFormat deckFormat = [self hsDeckFormatFromScrubber:scrubber];
     NSArray<NSString *> *keys = [self sortedKeysFromScrubber:scrubber];
+    NSString * _Nullable key = keys[selectedIndex];
+    
+    if (key == nil) return;
     
     [[self popoverTouchBarItemFromScrubber:scrubber] dismissPopover:nil];
-    [self.decksTouchBarDelegate decksTouchBar:self createNewDeckWithDeckFormat:deckFormat hsCardClass:HSCardClassFromNSString(keys[selectedIndex])];
+    [self.decksTouchBarDelegate decksTouchBar:self createNewDeckWithDeckFormat:deckFormat classSlug:key];
     
 }
 

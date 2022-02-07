@@ -14,6 +14,7 @@
 - (void)dealloc {
     [_deckCode release];
     [_format release];
+    [_classId release];
     [_cards release];
     [super dealloc];
 }
@@ -28,7 +29,7 @@
     return [self.deckCode isEqualToString:toCompare.deckCode];
 }
 
-+ (HSDeck * _Nullable)hsDeckFromDic:(NSDictionary *)dic error:(NSError ** _Nullable)error {
++ (HSDeck * _Nullable)hsDeckFromDic:(NSDictionary *)dic error:(NSError * _Nullable *)error {
     HSDeck *hsDeck = [HSDeck new];
     
     if (dic[@"deckCode"] == nil) {
@@ -39,11 +40,15 @@
         return nil;
     }
     
+    [hsDeck->_deckCode release];
     hsDeck->_deckCode = [dic[@"deckCode"] copy];
+    
+    [hsDeck->_format release];
     hsDeck->_format = [dic[@"format"] copy];
     
-    NSNumber *classId = dic[@"hero"][@"classId"];
-    hsDeck->_classId = [classId unsignedIntegerValue];
+    hsDeck->_classId = [dic[@"hero"][@"classId"] copy];
+    
+    [hsDeck->_cards release];
     hsDeck->_cards = [[HSCard hsCardsFromDic:dic] copy];
     
     return [hsDeck autorelease];
@@ -58,9 +63,13 @@
         HSDeck *_copy = (HSDeck *)copy;
         [_copy->_deckCode release];
         _copy->_deckCode = [self.deckCode copyWithZone:zone];
+        
         [_copy->_format release];
         _copy->_format = [self.format copyWithZone:zone];
-        _copy->_classId = self.classId;
+        
+        [_copy->_classId release];
+        _copy->_classId = [self.classId copyWithZone:zone];
+        
         [_copy->_cards release];
         _copy->_cards = [self.cards copyWithZone:zone];
     }

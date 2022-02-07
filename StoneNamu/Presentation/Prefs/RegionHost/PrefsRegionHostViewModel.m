@@ -59,7 +59,7 @@
             if (prefs) {
                 prefs.apiRegionHost = itemModel.regionHost;
                 [self.prefsUseCase saveChanges];
-                [self.dataCacheUseCase deleteAllDataCaches];
+//                [self.dataCacheUseCase deleteAllDataCaches];
             }
         }];
     }
@@ -132,15 +132,7 @@
         NSArray<PrefsRegionHostItemModel *> *itemModels = snapshot.itemIdentifiers;
         
         for (PrefsRegionHostItemModel *itemModel in itemModels) {
-            BOOL isSelected;
-            
-            if ([prefs.apiRegionHost isEqualToString:itemModel.regionHost]) {
-                isSelected = YES;
-            } else if ((prefs.apiRegionHost == nil) && (itemModel.regionHost == nil)) {
-                isSelected = YES;
-            } else {
-                isSelected = NO;
-            }
+            BOOL isSelected = compareNullableValues(prefs.apiRegionHost, itemModel.regionHost, @selector(isEqualToString:));
             
             itemModel.isSelected = isSelected;
             [snapshot reconfigureItemsWithIdentifiers:@[itemModel]];

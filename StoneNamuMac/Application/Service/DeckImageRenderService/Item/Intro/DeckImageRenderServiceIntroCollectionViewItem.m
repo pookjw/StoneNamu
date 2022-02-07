@@ -35,17 +35,18 @@
     [super dealloc];
 }
 
-- (void)configureWithClassId:(HSCardClass)classId deckName:(NSString *)deckName deckFormat:(HSDeckFormat)deckFormat isEasterEgg:(BOOL)isEasterEgg {
+- (void)configureWithClassSlug:(NSString *)classSlug className:(NSString *)className deckName:(NSString *)deckName deckFormat:(HSDeckFormat)deckFormat isEasterEgg:(BOOL)isEasterEgg {
     if (isEasterEgg) {
         self.heroImageViewContainerBox.fillColor = NSColor.grayColor;
         self.heroImageView.image = [ResourcesService imageForKey:ImageKeyPnamuEasteregg1];
     } else {
         self.heroImageViewContainerBox.fillColor = NSColor.clearColor;
-        self.heroImageView.image = [ResourcesService portraitImageForClassId:classId];
+        self.heroImageView.image = [ResourcesService portraitImageForHSCardClassSlugType:classSlug];
     }
     
     self.nameLabel.stringValue = deckName;
-    self.classLabel.stringValue = [ResourcesService localizationForHSCardClass:classId];
+    
+    self.classLabel.stringValue = className;
     self.deckFormatLabel.stringValue = [ResourcesService localizationForHSDeckFormat:deckFormat];
     
     if ([deckFormat isEqualToString:HSDeckFormatStandard]) {
