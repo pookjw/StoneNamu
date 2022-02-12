@@ -18,8 +18,9 @@ static NSString * CardOptionsViewModelPresentTextFieldTextItemKey = @"CardOption
 
 static NSNotificationName const NSNotificationNameCardOptionsViewModelPresentPicker = @"NSNotificationNameCardOptionsViewModelPresentPicker";
 static NSString * CardOptionsViewModelPresentPickerNotificationOptionTypeItemKey = @"CardOptionsViewModelPresentPickerNotificationOptionTypeItemKey";
+static NSString * CardOptionsViewModelPresentPickerNotificationSlugsAndNamesKey = @"CardOptionsViewModelPresentPickerNotificationSlugsAndNamesKey";
 static NSString * const CardOptionsViewModelPresentPickerNotificationValuesItemKey = @"CardOptionsViewModelPresentPickerNotificationValuesItemKey";
-static NSString * const CardOptionsViewModelPresentPickerNotificationShowEmptyRowItemKey = @"CardOptionsViewModelPresentPickerNotificationShowEmptyRowItemKey";
+static NSString * const CardOptionsViewModelPresentPickerNotificationShowsEmptyRowItemKey = @"CardOptionsViewModelPresentPickerNotificationShowsEmptyRowItemKey";
 
 typedef UICollectionViewDiffableDataSource<CardOptionSectionModel *, CardOptionItemModel *> CardOptionsDataSource;
 

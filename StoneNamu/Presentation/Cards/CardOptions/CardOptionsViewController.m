@@ -166,7 +166,7 @@
         CardOptionItemModel *itemModel = (CardOptionItemModel *)item;
         
         UIListContentConfiguration *configuration = [UIListContentConfiguration subtitleCellConfiguration];
-        configuration.text = itemModel.text;
+        configuration.text = itemModel.title;
         cell.contentConfiguration = configuration;
         
         //
