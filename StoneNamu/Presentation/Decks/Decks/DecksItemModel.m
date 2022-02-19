@@ -9,13 +9,17 @@
 
 @implementation DecksItemModel
 
-- (instancetype)initWithType:(DecksItemModelType)type localDeck:(LocalDeck *)localDeck isEasterEgg:(BOOL)isEasterEgg count:(NSUInteger)count {
+- (instancetype)initWithType:(DecksItemModelType)type localDeck:(LocalDeck *)localDeck classSlug:(NSString *)classSlug isEasterEgg:(BOOL)isEasterEgg count:(NSUInteger)count {
     self = [self init];
     
     if (self) {
         self->_type = type;
+        
         [self->_localDeck release];
         self->_localDeck = [localDeck retain];
+        
+        self.classSlug = classSlug;
+        
         self.isEasterEgg = isEasterEgg;
         self.count = count;
     }
@@ -25,6 +29,7 @@
 
 - (void)dealloc {
     [_localDeck release];
+    [_classSlug release];
     [super dealloc];
 }
 

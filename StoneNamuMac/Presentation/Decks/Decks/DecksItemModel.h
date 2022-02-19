@@ -17,7 +17,7 @@ typedef NS_ENUM(NSUInteger, DecksItemModelType) {
 @interface DecksItemModel : NSObject
 @property (readonly) DecksItemModelType type;
 @property (readonly, retain) LocalDeck *localDeck;
-@property (readonly, retain) NSString *classSlug;
+@property (copy) NSString *classSlug;
 @property BOOL isEasterEgg;
 @property NSUInteger count;
 + (instancetype)new NS_UNAVAILABLE;

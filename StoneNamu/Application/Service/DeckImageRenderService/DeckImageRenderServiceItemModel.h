@@ -21,7 +21,8 @@ typedef NS_ENUM(NSUInteger, DeckImageRenderServiceItemModelType) {
 @property (readonly) DeckImageRenderServiceItemModelType type;
 
 #pragma mark - DeckImageRenderServiceItemModelTypeIntro
-@property HSCardClass classId;
+@property (copy) NSString * _Nullable classSlug;
+@property (copy) NSString * _Nullable className;
 @property (copy) NSString * _Nullable deckName;
 @property (copy) HSDeckFormat _Nullable deckFormat;
 @property BOOL isEasterEgg;
@@ -30,6 +31,7 @@ typedef NS_ENUM(NSUInteger, DeckImageRenderServiceItemModelType) {
 @property (copy) HSCard * _Nullable hsCard;
 @property (retain) UIImage * _Nullable hsCardImage;
 @property NSUInteger hsCardCount;
+@property (copy) HSCardRaritySlugType _Nullable raritySlug;
 
 #pragma mark - DeckImageRenderServiceSectionModelTypeAppName
 @property (copy) NSNumber * _Nullable totalArcaneDust;

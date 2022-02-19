@@ -11,10 +11,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface DeckImageRenderServiceAboutContentConfiguration : NSObject <UIContentConfiguration>
 @property (readonly, copy) NSNumber *totalArcaneDust;
-@property (readonly, copy) NSString * _Nullable hsYearCurrent;
+@property (readonly, copy) NSString * _Nullable hsYearCurrentName;
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
-- (instancetype)initWithTotalArcaneDust:(NSNumber *)totalArcaneDust hsYearCurrent:(NSString *)hsYearCurrent;
+- (instancetype)initWithTotalArcaneDust:(NSNumber *)totalArcaneDust hsYearCurrentName:(NSString *)hsYearCurrentName;
 @end
 
 NS_ASSUME_NONNULL_END

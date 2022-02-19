@@ -10,14 +10,14 @@
 
 @implementation DeckImageRenderServiceAboutContentConfiguration
 
-- (instancetype)initWithTotalArcaneDust:(NSNumber *)totalArcaneDust hsYearCurrent:(NSString *)hsYearCurrent {
+- (instancetype)initWithTotalArcaneDust:(NSNumber *)totalArcaneDust hsYearCurrentName:(NSString *)hsYearCurrentName {
     self = [self init];
     
     if (self) {
         [self->_totalArcaneDust release];
         self->_totalArcaneDust = [totalArcaneDust copy];
-        [self->_hsYearCurrent release];
-        self->_hsYearCurrent = [hsYearCurrent copy];
+        [self->_hsYearCurrentName release];
+        self->_hsYearCurrentName = [hsYearCurrentName copy];
     }
     
     return self;
@@ -25,7 +25,7 @@
 
 - (void)dealloc {
     [_totalArcaneDust release];
-    [_hsYearCurrent release];
+    [_hsYearCurrentName release];
     [super dealloc];
 }
 
@@ -36,8 +36,8 @@
         DeckImageRenderServiceAboutContentConfiguration *_copy = (DeckImageRenderServiceAboutContentConfiguration *)copy;
         [_copy->_totalArcaneDust release];
         _copy->_totalArcaneDust = [self.totalArcaneDust copyWithZone:zone];
-        [_copy->_hsYearCurrent release];
-        _copy->_hsYearCurrent = [self.hsYearCurrent copyWithZone:zone];
+        [_copy->_hsYearCurrentName release];
+        _copy->_hsYearCurrentName = [self.hsYearCurrentName copyWithZone:zone];
     }
     
     return copy;

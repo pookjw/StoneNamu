@@ -19,6 +19,7 @@
 @property (retain) UIView *countLabelContainerView;
 @property (retain) InsetsLabel *countLabel;
 @property (readonly, nonatomic) LocalDeck * _Nullable localDeck;
+@property (readonly, nonatomic) NSString * _Nullable classSlug;
 @property (readonly, nonatomic) BOOL isDarkMode;
 @property (readonly, nonatomic) BOOL isEasterEgg;
 @property (readonly, nonatomic) NSUInteger count;
@@ -239,6 +240,16 @@
     return contentConfig.localDeck;
 }
 
+- (NSString *)classSlug {
+    DeckBaseContentConfiguration *contentConfig = (DeckBaseContentConfiguration *)self.configuration;
+    
+    if (![contentConfig isKindOfClass:[DeckBaseContentConfiguration class]]) {
+        return nil;
+    }
+    
+    return contentConfig.classSlug;
+}
+
 - (BOOL)isDarkMode {
     DeckBaseContentConfiguration *contentConfiguration = (DeckBaseContentConfiguration *)self.configuration;
     
@@ -284,7 +295,7 @@
     if (self.isEasterEgg) {
         image = [ResourcesService imageForKey:ImageKeyPnamuEasteregg1];
     } else {
-        image = [ResourcesService portraitImageForClassId:self.localDeck.classId.unsignedIntegerValue];
+        image = [ResourcesService portraitImageForHSCardClassSlugType:self.classSlug];
     }
     
     self.heroImageView.image = image;

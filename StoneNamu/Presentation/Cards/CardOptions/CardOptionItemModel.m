@@ -57,7 +57,7 @@
     
     CardOptionItemModel *toCompare = (CardOptionItemModel *)object;
     
-    BOOL optionType = compareNullableValues(self.optionType, toCompare.optionType, @selector(isEqualToSet:));
+    BOOL optionType = compareNullableValues(self.optionType, toCompare.optionType, @selector(isEqualToString:));
     
     return (optionType);
 }

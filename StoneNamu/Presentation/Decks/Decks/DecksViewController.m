@@ -38,6 +38,7 @@
     [self configureCollectionView];
     [self configureViewModel];
     [self configureRightBarButtonItems];
+    [self bind];
     [self.viewModel requestDataSource];
 }
 
@@ -56,132 +57,10 @@
                                                                          style:UIBarButtonItemStylePlain
                                                                         target:self
                                                                         action:nil];
-    [self replaceMenuOfAddBarButtonItem:addBarButtonItem];
+    
     self.navigationItem.rightBarButtonItems = @[addBarButtonItem];
     self.addBarButtonItem = addBarButtonItem;
     [addBarButtonItem release];
-}
-
-- (void)replaceMenuOfAddBarButtonItem:(UIBarButtonItem *)addBarButtonItem {
-    /* UIMenu initializer doesn't copy children so should mark __block */
-    NSMutableArray<UIAction *> * __block createStandardDeckActions = [@[] mutableCopy];
-    NSMutableArray<UIAction *> * __block createWildDeckActions = [@[] mutableCopy];
-    NSMutableArray<UIAction *> * __block createClassicDeckActions = [@[] mutableCopy];
-    
-    NSDictionary<NSString *, NSString *> *localizable = [ResourcesService localizationsForHSCardClass];
-    
-    for (NSString *key in hsCardClassesForFormat(HSDeckFormatStandard)) {
-        @autoreleasepool {
-            DecksViewController * __block unretainedSelf = self;
-            
-            UIAction *standardAction = [UIAction actionWithTitle:localizable[key]
-                                                   image:nil
-                                              identifier:nil
-                                                 handler:^(__kindof UIAction * _Nonnull action) {
-                
-                [unretainedSelf replaceMenuOfAddBarButtonItem:addBarButtonItem];
-                
-                [unretainedSelf.viewModel makeLocalDeckWithClass:HSCardClassFromNSString(key)
-                                            deckFormat:HSDeckFormatStandard
-                                            completion:^(LocalDeck * _Nonnull localDeck) {
-                    [NSOperationQueue.mainQueue addOperationWithBlock:^{
-                        [unretainedSelf presentDeckDetailsWithLocalDeck:localDeck indexPath:nil scrollToItem:YES];
-                    }];
-                }];
-            }];
-            
-            [createStandardDeckActions addObject:standardAction];
-        }
-    }
-    
-    for (NSString *key in hsCardClassesForFormat(HSDeckFormatWild)) {
-        @autoreleasepool {
-            DecksViewController * __block unretainedSelf = self;
-            
-            UIAction *wildAction = [UIAction actionWithTitle:localizable[key]
-                                                   image:nil
-                                              identifier:nil
-                                                 handler:^(__kindof UIAction * _Nonnull action) {
-                
-                [unretainedSelf replaceMenuOfAddBarButtonItem:addBarButtonItem];
-                
-                [unretainedSelf.viewModel makeLocalDeckWithClass:HSCardClassFromNSString(key)
-                                            deckFormat:HSDeckFormatWild
-                                            completion:^(LocalDeck * _Nonnull localDeck) {
-                    [NSOperationQueue.mainQueue addOperationWithBlock:^{
-                        [unretainedSelf presentDeckDetailsWithLocalDeck:localDeck indexPath:nil scrollToItem:YES];
-                    }];
-                }];
-            }];
-            
-            [createWildDeckActions addObject:wildAction];
-        }
-    }
-    
-    for (NSString *key in hsCardClassesForFormat(HSDeckFormatClassic)) {
-        @autoreleasepool {
-            DecksViewController * __block unretainedSelf = self;
-            
-            UIAction *classicAction = [UIAction actionWithTitle:localizable[key]
-                                                   image:nil
-                                              identifier:nil
-                                                 handler:^(__kindof UIAction * _Nonnull action) {
-                
-                [unretainedSelf replaceMenuOfAddBarButtonItem:addBarButtonItem];
-                
-                [unretainedSelf.viewModel makeLocalDeckWithClass:HSCardClassFromNSString(key)
-                                            deckFormat:HSDeckFormatClassic
-                                            completion:^(LocalDeck * _Nonnull localDeck) {
-                    [NSOperationQueue.mainQueue addOperationWithBlock:^{
-                        [unretainedSelf presentDeckDetailsWithLocalDeck:localDeck indexPath:nil scrollToItem:YES];
-                    }];
-                }];
-            }];
-            
-            [createClassicDeckActions addObject:classicAction];
-        }
-    }
-    
-    //
-    
-    UIMenu *createDeckMenu = [UIMenu menuWithTitle:[ResourcesService localizationForKey:LocalizableKeyCreateANewDeck]
-                                              children:@[
-        
-        [UIMenu menuWithTitle:[ResourcesService localizationForHSDeckFormat:HSDeckFormatStandard]
-                        image:[ResourcesService imageForDeckFormat:HSDeckFormatStandard]
-                   identifier:nil
-                      options:UIMenuOptionsSingleSelection
-                     children:createStandardDeckActions],
-        
-        [UIMenu menuWithTitle:[ResourcesService localizationForHSDeckFormat:HSDeckFormatWild]
-                        image:[ResourcesService imageForDeckFormat:HSDeckFormatWild]
-                   identifier:nil
-                      options:UIMenuOptionsSingleSelection
-                     children:createWildDeckActions],
-        
-        [UIMenu menuWithTitle:[ResourcesService localizationForHSDeckFormat:HSDeckFormatClassic]
-                        image:[ResourcesService imageForDeckFormat:HSDeckFormatClassic]
-                   identifier:nil
-                      options:UIMenuOptionsSingleSelection
-                     children:createClassicDeckActions]
-    ]];
-    
-    [createStandardDeckActions release];
-    [createWildDeckActions release];
-    [createClassicDeckActions release];
-    
-    DecksViewController * __block unretainedSelf = self;
-    
-    addBarButtonItem.menu = [UIMenu menuWithChildren:@[
-        createDeckMenu,
-        
-        [UIAction actionWithTitle:[ResourcesService localizationForKey:LocalizableKeyLoadFromDeckCode]
-                            image:[UIImage systemImageNamed:@"arrow.down.square"]
-                       identifier:nil
-                          handler:^(__kindof UIAction * _Nonnull action) {
-            [unretainedSelf presentTextFieldAndFetchDeckCode];
-        }]
-    ]];
 }
 
 - (void)configureNavigation {
@@ -221,6 +100,24 @@
     [viewModel release];
 }
 
+- (void)bind {
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(shouldUpdateOptionsReceived:)
+                                               name:NSNotificationNameDecksViewModelShouldUpdateOptions
+                                             object:self.viewModel];
+}
+
+- (void)shouldUpdateOptionsReceived:(NSNotification *)notification {
+    NSDictionary<HSDeckFormat, NSDictionary<NSString *, NSString *> *> * _Nullable slugsAndNames = notification.userInfo[DecksViewModelShouldUpdateOptionsSlugsAndNamesItemKey];
+    NSDictionary<HSDeckFormat, NSDictionary<NSString *, NSNumber *> *> * _Nullable slugsAndIds = notification.userInfo[DecksViewModelShouldUpdateOptionsSlugsAndIdsItemKey];
+    
+    if ((slugsAndNames) && (slugsAndIds)) {
+        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+            [self replaceMenuOfAddBarButtonItem:self.addBarButtonItem slugsAndNames:slugsAndNames slugsAndIds:slugsAndIds];
+        }];
+    }
+}
+
 - (DecksDataSource *)makeDataSource {
     UICollectionViewCellRegistration *cellRegistration = [self makeCellRegistration];
     
@@ -243,7 +140,7 @@
         
         DecksItemModel *itemModel = (DecksItemModel *)item;
         
-        DeckBaseContentConfiguration *configuration = [[DeckBaseContentConfiguration alloc] initWithLocalDeck:itemModel.localDeck isEasterEgg:itemModel.isEasterEgg count:itemModel.count];
+        DeckBaseContentConfiguration *configuration = [[DeckBaseContentConfiguration alloc] initWithLocalDeck:itemModel.localDeck classSlug:itemModel.classSlug isEasterEgg:itemModel.isEasterEgg count:itemModel.count];
         cell.contentConfiguration = configuration;
         [configuration release];
     }];
@@ -370,6 +267,123 @@
             [self.splitViewController showDetailViewController:vc sender:self];
         }
     }
+}
+
+- (void)replaceMenuOfAddBarButtonItem:(UIBarButtonItem *)addBarButtonItem
+                        slugsAndNames:(NSDictionary<HSDeckFormat, NSDictionary<NSString *, NSString *> *> * _Nullable)slugsAndNames
+                          slugsAndIds:(NSDictionary<HSDeckFormat, NSDictionary<NSString *, NSNumber *> *> * _Nullable)slugsAndIds {
+    
+    /* UIMenu initializer doesn't copy children so should mark __block */
+    NSMutableArray<UIAction *> * __block createStandardDeckActions = [@[] mutableCopy];
+    NSMutableArray<UIAction *> * __block createWildDeckActions = [@[] mutableCopy];
+    NSMutableArray<UIAction *> * __block createClassicDeckActions = [@[] mutableCopy];
+    
+    DecksViewController * __block unretainedSelf = self;
+    
+    [slugsAndNames[HSDeckFormatStandard] enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSString * _Nonnull obj, BOOL * _Nonnull stop) {
+        UIAction *standardAction = [UIAction actionWithTitle:obj
+                                                       image:nil
+                                                  identifier:nil
+                                                     handler:^(__kindof UIAction * _Nonnull action) {
+            
+            [unretainedSelf replaceMenuOfAddBarButtonItem:unretainedSelf.addBarButtonItem
+                                            slugsAndNames:slugsAndNames
+                                              slugsAndIds:slugsAndIds];
+            
+            [unretainedSelf.viewModel makeLocalDeckWithClassSlug:key
+                                                      deckFormat:HSDeckFormatStandard
+                                                      completion:^(LocalDeck * _Nonnull localDeck) {
+                [NSOperationQueue.mainQueue addOperationWithBlock:^{
+                    [unretainedSelf presentDeckDetailsWithLocalDeck:localDeck indexPath:nil scrollToItem:YES];
+                }];
+            }];
+        }];
+        
+        [createStandardDeckActions addObject:standardAction];
+    }];
+    
+    [slugsAndNames[HSDeckFormatWild] enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSString * _Nonnull obj, BOOL * _Nonnull stop) {
+        UIAction *wildAction = [UIAction actionWithTitle:obj
+                                                       image:nil
+                                                  identifier:nil
+                                                     handler:^(__kindof UIAction * _Nonnull action) {
+            
+            [unretainedSelf replaceMenuOfAddBarButtonItem:unretainedSelf.addBarButtonItem
+                                            slugsAndNames:slugsAndNames
+                                              slugsAndIds:slugsAndIds];
+            
+            [unretainedSelf.viewModel makeLocalDeckWithClassSlug:key
+                                                      deckFormat:HSDeckFormatWild
+                                                      completion:^(LocalDeck * _Nonnull localDeck) {
+                [NSOperationQueue.mainQueue addOperationWithBlock:^{
+                    [unretainedSelf presentDeckDetailsWithLocalDeck:localDeck indexPath:nil scrollToItem:YES];
+                }];
+            }];
+        }];
+        
+        [createWildDeckActions addObject:wildAction];
+    }];
+    
+    [slugsAndNames[HSDeckFormatClassic] enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSString * _Nonnull obj, BOOL * _Nonnull stop) {
+        UIAction *classicAction = [UIAction actionWithTitle:obj
+                                                       image:nil
+                                                  identifier:nil
+                                                     handler:^(__kindof UIAction * _Nonnull action) {
+            
+            [unretainedSelf replaceMenuOfAddBarButtonItem:unretainedSelf.addBarButtonItem
+                                            slugsAndNames:slugsAndNames
+                                              slugsAndIds:slugsAndIds];
+            
+            [unretainedSelf.viewModel makeLocalDeckWithClassSlug:key
+                                                      deckFormat:HSDeckFormatClassic
+                                                      completion:^(LocalDeck * _Nonnull localDeck) {
+                [NSOperationQueue.mainQueue addOperationWithBlock:^{
+                    [unretainedSelf presentDeckDetailsWithLocalDeck:localDeck indexPath:nil scrollToItem:YES];
+                }];
+            }];
+        }];
+        
+        [createClassicDeckActions addObject:classicAction];
+    }];
+    
+    //
+    
+    UIMenu *createDeckMenu = [UIMenu menuWithTitle:[ResourcesService localizationForKey:LocalizableKeyCreateANewDeck]
+                                              children:@[
+        
+        [UIMenu menuWithTitle:[ResourcesService localizationForHSDeckFormat:HSDeckFormatStandard]
+                        image:[ResourcesService imageForDeckFormat:HSDeckFormatStandard]
+                   identifier:nil
+                      options:UIMenuOptionsSingleSelection
+                     children:createStandardDeckActions],
+        
+        [UIMenu menuWithTitle:[ResourcesService localizationForHSDeckFormat:HSDeckFormatWild]
+                        image:[ResourcesService imageForDeckFormat:HSDeckFormatWild]
+                   identifier:nil
+                      options:UIMenuOptionsSingleSelection
+                     children:createWildDeckActions],
+        
+        [UIMenu menuWithTitle:[ResourcesService localizationForHSDeckFormat:HSDeckFormatClassic]
+                        image:[ResourcesService imageForDeckFormat:HSDeckFormatClassic]
+                   identifier:nil
+                      options:UIMenuOptionsSingleSelection
+                     children:createClassicDeckActions]
+    ]];
+    
+    [createStandardDeckActions release];
+    [createWildDeckActions release];
+    [createClassicDeckActions release];
+    
+    addBarButtonItem.menu = [UIMenu menuWithChildren:@[
+        createDeckMenu,
+        
+        [UIAction actionWithTitle:[ResourcesService localizationForKey:LocalizableKeyLoadFromDeckCode]
+                            image:[UIImage systemImageNamed:@"arrow.down.square"]
+                       identifier:nil
+                          handler:^(__kindof UIAction * _Nonnull action) {
+            [unretainedSelf presentTextFieldAndFetchDeckCode];
+        }]
+    ]];
 }
 
 #pragma mark - UICollectionViewDelegate

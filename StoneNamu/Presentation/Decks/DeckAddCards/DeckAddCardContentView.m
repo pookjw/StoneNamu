@@ -17,6 +17,7 @@
 @interface DeckAddCardContentView ()
 @property (readonly, nonatomic) HSCard * _Nullable hsCard;
 @property (readonly, nonatomic) NSUInteger count;
+@property (readonly, nonatomic) BOOL isLegendary;
 @property (retain) InsetsLabel *countLabel;
 @end
 
@@ -115,7 +116,7 @@
 - (void)updateGrayScaleToImageView {
     BOOL shouldApplyGrayScale;
     
-    if ((self.hsCard.rarityId == HSCardRarityLegendary) && (self.count == HSDECK_MAX_SINGLE_LEGENDARY_CARD)) {
+    if ((self.isLegendary) && (self.count == HSDECK_MAX_SINGLE_LEGENDARY_CARD)) {
         shouldApplyGrayScale = YES;
     } else if (self.count == HSDECK_MAX_SINGLE_CARD) {
         shouldApplyGrayScale = YES;
@@ -141,7 +142,7 @@
     NSUInteger count = self.count;
     int maxCount;
     
-    if (self.hsCard.rarityId == HSCardRarityLegendary) {
+    if (self.isLegendary) {
         maxCount = HSDECK_MAX_SINGLE_LEGENDARY_CARD;
     } else {
         maxCount = HSDECK_MAX_SINGLE_CARD;
@@ -240,6 +241,15 @@
     
     DeckAddCardContentConfiguration *contentConfiguration = (DeckAddCardContentConfiguration *)self.configuration;
     return contentConfiguration.count;
+}
+
+- (BOOL)isLegendary {
+    if (![self.configuration isKindOfClass:[DeckAddCardContentConfiguration class]]) {
+        return NO;
+    }
+    
+    DeckAddCardContentConfiguration *contentConfiguration = (DeckAddCardContentConfiguration *)self.configuration;
+    return contentConfiguration.isLegendary;
 }
 
 @end

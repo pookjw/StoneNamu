@@ -8,29 +8,31 @@
 #import "CardDetailsItemModel.h"
 #import <StoneNamuResources/StoneNamuResources.h>
 
+@interface CardDetailsItemModel ()
+@property (copy) NSString * _Nullable value;
+@end
+
 @implementation CardDetailsItemModel
 
-- (instancetype)initWithPrimaryText:(NSString *)primaryText secondaryText:(NSString *)secondaryText {
+- (instancetype)initWithType:(CardDetailsItemModelType)type value:(NSString * _Nullable)value {
     self = [self init];
     
     if (self) {
-        self->_type = CardDetailsItemModelTypeInfo;
-        
-        [self->_primaryText release];
-        self->_primaryText = [primaryText copy];
-        
-        [self->_secondaryText release];
-        self->_secondaryText = [secondaryText copy];
+        self->_type = type;
+        self.value = value;
+        [self->_childHSCard release];
+        self->_childHSCard = nil;
     }
     
     return self;
 }
-- (instancetype)initWithChildHSCard:(HSCard *)childHSCard {
+
+- (instancetype)initWithType:(CardDetailsItemModelType)type childHSCard:(HSCard *)childHSCard {
     self = [self init];
     
     if (self) {
-        self->_type = CardDetailsItemModelTypeChild;
-        
+        self->_type = type;
+        self.value = nil;
         [self->_childHSCard release];
         self->_childHSCard = [childHSCard copy];
     }
@@ -39,8 +41,7 @@
 }
 
 - (void)dealloc {
-    [_primaryText release];
-    [_secondaryText release];
+    [_value release];
     [_childHSCard release];
     [super dealloc];
 }
@@ -52,14 +53,43 @@
     
     CardDetailsItemModel *toCompare = (CardDetailsItemModel *)object;
     
-    BOOL type = (self.type == toCompare.type);
-    BOOL childHSCard = compareNullableValues(self.childHSCard, toCompare.childHSCard, @selector(isEqual:));
-    
-    return (type) && (childHSCard);
+    return self.type == toCompare.type &&
+    (compareNullableValues(self.childHSCard, toCompare.childHSCard, @selector(isEqual:)));
 }
 
 - (NSUInteger)hash {
     return self.type ^ self.childHSCard.hash;
+}
+
+- (NSString * _Nullable)primaryText {
+    switch (self.type) {
+        case CardDetailsItemModelTypeName:
+            return [ResourcesService localizationForKey:LocalizableKeyCardName];
+        case CardDetailsItemModelTypeFlavorText:
+            return [ResourcesService localizationForKey:LocalizableKeyCardFlavorText];
+        case CardDetailsItemModelTypeText:
+            return [ResourcesService localizationForKey:LocalizableKeyCardDescription];
+        case CardDetailsItemModelTypeType:
+            return [ResourcesService localizationForKey:LocalizableKeyCardType];
+        case CardDetailsItemModelTypeRarity:
+            return [ResourcesService localizationForKey:LocalizableKeyCardRarity];
+        case CardDetailsItemModelTypeSet:
+            return [ResourcesService localizationForKey:LocalizableKeyCardSet];
+        case CardDetailsItemModelTypeClass:
+            return [ResourcesService localizationForKey:LocalizableKeyCardClass];
+        case CardDetailsItemModelTypeArtist:
+            return [ResourcesService localizationForKey:LocalizableKeyCardArtist];
+        case CardDetailsItemModelTypeCollectible:
+            return [ResourcesService localizationForKey:LocalizableKeyCardCollectible];
+        case CardDetailsItemModelTypeChild:
+            return nil;
+        default:
+            return nil;
+    }
+}
+
+- (NSString * _Nullable)secondaryText {
+    return self.value;
 }
 
 @end

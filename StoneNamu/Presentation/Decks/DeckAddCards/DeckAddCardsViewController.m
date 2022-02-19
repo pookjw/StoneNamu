@@ -221,7 +221,7 @@
         }
         DeckAddCardItemModel *itemModel = (DeckAddCardItemModel *)item;
         
-        DeckAddCardContentConfiguration *configuration = [[DeckAddCardContentConfiguration alloc] initWithHSCard:itemModel.card count:itemModel.count];
+        DeckAddCardContentConfiguration *configuration = [[DeckAddCardContentConfiguration alloc] initWithHSCard:itemModel.card count:itemModel.count isLegendary:itemModel.isLegendary];
         cell.contentConfiguration = configuration;
         [configuration release];
     }];
@@ -488,13 +488,13 @@
 
 #pragma mark - DeckAddCardOptionsViewControllerDelegate
 
-- (void)deckAddCardOptionsViewController:(DeckAddCardOptionsViewController *)viewController doneWithOptions:(NSDictionary<NSString *,NSString *> *)options {
+- (void)deckAddCardOptionsViewController:(DeckAddCardOptionsViewController *)viewController doneWithOptions:(NSDictionary<NSString *, NSSet<NSString *> *> *)options {
     [viewController dismissViewControllerAnimated:YES completion:^{}];
     [self.viewModel requestDataSourceWithOptions:options reset:YES];
 }
 
 - (void)deckAddCardOptionsViewController:(DeckAddCardOptionsViewController *)viewController defaultOptionsAreNeededWithCompletion:(DeckAddCardOptionsViewControllerDelegateDefaultOptionsAreNeededCompletion)completion {
-    [self.viewModel defaultOptionsWithCompletion:^(NSDictionary<NSString *,NSString *> * _Nonnull options) {
+    [self.viewModel defaultOptionsWithCompletion:^(NSDictionary<NSString *, NSSet<NSString *> *> * _Nonnull options) {
         completion(options);
     }];
 }

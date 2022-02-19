@@ -10,14 +10,18 @@
 
 @implementation DeckDetailsCardContentConfiguration
 
-- (instancetype)initWithHSCard:(HSCard *)hsCard hsCardCount:(NSUInteger)count {
+- (instancetype)initWithHSCard:(HSCard *)hsCard hsCardCount:(NSUInteger)count raritySlugType:(HSCardRaritySlugType)raritySlugType {
     self = [self init];
     
     if (self) {
         [self->_hsCard release];
         self->_hsCard = [hsCard copy];
+        
         self->_hsCardCount = count;
         self->_isDarkMode = NO;
+        
+        [self->_raritySlugType release];
+        self->_raritySlugType = [raritySlugType copy];
     }
     
     return self;
@@ -25,6 +29,7 @@
 
 - (void)dealloc {
     [_hsCard release];
+    [_raritySlugType release];
     [super dealloc];
 }
 
@@ -35,8 +40,12 @@
         DeckDetailsCardContentConfiguration *_copy = (DeckDetailsCardContentConfiguration *)copy;
         [_copy->_hsCard release];
         _copy->_hsCard = [self.hsCard copyWithZone:zone];
+        
         _copy->_hsCardCount = self.hsCardCount;
         _copy->_isDarkMode = self.isDarkMode;
+        
+        [_copy->_raritySlugType release];
+        _copy->_raritySlugType = [self.raritySlugType copyWithZone:zone];
     }
     
     return copy;

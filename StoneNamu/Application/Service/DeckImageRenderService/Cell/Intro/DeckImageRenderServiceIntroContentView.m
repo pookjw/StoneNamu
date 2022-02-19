@@ -215,10 +215,10 @@
         self.heroImageView.image = [ResourcesService imageForKey:ImageKeyPnamuEasteregg1];
     } else {
         self.heroImageView.backgroundColor = UIColor.clearColor;
-        self.heroImageView.image = [ResourcesService portraitImageForClassId:newConfiguration.classId];
+        self.heroImageView.image = [ResourcesService portraitImageForHSCardClassSlugType:newConfiguration.classSlug];
     }
     
-    self.classLabel.text = [ResourcesService localizationForHSCardClass:newConfiguration.classId];
+    self.classLabel.text = newConfiguration.className;
     self.nameLabel.text = newConfiguration.deckName;
     
     self.deckFormatLabel.text = [ResourcesService localizationForHSDeckFormat:newConfiguration.deckFormat];

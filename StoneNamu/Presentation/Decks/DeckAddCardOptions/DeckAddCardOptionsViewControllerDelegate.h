@@ -11,10 +11,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class DeckAddCardOptionsViewController;
 
-typedef void (^DeckAddCardOptionsViewControllerDelegateDefaultOptionsAreNeededCompletion)(NSDictionary<NSString *, NSString *> *options);
+typedef void (^DeckAddCardOptionsViewControllerDelegateDefaultOptionsAreNeededCompletion)(NSDictionary<NSString *, NSSet<NSString *> *> *options);
 
 @protocol DeckAddCardOptionsViewControllerDelegate <NSObject>
-- (void)deckAddCardOptionsViewController:(DeckAddCardOptionsViewController *)viewController doneWithOptions:(NSDictionary<NSString *, NSString *> *)options;
+- (void)deckAddCardOptionsViewController:(DeckAddCardOptionsViewController *)viewController doneWithOptions:(NSDictionary<NSString *, NSSet<NSString *> *> *)options;
 - (void)deckAddCardOptionsViewController:(DeckAddCardOptionsViewController *)viewController defaultOptionsAreNeededWithCompletion:(DeckAddCardOptionsViewControllerDelegateDefaultOptionsAreNeededCompletion)completion;
 @end
 

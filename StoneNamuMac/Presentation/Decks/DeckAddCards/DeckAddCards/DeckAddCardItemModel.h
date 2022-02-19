@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface DeckAddCardItemModel : NSObject
 @property (readonly, copy) HSCard *hsCard;
 @property NSUInteger count;
-@property BOOL isLegendary;
+@property (readonly) BOOL isLegendary;
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithCard:(HSCard *)hsCard count:(NSUInteger)count isLegendary:(BOOL)isLegendary;

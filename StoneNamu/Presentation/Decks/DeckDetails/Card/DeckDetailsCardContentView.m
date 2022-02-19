@@ -11,8 +11,9 @@
 #import "InsetsLabel.h"
 
 @interface DeckDetailsCardContentView ()
-@property (readonly, nonatomic) HSCard *hsCard;
+@property (readonly, nonatomic) HSCard * _Nullable hsCard;
 @property (readonly, nonatomic) NSUInteger hsCardCount;
+@property (readonly, nonatomic) HSCardRaritySlugType _Nullable raritySlugType;
 @property (readonly, nonatomic) BOOL isDarkMode;
 @property (retain) UIImageView *imageView;
 @property (retain) UILabel *manaCostLabel;
@@ -270,6 +271,15 @@
     return contentConfiguration.hsCardCount;
 }
 
+- (HSCardRaritySlugType)raritySlugType {
+    if (![self.configuration isKindOfClass:[DeckDetailsCardContentConfiguration class]]) {
+        return nil;
+    }
+    
+    DeckDetailsCardContentConfiguration *contentConfiguration = (DeckDetailsCardContentConfiguration *)self.configuration;
+    return contentConfiguration.raritySlugType;
+}
+
 - (BOOL)isDarkMode {
     if (![self.configuration isKindOfClass:[DeckDetailsCardContentConfiguration class]]) {
         return NO;
@@ -284,22 +294,18 @@
     
     //
     
-    switch (self.hsCard.rarityId) {
-        case HSCardRarityCommon:
-            self.nameLabel.textColor = nil;
-            break;
-        case HSCardRarityRare:
-            self.nameLabel.textColor = UIColor.systemBlueColor;
-            break;
-        case HSCardRarityEpic:
-            self.nameLabel.textColor = UIColor.systemPurpleColor;
-            break;
-        case HSCardRarityLegendary:
-            self.nameLabel.textColor = UIColor.systemOrangeColor;
-            break;
-        default:
-            self.nameLabel.textColor = UIColor.systemGrayColor;
-            break;
+    if ([HSCardRaritySlugTypeFree isEqualToString:self.raritySlugType]) {
+        self.nameLabel.textColor = UIColor.systemGrayColor;
+    } else if ([HSCardRaritySlugTypeCommon isEqualToString:self.raritySlugType]) {
+        self.nameLabel.textColor = nil;
+    } else if ([HSCardRaritySlugTypeRare isEqualToString:self.raritySlugType]) {
+        self.nameLabel.textColor = UIColor.systemBlueColor;
+    } else if ([HSCardRaritySlugTypeEpic isEqualToString:self.raritySlugType]) {
+        self.nameLabel.textColor = UIColor.systemPurpleColor;
+    } else if ([HSCardRaritySlugTypeLegendary isEqualToString:self.raritySlugType]) {
+        self.nameLabel.textColor = UIColor.systemOrangeColor;
+    } else {
+        self.nameLabel.textColor = nil;
     }
     
     //
@@ -322,7 +328,7 @@
 }
 
 - (void)updateCountLabel {
-    if ((self.hsCard.rarityId == HSCardRarityLegendary) && (self.hsCardCount == 1)) {
+    if ([HSCardRaritySlugTypeLegendary isEqualToString:self.raritySlugType]) {
         self.countLabel.text = @"★";
         self.countLabel.textColor = UIColor.systemOrangeColor;
     } else {

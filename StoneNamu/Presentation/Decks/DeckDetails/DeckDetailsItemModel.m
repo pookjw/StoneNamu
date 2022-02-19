@@ -19,6 +19,7 @@
         self.graphManaCost = nil;
         self.graphPercentage = nil;
         self.graphCount = nil;
+        self.raritySlugType = nil;
     }
     
     return self;
@@ -26,6 +27,7 @@
 
 - (void)dealloc {
     [_hsCard release];
+    [_raritySlugType release];
     [_hsCardCount release];
     [_graphManaCost release];
     [_graphPercentage release];

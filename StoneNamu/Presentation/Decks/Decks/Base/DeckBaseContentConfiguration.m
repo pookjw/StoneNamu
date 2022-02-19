@@ -10,12 +10,16 @@
 
 @implementation DeckBaseContentConfiguration
 
-- (instancetype)initWithLocalDeck:(LocalDeck *)localDeck isEasterEgg:(BOOL)isEasterEgg count:(NSUInteger)count {
+- (instancetype)initWithLocalDeck:(LocalDeck *)localDeck classSlug:(NSString *)classSlug isEasterEgg:(BOOL)isEasterEgg count:(NSUInteger)count {
     self = [self init];
     
     if (self) {
         [self->_localDeck release];
         self->_localDeck = [localDeck retain];
+        
+        [self->_classSlug release];
+        self->_classSlug = [classSlug copy];
+        
         self->_isDarkMode = NO;
         self->_isEasterEgg = isEasterEgg;
         self->_count = count;
@@ -26,6 +30,7 @@
 
 - (void)dealloc {
     [_localDeck release];
+    [_classSlug release];
     [super dealloc];
 }
 
@@ -36,6 +41,10 @@
         DeckBaseContentConfiguration *_copy = (DeckBaseContentConfiguration *)copy;
         [_copy->_localDeck release];
         _copy->_localDeck = [self.localDeck retain];
+        
+        [_copy->_classSlug release];
+        _copy->_classSlug = [self.classSlug copyWithZone:zone];
+        
         _copy->_isEasterEgg = self.isEasterEgg;
         _copy->_count = self.count;
     }

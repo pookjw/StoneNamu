@@ -38,7 +38,6 @@
         
         NSOperationQueue *queue = [NSOperationQueue new];
         queue.qualityOfService = NSQualityOfServiceUserInitiated;
-        queue.maxConcurrentOperationCount = 1;
         self.queue = queue;
         [queue release];
         
@@ -127,28 +126,27 @@
             
             if (op.isCancelled) {
                 [semaphore signal];
-                [semaphore release];
+                return;
+            }
+            
+            if (error) {
+                [self postError:error];
+                [semaphore signal];
                 return;
             }
             
             [semaphore signal];
-            [semaphore release];
             
-            if (error) {
-                [self postError:error];
-            }
-            
-            [self.queue addOperationWithBlock:^{
-                [self updateDataSourceWithCards:cards completion:^{
-                    self.pageCount = pageCount;
-                    self.page = page;
-                    self.isFetching = NO;
-                }];
+            [self updateDataSourceWithCards:cards completion:^{
+                self.pageCount = pageCount;
+                self.page = page;
+                self.isFetching = NO;
             }];
         }];
         
         [mutableDic release];
         [semaphore wait];
+        [semaphore release];
     }];
     
     [self.queue addOperation:op];
@@ -160,7 +158,7 @@
 - (void)resetDataSource {
     [self.queue cancelAllOperations];
     
-    [self.queue addOperationWithBlock:^{
+    [self.queue addBarrierBlock:^{
         self.pageCount = nil;
         self.page = [NSNumber numberWithUnsignedInt:1];
         NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];

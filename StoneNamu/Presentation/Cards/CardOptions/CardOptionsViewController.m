@@ -9,6 +9,8 @@
 #import "CardOptionsViewModel.h"
 #import "SheetNavigationController.h"
 #import "PickerViewController.h"
+#import "UIViewController+SpinnerView.h"
+#import "UIViewController+presentErrorAlert.h"
 #import <StoneNamuResources/StoneNamuResources.h>
 
 @interface CardOptionsViewController () <UICollectionViewDelegate>
@@ -185,7 +187,7 @@
         
         //
         
-        if (itemModel.values) {
+        if (itemModel.accessoryText) {
             cell.accessories = @[
                 [[[UICellAccessoryLabel alloc] initWithText:itemModel.accessoryText] autorelease]
             ];
@@ -206,6 +208,21 @@
     [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(presentPickerEventReceived:)
                                                name:NSNotificationNameCardOptionsViewModelPresentPicker
+                                             object:self.viewModel];
+    
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(startedLoadingDataSourceReceived:)
+                                               name:NSNotificationNameCardOptionsViewModelStartedLoadingDataSource
+                                             object:self.viewModel];
+    
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(endedLoadingDataSourceReceived:)
+                                               name:NSNotificationNameCardOptionsViewModelEndedLoadingDataSource
+                                             object:self.viewModel];
+    
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(errorOccuredReceived:)
+                                               name:NSNotificationNameCardOptionsViewModelErrorOccured
                                              object:self.viewModel];
 }
 
@@ -272,6 +289,28 @@
 //        [vc release];
 //        [nvc release];
 //    }];
+}
+
+- (void)startedLoadingDataSourceReceived:(NSNotification *)notification {
+    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+        [self addSpinnerView];
+    }];
+}
+
+- (void)endedLoadingDataSourceReceived:(NSNotification *)notification {
+    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+        [self removeAllSpinnerview];
+    }];
+}
+
+- (void)errorOccuredReceived:(NSNotification *)notification {
+    NSError * _Nullable error = notification.userInfo[CardOptionsViewModelErrorOccuredErrorItemKey];
+    
+    if (error) {
+        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+            [self presentErrorAlertWithError:error];
+        }];
+    }
 }
 
 #pragma mark - UICollectionViewDelegate

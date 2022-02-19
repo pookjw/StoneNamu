@@ -14,23 +14,33 @@
 NS_ASSUME_NONNULL_BEGIN
 
 static NSNotificationName const NSNotificationNameDeckAddCardOptionsViewModelPresentTextField = @"NSNotificationNameDeckAddCardOptionsViewModelPresentTextField";
+static NSString * DeckAddCardOptionsViewModelPresentTextFieldOptionTypeItemKey = @"DeckAddCardOptionsViewModelPresentTextFieldOptionTypeItemKey";
+static NSString * DeckAddCardOptionsViewModelPresentTextFieldTextItemKey = @"DeckAddCardOptionsViewModelPresentTextFieldTextItemKey";
+
 static NSNotificationName const NSNotificationNameDeckAddCardOptionsViewModelPresentPicker = @"NSNotificationNameDeckAddCardOptionsViewModelPresentPicker";
-static NSNotificationName const NSNotificationNameDeckAddCardOptionsViewModelPresentStepper = @"NSNotificationNameDeckAddCardOptionsViewModelPresentStepper";
-static NSString * const DeckAddCardOptionsViewModelPresentNotificationItemKey = @"DeckAddCardOptionsViewModelPresentNotificationItemKey";
-static NSString * const DeckAddCardOptionsViewModelPresentPickerNotificationShowEmptyRowKey = @"DeckAddCardOptionsViewModelPresentPickerNotificationShowEmptyRowKey";
+static NSString * DeckAddCardOptionsViewModelPresentPickerNotificationOptionTypeItemKey = @"DeckAddCardOptionsViewModelPresentPickerNotificationOptionTypeItemKey";
+static NSString * DeckAddCardOptionsViewModelPresentPickerNotificationSlugsAndNamesKey = @"DeckAddCardOptionsViewModelPresentPickerNotificationSlugsAndNamesKey";
+static NSString * const DeckAddCardOptionsViewModelPresentPickerNotificationValuesItemKey = @"DeckAddCardOptionsViewModelPresentPickerNotificationValuesItemKey";
+static NSString * const DeckAddCardOptionsViewModelPresentPickerNotificationShowsEmptyRowItemKey = @"DeckAddCardOptionsViewModelPresentPickerNotificationShowsEmptyRowItemKey";
+
+static NSNotificationName const NSNotificationNameDeckAddCardOptionsViewModelStartedLoadingDataSource = @"NSNotificationNameDeckAddCardOptionsViewModelStartedLoadingDataSource";
+static NSNotificationName const NSNotificationNameDeckAddCardOptionsViewModelEndedLoadingDataSource = @"NSNotificationNameDeckAddCardOptionsViewModelEndedLoadingDataSource";
+
+static NSNotificationName const NSNotificationNameDeckAddCardOptionsViewModelErrorOccured = @"NSNotificationNameDeckAddCardOptionsViewModelErrorOccured";
+static NSString * const DeckAddCardOptionsViewModelErrorOccuredErrorItemKey = @"DeckAddCardOptionsViewModelErrorOccuredErrorItemKey";
 
 typedef UICollectionViewDiffableDataSource<DeckAddCardOptionSectionModel *, DeckAddCardOptionItemModel *> CardOptionsDataSource;
 
 @interface DeckAddCardOptionsViewModel : NSObject
 @property (readonly, retain) CardOptionsDataSource *dataSource;
-@property (readonly, nonatomic) NSDictionary<NSString *, NSString *> *options;
+@property (readonly, nonatomic) NSDictionary<NSString *, NSSet<NSString *> *> *options;
 @property (retain) LocalDeck * _Nullable localDeck;
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithDataSource:(CardOptionsDataSource *)dataSource;
-- (void)updateDataSourceWithOptions:(NSDictionary<NSString *, NSString *> * _Nullable)options;
+- (void)updateDataSourceWithOptions:(NSDictionary<NSString *, NSSet<NSString *> *> * _Nullable)options;
 - (void)handleSelectionForIndexPath:(NSIndexPath *)indexPath;
-- (void)updateItem:(DeckAddCardOptionItemModel *)itemModel withValue:(NSString * _Nullable)value;
+- (void)updateOptionType:(BlizzardHSAPIOptionType)optionType withValues:(NSSet<NSString *> * _Nullable)values;
 @end
 
 NS_ASSUME_NONNULL_END

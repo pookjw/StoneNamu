@@ -16,8 +16,7 @@
         self->_type = type;
         [self->_localDeck release];
         self->_localDeck = [localDeck retain];
-        [self->_classSlug release];
-        self->_classSlug = [classSlug copy];
+        self.classSlug = classSlug;
         self.isEasterEgg = isEasterEgg;
         self.count = count;
     }
@@ -45,5 +44,6 @@
 - (NSUInteger)hash {
     return self.type ^ self.localDeck.hash;
 }
+
 
 @end

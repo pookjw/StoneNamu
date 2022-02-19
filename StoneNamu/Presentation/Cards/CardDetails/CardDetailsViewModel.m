@@ -97,43 +97,33 @@
             
             //
             
-            CardDetailsItemModel *nameItem = [[CardDetailsItemModel alloc] initWithPrimaryText:[ResourcesService localizationForKey:LocalizableKeyCardName]
-                                                                                 secondaryText:hsCard.name];
+            CardDetailsItemModel *nameItem = [[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeName value:hsCard.name];
             
-            CardDetailsItemModel *flavorTextItem = [[CardDetailsItemModel alloc] initWithPrimaryText:[ResourcesService localizationForKey:LocalizableKeyCardFlavorText]
-                                                                                       secondaryText:hsCard.flavorText];
+            CardDetailsItemModel *flavorTextItem = [[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeFlavorText value:hsCard.flavorText];
             
-            CardDetailsItemModel *textItem = [[CardDetailsItemModel alloc] initWithPrimaryText:[ResourcesService localizationForKey:LocalizableKeyCardDescription]
-                                                                                 secondaryText:hsCard.text];
+            CardDetailsItemModel *textItem = [[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeText value:hsCard.text];
             
             HSCardType * _Nullable hsCardType = [self.hsMetaDataUseCase hsCardTypeFromTypeId:hsCard.cardTypeId usingHSMetaData:hsMetaData];
-            CardDetailsItemModel *typeItem = [[CardDetailsItemModel alloc] initWithPrimaryText:[ResourcesService localizationForKey:LocalizableKeyCardType]
-                                                                                 secondaryText:hsCardType.name];
+            CardDetailsItemModel *typeItem = [[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeType value:hsCardType.name];
             
             HSCardRarity * _Nullable hsCardRarity = [self.hsMetaDataUseCase hsCardRarityFromRarityId:hsCard.rarityId usingHSMetaData:hsMetaData];
-            CardDetailsItemModel *rarityItem = [[CardDetailsItemModel alloc] initWithPrimaryText:[ResourcesService localizationForKey:LocalizableKeyCardRarity]
-                                                                                   secondaryText:hsCardRarity.name];
+            CardDetailsItemModel *rarityItem = [[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeRarity value:hsCardRarity.name];
             
             HSCardSet * _Nullable hsCardSet = [self.hsMetaDataUseCase hsCardSetFromSetId:hsCard.cardSetId usingHSMetaData:hsMetaData];
-            CardDetailsItemModel *setItem = [[CardDetailsItemModel alloc] initWithPrimaryText:[ResourcesService localizationForKey:LocalizableKeyCardSet]
-                                                                                secondaryText:hsCardSet.name];
+            CardDetailsItemModel *setItem = [[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeSet value:hsCardSet.name];
             
-            HSCardClass * _Nullable hsCardClass = [self.hsMetaDataUseCase hsCardClassFromClassId:hsCard.classId usingHSMetaData:hsMetaData];
-            CardDetailsItemModel *classItem = [[CardDetailsItemModel alloc] initWithPrimaryText:[ResourcesService localizationForKey:LocalizableKeyCardClass]
-                                                                                  secondaryText:hsCardClass.name];
+            CardDetailsItemModel *classItem = [[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeClass value:cardClassValue];
             
-            CardDetailsItemModel *collectibleItem = [[CardDetailsItemModel alloc] initWithPrimaryText:[ResourcesService localizationForKey:LocalizableKeyCardCollectible]
-                                                                                        secondaryText:[ResourcesService localizationForHSCardCollectible:hsCard.collectible]];
+            CardDetailsItemModel *collectibleItem = [[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeCollectible value:NSStringFromHSCardCollectible(hsCard.collectible)];
             
-            CardDetailsItemModel *artistNameItem = [[CardDetailsItemModel alloc] initWithPrimaryText:[ResourcesService localizationForKey:LocalizableKeyCardArtist]
-                                                                                   secondaryText:hsCard.artistName];
+            CardDetailsItemModel *artistNameItem = [[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeArtist value:hsCard.artistName];
             
             //
             
             [snapshot appendSectionsWithIdentifiers:@[baseSectionModel, detailSectionModel]];
             
             [snapshot appendItemsWithIdentifiers:@[nameItem, flavorTextItem, textItem] intoSectionWithIdentifier:baseSectionModel];
-            [snapshot appendItemsWithIdentifiers:@[hsCardType, hsCardRarity, hsCardSet, hsCardClass, collectibleItem, artistNameItem] intoSectionWithIdentifier:detailSectionModel];
+            [snapshot appendItemsWithIdentifiers:@[typeItem, rarityItem, setItem, classItem, collectibleItem, artistNameItem] intoSectionWithIdentifier:detailSectionModel];
             
             //
             
@@ -233,7 +223,7 @@
         [snapshot appendSectionsWithIdentifiers:@[sectionModelChildren]];
         
         [childCards enumerateObjectsUsingBlock:^(HSCard * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            CardDetailsItemModel *childCardItem = [[CardDetailsItemModel alloc] initWithChildHSCard:obj];
+            CardDetailsItemModel *childCardItem = [[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeChild childHSCard:obj];
             [snapshot appendItemsWithIdentifiers:@[childCardItem] intoSectionWithIdentifier:sectionModelChildren];
             [childCardItem release];
         }];

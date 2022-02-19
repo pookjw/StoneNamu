@@ -121,10 +121,11 @@
         
         switch (itemModel.type) {
             case DeckImageRenderServiceItemModelTypeIntro: {
-                DeckImageRenderServiceIntroContentConfiguration *configuration = [[DeckImageRenderServiceIntroContentConfiguration alloc] initWithClassId:itemModel.classId
-                                                                                                                                                 deckName:itemModel.deckName
-                                                                                                                                               deckFormat:itemModel.deckFormat
-                                                                                                                                              isEasterEgg:itemModel.isEasterEgg];
+                DeckImageRenderServiceIntroContentConfiguration *configuration = [[DeckImageRenderServiceIntroContentConfiguration alloc] initWithClassSlug:itemModel.classSlug
+                                                                                                                                                  className:itemModel.className
+                                                                                                                                                   deckName:itemModel.deckName
+                                                                                                                                                 deckFormat:itemModel.deckFormat
+                                                                                                                                                isEasterEgg:itemModel.isEasterEgg];
                 cell.contentConfiguration = configuration;
                 [configuration release];
                 break;
@@ -132,14 +133,15 @@
             case DeckImageRenderServiceItemModelTypeCard: {
                 DeckImageRenderServiceCardContentConfiguration *configuration = [[DeckImageRenderServiceCardContentConfiguration alloc] initWithHSCard:itemModel.hsCard
                                                                                                                                            hsCardImage:itemModel.hsCardImage
-                                                                                                                                           hsCardCount:itemModel.hsCardCount];
+                                                                                                                                           hsCardCount:itemModel.hsCardCount
+                                                                                                                                            raritySlug:itemModel.raritySlug];
                 cell.contentConfiguration = configuration;
                 [configuration release];
                 break;
             }
             case DeckImageRenderServiceItemModelTypeAbout: {
                 DeckImageRenderServiceAboutContentConfiguration *configuration = [[DeckImageRenderServiceAboutContentConfiguration alloc] initWithTotalArcaneDust:itemModel.totalArcaneDust
-                                                                                                                                                    hsYearCurrent:itemModel.hsYearCurrentName];
+                                                                                                                                                    hsYearCurrentName:itemModel.hsYearCurrentName];
                 cell.contentConfiguration = configuration;
                 [configuration release];
                 break;

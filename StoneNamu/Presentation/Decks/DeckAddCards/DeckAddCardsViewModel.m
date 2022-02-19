@@ -12,7 +12,7 @@
 
 @interface DeckAddCardsViewModel ()
 @property (retain) id<HSCardUseCase> hsCardUseCase;
-@property (readonly, nonatomic) NSDictionary<NSString *, NSString *> *defaultOptions;
+@property (readonly, nonatomic) NSDictionary<NSString *, NSSet<NSString *> *> *defaultOptions;
 @property (retain) NSNumber * _Nullable pageCount;
 @property (retain) NSNumber *page;
 @property (nonatomic, readonly) BOOL canLoadMore;
@@ -21,6 +21,7 @@
 @property (retain) id<PrefsUseCase> prefsUseCase;
 @property (retain) id<DataCacheUseCase> dataCacheUseCase;
 @property (retain) id<LocalDeckUseCase> localDeckUseCase;
+@property (retain) id<HSMetaDataUseCase> hsMetaDataUseCase;
 @end
 
 @implementation DeckAddCardsViewModel
@@ -43,7 +44,6 @@
         
         NSOperationQueue *queue = [NSOperationQueue new];
         queue.qualityOfService = NSQualityOfServiceUserInitiated;
-        queue.maxConcurrentOperationCount = 1;
         self.queue = queue;
         [queue release];
         
@@ -58,6 +58,10 @@
         LocalDeckUseCaseImpl *localDeckUseCase = [LocalDeckUseCaseImpl new];
         self.localDeckUseCase = localDeckUseCase;
         [localDeckUseCase release];
+        
+        HSMetaDataUseCaseImpl *hsMetaDataUseCase = [HSMetaDataUseCaseImpl new];
+        self.hsMetaDataUseCase = hsMetaDataUseCase;
+        [hsMetaDataUseCase release];
         
         self.pageCount = nil;
         self.page = [NSNumber numberWithUnsignedInt:1];
@@ -81,6 +85,7 @@
     [_prefsUseCase release];
     [_dataCacheUseCase release];
     [_localDeckUseCase release];
+    [_hsMetaDataUseCase release];
     [super dealloc];
 }
 
@@ -102,28 +107,11 @@
     }];
 }
 
-- (NSDictionary<NSString *, NSString *> *)defaultOptions {
-    if (self.localDeck == nil) return BlizzardHSAPIDefaultOptions();
-
-    NSMutableDictionary<NSString *, NSString *> *options = [BlizzardHSAPIDefaultOptions() mutableCopy];
-    options[BlizzardHSAPIOptionTypeClass] = NSStringFromHSCardClass(self.localDeck.classId.unsignedIntegerValue);
-
-    HSCardSet cardSet;
-    if ([self.localDeck.format isEqualToString:HSDeckFormatStandard]) {
-        cardSet = HSCardSetStandardCards;
-    } else if ([self.localDeck.format isEqualToString:HSDeckFormatWild]) {
-        cardSet = HSCardSetWildCards;
-    } else if ([self.localDeck.format isEqualToString:HSDeckFormatClassic]) {
-        cardSet = HSCardSetClassicCards;
-    } else {
-        cardSet = HSCardSetWildCards;
-    }
-    options[BlizzardHSAPIOptionTypeSet] = NSStringFromHSCardSet(cardSet);
-
-    return [options autorelease];
+- (NSDictionary<NSString *, NSSet<NSString *> *> *)defaultOptions {
+    return BlizzardHSAPIDefaultOptions();
 }
 
-- (BOOL)requestDataSourceWithOptions:(NSDictionary<NSString *, NSString *> * _Nullable)options reset:(BOOL)reset {
+- (BOOL)requestDataSourceWithOptions:(NSDictionary<NSString *, NSSet<NSString *> *> * _Nullable)options reset:(BOOL)reset {
     if (reset) {
         [self resetDataSource];
     } else {
@@ -139,15 +127,15 @@
     NSBlockOperation * __block op = [NSBlockOperation new];
     
     [op addExecutionBlock:^{
-        NSDictionary<NSString *, NSString *> *defaultOptions = self.defaultOptions;
+        NSDictionary<NSString *, NSSet<NSString *> *> *defaultOptions = self.defaultOptions;
+        NSDictionary<NSString *, NSSet<NSString *> *> * _Nullable finalOptions = [options dictionaryByCombiningWithDictionary:defaultOptions shouldOverride:NO];
         
-        if (options == nil) {
+        if (finalOptions == nil) {
             [self->_options release];
             self->_options = [defaultOptions copy];
         } else {
-            NSDictionary *mutableDic = [options dictionaryByCombiningWithDictionary:defaultOptions shouldOverride:NO];
             [self->_options release];
-            self->_options = [mutableDic copy];
+            self->_options = [finalOptions copy];
         }
         
         //
@@ -161,41 +149,39 @@
         if (self.pageCount != nil) {
             // Next page
             NSNumber *nextPage = [NSNumber numberWithUnsignedInt:[self.page unsignedIntValue] + 1];
-            mutableDic[BlizzardHSAPIOptionTypePage] = [nextPage stringValue];
+            mutableDic[BlizzardHSAPIOptionTypePage] = [NSSet setWithObject:[nextPage stringValue]];
         } else {
             // Initial data
-            mutableDic[BlizzardHSAPIOptionTypePage] = [self.page stringValue];
+            mutableDic[BlizzardHSAPIOptionTypePage] = [NSSet setWithObject:[self.page stringValue]];
         }
         
         SemaphoreCondition *semaphore = [[SemaphoreCondition alloc] initWithValue:0];
         
         [self.hsCardUseCase fetchWithOptions:mutableDic completionHandler:^(NSArray<HSCard *> * _Nullable cards, NSNumber *pageCount, NSNumber *page, NSError * _Nullable error) {
             
-            [mutableDic release];
-            
             if (op.isCancelled) {
                 [semaphore signal];
-                [semaphore release];
+                return;
+            }
+            
+            if (error) {
+                [self postError:error];
+                [semaphore signal];
                 return;
             }
             
             [semaphore signal];
-            [semaphore release];
             
-            if (error) {
-                [self postError:error];
-            }
-            
-            [self.queue addOperationWithBlock:^{
-                [self updateDataSourceWithCards:cards completion:^{
-                    self.pageCount = pageCount;
-                    self.page = page;
-                    self.isFetching = NO;
-                }];
+            [self updateDataSourceWithCards:cards completion:^{
+                self.pageCount = pageCount;
+                self.page = page;
+                self.isFetching = NO;
             }];
         }];
         
+        [mutableDic release];
         [semaphore wait];
+        [semaphore release];
     }];
     
     [self.queue addOperation:op];
@@ -207,7 +193,7 @@
 - (void)resetDataSource {
     [self.queue cancelAllOperations];
     
-    [self.queue addOperationWithBlock:^{
+    [self.queue addBarrierBlock:^{
         self.pageCount = nil;
         self.page = [NSNumber numberWithUnsignedInt:1];
         NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
@@ -261,41 +247,45 @@
 }
 
 - (void)updateDataSourceWithCards:(NSArray<HSCard *> *)cards completion:(void (^)(void))completion {
-    [self.queue addBarrierBlock:^{
-        NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
-        
-        DeckAddCardSectionModel * _Nullable sectionModel = nil;
-        
-        for (DeckAddCardSectionModel *tmp in snapshot.sectionIdentifiers) {
-            if (tmp.type == DeckCardsSectionModelTypeCards) {
-                sectionModel = tmp;
+    [self.hsMetaDataUseCase fetchWithCompletionHandler:^(HSMetaData * _Nullable hsMetaData, NSError * _Nullable error) {
+        [self.queue addBarrierBlock:^{
+            NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
+            
+            DeckAddCardSectionModel * _Nullable sectionModel = nil;
+            
+            for (DeckAddCardSectionModel *tmp in snapshot.sectionIdentifiers) {
+                if (tmp.type == DeckCardsSectionModelTypeCards) {
+                    sectionModel = tmp;
+                }
             }
-        }
-        
-        if (sectionModel == nil) {
-            sectionModel = [[[DeckAddCardSectionModel alloc] initWithType:DeckCardsSectionModelTypeCards] autorelease];
-            [snapshot appendSectionsWithIdentifiers:@[sectionModel]];
-        }
-        
-        NSArray<HSCard *> *localDeckCards = self.localDeck.hsCards;
-        NSMutableArray<DeckAddCardItemModel *> *itemModels = [@[] mutableCopy];
-        
-        for (HSCard *card in cards) {
-            NSUInteger count = [localDeckCards countOfObject:card];
-            DeckAddCardItemModel *itemModel = [[DeckAddCardItemModel alloc] initWithCard:card count:count];
-            [itemModels addObject:itemModel];
-            [itemModel release];
-        }
-        
-        [snapshot appendItemsWithIdentifiers:[[itemModels copy] autorelease] intoSectionWithIdentifier:sectionModel];
-        
-        [itemModels release];
-        
-        [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
-            completion();
-            [self postEndedLoadingDataSource];
+            
+            if (sectionModel == nil) {
+                sectionModel = [[[DeckAddCardSectionModel alloc] initWithType:DeckCardsSectionModelTypeCards] autorelease];
+                [snapshot appendSectionsWithIdentifiers:@[sectionModel]];
+            }
+            
+            HSCardRarity *legendaryRarity = [self.hsMetaDataUseCase hsCardRarityFromRaritySlug:HSCardRaritySlugTypeLegendary usingHSMetaData:hsMetaData];
+            NSArray<HSCard *> *localDeckCards = self.localDeck.hsCards;
+            NSMutableArray<DeckAddCardItemModel *> *itemModels = [@[] mutableCopy];
+            
+            for (HSCard *card in cards) {
+                NSUInteger count = [localDeckCards countOfObject:card];
+                BOOL isLegendary = [legendaryRarity.rarityId isEqualToNumber:card.rarityId];
+                DeckAddCardItemModel *itemModel = [[DeckAddCardItemModel alloc] initWithCard:card count:count isLegendary:isLegendary];
+                [itemModels addObject:itemModel];
+                [itemModel release];
+            }
+            
+            [snapshot appendItemsWithIdentifiers:[[itemModels copy] autorelease] intoSectionWithIdentifier:sectionModel];
+            
+            [itemModels release];
+            
+            [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
+                completion();
+                [self postEndedLoadingDataSource];
+            }];
+            [snapshot release];
         }];
-        [snapshot release];
     }];
 }
 

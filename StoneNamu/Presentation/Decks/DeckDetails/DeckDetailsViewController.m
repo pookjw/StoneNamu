@@ -299,7 +299,8 @@
             }
             case DeckDetailsItemModelTypeCard: {
                 DeckDetailsCardContentConfiguration *configuration = [[DeckDetailsCardContentConfiguration alloc] initWithHSCard:itemModel.hsCard
-                                                                                                                     hsCardCount:itemModel.hsCardCount.unsignedIntegerValue];
+                                                                                                                     hsCardCount:itemModel.hsCardCount.unsignedIntegerValue
+                                                                                                                  raritySlugType:itemModel.raritySlugType];
                 cell.contentConfiguration = configuration;
                 [configuration release];
                 break;

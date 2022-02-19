@@ -22,6 +22,12 @@ static NSString * CardOptionsViewModelPresentPickerNotificationSlugsAndNamesKey 
 static NSString * const CardOptionsViewModelPresentPickerNotificationValuesItemKey = @"CardOptionsViewModelPresentPickerNotificationValuesItemKey";
 static NSString * const CardOptionsViewModelPresentPickerNotificationShowsEmptyRowItemKey = @"CardOptionsViewModelPresentPickerNotificationShowsEmptyRowItemKey";
 
+static NSNotificationName const NSNotificationNameCardOptionsViewModelStartedLoadingDataSource = @"NSNotificationNameCardOptionsViewModelStartedLoadingDataSource";
+static NSNotificationName const NSNotificationNameCardOptionsViewModelEndedLoadingDataSource = @"NSNotificationNameCardOptionsViewModelEndedLoadingDataSource";
+
+static NSNotificationName const NSNotificationNameCardOptionsViewModelErrorOccured = @"NSNotificationNameCardOptionsViewModelErrorOccured";
+static NSString * const CardOptionsViewModelErrorOccuredErrorItemKey = @"CardOptionsViewModelErrorOccuredErrorItemKey";
+
 typedef UICollectionViewDiffableDataSource<CardOptionSectionModel *, CardOptionItemModel *> CardOptionsDataSource;
 
 @interface CardOptionsViewModel : NSObject

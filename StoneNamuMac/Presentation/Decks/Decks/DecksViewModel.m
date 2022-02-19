@@ -339,8 +339,9 @@
                     [snapshot appendItemsWithIdentifiers:@[itemModel] intoSectionWithIdentifier:sectionModel];
                     [itemModel autorelease];
                 } else {
-                    BOOL shouldReconfigure = ((itemModel.isEasterEgg == isEasterEgg) && (itemModel.count == count));
+                    BOOL shouldReconfigure = ((itemModel.isEasterEgg == isEasterEgg) && ([itemModel.classSlug isEqualToString:hsCardClass.slug]) && (itemModel.count == count));
                     itemModel.isEasterEgg = isEasterEgg;
+                    itemModel.classSlug = hsCardClass.slug;
                     itemModel.count = count;
                     
                     if (shouldReconfigure) {

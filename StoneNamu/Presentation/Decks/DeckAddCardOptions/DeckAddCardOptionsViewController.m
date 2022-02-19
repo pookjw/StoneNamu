@@ -9,7 +9,8 @@
 #import "DeckAddCardOptionsViewModel.h"
 #import "SheetNavigationController.h"
 #import "PickerViewController.h"
-#import "StepperViewController.h"
+#import "UIViewController+SpinnerView.h"
+#import "UIViewController+presentErrorAlert.h"
 #import <StoneNamuResources/StoneNamuResources.h>
 
 @interface DeckAddCardOptionsViewController () <UICollectionViewDelegate>
@@ -21,7 +22,7 @@
 
 @implementation DeckAddCardOptionsViewController
 
-- (instancetype)initWithOptions:(NSDictionary<NSString *,NSString *> *)options localDeck:(nonnull LocalDeck *)localDeck {
+- (instancetype)initWithOptions:(NSDictionary<NSString *,NSSet<NSString *> *> *)options localDeck:(nonnull LocalDeck *)localDeck {
     self = [self init];
     
     if (self) {
@@ -105,7 +106,7 @@
 }
 
 - (void)resetButtonTriggered:(UIBarButtonItem *)sender {
-    [self.delegate deckAddCardOptionsViewController:self defaultOptionsAreNeededWithCompletion:^(NSDictionary<NSString *,NSString *> * _Nonnull options) {
+    [self.delegate deckAddCardOptionsViewController:self defaultOptionsAreNeededWithCompletion:^(NSDictionary<NSString *, NSSet<NSString *> *> * _Nonnull options) {
         [self.viewModel updateDataSourceWithOptions:options];
     }];
 }
@@ -167,7 +168,7 @@
         DeckAddCardOptionItemModel *itemModel = (DeckAddCardOptionItemModel *)item;
         
         UIListContentConfiguration *configuration = [UIListContentConfiguration subtitleCellConfiguration];
-        configuration.text = itemModel.text;
+        configuration.text = itemModel.title;
         cell.contentConfiguration = configuration;
         
         //
@@ -186,7 +187,7 @@
         
         //
         
-        if (itemModel.value) {
+        if (itemModel.accessoryText) {
             cell.accessories = @[
                 [[[UICellAccessoryLabel alloc] initWithText:itemModel.accessoryText] autorelease]
             ];
@@ -210,21 +211,36 @@
                                              object:self.viewModel];
     
     [NSNotificationCenter.defaultCenter addObserver:self
-                                           selector:@selector(presentStepperEventReceived:)
-                                               name:NSNotificationNameDeckAddCardOptionsViewModelPresentStepper
+                                           selector:@selector(startedLoadingDataSourceReceived:)
+                                               name:NSNotificationNameDeckAddCardOptionsViewModelStartedLoadingDataSource
+                                             object:self.viewModel];
+    
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(endedLoadingDataSourceReceived:)
+                                               name:NSNotificationNameDeckAddCardOptionsViewModelEndedLoadingDataSource
+                                             object:self.viewModel];
+    
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(errorOccuredReceived:)
+                                               name:NSNotificationNameDeckAddCardOptionsViewModelErrorOccured
                                              object:self.viewModel];
 }
 
 - (void)presentTextFieldEventReceived:(NSNotification *)notification {
-    DeckAddCardOptionItemModel *itemModel = notification.userInfo[DeckAddCardOptionsViewModelPresentNotificationItemKey];
+    BlizzardHSAPIOptionType _Nullable optionType = notification.userInfo[DeckAddCardOptionsViewModelPresentTextFieldOptionTypeItemKey];
+    
+    if (optionType == nil) return;
+    
+    NSString * _Nullable text = notification.userInfo[DeckAddCardOptionsViewModelPresentTextFieldTextItemKey];
+    NSString *title = [ResourcesService localizationForBlizzardHSAPIOptionType:optionType];
     
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
-        UIAlertController *vc = [UIAlertController alertControllerWithTitle:itemModel.text
+        UIAlertController *vc = [UIAlertController alertControllerWithTitle:title
                                                                     message:nil
                                                              preferredStyle:UIAlertControllerStyleAlert];
         
         [vc addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-            textField.text = itemModel.value;
+            textField.text = text;
         }];
         
         UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:[ResourcesService localizationForKey:LocalizableKeyCancel]
@@ -238,9 +254,9 @@
             NSString * _Nullable text = vc.textFields.firstObject.text;
             
             if (text != nil) {
-                [self.viewModel updateItem:itemModel withValue:[NSSet setWithObject:text]];
+                [self.viewModel updateOptionType:optionType withValues:[NSSet setWithObject:text]];
             } else {
-                [self.viewModel updateItem:itemModel withValue:nil];
+                [self.viewModel updateOptionType:optionType withValues:nil];
             }
         }];
         
@@ -253,60 +269,48 @@
 }
 
 - (void)presentPickerEventReceived:(NSNotification *)notification {
-    DeckAddCardOptionItemModel *itemModel = notification.userInfo[DeckAddCardOptionsViewModelPresentNotificationItemKey];
-    BOOL showEmptyRow = [(NSNumber *)notification.userInfo[DeckAddCardOptionsViewModelPresentPickerNotificationShowEmptyRowKey] boolValue];
-    
+//    DeckAddCardOptionItemModel *itemModel = notification.userInfo[DeckAddCardOptionsViewModelPresentNotificationItemKey];
+//    BOOL showEmptyRow = [(NSNumber *)notification.userInfo[DeckAddCardOptionsViewModelPresentPickerNotificationShowEmptyRowKey] boolValue];
+//
+//    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+//        PickerViewController *vc = [[PickerViewController alloc] initWithDataSource:itemModel.pickerDataSource
+//                                                                              title:itemModel.text
+//                                                                       showEmptyRow:showEmptyRow
+//                                                                     doneCompletion:^(PickerItemModel * _Nullable pickerItemModel) {
+//            [self.viewModel updateItem:itemModel withValue:pickerItemModel.identity];
+//        }];
+//        SheetNavigationController *nvc = [[SheetNavigationController alloc] initWithRootViewController:vc];
+//        [nvc loadViewIfNeeded];
+//
+//        [self presentViewController:nvc animated:YES completion:^{
+//            [vc selectIdentity:itemModel.value animated:YES];
+//        }];
+//
+//        [vc release];
+//        [nvc release];
+//    }];
+}
+
+- (void)startedLoadingDataSourceReceived:(NSNotification *)notification {
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
-        PickerViewController *vc = [[PickerViewController alloc] initWithDataSource:itemModel.pickerDataSource
-                                                                              title:itemModel.text
-                                                                       showEmptyRow:showEmptyRow
-                                                                     doneCompletion:^(PickerItemModel * _Nullable pickerItemModel) {
-            [self.viewModel updateItem:itemModel withValue:pickerItemModel.identity];
-        }];
-        SheetNavigationController *nvc = [[SheetNavigationController alloc] initWithRootViewController:vc];
-        [nvc loadViewIfNeeded];
-        
-        [self presentViewController:nvc animated:YES completion:^{
-            [vc selectIdentity:itemModel.value animated:YES];
-        }];
-        
-        [vc release];
-        [nvc release];
+        [self addSpinnerView];
     }];
 }
 
-- (void)presentStepperEventReceived:(NSNotification *)notification {
-    DeckAddCardOptionItemModel *itemModel = notification.userInfo[DeckAddCardOptionsViewModelPresentNotificationItemKey];
-    NSRange range = itemModel.stepperRange;
-    BOOL showPlusMarkWhenReachedToMax = itemModel.showPlusMarkWhenReachedToMaxOnStepper;
-    
-    NSUInteger value;
-    if (itemModel.value) {
-        value = (NSUInteger)[itemModel.value integerValue];
-    } else {
-        value = 0;
-    }
-    
+- (void)endedLoadingDataSourceReceived:(NSNotification *)notification {
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
-        StepperViewController *vc = [[StepperViewController alloc] initWithRange:range
-                                                                           title:itemModel.text
-                                                                           value:value
-                                                                 clearCompletion:^{
-            [self.viewModel updateItem:itemModel withValue:nil];
-        }
-                                                                  doneCompletion:^(NSUInteger value) {
-            [self.viewModel updateItem:itemModel withValue:[[NSNumber numberWithUnsignedInteger:value] stringValue]];
-        }];
-        
-        vc.showPlusMarkWhenReachedToMax = showPlusMarkWhenReachedToMax;
-        SheetNavigationController *nvc = [[SheetNavigationController alloc] initWithRootViewController:vc];
-        [nvc loadViewIfNeeded];
-        
-        [self presentViewController:nvc animated:YES completion:^{}];
-        
-        [vc release];
-        [nvc release];
+        [self removeAllSpinnerview];
     }];
+}
+
+- (void)errorOccuredReceived:(NSNotification *)notification {
+    NSError * _Nullable error = notification.userInfo[DeckAddCardOptionsViewModelErrorOccuredErrorItemKey];
+    
+    if (error) {
+        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+            [self presentErrorAlertWithError:error];
+        }];
+    }
 }
 
 #pragma mark - UICollectionViewDelegate

@@ -18,6 +18,7 @@ typedef NS_ENUM(NSUInteger, DeckDetailsItemModelType) {
 @interface DeckDetailsItemModel : NSObject
 @property (readonly) DeckDetailsItemModelType type;
 @property (copy) HSCard * _Nullable hsCard;
+@property (copy) HSCardRaritySlugType _Nullable raritySlugType;
 @property (copy) NSNumber * _Nullable hsCardCount;
 
 @property (copy) NSNumber * _Nullable graphManaCost;

@@ -16,7 +16,7 @@
         [self->_hsCard release];
         self->_hsCard = [hsCard copy];
         self.count = count;
-        self.isLegendary = isLegendary;
+        self->_isLegendary = isLegendary;
     }
     
     return self;
