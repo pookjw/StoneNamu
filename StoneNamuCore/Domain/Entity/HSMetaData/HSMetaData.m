@@ -143,6 +143,9 @@
         [_copy->_setGroups release];
         _copy->_setGroups = [self.setGroups copyWithZone:zone];
         
+        [_copy->_gameModes release];
+        _copy->_gameModes = [self.gameModes copyWithZone:zone];
+        
         [_copy->_arenaIds release];
         _copy->_arenaIds = [self.arenaIds copyWithZone:zone];
         
