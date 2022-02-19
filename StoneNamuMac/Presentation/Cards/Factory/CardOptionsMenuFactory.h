@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 static NSString * const CardOptionsMenuFactoryStorableMenuItemOptionTypeKey = @"CardOptionsMenuFactoryStorableMenuItemOptionTypeKey";
 static NSString * const CardOptionsMenuFactoryStorableMenuItemValueKey = @"CardOptionsMenuFactoryStorableMenuItemValueKey";
 static NSString * const CardOptionsMenuFactoryStorableMenuItemShowsEmptyItemKey = @"CardOptionsMenuFactoryStorableMenuItemShowsEmptyItemKey";
-static NSString * const CardOptionsMenuFactoryStorableMenuItemSuppoertsMultipleSelection = @"CardOptionsMenuFactoryStorableMenuItemSuppoertsMultipleSelection";
+static NSString * const CardOptionsMenuFactoryStorableMenuItemAllowsMultipleSelection = @"CardOptionsMenuFactoryStorableMenuItemAllowsMultipleSelection";
 
 @interface CardOptionsMenuFactory : NSObject
 @property (readonly) SEL keyMenuItemTriggeredSelector;

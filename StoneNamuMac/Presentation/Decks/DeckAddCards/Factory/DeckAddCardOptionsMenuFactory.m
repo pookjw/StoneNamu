@@ -260,7 +260,7 @@
                                                                     userInfo:@{DeckAddCardOptionsMenuFactoryStorableMenuItemOptionTypeKey: type,
                                                                                DeckAddCardOptionsMenuFactoryStorableMenuItemValueKey: key,
                                                                                DeckAddCardOptionsMenuFactoryStorableMenuItemShowsEmptyItemKey: [NSNumber numberWithBool:showEmptyItem],
-                                                                               DeckAddCardOptionsMenuFactoryStorableMenuItemSuppoertsMultipleSelection: [NSNumber numberWithBool:[self supportsMultipleSelectionFromOptionType:type]]}];
+                                                                               DeckAddCardOptionsMenuFactoryStorableMenuItemAllowsMultipleSelection: [NSNumber numberWithBool:[self supportsMultipleSelectionFromOptionType:type]]}];
             item.target = target;
             
             [arr addObject:item];
@@ -282,7 +282,7 @@
                                                                      userInfo:@{DeckAddCardOptionsMenuFactoryStorableMenuItemOptionTypeKey: type,
                                                                                 DeckAddCardOptionsMenuFactoryStorableMenuItemValueKey: @"",
                                                                                 DeckAddCardOptionsMenuFactoryStorableMenuItemShowsEmptyItemKey: [NSNumber numberWithBool:showEmptyItem],
-                                                                                DeckAddCardOptionsMenuFactoryStorableMenuItemSuppoertsMultipleSelection: [NSNumber numberWithBool:[self supportsMultipleSelectionFromOptionType:type]]}];
+                                                                                DeckAddCardOptionsMenuFactoryStorableMenuItemAllowsMultipleSelection: [NSNumber numberWithBool:[self supportsMultipleSelectionFromOptionType:type]]}];
         emptyItem.target = target;
         
         [arr insertObject:emptyItem atIndex:0];
@@ -300,7 +300,7 @@
     StorableMenuItem *item = [[StorableMenuItem alloc] initWithTitle:@"" action:nil keyEquivalent:@"" userInfo:@{DeckAddCardOptionsMenuFactoryStorableMenuItemOptionTypeKey: optionType,
     DeckAddCardOptionsMenuFactoryStorableMenuItemValueKey: @"",
     DeckAddCardOptionsMenuFactoryStorableMenuItemShowsEmptyItemKey: @NO,
-        DeckAddCardOptionsMenuFactoryStorableMenuItemSuppoertsMultipleSelection: [NSNumber numberWithBool:[self supportsMultipleSelectionFromOptionType:optionType]]}];
+        DeckAddCardOptionsMenuFactoryStorableMenuItemAllowsMultipleSelection: [NSNumber numberWithBool:[self supportsMultipleSelectionFromOptionType:optionType]]}];
     StorableSearchField *searchField = [[StorableSearchField alloc] initWithUserInfo:@{optionType: @""}];
     
     searchField.frame = CGRectMake(0, 0, 300, 20);

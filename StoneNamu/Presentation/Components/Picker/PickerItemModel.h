@@ -1,21 +1,28 @@
 //
 //  PickerItemModel.h
-//  PickerItemModel
+//  StoneNamu
 //
-//  Created by Jinwoo Kim on 7/25/21.
+//  Created by Jinwoo Kim on 2/19/22.
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef NS_ENUM(NSUInteger, PickerItemModelType) {
+    PickerItemModelTypeEmpty,
+    PickerItemModelTypeItems
+};
+
 @interface PickerItemModel : NSObject
-@property (readonly, copy) UIImage * _Nullable image;
-@property (readonly, copy) NSString *title;
-@property (readonly, copy) NSString *identity;
+@property (readonly) PickerItemModelType type;
+@property (readonly, copy) NSString * _Nullable key;
+@property (readonly, copy) NSString * _Nullable text;
+@property (getter=isSelected) BOOL selected;
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
-- (instancetype)initWithImage:(UIImage * _Nullable)image title:(NSString *)title identity:(NSString *)identity;
+- (instancetype)initEmptyWithIsSelected:(BOOL)isSelected;
+- (instancetype)initWithKey:(NSString *)key text:(NSString *)text isSelected:(BOOL)isSelected;
 @end
 
 NS_ASSUME_NONNULL_END

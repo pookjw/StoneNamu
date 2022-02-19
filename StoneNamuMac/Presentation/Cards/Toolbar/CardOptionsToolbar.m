@@ -304,8 +304,8 @@
         showsEmptyItem = NO;
     }
     
-    if (userInfo[CardOptionsMenuFactoryStorableMenuItemSuppoertsMultipleSelection]) {
-        supportsMultipleSelection = [(NSNumber *)userInfo[CardOptionsMenuFactoryStorableMenuItemSuppoertsMultipleSelection] boolValue];
+    if (userInfo[CardOptionsMenuFactoryStorableMenuItemAllowsMultipleSelection]) {
+        supportsMultipleSelection = [(NSNumber *)userInfo[CardOptionsMenuFactoryStorableMenuItemAllowsMultipleSelection] boolValue];
     } else {
         supportsMultipleSelection = NO;
     }

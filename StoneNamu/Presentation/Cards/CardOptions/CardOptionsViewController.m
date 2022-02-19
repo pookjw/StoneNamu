@@ -7,7 +7,6 @@
 
 #import "CardOptionsViewController.h"
 #import "CardOptionsViewModel.h"
-#import "SheetNavigationController.h"
 #import "PickerViewController.h"
 #import "UIViewController+SpinnerView.h"
 #import "UIViewController+presentErrorAlert.h"
@@ -269,26 +268,84 @@
 }
 
 - (void)presentPickerEventReceived:(NSNotification *)notification {
-//    CardOptionItemModel *itemModel = notification.userInfo[CardOptionsViewModelPresentNotificationItemKey];
-//    BOOL showEmptyRow = [(NSNumber *)notification.userInfo[CardOptionsViewModelPresentPickerNotificationShowEmptyRowKey] boolValue];
-//
-//    [NSOperationQueue.mainQueue addOperationWithBlock:^{
-//        PickerViewController *vc = [[PickerViewController alloc] initWithDataSource:itemModel.pickerDataSource
-//                                                                              title:itemModel.text
-//                                                                       showEmptyRow:showEmptyRow
-//                                                                     doneCompletion:^(PickerItemModel * _Nullable pickerItemModel) {
-//            [self.viewModel updateItem:itemModel withValues:[NSSet setWithObject:pickerItemModel.identity]];
-//        }];
-//        SheetNavigationController *nvc = [[SheetNavigationController alloc] initWithRootViewController:vc];
-//        [nvc loadViewIfNeeded];
-//
-//        [self presentViewController:nvc animated:YES completion:^{
-//            [vc selectIdentity:itemModel.values animated:YES];
-//        }];
-//
-//        [vc release];
-//        [nvc release];
-//    }];
+    dispatch_queue_t queue = dispatch_get_global_queue(QOS_CLASS_USER_INTERACTIVE, 0);
+    
+    dispatch_async(queue, ^{
+        BlizzardHSAPIOptionType _Nullable optionType = notification.userInfo[CardOptionsViewModelPresentPickerNotificationOptionTypeItemKey];
+        NSDictionary<NSString *, NSString *> * _Nullable slugsAndNames = notification.userInfo[CardOptionsViewModelPresentPickerNotificationSlugsAndNamesKey];
+        NSSet<NSString *> * _Nullable values = notification.userInfo[CardOptionsViewModelPresentPickerNotificationValuesItemKey];
+        NSNumber * _Nullable showsEmptyRow = notification.userInfo[CardOptionsViewModelPresentPickerNotificationShowsEmptyRowItemKey];
+        NSNumber * _Nullable allowsMultipleSelection = notification.userInfo[CardOptionsViewModelPresentPickerNotificationAllowsMultipleSelectionItemKey];
+        NSComparisonResult (^comparator)(NSString *, NSString *) = notification.userInfo[CardOptionsViewModelPresentPickerNotificationComparatorItemKey];
+        
+        if (optionType && slugsAndNames && showsEmptyRow && allowsMultipleSelection && comparator) {
+            NSMutableSet<PickerItemModel *> *items = [NSMutableSet<PickerItemModel *> new];
+            
+            [slugsAndNames enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSString * _Nonnull obj, BOOL * _Nonnull stop) {
+                BOOL isSelected;
+                
+                if (values) {
+                    isSelected = [values containsObject:key];
+                } else {
+                    isSelected = NO;
+                }
+                
+                PickerItemModel *item = [[PickerItemModel alloc] initWithKey:key text:obj isSelected:isSelected];
+                [items addObject:item];
+                [item release];
+            }];
+            
+            if (showsEmptyRow.boolValue) {
+                BOOL isSelected;
+                
+                if (values) {
+                    isSelected = !(values.hasValuesWhenStringType);
+                } else {
+                    isSelected = YES;
+                }
+                
+                PickerItemModel *item = [[PickerItemModel alloc] initEmptyWithIsSelected:isSelected];
+                [items addObject:item];
+                [item release];
+            }
+            
+            [NSOperationQueue.mainQueue addOperationWithBlock:^{
+                PickerViewController *vc = [[PickerViewController alloc] initWithItems:items allowsMultipleSelection:allowsMultipleSelection.boolValue comparator:comparator didSelectItems:^(NSSet<PickerItemModel *> * _Nonnull selectedItems) {
+                    if (selectedItems.count == 0) {
+                        [self.viewModel updateOptionType:optionType withValues:nil];
+                        return;
+                    } else if (selectedItems.count == 1) {
+                        BOOL isEmptyItem = (selectedItems.allObjects.firstObject.type == PickerItemModelTypeEmpty);
+                        
+                        if (isEmptyItem) {
+                            [self.viewModel updateOptionType:optionType withValues:nil];
+                            return;
+                        }
+                    }
+                    
+                    //
+                    
+                    dispatch_queue_t queue = dispatch_get_global_queue(QOS_CLASS_USER_INTERACTIVE, 0);
+                    
+                    dispatch_async(queue, ^{
+                        NSMutableSet<NSString *> *results = [NSMutableSet<NSString *> new];
+                        
+                        [selectedItems enumerateObjectsUsingBlock:^(PickerItemModel * _Nonnull obj, BOOL * _Nonnull stop) {
+                            [results addObject:obj.key];
+                        }];
+                        
+                        [self.viewModel updateOptionType:optionType withValues:results];
+                        [results release];
+                    });
+                }];
+                
+                [items release];
+                
+                [self.navigationController pushViewController:vc animated:YES];
+                [vc release];
+            }];
+        }
+    });
 }
 
 - (void)startedLoadingDataSourceReceived:(NSNotification *)notification {

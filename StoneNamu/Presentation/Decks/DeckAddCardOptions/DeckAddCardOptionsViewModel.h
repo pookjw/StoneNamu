@@ -8,7 +8,7 @@
 #import <UIKit/UIKit.h>
 #import "DeckAddCardOptionSectionModel.h"
 #import "DeckAddCardOptionItemModel.h"
-#import "PickerItemModel.h"
+#import "OldPickerItemModel.h"
 #import <StoneNamuCore/StoneNamuCore.h>
 
 NS_ASSUME_NONNULL_BEGIN
@@ -22,6 +22,8 @@ static NSString * DeckAddCardOptionsViewModelPresentPickerNotificationOptionType
 static NSString * DeckAddCardOptionsViewModelPresentPickerNotificationSlugsAndNamesKey = @"DeckAddCardOptionsViewModelPresentPickerNotificationSlugsAndNamesKey";
 static NSString * const DeckAddCardOptionsViewModelPresentPickerNotificationValuesItemKey = @"DeckAddCardOptionsViewModelPresentPickerNotificationValuesItemKey";
 static NSString * const DeckAddCardOptionsViewModelPresentPickerNotificationShowsEmptyRowItemKey = @"DeckAddCardOptionsViewModelPresentPickerNotificationShowsEmptyRowItemKey";
+static NSString * const DeckAddCardOptionsViewModelPresentPickerNotificationAllowsMultipleSelectionItemKey = @"DeckAddCardOptionsViewModelPresentPickerNotificationAllowsMultipleSelectionItemKey";
+static NSString * const DeckAddCardOptionsViewModelPresentPickerNotificationComparatorItemKey = @"DeckAddCardOptionsViewModelPresentPickerNotificationComparatorItemKey";
 
 static NSNotificationName const NSNotificationNameDeckAddCardOptionsViewModelStartedLoadingDataSource = @"NSNotificationNameDeckAddCardOptionsViewModelStartedLoadingDataSource";
 static NSNotificationName const NSNotificationNameDeckAddCardOptionsViewModelEndedLoadingDataSource = @"NSNotificationNameDeckAddCardOptionsViewModelEndedLoadingDataSource";

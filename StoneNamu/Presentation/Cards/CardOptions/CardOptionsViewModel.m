@@ -103,7 +103,10 @@
                 } else {
                     NSMutableArray<NSString *> *texts = [NSMutableArray<NSString *> new];
                     
-                    [newValues enumerateObjectsUsingBlock:^(NSString * _Nonnull value, BOOL * _Nonnull stop) {
+                    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES comparator:obj.comparator];
+                    NSArray<NSString *> *sortedValues = [newValues sortedArrayUsingDescriptors:@[sortDescriptor]];
+                    
+                    [sortedValues enumerateObjectsUsingBlock:^(NSString * _Nonnull value, NSUInteger idx, BOOL * _Nonnull stop) {
                         NSString * _Nullable text = obj.slugsAndNames[value];
                         
                         if (text == nil) {
@@ -156,12 +159,14 @@
             userInfo[CardOptionsViewModelPresentPickerNotificationSlugsAndNamesKey] = itemModel.slugsAndNames;
             
             if ([itemModel.values hasValuesWhenStringType]) {
-                userInfo[CardOptionsViewModelPresentPickerNotificationValuesItemKey] = itemModel.values.allObjects.firstObject;
+                userInfo[CardOptionsViewModelPresentPickerNotificationValuesItemKey] = itemModel.values;
             }
             
             userInfo[CardOptionsViewModelPresentPickerNotificationShowsEmptyRowItemKey] = [NSNumber numberWithBool:itemModel.showsEmptyRow];
+            userInfo[CardOptionsViewModelPresentPickerNotificationAllowsMultipleSelectionItemKey] = [NSNumber numberWithBool:itemModel.allowsMultipleSelection];
+            userInfo[CardOptionsViewModelPresentPickerNotificationComparatorItemKey] = itemModel.comparator;
             
-            [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameCardOptionsViewModelPresentTextField
+            [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameCardOptionsViewModelPresentPicker
                                                               object:self
                                                             userInfo:userInfo];
             
@@ -216,13 +221,16 @@
             } else {
                 NSMutableArray<NSString *> *texts = [NSMutableArray<NSString *> new];
                 
-                [obj1.values enumerateObjectsUsingBlock:^(NSString * _Nonnull obj2, BOOL * _Nonnull stop) {
+                NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES comparator:obj1.comparator];
+                NSArray<NSString *> *sortedValues = [obj1.values sortedArrayUsingDescriptors:@[sortDescriptor]];
+                
+                [sortedValues enumerateObjectsUsingBlock:^(NSString * _Nonnull obj2, NSUInteger idx, BOOL * _Nonnull stop) {
                     NSString * _Nullable text = obj1.slugsAndNames[obj2];
-                    
+
                     if (text == nil) {
                         text = obj2;
                     }
-                    
+
                     [texts addObject:text];
                 }];
                 
@@ -297,6 +305,7 @@
         CardOptionItemModel *setItem = [[CardOptionItemModel alloc] initWithOptionType:BlizzardHSAPIOptionTypeSet
                                                                          slugsAndNames:optionTypesAndSlugsAndNames[BlizzardHSAPIOptionTypeSet]
                                                                          showsEmptyRow:YES
+                                                               allowsMultipleSelection:NO
                                                                             comparator:^NSComparisonResult(NSString * _Nonnull lhs, NSString * _Nonnull rhs) {
             NSNumber *lhsNumber = optionTypesAndSlugsAndIds[BlizzardHSAPIOptionTypeSet][lhs];
             NSNumber *rhsNumber = optionTypesAndSlugsAndIds[BlizzardHSAPIOptionTypeSet][rhs];
@@ -309,6 +318,7 @@
         CardOptionItemModel *classItem = [[CardOptionItemModel alloc] initWithOptionType:BlizzardHSAPIOptionTypeClass
                                                                          slugsAndNames:optionTypesAndSlugsAndNames[BlizzardHSAPIOptionTypeClass]
                                                                            showsEmptyRow:YES
+                                                                 allowsMultipleSelection:YES
                                                                             comparator:^NSComparisonResult(NSString * _Nonnull lhs, NSString * _Nonnull rhs) {
             NSString *lhsName = optionTypesAndSlugsAndNames[BlizzardHSAPIOptionTypeClass][lhs];
             NSString *rhsName = optionTypesAndSlugsAndNames[BlizzardHSAPIOptionTypeClass][rhs];
@@ -321,6 +331,7 @@
         CardOptionItemModel *manaCostItem = [[CardOptionItemModel alloc] initWithOptionType:BlizzardHSAPIOptionTypeManaCost
                                                                               slugsAndNames:slugsAndNumberNames
                                                                               showsEmptyRow:YES
+                                                                    allowsMultipleSelection:YES
                                                                                  comparator:^NSComparisonResult(NSString * _Nonnull lhs, NSString * _Nonnull rhs) {
             NSNumber *lhsNumber = [NSNumber numberWithInteger:lhs.integerValue];
             NSNumber *rhsNumber = [NSNumber numberWithInteger:rhs.integerValue];
@@ -333,6 +344,7 @@
         CardOptionItemModel *attackItem = [[CardOptionItemModel alloc] initWithOptionType:BlizzardHSAPIOptionTypeAttack
                                                                               slugsAndNames:slugsAndNumberNames
                                                                             showsEmptyRow:YES
+                                                                  allowsMultipleSelection:YES
                                                                                  comparator:^NSComparisonResult(NSString * _Nonnull lhs, NSString * _Nonnull rhs) {
             NSNumber *lhsNumber = [NSNumber numberWithInteger:lhs.integerValue];
             NSNumber *rhsNumber = [NSNumber numberWithInteger:rhs.integerValue];
@@ -345,6 +357,7 @@
         CardOptionItemModel *healthItem = [[CardOptionItemModel alloc] initWithOptionType:BlizzardHSAPIOptionTypeHealth
                                                                               slugsAndNames:slugsAndNumberNames
                                                                             showsEmptyRow:YES
+                                                                  allowsMultipleSelection:YES
                                                                                  comparator:^NSComparisonResult(NSString * _Nonnull lhs, NSString * _Nonnull rhs) {
             NSNumber *lhsNumber = [NSNumber numberWithInteger:lhs.integerValue];
             NSNumber *rhsNumber = [NSNumber numberWithInteger:rhs.integerValue];
@@ -357,6 +370,7 @@
         CardOptionItemModel *collectibleItem = [[CardOptionItemModel alloc] initWithOptionType:BlizzardHSAPIOptionTypeCollectible
                                                                                  slugsAndNames:[ResourcesService localizationsForHSCardCollectible]
                                                                                  showsEmptyRow:NO
+                                                                       allowsMultipleSelection:NO
                                                                                     comparator:^NSComparisonResult(NSString * _Nonnull lhs, NSString * _Nonnull rhs) {
             NSNumber *lhsNumber = [NSNumber numberWithInteger:HSCardCollectibleFromNSString(lhs)];
             NSNumber *rhsNumber = [NSNumber numberWithInteger:HSCardCollectibleFromNSString(rhs)];
@@ -369,6 +383,7 @@
         CardOptionItemModel *rarityItem = [[CardOptionItemModel alloc] initWithOptionType:BlizzardHSAPIOptionTypeRarity
                                                                             slugsAndNames:optionTypesAndSlugsAndNames[BlizzardHSAPIOptionTypeRarity]
                                                                             showsEmptyRow:YES
+                                                                  allowsMultipleSelection:YES
                                                                                comparator:^NSComparisonResult(NSString * _Nonnull lhs, NSString * _Nonnull rhs) {
             NSNumber *lhsNumber = optionTypesAndSlugsAndIds[BlizzardHSAPIOptionTypeRarity][lhs];
             NSNumber *rhsNumber = optionTypesAndSlugsAndIds[BlizzardHSAPIOptionTypeRarity][rhs];
@@ -381,6 +396,7 @@
         CardOptionItemModel *typeItem = [[CardOptionItemModel alloc] initWithOptionType:BlizzardHSAPIOptionTypeType
                                                                           slugsAndNames:optionTypesAndSlugsAndNames[BlizzardHSAPIOptionTypeType]
                                                                           showsEmptyRow:YES
+                                                                allowsMultipleSelection:YES
                                                                              comparator:^NSComparisonResult(NSString * _Nonnull lhs, NSString * _Nonnull rhs) {
             NSString *lhsName = optionTypesAndSlugsAndNames[BlizzardHSAPIOptionTypeType][lhs];
             NSString *rhsName = optionTypesAndSlugsAndNames[BlizzardHSAPIOptionTypeType][rhs];
@@ -392,7 +408,9 @@
         
         CardOptionItemModel *minionType = [[CardOptionItemModel alloc] initWithOptionType:BlizzardHSAPIOptionTypeMinionType
                                                                             slugsAndNames:optionTypesAndSlugsAndNames[BlizzardHSAPIOptionTypeMinionType]
-                                                                            showsEmptyRow:YES comparator:^NSComparisonResult(NSString * _Nonnull lhs, NSString * _Nonnull rhs) {
+                                                                            showsEmptyRow:YES
+                                                                  allowsMultipleSelection:YES
+                                                                               comparator:^NSComparisonResult(NSString * _Nonnull lhs, NSString * _Nonnull rhs) {
             NSString *lhsName = optionTypesAndSlugsAndNames[BlizzardHSAPIOptionTypeMinionType][lhs];
             NSString *rhsName = optionTypesAndSlugsAndNames[BlizzardHSAPIOptionTypeMinionType][rhs];
             return [lhsName compare:rhsName];
@@ -404,6 +422,7 @@
         CardOptionItemModel *spellSchoolType = [[CardOptionItemModel alloc] initWithOptionType:BlizzardHSAPIOptionTypeSpellSchool
                                                                                  slugsAndNames:optionTypesAndSlugsAndNames[BlizzardHSAPIOptionTypeSpellSchool]
                                                                                  showsEmptyRow:YES
+                                                                       allowsMultipleSelection:YES
                                                                                     comparator:^NSComparisonResult(NSString * _Nonnull lhs, NSString * _Nonnull rhs) {
             NSString *lhsName = optionTypesAndSlugsAndNames[BlizzardHSAPIOptionTypeSpellSchool][lhs];
             NSString *rhsName = optionTypesAndSlugsAndNames[BlizzardHSAPIOptionTypeSpellSchool][rhs];
@@ -416,6 +435,7 @@
         CardOptionItemModel *keywordItem = [[CardOptionItemModel alloc] initWithOptionType:BlizzardHSAPIOptionTypeKeyword
                                                                              slugsAndNames:optionTypesAndSlugsAndNames[BlizzardHSAPIOptionTypeKeyword]
                                                                              showsEmptyRow:YES
+                                                                   allowsMultipleSelection:YES
                                                                                 comparator:^NSComparisonResult(NSString * _Nonnull lhs, NSString * _Nonnull rhs) {
             NSString *lhsName = optionTypesAndSlugsAndNames[BlizzardHSAPIOptionTypeKeyword][lhs];
             NSString *rhsName = optionTypesAndSlugsAndNames[BlizzardHSAPIOptionTypeKeyword][rhs];
@@ -428,6 +448,7 @@
         CardOptionItemModel *textFilterItem = [[CardOptionItemModel alloc] initWithOptionType:BlizzardHSAPIOptionTypeTextFilter
                                                                                 slugsAndNames:optionTypesAndSlugsAndNames[BlizzardHSAPIOptionTypeTextFilter]
                                                                                 showsEmptyRow:YES
+                                                                      allowsMultipleSelection:NO
                                                                                    comparator:^NSComparisonResult(NSString * _Nonnull lhs, NSString * _Nonnull rhs) {
             return NSOrderedSame;;
         }
@@ -438,6 +459,7 @@
         CardOptionItemModel *gameModeItem = [[CardOptionItemModel alloc] initWithOptionType:BlizzardHSAPIOptionTypeGameMode
                                                                               slugsAndNames:optionTypesAndSlugsAndNames[BlizzardHSAPIOptionTypeGameMode]
                                                                               showsEmptyRow:NO
+                                                                    allowsMultipleSelection:NO
                                                                                  comparator:^NSComparisonResult(NSString * _Nonnull lhs, NSString * _Nonnull rhs) {
             NSString *lhsName = optionTypesAndSlugsAndNames[BlizzardHSAPIOptionTypeGameMode][lhs];
             NSString *rhsName = optionTypesAndSlugsAndNames[BlizzardHSAPIOptionTypeGameMode][rhs];
@@ -450,6 +472,7 @@
         CardOptionItemModel *sortItem = [[CardOptionItemModel alloc] initWithOptionType:BlizzardHSAPIOptionTypeSort
                                                                           slugsAndNames:[ResourcesService localizationsForHSCardSort]
                                                                           showsEmptyRow:NO
+                                                                allowsMultipleSelection:YES
                                                                              comparator:^NSComparisonResult(NSString * _Nonnull lhs, NSString * _Nonnull rhs) {
             NSNumber *lhsNumber = [NSNumber numberWithInteger:HSCardSortFromNSString(lhs)];
             NSNumber *rhsNumber = [NSNumber numberWithInteger:HSCardSortFromNSString(rhs)];

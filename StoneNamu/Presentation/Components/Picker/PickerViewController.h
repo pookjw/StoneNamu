@@ -1,25 +1,23 @@
 //
 //  PickerViewController.h
-//  PickerSheetViewController
+//  StoneNamu
 //
-//  Created by Jinwoo Kim on 7/25/21.
+//  Created by Jinwoo Kim on 2/19/22.
 //
 
 #import <UIKit/UIKit.h>
 #import "PickerItemModel.h"
-
-typedef void (^PickerViewControllerDoneCompletion)(PickerItemModel * _Nullable);
+#import "PickerViewControllerDelegate.h"
 
 NS_ASSUME_NONNULL_BEGIN
+
+typedef void (^PickerViewControllerDidSelectItems)(NSSet<PickerItemModel *> *);
 
 @interface PickerViewController : UIViewController
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
-- (instancetype)initWithDataSource:(NSArray<PickerItemModel *> *)dataSource
-                             title:(NSString *)title
-                      showEmptyRow:(BOOL)showEmptyRow
-                    doneCompletion:(PickerViewControllerDoneCompletion)doneCompletion;
-- (void)selectIdentity:(NSString *)identity animated:(BOOL)animated;
+- (instancetype)initWithItems:(NSSet<PickerItemModel *> *)items allowsMultipleSelection:(BOOL)allowsMultipleSelection comparator:(NSComparisonResult (^)(NSString *, NSString *))comparator delegate:(id<PickerViewControllerDelegate>)delegate;
+- (instancetype)initWithItems:(NSSet<PickerItemModel *> *)items allowsMultipleSelection:(BOOL)allowsMultipleSelection comparator:(NSComparisonResult (^)(NSString *, NSString *))comparator didSelectItems:(PickerViewControllerDidSelectItems)didSelectItems;
 @end
 
 NS_ASSUME_NONNULL_END

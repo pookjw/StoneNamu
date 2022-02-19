@@ -55,7 +55,7 @@
     pc.detents = self.detents;
     
     pc.prefersGrabberVisible = YES;
-    pc.selectedDetentIdentifier = UISheetPresentationControllerDetentIdentifierMedium;
+//    pc.selectedDetentIdentifier = UISheetPresentationControllerDetentIdentifierMedium;
     
     [pc autorelease];
     return pc;

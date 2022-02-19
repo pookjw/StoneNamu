@@ -404,7 +404,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
     NSDictionary<NSString *, id> *userInfo = sender.userInfo;
     
     BOOL showsEmptyItem;
-    BOOL supportsMultipleSelection;
+    BOOL allowsMultipleSelection;
     
     if (userInfo[DeckAddCardOptionsMenuFactoryStorableMenuItemShowsEmptyItemKey]) {
         showsEmptyItem = [(NSNumber *)userInfo[DeckAddCardOptionsMenuFactoryStorableMenuItemShowsEmptyItemKey] boolValue];
@@ -412,10 +412,10 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
         showsEmptyItem = NO;
     }
     
-    if (userInfo[DeckAddCardOptionsMenuFactoryStorableMenuItemSuppoertsMultipleSelection]) {
-        supportsMultipleSelection = [(NSNumber *)userInfo[DeckAddCardOptionsMenuFactoryStorableMenuItemSuppoertsMultipleSelection] boolValue];
+    if (userInfo[DeckAddCardOptionsMenuFactoryStorableMenuItemAllowsMultipleSelection]) {
+        allowsMultipleSelection = [(NSNumber *)userInfo[DeckAddCardOptionsMenuFactoryStorableMenuItemAllowsMultipleSelection] boolValue];
     } else {
-        supportsMultipleSelection = NO;
+        allowsMultipleSelection = NO;
     }
     
     NSString *key = userInfo[DeckAddCardOptionsMenuFactoryStorableMenuItemOptionTypeKey];
@@ -425,7 +425,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
     
     if ([value isEqualToString:@""]) {
         [self.options removeObjectForKey:key];
-    } else if (!supportsMultipleSelection) {
+    } else if (!allowsMultipleSelection) {
         self.options[key] = [NSSet setWithObject:value];
     } else {
         NSMutableSet<NSString *> * _Nullable values = [self.options[key] mutableCopy];

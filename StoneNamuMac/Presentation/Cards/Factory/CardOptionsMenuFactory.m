@@ -259,7 +259,7 @@
                                                                     userInfo:@{CardOptionsMenuFactoryStorableMenuItemOptionTypeKey: type,
                                                                                CardOptionsMenuFactoryStorableMenuItemValueKey: key,
                                                                                CardOptionsMenuFactoryStorableMenuItemShowsEmptyItemKey: [NSNumber numberWithBool:showEmptyItem],
-                                                                               CardOptionsMenuFactoryStorableMenuItemSuppoertsMultipleSelection: [NSNumber numberWithBool:[self supportsMultipleSelectionFromOptionType:type]]}];
+                                                                               CardOptionsMenuFactoryStorableMenuItemAllowsMultipleSelection: [NSNumber numberWithBool:[self supportsMultipleSelectionFromOptionType:type]]}];
             item.target = target;
             
             [arr addObject:item];
@@ -281,7 +281,7 @@
                                                                      userInfo:@{CardOptionsMenuFactoryStorableMenuItemOptionTypeKey: type,
                                                                                 CardOptionsMenuFactoryStorableMenuItemValueKey: @"",
                                                                                 CardOptionsMenuFactoryStorableMenuItemShowsEmptyItemKey: [NSNumber numberWithBool:showEmptyItem],
-                                                                                CardOptionsMenuFactoryStorableMenuItemSuppoertsMultipleSelection: [NSNumber numberWithBool:[self supportsMultipleSelectionFromOptionType:type]]}];
+                                                                                CardOptionsMenuFactoryStorableMenuItemAllowsMultipleSelection: [NSNumber numberWithBool:[self supportsMultipleSelectionFromOptionType:type]]}];
         emptyItem.target = target;
         
         [arr insertObject:emptyItem atIndex:0];
@@ -299,7 +299,7 @@
     StorableMenuItem *item = [[StorableMenuItem alloc] initWithTitle:@"" action:nil keyEquivalent:@"" userInfo:@{CardOptionsMenuFactoryStorableMenuItemOptionTypeKey: optionType,
                                                                                                                  CardOptionsMenuFactoryStorableMenuItemValueKey: @"",
                                                                                                                  CardOptionsMenuFactoryStorableMenuItemShowsEmptyItemKey: @NO,
-                                                                                                                 CardOptionsMenuFactoryStorableMenuItemSuppoertsMultipleSelection: [NSNumber numberWithBool:[self supportsMultipleSelectionFromOptionType:optionType]]}];
+                                                                                                                 CardOptionsMenuFactoryStorableMenuItemAllowsMultipleSelection: [NSNumber numberWithBool:[self supportsMultipleSelectionFromOptionType:optionType]]}];
     StorableSearchField *searchField = [[StorableSearchField alloc] initWithUserInfo:@{optionType: @""}];
     
     searchField.frame = CGRectMake(0, 0, 300, 20);

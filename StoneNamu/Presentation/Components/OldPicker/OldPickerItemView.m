@@ -1,13 +1,13 @@
 //
-//  PickerItemView.m
-//  PickerItemView
+//  OldPickerItemView.m
+//  OldPickerItemView
 //
 //  Created by Jinwoo Kim on 7/26/21.
 //
 
-#import "PickerItemView.h"
+#import "OldPickerItemView.h"
 
-@interface PickerItemView ()
+@interface OldPickerItemView ()
 @property (retain) UIImageView *imageView;
 @property (retain) NSLayoutConstraint *imageViewAspectLayout;
 @property (retain) NSLayoutConstraint *imageViewWidthLayout;
@@ -16,7 +16,7 @@
 @property (retain) UILabel *secondaryLabel;
 @end
 
-@implementation PickerItemView
+@implementation OldPickerItemView
 
 + (CGFloat)getHeightUsingWidth:(CGFloat)width {
     NSString *string = @"";

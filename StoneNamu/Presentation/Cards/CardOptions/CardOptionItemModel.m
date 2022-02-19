@@ -10,7 +10,7 @@
 
 @implementation CardOptionItemModel
 
-- (instancetype)initWithOptionType:(BlizzardHSAPIOptionType)optionType slugsAndNames:(NSDictionary<NSString *, NSString *> * _Nullable)slugsAndNames showsEmptyRow:(BOOL)showsEmptyRow comparator:(NSComparisonResult (^ _Nullable)(NSString *, NSString *))comparator title:(NSString *)title accessoryText:(NSString *)accessoryText toolTip:(NSString *)toolTip {
+- (instancetype)initWithOptionType:(BlizzardHSAPIOptionType)optionType slugsAndNames:(NSDictionary<NSString *, NSString *> * _Nullable)slugsAndNames showsEmptyRow:(BOOL)showsEmptyRow allowsMultipleSelection:(BOOL)allowsMultipleSelection comparator:(NSComparisonResult (^ _Nullable)(NSString *, NSString *))comparator title:(NSString *)title accessoryText:(NSString *)accessoryText toolTip:(NSString *)toolTip {
     self = [self init];
     
     if (self) {
@@ -23,6 +23,7 @@
         self->_slugsAndNames = [slugsAndNames copy];
         
         self->_showsEmptyRow = showsEmptyRow;
+        self->_allowsMultipleSelection = allowsMultipleSelection;
         
         [self->_comparator release];
         self->_comparator = [comparator copy];

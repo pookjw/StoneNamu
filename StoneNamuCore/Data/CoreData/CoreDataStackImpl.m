@@ -15,6 +15,8 @@ static NSDictionary<NSString *, NSManagedObjectContext *> *kContexts = @{};
 static NSDictionary<NSString *, NSOperationQueue *> *kOperationQueues = @{};
 static NSDictionary<NSString *, NSNumber *> *kMigrateStatus = @{};
 
+static NSString *coreDataStackImplSynchronizedToken = @"coreDataStackImplSynchronizedToken";
+
 @interface CoreDataStackImpl () {
     NSManagedObjectContext *_context;
     NSPersistentContainer *_storeContainer;
@@ -30,22 +32,20 @@ static NSDictionary<NSString *, NSNumber *> *kMigrateStatus = @{};
 @synthesize queue = _queue;
 
 - (instancetype)initWithModelName:(NSString *)modelName storeContainerClass:(Class)storeContainerClass models:(nonnull NSArray<NSString *> *)models {
-    if (!NSThread.isMainThread) {
-        [NSException raise:@"Not Main Thread!" format:@"Please run init at Main Thread!"];
+    @synchronized (coreDataStackImplSynchronizedToken) {
+        self = [self init];
+        
+        if (self) {
+            self.storeContainerClass = storeContainerClass;
+            [self configureStoreContainerWithModelName:modelName models:models class:storeContainerClass];
+            [self configureContextWithModelName:modelName];
+            [self configureQueueWithModelName:modelName];
+            [self performMigrationIfNeededWithModelName:modelName models:models];
+            [self bind];
+        }
+        
+        return self;
     }
-    
-    self = [self init];
-    
-    if (self) {
-        self.storeContainerClass = storeContainerClass;
-        [self configureStoreContainerWithModelName:modelName models:models class:storeContainerClass];
-        [self configureContextWithModelName:modelName];
-        [self configureQueueWithModelName:modelName];
-        [self performMigrationIfNeededWithModelName:modelName models:models];
-        [self bind];
-    }
-    
-    return self;
 }
 
 - (void)dealloc {

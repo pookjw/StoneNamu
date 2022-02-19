@@ -24,6 +24,10 @@
 		4F0863F02751C96900B251BF /* DecksMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F0863EF2751C96900B251BF /* DecksMenu.m */; };
 		4F0863F42751D0A200B251BF /* NSUserInterfaceItemIdentifierDecks+HSDeckFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F0863F32751D0A200B251BF /* NSUserInterfaceItemIdentifierDecks+HSDeckFormat.m */; };
 		4F128D45273C044100C6A0D9 /* IntrinsicCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F128D44273C044100C6A0D9 /* IntrinsicCollectionView.m */; };
+		4F13AE1027C0E08E00E28BD9 /* PickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F13AE0F27C0E08E00E28BD9 /* PickerViewController.m */; };
+		4F13AE1327C0E0B500E28BD9 /* PickerViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F13AE1227C0E0B500E28BD9 /* PickerViewModel.m */; };
+		4F13AE1627C0E0C000E28BD9 /* PickerSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F13AE1527C0E0C000E28BD9 /* PickerSectionModel.m */; };
+		4F13AE1927C0E0C900E28BD9 /* PickerItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F13AE1827C0E0C900E28BD9 /* PickerItemModel.m */; };
 		4F182BD126AC23600028115C /* UIViewController+presentErrorAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F182BD026AC23600028115C /* UIViewController+presentErrorAlert.m */; };
 		4F1B98A626C8235B004E1603 /* PrefsLocaleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1B98A526C8235B004E1603 /* PrefsLocaleViewController.m */; };
 		4F1B98A926C82382004E1603 /* PrefsRegionHostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F1B98A826C82382004E1603 /* PrefsRegionHostViewController.m */; };
@@ -143,10 +147,10 @@
 		4F4C5E2226D31F0E00E3349B /* NSDiffableDataSourceSnapshot+sort.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4C5E2126D31F0E00E3349B /* NSDiffableDataSourceSnapshot+sort.m */; };
 		4F4DD75926DFD54B00893E2B /* NSMutableArray+removeSingle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8F976126D45C290024FC06 /* NSMutableArray+removeSingle.m */; };
 		4F53D4BB27231D1900DE6F25 /* DeckAddCardSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F53D4B927231D1900DE6F25 /* DeckAddCardSplitViewController.m */; };
-		4F57DE9D26AD7B53000E4163 /* PickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F57DE9C26AD7B53000E4163 /* PickerViewController.m */; };
+		4F57DE9D26AD7B53000E4163 /* OldPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F57DE9C26AD7B53000E4163 /* OldPickerViewController.m */; };
 		4F57DEA126AD7DB3000E4163 /* SheetNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F57DEA026AD7DB3000E4163 /* SheetNavigationController.m */; };
-		4F57DEAC26ADA6E3000E4163 /* PickerItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F57DEAB26ADA6E3000E4163 /* PickerItemModel.m */; };
-		4F57DEB926ADC3CF000E4163 /* PickerItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F57DEB826ADC3CF000E4163 /* PickerItemView.m */; };
+		4F57DEAC26ADA6E3000E4163 /* OldPickerItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F57DEAB26ADA6E3000E4163 /* OldPickerItemModel.m */; };
+		4F57DEB926ADC3CF000E4163 /* OldPickerItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F57DEB826ADC3CF000E4163 /* OldPickerItemView.m */; };
 		4F5900862752FDE000217E4A /* NSTableViewDiffableDataSource+applySnapshotAndWait.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F5900852752FDE000217E4A /* NSTableViewDiffableDataSource+applySnapshotAndWait.m */; };
 		4F5900892752FE4D00217E4A /* MainListTableCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F5900882752FE4D00217E4A /* MainListTableCellView.m */; };
 		4F59008B2752FE6100217E4A /* MainListTableCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F59008A2752FE6100217E4A /* MainListTableCellView.xib */; };
@@ -572,6 +576,15 @@
 		4F128D43273C044100C6A0D9 /* IntrinsicCollectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IntrinsicCollectionView.h; sourceTree = "<group>"; };
 		4F128D44273C044100C6A0D9 /* IntrinsicCollectionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IntrinsicCollectionView.m; sourceTree = "<group>"; };
 		4F138422274C52DE007E68E4 /* CardDetailsChildCollectionViewItemDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardDetailsChildCollectionViewItemDelegate.h; sourceTree = "<group>"; };
+		4F13AE0E27C0E08E00E28BD9 /* PickerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PickerViewController.h; sourceTree = "<group>"; };
+		4F13AE0F27C0E08E00E28BD9 /* PickerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PickerViewController.m; sourceTree = "<group>"; };
+		4F13AE1127C0E0B500E28BD9 /* PickerViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PickerViewModel.h; sourceTree = "<group>"; };
+		4F13AE1227C0E0B500E28BD9 /* PickerViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PickerViewModel.m; sourceTree = "<group>"; };
+		4F13AE1427C0E0C000E28BD9 /* PickerSectionModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PickerSectionModel.h; sourceTree = "<group>"; };
+		4F13AE1527C0E0C000E28BD9 /* PickerSectionModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PickerSectionModel.m; sourceTree = "<group>"; };
+		4F13AE1727C0E0C900E28BD9 /* PickerItemModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PickerItemModel.h; sourceTree = "<group>"; };
+		4F13AE1827C0E0C900E28BD9 /* PickerItemModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PickerItemModel.m; sourceTree = "<group>"; };
+		4F13AE1A27C0E0DA00E28BD9 /* PickerViewControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PickerViewControllerDelegate.h; sourceTree = "<group>"; };
 		4F182BCF26AC23600028115C /* UIViewController+presentErrorAlert.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+presentErrorAlert.h"; sourceTree = "<group>"; };
 		4F182BD026AC23600028115C /* UIViewController+presentErrorAlert.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+presentErrorAlert.m"; sourceTree = "<group>"; };
 		4F1B98A426C8235B004E1603 /* PrefsLocaleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefsLocaleViewController.h; sourceTree = "<group>"; };
@@ -741,14 +754,14 @@
 		4F53D4B22722FAAF00DE6F25 /* MainLayoutProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainLayoutProtocol.h; sourceTree = "<group>"; };
 		4F53D4B927231D1900DE6F25 /* DeckAddCardSplitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeckAddCardSplitViewController.m; sourceTree = "<group>"; };
 		4F53D4BA27231D1900DE6F25 /* DeckAddCardSplitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeckAddCardSplitViewController.h; sourceTree = "<group>"; };
-		4F57DE9B26AD7B53000E4163 /* PickerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PickerViewController.h; sourceTree = "<group>"; };
-		4F57DE9C26AD7B53000E4163 /* PickerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PickerViewController.m; sourceTree = "<group>"; };
+		4F57DE9B26AD7B53000E4163 /* OldPickerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OldPickerViewController.h; sourceTree = "<group>"; };
+		4F57DE9C26AD7B53000E4163 /* OldPickerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OldPickerViewController.m; sourceTree = "<group>"; };
 		4F57DE9F26AD7DB3000E4163 /* SheetNavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SheetNavigationController.h; sourceTree = "<group>"; };
 		4F57DEA026AD7DB3000E4163 /* SheetNavigationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SheetNavigationController.m; sourceTree = "<group>"; };
-		4F57DEAA26ADA6E3000E4163 /* PickerItemModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PickerItemModel.h; sourceTree = "<group>"; };
-		4F57DEAB26ADA6E3000E4163 /* PickerItemModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PickerItemModel.m; sourceTree = "<group>"; };
-		4F57DEB726ADC3CF000E4163 /* PickerItemView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PickerItemView.h; sourceTree = "<group>"; };
-		4F57DEB826ADC3CF000E4163 /* PickerItemView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PickerItemView.m; sourceTree = "<group>"; };
+		4F57DEAA26ADA6E3000E4163 /* OldPickerItemModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OldPickerItemModel.h; sourceTree = "<group>"; };
+		4F57DEAB26ADA6E3000E4163 /* OldPickerItemModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OldPickerItemModel.m; sourceTree = "<group>"; };
+		4F57DEB726ADC3CF000E4163 /* OldPickerItemView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OldPickerItemView.h; sourceTree = "<group>"; };
+		4F57DEB826ADC3CF000E4163 /* OldPickerItemView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OldPickerItemView.m; sourceTree = "<group>"; };
 		4F5900832752FDAF00217E4A /* NSTableViewDiffableDataSource+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSTableViewDiffableDataSource+Private.h"; sourceTree = "<group>"; };
 		4F5900842752FDCB00217E4A /* NSTableViewDiffableDataSource+applySnapshotAndWait.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSTableViewDiffableDataSource+applySnapshotAndWait.h"; sourceTree = "<group>"; };
 		4F5900852752FDE000217E4A /* NSTableViewDiffableDataSource+applySnapshotAndWait.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSTableViewDiffableDataSource+applySnapshotAndWait.m"; sourceTree = "<group>"; };
@@ -1368,6 +1381,22 @@
 			path = Intrinsic;
 			sourceTree = "<group>";
 		};
+		4F13AE0D27C0E06F00E28BD9 /* Picker */ = {
+			isa = PBXGroup;
+			children = (
+				4F13AE1A27C0E0DA00E28BD9 /* PickerViewControllerDelegate.h */,
+				4F13AE0E27C0E08E00E28BD9 /* PickerViewController.h */,
+				4F13AE0F27C0E08E00E28BD9 /* PickerViewController.m */,
+				4F13AE1127C0E0B500E28BD9 /* PickerViewModel.h */,
+				4F13AE1227C0E0B500E28BD9 /* PickerViewModel.m */,
+				4F13AE1427C0E0C000E28BD9 /* PickerSectionModel.h */,
+				4F13AE1527C0E0C000E28BD9 /* PickerSectionModel.m */,
+				4F13AE1727C0E0C900E28BD9 /* PickerItemModel.h */,
+				4F13AE1827C0E0C900E28BD9 /* PickerItemModel.m */,
+			);
+			path = Picker;
+			sourceTree = "<group>";
+		};
 		4F182BCB26AC23330028115C /* Category */ = {
 			isa = PBXGroup;
 			children = (
@@ -1855,7 +1884,8 @@
 				4F8754B326DB875D000CE351 /* SpinnerView */,
 				4F8F976626D47EF10024FC06 /* InsetLabel */,
 				4F6A13AF26B2733D0089A13A /* Stepper */,
-				4F95AED726AD6A810075D2D9 /* Picker */,
+				4F13AE0D27C0E06F00E28BD9 /* Picker */,
+				4F95AED726AD6A810075D2D9 /* OldPicker */,
 				4F57DE9E26AD7D98000E4163 /* Sheet */,
 				4FF3E0D826CA944B002B20EA /* OneBesideSecondary */,
 				4FB0ECEC26B833FD0020EE6C /* Dynamic */,
@@ -2231,17 +2261,17 @@
 			path = Card;
 			sourceTree = "<group>";
 		};
-		4F95AED726AD6A810075D2D9 /* Picker */ = {
+		4F95AED726AD6A810075D2D9 /* OldPicker */ = {
 			isa = PBXGroup;
 			children = (
-				4F57DE9B26AD7B53000E4163 /* PickerViewController.h */,
-				4F57DE9C26AD7B53000E4163 /* PickerViewController.m */,
-				4F57DEB726ADC3CF000E4163 /* PickerItemView.h */,
-				4F57DEB826ADC3CF000E4163 /* PickerItemView.m */,
-				4F57DEAA26ADA6E3000E4163 /* PickerItemModel.h */,
-				4F57DEAB26ADA6E3000E4163 /* PickerItemModel.m */,
+				4F57DE9B26AD7B53000E4163 /* OldPickerViewController.h */,
+				4F57DE9C26AD7B53000E4163 /* OldPickerViewController.m */,
+				4F57DEB726ADC3CF000E4163 /* OldPickerItemView.h */,
+				4F57DEB826ADC3CF000E4163 /* OldPickerItemView.m */,
+				4F57DEAA26ADA6E3000E4163 /* OldPickerItemModel.h */,
+				4F57DEAB26ADA6E3000E4163 /* OldPickerItemModel.m */,
 			);
-			path = Picker;
+			path = OldPicker;
 			sourceTree = "<group>";
 		};
 		4F98C28C27284D8F00865CCD /* Components */ = {
@@ -3675,7 +3705,7 @@
 				4FF3E0C326C9901F002B20EA /* PrefsRegionHostSectionModel.m in Sources */,
 				4FA56BAC26A21059002D9FA0 /* AppDelegate.m in Sources */,
 				4F7EC54726EB290B00A7758D /* DeckImageRenderService.m in Sources */,
-				4F57DEB926ADC3CF000E4163 /* PickerItemView.m in Sources */,
+				4F57DEB926ADC3CF000E4163 /* OldPickerItemView.m in Sources */,
 				4F7EC54E26EB2A3700A7758D /* DeckImageRenderServiceModel.m in Sources */,
 				4FF3E0C226C9901F002B20EA /* PrefsRegionHostViewModel.m in Sources */,
 				4F3F1BC626E7C21100ACF80A /* UIView+removeAllSubviews.m in Sources */,
@@ -3683,7 +3713,8 @@
 				4F3F1BC326E7C12000ACF80A /* TextActivityViewController.m in Sources */,
 				4F248383271DA25800A231BF /* FloatingPresentationController.m in Sources */,
 				4F29FD732722EAB700753E8D /* MainViewController.m in Sources */,
-				4F57DE9D26AD7B53000E4163 /* PickerViewController.m in Sources */,
+				4F57DE9D26AD7B53000E4163 /* OldPickerViewController.m in Sources */,
+				4F13AE1027C0E08E00E28BD9 /* PickerViewController.m in Sources */,
 				4FD87F8C2719C9EC003EED4B /* MainListViewController.m in Sources */,
 				4FDE8DFB26F113AB00959B97 /* DeckImageRenderServiceAboutContentConfiguration.m in Sources */,
 				4F20B9DD27678CF1000FDA6D /* CardDetailsCollectionViewLayout.m in Sources */,
@@ -3719,11 +3750,12 @@
 				4F8FFF3F26E0E66A00FA6586 /* DeckAddCardItemModel.m in Sources */,
 				4F4976E626ABFE2100860809 /* CardOptionsViewModel.m in Sources */,
 				4FFBAADB26E4FE9900DBEEDB /* UIImage+imageWithGrayScale.m in Sources */,
+				4F13AE1927C0E0C900E28BD9 /* PickerItemModel.m in Sources */,
 				4F4976EC26ABFF6900860809 /* CardOptionItemModel.m in Sources */,
 				4FA56BBD26A2105A002D9FA0 /* main.m in Sources */,
 				4F7EC55126EB2B0500A7758D /* DeckImageRenderServiceSectionModel.m in Sources */,
 				4FFDD65326CAC274008E5B45 /* UIView+scrollToTopForRecursiveView.m in Sources */,
-				4F57DEAC26ADA6E3000E4163 /* PickerItemModel.m in Sources */,
+				4F57DEAC26ADA6E3000E4163 /* OldPickerItemModel.m in Sources */,
 				4F066CC126D71B2200991A98 /* DeckBaseContentView.m in Sources */,
 				4FCC22B126ECA3C4004997AA /* DeckImageRenderServiceIntroContentConfiguration.m in Sources */,
 				4FC094FD26CD77C400A7D373 /* DecksViewModel.m in Sources */,
@@ -3731,6 +3763,7 @@
 				4FD87F902719CA15003EED4B /* MainSplitViewController.m in Sources */,
 				4F03F57926C7B62C00FC9155 /* PrefsSectionModel.m in Sources */,
 				4FF3E0C426C9901F002B20EA /* PrefsRegionHostItemModel.m in Sources */,
+				4F13AE1327C0E0B500E28BD9 /* PickerViewModel.m in Sources */,
 				4F8FFF5126E0EE9000FA6586 /* DeckAddCardOptionsViewController.m in Sources */,
 				4FEB413E26BD6116009D8594 /* CardDetailsBasicContentView.m in Sources */,
 				4F4C5E1F26D3015D00E3349B /* DragItemService.m in Sources */,
@@ -3741,6 +3774,7 @@
 				4F066CBE26D71ACD00991A98 /* DeckBaseContentConfiguration.m in Sources */,
 				4FF3E0B526C97D95002B20EA /* PrefsLocaleViewModel.m in Sources */,
 				4F03F57626C7B62200FC9155 /* PrefsViewModel.m in Sources */,
+				4F13AE1627C0E0C000E28BD9 /* PickerSectionModel.m in Sources */,
 				4F4976D226ABE6B600860809 /* CardsViewModel.m in Sources */,
 				4F9070A126D3803800BA7614 /* UIImage+averageColor.m in Sources */,
 				4FCC22B426ECA4B7004997AA /* DeckImageRenderServiceIntroContentView.m in Sources */,

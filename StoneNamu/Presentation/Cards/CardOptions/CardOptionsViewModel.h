@@ -8,7 +8,7 @@
 #import <UIKit/UIKit.h>
 #import "CardOptionSectionModel.h"
 #import "CardOptionItemModel.h"
-#import "PickerItemModel.h"
+#import "OldPickerItemModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -21,6 +21,8 @@ static NSString * CardOptionsViewModelPresentPickerNotificationOptionTypeItemKey
 static NSString * CardOptionsViewModelPresentPickerNotificationSlugsAndNamesKey = @"CardOptionsViewModelPresentPickerNotificationSlugsAndNamesKey";
 static NSString * const CardOptionsViewModelPresentPickerNotificationValuesItemKey = @"CardOptionsViewModelPresentPickerNotificationValuesItemKey";
 static NSString * const CardOptionsViewModelPresentPickerNotificationShowsEmptyRowItemKey = @"CardOptionsViewModelPresentPickerNotificationShowsEmptyRowItemKey";
+static NSString * const CardOptionsViewModelPresentPickerNotificationAllowsMultipleSelectionItemKey = @"CardOptionsViewModelPresentPickerNotificationAllowsMultipleSelectionItemKey";
+static NSString * const CardOptionsViewModelPresentPickerNotificationComparatorItemKey = @"CardOptionsViewModelPresentPickerNotificationComparatorItemKey";
 
 static NSNotificationName const NSNotificationNameCardOptionsViewModelStartedLoadingDataSource = @"NSNotificationNameCardOptionsViewModelStartedLoadingDataSource";
 static NSNotificationName const NSNotificationNameCardOptionsViewModelEndedLoadingDataSource = @"NSNotificationNameCardOptionsViewModelEndedLoadingDataSource";

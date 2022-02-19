@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (readonly, copy) NSDictionary<NSString *, NSString *> * _Nullable slugsAndNames;
 @property (readonly) BOOL showsEmptyRow;
+@property (readonly) BOOL allowsMultipleSelection;
 @property (readonly, copy, nullable) NSComparisonResult (^comparator)(NSString *, NSString *);
 
 @property (readonly, copy) NSString *title;
@@ -25,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
-- (instancetype)initWithOptionType:(BlizzardHSAPIOptionType)optionType slugsAndNames:(NSDictionary<NSString *, NSString *> * _Nullable)slugsAndNames showsEmptyRow:(BOOL)showsEmptyRow comparator:(NSComparisonResult (^ _Nullable)(NSString *, NSString *))comparator title:(NSString *)title accessoryText:(NSString * _Nullable)accessoryText toolTip:(NSString *)toolTip;
+- (instancetype)initWithOptionType:(BlizzardHSAPIOptionType)optionType slugsAndNames:(NSDictionary<NSString *, NSString *> * _Nullable)slugsAndNames showsEmptyRow:(BOOL)showsEmptyRow allowsMultipleSelection:(BOOL)allowsMultipleSelection comparator:(NSComparisonResult (^ _Nullable)(NSString *, NSString *))comparator title:(NSString *)title accessoryText:(NSString * _Nullable)accessoryText toolTip:(NSString *)toolTip;
 @end
 
 NS_ASSUME_NONNULL_END
