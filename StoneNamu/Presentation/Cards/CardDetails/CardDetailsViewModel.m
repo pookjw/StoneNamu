@@ -114,7 +114,7 @@
             
             CardDetailsItemModel *classItem = [[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeClass value:cardClassValue];
             
-            CardDetailsItemModel *collectibleItem = [[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeCollectible value:NSStringFromHSCardCollectible(hsCard.collectible)];
+            CardDetailsItemModel *collectibleItem = [[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeCollectible value:[ResourcesService localizationForHSCardCollectible:hsCard.collectible]];
             
             CardDetailsItemModel *artistNameItem = [[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeArtist value:hsCard.artistName];
             
