@@ -34,6 +34,10 @@
         self.localDeckUseCase = localDeckUseCase;
         [localDeckUseCase release];
         
+        HSMetaDataUseCaseImpl *hsMetaDataUseCase = [HSMetaDataUseCaseImpl new];
+        self.hsMetaDataUseCase = hsMetaDataUseCase;
+        [hsMetaDataUseCase release];
+        
         NSOperationQueue *queue = [NSOperationQueue new];
         queue.qualityOfService = NSQualityOfServiceUserInitiated;
         self.queue = queue;
@@ -53,171 +57,176 @@
 }
 
 - (void)updateDataSourceWithLocalDeck:(LocalDeck *)localDeck completion:(DeckImageRenderServiceModelUpdateWithCompletion)completion {
-    [self.hsMetaDataUseCase fetchWithCompletionHandler:^(HSMetaData * _Nullable hsMetaData, NSError * _Nullable error) {
-        [self.queue addBarrierBlock:^{
-            NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
-            [snapshot deleteAllItems];
-            
-            //
-            
-            NSArray<HSCard *> *hsCards = localDeck.hsCards;
-            NSString *deckName = localDeck.name;
-            NSNumber *classId = localDeck.classId;
-            HSDeckFormat deckFormat = localDeck.format;
-            
-            //
-            
-            NSMutableDictionary<HSCard *, NSNumber *> *countOfEachCards = [@{} mutableCopy];
-            NSNumber *totalArcaneDust = @0;
-            
-            HSCardRarity *freeRarity = [self.hsMetaDataUseCase hsCardRarityFromRaritySlug:HSCardRaritySlugTypeFree usingHSMetaData:hsMetaData];
-            HSCardRarity *commonRarity = [self.hsMetaDataUseCase hsCardRarityFromRaritySlug:HSCardRaritySlugTypeCommon usingHSMetaData:hsMetaData];
-            HSCardRarity *rareRarity = [self.hsMetaDataUseCase hsCardRarityFromRaritySlug:HSCardRaritySlugTypeRare usingHSMetaData:hsMetaData];
-            HSCardRarity *epicRarity = [self.hsMetaDataUseCase hsCardRarityFromRaritySlug:HSCardRaritySlugTypeEpic usingHSMetaData:hsMetaData];
-            HSCardRarity *legendaryRarity = [self.hsMetaDataUseCase hsCardRarityFromRaritySlug:HSCardRaritySlugTypeLegendary usingHSMetaData:hsMetaData];
-            
-            NSNumber * (^lowestNumber)(NSSet<NSNumber *> *) = ^NSNumber *(NSSet<NSNumber *> *numbers) {
-                NSNumber * _Nullable __block result = nil;
+    [self.queue addBarrierBlock:^{
+        [self.hsMetaDataUseCase fetchWithCompletionHandler:^(HSMetaData * _Nullable hsMetaData, NSError * _Nullable error) {
+            [self.queue addBarrierBlock:^{
+                NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
+                [snapshot deleteAllItems];
                 
-                [numbers enumerateObjectsUsingBlock:^(NSNumber * _Nonnull obj, BOOL * _Nonnull stop) {
-                    if (result == nil) {
-                        result = obj;
-                    } else {
-                        result = [NSNumber numberWithInt:MIN(obj.intValue, result.intValue)];
+                //
+                
+                NSArray<HSCard *> *hsCards = localDeck.hsCards;
+                NSString *deckName = localDeck.name;
+                NSNumber *classId = localDeck.classId;
+                HSDeckFormat deckFormat = localDeck.format;
+                
+                //
+                
+                NSMutableDictionary<HSCard *, NSNumber *> *countOfEachCards = [@{} mutableCopy];
+                NSNumber *totalArcaneDust = @0;
+                
+                HSCardRarity *freeRarity = [self.hsMetaDataUseCase hsCardRarityFromRaritySlug:HSCardRaritySlugTypeFree usingHSMetaData:hsMetaData];
+                HSCardRarity *commonRarity = [self.hsMetaDataUseCase hsCardRarityFromRaritySlug:HSCardRaritySlugTypeCommon usingHSMetaData:hsMetaData];
+                HSCardRarity *rareRarity = [self.hsMetaDataUseCase hsCardRarityFromRaritySlug:HSCardRaritySlugTypeRare usingHSMetaData:hsMetaData];
+                HSCardRarity *epicRarity = [self.hsMetaDataUseCase hsCardRarityFromRaritySlug:HSCardRaritySlugTypeEpic usingHSMetaData:hsMetaData];
+                HSCardRarity *legendaryRarity = [self.hsMetaDataUseCase hsCardRarityFromRaritySlug:HSCardRaritySlugTypeLegendary usingHSMetaData:hsMetaData];
+                
+                NSNumber * (^lowestNumber)(NSSet<NSNumber *> *) = ^NSNumber *(NSSet<NSNumber *> *numbers) {
+                    NSNumber * _Nullable __block result = nil;
+                    
+                    [numbers enumerateObjectsUsingBlock:^(NSNumber * _Nonnull obj, BOOL * _Nonnull stop) {
+                        if (result == nil) {
+                            result = obj;
+                        } else {
+                            result = [NSNumber numberWithInt:MIN(obj.intValue, result.intValue)];
+                        }
+                    }];
+                    
+                    return result;
+                };
+                
+                NSNumber *freeCost = lowestNumber(freeRarity.craftingCost);
+                NSNumber *commonCost = lowestNumber(commonRarity.craftingCost);
+                NSNumber *rareCost = lowestNumber(rareRarity.craftingCost);
+                NSNumber *epicCost = lowestNumber(epicRarity.craftingCost);
+                NSNumber *legendaryCost = lowestNumber(legendaryRarity.craftingCost);
+                
+                for (HSCard *hsCard in hsCards) {
+                    @autoreleasepool {
+                        if (countOfEachCards[hsCard] == nil) {
+                            countOfEachCards[hsCard] = @1;
+                        } else {
+                            NSNumber *old = countOfEachCards[hsCard];
+                            NSNumber *new = [NSNumber numberWithUnsignedInteger:old.unsignedIntegerValue + 1];
+                            countOfEachCards[hsCard] = new;
+                        }
+                        
+                        //
+                        
+                        NSNumber * _Nullable toAdd = nil;
+                        
+                        if (compareNullableValues(freeRarity.rarityId, hsCard.rarityId, @selector(isEqualToNumber:))) {
+                            toAdd = freeCost;
+                        } else if (compareNullableValues(commonRarity.rarityId, hsCard.rarityId, @selector(isEqualToNumber:))) {
+                            toAdd = commonCost;
+                        } else if (compareNullableValues(rareRarity.rarityId, hsCard.rarityId, @selector(isEqualToNumber:))) {
+                            toAdd = rareCost;
+                        } else if (compareNullableValues(epicRarity.rarityId, hsCard.rarityId, @selector(isEqualToNumber:))) {
+                            toAdd = epicCost;
+                        } else if (compareNullableValues(legendaryRarity.rarityId, hsCard.rarityId, @selector(isEqualToNumber:))) {
+                            toAdd = legendaryCost;
+                        }
+                        
+                        if (toAdd != nil) {
+                            totalArcaneDust = [NSNumber numberWithUnsignedInteger:totalArcaneDust.unsignedIntegerValue + toAdd.unsignedIntegerValue];
+                        }
                     }
+                }
+                
+                //
+                
+                DeckImageRenderServiceSectionModel *introSectionModel = [[DeckImageRenderServiceSectionModel alloc] initWithType:DeckImageRenderServiceSectionModelTypeIntro];
+                [snapshot appendSectionsWithIdentifiers:@[introSectionModel]];
+                
+                DeckImageRenderServiceItemModel *introItemModel = [[DeckImageRenderServiceItemModel alloc] initWithType:DeckImageRenderServiceItemModelTypeIntro];
+                HSCardClass *hsCardClass = [self.hsMetaDataUseCase hsCardClassFromClassId:classId usingHSMetaData:hsMetaData];
+                introItemModel.classSlug = hsCardClass.slug;
+                introItemModel.className = hsCardClass.name;
+                introItemModel.deckName = deckName;
+                introItemModel.deckFormat = deckFormat;
+                introItemModel.isEasterEgg = [self.localDeckUseCase isEasterEggDeckFromLocalDeck:localDeck];
+                
+                [snapshot appendItemsWithIdentifiers:@[introItemModel] intoSectionWithIdentifier:introSectionModel];
+                [introSectionModel release];
+                [introItemModel release];
+                
+                //
+                
+                DeckImageRenderServiceSectionModel *cardsSectionModel = [[DeckImageRenderServiceSectionModel alloc] initWithType:DeckImageRenderServiceSectionModelTypeCards];
+                [snapshot appendSectionsWithIdentifiers:@[cardsSectionModel]];
+                
+                NSUInteger __block countOfCardItem = 0;
+                
+                [countOfEachCards enumerateKeysAndObjectsUsingBlock:^(HSCard * _Nonnull key, NSNumber * _Nonnull obj, BOOL * _Nonnull stop) {
+                    HSCardRarity *hsCardRarity = [self.hsMetaDataUseCase hsCardRarityFromRarityId:key.rarityId usingHSMetaData:hsMetaData];
+                    
+                    DeckImageRenderServiceItemModel *cardItemModel = [[DeckImageRenderServiceItemModel alloc] initWithType:DeckImageRenderServiceItemModelTypeCard];
+                    cardItemModel.hsCard = key;
+                    cardItemModel.hsCardCount = obj.unsignedIntegerValue;
+                    cardItemModel.raritySlug = hsCardRarity.slug;
+                    
+                    SemaphoreCondition *semaphore = [[SemaphoreCondition alloc] initWithValue:0];
+                    
+                    if (key.cropImage != nil) {
+                        [self fetchImageCacheWithURL:key.cropImage completion:^(UIImage * _Nullable image) {
+                            cardItemModel.hsCardImage = image;
+                            [semaphore signal];
+                        }];
+                    } else {
+                        [self fetchImageCacheWithURL:key.image completion:^(UIImage * _Nullable image) {
+                            cardItemModel.hsCardImage = image;
+                            [semaphore signal];
+                        }];
+                    }
+                    
+                    [semaphore wait];
+                    [semaphore release];
+                    
+                    [snapshot appendItemsWithIdentifiers:@[cardItemModel] intoSectionWithIdentifier:cardsSectionModel];
+                    [cardItemModel release];
+                    
+                    countOfCardItem += 1;
                 }];
                 
-                return result;
-            };
-            
-            NSNumber *freeCost = lowestNumber(freeRarity.craftingCost);
-            NSNumber *commonCost = lowestNumber(commonRarity.craftingCost);
-            NSNumber *rareCost = lowestNumber(rareRarity.craftingCost);
-            NSNumber *epicCost = lowestNumber(epicRarity.craftingCost);
-            NSNumber *legendaryCost = lowestNumber(legendaryRarity.craftingCost);
-            
-            for (HSCard *hsCard in hsCards) {
-                @autoreleasepool {
-                    if (countOfEachCards[hsCard] == nil) {
-                        countOfEachCards[hsCard] = @1;
-                    } else {
-                        NSNumber *old = countOfEachCards[hsCard];
-                        NSNumber *new = [NSNumber numberWithUnsignedInteger:old.unsignedIntegerValue + 1];
-                        countOfEachCards[hsCard] = new;
-                    }
-                    
-                    //
-                    
-                    NSNumber * _Nullable toAdd = nil;
-                    
-                    if (compareNullableValues(freeRarity.rarityId, hsCard.rarityId, @selector(isEqualToNumber:))) {
-                        toAdd = freeCost;
-                    } else if (compareNullableValues(commonRarity.rarityId, hsCard.rarityId, @selector(isEqualToNumber:))) {
-                        toAdd = commonCost;
-                    } else if (compareNullableValues(rareRarity.rarityId, hsCard.rarityId, @selector(isEqualToNumber:))) {
-                        toAdd = rareCost;
-                    } else if (compareNullableValues(epicRarity.rarityId, hsCard.rarityId, @selector(isEqualToNumber:))) {
-                        toAdd = epicCost;
-                    } else if (compareNullableValues(legendaryRarity.rarityId, hsCard.rarityId, @selector(isEqualToNumber:))) {
-                        toAdd = legendaryCost;
-                    }
-                    
-                    if (toAdd != nil) {
-                        totalArcaneDust = [NSNumber numberWithUnsignedInteger:totalArcaneDust.unsignedIntegerValue + toAdd.unsignedIntegerValue];
-                    }
-                }
-            }
-            
-            //
-            
-            DeckImageRenderServiceSectionModel *introSectionModel = [[DeckImageRenderServiceSectionModel alloc] initWithType:DeckImageRenderServiceSectionModelTypeIntro];
-            [snapshot appendSectionsWithIdentifiers:@[introSectionModel]];
-            
-            DeckImageRenderServiceItemModel *introItemModel = [[DeckImageRenderServiceItemModel alloc] initWithType:DeckImageRenderServiceItemModelTypeIntro];
-            HSCardClass *hsCardClass = [self.hsMetaDataUseCase hsCardClassFromClassId:classId usingHSMetaData:hsMetaData];
-            introItemModel.classSlug = hsCardClass.slug;
-            introItemModel.className = hsCardClass.name;
-            introItemModel.deckName = deckName;
-            introItemModel.deckFormat = deckFormat;
-            introItemModel.isEasterEgg = [self.localDeckUseCase isEasterEggDeckFromLocalDeck:localDeck];
-            
-            [snapshot appendItemsWithIdentifiers:@[introItemModel] intoSectionWithIdentifier:introSectionModel];
-            [introSectionModel release];
-            [introItemModel release];
-            
-            //
-            
-            DeckImageRenderServiceSectionModel *cardsSectionModel = [[DeckImageRenderServiceSectionModel alloc] initWithType:DeckImageRenderServiceSectionModelTypeCards];
-            [snapshot appendSectionsWithIdentifiers:@[cardsSectionModel]];
-            
-            NSUInteger __block countOfCardItem = 0;
-            
-            [countOfEachCards enumerateKeysAndObjectsUsingBlock:^(HSCard * _Nonnull key, NSNumber * _Nonnull obj, BOOL * _Nonnull stop) {
-                DeckImageRenderServiceItemModel *cardItemModel = [[DeckImageRenderServiceItemModel alloc] initWithType:DeckImageRenderServiceItemModelTypeCard];
-                cardItemModel.hsCard = key;
-                cardItemModel.hsCardCount = obj.unsignedIntegerValue;
+                [cardsSectionModel release];
                 
-                SemaphoreCondition *semaphore = [[SemaphoreCondition alloc] initWithValue:0];
+                //
                 
-                if (key.cropImage != nil) {
-                    [self fetchImageCacheWithURL:key.cropImage completion:^(UIImage * _Nullable image) {
-                        cardItemModel.hsCardImage = image;
-                        [semaphore signal];
-                    }];
-                } else {
-                    [self fetchImageCacheWithURL:key.image completion:^(UIImage * _Nullable image) {
-                        cardItemModel.hsCardImage = image;
-                        [semaphore signal];
-                    }];
-                }
+                DeckImageRenderServiceSectionModel *aboutSectionModel = [[DeckImageRenderServiceSectionModel alloc] initWithType:DeckImageRenderServiceSectionModelTypeAbout];
+                [snapshot appendSectionsWithIdentifiers:@[aboutSectionModel]];
+                DeckImageRenderServiceItemModel *aboutItemModel = [[DeckImageRenderServiceItemModel alloc] initWithType:DeckImageRenderServiceItemModelTypeAbout];
                 
-                [semaphore wait];
-                [semaphore release];
+                HSCardSetGroups *latestSetGroup = [self.hsMetaDataUseCase latestHsCardSetGroupsUsingHSMetaData:hsMetaData];
                 
-                [snapshot appendItemsWithIdentifiers:@[cardItemModel] intoSectionWithIdentifier:cardsSectionModel];
-                [cardItemModel release];
+                aboutItemModel.totalArcaneDust = totalArcaneDust;
+                aboutItemModel.hsYearCurrentName = latestSetGroup.name;
                 
-                countOfCardItem += 1;
+                [snapshot appendItemsWithIdentifiers:@[aboutItemModel] intoSectionWithIdentifier:aboutSectionModel];
+                [aboutSectionModel release];
+                [aboutItemModel release];
+                
+                //
+                
+                DeckImageRenderServiceSectionModel *appNameSectionModel = [[DeckImageRenderServiceSectionModel alloc] initWithType:DeckImageRenderServiceSectionModelTypeAppName];
+                [snapshot appendSectionsWithIdentifiers:@[appNameSectionModel]];
+                DeckImageRenderServiceItemModel *appNameItemModel = [[DeckImageRenderServiceItemModel alloc] initWithType:DeckImageRenderServiceItemModelTypeAppName];
+                [snapshot appendItemsWithIdentifiers:@[appNameItemModel] intoSectionWithIdentifier:appNameSectionModel];
+                [appNameSectionModel release];
+                [appNameItemModel release];
+                
+                //
+                
+                [self sortSnapshot:snapshot];
+                
+                //
+                
+                [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:NO completion:^{
+                    completion(countOfCardItem);
+                }];
+                
+                [snapshot release];
+                [countOfEachCards release];
             }];
-            
-            [cardsSectionModel release];
-            
-            //
-            
-            DeckImageRenderServiceSectionModel *aboutSectionModel = [[DeckImageRenderServiceSectionModel alloc] initWithType:DeckImageRenderServiceSectionModelTypeAbout];
-            [snapshot appendSectionsWithIdentifiers:@[aboutSectionModel]];
-            DeckImageRenderServiceItemModel *aboutItemModel = [[DeckImageRenderServiceItemModel alloc] initWithType:DeckImageRenderServiceItemModelTypeAbout];
-            
-            HSCardSetGroups *latestSetGroup = [self.hsMetaDataUseCase latestHsCardSetGroupsUsingHSMetaData:hsMetaData];
-            
-            aboutItemModel.totalArcaneDust = totalArcaneDust;
-            aboutItemModel.hsYearCurrentName = latestSetGroup.name;
-            
-            [snapshot appendItemsWithIdentifiers:@[aboutItemModel] intoSectionWithIdentifier:aboutSectionModel];
-            [aboutSectionModel release];
-            [aboutItemModel release];
-            
-            //
-            
-            DeckImageRenderServiceSectionModel *appNameSectionModel = [[DeckImageRenderServiceSectionModel alloc] initWithType:DeckImageRenderServiceSectionModelTypeAppName];
-            [snapshot appendSectionsWithIdentifiers:@[appNameSectionModel]];
-            DeckImageRenderServiceItemModel *appNameItemModel = [[DeckImageRenderServiceItemModel alloc] initWithType:DeckImageRenderServiceItemModelTypeAppName];
-            [snapshot appendItemsWithIdentifiers:@[appNameItemModel] intoSectionWithIdentifier:appNameSectionModel];
-            [appNameSectionModel release];
-            [appNameItemModel release];
-            
-            //
-            
-            [self sortSnapshot:snapshot];
-            
-            //
-            
-            [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:NO completion:^{
-                completion(countOfCardItem);
-            }];
-            
-            [snapshot release];
-            [countOfEachCards release];
         }];
     }];
 }
