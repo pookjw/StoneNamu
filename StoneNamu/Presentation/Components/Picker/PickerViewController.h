@@ -6,6 +6,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PickerSectionModel.h"
 #import "PickerItemModel.h"
 #import "PickerViewControllerDelegate.h"
 
@@ -16,8 +17,8 @@ typedef void (^PickerViewControllerDidSelectItems)(NSSet<PickerItemModel *> *);
 @interface PickerViewController : UIViewController
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
-- (instancetype)initWithItems:(NSSet<PickerItemModel *> *)items allowsMultipleSelection:(BOOL)allowsMultipleSelection comparator:(NSComparisonResult (^)(NSString *, NSString *))comparator delegate:(id<PickerViewControllerDelegate>)delegate;
-- (instancetype)initWithItems:(NSSet<PickerItemModel *> *)items allowsMultipleSelection:(BOOL)allowsMultipleSelection comparator:(NSComparisonResult (^)(NSString *, NSString *))comparator didSelectItems:(PickerViewControllerDidSelectItems)didSelectItems;
+- (instancetype)initWithItems:(NSDictionary<PickerSectionModel *, NSSet<PickerItemModel *> *> *)items allowsMultipleSelection:(BOOL)allowsMultipleSelection comparator:(NSComparisonResult (^)(NSString *, NSString *))comparator delegate:(id<PickerViewControllerDelegate>)delegate;
+- (instancetype)initWithItems:(NSDictionary<PickerSectionModel *, NSSet<PickerItemModel *> *> *)items allowsMultipleSelection:(BOOL)allowsMultipleSelection comparator:(NSComparisonResult (^)(NSString *, NSString *))comparator didSelectItems:(PickerViewControllerDidSelectItems)didSelectItems;
 @end
 
 NS_ASSUME_NONNULL_END

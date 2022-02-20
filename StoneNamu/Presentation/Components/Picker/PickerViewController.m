@@ -11,6 +11,7 @@
 
 @interface PickerViewController () <UICollectionViewDelegate>
 @property (retain) UICollectionView *collectionView;
+@property (retain) UICollectionViewSupplementaryRegistration *headerCellRegistration;
 @property (retain) PickerViewModel *viewModel;
 @property (assign) id<PickerViewControllerDelegate> _Nullable delegate;
 @property (copy) PickerViewControllerDidSelectItems _Nullable didSelectItems;
@@ -18,7 +19,7 @@
 
 @implementation PickerViewController
 
-- (instancetype)initWithItems:(NSSet<PickerItemModel *> *)items allowsMultipleSelection:(BOOL)allowsMultipleSelection comparator:(NSComparisonResult (^)(NSString *, NSString *))comparator delegate:(id<PickerViewControllerDelegate>)delegate {
+- (instancetype)initWithItems:(NSDictionary<PickerSectionModel *, NSSet<PickerItemModel *> *> *)items allowsMultipleSelection:(BOOL)allowsMultipleSelection comparator:(NSComparisonResult (^)(NSString *, NSString *))comparator delegate:(id<PickerViewControllerDelegate>)delegate {
     self = [self initWithItems:items allowsMultipleSelection:allowsMultipleSelection comparator:comparator];
     
     if (self) {
@@ -29,7 +30,7 @@
     return self;
 }
 
-- (instancetype)initWithItems:(NSSet<PickerItemModel *> *)items allowsMultipleSelection:(BOOL)allowsMultipleSelection comparator:(NSComparisonResult (^)(NSString *, NSString *))comparator didSelectItems:(PickerViewControllerDidSelectItems)didSelectItems {
+- (instancetype)initWithItems:(NSDictionary<PickerSectionModel *, NSSet<PickerItemModel *> *> *)items allowsMultipleSelection:(BOOL)allowsMultipleSelection comparator:(NSComparisonResult (^)(NSString *, NSString *))comparator didSelectItems:(PickerViewControllerDidSelectItems)didSelectItems {
     self = [self initWithItems:items allowsMultipleSelection:allowsMultipleSelection comparator:comparator];
     
     if (self) {
@@ -40,7 +41,7 @@
     return self;
 }
 
-- (instancetype)initWithItems:(NSSet<PickerItemModel *> *)items allowsMultipleSelection:(BOOL)allowsMultipleSelection comparator:(NSComparisonResult (^)(NSString *, NSString *))comparator {
+- (instancetype)initWithItems:(NSDictionary<PickerSectionModel *, NSSet<PickerItemModel *> *> *)items allowsMultipleSelection:(BOOL)allowsMultipleSelection comparator:(NSComparisonResult (^)(NSString *, NSString *))comparator {
     self = [self init];
     
     if (self) {
@@ -56,6 +57,7 @@
 
 - (void)dealloc {
     [_collectionView release];
+    [_headerCellRegistration release];
     [_viewModel release];
     [_didSelectItems release];
     [super dealloc];
@@ -70,6 +72,7 @@
 
 - (void)configureCollectionView {
     UICollectionLayoutListConfiguration *layoutConfiguration = [[UICollectionLayoutListConfiguration alloc] initWithAppearance:UICollectionLayoutListAppearanceInsetGrouped];
+    layoutConfiguration.headerMode = UICollectionLayoutListHeaderModeSupplementary;
     
     UICollectionViewCompositionalLayout *layout = [UICollectionViewCompositionalLayout layoutWithListConfiguration:layoutConfiguration];
     [layoutConfiguration release];
@@ -107,6 +110,8 @@
         
         return cell;
     }];
+    
+    dataSource.supplementaryViewProvider = [self makeSupplementaryViewProvider];
     
     return [dataSource autorelease];
 }
@@ -150,6 +155,41 @@
     }];
     
     return cellRegistration;
+}
+
+- (UICollectionViewDiffableDataSourceSupplementaryViewProvider)makeSupplementaryViewProvider {
+    self.headerCellRegistration = [self makeHeaderCellRegistration];
+    
+    PickerViewController * __block unretainedSelf = self;
+    
+    UICollectionViewDiffableDataSourceSupplementaryViewProvider provider = ^UICollectionReusableView * _Nullable(UICollectionView * _Nonnull collectionView, NSString * _Nonnull elementKind, NSIndexPath * _Nonnull indexPath) {
+        
+        if ([elementKind isEqualToString:UICollectionElementKindSectionHeader]) {
+            return [collectionView dequeueConfiguredReusableSupplementaryViewWithRegistration:unretainedSelf.headerCellRegistration forIndexPath:indexPath];
+        } else {
+            return nil;
+        }
+    };
+    
+    return [[provider copy] autorelease];
+}
+
+- (UICollectionViewSupplementaryRegistration *)makeHeaderCellRegistration {
+    PickerViewController * __block unretainedSelf = self;
+    
+    UICollectionViewSupplementaryRegistration *registration = [UICollectionViewSupplementaryRegistration registrationWithSupplementaryClass:[UICollectionViewListCell class]
+                                                                                                                                elementKind:UICollectionElementKindSectionHeader
+                                                                                                                       configurationHandler:^(__kindof UICollectionViewListCell * _Nonnull supplementaryView, NSString * _Nonnull elementKind, NSIndexPath * _Nonnull indexPath) {
+        
+        NSString * _Nullable text = [unretainedSelf.viewModel.dataSource sectionIdentifierForIndex:indexPath.section].title;
+        
+        UIListContentConfiguration *configuration = [UIListContentConfiguration groupedHeaderConfiguration];
+        configuration.text = text;
+        
+        supplementaryView.contentConfiguration = configuration;
+    }];
+    
+    return registration;
 }
 
 - (void)bind {

@@ -108,7 +108,7 @@
 }
 
 - (NSDictionary<NSString *, NSSet<NSString *> *> *)defaultOptions {
-    return BlizzardHSAPIDefaultOptions();
+    return BlizzardHSAPIDefaultOptionsFromHSDeckFormat(self.localDeck.format);
 }
 
 - (BOOL)requestDataSourceWithOptions:(NSDictionary<NSString *, NSSet<NSString *> *> * _Nullable)options reset:(BOOL)reset {

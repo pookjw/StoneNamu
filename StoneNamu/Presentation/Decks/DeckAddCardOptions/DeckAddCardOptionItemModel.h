@@ -16,7 +16,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (readonly, copy) BlizzardHSAPIOptionType optionType;
 
-@property (readonly, copy) NSDictionary<NSString *, NSString *> * _Nullable slugsAndNames;
+@property (readonly, copy) NSDictionary<NSNumber *, NSDictionary<NSString *, NSString *> *> * _Nullable slugsAndNames;
+@property (readonly, nonatomic) NSDictionary<NSString *, NSString *> *_Nullable allSlugsAndNames;
+@property (readonly, copy) NSDictionary<NSNumber *, NSString *> * _Nullable sectionHeaderTexts;
 @property (readonly) BOOL showsEmptyRow;
 @property (readonly) BOOL allowsMultipleSelection;
 @property (readonly, copy, nullable) NSComparisonResult (^comparator)(NSString *, NSString *);
@@ -27,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
-- (instancetype)initWithOptionType:(BlizzardHSAPIOptionType)optionType slugsAndNames:(NSDictionary<NSString *, NSString *> * _Nullable)slugsAndNames showsEmptyRow:(BOOL)showsEmptyRow allowsMultipleSelection:(BOOL)allowsMultipleSelection comparator:(NSComparisonResult (^ _Nullable)(NSString *, NSString *))comparator title:(NSString *)title accessoryText:(NSString * _Nullable)accessoryText toolTip:(NSString *)toolTip;
+- (instancetype)initWithOptionType:(BlizzardHSAPIOptionType)optionType slugsAndNames:(NSDictionary<NSNumber *, NSDictionary<NSString *, NSString *> *> * _Nullable)slugsAndNames sectionHeaderTexts:(NSDictionary<NSNumber *, NSString *> * _Nullable)sectionHeaderTexts showsEmptyRow:(BOOL)showsEmptyRow allowsMultipleSelection:(BOOL)allowsMultipleSelection comparator:(NSComparisonResult (^ _Nullable)(NSString *, NSString *))comparator title:(NSString *)title accessoryText:(NSString * _Nullable)accessoryText toolTip:(NSString *)toolTip;
 @end
 
 NS_ASSUME_NONNULL_END

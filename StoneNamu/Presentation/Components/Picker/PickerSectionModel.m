@@ -9,14 +9,22 @@
 
 @implementation PickerSectionModel
 
-- (instancetype)initWithType:(PickerSectionModelType)type {
+- (instancetype)initWithType:(NSUInteger)type title:(NSString *)title {
     self = [self init];
     
     if (self) {
         self->_type = type;
+        
+        [self->_title release];
+        self->_title = [title copy];
     }
     
     return self;
+}
+
+- (void)dealloc {
+    [_title release];
+    [super dealloc];
 }
 
 - (BOOL)isEqual:(id)object {
@@ -41,6 +49,21 @@
     } else {
         return NSOrderedSame;
     }
+}
+
+- (id)copyWithZone:(NSZone *)zone {
+    id copy = [[self class] new];
+    
+    if (copy) {
+        PickerSectionModel *_copy = (PickerSectionModel *)copy;
+        
+        _copy->_type = self.type;
+        
+        [_copy->_title release];
+        _copy->_title = [self.title copyWithZone:zone];
+    }
+    
+    return copy;
 }
 
 @end

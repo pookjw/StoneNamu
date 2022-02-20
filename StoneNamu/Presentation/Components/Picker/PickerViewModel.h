@@ -23,7 +23,7 @@ typedef UICollectionViewDiffableDataSource<PickerSectionModel *, PickerItemModel
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithDataSource:(PickerDataSource *)dataSource;
-- (void)updateDataSourceWithItems:(NSSet<PickerItemModel *> *)items;
+- (void)updateDataSourceWithItems:(NSDictionary<PickerSectionModel *, NSSet<PickerItemModel *> *> *)items;
 - (void)handleSelectionAtIndexPath:(NSIndexPath *)indexPath;
 @end
 

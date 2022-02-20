@@ -10,6 +10,7 @@
 #import "PickerViewController.h"
 #import "UIViewController+SpinnerView.h"
 #import "UIViewController+presentErrorAlert.h"
+#import "UIViewController+animatedForSelectedIndexPath.h"
 #import <StoneNamuResources/StoneNamuResources.h>
 
 @interface CardOptionsViewController () <UICollectionViewDelegate>
@@ -61,6 +62,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self configureNavigation];
+    [self animatedForSelectedIndexPathWithCollectionView:self.collectionView];
 }
 
 - (void)setAttributes {
@@ -231,6 +233,7 @@
     if (optionType == nil) return;
     
     NSString * _Nullable text = notification.userInfo[CardOptionsViewModelPresentTextFieldTextItemKey];
+    NSIndexPath * _Nullable indexPath = notification.userInfo[CardOptionsViewModelPresentTextFieldIndexPathItemKey];
     NSString *title = [ResourcesService localizationForBlizzardHSAPIOptionType:optionType];
     
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
@@ -262,90 +265,56 @@
         [vc addAction:cancelAction];
         [vc addAction:doneAction];
         
-        [self presentViewController:vc animated:YES completion:^{}];
+        [self presentViewController:vc animated:YES completion:^{
+            if (indexPath) {
+                [self.collectionView deselectItemAtIndexPath:indexPath animated:YES];
+            }
+        }];
         [vc release];
     }];
 }
 
 - (void)presentPickerEventReceived:(NSNotification *)notification {
-    dispatch_queue_t queue = dispatch_get_global_queue(QOS_CLASS_USER_INTERACTIVE, 0);
+    BlizzardHSAPIOptionType _Nullable optionType = notification.userInfo[CardOptionsViewModelPresentPickerNotificationOptionTypeItemKey];
+    NSDictionary<PickerSectionModel *, NSSet<PickerItemModel *> *> * _Nullable pickers = notification.userInfo[CardOptionsViewModelPresentPickerNotificationPickersItemKey];
+    NSNumber * _Nullable allowsMultipleSelection = notification.userInfo[CardOptionsViewModelPresentPickerNotificationAllowsMultipleSelectionItemKey];
+    NSComparisonResult (^comparator)(NSString *, NSString *) = notification.userInfo[CardOptionsViewModelPresentPickerNotificationComparatorItemKey];
     
-    dispatch_async(queue, ^{
-        BlizzardHSAPIOptionType _Nullable optionType = notification.userInfo[CardOptionsViewModelPresentPickerNotificationOptionTypeItemKey];
-        NSDictionary<NSString *, NSString *> * _Nullable slugsAndNames = notification.userInfo[CardOptionsViewModelPresentPickerNotificationSlugsAndNamesKey];
-        NSSet<NSString *> * _Nullable values = notification.userInfo[CardOptionsViewModelPresentPickerNotificationValuesItemKey];
-        NSNumber * _Nullable showsEmptyRow = notification.userInfo[CardOptionsViewModelPresentPickerNotificationShowsEmptyRowItemKey];
-        NSNumber * _Nullable allowsMultipleSelection = notification.userInfo[CardOptionsViewModelPresentPickerNotificationAllowsMultipleSelectionItemKey];
-        NSComparisonResult (^comparator)(NSString *, NSString *) = notification.userInfo[CardOptionsViewModelPresentPickerNotificationComparatorItemKey];
-        
-        if (optionType && slugsAndNames && showsEmptyRow && allowsMultipleSelection && comparator) {
-            NSMutableSet<PickerItemModel *> *items = [NSMutableSet<PickerItemModel *> new];
-            
-            [slugsAndNames enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSString * _Nonnull obj, BOOL * _Nonnull stop) {
-                BOOL isSelected;
-                
-                if (values) {
-                    isSelected = [values containsObject:key];
-                } else {
-                    isSelected = NO;
-                }
-                
-                PickerItemModel *item = [[PickerItemModel alloc] initWithKey:key text:obj isSelected:isSelected];
-                [items addObject:item];
-                [item release];
-            }];
-            
-            if (showsEmptyRow.boolValue) {
-                BOOL isSelected;
-                
-                if (values) {
-                    isSelected = !(values.hasValuesWhenStringType);
-                } else {
-                    isSelected = YES;
-                }
-                
-                PickerItemModel *item = [[PickerItemModel alloc] initEmptyWithIsSelected:isSelected];
-                [items addObject:item];
-                [item release];
-            }
-            
-            [NSOperationQueue.mainQueue addOperationWithBlock:^{
-                PickerViewController *vc = [[PickerViewController alloc] initWithItems:items allowsMultipleSelection:allowsMultipleSelection.boolValue comparator:comparator didSelectItems:^(NSSet<PickerItemModel *> * _Nonnull selectedItems) {
-                    if (selectedItems.count == 0) {
+    if (optionType && pickers && allowsMultipleSelection && comparator) {
+        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+            PickerViewController *vc = [[PickerViewController alloc] initWithItems:pickers allowsMultipleSelection:allowsMultipleSelection.boolValue comparator:comparator didSelectItems:^(NSSet<PickerItemModel *> * _Nonnull selectedItems) {
+                if (selectedItems.count == 0) {
+                    [self.viewModel updateOptionType:optionType withValues:nil];
+                    return;
+                } else if (selectedItems.count == 1) {
+                    BOOL isEmptyItem = (selectedItems.allObjects.firstObject.type == PickerItemModelTypeEmpty);
+                    
+                    if (isEmptyItem) {
                         [self.viewModel updateOptionType:optionType withValues:nil];
                         return;
-                    } else if (selectedItems.count == 1) {
-                        BOOL isEmptyItem = (selectedItems.allObjects.firstObject.type == PickerItemModelTypeEmpty);
-                        
-                        if (isEmptyItem) {
-                            [self.viewModel updateOptionType:optionType withValues:nil];
-                            return;
-                        }
                     }
-                    
-                    //
-                    
-                    dispatch_queue_t queue = dispatch_get_global_queue(QOS_CLASS_USER_INTERACTIVE, 0);
-                    
-                    dispatch_async(queue, ^{
-                        NSMutableSet<NSString *> *results = [NSMutableSet<NSString *> new];
-                        
-                        [selectedItems enumerateObjectsUsingBlock:^(PickerItemModel * _Nonnull obj, BOOL * _Nonnull stop) {
-                            [results addObject:obj.key];
-                        }];
-                        
-                        [self.viewModel updateOptionType:optionType withValues:results];
-                        [results release];
-                    });
-                }];
+                }
                 
-                [items release];
+                //
                 
-                [self.navigationController pushViewController:vc animated:YES];
-                [vc release];
+                dispatch_queue_t queue = dispatch_get_global_queue(QOS_CLASS_USER_INTERACTIVE, 0);
+                
+                dispatch_async(queue, ^{
+                    NSMutableSet<NSString *> *results = [NSMutableSet<NSString *> new];
+                    
+                    [selectedItems enumerateObjectsUsingBlock:^(PickerItemModel * _Nonnull obj, BOOL * _Nonnull stop) {
+                        [results addObject:obj.key];
+                    }];
+                    
+                    [self.viewModel updateOptionType:optionType withValues:results];
+                    [results release];
+                });
             }];
-        }
-    });
+            
+            [self.navigationController pushViewController:vc animated:YES];
+            [vc release];
+        }];
+    }
 }
 
 - (void)startedLoadingDataSourceReceived:(NSNotification *)notification {
@@ -374,7 +343,6 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     [self.viewModel handleSelectionForIndexPath:indexPath];
-    [collectionView deselectItemAtIndexPath:indexPath animated:YES];
 }
 
 @end

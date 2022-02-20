@@ -41,53 +41,24 @@
     [super dealloc];
 }
 
-- (void)updateDataSourceWithItems:(NSSet<PickerItemModel *> *)items {
+- (void)updateDataSourceWithItems:(NSDictionary<PickerSectionModel *, NSSet<PickerItemModel *> *> *)items {
     [self.queue addBarrierBlock:^{
         NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
         [snapshot deleteAllItems];
         
         //
         
-        PickerSectionModel * _Nullable __block emptySectionModel = nil;
-        PickerSectionModel * _Nullable __block itemsSectionModel = nil;
-        
-        [items enumerateObjectsUsingBlock:^(PickerItemModel * _Nonnull obj, BOOL * _Nonnull stop) {
-            switch (obj.type) {
-                case PickerItemModelTypeEmpty: {
-                    if (emptySectionModel == nil) {
-                        emptySectionModel = [[PickerSectionModel alloc] initWithType:PickerSectionModelTypeEmpty];
-                        [snapshot appendSectionsWithIdentifiers:@[emptySectionModel]];
-                    }
-                    
-                    [snapshot appendItemsWithIdentifiers:@[obj] intoSectionWithIdentifier:emptySectionModel];
-                    break;
-                }
-                case PickerItemModelTypeItems: {
-                    if (itemsSectionModel == nil) {
-                        itemsSectionModel = [[PickerSectionModel alloc] initWithType:PickerSectionModelTypeItems];
-                        [snapshot appendSectionsWithIdentifiers:@[itemsSectionModel]];
-                    }
-                    
-                    [snapshot appendItemsWithIdentifiers:@[obj] intoSectionWithIdentifier:itemsSectionModel];
-                    break;
-                }
-                default:
-                    break;
-            }
+        [items enumerateKeysAndObjectsUsingBlock:^(PickerSectionModel * _Nonnull key, NSSet<PickerItemModel *> * _Nonnull obj, BOOL * _Nonnull stop) {
+            [snapshot appendSectionsWithIdentifiers:@[key]];
+            [snapshot appendItemsWithIdentifiers:obj.allObjects intoSectionWithIdentifier:key];
         }];
-        
-        [emptySectionModel release];
-        
-        if (itemsSectionModel) {
-            [snapshot sortItemsWithSectionIdentifiers:@[itemsSectionModel] usingComparator:^NSComparisonResult(PickerItemModel * _Nonnull obj1, PickerItemModel * _Nonnull obj2) {
-                return self.comparator(obj1.key, obj2.key);
-            }];
-        }
-        
-        [itemsSectionModel release];
         
         [snapshot sortSectionsUsingComparator:^NSComparisonResult(PickerSectionModel * _Nonnull obj1, PickerSectionModel * _Nonnull obj2) {
             return [obj1 compare:obj2];
+        }];
+        
+        [snapshot sortItemsWithSectionIdentifiers:snapshot.sectionIdentifiers usingComparator:^NSComparisonResult(PickerItemModel * _Nonnull obj1, PickerItemModel * _Nonnull obj2) {
+            return self.comparator(obj1.key, obj2.key);
         }];
         
         [self.dataSource applySnapshotUsingReloadDataAndWait:snapshot completion:^{}];
@@ -105,7 +76,10 @@
         
         switch (itemModel.type) {
             case PickerItemModelTypeEmpty: {
-                if (itemModel.isSelected) return;
+                if (itemModel.isSelected) {
+                    [snapshot release];
+                    return;
+                }
                 
                 NSMutableSet<PickerItemModel *> *toBeReconfigured = [NSMutableSet<PickerItemModel *> new];
                 

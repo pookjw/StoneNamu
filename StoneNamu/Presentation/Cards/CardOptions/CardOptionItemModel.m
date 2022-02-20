@@ -10,7 +10,7 @@
 
 @implementation CardOptionItemModel
 
-- (instancetype)initWithOptionType:(BlizzardHSAPIOptionType)optionType slugsAndNames:(NSDictionary<NSString *, NSString *> * _Nullable)slugsAndNames showsEmptyRow:(BOOL)showsEmptyRow allowsMultipleSelection:(BOOL)allowsMultipleSelection comparator:(NSComparisonResult (^ _Nullable)(NSString *, NSString *))comparator title:(NSString *)title accessoryText:(NSString *)accessoryText toolTip:(NSString *)toolTip {
+- (instancetype)initWithOptionType:(BlizzardHSAPIOptionType)optionType slugsAndNames:(NSDictionary<NSNumber *, NSDictionary<NSString *, NSString *> *> * _Nullable)slugsAndNames sectionHeaderTexts:(NSDictionary<NSNumber *, NSString *> * _Nullable)sectionHeaderTexts showsEmptyRow:(BOOL)showsEmptyRow allowsMultipleSelection:(BOOL)allowsMultipleSelection comparator:(NSComparisonResult (^ _Nullable)(NSString *, NSString *))comparator title:(NSString *)title accessoryText:(NSString * _Nullable)accessoryText toolTip:(NSString *)toolTip {
     self = [self init];
     
     if (self) {
@@ -21,6 +21,9 @@
         
         [self->_slugsAndNames release];
         self->_slugsAndNames = [slugsAndNames copy];
+        
+        [self->_sectionHeaderTexts release];
+        self->_sectionHeaderTexts = [sectionHeaderTexts copy];
         
         self->_showsEmptyRow = showsEmptyRow;
         self->_allowsMultipleSelection = allowsMultipleSelection;
@@ -44,6 +47,7 @@
     [_values release];
     [_optionType release];
     [_slugsAndNames release];
+    [_sectionHeaderTexts release];
     [_comparator release];
     [_title release];
     [_accessoryText release];
@@ -65,6 +69,20 @@
 
 - (NSUInteger)hash {
     return self.optionType.hash;
+}
+
+- (NSDictionary<NSString *,NSString *> * _Nullable )allSlugsAndNames {
+    if (self.slugsAndNames == nil) return nil;
+    
+    NSDictionary<NSString *, NSString *> * __block allSlugsAndNames = [NSDictionary<NSString *, NSString *> new];
+    
+    [self.slugsAndNames.allValues enumerateObjectsUsingBlock:^(NSDictionary<NSString *,NSString *> * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSDictionary<NSString *, NSString *> * oldAllSlugsAndNames = allSlugsAndNames;
+        allSlugsAndNames = [[oldAllSlugsAndNames dictionaryByCombiningWithDictionary:obj shouldOverride:NO] retain];
+        [oldAllSlugsAndNames release];
+    }];
+    
+    return [allSlugsAndNames autorelease];
 }
 
 @end

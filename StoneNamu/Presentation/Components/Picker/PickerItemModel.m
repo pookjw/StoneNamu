@@ -10,11 +10,12 @@
 
 @implementation PickerItemModel
 
-- (instancetype)initEmptyWithIsSelected:(BOOL)isSelected {
+- (instancetype)initEmptyWithSectionType:(NSUInteger)sectionType IsSelected:(BOOL)isSelected {
     self = [self init];
     
     if (self) {
         self->_type = PickerItemModelTypeEmpty;
+        self->_sectionType = sectionType;
         
         [self->_key release];
         self->_key = nil;
@@ -28,11 +29,12 @@
     return self;
 }
 
-- (instancetype)initWithKey:(NSString *)key text:(NSString *)text isSelected:(BOOL)isSelected {
+- (instancetype)initWithSectionType:(NSUInteger)sectionType key:(NSString *)key text:(NSString *)text isSelected:(BOOL)isSelected {
     self = [self init];
     
     if (self) {
         self->_type = PickerItemModelTypeItems;
+        self->_sectionType = sectionType;
         
         [self->_key release];
         self->_key = [key copy];
@@ -60,14 +62,36 @@
     }
     
     BOOL type = (self.type == toCompare.type);
+    BOOL sectionType = (self.sectionType == toCompare.sectionType);
     BOOL key = compareNullableValues(self.key, toCompare.key, @selector(isEqualToString:));
     BOOL text = compareNullableValues(self.text, toCompare.text, @selector(isEqualToString:));
     
-    return type && key && text;
+    return type && sectionType && key && text;
 }
 
 - (NSUInteger)hash {
-    return self.type ^ self.key.hash ^ self.text.hash;
+    return self.type ^ self.sectionType ^ self.key.hash ^ self.text.hash;
+}
+
+- (id)copyWithZone:(NSZone *)zone {
+    id copy = [[self class] new];
+    
+    if (copy) {
+        PickerItemModel *_copy = (PickerItemModel *)copy;
+        
+        _copy->_type = self.type;
+        _copy->_sectionType = self.sectionType;
+        
+        [_copy->_key release];
+        _copy->_key = [self.key copyWithZone:zone];
+        
+        [_copy->_text release];
+        _copy->_text = [self.text copyWithZone:zone];
+        
+        _copy->_selected = self.selected;
+    }
+    
+    return copy;
 }
 
 @end

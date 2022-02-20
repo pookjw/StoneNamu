@@ -9,6 +9,8 @@
 #import <StoneNamuCore/StoneNamuCore.h>
 #import <StoneNamuResources/StoneNamuResources.h>
 #import "UICollectionViewDiffableDataSource+applySnapshotAndWait.h"
+#import "PickerSectionModel.h"
+#import "PickerItemModel.h"
 
 @interface DeckAddCardOptionsViewModel ()
 @property (retain) NSOperationQueue *queue;
@@ -115,8 +117,10 @@
                     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES comparator:obj.comparator];
                     NSArray<NSString *> *sortedValues = [newValues sortedArrayUsingDescriptors:@[sortDescriptor]];
                     
+                    NSDictionary<NSString *, NSString *> *allSlugsAndNames = obj.allSlugsAndNames;
+                    
                     [sortedValues enumerateObjectsUsingBlock:^(NSString * _Nonnull value, NSUInteger idx, BOOL * _Nonnull stop) {
-                        NSString * _Nullable text = obj.slugsAndNames[value];
+                        NSString * _Nullable text = allSlugsAndNames[value];
                         
                         if (text == nil) {
                             text = value;
@@ -156,24 +160,79 @@
                 userInfo[DeckAddCardOptionsViewModelPresentTextFieldTextItemKey] = itemModel.values.allObjects.firstObject;
             }
             
+            userInfo[DeckAddCardOptionsViewModelPresentTextFieldIndexPathItemKey] = indexPath;
+            
             [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameDeckAddCardOptionsViewModelPresentTextField
                                                               object:self
                                                             userInfo:userInfo];
             
             [userInfo release];
         } else {
+            NSMutableDictionary<PickerSectionModel *, NSSet<PickerItemModel *> *> *pickers = [NSMutableDictionary<PickerSectionModel *, NSSet<PickerItemModel *> *> new];
+            
+            if (itemModel.showsEmptyRow) {
+                PickerSectionModel *emptySectionModel = [[PickerSectionModel alloc] initWithType:1 << 0 title:nil];
+                
+                NSSet<NSString *> * _Nullable values = itemModel.values;
+                BOOL hasValues;
+                
+                if (values) {
+                    hasValues = values.hasValuesWhenStringType;
+                } else {
+                    hasValues = NO;
+                }
+                
+                PickerItemModel *emptyItemModel = [[PickerItemModel alloc] initEmptyWithSectionType:1 << 0 IsSelected:!hasValues];
+                
+                pickers[emptySectionModel] = [NSSet setWithObject:emptyItemModel];
+                
+                [emptySectionModel release];
+                [emptyItemModel release];
+            }
+            
+            //
+            
+            [itemModel.slugsAndNames enumerateKeysAndObjectsUsingBlock:^(NSNumber * _Nonnull key1, NSDictionary<NSString *,NSString *> * _Nonnull obj, BOOL * _Nonnull stop) {
+                NSMutableSet<PickerItemModel *> * _Nullable __block items = nil;
+                
+                [obj enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key2, NSString * _Nonnull obj, BOOL * _Nonnull stop) {
+                    if (items == nil) {
+                        items = [NSMutableSet<PickerItemModel *> new];
+                    }
+                    
+                    NSSet<NSString *> * _Nullable values = itemModel.values;
+                    BOOL isSelected;
+                    
+                    if (values) {
+                        isSelected = [values containsObject:key2];
+                    } else {
+                        isSelected = NO;
+                    }
+                    
+                    PickerItemModel *itemModel = [[PickerItemModel alloc] initWithSectionType:key1.unsignedIntValue key:key2 text:obj isSelected:isSelected];
+                    [items addObject:itemModel];
+                    [itemModel release];
+                }];
+                
+                if (items) {
+                    PickerSectionModel *sectionModel = [[PickerSectionModel alloc] initWithType:key1.unsignedIntValue title:itemModel.sectionHeaderTexts[key1]];
+                    pickers[sectionModel] = items;
+                    [sectionModel release];
+                }
+                
+                [items release];
+            }];
+            
+            //
+            
             NSMutableDictionary *userInfo = [NSMutableDictionary new];
             
             userInfo[DeckAddCardOptionsViewModelPresentPickerNotificationOptionTypeItemKey] = itemModel.optionType;
-            userInfo[DeckAddCardOptionsViewModelPresentPickerNotificationSlugsAndNamesKey] = itemModel.slugsAndNames;
-            
-            if ([itemModel.values hasValuesWhenStringType]) {
-                userInfo[DeckAddCardOptionsViewModelPresentPickerNotificationValuesItemKey] = itemModel.values;
-            }
-            
-            userInfo[DeckAddCardOptionsViewModelPresentPickerNotificationShowsEmptyRowItemKey] = [NSNumber numberWithBool:itemModel.showsEmptyRow];
+            userInfo[DeckAddCardOptionsViewModelPresentPickerNotificationPickersItemKey] = pickers;
             userInfo[DeckAddCardOptionsViewModelPresentPickerNotificationAllowsMultipleSelectionItemKey] = [NSNumber numberWithBool:itemModel.allowsMultipleSelection];
             userInfo[DeckAddCardOptionsViewModelPresentPickerNotificationComparatorItemKey] = itemModel.comparator;
+            
+            [pickers release];
             
             [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameDeckAddCardOptionsViewModelPresentPicker
                                                               object:self
@@ -233,8 +292,10 @@
                 NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES comparator:obj1.comparator];
                 NSArray<NSString *> *sortedValues = [obj1.values sortedArrayUsingDescriptors:@[sortDescriptor]];
                 
+                NSDictionary<NSString *, NSString *> *allSlugsAndNames = obj1.allSlugsAndNames;
+                
                 [sortedValues enumerateObjectsUsingBlock:^(NSString * _Nonnull obj2, NSUInteger idx, BOOL * _Nonnull stop) {
-                    NSString * _Nullable text = obj1.slugsAndNames[obj2];
+                    NSString * _Nullable text = allSlugsAndNames[obj2];
                     
                     if (text == nil) {
                         text = obj2;
@@ -297,8 +358,8 @@
         
         //
         
-        NSDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSString *> *> *optionTypesAndSlugsAndNames = [self.hsMetaDataUseCase optionTypesAndSlugsAndNamesFromHSDeckFormat:nil withClassId:nil usingHSMetaData:hsMetaData];
-        NSDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSNumber *> *> *optionTypesAndSlugsAndIds = [self.hsMetaDataUseCase optionTypesAndSlugsAndIdsFromHSDeckFormat:nil withClassId:nil usingHSMetaData:hsMetaData];
+        NSDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSString *> *> *optionTypesAndSlugsAndNames = [self.hsMetaDataUseCase optionTypesAndSlugsAndNamesFromHSDeckFormat:nil withClassId:self.localDeck.classId usingHSMetaData:hsMetaData];
+        NSDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSNumber *> *> *optionTypesAndSlugsAndIds = [self.hsMetaDataUseCase optionTypesAndSlugsAndIdsFromHSDeckFormat:nil withClassId:self.localDeck.classId usingHSMetaData:hsMetaData];
         NSDictionary<NSString *, NSString *> *slugsAndNumberNames = @{@"0": @"0",
                                                                       @"1": @"1",
                                                                       @"2": @"2",
@@ -311,22 +372,81 @@
                                                                       @"9": @"9",
                                                                       @"10": @"10+"};
         
+        //
+        
+        NSDictionary<NSNumber *, NSDictionary<NSString *, NSString *> *> * _Nullable setsSlugsAndNames;
+        NSDictionary<NSNumber *, NSString *> * _Nullable setsSectionHeaderTexts;
+        
+        if ([HSDeckFormatClassic isEqualToString:self.localDeck.format]) {
+            NSDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSString *> *> *classicOptionTypesAndSlugsAndNames = [self.hsMetaDataUseCase optionTypesAndSlugsAndNamesFromHSDeckFormat:HSDeckFormatClassic withClassId:self.localDeck.classId usingHSMetaData:hsMetaData];
+            NSDictionary<NSString *, NSString *> *classicSetSlugsAndNames = classicOptionTypesAndSlugsAndNames[BlizzardHSAPIOptionTypeSet];
+            
+            setsSlugsAndNames = @{[NSNumber numberWithUnsignedInt:1 << 1]: classicSetSlugsAndNames};
+            setsSectionHeaderTexts = @{[NSNumber numberWithUnsignedInt:1 << 1]: [ResourcesService localizationForHSDeckFormat:HSDeckFormatClassic]};
+        } else if ([HSDeckFormatStandard isEqualToString:self.localDeck.format]) {
+            NSDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSString *> *> *standardOptionTypesAndSlugsAndNames = [self.hsMetaDataUseCase optionTypesAndSlugsAndNamesFromHSDeckFormat:HSDeckFormatStandard withClassId:self.localDeck.classId usingHSMetaData:hsMetaData];
+            NSMutableDictionary<NSString *, NSString *> *standardSetSlugsAndNames = [standardOptionTypesAndSlugsAndNames[BlizzardHSAPIOptionTypeSet] mutableCopy];
+            
+            standardSetSlugsAndNames[HSCardSetSlugTypeStandardCards] = [ResourcesService localizationForHSDeckFormat:HSDeckFormatStandard];
+            
+            setsSlugsAndNames = @{[NSNumber numberWithUnsignedInt:1 << 1]: standardSetSlugsAndNames};
+            setsSectionHeaderTexts = @{[NSNumber numberWithUnsignedInt:1 << 1]: [ResourcesService localizationForHSDeckFormat:HSDeckFormatStandard]};
+            
+            [standardSetSlugsAndNames release];
+        } else if ([HSDeckFormatWild isEqualToString:self.localDeck.format]) {
+            NSDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSString *> *> *standardOptionTypesAndSlugsAndNames = [self.hsMetaDataUseCase optionTypesAndSlugsAndNamesFromHSDeckFormat:HSDeckFormatStandard withClassId:self.localDeck.classId usingHSMetaData:hsMetaData];
+            NSDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSString *> *> *wildOptionTypesAndSlugsAndNames = [self.hsMetaDataUseCase optionTypesAndSlugsAndNamesFromHSDeckFormat:HSDeckFormatWild withClassId:self.localDeck.classId usingHSMetaData:hsMetaData];
+            
+            NSMutableDictionary<NSString *, NSString *> *standardSetSlugsAndNames = [standardOptionTypesAndSlugsAndNames[BlizzardHSAPIOptionTypeSet] mutableCopy];
+            NSMutableDictionary<NSString *, NSString *> *wildSetSlugsAndNames = [wildOptionTypesAndSlugsAndNames[BlizzardHSAPIOptionTypeSet] mutableCopy];
+            
+            [standardSetSlugsAndNames.allKeys enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                [wildSetSlugsAndNames removeObjectForKey:obj];
+            }];
+            
+            standardSetSlugsAndNames[HSCardSetSlugTypeStandardCards] = [ResourcesService localizationForHSDeckFormat:HSDeckFormatStandard];
+            wildSetSlugsAndNames[HSCardSetSlugTypeWildCards] = [ResourcesService localizationForHSDeckFormat:HSDeckFormatWild];
+            
+            setsSlugsAndNames = @{[NSNumber numberWithUnsignedInt:1 << 1]: standardSetSlugsAndNames,
+                                  [NSNumber numberWithUnsignedInt:1 << 2]: wildSetSlugsAndNames
+            };
+            setsSectionHeaderTexts = @{ [NSNumber numberWithUnsignedInt:1 << 1]: [ResourcesService localizationForHSDeckFormat:HSDeckFormatStandard],
+                                        [NSNumber numberWithUnsignedInt:1 << 2]: [ResourcesService localizationForHSDeckFormat:HSDeckFormatWild]
+            };
+            
+            [standardSetSlugsAndNames release];
+            [wildSetSlugsAndNames release];
+        } else {
+            setsSlugsAndNames = nil;
+            setsSectionHeaderTexts = nil;
+        }
+        
+        NSMutableDictionary<NSString *, NSNumber *> *setSlugsAndIds = [optionTypesAndSlugsAndIds[BlizzardHSAPIOptionTypeSet] mutableCopy];
+        setSlugsAndIds[HSCardSetSlugTypeStandardCards] = [NSNumber numberWithUnsignedInteger:HSCardSetIdTypeStandardCards];
+        setSlugsAndIds[HSCardSetSlugTypeWildCards] = [NSNumber numberWithUnsignedInteger:HSCardSetIdTypeWildCards];
+        
         DeckAddCardOptionItemModel *setItem = [[DeckAddCardOptionItemModel alloc] initWithOptionType:BlizzardHSAPIOptionTypeSet
-                                                                                       slugsAndNames:optionTypesAndSlugsAndNames[BlizzardHSAPIOptionTypeSet]
-                                                                                       showsEmptyRow:YES
+                                                                                       slugsAndNames:setsSlugsAndNames
+                                                                                  sectionHeaderTexts:setsSectionHeaderTexts
+                                                                                       showsEmptyRow:NO
                                                                              allowsMultipleSelection:NO
                                                                                           comparator:^NSComparisonResult(NSString * _Nonnull lhs, NSString * _Nonnull rhs) {
-            NSNumber *lhsNumber = optionTypesAndSlugsAndIds[BlizzardHSAPIOptionTypeSet][lhs];
-            NSNumber *rhsNumber = optionTypesAndSlugsAndIds[BlizzardHSAPIOptionTypeSet][rhs];
+            NSNumber *lhsNumber = setSlugsAndIds[lhs];
+            NSNumber *rhsNumber = setSlugsAndIds[rhs];
             return [rhsNumber compare:lhsNumber];
         }
                                                                                                title:[ResourcesService localizationForBlizzardHSAPIOptionType:BlizzardHSAPIOptionTypeSet]
                                                                                        accessoryText:nil
                                                                                              toolTip:[ResourcesService localizationForKey:LocalizableKeyCardSetTooltipDescription]];
         
+        [setSlugsAndIds release];
+        
+        //
+        
         DeckAddCardOptionItemModel *classItem = [[DeckAddCardOptionItemModel alloc] initWithOptionType:BlizzardHSAPIOptionTypeClass
-                                                                                         slugsAndNames:optionTypesAndSlugsAndNames[BlizzardHSAPIOptionTypeClass]
-                                                                                         showsEmptyRow:YES
+                                                                                         slugsAndNames:@{[NSNumber numberWithUnsignedInt:1 << 1]: optionTypesAndSlugsAndNames[BlizzardHSAPIOptionTypeClass]}
+                                                                                    sectionHeaderTexts:nil
+                                                                                         showsEmptyRow:NO
                                                                                allowsMultipleSelection:YES
                                                                                             comparator:^NSComparisonResult(NSString * _Nonnull lhs, NSString * _Nonnull rhs) {
             NSString *lhsName = optionTypesAndSlugsAndNames[BlizzardHSAPIOptionTypeClass][lhs];
@@ -338,7 +458,8 @@
                                                                                                toolTip:[ResourcesService localizationForKey:LocalizableKeyCardClassTooltipDescription]];
         
         DeckAddCardOptionItemModel *manaCostItem = [[DeckAddCardOptionItemModel alloc] initWithOptionType:BlizzardHSAPIOptionTypeManaCost
-                                                                                            slugsAndNames:slugsAndNumberNames
+                                                                                            slugsAndNames:@{[NSNumber numberWithUnsignedInt:1 << 1]: slugsAndNumberNames}
+                                                                                       sectionHeaderTexts:nil
                                                                                             showsEmptyRow:YES
                                                                                   allowsMultipleSelection:YES
                                                                                                comparator:^NSComparisonResult(NSString * _Nonnull lhs, NSString * _Nonnull rhs) {
@@ -351,7 +472,8 @@
                                                                                                   toolTip:[ResourcesService localizationForKey:LocalizableKeyCardManaCostTooltipDescription]];
         
         DeckAddCardOptionItemModel *attackItem = [[DeckAddCardOptionItemModel alloc] initWithOptionType:BlizzardHSAPIOptionTypeAttack
-                                                                                          slugsAndNames:slugsAndNumberNames
+                                                                                          slugsAndNames:@{[NSNumber numberWithUnsignedInt:1 << 1]: slugsAndNumberNames}
+                                                                                     sectionHeaderTexts:nil
                                                                                           showsEmptyRow:YES
                                                                                 allowsMultipleSelection:YES
                                                                                              comparator:^NSComparisonResult(NSString * _Nonnull lhs, NSString * _Nonnull rhs) {
@@ -364,7 +486,8 @@
                                                                                                 toolTip:[ResourcesService localizationForKey:LocalizableKeyCardAttackTooltipDescription]];
         
         DeckAddCardOptionItemModel *healthItem = [[DeckAddCardOptionItemModel alloc] initWithOptionType:BlizzardHSAPIOptionTypeHealth
-                                                                                          slugsAndNames:slugsAndNumberNames
+                                                                                          slugsAndNames:@{[NSNumber numberWithUnsignedInt:1 << 1]: slugsAndNumberNames}
+                                                                                     sectionHeaderTexts:nil
                                                                                           showsEmptyRow:YES
                                                                                 allowsMultipleSelection:YES
                                                                                              comparator:^NSComparisonResult(NSString * _Nonnull lhs, NSString * _Nonnull rhs) {
@@ -377,9 +500,10 @@
                                                                                                 toolTip:[ResourcesService localizationForKey:LocalizableKeyCardHealthTooltipDescription]];
         
         DeckAddCardOptionItemModel *collectibleItem = [[DeckAddCardOptionItemModel alloc] initWithOptionType:BlizzardHSAPIOptionTypeCollectible
-                                                                                               slugsAndNames:[ResourcesService localizationsForHSCardCollectible]
+                                                                                               slugsAndNames:@{[NSNumber numberWithUnsignedInt:1 << 1]: [ResourcesService localizationsForHSCardCollectible]}
+                                                                                          sectionHeaderTexts:nil
                                                                                                showsEmptyRow:NO
-                                                                                     allowsMultipleSelection:YES
+                                                                                     allowsMultipleSelection:NO
                                                                                                   comparator:^NSComparisonResult(NSString * _Nonnull lhs, NSString * _Nonnull rhs) {
             NSNumber *lhsNumber = [NSNumber numberWithInteger:HSCardCollectibleFromNSString(lhs)];
             NSNumber *rhsNumber = [NSNumber numberWithInteger:HSCardCollectibleFromNSString(rhs)];
@@ -390,7 +514,8 @@
                                                                                                      toolTip:[ResourcesService localizationForKey:LocalizableKeyCardCollectibleTooltipDescription]];
         
         DeckAddCardOptionItemModel *rarityItem = [[DeckAddCardOptionItemModel alloc] initWithOptionType:BlizzardHSAPIOptionTypeRarity
-                                                                                          slugsAndNames:optionTypesAndSlugsAndNames[BlizzardHSAPIOptionTypeRarity]
+                                                                                          slugsAndNames:@{[NSNumber numberWithUnsignedInt:1 << 1]: optionTypesAndSlugsAndNames[BlizzardHSAPIOptionTypeRarity]}
+                                                                                     sectionHeaderTexts:nil
                                                                                           showsEmptyRow:YES
                                                                                 allowsMultipleSelection:YES
                                                                                              comparator:^NSComparisonResult(NSString * _Nonnull lhs, NSString * _Nonnull rhs) {
@@ -403,7 +528,8 @@
                                                                                                 toolTip:[ResourcesService localizationForKey:LocalizableKeyCardRarityTooltipDescription]];
         
         DeckAddCardOptionItemModel *typeItem = [[DeckAddCardOptionItemModel alloc] initWithOptionType:BlizzardHSAPIOptionTypeType
-                                                                                        slugsAndNames:optionTypesAndSlugsAndNames[BlizzardHSAPIOptionTypeType]
+                                                                                        slugsAndNames:@{[NSNumber numberWithUnsignedInt:1 << 1]: optionTypesAndSlugsAndNames[BlizzardHSAPIOptionTypeType]}
+                                                                                   sectionHeaderTexts:nil
                                                                                         showsEmptyRow:YES
                                                                               allowsMultipleSelection:YES
                                                                                            comparator:^NSComparisonResult(NSString * _Nonnull lhs, NSString * _Nonnull rhs) {
@@ -416,7 +542,8 @@
                                                                                               toolTip:[ResourcesService localizationForKey:LocalizableKeyCardTypeTooltipDescription]];
         
         DeckAddCardOptionItemModel *minionType = [[DeckAddCardOptionItemModel alloc] initWithOptionType:BlizzardHSAPIOptionTypeMinionType
-                                                                                          slugsAndNames:optionTypesAndSlugsAndNames[BlizzardHSAPIOptionTypeMinionType]
+                                                                                          slugsAndNames:@{[NSNumber numberWithUnsignedInt:1 << 1]: optionTypesAndSlugsAndNames[BlizzardHSAPIOptionTypeMinionType]}
+                                                                                     sectionHeaderTexts:nil
                                                                                           showsEmptyRow:YES
                                                                                 allowsMultipleSelection:YES
                                                                                              comparator:^NSComparisonResult(NSString * _Nonnull lhs, NSString * _Nonnull rhs) {
@@ -429,7 +556,8 @@
                                                                                                 toolTip:[ResourcesService localizationForKey:LocalizableKeyCardMinionTypeTooltipDescription]];
         
         DeckAddCardOptionItemModel *spellSchoolType = [[DeckAddCardOptionItemModel alloc] initWithOptionType:BlizzardHSAPIOptionTypeSpellSchool
-                                                                                               slugsAndNames:optionTypesAndSlugsAndNames[BlizzardHSAPIOptionTypeSpellSchool]
+                                                                                               slugsAndNames:@{[NSNumber numberWithUnsignedInt:1 << 1]: optionTypesAndSlugsAndNames[BlizzardHSAPIOptionTypeSpellSchool]}
+                                                                                          sectionHeaderTexts:nil
                                                                                                showsEmptyRow:YES
                                                                                      allowsMultipleSelection:YES
                                                                                                   comparator:^NSComparisonResult(NSString * _Nonnull lhs, NSString * _Nonnull rhs) {
@@ -442,7 +570,8 @@
                                                                                                      toolTip:[ResourcesService localizationForKey:LocalizableKeyCardSpellSchoolTooltipDescription]];
         
         DeckAddCardOptionItemModel *keywordItem = [[DeckAddCardOptionItemModel alloc] initWithOptionType:BlizzardHSAPIOptionTypeKeyword
-                                                                                           slugsAndNames:optionTypesAndSlugsAndNames[BlizzardHSAPIOptionTypeKeyword]
+                                                                                           slugsAndNames:@{[NSNumber numberWithUnsignedInt:1 << 1]: optionTypesAndSlugsAndNames[BlizzardHSAPIOptionTypeKeyword]}
+                                                                                      sectionHeaderTexts:nil
                                                                                            showsEmptyRow:YES
                                                                                  allowsMultipleSelection:YES
                                                                                               comparator:^NSComparisonResult(NSString * _Nonnull lhs, NSString * _Nonnull rhs) {
@@ -455,7 +584,8 @@
                                                                                                  toolTip:[ResourcesService localizationForKey:LocalizableKeyCardKeywordTooltipDescription]];
         
         DeckAddCardOptionItemModel *textFilterItem = [[DeckAddCardOptionItemModel alloc] initWithOptionType:BlizzardHSAPIOptionTypeTextFilter
-                                                                                              slugsAndNames:optionTypesAndSlugsAndNames[BlizzardHSAPIOptionTypeTextFilter]
+                                                                                              slugsAndNames:nil
+                                                                                         sectionHeaderTexts:nil
                                                                                               showsEmptyRow:YES
                                                                                     allowsMultipleSelection:NO
                                                                                                  comparator:^NSComparisonResult(NSString * _Nonnull lhs, NSString * _Nonnull rhs) {
@@ -466,7 +596,8 @@
                                                                                                     toolTip:[ResourcesService localizationForKey:LocalizableKeyCardTextFilterTooltipDescription]];
         
         DeckAddCardOptionItemModel *gameModeItem = [[DeckAddCardOptionItemModel alloc] initWithOptionType:BlizzardHSAPIOptionTypeGameMode
-                                                                                            slugsAndNames:optionTypesAndSlugsAndNames[BlizzardHSAPIOptionTypeGameMode]
+                                                                                            slugsAndNames:@{[NSNumber numberWithUnsignedInt:1 << 1]: optionTypesAndSlugsAndNames[BlizzardHSAPIOptionTypeGameMode]}
+                                                                                       sectionHeaderTexts:nil
                                                                                             showsEmptyRow:NO
                                                                                   allowsMultipleSelection:NO
                                                                                                comparator:^NSComparisonResult(NSString * _Nonnull lhs, NSString * _Nonnull rhs) {
@@ -479,7 +610,8 @@
                                                                                                   toolTip:[ResourcesService localizationForKey:LocalizableKeyCardGameModeTooltipDescription]];
         
         DeckAddCardOptionItemModel *sortItem = [[DeckAddCardOptionItemModel alloc] initWithOptionType:BlizzardHSAPIOptionTypeSort
-                                                                                        slugsAndNames:[ResourcesService localizationsForHSCardSort]
+                                                                                        slugsAndNames:@{[NSNumber numberWithUnsignedInt:1 << 1]: [ResourcesService localizationsForHSCardSort]}
+                                                                                   sectionHeaderTexts:nil
                                                                                         showsEmptyRow:NO
                                                                               allowsMultipleSelection:YES
                                                                                            comparator:^NSComparisonResult(NSString * _Nonnull lhs, NSString * _Nonnull rhs) {
@@ -538,6 +670,7 @@
         [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
             [self postEndedLoadingDataSource];
         }];
+        [hsMetaData release];
         [snapshot release];
     }];
 }

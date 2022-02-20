@@ -9,8 +9,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef NS_ENUM(NSUInteger, HSCardSetIdType) {
+    HSCardSetIdTypeStandardCards = 9002,
+    HSCardSetIdTypeWildCards = 9001
+};
+
 typedef NSString * HSCardSetSlugType NS_TYPED_EXTENSIBLE_ENUM;
 static HSCardSetSlugType const HSCardSetSlugTypeClassicCards = @"classic-cards";
+static HSCardSetSlugType const HSCardSetSlugTypeStandardCards = @"standard";
+static HSCardSetSlugType const HSCardSetSlugTypeWildCards = @"wild";
 
 @interface HSCardSet : NSObject <NSCopying>
 @property (readonly, copy) NSNumber *setId;
