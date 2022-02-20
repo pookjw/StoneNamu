@@ -58,6 +58,7 @@
                                                                         target:self
                                                                         action:nil];
     
+    addBarButtonItem.enabled = NO;
     self.navigationItem.rightBarButtonItems = @[addBarButtonItem];
     self.addBarButtonItem = addBarButtonItem;
     [addBarButtonItem release];
@@ -102,9 +103,31 @@
 
 - (void)bind {
     [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(startedLoadingDataSourceReceived:)
+                                               name:NSNotificationNameDecksViewModelStartedLoadingDataSource
+                                             object:self.viewModel];
+    
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(endedLoadingDataSourceReceived:)
+                                               name:NSNotificationNameDecksViewModelEndedLoadingDataSource
+                                             object:self.viewModel];
+    
+    [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(shouldUpdateOptionsReceived:)
                                                name:NSNotificationNameDecksViewModelShouldUpdateOptions
                                              object:self.viewModel];
+}
+
+- (void)startedLoadingDataSourceReceived:(NSNotification *)notification {
+    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+        [self addSpinnerView];
+    }];
+}
+
+- (void)endedLoadingDataSourceReceived:(NSNotification *)notification {
+    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+        [self removeAllSpinnerview];
+    }];
 }
 
 - (void)shouldUpdateOptionsReceived:(NSNotification *)notification {
@@ -384,6 +407,7 @@
             [unretainedSelf presentTextFieldAndFetchDeckCode];
         }]
     ]];
+    addBarButtonItem.enabled = YES;
 }
 
 #pragma mark - UICollectionViewDelegate

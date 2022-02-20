@@ -19,7 +19,11 @@
 @implementation NSViewController (SpinnerView)
 
 - (void)addSpinnerView {
-    [self removeAllSpinnerview];
+    for (NSView *subview in self.view.subviews) {
+        if ([subview isKindOfClass:[_SpinnerBlurView class]]) {
+            return;
+        }
+    }
     
     _SpinnerBlurView *visualEffectView = [_SpinnerBlurView new];
     SpinnerView *spinnerView = [SpinnerView new];

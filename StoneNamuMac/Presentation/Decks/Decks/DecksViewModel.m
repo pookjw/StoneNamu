@@ -95,49 +95,51 @@
  */
 
 - (void)makeLocalDeckWithClassSlug:(NSString *)classSlug deckFormat:(HSDeckFormat)deckFormat completion:(DecksViewModelMakeLocalDeckCompletion)completion {
-    [self.hsMetaDataUseCase fetchWithCompletionHandler:^(HSMetaData * _Nullable hsMetaData, NSError * _Nullable error) {
-        [self.localDeckUseCase makeLocalDeckWithCompletion:^(LocalDeck * _Nonnull localDeck) {
-            [self.queue addBarrierBlock:^{
-                HSCardClass *hsCardClass = [self.hsMetaDataUseCase hsCardClassFromClassSlug:classSlug usingHSMetaData:hsMetaData];
-                
-                localDeck.format = deckFormat;
-                localDeck.name = hsCardClass.name;
-                localDeck.classId = hsCardClass.classId;
-                
-                NSArray<HSCard *> *hsCards = localDeck.hsCards;
-                BOOL isEasterEgg = [self.localDeckUseCase isEasterEggDeckFromHSCards:[NSSet setWithArray:hsCards]];
-                NSUInteger count = hsCards.count;
-                
-                //
-                
-                NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
-                
-                DecksSectionModel * _Nullable sectionModel = nil;
-                
-                for (DecksSectionModel *tmpSectionModel in snapshot.sectionIdentifiers) {
-                    if (tmpSectionModel.type == DecksSectionModelTypeNoName) {
-                        sectionModel = tmpSectionModel;
-                        break;
+    [self.queue addBarrierBlock:^{
+        [self.hsMetaDataUseCase fetchWithCompletionHandler:^(HSMetaData * _Nullable hsMetaData, NSError * _Nullable error) {
+            [self.localDeckUseCase makeLocalDeckWithCompletion:^(LocalDeck * _Nonnull localDeck) {
+                [self.queue addBarrierBlock:^{
+                    HSCardClass *hsCardClass = [self.hsMetaDataUseCase hsCardClassFromClassSlug:classSlug usingHSMetaData:hsMetaData];
+                    
+                    localDeck.format = deckFormat;
+                    localDeck.name = hsCardClass.name;
+                    localDeck.classId = hsCardClass.classId;
+                    
+                    NSArray<HSCard *> *hsCards = localDeck.hsCards;
+                    BOOL isEasterEgg = [self.localDeckUseCase isEasterEggDeckFromHSCards:[NSSet setWithArray:hsCards]];
+                    NSUInteger count = hsCards.count;
+                    
+                    //
+                    
+                    NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
+                    
+                    DecksSectionModel * _Nullable sectionModel = nil;
+                    
+                    for (DecksSectionModel *tmpSectionModel in snapshot.sectionIdentifiers) {
+                        if (tmpSectionModel.type == DecksSectionModelTypeNoName) {
+                            sectionModel = tmpSectionModel;
+                            break;
+                        }
                     }
-                }
-                
-                if (sectionModel == nil) {
+                    
+                    if (sectionModel == nil) {
+                        [snapshot release];
+                        return;
+                    }
+                    
+                    DecksItemModel *itemModel = [[DecksItemModel alloc] initWithType:DecksItemModelTypeDeck localDeck:localDeck classSlug:hsCardClass.slug isEasterEgg:isEasterEgg count:count];
+                    
+                    [snapshot appendItemsWithIdentifiers:@[itemModel] intoSectionWithIdentifier:sectionModel];
+                    [itemModel release];
+                    [self sortSnapshot:snapshot];
+                    
+                    [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
+                        [self postApplyingSnapshotToDataSourceWasDone];
+                        completion(localDeck);
+                        [self.localDeckUseCase saveChanges];
+                    }];
                     [snapshot release];
-                    return;
-                }
-                
-                DecksItemModel *itemModel = [[DecksItemModel alloc] initWithType:DecksItemModelTypeDeck localDeck:localDeck classSlug:hsCardClass.slug isEasterEgg:isEasterEgg count:count];
-                
-                [snapshot appendItemsWithIdentifiers:@[itemModel] intoSectionWithIdentifier:sectionModel];
-                [itemModel release];
-                [self sortSnapshot:snapshot];
-                
-                [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
-                    [self postApplyingSnapshotToDataSourceWasDone];
-                    completion(localDeck);
-                    [self.localDeckUseCase saveChanges];
                 }];
-                [snapshot release];
             }];
         }];
     }];

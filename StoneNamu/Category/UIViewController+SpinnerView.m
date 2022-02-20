@@ -17,7 +17,11 @@
 @implementation UIViewController (SpinnerView)
 
 - (void)addSpinnerView {
-    [self removeAllSpinnerview];
+    for (UIView *subview in self.view.subviews) {
+        if ([subview isKindOfClass:[_SpinnerBlurView class]]) {
+            return;
+        }
+    }
     
     _SpinnerBlurView *visualEffectView = [[_SpinnerBlurView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleSystemChromeMaterial]];
     SpinnerView *spinnerView = [SpinnerView new];

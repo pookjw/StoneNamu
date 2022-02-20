@@ -16,6 +16,9 @@ static NSNotificationName const NSNotificationNameDecksViewModelShouldUpdateOpti
 static NSString * const DecksViewModelShouldUpdateOptionsSlugsAndNamesItemKey = @"DecksViewModelShouldUpdateOptionsSlugsAndNamesItemKey";
 static NSString * const DecksViewModelShouldUpdateOptionsSlugsAndIdsItemKey = @"DecksViewModelShouldUpdateOptionsSlugsAndIdsItemKey";
 
+static NSNotificationName const NSNotificationNameDecksViewModelStartedLoadingDataSource = @"NSNotificationNameDecksViewModelStartedLoadingDataSource";
+static NSNotificationName const NSNotificationNameDecksViewModelEndedLoadingDataSource = @"NSNotificationNameDecksViewModelEndedLoadingDataSource";
+
 typedef void (^DecksViewModelFetchDeckCodeCompletion)(LocalDeck * _Nullable, HSDeck * _Nullable, NSError * _Nullable);
 typedef void (^DecksViewModelMakeLocalDeckCompletion)(LocalDeck *);
 typedef void (^DecksViewModelParseClipboardCompletion)(NSString * _Nullable, NSString * _Nullable);
