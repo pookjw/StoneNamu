@@ -11,7 +11,7 @@
 @implementation NSProcessInfo (isEnabledThreadSleepAtDDS)
 
 - (BOOL)isEnabledThreadSleepAtDDS {
-    return [self.arguments containsString:@"-enableThreadSleepAtDDS"];
+    return [self.arguments containsString:@"--enableThreadSleepAtDDS"];
 }
 
 @end

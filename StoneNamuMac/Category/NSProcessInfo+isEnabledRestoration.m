@@ -11,7 +11,7 @@
 @implementation NSProcessInfo (isEnabledRestoration)
 
 - (BOOL)isEnabledRestoration {
-    return ![self.arguments containsString:@"-disableRestoration"];
+    return ![self.arguments containsString:@"--disableRestoration"];
 }
 
 @end

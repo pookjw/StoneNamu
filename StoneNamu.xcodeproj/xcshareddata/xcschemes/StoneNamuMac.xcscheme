@@ -66,11 +66,11 @@
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "-enableThreadSleepAtDDS"
+            argument = "--enableThreadSleepAtDDS"
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "-disableRestoration"
+            argument = "--disableRestoration"
             isEnabled = "NO">
          </CommandLineArgument>
       </CommandLineArguments>
