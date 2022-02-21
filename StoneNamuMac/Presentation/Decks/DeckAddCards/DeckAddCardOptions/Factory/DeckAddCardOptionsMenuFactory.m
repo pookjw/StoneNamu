@@ -13,21 +13,24 @@
 
 @interface DeckAddCardOptionsMenuFactory ()
 @property (retain) id<HSMetaDataUseCase> hsMetaDataUseCase;
+@property (retain) id<LocalDeckUseCase> localDeckUseCase;
 @property (retain) NSOperationQueue *queue;
-@property (copy) NSDictionary<NSString *, NSString *> * _Nullable classicSetSlugsAndNames;
-@property (copy) NSDictionary<NSString *, NSString *> * _Nullable standardSetSlugsAndNames;
-@property (copy) NSDictionary<NSString *, NSString *> * _Nullable wildSetSlugsAndNames;
+@property (retain) LocalDeck * _Nullable localDeck;
 @end
 
 @implementation DeckAddCardOptionsMenuFactory
 
-- (instancetype)init {
-    self = [super init];
+- (instancetype)initWithLocalDeck:(LocalDeck *)localDeck {
+    self = [self init];
     
     if (self) {
         HSMetaDataUseCaseImpl *hsMetaDataUseCase = [HSMetaDataUseCaseImpl new];
         self.hsMetaDataUseCase = hsMetaDataUseCase;
         [hsMetaDataUseCase release];
+        
+        LocalDeckUseCaseImpl *localDeckUseCase = [LocalDeckUseCaseImpl new];
+        self.localDeckUseCase = localDeckUseCase;
+        [localDeckUseCase release];
         
         NSOperationQueue *queue = [NSOperationQueue new];
         queue.qualityOfService = NSQualityOfServiceUserInitiated;
@@ -39,6 +42,10 @@
         
         [self->_slugsAndNames release];
         self->_slugsAndNames = nil;
+        
+        self.localDeck = localDeck;
+        
+        [self bind];
     }
     
     return self;
@@ -46,23 +53,40 @@
 
 - (void)dealloc {
     [_hsMetaDataUseCase release];
+    [_localDeckUseCase release];
     [_queue release];
     [_slugsAndIds release];
     [_slugsAndNames release];
     [_classicSetSlugsAndNames release];
     [_standardSetSlugsAndNames release];
     [_wildSetSlugsAndNames release];
+    [_localDeck release];
     [super dealloc];
 }
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+    if ([object isEqual:self]) {
+        if ([keyPath isEqualToString:@"localDeck"]) {
+            if (self.localDeck) {
+                [self updateItems];
+            }
+        } else {
+            return [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+        }
+    } else {
+        return [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
+}
+
 - (SEL)keyMenuItemTriggeredSelector {
     return NSSelectorFromString(@"keyMenuItemTriggered:");
 }
 
 - (BOOL)hasEmptyItemAtOptionType:(BlizzardHSAPIOptionType)optionType {
     if ([optionType isEqualToString:BlizzardHSAPIOptionTypeSet]) {
-        return YES;
+        return NO;
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeClass]) {
-        return YES;
+        return NO;
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeManaCost]) {
         return YES;
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeAttack]) {
@@ -333,162 +357,158 @@
     
     //
     
-    StorableMenuItem *emptyItem = [[StorableMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyAll]
-                                                                   action:self.keyMenuItemTriggeredSelector
-                                                            keyEquivalent:@""
-                                                                 userInfo:@{DeckAddCardOptionsMenuFactoryStorableMenuItemOptionTypeKey: BlizzardHSAPIOptionTypeSet,
-                                                                            DeckAddCardOptionsMenuFactoryStorableMenuItemValueKey: @"",
-                                                                            DeckAddCardOptionsMenuFactoryStorableMenuItemShowsEmptyItemKey: [NSNumber numberWithBool:YES],
-                                                                            DeckAddCardOptionsMenuFactoryStorableMenuItemAllowsMultipleSelection: [NSNumber numberWithBool:[self supportsMultipleSelectionFromOptionType:BlizzardHSAPIOptionTypeSet]]}];
-    emptyItem.target = target;
-    [arr addObject:emptyItem];
-    [emptyItem release];
-    
-    //
-    
-    NSMutableArray<NSMenuItem *> *classicMenuItems = [NSMutableArray<NSMenuItem *> new];
-    
-    [self.classicSetSlugsAndNames enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSString * _Nonnull obj, BOOL * _Nonnull stop) {
-        StorableMenuItem *item = [[StorableMenuItem alloc] initWithTitle:obj
-                                                                  action:self.keyMenuItemTriggeredSelector
-                                                           keyEquivalent:@""
-                                                                userInfo:@{DeckAddCardOptionsMenuFactoryStorableMenuItemOptionTypeKey: BlizzardHSAPIOptionTypeSet,
-                                                                           DeckAddCardOptionsMenuFactoryStorableMenuItemValueKey: key,
-                                                                           DeckAddCardOptionsMenuFactoryStorableMenuItemShowsEmptyItemKey: [NSNumber numberWithBool:YES],
-                                                                           DeckAddCardOptionsMenuFactoryStorableMenuItemAllowsMultipleSelection: [NSNumber numberWithBool:[self supportsMultipleSelectionFromOptionType:BlizzardHSAPIOptionTypeSet]]}];
-        item.target = target;
-        [classicMenuItems addObject:item];
-        [item release];
-    }];
-    
-    [classicMenuItems sortUsingComparator:^NSComparisonResult(NSMenuItem * _Nonnull lhsItem, NSMenuItem * _Nonnull rhsItem) {
-        NSString *lhsValue = ((StorableMenuItem *)lhsItem).userInfo[DeckAddCardOptionsMenuFactoryStorableMenuItemValueKey];
-        NSString *rhsValue = ((StorableMenuItem *)rhsItem).userInfo[DeckAddCardOptionsMenuFactoryStorableMenuItemValueKey];
+    void (^addClassicMenuItems)(void) = ^{
+        NSMutableArray<NSMenuItem *> *classicMenuItems = [NSMutableArray<NSMenuItem *> new];
         
-        NSNumber *lhsNumber = setSlugsAndIds[lhsValue];
-        NSNumber *rhsNumber = setSlugsAndIds[rhsValue];
-        
-        return [rhsNumber compare:lhsNumber];
-    }];
-    
-    [arr addObject:[NSMenuItem separatorItem]];
-    
-    NSMenuItem *classicTitleItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForHSDeckFormat:HSDeckFormatClassic]
-                                                              action:nil
-                                                       keyEquivalent:@""];
-    classicTitleItem.enabled = NO;
-    [arr addObject:classicTitleItem];
-    [classicTitleItem release];
-    
-    [arr addObjectsFromArray:classicMenuItems];
-    [classicMenuItems release];
-    
-    //
-    
-    NSMutableArray<NSMenuItem *> *standardMenuItems = [NSMutableArray<NSMenuItem *> new];
-    
-    [self.standardSetSlugsAndNames enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSString * _Nonnull obj, BOOL * _Nonnull stop) {
-        StorableMenuItem *item = [[StorableMenuItem alloc] initWithTitle:obj
-                                                                  action:self.keyMenuItemTriggeredSelector
-                                                           keyEquivalent:@""
-                                                                userInfo:@{DeckAddCardOptionsMenuFactoryStorableMenuItemOptionTypeKey: BlizzardHSAPIOptionTypeSet,
-                                                                           DeckAddCardOptionsMenuFactoryStorableMenuItemValueKey: key,
-                                                                           DeckAddCardOptionsMenuFactoryStorableMenuItemShowsEmptyItemKey: [NSNumber numberWithBool:YES],
-                                                                           DeckAddCardOptionsMenuFactoryStorableMenuItemAllowsMultipleSelection: [NSNumber numberWithBool:[self supportsMultipleSelectionFromOptionType:BlizzardHSAPIOptionTypeSet]]}];
-        item.target = target;
-        [standardMenuItems addObject:item];
-        [item release];
-    }];
-    
-    StorableMenuItem *standardItem = [[StorableMenuItem alloc] initWithTitle:[ResourcesService localizationForHSDeckFormat:HSDeckFormatStandard]
+        [self.classicSetSlugsAndNames enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSString * _Nonnull obj, BOOL * _Nonnull stop) {
+            StorableMenuItem *item = [[StorableMenuItem alloc] initWithTitle:obj
                                                                       action:self.keyMenuItemTriggeredSelector
                                                                keyEquivalent:@""
                                                                     userInfo:@{DeckAddCardOptionsMenuFactoryStorableMenuItemOptionTypeKey: BlizzardHSAPIOptionTypeSet,
-                                                                               DeckAddCardOptionsMenuFactoryStorableMenuItemValueKey: HSCardSetSlugTypeStandardCards,
+                                                                               DeckAddCardOptionsMenuFactoryStorableMenuItemValueKey: key,
                                                                                DeckAddCardOptionsMenuFactoryStorableMenuItemShowsEmptyItemKey: [NSNumber numberWithBool:YES],
                                                                                DeckAddCardOptionsMenuFactoryStorableMenuItemAllowsMultipleSelection: [NSNumber numberWithBool:[self supportsMultipleSelectionFromOptionType:BlizzardHSAPIOptionTypeSet]]}];
-    standardItem.target = target;
-    [standardMenuItems addObject:standardItem];
-    [standardItem release];
-    
-    [standardMenuItems sortUsingComparator:^NSComparisonResult(NSMenuItem * _Nonnull lhsItem, NSMenuItem * _Nonnull rhsItem) {
-        NSString *lhsValue = ((StorableMenuItem *)lhsItem).userInfo[DeckAddCardOptionsMenuFactoryStorableMenuItemValueKey];
-        NSString *rhsValue = ((StorableMenuItem *)rhsItem).userInfo[DeckAddCardOptionsMenuFactoryStorableMenuItemValueKey];
+            item.target = target;
+            [classicMenuItems addObject:item];
+            [item release];
+        }];
         
-        NSNumber *lhsNumber = setSlugsAndIds[lhsValue];
-        NSNumber *rhsNumber = setSlugsAndIds[rhsValue];
+        [classicMenuItems sortUsingComparator:^NSComparisonResult(NSMenuItem * _Nonnull lhsItem, NSMenuItem * _Nonnull rhsItem) {
+            NSString *lhsValue = ((StorableMenuItem *)lhsItem).userInfo[DeckAddCardOptionsMenuFactoryStorableMenuItemValueKey];
+            NSString *rhsValue = ((StorableMenuItem *)rhsItem).userInfo[DeckAddCardOptionsMenuFactoryStorableMenuItemValueKey];
+            
+            NSNumber *lhsNumber = setSlugsAndIds[lhsValue];
+            NSNumber *rhsNumber = setSlugsAndIds[rhsValue];
+            
+            return [rhsNumber compare:lhsNumber];
+        }];
         
-        return [rhsNumber compare:lhsNumber];
-    }];
+        NSMenuItem *classicTitleItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForHSDeckFormat:HSDeckFormatClassic]
+                                                                  action:nil
+                                                           keyEquivalent:@""];
+        classicTitleItem.enabled = NO;
+        [arr addObject:classicTitleItem];
+        [classicTitleItem release];
+        
+        [arr addObjectsFromArray:classicMenuItems];
+        [classicMenuItems release];
+    };
     
-    [arr addObject:[NSMenuItem separatorItem]];
+    void (^addStandardMenuItems)(void) = ^{
+        NSMutableArray<NSMenuItem *> *standardMenuItems = [NSMutableArray<NSMenuItem *> new];
+        
+        [self.standardSetSlugsAndNames enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSString * _Nonnull obj, BOOL * _Nonnull stop) {
+            StorableMenuItem *item = [[StorableMenuItem alloc] initWithTitle:obj
+                                                                      action:self.keyMenuItemTriggeredSelector
+                                                               keyEquivalent:@""
+                                                                    userInfo:@{DeckAddCardOptionsMenuFactoryStorableMenuItemOptionTypeKey: BlizzardHSAPIOptionTypeSet,
+                                                                               DeckAddCardOptionsMenuFactoryStorableMenuItemValueKey: key,
+                                                                               DeckAddCardOptionsMenuFactoryStorableMenuItemShowsEmptyItemKey: [NSNumber numberWithBool:YES],
+                                                                               DeckAddCardOptionsMenuFactoryStorableMenuItemAllowsMultipleSelection: [NSNumber numberWithBool:[self supportsMultipleSelectionFromOptionType:BlizzardHSAPIOptionTypeSet]]}];
+            item.target = target;
+            [standardMenuItems addObject:item];
+            [item release];
+        }];
+        
+        StorableMenuItem *standardItem = [[StorableMenuItem alloc] initWithTitle:[ResourcesService localizationForHSDeckFormat:HSDeckFormatStandard]
+                                                                          action:self.keyMenuItemTriggeredSelector
+                                                                   keyEquivalent:@""
+                                                                        userInfo:@{DeckAddCardOptionsMenuFactoryStorableMenuItemOptionTypeKey: BlizzardHSAPIOptionTypeSet,
+                                                                                   DeckAddCardOptionsMenuFactoryStorableMenuItemValueKey: HSCardSetSlugTypeStandardCards,
+                                                                                   DeckAddCardOptionsMenuFactoryStorableMenuItemShowsEmptyItemKey: [NSNumber numberWithBool:YES],
+                                                                                   DeckAddCardOptionsMenuFactoryStorableMenuItemAllowsMultipleSelection: [NSNumber numberWithBool:[self supportsMultipleSelectionFromOptionType:BlizzardHSAPIOptionTypeSet]]}];
+        standardItem.target = target;
+        [standardMenuItems addObject:standardItem];
+        [standardItem release];
+        
+        [standardMenuItems sortUsingComparator:^NSComparisonResult(NSMenuItem * _Nonnull lhsItem, NSMenuItem * _Nonnull rhsItem) {
+            NSString *lhsValue = ((StorableMenuItem *)lhsItem).userInfo[DeckAddCardOptionsMenuFactoryStorableMenuItemValueKey];
+            NSString *rhsValue = ((StorableMenuItem *)rhsItem).userInfo[DeckAddCardOptionsMenuFactoryStorableMenuItemValueKey];
+            
+            NSNumber *lhsNumber = setSlugsAndIds[lhsValue];
+            NSNumber *rhsNumber = setSlugsAndIds[rhsValue];
+            
+            NSLog(@"%@, %@", lhsValue, rhsValue);
+            return [rhsNumber compare:lhsNumber];
+        }];
+        
+        NSMenuItem *standardTitleItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForHSDeckFormat:HSDeckFormatStandard]
+                                                                   action:nil
+                                                            keyEquivalent:@""];
+        standardTitleItem.enabled = NO;
+        [arr addObject:standardTitleItem];
+        [standardTitleItem release];
+        
+        [arr addObjectsFromArray:standardMenuItems];
+        [standardMenuItems release];
+    };
     
-    NSMenuItem *standardTitleItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForHSDeckFormat:HSDeckFormatStandard]
+    void (^addWildMenuItems)(void) = ^{
+        NSMutableArray<NSMenuItem *> *wildMenuItems = [NSMutableArray<NSMenuItem *> new];
+        NSMutableDictionary<NSString *, NSString *> *wildSetSlugsAndNames = [self.wildSetSlugsAndNames mutableCopy];
+        
+        [self.standardSetSlugsAndNames.allKeys enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [wildSetSlugsAndNames removeObjectForKey:obj];
+        }];
+        
+        [wildSetSlugsAndNames enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSString * _Nonnull obj, BOOL * _Nonnull stop) {
+            StorableMenuItem *item = [[StorableMenuItem alloc] initWithTitle:obj
+                                                                      action:self.keyMenuItemTriggeredSelector
+                                                               keyEquivalent:@""
+                                                                    userInfo:@{DeckAddCardOptionsMenuFactoryStorableMenuItemOptionTypeKey: BlizzardHSAPIOptionTypeSet,
+                                                                               DeckAddCardOptionsMenuFactoryStorableMenuItemValueKey: key,
+                                                                               DeckAddCardOptionsMenuFactoryStorableMenuItemShowsEmptyItemKey: [NSNumber numberWithBool:YES],
+                                                                               DeckAddCardOptionsMenuFactoryStorableMenuItemAllowsMultipleSelection: [NSNumber numberWithBool:[self supportsMultipleSelectionFromOptionType:BlizzardHSAPIOptionTypeSet]]}];
+            item.target = target;
+            [wildMenuItems addObject:item];
+            [item release];
+        }];
+        
+        [wildSetSlugsAndNames release];
+        
+        StorableMenuItem *wildItem = [[StorableMenuItem alloc] initWithTitle:[ResourcesService localizationForHSDeckFormat:HSDeckFormatWild]
+                                                                          action:self.keyMenuItemTriggeredSelector
+                                                                   keyEquivalent:@""
+                                                                        userInfo:@{DeckAddCardOptionsMenuFactoryStorableMenuItemOptionTypeKey: BlizzardHSAPIOptionTypeSet,
+                                                                                   DeckAddCardOptionsMenuFactoryStorableMenuItemValueKey: HSDeckFormatWild,
+                                                                                   DeckAddCardOptionsMenuFactoryStorableMenuItemShowsEmptyItemKey: [NSNumber numberWithBool:YES],
+                                                                                   DeckAddCardOptionsMenuFactoryStorableMenuItemAllowsMultipleSelection: [NSNumber numberWithBool:[self supportsMultipleSelectionFromOptionType:BlizzardHSAPIOptionTypeSet]]}];
+        wildItem.target = target;
+        [wildMenuItems addObject:wildItem];
+        [wildItem release];
+        
+        [wildMenuItems sortUsingComparator:^NSComparisonResult(NSMenuItem * _Nonnull lhsItem, NSMenuItem * _Nonnull rhsItem) {
+            NSString *lhsValue = ((StorableMenuItem *)lhsItem).userInfo[DeckAddCardOptionsMenuFactoryStorableMenuItemValueKey];
+            NSString *rhsValue = ((StorableMenuItem *)rhsItem).userInfo[DeckAddCardOptionsMenuFactoryStorableMenuItemValueKey];
+            
+            NSNumber *lhsNumber = setSlugsAndIds[lhsValue];
+            NSNumber *rhsNumber = setSlugsAndIds[rhsValue];
+            
+            return [rhsNumber compare:lhsNumber];
+        }];
+        
+        NSMenuItem *wildTitleItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForHSDeckFormat:HSDeckFormatWild]
                                                                action:nil
                                                         keyEquivalent:@""];
-    standardTitleItem.enabled = NO;
-    [arr addObject:standardTitleItem];
-    [standardTitleItem release];
-    
-    [arr addObjectsFromArray:standardMenuItems];
-    [standardMenuItems release];
+        wildTitleItem.enabled = NO;
+        [arr addObject:wildTitleItem];
+        [wildTitleItem release];
+        
+        [arr addObjectsFromArray:wildMenuItems];
+        [wildMenuItems release];
+    };
     
     //
     
-    NSMutableArray<NSMenuItem *> *wildMenuItems = [NSMutableArray<NSMenuItem *> new];
-    NSMutableDictionary<NSString *, NSString *> *wildSetSlugsAndNames = [self.wildSetSlugsAndNames mutableCopy];
-    
-    [self.standardSetSlugsAndNames.allKeys enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        [wildSetSlugsAndNames removeObjectForKey:obj];
-    }];
-    
-    [wildSetSlugsAndNames enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSString * _Nonnull obj, BOOL * _Nonnull stop) {
-        StorableMenuItem *item = [[StorableMenuItem alloc] initWithTitle:obj
-                                                                  action:self.keyMenuItemTriggeredSelector
-                                                           keyEquivalent:@""
-                                                                userInfo:@{DeckAddCardOptionsMenuFactoryStorableMenuItemOptionTypeKey: BlizzardHSAPIOptionTypeSet,
-                                                                           DeckAddCardOptionsMenuFactoryStorableMenuItemValueKey: key,
-                                                                           DeckAddCardOptionsMenuFactoryStorableMenuItemShowsEmptyItemKey: [NSNumber numberWithBool:YES],
-                                                                           DeckAddCardOptionsMenuFactoryStorableMenuItemAllowsMultipleSelection: [NSNumber numberWithBool:[self supportsMultipleSelectionFromOptionType:BlizzardHSAPIOptionTypeSet]]}];
-        item.target = target;
-        [wildMenuItems addObject:item];
-        [item release];
-    }];
-    
-    [wildSetSlugsAndNames release];
-    
-    StorableMenuItem *wildItem = [[StorableMenuItem alloc] initWithTitle:[ResourcesService localizationForHSDeckFormat:HSDeckFormatWild]
-                                                                      action:self.keyMenuItemTriggeredSelector
-                                                               keyEquivalent:@""
-                                                                    userInfo:@{DeckAddCardOptionsMenuFactoryStorableMenuItemOptionTypeKey: BlizzardHSAPIOptionTypeSet,
-                                                                               DeckAddCardOptionsMenuFactoryStorableMenuItemValueKey: HSDeckFormatWild,
-                                                                               DeckAddCardOptionsMenuFactoryStorableMenuItemShowsEmptyItemKey: [NSNumber numberWithBool:YES],
-                                                                               DeckAddCardOptionsMenuFactoryStorableMenuItemAllowsMultipleSelection: [NSNumber numberWithBool:[self supportsMultipleSelectionFromOptionType:BlizzardHSAPIOptionTypeSet]]}];
-    wildItem.target = target;
-    [wildMenuItems addObject:wildItem];
-    [wildItem release];
-    
-    [wildMenuItems sortUsingComparator:^NSComparisonResult(NSMenuItem * _Nonnull lhsItem, NSMenuItem * _Nonnull rhsItem) {
-        NSString *lhsValue = ((StorableMenuItem *)lhsItem).userInfo[DeckAddCardOptionsMenuFactoryStorableMenuItemValueKey];
-        NSString *rhsValue = ((StorableMenuItem *)rhsItem).userInfo[DeckAddCardOptionsMenuFactoryStorableMenuItemValueKey];
-        
-        NSNumber *lhsNumber = setSlugsAndIds[lhsValue];
-        NSNumber *rhsNumber = setSlugsAndIds[rhsValue];
-        
-        return [rhsNumber compare:lhsNumber];
-    }];
-    
-    [arr addObject:[NSMenuItem separatorItem]];
-    
-    NSMenuItem *wildTitleItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForHSDeckFormat:HSDeckFormatWild]
-                                                           action:nil
-                                                    keyEquivalent:@""];
-    wildTitleItem.enabled = NO;
-    [arr addObject:wildTitleItem];
-    [wildTitleItem release];
-    
-    [arr addObjectsFromArray:wildMenuItems];
-    [wildMenuItems release];
+    if ([HSDeckFormatClassic isEqualToString:self.localDeck.format]) {
+        addClassicMenuItems();
+    } else if ([HSDeckFormatStandard isEqualToString:self.localDeck.format]) {
+        addStandardMenuItems();
+    } else if ([HSDeckFormatWild isEqualToString:self.localDeck.format]) {
+        addStandardMenuItems();
+        [arr addObject:[NSMenuItem separatorItem]];
+        addWildMenuItems();
+    }
     
     //
     
@@ -515,6 +535,8 @@
 }
 
 - (void)updateItems {
+    if (self.localDeck == nil) return;
+    
     [self.queue addBarrierBlock:^{
         SemaphoreCondition *semaphore = [[SemaphoreCondition alloc] initWithValue:0];
         HSMetaData * _Nullable __block hsMetaData = nil;
@@ -538,11 +560,11 @@
             return;
         }
         
-        NSDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSNumber *> *> *slugsAndIds = [self.hsMetaDataUseCase optionTypesAndSlugsAndIdsFromHSDeckFormat:nil withClassId:nil usingHSMetaData:hsMetaData];
-        NSDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSString *> *> *slugsAndNames = [self.hsMetaDataUseCase optionTypesAndSlugsAndNamesFromHSDeckFormat:nil withClassId:nil usingHSMetaData:hsMetaData];
-        NSDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSString *> *> *classicOptionTypesAndSlugsAndNames = [self.hsMetaDataUseCase optionTypesAndSlugsAndNamesFromHSDeckFormat:HSDeckFormatClassic withClassId:nil usingHSMetaData:hsMetaData];
-        NSDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSString *> *> *standardOptionTypesAndSlugsAndNames = [self.hsMetaDataUseCase optionTypesAndSlugsAndNamesFromHSDeckFormat:HSDeckFormatStandard withClassId:nil usingHSMetaData:hsMetaData];
-        NSDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSString *> *> *wildOptionTypesAndSlugsAndNames = [self.hsMetaDataUseCase optionTypesAndSlugsAndNamesFromHSDeckFormat:HSDeckFormatWild withClassId:nil usingHSMetaData:hsMetaData];
+        NSDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSNumber *> *> *slugsAndIds = [self.hsMetaDataUseCase optionTypesAndSlugsAndIdsFromHSDeckFormat:nil withClassId:self.localDeck.classId usingHSMetaData:hsMetaData];
+        NSDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSString *> *> *slugsAndNames = [self.hsMetaDataUseCase optionTypesAndSlugsAndNamesFromHSDeckFormat:nil withClassId:self.localDeck.classId usingHSMetaData:hsMetaData];
+        NSDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSString *> *> *classicOptionTypesAndSlugsAndNames = [self.hsMetaDataUseCase optionTypesAndSlugsAndNamesFromHSDeckFormat:HSDeckFormatClassic withClassId:self.localDeck.classId usingHSMetaData:hsMetaData];
+        NSDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSString *> *> *standardOptionTypesAndSlugsAndNames = [self.hsMetaDataUseCase optionTypesAndSlugsAndNamesFromHSDeckFormat:HSDeckFormatStandard withClassId:self.localDeck.classId usingHSMetaData:hsMetaData];
+        NSDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSString *> *> *wildOptionTypesAndSlugsAndNames = [self.hsMetaDataUseCase optionTypesAndSlugsAndNamesFromHSDeckFormat:HSDeckFormatWild withClassId:self.localDeck.classId usingHSMetaData:hsMetaData];
         
         [hsMetaData release];
         
@@ -552,12 +574,34 @@
         [self->_slugsAndNames release];
         self->_slugsAndNames = [slugsAndNames copy];
         
-        self.classicSetSlugsAndNames = classicOptionTypesAndSlugsAndNames[BlizzardHSAPIOptionTypeSet];
-        self.standardSetSlugsAndNames = standardOptionTypesAndSlugsAndNames[BlizzardHSAPIOptionTypeSet];
-        self.wildSetSlugsAndNames = wildOptionTypesAndSlugsAndNames[BlizzardHSAPIOptionTypeSet];
+        [self->_classicSetSlugsAndNames release];
+        self->_classicSetSlugsAndNames = [classicOptionTypesAndSlugsAndNames[BlizzardHSAPIOptionTypeSet] copy];
+        
+        [self->_standardSetSlugsAndNames release];
+        self->_standardSetSlugsAndNames = [standardOptionTypesAndSlugsAndNames[BlizzardHSAPIOptionTypeSet] copy];
+        
+        [self->_wildSetSlugsAndNames release];
+        self->_wildSetSlugsAndNames = [wildOptionTypesAndSlugsAndNames[BlizzardHSAPIOptionTypeSet] copy];
         
         [self postShouldUpdateItems];
     }];
+}
+
+- (void)bind {
+    [self addObserver:self forKeyPath:@"localDeck" options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:nil];
+    
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(localDeckChangesReceived:)
+                                               name:NSNotificationNameLocalDeckUseCaseObserveData
+                                             object:self.localDeckUseCase];
+}
+
+- (void)localDeckChangesReceived:(NSNotification *)notification {
+    if (self.localDeck != nil) {
+        [self.localDeckUseCase refreshObject:self.localDeck mergeChanges:NO completion:^{
+            
+        }];
+    }
 }
 
 - (void)postShouldUpdateItems {

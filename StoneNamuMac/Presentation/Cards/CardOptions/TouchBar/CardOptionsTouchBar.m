@@ -759,7 +759,13 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     if ([value isEqualToString:@""]) {
         [newOptions removeObjectForKey:key];
     } else if (!supportsMultipleSelection) {
-        newOptions[key] = [NSSet setWithObject:value];
+        NSSet<NSString *> * _Nullable values = newOptions[key];
+        
+        if ((values == nil) || !([values containsObject:value])) {
+            newOptions[key] = [NSSet setWithObject:value];
+        } else {
+            [newOptions removeObjectForKey:key];
+        }
     } else {
         NSMutableSet<NSString *> * _Nullable values = [self.options[key] mutableCopy];
         if (values == nil) {
@@ -775,7 +781,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
         if (values.count > 0) {
             newOptions[key] = values;
         } else if (showsEmptyItem) {
-//            [newOptions removeObjectForKey:key];
+            [newOptions removeObjectForKey:key];
         }
         
         [values release];

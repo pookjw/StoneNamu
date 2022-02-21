@@ -49,7 +49,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
 
 @implementation DeckAddCardOptionsMenu
 
-- (instancetype)initWithOptions:(NSDictionary<NSString *,NSSet<NSString *> *> *)options deckAddCardOptionsMenuDelegate:(id<DeckAddCardOptionsMenuDelegate>)deckAddCardOptionsMenuDelegate {
+- (instancetype)initWithOptions:(NSDictionary<NSString *,NSSet<NSString *> *> *)options localDeck:(LocalDeck * _Nullable)localDeck deckAddCardOptionsMenuDelegate:(id<DeckAddCardOptionsMenuDelegate>)deckAddCardOptionsMenuDelegate {
     self = [self init];
     
     if (self) {
@@ -57,7 +57,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
         self.options = mutableOptions;
         [mutableOptions release];
         
-        DeckAddCardOptionsMenuFactory *factory = [DeckAddCardOptionsMenuFactory new];
+        DeckAddCardOptionsMenuFactory *factory = [[DeckAddCardOptionsMenuFactory alloc] initWithLocalDeck:localDeck];
         self.factory = factory;
         [factory release];
         
@@ -144,6 +144,10 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
         
         [self updateStateOfItem:obj];
     }];
+}
+
+- (void)setLocalDeck:(LocalDeck *)localDeck {
+    [self.factory setLocalDeck:localDeck];
 }
 
 - (void)configureSaveAsImageItem {

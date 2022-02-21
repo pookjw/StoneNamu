@@ -28,7 +28,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
 
 @implementation DeckAddCardOptionsTouchBar
 
-- (instancetype)initWithOptions:(NSDictionary<NSString *, NSSet<NSString *> *> * _Nullable)options deckAddCardOptionsTouchBarDelegate:(id<DeckAddCardOptionsTouchBarDelegate>)deckAddCardOptionsTouchBarDelegate {
+- (instancetype)initWithOptions:(NSDictionary<NSString *, NSSet<NSString *> *> * _Nullable)options localDeck:(LocalDeck * _Nullable)localDeck deckAddCardOptionsTouchBarDelegate:(id<DeckAddCardOptionsTouchBarDelegate>)deckAddCardOptionsTouchBarDelegate {
     self = [self init];
     
     if (self) {
@@ -36,7 +36,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
         self.options = mutableOptions;
         [mutableOptions release];
         
-        DeckAddCardOptionsMenuFactory *factory = [DeckAddCardOptionsMenuFactory new];
+        DeckAddCardOptionsMenuFactory *factory = [[DeckAddCardOptionsMenuFactory alloc] initWithLocalDeck:localDeck];
         self.factory = factory;
         [factory release];
         
@@ -427,6 +427,10 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     }];
 }
 
+- (void)setLocalDeck:(LocalDeck *)localDeck {
+    [self.factory setLocalDeck:localDeck];
+}
+
 - (void)wireItemsWithPopoverItem:(NSPopoverTouchBarItem *)popoverItem
                         touchBar:(NSTouchBar *)touchBar
                       customItem:(NSCustomTouchBarItem *)customItem
@@ -474,7 +478,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
 
 - (void)shouldUpdateReceived:(NSNotification *)notification {
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
-        [self.allPopoverItems enumerateKeysAndObjectsUsingBlock:^(BlizzardHSAPIOptionType  _Nonnull key, NSPopoverTouchBarItem * _Nonnull obj, BOOL * _Nonnull stop) {
+        [self.allPopoverItems enumerateKeysAndObjectsUsingBlock:^(BlizzardHSAPIOptionType _Nonnull key, NSPopoverTouchBarItem * _Nonnull obj, BOOL * _Nonnull stop) {
             obj.collapsedRepresentationLabel = [self.factory titleForOptionType:key];
             obj.customizationLabel = [self.factory titleForOptionType:key];
         }];
@@ -759,7 +763,13 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     if ([value isEqualToString:@""]) {
         [newOptions removeObjectForKey:key];
     } else if (!supportsMultipleSelection) {
-        newOptions[key] = [NSSet setWithObject:value];
+        NSSet<NSString *> * _Nullable values = newOptions[key];
+        
+        if ((values == nil) || !([values containsObject:value])) {
+            newOptions[key] = [NSSet setWithObject:value];
+        } else {
+            [newOptions removeObjectForKey:key];
+        }
     } else {
         NSMutableSet<NSString *> * _Nullable values = [self.options[key] mutableCopy];
         if (values == nil) {
@@ -775,7 +785,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
         if (values.count > 0) {
             newOptions[key] = values;
         } else if (showsEmptyItem) {
-//            [newOptions removeObjectForKey:key];
+            [newOptions removeObjectForKey:key];
         }
         
         [values release];

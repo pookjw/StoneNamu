@@ -410,8 +410,8 @@
             setsSlugsAndNames = @{[NSNumber numberWithUnsignedInt:1 << 1]: standardSetSlugsAndNames,
                                   [NSNumber numberWithUnsignedInt:1 << 2]: wildSetSlugsAndNames
             };
-            setsSectionHeaderTexts = @{ [NSNumber numberWithUnsignedInt:1 << 1]: [ResourcesService localizationForHSDeckFormat:HSDeckFormatStandard],
-                                        [NSNumber numberWithUnsignedInt:1 << 2]: [ResourcesService localizationForHSDeckFormat:HSDeckFormatWild]
+            setsSectionHeaderTexts = @{[NSNumber numberWithUnsignedInt:1 << 1]: [ResourcesService localizationForHSDeckFormat:HSDeckFormatStandard],
+                                       [NSNumber numberWithUnsignedInt:1 << 2]: [ResourcesService localizationForHSDeckFormat:HSDeckFormatWild]
             };
             
             [standardSetSlugsAndNames release];

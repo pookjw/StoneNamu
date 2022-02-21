@@ -37,7 +37,7 @@
 
 @implementation DeckAddCardOptionsToolbar
 
-- (instancetype)initWithIdentifier:(NSToolbarIdentifier)identifier options:(NSDictionary<NSString *, NSSet<NSString *> *> * _Nullable)options deckAddCardOptionsToolbarDelegate:(id<DeckAddCardOptionsToolbarDelegate>)deckAddCardOptionsToolbarDelegate {
+- (instancetype)initWithIdentifier:(NSToolbarIdentifier)identifier options:(NSDictionary<NSString *, NSSet<NSString *> *> * _Nullable)options localDeck:(LocalDeck * _Nullable)localDeck deckAddCardOptionsToolbarDelegate:(id<DeckAddCardOptionsToolbarDelegate>)deckAddCardOptionsToolbarDelegate {
     self = [self initWithIdentifier:identifier];
     
     if (self) {
@@ -45,7 +45,7 @@
         self.options = mutableOptions;
         [mutableOptions release];
         
-        DeckAddCardOptionsMenuFactory *factory = [DeckAddCardOptionsMenuFactory new];
+        DeckAddCardOptionsMenuFactory *factory = [[DeckAddCardOptionsMenuFactory alloc] initWithLocalDeck:localDeck];
         self.factory = factory;
         [factory release];
         
@@ -263,6 +263,10 @@
             }
         }
     }];
+}
+
+- (void)setLocalDeck:(LocalDeck *)localDeck {
+    [self.factory setLocalDeck:localDeck];
 }
 
 - (void)bind {
