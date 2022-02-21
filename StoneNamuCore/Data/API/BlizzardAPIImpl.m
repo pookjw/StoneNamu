@@ -24,10 +24,12 @@ static NSString * const BlizzardHSAPIAccessToken = @"access_token";
     components.path = path;
     
     if (options) {
-        NSMutableArray<NSURLQueryItem *> *queryItems = [@[] mutableCopy];
+        NSMutableArray<NSURLQueryItem *> *queryItems = [NSMutableArray<NSURLQueryItem *> new];
         
         [options enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-            [queryItems addObject:[[[NSURLQueryItem alloc] initWithName:key value:obj] autorelease]];
+            NSURLQueryItem *queryItem = [[NSURLQueryItem alloc] initWithName:key value:obj];
+            [queryItems addObject:queryItem];
+            [queryItem release];
         }];
         
         [queryItems addObject:[[[NSURLQueryItem alloc] initWithName:BlizzardHSAPIAccessToken value:accessToken] autorelease]];

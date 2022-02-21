@@ -22,9 +22,10 @@ static NSString * const BlizzardTokenAPIAuthorizationValue = @"Basic NDBjMjRlNDh
     components.scheme = @"https";
     components.host = NSStringForOAuthFromRegionHost(regionHost);
     components.path = BlizzardTokenAPIBasePath;
-    components.queryItems = @[
-        [[[NSURLQueryItem alloc] initWithName:BlizzardTokenAPIGrantTypeKey value:BlizzardTokenAPIGrantTypeValue] autorelease]
-    ];
+    
+    NSURLQueryItem *queryItem = [[NSURLQueryItem alloc] initWithName:BlizzardTokenAPIGrantTypeKey value:BlizzardTokenAPIGrantTypeValue];
+    components.queryItems = @[queryItem];
+    [queryItem release];
     
     NSURL *url = components.URL;
     [components release];
