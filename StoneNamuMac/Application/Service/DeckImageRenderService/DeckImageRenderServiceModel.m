@@ -126,7 +126,7 @@
                         toAdd = legendaryCost;
                     }
                     
-                    if (toAdd) {
+                    if (toAdd != nil) {
                         totalArcaneDust = [NSNumber numberWithUnsignedInteger:totalArcaneDust.unsignedIntegerValue + toAdd.unsignedIntegerValue];
                     }
                 }

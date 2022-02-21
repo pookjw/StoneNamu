@@ -64,14 +64,12 @@
         self.isFetching = NO;
         
         [self startObserving];
-        [self postShouldUpdateOptions];
     }
     
     return self;
 }
 
 - (void)dealloc {
-    [self removeObserver:self forKeyPath:@"localDeck"];
     [_localDeck release];
     [_dataSource release];
     [_hsCardUseCase release];
@@ -84,18 +82,6 @@
     [_localDeckUseCase release];
     [_hsMetaDataUseCase release];
     [super dealloc];
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
-    if ([object isEqual:self]) {
-        if ([keyPath isEqualToString:@"localDeck"]) {
-            [self postShouldUpdateOptions];
-        } else {
-            return [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
-        }
-    } else {
-        return [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
-    }
 }
 
 - (void)loadLocalDeckFromURIRepresentation:(NSURL *)URIRepresentation completion:(DeckAddCardsViewModelLoadFromURIRepresentationCompletion)completion {
@@ -339,8 +325,6 @@
 }
 
 - (void)startObserving {
-    [self addObserver:self forKeyPath:@"localDeck" options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:nil];
-    
     [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(localDeckChangesReceived:)
                                                name:NSNotificationNameLocalDeckUseCaseObserveData
@@ -398,29 +382,6 @@
     [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameDeckAddCardsViewModelLocalDeckHasChanged
                                                       object:self
                                                     userInfo:nil];
-}
-
-- (void)postShouldUpdateOptions {
-    [self.queue addOperationWithBlock:^{
-        if (self.localDeck) {
-            [self.hsMetaDataUseCase fetchWithCompletionHandler:^(HSMetaData * _Nullable hsMetaData, NSError * _Nullable error) {
-                if (error) {
-                    NSLog(@"%@", error.localizedDescription);
-                    return;
-                }
-                
-                [self.queue addBarrierBlock:^{
-                    NSDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSString *> *> *slugsAndNames = [self.hsMetaDataUseCase optionTypesAndSlugsAndNamesFromHSDeckFormat:self.localDeck.format withClassId:self.localDeck.classId usingHSMetaData:hsMetaData];
-                    NSDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSNumber *> *> *slugsAndIds = [self.hsMetaDataUseCase optionTypesAndSlugsAndIdsFromHSDeckFormat:self.localDeck.format withClassId:self.localDeck.classId usingHSMetaData:hsMetaData];
-                    
-                    [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameDeckAddCardsViewModelShouldUpdateOptions
-                                                                      object:self
-                                                                    userInfo:@{DeckAddCardsViewModelShouldUpdateOptionsSlugsAndNamesItemKey: slugsAndNames,
-                                                                               DeckAddCardsViewModelShouldUpdateOptionsSlugsAndIdsItemKey: slugsAndIds}];
-                }];
-            }];
-        }
-    }];
 }
 
 @end

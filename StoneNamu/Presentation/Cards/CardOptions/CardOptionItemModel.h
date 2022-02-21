@@ -16,8 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly, copy) BlizzardHSAPIOptionType optionType;
 
 @property (readonly, copy) NSDictionary<NSNumber *, NSDictionary<NSString *, NSString *> *> * _Nullable slugsAndNames;
-@property (readonly, nonatomic) NSDictionary<NSString *, NSString *> *_Nullable allSlugsAndNames;
 @property (readonly, copy) NSDictionary<NSNumber *, NSString *> * _Nullable sectionHeaderTexts;
+@property (readonly, nonatomic) NSDictionary<NSString *, NSString *> *_Nullable allSlugsAndNames;
 @property (readonly) BOOL showsEmptyRow;
 @property (readonly) BOOL allowsMultipleSelection;
 @property (readonly, copy, nullable) NSComparisonResult (^comparator)(NSString *, NSString *);

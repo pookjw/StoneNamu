@@ -301,11 +301,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
                                            selector:@selector(endedLoadingDataSourceReceived:)
                                                name:NSNotificationNameDeckAddCardsViewModelEndedLoadingDataSource
                                              object:self.viewModel];
-    
-    [NSNotificationCenter.defaultCenter addObserver:self
-                                           selector:@selector(shouldUpdateOptionsReceived:)
-                                               name:NSNotificationNameDeckAddCardsViewModelShouldUpdateOptions
-                                             object:self.viewModel];
 }
 
 - (void)scrollViewDidEndLiveScrollReceived:(NSNotification *)notification {
@@ -360,19 +355,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
         [self setDeckAddCardOptionsToolbarToWindow];
         [self setDeckAddCardOptionsTouchBarToWindow];
     }];
-}
-
-- (void)shouldUpdateOptionsReceived:(NSNotification *)notification {
-    NSDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSString *> *> * _Nullable slugsAndNames = notification.userInfo[DeckAddCardsViewModelShouldUpdateOptionsSlugsAndNamesItemKey];
-    NSDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSNumber *> *> * _Nullable slugsAndIds = notification.userInfo[DeckAddCardsViewModelShouldUpdateOptionsSlugsAndIdsItemKey];
-    
-    if ((slugsAndNames) && (slugsAndIds)) {
-        [NSOperationQueue.mainQueue addOperationWithBlock:^{
-            [self.cardOptionsMenu updateWithSlugsAndNames:slugsAndNames slugsAndIds:slugsAndIds];
-            [self.cardOptionsToolbar updateWithSlugsAndNames:slugsAndNames slugsAndIds:slugsAndIds];
-            [self.cardOptionsTouchBar updateWithSlugsAndNames:slugsAndNames slugsAndIds:slugsAndIds];
-        }];
-    }
 }
 
 - (DeckAddCardsDataSource *)makeDataSource {

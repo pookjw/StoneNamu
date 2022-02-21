@@ -57,7 +57,6 @@
         self.isFetching = NO;
         
         [self startObserving];
-        [self postShouldUpdateOptions];
     }
     
     return self;
@@ -275,27 +274,6 @@
     [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameCardsViewModelEndedLoadingDataSource
                                                       object:self
                                                     userInfo:nil];
-}
-
-- (void)postShouldUpdateOptions {
-    [self.queue addOperationWithBlock:^{
-        [self.hsMetaDataUseCase fetchWithCompletionHandler:^(HSMetaData * _Nullable hsMetaData, NSError * _Nullable error) {
-            if (error) {
-                NSLog(@"%@", error.localizedDescription);
-                return;
-            }
-            
-            [self.queue addOperationWithBlock:^{
-                NSDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSString *> *> *slugsAndNames = [self.hsMetaDataUseCase optionTypesAndSlugsAndNamesFromHSDeckFormat:nil withClassId:nil usingHSMetaData:hsMetaData];
-                NSDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSNumber *> *> *slugsAndIds = [self.hsMetaDataUseCase optionTypesAndSlugsAndIdsFromHSDeckFormat:nil withClassId:nil usingHSMetaData:hsMetaData];
-                
-                [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameCardsViewModelShouldUpdateOptions
-                                                                  object:self
-                                                                userInfo:@{CardsViewModelShouldUpdateOptionsSlugsAndNamesItemKey: slugsAndNames,
-                                                                           CardsViewModelShouldUpdateOptionsSlugsAndIdsItemKey: slugsAndIds}];
-            }];
-        }];
-    }];
 }
 
 @end

@@ -1,22 +1,22 @@
 //
-//  CardOptionsTouchBar.m
+//  DeckAddOptionsTouchBar.m
 //  StoneNamuMac
 //
-//  Created by Jinwoo Kim on 11/1/21.
+//  Created by Jinwoo Kim on 12/3/21.
 //
 
-#import "CardOptionsTouchBar.h"
-#import "NSTouchBarItemIdentifierCardOptionType+BlizzardHSAPIOptionType.h"
+#import "DeckAddCardOptionsTouchBar.h"
+#import "NSTouchBarItemIdentifierDeckAddCardOptionType+BlizzardHSAPIOptionType.h"
 #import "NSScrubber+Private.h"
-#import "CardOptionsMenuFactory.h"
+#import "DeckAddCardOptionsMenuFactory.h"
 #import <StoneNamuResources/StoneNamuResources.h>
 
-static NSTouchBarCustomizationIdentifier const NSTouchBarCustomizationIdentifierCardOptionsTouchBar = @"NSTouchBarCustomizationIdentifierCardOptionsTouchBar";
+static NSTouchBarCustomizationIdentifier const NSTouchBarCustomizationIdentifierDeckAddCardOptionsTouchBar = @"NSTouchBarCustomizationIdentifierDeckAddCardOptionsTouchBar";
 static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubberTextItemViewReuseIdentifier = @"NSUserInterfaceItemIdentifierNSScrubberTextItemViewReuseIdentifier";
 
-@interface CardOptionsTouchBar () <NSTouchBarDelegate, NSScrubberDataSource, NSScrubberDelegate>
-@property (assign) id<CardOptionsTouchBarDelegate> cardOptionsTouchBarDelegate;
-@property (retain) CardOptionsMenuFactory *factory;
+@interface DeckAddCardOptionsTouchBar () <NSTouchBarDelegate, NSScrubberDataSource, NSScrubberDelegate>
+@property (assign) id<DeckAddCardOptionsTouchBarDelegate> deckAddCardOptionsTouchBarDelegate;
+@property (retain) DeckAddCardOptionsMenuFactory *factory;
 
 @property (retain) NSMutableDictionary<NSString *, NSSet<NSString *> *> *options;
 
@@ -26,9 +26,9 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
 @property (retain) NSDictionary<BlizzardHSAPIOptionType, NSScrubber *> *allScrubbers;
 @end
 
-@implementation CardOptionsTouchBar
+@implementation DeckAddCardOptionsTouchBar
 
-- (instancetype)initWithOptions:(NSDictionary<NSString *,NSSet<NSString *> *> *)options cardOptionsTouchBarDelegate:(id<CardOptionsTouchBarDelegate>)cardOptionsTouchBarDelegate {
+- (instancetype)initWithOptions:(NSDictionary<NSString *, NSSet<NSString *> *> * _Nullable)options deckAddCardOptionsTouchBarDelegate:(id<DeckAddCardOptionsTouchBarDelegate>)deckAddCardOptionsTouchBarDelegate {
     self = [self init];
     
     if (self) {
@@ -36,15 +36,16 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
         self.options = mutableOptions;
         [mutableOptions release];
         
-        CardOptionsMenuFactory *factory = [CardOptionsMenuFactory new];
+        DeckAddCardOptionsMenuFactory *factory = [DeckAddCardOptionsMenuFactory new];
         self.factory = factory;
         [factory release];
         
-        self.cardOptionsTouchBarDelegate = cardOptionsTouchBarDelegate;
+        self.deckAddCardOptionsTouchBarDelegate = deckAddCardOptionsTouchBarDelegate;
         
         [self configureTouchBarItems];
         [self setAttributes];
         [self updateItemsWithOptions:options];
+        [self bind];
     }
     
     return self;
@@ -63,15 +64,15 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
 
 - (void)setAttributes {
     self.delegate = self;
-    self.customizationIdentifier = NSTouchBarCustomizationIdentifierCardOptionsTouchBar;
-    self.defaultItemIdentifiers = allNSTouchBarItemIdentifierCardOptionTypes();
-    self.customizationAllowedItemIdentifiers = allNSTouchBarItemIdentifierCardOptionTypes();
+    self.customizationIdentifier = NSTouchBarCustomizationIdentifierDeckAddCardOptionsTouchBar;
+    self.defaultItemIdentifiers = allNSTouchBarItemIdentifierDeckAddCardOptionTypes();
+    self.customizationAllowedItemIdentifiers = allNSTouchBarItemIdentifierDeckAddCardOptionTypes();
 }
 
 - (void)configureTouchBarItems {
-    NSPopoverTouchBarItem *optionTypeSetPopoverItem = [[NSPopoverTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierCardOptionTypeSet];
+    NSPopoverTouchBarItem *optionTypeSetPopoverItem = [[NSPopoverTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierDeckAddCardOptionTypeSet];
     NSTouchBar *optionTypeSetTouchBar = [NSTouchBar new];
-    NSCustomTouchBarItem *optionTypeSetItem = [[NSCustomTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierCardOptionTypeSet];
+    NSCustomTouchBarItem *optionTypeSetItem = [[NSCustomTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierDeckAddCardOptionTypeSet];
     NSScrubber *optionTypeSetScrubber = [NSScrubber new];
     
     [self wireItemsWithPopoverItem:optionTypeSetPopoverItem
@@ -83,9 +84,9 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     
     //
     
-    NSPopoverTouchBarItem *optionTypeClassPopoverItem = [[NSPopoverTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierCardOptionTypeClass];
+    NSPopoverTouchBarItem *optionTypeClassPopoverItem = [[NSPopoverTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierDeckAddCardOptionTypeClass];
     NSTouchBar *optionTypeClassTouchBar = [NSTouchBar new];
-    NSCustomTouchBarItem *optionTypeClassItem = [[NSCustomTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierCardOptionTypeClass];
+    NSCustomTouchBarItem *optionTypeClassItem = [[NSCustomTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierDeckAddCardOptionTypeClass];
     NSScrubber *optionTypeClassScrubber = [NSScrubber new];
     
     [self wireItemsWithPopoverItem:optionTypeClassPopoverItem
@@ -97,9 +98,9 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     
     //
     
-    NSPopoverTouchBarItem *optionTypeManaCostPopoverItem = [[NSPopoverTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierCardOptionTypeManaCost];
+    NSPopoverTouchBarItem *optionTypeManaCostPopoverItem = [[NSPopoverTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierDeckAddCardOptionTypeManaCost];
     NSTouchBar *optionTypeManaCostTouchBar = [NSTouchBar new];
-    NSCustomTouchBarItem *optionTypeManaCostItem = [[NSCustomTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierCardOptionTypeManaCost];
+    NSCustomTouchBarItem *optionTypeManaCostItem = [[NSCustomTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierDeckAddCardOptionTypeManaCost];
     NSScrubber *optionTypeManaCostScrubber = [NSScrubber new];
     
     [self wireItemsWithPopoverItem:optionTypeManaCostPopoverItem
@@ -111,9 +112,9 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     
     //
     
-    NSPopoverTouchBarItem *optionTypeAttackPopoverItem = [[NSPopoverTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierCardOptionTypeAttack];
+    NSPopoverTouchBarItem *optionTypeAttackPopoverItem = [[NSPopoverTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierDeckAddCardOptionTypeAttack];
     NSTouchBar *optionTypeAttackTouchBar = [NSTouchBar new];
-    NSCustomTouchBarItem *optionTypeAttackItem = [[NSCustomTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierCardOptionTypeAttack];
+    NSCustomTouchBarItem *optionTypeAttackItem = [[NSCustomTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierDeckAddCardOptionTypeAttack];
     NSScrubber *optionTypeAttackScrubber = [NSScrubber new];
     
     [self wireItemsWithPopoverItem:optionTypeAttackPopoverItem
@@ -125,9 +126,9 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     
     //
     
-    NSPopoverTouchBarItem *optionTypeHealthPopoverItem = [[NSPopoverTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierCardOptionTypeHealth];
+    NSPopoverTouchBarItem *optionTypeHealthPopoverItem = [[NSPopoverTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierDeckAddCardOptionTypeHealth];
     NSTouchBar *optionTypeHealthTouchBar = [NSTouchBar new];
-    NSCustomTouchBarItem *optionTypeHealthItem = [[NSCustomTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierCardOptionTypeHealth];
+    NSCustomTouchBarItem *optionTypeHealthItem = [[NSCustomTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierDeckAddCardOptionTypeHealth];
     NSScrubber *optionTypeHealthScrubber = [NSScrubber new];
     
     [self wireItemsWithPopoverItem:optionTypeHealthPopoverItem
@@ -139,9 +140,9 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     
     //
     
-    NSPopoverTouchBarItem *optionTypeCollectiblePopoverItem = [[NSPopoverTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierCardOptionTypeCollecticle];
+    NSPopoverTouchBarItem *optionTypeCollectiblePopoverItem = [[NSPopoverTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierDeckAddCardOptionTypeCollecticle];
     NSTouchBar *optionTypeCollectibleTouchBar = [NSTouchBar new];
-    NSCustomTouchBarItem *optionTypeCollectibleItem = [[NSCustomTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierCardOptionTypeCollecticle];
+    NSCustomTouchBarItem *optionTypeCollectibleItem = [[NSCustomTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierDeckAddCardOptionTypeCollecticle];
     NSScrubber *optionTypeCollectibleScrubber = [NSScrubber new];
     
     [self wireItemsWithPopoverItem:optionTypeCollectiblePopoverItem
@@ -153,9 +154,9 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     
     //
     
-    NSPopoverTouchBarItem *optionTypeRarityPopoverItem = [[NSPopoverTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierCardOptionTypeRarity];
+    NSPopoverTouchBarItem *optionTypeRarityPopoverItem = [[NSPopoverTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierDeckAddCardOptionTypeRarity];
     NSTouchBar *optionTypeRarityTouchBar = [NSTouchBar new];
-    NSCustomTouchBarItem *optionTypeRarityItem = [[NSCustomTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierCardOptionTypeRarity];
+    NSCustomTouchBarItem *optionTypeRarityItem = [[NSCustomTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierDeckAddCardOptionTypeRarity];
     NSScrubber *optionTypeRarityScrubber = [NSScrubber new];
     
     [self wireItemsWithPopoverItem:optionTypeRarityPopoverItem
@@ -167,9 +168,9 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     
     //
     
-    NSPopoverTouchBarItem *optionTypeTypePopoverItem = [[NSPopoverTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierCardOptionTypeType];
+    NSPopoverTouchBarItem *optionTypeTypePopoverItem = [[NSPopoverTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierDeckAddCardOptionTypeType];
     NSTouchBar *optionTypeTypeTouchBar = [NSTouchBar new];
-    NSCustomTouchBarItem *optionTypeTypeItem = [[NSCustomTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierCardOptionTypeType];
+    NSCustomTouchBarItem *optionTypeTypeItem = [[NSCustomTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierDeckAddCardOptionTypeType];
     NSScrubber *optionTypeTypeScrubber = [NSScrubber new];
     
     [self wireItemsWithPopoverItem:optionTypeTypePopoverItem
@@ -181,9 +182,9 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     
     //
     
-    NSPopoverTouchBarItem *optionTypeMinionTypePopoverItem = [[NSPopoverTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierCardOptionTypeMinionType];
+    NSPopoverTouchBarItem *optionTypeMinionTypePopoverItem = [[NSPopoverTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierDeckAddCardOptionTypeMinionType];
     NSTouchBar *optionTypeMinionTypeTouchBar = [NSTouchBar new];
-    NSCustomTouchBarItem *optionTypeMinionTypeItem = [[NSCustomTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierCardOptionTypeMinionType];
+    NSCustomTouchBarItem *optionTypeMinionTypeItem = [[NSCustomTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierDeckAddCardOptionTypeMinionType];
     NSScrubber *optionTypeMinionTypeScrubber = [NSScrubber new];
     
     [self wireItemsWithPopoverItem:optionTypeMinionTypePopoverItem
@@ -195,9 +196,9 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     
     //
     
-    NSPopoverTouchBarItem *optionTypeSpellSchoolPopoverItem = [[NSPopoverTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierCardOptionTypeSchoolSpell];
+    NSPopoverTouchBarItem *optionTypeSpellSchoolPopoverItem = [[NSPopoverTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierDeckAddCardOptionTypeSchoolSpell];
     NSTouchBar *optionTypeSpellSchoolTouchBar = [NSTouchBar new];
-    NSCustomTouchBarItem *optionTypeSpellSchoolItem = [[NSCustomTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierCardOptionTypeSchoolSpell];
+    NSCustomTouchBarItem *optionTypeSpellSchoolItem = [[NSCustomTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierDeckAddCardOptionTypeSchoolSpell];
     NSScrubber *optionTypeSpellSchoolScrubber = [NSScrubber new];
     
     [self wireItemsWithPopoverItem:optionTypeSpellSchoolPopoverItem
@@ -209,9 +210,9 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     
     //
     
-    NSPopoverTouchBarItem *optionTypeKeywordPopoverItem = [[NSPopoverTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierCardOptionTypeKeyword];
+    NSPopoverTouchBarItem *optionTypeKeywordPopoverItem = [[NSPopoverTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierDeckAddCardOptionTypeKeyword];
     NSTouchBar *optionTypeKeywordTouchBar = [NSTouchBar new];
-    NSCustomTouchBarItem *optionTypeKeywordItem = [[NSCustomTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierCardOptionTypeKeyword];
+    NSCustomTouchBarItem *optionTypeKeywordItem = [[NSCustomTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierDeckAddCardOptionTypeKeyword];
     NSScrubber *optionTypeKeywordScrubber = [NSScrubber new];
     
     [self wireItemsWithPopoverItem:optionTypeKeywordPopoverItem
@@ -223,9 +224,9 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     
     //
     
-    NSPopoverTouchBarItem *optionTypeGameModePopoverItem = [[NSPopoverTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierCardOptionTypeGameMode];
+    NSPopoverTouchBarItem *optionTypeGameModePopoverItem = [[NSPopoverTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierDeckAddCardOptionTypeGameMode];
     NSTouchBar *optionTypeGameModeTouchBar = [NSTouchBar new];
-    NSCustomTouchBarItem *optionTypeGameModeItem = [[NSCustomTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierCardOptionTypeGameMode];
+    NSCustomTouchBarItem *optionTypeGameModeItem = [[NSCustomTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierDeckAddCardOptionTypeGameMode];
     NSScrubber *optionTypeGameModeScrubber = [NSScrubber new];
     
     [self wireItemsWithPopoverItem:optionTypeGameModePopoverItem
@@ -237,9 +238,9 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     
     //
     
-    NSPopoverTouchBarItem *optionTypeSortPopoverItem = [[NSPopoverTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierCardOptionTypeSort];
+    NSPopoverTouchBarItem *optionTypeSortPopoverItem = [[NSPopoverTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierDeckAddCardOptionTypeSort];
     NSTouchBar *optionTypeSortTouchBar = [NSTouchBar new];
-    NSCustomTouchBarItem *optionTypeSortItem = [[NSCustomTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierCardOptionTypeSort];
+    NSCustomTouchBarItem *optionTypeSortItem = [[NSCustomTouchBarItem alloc] initWithIdentifier:NSTouchBarItemIdentifierDeckAddCardOptionTypeSort];
     NSScrubber *optionTypeSortScrubber = [NSScrubber new];
     
     [self wireItemsWithPopoverItem:optionTypeSortPopoverItem
@@ -383,20 +384,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     [optionTypeSortScrubber release];
 }
 
-- (void)updateWithSlugsAndNames:(NSDictionary *)slugsAndNames slugsAndIds:(NSDictionary *)slugsAndIds {
-    self.factory.slugsAndNames = slugsAndNames;
-    self.factory.slugsAndIds = slugsAndIds;
-    
-    [self.allPopoverItems enumerateKeysAndObjectsUsingBlock:^(BlizzardHSAPIOptionType  _Nonnull key, NSPopoverTouchBarItem * _Nonnull obj, BOOL * _Nonnull stop) {
-        obj.collapsedRepresentationLabel = [self.factory titleForOptionType:key];
-        obj.customizationLabel = [self.factory titleForOptionType:key];
-    }];
-    
-    [self.allScrubbers.allValues enumerateObjectsUsingBlock:^(NSScrubber * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        [obj reloadData];
-    }];
-}
-
 - (void)updateItemsWithOptions:(NSDictionary<NSString *, NSSet<NSString *> *> *)options {
     if ([options isEqualToDictionary:self.options]) return;
     
@@ -475,6 +462,26 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     scrubberLayout.itemSize = itemSize;
     scrubber.scrubberLayout = scrubberLayout;
     [scrubberLayout release];
+}
+
+- (void)bind {
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(shouldUpdateReceived:)
+                                               name:NSNotificationNameDeckAddCardOptionsMenuFactoryShouldUpdateItems
+                                             object:self.factory];
+}
+
+- (void)shouldUpdateReceived:(NSNotification *)notification {
+    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+        [self.allPopoverItems enumerateKeysAndObjectsUsingBlock:^(BlizzardHSAPIOptionType  _Nonnull key, NSPopoverTouchBarItem * _Nonnull obj, BOOL * _Nonnull stop) {
+            obj.collapsedRepresentationLabel = [self.factory titleForOptionType:key];
+            obj.customizationLabel = [self.factory titleForOptionType:key];
+        }];
+        
+        [self.allScrubbers.allValues enumerateObjectsUsingBlock:^(NSScrubber * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [obj reloadData];
+        }];
+    }];
 }
 
 #pragma mark - Helper
@@ -775,7 +782,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     
     if (![self.options isEqualToDictionary:newOptions]) {
         [self updateItemsWithOptions:newOptions];
-        [self.cardOptionsTouchBarDelegate cardOptionsTouchBar:self changedOption:newOptions];
+        [self.deckAddCardOptionsTouchBarDelegate deckAddCardOptionsTouchBar:self changedOption:newOptions];
     }
     
     [newOptions release];

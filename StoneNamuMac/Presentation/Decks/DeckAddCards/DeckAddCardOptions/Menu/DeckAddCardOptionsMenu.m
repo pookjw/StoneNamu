@@ -1,22 +1,27 @@
 //
-//  CardOptionsMenu.m
+//  DeckAddCardOptionsMenu.m
 //  StoneNamuMac
 //
-//  Created by Jinwoo Kim on 11/8/21.
+//  Created by Jinwoo Kim on 12/3/21.
 //
 
-#import "CardOptionsMenu.h"
-#import "CardOptionsMenuFactory.h"
+#import "DeckAddCardOptionsMenu.h"
+#import "DeckAddCardOptionsMenuFactory.h"
 #import "StorableMenuItem.h"
 #import "StorableSearchField.h"
-#import "NSUserInterfaceItemIdentifierCardOptionType+BlizzardHSAPIOption.h"
+#import "NSUserInterfaceItemIdentifierDeckAddCardOptionType+BlizzardHSAPIOption.h"
 #import <StoneNamuResources/StoneNamuResources.h>
 
-static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardOptionsMenuResetOptions = @"NSUserInterfaceItemIdentifierCardOptionsMenuResetOptions";
+static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddCardOptionsMenuResetOptions = @"NSUserInterfaceItemIdentifierDeckAddCardOptionsMenuResetOptions";
 
-@interface CardOptionsMenu () <NSSearchFieldDelegate>
-@property (assign) id<CardOptionsMenuDelegate> cardOptionsMenuDelegate;
-@property (retain) CardOptionsMenuFactory *factory;
+@interface DeckAddCardOptionsMenu () <NSSearchFieldDelegate>
+@property (assign) id<DeckAddCardOptionsMenuDelegate> deckAddCardOptionsMenuDelegate;
+@property (retain) DeckAddCardOptionsMenuFactory *factory;
+
+@property (retain) NSMenuItem *saveAsImageItem;
+@property (retain) NSMenuItem *exportDeckCodeItem;
+@property (retain) NSMenuItem *editDeckNameItem;
+@property (retain) NSMenuItem *deleteItem;
 
 @property (retain) NSMenuItem *optionsMenuItem;
 @property (retain) NSMenu *optionsSubMenu;
@@ -42,9 +47,9 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardOpti
 @property (retain) NSMutableDictionary<NSString *, NSSet<NSString *> *> *options;
 @end
 
-@implementation CardOptionsMenu
+@implementation DeckAddCardOptionsMenu
 
-- (instancetype)initWithOptions:(NSDictionary<NSString *,NSSet<NSString *> *> *)options cardOptionsMenuDelegate:(id<CardOptionsMenuDelegate>)cardOptionsMenuDelegate {
+- (instancetype)initWithOptions:(NSDictionary<NSString *,NSSet<NSString *> *> *)options deckAddCardOptionsMenuDelegate:(id<DeckAddCardOptionsMenuDelegate>)deckAddCardOptionsMenuDelegate {
     self = [self init];
     
     if (self) {
@@ -52,14 +57,24 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardOpti
         self.options = mutableOptions;
         [mutableOptions release];
         
-        CardOptionsMenuFactory *factory = [CardOptionsMenuFactory new];
+        DeckAddCardOptionsMenuFactory *factory = [DeckAddCardOptionsMenuFactory new];
         self.factory = factory;
         [factory release];
         
-        self.cardOptionsMenuDelegate = cardOptionsMenuDelegate;
+        self.deckAddCardOptionsMenuDelegate = deckAddCardOptionsMenuDelegate;
+        
+        [self.fileMenuItem.submenu addItem:[NSMenuItem separatorItem]];
+        [self configureSaveAsImageItem];
+        [self configureExportDeckCodeItem];
+        
+        [self.editMenuItem.submenu addItem:[NSMenuItem separatorItem]];
+        [self configureEditDeckNameItem];
+        [self configureDeleteItem];
+        
         [self configureOptionsMenu];
         [self configureOptionsItems];
         [self configureResetOptionsItem];
+        [self bind];
     }
     
     return self;
@@ -67,6 +82,11 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardOpti
 
 - (void)dealloc {
     [_factory release];
+    
+    [_saveAsImageItem release];
+        [_exportDeckCodeItem release];
+        [_editDeckNameItem release];
+        [_deleteItem release];
     
     [_optionsMenuItem release];
     [_optionsSubMenu release];
@@ -92,19 +112,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardOpti
     [super dealloc];
 }
 
-- (void)updateWithSlugsAndNames:(NSDictionary *)slugsAndNames slugsAndIds:(NSDictionary *)slugsAndIds {
-    self.factory.slugsAndNames = slugsAndNames;
-    self.factory.slugsAndIds = slugsAndIds;
-    
-    [self.allOptionsItems enumerateObjectsUsingBlock:^(NSMenuItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        NSUserInterfaceItemIdentifier itemIdentifier = obj.identifier;
-        BlizzardHSAPIOptionType optionType = BlizzardHSAPIOptionTypeFromNSUserInterfaceItemIdentifierCardOptionType(itemIdentifier);
-        
-        obj.submenu = [self.factory menuForOptionType:optionType target:self];
-        obj.title = [self.factory titleForOptionType:optionType];
-    }];
-}
-
 - (void)updateItemsWithOptions:(NSDictionary<NSString *,NSSet<NSString *> *> *)options {
     NSMutableDictionary<NSString *, NSSet<NSString *> *> *mutableOptions = [options mutableCopy];
     self.options = mutableOptions;
@@ -113,7 +120,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardOpti
     [self.allOptionsItems enumerateObjectsUsingBlock:^(NSMenuItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         
         NSUserInterfaceItemIdentifier identifier = obj.identifier;
-        BlizzardHSAPIOptionType optionType = BlizzardHSAPIOptionTypeFromNSUserInterfaceItemIdentifierCardOptionType(identifier);
+        BlizzardHSAPIOptionType optionType = BlizzardHSAPIOptionTypeFromNSUserInterfaceItemIdentifierDeckAddCardOptionType(identifier);
         NSSet<NSString *> * _Nullable values = options[optionType];
         
         //
@@ -138,6 +145,54 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardOpti
     }];
 }
 
+- (void)configureSaveAsImageItem {
+    NSMenuItem *saveAsImageItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeySaveAsImage]
+                                                             action:NSSelectorFromString(@"saveAsImageItemTriggered:")
+                                                      keyEquivalent:@""];
+//    saveAsImageItem.image = [NSImage imageWithSystemSymbolName:@"photo" accessibilityDescription:nil];
+    
+    [self.fileMenuItem.submenu addItem:saveAsImageItem];
+    
+    self.saveAsImageItem = saveAsImageItem;
+    [saveAsImageItem release];
+}
+
+- (void)configureExportDeckCodeItem {
+    NSMenuItem *exportDeckCodeItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyExportDeckCode]
+                                                                action:NSSelectorFromString(@"exportDeckCodeItemTriggered:")
+                                                         keyEquivalent:@""];
+//    exportDeckCodeItem.image = [NSImage imageWithSystemSymbolName:@"square.and.arrow.up" accessibilityDescription:nil];
+    
+    [self.fileMenuItem.submenu addItem:exportDeckCodeItem];
+    
+    self.exportDeckCodeItem = exportDeckCodeItem;
+    [exportDeckCodeItem release];
+}
+
+- (void)configureEditDeckNameItem {
+    NSMenuItem *editDeckNameItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyEditDeckName]
+                                                              action:NSSelectorFromString(@"editDeckNameItemTriggered:")
+                                                       keyEquivalent:@""];
+//    editDeckNameItem.image = [NSImage imageWithSystemSymbolName:@"pencil" accessibilityDescription:nil];
+    
+    [self.editMenuItem.submenu addItem:editDeckNameItem];
+    
+    self.editDeckNameItem = editDeckNameItem;
+    [editDeckNameItem release];
+}
+
+- (void)configureDeleteItem {
+    NSMenuItem *deleteItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyDeleteDeck]
+                                                        action:NSSelectorFromString(@"deleteItemTriggered:")
+                                                 keyEquivalent:@""];
+//    deleteItem.image = [NSImage imageWithSystemSymbolName:@"trash" accessibilityDescription:nil];
+    
+    [self.editMenuItem.submenu addItem:deleteItem];
+    
+    self.deleteItem = deleteItem;
+    [deleteItem release];
+}
+
 - (void)configureOptionsMenu {
     NSMenuItem *optionsMenuItem = [NSMenuItem new];
     NSMenu *optionsSubMenu = [[NSMenu alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyCardOptionsTitleShort]];
@@ -155,98 +210,98 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardOpti
     NSMenuItem *optionTypeTextFilterItem = [[NSMenuItem alloc] initWithTitle:@""
                                                                       action:nil
                                                                keyEquivalent:@""];
-    optionTypeTextFilterItem.identifier = NSUserInterfaceItemIdentifierCardOptionTypeTextFilter;
+    optionTypeTextFilterItem.identifier = NSUserInterfaceItemIdentifierDeckAddCardOptionTypeTextFilter;
     
     //
     
     NSMenuItem *optionTypeSetItem = [[NSMenuItem alloc] initWithTitle:@""
                                                                action:nil
                                                         keyEquivalent:@""];
-    optionTypeSetItem.identifier = NSUserInterfaceItemIdentifierCardOptionTypeSet;
+    optionTypeSetItem.identifier = NSUserInterfaceItemIdentifierDeckAddCardOptionTypeSet;
     
     //
     
     NSMenuItem *optionTypeClassItem = [[NSMenuItem alloc] initWithTitle:@""
                                                                  action:nil
                                                           keyEquivalent:@""];
-    optionTypeClassItem.identifier = NSUserInterfaceItemIdentifierCardOptionTypeClass;
+    optionTypeClassItem.identifier = NSUserInterfaceItemIdentifierDeckAddCardOptionTypeClass;
     
     //
     
     NSMenuItem *optionTypeManaCostItem = [[NSMenuItem alloc] initWithTitle:@""
                                                                     action:nil
                                                              keyEquivalent:@""];
-    optionTypeManaCostItem.identifier = NSUserInterfaceItemIdentifierCardOptionTypeManaCost;
+    optionTypeManaCostItem.identifier = NSUserInterfaceItemIdentifierDeckAddCardOptionTypeManaCost;
     
     //
     
     NSMenuItem *optionTypeAttackItem = [[NSMenuItem alloc] initWithTitle:@""
                                                                   action:nil
                                                            keyEquivalent:@""];
-    optionTypeAttackItem.identifier = NSUserInterfaceItemIdentifierCardOptionTypeAttack;
+    optionTypeAttackItem.identifier = NSUserInterfaceItemIdentifierDeckAddCardOptionTypeAttack;
     
     //
     
     NSMenuItem *optionTypeHealthItem = [[NSMenuItem alloc] initWithTitle:@""
                                                                   action:nil
                                                            keyEquivalent:@""];
-    optionTypeHealthItem.identifier = NSUserInterfaceItemIdentifierCardOptionTypeHealth;
+    optionTypeHealthItem.identifier = NSUserInterfaceItemIdentifierDeckAddCardOptionTypeHealth;
     
     //
     
     NSMenuItem *optionTypeCollectibleItem = [[NSMenuItem alloc] initWithTitle:@""
                                                                        action:nil
                                                                 keyEquivalent:@""];
-    optionTypeCollectibleItem.identifier = NSUserInterfaceItemIdentifierCardOptionTypeCollectible;
+    optionTypeCollectibleItem.identifier = NSUserInterfaceItemIdentifierDeckAddCardOptionTypeCollectible;
     
     //
     
     NSMenuItem *optionTypeRarityItem = [[NSMenuItem alloc] initWithTitle:@""
                                                                   action:nil
                                                            keyEquivalent:@""];
-    optionTypeRarityItem.identifier = NSUserInterfaceItemIdentifierCardOptionTypeRarity;
+    optionTypeRarityItem.identifier = NSUserInterfaceItemIdentifierDeckAddCardOptionTypeRarity;
     
     //
     
     NSMenuItem *optionTypeTypeItem = [[NSMenuItem alloc] initWithTitle:@""
                                                                 action:nil
                                                          keyEquivalent:@""];
-    optionTypeTypeItem.identifier = NSUserInterfaceItemIdentifierCardOptionTypeType;
+    optionTypeTypeItem.identifier = NSUserInterfaceItemIdentifierDeckAddCardOptionTypeType;
     
     //
     
     NSMenuItem *optionTypeMinionTypeItem = [[NSMenuItem alloc] initWithTitle:@""
                                                                       action:nil
                                                                keyEquivalent:@""];
-    optionTypeMinionTypeItem.identifier = NSUserInterfaceItemIdentifierCardOptionTypeMinionType;
+    optionTypeMinionTypeItem.identifier = NSUserInterfaceItemIdentifierDeckAddCardOptionTypeMinionType;
     
     //
     
     NSMenuItem *optionTypeSpellSchoolItem = [[NSMenuItem alloc] initWithTitle:@""
                                                                        action:nil
                                                                 keyEquivalent:@""];
-    optionTypeSpellSchoolItem.identifier = NSUserInterfaceItemIdentifierCardOptionTypeSpellSchool;
+    optionTypeSpellSchoolItem.identifier = NSUserInterfaceItemIdentifierDeckAddCardOptionTypeSpellSchool;
     
     //
     
     NSMenuItem *optionTypeKeywordItem = [[NSMenuItem alloc] initWithTitle:@""
                                                                    action:nil
                                                             keyEquivalent:@""];
-    optionTypeKeywordItem.identifier = NSUserInterfaceItemIdentifierCardOptionTypeKeyword;
+    optionTypeKeywordItem.identifier = NSUserInterfaceItemIdentifierDeckAddCardOptionTypeKeyword;
     
     //
     
     NSMenuItem *optionTypeGameModeItem = [[NSMenuItem alloc] initWithTitle:@""
                                                                     action:nil
                                                              keyEquivalent:@""];
-    optionTypeGameModeItem.identifier = NSUserInterfaceItemIdentifierCardOptionTypeGameMode;
+    optionTypeGameModeItem.identifier = NSUserInterfaceItemIdentifierDeckAddCardOptionTypeGameMode;
     
     //
     
     NSMenuItem *optionTypeSortItem = [[NSMenuItem alloc] initWithTitle:@""
                                                                 action:nil
                                                          keyEquivalent:@""];
-    optionTypeSortItem.identifier = NSUserInterfaceItemIdentifierCardOptionTypeSort;
+    optionTypeSortItem.identifier = NSUserInterfaceItemIdentifierDeckAddCardOptionTypeSort;
     
     //
     
@@ -305,7 +360,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardOpti
                                                               action:@selector(resetOptionsItemTriggered:)
                                                        keyEquivalent:@""];
     resetOptionsItem.target = self;
-    resetOptionsItem.identifier = NSUserInterfaceItemIdentifierCardOptionsMenuResetOptions;
+    resetOptionsItem.identifier = NSUserInterfaceItemIdentifierDeckAddCardOptionsMenuResetOptions;
     
     NSMutableArray<NSMenuItem *> *itemArray = [self.optionsSubMenu.itemArray mutableCopy];
     [itemArray addObject:[NSMenuItem separatorItem]];
@@ -322,7 +377,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardOpti
     
     [self.allOptionsItems enumerateObjectsUsingBlock:^(NSMenuItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         NSUserInterfaceItemIdentifier itemIdentifier = obj.identifier;
-        BlizzardHSAPIOptionType tmp = BlizzardHSAPIOptionTypeFromNSUserInterfaceItemIdentifierCardOptionType(itemIdentifier);
+        BlizzardHSAPIOptionType tmp = BlizzardHSAPIOptionTypeFromNSUserInterfaceItemIdentifierDeckAddCardOptionType(itemIdentifier);
         
         if ([optionType isEqualToString:tmp]) {
             result = obj;
@@ -333,26 +388,46 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardOpti
     return result;
 }
 
+- (void)bind {
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(shouldUpdateReceived:)
+                                               name:NSNotificationNameDeckAddCardOptionsMenuFactoryShouldUpdateItems
+                                             object:self.factory];
+}
+
+- (void)shouldUpdateReceived:(NSNotification *)notification {
+    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+        [self.allOptionsItems enumerateObjectsUsingBlock:^(NSMenuItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSUserInterfaceItemIdentifier itemIdentifier = obj.identifier;
+            BlizzardHSAPIOptionType optionType = BlizzardHSAPIOptionTypeFromNSUserInterfaceItemIdentifierDeckAddCardOptionType(itemIdentifier);
+            
+            obj.submenu = [self.factory menuForOptionType:optionType target:self];
+            obj.title = [self.factory titleForOptionType:optionType];
+        }];
+    }];
+}
+
+
 - (void)keyMenuItemTriggered:(StorableMenuItem *)sender {
     NSDictionary<NSString *, id> *userInfo = sender.userInfo;
     
     BOOL showsEmptyItem;
     BOOL allowsMultipleSelection;
     
-    if (userInfo[CardOptionsMenuFactoryStorableMenuItemShowsEmptyItemKey]) {
-        showsEmptyItem = [(NSNumber *)userInfo[CardOptionsMenuFactoryStorableMenuItemShowsEmptyItemKey] boolValue];
+    if (userInfo[DeckAddCardOptionsMenuFactoryStorableMenuItemShowsEmptyItemKey]) {
+        showsEmptyItem = [(NSNumber *)userInfo[DeckAddCardOptionsMenuFactoryStorableMenuItemShowsEmptyItemKey] boolValue];
     } else {
         showsEmptyItem = NO;
     }
     
-    if (userInfo[CardOptionsMenuFactoryStorableMenuItemAllowsMultipleSelection]) {
-        allowsMultipleSelection = [(NSNumber *)userInfo[CardOptionsMenuFactoryStorableMenuItemAllowsMultipleSelection] boolValue];
+    if (userInfo[DeckAddCardOptionsMenuFactoryStorableMenuItemAllowsMultipleSelection]) {
+        allowsMultipleSelection = [(NSNumber *)userInfo[DeckAddCardOptionsMenuFactoryStorableMenuItemAllowsMultipleSelection] boolValue];
     } else {
         allowsMultipleSelection = NO;
     }
     
-    NSString *key = userInfo[CardOptionsMenuFactoryStorableMenuItemOptionTypeKey];
-    NSString *value = userInfo[CardOptionsMenuFactoryStorableMenuItemValueKey];
+    NSString *key = userInfo[DeckAddCardOptionsMenuFactoryStorableMenuItemOptionTypeKey];
+    NSString *value = userInfo[DeckAddCardOptionsMenuFactoryStorableMenuItemValueKey];
     
     //
     
@@ -382,12 +457,12 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardOpti
     }
     
     [self updateItemsWithOptions:self.options];
-    [self.cardOptionsMenuDelegate cardOptionsMenu:self changedOption:self.options];
+    [self.deckAddCardOptionsMenuDelegate deckAddCardOptionsMenu:self changedOption:self.options];
 }
 
 - (void)updateStateOfItem:(NSMenuItem *)item {
     NSUserInterfaceItemIdentifier itemIdentifier = item.identifier;
-    BlizzardHSAPIOptionType optionType = BlizzardHSAPIOptionTypeFromNSUserInterfaceItemIdentifierCardOptionType(itemIdentifier);
+    BlizzardHSAPIOptionType optionType = BlizzardHSAPIOptionTypeFromNSUserInterfaceItemIdentifierDeckAddCardOptionType(itemIdentifier);
     
     NSArray<NSString *> * _Nullable values = self.options[optionType].allObjects;
     BOOL shouldSelectEmptyValue = ((values == nil) || (values.count == 0));
@@ -397,7 +472,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardOpti
         
         if (![item isKindOfClass:[StorableMenuItem class]]) return;
         
-        NSString *itemValue = item.userInfo[CardOptionsMenuFactoryStorableMenuItemValueKey];
+        NSString *itemValue = item.userInfo[DeckAddCardOptionsMenuFactoryStorableMenuItemValueKey];
         
         if (shouldSelectEmptyValue) {
             if ([@"" isEqualToString:itemValue]) {
@@ -418,7 +493,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardOpti
 }
 
 - (void)resetOptionsItemTriggered:(NSMenuItem *)sender {
-    [self.cardOptionsMenuDelegate cardOptionsMenu:self defaultOptionsAreNeedWithSender:sender];
+    [self.deckAddCardOptionsMenuDelegate deckAddCardOptionsMenu:self defaultOptionsAreNeedWithSender:sender];
 }
 
 #pragma mark - NSSearchFieldDelegate
@@ -443,7 +518,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardOpti
         }
         
         [self updateItemsWithOptions:self.options];
-        [self.cardOptionsMenuDelegate cardOptionsMenu:self changedOption:self.options];
+        [self.deckAddCardOptionsMenuDelegate deckAddCardOptionsMenu:self changedOption:self.options];
     }
 }
 

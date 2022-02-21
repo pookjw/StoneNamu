@@ -60,7 +60,7 @@ NSToolbarIdentifier NSToolbarIdentifierCardOptionTypeFromBlizzardHSAPIOptionType
     }
 }
 
-BlizzardHSAPIOptionType BlizzardHSAPIOptionTypeFromNSToolbarIdentifierCardOptionType(NSToolbarIdentifier itemIdentifier) {
+BlizzardHSAPIOptionType BlizzardHSAPIOptionTypeFromNSToolbarIdentifierDeckAddCardOptionType(NSToolbarIdentifier itemIdentifier) {
     if ([itemIdentifier isEqualToString:NSToolbarIdentifierCardOptionTypeTextFilter]) {
         return BlizzardHSAPIOptionTypeTextFilter;
     } else if ([itemIdentifier isEqualToString:NSToolbarIdentifierCardOptionTypeSet]) {
