@@ -70,7 +70,6 @@
     [self.queue addBarrierBlock:^{
         PickerItemModel * _Nullable itemModel = [self.dataSource itemIdentifierForIndexPath:indexPath];
         if (itemModel == nil) return;
-        if (!(self.allowsMultipleSelection) && itemModel.isSelected) return;
         
         NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
         
@@ -107,65 +106,75 @@
             }
             case PickerItemModelTypeItems: {
                 if (self.allowsMultipleSelection) {
-                    if (itemModel.selected) {
-                        BOOL __block selectedAnyItems = NO;
-                        
-                        [snapshot.itemIdentifiers enumerateObjectsUsingBlock:^(PickerItemModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                            if ([obj isEqual:itemModel]) return;
-                            
-                            switch (obj.type) {
-                                case PickerItemModelTypeItems: {
-                                    if (obj.isSelected) {
-                                        selectedAnyItems = YES;
-                                        *stop = YES;
-                                    }
-                                    break;
-                                }
-                                default:
-                                    break;
-                            }
-                        }];
-                        
-                        if (selectedAnyItems) {
-                            itemModel.selected = NO;
-                            [snapshot reconfigureItemsWithIdentifiers:@[itemModel]];
-                        }
-                    } else {
-                        itemModel.selected = YES;
-                        [snapshot reconfigureItemsWithIdentifiers:@[itemModel]];
-                        
-                        [snapshot.itemIdentifiers enumerateObjectsUsingBlock:^(PickerItemModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                            switch (obj.type) {
-                                case PickerItemModelTypeEmpty: {
-                                    if (obj.isSelected) {
-                                        obj.selected = NO;
-                                        [snapshot reconfigureItemsWithIdentifiers:@[obj]];
-                                        *stop = YES;
-                                    }
-                                    break;
-                                }
-                                default:
-                                    break;
-                            }
-                        }];
-                    }
-                } else {
-                    NSMutableSet<PickerItemModel *> *toBeReconfigured = [NSMutableSet<PickerItemModel *> new];
+                    itemModel.selected = !itemModel.isSelected;
+                    [snapshot reconfigureItemsWithIdentifiers:@[itemModel]];
+                    
+                    BOOL __block selectedAnyItems = NO;
+                    PickerItemModel * _Nullable __block emptyItemModel = nil;
                     
                     [snapshot.itemIdentifiers enumerateObjectsUsingBlock:^(PickerItemModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                        switch (obj.type) {
+                            case PickerItemModelTypeItems: {
+                                if (obj.isSelected) {
+                                    selectedAnyItems = YES;
+                                    *stop = YES;
+                                }
+                                break;
+                            }
+                            case PickerItemModelTypeEmpty: {
+                                emptyItemModel = obj;
+                                break;
+                            }
+                            default:
+                                break;
+                        }
+                    }];
+                    
+                    if (emptyItemModel) {
+                        if (selectedAnyItems) {
+                            if (emptyItemModel.isSelected) {
+                                emptyItemModel.selected = NO;
+                                [snapshot reconfigureItemsWithIdentifiers:@[emptyItemModel]];
+                            }
+                        } else {
+                            emptyItemModel.selected = YES;
+                            [snapshot reconfigureItemsWithIdentifiers:@[emptyItemModel]];
+                        }
+                    }
+                    break;
+                } else {
+                    NSMutableSet<PickerItemModel *> *toBeReconfigured = [NSMutableSet<PickerItemModel *> new];
+                    PickerItemModel * _Nullable __block emptyItemModel = nil;
+                    
+                    [snapshot.itemIdentifiers enumerateObjectsUsingBlock:^(PickerItemModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                        if ([obj isEqual:itemModel]) return;
+                        
                         if (obj.isSelected) {
                             obj.selected = NO;
                             [toBeReconfigured addObject:obj];
                         }
+                        
+                        switch (obj.type) {
+                            case PickerItemModelTypeEmpty: {
+                                emptyItemModel = obj;
+                                break;
+                            }
+                            default:
+                                break;
+                        }
                     }];
                     
-                    itemModel.selected = YES;
+                    itemModel.selected = !itemModel.isSelected;
                     [toBeReconfigured addObject:itemModel];
+                    
+                    if (!itemModel.selected && emptyItemModel) {
+                        emptyItemModel.selected = YES;
+                        [toBeReconfigured addObject:emptyItemModel];
+                    }
                     
                     [snapshot reconfigureItemsWithIdentifiers:toBeReconfigured.allObjects];
                     [toBeReconfigured release];
                 }
-                break;
             }
             default:
                 break;
