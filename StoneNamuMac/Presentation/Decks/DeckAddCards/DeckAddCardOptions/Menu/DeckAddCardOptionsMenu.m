@@ -75,6 +75,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
         [self configureOptionsItems];
         [self configureResetOptionsItem];
         [self bind];
+        [self.factory updateItems];
     }
     
     return self;
@@ -84,9 +85,9 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
     [_factory release];
     
     [_saveAsImageItem release];
-        [_exportDeckCodeItem release];
-        [_editDeckNameItem release];
-        [_deleteItem release];
+    [_exportDeckCodeItem release];
+    [_editDeckNameItem release];
+    [_deleteItem release];
     
     [_optionsMenuItem release];
     [_optionsSubMenu release];
@@ -434,7 +435,13 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
     if ([value isEqualToString:@""]) {
         [self.options removeObjectForKey:key];
     } else if (!allowsMultipleSelection) {
-        self.options[key] = [NSSet setWithObject:value];
+        NSSet<NSString *> * _Nullable values = self.options[key];
+        
+        if ((values == nil) || !([values containsObject:value])) {
+            self.options[key] = [NSSet setWithObject:value];
+        } else {
+            [self.options removeObjectForKey:key];
+        }
     } else {
         NSMutableSet<NSString *> * _Nullable values = [self.options[key] mutableCopy];
         if (values == nil) {
@@ -450,7 +457,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
         if (values.count > 0) {
             self.options[key] = values;
         } else if (showsEmptyItem) {
-//            [self.options removeObjectForKey:key];
+            [self.options removeObjectForKey:key];
         }
         
         [values release];

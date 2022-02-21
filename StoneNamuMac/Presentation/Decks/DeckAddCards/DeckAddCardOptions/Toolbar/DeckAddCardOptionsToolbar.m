@@ -54,6 +54,7 @@
         [self configureToolbarItems];
         [self updateItemsWithOptions:options];
         [self bind];
+        [self.factory updateItems];
     }
     
     return self;
@@ -279,6 +280,8 @@
             
             obj.menu = [self.factory menuForOptionType:optionType target:self];
             obj.title = [self.factory titleForOptionType:optionType];
+            
+            [self validateVisibleItems];
         }];
     }];
 }
@@ -325,7 +328,13 @@
     if ([value isEqualToString:@""]) {
         [self.options removeObjectForKey:key];
     } else if (!supportsMultipleSelection) {
-        self.options[key] = [NSSet setWithObject:value];
+        NSSet<NSString *> * _Nullable values = self.options[key];
+        
+        if ((values == nil) || !([values containsObject:value])) {
+            self.options[key] = [NSSet setWithObject:value];
+        } else {
+            [self.options removeObjectForKey:key];
+        }
     } else {
         NSMutableSet<NSString *> * _Nullable values = [self.options[key] mutableCopy];
         if (values == nil) {
@@ -341,7 +350,7 @@
         if (values.count > 0) {
             self.options[key] = values;
         } else if (showsEmptyItem) {
-//            [self.options removeObjectForKey:key];
+            [self.options removeObjectForKey:key];
         }
         
         [values release];

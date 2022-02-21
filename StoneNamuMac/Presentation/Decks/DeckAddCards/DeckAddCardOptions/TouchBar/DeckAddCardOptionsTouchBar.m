@@ -46,6 +46,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
         [self setAttributes];
         [self updateItemsWithOptions:options];
         [self bind];
+        [self.factory updateItems];
     }
     
     return self;

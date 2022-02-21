@@ -39,8 +39,6 @@
         
         [self->_slugsAndNames release];
         self->_slugsAndNames = nil;
-        
-        [self updateSlugs];
     }
     
     return self;
@@ -516,7 +514,7 @@
     return [item autorelease];
 }
 
-- (void)updateSlugs {
+- (void)updateItems {
     [self.queue addBarrierBlock:^{
         SemaphoreCondition *semaphore = [[SemaphoreCondition alloc] initWithValue:0];
         HSMetaData * _Nullable __block hsMetaData = nil;

@@ -26,6 +26,7 @@ static NSString * const CardOptionsMenuFactoryStorableMenuItemAllowsMultipleSele
 - (NSString * _Nullable)titleForOptionType:(BlizzardHSAPIOptionType)optionType;
 - (NSImage * _Nullable)imageForCardOptionTypeWithValues:(NSSet<NSString *> * _Nullable)values optionType:(BlizzardHSAPIOptionType)optionType;
 - (NSMenu *)menuForOptionType:(BlizzardHSAPIOptionType)optionType target:(id<NSSearchFieldDelegate>)target;
+- (void)updateItems;
 @end
 
 NS_ASSUME_NONNULL_END
