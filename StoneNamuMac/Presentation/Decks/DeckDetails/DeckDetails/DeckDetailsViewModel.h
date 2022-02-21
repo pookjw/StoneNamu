@@ -44,7 +44,7 @@ static NSString * const DeckDetailsViewModelShouldChangeWindowSubtitleTextKey = 
 - (void)addHSCardsWithDatas:(NSArray<NSData *> *)datas;
 
 - (void)increaseAtIndexPath:(NSIndexPath *)indexPath;
-- (BOOL)decreaseAtIndexPath:(NSIndexPath *)indexPath;
+- (void)decreaseAtIndexPath:(NSIndexPath *)indexPath;
 - (void)deleteAtIndexPathes:(NSSet<NSIndexPath *> *)indexPathes;
 - (void)deleteLocalDeck;
 

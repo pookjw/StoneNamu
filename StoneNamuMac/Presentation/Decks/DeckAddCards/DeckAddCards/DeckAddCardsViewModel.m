@@ -247,10 +247,12 @@
 }
 
 - (void)addHSCards:(NSSet<HSCard *> *)hsCards {
-    [self.localDeckUseCase addHSCards:hsCards.allObjects toLocalDeck:self.localDeck validation:^(NSError * _Nullable error) {
-        if (error != nil) {
-            [self postError:error];
-        }
+    [self.queue addBarrierBlock:^{
+        [self.localDeckUseCase addHSCards:hsCards.allObjects toLocalDeck:self.localDeck validation:^(NSError * _Nullable error) {
+            if (error != nil) {
+                [self postError:error];
+            }
+        }];
     }];
 }
 

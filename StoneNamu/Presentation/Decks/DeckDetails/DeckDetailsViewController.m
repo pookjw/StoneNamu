@@ -379,11 +379,8 @@
                                                                                       title:nil
                                                                                     handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
             
-            BOOL shouldComplete = [unretainedSelf.viewModel decreaseAtIndexPath:indexPath];
-            
-            if (shouldComplete) {
-                completionHandler(YES);
-            }
+            [unretainedSelf.viewModel decreaseAtIndexPath:indexPath];
+            completionHandler(YES);
         }];
         
         decrementAction.image = [UIImage systemImageNamed:@"minus"];

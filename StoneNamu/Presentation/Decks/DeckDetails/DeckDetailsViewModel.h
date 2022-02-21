@@ -39,7 +39,7 @@ static NSString * const DeckDetailsViewModelApplyingSnapshotToDataSourceWasDoneC
 - (void)addHSCards:(NSArray<HSCard *> *)hsCards;
 
 - (void)increaseAtIndexPath:(NSIndexPath *)indexPath;
-- (BOOL)decreaseAtIndexPath:(NSIndexPath *)indexPath;
+- (void)decreaseAtIndexPath:(NSIndexPath *)indexPath;
 - (void)deleteAtIndexPathes:(NSSet<NSIndexPath *> *)indexPathes;
 
 - (NSArray<UIDragItem *> *)makeDragItemFromIndexPath:(NSIndexPath *)indexPath;
