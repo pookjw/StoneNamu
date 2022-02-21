@@ -71,6 +71,7 @@
 }
 
 - (void)dealloc {
+    [self removeObserver:self forKeyPath:@"localDeck"];
     [_localDeck release];
     [_dataSource release];
     [_hsCardUseCase release];
@@ -85,10 +86,22 @@
     [super dealloc];
 }
 
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+    if ([object isEqual:self]) {
+        if ([keyPath isEqualToString:@"localDeck"]) {
+            [self postShouldUpdateOptions];
+        } else {
+            return [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+        }
+    } else {
+        return [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
+}
+
 - (void)loadLocalDeckFromURIRepresentation:(NSURL *)URIRepresentation completion:(DeckAddCardsViewModelLoadFromURIRepresentationCompletion)completion {
     [self.localDeckUseCase fetchUsingURI:URIRepresentation completion:^(NSArray<LocalDeck *> * _Nullable localDecks, NSError * _Nullable error) {
         if (error != nil) {
-//            [self postError:error];
+            //            [self postError:error];
             completion(NO);
             return;
         }
@@ -111,7 +124,7 @@
     } else {
         if (self.isFetching) return NO;
         if (!self.canLoadMore) return NO;
-        [self.queue cancelAllOperations];
+//        [self.queue cancelAllOperations];
     }
     
     //
@@ -185,7 +198,11 @@
 }
 
 - (NSDictionary<NSString *, NSSet<NSString *> *> *)defaultOptions {
-    return BlizzardHSAPIDefaultOptions();
+    if (self.localDeck) {
+        return BlizzardHSAPIDefaultOptionsFromHSDeckFormat(self.localDeck.format);
+    } else {
+        return BlizzardHSAPIDefaultOptions();
+    }
 }
 
 - (void)hsCardsFromIndexPathsWithCompletion:(NSSet<NSIndexPath *> *)indexPaths completion:(DeckAddCardsViewModelHSCardsFromIndexPathsCompletion)completion {
@@ -209,7 +226,7 @@
 }
 
 - (void)resetDataSource{
-    [self.queue cancelAllOperations];
+//    [self.queue cancelAllOperations];
     
     [self.queue addBarrierBlock:^{
         self.pageCount = nil;
@@ -320,6 +337,8 @@
 }
 
 - (void)startObserving {
+    [self addObserver:self forKeyPath:@"localDeck" options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:nil];
+    
     [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(localDeckChangesReceived:)
                                                name:NSNotificationNameLocalDeckUseCaseObserveData
@@ -381,22 +400,24 @@
 
 - (void)postShouldUpdateOptions {
     [self.queue addOperationWithBlock:^{
-        [self.hsMetaDataUseCase fetchWithCompletionHandler:^(HSMetaData * _Nullable hsMetaData, NSError * _Nullable error) {
-            if (error) {
-                NSLog(@"%@", error.localizedDescription);
-                return;
-            }
-            
-            [self.queue addBarrierBlock:^{
-                NSDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSString *> *> *slugsAndNames = [self.hsMetaDataUseCase optionTypesAndSlugsAndNamesFromHSDeckFormat:self.localDeck.format withClassId:self.localDeck.classId usingHSMetaData:hsMetaData];
-                NSDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSNumber *> *> *slugsAndIds = [self.hsMetaDataUseCase optionTypesAndSlugsAndIdsFromHSDeckFormat:self.localDeck.format withClassId:self.localDeck.classId usingHSMetaData:hsMetaData];
+        if (self.localDeck) {
+            [self.hsMetaDataUseCase fetchWithCompletionHandler:^(HSMetaData * _Nullable hsMetaData, NSError * _Nullable error) {
+                if (error) {
+                    NSLog(@"%@", error.localizedDescription);
+                    return;
+                }
                 
-                [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameDeckAddCardsViewModelShouldUpdateOptions
-                                                                  object:self
-                                                                userInfo:@{DeckAddCardsViewModelShouldUpdateOptionsSlugsAndNamesItemKey: slugsAndNames,
-                                                                           DeckAddCardsViewModelShouldUpdateOptionsSlugsAndIdsItemKey: slugsAndIds}];
+                [self.queue addBarrierBlock:^{
+                    NSDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSString *> *> *slugsAndNames = [self.hsMetaDataUseCase optionTypesAndSlugsAndNamesFromHSDeckFormat:self.localDeck.format withClassId:self.localDeck.classId usingHSMetaData:hsMetaData];
+                    NSDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSNumber *> *> *slugsAndIds = [self.hsMetaDataUseCase optionTypesAndSlugsAndIdsFromHSDeckFormat:self.localDeck.format withClassId:self.localDeck.classId usingHSMetaData:hsMetaData];
+                    
+                    [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameDeckAddCardsViewModelShouldUpdateOptions
+                                                                      object:self
+                                                                    userInfo:@{DeckAddCardsViewModelShouldUpdateOptionsSlugsAndNamesItemKey: slugsAndNames,
+                                                                               DeckAddCardsViewModelShouldUpdateOptionsSlugsAndIdsItemKey: slugsAndIds}];
+                }];
             }];
-        }];
+        }
     }];
 }
 

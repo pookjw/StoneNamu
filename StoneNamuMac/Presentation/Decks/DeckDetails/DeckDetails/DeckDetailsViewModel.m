@@ -463,23 +463,25 @@
 }
 
 - (void)postShouldChangeWindowTitleFromSnapshot:(NSDiffableDataSourceSnapshot *)snapshot {
-    [self.hsMetaDataUseCase fetchWithCompletionHandler:^(HSMetaData * _Nullable hsMetaData, NSError * _Nullable error) {
-        [self.queue addBarrierBlock:^{
-            [snapshot.sectionIdentifiers enumerateObjectsUsingBlock:^(DeckDetailsSectionModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                if (obj.type == DeckDetailsSectionModelTypeCards) {
-                    NSString *classText = [self.hsMetaDataUseCase hsCardClassFromClassId:self.localDeck.classId usingHSMetaData:hsMetaData].name;
-                    NSString *countText = [NSString stringWithFormat:[ResourcesService localizationForKey:LocalizableKeyCardCount], [self totalCardsInSnapshot:snapshot], HSDECK_MAX_TOTAL_CARDS];
-                    
-                    NSString *finalText = [NSString stringWithFormat:@"%@ (%@)", classText, countText];
-                    
-                    [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameDeckDetailsViewModelShouldChangeWindowSubtitle
-                                                                      object:self
-                                                                    userInfo:@{DeckDetailsViewModelShouldChangeWindowSubtitleTextKey: finalText}];
-                    
-                    [self->_windowSubtitle release];
-                    self->_windowSubtitle = [finalText copy];
-                    *stop = YES;
-                }
+    [self.queue addBarrierBlock:^{
+        [self.hsMetaDataUseCase fetchWithCompletionHandler:^(HSMetaData * _Nullable hsMetaData, NSError * _Nullable error) {
+            [self.queue addBarrierBlock:^{
+                [snapshot.sectionIdentifiers enumerateObjectsUsingBlock:^(DeckDetailsSectionModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    if (obj.type == DeckDetailsSectionModelTypeCards) {
+                        NSString *classText = [self.hsMetaDataUseCase hsCardClassFromClassId:self.localDeck.classId usingHSMetaData:hsMetaData].name;
+                        NSString *countText = [NSString stringWithFormat:[ResourcesService localizationForKey:LocalizableKeyCardCount], [self totalCardsInSnapshot:snapshot], HSDECK_MAX_TOTAL_CARDS];
+                        
+                        NSString *finalText = [NSString stringWithFormat:@"%@ (%@)", classText, countText];
+                        
+                        [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameDeckDetailsViewModelShouldChangeWindowSubtitle
+                                                                          object:self
+                                                                        userInfo:@{DeckDetailsViewModelShouldChangeWindowSubtitleTextKey: finalText}];
+                        
+                        [self->_windowSubtitle release];
+                        self->_windowSubtitle = [finalText copy];
+                        *stop = YES;
+                    }
+                }];
             }];
         }];
     }];

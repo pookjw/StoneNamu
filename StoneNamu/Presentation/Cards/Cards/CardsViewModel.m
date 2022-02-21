@@ -82,7 +82,7 @@
     } else {
         if (self.isFetching) return NO;
         if (!self.canLoadMore) return NO;
-        [self.queue cancelAllOperations];
+//        [self.queue cancelAllOperations];
     }
     
     //
@@ -156,7 +156,7 @@
 }
 
 - (void)resetDataSource {
-    [self.queue cancelAllOperations];
+//    [self.queue cancelAllOperations];
     
     [self.queue addBarrierBlock:^{
         self.pageCount = nil;
