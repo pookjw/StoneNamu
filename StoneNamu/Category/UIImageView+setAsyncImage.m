@@ -102,6 +102,7 @@ static NSString * const UIImageViewAsyncImageCategorySessionTaskKey = @"UIImageV
                 }
             }];
             [sessionTask resume];
+            [session finishTasksAndInvalidate];
             self.sessionTask = sessionTask;
         }
     }];

@@ -45,6 +45,7 @@ static NSString * const BlizzardHSAPIAccessToken = @"access_token";
     NSURLSession *session = [NSURLSession sessionWithConfiguration:NSURLSessionConfiguration.ephemeralSessionConfiguration];
     NSURLSessionTask *task = [session dataTaskWithURL:url completionHandler:completion];
     [task resume];
+    [session finishTasksAndInvalidate];
 }
 
 @end

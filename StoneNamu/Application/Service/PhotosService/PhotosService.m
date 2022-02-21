@@ -251,6 +251,7 @@
                     }];
                     
                     [sessionTask resume];
+                    [session finishTasksAndInvalidate];
                 } else {
                     results[key] = data;
                     [semaphore signal];

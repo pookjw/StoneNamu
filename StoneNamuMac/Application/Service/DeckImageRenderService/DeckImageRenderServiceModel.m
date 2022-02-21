@@ -263,6 +263,7 @@
             }];
             
             [sessionTask resume];
+            [session finishTasksAndInvalidate];
         }
     }];
 }
