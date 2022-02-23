@@ -66,7 +66,7 @@
 }
 
 - (instancetype)initWithHSCards:(NSSet<HSCard *> *)hsCards {
-    NSMutableDictionary<NSString *, NSURL *> *urls = [@{} mutableCopy];
+    NSMutableDictionary<NSString *, NSURL *> *urls = [NSMutableDictionary<NSString *, NSURL *> new];
     
     [hsCards enumerateObjectsUsingBlock:^(HSCard * _Nonnull obj, BOOL * _Nonnull stop) {
         urls[obj.name] = obj.image;
@@ -181,7 +181,7 @@
 
 - (void)shareImages:(NSDictionary<NSString *, UIImage *> *)images fromViewController:(UIViewController *)viewController completion:(PhotosServiceCompletion)completion {
     NSURL *tmpURL = NSFileManager.defaultManager.temporaryDirectory;
-    NSMutableDictionary<NSString *, NSURL *> *localURLs = [@{} mutableCopy];
+    NSMutableDictionary<NSString *, NSURL *> *localURLs = [NSMutableDictionary<NSString *, NSURL *> new];
     
     [images enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, UIImage * _Nonnull obj, BOOL * _Nonnull stop) {
         NSURL *targetURL = [[tmpURL URLByAppendingPathComponent:key] URLByAppendingPathExtension:UTTypePNG.preferredFilenameExtension];
@@ -206,7 +206,7 @@
 - (void)imagesFromURLs:(NSDictionary<NSString *, NSURL *> *)urls completion:(void (^)(NSDictionary<NSString *, UIImage *> * _Nullable images, NSError * _Nullable error))completion {
     [self.queue addBarrierBlock:^{
         SemaphoreCondition *semaphore = [[SemaphoreCondition alloc] initWithValue:-((NSInteger)self.urls.count) + 1];
-        NSMutableDictionary<NSString *, NSData *> *results = [@{} mutableCopy];
+        NSMutableDictionary<NSString *, NSData *> *results = [NSMutableDictionary<NSString *, NSData *> new];
         NSError * __block _Nullable writeError = nil;
         
         [urls enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSURL * _Nonnull obj, BOOL * _Nonnull stop) {
@@ -264,7 +264,7 @@
         
         //
         
-        NSMutableDictionary<NSString *, UIImage *> *images = [@{} mutableCopy];
+        NSMutableDictionary<NSString *, UIImage *> *images = [NSMutableDictionary<NSString *, UIImage *> new];
         
         [results enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSData * _Nonnull obj, BOOL * _Nonnull stop) {
             UIImage *image = [[UIImage alloc] initWithData:obj];
@@ -290,7 +290,7 @@
 #pragma mark - UIActivityItemsConfigurationReading
 
 - (NSArray<NSItemProvider *> *)itemProvidersForActivityItemsConfiguration {
-    NSMutableArray<NSItemProvider *> *itemProvicers = [@[] mutableCopy];
+    NSMutableArray<NSItemProvider *> *itemProvicers = [NSMutableArray<NSItemProvider *> new];
     
     [self.localURLs enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSURL * _Nonnull obj, BOOL * _Nonnull stop) {
         NSItemProvider *itemProvider = [[NSItemProvider alloc] initWithContentsOfURL:obj];
@@ -298,7 +298,7 @@
         [itemProvider release];
     }];
     
-    return itemProvicers;
+    return [itemProvicers autorelease];
 }
 
 @end

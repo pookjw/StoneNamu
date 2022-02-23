@@ -124,7 +124,7 @@ static NSString *coreDataStackImplSynchronizedToken = @"coreDataStackImplSynchro
 
 - (void)configureQueueWithModelName:(NSString *)modelName {
     if (kOperationQueues == nil) {
-        kOperationQueues = [@{} mutableCopy];
+        kOperationQueues = [NSDictionary<NSString *, NSOperationQueue *> new];
     }
     
     if (kOperationQueues[modelName]) {

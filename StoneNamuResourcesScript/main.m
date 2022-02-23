@@ -33,7 +33,7 @@ void writeImageKeys(void) {
         [NSException raise:@"An error occured. (1)" format:@"%@", error.localizedDescription];
     }
     
-    NSMutableArray<NSString *> *allKeys = [@[] mutableCopy];
+    NSMutableArray<NSString *> *allKeys = [NSMutableArray<NSString *> new];
     
     [contents enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         NSURL *url = [NSURL URLWithString:obj];
@@ -161,7 +161,7 @@ void writeFontKeys(void) {
         [NSException raise:@"An error occured. (1)" format:@"%@", error.localizedDescription];
     }
     
-    NSMutableArray<NSString *> *allKeys = [@[] mutableCopy];
+    NSMutableArray<NSString *> *allKeys = [NSMutableArray<NSString *> new];
     
     [contents enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         NSString *key = [[[NSURL URLWithString:obj] URLByDeletingPathExtension] lastPathComponent];

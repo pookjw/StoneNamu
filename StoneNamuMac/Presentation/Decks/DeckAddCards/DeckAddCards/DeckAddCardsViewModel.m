@@ -281,7 +281,7 @@
             
             HSCardRarity *legendaryRarity = [self.hsMetaDataUseCase hsCardRarityFromRaritySlug:HSCardRaritySlugTypeLegendary usingHSMetaData:hsMetaData];
             NSArray<HSCard *> *localDeckCards = self.localDeck.hsCards;
-            NSMutableArray<DeckAddCardItemModel *> *itemModels = [@[] mutableCopy];
+            NSMutableArray<DeckAddCardItemModel *> *itemModels = [NSMutableArray<DeckAddCardItemModel *> new];
             
             for (HSCard *card in cards) {
                 NSUInteger count = [localDeckCards countOfObject:card];

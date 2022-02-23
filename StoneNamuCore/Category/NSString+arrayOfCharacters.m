@@ -10,7 +10,7 @@
 @implementation NSString (arrayOfCharacters)
 
 - (NSArray<NSString *> *)arrayOfCharacters {
-    NSMutableArray<NSString *> *mutableArr = [@[] mutableCopy];
+    NSMutableArray<NSString *> *mutableArr = [NSMutableArray<NSString *> new];
     
     for (NSUInteger i = 0; i < self.length; i++) {
         @autoreleasepool {

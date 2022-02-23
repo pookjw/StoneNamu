@@ -56,10 +56,9 @@
 }
 
 + (NSArray<HSCard *> *)hsCardsFromDic:(NSDictionary *)dic {
-    NSArray *cards = dic[@"cards"];
-    NSMutableArray *hsCards = [[@[] mutableCopy] autorelease];
+    NSMutableArray<HSCard *> *hsCards = [NSMutableArray<HSCard *> new];
     
-    for (NSDictionary *card in cards) {
+    for (NSDictionary *card in dic[@"cards"]) {
         @autoreleasepool {
             HSCard *hsCard = [HSCard hsCardFromDic:card error:nil];
             if (hsCard) {
@@ -68,7 +67,7 @@
         }
     }
     
-    return hsCards;
+    return [hsCards autorelease];
 }
 
 + (HSCard * _Nullable)hsCardFromDic:(NSDictionary *)dic error:(NSError * _Nullable *)error; {

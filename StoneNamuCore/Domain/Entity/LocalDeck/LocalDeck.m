@@ -63,7 +63,7 @@
 - (NSArray<NSNumber *> *)hsCardIds {
     checkThread();
     
-    NSMutableArray<NSNumber *> *mutable = [@[] mutableCopy];
+    NSMutableArray<NSNumber *> *mutable = [NSMutableArray<NSNumber *> new];
     
     for (HSCard *hsCard in self.hsCards) {
         @autoreleasepool {

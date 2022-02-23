@@ -161,7 +161,7 @@
 
 - (void)addHSCardsWithDatas:(NSArray<NSData *> *)datas {
     [self.queue addOperationWithBlock:^{
-        NSMutableArray<HSCard *> *hsCards = [@[] mutableCopy];
+        NSMutableArray<HSCard *> *hsCards = [NSMutableArray<HSCard *> new];
         
         [datas enumerateObjectsUsingBlock:^(NSData * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             HSCard *hsCard = [NSKeyedUnarchiver unarchivedObjectOfClasses:HSCard.unarchvingClasses fromData:obj error:nil];
@@ -380,7 +380,7 @@
             
             HSCardRarity * _Nullable hsCardRarity = [self.hsMetaDataUseCase hsCardRarityFromRaritySlug:HSCardRaritySlugTypeLegendary usingHSMetaData:hsMetaData];
             NSNumber * _Nullable legendaryRarityId = hsCardRarity.rarityId;
-            NSMutableArray<HSCard *> *addedHSCards = [@[] mutableCopy];
+            NSMutableArray<HSCard *> *addedHSCards = [NSMutableArray<HSCard *> new];
             
             for (HSCard *hsCard in hsCards) {
                 if ([addedHSCards containsObject:hsCard]) continue;
@@ -416,7 +416,7 @@
             
             //
             
-            NSMutableArray<DeckDetailsItemModel *> *willBeDeletedItems = [@[] mutableCopy];
+            NSMutableArray<DeckDetailsItemModel *> *willBeDeletedItems = [NSMutableArray<DeckDetailsItemModel *> new];
             
             [[snapshot itemIdentifiersInSectionWithIdentifier:sectionModel] enumerateObjectsUsingBlock:^(DeckDetailsItemModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 if (![hsCards containsObject:obj.hsCard]) {
@@ -504,7 +504,7 @@
 }
 
 - (NSDictionary<NSNumber *, NSNumber *> *)manaCostGraphFromSnapshot:(NSDiffableDataSourceSnapshot *)snapshot {
-    NSMutableDictionary<NSNumber *, NSNumber *> *manaDictionary = [@{} mutableCopy];
+    NSMutableDictionary<NSNumber *, NSNumber *> *manaDictionary = [NSMutableDictionary<NSNumber *, NSNumber *> new];
     NSUInteger __block highestCostCount = 0;
     
     for (NSUInteger i = 0; i <= 10; i++) {
@@ -581,7 +581,7 @@
 }
 
 - (void)postApplyingSnapshotToDataSourceWasDoneNotification {
-    NSMutableDictionary * _Nullable userInfo = [@{} mutableCopy];
+    NSMutableDictionary * _Nullable userInfo = [NSMutableDictionary new];
     NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
     
     BOOL hasCards = ([self totalCardsInSnapshot:self.dataSource.snapshot] > 0);
@@ -591,7 +591,7 @@
     //
     
     NSDictionary<NSNumber *, NSNumber *> *manaCostGraphDics = [self manaCostGraphFromSnapshot:snapshot];
-    NSMutableArray<DeckDetailsManaCostGraphData *> *manaCostGraphDatas = [@[] mutableCopy];
+    NSMutableArray<DeckDetailsManaCostGraphData *> *manaCostGraphDatas = [NSMutableArray<DeckDetailsManaCostGraphData *> new];
     NSUInteger highestCostCount = [(NSNumber *)manaCostGraphDics[[NSNumber numberWithInteger:-1]] unsignedIntegerValue];
     
     [[self manaCostGraphFromSnapshot:snapshot] enumerateKeysAndObjectsUsingBlock:^(NSNumber * _Nonnull key, NSNumber * _Nonnull obj, BOOL * _Nonnull stop) {
@@ -633,7 +633,7 @@
 }
 
 - (void)postDidChangeLocalDeckNameNotification:(NSString *)name {
-    NSMutableDictionary *userInfo = [@{} mutableCopy];
+    NSMutableDictionary *userInfo = [NSMutableDictionary new];
     
     if (name) {
         userInfo[DeckDetailsViewModelDidChangeLocalDeckNameItemKey] = name;

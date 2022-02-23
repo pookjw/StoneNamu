@@ -191,7 +191,7 @@
         }
         
         //
-        NSMutableArray *willReloaded = [@[] mutableCopy];
+        NSMutableArray<PrefsItemModel *> *willReloaded = [NSMutableArray<PrefsItemModel *> new];
         if (localeItemModel) {
             [willReloaded addObject:localeItemModel];
         }

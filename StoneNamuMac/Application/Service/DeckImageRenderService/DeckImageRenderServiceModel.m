@@ -71,7 +71,7 @@
             
             //
             
-            NSMutableDictionary<HSCard *, NSNumber *> *countOfEachCards = [@{} mutableCopy];
+            NSMutableDictionary<HSCard *, NSNumber *> *countOfEachCards = [NSMutableDictionary<HSCard *, NSNumber *> new];
             NSNumber *totalArcaneDust = @0;
             
             HSCardRarity *freeRarity = [self.hsMetaDataUseCase hsCardRarityFromRaritySlug:HSCardRaritySlugTypeFree usingHSMetaData:hsMetaData];

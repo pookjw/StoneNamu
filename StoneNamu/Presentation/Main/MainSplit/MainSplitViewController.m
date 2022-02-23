@@ -65,7 +65,7 @@
 #pragma mark - MainLayoutProtocol
 
 - (NSArray<__kindof UIViewController *> *)currentViewControllers {
-    NSMutableArray<__kindof UIViewController *> *currentViewControllers = [@[] mutableCopy];
+    NSMutableArray<__kindof UIViewController *> *currentViewControllers = [NSMutableArray<__kindof UIViewController *> new];
     
     __kindof UIViewController * _Nullable supplemetaryViewController = [self viewControllerForColumn:UISplitViewControllerColumnSupplementary];
     __kindof UIViewController * _Nullable secondaryViewController = [self viewControllerForColumn:UISplitViewControllerColumnSecondary];

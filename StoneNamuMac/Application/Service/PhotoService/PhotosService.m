@@ -63,7 +63,7 @@
 }
 
 - (instancetype)initWithHSCards:(NSSet<HSCard *> *)hsCards {
-    NSMutableDictionary<NSString *, NSURL *> *urls = [@{} mutableCopy];
+    NSMutableDictionary<NSString *, NSURL *> *urls = [NSMutableDictionary<NSString *, NSURL *> new];
     
     [hsCards enumerateObjectsUsingBlock:^(HSCard * _Nonnull obj, BOOL * _Nonnull stop) {
         urls[obj.name] = obj.image;
@@ -205,7 +205,7 @@
 - (void)imagesFromURLs:(NSDictionary<NSString *, NSURL *> *)urls completion:(void (^)(NSDictionary<NSString *, NSImage *> * _Nullable images, NSError * _Nullable error))completion {
     [self.queue addBarrierBlock:^{
         SemaphoreCondition *semaphore = [[SemaphoreCondition alloc] initWithValue:-((NSInteger)self.urls.count) + 1];
-        NSMutableDictionary<NSString *, NSData *> *results = [@{} mutableCopy];
+        NSMutableDictionary<NSString *, NSData *> *results = [NSMutableDictionary<NSString *, NSData *> new];
         NSError * __block _Nullable writeError = nil;
         
         [urls enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSURL * _Nonnull obj, BOOL * _Nonnull stop) {
@@ -263,7 +263,7 @@
         
         //
         
-        NSMutableDictionary<NSString *, NSImage *> *images = [@{} mutableCopy];
+        NSMutableDictionary<NSString *, NSImage *> *images = [NSMutableDictionary<NSString *, NSImage *> new];
         
         [results enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSData * _Nonnull obj, BOOL * _Nonnull stop) {
             NSImage *image = [[NSImage alloc] initWithData:obj];
@@ -346,7 +346,7 @@
     //
 
     NSMenu *formatMenu = [NSMenu new];
-    NSMutableArray<StorableMenuItem *> *itemArray = [@[] mutableCopy];
+    NSMutableArray<StorableMenuItem *> *itemArray = [NSMutableArray<StorableMenuItem *> new];
     StorableMenuItem * __block _Nullable defaultItem = nil;
     
     [contentTypes enumerateObjectsUsingBlock:^(UTType * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {

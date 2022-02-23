@@ -297,9 +297,9 @@
                           slugsAndIds:(NSDictionary<HSDeckFormat, NSDictionary<NSString *, NSNumber *> *> * _Nullable)slugsAndIds {
     
     /* UIMenu initializer doesn't copy children so should mark __block */
-    NSMutableArray<UIAction *> * __block createStandardDeckActions = [@[] mutableCopy];
-    NSMutableArray<UIAction *> * __block createWildDeckActions = [@[] mutableCopy];
-    NSMutableArray<UIAction *> * __block createClassicDeckActions = [@[] mutableCopy];
+    NSMutableArray<UIAction *> * __block createStandardDeckActions = [NSMutableArray<UIAction *> new];
+    NSMutableArray<UIAction *> * __block createWildDeckActions = [NSMutableArray<UIAction *> new];
+    NSMutableArray<UIAction *> * __block createClassicDeckActions = [NSMutableArray<UIAction *> new];
     
     DecksViewController * __block unretainedSelf = self;
     

@@ -218,7 +218,7 @@
             [_sectionModel autorelease];
         }
         
-        NSMutableArray<CardItemModel *> *itemModels = [@[] mutableCopy];
+        NSMutableArray<CardItemModel *> *itemModels = [NSMutableArray<CardItemModel *> new];
         
         for (HSCard *card in cards) {
             CardItemModel *itemModel = [[CardItemModel alloc] initWithCard:card];

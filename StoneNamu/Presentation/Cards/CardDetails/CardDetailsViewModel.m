@@ -75,7 +75,7 @@
                 NSString * _Nullable cardClassValue = nil;
                 
                 if (hsCard.multiClassIds != nil) {
-                    NSMutableArray *strings = [@[] mutableCopy];
+                    NSMutableArray<NSString *> *strings = [NSMutableArray<NSString *> new];
                     
                     [hsCard.multiClassIds enumerateObjectsUsingBlock:^(NSNumber * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                         HSCardClass * _Nullable hsCardClass = [self.hsMetaDataUseCase hsCardClassFromClassId:obj usingHSMetaData:hsMetaData];
@@ -182,7 +182,7 @@
     
     [self.queue addOperationWithBlock:^{
         SemaphoreCondition *semaphore = [[SemaphoreCondition alloc] initWithValue:-((NSInteger)childIds.count) + 1];
-        NSMutableArray<HSCard *> *childCards = [@[] mutableCopy];
+        NSMutableArray<HSCard *> *childCards = [NSMutableArray<HSCard *> new];
         
         for (NSNumber *childId in childIds) {
             [self.hsCardUseCase fetchWithIdOrSlug:[childId stringValue]

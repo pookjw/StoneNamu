@@ -156,7 +156,7 @@
         
         //
         
-        NSMutableArray<UICellAccessory *> *accessories = [@[] mutableCopy];
+        NSMutableArray<UICellAccessory *> *accessories = [NSMutableArray<UICellAccessory *> new];
         
         [accessories addObject:[[UICellAccessoryDisclosureIndicator new] autorelease]];
         

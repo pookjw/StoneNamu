@@ -69,7 +69,7 @@
 }
 
 - (void)setRightBarButtons:(DeckDetailsViewControllerRightBarButtonType)type {
-    NSMutableArray<UIBarButtonItem *> *rightBarButtonItems = [@[] mutableCopy];
+    NSMutableArray<UIBarButtonItem *> *rightBarButtonItems = [NSMutableArray<UIBarButtonItem *> new];
     
     if (type & DeckDetailsViewControllerRightBarButtonTypeDone) {
         [rightBarButtonItems addObject:self.doneBarButtonItem];

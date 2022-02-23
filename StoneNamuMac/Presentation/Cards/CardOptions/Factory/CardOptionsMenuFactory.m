@@ -279,7 +279,7 @@
                                  comparator:(NSComparisonResult (^)(NSString *, NSString *))comparator
                                      target:(id)target {
     
-    NSMutableArray<NSMenuItem *> *arr = [@[] mutableCopy];
+    NSMutableArray<NSMenuItem *> *arr = [NSMutableArray<NSMenuItem *> new];
     
     [dic enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSString * _Nonnull obj, BOOL * _Nonnull stop) {
         if (![filterArray containsObject:key]) {

@@ -557,7 +557,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     if (filterKeys == nil) {
         return [mutableDic autorelease];
     } else {
-        NSMutableDictionary<NSString *, NSString *> *result = [@{} mutableCopy];
+        NSMutableDictionary<NSString *, NSString *> *result = [NSMutableDictionary<NSString *, NSString *> new];
         
         [mutableDic enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSString * _Nonnull obj, BOOL * _Nonnull stop) {
             if (![filterKeys containsString:key]) {

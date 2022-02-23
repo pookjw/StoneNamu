@@ -94,7 +94,7 @@
     NSMenu *localeMenu = [NSMenu new];
     localeMenuButton.menu = localeMenu;
     
-    NSMutableArray<StorableMenuItem *> *itemArray = [@[] mutableCopy];
+    NSMutableArray<StorableMenuItem *> *itemArray = [NSMutableArray<StorableMenuItem *> new];
     
     [blizzardHSAPILocales() enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         StorableMenuItem *item = [[StorableMenuItem alloc] initWithTitle:[ResourcesService localizationForBlizzardHSAPILocale:obj]
@@ -154,7 +154,7 @@
     NSMenu *regionMenu = [NSMenu new];
     regionMenuButton.menu = regionMenu;
     
-    NSMutableArray<StorableMenuItem *> *itemArray = [@[] mutableCopy];
+    NSMutableArray<StorableMenuItem *> *itemArray = [SMutableArray<StorableMenuItem *> new];
     
     [blizzardHSAPIRegionsForAPI() enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         StorableMenuItem *menuItem = [[StorableMenuItem alloc] initWithTitle:[ResourcesService localizationForBlizzardAPIRegionHost:BlizzardAPIRegionHostFromNSStringForAPI(obj)]

@@ -41,18 +41,15 @@
             return;
         }
         
-        NSMutableArray<NSData *> *mutable = [@[] mutableCopy];
+        NSMutableArray<NSData *> *results = [NSMutableArray<NSData *> new];
         
         for (DataCache *dataCache in dataCaches) {
             if (dataCache.data) {
-                [mutable addObject:dataCache.data];
+                [results addObject:dataCache.data];
             }
         }
         
-        NSArray *results = [[mutable copy] autorelease];
-        [mutable release];
-        
-        completion(results, nil);
+        completion([results autorelease], nil);
     }];
 }
 

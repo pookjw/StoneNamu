@@ -159,7 +159,7 @@
         
         //
         
-        NSMutableArray<UICellAccessory *> *accessories = [@[] mutableCopy];
+        NSMutableArray<UICellAccessory *> *accessories = [NSMutableArray<UICellAccessory *> new];
         
         if (itemModel.hasDisclosure) {
             [accessories addObject:[[UICellAccessoryDisclosureIndicator new] autorelease]];
@@ -389,7 +389,7 @@
             UIContextMenuConfiguration *configuration = [UIContextMenuConfiguration configurationWithIdentifier:nil
                                                                                                 previewProvider:nil
                                                                                                  actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> * _Nonnull suggestedActions) {
-                NSMutableArray<UIAction *> *children = [@[] mutableCopy];
+                NSMutableArray<UIAction *> *children = [NSMutableArray<UIAction *> new];
                 [itemModel.socialInfo enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSURL * _Nonnull obj, BOOL * _Nonnull stop) {
                     [children addObject:[UIAction actionWithTitle:key image:nil identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
                         if (self.view.window.windowScene) {

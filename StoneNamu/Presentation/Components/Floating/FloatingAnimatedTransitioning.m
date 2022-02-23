@@ -76,7 +76,7 @@
         
         //
         
-        NSMutableArray<NSLayoutConstraint *> *allConstraints = [@[] mutableCopy];
+        NSMutableArray<NSLayoutConstraint *> *allConstraints = [NSMutableArray<NSLayoutConstraint *> new];
         
         NSLayoutConstraint *topLayout = [toView.topAnchor constraintEqualToAnchor:containerView.safeAreaLayoutGuide.topAnchor];
         NSLayoutConstraint *leadingLayout = [toView.leadingAnchor constraintEqualToAnchor:containerView.safeAreaLayoutGuide.leadingAnchor];

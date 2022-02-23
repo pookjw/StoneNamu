@@ -343,7 +343,7 @@
                 
                 //
                 
-                NSMutableArray<HSCard *> *addedHSCards = [@[] mutableCopy];
+                NSMutableArray<HSCard *> *addedHSCards = [NSMutableArray<HSCard *> new];
                 
                 for (HSCard *hsCard in hsCards) {
                     if ([addedHSCards containsObject:hsCard]) continue;
@@ -382,7 +382,7 @@
                 
                 //
                 
-                NSMutableArray<DeckDetailsItemModel *> *willBeDeletedItems = [@[] mutableCopy];
+                NSMutableArray<DeckDetailsItemModel *> *willBeDeletedItems = [NSMutableArray<DeckDetailsItemModel *> new];
                 
                 [[snapshot itemIdentifiersInSectionWithIdentifier:sectionModel] enumerateObjectsUsingBlock:^(DeckDetailsItemModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                     if (![hsCards containsObject:obj.hsCard]) {
@@ -437,7 +437,7 @@
 }
 
 - (void)addCostGraphItemToSnapshot:(NSDiffableDataSourceSnapshot *)snapshot {
-    NSMutableDictionary<NSNumber *, NSNumber *> *manaDictionary = [@{} mutableCopy];
+    NSMutableDictionary<NSNumber *, NSNumber *> *manaDictionary = [NSMutableDictionary<NSNumber *, NSNumber *> new];
     NSUInteger __block highestCostCount = 0;
     
     for (NSUInteger i = 0; i <= 10; i++) {
@@ -615,7 +615,7 @@
 }
 
 - (void)postApplyingSnapshotToDataSourceWasDoneNotification {
-    NSMutableDictionary * _Nullable userInfo = [@{} mutableCopy];
+    NSMutableDictionary * _Nullable userInfo = [NSMutableDictionary new];
     BOOL hasCards = ([self totalCardsInSnapshot:self.dataSource.snapshot] > 0);
     
     userInfo[DeckDetailsViewModelApplyingSnapshotToDataSourceWasDoneHasAnyCardsItemKey] = [NSNumber numberWithBool:hasCards];
@@ -648,7 +648,7 @@
 }
 
 - (void)postDidChangeLocalDeckNameNotification:(NSString *)name {
-    NSMutableDictionary *userInfo = [@{} mutableCopy];
+    NSMutableDictionary *userInfo = [NSMutableDictionary new];
     
     if (name) {
         userInfo[DeckDetailsViewModelDidChangeLocalDeckNameItemKey] = name;

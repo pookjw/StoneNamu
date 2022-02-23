@@ -212,7 +212,7 @@ static NSArray<FontKey> * _Nullable kRegisteredFontKeys = @[];
 }
 
 + (NSDictionary<NSString *,NSString *> *)localizationsWithBlizzardAPIRegionHostForAPI {
-    NSMutableDictionary<NSString *, NSString *> *dic = [@{} mutableCopy];
+    NSMutableDictionary<NSString *, NSString *> *dic = [NSMutableDictionary<NSString *, NSString *> new];
     
     [blizzardHSAPIRegionsForAPI() enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         dic[obj] = [ResourcesService localizationForBlizzardAPIRegionHost:BlizzardAPIRegionHostFromNSStringForAPI(obj)];
@@ -233,7 +233,7 @@ static NSArray<FontKey> * _Nullable kRegisteredFontKeys = @[];
 }
 
 + (NSDictionary<NSString *, NSString *> *)localizationsWithBlizzardHSAPILocale {
-    NSMutableDictionary<NSString *, NSString *> *dic = [@{} mutableCopy];
+    NSMutableDictionary<NSString *, NSString *> *dic = [NSMutableDictionary<NSString *, NSString *> new];
     
     [blizzardHSAPILocales() enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         dic[obj] = [ResourcesService localizationForBlizzardHSAPILocale:obj];
@@ -260,7 +260,7 @@ static NSArray<FontKey> * _Nullable kRegisteredFontKeys = @[];
 }
 
 + (NSDictionary *)localizationsForHSCardCollectible {
-    NSMutableDictionary<NSString *, NSString *> *dic = [@{} mutableCopy];
+    NSMutableDictionary<NSString *, NSString *> *dic = [NSMutableDictionary<NSString *, NSString *> new];
     
     [hsCardCollectibles() enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         dic[obj] = [ResourcesService localizationForHSCardCollectible:HSCardCollectibleFromNSString(obj)];
@@ -280,7 +280,7 @@ static NSArray<FontKey> * _Nullable kRegisteredFontKeys = @[];
 }
 
 + (NSDictionary<NSString *,NSString *> *)localizationsForHSCardSort {
-    NSMutableDictionary<NSString *, NSString *> *dic = [@{} mutableCopy];
+    NSMutableDictionary<NSString *, NSString *> *dic = [NSMutableDictionary<NSString *, NSString *> new];
     
     [hsCardSorts() enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         dic[obj] = [ResourcesService localizationForHSCardSort:HSCardSortFromNSString(obj)];
@@ -300,7 +300,7 @@ static NSArray<FontKey> * _Nullable kRegisteredFontKeys = @[];
 }
 
 + (NSDictionary<NSString *,NSString *> *)localizationsForHSDeckFormat {
-    NSMutableDictionary<NSString *, NSString *> *dic = [@{} mutableCopy];
+    NSMutableDictionary<NSString *, NSString *> *dic = [NSMutableDictionary<NSString *, NSString *> new];
     
     [hsDeckFormats() enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         dic[obj] = [ResourcesService localizationForHSDeckFormat:obj];
@@ -343,7 +343,7 @@ static NSArray<FontKey> * _Nullable kRegisteredFontKeys = @[];
     NSArray<HSCard *> *sortedCards = [hsDeck.cards sortedArrayUsingComparator:^NSComparisonResult(HSCard * _Nonnull obj1, HSCard * _Nonnull obj2) {
         return [obj1 compare:obj2];
     }];
-    NSMutableArray<HSCard *> *addedCards = [@[] mutableCopy];
+    NSMutableArray<HSCard *> *addedCards = [NSMutableArray<HSCard *> new];
     
     [sortedCards enumerateObjectsUsingBlock:^(HSCard * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([addedCards containsObject:obj]) {
