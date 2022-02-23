@@ -18,31 +18,27 @@
 @dynamic timestamp;
 
 - (NSArray<HSCard *> *)hsCards {
-    checkThread();
-    
-    NSData * _Nullable hsCardsData = self.hsCardsData;
-    
-    if (hsCardsData == nil) return @[];
-    
-    // sometimes it releases unexpectedly
-    [hsCardsData retain];
-    
-    if (hsCardsData == nil) {
-        [hsCardsData release];
-        return @[];
+    @synchronized (self) {
+        checkThread();
+        
+        NSData * _Nullable hsCardsData = self.hsCardsData;
+        
+        if (hsCardsData == nil) return @[];
+        
+        if (hsCardsData == nil) {
+            return @[];
+        }
+        
+        NSError * _Nullable error = nil;
+        NSArray<HSCard *> *cards = [NSKeyedUnarchiver unarchivedObjectOfClasses:HSCard.unarchvingClasses fromData:hsCardsData error:&error];
+        
+        if (error) {
+            NSLog(@"%@", error.localizedDescription);
+            return @[];
+        }
+        
+        return cards;
     }
-    
-    NSError * _Nullable error = nil;
-    
-    NSArray<HSCard *> *cards = [NSKeyedUnarchiver unarchivedObjectOfClasses:HSCard.unarchvingClasses fromData:hsCardsData error:&error];
-    [hsCardsData release];
-    
-    if (error) {
-        NSLog(@"%@", error.localizedDescription);
-        return @[];
-    }
-    
-    return cards;
 }
 
 - (void)setHsCards:(NSArray<HSCard *> *)hsCards {
