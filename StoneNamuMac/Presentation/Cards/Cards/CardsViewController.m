@@ -296,6 +296,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardColl
 
 - (void)windowDidBecomeMainReceived:(NSNotification *)notification {
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
+        self.view.window.title = [ResourcesService localizationForKey:LocalizableKeyCards];
         [self setCardsMenuToWindow];
         [self setCardOptionsToolbarToWindow];
         [self setCardOptionsTouchBarToWindow];

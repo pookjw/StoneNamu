@@ -185,6 +185,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeck
 
 - (void)windowDidBecomeMainReceived:(NSNotification *)notification {
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
+        self.view.window.title = [ResourcesService localizationForKey:LocalizableKeyDecks];
         [self setDecksMenuToWindow];
         [self setDecksToolbarToWindow];
         [self setDecksTouchBarToWindow];
