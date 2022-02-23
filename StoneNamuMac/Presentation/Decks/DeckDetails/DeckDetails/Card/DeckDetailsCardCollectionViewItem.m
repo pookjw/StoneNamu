@@ -63,7 +63,7 @@
 //    [self clearContents];
 }
 
-- (void)configureWithHSCard:(HSCard *)hsCard isLegendary:(BOOL)isLegendary hsCardCount:(NSUInteger)hsCardCount delegate:(nonnull id<DeckDetailsCardCollectionViewItemDelegate>)delegate {
+- (void)configureWithHSCard:(HSCard *)hsCard raritySlugType:(HSCardRaritySlugType)raritySlugType hsCardCount:(NSUInteger)hsCardCount delegate:(nonnull id<DeckDetailsCardCollectionViewItemDelegate>)delegate {
     
     self.hsCardPopoverDetailView.hsCard = hsCard;
     
@@ -73,7 +73,21 @@
         [self.cardImageView setAsyncImageWithURL:hsCard.cropImage indicator:YES];
     }
     
-    if ((isLegendary) && (hsCardCount == 1)) {
+    if ([HSCardRaritySlugTypeFree isEqualToString:raritySlugType]) {
+        self.nameLabel.textColor = NSColor.systemGrayColor;
+    } else if ([HSCardRaritySlugTypeCommon isEqualToString:raritySlugType]) {
+        self.nameLabel.textColor = nil;
+    } else if ([HSCardRaritySlugTypeRare isEqualToString:raritySlugType]) {
+        self.nameLabel.textColor = NSColor.systemBlueColor;
+    } else if ([HSCardRaritySlugTypeEpic isEqualToString:raritySlugType]) {
+        self.nameLabel.textColor = NSColor.systemPurpleColor;
+    } else if ([HSCardRaritySlugTypeLegendary isEqualToString:raritySlugType]) {
+        self.nameLabel.textColor = NSColor.systemOrangeColor;
+    } else {
+        self.nameLabel.textColor = nil;
+    }
+    
+    if (([HSCardRaritySlugTypeLegendary isEqualToString:raritySlugType]) && (hsCardCount == 1)) {
         self.countLabel.stringValue = @"★";
         self.countLabel.textColor = NSColor.systemOrangeColor;
     } else {

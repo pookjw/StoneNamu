@@ -154,7 +154,7 @@
     NSMenu *regionMenu = [NSMenu new];
     regionMenuButton.menu = regionMenu;
     
-    NSMutableArray<StorableMenuItem *> *itemArray = [SMutableArray<StorableMenuItem *> new];
+    NSMutableArray<StorableMenuItem *> *itemArray = [NSMutableArray<StorableMenuItem *> new];
     
     [blizzardHSAPIRegionsForAPI() enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         StorableMenuItem *menuItem = [[StorableMenuItem alloc] initWithTitle:[ResourcesService localizationForBlizzardAPIRegionHost:BlizzardAPIRegionHostFromNSStringForAPI(obj)]

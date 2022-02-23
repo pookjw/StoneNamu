@@ -9,13 +9,17 @@
 
 @implementation DeckDetailsItemModel
 
-- (instancetype)initWithType:(DeckDetailsItemModelType)type {
+- (instancetype)initWithHSCard:(HSCard *)hsCard hsCardCount:(NSNumber *)hsCardCount raritySlugType:(HSCardRaritySlugType)raritySlugType {
     self = [self init];
     
     if (self) {
-        self.hsCard = nil;
-        self.hsCardCount = nil;
-        self->_type = type;
+        [self->_hsCard release];
+        self->_hsCard = [hsCard copy];
+        
+        self.hsCardCount = hsCardCount;
+        
+        [self->_raritySlugType release];
+        self->_raritySlugType = [raritySlugType copy];
     }
     
     return self;
@@ -24,6 +28,7 @@
 - (void)dealloc {
     [_hsCard release];
     [_hsCardCount release];
+    [_raritySlugType release];
     [super dealloc];
 }
 
@@ -34,13 +39,11 @@
         return NO;
     }
     
-    return (self.type == toCompare.type) &&
-    (compareNullableValues(self.hsCard, toCompare.hsCard, @selector(isEqual:))) &&
-    (self.isLegendary == toCompare.isLegendary);
+    return compareNullableValues(self.hsCard, toCompare.hsCard, @selector(isEqual:));
 }
 
 - (NSUInteger)hash {
-    return self.type ^ self.hsCard.hash ^ (self.isLegendary);
+    return self.hsCard.hash;
 }
 
 @end

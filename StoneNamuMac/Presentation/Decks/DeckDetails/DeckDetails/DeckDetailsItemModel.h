@@ -10,19 +10,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef NS_ENUM(NSUInteger, DeckDetailsItemModelType) {
-    DeckDetailsItemModelTypeCard
-};
-
 @interface DeckDetailsItemModel : NSObject
-@property (readonly) DeckDetailsItemModelType type;
-@property (copy) HSCard * _Nullable hsCard;
-@property (copy) NSNumber * _Nullable hsCardCount;
-@property BOOL isLegendary;
+@property (readonly, copy) HSCard *hsCard;
+@property (copy) NSNumber *hsCardCount;
+@property (readonly, copy) HSCardRaritySlugType raritySlugType;
 
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
-- (instancetype)initWithType:(DeckDetailsItemModelType)type;
+- (instancetype)initWithHSCard:(HSCard *)hsCard hsCardCount:(NSNumber *)hsCardCount raritySlugType:(HSCardRaritySlugType)raritySlugType;
 @end
 
 NS_ASSUME_NONNULL_END

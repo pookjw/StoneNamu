@@ -349,20 +349,14 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDeta
     DeckDetailsDataSource *dataSource = [[DeckDetailsDataSource alloc] initWithCollectionView:self.collectionView
                                                                                  itemProvider:^NSCollectionViewItem * _Nullable(NSCollectionView * _Nonnull collectionView, NSIndexPath * _Nonnull indexPath, DeckDetailsItemModel * _Nonnull itemModel) {
         
-        switch (itemModel.type) {
-            case DeckDetailsItemModelTypeCard: {
-                DeckDetailsCardCollectionViewItem *item = (DeckDetailsCardCollectionViewItem *)[collectionView makeItemWithIdentifier:NSUserInterfaceItemIdentifierDeckDetailsCardCollectionViewItem forIndexPath:indexPath];
-                
-                [item configureWithHSCard:itemModel.hsCard
-                              isLegendary:itemModel.isLegendary
-                              hsCardCount:itemModel.hsCardCount.unsignedIntegerValue
-                                 delegate:unretainedSelf];
-                
-                return item;
-            }
-            default:
-                return nil;
-        }
+        DeckDetailsCardCollectionViewItem *item = (DeckDetailsCardCollectionViewItem *)[collectionView makeItemWithIdentifier:NSUserInterfaceItemIdentifierDeckDetailsCardCollectionViewItem forIndexPath:indexPath];
+        
+        [item configureWithHSCard:itemModel.hsCard
+                   raritySlugType:itemModel.raritySlugType
+                      hsCardCount:itemModel.hsCardCount.unsignedIntegerValue
+                         delegate:unretainedSelf];
+        
+        return item;
     }];
     
     dataSource.supplementaryViewProvider = ^NSView * _Nullable(NSCollectionView * _Nonnull collectionView, NSString * _Nonnull elementKind, NSIndexPath * _Nonnull indexPath) {

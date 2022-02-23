@@ -117,15 +117,10 @@
                     
                     //
                     
-                    HSCardRarity * _Nullable hsCardRarity = [self.hsMetaDataUseCase hsCardRarityFromRaritySlug:HSCardRaritySlugTypeLegendary usingHSMetaData:hsMetaData];
-                    NSNumber * _Nullable legendaryRarityId = hsCardRarity.rarityId;
-                    
                     for (HSCard *hsCard in hsCards) {
                         BOOL __block isDuplicated = NO;
                         
                         [[snapshot itemIdentifiersInSectionWithIdentifier:cardsSectionModel] enumerateObjectsUsingBlock:^(DeckDetailsItemModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                            if (obj.type != DeckDetailsItemModelTypeCard) return;
-                            
                             if ([hsCard isEqual:obj.hsCard]) {
                                 obj.hsCardCount = [NSNumber numberWithUnsignedInteger:obj.hsCardCount.unsignedIntegerValue + 1];
                                 [snapshot reconfigureItemsWithIdentifiers:@[obj]];
@@ -136,10 +131,9 @@
                         }];
                         
                         if (!isDuplicated) {
-                            DeckDetailsItemModel *cardItemModel = [[DeckDetailsItemModel alloc] initWithType:DeckDetailsItemModelTypeCard];
-                            cardItemModel.hsCard = hsCard;
-                            cardItemModel.hsCardCount = @1;
-                            cardItemModel.isLegendary = [hsCard.rarityId isEqualToNumber:legendaryRarityId];
+                            HSCardRarity *hsCardRarity = [self.hsMetaDataUseCase hsCardRarityFromRarityId:hsCard.rarityId usingHSMetaData:hsMetaData];
+                            
+                            DeckDetailsItemModel *cardItemModel = [[DeckDetailsItemModel alloc] initWithHSCard:hsCard hsCardCount:@1 raritySlugType:hsCardRarity.slug];
                             [snapshot appendItemsWithIdentifiers:@[cardItemModel] intoSectionWithIdentifier:cardsSectionModel];
                             [cardItemModel release];
                         }
@@ -263,8 +257,6 @@
                     NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
                     
                     [snapshot.itemIdentifiers enumerateObjectsUsingBlock:^(DeckDetailsItemModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                        if (obj.type != DeckDetailsItemModelTypeCard) return;
-                        
                         if ([hsCards containsObject:obj.hsCard]) {
                             [snapshot deleteItemsWithIdentifiers:@[obj]];
                         }
@@ -378,8 +370,6 @@
             
             //
             
-            HSCardRarity * _Nullable hsCardRarity = [self.hsMetaDataUseCase hsCardRarityFromRaritySlug:HSCardRaritySlugTypeLegendary usingHSMetaData:hsMetaData];
-            NSNumber * _Nullable legendaryRarityId = hsCardRarity.rarityId;
             NSMutableArray<HSCard *> *addedHSCards = [NSMutableArray<HSCard *> new];
             
             for (HSCard *hsCard in hsCards) {
@@ -403,10 +393,9 @@
                 }];
                 
                 if (!exists) {
-                    DeckDetailsItemModel *itemModel = [[DeckDetailsItemModel alloc] initWithType:DeckDetailsItemModelTypeCard];
-                    itemModel.hsCard = hsCard;
-                    itemModel.hsCardCount = [NSNumber numberWithUnsignedInteger:[hsCards countOfObject:hsCard]];
-                    itemModel.isLegendary = [hsCard.rarityId isEqualToNumber:legendaryRarityId];
+                    HSCardRarity *hsCardRarity = [self.hsMetaDataUseCase hsCardRarityFromRarityId:hsCard.rarityId usingHSMetaData:hsMetaData];
+                    
+                    DeckDetailsItemModel *itemModel = [[DeckDetailsItemModel alloc] initWithHSCard:hsCard hsCardCount:[NSNumber numberWithUnsignedInteger:[hsCards countOfObject:hsCard]] raritySlugType:hsCardRarity.slug];
                     [snapshot appendItemsWithIdentifiers:@[itemModel] intoSectionWithIdentifier:sectionModel];
                     [itemModel release];
                 }
@@ -512,8 +501,6 @@
     }
     
     for (DeckDetailsItemModel *itemModel in snapshot.itemIdentifiers) {
-        if (itemModel.type != DeckDetailsItemModelTypeCard) continue;
-        
         @autoreleasepool {
             NSNumber *cardManaCost;
             
