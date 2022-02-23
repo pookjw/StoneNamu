@@ -729,9 +729,9 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
             hasValue = values.hasValuesWhenStringType;
         }
         
-        item.wantsLayer = YES;
-        item.layer.cornerCurve = kCACornerCurveContinuous;
-        item.layer.cornerRadius = 10.0f;
+//        item.wantsLayer = YES;
+//        item.layer.cornerCurve = kCACornerCurveContinuous;
+//        item.layer.cornerRadius = 3.0f;
         
         if ((hasValue) && ([values.allObjects containsString:key])) {
             item.layer.backgroundColor = NSColor.grayColor.CGColor;

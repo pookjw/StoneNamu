@@ -61,6 +61,8 @@
 }
 
 - (NSArray<NSNumber *> *)hsCardIds {
+    checkThread();
+    
     NSMutableArray<NSNumber *> *mutable = [@[] mutableCopy];
     
     for (HSCard *hsCard in self.hsCards) {

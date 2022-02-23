@@ -358,8 +358,8 @@
         
         //
         
-        NSDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSString *> *> *optionTypesAndSlugsAndNames = [self.hsMetaDataUseCase optionTypesAndSlugsAndNamesFromHSDeckFormat:nil withClassId:self.localDeck.classId usingHSMetaData:hsMetaData];
-        NSDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSNumber *> *> *optionTypesAndSlugsAndIds = [self.hsMetaDataUseCase optionTypesAndSlugsAndIdsFromHSDeckFormat:nil withClassId:self.localDeck.classId usingHSMetaData:hsMetaData];
+        NSDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSString *> *> *optionTypesAndSlugsAndNames = [self.hsMetaDataUseCase optionTypesAndSlugsAndNamesFromHSDeckFormat:self.localDeck.format withClassId:self.localDeck.classId usingHSMetaData:hsMetaData];
+        NSDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSNumber *> *> *optionTypesAndSlugsAndIds = [self.hsMetaDataUseCase optionTypesAndSlugsAndIdsFromHSDeckFormat:self.localDeck.format withClassId:self.localDeck.classId usingHSMetaData:hsMetaData];
         NSDictionary<NSString *, NSString *> *slugsAndNumberNames = @{@"0": @"0",
                                                                       @"1": @"1",
                                                                       @"2": @"2",
@@ -378,14 +378,12 @@
         NSDictionary<NSNumber *, NSString *> * _Nullable setsSectionHeaderTexts;
         
         if ([HSDeckFormatClassic isEqualToString:self.localDeck.format]) {
-            NSDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSString *> *> *classicOptionTypesAndSlugsAndNames = [self.hsMetaDataUseCase optionTypesAndSlugsAndNamesFromHSDeckFormat:HSDeckFormatClassic withClassId:self.localDeck.classId usingHSMetaData:hsMetaData];
-            NSDictionary<NSString *, NSString *> *classicSetSlugsAndNames = classicOptionTypesAndSlugsAndNames[BlizzardHSAPIOptionTypeSet];
+            NSDictionary<NSString *, NSString *> *classicSetSlugsAndNames = optionTypesAndSlugsAndNames[BlizzardHSAPIOptionTypeSet];
             
             setsSlugsAndNames = @{[NSNumber numberWithUnsignedInt:1 << 1]: classicSetSlugsAndNames};
             setsSectionHeaderTexts = @{[NSNumber numberWithUnsignedInt:1 << 1]: [ResourcesService localizationForHSDeckFormat:HSDeckFormatClassic]};
         } else if ([HSDeckFormatStandard isEqualToString:self.localDeck.format]) {
-            NSDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSString *> *> *standardOptionTypesAndSlugsAndNames = [self.hsMetaDataUseCase optionTypesAndSlugsAndNamesFromHSDeckFormat:HSDeckFormatStandard withClassId:self.localDeck.classId usingHSMetaData:hsMetaData];
-            NSMutableDictionary<NSString *, NSString *> *standardSetSlugsAndNames = [standardOptionTypesAndSlugsAndNames[BlizzardHSAPIOptionTypeSet] mutableCopy];
+            NSMutableDictionary<NSString *, NSString *> *standardSetSlugsAndNames = [optionTypesAndSlugsAndNames[BlizzardHSAPIOptionTypeSet] mutableCopy];
             
             standardSetSlugsAndNames[HSCardSetSlugTypeStandardCards] = [ResourcesService localizationForHSDeckFormat:HSDeckFormatStandard];
             
