@@ -8,6 +8,7 @@
 #import "MainSplitViewController.h"
 #import "MainListViewController.h"
 #import "CardOptionsViewController.h"
+#import <StoneNamuResources/StoneNamuResources.h>
 
 @interface MainSplitViewController ()
 @property (retain) MainListViewController *mainListViewController;
@@ -43,6 +44,11 @@
     [self configureViewControllers];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self updateSceneTitle];
+}
+
 - (void)setAttributes {
     self.primaryBackgroundStyle = UISplitViewControllerBackgroundStyleSidebar;
     self.preferredDisplayMode = UISplitViewControllerDisplayModeTwoBesideSecondary;
@@ -60,6 +66,18 @@
     
     self.mainListViewController = mainListViewController;
     [mainListViewController release];
+}
+
+- (void)updateSceneTitle {
+    UIViewController * _Nullable viewController = [self viewControllerForColumn:UISplitViewControllerColumnSupplementary];
+    
+    if (viewController) {
+        if ([viewController isKindOfClass:[CardOptionsViewController class]]) {
+            self.view.window.windowScene.title = [ResourcesService localizationForKey:LocalizableKeyCards];
+        } else if ([viewController isEqual:self.decksViewController]) {
+            self.view.window.windowScene.title = [ResourcesService localizationForKey:LocalizableKeyDecks];
+        }
+    }
 }
 
 #pragma mark - MainLayoutProtocol
@@ -111,11 +129,15 @@
         
         if (viewControllers.count > 1) {
             [self setViewController:viewControllers[1] forColumn:UISplitViewControllerColumnSecondary];
+        } else {
+            [self setViewController:nil forColumn:UISplitViewControllerColumnSecondary];
         }
+        
         [self.decksViewController.navigationController setViewControllers:@[self.decksViewController] animated:NO];
     }
     
     [self.mainListViewController setSelectionStatusForViewController:viewControllers[0]];
+    [self updateSceneTitle];
 }
 
 @end

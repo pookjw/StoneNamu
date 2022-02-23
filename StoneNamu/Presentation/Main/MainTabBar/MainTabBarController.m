@@ -37,6 +37,11 @@
     [self configureViewControllers];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self updateSceneTitle];
+}
+
 - (void)setAttributes {
     self.delegate = self;
     self.view.backgroundColor = UIColor.systemBackgroundColor;
@@ -90,6 +95,16 @@
     [navigationController setViewControllers:@[firstViewController] animated:YES];
 }
 
+- (void)updateSceneTitle {
+    if ([self.selectedViewController isEqual:self.cardsNavigationController]) {
+        self.view.window.windowScene.title = [ResourcesService localizationForKey:LocalizableKeyCards];
+    } else if ([self.selectedViewController isEqual:self.decksNavigationController]) {
+        self.view.window.windowScene.title = [ResourcesService localizationForKey:LocalizableKeyDecks];
+    } else if ([self.selectedViewController isEqual:self.prefsNavigationController]) {
+        self.view.window.windowScene.title = [ResourcesService localizationForKey:LocalizableKeyPreferences];
+    }
+}
+
 #pragma mark - UITabBarControllerDelegate
 
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
@@ -135,6 +150,10 @@
     }
     
     return YES;
+}
+
+- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
+    [self updateSceneTitle];
 }
 
 #pragma mark - MainLayoutProtocol

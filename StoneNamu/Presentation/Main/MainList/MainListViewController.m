@@ -234,14 +234,7 @@
 
 - (void)presentDecksViewController {
     DecksViewController *decksViewController = ((id<MainLayoutProtocol>)self.splitViewController).decksViewController;
-    [decksViewController loadViewIfNeeded];
-    
-    if (self.splitViewController.isCollapsed) {
-        [self.navigationController pushViewController:decksViewController animated:YES];
-    } else {
-        [self.splitViewController setViewController:decksViewController forColumn:UISplitViewControllerColumnSupplementary];
-        [self.splitViewController setViewController:nil forColumn:UISplitViewControllerColumnSecondary];
-    }
+    [(id<MainLayoutProtocol>)self.splitViewController restoreViewControllers:@[decksViewController]];
 }
 
 - (void)presentPrefsViewController {
