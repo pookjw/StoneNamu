@@ -99,6 +99,7 @@ static LocalizableKey const LocalizableKeyHelpMenuTitle = @"HELP_MENU_TITLE";
 static LocalizableKey const LocalizableKeyHelpMenuHelp = @"HELP_MENU_HELP";
 static LocalizableKey const LocalizableKeyInvalidHscard = @"INVALID_HSCARD";
 static LocalizableKey const LocalizableKeyAppMenuHideStonemanu = @"APP_MENU_HIDE_STONEMANU";
+static LocalizableKey const LocalizableKeyServerError = @"SERVER_ERROR";
 static LocalizableKey const LocalizableKeyWindowMenuBringAllToFront = @"WINDOW_MENU_BRING_ALL_TO_FRONT";
 static LocalizableKey const LocalizableKeyCardCollectible = @"CARD_COLLECTIBLE";
 static LocalizableKey const LocalizableKeyAppMenuPreferences = @"APP_MENU_PREFERENCES";

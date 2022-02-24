@@ -11,6 +11,7 @@
 @property (retain) NSOperationQueue *queue;
 @property (retain) id<PrefsUseCase> prefsUseCase;
 @property (retain) id<DataCacheUseCase> dataCacheUseCase;
+@property (retain) id<HSMetaDataUseCase> hsMetaDataUseCase;
 @end
 
 @implementation PrefsCardsViewModel
@@ -35,6 +36,10 @@
         DataCacheUseCaseImpl *dataCacheUseCase = [DataCacheUseCaseImpl new];
         self.dataCacheUseCase = dataCacheUseCase;
         [dataCacheUseCase release];
+        
+        HSMetaDataUseCaseImpl *hsMetaDataUseCase = [HSMetaDataUseCaseImpl new];
+        self.hsMetaDataUseCase = hsMetaDataUseCase;
+        [hsMetaDataUseCase release];
     }
     
     return self;
@@ -44,6 +49,7 @@
     [_queue release];
     [_prefsUseCase release];
     [_dataCacheUseCase release];
+    [_hsMetaDataUseCase release];
     [super dealloc];
 }
 
@@ -67,6 +73,7 @@
         
         prefs.locale = locale;
         [self.prefsUseCase saveChanges];
+        [self.hsMetaDataUseCase clearCache];
 //        [self.dataCacheUseCase deleteAllDataCaches];
     }];
 }
@@ -80,6 +87,7 @@
         
         prefs.apiRegionHost = regionHost;
         [self.prefsUseCase saveChanges];
+        [self.hsMetaDataUseCase clearCache];
 //        [self.dataCacheUseCase deleteAllDataCaches];
     }];
 }

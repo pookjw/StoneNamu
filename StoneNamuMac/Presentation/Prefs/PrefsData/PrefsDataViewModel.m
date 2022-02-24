@@ -12,6 +12,7 @@
 @property (retain) NSOperationQueue *queue;
 @property (retain) id<DataCacheUseCase> dataCacheUseCase;
 @property (retain) id<LocalDeckUseCase> localDeckUseCase;
+@property (retain) id<HSMetaDataUseCase> hsMetaDataUseCase;
 @end
 
 @implementation PrefsDataViewModel
@@ -36,6 +37,10 @@
         LocalDeckUseCaseImpl *localDeckUseCase = [LocalDeckUseCaseImpl new];
         self.localDeckUseCase = localDeckUseCase;
         [localDeckUseCase release];
+        
+        HSMetaDataUseCaseImpl *hsMetaDataUseCase = [HSMetaDataUseCaseImpl new];
+        self.hsMetaDataUseCase = hsMetaDataUseCase;
+        [hsMetaDataUseCase release];
     }
     
     return self;
@@ -45,6 +50,7 @@
     [_queue release];
     [_dataCacheUseCase release];
     [_localDeckUseCase release];
+    [_hsMetaDataUseCase release];
     [super dealloc];
 }
 
@@ -56,6 +62,7 @@
 
 - (void)deleteAllCahces {
     [self.dataCacheUseCase deleteAllDataCaches];
+    [self.hsMetaDataUseCase clearCache];
 }
 
 - (void)deleteAllLocalDecks {

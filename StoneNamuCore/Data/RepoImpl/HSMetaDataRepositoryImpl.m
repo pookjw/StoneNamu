@@ -10,6 +10,9 @@
 
 static NSString * const BlizzardHSMetaDataAPIBasePath = @"/hearthstone/metadata";
 
+static HSMetaData * _Nullable cachedHSMetaData = nil;
+static NSString * const hsMetaDataUseCaseImplSynchronizedToken = @"hsMetaDataUseCaseImplSynchronizedToken";
+
 @interface HSMetaDataRepositoryImpl ()
 @property (retain) id<BlizzardAPIRepository> blizzardHSRepository;
 @end
@@ -58,13 +61,35 @@ static NSString * const BlizzardHSMetaDataAPIBasePath = @"/hearthstone/metadata"
             return;
         }
         
+        @synchronized (hsMetaDataUseCaseImplSynchronizedToken) {
+            [cachedHSMetaData release];
+            cachedHSMetaData = [hsMetaData retain];
+        }
+        
         completion(hsMetaData, nil);
     };
     
-    [self.blizzardHSRepository getAtRegion:regionHost
-                                      path:BlizzardHSMetaDataAPIBasePath
-                                   options:options
-                         completionHandler:hsAPICompletion];
+    @synchronized (hsMetaDataUseCaseImplSynchronizedToken) {
+        if (cachedHSMetaData) {
+            completion(cachedHSMetaData, nil);
+        } else {
+            [self.blizzardHSRepository getAtRegion:regionHost
+                                              path:BlizzardHSMetaDataAPIBasePath
+                                           options:options
+                                 completionHandler:hsAPICompletion];
+        }
+    }
+}
+
+- (void)clearCache {
+    @synchronized (hsMetaDataUseCaseImplSynchronizedToken) {
+        [cachedHSMetaData release];
+        cachedHSMetaData = nil;
+        
+        [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameHSMetaDataRepositoryClearCache
+                                                          object:self
+                                                        userInfo:nil];
+    }
 }
 
 @end

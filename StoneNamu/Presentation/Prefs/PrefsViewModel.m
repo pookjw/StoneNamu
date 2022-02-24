@@ -15,6 +15,7 @@
 @property (retain) id<PrefsUseCase> prefsUseCase;
 @property (retain) id<DataCacheUseCase> dataCacheUseCase;
 @property (retain) id<LocalDeckUseCase> localDeckUseCase;
+@property (retain) id<HSMetaDataUseCase> hsMetaDataUseCase;
 @end
 
 @implementation PrefsViewModel
@@ -44,6 +45,10 @@
         self.localDeckUseCase = localDeckUseCase;
         [localDeckUseCase release];
         
+        HSMetaDataUseCaseImpl *hsMetaDataUseCase = [HSMetaDataUseCaseImpl new];
+        self.hsMetaDataUseCase = hsMetaDataUseCase;
+        [hsMetaDataUseCase release];
+        
         [self requestDataSource];
     }
     
@@ -57,6 +62,7 @@
     [_prefsUseCase release];
     [_dataCacheUseCase release];
     [_localDeckUseCase release];
+    [_hsMetaDataUseCase release];
     [super dealloc];
 }
 
@@ -72,6 +78,7 @@
 
 - (void)deleteAllCahces {
     [self.dataCacheUseCase deleteAllDataCaches];
+    [self.hsMetaDataUseCase clearCache];
 }
 
 - (void)deleteAllLocalDecks {

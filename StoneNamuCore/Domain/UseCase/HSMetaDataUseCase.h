@@ -16,6 +16,7 @@ typedef void (^HSMetaDataUseCaseFetchMetaDataCompletion)(HSMetaData * _Nullable 
 
 @protocol HSMetaDataUseCase <NSObject>
 - (void)fetchWithCompletionHandler:(HSMetaDataUseCaseFetchMetaDataCompletion)completionHandler;
+- (void)clearCache;
 
 - (HSCardSet * _Nullable)hsCardSetFromSetId:(NSNumber *)setId usingHSMetaData:(HSMetaData *)hsMetaData;
 - (HSCardSet * _Nullable)hsCardSetFromSetSlug:(HSCardSetSlugType)setSlug usingHSMetaData:(HSMetaData *)hsMetaData;

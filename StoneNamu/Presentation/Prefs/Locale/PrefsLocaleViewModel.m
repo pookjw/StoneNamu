@@ -13,6 +13,7 @@
 @property (retain) NSOperationQueue *queue;
 @property (retain) id<PrefsUseCase> prefsUseCase;
 @property (retain) id<DataCacheUseCase> dataCacheUseCase;
+@property (retain) id<HSMetaDataUseCase> hsMetaDataUseCase;
 @end
 
 @implementation PrefsLocaleViewModel
@@ -37,6 +38,10 @@
         self.dataCacheUseCase = dataCacheUseCase;
         [dataCacheUseCase release];
         
+        HSMetaDataUseCaseImpl *hsMetaDataUseCase = [HSMetaDataUseCaseImpl new];
+        self.hsMetaDataUseCase = hsMetaDataUseCase;
+        [hsMetaDataUseCase release];
+        
         [self requestDataSource];
     }
     
@@ -48,6 +53,7 @@
     [_queue release];
     [_prefsUseCase release];
     [_dataCacheUseCase release];
+    [_hsMetaDataUseCase release];
     [super dealloc];
 }
 
@@ -59,6 +65,7 @@
             if (prefs) {
                 prefs.locale = itemModel.locale;
                 [self.prefsUseCase saveChanges];
+                [self.hsMetaDataUseCase clearCache];
 //                [self.dataCacheUseCase deleteAllDataCaches];
             }
         }];

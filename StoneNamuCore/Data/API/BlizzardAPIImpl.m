@@ -6,6 +6,7 @@
 //
 
 #import <StoneNamuCore/BlizzardAPIImpl.h>
+#import <StoneNamuCore/StoneNamuError.h>
 
 static NSString * const BlizzardHSAPIAccessToken = @"access_token";
 
@@ -43,7 +44,19 @@ static NSString * const BlizzardHSAPIAccessToken = @"access_token";
     [components release];
     
     NSURLSession *session = [NSURLSession sessionWithConfiguration:NSURLSessionConfiguration.ephemeralSessionConfiguration];
-    NSURLSessionTask *task = [session dataTaskWithURL:url completionHandler:completion];
+    NSURLSessionTask *task = [session dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if ((response) && ([response isKindOfClass:[NSHTTPURLResponse class]])) {
+            NSInteger statusCode = ((NSHTTPURLResponse *)response).statusCode;
+            
+            if ((statusCode < 200) || (statusCode > 200)) {
+                StoneNamuError *error = [StoneNamuError errorWithErrorType:StoneNamuErrorTypeServerError];
+                completion(nil, response, error);
+                return;
+            }
+        }
+        
+        completion(data, response, error);
+    }];
     [task resume];
     [session finishTasksAndInvalidate];
 }

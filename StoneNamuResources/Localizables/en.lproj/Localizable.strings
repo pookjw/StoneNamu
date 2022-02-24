@@ -166,6 +166,8 @@
 
 "ENTER_DECK_CODE_HERE" = "Enter deck code here... (required)";
 
+"SERVER_ERROR" = "Failed to get data from HearthStone server. Try again or change server at Preferences.";
+
 "DELETE" = "Delete";
 
 "INCREASE_CARD_COUNT" = "Increase Card Count";

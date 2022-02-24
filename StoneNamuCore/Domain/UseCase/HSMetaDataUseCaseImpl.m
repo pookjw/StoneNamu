@@ -13,9 +13,6 @@
 #import <StoneNamuCore/compareNullableValues.h>
 #import <StoneNamuCore/CheckThread.h>
 
-static HSMetaData * _Nullable cachedHSMetaData = nil;
-static NSString * const hsMetaDataUseCaseImplSynchronizedToken = @"hsMetaDataUseCaseImplSynchronizedToken";
-
 @interface HSMetaDataUseCaseImpl ()
 @property (retain) id<HSMetaDataRepository> hsMetaDataRepository;
 @property (retain) id<PrefsUseCase> prefsUseCase;
@@ -46,50 +43,47 @@ static NSString * const hsMetaDataUseCaseImplSynchronizedToken = @"hsMetaDataUse
 }
 
 - (void)fetchWithCompletionHandler:(HSMetaDataUseCaseFetchMetaDataCompletion)completionHandler {
-    if (cachedHSMetaData) {
-        checkThread();
-        completionHandler(cachedHSMetaData, nil);
-    } else {
-        @synchronized (hsMetaDataUseCaseImplSynchronizedToken) {
-            [self.prefsUseCase fetchWithCompletion:^(Prefs * _Nullable prefs, NSError * _Nullable error) {
-                if (error) {
-                    completionHandler(nil, error);
-                    return;
-                }
-                
-                NSString *apiRegionHost;
-                
-                if (prefs.apiRegionHost) {
-                    apiRegionHost = prefs.apiRegionHost;
-                } else {
-                    apiRegionHost = Prefs.alternativeAPIRegionHost;
-                }
-                
-                //
-                
-                NSString *locale;
-                
-                if (prefs.locale) {
-                    locale = prefs.locale;
-                } else {
-                    locale = Prefs.alternativeLocale;
-                }
-                
-                [self.hsMetaDataRepository fetchMetaDataAtRegion:BlizzardAPIRegionHostFromNSStringForAPI(apiRegionHost)
-                                                     withOptions:@{BlizzardHSAPIOptionTypeLocale: locale}
-                                               completionHandler:^(HSMetaData * _Nullable hsMetaData, NSError * _Nullable error) {
-                    if (error) {
-                        completionHandler(nil, error);
-                        return;
-                    }
-                    
-                    [cachedHSMetaData release];
-                    cachedHSMetaData = [hsMetaData retain];
-                    completionHandler(hsMetaData, error);
-                }];
-            }];
+    checkThread();
+    
+    [self.prefsUseCase fetchWithCompletion:^(Prefs * _Nullable prefs, NSError * _Nullable error) {
+        if (error) {
+            completionHandler(nil, error);
+            return;
         }
-    }
+        
+        NSString *apiRegionHost;
+        
+        if (prefs.apiRegionHost) {
+            apiRegionHost = prefs.apiRegionHost;
+        } else {
+            apiRegionHost = Prefs.alternativeAPIRegionHost;
+        }
+        
+        //
+        
+        NSString *locale;
+        
+        if (prefs.locale) {
+            locale = prefs.locale;
+        } else {
+            locale = Prefs.alternativeLocale;
+        }
+        
+        [self.hsMetaDataRepository fetchMetaDataAtRegion:BlizzardAPIRegionHostFromNSStringForAPI(apiRegionHost)
+                                             withOptions:@{BlizzardHSAPIOptionTypeLocale: locale}
+                                       completionHandler:^(HSMetaData * _Nullable hsMetaData, NSError * _Nullable error) {
+            if (error) {
+                completionHandler(nil, error);
+                return;
+            }
+            
+            completionHandler(hsMetaData, error);
+        }];
+    }];
+}
+
+- (void)clearCache {
+    [self.hsMetaDataRepository clearCache];
 }
 
 - (HSCardSet *)hsCardSetFromSetId:(NSNumber *)setId usingHSMetaData:(HSMetaData *)hsMetaData {
