@@ -127,7 +127,7 @@
     createNewDeckFromDeckCodeItem.target = self;
     createNewDeckFromDeckCodeItem.identifier = NSUserInterfaceItemIdentifierDecksCreateNewDeckFromDeckCode;
     
-    createDeckMenu.itemArray = @[createNewDeckStandardDeckItem, createNewDeckWildDeckItem, createNewDeckClassicDeckItem, createNewDeckFromDeckCodeItem];
+    createDeckMenu.itemArray = @[createNewDeckStandardDeckItem, createNewDeckWildDeckItem, createNewDeckClassicDeckItem, [NSMenuItem separatorItem], createNewDeckFromDeckCodeItem];
     
     //
     
