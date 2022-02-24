@@ -31,6 +31,8 @@
         PrefsUseCaseImpl *prefsUseCase = [PrefsUseCaseImpl new];
         self.prefsUseCase = prefsUseCase;
         [prefsUseCase release];
+        
+        [self bind];
     }
     
     return self;
@@ -540,6 +542,19 @@
     [keywords release];
     
     return [dataModel autorelease];
+}
+
+- (void)bind {
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(clearCacheReceived:)
+                                               name:NSNotificationNameHSMetaDataRepositoryClearCache
+                                             object:self.hsMetaDataRepository];
+}
+
+- (void)clearCacheReceived:(NSNotification *)notification {
+    [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameHSMetaDataUseCaseClearCache
+                                                      object:self
+                                                    userInfo:nil];
 }
 
 @end

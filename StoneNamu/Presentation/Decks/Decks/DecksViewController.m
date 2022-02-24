@@ -40,6 +40,7 @@
     [self configureRightBarButtonItems];
     [self bind];
     [self.viewModel requestDataSource];
+    [self.viewModel requestOptions];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

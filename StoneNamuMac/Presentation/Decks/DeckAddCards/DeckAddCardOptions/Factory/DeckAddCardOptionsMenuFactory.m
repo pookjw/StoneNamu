@@ -593,6 +593,11 @@
                                            selector:@selector(localDeckChangesReceived:)
                                                name:NSNotificationNameLocalDeckUseCaseObserveData
                                              object:self.localDeckUseCase];
+    
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(hsMetaDataClearCacheReceived:)
+                                               name:NSNotificationNameHSMetaDataUseCaseClearCache
+                                             object:nil];
 }
 
 - (void)localDeckChangesReceived:(NSNotification *)notification {
@@ -601,6 +606,10 @@
             
         }];
     }
+}
+
+- (void)hsMetaDataClearCacheReceived:(NSNotification *)notification {
+    [self updateItems];
 }
 
 - (void)postShouldUpdateItems {

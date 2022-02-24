@@ -93,6 +93,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeck
     [self configureViewModel];
     [self bind];
     [self.viewModel requestDataSource];
+    [self.viewModel requestOptions];
 }
 
 - (void)viewDidAppear {

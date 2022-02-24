@@ -34,6 +34,7 @@ typedef void (^DecksViewModelLocalDecksFromObjectIDsCompletion)(NSSet<LocalDeck 
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithDataSource:(DecksDataSource *)dataSource;
 - (void)requestDataSource;
+- (void)requestOptions;
 - (void)fetchDeckCode:(NSString *)deckCode title:(NSString * _Nullable)title completion:(DecksViewModelFetchDeckCodeCompletion)completion;
 - (void)makeLocalDeckWithClassSlug:(NSString *)classSlug deckFormat:(HSDeckFormat)deckFormat completion:(DecksViewModelMakeLocalDeckCompletion)completion;
 - (void)deleteLocalDecks:(NSSet<LocalDeck *> *)localDecks;

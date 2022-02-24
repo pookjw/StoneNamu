@@ -46,7 +46,7 @@
         [hsMetaDataUseCase release];
         
         [self startLocalDeckObserving];
-        [self postShouldUpdateOptions];
+        [self requestOptions];
     }
     
     return self;
@@ -65,6 +65,19 @@
 - (void)requestDataSource {
     [self.localDeckUseCase fetchWithCompletion:^(NSArray<LocalDeck *> * _Nullable localDeck, NSError * _Nullable error) {
         [self requestDataSourceFromLocalDecks:localDeck];
+    }];
+}
+
+- (void)requestOptions {
+    [self.queue addBarrierBlock:^{
+        [self.hsMetaDataUseCase fetchWithCompletionHandler:^(HSMetaData * _Nullable hsMetaData, NSError * _Nullable error) {
+            [self.queue addBarrierBlock:^{
+                NSDictionary<HSDeckFormat, NSDictionary<NSString *, NSString *> *> *slugsAndNames = [self.hsMetaDataUseCase hsDeckFormatsAndSlugsAndNamesUsingHSMetaData:hsMetaData];
+                NSDictionary<HSDeckFormat, NSDictionary<NSString *, NSNumber *> *> *slugsAndIds = [self.hsMetaDataUseCase hsDeckFormatsAndSlugsAndIdsUsingHSMetaData:hsMetaData];
+                
+                [self postShouldUpdateOptionsWithSlugsAndNames:slugsAndNames slugsAndIds:slugsAndIds];
+            }];
+        }];
     }];
 }
 
@@ -395,20 +408,11 @@
                                                     userInfo:nil];
 }
 
-- (void)postShouldUpdateOptions {
-    [self.queue addBarrierBlock:^{
-        [self.hsMetaDataUseCase fetchWithCompletionHandler:^(HSMetaData * _Nullable hsMetaData, NSError * _Nullable error) {
-            [self.queue addBarrierBlock:^{
-                NSDictionary<HSDeckFormat, NSDictionary<NSString *, NSString *> *> *slugsAndNames = [self.hsMetaDataUseCase hsDeckFormatsAndSlugsAndNamesUsingHSMetaData:hsMetaData];
-                NSDictionary<HSDeckFormat, NSDictionary<NSString *, NSNumber *> *> *slugsAndIds = [self.hsMetaDataUseCase hsDeckFormatsAndSlugsAndIdsUsingHSMetaData:hsMetaData];
-                
-                [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameDecksViewModelShouldUpdateOptions
-                                                                  object:self
-                                                                userInfo:@{DecksViewModelShouldUpdateOptionsSlugsAndNamesItemKey: slugsAndNames,
-                                                                           DecksViewModelShouldUpdateOptionsSlugsAndIdsItemKey: slugsAndIds}];
-            }];
-        }];
-    }];
+- (void)postShouldUpdateOptionsWithSlugsAndNames:(NSDictionary<HSDeckFormat, NSDictionary<NSString *, NSString *> *> *)slugsAndNames slugsAndIds:(NSDictionary<HSDeckFormat, NSDictionary<NSString *, NSNumber *> *> *)slugsAndIds {
+    [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameDecksViewModelShouldUpdateOptions
+                                                      object:self
+                                                    userInfo:@{DecksViewModelShouldUpdateOptionsSlugsAndNamesItemKey: slugsAndNames,
+                                                               DecksViewModelShouldUpdateOptionsSlugsAndIdsItemKey: slugsAndIds}];
 }
 
 @end

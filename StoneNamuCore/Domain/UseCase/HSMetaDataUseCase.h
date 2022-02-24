@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef void (^HSMetaDataUseCaseFetchMetaDataCompletion)(HSMetaData * _Nullable hsMetaData, NSError * _Nullable error);
 
+static NSNotificationName const NSNotificationNameHSMetaDataUseCaseClearCache = @"NSNotificationNameHSMetaDataUseCaseClearCache";
+
 @protocol HSMetaDataUseCase <NSObject>
 - (void)fetchWithCompletionHandler:(HSMetaDataUseCaseFetchMetaDataCompletion)completionHandler;
 - (void)clearCache;

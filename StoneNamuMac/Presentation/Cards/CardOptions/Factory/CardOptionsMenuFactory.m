@@ -40,7 +40,7 @@
         [self->_slugsAndNames release];
         self->_slugsAndNames = nil;
         
-        [self updateItems];
+        [self bind];
     }
     
     return self;
@@ -559,6 +559,17 @@
         
         [self postShouldUpdateItems];
     }];
+}
+
+- (void)bind {
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(hsMetaDataClearCacheReceived:)
+                                               name:NSNotificationNameHSMetaDataUseCaseClearCache
+                                             object:nil];
+}
+
+- (void)hsMetaDataClearCacheReceived:(NSNotification *)notification {
+    [self updateItems];
 }
 
 - (void)postShouldUpdateItems {
