@@ -189,9 +189,9 @@
         //
         
         if (itemModel.accessoryText) {
-            cell.accessories = @[
-                [[[UICellAccessoryLabel alloc] initWithText:itemModel.accessoryText] autorelease]
-            ];
+            UICellAccessoryLabel *label = [[UICellAccessoryLabel alloc] initWithText:itemModel.accessoryText];
+            cell.accessories = @[label];
+            [label release];
         } else {
             cell.accessories = @[];
         }
@@ -275,6 +275,7 @@
 }
 
 - (void)presentPickerEventReceived:(NSNotification *)notification {
+    NSString * _Nullable title = notification.userInfo[DeckAddCardOptionsViewModelPresentPickerNotificationTitleItemKey];
     BlizzardHSAPIOptionType _Nullable optionType = notification.userInfo[DeckAddCardOptionsViewModelPresentPickerNotificationOptionTypeItemKey];
     NSDictionary<PickerSectionModel *, NSSet<PickerItemModel *> *> * _Nullable pickers = notification.userInfo[DeckAddCardOptionsViewModelPresentPickerNotificationPickersItemKey];
     NSNumber * _Nullable allowsMultipleSelection = notification.userInfo[DeckAddCardOptionsViewModelPresentPickerNotificationAllowsMultipleSelectionItemKey];
@@ -310,6 +311,8 @@
                     [results release];
                 });
             }];
+            
+            vc.title = title;
             
             [self.navigationController pushViewController:vc animated:YES];
             [vc release];

@@ -18,6 +18,7 @@ static NSString * CardOptionsViewModelPresentTextFieldTextItemKey = @"CardOption
 static NSString * CardOptionsViewModelPresentTextFieldIndexPathItemKey = @"CardOptionsViewModelPresentTextFieldIndexPathItemKey";
 
 static NSNotificationName const NSNotificationNameCardOptionsViewModelPresentPicker = @"NSNotificationNameCardOptionsViewModelPresentPicker";
+static NSString * const CardOptionsViewModelPresentPickerNotificationTitleItemKey = @"CardOptionsViewModelPresentPickerNotificationTitleItemKey";
 static NSString * const CardOptionsViewModelPresentPickerNotificationOptionTypeItemKey = @"CardOptionsViewModelPresentPickerNotificationOptionTypeItemKey";
 static NSString * const CardOptionsViewModelPresentPickerNotificationPickersItemKey = @"CardOptionsViewModelPresentPickerNotificationPickersItemKey";
 static NSString * const CardOptionsViewModelPresentPickerNotificationAllowsMultipleSelectionItemKey = @"CardOptionsViewModelPresentPickerNotificationAllowsMultipleSelectionItemKey";

@@ -218,6 +218,7 @@
             
             NSMutableDictionary *userInfo = [NSMutableDictionary new];
             
+            userInfo[CardOptionsViewModelPresentPickerNotificationTitleItemKey] = [ResourcesService localizationForBlizzardHSAPIOptionType:itemModel.optionType];
             userInfo[CardOptionsViewModelPresentPickerNotificationOptionTypeItemKey] = itemModel.optionType;
             userInfo[CardOptionsViewModelPresentPickerNotificationPickersItemKey] = pickers;
             userInfo[CardOptionsViewModelPresentPickerNotificationAllowsMultipleSelectionItemKey] = [NSNumber numberWithBool:itemModel.allowsMultipleSelection];
