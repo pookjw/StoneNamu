@@ -428,7 +428,6 @@
             NSNumber *lhsNumber = setSlugsAndIds[lhsValue];
             NSNumber *rhsNumber = setSlugsAndIds[rhsValue];
             
-            NSLog(@"%@, %@", lhsValue, rhsValue);
             return [rhsNumber compare:lhsNumber];
         }];
         

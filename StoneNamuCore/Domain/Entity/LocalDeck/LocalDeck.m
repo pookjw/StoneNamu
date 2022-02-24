@@ -22,12 +22,7 @@
         checkThread();
         
         NSData * _Nullable hsCardsData = self.hsCardsData;
-        
         if (hsCardsData == nil) return @[];
-        
-        if (hsCardsData == nil) {
-            return @[];
-        }
         
         NSError * _Nullable error = nil;
         NSArray<HSCard *> *cards = [NSKeyedUnarchiver unarchivedObjectOfClasses:HSCard.unarchvingClasses fromData:hsCardsData error:&error];
@@ -42,18 +37,20 @@
 }
 
 - (void)setHsCards:(NSArray<HSCard *> *)hsCards {
-    checkThread();
-    
-    NSError * _Nullable error = nil;
-    
-    NSData *hsCardsData = [NSKeyedArchiver archivedDataWithRootObject:hsCards requiringSecureCoding:YES error:&error];
-    
-    if (error) {
-        NSLog(@"%@", error.localizedDescription);
-        return;
+    @synchronized (self) {
+        checkThread();
+        
+        NSError * _Nullable error = nil;
+        
+        NSData *hsCardsData = [NSKeyedArchiver archivedDataWithRootObject:hsCards requiringSecureCoding:YES error:&error];
+        
+        if (error) {
+            NSLog(@"%@", error.localizedDescription);
+            return;
+        }
+        
+        self.hsCardsData = hsCardsData;
     }
-    
-    self.hsCardsData = hsCardsData;
 }
 
 - (NSArray<NSNumber *> *)hsCardIds {
