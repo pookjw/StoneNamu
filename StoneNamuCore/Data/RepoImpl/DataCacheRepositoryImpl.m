@@ -36,7 +36,7 @@
 }
 
 - (void)fileSizeWithCompletion:(DataCacheRepositoryFileSizeWithCompletion)completion {
-    [self.coreDataStack.queue addBarrierBlock:^{
+    [self.coreDataStack.queue addOperationWithBlock:^{
         NSURL *url = self.coreDataStack.storeContainer.persistentStoreCoordinator.persistentStores.firstObject.URL;
         NSError * _Nullable error = nil;
         NSDictionary *attributes = [NSFileManager.defaultManager attributesOfItemAtPath:url.path error:&error];
@@ -59,7 +59,7 @@
 - (void)dataCachesWithIdentity:(NSString *)identity completion:(DataCacheRepositoryFetchWithIdentityCompletion)completion {
     if (identity == nil) return;
     
-    [self.coreDataStack.queue addBarrierBlock:^{
+    [self.coreDataStack.queue addOperationWithBlock:^{
         NSManagedObjectContext *context = self.coreDataStack.context;
         
         [context performBlockAndWait:^{
