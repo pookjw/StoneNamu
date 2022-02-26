@@ -9,12 +9,12 @@
 
 @implementation DeckAddCardItemModel
 
-- (instancetype)initWithCard:(HSCard *)card count:(NSUInteger)count isLegendary:(BOOL)isLegendary {
+- (instancetype)initWithCard:(HSCard *)hsCard count:(NSUInteger)count isLegendary:(BOOL)isLegendary {
     self = [self init];
     
     if (self) {
-        [self->_card release];
-        self->_card = [card copy];
+        [self->_hsCard release];
+        self->_hsCard = [hsCard copy];
         
         self.count = count;
         
@@ -25,7 +25,7 @@
 }
 
 - (void)dealloc {
-    [_card release];
+    [_hsCard release];
     [super dealloc];
 }
 
@@ -36,11 +36,13 @@
     
     DeckAddCardItemModel *toCompare = (DeckAddCardItemModel *)object;
     
-    return ([self.card isEqual:toCompare.card]);
+    BOOL hsCard = compareNullableValues(self.hsCard, toCompare.hsCard, @selector(isEqual:));
+    
+    return hsCard;
 }
 
 - (NSUInteger)hash {
-    return self.card.hash;
+    return self.hsCard.hash;
 }
 
 @end

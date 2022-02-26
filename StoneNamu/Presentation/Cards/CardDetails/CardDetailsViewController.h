@@ -13,7 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface CardDetailsViewController : UIViewController
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
-- (instancetype)initWithHSCard:(HSCard *)hsCard sourceImageView:(UIImageView * _Nullable)sourceImageView;
+- (instancetype)initWithHSCard:(HSCard * _Nullable)hsCard sourceImageView:(UIImageView * _Nullable)sourceImageView;
+- (void)requestHSCard:(HSCard *)hsCard;
 @end
 
 NS_ASSUME_NONNULL_END

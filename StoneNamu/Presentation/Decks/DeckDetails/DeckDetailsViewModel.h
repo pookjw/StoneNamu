@@ -27,6 +27,8 @@ static NSNotificationName const NSNotificationNameDeckDetailsViewModelApplyingSn
 static NSString * const DeckDetailsViewModelApplyingSnapshotToDataSourceWasDoneHasAnyCardsItemKey = @"DeckDetailsViewModelApplyingSnapshotToDataSourceWasDoneHasAnyCardsItemKey";
 static NSString * const DeckDetailsViewModelApplyingSnapshotToDataSourceWasDoneCardsHeaderTextKey = @"DeckDetailsViewModelApplyingSnapshotToDataSourceWasDoneCardsHeaderTextKey";
 
+typedef void (^DeckDetailsViewModellHSCardFromIndexPathCompletion)(HSCard * _Nullable hsCard);
+
 @interface DeckDetailsViewModel : NSObject
 @property (copy) NSIndexPath * _Nullable contextMenuIndexPath;
 @property (readonly, retain) LocalDeck * _Nullable localDeck;
@@ -36,6 +38,8 @@ static NSString * const DeckDetailsViewModelApplyingSnapshotToDataSourceWasDoneC
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithDataSource:(DeckDetailsDataSource *)dataSource;
 - (void)requestDataSourceFromLocalDeck:(LocalDeck *)localDeck;
+- (void)hsCardFromIndexPath:(NSIndexPath *)indexPath completion:(DeckDetailsViewModellHSCardFromIndexPathCompletion)completion;
+
 - (void)addHSCards:(NSArray<HSCard *> *)hsCards;
 
 - (void)increaseAtIndexPath:(NSIndexPath *)indexPath;

@@ -215,9 +215,16 @@
     
     if (itemModel == nil) return @[];
     
-    UIDragItem *dragItem = [DragItemService.sharedInstance makeDragItemsFromHSCard:itemModel.card image:image];
+    UIDragItem *dragItem = [DragItemService.sharedInstance makeDragItemsFromHSCard:itemModel.hsCard image:image];
     
     return @[dragItem];
+}
+
+- (void)hsCardFromIndexPath:(NSIndexPath *)indexPath completion:(DeckAddCardsViewModelHSCardFromIndexPathCompletion)completion {
+    [self.queue addBarrierBlock:^{
+        DeckAddCardItemModel *itemModel = [self.dataSource itemIdentifierForIndexPath:indexPath];
+        completion(itemModel.hsCard);
+    }];
 }
 
 - (void)addHSCards:(NSSet<HSCard *> *)hsCards {
@@ -233,7 +240,7 @@
         NSMutableSet<HSCard *> *hsCards = [NSMutableSet<HSCard *> new];
         
         [indexPathes enumerateObjectsUsingBlock:^(NSIndexPath * _Nonnull obj, BOOL * _Nonnull stop) {
-            HSCard * _Nullable hsCard = [self.dataSource itemIdentifierForIndexPath:obj].card;
+            HSCard * _Nullable hsCard = [self.dataSource itemIdentifierForIndexPath:obj].hsCard;
             
             if (hsCard != nil) {
                 [hsCards addObject:hsCard];
@@ -295,7 +302,7 @@
         NSArray<HSCard *> *localDeckCards = self.localDeck.hsCards;
         
         for (DeckAddCardItemModel *itemModel in snapshot.itemIdentifiers) {
-            NSUInteger count = [localDeckCards countOfObject:itemModel.card];
+            NSUInteger count = [localDeckCards countOfObject:itemModel.hsCard];
             
             if (itemModel.count != count) {
                 itemModel.count = count;

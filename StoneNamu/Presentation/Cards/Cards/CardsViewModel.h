@@ -19,6 +19,8 @@ static NSNotificationName const NSNotificationNameCardsViewModelEndedLoadingData
 
 typedef UICollectionViewDiffableDataSource<CardSectionModel *, CardItemModel *> CardsDataSource;
 
+typedef void (^CardsViewModelHSCardFromIndexPathCompletion)(HSCard *hsCard);
+
 @interface CardsViewModel : NSObject
 @property (copy) NSIndexPath * _Nullable contextMenuIndexPath;
 @property (readonly, retain) CardsDataSource *dataSource;
@@ -28,6 +30,7 @@ typedef UICollectionViewDiffableDataSource<CardSectionModel *, CardItemModel *> 
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithDataSource:(CardsDataSource *)dataSource;
 - (BOOL)requestDataSourceWithOptions:(NSDictionary<NSString *, NSSet<NSString *> *> * _Nullable)options reset:(BOOL)reset;
+- (void)hsCardFromIndexPath:(NSIndexPath *)indexPath completion:(CardsViewModelHSCardFromIndexPathCompletion)completion;
 - (NSArray<UIDragItem *> *)makeDragItemFromIndexPath:(NSIndexPath *)indexPath image:(UIImage * _Nullable)image;
 @end
 

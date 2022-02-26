@@ -34,7 +34,6 @@
 @property (retain) NSArray<UIViewController<CardDetailsLayoutProtocol> *> *layoutViewControllers;
 @property (assign, nonatomic, readonly) UIViewController<CardDetailsLayoutProtocol> * _Nullable currentLayoutViewController;
 @property (retain) UIContextMenuInteraction *primaryImageViewInteraction;
-@property (copy) HSCard *hsCard;
 @property (retain) CardDetailsViewModel *viewModel;
 @end
 
@@ -45,7 +44,11 @@
     
     if (self) {
         self.sourceImageView = sourceImageView;
-        self.hsCard = hsCard;
+        [self loadViewIfNeeded];
+        
+        if (hsCard) {
+            [self requestHSCard:hsCard];
+        }
     }
     
     return self;
@@ -60,15 +63,12 @@
     [_regularViewController release];
     [_layoutViewControllers release];
     [_primaryImageViewInteraction release];
-    [_hsCard release];
     [_viewModel release];
     [super dealloc];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSLog(@"hsCard.slug: %@, hsCard.cardId: %lu", self.hsCard.slug, self.hsCard.cardId);
-    
     [self setAttributes];
     [self configurePrimaryImageView];
     [self configureCloseButton];
@@ -104,6 +104,11 @@
     [self.currentLayoutViewController cardDetailsLayoutUpdateCollectionViewInsets];
 }
 
+- (void)requestHSCard:(HSCard *)hsCard {
+    [self.viewModel requestDataSourceWithCard:hsCard];
+    [self loadPrimageImageFromHSCard:hsCard];
+}
+
 - (UIViewController<CardDetailsLayoutProtocol> * _Nullable)currentLayoutViewController {
     UIViewController<CardDetailsLayoutProtocol> * _Nullable current = nil;
     
@@ -129,16 +134,6 @@
     
     primaryImageView.userInteractionEnabled = YES;
     primaryImageView.contentMode = UIViewContentModeScaleAspectFit;
-    
-    if (self.sourceImageView.image == nil) {
-        [primaryImageView setAsyncImageWithURL:self.hsCard.image indicator:YES];
-    } else {
-        if ((self.sourceImageView.image.isGrayScaleApplied) && (self.sourceImageView.image.imageBeforeGrayScale != nil)) {
-            primaryImageView.image = self.sourceImageView.image.imageBeforeGrayScale;
-        } else {
-            primaryImageView.image = self.sourceImageView.image;
-        }
-    }
     
     //
     
@@ -245,10 +240,19 @@
 - (void)configureViewModel {
     CardDetailsViewModel *viewModel = [[CardDetailsViewModel alloc] initWithDataSource:[self makeDataSource]];
     self.viewModel = viewModel;
-    
-    [viewModel requestDataSourceWithCard:self.hsCard];
-    
     [viewModel release];
+}
+
+- (void)loadPrimageImageFromHSCard:(HSCard *)hsCard {
+    if (self.sourceImageView.image == nil) {
+        [self.primaryImageView setAsyncImageWithURL:hsCard.image indicator:YES];
+    } else {
+        if ((self.sourceImageView.image.isGrayScaleApplied) && (self.sourceImageView.image.imageBeforeGrayScale != nil)) {
+            self.primaryImageView.image = self.sourceImageView.image.imageBeforeGrayScale;
+        } else {
+            self.primaryImageView.image = self.sourceImageView.image;
+        }
+    }
 }
 
 - (void)bind {
@@ -580,7 +584,7 @@
                                                    image:[UIImage systemImageNamed:@"square.and.arrow.down"]
                                               identifier:nil
                                                  handler:^(__kindof UIAction * _Nonnull action) {
-            PhotosService *photosService = [[PhotosService alloc] initWithHSCards:[NSSet setWithObject:self.hsCard]];
+            PhotosService *photosService = [[PhotosService alloc] initWithHSCards:[NSSet setWithObject:self.viewModel.hsCard]];
             [photosService beginSavingFromViewController:self completion:^(BOOL success, NSError * _Nullable error) {}];
             [photosService release];
         }];
@@ -589,12 +593,12 @@
                                                     image:[UIImage systemImageNamed:@"square.and.arrow.up"]
                                                identifier:nil
                                                   handler:^(__kindof UIAction * _Nonnull action) {
-            PhotosService *photosService = [[PhotosService alloc] initWithHSCards:[NSSet setWithObject:self.hsCard]];
+            PhotosService *photosService = [[PhotosService alloc] initWithHSCards:[NSSet setWithObject:self.viewModel.hsCard]];
             [photosService beginSharingFromViewController:self completion:^(BOOL success, NSError * _Nullable error) {}];
             [photosService release];
         }];
         
-        UIMenu *menu = [UIMenu menuWithTitle:self.hsCard.name
+        UIMenu *menu = [UIMenu menuWithTitle:self.viewModel.hsCard.name
                                     children:@[saveAction, shareAction]];
         
         return menu;

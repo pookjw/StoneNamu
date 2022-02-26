@@ -176,6 +176,13 @@
     return ![self.pageCount isEqual:self.page];
 }
 
+- (void)hsCardFromIndexPath:(NSIndexPath *)indexPath completion:(CardsViewModelHSCardFromIndexPathCompletion)completion {
+    [self.queue addBarrierBlock:^{
+        CardItemModel *itemModel = [self.dataSource itemIdentifierForIndexPath:indexPath];
+        completion(itemModel.hsCard);
+    }];
+}
+
 - (NSArray<UIDragItem *> *)makeDragItemFromIndexPath:(NSIndexPath *)indexPath image:(UIImage * _Nullable)image {
     CardItemModel * _Nullable itemModel = [self.dataSource itemIdentifierForIndexPath:indexPath];
     

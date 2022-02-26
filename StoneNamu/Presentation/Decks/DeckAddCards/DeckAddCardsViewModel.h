@@ -26,6 +26,8 @@ typedef void (^DeckAddCardsViewModelCountOfLocalDeckCardsCompletion)(NSNumber * 
 
 typedef UICollectionViewDiffableDataSource<DeckAddCardSectionModel *, DeckAddCardItemModel *> CardsDataSource;
 
+typedef void (^DeckAddCardsViewModelHSCardFromIndexPathCompletion)(HSCard *hsCard);
+
 @interface DeckAddCardsViewModel : NSObject
 @property (retain) LocalDeck * _Nullable localDeck;
 @property (copy) NSIndexPath * _Nullable contextMenuIndexPath;
@@ -37,6 +39,7 @@ typedef UICollectionViewDiffableDataSource<DeckAddCardSectionModel *, DeckAddCar
 - (void)defaultOptionsWithCompletion:(DeckAddCardsViewModelDefaultOptionsCompletion)completion;
 - (void)countOfLocalDeckCardsWithCompletion:(DeckAddCardsViewModelCountOfLocalDeckCardsCompletion)completion;
 - (BOOL)requestDataSourceWithOptions:(NSDictionary<NSString *, NSSet<NSString *> *> * _Nullable)options reset:(BOOL)reset;
+- (void)hsCardFromIndexPath:(NSIndexPath *)indexPath completion:(DeckAddCardsViewModelHSCardFromIndexPathCompletion)completion;
 - (NSArray<UIDragItem *> *)makeDragItemFromIndexPath:(NSIndexPath *)indexPath image:(UIImage * _Nullable)image;
 - (void)addHSCards:(NSSet<HSCard *> *)hsCards;
 - (void)addHSCardsFromIndexPathes:(NSSet<NSIndexPath *> *)indexPathes;

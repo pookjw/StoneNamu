@@ -216,23 +216,25 @@
     return [self.viewModel makeDragItemFromIndexPath:indexPath image:image];
 }
 
-- (void)presentCardDetailsViewControllerWithHSCard:(HSCard *)hsCard sourceImageView:(UIImageView *)imageView {
-    CardDetailsViewController *vc = [[CardDetailsViewController alloc] initWithHSCard:hsCard sourceImageView:imageView];
-    [vc loadViewIfNeeded];
-    [self presentViewController:vc animated:YES completion:^{}];
-    [vc release];
-}
-
 - (void)presentCardDetailsViewControllerFromIndexPath:(NSIndexPath *)indexPath {
     UICollectionViewCell * _Nullable cell = [self.collectionView cellForItemAtIndexPath:indexPath];
     if (cell == nil) return;
-    HSCard * _Nullable hsCard = [self.viewModel.dataSource itemIdentifierForIndexPath:indexPath].hsCard;
-    if (hsCard == nil) return;
     
     CardContentView *contentView = (CardContentView *)cell.contentView;
     if (![contentView isKindOfClass:[CardContentView class]]) return;
     
-    [self presentCardDetailsViewControllerWithHSCard:hsCard sourceImageView:contentView.imageView];
+    UIImageView *sourceImageView = contentView.imageView;
+    
+    CardDetailsViewController *vc = [[CardDetailsViewController alloc] initWithHSCard:nil sourceImageView:sourceImageView];
+    
+    [self.viewModel hsCardFromIndexPath:indexPath completion:^(HSCard * _Nonnull hsCard) {
+        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+            [vc requestHSCard:hsCard];
+        }];
+    }];
+    
+    [self presentViewController:vc animated:YES completion:^{}];
+    [vc release];
 }
 
 #pragma mark - UICollectionViewDelegate

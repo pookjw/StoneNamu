@@ -69,6 +69,13 @@
     [super dealloc];
 }
 
+- (void)hsCardFromIndexPath:(NSIndexPath *)indexPath completion:(DeckDetailsViewModellHSCardFromIndexPathCompletion)completion {
+    [self.queue addBarrierBlock:^{
+        DeckDetailsItemModel *itemModel = [self.dataSource itemIdentifierForIndexPath:indexPath];
+        completion(itemModel.hsCard);
+    }];
+}
+
 - (void)addHSCards:(NSArray<HSCard *> *)hsCards {
     [self.queue addBarrierBlock:^{
         [self.hsMetaDataUseCase fetchWithCompletionHandler:^(HSMetaData * _Nullable hsMetaData, NSError * _Nullable error) {

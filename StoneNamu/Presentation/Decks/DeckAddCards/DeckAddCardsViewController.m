@@ -221,7 +221,7 @@
         }
         DeckAddCardItemModel *itemModel = (DeckAddCardItemModel *)item;
         
-        DeckAddCardContentConfiguration *configuration = [[DeckAddCardContentConfiguration alloc] initWithHSCard:itemModel.card count:itemModel.count isLegendary:itemModel.isLegendary];
+        DeckAddCardContentConfiguration *configuration = [[DeckAddCardContentConfiguration alloc] initWithHSCard:itemModel.hsCard count:itemModel.count isLegendary:itemModel.isLegendary];
         cell.contentConfiguration = configuration;
         [configuration release];
     }];
@@ -363,13 +363,22 @@
 - (void)presentCardDetailsViewControllerFromIndexPath:(NSIndexPath *)indexPath {
     UICollectionViewCell * _Nullable cell = [self.collectionView cellForItemAtIndexPath:indexPath];
     if (cell == nil) return;
-    HSCard * _Nullable hsCard = [self.viewModel.dataSource itemIdentifierForIndexPath:indexPath].card;
-    if (hsCard == nil) return;
     
     DeckAddCardContentView *contentView = (DeckAddCardContentView *)cell.contentView;
     if (![contentView isKindOfClass:[DeckAddCardContentView class]]) return;
     
-    [self presentCardDetailsViewControllerWithHSCard:hsCard sourceImageView:contentView.imageView];
+    UIImageView *sourceImageView = contentView.imageView;
+    
+    CardDetailsViewController *vc = [[CardDetailsViewController alloc] initWithHSCard:nil sourceImageView:sourceImageView];
+    
+    [self.viewModel hsCardFromIndexPath:indexPath completion:^(HSCard * _Nonnull hsCard) {
+        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+            [vc requestHSCard:hsCard];
+        }];
+    }];
+    
+    [self presentViewController:vc animated:YES completion:^{}];
+    [vc release];
 }
 
 - (void)presentDeckDetailsViewController {
@@ -433,10 +442,10 @@
                                              identifier:nil
                                                 handler:^(__kindof UIAction * _Nonnull action) {
             
-            [self.viewModel addHSCards:[NSSet setWithObject:itemModel.card]];
+            [self.viewModel addHSCards:[NSSet setWithObject:itemModel.hsCard]];
         }];
         
-        UIMenu *menu = [UIMenu menuWithTitle:itemModel.card.name
+        UIMenu *menu = [UIMenu menuWithTitle:itemModel.hsCard.name
                                     children:@[addButton]];
         
         return menu;

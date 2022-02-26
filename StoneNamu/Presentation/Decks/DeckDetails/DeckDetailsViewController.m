@@ -488,12 +488,25 @@
     }];
 }
 
-- (void)presentCardDetailsViewControllerWithHSCard:(HSCard *)hsCard {
-    if (hsCard == nil) return;
-    
+- (void)presentCardDetailsViewControllerFromHSCard:(HSCard *)hsCard {
     CardDetailsViewController *vc = [[CardDetailsViewController alloc] initWithHSCard:hsCard sourceImageView:nil];
-    [vc loadViewIfNeeded];
     [self presentViewController:vc animated:YES completion:^{}];
+    [vc release];
+}
+
+- (void)presentCardDetailsViewControllerFromIndexPath:(NSIndexPath *)indexPath {
+    CardDetailsViewController *vc = [[CardDetailsViewController alloc] initWithHSCard:nil sourceImageView:nil];
+    
+    [self.viewModel hsCardFromIndexPath:indexPath completion:^(HSCard * _Nullable hsCard) {
+        if (hsCard) {
+            [NSOperationQueue.mainQueue addOperationWithBlock:^{
+                [vc requestHSCard:hsCard];
+            }];
+        }
+    }];
+    
+    [self presentViewController:vc animated:YES completion:^{}];
+    [vc release];
 }
 
 - (void)presentDeckAddCardsViewController {
@@ -537,15 +550,13 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     [collectionView deselectItemAtIndexPath:indexPath animated:YES];
     
-    DeckDetailsItemModel * _Nullable itemModel = [self.viewModel.dataSource itemIdentifierForIndexPath:indexPath];
-    
-    if ((itemModel == nil) || (itemModel.type != DeckDetailsItemModelTypeCard)) {
-        return;
-    }
-    
-    //
-    
-    [self presentCardDetailsViewControllerWithHSCard:itemModel.hsCard];
+    [self.viewModel hsCardFromIndexPath:indexPath completion:^(HSCard * _Nullable hsCard) {
+        if (hsCard) {
+            [NSOperationQueue.mainQueue addOperationWithBlock:^{
+                [self presentCardDetailsViewControllerFromHSCard:hsCard];
+            }];
+        }
+    }];
 }
 
 - (UIContextMenuConfiguration *)collectionView:(UICollectionView *)collectionView contextMenuConfigurationForItemAtIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point {
@@ -608,18 +619,9 @@
         return;
     }
     
-    DeckDetailsItemModel * _Nullable itemModel = [self.viewModel.dataSource itemIdentifierForIndexPath:indexPath];
-    
-    switch (itemModel.type) {
-        case DeckDetailsItemModelTypeCard: {
-            [animator addAnimations:^{
-                [self presentCardDetailsViewControllerWithHSCard:itemModel.hsCard];
-            }];
-            break;
-        }
-        default:
-            break;
-    }
+    [animator addAnimations:^{
+        [self presentCardDetailsViewControllerFromIndexPath:indexPath];
+    }];
 }
 
 #pragma mark - UICollectionViewDragDelegate
