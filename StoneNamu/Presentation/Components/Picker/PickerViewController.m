@@ -19,6 +19,31 @@
 
 @implementation PickerViewController
 
+- (instancetype)init {
+    self = [super init];
+    
+    if (self) {
+        self.delegate = nil;
+        self.didSelectItems = nil;
+    }
+    
+    return self;
+}
+
+- (instancetype)initWithItems:(NSDictionary<PickerSectionModel *, NSSet<PickerItemModel *> *> *)items allowsMultipleSelection:(BOOL)allowsMultipleSelection comparator:(NSComparisonResult (^)(NSString *, NSString *))comparator {
+    self = [self init];
+    
+    if (self) {
+        [self loadViewIfNeeded];
+        
+        self.viewModel.allowsMultipleSelection = allowsMultipleSelection;
+        self.viewModel.comparator = comparator;
+        [self.viewModel updateDataSourceWithItems:items];
+    }
+    
+    return self;
+}
+
 - (instancetype)initWithItems:(NSDictionary<PickerSectionModel *, NSSet<PickerItemModel *> *> *)items allowsMultipleSelection:(BOOL)allowsMultipleSelection comparator:(NSComparisonResult (^)(NSString *, NSString *))comparator delegate:(id<PickerViewControllerDelegate>)delegate {
     self = [self initWithItems:items allowsMultipleSelection:allowsMultipleSelection comparator:comparator];
     
@@ -41,18 +66,23 @@
     return self;
 }
 
-- (instancetype)initWithItems:(NSDictionary<PickerSectionModel *, NSSet<PickerItemModel *> *> *)items allowsMultipleSelection:(BOOL)allowsMultipleSelection comparator:(NSComparisonResult (^)(NSString *, NSString *))comparator {
-    self = [self init];
+- (void)requestWithItems:(NSDictionary<PickerSectionModel *,NSSet<PickerItemModel *> *> *)items allowsMultipleSelection:(BOOL)allowsMultipleSelection comparator:(NSComparisonResult (^)(NSString * _Nonnull, NSString * _Nonnull))comparator delegate:(id<PickerViewControllerDelegate>)delegate {
+    [self loadViewIfNeeded];
+    self.delegate = delegate;
     
-    if (self) {
-        [self loadViewIfNeeded];
-        
-        self.viewModel.allowsMultipleSelection = allowsMultipleSelection;
-        self.viewModel.comparator = comparator;
-        [self.viewModel updateDataSourceWithItems:items];
-    }
+    [self loadViewIfNeeded];
+    self.viewModel.allowsMultipleSelection = allowsMultipleSelection;
+    self.viewModel.comparator = comparator;
+    [self.viewModel updateDataSourceWithItems:items];
+}
+
+- (void)requestWithItems:(NSDictionary<PickerSectionModel *,NSSet<PickerItemModel *> *> *)items allowsMultipleSelection:(BOOL)allowsMultipleSelection comparator:(NSComparisonResult (^)(NSString * _Nonnull, NSString * _Nonnull))comparator didSelectItems:(PickerViewControllerDidSelectItems)didSelectItems {
+    self.didSelectItems = didSelectItems;
     
-    return self;
+    [self loadViewIfNeeded];
+    self.viewModel.allowsMultipleSelection = allowsMultipleSelection;
+    self.viewModel.comparator = comparator;
+    [self.viewModel updateDataSourceWithItems:items];
 }
 
 - (void)dealloc {

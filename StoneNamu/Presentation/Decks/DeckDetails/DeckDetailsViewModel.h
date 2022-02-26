@@ -28,7 +28,7 @@ static NSString * const DeckDetailsViewModelApplyingSnapshotToDataSourceWasDoneH
 static NSString * const DeckDetailsViewModelApplyingSnapshotToDataSourceWasDoneCardsHeaderTextKey = @"DeckDetailsViewModelApplyingSnapshotToDataSourceWasDoneCardsHeaderTextKey";
 
 @interface DeckDetailsViewModel : NSObject
-@property (retain) NSIndexPath * _Nullable contextMenuIndexPath;
+@property (copy) NSIndexPath * _Nullable contextMenuIndexPath;
 @property (readonly, retain) LocalDeck * _Nullable localDeck;
 @property (readonly, retain) DeckDetailsDataSource *dataSource;
 @property BOOL shouldPresentDeckEditor;

@@ -33,6 +33,7 @@ static NSString * const CardOptionsViewModelErrorOccuredErrorItemKey = @"CardOpt
 typedef UICollectionViewDiffableDataSource<CardOptionSectionModel *, CardOptionItemModel *> CardOptionsDataSource;
 
 @interface CardOptionsViewModel : NSObject
+@property (copy) NSIndexPath * _Nullable contextMenuIndexPath;
 @property (readonly, retain) CardOptionsDataSource *dataSource;
 @property (readonly, nonatomic) NSDictionary<NSString *, NSSet<NSString *> *> *options;
 + (instancetype)new NS_UNAVAILABLE;

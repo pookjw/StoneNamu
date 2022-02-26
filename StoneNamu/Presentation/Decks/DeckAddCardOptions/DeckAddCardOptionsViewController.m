@@ -17,10 +17,21 @@
 @property (retain) UICollectionView *collectionView;
 @property (retain) UIBarButtonItem *cancelButton;
 @property (retain) UIBarButtonItem *resetButton;
+@property (retain) UIViewController * _Nullable contextViewController;
 @property (retain) DeckAddCardOptionsViewModel *viewModel;
 @end
 
 @implementation DeckAddCardOptionsViewController
+
+- (instancetype)init {
+    self = [super init];
+    
+    if (self) {
+        self.contextViewController = nil;
+    }
+    
+    return self;
+}
 
 - (instancetype)initWithOptions:(NSDictionary<NSString *,NSSet<NSString *> *> *)options localDeck:(nonnull LocalDeck *)localDeck {
     self = [self init];
@@ -38,6 +49,7 @@
     [_collectionView release];
     [_cancelButton release];
     [_resetButton release];
+    [_contextViewController release];
     [_viewModel release];
     [super dealloc];
 }
@@ -280,42 +292,48 @@
     NSDictionary<PickerSectionModel *, NSSet<PickerItemModel *> *> * _Nullable pickers = notification.userInfo[DeckAddCardOptionsViewModelPresentPickerNotificationPickersItemKey];
     NSNumber * _Nullable allowsMultipleSelection = notification.userInfo[DeckAddCardOptionsViewModelPresentPickerNotificationAllowsMultipleSelectionItemKey];
     NSComparisonResult (^comparator)(NSString *, NSString *) = notification.userInfo[DeckAddCardOptionsViewModelPresentPickerNotificationComparatorItemKey];
+    void (^didSelectItems)(NSSet<PickerItemModel *> *) = ^(NSSet<PickerItemModel *> * _Nonnull selectedItems) {
+        dispatch_queue_t queue = dispatch_get_global_queue(QOS_CLASS_USER_INTERACTIVE, 0);
+        
+        dispatch_async(queue, ^{
+            if (selectedItems.count == 0) {
+                [self.viewModel updateOptionType:optionType withValues:nil];
+                return;
+            } else if (selectedItems.count == 1) {
+                BOOL isEmptyItem = (selectedItems.allObjects.firstObject.type == PickerItemModelTypeEmpty);
+                
+                if (isEmptyItem) {
+                    [self.viewModel updateOptionType:optionType withValues:nil];
+                    return;
+                }
+            }
+            
+            NSMutableSet<NSString *> *results = [NSMutableSet<NSString *> new];
+            
+            [selectedItems enumerateObjectsUsingBlock:^(PickerItemModel * _Nonnull obj, BOOL * _Nonnull stop) {
+                [results addObject:obj.key];
+            }];
+            
+            [self.viewModel updateOptionType:optionType withValues:results];
+            [results release];
+        });
+    };
     
     if (optionType && pickers && allowsMultipleSelection && comparator) {
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
-            PickerViewController *vc = [[PickerViewController alloc] initWithItems:pickers allowsMultipleSelection:allowsMultipleSelection.boolValue comparator:comparator didSelectItems:^(NSSet<PickerItemModel *> * _Nonnull selectedItems) {
-                if (selectedItems.count == 0) {
-                    [self.viewModel updateOptionType:optionType withValues:nil];
-                    return;
-                } else if (selectedItems.count == 1) {
-                    BOOL isEmptyItem = (selectedItems.allObjects.firstObject.type == PickerItemModelTypeEmpty);
-                    
-                    if (isEmptyItem) {
-                        [self.viewModel updateOptionType:optionType withValues:nil];
-                        return;
-                    }
-                }
+            if ((self.contextViewController) && ([self.contextViewController isKindOfClass:[PickerViewController class]])) {
+                PickerViewController *vc = (PickerViewController *)self.contextViewController;
+                vc.title = title;
                 
-                //
+                [vc requestWithItems:pickers allowsMultipleSelection:allowsMultipleSelection.boolValue comparator:comparator didSelectItems:didSelectItems];
+            } else {
+                PickerViewController *vc = [[PickerViewController alloc] initWithItems:pickers allowsMultipleSelection:allowsMultipleSelection.boolValue comparator:comparator didSelectItems:didSelectItems];
+                vc.title = title;
                 
-                dispatch_queue_t queue = dispatch_get_global_queue(QOS_CLASS_USER_INTERACTIVE, 0);
+                [self.navigationController pushViewController:vc animated:YES];
                 
-                dispatch_async(queue, ^{
-                    NSMutableSet<NSString *> *results = [NSMutableSet<NSString *> new];
-                    
-                    [selectedItems enumerateObjectsUsingBlock:^(PickerItemModel * _Nonnull obj, BOOL * _Nonnull stop) {
-                        [results addObject:obj.key];
-                    }];
-                    
-                    [self.viewModel updateOptionType:optionType withValues:results];
-                    [results release];
-                });
-            }];
-            
-            vc.title = title;
-            
-            [self.navigationController pushViewController:vc animated:YES];
-            [vc release];
+                [vc release];
+            }
         }];
     }
 }
@@ -346,6 +364,40 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     [self.viewModel handleSelectionForIndexPath:indexPath];
+}
+
+- (UIContextMenuConfiguration *)collectionView:(UICollectionView *)collectionView contextMenuConfigurationForItemAtIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point {
+    self.contextViewController = nil;
+    self.viewModel.contextMenuIndexPath = nil;
+    
+    DeckAddCardOptionItemModel * _Nullable itemModel = [self.viewModel.dataSource itemIdentifierForIndexPath:indexPath];
+    if (itemModel == nil) return nil;
+    
+    if ([itemModel.optionType isEqualToString:BlizzardHSAPIOptionTypeTextFilter]) return nil;
+    
+    UIContextMenuConfiguration *configuration = [UIContextMenuConfiguration configurationWithIdentifier:nil previewProvider:^UIViewController * _Nullable{
+        self.viewModel.contextMenuIndexPath = indexPath;
+        
+        PickerViewController *vc = [PickerViewController new];
+        self.contextViewController = vc;
+        [self.viewModel handleSelectionForIndexPath:indexPath];
+        return [vc autorelease];
+    } actionProvider:nil];
+    
+    return configuration;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView willEndContextMenuInteractionWithConfiguration:(UIContextMenuConfiguration *)configuration animator:(id<UIContextMenuInteractionAnimating>)animator {
+    [animator addCompletion:^{
+        self.contextViewController = nil;
+        self.viewModel.contextMenuIndexPath = nil;
+    }];
+}
+
+- (void)collectionView:(UICollectionView *)collectionView willPerformPreviewActionForMenuWithConfiguration:(UIContextMenuConfiguration *)configuration animator:(id<UIContextMenuInteractionCommitAnimating>)animator {
+    [animator addAnimations:^{
+        [self.navigationController pushViewController:self.contextViewController animated:YES];
+    }];
 }
 
 @end

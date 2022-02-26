@@ -23,6 +23,7 @@
     self = [self init];
     
     if (self) {
+        self.contextMenuIndexPath = nil;
         [self->_dataSource release];
         self->_dataSource = [dataSource retain];
         
@@ -42,6 +43,7 @@
 }
 
 - (void)dealloc {
+    [_contextMenuIndexPath release];
     [_dataSource release];
     [_hsMetaDataUseCase release];
     [_queue release];

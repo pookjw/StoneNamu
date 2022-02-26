@@ -311,6 +311,8 @@
 		4FAD720927762EE3000487B3 /* PhotosService.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FAD720827762EE3000487B3 /* PhotosService.m */; };
 		4FB0ECE826B82AEE0020EE6C /* CardDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FB0ECE726B82AEE0020EE6C /* CardDetailsViewController.m */; };
 		4FB0ECEB26B82B100020EE6C /* DynamicPresentationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FB0ECEA26B82B100020EE6C /* DynamicPresentationController.m */; };
+		4FB238DD27CA1632001A4065 /* UINavigationController+completion.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FB238DC27CA1632001A4065 /* UINavigationController+completion.m */; };
+		4FB238E027CA176D001A4065 /* UITabBarController+completion.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FB238DF27CA176D001A4065 /* UITabBarController+completion.m */; };
 		4FB45F8A27346B440039CD62 /* LocalDeck_v1_to_v2.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 4FB45F8927346B440039CD62 /* LocalDeck_v1_to_v2.xcmappingmodel */; };
 		4FB850F726C18BAE00E3C89D /* PrefsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FB850F626C18BAE00E3C89D /* PrefsViewController.m */; };
 		4FB850FF26C18D9300E3C89D /* Prefs.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FB850FD26C18D9300E3C89D /* Prefs.m */; };
@@ -1020,6 +1022,10 @@
 		4FB0ECE626B82AEE0020EE6C /* CardDetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardDetailsViewController.h; sourceTree = "<group>"; };
 		4FB0ECE726B82AEE0020EE6C /* CardDetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardDetailsViewController.m; sourceTree = "<group>"; };
 		4FB0ECEA26B82B100020EE6C /* DynamicPresentationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DynamicPresentationController.m; sourceTree = "<group>"; };
+		4FB238DB27CA1632001A4065 /* UINavigationController+completion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+completion.h"; sourceTree = "<group>"; };
+		4FB238DC27CA1632001A4065 /* UINavigationController+completion.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+completion.m"; sourceTree = "<group>"; };
+		4FB238DE27CA176D001A4065 /* UITabBarController+completion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITabBarController+completion.h"; sourceTree = "<group>"; };
+		4FB238DF27CA176D001A4065 /* UITabBarController+completion.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITabBarController+completion.m"; sourceTree = "<group>"; };
 		4FB45F88273469910039CD62 /* LocalDeckModel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "LocalDeckModel 2.xcdatamodel"; sourceTree = "<group>"; };
 		4FB45F8927346B440039CD62 /* LocalDeck_v1_to_v2.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = LocalDeck_v1_to_v2.xcmappingmodel; sourceTree = "<group>"; };
 		4FB850F526C18BAE00E3C89D /* PrefsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefsViewController.h; sourceTree = "<group>"; };
@@ -1438,6 +1444,10 @@
 				4F248385271DA64C00A231BF /* UIView+floatingConstraints.m */,
 				4FB8C3602797EA0800D06E7D /* NSString+attributedStringWhenHTML.h */,
 				4FB8C35F2797EA0800D06E7D /* NSString+attributedStringWhenHTML.m */,
+				4FB238DB27CA1632001A4065 /* UINavigationController+completion.h */,
+				4FB238DC27CA1632001A4065 /* UINavigationController+completion.m */,
+				4FB238DE27CA176D001A4065 /* UITabBarController+completion.h */,
+				4FB238DF27CA176D001A4065 /* UITabBarController+completion.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -3760,6 +3770,7 @@
 				4FF3E0D226CA6FB9002B20EA /* MainTabBarController.m in Sources */,
 				4FA9047A26B6E26A00CD6147 /* CardContentView.m in Sources */,
 				4F4976E926ABFF5E00860809 /* CardOptionSectionModel.m in Sources */,
+				4FB238E027CA176D001A4065 /* UITabBarController+completion.m in Sources */,
 				4F8FFF3E26E0E66A00FA6586 /* DeckAddCardContentView.m in Sources */,
 				4F1B98A926C82382004E1603 /* PrefsRegionHostViewController.m in Sources */,
 				4FEC8A0A26EB88110061BBF4 /* DeckImageRenderServiceCardContentView.m in Sources */,
@@ -3790,6 +3801,7 @@
 				4F4976D926ABE80700860809 /* CardItemModel.m in Sources */,
 				4F066CBE26D71ACD00991A98 /* DeckBaseContentConfiguration.m in Sources */,
 				4FF3E0B526C97D95002B20EA /* PrefsLocaleViewModel.m in Sources */,
+				4FB238DD27CA1632001A4065 /* UINavigationController+completion.m in Sources */,
 				4F03F57626C7B62200FC9155 /* PrefsViewModel.m in Sources */,
 				4F13AE1627C0E0C000E28BD9 /* PickerSectionModel.m in Sources */,
 				4F4976D226ABE6B600860809 /* CardsViewModel.m in Sources */,

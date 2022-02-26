@@ -34,6 +34,7 @@ static NSString * const DeckAddCardOptionsViewModelErrorOccuredErrorItemKey = @"
 typedef UICollectionViewDiffableDataSource<DeckAddCardOptionSectionModel *, DeckAddCardOptionItemModel *> CardOptionsDataSource;
 
 @interface DeckAddCardOptionsViewModel : NSObject
+@property (copy) NSIndexPath * _Nullable contextMenuIndexPath;
 @property (readonly, retain) CardOptionsDataSource *dataSource;
 @property (readonly, nonatomic) NSDictionary<NSString *, NSSet<NSString *> *> *options;
 @property (retain) LocalDeck * _Nullable localDeck;

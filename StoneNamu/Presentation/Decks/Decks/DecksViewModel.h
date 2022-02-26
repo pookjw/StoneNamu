@@ -28,7 +28,7 @@ typedef UICollectionViewDiffableDataSource<DecksSectionModel *, DecksItemModel *
 
 @interface DecksViewModel : NSObject
 @property (retain) DecksDataSource *dataSource;
-@property (retain) NSIndexPath * _Nullable contextMenuIndexPath;
+@property (copy) NSIndexPath * _Nullable contextMenuIndexPath;
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithDataSource:(DecksDataSource *)dataSource;

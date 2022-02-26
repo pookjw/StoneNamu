@@ -28,7 +28,7 @@ typedef UICollectionViewDiffableDataSource<DeckAddCardSectionModel *, DeckAddCar
 
 @interface DeckAddCardsViewModel : NSObject
 @property (retain) LocalDeck * _Nullable localDeck;
-@property (retain) NSIndexPath * _Nullable contextMenuIndexPath;
+@property (copy) NSIndexPath * _Nullable contextMenuIndexPath;
 @property (readonly, retain) CardsDataSource *dataSource;
 @property (readonly, copy) NSDictionary<NSString *, NSSet<NSString *> *> * _Nullable options;
 + (instancetype)new NS_UNAVAILABLE;

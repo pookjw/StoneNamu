@@ -293,14 +293,18 @@
     return configuration;
 }
 
+- (void)collectionView:(UICollectionView *)collectionView willEndContextMenuInteractionWithConfiguration:(UIContextMenuConfiguration *)configuration animator:(id<UIContextMenuInteractionAnimating>)animator {
+    [animator addCompletion:^{
+        self.viewModel.contextMenuIndexPath = nil;
+    }];
+}
+
 - (void)collectionView:(UICollectionView *)collectionView willPerformPreviewActionForMenuWithConfiguration:(UIContextMenuConfiguration *)configuration animator:(id<UIContextMenuInteractionCommitAnimating>)animator {
     NSIndexPath * _Nullable indexPath = self.viewModel.contextMenuIndexPath;
     
     if (indexPath == nil) {
         return;
     }
-    
-    self.viewModel.contextMenuIndexPath = nil;
     
     [animator addAnimations:^{
         [self presentCardDetailsViewControllerFromIndexPath:indexPath];

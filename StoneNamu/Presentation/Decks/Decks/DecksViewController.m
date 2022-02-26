@@ -446,15 +446,21 @@
     return configuration;
 }
 
+- (void)collectionView:(UICollectionView *)collectionView willEndContextMenuInteractionWithConfiguration:(UIContextMenuConfiguration *)configuration animator:(id<UIContextMenuInteractionAnimating>)animator {
+    [animator addCompletion:^{
+        self.contextViewController = nil;
+        self.viewModel.contextMenuIndexPath = nil;
+    }];
+}
+
 - (void)collectionView:(UICollectionView *)collectionView willPerformPreviewActionForMenuWithConfiguration:(UIContextMenuConfiguration *)configuration animator:(id<UIContextMenuInteractionCommitAnimating>)animator {
+    if (self.contextViewController == nil) return;
+    
     NSIndexPath * _Nullable indexPath = self.viewModel.contextMenuIndexPath;
     
     if (indexPath) {
         [collectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionNone];
-        self.viewModel.contextMenuIndexPath = nil;
     }
-    
-    if (self.contextViewController == nil) return;
     
     [animator addAnimations:^{
         if (self.splitViewController == nil) {
@@ -463,10 +469,6 @@
             [self.splitViewController setViewController:self.contextViewController forColumn:UISplitViewControllerColumnSecondary];
             [self.contextViewController.navigationController setViewControllers:@[self.contextViewController] animated:NO];
         }
-    }];
-    
-    [animator addCompletion:^{
-        self.contextViewController = nil;
     }];
 }
 

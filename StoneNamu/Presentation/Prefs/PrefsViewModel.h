@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 typedef UICollectionViewDiffableDataSource<PrefsSectionModel *, PrefsItemModel *> PrefsDataSource;
 
 @interface PrefsViewModel : NSObject
-@property (retain) NSIndexPath * _Nullable contextMenuIndexPath;
+@property (copy) NSIndexPath * _Nullable contextMenuIndexPath;
 @property (readonly, retain) PrefsDataSource *dataSource;
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;

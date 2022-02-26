@@ -30,8 +30,7 @@
     self = [self init];
     
     if (self) {
-        [self->_contextMenuIndexPath release];
-        self->_contextMenuIndexPath = nil;
+        self.contextMenuIndexPath = nil;
         [self->_dataSource release];
         self->_dataSource = [dataSource retain];
         [self->_options release];

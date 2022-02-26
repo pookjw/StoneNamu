@@ -413,12 +413,18 @@
     }
 }
 
+- (void)collectionView:(UICollectionView *)collectionView willEndContextMenuInteractionWithConfiguration:(UIContextMenuConfiguration *)configuration animator:(id<UIContextMenuInteractionAnimating>)animator {
+    [animator addCompletion:^{
+        self.contextViewController = nil;
+        self.viewModel.contextMenuIndexPath = nil;
+    }];
+}
+
 - (void)collectionView:(UICollectionView *)collectionView willPerformPreviewActionForMenuWithConfiguration:(UIContextMenuConfiguration *)configuration animator:(id<UIContextMenuInteractionCommitAnimating>)animator {
     NSIndexPath * _Nullable indexPath = self.viewModel.contextMenuIndexPath;
     
     if (indexPath) {
         [collectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionNone];
-        self.viewModel.contextMenuIndexPath = nil;
     }
     
     if (self.contextViewController == nil) return;
@@ -432,12 +438,7 @@
             } else {
                 [self.navigationController pushViewController:self.contextViewController animated:YES];
             }
-            
         }
-    }];
-    
-    [animator addCompletion:^{
-        self.contextViewController = nil;
     }];
 }
 

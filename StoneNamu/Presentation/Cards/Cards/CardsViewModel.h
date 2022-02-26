@@ -20,7 +20,7 @@ static NSNotificationName const NSNotificationNameCardsViewModelEndedLoadingData
 typedef UICollectionViewDiffableDataSource<CardSectionModel *, CardItemModel *> CardsDataSource;
 
 @interface CardsViewModel : NSObject
-@property (retain) NSIndexPath * _Nullable contextMenuIndexPath;
+@property (copy) NSIndexPath * _Nullable contextMenuIndexPath;
 @property (readonly, retain) CardsDataSource *dataSource;
 @property (readonly, copy) NSDictionary<NSString *, NSSet<NSString *> *> * _Nullable options;
 @property (readonly, nonatomic) NSDictionary<NSString *, NSSet<NSString *> *> *defaultOptions;
