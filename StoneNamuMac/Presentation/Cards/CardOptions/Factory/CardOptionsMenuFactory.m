@@ -250,7 +250,7 @@
         }
                                     target:target];
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeSort]) {
-        itemArray = [self itemArrayFromDic:[ResourcesService localizationsForHSCardSort]
+        itemArray = [self itemArrayFromDic:[ResourcesService localizationsForHSCardSortWithHSCardGameModeSlugType:HSCardGameModeSlugTypeConstructed]
                                 optionType:optionType
                              showEmptyItem:[self hasEmptyItemAtOptionType:optionType]
                                filterArray:nil
@@ -539,11 +539,11 @@
             return;
         }
         
-        NSDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSNumber *> *> *slugsAndIds = [self.hsMetaDataUseCase optionTypesAndSlugsAndIdsFromHSDeckFormat:nil withClassId:nil usingHSMetaData:hsMetaData];
-        NSDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSString *> *> *slugsAndNames = [self.hsMetaDataUseCase optionTypesAndSlugsAndNamesFromHSDeckFormat:nil withClassId:nil usingHSMetaData:hsMetaData];
-        NSDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSString *> *> *classicOptionTypesAndSlugsAndNames = [self.hsMetaDataUseCase optionTypesAndSlugsAndNamesFromHSDeckFormat:HSDeckFormatClassic withClassId:nil usingHSMetaData:hsMetaData];
-        NSDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSString *> *> *standardOptionTypesAndSlugsAndNames = [self.hsMetaDataUseCase optionTypesAndSlugsAndNamesFromHSDeckFormat:HSDeckFormatStandard withClassId:nil usingHSMetaData:hsMetaData];
-        NSDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSString *> *> *wildOptionTypesAndSlugsAndNames = [self.hsMetaDataUseCase optionTypesAndSlugsAndNamesFromHSDeckFormat:HSDeckFormatWild withClassId:nil usingHSMetaData:hsMetaData];
+        NSDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSNumber *> *> *slugsAndIds = [self.hsMetaDataUseCase constructedOptionTypesAndSlugsAndIdsFromHSDeckFormat:nil withClassId:nil usingHSMetaData:hsMetaData];
+        NSDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSString *> *> *slugsAndNames = [self.hsMetaDataUseCase constructedOptionTypesAndSlugsAndNamesFromHSDeckFormat:nil withClassId:nil usingHSMetaData:hsMetaData];
+        NSDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSString *> *> *classicOptionTypesAndSlugsAndNames = [self.hsMetaDataUseCase constructedOptionTypesAndSlugsAndNamesFromHSDeckFormat:HSDeckFormatClassic withClassId:nil usingHSMetaData:hsMetaData];
+        NSDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSString *> *> *standardOptionTypesAndSlugsAndNames = [self.hsMetaDataUseCase constructedOptionTypesAndSlugsAndNamesFromHSDeckFormat:HSDeckFormatStandard withClassId:nil usingHSMetaData:hsMetaData];
+        NSDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSString *> *> *wildOptionTypesAndSlugsAndNames = [self.hsMetaDataUseCase constructedOptionTypesAndSlugsAndNamesFromHSDeckFormat:HSDeckFormatWild withClassId:nil usingHSMetaData:hsMetaData];
         
         [hsMetaData release];
         

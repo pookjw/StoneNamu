@@ -76,26 +76,23 @@
         
         //
         
-        MainListSectionModel *cardsSection = [[MainListSectionModel alloc] initWithType:MainSectionModelTypeCards];
-        MainListSectionModel *deckSection = [[MainListSectionModel alloc] initWithType:MainSectionModelTypeDeck];
+        MainListSectionModel *cardsSectionModel = [[MainListSectionModel alloc] initWithType:MainSectionModelTypeCards];
+        MainListSectionModel *deckSectionModel = [[MainListSectionModel alloc] initWithType:MainSectionModelTypeDeck];
         
-        [snapshot appendSectionsWithIdentifiers:@[cardsSection, deckSection]];
+        [snapshot appendSectionsWithIdentifiers:@[cardsSectionModel, deckSectionModel]];
         
-        //
+        MainListItemModel *cardsItemModel = [[MainListItemModel alloc] initWithType:MainListItemModelTypeCards];
+        MainListItemModel *battlegroundsItemModel = [[MainListItemModel alloc] initWithType:MainListItemModelTypeBattlegrounds];
+        [snapshot appendItemsWithIdentifiers:@[cardsItemModel, battlegroundsItemModel] intoSectionWithIdentifier:cardsSectionModel];
+        [cardsItemModel release];
+        [battlegroundsItemModel release];
         
-        @autoreleasepool {
-            [snapshot appendItemsWithIdentifiers:@[
-                [[[MainListItemModel alloc] initWithType:MainListItemModelTypeCards] autorelease]
-            ]
-                       intoSectionWithIdentifier:cardsSection];
-            
-            [snapshot appendItemsWithIdentifiers:@[
-                [[[MainListItemModel alloc] initWithType:MainListItemModelTypeDecks] autorelease]
-            ] intoSectionWithIdentifier:deckSection];
-        }
+        MainListItemModel *decksItemModel = [[MainListItemModel alloc] initWithType:MainListItemModelTypeDecks];
+        [snapshot appendItemsWithIdentifiers:@[decksItemModel] intoSectionWithIdentifier:deckSectionModel];
+        [decksItemModel release];
         
-        [cardsSection release];
-        [deckSection release];
+        [cardsSectionModel release];
+        [deckSectionModel release];
         
         [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{}];
         [snapshot release];

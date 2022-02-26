@@ -9,6 +9,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef NSString * HSCardTypeSlugType NS_TYPED_EXTENSIBLE_ENUM;
+static HSCardTypeSlugType const HSCardTypeSlugTypeMinion = @"minion";
+static HSCardTypeSlugType const HSCardTypeSlugTypeHero = @"hero";
+
 @interface HSCardType : NSObject <NSCopying>
 @property (readonly, copy) NSString *slug;
 @property (readonly, copy) NSNumber *typeId;

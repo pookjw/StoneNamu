@@ -38,6 +38,8 @@
     switch (self.type) {
         case MainListItemModelTypeCards:
             return [UIImage systemImageNamed:@"text.book.closed"];
+        case MainListItemModelTypeBattlegrounds:
+            return [UIImage systemImageNamed:@"flag.and.flag.filled.crossed"];
         case MainListItemModelTypeDecks:
             return [UIImage systemImageNamed:@"books.vertical"];
         default:
@@ -49,6 +51,8 @@
     switch (self.type) {
         case MainListItemModelTypeCards:
             return [ResourcesService localizationForKey:LocalizableKeyCards];
+        case MainListItemModelTypeBattlegrounds:
+            return [ResourcesService localizationForKey:LocalizableKeyBattlegrounds];
         case MainListItemModelTypeDecks:
             return [ResourcesService localizationForKey:LocalizableKeyDecks];
         default:

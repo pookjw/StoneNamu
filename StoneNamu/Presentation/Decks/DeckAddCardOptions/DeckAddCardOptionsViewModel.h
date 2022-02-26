@@ -8,7 +8,6 @@
 #import <UIKit/UIKit.h>
 #import "DeckAddCardOptionSectionModel.h"
 #import "DeckAddCardOptionItemModel.h"
-#import "OldPickerItemModel.h"
 #import <StoneNamuCore/StoneNamuCore.h>
 
 NS_ASSUME_NONNULL_BEGIN

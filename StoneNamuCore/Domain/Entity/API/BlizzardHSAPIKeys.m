@@ -12,15 +12,25 @@
 #import <StoneNamuCore/HSCardSort.h>
 #import <StoneNamuCore/HSCardClass.h>
 
-NSDictionary<BlizzardHSAPIOptionType, NSSet<NSString *> *> *BlizzardHSAPIDefaultOptions(void) {
-    return @{
-        BlizzardHSAPIOptionTypeCollectible: [NSSet setWithObject:NSStringFromHSCardCollectible(HSCardCollectibleYES)],
-        BlizzardHSAPIOptionTypeGameMode: [NSSet setWithObject:HSCardGameModeSlugTypeConstructed],
-        BlizzardHSAPIOptionTypeSort: [NSSet setWithArray:@[NSStringFromHSCardSort(HSCardSortManaCostAsc), NSStringFromHSCardSort(HSCardSortNameAsc)]]
-    };
+NSDictionary<BlizzardHSAPIOptionType, NSSet<NSString *> *> *BlizzardHSAPIDefaultOptionsFromHSCardTypeSlugType(HSCardTypeSlugType hsCardTypeSlugType) {
+    if ([HSCardGameModeSlugTypeConstructed isEqualToString:hsCardTypeSlugType]) {
+        return @{
+            BlizzardHSAPIOptionTypeCollectible: [NSSet setWithObject:NSStringFromHSCardCollectible(HSCardCollectibleYES)],
+            BlizzardHSAPIOptionTypeGameMode: [NSSet setWithObject:HSCardGameModeSlugTypeConstructed],
+            BlizzardHSAPIOptionTypeSort: [NSSet setWithArray:@[NSStringFromHSCardSort(HSCardSortManaCostAsc), NSStringFromHSCardSort(HSCardSortNameAsc)]]
+        };
+    } else if ([HSCardGameModeSlugTypeBattlegrounds isEqualToString:hsCardTypeSlugType]) {
+        return @{
+            BlizzardHSAPIOptionTypeType: [NSSet setWithObject:HSCardTypeSlugTypeMinion],
+            BlizzardHSAPIOptionTypeGameMode: [NSSet setWithObject:HSCardGameModeSlugTypeBattlegrounds],
+            BlizzardHSAPIOptionTypeSort: [NSSet setWithArray:@[NSStringFromHSCardSort(HSCardSortNameAsc), NSStringFromHSCardSort(HSCardSortTierAsc)]]
+        };
+    } else {
+        return @{};
+    }
 }
 
-NSDictionary<BlizzardHSAPIOptionType, NSSet<NSString *> *> *BlizzardHSAPIDefaultOptionsFromHSDeckFormat(HSDeckFormat hsDeckFormat) {
+NSDictionary<BlizzardHSAPIOptionType, NSSet<NSString *> *> *BlizzardConstructedHSAPIDefaultOptionsFromHSDeckFormat(HSDeckFormat hsDeckFormat) {
     HSCardSetSlugType setSlugType;
     
     if ([HSDeckFormatClassic isEqualToString:hsDeckFormat]) {

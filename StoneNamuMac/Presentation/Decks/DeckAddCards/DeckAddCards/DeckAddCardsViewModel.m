@@ -185,9 +185,9 @@
 
 - (NSDictionary<NSString *, NSSet<NSString *> *> *)defaultOptions {
     if (self.localDeck) {
-        return BlizzardHSAPIDefaultOptionsFromHSDeckFormat(self.localDeck.format);
+        return BlizzardConstructedHSAPIDefaultOptionsFromHSDeckFormat(self.localDeck.format);
     } else {
-        return BlizzardHSAPIDefaultOptions();
+        return BlizzardHSAPIDefaultOptionsFromHSCardTypeSlugType(HSCardGameModeSlugTypeConstructed);
     }
 }
 

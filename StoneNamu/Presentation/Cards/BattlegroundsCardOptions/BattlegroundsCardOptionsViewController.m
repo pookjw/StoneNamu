@@ -1,27 +1,27 @@
 //
-//  CardOptionsViewController.m
+//  BattlegroundsCardOptionsViewController.m
 //  StoneNamu
 //
-//  Created by Jinwoo Kim on 7/24/21.
+//  Created by Jinwoo Kim on 2/26/22.
 //
 
-#import "CardOptionsViewController.h"
-#import "CardOptionsViewModel.h"
+#import "BattlegroundsCardOptionsViewController.h"
+#import "BattlegroundsCardOptionsViewModel.h"
 #import "PickerViewController.h"
 #import "UIViewController+SpinnerView.h"
 #import "UIViewController+presentErrorAlert.h"
 #import "UIViewController+animatedForSelectedIndexPath.h"
 #import <StoneNamuResources/StoneNamuResources.h>
 
-@interface CardOptionsViewController () <UICollectionViewDelegate>
+@interface BattlegroundsCardOptionsViewController () <UICollectionViewDelegate>
 @property (retain) UICollectionView *collectionView;
 @property (retain) UIBarButtonItem *cancelButton;
 @property (retain) UIBarButtonItem *resetButton;
 @property (retain) UIViewController * _Nullable contextViewController;
-@property (retain) CardOptionsViewModel *viewModel;
+@property (retain) BattlegroundsCardOptionsViewModel *viewModel;
 @end
 
-@implementation CardOptionsViewController
+@implementation BattlegroundsCardOptionsViewController
 
 - (instancetype)init {
     self = [super init];
@@ -118,13 +118,13 @@
 }
 
 - (void)resetButtonTriggered:(UIBarButtonItem *)sender {
-    [self.delegate cardOptionsViewController:self defaultOptionsAreNeededWithCompletion:^(NSDictionary<NSString *, NSSet<NSString *> *> * _Nonnull options) {
+    [self.delegate battlegroundsCardOptionsViewController:self defaultOptionsAreNeededWithCompletion:^(NSDictionary<NSString *, NSSet<NSString *> *> * _Nonnull options) {
         [self.viewModel updateDataSourceWithOptions:options];
     }];
 }
 
 - (void)fetchButtonTriggered:(UIBarButtonItem *)sender {
-    [self.delegate cardOptionsViewController:self doneWithOptions:self.viewModel.options];
+    [self.delegate battlegroundsCardOptionsViewController:self doneWithOptions:self.viewModel.options];
 }
 
 - (void)configureCollectionView {
@@ -151,15 +151,15 @@
 }
 
 - (void)configureViewModel {
-    CardOptionsViewModel *viewModel = [[CardOptionsViewModel alloc] initWithDataSource:[self makeDataSource]];
+    BattlegroundsCardOptionsViewModel *viewModel = [[BattlegroundsCardOptionsViewModel alloc] initWithDataSource:[self makeDataSource]];
     self.viewModel = viewModel;
     [viewModel release];
 }
 
-- (CardOptionsDataSource *)makeDataSource {
+- (BattlegroundsCardOptionsDataSource *)makeDataSource {
     UICollectionViewCellRegistration *cellRegistration = [self makeCellRegistration];
     
-    CardOptionsDataSource *dataSource = [[CardOptionsDataSource alloc] initWithCollectionView:self.collectionView
+    BattlegroundsCardOptionsDataSource *dataSource = [[BattlegroundsCardOptionsDataSource alloc] initWithCollectionView:self.collectionView
                                                                      cellProvider:^UICollectionViewCell * _Nullable(UICollectionView * _Nonnull collectionView, NSIndexPath * _Nonnull indexPath, id  _Nonnull itemIdentifier) {
         
         UICollectionViewCell *cell = [collectionView dequeueConfiguredReusableCellWithRegistration:cellRegistration
@@ -175,10 +175,10 @@
 - (UICollectionViewCellRegistration *)makeCellRegistration {
     UICollectionViewCellRegistration *cellRegistration = [UICollectionViewCellRegistration registrationWithCellClass:[UICollectionViewListCell class]
                                                                                                 configurationHandler:^(__kindof UICollectionViewListCell * _Nonnull cell, NSIndexPath * _Nonnull indexPath, id  _Nonnull item) {
-        if (![item isKindOfClass:[CardOptionItemModel class]]) {
+        if (![item isKindOfClass:[BattlegroundsCardOptionItemModel class]]) {
             return;
         }
-        CardOptionItemModel *itemModel = (CardOptionItemModel *)item;
+        BattlegroundsCardOptionItemModel *itemModel = (BattlegroundsCardOptionItemModel *)item;
         
         UIListContentConfiguration *configuration = [UIListContentConfiguration subtitleCellConfiguration];
         configuration.text = itemModel.title;
@@ -215,37 +215,37 @@
 - (void)bind {
     [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(presentTextFieldEventReceived:)
-                                               name:NSNotificationNameCardOptionsViewModelPresentTextField
+                                               name:NSNotificationNameBattlegroundsCardOptionsViewModelPresentTextField
                                              object:self.viewModel];
     
     [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(presentPickerEventReceived:)
-                                               name:NSNotificationNameCardOptionsViewModelPresentPicker
+                                               name:NSNotificationNameBattlegroundsCardOptionsViewModelPresentPicker
                                              object:self.viewModel];
     
     [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(startedLoadingDataSourceReceived:)
-                                               name:NSNotificationNameCardOptionsViewModelStartedLoadingDataSource
+                                               name:NSNotificationNameBattlegroundsCardOptionsViewModelStartedLoadingDataSource
                                              object:self.viewModel];
     
     [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(endedLoadingDataSourceReceived:)
-                                               name:NSNotificationNameCardOptionsViewModelEndedLoadingDataSource
+                                               name:NSNotificationNameBattlegroundsCardOptionsViewModelEndedLoadingDataSource
                                              object:self.viewModel];
     
     [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(errorOccuredReceived:)
-                                               name:NSNotificationNameCardOptionsViewModelErrorOccured
+                                               name:NSNotificationNameBattlegroundsCardOptionsViewModelErrorOccured
                                              object:self.viewModel];
 }
 
 - (void)presentTextFieldEventReceived:(NSNotification *)notification {
-    BlizzardHSAPIOptionType _Nullable optionType = notification.userInfo[CardOptionsViewModelPresentTextFieldOptionTypeItemKey];
+    BlizzardHSAPIOptionType _Nullable optionType = notification.userInfo[BattlegroundsCardOptionsViewModelPresentTextFieldOptionTypeItemKey];
     
     if (optionType == nil) return;
     
-    NSString * _Nullable text = notification.userInfo[CardOptionsViewModelPresentTextFieldTextItemKey];
-    NSIndexPath * _Nullable indexPath = notification.userInfo[CardOptionsViewModelPresentTextFieldIndexPathItemKey];
+    NSString * _Nullable text = notification.userInfo[BattlegroundsCardOptionsViewModelPresentTextFieldTextItemKey];
+    NSIndexPath * _Nullable indexPath = notification.userInfo[BattlegroundsCardOptionsViewModelPresentTextFieldIndexPathItemKey];
     NSString *title = [ResourcesService localizationForBlizzardHSAPIOptionType:optionType];
     
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
@@ -287,11 +287,11 @@
 }
 
 - (void)presentPickerEventReceived:(NSNotification *)notification {
-    NSString * _Nullable title = notification.userInfo[CardOptionsViewModelPresentPickerNotificationTitleItemKey];
-    BlizzardHSAPIOptionType _Nullable optionType = notification.userInfo[CardOptionsViewModelPresentPickerNotificationOptionTypeItemKey];
-    NSDictionary<PickerSectionModel *, NSSet<PickerItemModel *> *> * _Nullable pickers = notification.userInfo[CardOptionsViewModelPresentPickerNotificationPickersItemKey];
-    NSNumber * _Nullable allowsMultipleSelection = notification.userInfo[CardOptionsViewModelPresentPickerNotificationAllowsMultipleSelectionItemKey];
-    NSComparisonResult (^comparator)(NSString *, NSString *) = notification.userInfo[CardOptionsViewModelPresentPickerNotificationComparatorItemKey];
+    NSString * _Nullable title = notification.userInfo[BattlegroundsCardOptionsViewModelPresentPickerNotificationTitleItemKey];
+    BlizzardHSAPIOptionType _Nullable optionType = notification.userInfo[BattlegroundsCardOptionsViewModelPresentPickerNotificationOptionTypeItemKey];
+    NSDictionary<PickerSectionModel *, NSSet<PickerItemModel *> *> * _Nullable pickers = notification.userInfo[BattlegroundsCardOptionsViewModelPresentPickerNotificationPickersItemKey];
+    NSNumber * _Nullable allowsMultipleSelection = notification.userInfo[BattlegroundsCardOptionsViewModelPresentPickerNotificationAllowsMultipleSelectionItemKey];
+    NSComparisonResult (^comparator)(NSString *, NSString *) = notification.userInfo[BattlegroundsCardOptionsViewModelPresentPickerNotificationComparatorItemKey];
     void (^didSelectItems)(NSSet<PickerItemModel *> *) = ^(NSSet<PickerItemModel *> * _Nonnull selectedItems) {
         dispatch_queue_t queue = dispatch_get_global_queue(QOS_CLASS_USER_INTERACTIVE, 0);
         
@@ -351,7 +351,7 @@
 }
 
 - (void)errorOccuredReceived:(NSNotification *)notification {
-    NSError * _Nullable error = notification.userInfo[CardOptionsViewModelErrorOccuredErrorItemKey];
+    NSError * _Nullable error = notification.userInfo[BattlegroundsCardOptionsViewModelErrorOccuredErrorItemKey];
     
     if (error) {
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
@@ -370,7 +370,7 @@
     self.contextViewController = nil;
     self.viewModel.contextMenuIndexPath = nil;
     
-    CardOptionItemModel * _Nullable itemModel = [self.viewModel.dataSource itemIdentifierForIndexPath:indexPath];
+    BattlegroundsCardOptionItemModel * _Nullable itemModel = [self.viewModel.dataSource itemIdentifierForIndexPath:indexPath];
     if (itemModel == nil) return nil;
     
     if ([itemModel.optionType isEqualToString:BlizzardHSAPIOptionTypeTextFilter]) return nil;

@@ -53,6 +53,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSString *)localizationForHSCardSort:(HSCardSort)hsCardSort;
 + (NSDictionary<NSString *, NSString *> *)localizationsForHSCardSort;
++ (NSDictionary<NSString *, NSString *> *)localizationsForHSCardSortWithHSCardGameModeSlugType:(HSCardGameModeSlugType)hsCardGameModeSlugType;
 
 + (NSString *)localizationForHSDeckFormat:(HSDeckFormat)hsDeckFormat;
 + (NSDictionary<NSString *, NSString *> *)localizationsForHSDeckFormat;

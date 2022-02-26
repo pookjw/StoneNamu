@@ -6,11 +6,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MainListItemModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MainListViewController : UIViewController
-- (void)setSelectionStatusForViewController:(__kindof UIViewController *)viewController;
+- (void)setSelectionStatusForType:(MainListItemModelType)type;
 @end
 
 NS_ASSUME_NONNULL_END

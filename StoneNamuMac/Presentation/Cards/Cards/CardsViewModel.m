@@ -76,7 +76,7 @@
 }
 
 - (NSDictionary<NSString *, NSSet<NSString *> *> *)defaultOptions {
-    return BlizzardHSAPIDefaultOptions();
+    return BlizzardHSAPIDefaultOptionsFromHSCardTypeSlugType(HSCardGameModeSlugTypeConstructed);
 }
 
 - (BOOL)requestDataSourceWithOptions:(NSDictionary<NSString *, NSSet<NSString *> *> * _Nullable)options reset:(BOOL)reset {

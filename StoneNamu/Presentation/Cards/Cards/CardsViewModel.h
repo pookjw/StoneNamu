@@ -22,6 +22,7 @@ typedef UICollectionViewDiffableDataSource<CardSectionModel *, CardItemModel *> 
 typedef void (^CardsViewModelHSCardFromIndexPathCompletion)(HSCard *hsCard);
 
 @interface CardsViewModel : NSObject
+@property (copy) HSCardGameModeSlugType _Nullable hsCardGameModeSlugType;
 @property (copy) NSIndexPath * _Nullable contextMenuIndexPath;
 @property (readonly, retain) CardsDataSource *dataSource;
 @property (readonly, copy) NSDictionary<NSString *, NSSet<NSString *> *> * _Nullable options;

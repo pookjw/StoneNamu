@@ -12,10 +12,10 @@ NS_ASSUME_NONNULL_BEGIN
 typedef NSString * HSCardGameModeSlugType NS_TYPED_EXTENSIBLE_ENUM;
 static HSCardGameModeSlugType const HSCardGameModeSlugTypeConstructed = @"constructed";
 static HSCardGameModeSlugType const HSCardGameModeSlugTypeBattlegrounds = @"battlegrounds";
-static HSCardGameModeSlugType const HSCardGameModeSlugTypeArena = @"arena";
-static HSCardGameModeSlugType const HSCardGameModeSlugTypeDuels = @"duels";
-static HSCardGameModeSlugType const HSCardGameModeSlugTypeStandard = @"standard";
-static HSCardGameModeSlugType const HSCardGameModeSlugTypeMercenaries = @"mercenaries";
+//static HSCardGameModeSlugType const HSCardGameModeSlugTypeArena = @"arena";
+//static HSCardGameModeSlugType const HSCardGameModeSlugTypeDuels = @"duels";
+//static HSCardGameModeSlugType const HSCardGameModeSlugTypeStandard = @"standard";
+//static HSCardGameModeSlugType const HSCardGameModeSlugTypeMercenaries = @"mercenaries";
 
 @interface HSCardGameMode : NSObject <NSCopying>
 @property (readonly, copy) NSString *slug;

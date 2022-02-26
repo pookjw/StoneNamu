@@ -8,6 +8,7 @@
 #import "MainSplitViewController.h"
 #import "MainListViewController.h"
 #import "CardOptionsViewController.h"
+#import "BattlegroundsCardOptionsViewController.h"
 #import <StoneNamuResources/StoneNamuResources.h>
 
 @interface MainSplitViewController ()
@@ -17,6 +18,7 @@
 @implementation MainSplitViewController
 
 @synthesize cardsViewController = _cardsViewController;
+@synthesize battlegroundsCardsViewController = _battlegroundsCardsViewController;
 @synthesize decksViewController = _decksViewController;
 @synthesize prefsViewController = _prefsViewController;
 
@@ -32,6 +34,7 @@
 
 - (void)dealloc {
     [_cardsViewController release];
+    [_battlegroundsCardsViewController release];
     [_decksViewController release];
     [_prefsViewController release];
     [_mainListViewController release];
@@ -124,6 +127,21 @@
         [self.cardsViewController.navigationController setViewControllers:@[self.cardsViewController] animated:NO];
         
         [cardOptionsViewController release];
+        [self.mainListViewController setSelectionStatusForType:MainListItemModelTypeCards];
+
+    } else if ([viewControllers[0] isEqual:self.battlegroundsCardsViewController]) {
+        [self.cardsViewController setOptionsBarButtonItemHidden:YES];
+        
+        BattlegroundsCardOptionsViewController *battlegroundsCardOptionsViewController = [[BattlegroundsCardOptionsViewController alloc] initWithOptions:self.battlegroundsCardsViewController.options];
+        battlegroundsCardOptionsViewController.delegate = self.battlegroundsCardsViewController;
+        [battlegroundsCardOptionsViewController setCancelButtonHidden:YES];
+        [self setViewController:battlegroundsCardOptionsViewController forColumn:UISplitViewControllerColumnSupplementary];
+        [self setViewController:self.battlegroundsCardsViewController forColumn:UISplitViewControllerColumnSecondary];
+        // setViewController:forColumn: will push the view controller, so prevent this
+        [self.cardsViewController.navigationController setViewControllers:@[self.battlegroundsCardsViewController] animated:NO];
+        
+        [battlegroundsCardOptionsViewController release];
+        [self.mainListViewController setSelectionStatusForType:MainListItemModelTypeBattlegrounds];
     } else if ([viewControllers[0] isEqual:self.decksViewController]) {
         [self setViewController:self.decksViewController forColumn:UISplitViewControllerColumnSupplementary];
         
@@ -134,9 +152,9 @@
         }
         
         [self.decksViewController.navigationController setViewControllers:@[self.decksViewController] animated:NO];
+        [self.mainListViewController setSelectionStatusForType:MainListItemModelTypeDecks];
     }
     
-    [self.mainListViewController setSelectionStatusForViewController:viewControllers[0]];
     [self updateSceneTitle];
 }
 

@@ -13,7 +13,7 @@
     self = [self init];
     
     if (self) {
-        _type = type;
+        self->_type = type;
     }
     
     return self;

@@ -13,7 +13,7 @@
 #import "CardDetailsViewController.h"
 #import "PhotosService.h"
 #import "CardOptionsViewController.h"
-#import "CardOptionsViewControllerDelegate.h"
+#import "BattlegroundsCardOptionsViewController.h"
 #import "SheetNavigationController.h"
 #import "UIViewController+SpinnerView.h"
 #import "CardsViewModel.h"
@@ -26,6 +26,24 @@
 @end
 
 @implementation CardsViewController
+
+- (instancetype)initWithHSGameModeSlugType:(HSCardGameModeSlugType)hsCardGameModeSlugType {
+    self = [self init];
+    
+    if (self) {
+        [self loadViewIfNeeded];
+        
+        self.viewModel.hsCardGameModeSlugType = hsCardGameModeSlugType;
+        
+        if ([HSCardGameModeSlugTypeConstructed isEqualToString:hsCardGameModeSlugType]) {
+            self.title = [ResourcesService localizationForKey:LocalizableKeyCards];
+        } else if ([HSCardGameModeSlugTypeBattlegrounds isEqualToString:hsCardGameModeSlugType]) {
+            self.title = [ResourcesService localizationForKey:LocalizableKeyBattlegrounds];
+        }
+    }
+    
+    return self;
+}
 
 - (void)dealloc {
     [_collectionView release];
@@ -81,17 +99,26 @@
 }
 
 - (void)optionsBarButtonItemTriggered:(UIBarButtonItem *)sender {
-    CardOptionsViewController *vc = [[CardOptionsViewController alloc] initWithOptions:self.viewModel.options];
-    vc.delegate = self;
-    SheetNavigationController *nvc = [[SheetNavigationController alloc] initWithRootViewController:vc];
-    nvc.detents = @[[UISheetPresentationControllerDetent largeDetent]];
-    [self presentViewController:nvc animated:YES completion:^{}];
-    [vc release];
-    [nvc release];
+    if ([HSCardGameModeSlugTypeConstructed isEqualToString:self.viewModel.hsCardGameModeSlugType]) {
+        CardOptionsViewController *vc = [[CardOptionsViewController alloc] initWithOptions:self.viewModel.options];
+        vc.delegate = self;
+        SheetNavigationController *nvc = [[SheetNavigationController alloc] initWithRootViewController:vc];
+        nvc.detents = @[[UISheetPresentationControllerDetent largeDetent]];
+        [self presentViewController:nvc animated:YES completion:^{}];
+        [vc release];
+        [nvc release];
+    } else if ([HSCardGameModeSlugTypeBattlegrounds isEqualToString:self.viewModel.hsCardGameModeSlugType]) {
+        BattlegroundsCardOptionsViewController *vc = [[BattlegroundsCardOptionsViewController alloc] initWithOptions:self.viewModel.options];
+        vc.delegate = self;
+        SheetNavigationController *nvc = [[SheetNavigationController alloc] initWithRootViewController:vc];
+        nvc.detents = @[[UISheetPresentationControllerDetent largeDetent]];
+        [self presentViewController:nvc animated:YES completion:^{}];
+        [vc release];
+        [nvc release];
+    }
 }
 
 - (void)configureNavigation {
-    self.title = [ResourcesService localizationForKey:LocalizableKeyCards];
     self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
 }
 
@@ -148,8 +175,7 @@
         }
         CardItemModel *itemModel = (CardItemModel *)item;
         
-        CardContentConfiguration *configuration = [CardContentConfiguration new];
-        configuration.hsCard = itemModel.hsCard;
+        CardContentConfiguration *configuration = [[CardContentConfiguration alloc] initWithHSCard:itemModel.hsCard hsCardGameModeSlugType:self.viewModel.hsCardGameModeSlugType];
         
         cell.contentConfiguration = configuration;
         [configuration release];
@@ -326,7 +352,6 @@
 #pragma mark - CardOptionsViewControllerDelegate
 
 - (void)cardOptionsViewController:(CardOptionsViewController *)viewController doneWithOptions:(NSDictionary<NSString *, NSSet<NSString *> *> *)options {
-//    if (self.splitViewController.isCollapsed) {
     if ([self.navigationItem.leftBarButtonItems containsObject:self.optionsBarButtonItem]) {
         [viewController dismissViewControllerAnimated:YES completion:^{}];
     }
@@ -335,6 +360,20 @@
 }
 
 - (void)cardOptionsViewController:(CardOptionsViewController *)viewController defaultOptionsAreNeededWithCompletion:(CardOptionsViewControllerDelegateDefaultOptionsAreNeededCompletion)completion {
+    completion(self.viewModel.defaultOptions);
+}
+
+#pragma mark - BattlegroundsCardOptionsViewControllerDelegate
+
+- (void)battlegroundsCardOptionsViewController:(nonnull BattlegroundsCardOptionsViewController *)viewController doneWithOptions:(nonnull NSDictionary<NSString *,NSSet<NSString *> *> *)options {
+    if ([self.navigationItem.leftBarButtonItems containsObject:self.optionsBarButtonItem]) {
+        [viewController dismissViewControllerAnimated:YES completion:^{}];
+    }
+    
+    [self.viewModel requestDataSourceWithOptions:options reset:YES];
+}
+
+- (void)battlegroundsCardOptionsViewController:(nonnull BattlegroundsCardOptionsViewController *)viewController defaultOptionsAreNeededWithCompletion:(nonnull BattlegroundsCardOptionsViewControllerDelegateDefaultOptionsAreNeededCompletion)completion {
     completion(self.viewModel.defaultOptions);
 }
 

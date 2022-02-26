@@ -73,8 +73,8 @@
     [self.queue addBarrierBlock:^{
         [self.hsMetaDataUseCase fetchWithCompletionHandler:^(HSMetaData * _Nullable hsMetaData, NSError * _Nullable error) {
             [self.queue addBarrierBlock:^{
-                NSDictionary<HSDeckFormat, NSDictionary<NSString *, NSString *> *> *slugsAndNames = [self.hsMetaDataUseCase hsDeckFormatsAndSlugsAndNamesUsingHSMetaData:hsMetaData];
-                NSDictionary<HSDeckFormat, NSDictionary<NSString *, NSNumber *> *> *slugsAndIds = [self.hsMetaDataUseCase hsDeckFormatsAndSlugsAndIdsUsingHSMetaData:hsMetaData];
+                NSDictionary<HSDeckFormat, NSDictionary<NSString *, NSString *> *> *slugsAndNames = [self.hsMetaDataUseCase hsDeckFormatsAndClassesSlugsAndNamesUsingHSMetaData:hsMetaData];
+                NSDictionary<HSDeckFormat, NSDictionary<NSString *, NSNumber *> *> *slugsAndIds = [self.hsMetaDataUseCase hsDeckFormatsAndClassesSlugsAndIdsUsingHSMetaData:hsMetaData];
                 
                 [self postShouldUpdateOptionsWithSlugsAndNames:slugsAndNames slugsAndIds:slugsAndIds];
             }];
@@ -416,8 +416,8 @@
     [self.queue addBarrierBlock:^{
         [self.hsMetaDataUseCase fetchWithCompletionHandler:^(HSMetaData * _Nullable hsMetaData, NSError * _Nullable error) {
             [self.queue addBarrierBlock:^{
-                NSDictionary<HSDeckFormat, NSDictionary<NSString *, NSString *> *> *slugsAndNames = [self.hsMetaDataUseCase hsDeckFormatsAndSlugsAndNamesUsingHSMetaData:hsMetaData];
-                NSDictionary<HSDeckFormat, NSDictionary<NSString *, NSNumber *> *> *slugsAndIds = [self.hsMetaDataUseCase hsDeckFormatsAndSlugsAndIdsUsingHSMetaData:hsMetaData];
+                NSDictionary<HSDeckFormat, NSDictionary<NSString *, NSString *> *> *slugsAndNames = [self.hsMetaDataUseCase hsDeckFormatsAndClassesSlugsAndNamesUsingHSMetaData:hsMetaData];
+                NSDictionary<HSDeckFormat, NSDictionary<NSString *, NSNumber *> *> *slugsAndIds = [self.hsMetaDataUseCase hsDeckFormatsAndClassesSlugsAndIdsUsingHSMetaData:hsMetaData];
                 
                 [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameDecksViewModelShouldUpdateOptions
                                                                   object:self

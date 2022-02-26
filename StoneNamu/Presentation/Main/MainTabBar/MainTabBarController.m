@@ -11,6 +11,7 @@
 
 @interface MainTabBarController () <UITabBarControllerDelegate>
 @property (retain) UINavigationController *cardsNavigationController;
+@property (retain) UINavigationController *battlegroundsCardsNavigationController;
 @property (retain) UINavigationController *decksNavigationController;
 @property (retain) UINavigationController *prefsNavigationController;
 @end
@@ -18,14 +19,17 @@
 @implementation MainTabBarController
 
 @synthesize cardsViewController = _cardsViewController;
+@synthesize battlegroundsCardsViewController = _battlegroundsCardsViewController;
 @synthesize decksViewController = _decksViewController;
 @synthesize prefsViewController = _prefsViewController;
 
 - (void)dealloc {
     [_cardsViewController release];
+    [_battlegroundsCardsViewController release];
     [_decksViewController release];
     [_prefsViewController release];
     [_cardsNavigationController release];
+    [_battlegroundsCardsNavigationController release];
     [_decksNavigationController release];
     [_prefsNavigationController release];
     [super dealloc];
@@ -49,20 +53,26 @@
 
 - (void)configureViewControllers {
     UINavigationController *cardsNavigationController = [UINavigationController new];
+    UINavigationController *battlegroundsCardsNavigationController = [UINavigationController new];
     UINavigationController *decksNavigationController = [UINavigationController new];
     UINavigationController *prefsNavigationController = [UINavigationController new];
     
     [cardsNavigationController loadViewIfNeeded];
+    [battlegroundsCardsNavigationController loadViewIfNeeded];
     [decksNavigationController loadViewIfNeeded];
     [prefsNavigationController loadViewIfNeeded];
     
     cardsNavigationController.view.backgroundColor = UIColor.systemBackgroundColor;
+    battlegroundsCardsNavigationController.view.backgroundColor = UIColor.systemBackgroundColor;
     decksNavigationController.view.backgroundColor = UIColor.systemBackgroundColor;
     prefsNavigationController.view.backgroundColor = UIColor.systemBackgroundColor;
     
     UITabBarItem *cardsTabBarItem = [[UITabBarItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyCards]
                                                                   image:[UIImage systemImageNamed:@"text.book.closed"]
                                                           selectedImage:[UIImage systemImageNamed:@"text.book.closed.fill"]];
+    UITabBarItem *battlegroundsCardsTabBarItem = [[UITabBarItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyBattlegrounds]
+                                                                               image:[UIImage systemImageNamed:@"flag.2.crossed"]
+                                                                       selectedImage:[UIImage systemImageNamed:@"flag.2.crossed.fill"]];
     UITabBarItem *decksTabBarItem = [[UITabBarItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyDecks]
                                                                   image:[UIImage systemImageNamed:@"books.vertical"]
                                                           selectedImage:[UIImage systemImageNamed:@"books.vertical.fill"]];
@@ -70,20 +80,24 @@
                                                                   image:[UIImage systemImageNamed:@"gearshape"]
                                                           selectedImage:[UIImage systemImageNamed:@"gearshape.fill"]];
     cardsNavigationController.tabBarItem = cardsTabBarItem;
+    battlegroundsCardsNavigationController.tabBarItem = battlegroundsCardsTabBarItem;
     decksNavigationController.tabBarItem = decksTabBarItem;
     prefsNavigationController.tabBarItem = prefsTabBarItem;
     
     [cardsTabBarItem release];
+    [battlegroundsCardsTabBarItem release];
     [decksTabBarItem release];
     [prefsTabBarItem release];
     
-    [self setViewControllers:@[cardsNavigationController, decksNavigationController, prefsNavigationController] animated:NO];
+    [self setViewControllers:@[cardsNavigationController, battlegroundsCardsNavigationController, decksNavigationController, prefsNavigationController] animated:NO];
     
     self.cardsNavigationController = cardsNavigationController;
+    self.battlegroundsCardsNavigationController = battlegroundsCardsNavigationController;
     self.decksNavigationController = decksNavigationController;
     self.prefsNavigationController = prefsNavigationController;
     
     [cardsNavigationController release];
+    [battlegroundsCardsNavigationController release];
     [decksNavigationController release];
     [prefsNavigationController release];
 }
@@ -166,6 +180,7 @@
     [self loadViewIfNeeded];
     
     [self.cardsNavigationController setViewControllers:@[self.cardsViewController] animated:NO];
+    [self.battlegroundsCardsNavigationController setViewControllers:@[self.battlegroundsCardsViewController] animated:NO];
     [self.decksNavigationController setViewControllers:@[self.decksViewController] animated:NO];
     [self.prefsNavigationController setViewControllers:@[self.prefsViewController] animated:NO];
     
@@ -177,18 +192,27 @@
     [self loadViewIfNeeded];
     
     [self.cardsNavigationController setViewControllers:@[] animated:NO];
+    [self.battlegroundsCardsNavigationController setViewControllers:@[] animated:NO];
     [self.decksNavigationController setViewControllers:@[] animated:NO];
     [self.prefsNavigationController setViewControllers:@[] animated:NO];
 }
 
 - (void)restoreViewControllers:(NSArray<__kindof UIViewController *> *)viewControllers {
-    if (viewControllers.count < 1) return;
+    NSUInteger count = viewControllers.count;
     
-    if ([viewControllers[0] isEqual:self.cardsViewController]) {
-        self.selectedViewController = self.cardsNavigationController;
-    } else if ([viewControllers[0] isEqual:self.decksViewController]) {
-        [self.decksNavigationController setViewControllers:viewControllers animated:NO];
-        self.selectedViewController = self.decksNavigationController;
+    if (count == 0) {
+        return;
+    } else if (count == 1) {
+        if ([viewControllers[0] isEqual:self.decksViewController]) {
+            [self.decksNavigationController setViewControllers:viewControllers animated:NO];
+            self.selectedViewController = self.decksNavigationController;
+        }
+    } else if (count > 1) {
+        if ([viewControllers[1] isEqual:self.cardsViewController]) {
+            self.selectedViewController = self.cardsNavigationController;
+        } else if ([viewControllers[1] isEqual:self.battlegroundsCardsViewController]) {
+            self.selectedViewController = self.battlegroundsCardsNavigationController;
+        }
     }
 }
 

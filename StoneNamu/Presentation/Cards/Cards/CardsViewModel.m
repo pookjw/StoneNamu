@@ -27,6 +27,7 @@
     self = [self init];
     
     if (self) {
+        self.hsCardGameModeSlugType = nil;
         self.contextMenuIndexPath = nil;
         
         [self->_dataSource release];
@@ -60,6 +61,7 @@
 }
 
 - (void)dealloc {
+    [_hsCardGameModeSlugType release];
     [_contextMenuIndexPath release];
     [_dataSource release];
     [_hsCardUseCase release];
@@ -73,7 +75,7 @@
 }
 
 - (NSDictionary<NSString *, NSSet<NSString *> *> *)defaultOptions {
-    return BlizzardHSAPIDefaultOptions();
+    return BlizzardHSAPIDefaultOptionsFromHSCardTypeSlugType(self.hsCardGameModeSlugType);
 }
 
 - (BOOL)requestDataSourceWithOptions:(NSDictionary<NSString *, NSSet<NSString *> *> * _Nullable)options reset:(BOOL)reset {

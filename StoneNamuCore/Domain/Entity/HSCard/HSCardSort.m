@@ -13,6 +13,10 @@ NSString * NSStringFromHSCardSort(HSCardSort sort) {
             return @"manaCost:asc";
         case HSCardSortManaCostDesc:
             return @"manaCost:desc";
+        case HSCardSortTierAsc:
+            return @"tier:asc";
+        case HSCardSortTierDesc:
+            return @"tier:desc";
         case HSCardSortAttackAsc:
             return @"attack:asc";
         case HSCardSortAttackDesc:
@@ -43,6 +47,10 @@ HSCardSort HSCardSortFromNSString(NSString * key) {
         return HSCardSortManaCostAsc;
     } else if ([key isEqualToString:@"manaCost:desc"]) {
         return HSCardSortManaCostDesc;
+    } else if ([key isEqualToString:@"tier:asc"]) {
+        return HSCardSortTierAsc;
+    } else if ([key isEqualToString:@"tier:desc"]) {
+        return HSCardSortTierDesc;
     } else if ([key isEqualToString:@"attack:asc"]) {
         return HSCardSortAttackAsc;
     } else if ([key isEqualToString:@"attack:desc"]) {
@@ -72,6 +80,8 @@ NSArray<NSString *> *hsCardSorts(void) {
     return @[
         NSStringFromHSCardSort(HSCardSortManaCostAsc),
         NSStringFromHSCardSort(HSCardSortManaCostDesc),
+        NSStringFromHSCardSort(HSCardSortTierAsc),
+        NSStringFromHSCardSort(HSCardSortTierDesc),
         NSStringFromHSCardSort(HSCardSortAttackAsc),
         NSStringFromHSCardSort(HSCardSortAttackDesc),
         NSStringFromHSCardSort(HSCardSortHealthAsc),

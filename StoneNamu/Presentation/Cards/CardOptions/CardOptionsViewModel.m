@@ -220,7 +220,7 @@
             
             NSMutableDictionary *userInfo = [NSMutableDictionary new];
             
-            userInfo[CardOptionsViewModelPresentPickerNotificationTitleItemKey] = [ResourcesService localizationForBlizzardHSAPIOptionType:itemModel.optionType];
+            userInfo[CardOptionsViewModelPresentPickerNotificationTitleItemKey] = itemModel.title;
             userInfo[CardOptionsViewModelPresentPickerNotificationOptionTypeItemKey] = itemModel.optionType;
             userInfo[CardOptionsViewModelPresentPickerNotificationPickersItemKey] = pickers;
             userInfo[CardOptionsViewModelPresentPickerNotificationAllowsMultipleSelectionItemKey] = [NSNumber numberWithBool:itemModel.allowsMultipleSelection];
@@ -352,11 +352,11 @@
         
         //
         
-        NSDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSString *> *> *optionTypesAndSlugsAndNames = [self.hsMetaDataUseCase optionTypesAndSlugsAndNamesFromHSDeckFormat:nil withClassId:nil usingHSMetaData:hsMetaData];
-        NSDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSNumber *> *> *optionTypesAndSlugsAndIds = [self.hsMetaDataUseCase optionTypesAndSlugsAndIdsFromHSDeckFormat:nil withClassId:nil usingHSMetaData:hsMetaData];
-        NSDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSString *> *> *classicOptionTypesAndSlugsAndNames = [self.hsMetaDataUseCase optionTypesAndSlugsAndNamesFromHSDeckFormat:HSDeckFormatClassic withClassId:nil usingHSMetaData:hsMetaData];
-        NSDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSString *> *> *standardOptionTypesAndSlugsAndNames = [self.hsMetaDataUseCase optionTypesAndSlugsAndNamesFromHSDeckFormat:HSDeckFormatStandard withClassId:nil usingHSMetaData:hsMetaData];
-        NSDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSString *> *> *wildOptionTypesAndSlugsAndNames = [self.hsMetaDataUseCase optionTypesAndSlugsAndNamesFromHSDeckFormat:HSDeckFormatWild withClassId:nil usingHSMetaData:hsMetaData];
+        NSDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSString *> *> *optionTypesAndSlugsAndNames = [self.hsMetaDataUseCase constructedOptionTypesAndSlugsAndNamesFromHSDeckFormat:nil withClassId:nil usingHSMetaData:hsMetaData];
+        NSDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSNumber *> *> *optionTypesAndSlugsAndIds = [self.hsMetaDataUseCase constructedOptionTypesAndSlugsAndIdsFromHSDeckFormat:nil withClassId:nil usingHSMetaData:hsMetaData];
+        NSDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSString *> *> *classicOptionTypesAndSlugsAndNames = [self.hsMetaDataUseCase constructedOptionTypesAndSlugsAndNamesFromHSDeckFormat:HSDeckFormatClassic withClassId:nil usingHSMetaData:hsMetaData];
+        NSDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSString *> *> *standardOptionTypesAndSlugsAndNames = [self.hsMetaDataUseCase constructedOptionTypesAndSlugsAndNamesFromHSDeckFormat:HSDeckFormatStandard withClassId:nil usingHSMetaData:hsMetaData];
+        NSDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSString *> *> *wildOptionTypesAndSlugsAndNames = [self.hsMetaDataUseCase constructedOptionTypesAndSlugsAndNamesFromHSDeckFormat:HSDeckFormatWild withClassId:nil usingHSMetaData:hsMetaData];
         NSDictionary<NSString *, NSString *> *slugsAndNumberNames = @{@"0": @"0",
                                                                       @"1": @"1",
                                                                       @"2": @"2",
@@ -579,7 +579,7 @@
                                                                                     toolTip:[ResourcesService localizationForKey:LocalizableKeyCardGameModeTooltipDescription]];
         
         CardOptionItemModel *sortItem = [[CardOptionItemModel alloc] initWithOptionType:BlizzardHSAPIOptionTypeSort
-                                                                          slugsAndNames:@{[NSNumber numberWithUnsignedInt:1 << 1]: [ResourcesService localizationsForHSCardSort]}
+                                                                          slugsAndNames:@{[NSNumber numberWithUnsignedInt:1 << 1]: [ResourcesService localizationsForHSCardSortWithHSCardGameModeSlugType:HSCardGameModeSlugTypeConstructed]}
                                                                      sectionHeaderTexts:nil
                                                                           showsEmptyRow:NO
                                                                 allowsMultipleSelection:YES

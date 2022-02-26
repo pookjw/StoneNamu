@@ -148,6 +148,21 @@
     return [hsCardType autorelease];
 }
 
+- (HSCardType * _Nullable)hsCardTypeFromTypeSlug:(HSCardTypeSlugType)typeSlug usingHSMetaData:(HSMetaData *)hsMetaData {
+    checkThread();
+    
+    HSCardType * _Nullable __block hsCardType = nil;
+    
+    [hsMetaData.types enumerateObjectsUsingBlock:^(HSCardType * _Nonnull obj, BOOL * _Nonnull stop) {
+        if ([typeSlug isEqualToString:obj.slug]) {
+            hsCardType = [obj copy];
+            *stop = YES;
+        }
+    }];
+    
+    return [hsCardType autorelease];
+}
+
 - (HSCardRarity *)hsCardRarityFromRarityId:(NSNumber *)raridyId usingHSMetaData:(HSMetaData *)hsMetaData {
     checkThread();
     
@@ -208,7 +223,22 @@
     return [hsCardClass autorelease];
 }
 
-- (HSCardSetGroups * _Nullable)latestHsCardSetGroupsUsingHSMetaData:(HSMetaData *)hsMetaData {
+- (HSCardGameMode * _Nullable)hsCardGameModeFromGameModeSlug:(HSCardGameModeSlugType)slug usingHSMetaData:(HSMetaData *)hsMetaData {
+    checkThread();
+    
+    HSCardGameMode * _Nullable __block hsCardGameMode = nil;
+    
+    [hsMetaData.gameModes enumerateObjectsUsingBlock:^(HSCardGameMode * _Nonnull obj, BOOL * _Nonnull stop) {
+        if ([slug isEqualToString:obj.slug]) {
+            hsCardGameMode = [obj copy];
+            *stop = YES;
+        }
+    }];
+    
+    return [hsCardGameMode autorelease];
+}
+
+- (HSCardSetGroups * _Nullable)latestHSCardSetGroupsUsingHSMetaData:(HSMetaData *)hsMetaData {
     checkThread();
     
     HSCardSetGroups * _Nullable __block hsCardSetGroups = nil;
@@ -224,7 +254,7 @@
     return hsCardSetGroups;
 }
 
-- (NSDictionary<HSDeckFormat, NSDictionary<NSString *, NSString *> *> *)hsDeckFormatsAndSlugsAndNamesUsingHSMetaData:(HSMetaData *)hsMetaData {
+- (NSDictionary<HSDeckFormat, NSDictionary<NSString *, NSString *> *> *)hsDeckFormatsAndClassesSlugsAndNamesUsingHSMetaData:(HSMetaData *)hsMetaData {
     checkThread();
     
     NSMutableDictionary<NSString *, NSString *> *classes = [NSMutableDictionary<NSString *, NSString *> new];
@@ -248,7 +278,7 @@
     return result;
 }
 
-- (NSDictionary<HSDeckFormat, NSDictionary<NSString *, NSNumber *> *> *)hsDeckFormatsAndSlugsAndIdsUsingHSMetaData:(HSMetaData *)hsMetaData {
+- (NSDictionary<HSDeckFormat, NSDictionary<NSString *, NSNumber *> *> *)hsDeckFormatsAndClassesSlugsAndIdsUsingHSMetaData:(HSMetaData *)hsMetaData {
     checkThread();
     
     NSMutableDictionary<NSString *, NSNumber *> *classes = [NSMutableDictionary<NSString *, NSNumber *> new];
@@ -272,9 +302,10 @@
     return result;
 }
 
-- (NSDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSString *> *> *)optionTypesAndSlugsAndNamesFromHSDeckFormat:(HSDeckFormat)hsDeckFormat withClassId:(NSNumber *)classId usingHSMetaData:(HSMetaData *)hsMetaData {
+- (NSDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSString *> *> *)constructedOptionTypesAndSlugsAndNamesFromHSDeckFormat:(HSDeckFormat)hsDeckFormat withClassId:(NSNumber *)classId usingHSMetaData:(HSMetaData *)hsMetaData {
     checkThread();
     
+    HSCardGameMode *hsCardGameMode = [self hsCardGameModeFromGameModeSlug:HSCardGameModeSlugTypeConstructed usingHSMetaData:hsMetaData];
     NSMutableDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSString *> *> *dataModel = [NSMutableDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSString *> *> new];
     
     //
@@ -369,7 +400,7 @@
         }];
     } else if (hsDeckFormat != nil) {
         [classes release];
-        classes = [[self hsDeckFormatsAndSlugsAndNamesUsingHSMetaData:hsMetaData][hsDeckFormat] mutableCopy];
+        classes = [[self hsDeckFormatsAndClassesSlugsAndNamesUsingHSMetaData:hsMetaData][hsDeckFormat] mutableCopy];
     } else {
         [hsMetaData.classes enumerateObjectsUsingBlock:^(HSCardClass * _Nonnull obj, BOOL * _Nonnull stop) {
             classes[obj.slug] = obj.name;
@@ -382,7 +413,9 @@
     
     NSMutableDictionary<NSString *, NSString *> *minionTypes = [NSMutableDictionary<NSString *, NSString *> new];
     [hsMetaData.minionTypes enumerateObjectsUsingBlock:^(HSCardMinionType * _Nonnull obj, BOOL * _Nonnull stop) {
-        minionTypes[obj.slug] = obj.name;
+        if ([obj.gameModes containsObject:hsCardGameMode.gameModeId]) {
+            minionTypes[obj.slug] = obj.name;
+        }
     }];
     dataModel[BlizzardHSAPIOptionTypeMinionType] = minionTypes;
     [minionTypes release];
@@ -400,7 +433,9 @@
     
     NSMutableDictionary<NSString *, NSString *> *keywords = [NSMutableDictionary<NSString *, NSString *> new];
     [hsMetaData.keywords enumerateObjectsUsingBlock:^(HSCardKeyword * _Nonnull obj, BOOL * _Nonnull stop) {
-        keywords[obj.slug] = obj.name;
+        if ([obj.gameModes containsObject:hsCardGameMode.gameModeId]) {
+            keywords[obj.slug] = obj.name;
+        }
     }];
     dataModel[BlizzardHSAPIOptionTypeKeyword] = keywords;
     [keywords release];
@@ -408,9 +443,10 @@
     return [dataModel autorelease];
 }
 
-- (NSDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSNumber *> *> *)optionTypesAndSlugsAndIdsFromHSDeckFormat:(HSDeckFormat)hsDeckFormat withClassId:(NSNumber *)classId usingHSMetaData:(HSMetaData *)hsMetaData {
+- (NSDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSNumber *> *> *)constructedOptionTypesAndSlugsAndIdsFromHSDeckFormat:(HSDeckFormat)hsDeckFormat withClassId:(NSNumber *)classId usingHSMetaData:(HSMetaData *)hsMetaData {
     checkThread();
     
+    HSCardGameMode *hsCardGameMode = [self hsCardGameModeFromGameModeSlug:HSCardGameModeSlugTypeConstructed usingHSMetaData:hsMetaData];
     NSMutableDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSNumber *> *> *dataModel = [NSMutableDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSNumber *> *> new];
     
     //
@@ -505,7 +541,7 @@
         }];
     } else if (hsDeckFormat != nil) {
         [classes release];
-        classes = [[self hsDeckFormatsAndSlugsAndIdsUsingHSMetaData:hsMetaData][hsDeckFormat] mutableCopy];
+        classes = [[self hsDeckFormatsAndClassesSlugsAndIdsUsingHSMetaData:hsMetaData][hsDeckFormat] mutableCopy];
     } else {
         [hsMetaData.classes enumerateObjectsUsingBlock:^(HSCardClass * _Nonnull obj, BOOL * _Nonnull stop) {
             classes[obj.slug] = obj.classId;
@@ -518,7 +554,9 @@
     
     NSMutableDictionary<NSString *, NSNumber *> *minionTypes = [NSMutableDictionary<NSString *, NSNumber *> new];
     [hsMetaData.minionTypes enumerateObjectsUsingBlock:^(HSCardMinionType * _Nonnull obj, BOOL * _Nonnull stop) {
-        minionTypes[obj.slug] = obj.minionTypeId;
+        if ([obj.gameModes containsObject:hsCardGameMode.gameModeId]) {
+            minionTypes[obj.slug] = obj.minionTypeId;
+        }
     }];
     dataModel[BlizzardHSAPIOptionTypeMinionType] = minionTypes;
     [minionTypes release];
@@ -536,10 +574,74 @@
     
     NSMutableDictionary<NSString *, NSNumber *> *keywords = [NSMutableDictionary<NSString *, NSNumber *> new];
     [hsMetaData.keywords enumerateObjectsUsingBlock:^(HSCardKeyword * _Nonnull obj, BOOL * _Nonnull stop) {
-        keywords[obj.slug] = obj.keywordId;
+        if ([obj.gameModes containsObject:hsCardGameMode.gameModeId]) {
+            keywords[obj.slug] = obj.keywordId;
+        }
     }];
     dataModel[BlizzardHSAPIOptionTypeKeyword] = keywords;
     [keywords release];
+    
+    return [dataModel autorelease];
+}
+
+- (NSDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSString *> *> *)battlegroundsOptionTypesAndSlugsAndNamesUsingHSMetaData:(HSMetaData *)hsMetaData {
+    HSCardGameMode *hsCardGameMode = [self hsCardGameModeFromGameModeSlug:HSCardGameModeSlugTypeBattlegrounds usingHSMetaData:hsMetaData];
+    NSMutableDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSString *> *> *dataModel = [NSMutableDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSString *> *> new];
+    
+    //
+    
+    NSMutableDictionary<NSString *, NSString *> *minionTypes = [NSMutableDictionary<NSString *, NSString *> new];
+    [hsMetaData.minionTypes enumerateObjectsUsingBlock:^(HSCardMinionType * _Nonnull obj, BOOL * _Nonnull stop) {
+        if ([obj.gameModes containsObject:hsCardGameMode.gameModeId]) {
+            minionTypes[obj.slug] = obj.name;
+        }
+    }];
+    dataModel[BlizzardHSAPIOptionTypeMinionType] = minionTypes;
+    [minionTypes release];
+    
+    //
+    
+    NSMutableDictionary<NSString *, NSString *> *keywords = [NSMutableDictionary<NSString *, NSString *> new];
+    [hsMetaData.keywords enumerateObjectsUsingBlock:^(HSCardKeyword * _Nonnull obj, BOOL * _Nonnull stop) {
+        if ([obj.gameModes containsObject:hsCardGameMode.gameModeId]) {
+            keywords[obj.slug] = obj.name;
+        }
+    }];
+    dataModel[BlizzardHSAPIOptionTypeKeyword] = keywords;
+    [keywords release];
+    
+    //
+    
+    return [dataModel autorelease];
+}
+
+- (NSDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSNumber *> *> *)battlegroundsOptionTypesAndSlugsAndIdsUsingHSMetaData:(HSMetaData *)hsMetaData {
+    HSCardGameMode *hsCardGameMode = [self hsCardGameModeFromGameModeSlug:HSCardGameModeSlugTypeBattlegrounds usingHSMetaData:hsMetaData];
+    NSMutableDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSNumber *> *> *dataModel = [NSMutableDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSNumber *> *> new];
+    
+    //
+    
+    NSMutableDictionary<NSString *, NSNumber *> *minionTypes = [NSMutableDictionary<NSString *, NSNumber *> new];
+    [hsMetaData.minionTypes enumerateObjectsUsingBlock:^(HSCardMinionType * _Nonnull obj, BOOL * _Nonnull stop) {
+        if ([obj.gameModes containsObject:hsCardGameMode.gameModeId]) {
+            minionTypes[obj.slug] = obj.minionTypeId;
+        }
+    }];
+    dataModel[BlizzardHSAPIOptionTypeMinionType] = minionTypes;
+    [minionTypes release];
+    
+    //
+    
+    NSMutableDictionary<NSString *, NSNumber *> *keywords = [NSMutableDictionary<NSString *, NSNumber *> new];
+    [hsMetaData.keywords enumerateObjectsUsingBlock:^(HSCardKeyword * _Nonnull obj, BOOL * _Nonnull stop) {
+        if ([obj.gameModes containsObject:hsCardGameMode.gameModeId]) {
+            keywords[obj.slug] = obj.keywordId;
+        }
+    }];
+    dataModel[BlizzardHSAPIOptionTypeKeyword] = keywords;
+    [keywords release];
+    
+    //
     
     return [dataModel autorelease];
 }

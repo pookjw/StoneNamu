@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol MainLayoutProtocol <NSObject>
 @property (retain) CardsViewController *cardsViewController;
+@property (retain) CardsViewController *battlegroundsCardsViewController;
 @property (retain) DecksViewController *decksViewController;
 @property (retain) PrefsViewController *prefsViewController;
 @property (readonly, nonatomic) NSArray<__kindof UIViewController *> *currentViewControllers;

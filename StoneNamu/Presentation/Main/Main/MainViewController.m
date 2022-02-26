@@ -20,6 +20,7 @@
 @property (retain) MainTabBarController * _Nullable tabBarController;
 
 @property (retain) CardsViewController *cardsViewController;
+@property (retain) CardsViewController *battlegroundsCardsViewController;
 @property (retain) DecksViewController *decksViewController;
 @property (retain) PrefsViewController *prefsViewController;
 @end
@@ -42,6 +43,7 @@
     [_tabBarController release];
     
     [_cardsViewController release];
+    [_battlegroundsCardsViewController release];
     [_decksViewController release];
     [_prefsViewController release];
     [super dealloc];
@@ -67,10 +69,15 @@
 }
 
 - (void)configureViewControllers {
-    CardsViewController *cardsViewController = [CardsViewController new];
+    CardsViewController *cardsViewController = [[CardsViewController alloc] initWithHSGameModeSlugType:HSCardGameModeSlugTypeConstructed];
     [cardsViewController requestWithOptions:nil];
     self.cardsViewController = cardsViewController;
     [cardsViewController release];
+    
+    CardsViewController *battlegroundsCardsViewController = [[CardsViewController alloc] initWithHSGameModeSlugType:HSCardGameModeSlugTypeBattlegrounds];
+    [battlegroundsCardsViewController requestWithOptions:nil];
+    self.battlegroundsCardsViewController = battlegroundsCardsViewController;
+    [battlegroundsCardsViewController release];
     
     DecksViewController *decksViewController = [DecksViewController new];
     self.decksViewController = decksViewController;
@@ -152,6 +159,7 @@
         ]];
         
         targetViewController.cardsViewController = self.cardsViewController;
+        targetViewController.battlegroundsCardsViewController = self.battlegroundsCardsViewController;
         targetViewController.decksViewController = self.decksViewController;
         targetViewController.prefsViewController = self.prefsViewController;
         [targetViewController activate];

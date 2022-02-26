@@ -143,37 +143,62 @@
                     }
                     break;
                 } else {
-                    NSMutableSet<PickerItemModel *> *toBeReconfigured = [NSMutableSet<PickerItemModel *> new];
-                    PickerItemModel * _Nullable __block emptyItemModel = nil;
-                    
-                    [snapshot.itemIdentifiers enumerateObjectsUsingBlock:^(PickerItemModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                        if ([obj isEqual:itemModel]) return;
+                    if (itemModel.isSelected) {
+                        PickerItemModel * _Nullable __block emptyItemModel = nil;
                         
-                        if (obj.isSelected) {
-                            obj.selected = NO;
-                            [toBeReconfigured addObject:obj];
-                        }
-                        
-                        switch (obj.type) {
-                            case PickerItemModelTypeEmpty: {
-                                emptyItemModel = obj;
-                                break;
+                        [snapshot.itemIdentifiers enumerateObjectsUsingBlock:^(PickerItemModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                            if ([obj isEqual:itemModel]) return;
+                            
+                            switch (obj.type) {
+                                case PickerItemModelTypeEmpty: {
+                                    emptyItemModel = obj;
+                                    break;
+                                }
+                                default:
+                                    break;
                             }
-                            default:
-                                break;
+                        }];
+                        
+                        if (emptyItemModel) {
+                            itemModel.selected = NO;
+                            emptyItemModel.selected = YES;
+                            [snapshot reconfigureItemsWithIdentifiers:@[itemModel, emptyItemModel]];
+                        } else {
+                            return;
                         }
-                    }];
-                    
-                    itemModel.selected = !itemModel.isSelected;
-                    [toBeReconfigured addObject:itemModel];
-                    
-                    if (!itemModel.selected && emptyItemModel) {
-                        emptyItemModel.selected = YES;
-                        [toBeReconfigured addObject:emptyItemModel];
+                    } else {
+                        NSMutableSet<PickerItemModel *> *toBeReconfigured = [NSMutableSet<PickerItemModel *> new];
+                        PickerItemModel * _Nullable __block emptyItemModel = nil;
+                        
+                        [snapshot.itemIdentifiers enumerateObjectsUsingBlock:^(PickerItemModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                            if ([obj isEqual:itemModel]) return;
+                            
+                            if (obj.isSelected) {
+                                obj.selected = NO;
+                                [toBeReconfigured addObject:obj];
+                            }
+                            
+                            switch (obj.type) {
+                                case PickerItemModelTypeEmpty: {
+                                    emptyItemModel = obj;
+                                    break;
+                                }
+                                default:
+                                    break;
+                            }
+                        }];
+                        
+                        itemModel.selected = YES;
+                        [toBeReconfigured addObject:itemModel];
+                        
+                        if ((emptyItemModel) && (emptyItemModel.isSelected)) {
+                            emptyItemModel.selected = NO;
+                            [toBeReconfigured addObject:emptyItemModel];
+                        }
+                        
+                        [snapshot reconfigureItemsWithIdentifiers:toBeReconfigured.allObjects];
+                        [toBeReconfigured release];
                     }
-                    
-                    [snapshot reconfigureItemsWithIdentifiers:toBeReconfigured.allObjects];
-                    [toBeReconfigured release];
                 }
             }
             default:

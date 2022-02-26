@@ -28,6 +28,10 @@
     [_flavorText release];
     [_cropImage release];
     [_childIds release];
+    [_battlegroundsHero release];
+    [_battlegroundsTier release];
+    [_battlegroundsImage release];
+    [_battlegroundsImageGold release];
     [super dealloc];
 }
 
@@ -194,6 +198,38 @@
         hsCard->_parentId = 0;
     }
     
+    //
+    
+    NSDictionary<NSString *, id> * _Nullable battlegrounds = dic[@"battlegrounds"];
+    
+    NSNumber * _Nullable battlegroundsTier = battlegrounds[@"tier"];
+    [hsCard->_battlegroundsTier release];
+    hsCard->_battlegroundsTier = [battlegroundsTier copy];
+    
+    NSNumber * _Nullable battlegroundsHero = battlegrounds[@"hero"];
+    [hsCard->_battlegroundsHero release];
+    hsCard->_battlegroundsHero = [battlegroundsHero copy];
+    
+    NSURL * _Nullable battlegroundsImage;
+    if (battlegrounds[@"image"]) {
+        battlegroundsImage = [[NSURL URLWithString:battlegrounds[@"image"]] copy];
+    } else {
+        battlegroundsImage = nil;
+    }
+    [hsCard->_battlegroundsImage release];
+    hsCard->_battlegroundsImage = [battlegroundsImage copy];
+    
+    NSURL * _Nullable battlegroundsImageGold;
+    if (battlegrounds[@"imageGold"]) {
+        battlegroundsImageGold = [[NSURL URLWithString:battlegrounds[@"imageGold"]] copy];
+    } else {
+        battlegroundsImageGold = nil;
+    }
+    [hsCard->_battlegroundsImageGold release];
+    hsCard->_battlegroundsImageGold = [battlegroundsImageGold copy];
+    
+    //
+    
     hsCard->_version = HSCARD_LATEST_VERSION;
     
     //
@@ -213,59 +249,72 @@
     
     if (copy) {
         HSCard *_copy = (HSCard *)copy;
-        _copy->_cardId = self->_cardId;
-        _copy->_collectible = self->_collectible;
+        _copy->_cardId = self.cardId;
+        _copy->_collectible = self.collectible;
         
         [_copy->_slug release];
-        _copy->_slug = [self->_slug copyWithZone:zone];
+        _copy->_slug = [self.slug copyWithZone:zone];
         
         [_copy->_classId release];
-        _copy->_classId = [self->_classId copyWithZone:zone];
+        _copy->_classId = [self.classId copyWithZone:zone];
         
         [_copy->_multiClassIds release];
-        _copy->_multiClassIds = [self->_multiClassIds copyWithZone:zone];
+        _copy->_multiClassIds = [self.multiClassIds copyWithZone:zone];
         
         [_copy->_minionTypeId release];
-        _copy->_minionTypeId = [self->_minionTypeId copyWithZone:zone];
+        _copy->_minionTypeId = [self.minionTypeId copyWithZone:zone];
         
         [_copy->_spellSchoolId release];
-        _copy->_spellSchoolId = [self->_spellSchoolId copyWithZone:zone];
+        _copy->_spellSchoolId = [self.spellSchoolId copyWithZone:zone];
         
-        _copy->_cardTypeId = self->_cardTypeId;
-        _copy->_cardSetId = self->_cardSetId;
+        _copy->_cardTypeId = self.cardTypeId;
+        _copy->_cardSetId = self.cardSetId;
         
         [_copy->_rarityId release];
-        _copy->_rarityId = [self->_rarityId copyWithZone:zone];
+        _copy->_rarityId = [self.rarityId copyWithZone:zone];
         
         [_copy->_artistName release];
-        _copy->_artistName = [self->_artistName copyWithZone:zone];
+        _copy->_artistName = [self.artistName copyWithZone:zone];
         
-        _copy->_health = self->_health;
-        _copy->_attack = self->_attack;
-        _copy->_manaCost = self->_manaCost;
+        _copy->_health = self.health;
+        _copy->_attack = self.attack;
+        _copy->_manaCost = self.manaCost;
         
         [_copy->_name release];
-        _copy->_name = [self->_name copyWithZone:zone];
+        _copy->_name = [self.name copyWithZone:zone];
         
         [_copy->_text release];
-        _copy->_text = [self->_text copyWithZone:zone];
+        _copy->_text = [self.text copyWithZone:zone];
         
         [_copy->_image release];
-        _copy->_image = [self->_image copyWithZone:zone];
+        _copy->_image = [self.image copyWithZone:zone];
         
         [_copy->_imageGold release];
-        _copy->_imageGold = [self->_imageGold copyWithZone:zone];
+        _copy->_imageGold = [self.imageGold copyWithZone:zone];
         
         [_copy->_flavorText release];
-        _copy->_flavorText = [self->_flavorText copyWithZone:zone];
+        _copy->_flavorText = [self.flavorText copyWithZone:zone];
         
         [_copy->_cropImage release];
-        _copy->_cropImage = [self->_cropImage copyWithZone:zone];
+        _copy->_cropImage = [self.cropImage copyWithZone:zone];
         
         [_copy->_childIds release];
-        _copy->_childIds = [self->_childIds copyWithZone:zone];
+        _copy->_childIds = [self.childIds copyWithZone:zone];
         
-        _copy->_parentId = self->_parentId;
+        _copy->_parentId = self.parentId;
+        
+        [_copy->_battlegroundsTier release];
+        _copy->_battlegroundsTier = [self.battlegroundsTier copyWithZone:zone];
+        
+        [_copy->_battlegroundsHero release];
+        _copy->_battlegroundsHero = [self.battlegroundsHero copyWithZone:zone];
+        
+        [_copy->_battlegroundsImage release];
+        _copy->_battlegroundsImage = [self.battlegroundsImage copyWithZone:zone];
+        
+        [_copy->_battlegroundsImageGold release];
+        _copy->_battlegroundsImageGold = [self.battlegroundsImageGold copyWithZone:zone];
+        
         _copy->_version = self->_version;
     }
     
@@ -346,6 +395,23 @@
             // gameModes is deleted.
             
             self->_parentId = [coder decodeIntegerForKey:@"parentId"];
+            
+            /* diff: 0 <-> 3 */
+            [self->_battlegroundsTier release];
+            self->_battlegroundsTier = nil;
+            
+            /* diff: 0 <-> 3 */
+            [self->_battlegroundsHero release];
+            self->_battlegroundsHero = nil;
+            
+            /* diff: 0 <-> 3 */
+            [self->_battlegroundsImage release];
+            self->_battlegroundsImage = nil;
+            
+            /* diff: 0 <-> 3 */
+            [self->_battlegroundsImageGold release];
+            self->_battlegroundsImageGold = nil;
+            
             self->_version = HSCARD_LATEST_VERSION;
         } else if (version == 1) {
             self->_cardId = [coder decodeIntegerForKey:@"cardId"];
@@ -411,6 +477,98 @@
             // gameModes is deleted.
             
             self->_parentId = [coder decodeIntegerForKey:@"parentId"];
+            
+            /* diff: 1 <-> 3 */
+            [self->_battlegroundsTier release];
+            self->_battlegroundsTier = nil;
+            
+            /* diff: 1 <-> 3 */
+            [self->_battlegroundsHero release];
+            self->_battlegroundsHero = nil;
+            
+            /* diff: 1 <-> 3 */
+            [self->_battlegroundsImage release];
+            self->_battlegroundsImage = nil;
+            
+            /* diff: 1 <-> 3 */
+            [self->_battlegroundsImageGold release];
+            self->_battlegroundsImageGold = nil;
+            
+            self->_version = HSCARD_LATEST_VERSION;
+        } else if (version == 2) {
+            self->_cardId = [coder decodeIntegerForKey:@"cardId"];
+            self->_collectible = [coder decodeIntegerForKey:@"collectible"];
+            
+            [self->_slug release];
+            self->_slug = [[coder decodeObjectOfClass:[NSString class] forKey:@"slug"] copy];
+            
+            [self->_classId release];
+            self->_classId = [[coder decodeObjectOfClass:[NSNumber class] forKey:@"classId"] copy];
+            
+            [self->_multiClassIds release];
+            self->_multiClassIds = [[coder decodeObjectOfClass:[NSArray<NSNumber *> class] forKey:@"multiClassIds"] copy];
+            
+            [self->_minionTypeId release];
+            self->_minionTypeId = [[coder decodeObjectOfClass:[NSNumber class] forKey:@"minionTypeId"] copy];
+            
+            [self->_spellSchoolId release];
+            self->_spellSchoolId = [[coder decodeObjectOfClass:[NSNumber class] forKey:@"spellSchoolId"] copy];
+            
+            [self->_cardTypeId release];
+            self->_cardTypeId = [[coder decodeObjectOfClass:[NSNumber class] forKey:@"cardTypeId"] copy];
+            
+            [self->_cardSetId release];
+            self->_cardSetId = [[coder decodeObjectOfClass:[NSNumber class] forKey:@"cardSetId"] copy];
+            
+            [self->_rarityId release];
+            self->_rarityId = [[coder decodeObjectOfClass:[NSNumber class] forKey:@"rarityId"] copy];
+            
+            [self->_artistName release];
+            self->_artistName = [[coder decodeObjectOfClass:[NSString class] forKey:@"artistName"] copy];
+            
+            self->_health = [coder decodeIntegerForKey:@"health"];
+            self->_attack = [coder decodeIntegerForKey:@"attack"];
+            self->_manaCost = [coder decodeIntegerForKey:@"manaCost"];
+            
+            [self->_name release];
+            self->_name = [[coder decodeObjectOfClass:[NSString class] forKey:@"name"] copy];
+            
+            [self->_text release];
+            self->_text = [[coder decodeObjectOfClass:[NSString class] forKey:@"text"] copy];
+            
+            [self->_image release];
+            self->_image = [[coder decodeObjectOfClass:[NSURL class] forKey:@"image"] copy];
+            
+            [self->_imageGold release];
+            self->_imageGold = [[coder decodeObjectOfClass:[NSURL class] forKey:@"imageGold"] copy];
+            
+            [self->_flavorText release];
+            self->_flavorText = [[coder decodeObjectOfClass:[NSString class] forKey:@"flavorText"] copy];
+            
+            [self->_cropImage release];
+            self->_cropImage = [[coder decodeObjectOfClass:[NSURL class] forKey:@"cropImage"] copy];
+            
+            [self->_childIds release];
+            self->_childIds = [[coder decodeObjectOfClass:[NSArray<NSNumber *> class] forKey:@"childIds"] copy];
+            
+            self->_parentId = [coder decodeIntegerForKey:@"parentId"];
+            
+            /* diff: 2 <-> 3 */
+            [self->_battlegroundsTier release];
+            self->_battlegroundsTier = nil;
+            
+            /* diff: 2 <-> 3 */
+            [self->_battlegroundsHero release];
+            self->_battlegroundsHero = nil;
+            
+            /* diff: 2 <-> 3 */
+            [self->_battlegroundsImage release];
+            self->_battlegroundsImage = nil;
+            
+            /* diff: 2 <-> 3 */
+            [self->_battlegroundsImageGold release];
+            self->_battlegroundsImageGold = nil;
+            
             self->_version = HSCARD_LATEST_VERSION;
         } else {
             self->_cardId = [coder decodeIntegerForKey:@"cardId"];
@@ -469,6 +627,23 @@
             self->_childIds = [[coder decodeObjectOfClass:[NSArray<NSNumber *> class] forKey:@"childIds"] copy];
             
             self->_parentId = [coder decodeIntegerForKey:@"parentId"];
+            
+            /* diff: 0 <-> 3 */
+            [self->_battlegroundsTier release];
+            self->_battlegroundsTier = [coder decodeObjectOfClass:[NSNumber class] forKey:@"battlegroundsTier"];
+            
+            /* diff: 0 <-> 3 */
+            [self->_battlegroundsHero release];
+            self->_battlegroundsHero = [coder decodeObjectOfClass:[NSNumber class] forKey:@"battlegroundsHero"];
+            
+            /* diff: 0 <-> 3 */
+            [self->_battlegroundsImage release];
+            self->_battlegroundsImage = [coder decodeObjectOfClass:[NSURL class] forKey:@"battlegroundsImage"];
+            
+            /* diff: 0 <-> 3 */
+            [self->_battlegroundsImageGold release];
+            self->_battlegroundsImageGold = [coder decodeObjectOfClass:[NSURL class] forKey:@"battlegroundsImageGold"];
+            
             self->_version = HSCARD_LATEST_VERSION;
         }
     }
@@ -499,6 +674,10 @@
     [coder encodeObject:self.cropImage forKey:@"cropImage"];
     [coder encodeObject:self.childIds forKey:@"childIds"];
     [coder encodeInteger:self.parentId forKey:@"parentId"];
+    [coder encodeObject:self.battlegroundsTier forKey:@"battlegroundsTier"];
+    [coder encodeObject:self.battlegroundsHero forKey:@"battlegroundsHero"];
+    [coder encodeObject:self.battlegroundsImage forKey:@"battlegroundsImage"];
+    [coder encodeObject:self.battlegroundsImageGold forKey:@"battlegroundsImageGold"];
     [coder encodeInteger:self.version forKey:@"version"];
 }
 

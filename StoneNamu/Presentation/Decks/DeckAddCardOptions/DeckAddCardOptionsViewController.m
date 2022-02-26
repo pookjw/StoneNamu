@@ -395,9 +395,15 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView willPerformPreviewActionForMenuWithConfiguration:(UIContextMenuConfiguration *)configuration animator:(id<UIContextMenuInteractionCommitAnimating>)animator {
-    [animator addAnimations:^{
-        [self.navigationController pushViewController:self.contextViewController animated:YES];
-    }];
+    if (self.contextViewController) {
+        if (self.viewModel.contextMenuIndexPath) {
+            [collectionView selectItemAtIndexPath:self.viewModel.contextMenuIndexPath animated:YES scrollPosition:UICollectionViewScrollPositionNone];
+        }
+        
+        [animator addAnimations:^{
+            [self.navigationController pushViewController:self.contextViewController animated:YES];
+        }];
+    }
 }
 
 @end

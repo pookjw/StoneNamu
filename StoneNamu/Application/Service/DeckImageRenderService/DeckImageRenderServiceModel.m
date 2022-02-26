@@ -196,7 +196,7 @@
                 [snapshot appendSectionsWithIdentifiers:@[aboutSectionModel]];
                 DeckImageRenderServiceItemModel *aboutItemModel = [[DeckImageRenderServiceItemModel alloc] initWithType:DeckImageRenderServiceItemModelTypeAbout];
                 
-                HSCardSetGroups *latestSetGroup = [self.hsMetaDataUseCase latestHsCardSetGroupsUsingHSMetaData:hsMetaData];
+                HSCardSetGroups *latestSetGroup = [self.hsMetaDataUseCase latestHSCardSetGroupsUsingHSMetaData:hsMetaData];
                 
                 aboutItemModel.totalArcaneDust = totalArcaneDust;
                 aboutItemModel.hsYearCurrentName = latestSetGroup.name;

@@ -10,6 +10,10 @@
 
 "manaCost:desc" = "비용 - 내림차순";
 
+"tier:asc" = "단계 - 오름차순";
+
+"tier:desc" = "단계 - 내림차순";
+
 "attack:asc" = "공격력 - 오름차순";
 
 "attack:desc" = "공격력 - 내림차순";

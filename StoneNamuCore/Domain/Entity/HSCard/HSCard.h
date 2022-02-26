@@ -15,7 +15,7 @@
 #endif
 
 #define kHSCardType @"kHSCardType"
-#define HSCARD_LATEST_VERSION 2
+#define HSCARD_LATEST_VERSION 3
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -51,6 +51,11 @@ static NSPasteboardType const NSPasteboardTypeHSCard = @"com.pookjw.StoneNamu.NS
 @property (readonly, copy) NSURL * _Nullable cropImage;
 @property (readonly, copy) NSArray<NSNumber *> *childIds;
 @property (readonly) NSUInteger parentId;
+
+@property (readonly, copy) NSNumber * _Nullable battlegroundsTier;
+@property (readonly, copy) NSNumber * _Nullable battlegroundsHero; // BOOL
+@property (readonly, copy) NSURL * _Nullable battlegroundsImage;
+@property (readonly, copy) NSURL * _Nullable battlegroundsImageGold;
 
 @property (readonly) NSUInteger version;
 @property (class, readonly, nonatomic) NSSet<Class> *unarchvingClasses;

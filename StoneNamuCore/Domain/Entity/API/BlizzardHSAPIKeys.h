@@ -7,6 +7,7 @@
 
 #import <Foundation/Foundation.h>
 #import <StoneNamuCore/HSDeckFormat.h>
+#import <StoneNamuCore/HSCardType.h>
 
 /*
  https://develop.battle.net/documentation/hearthstone/game-data-apis
@@ -31,13 +32,14 @@ static BlizzardHSAPIOptionType const BlizzardHSAPIOptionTypeKeyword = @"keyword"
 static BlizzardHSAPIOptionType const BlizzardHSAPIOptionTypeTextFilter = @"textFilter";
 static BlizzardHSAPIOptionType const BlizzardHSAPIOptionTypeGameMode = @"gameMode";
 static BlizzardHSAPIOptionType const BlizzardHSAPIOptionTypeSort = @"sort";
+static BlizzardHSAPIOptionType const BlizzardHSAPIOptionTypeTier = @"tier";
 static BlizzardHSAPIOptionType const BlizzardHSAPIOptionTypePage = @"page";
 
 static BlizzardHSAPIOptionType const BlizzardHSAPIOptionTypeIds = @"ids";
 static BlizzardHSAPIOptionType const BlizzardHSAPIOptionTypeCode = @"code";
 static BlizzardHSAPIOptionType const BlizzardHSAPIOptionTypeHero = @"hero";
 
-NSDictionary<BlizzardHSAPIOptionType, NSSet<NSString *> *> *BlizzardHSAPIDefaultOptions(void);
-NSDictionary<BlizzardHSAPIOptionType, NSSet<NSString *> *> *BlizzardHSAPIDefaultOptionsFromHSDeckFormat(HSDeckFormat);
+NSDictionary<BlizzardHSAPIOptionType, NSSet<NSString *> *> *BlizzardHSAPIDefaultOptionsFromHSCardTypeSlugType(HSCardTypeSlugType);
+NSDictionary<BlizzardHSAPIOptionType, NSSet<NSString *> *> *BlizzardConstructedHSAPIDefaultOptionsFromHSDeckFormat(HSDeckFormat);
 
 NS_ASSUME_NONNULL_END

@@ -8,7 +8,6 @@
 #import <UIKit/UIKit.h>
 #import "CardOptionSectionModel.h"
 #import "CardOptionItemModel.h"
-#import "OldPickerItemModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

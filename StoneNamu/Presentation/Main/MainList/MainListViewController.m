@@ -32,24 +32,14 @@
     [super dealloc];
 }
 
-- (void)setSelectionStatusForViewController:(__kindof UIViewController *)viewController {
-    if ([viewController isKindOfClass:[CardsViewController class]]) {
-        [self.viewModel indexPathOfItemType:MainListItemModelTypeCards completion:^(NSIndexPath * _Nullable indexPath) {
-            if (indexPath == nil) return;
-            
-            [NSOperationQueue.mainQueue addOperationWithBlock:^{
-                [self.collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
-            }];
+- (void)setSelectionStatusForType:(MainListItemModelType)type {
+    [self.viewModel indexPathOfItemType:type completion:^(NSIndexPath * _Nullable indexPath) {
+        if (indexPath == nil) return;
+        
+        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+            [self.collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
         }];
-    } else if ([viewController isKindOfClass:[DecksViewController class]]) {
-        [self.viewModel indexPathOfItemType:MainListItemModelTypeDecks completion:^(NSIndexPath * _Nullable indexPath) {
-            if (indexPath == nil) return;
-            
-            [NSOperationQueue.mainQueue addOperationWithBlock:^{
-                [self.collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
-            }];
-        }];
-    }
+    }];
 }
 
 - (void)viewDidLoad {
@@ -232,6 +222,11 @@
     [(id<MainLayoutProtocol>)self.splitViewController restoreViewControllers:@[cardsViewController]];
 }
 
+- (void)presentBattlegroundsCardsViewController {
+    CardsViewController *battlegroundsCardsViewController = ((id<MainLayoutProtocol>)self.splitViewController).battlegroundsCardsViewController;
+    [(id<MainLayoutProtocol>)self.splitViewController restoreViewControllers:@[battlegroundsCardsViewController]];
+}
+
 - (void)presentDecksViewController {
     DecksViewController *decksViewController = ((id<MainLayoutProtocol>)self.splitViewController).decksViewController;
     [(id<MainLayoutProtocol>)self.splitViewController restoreViewControllers:@[decksViewController]];
@@ -268,6 +263,10 @@
     switch (itemModel.type) {
         case MainListItemModelTypeCards: {
             [self presentCardsViewController];
+            break;
+        }
+        case MainListItemModelTypeBattlegrounds: {
+            [self presentBattlegroundsCardsViewController];
             break;
         }
         case MainListItemModelTypeDecks: {

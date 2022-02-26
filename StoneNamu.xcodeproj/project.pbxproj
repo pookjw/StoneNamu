@@ -313,6 +313,10 @@
 		4FB0ECEB26B82B100020EE6C /* DynamicPresentationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FB0ECEA26B82B100020EE6C /* DynamicPresentationController.m */; };
 		4FB238DD27CA1632001A4065 /* UINavigationController+completion.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FB238DC27CA1632001A4065 /* UINavigationController+completion.m */; };
 		4FB238E027CA176D001A4065 /* UITabBarController+completion.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FB238DF27CA176D001A4065 /* UITabBarController+completion.m */; };
+		4FB238E927CA2EDB001A4065 /* BattlegroundsCardOptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FB238E827CA2EDB001A4065 /* BattlegroundsCardOptionsViewController.m */; };
+		4FB238ED27CA5A41001A4065 /* BattlegroundsCardOptionsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FB238EC27CA5A41001A4065 /* BattlegroundsCardOptionsViewModel.m */; };
+		4FB238F027CA5A4C001A4065 /* BattlegroundsCardOptionSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FB238EF27CA5A4C001A4065 /* BattlegroundsCardOptionSectionModel.m */; };
+		4FB238F327CA5A58001A4065 /* BattlegroundsCardOptionItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FB238F227CA5A58001A4065 /* BattlegroundsCardOptionItemModel.m */; };
 		4FB45F8A27346B440039CD62 /* LocalDeck_v1_to_v2.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 4FB45F8927346B440039CD62 /* LocalDeck_v1_to_v2.xcmappingmodel */; };
 		4FB850F726C18BAE00E3C89D /* PrefsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FB850F626C18BAE00E3C89D /* PrefsViewController.m */; };
 		4FB850FF26C18D9300E3C89D /* Prefs.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FB850FD26C18D9300E3C89D /* Prefs.m */; };
@@ -1026,6 +1030,15 @@
 		4FB238DC27CA1632001A4065 /* UINavigationController+completion.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+completion.m"; sourceTree = "<group>"; };
 		4FB238DE27CA176D001A4065 /* UITabBarController+completion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITabBarController+completion.h"; sourceTree = "<group>"; };
 		4FB238DF27CA176D001A4065 /* UITabBarController+completion.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITabBarController+completion.m"; sourceTree = "<group>"; };
+		4FB238E727CA2EDB001A4065 /* BattlegroundsCardOptionsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BattlegroundsCardOptionsViewController.h; sourceTree = "<group>"; };
+		4FB238E827CA2EDB001A4065 /* BattlegroundsCardOptionsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BattlegroundsCardOptionsViewController.m; sourceTree = "<group>"; };
+		4FB238EA27CA5944001A4065 /* BattlegroundsCardOptionsViewControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BattlegroundsCardOptionsViewControllerDelegate.h; sourceTree = "<group>"; };
+		4FB238EB27CA5A41001A4065 /* BattlegroundsCardOptionsViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BattlegroundsCardOptionsViewModel.h; sourceTree = "<group>"; };
+		4FB238EC27CA5A41001A4065 /* BattlegroundsCardOptionsViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BattlegroundsCardOptionsViewModel.m; sourceTree = "<group>"; };
+		4FB238EE27CA5A4C001A4065 /* BattlegroundsCardOptionSectionModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BattlegroundsCardOptionSectionModel.h; sourceTree = "<group>"; };
+		4FB238EF27CA5A4C001A4065 /* BattlegroundsCardOptionSectionModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BattlegroundsCardOptionSectionModel.m; sourceTree = "<group>"; };
+		4FB238F127CA5A58001A4065 /* BattlegroundsCardOptionItemModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BattlegroundsCardOptionItemModel.h; sourceTree = "<group>"; };
+		4FB238F227CA5A58001A4065 /* BattlegroundsCardOptionItemModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BattlegroundsCardOptionItemModel.m; sourceTree = "<group>"; };
 		4FB45F88273469910039CD62 /* LocalDeckModel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "LocalDeckModel 2.xcdatamodel"; sourceTree = "<group>"; };
 		4FB45F8927346B440039CD62 /* LocalDeck_v1_to_v2.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = LocalDeck_v1_to_v2.xcmappingmodel; sourceTree = "<group>"; };
 		4FB850F526C18BAE00E3C89D /* PrefsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefsViewController.h; sourceTree = "<group>"; };
@@ -1821,9 +1834,9 @@
 		4F4976E026ABFC9A00860809 /* CardOptions */ = {
 			isa = PBXGroup;
 			children = (
+				4FF3E0D326CA732F002B20EA /* CardOptionsViewControllerDelegate.h */,
 				4F4976E126ABFCB300860809 /* CardOptionsViewController.h */,
 				4F4976E226ABFCB300860809 /* CardOptionsViewController.m */,
-				4FF3E0D326CA732F002B20EA /* CardOptionsViewControllerDelegate.h */,
 				4F4976E426ABFE2100860809 /* CardOptionsViewModel.h */,
 				4F4976E526ABFE2100860809 /* CardOptionsViewModel.m */,
 				4F4976E726ABFF5E00860809 /* CardOptionSectionModel.h */,
@@ -1881,6 +1894,7 @@
 			children = (
 				4F4976D326ABE6EF00860809 /* Cards */,
 				4F4976E026ABFC9A00860809 /* CardOptions */,
+				4FB238E627CA2EB6001A4065 /* BattlegroundsCardOptions */,
 				4FB0ECE526B82AD40020EE6C /* CardDetails */,
 			);
 			path = Cards;
@@ -2617,6 +2631,22 @@
 				4FF5729B271DC8A5007794EE /* DynamicAnimatedTransitioning.m */,
 			);
 			path = Dynamic;
+			sourceTree = "<group>";
+		};
+		4FB238E627CA2EB6001A4065 /* BattlegroundsCardOptions */ = {
+			isa = PBXGroup;
+			children = (
+				4FB238EA27CA5944001A4065 /* BattlegroundsCardOptionsViewControllerDelegate.h */,
+				4FB238E727CA2EDB001A4065 /* BattlegroundsCardOptionsViewController.h */,
+				4FB238E827CA2EDB001A4065 /* BattlegroundsCardOptionsViewController.m */,
+				4FB238EB27CA5A41001A4065 /* BattlegroundsCardOptionsViewModel.h */,
+				4FB238EC27CA5A41001A4065 /* BattlegroundsCardOptionsViewModel.m */,
+				4FB238EE27CA5A4C001A4065 /* BattlegroundsCardOptionSectionModel.h */,
+				4FB238EF27CA5A4C001A4065 /* BattlegroundsCardOptionSectionModel.m */,
+				4FB238F127CA5A58001A4065 /* BattlegroundsCardOptionItemModel.h */,
+				4FB238F227CA5A58001A4065 /* BattlegroundsCardOptionItemModel.m */,
+			);
+			path = BattlegroundsCardOptions;
 			sourceTree = "<group>";
 		};
 		4FB850F426C18B9900E3C89D /* Prefs */ = {
@@ -3730,6 +3760,7 @@
 				4FFDD65B26CAC5B3008E5B45 /* DeckDetailsViewController.m in Sources */,
 				4F03F57C26C7B63600FC9155 /* PrefsItemModel.m in Sources */,
 				4FF3E0C326C9901F002B20EA /* PrefsRegionHostSectionModel.m in Sources */,
+				4FB238F027CA5A4C001A4065 /* BattlegroundsCardOptionSectionModel.m in Sources */,
 				4FA56BAC26A21059002D9FA0 /* AppDelegate.m in Sources */,
 				4F7EC54726EB290B00A7758D /* DeckImageRenderService.m in Sources */,
 				4F57DEB926ADC3CF000E4163 /* OldPickerItemView.m in Sources */,
@@ -3737,6 +3768,7 @@
 				4FF3E0C226C9901F002B20EA /* PrefsRegionHostViewModel.m in Sources */,
 				4F3F1BC626E7C21100ACF80A /* UIView+removeAllSubviews.m in Sources */,
 				4F248386271DA64C00A231BF /* UIView+floatingConstraints.m in Sources */,
+				4FB238E927CA2EDB001A4065 /* BattlegroundsCardOptionsViewController.m in Sources */,
 				4F3F1BC326E7C12000ACF80A /* TextActivityViewController.m in Sources */,
 				4F248383271DA25800A231BF /* FloatingPresentationController.m in Sources */,
 				4F29FD732722EAB700753E8D /* MainViewController.m in Sources */,
@@ -3774,6 +3806,7 @@
 				4F8FFF3E26E0E66A00FA6586 /* DeckAddCardContentView.m in Sources */,
 				4F1B98A926C82382004E1603 /* PrefsRegionHostViewController.m in Sources */,
 				4FEC8A0A26EB88110061BBF4 /* DeckImageRenderServiceCardContentView.m in Sources */,
+				4FB238ED27CA5A41001A4065 /* BattlegroundsCardOptionsViewModel.m in Sources */,
 				4F9070A426D3836600BA7614 /* UIColor+invertedColor.m in Sources */,
 				4F8FFF3F26E0E66A00FA6586 /* DeckAddCardItemModel.m in Sources */,
 				4F4976E626ABFE2100860809 /* CardOptionsViewModel.m in Sources */,
@@ -3819,6 +3852,7 @@
 				4FFDD65026CAC0F7008E5B45 /* UIScrollView+scrollToTop.m in Sources */,
 				4FD87F962719CD66003EED4B /* MainListSectionModel.m in Sources */,
 				4F066CAB26D6D2D800991A98 /* DeckDetailsManaCostGraphContentView.m in Sources */,
+				4FB238F327CA5A58001A4065 /* BattlegroundsCardOptionItemModel.m in Sources */,
 				4FFDD65826CAC419008E5B45 /* DecksViewController.m in Sources */,
 				4F2438F026CD8DE40041BB84 /* DecksItemModel.m in Sources */,
 				4FB850F726C18BAE00E3C89D /* PrefsViewController.m in Sources */,

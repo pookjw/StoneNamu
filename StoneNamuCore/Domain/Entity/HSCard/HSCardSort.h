@@ -10,6 +10,8 @@
 typedef NS_ENUM(NSUInteger, HSCardSort) {
     HSCardSortManaCostAsc,
     HSCardSortManaCostDesc,
+    HSCardSortTierAsc,
+    HSCardSortTierDesc,
     HSCardSortAttackAsc,
     HSCardSortAttackDesc,
     HSCardSortHealthAsc,

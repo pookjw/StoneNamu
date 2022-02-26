@@ -107,9 +107,12 @@
 }
 
 - (NSDictionary<NSString *, NSSet<NSString *> *> *)defaultOptions {
-    return BlizzardHSAPIDefaultOptionsFromHSDeckFormat(self.localDeck.format);
+    if (self.localDeck) {
+        return BlizzardConstructedHSAPIDefaultOptionsFromHSDeckFormat(self.localDeck.format);
+    } else {
+        return BlizzardHSAPIDefaultOptionsFromHSCardTypeSlugType(HSCardGameModeSlugTypeConstructed);
+    }
 }
-
 - (BOOL)requestDataSourceWithOptions:(NSDictionary<NSString *, NSSet<NSString *> *> * _Nullable)options reset:(BOOL)reset {
     if (reset) {
         [self resetDataSource];

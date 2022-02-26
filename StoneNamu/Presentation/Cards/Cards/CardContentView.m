@@ -11,6 +11,7 @@
 
 @interface CardContentView ()
 @property (readonly, nonatomic) HSCard * _Nullable hsCard;
+@property (readonly, nonatomic) HSCardGameModeSlugType hsCardGameModeSlugType;
 @end
 
 @implementation CardContentView
@@ -56,8 +57,15 @@
     CardContentConfiguration *newContentConfig = [(CardContentConfiguration *)configuration copy];
     self->configuration = newContentConfig;
     
-    if (![newContentConfig.hsCard isEqual:oldContentConfig.hsCard]) {
-        [self.imageView setAsyncImageWithURL:newContentConfig.hsCard.image indicator:YES];
+    if ((![newContentConfig.hsCard isEqual:oldContentConfig.hsCard]) || (![oldContentConfig.hsCardGameModeSlugType isEqualToString:newContentConfig.hsCardGameModeSlugType])) {
+        if ([HSCardGameModeSlugTypeConstructed isEqualToString:newContentConfig.hsCardGameModeSlugType]) {
+            [self.imageView setAsyncImageWithURL:newContentConfig.hsCard.image indicator:YES];
+        } else if ([HSCardGameModeSlugTypeBattlegrounds isEqualToString:newContentConfig.hsCardGameModeSlugType]) {
+            [self.imageView setAsyncImageWithURL:newContentConfig.hsCard.battlegroundsImage indicator:YES];
+        } else {
+            self.imageView.image = nil;
+        }
+        
         self.imageView.hidden = NO;
     }
     
@@ -71,6 +79,15 @@
     
     CardContentConfiguration *contentConfiguration = (CardContentConfiguration *)self.configuration;
     return contentConfiguration.hsCard;
+}
+
+- (HSCardGameModeSlugType)hsCardGameModeSlugType {
+    if (![self.configuration isKindOfClass:[CardContentConfiguration class]]) {
+        return nil;
+    }
+    
+    CardContentConfiguration *contentConfiguration = (CardContentConfiguration *)self.configuration;
+    return contentConfiguration.hsCardGameModeSlugType;
 }
 
 @end
