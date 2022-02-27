@@ -22,7 +22,6 @@
 #import <StoneNamuResources/StoneNamuResources.h>
 
 static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardsViewController = @"NSUserInterfaceItemIdentifierCardsViewController";
-static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardCollectionViewItem = @"NSUserInterfaceItemIdentifierCardCollectionViewItem";
 
 @interface CardsViewController () <NSCollectionViewDelegate, NSMenuDelegate, CardOptionsMenuDelegate, CardOptionsToolbarDelegate, CardOptionsTouchBarDelegate, CardCollectionViewItemDelegate>
 @property (retain) NSScrollView *scrollView;

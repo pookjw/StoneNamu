@@ -10,6 +10,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckImageRenderServiceCardCollectionViewItem = @"NSUserInterfaceItemIdentifierDeckImageRenderServiceCardCollectionViewItem";
+
 @interface DeckImageRenderServiceCardCollectionViewItem : NSCollectionViewItem
 - (void)configureWithHSCard:(HSCard *)hsCard hsCardImage:(NSImage *)haCardImage raritySlug:(HSCardRaritySlugType)raritySlug hsCardCount:(NSUInteger)hsCardCount;
 @end

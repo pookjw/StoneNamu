@@ -103,6 +103,8 @@
 		4F27400327AEB87D00F6D3B8 /* HSMetaDataUseCaseImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F27400127AEB87D00F6D3B8 /* HSMetaDataUseCaseImpl.m */; };
 		4F27402B27AEC9F100F6D3B8 /* BlizzardHSAPIKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F27402A27AEC9F100F6D3B8 /* BlizzardHSAPIKeys.m */; };
 		4F29FD732722EAB700753E8D /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F29FD722722EAB700753E8D /* MainViewController.m */; };
+		4F2CFC0027CB648000A3BAE4 /* MainListTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2CFBFF27CB648000A3BAE4 /* MainListTableHeaderView.m */; };
+		4F2CFC0227CB649800A3BAE4 /* MainListTableHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F2CFC0127CB649700A3BAE4 /* MainListTableHeaderView.xib */; };
 		4F34385026A36FBA001161FE /* StoneNamuCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F34384826A36FBA001161FE /* StoneNamuCore.framework */; };
 		4F34385826A36FBA001161FE /* StoneNamuCore.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F34384A26A36FBA001161FE /* StoneNamuCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4F34385B26A36FBA001161FE /* StoneNamuCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F34384826A36FBA001161FE /* StoneNamuCore.framework */; };
@@ -407,7 +409,6 @@
 		4FF5729C271DC8A5007794EE /* DynamicAnimatedTransitioning.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF5729B271DC8A5007794EE /* DynamicAnimatedTransitioning.m */; };
 		4FF676CF26AAFC6A00477272 /* CardsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF676CE26AAFC6A00477272 /* CardsViewController.m */; };
 		4FFBAADB26E4FE9900DBEEDB /* UIImage+imageWithGrayScale.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FFBAADA26E4FE9900DBEEDB /* UIImage+imageWithGrayScale.m */; };
-		4FFCF7E627B1C49A00A89660 /* NSProcessInfo+isEnabledThreadSleepAtDDS.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FFCF7E527B1C49A00A89660 /* NSProcessInfo+isEnabledThreadSleepAtDDS.m */; };
 		4FFCF80727B1D48200A89660 /* compareNullableValues.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FFCF80627B1D46500A89660 /* compareNullableValues.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4FFCF80927B1D48D00A89660 /* compareNullableValues.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FFCF80827B1D48D00A89660 /* compareNullableValues.m */; };
 		4FFDD65026CAC0F7008E5B45 /* UIScrollView+scrollToTop.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FFDD64F26CAC0F7008E5B45 /* UIScrollView+scrollToTop.m */; };
@@ -692,6 +693,9 @@
 		4F27402A27AEC9F100F6D3B8 /* BlizzardHSAPIKeys.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlizzardHSAPIKeys.m; sourceTree = "<group>"; };
 		4F29FD712722EAB700753E8D /* MainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		4F29FD722722EAB700753E8D /* MainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		4F2CFBFE27CB648000A3BAE4 /* MainListTableHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainListTableHeaderView.h; sourceTree = "<group>"; };
+		4F2CFBFF27CB648000A3BAE4 /* MainListTableHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainListTableHeaderView.m; sourceTree = "<group>"; };
+		4F2CFC0127CB649700A3BAE4 /* MainListTableHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainListTableHeaderView.xib; sourceTree = "<group>"; };
 		4F34383726A36492001161FE /* BlizzardTokenAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlizzardTokenAPI.h; sourceTree = "<group>"; };
 		4F34383C26A36501001161FE /* BlizzardTokenAPIImpl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlizzardTokenAPIImpl.h; sourceTree = "<group>"; };
 		4F34383D26A36501001161FE /* BlizzardTokenAPIImpl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlizzardTokenAPIImpl.m; sourceTree = "<group>"; };
@@ -1222,8 +1226,6 @@
 		4FF676CE26AAFC6A00477272 /* CardsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardsViewController.m; sourceTree = "<group>"; };
 		4FFBAAD926E4FE9900DBEEDB /* UIImage+imageWithGrayScale.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+imageWithGrayScale.h"; sourceTree = "<group>"; };
 		4FFBAADA26E4FE9900DBEEDB /* UIImage+imageWithGrayScale.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+imageWithGrayScale.m"; sourceTree = "<group>"; };
-		4FFCF7E427B1C49A00A89660 /* NSProcessInfo+isEnabledThreadSleepAtDDS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSProcessInfo+isEnabledThreadSleepAtDDS.h"; sourceTree = "<group>"; };
-		4FFCF7E527B1C49A00A89660 /* NSProcessInfo+isEnabledThreadSleepAtDDS.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSProcessInfo+isEnabledThreadSleepAtDDS.m"; sourceTree = "<group>"; };
 		4FFCF80627B1D46500A89660 /* compareNullableValues.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = compareNullableValues.h; sourceTree = "<group>"; };
 		4FFCF80827B1D48D00A89660 /* compareNullableValues.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = compareNullableValues.m; sourceTree = "<group>"; };
 		4FFDD64E26CAC0F7008E5B45 /* UIScrollView+scrollToTop.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+scrollToTop.h"; sourceTree = "<group>"; };
@@ -1775,7 +1777,7 @@
 			children = (
 				4F4892DF27246E1F00126131 /* MainWindow */,
 				4FE8575F2700911B0008C2FB /* MainSplit */,
-				4FE85763270092CA0008C2FB /* MainMenu */,
+				4FE85763270092CA0008C2FB /* MainList */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -3018,8 +3020,6 @@
 				F303D63E2741549800569E20 /* NSTabViewController+selectTabViewItem.m */,
 				F303D64027415BFF00569E20 /* NSProcessInfo+isEnabledRestoration.h */,
 				F303D64127415BFF00569E20 /* NSProcessInfo+isEnabledRestoration.m */,
-				4FFCF7E427B1C49A00A89660 /* NSProcessInfo+isEnabledThreadSleepAtDDS.h */,
-				4FFCF7E527B1C49A00A89660 /* NSProcessInfo+isEnabledThreadSleepAtDDS.m */,
 				4FDE9B6E274AF1C200AB0E02 /* NSDiffableDataSourceSnapshot+sort.h */,
 				4FDE9B6F274AF1C200AB0E02 /* NSDiffableDataSourceSnapshot+sort.m */,
 				4F049DDF2774533900E41AEA /* NSImage+dataUsingType.h */,
@@ -3063,7 +3063,7 @@
 			path = MainSplit;
 			sourceTree = "<group>";
 		};
-		4FE85763270092CA0008C2FB /* MainMenu */ = {
+		4FE85763270092CA0008C2FB /* MainList */ = {
 			isa = PBXGroup;
 			children = (
 				4F8FDEE72744221900BA84D2 /* MainListViewControllerDelegate.h */,
@@ -3075,11 +3075,14 @@
 				F3CCE28C2742C435004B5B26 /* MainListSectionModel.m */,
 				F3CCE28E2742C442004B5B26 /* MainListItemModel.h */,
 				F3CCE28F2742C442004B5B26 /* MainListItemModel.m */,
+				4F2CFBFE27CB648000A3BAE4 /* MainListTableHeaderView.h */,
+				4F2CFBFF27CB648000A3BAE4 /* MainListTableHeaderView.m */,
+				4F2CFC0127CB649700A3BAE4 /* MainListTableHeaderView.xib */,
 				4F5900872752FE4D00217E4A /* MainListTableCellView.h */,
 				4F5900882752FE4D00217E4A /* MainListTableCellView.m */,
 				4F59008A2752FE6100217E4A /* MainListTableCellView.xib */,
 			);
-			path = MainMenu;
+			path = MainList;
 			sourceTree = "<group>";
 		};
 		4FE85764270092CF0008C2FB /* Cards */ = {
@@ -3637,6 +3640,7 @@
 				4F23C8B5273D9A2500C33F10 /* Assets.xcassets in Resources */,
 				4F7C689F27975D1F00A56D1C /* CardDetailsSeparatorBox.xib in Resources */,
 				4F23C8B8273D9A5900C33F10 /* InfoPlist.strings in Resources */,
+				4F2CFC0227CB649800A3BAE4 /* MainListTableHeaderView.xib in Resources */,
 				4F4738D12746D5B7000C0C85 /* CardDetailsBaseCollectionViewItem.xib in Resources */,
 				4F7C6899279751F800A56D1C /* CardDetailsBackgroundBox.xib in Resources */,
 				4F646BFC2794900B00340C07 /* DeckDetailsSeparatorBox.xib in Resources */,
@@ -3899,7 +3903,6 @@
 				4FC48A882739EF48001240FE /* CardOptionsMenuFactory.m in Sources */,
 				4F6302DF278DF32E00AF075D /* CardDetailsWindowRestoration.m in Sources */,
 				4F2444E1279B25BF009A2113 /* DeckBackgroundBox.m in Sources */,
-				4FFCF7E627B1C49A00A89660 /* NSProcessInfo+isEnabledThreadSleepAtDDS.m in Sources */,
 				F3CCE2902742C442004B5B26 /* MainListItemModel.m in Sources */,
 				4FE8576D27009B5C0008C2FB /* CardsViewModel.m in Sources */,
 				F3DBBC36276B371E00A63078 /* NSWindow+topBarHeight.m in Sources */,
@@ -4014,6 +4017,7 @@
 				4FC402CD2738759200D25523 /* CardOptionsMenu.m in Sources */,
 				4F4738CB2746D25C000C0C85 /* CardDetailsViewModel.m in Sources */,
 				4F6302E2278DFA6700AF075D /* DeckDetailsWindowRestoration.m in Sources */,
+				4F2CFC0027CB648000A3BAE4 /* MainListTableHeaderView.m in Sources */,
 				4FE857762700A0230008C2FB /* NSCollectionViewDiffableDataSource+applySnapshotAndWait.m in Sources */,
 				4F4738BD2746BFCD000C0C85 /* CardDetailsWindow.m in Sources */,
 				4F7333F8272D836A00438FE0 /* CardOptionsToolbar.m in Sources */,

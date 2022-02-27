@@ -11,6 +11,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDetailsChildCollectionViewItem = @"NSUserInterfaceItemIdentifierCardDetailsChildCollectionViewItem";
+
 @protocol CardDetailsChildCollectionViewItemDelegate <NSObject>
 - (void)cardDetailsChildrenContentImageContentCollectionViewItem:(CardDetailsChildCollectionViewItem *)cardDetailsChildrenContentImageContentCollectionViewItem didDoubleClickWithRecognizer:(NSClickGestureRecognizer *)recognizer;
 @end

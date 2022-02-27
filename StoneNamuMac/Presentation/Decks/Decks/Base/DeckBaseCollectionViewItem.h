@@ -12,6 +12,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeckBaseCollectionViewItem = @"NSUserInterfaceItemIdentifierCardDeckBaseCollectionViewItem";
+
 @interface DeckBaseCollectionViewItem : ClickableCollectionViewItem
 - (void)configureWithLocalDeck:(LocalDeck *)localDeck classSlug:(NSString *)classSlug isEasterEgg:(BOOL)isEasterEgg count:(NSUInteger)count deckBaseCollectionViewItemDelegate:(id<DeckBaseCollectionViewItemDelegate>)deckBaseCollectionViewItemDelegate;
 @end

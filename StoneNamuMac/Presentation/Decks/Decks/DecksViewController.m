@@ -20,8 +20,6 @@
 #import "NSAlert+presentTextFieldAlert.h"
 #import <StoneNamuResources/StoneNamuResources.h>
 
-static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeckBaseCollectionViewItem = @"NSUserInterfaceItemIdentifierCardDeckBaseCollectionViewItem";
-
 @interface DecksViewController () <NSCollectionViewDelegate, NSMenuDelegate, NSMenuItemValidation, DecksMenuDelegate, DecksToolbarDelegate, DecksTouchBarDelegate, DeckBaseCollectionViewItemDelegate>
 @property (retain) NSScrollView *scrollView;
 @property (retain) ClickableCollectionView *collectionView;

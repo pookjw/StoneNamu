@@ -52,16 +52,17 @@
         
         //
         
-        [snapshot appendItemsWithIdentifiers:@[
-            [[[MainListItemModel alloc] initWithType:MainListItemModelTypeCards] autorelease]
-        ] intoSectionWithIdentifier:cardsSectionModel];
+        MainListItemModel *cardsItemModel = [[MainListItemModel alloc] initWithType:MainListItemModelTypeCards];
+        MainListItemModel *decksItemModel = [[MainListItemModel alloc] initWithType:MainListItemModelTypeDecks];
         
-        [snapshot appendItemsWithIdentifiers:@[
-            [[[MainListItemModel alloc] initWithType:MainListItemModelTypeDecks] autorelease]
-        ] intoSectionWithIdentifier:decksSectionModel];
+        [snapshot appendItemsWithIdentifiers:@[cardsItemModel] intoSectionWithIdentifier:cardsSectionModel];
+        [snapshot appendItemsWithIdentifiers:@[decksItemModel] intoSectionWithIdentifier:decksSectionModel];
         
         [cardsSectionModel release];
         [decksSectionModel release];
+        
+        [cardsItemModel release];
+        [decksItemModel release];
         
         [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:NO completion:^{}];
         [snapshot release];

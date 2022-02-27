@@ -26,9 +26,6 @@
 #import <StoneNamuCore/StoneNamuCore.h>
 #import <StoneNamuResources/StoneNamuResources.h>
 
-static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDetailsSeparatorBox = @"NSUserInterfaceItemIdentifierDeckDetailsSeparatorBox";
-static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckDetailsCardCollectionViewItem = @"NSUserInterfaceItemIdentifierDeckDetailsCardCollectionViewItem";
-
 @interface DeckDetailsViewController () <NSCollectionViewDelegate, NSMenuDelegate, DeckDetailsCardCollectionViewItemDelegate, HSCardDroppableViewDelegate>
 @property (readonly, nonatomic) NSArray<NSMenuItem *> *menuItemsForSingleItem;
 @property (readonly, nonatomic) NSArray<NSMenuItem *> *menuItemsForMultipleItems;

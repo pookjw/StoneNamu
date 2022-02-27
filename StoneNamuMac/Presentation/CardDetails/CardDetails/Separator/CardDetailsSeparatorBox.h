@@ -9,6 +9,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDetailsSeparatorBox = @"NSUserInterfaceItemIdentifierCardDetailsSeparatorBox";
+
 @interface CardDetailsSeparatorBox : NSBox <NSCollectionViewElement>
 
 @end

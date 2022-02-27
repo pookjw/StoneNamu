@@ -10,6 +10,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckImageRenderServiceAboutCollectionViewItem = @"NSUserInterfaceItemIdentifierDeckImageRenderServiceAboutCollectionViewItem";
+
 @interface DeckImageRenderServiceAboutCollectionViewItem : NSCollectionViewItem
 - (void)configureWithTotalArcaneDust:(NSNumber *)totalArcaneDust hsYearCurrentName:(NSString *)hsYearCurrentName;
 @end

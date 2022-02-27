@@ -6,11 +6,11 @@
 //
 
 #import "MainListViewController.h"
+#import "MainListTableHeaderView.h"
 #import "MainListTableCellView.h"
 #import "MainListViewModel.h"
 
 static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierMainListTableColumn = @"NSUserInterfaceItemIdentifierMainListTableColumn";
-static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierMainListTableCellView = @"NSUserInterfaceItemIdentifierMainListTableCellView";
 
 @interface MainListViewController () <NSTableViewDelegate>
 @property (assign) id<MainListViewControllerDelegate> delegate;
@@ -113,9 +113,13 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierMainList
     
     //
     
-    NSNib *nib = [[NSNib alloc] initWithNibNamed:NSStringFromClass([MainListTableCellView class]) bundle:NSBundle.mainBundle];
-    [tableView registerNib:nib forIdentifier:NSUserInterfaceItemIdentifierMainListTableCellView];
-    [nib release];
+    NSNib *headerNib = [[NSNib alloc] initWithNibNamed:NSStringFromClass([MainListTableHeaderView class]) bundle:NSBundle.mainBundle];
+    [tableView registerNib:headerNib forIdentifier:NSUserInterfaceItemIdentifierMainListTableHeaderView];
+    [headerNib release];
+    
+    NSNib *cellNib = [[NSNib alloc] initWithNibNamed:NSStringFromClass([MainListTableCellView class]) bundle:NSBundle.mainBundle];
+    [tableView registerNib:cellNib forIdentifier:NSUserInterfaceItemIdentifierMainListTableCellView];
+    [cellNib release];
     
     NSTableColumn *tableColumn = [[NSTableColumn alloc] initWithIdentifier:NSUserInterfaceItemIdentifierMainListTableColumn];
     [tableView addTableColumn:tableColumn];
@@ -156,6 +160,15 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierMainList
         return view;
     }];
     
+    dataSource.sectionHeaderViewProvider = ^NSView * _Nonnull(NSTableView * _Nonnull tableView, NSInteger row, id  _Nonnull sectionId) {
+        MainListTableHeaderView *view = (MainListTableHeaderView *)[tableView makeViewWithIdentifier:NSUserInterfaceItemIdentifierMainListTableHeaderView owner:unretainedSelf];
+        MainListSectionModel *sectionModel = [unretainedSelf.viewModel.dataSource sectionIdentifierForRow:row];
+        
+        view.textField.stringValue = sectionModel.title;
+        
+        return view;
+    };
+    
     return [dataSource autorelease];
 }
 
@@ -171,6 +184,11 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierMainList
     if (itemModel == nil) return;
     
     [self.delegate mainListViewController:self didChangeSelectedItemModelType:itemModel.type];
+}
+
+- (BOOL)tableView:(NSTableView *)tableView shouldSelectRow:(NSInteger)row {
+    MainListItemModel * _Nullable itemModel = [self.viewModel.dataSource itemIdentifierForRow:row];
+    return (itemModel != nil);
 }
 
 @end

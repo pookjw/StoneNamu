@@ -16,6 +16,7 @@ typedef NS_ENUM(NSUInteger, MainListSectionModelType) {
 
 @interface MainListSectionModel : NSObject
 @property (readonly) MainListSectionModelType type;
+@property (readonly, nonatomic) NSString *title;
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithType:(MainListSectionModelType)type;

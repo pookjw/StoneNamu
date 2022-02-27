@@ -10,6 +10,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckImageRenderServiceIntroCollectionViewItem = @"NSUserInterfaceItemIdentifierDeckImageRenderServiceIntroCollectionViewItem";
+
 @interface DeckImageRenderServiceIntroCollectionViewItem : NSCollectionViewItem
 - (void)configureWithClassSlug:(NSString *)classSlug className:(NSString *)className deckName:(NSString *)deckName deckFormat:(HSDeckFormat)deckFormat isEasterEgg:(BOOL)isEasterEgg;
 @end

@@ -21,10 +21,6 @@
 #import "CardDetailsSeparatorBox.h"
 #import <StoneNamuResources/StoneNamuResources.h>
 
-static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDetailsBaseCollectionViewItem = @"NSUserInterfaceItemIdentifierCardDetailsBaseCollectionViewItem";
-static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDetailsChildCollectionViewItem = @"NSUserInterfaceItemIdentifierCardDetailsChildCollectionViewItem";
-static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDetailsSeparatorBox = @"NSUserInterfaceItemIdentifierCardDetailsSeparatorBox";
-
 @interface CardDetailsViewController () <NSCollectionViewDelegate, NSMenuDelegate, CardDetailsChildCollectionViewItemDelegate>
 @property (retain) NSVisualEffectView *blurView;
 @property (retain) NSStackView *stackView;

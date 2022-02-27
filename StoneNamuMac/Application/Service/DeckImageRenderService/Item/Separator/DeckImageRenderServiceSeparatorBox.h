@@ -9,6 +9,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckImageRenderServiceSeparatorBox = @"NSUserInterfaceItemIdentifierDeckImageRenderServiceSeparatorBox";
+
 @interface DeckImageRenderServiceSeparatorBox : NSBox <NSCollectionViewElement>
 
 @end

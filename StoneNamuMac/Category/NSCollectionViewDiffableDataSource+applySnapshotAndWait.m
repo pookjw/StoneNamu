@@ -8,7 +8,6 @@
 #import "NSCollectionViewDiffableDataSource+applySnapshotAndWait.h"
 #import <StoneNamuCore/StoneNamuCore.h>
 #import "NSCollectionViewDiffableDataSource+Private.h"
-#import "NSProcessInfo+isEnabledThreadSleepAtDDS.h"
 
 @implementation NSCollectionViewDiffableDataSource (applySnapshotAndWait)
 
@@ -22,15 +21,11 @@
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
         [self applySnapshot:snapshot animatingDifferences:animatingDifferences completion:^{
             completion();
-            if (NSProcessInfo.processInfo.isEnabledThreadSleepAtDDS) {
-                [semaphore signal];
-            }
+            [semaphore signal];
         }];
     }];
     
-    if (NSProcessInfo.processInfo.isEnabledThreadSleepAtDDS) {
-        [semaphore wait];
-    }
+    [semaphore wait];
     [semaphore release];
 }
 

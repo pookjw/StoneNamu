@@ -6,6 +6,7 @@
 //
 
 #import "MainListSectionModel.h"
+#import <StoneNamuResources/StoneNamuResources.h>
 
 @implementation MainListSectionModel
 
@@ -17,6 +18,17 @@
     }
     
     return self;
+}
+
+- (NSString *)title {
+    switch (self.type) {
+        case MainListSectionModelTypeCards:
+            return [ResourcesService localizationForKey:LocalizableKeyCards];
+        case MainListSectionModelTypeDecks:
+            return [ResourcesService localizationForKey:LocalizableKeyDecks];
+        default:
+            return @"";
+    }
 }
 
 - (BOOL)isEqual:(id)object {
