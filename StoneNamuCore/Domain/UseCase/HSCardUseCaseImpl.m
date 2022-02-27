@@ -89,7 +89,17 @@
         
         [options enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSSet<NSString *> * _Nonnull obj, BOOL * _Nonnull stop) {
             if (obj.count > 0) {
-                prefOptions[key] = [obj.allObjects componentsJoinedByString:@","];
+                if ([BlizzardHSAPIOptionTypeSort isEqualToString:key]) {
+                    NSArray<NSString *> *sorted = [obj.allObjects sortedArrayUsingComparator:^NSComparisonResult(NSString * _Nonnull obj1, NSString * _Nonnull obj2) {
+                        NSNumber *lhsNumber = [NSNumber numberWithUnsignedInteger:HSCardSortFromNSString(obj1)];
+                        NSNumber *rhsNumber = [NSNumber numberWithUnsignedInteger:HSCardSortFromNSString(obj2)];
+                        return [lhsNumber compare:rhsNumber];
+                    }];
+                    
+                    prefOptions[key] = [sorted componentsJoinedByString:@","];
+                } else {
+                    prefOptions[key] = [obj.allObjects componentsJoinedByString:@","];
+                }
             }
         }];
         

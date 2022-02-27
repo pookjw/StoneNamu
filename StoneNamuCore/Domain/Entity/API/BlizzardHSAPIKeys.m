@@ -23,7 +23,7 @@ NSDictionary<BlizzardHSAPIOptionType, NSSet<NSString *> *> *BlizzardHSAPIDefault
         return @{
             BlizzardHSAPIOptionTypeType: [NSSet setWithObject:HSCardTypeSlugTypeMinion],
             BlizzardHSAPIOptionTypeGameMode: [NSSet setWithObject:HSCardGameModeSlugTypeBattlegrounds],
-            BlizzardHSAPIOptionTypeSort: [NSSet setWithArray:@[NSStringFromHSCardSort(HSCardSortNameAsc), NSStringFromHSCardSort(HSCardSortTierAsc)]]
+            BlizzardHSAPIOptionTypeSort: [NSSet setWithArray:@[NSStringFromHSCardSort(HSCardSortTierAsc), NSStringFromHSCardSort(HSCardSortNameAsc)]]
         };
     } else {
         return @{};
