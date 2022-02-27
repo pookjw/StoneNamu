@@ -24,6 +24,12 @@
     self = [self init];
     
     if (self) {
+        [self->_slugsAndIds release];
+        self->_slugsAndIds = nil;
+        
+        [self->_slugsAndNames release];
+        self->_slugsAndNames = nil;
+        
         HSMetaDataUseCaseImpl *hsMetaDataUseCase = [HSMetaDataUseCaseImpl new];
         self.hsMetaDataUseCase = hsMetaDataUseCase;
         [hsMetaDataUseCase release];
@@ -36,12 +42,6 @@
         queue.qualityOfService = NSQualityOfServiceUserInitiated;
         self.queue = queue;
         [queue release];
-        
-        [self->_slugsAndIds release];
-        self->_slugsAndIds = nil;
-        
-        [self->_slugsAndNames release];
-        self->_slugsAndNames = nil;
         
         self.localDeck = localDeck;
         
@@ -68,7 +68,7 @@
     if ([object isEqual:self]) {
         if ([keyPath isEqualToString:@"localDeck"]) {
             if (self.localDeck) {
-                [self updateItems];
+                [self load];
             }
         } else {
             return [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
@@ -533,7 +533,7 @@
     return [item autorelease];
 }
 
-- (void)updateItems {
+- (void)load {
     if (self.localDeck == nil) return;
     
     [self.queue addBarrierBlock:^{
@@ -609,7 +609,7 @@
 }
 
 - (void)hsMetaDataClearCacheReceived:(NSNotification *)notification {
-    [self updateItems];
+    [self load];
 }
 
 - (void)postShouldUpdateItems {

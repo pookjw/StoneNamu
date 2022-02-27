@@ -227,14 +227,14 @@
     [super encodeRestorableStateWithCoder:coder backgroundQueue:queue];
     
     [queue addOperationWithBlock:^{
-        [coder encodeObject:self.viewModel.localDeck.objectID.URIRepresentation forKey:@"URIRepresentation"];
+        [coder encodeObject:self.viewModel.localDeck.objectID.URIRepresentation forKey:[NSString stringWithFormat:@"%@_URIRepresentation", NSStringFromClass(self.class)]];
     }];
 }
 
 - (void)restoreStateWithCoder:(NSCoder *)coder {
     [super restoreStateWithCoder:coder];
     
-    NSURL * _Nullable URIRepresentation = [coder decodeObjectOfClass:[NSURL class] forKey:@"URIRepresentation"];
+    NSURL * _Nullable URIRepresentation = [coder decodeObjectOfClass:[NSURL class] forKey:[NSString stringWithFormat:@"%@_URIRepresentation", NSStringFromClass(self.class)]];
     
     if (URIRepresentation != nil) {
         [self.viewModel requestDataSourceFromURIRepresentation:URIRepresentation completion:^(BOOL result) {}];

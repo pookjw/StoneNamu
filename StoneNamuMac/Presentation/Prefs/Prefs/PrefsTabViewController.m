@@ -53,14 +53,14 @@
     
     NSInteger selectedTabViewItemIndex = self.selectedTabViewItemIndex;
     [queue addOperationWithBlock:^{
-        [coder encodeInteger:selectedTabViewItemIndex forKey:@"selectedTabViewItemIndex"];
+        [coder encodeInteger:selectedTabViewItemIndex forKey:[NSString stringWithFormat:@"%@_selectedTabViewItemIndex", NSStringFromClass(self.class)]];
     }];
 }
 
 - (void)restoreStateWithCoder:(NSCoder *)coder {
     [super restoreStateWithCoder:coder];
     
-    NSInteger selectedTabViewItemIndex = [coder decodeIntegerForKey:@"selectedTabViewItemIndex"];
+    NSInteger selectedTabViewItemIndex = [coder decodeIntegerForKey:[NSString stringWithFormat:@"%@_selectedTabViewItemIndex", NSStringFromClass(self.class)]];
     [self setSelectedTabViewItemIndex:selectedTabViewItemIndex];
 }
 

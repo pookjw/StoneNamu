@@ -139,6 +139,8 @@ static NSArray<FontKey> * _Nullable kRegisteredFontKeys = @[];
         name = @"a.circle";
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeGameMode]) {
         name = @"flag.circle";
+    } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeTier]) {
+        name = @"dollarsign.circle";
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeSort]) {
         name = @"arrow.up.arrow.down.circle";
     } else {

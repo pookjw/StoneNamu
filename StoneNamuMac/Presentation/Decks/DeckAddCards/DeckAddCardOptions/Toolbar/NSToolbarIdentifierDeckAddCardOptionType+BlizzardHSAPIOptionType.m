@@ -7,87 +7,87 @@
 
 #import "NSToolbarIdentifierDeckAddCardOptionType+BlizzardHSAPIOptionType.h"
 
-NSArray<NSToolbarIdentifier> * allNSToolbarIdentifierDeckAddCardOptionsType(void) {
+NSArray<NSToolbarIdentifier> * allNSToolbarIdentifierDeckAddCardOptionTypes(void) {
     return @[
-        NSToolbarIdentifierDeckAddCardOptionsTypeTextFilter,
-        NSToolbarIdentifierDeckAddCardOptionsTypeSet,
-        NSToolbarIdentifierDeckAddCardOptionsTypeClass,
-        NSToolbarIdentifierDeckAddCardOptionsTypeManaCost,
-        NSToolbarIdentifierDeckAddCardOptionsTypeAttack,
-        NSToolbarIdentifierDeckAddCardOptionsTypeHealth,
-        NSToolbarIdentifierDeckAddCardOptionsTypeCollecticle,
-        NSToolbarIdentifierDeckAddCardOptionsTypeRarity,
-        NSToolbarIdentifierDeckAddCardOptionsTypeType,
-        NSToolbarIdentifierDeckAddCardOptionsTypeMinionType,
-        NSToolbarIdentifierDeckAddCardOptionsTypeSpellSchool,
-        NSToolbarIdentifierDeckAddCardOptionsTypeKeyword,
-        NSToolbarIdentifierDeckAddCardOptionsTypeGameMode,
-        NSToolbarIdentifierDeckAddCardOptionsTypeSort
+        NSToolbarIdentifierDeckAddCardOptionTypeTextFilter,
+        NSToolbarIdentifierDeckAddCardOptionTypeSet,
+        NSToolbarIdentifierDeckAddCardOptionTypeClass,
+        NSToolbarIdentifierDeckAddCardOptionTypeManaCost,
+        NSToolbarIdentifierDeckAddCardOptionTypeAttack,
+        NSToolbarIdentifierDeckAddCardOptionTypeHealth,
+        NSToolbarIdentifierDeckAddCardOptionTypeCollecticle,
+        NSToolbarIdentifierDeckAddCardOptionTypeRarity,
+        NSToolbarIdentifierDeckAddCardOptionTypeType,
+        NSToolbarIdentifierDeckAddCardOptionTypeMinionType,
+        NSToolbarIdentifierDeckAddCardOptionTypeSpellSchool,
+        NSToolbarIdentifierDeckAddCardOptionTypeKeyword,
+        NSToolbarIdentifierDeckAddCardOptionTypeGameMode,
+        NSToolbarIdentifierDeckAddCardOptionTypeSort
     ];
 }
 
-NSToolbarIdentifier NSToolbarIdentifierDeckAddCardOptionsTypeFromBlizzardHSAPIOptionType(BlizzardHSAPIOptionType type) {
+NSToolbarIdentifier NSToolbarIdentifierDeckAddCardOptionTypeFromBlizzardHSAPIOptionType(BlizzardHSAPIOptionType type) {
     if ([type isEqualToString:BlizzardHSAPIOptionTypeSet]) {
-        return NSToolbarIdentifierDeckAddCardOptionsTypeSet;
+        return NSToolbarIdentifierDeckAddCardOptionTypeSet;
     } else if ([type isEqualToString:BlizzardHSAPIOptionTypeClass]) {
-        return NSToolbarIdentifierDeckAddCardOptionsTypeClass;
+        return NSToolbarIdentifierDeckAddCardOptionTypeClass;
     } else if ([type isEqualToString:BlizzardHSAPIOptionTypeManaCost]) {
-        return NSToolbarIdentifierDeckAddCardOptionsTypeManaCost;
+        return NSToolbarIdentifierDeckAddCardOptionTypeManaCost;
     } else if ([type isEqualToString:BlizzardHSAPIOptionTypeAttack]) {
-        return NSToolbarIdentifierDeckAddCardOptionsTypeAttack;
+        return NSToolbarIdentifierDeckAddCardOptionTypeAttack;
     } else if ([type isEqualToString:BlizzardHSAPIOptionTypeHealth]) {
-        return NSToolbarIdentifierDeckAddCardOptionsTypeHealth;
+        return NSToolbarIdentifierDeckAddCardOptionTypeHealth;
     } else if ([type isEqualToString:BlizzardHSAPIOptionTypeCollectible]) {
-        return NSToolbarIdentifierDeckAddCardOptionsTypeCollecticle;
+        return NSToolbarIdentifierDeckAddCardOptionTypeCollecticle;
     } else if ([type isEqualToString:BlizzardHSAPIOptionTypeRarity]) {
-        return NSToolbarIdentifierDeckAddCardOptionsTypeRarity;
+        return NSToolbarIdentifierDeckAddCardOptionTypeRarity;
     } else if ([type isEqualToString:BlizzardHSAPIOptionTypeType]) {
-        return NSToolbarIdentifierDeckAddCardOptionsTypeType;
+        return NSToolbarIdentifierDeckAddCardOptionTypeType;
     } else if ([type isEqualToString:BlizzardHSAPIOptionTypeMinionType]) {
-        return NSToolbarIdentifierDeckAddCardOptionsTypeMinionType;
+        return NSToolbarIdentifierDeckAddCardOptionTypeMinionType;
     } else if ([type isEqualToString:BlizzardHSAPIOptionTypeSpellSchool]) {
-        return NSToolbarIdentifierDeckAddCardOptionsTypeSpellSchool;
+        return NSToolbarIdentifierDeckAddCardOptionTypeSpellSchool;
     } else if ([type isEqualToString:BlizzardHSAPIOptionTypeKeyword]) {
-        return NSToolbarIdentifierDeckAddCardOptionsTypeKeyword;
+        return NSToolbarIdentifierDeckAddCardOptionTypeKeyword;
     } else if ([type isEqualToString:BlizzardHSAPIOptionTypeTextFilter]) {
-        return NSToolbarIdentifierDeckAddCardOptionsTypeTextFilter;
+        return NSToolbarIdentifierDeckAddCardOptionTypeTextFilter;
     } else if ([type isEqualToString:BlizzardHSAPIOptionTypeGameMode]) {
-        return NSToolbarIdentifierDeckAddCardOptionsTypeGameMode;
+        return NSToolbarIdentifierDeckAddCardOptionTypeGameMode;
     } else if ([type isEqualToString:BlizzardHSAPIOptionTypeSort]) {
-        return NSToolbarIdentifierDeckAddCardOptionsTypeSort;
+        return NSToolbarIdentifierDeckAddCardOptionTypeSort;
     } else {
         return @"";
     }
 }
 
-BlizzardHSAPIOptionType BlizzardHSAPIOptionTypeFromNSToolbarIdentifierDeckAddCardOptionsType(NSToolbarIdentifier itemIdentifier) {
-    if ([itemIdentifier isEqualToString:NSToolbarIdentifierDeckAddCardOptionsTypeTextFilter]) {
+BlizzardHSAPIOptionType BlizzardHSAPIOptionTypeFromNSToolbarIdentifierDeckAddCardOptionType(NSToolbarIdentifier itemIdentifier) {
+    if ([itemIdentifier isEqualToString:NSToolbarIdentifierDeckAddCardOptionTypeTextFilter]) {
         return BlizzardHSAPIOptionTypeTextFilter;
-    } else if ([itemIdentifier isEqualToString:NSToolbarIdentifierDeckAddCardOptionsTypeSet]) {
+    } else if ([itemIdentifier isEqualToString:NSToolbarIdentifierDeckAddCardOptionTypeSet]) {
         return BlizzardHSAPIOptionTypeSet;
-    } else if ([itemIdentifier isEqualToString:NSToolbarIdentifierDeckAddCardOptionsTypeClass]) {
+    } else if ([itemIdentifier isEqualToString:NSToolbarIdentifierDeckAddCardOptionTypeClass]) {
         return BlizzardHSAPIOptionTypeClass;
-    } else if ([itemIdentifier isEqualToString:NSToolbarIdentifierDeckAddCardOptionsTypeManaCost]) {
+    } else if ([itemIdentifier isEqualToString:NSToolbarIdentifierDeckAddCardOptionTypeManaCost]) {
         return BlizzardHSAPIOptionTypeManaCost;
-    } else if ([itemIdentifier isEqualToString:NSToolbarIdentifierDeckAddCardOptionsTypeAttack]) {
+    } else if ([itemIdentifier isEqualToString:NSToolbarIdentifierDeckAddCardOptionTypeAttack]) {
         return BlizzardHSAPIOptionTypeAttack;
-    } else if ([itemIdentifier isEqualToString:NSToolbarIdentifierDeckAddCardOptionsTypeHealth]) {
+    } else if ([itemIdentifier isEqualToString:NSToolbarIdentifierDeckAddCardOptionTypeHealth]) {
         return BlizzardHSAPIOptionTypeHealth;
-    } else if ([itemIdentifier isEqualToString:NSToolbarIdentifierDeckAddCardOptionsTypeCollecticle]) {
+    } else if ([itemIdentifier isEqualToString:NSToolbarIdentifierDeckAddCardOptionTypeCollecticle]) {
         return BlizzardHSAPIOptionTypeCollectible;
-    } else if ([itemIdentifier isEqualToString:NSToolbarIdentifierDeckAddCardOptionsTypeRarity]) {
+    } else if ([itemIdentifier isEqualToString:NSToolbarIdentifierDeckAddCardOptionTypeRarity]) {
         return BlizzardHSAPIOptionTypeRarity;
-    } else if ([itemIdentifier isEqualToString:NSToolbarIdentifierDeckAddCardOptionsTypeType]) {
+    } else if ([itemIdentifier isEqualToString:NSToolbarIdentifierDeckAddCardOptionTypeType]) {
         return BlizzardHSAPIOptionTypeType;
-    } else if ([itemIdentifier isEqualToString:NSToolbarIdentifierDeckAddCardOptionsTypeMinionType]) {
+    } else if ([itemIdentifier isEqualToString:NSToolbarIdentifierDeckAddCardOptionTypeMinionType]) {
         return BlizzardHSAPIOptionTypeMinionType;
-    } else if ([itemIdentifier isEqualToString:NSToolbarIdentifierDeckAddCardOptionsTypeSpellSchool]) {
+    } else if ([itemIdentifier isEqualToString:NSToolbarIdentifierDeckAddCardOptionTypeSpellSchool]) {
         return BlizzardHSAPIOptionTypeSpellSchool;
-    } else if ([itemIdentifier isEqualToString:NSToolbarIdentifierDeckAddCardOptionsTypeKeyword]) {
+    } else if ([itemIdentifier isEqualToString:NSToolbarIdentifierDeckAddCardOptionTypeKeyword]) {
         return BlizzardHSAPIOptionTypeKeyword;
-    } else if ([itemIdentifier isEqualToString:NSToolbarIdentifierDeckAddCardOptionsTypeGameMode]) {
+    } else if ([itemIdentifier isEqualToString:NSToolbarIdentifierDeckAddCardOptionTypeGameMode]) {
         return BlizzardHSAPIOptionTypeGameMode;
-    } else if ([itemIdentifier isEqualToString:NSToolbarIdentifierDeckAddCardOptionsTypeSort]) {
+    } else if ([itemIdentifier isEqualToString:NSToolbarIdentifierDeckAddCardOptionTypeSort]) {
         return BlizzardHSAPIOptionTypeSort;
     } else {
         return @"";

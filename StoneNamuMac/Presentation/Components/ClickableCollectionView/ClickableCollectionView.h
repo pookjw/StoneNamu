@@ -10,7 +10,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ClickableCollectionView : NSCollectionView
-@property (copy, readonly) NSIndexPath * _Nullable clickedIndexPath;
+@property (readonly, copy) NSIndexPath * _Nullable clickedIndexPath;
 @property (readonly, nonatomic) NSSet<NSIndexPath *> *interactingIndexPaths;
 @end
 

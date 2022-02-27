@@ -19,14 +19,14 @@ static NSString * const CardOptionsMenuFactoryStorableMenuItemAllowsMultipleSele
 
 @interface CardOptionsMenuFactory : NSObject
 @property (readonly) SEL keyMenuItemTriggeredSelector;
-@property (copy, readonly) NSDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSNumber *> *> * _Nullable slugsAndIds;
-@property (copy, readonly) NSDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSString *> *> * _Nullable slugsAndNames;
+@property (readonly, copy) NSDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSNumber *> *> * _Nullable slugsAndIds;
+@property (readonly, copy) NSDictionary<BlizzardHSAPIOptionType, NSDictionary<NSString *, NSString *> *> * _Nullable slugsAndNames;
 - (BOOL)hasEmptyItemAtOptionType:(BlizzardHSAPIOptionType)optionType;
 - (BOOL)supportsMultipleSelectionFromOptionType:(BlizzardHSAPIOptionType)optionType;
 - (NSString * _Nullable)titleForOptionType:(BlizzardHSAPIOptionType)optionType;
 - (NSImage * _Nullable)imageForCardOptionTypeWithValues:(NSSet<NSString *> * _Nullable)values optionType:(BlizzardHSAPIOptionType)optionType;
 - (NSMenu *)menuForOptionType:(BlizzardHSAPIOptionType)optionType target:(id<NSSearchFieldDelegate>)target;
-- (void)updateItems;
+- (void)load;
 @end
 
 NS_ASSUME_NONNULL_END

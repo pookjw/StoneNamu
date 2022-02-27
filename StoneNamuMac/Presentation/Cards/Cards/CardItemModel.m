@@ -9,12 +9,15 @@
 
 @implementation CardItemModel
 
-- (instancetype)initWithCard:(HSCard *)hsCard {
+- (instancetype)initWithHSCard:(HSCard *)hsCard hsCardGameModeSlugType:(HSCardGameModeSlugType)hsCardGameModeSlugType {
     self = [self init];
     
     if (self) {
         [self->_hsCard release];
         self->_hsCard = [hsCard copy];
+        
+        [self->_hsCardGameModeSlugType release];
+        self->_hsCardGameModeSlugType = [hsCardGameModeSlugType copy];
     }
     
     return self;
@@ -22,6 +25,7 @@
 
 - (void)dealloc {
     [_hsCard release];
+    [_hsCardGameModeSlugType release];
     [super dealloc];
 }
 
@@ -32,11 +36,14 @@
     
     CardItemModel *toCompare = (CardItemModel *)object;
     
-    return [self.hsCard isEqual:toCompare.hsCard];
+    BOOL hsCard = compareNullableValues(self.hsCard, toCompare.hsCard, @selector(isEqual:));
+    BOOL hsCardGameModeSlugType = compareNullableValues(self.hsCardGameModeSlugType, toCompare.hsCardGameModeSlugType, @selector(isEqualToString:));
+    
+    return hsCard && hsCardGameModeSlugType;
 }
 
 - (NSUInteger)hash {
-    return self.hsCard.hash;
+    return self.hsCard.hash ^ self.hsCardGameModeSlugType.hash;
 }
 
 @end

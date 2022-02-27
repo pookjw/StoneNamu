@@ -53,15 +53,17 @@
         //
         
         MainListItemModel *cardsItemModel = [[MainListItemModel alloc] initWithType:MainListItemModelTypeCards];
+        MainListItemModel *battlegroundsItemModel = [[MainListItemModel alloc] initWithType:MainListItemModelTypeBattlegrounds];
         MainListItemModel *decksItemModel = [[MainListItemModel alloc] initWithType:MainListItemModelTypeDecks];
         
-        [snapshot appendItemsWithIdentifiers:@[cardsItemModel] intoSectionWithIdentifier:cardsSectionModel];
+        [snapshot appendItemsWithIdentifiers:@[cardsItemModel, battlegroundsItemModel] intoSectionWithIdentifier:cardsSectionModel];
         [snapshot appendItemsWithIdentifiers:@[decksItemModel] intoSectionWithIdentifier:decksSectionModel];
         
         [cardsSectionModel release];
         [decksSectionModel release];
         
         [cardsItemModel release];
+        [battlegroundsItemModel release];
         [decksItemModel release];
         
         [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:NO completion:^{}];

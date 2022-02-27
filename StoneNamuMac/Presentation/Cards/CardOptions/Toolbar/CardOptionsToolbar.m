@@ -54,7 +54,7 @@
         [self configureToolbarItems];
         [self updateItemsWithOptions:options];
         [self bind];
-        [self.factory updateItems];
+        [self.factory load];
     }
     
     return self;
@@ -208,7 +208,7 @@
         if (![item isKindOfClass:[DynamicMenuToolbarItem class]]) return;
         
         NSToolbarItemIdentifier itemIdentifier = item.itemIdentifier;
-        BlizzardHSAPIOptionType optionType = BlizzardHSAPIOptionTypeFromNSToolbarIdentifierDeckAddCardOptionType(itemIdentifier);
+        BlizzardHSAPIOptionType optionType = BlizzardHSAPIOptionTypeFromNSToolbarIdentifierCardOptionType(itemIdentifier);
         NSSet<NSString *> * _Nullable values = options[optionType];
         
         //
@@ -235,7 +235,7 @@
 
 - (void)updateStateOfMenuToolbarItem:(DynamicMenuToolbarItem *)menuToolbarItem {
     NSToolbarItemIdentifier itemIdentifier = menuToolbarItem.itemIdentifier;
-    BlizzardHSAPIOptionType optionType = BlizzardHSAPIOptionTypeFromNSToolbarIdentifierDeckAddCardOptionType(itemIdentifier);
+    BlizzardHSAPIOptionType optionType = BlizzardHSAPIOptionTypeFromNSToolbarIdentifierCardOptionType(itemIdentifier);
     
     NSArray<NSString *> * _Nullable values = self.options[optionType].allObjects;
     BOOL shouldSelectEmptyValue = ((values == nil) || (values.count == 0));
@@ -276,13 +276,13 @@
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
         [self.allOptionsItems enumerateObjectsUsingBlock:^(DynamicMenuToolbarItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             NSUserInterfaceItemIdentifier itemIdentifier = obj.itemIdentifier;
-            BlizzardHSAPIOptionType optionType = BlizzardHSAPIOptionTypeFromNSToolbarIdentifierDeckAddCardOptionType(itemIdentifier);
+            BlizzardHSAPIOptionType optionType = BlizzardHSAPIOptionTypeFromNSToolbarIdentifierCardOptionType(itemIdentifier);
             
             obj.menu = [self.factory menuForOptionType:optionType target:self];
             obj.title = [self.factory titleForOptionType:optionType];
-            
-            [self validateVisibleItems];
         }];
+        
+        [self updateItemsWithOptions:self.options];
     }];
 }
 
@@ -291,7 +291,7 @@
     
     [self.allOptionsItems enumerateObjectsUsingBlock:^(DynamicMenuToolbarItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         NSToolbarItemIdentifier itemIdentifier = obj.itemIdentifier;
-        BlizzardHSAPIOptionType tmp = BlizzardHSAPIOptionTypeFromNSToolbarIdentifierDeckAddCardOptionType(itemIdentifier);
+        BlizzardHSAPIOptionType tmp = BlizzardHSAPIOptionTypeFromNSToolbarIdentifierCardOptionType(itemIdentifier);
         
         if ([optionType isEqualToString:tmp]) {
             result = obj;

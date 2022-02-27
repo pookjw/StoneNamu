@@ -25,6 +25,12 @@
     self = [super init];
     
     if (self) {
+        [self->_slugsAndIds release];
+        self->_slugsAndIds = nil;
+        
+        [self->_slugsAndNames release];
+        self->_slugsAndNames = nil;
+        
         HSMetaDataUseCaseImpl *hsMetaDataUseCase = [HSMetaDataUseCaseImpl new];
         self.hsMetaDataUseCase = hsMetaDataUseCase;
         [hsMetaDataUseCase release];
@@ -33,12 +39,6 @@
         queue.qualityOfService = NSQualityOfServiceUserInitiated;
         self.queue = queue;
         [queue release];
-        
-        [self->_slugsAndIds release];
-        self->_slugsAndIds = nil;
-        
-        [self->_slugsAndNames release];
-        self->_slugsAndNames = nil;
         
         [self bind];
     }
@@ -515,7 +515,7 @@
     return [item autorelease];
 }
 
-- (void)updateItems {
+- (void)load {
     [self.queue addBarrierBlock:^{
         SemaphoreCondition *semaphore = [[SemaphoreCondition alloc] initWithValue:0];
         HSMetaData * _Nullable __block hsMetaData = nil;
@@ -569,7 +569,7 @@
 }
 
 - (void)hsMetaDataClearCacheReceived:(NSNotification *)notification {
-    [self updateItems];
+    [self load];
 }
 
 - (void)postShouldUpdateItems {

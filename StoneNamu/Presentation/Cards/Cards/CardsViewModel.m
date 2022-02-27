@@ -217,7 +217,7 @@
         NSMutableArray<CardItemModel *> *itemModels = [NSMutableArray<CardItemModel *> new];
         
         for (HSCard *card in cards) {
-            CardItemModel *itemModel = [[CardItemModel alloc] initWithCard:card];
+            CardItemModel *itemModel = [[CardItemModel alloc] initWithHSCard:card hsCardGameModeSlugType:self.hsCardGameModeSlugType];
             [itemModels addObject:itemModel];
             [itemModel release];
         }

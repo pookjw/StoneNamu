@@ -94,11 +94,11 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
     
     [queue addOperationWithBlock:^{
         if (options != nil) {
-            [coder encodeObject:options forKey:@"options"];
+            [coder encodeObject:options forKey:[NSString stringWithFormat:@"%@_options", NSStringFromClass(self.class)]];
         }
         
         if (uri != nil) {
-            [coder encodeObject:uri forKey:@"URIRepresentation"];
+            [coder encodeObject:uri forKey:[NSString stringWithFormat:@"%@_URIRepresentation", NSStringFromClass(self.class)]];
         }
     }];
 }
@@ -106,9 +106,9 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
 - (void)restoreStateWithCoder:(NSCoder *)coder {
     [super restoreStateWithCoder:coder];
     
-    NSDictionary<NSString *, NSSet<NSString *> *> *options = [coder decodeObjectOfClasses:[NSSet setWithArray:@[NSDictionary.class, NSSet.class, NSString.class]] forKey:@"options"];
+    NSDictionary<NSString *, NSSet<NSString *> *> *options = [coder decodeObjectOfClasses:[NSSet setWithArray:@[NSDictionary.class, NSSet.class, NSString.class]] forKey:[NSString stringWithFormat:@"%@_options", NSStringFromClass(self.class)]];
     
-    NSURL * _Nullable URIRepresentation = [coder decodeObjectOfClass:[NSURL class] forKey:@"URIRepresentation"];
+    NSURL * _Nullable URIRepresentation = [coder decodeObjectOfClass:[NSURL class] forKey:[NSString stringWithFormat:@"%@_URIRepresentation", NSStringFromClass(self.class)]];
     
     if (URIRepresentation != nil) {
         [self.viewModel loadLocalDeckFromURIRepresentation:URIRepresentation completion:^(BOOL result) {
@@ -352,7 +352,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
 
 - (void)windowDidBecomeMainReceived:(NSNotification *)notification {
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
-        [self setDeckAddCardOptionsMenuToWindow];
+        [self setDeckAddCardOptionsMenuToApp];
         [self setDeckAddCardOptionsToolbarToWindow];
         [self setDeckAddCardOptionsTouchBarToWindow];
     }];
@@ -391,29 +391,28 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
     [deckAddCardOptionsTouchBar release];
 }
 
-- (void)setDeckAddCardOptionsMenuToWindow {
+- (void)setDeckAddCardOptionsMenuToApp {
     NSApp.mainMenu = self.deckAddCardOptionsMenu;
 }
 
-- (void)clearCardsMenuFromWindow {
-    self.view.window.menu = nil;
+- (void)setDeckAddCardOptionsToolbarToWindow {
+    self.view.window.toolbar = self.deckAddCardOptionsToolbar;
 }
 
 - (void)setDeckAddCardOptionsTouchBarToWindow {
     self.view.window.touchBar = self.deckAddCardOptionsTouchBar;
 }
 
-- (void)clearCardOptionsTouchBarFromWindow {
-    self.view.window.touchBar = nil;
+- (void)clearMenuFromApp {
+    NSApp.mainMenu = nil;
 }
 
-- (void)setDeckAddCardOptionsToolbarToWindow {
-    self.view.window.toolbar = self.deckAddCardOptionsToolbar;
-    [self.deckAddCardOptionsToolbar validateVisibleItems];
-}
-
-- (void)clearCardOptionsToolbarFromWindow {
+- (void)clearToolbarFromWindow {
     self.view.window.toolbar = nil;
+}
+
+- (void)clearTouchBarFromWindow {
+    self.view.window.touchBar = nil;
 }
 
 - (void)updateOptionsUsingLocalDeck:(LocalDeck *)localDeck {

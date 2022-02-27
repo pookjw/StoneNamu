@@ -286,7 +286,7 @@
             for (HSCard *card in cards) {
                 NSUInteger count = [localDeckCards countOfObject:card];
                 BOOL isLegendary = [legendaryRarity.rarityId isEqualToNumber:card.rarityId];
-                DeckAddCardItemModel *itemModel = [[DeckAddCardItemModel alloc] initWithCard:card count:count isLegendary:isLegendary];
+                DeckAddCardItemModel *itemModel = [[DeckAddCardItemModel alloc] initWithHSCard:card count:count isLegendary:isLegendary];
                 [itemModels addObject:itemModel];
                 [itemModel release];
             }

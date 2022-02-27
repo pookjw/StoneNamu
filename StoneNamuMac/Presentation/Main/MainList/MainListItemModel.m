@@ -38,6 +38,8 @@
     switch (self.type) {
         case MainListItemModelTypeCards:
             return [NSImage imageWithSystemSymbolName:@"text.book.closed" accessibilityDescription:nil];
+        case MainListItemModelTypeBattlegrounds:
+            return [NSImage imageWithSystemSymbolName:@"flag.and.flag.filled.crossed" accessibilityDescription:nil];
         case MainListItemModelTypeDecks:
             return [NSImage imageWithSystemSymbolName:@"books.vertical" accessibilityDescription:nil];
         default:
@@ -49,6 +51,8 @@
     switch (self.type) {
         case MainListItemModelTypeCards:
             return [ResourcesService localizationForKey:LocalizableKeyCards];
+        case MainListItemModelTypeBattlegrounds:
+            return [ResourcesService localizationForKey:LocalizableKeyBattlegrounds];
         case MainListItemModelTypeDecks:
             return [ResourcesService localizationForKey:LocalizableKeyDecks];
         default:

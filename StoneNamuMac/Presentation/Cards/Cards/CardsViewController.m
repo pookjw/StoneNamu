@@ -13,27 +13,47 @@
 #import "CardOptionsMenu.h"
 #import "CardOptionsToolbar.h"
 #import "CardOptionsTouchBar.h"
+#import "BattlegroundsCardOptionsMenu.h"
+#import "BattlegroundsCardOptionsToolbar.h"
+#import "BattlegroundsCardOptionsTouchBar.h"
 #import "WindowsService.h"
 #import "HSCardPromiseProvider.h"
 #import "ClickableCollectionView.h"
 #import "PhotosService.h"
 #import "NSPasteboardNameStoneNamuPasteboard.h"
+#import "NSViewController+loadViewIfNeeded.h"
 #import <StoneNamuCore/StoneNamuCore.h>
 #import <StoneNamuResources/StoneNamuResources.h>
 
 static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardsViewController = @"NSUserInterfaceItemIdentifierCardsViewController";
 
-@interface CardsViewController () <NSCollectionViewDelegate, NSMenuDelegate, CardOptionsMenuDelegate, CardOptionsToolbarDelegate, CardOptionsTouchBarDelegate, CardCollectionViewItemDelegate>
+@interface CardsViewController () <NSCollectionViewDelegate, NSMenuDelegate, CardOptionsMenuDelegate, CardOptionsToolbarDelegate, CardOptionsTouchBarDelegate, BattlegroundsCardOptionsMenuDelegate, BattlegroundsCardOptionsToolbarDelegate, BattlegroundsCardOptionsTouchBarDelegate, CardCollectionViewItemDelegate>
 @property (retain) NSScrollView *scrollView;
 @property (retain) ClickableCollectionView *collectionView;
 @property (retain) NSMenu *collectionViewMenu;
 @property (retain) CardsViewModel *viewModel;
-@property (retain) CardOptionsMenu *cardOptionsMenu;
-@property (retain) CardOptionsToolbar *cardOptionsToolbar;
-@property (retain) CardOptionsTouchBar *cardOptionsTouchBar;
+@property (retain) CardOptionsMenu * _Nullable cardOptionsMenu;
+@property (retain) CardOptionsToolbar * _Nullable cardOptionsToolbar;
+@property (retain) CardOptionsTouchBar * _Nullable cardOptionsTouchBar;
+@property (retain) BattlegroundsCardOptionsMenu * _Nullable battlegroundsCardOptionsMenu;
+@property (retain) BattlegroundsCardOptionsToolbar * _Nullable battlegroundsCardOptionsToolbar;
+@property (retain) BattlegroundsCardOptionsTouchBar * _Nullable battlegroundsCardOptionsTouchBar;
 @end
 
 @implementation CardsViewController
+
+- (instancetype)initWithHSGameModeSlugType:(HSCardGameModeSlugType)hsCardGameModeSlugType {
+    self = [self init];
+    
+    if (self) {
+        [self loadViewIfNeeded];
+        self.viewModel.hsCardGameModeSlugType = hsCardGameModeSlugType;
+        [self configureOptions];
+        [self requestDataSourceWithOptions:nil reset:YES];
+    }
+    
+    return self;
+}
 
 - (void)dealloc {
     [self removeObserver:self forKeyPath:@"self.view.window"];
@@ -44,6 +64,9 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardsVie
     [_cardOptionsMenu release];
     [_cardOptionsToolbar release];
     [_cardOptionsTouchBar release];
+    [_battlegroundsCardOptionsMenu release];
+    [_battlegroundsCardOptionsToolbar release];
+    [_battlegroundsCardOptionsTouchBar release];
     [super dealloc];
 }
 
@@ -58,12 +81,8 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardsVie
     [self setAttributes];
     [self configureCollectionView];
     [self configureCollectionViewMenu];
-    [self configureCardOptionsMenu];
-    [self configureCardOptionsToolbar];
-    [self configureCardOptionsTouchBar];
     [self configureViewModel];
     [self bind];
-    [self requestDataSourceWithOptions:nil reset:YES];
 }
 
 - (NSTouchBar *)makeTouchBar {
@@ -74,16 +93,18 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardsVie
     [super encodeRestorableStateWithCoder:coder backgroundQueue:queue];
     
     NSDictionary<NSString *, NSSet<NSString *> *> *options = self.viewModel.options;
+    HSCardTypeSlugType _Nullable hsCardTypeSlugType = self.viewModel.hsCardGameModeSlugType;
     
     [queue addOperationWithBlock:^{
-        [coder encodeObject:options forKey:@"options"];
+        [coder encodeObject:options forKey:[NSString stringWithFormat:@"%@_%@_options", NSStringFromClass(self.class), hsCardTypeSlugType]];
     }];
 }
 
 - (void)restoreStateWithCoder:(NSCoder *)coder {
     [super restoreStateWithCoder:coder];
     
-    NSDictionary<NSString *, NSSet<NSString *> *> *options = [coder decodeObjectOfClasses:[NSSet setWithArray:@[NSDictionary.class, NSSet.class, NSString.class]] forKey:@"options"];
+    HSCardTypeSlugType _Nullable hsCardTypeSlugType = self.viewModel.hsCardGameModeSlugType;
+    NSDictionary<NSString *, NSSet<NSString *> *> *options = [coder decodeObjectOfClasses:[NSSet setWithArray:@[NSDictionary.class, NSSet.class, NSString.class]] forKey:[NSString stringWithFormat:@"%@_%@_options", NSStringFromClass(self.class), hsCardTypeSlugType]];
     [self requestDataSourceWithOptions:options reset:YES];
 }
 
@@ -112,6 +133,9 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardsVie
     [self.cardOptionsMenu updateItemsWithOptions:options];
     [self.cardOptionsToolbar updateItemsWithOptions:options];
     [self.cardOptionsTouchBar updateItemsWithOptions:options];
+    [self.battlegroundsCardOptionsMenu updateItemsWithOptions:options];
+    [self.battlegroundsCardOptionsToolbar updateItemsWithOptions:options];
+    [self.battlegroundsCardOptionsTouchBar updateItemsWithOptions:options];
 }
 
 - (BOOL)requestDataSourceWithOptions:(NSDictionary<NSString *, NSSet<NSString *> *> * _Nullable)options reset:(BOOL)reset {
@@ -296,9 +320,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardsVie
 - (void)windowDidBecomeMainReceived:(NSNotification *)notification {
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
         self.view.window.title = [ResourcesService localizationForKey:LocalizableKeyCards];
-        [self setCardsMenuToWindow];
-        [self setCardOptionsToolbarToWindow];
-        [self setCardOptionsTouchBarToWindow];
+        [self setOptions];
     }];
 }
 
@@ -328,12 +350,24 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardsVie
                                                                      itemProvider:^NSCollectionViewItem * _Nullable(NSCollectionView * _Nonnull collectionView, NSIndexPath * _Nonnull indexPath, CardItemModel * _Nonnull itemModel) {
         
         CardCollectionViewItem *item = (CardCollectionViewItem *)[collectionView makeItemWithIdentifier:NSUserInterfaceItemIdentifierCardCollectionViewItem forIndexPath:indexPath];
-        [item configureWithHSCard:itemModel.hsCard delegate:unretainedSelf];
+        [item configureWithHSCard:itemModel.hsCard hsCardGameModeSlugType:itemModel.hsCardGameModeSlugType delegate:unretainedSelf];
         
         return item;
     }];
     
     return [dataSource autorelease];
+}
+
+- (void)configureOptions {
+    if ([HSCardGameModeSlugTypeConstructed isEqualToString:self.viewModel.hsCardGameModeSlugType]) {
+        [self configureCardOptionsMenu];
+        [self configureCardOptionsToolbar];
+        [self configureCardOptionsTouchBar];
+    } else if ([HSCardGameModeSlugTypeBattlegrounds isEqualToString:self.viewModel.hsCardGameModeSlugType]) {
+        [self configureBattlegroundsCardOptionsMenu];
+        [self configureBattlegroundsCardOptionsToolbar];
+        [self configureBattlegroundsCardOptionsTouchBar];
+    }
 }
 
 - (void)configureCardOptionsMenu {
@@ -354,29 +388,70 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardsVie
     [cardOptionsTouchBar release];
 }
 
-- (void)setCardsMenuToWindow {
+- (void)configureBattlegroundsCardOptionsMenu {
+    BattlegroundsCardOptionsMenu *battlegroundsCardOptionsMenu = [[BattlegroundsCardOptionsMenu alloc] initWithOptions:self.viewModel.options battlegroundsCardOptionsMenuDelegate:self];
+    self.battlegroundsCardOptionsMenu = battlegroundsCardOptionsMenu;
+    [battlegroundsCardOptionsMenu release];
+}
+
+- (void)configureBattlegroundsCardOptionsToolbar {
+    BattlegroundsCardOptionsToolbar *battlegroundsCardOptionsToolbar = [[BattlegroundsCardOptionsToolbar alloc] initWithIdentifier:NSToolbarIdentifierBattlegroundsCardOptionsToolbar options:self.viewModel.options battlegroundsCardOptionsToolbarDelegate:self];
+    self.battlegroundsCardOptionsToolbar = battlegroundsCardOptionsToolbar;
+    [battlegroundsCardOptionsToolbar release];
+}
+
+- (void)configureBattlegroundsCardOptionsTouchBar {
+    BattlegroundsCardOptionsTouchBar *battlegroundsCardOptionsTouchBar = [[BattlegroundsCardOptionsTouchBar alloc] initWithOptions:self.viewModel.options battlegroundsCardOptionsTouchBarDelegate:self];
+    self.battlegroundsCardOptionsTouchBar = battlegroundsCardOptionsTouchBar;
+    [battlegroundsCardOptionsTouchBar release];
+}
+
+- (void)setOptions {
+    if ([HSCardGameModeSlugTypeConstructed isEqualToString:self.viewModel.hsCardGameModeSlugType]) {
+        [self setCardOptionsMenuToApp];
+        [self setCardOptionsToolbarToWindow];
+        [self setCardOptionsTouchBarToWindow];
+    } else if ([HSCardGameModeSlugTypeBattlegrounds isEqualToString:self.viewModel.hsCardGameModeSlugType]) {
+        [self setBattlegroundsCardOptionsMenuToWindow];
+        [self setBattlegroundsCardOptionsToolbarToWindow];
+        [self setBattlegroundsCardOptionsTouchBarToWindow];
+    }
+}
+
+- (void)setCardOptionsMenuToApp {
     NSApp.mainMenu = self.cardOptionsMenu;
 }
 
-- (void)clearCardsMenuFromWindow {
-    self.view.window.menu = nil;
+- (void)setCardOptionsToolbarToWindow {
+    self.view.window.toolbar = self.cardOptionsToolbar;
 }
 
 - (void)setCardOptionsTouchBarToWindow {
     self.view.window.touchBar = self.cardOptionsTouchBar;
 }
 
-- (void)clearCardOptionsTouchBarFromWindow {
-    self.view.window.touchBar = nil;
+- (void)setBattlegroundsCardOptionsMenuToWindow {
+    NSApp.mainMenu = self.battlegroundsCardOptionsMenu;
 }
 
-- (void)setCardOptionsToolbarToWindow {
-    self.view.window.toolbar = self.cardOptionsToolbar;
-    [self.cardOptionsToolbar validateVisibleItems];
+- (void)setBattlegroundsCardOptionsToolbarToWindow {
+    self.view.window.toolbar = self.battlegroundsCardOptionsToolbar;
 }
 
-- (void)clearCardOptionsToolbarFromWindow {
+- (void)setBattlegroundsCardOptionsTouchBarToWindow {
+    self.view.window.touchBar = self.battlegroundsCardOptionsTouchBar;
+}
+
+- (void)clearMenuFromApp {
+    NSApp.mainMenu = nil;
+}
+
+- (void)clearToolbarFromWindow {
     self.view.window.toolbar = nil;
+}
+
+- (void)clearTouchBarFromWindow {
+    self.view.window.touchBar = nil;
 }
 
 - (void)presentCardDetailsViewControllerWithIndexPaths:(NSSet<NSIndexPath *> *)indexPaths {
@@ -498,6 +573,28 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardsVie
 #pragma mark - CardOptionsTouchBarDelegate
 
 - (void)cardOptionsTouchBar:(CardOptionsTouchBar *)touchBar changedOption:(NSDictionary<NSString *,NSSet<NSString *> *> *)options {
+    [self requestDataSourceWithOptions:options reset:YES];
+}
+
+#pragma mark - BattlegroundsCardOptionsMenuDelegate
+
+- (void)battlegroundsCardOptionsMenu:(BattlegroundsCardOptionsMenu *)menu changedOption:(NSDictionary<NSString *, NSSet<NSString *> *> *)options {
+    [self requestDataSourceWithOptions:options reset:YES];
+}
+
+- (void)battlegroundsCardOptionsMenu:(BattlegroundsCardOptionsMenu *)menu defaultOptionsAreNeedWithSender:(NSMenuItem *)sender {
+    [self requestDataSourceWithOptions:nil reset:YES];
+}
+
+#pragma mark - BattlegroundsCardOptionsToolbarDelegate
+
+- (void)battlegroundsCardOptionsToolbar:(BattlegroundsCardOptionsToolbar *)toolbar changedOption:(NSDictionary<NSString *, NSSet<NSString *> *> *)options {
+    [self requestDataSourceWithOptions:options reset:YES];
+}
+
+#pragma mark - BattlegroundsCardOptionsTouchBarDelegate
+
+- (void)battlegroundsCardOptionsTouchBar:(BattlegroundsCardOptionsTouchBar *)touchBar changedOption:(NSDictionary<NSString *, NSSet<NSString *> *> *)options {
     [self requestDataSourceWithOptions:options reset:YES];
 }
 

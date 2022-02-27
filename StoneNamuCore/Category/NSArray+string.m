@@ -26,7 +26,7 @@
 }
 
 - (NSUInteger)indexOfString:(NSString *)string {
-    NSUInteger __block index = 0;
+    NSInteger __block index = 0;
     
     [self enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([obj isEqualToString:string]) {

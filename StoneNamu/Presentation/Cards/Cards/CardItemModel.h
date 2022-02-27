@@ -12,9 +12,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CardItemModel : NSObject
 @property (readonly, copy) HSCard *hsCard;
+@property (readonly, copy) HSCardGameModeSlugType hsCardGameModeSlugType;
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
-- (instancetype)initWithCard:(HSCard *)hsCard;
+- (instancetype)initWithHSCard:(HSCard *)hsCard hsCardGameModeSlugType:(HSCardGameModeSlugType)hsCardGameModeSlugType;
 @end
 
 NS_ASSUME_NONNULL_END

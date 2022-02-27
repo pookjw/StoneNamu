@@ -22,6 +22,7 @@ static NSNotificationName const NSNotificationNameCardsViewModelStartedLoadingDa
 static NSNotificationName const NSNotificationNameCardsViewModelEndedLoadingDataSource = @"NSNotificationNameCardsViewModelEndedLoadingDataSource";
 
 @interface CardsViewModel : NSObject
+@property (copy) HSCardGameModeSlugType _Nullable hsCardGameModeSlugType;
 @property (readonly, retain) CardsDataSource *dataSource;
 @property (readonly, copy) NSDictionary<NSString *, NSSet<NSString *> *> * _Nullable options;
 + (instancetype)new NS_UNAVAILABLE;

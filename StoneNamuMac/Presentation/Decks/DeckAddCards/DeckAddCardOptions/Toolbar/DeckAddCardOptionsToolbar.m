@@ -9,7 +9,7 @@
 #import "StorableMenuItem.h"
 #import "StorableSearchField.h"
 #import "DynamicMenuToolbarItem.h"
-#import "NSToolbarIdentifierCardOptionType+BlizzardHSAPIOptionType.h"
+#import "NSToolbarIdentifierDeckAddCardOptionType+BlizzardHSAPIOptionType.h"
 #import "DeckAddCardOptionsMenuFactory.h"
 #import <StoneNamuResources/StoneNamuResources.h>
 
@@ -54,7 +54,7 @@
         [self configureToolbarItems];
         [self updateItemsWithOptions:options];
         [self bind];
-        [self.factory updateItems];
+        [self.factory load];
     }
     
     return self;
@@ -88,61 +88,61 @@
 }
 
 - (void)configureToolbarItems {
-    DynamicMenuToolbarItem *optionTypeTextFilterItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionTypeTextFilter];
+    DynamicMenuToolbarItem *optionTypeTextFilterItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierDeckAddCardOptionTypeTextFilter];
     optionTypeTextFilterItem.toolTip = [ResourcesService localizationForKey:LocalizableKeyCardTextFilterTooltipDescription];
-    [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionTypeTextFilter atIndex:0];
+    [self insertItemWithItemIdentifier:NSToolbarIdentifierDeckAddCardOptionTypeTextFilter atIndex:0];
     
-    DynamicMenuToolbarItem *optionTypeSetItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionTypeSet];
+    DynamicMenuToolbarItem *optionTypeSetItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierDeckAddCardOptionTypeSet];
     optionTypeSetItem.toolTip = [ResourcesService localizationForKey:LocalizableKeyCardSetTooltipDescription];
-    [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionTypeSet atIndex:1];
+    [self insertItemWithItemIdentifier:NSToolbarIdentifierDeckAddCardOptionTypeSet atIndex:1];
     
-    DynamicMenuToolbarItem *optionTypeClassItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionTypeClass];
+    DynamicMenuToolbarItem *optionTypeClassItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierDeckAddCardOptionTypeClass];
     optionTypeClassItem.toolTip = [ResourcesService localizationForKey:LocalizableKeyCardClassTooltipDescription];
-    [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionTypeClass atIndex:2];
+    [self insertItemWithItemIdentifier:NSToolbarIdentifierDeckAddCardOptionTypeClass atIndex:2];
     
-    DynamicMenuToolbarItem *optionTypeManaCostItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionTypeManaCost];
+    DynamicMenuToolbarItem *optionTypeManaCostItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierDeckAddCardOptionTypeManaCost];
     optionTypeManaCostItem.toolTip = [ResourcesService localizationForKey:LocalizableKeyCardManaCostTooltipDescription];
-    [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionTypeManaCost atIndex:3];
+    [self insertItemWithItemIdentifier:NSToolbarIdentifierDeckAddCardOptionTypeManaCost atIndex:3];
     
-    DynamicMenuToolbarItem *optionTypeAttackItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionTypeAttack];
+    DynamicMenuToolbarItem *optionTypeAttackItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierDeckAddCardOptionTypeAttack];
     optionTypeAttackItem.toolTip = [ResourcesService localizationForKey:LocalizableKeyCardAttackTooltipDescription];
-    [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionTypeAttack atIndex:4];
+    [self insertItemWithItemIdentifier:NSToolbarIdentifierDeckAddCardOptionTypeAttack atIndex:4];
     
-    DynamicMenuToolbarItem *optionTypeHealthItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionTypeHealth];
+    DynamicMenuToolbarItem *optionTypeHealthItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierDeckAddCardOptionTypeHealth];
     optionTypeHealthItem.toolTip = [ResourcesService localizationForKey:LocalizableKeyCardHealthTooltipDescription];
-    [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionTypeHealth atIndex:5];
+    [self insertItemWithItemIdentifier:NSToolbarIdentifierDeckAddCardOptionTypeHealth atIndex:5];
     
-    DynamicMenuToolbarItem *optionTypeCollectibleItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionTypeCollecticle];
+    DynamicMenuToolbarItem *optionTypeCollectibleItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierDeckAddCardOptionTypeCollecticle];
     optionTypeCollectibleItem.toolTip = [ResourcesService localizationForKey:LocalizableKeyCardCollectibleTooltipDescription];
-    [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionTypeCollecticle atIndex:6];
+    [self insertItemWithItemIdentifier:NSToolbarIdentifierDeckAddCardOptionTypeCollecticle atIndex:6];
     
-    DynamicMenuToolbarItem *optionTypeRarityItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionTypeRarity];
+    DynamicMenuToolbarItem *optionTypeRarityItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierDeckAddCardOptionTypeRarity];
     optionTypeRarityItem.toolTip = [ResourcesService localizationForKey:LocalizableKeyCardRarityTooltipDescription];
-    [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionTypeRarity atIndex:7];
+    [self insertItemWithItemIdentifier:NSToolbarIdentifierDeckAddCardOptionTypeRarity atIndex:7];
     
-    DynamicMenuToolbarItem *optionTypeTypeItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionTypeType];
+    DynamicMenuToolbarItem *optionTypeTypeItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierDeckAddCardOptionTypeType];
     optionTypeTypeItem.toolTip = [ResourcesService localizationForKey:LocalizableKeyCardTypeTooltipDescription];
-    [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionTypeType atIndex:8];
+    [self insertItemWithItemIdentifier:NSToolbarIdentifierDeckAddCardOptionTypeType atIndex:8];
     
-    DynamicMenuToolbarItem *optionTypeMinionTypeItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionTypeMinionType];
+    DynamicMenuToolbarItem *optionTypeMinionTypeItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierDeckAddCardOptionTypeMinionType];
     optionTypeMinionTypeItem.toolTip = [ResourcesService localizationForKey:LocalizableKeyCardMinionTypeTooltipDescription];
-    [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionTypeMinionType atIndex:9];
+    [self insertItemWithItemIdentifier:NSToolbarIdentifierDeckAddCardOptionTypeMinionType atIndex:9];
     
-    DynamicMenuToolbarItem *optionTypeSpellSchoolItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionTypeSpellSchool];
+    DynamicMenuToolbarItem *optionTypeSpellSchoolItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierDeckAddCardOptionTypeSpellSchool];
     optionTypeSpellSchoolItem.toolTip = [ResourcesService localizationForKey:LocalizableKeyCardSpellSchoolTooltipDescription];
-    [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionTypeSpellSchool atIndex:10];
+    [self insertItemWithItemIdentifier:NSToolbarIdentifierDeckAddCardOptionTypeSpellSchool atIndex:10];
     
-    DynamicMenuToolbarItem *optionTypeKeyowrdItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionTypeKeyword];
+    DynamicMenuToolbarItem *optionTypeKeyowrdItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierDeckAddCardOptionTypeKeyword];
     optionTypeKeyowrdItem.toolTip = [ResourcesService localizationForKey:LocalizableKeyCardKeywordTooltipDescription];
-    [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionTypeKeyword atIndex:11];
+    [self insertItemWithItemIdentifier:NSToolbarIdentifierDeckAddCardOptionTypeKeyword atIndex:11];
     
-    DynamicMenuToolbarItem *optionTypeGameModeItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionTypeGameMode];
+    DynamicMenuToolbarItem *optionTypeGameModeItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierDeckAddCardOptionTypeGameMode];
     optionTypeGameModeItem.toolTip = [ResourcesService localizationForKey:LocalizableKeyCardGameModeTooltipDescription];
-    [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionTypeGameMode atIndex:12];
+    [self insertItemWithItemIdentifier:NSToolbarIdentifierDeckAddCardOptionTypeGameMode atIndex:12];
     
-    DynamicMenuToolbarItem *optionTypeSortItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierCardOptionTypeSort];
+    DynamicMenuToolbarItem *optionTypeSortItem = [[DynamicMenuToolbarItem alloc] initWithItemIdentifier:NSToolbarIdentifierDeckAddCardOptionTypeSort];
     optionTypeSortItem.toolTip = [ResourcesService localizationForKey:LocalizableKeyCardSortTooltipDescription];
-    [self insertItemWithItemIdentifier:NSToolbarIdentifierCardOptionTypeSort atIndex:13];
+    [self insertItemWithItemIdentifier:NSToolbarIdentifierDeckAddCardOptionTypeSort atIndex:13];
     
     //
     
@@ -284,9 +284,9 @@
             
             obj.menu = [self.factory menuForOptionType:optionType target:self];
             obj.title = [self.factory titleForOptionType:optionType];
-            
-            [self validateVisibleItems];
         }];
+        
+        [self updateItemsWithOptions:self.options];
     }];
 }
 
@@ -380,11 +380,11 @@
 }
 
 - (NSArray<NSToolbarItemIdentifier> *)toolbarDefaultItemIdentifiers:(NSToolbar *)toolbar {
-    return allNSToolbarIdentifierCardOptionTypes();
+    return allNSToolbarIdentifierDeckAddCardOptionTypes();
 }
 
 - (NSArray<NSToolbarItemIdentifier> *)toolbarAllowedItemIdentifiers:(NSToolbar *)toolbar {
-    return allNSToolbarIdentifierCardOptionTypes();
+    return allNSToolbarIdentifierDeckAddCardOptionTypes();
 }
 
 #pragma mark - NSSearchFieldDelegate

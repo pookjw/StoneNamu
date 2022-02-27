@@ -185,7 +185,7 @@
 - (void)windowDidBecomeMainReceived:(NSNotification *)notification {
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
         self.view.window.title = [ResourcesService localizationForKey:LocalizableKeyDecks];
-        [self setDecksMenuToWindow];
+        [self setDecksMenuToApp];
         [self setDecksToolbarToWindow];
         [self setDecksTouchBarToWindow];
     }];
@@ -250,27 +250,27 @@
     [decksTouchBar release];
 }
 
-- (void)setDecksMenuToWindow {
+- (void)setDecksMenuToApp {
     NSApp.mainMenu = self.decksMenu;
-}
-
-- (void)clearDecksMenuFromWindow {
-    self.view.window.menu = nil;
 }
 
 - (void)setDecksToolbarToWindow {
     self.view.window.toolbar = self.decksToolbar;
 }
 
-- (void)clearDecksToolbarFromWindow {
-    self.view.window.toolbar = nil;
-}
-
 - (void)setDecksTouchBarToWindow {
     self.view.window.touchBar = self.decksTouchBar;
 }
 
-- (void)clearDecksTouchBarFromWindow {
+- (void)clearMenuFromApp {
+    NSApp.mainMenu = nil;
+}
+
+- (void)clearToolbarFromWindow {
+    self.view.window.toolbar = nil;
+}
+
+- (void)clearTouchBarFromWindow {
     self.view.window.touchBar = nil;
 }
 

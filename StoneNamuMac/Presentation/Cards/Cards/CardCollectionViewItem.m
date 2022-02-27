@@ -29,12 +29,19 @@
     [self addGesture];
 }
 
-- (void)configureWithHSCard:(HSCard *)hsCard delegate:(nonnull id<CardCollectionViewItemDelegate>)delegate {
+- (void)configureWithHSCard:(HSCard *)hsCard hsCardGameModeSlugType:(HSCardGameModeSlugType)hsCardGameModeSlugType delegate:(nonnull id<CardCollectionViewItemDelegate>)delegate {
     self.hsCard = hsCard;
     self.delegte = delegate;
     
     self.hsCardPopoverDetailView.hsCard = hsCard;
-    [self.imageView setAsyncImageWithURL:hsCard.image indicator:YES];
+    
+    if ([HSCardGameModeSlugTypeConstructed isEqualToString:hsCardGameModeSlugType]) {
+        [self.imageView setAsyncImageWithURL:hsCard.image indicator:YES];
+    } else if ([HSCardGameModeSlugTypeBattlegrounds isEqualToString:hsCardGameModeSlugType]) {
+        [self.imageView setAsyncImageWithURL:hsCard.battlegroundsImage indicator:YES];
+    } else {
+        self.imageView.image = nil;
+    }
 }
 
 - (void)setAttributes {

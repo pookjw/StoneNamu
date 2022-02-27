@@ -175,7 +175,7 @@
         }
         CardItemModel *itemModel = (CardItemModel *)item;
         
-        CardContentConfiguration *configuration = [[CardContentConfiguration alloc] initWithHSCard:itemModel.hsCard hsCardGameModeSlugType:self.viewModel.hsCardGameModeSlugType];
+        CardContentConfiguration *configuration = [[CardContentConfiguration alloc] initWithHSCard:itemModel.hsCard hsCardGameModeSlugType:itemModel.hsCardGameModeSlugType];
         
         cell.contentConfiguration = configuration;
         [configuration release];

@@ -212,7 +212,7 @@
     
     NSURL * _Nullable battlegroundsImage;
     if (battlegrounds[@"image"]) {
-        battlegroundsImage = [[NSURL URLWithString:battlegrounds[@"image"]] copy];
+        battlegroundsImage = [NSURL URLWithString:battlegrounds[@"image"]];
     } else {
         battlegroundsImage = nil;
     }
@@ -221,7 +221,7 @@
     
     NSURL * _Nullable battlegroundsImageGold;
     if (battlegrounds[@"imageGold"]) {
-        battlegroundsImageGold = [[NSURL URLWithString:battlegrounds[@"imageGold"]] copy];
+        battlegroundsImageGold = [NSURL URLWithString:battlegrounds[@"imageGold"]];
     } else {
         battlegroundsImageGold = nil;
     }

@@ -105,6 +105,13 @@
 		4F29FD732722EAB700753E8D /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F29FD722722EAB700753E8D /* MainViewController.m */; };
 		4F2CFC0027CB648000A3BAE4 /* MainListTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2CFBFF27CB648000A3BAE4 /* MainListTableHeaderView.m */; };
 		4F2CFC0227CB649800A3BAE4 /* MainListTableHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F2CFC0127CB649700A3BAE4 /* MainListTableHeaderView.xib */; };
+		4F2CFC0A27CB863900A3BAE4 /* BattlegroundsCardOptionsMenuFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2CFC0927CB863900A3BAE4 /* BattlegroundsCardOptionsMenuFactory.m */; };
+		4F2CFC1027CB866100A3BAE4 /* BattlegroundsCardOptionsToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2CFC0F27CB866100A3BAE4 /* BattlegroundsCardOptionsToolbar.m */; };
+		4F2CFC1327CB866F00A3BAE4 /* BattlegroundsCardOptionsTouchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2CFC1227CB866F00A3BAE4 /* BattlegroundsCardOptionsTouchBar.m */; };
+		4F2CFC1927CB9B0E00A3BAE4 /* NSUserInterfaceItemIdentifierBattlegroundsCardOptionType+BlizzardHSAPIOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2CFC1827CB9B0E00A3BAE4 /* NSUserInterfaceItemIdentifierBattlegroundsCardOptionType+BlizzardHSAPIOption.m */; };
+		4F2CFC1C27CB9BEC00A3BAE4 /* NSToolbarIdentifierBattlegroundsCardOptionType+BlizzardHSAPIOptionType.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2CFC1B27CB9BEC00A3BAE4 /* NSToolbarIdentifierBattlegroundsCardOptionType+BlizzardHSAPIOptionType.m */; };
+		4F2CFC1E27CBC7A700A3BAE4 /* BattlegroundsCardOptionsMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2CFC1D27CBC7A700A3BAE4 /* BattlegroundsCardOptionsMenu.m */; };
+		4F2CFC2127CBCA6700A3BAE4 /* NSTouchBarItemIdentifierBattlegroundsCardOptionType+BlizzardHSAPIOptionType.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2CFC2027CBCA6700A3BAE4 /* NSTouchBarItemIdentifierBattlegroundsCardOptionType+BlizzardHSAPIOptionType.m */; };
 		4F34385026A36FBA001161FE /* StoneNamuCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F34384826A36FBA001161FE /* StoneNamuCore.framework */; };
 		4F34385826A36FBA001161FE /* StoneNamuCore.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F34384A26A36FBA001161FE /* StoneNamuCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4F34385B26A36FBA001161FE /* StoneNamuCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F34384826A36FBA001161FE /* StoneNamuCore.framework */; };
@@ -696,6 +703,23 @@
 		4F2CFBFE27CB648000A3BAE4 /* MainListTableHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainListTableHeaderView.h; sourceTree = "<group>"; };
 		4F2CFBFF27CB648000A3BAE4 /* MainListTableHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainListTableHeaderView.m; sourceTree = "<group>"; };
 		4F2CFC0127CB649700A3BAE4 /* MainListTableHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainListTableHeaderView.xib; sourceTree = "<group>"; };
+		4F2CFC0827CB863900A3BAE4 /* BattlegroundsCardOptionsMenuFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BattlegroundsCardOptionsMenuFactory.h; sourceTree = "<group>"; };
+		4F2CFC0927CB863900A3BAE4 /* BattlegroundsCardOptionsMenuFactory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BattlegroundsCardOptionsMenuFactory.m; sourceTree = "<group>"; };
+		4F2CFC0B27CB864B00A3BAE4 /* BattlegroundsCardOptionsMenu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BattlegroundsCardOptionsMenu.h; sourceTree = "<group>"; };
+		4F2CFC0E27CB866100A3BAE4 /* BattlegroundsCardOptionsToolbar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BattlegroundsCardOptionsToolbar.h; sourceTree = "<group>"; };
+		4F2CFC0F27CB866100A3BAE4 /* BattlegroundsCardOptionsToolbar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BattlegroundsCardOptionsToolbar.m; sourceTree = "<group>"; };
+		4F2CFC1127CB866F00A3BAE4 /* BattlegroundsCardOptionsTouchBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BattlegroundsCardOptionsTouchBar.h; sourceTree = "<group>"; };
+		4F2CFC1227CB866F00A3BAE4 /* BattlegroundsCardOptionsTouchBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BattlegroundsCardOptionsTouchBar.m; sourceTree = "<group>"; };
+		4F2CFC1427CB97C800A3BAE4 /* BattlegroundsCardOptionsMenuDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BattlegroundsCardOptionsMenuDelegate.h; sourceTree = "<group>"; };
+		4F2CFC1527CB97F100A3BAE4 /* BattlegroundsCardOptionsToolbarDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BattlegroundsCardOptionsToolbarDelegate.h; sourceTree = "<group>"; };
+		4F2CFC1627CB982400A3BAE4 /* BattlegroundsCardOptionsTouchBarDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BattlegroundsCardOptionsTouchBarDelegate.h; sourceTree = "<group>"; };
+		4F2CFC1727CB9B0E00A3BAE4 /* NSUserInterfaceItemIdentifierBattlegroundsCardOptionType+BlizzardHSAPIOption.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSUserInterfaceItemIdentifierBattlegroundsCardOptionType+BlizzardHSAPIOption.h"; sourceTree = "<group>"; };
+		4F2CFC1827CB9B0E00A3BAE4 /* NSUserInterfaceItemIdentifierBattlegroundsCardOptionType+BlizzardHSAPIOption.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSUserInterfaceItemIdentifierBattlegroundsCardOptionType+BlizzardHSAPIOption.m"; sourceTree = "<group>"; };
+		4F2CFC1A27CB9BEC00A3BAE4 /* NSToolbarIdentifierBattlegroundsCardOptionType+BlizzardHSAPIOptionType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSToolbarIdentifierBattlegroundsCardOptionType+BlizzardHSAPIOptionType.h"; sourceTree = "<group>"; };
+		4F2CFC1B27CB9BEC00A3BAE4 /* NSToolbarIdentifierBattlegroundsCardOptionType+BlizzardHSAPIOptionType.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSToolbarIdentifierBattlegroundsCardOptionType+BlizzardHSAPIOptionType.m"; sourceTree = "<group>"; };
+		4F2CFC1D27CBC7A700A3BAE4 /* BattlegroundsCardOptionsMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BattlegroundsCardOptionsMenu.m; sourceTree = "<group>"; };
+		4F2CFC1F27CBCA6700A3BAE4 /* NSTouchBarItemIdentifierBattlegroundsCardOptionType+BlizzardHSAPIOptionType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSTouchBarItemIdentifierBattlegroundsCardOptionType+BlizzardHSAPIOptionType.h"; sourceTree = "<group>"; };
+		4F2CFC2027CBCA6700A3BAE4 /* NSTouchBarItemIdentifierBattlegroundsCardOptionType+BlizzardHSAPIOptionType.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSTouchBarItemIdentifierBattlegroundsCardOptionType+BlizzardHSAPIOptionType.m"; sourceTree = "<group>"; };
 		4F34383726A36492001161FE /* BlizzardTokenAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlizzardTokenAPI.h; sourceTree = "<group>"; };
 		4F34383C26A36501001161FE /* BlizzardTokenAPIImpl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlizzardTokenAPIImpl.h; sourceTree = "<group>"; };
 		4F34383D26A36501001161FE /* BlizzardTokenAPIImpl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlizzardTokenAPIImpl.m; sourceTree = "<group>"; };
@@ -1665,6 +1689,62 @@
 				4F273FF327AE734D00F6D3B8 /* HSCardBackCategory.m */,
 			);
 			path = MetaData;
+			sourceTree = "<group>";
+		};
+		4F2CFC0327CB85BD00A3BAE4 /* BattlegroundsCardOptions */ = {
+			isa = PBXGroup;
+			children = (
+				4F2CFC0427CB85CE00A3BAE4 /* Factory */,
+				4F2CFC0527CB85D400A3BAE4 /* Menu */,
+				4F2CFC0627CB85D700A3BAE4 /* Toolbar */,
+				4F2CFC0727CB85DB00A3BAE4 /* TouchBar */,
+			);
+			path = BattlegroundsCardOptions;
+			sourceTree = "<group>";
+		};
+		4F2CFC0427CB85CE00A3BAE4 /* Factory */ = {
+			isa = PBXGroup;
+			children = (
+				4F2CFC0827CB863900A3BAE4 /* BattlegroundsCardOptionsMenuFactory.h */,
+				4F2CFC0927CB863900A3BAE4 /* BattlegroundsCardOptionsMenuFactory.m */,
+			);
+			path = Factory;
+			sourceTree = "<group>";
+		};
+		4F2CFC0527CB85D400A3BAE4 /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				4F2CFC1427CB97C800A3BAE4 /* BattlegroundsCardOptionsMenuDelegate.h */,
+				4F2CFC0B27CB864B00A3BAE4 /* BattlegroundsCardOptionsMenu.h */,
+				4F2CFC1D27CBC7A700A3BAE4 /* BattlegroundsCardOptionsMenu.m */,
+				4F2CFC1727CB9B0E00A3BAE4 /* NSUserInterfaceItemIdentifierBattlegroundsCardOptionType+BlizzardHSAPIOption.h */,
+				4F2CFC1827CB9B0E00A3BAE4 /* NSUserInterfaceItemIdentifierBattlegroundsCardOptionType+BlizzardHSAPIOption.m */,
+			);
+			path = Menu;
+			sourceTree = "<group>";
+		};
+		4F2CFC0627CB85D700A3BAE4 /* Toolbar */ = {
+			isa = PBXGroup;
+			children = (
+				4F2CFC1527CB97F100A3BAE4 /* BattlegroundsCardOptionsToolbarDelegate.h */,
+				4F2CFC0E27CB866100A3BAE4 /* BattlegroundsCardOptionsToolbar.h */,
+				4F2CFC0F27CB866100A3BAE4 /* BattlegroundsCardOptionsToolbar.m */,
+				4F2CFC1A27CB9BEC00A3BAE4 /* NSToolbarIdentifierBattlegroundsCardOptionType+BlizzardHSAPIOptionType.h */,
+				4F2CFC1B27CB9BEC00A3BAE4 /* NSToolbarIdentifierBattlegroundsCardOptionType+BlizzardHSAPIOptionType.m */,
+			);
+			path = Toolbar;
+			sourceTree = "<group>";
+		};
+		4F2CFC0727CB85DB00A3BAE4 /* TouchBar */ = {
+			isa = PBXGroup;
+			children = (
+				4F2CFC1627CB982400A3BAE4 /* BattlegroundsCardOptionsTouchBarDelegate.h */,
+				4F2CFC1127CB866F00A3BAE4 /* BattlegroundsCardOptionsTouchBar.h */,
+				4F2CFC1227CB866F00A3BAE4 /* BattlegroundsCardOptionsTouchBar.m */,
+				4F2CFC1F27CBCA6700A3BAE4 /* NSTouchBarItemIdentifierBattlegroundsCardOptionType+BlizzardHSAPIOptionType.h */,
+				4F2CFC2027CBCA6700A3BAE4 /* NSTouchBarItemIdentifierBattlegroundsCardOptionType+BlizzardHSAPIOptionType.m */,
+			);
+			path = TouchBar;
 			sourceTree = "<group>";
 		};
 		4F34384926A36FBA001161FE /* StoneNamuCore */ = {
@@ -3090,6 +3170,7 @@
 			children = (
 				4F4892D4272469AB00126131 /* Cards */,
 				4F8C04F727C3BA1900216B54 /* CardOptions */,
+				4F2CFC0327CB85BD00A3BAE4 /* BattlegroundsCardOptions */,
 			);
 			path = Cards;
 			sourceTree = "<group>";
@@ -3896,8 +3977,10 @@
 				4F90862F27A453D9003F6597 /* HSCardPopoverDetailView.m in Sources */,
 				4F8C051427C3BBC200216B54 /* DeckAddCardOptionsMenuFactory.m in Sources */,
 				4F1FA0B4275064660082EBF0 /* DecksToolbar.m in Sources */,
+				4F2CFC1027CB866100A3BAE4 /* BattlegroundsCardOptionsToolbar.m in Sources */,
 				4F83FBDF272E7226002D2387 /* NSView+isDarkMode.m in Sources */,
 				4FE857622700913A0008C2FB /* MainSplitViewController.m in Sources */,
+				4F2CFC1927CB9B0E00A3BAE4 /* NSUserInterfaceItemIdentifierBattlegroundsCardOptionType+BlizzardHSAPIOption.m in Sources */,
 				4F225198278B28DF0004DD8D /* DeckImageRenderServiceSeparatorBox.m in Sources */,
 				F3DBBC33276B2E0C00A63078 /* DeckDetailsManaCostGraphView.m in Sources */,
 				4FC48A882739EF48001240FE /* CardOptionsMenuFactory.m in Sources */,
@@ -3945,7 +4028,9 @@
 				4F883F7127300BCB00AF0048 /* NSTouchBarItemIdentifierCardOptionType+BlizzardHSAPIOptionType.m in Sources */,
 				4F83FBDC272E6F5D002D2387 /* DynamicMenuToolbarItem.m in Sources */,
 				4F90DA6F276641C8007982AE /* DeckDetailsCardCollectionViewItem.m in Sources */,
+				4F2CFC2127CBCA6700A3BAE4 /* NSTouchBarItemIdentifierBattlegroundsCardOptionType+BlizzardHSAPIOptionType.m in Sources */,
 				4FD4305E278205EC00E7F23A /* NSBox+setSimpleBoxStyle.m in Sources */,
+				4F2CFC1E27CBC7A700A3BAE4 /* BattlegroundsCardOptionsMenu.m in Sources */,
 				4FE8577027009C4D0008C2FB /* CardSectionModel.m in Sources */,
 				F303D63427414E8700569E20 /* PrefsTabViewController.m in Sources */,
 				F303D645274162CB00569E20 /* PrefsCardsViewModel.m in Sources */,
@@ -4002,6 +4087,7 @@
 				4F4738B62746BBCF000C0C85 /* ClickableCollectionViewItem.m in Sources */,
 				4FB8C3682797F36400D06E7D /* NSCollectionView+setOrthogonalScrollViewDrawsBackground.m in Sources */,
 				4F646BFA27948FFD00340C07 /* DeckDetailsSeparatorBox.m in Sources */,
+				4F2CFC0A27CB863900A3BAE4 /* BattlegroundsCardOptionsMenuFactory.m in Sources */,
 				4F883F6A272FFE7C00AF0048 /* CardOptionsTouchBar.m in Sources */,
 				4FE85767270092F30008C2FB /* MainListViewController.m in Sources */,
 				4F98C28F27284DC900865CCD /* SpinnerView.m in Sources */,
@@ -4021,7 +4107,9 @@
 				4FE857762700A0230008C2FB /* NSCollectionViewDiffableDataSource+applySnapshotAndWait.m in Sources */,
 				4F4738BD2746BFCD000C0C85 /* CardDetailsWindow.m in Sources */,
 				4F7333F8272D836A00438FE0 /* CardOptionsToolbar.m in Sources */,
+				4F2CFC1327CB866F00A3BAE4 /* BattlegroundsCardOptionsTouchBar.m in Sources */,
 				4FD4E020274EDCD10037D867 /* DecksItemModel.m in Sources */,
+				4F2CFC1C27CB9BEC00A3BAE4 /* NSToolbarIdentifierBattlegroundsCardOptionType+BlizzardHSAPIOptionType.m in Sources */,
 				4F5900892752FE4D00217E4A /* MainListTableCellView.m in Sources */,
 				4FD4E017274ED7DF0037D867 /* HSCardSavableImageView.m in Sources */,
 			);

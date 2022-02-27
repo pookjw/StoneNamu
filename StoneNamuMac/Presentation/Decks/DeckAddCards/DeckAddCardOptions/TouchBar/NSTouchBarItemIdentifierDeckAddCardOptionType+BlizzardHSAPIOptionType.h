@@ -8,6 +8,8 @@
 #import <Cocoa/Cocoa.h>
 #import <StoneNamuCore/StoneNamuCore.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 static NSTouchBarItemIdentifier const NSTouchBarItemIdentifierDeckAddCardOptionTypeSet = @"NSTouchBarItemIdentifierDeckAddCardOptionTypeSet";
 static NSTouchBarItemIdentifier const NSTouchBarItemIdentifierDeckAddCardOptionTypeClass = @"NSTouchBarItemIdentifierDeckAddCardOptionTypeClass";
 static NSTouchBarItemIdentifier const NSTouchBarItemIdentifierDeckAddCardOptionTypeManaCost = @"NSTouchBarItemIdentifierDeckAddCardOptionTypeManaCost";
@@ -25,3 +27,5 @@ static NSTouchBarItemIdentifier const NSTouchBarItemIdentifierDeckAddCardOptionT
 NSArray<NSTouchBarItemIdentifier> * allNSTouchBarItemIdentifierDeckAddCardOptionTypes(void);
 NSTouchBarItemIdentifier NSTouchBarItemIdentifierDeckAddCardOptionTypeFromBlizzardHSAPIOptionType(BlizzardHSAPIOptionType type);
 BlizzardHSAPIOptionType BlizzardHSAPIOptionTypeFromNSTouchBarItemIdentifierDeckAddCardOptionType(NSTouchBarItemIdentifier itemIdentifier);
+
+NS_ASSUME_NONNULL_END

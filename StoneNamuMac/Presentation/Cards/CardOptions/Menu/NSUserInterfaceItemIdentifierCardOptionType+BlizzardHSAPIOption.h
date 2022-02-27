@@ -8,6 +8,8 @@
 #import <Cocoa/Cocoa.h>
 #import <StoneNamuCore/StoneNamuCore.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardOptionTypeTextFilter = @"NSUserInterfaceItemIdentifierCardOptionTypeTextFilter";
 static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardOptionTypeSet = @"NSUserInterfaceItemIdentifierCardOptionTypeSet";
 static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardOptionTypeClass = @"NSUserInterfaceItemIdentifierCardOptionTypeClass";
@@ -26,3 +28,5 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardOpti
 NSArray<NSUserInterfaceItemIdentifier> *allNSUserInterfaceItemIdentifierCardOptionTypes(void);
 NSUserInterfaceItemIdentifier NSUserInterfaceItemIdentifierCardOptionTypeFromBlizzardHSAPIOptionType(BlizzardHSAPIOptionType type);
 BlizzardHSAPIOptionType BlizzardHSAPIOptionTypeFromNSUserInterfaceItemIdentifierCardOptionType(NSUserInterfaceItemIdentifier item);
+
+NS_ASSUME_NONNULL_END

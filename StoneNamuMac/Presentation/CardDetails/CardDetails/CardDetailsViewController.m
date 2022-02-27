@@ -104,7 +104,7 @@
     
     if (hsCard != nil) {
         [queue addOperationWithBlock:^{
-            [coder encodeObject:hsCard forKey:@"hsCard"];
+            [coder encodeObject:hsCard forKey:[NSString stringWithFormat:@"%@_hsCard", NSStringFromClass(self.class)]];
         }];
     }
 }
@@ -112,7 +112,7 @@
 - (void)restoreStateWithCoder:(NSCoder *)coder {
     [super restoreStateWithCoder:coder];
     
-    HSCard * _Nullable hsCard = [coder decodeObjectOfClass:[HSCard class] forKey:@"hsCard"];
+    HSCard * _Nullable hsCard = [coder decodeObjectOfClass:[HSCard class] forKey:[NSString stringWithFormat:@"%@_hsCard", NSStringFromClass(self.class)]];
     if (hsCard != nil) {
         [self requestWithHSCard:hsCard];
     }

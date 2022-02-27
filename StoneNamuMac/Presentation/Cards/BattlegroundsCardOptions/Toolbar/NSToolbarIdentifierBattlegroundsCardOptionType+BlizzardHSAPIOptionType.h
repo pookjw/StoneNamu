@@ -1,0 +1,26 @@
+//
+//  NSToolbarIdentifierBattlegroundsCardOptionType+BlizzardHSAPIOptionType.h
+//  StoneNamuMac
+//
+//  Created by Jinwoo Kim on 2/27/22.
+//
+
+#import <Cocoa/Cocoa.h>
+#import <StoneNamuCore/StoneNamuCore.h>
+
+NS_ASSUME_NONNULL_BEGIN
+
+static NSToolbarIdentifier const NSToolbarIdentifierBattlegroundsCardOptionTypeTextFilter = @"NSToolbarIdentifierBattlegroundsCardOptionTypeTextFilter";
+static NSToolbarIdentifier const NSToolbarIdentifierBattlegroundsCardOptionTypeTier = @"NSToolbarIdentifierBattlegroundsCardOptionTypeTier";
+static NSToolbarIdentifier const NSToolbarIdentifierBattlegroundsCardOptionTypeAttack = @"NSToolbarIdentifierBattlegroundsCardOptionTypeAttack";
+static NSToolbarIdentifier const NSToolbarIdentifierBattlegroundsCardOptionTypeHealth = @"NSToolbarIdentifierBattlegroundsCardOptionTypeHealth";
+static NSToolbarIdentifier const NSToolbarIdentifierBattlegroundsCardOptionTypeType = @"NSToolbarIdentifierBattlegroundsCardOptionTypeType";
+static NSToolbarIdentifier const NSToolbarIdentifierBattlegroundsCardOptionTypeMinionType = @"NSToolbarIdentifierBattlegroundsCardOptionTypeMinionType";
+static NSToolbarIdentifier const NSToolbarIdentifierBattlegroundsCardOptionTypeKeyword = @"NSToolbarIdentifierBattlegroundsCardOptionTypeKeyword";
+static NSToolbarIdentifier const NSToolbarIdentifierBattlegroundsCardOptionTypeSort = @"NSToolbarIdentifierBattlegroundsCardOptionTypeSort";
+
+NSArray<NSToolbarIdentifier> * allNSToolbarIdentifierBattlegroundsCardOptionTypes(void);
+NSToolbarIdentifier NSToolbarIdentifierBattlegroundsCardOptionTypeFromBlizzardHSAPIOptionType(BlizzardHSAPIOptionType type);
+BlizzardHSAPIOptionType BlizzardHSAPIOptionTypeFromNSToolbarIdentifierBattlegroundsCardOptionType(NSToolbarIdentifier itemIdentifier);
+
+NS_ASSUME_NONNULL_END

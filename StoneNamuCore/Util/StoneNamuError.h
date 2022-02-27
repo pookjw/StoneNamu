@@ -22,7 +22,7 @@ static StoneNamuErrorType const StoneNamuErrorTypeCannotAddSingleCardMoreThanTwo
 static StoneNamuErrorType const StoneNamuErrorTypeServerError = @"SERVER_ERROR";
 
 @interface StoneNamuError : NSError
-@property (copy, readonly) StoneNamuErrorType type;
+@property (readonly, copy) StoneNamuErrorType type;
 - (instancetype)initWithErrorType:(StoneNamuErrorType)type;
 + (instancetype)errorWithErrorType:(StoneNamuErrorType)type;
 @end

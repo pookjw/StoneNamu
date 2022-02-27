@@ -8,6 +8,8 @@
 #import <Cocoa/Cocoa.h>
 #import <StoneNamuCore/StoneNamuCore.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 static NSToolbarIdentifier const NSToolbarIdentifierCardOptionTypeTextFilter = @"NSToolbarIdentifierCardOptionTypeTextFilter";
 static NSToolbarIdentifier const NSToolbarIdentifierCardOptionTypeSet = @"NSToolbarIdentifierCardOptionTypeSet";
 static NSToolbarIdentifier const NSToolbarIdentifierCardOptionTypeClass = @"NSToolbarIdentifierCardOptionTypeClass";
@@ -25,4 +27,6 @@ static NSToolbarIdentifier const NSToolbarIdentifierCardOptionTypeSort = @"NSToo
 
 NSArray<NSToolbarIdentifier> * allNSToolbarIdentifierCardOptionTypes(void);
 NSToolbarIdentifier NSToolbarIdentifierCardOptionTypeFromBlizzardHSAPIOptionType(BlizzardHSAPIOptionType type);
-BlizzardHSAPIOptionType BlizzardHSAPIOptionTypeFromNSToolbarIdentifierDeckAddCardOptionType(NSToolbarIdentifier itemIdentifier);
+BlizzardHSAPIOptionType BlizzardHSAPIOptionTypeFromNSToolbarIdentifierCardOptionType(NSToolbarIdentifier itemIdentifier);
+
+NS_ASSUME_NONNULL_END

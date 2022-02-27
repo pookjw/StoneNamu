@@ -75,7 +75,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
         [self configureOptionsItems];
         [self configureResetOptionsItem];
         [self bind];
-        [self.factory updateItems];
+        [self.factory load];
     }
     
     return self;
@@ -314,6 +314,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
         optionTypeTextFilterItem,
         optionTypeSetItem,
         optionTypeClassItem,
+        optionTypeManaCostItem,
         optionTypeAttackItem,
         optionTypeHealthItem,
         optionTypeCollectibleItem,
@@ -409,6 +410,8 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
             obj.submenu = [self.factory menuForOptionType:optionType target:self];
             obj.title = [self.factory titleForOptionType:optionType];
         }];
+        
+        [self updateItemsWithOptions:self.options];
     }];
 }
 

@@ -28,6 +28,8 @@
     self = [self init];
     
     if (self) {
+        self.hsCardGameModeSlugType = nil;
+        
         [self->_dataSource release];
         self->_dataSource = [dataSource retain];
         
@@ -63,6 +65,7 @@
 }
 
 - (void)dealloc {
+    [_hsCardGameModeSlugType release];
     [_dataSource release];
     [_hsCardUseCase release];
     [_hsMetaDataUseCase release];
@@ -76,7 +79,7 @@
 }
 
 - (NSDictionary<NSString *, NSSet<NSString *> *> *)defaultOptions {
-    return BlizzardHSAPIDefaultOptionsFromHSCardTypeSlugType(HSCardGameModeSlugTypeConstructed);
+    return BlizzardHSAPIDefaultOptionsFromHSCardTypeSlugType(self.hsCardGameModeSlugType);
 }
 
 - (BOOL)requestDataSourceWithOptions:(NSDictionary<NSString *, NSSet<NSString *> *> * _Nullable)options reset:(BOOL)reset {
@@ -221,7 +224,7 @@
         NSMutableArray<CardItemModel *> *itemModels = [NSMutableArray<CardItemModel *> new];
         
         for (HSCard *card in cards) {
-            CardItemModel *itemModel = [[CardItemModel alloc] initWithCard:card];
+            CardItemModel *itemModel = [[CardItemModel alloc] initWithHSCard:card hsCardGameModeSlugType:self.hsCardGameModeSlugType];
             [itemModels addObject:itemModel];
             [itemModel release];
         }

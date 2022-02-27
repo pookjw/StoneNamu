@@ -46,7 +46,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
         [self setAttributes];
         [self updateItemsWithOptions:options];
         [self bind];
-        [self.factory updateItems];
+        [self.factory load];
     }
     
     return self;
@@ -386,7 +386,13 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
 }
 
 - (void)updateItemsWithOptions:(NSDictionary<NSString *, NSSet<NSString *> *> *)options {
-    if ([options isEqualToDictionary:self.options]) return;
+    [self updateItemsWithOptions:options force:NO];
+}
+
+- (void)updateItemsWithOptions:(NSDictionary<NSString *, NSSet<NSString *> *> *)options force:(BOOL)force {
+    if (!force) {
+        if (compareNullableValues(self.options, options, @selector(isEqualToDictionary:))) return;
+    }
     
     NSMutableDictionary<NSString *, NSSet<NSString *> *> *mutableOptions = [options mutableCopy];
     self.options = mutableOptions;
@@ -419,7 +425,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
                 newIndex = [keys indexOfString:values.allObjects.firstObject];
             }
             
-            if (oldIndex != newIndex) {
+            if ((oldIndex != newIndex) || (force)) {
                 [obj scrollItemAtIndex:newIndex toAlignment:NSScrubberAlignmentCenter animated:YES];
                 [obj setSelectedIndex:newIndex animated:YES];
             }
@@ -548,7 +554,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
         mutableDic = [self.factory.slugsAndNames[optionType] mutableCopy];
         filterKeys = nil;
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeSort]) {
-        mutableDic = [self.factory.slugsAndNames[optionType] mutableCopy];
+        mutableDic = [[ResourcesService localizationsForHSCardSortWithHSCardGameModeSlugType:HSCardGameModeSlugTypeConstructed] mutableCopy];
         filterKeys = nil;
     }
     

@@ -59,16 +59,16 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierMainList
     NSIndexSet *selectedRowIndexes = self.tableView.selectedRowIndexes;
     
     [queue addOperationWithBlock:^{
-        [coder encodeObject:selectedRowIndexes forKey:@"selectedRowIndexes"];
+        [coder encodeObject:selectedRowIndexes forKey:[NSString stringWithFormat:@"%@_selectedRowIndexes", NSStringFromClass(self.class)]];
     }];
 }
 
 - (void)restoreStateWithCoder:(NSCoder *)coder {
     [super restoreStateWithCoder:coder];
     
-    NSIndexSet *selectedRowIndexes = [coder decodeObjectOfClass:[NSIndexSet class] forKey:@"selectedRowIndexes"];
+    NSIndexSet *selectedRowIndexes = [coder decodeObjectOfClass:[NSIndexSet class] forKey:[NSString stringWithFormat:@"%@_selectedRowIndexes", NSStringFromClass(self.class)]];
     
-    if (selectedRowIndexes.count > 1) {
+    if (selectedRowIndexes.count > 0) {
         [self.viewModel.queue addBarrierBlock:^{
             [NSOperationQueue.mainQueue addOperationWithBlock:^{
                 [self.tableView selectRowIndexes:selectedRowIndexes byExtendingSelection:NO];

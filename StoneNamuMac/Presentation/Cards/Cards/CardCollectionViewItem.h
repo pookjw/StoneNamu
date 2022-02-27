@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardCollectionViewItem = @"NSUserInterfaceItemIdentifierCardCollectionViewItem";
 
 @interface CardCollectionViewItem : ClickableCollectionViewItem
-- (void)configureWithHSCard:(HSCard *)hsCard delegate:(id<CardCollectionViewItemDelegate>)delegate;
+- (void)configureWithHSCard:(HSCard *)hsCard hsCardGameModeSlugType:(HSCardGameModeSlugType)hsCardGameModeSlugType delegate:(id<CardCollectionViewItemDelegate>)delegate;
 @end
 
 NS_ASSUME_NONNULL_END

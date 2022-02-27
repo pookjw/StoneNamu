@@ -9,7 +9,7 @@
 
 @implementation DeckAddCardItemModel
 
-- (instancetype)initWithCard:(HSCard *)hsCard count:(NSUInteger)count isLegendary:(BOOL)isLegendary {
+- (instancetype)initWithHSCard:(HSCard *)hsCard count:(NSUInteger)count isLegendary:(BOOL)isLegendary {
     self = [self init];
     
     if (self) {

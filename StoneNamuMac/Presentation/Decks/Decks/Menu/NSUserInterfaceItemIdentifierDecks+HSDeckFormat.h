@@ -8,6 +8,8 @@
 #import <Cocoa/Cocoa.h>
 #import <StoneNamuCore/StoneNamuCore.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDecksCreateNewStandardDeck = @"NSUserInterfaceItemIdentifierCreateNewStandardDeck";
 static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDecksCreateNewWildDeck = @"NSUserInterfaceItemIdentifierDecksCreateNewWildDeck";
 static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDecksCreateNewClassicDeck = @"NSUserInterfaceItemIdentifierDecksCreateNewClassicDeck";
@@ -16,3 +18,5 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDecksCre
 NSArray<NSUserInterfaceItemIdentifier> * allNSUserInterfaceItemIdentifierDecks(void);
 NSUserInterfaceItemIdentifier NSUserInterfaceItemIdentifierDecksFromHSDeckFormat(HSDeckFormat deckFormat);
 HSDeckFormat HSDeckFormatFromNSUserInterfaceItemIdentifierDecks(NSUserInterfaceItemIdentifier itemIdentifier);
+
+NS_ASSUME_NONNULL_END
