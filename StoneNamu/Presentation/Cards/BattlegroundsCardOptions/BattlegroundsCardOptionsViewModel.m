@@ -559,7 +559,7 @@
     }
                                                                                                              title:[ResourcesService localizationForBlizzardHSAPIOptionType:BlizzardHSAPIOptionTypeTier]
                                                                                                      accessoryText:nil
-                                                                                                           toolTip:@"(DEMO)"];
+                                                                                                           toolTip:[ResourcesService localizationForKey:LocalizableKeyCardTierTooltipDescription]];
     
     //
     

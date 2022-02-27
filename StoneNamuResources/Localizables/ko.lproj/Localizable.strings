@@ -90,6 +90,8 @@
 
 "CARD_GAME_MODE_TOOLTIP_DESCRIPTION" = "대전 모드를 선택해서 카드를 검색합니다.";
 
+"CARD_TIER_TOOLTIP_DESCRIPTION" = "선술집 단계를 선택해서 카드를 검색합니다.";
+
 "CARD_SORT_TOOLTIP_DESCRIPTION" = "검색 결과의 정렬 방식을 선택합니다.";
 
 "EMPTY" = "(없음)";

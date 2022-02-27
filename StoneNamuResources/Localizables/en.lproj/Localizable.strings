@@ -90,6 +90,8 @@
 
 "CARD_GAME_MODE_TOOLTIP_DESCRIPTION" = "Search cards with choosing Game Mode.";
 
+"CARD_TIER_TOOLTIP_DESCRIPTION" = "Search cards with choosing Tavern Tier.";
+
 "CARD_SORT_TOOLTIP_DESCRIPTION" = "Choose sorting method of results.";
 
 "EMPTY" = "(Empty)";

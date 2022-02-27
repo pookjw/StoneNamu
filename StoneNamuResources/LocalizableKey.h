@@ -65,6 +65,7 @@ static LocalizableKey const LocalizableKeyAuto = @"AUTO";
 static LocalizableKey const LocalizableKeyPnamu = @"PNAMU";
 static LocalizableKey const LocalizableKeyDeckAddCardErrorCannotAddSingleLagendaryCardMoreThanOne = @"DECK_ADD_CARD_ERROR_CANNOT_ADD_SINGLE_LAGENDARY_CARD_MORE_THAN_ONE";
 static LocalizableKey const LocalizableKeyFlieMenuClose = @"FLIE_MENU_CLOSE";
+static LocalizableKey const LocalizableKeyCardTierTooltipDescription = @"CARD_TIER_TOOLTIP_DESCRIPTION";
 static LocalizableKey const LocalizableKeyNeedPhotoPermission = @"NEED_PHOTO_PERMISSION";
 static LocalizableKey const LocalizableKeyServerAutoDescription = @"SERVER_AUTO_DESCRIPTION";
 static LocalizableKey const LocalizableKeyCardTextFilter = @"CARD_TEXT_FILTER";
