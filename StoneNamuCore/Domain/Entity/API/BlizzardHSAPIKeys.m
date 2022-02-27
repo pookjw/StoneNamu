@@ -15,6 +15,7 @@
 NSDictionary<BlizzardHSAPIOptionType, NSSet<NSString *> *> *BlizzardHSAPIDefaultOptionsFromHSCardTypeSlugType(HSCardTypeSlugType hsCardTypeSlugType) {
     if ([HSCardGameModeSlugTypeConstructed isEqualToString:hsCardTypeSlugType]) {
         return @{
+            BlizzardHSAPIOptionTypeSet: [NSSet setWithObject:HSCardSetSlugTypeWildCards],
             BlizzardHSAPIOptionTypeCollectible: [NSSet setWithObject:NSStringFromHSCardCollectible(HSCardCollectibleYES)],
             BlizzardHSAPIOptionTypeGameMode: [NSSet setWithObject:HSCardGameModeSlugTypeConstructed],
             BlizzardHSAPIOptionTypeSort: [NSSet setWithArray:@[NSStringFromHSCardSort(HSCardSortManaCostAsc), NSStringFromHSCardSort(HSCardSortNameAsc)]]
