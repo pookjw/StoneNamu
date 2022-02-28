@@ -17,7 +17,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardOpti
 @interface CardOptionsMenu () <NSSearchFieldDelegate>
 @property (assign) id<CardOptionsMenuDelegate> cardOptionsMenuDelegate;
 @property (retain) CardOptionsMenuFactory *factory;
-
+@property (retain) NSOperationQueue *queue;
 @property (retain) NSMenuItem *optionsMenuItem;
 @property (retain) NSMenu *optionsSubMenu;
 @property (retain) NSDictionary<BlizzardHSAPIOptionType, NSMenuItem *> *allOptionItems;
@@ -39,6 +39,11 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardOpti
         self.factory = factory;
         [factory release];
         
+        NSOperationQueue *queue = [NSOperationQueue new];
+        queue.qualityOfService = NSQualityOfServiceUserInitiated;
+        self.queue = queue;
+        [queue release];
+        
         self.cardOptionsMenuDelegate = cardOptionsMenuDelegate;
         [self configureOptionsMenu];
         [self configureOptionsItems];
@@ -52,7 +57,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardOpti
 
 - (void)dealloc {
     [_factory release];
-    
+    [_queue release];
     [_optionsMenuItem release];
     [_optionsSubMenu release];
     [_allOptionItems release];
@@ -66,35 +71,39 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardOpti
 }
 
 - (void)updateItemsWithOptions:(NSDictionary<NSString *,NSSet<NSString *> *> *)options force:(BOOL)force {
-    if (!force) {
-        if (compareNullableValues(self.options, options, @selector(isEqualToDictionary:))) return;
-    }
-    NSMutableDictionary<NSString *, NSSet<NSString *> *> *mutableOptions = [options mutableCopy];
-    self.options = mutableOptions;
-    [mutableOptions release];
-    
-    [self.allOptionItems enumerateKeysAndObjectsUsingBlock:^(BlizzardHSAPIOptionType  _Nonnull key, NSMenuItem * _Nonnull obj, BOOL * _Nonnull stop) {
-        NSSet<NSString *> * _Nullable values = options[key];
-        
-        //
-        
-        NSSearchField * _Nullable searchField = (NSSearchField * _Nullable)obj.submenu.itemArray.firstObject.view;
-        
-        if ((searchField != nil) && ([searchField isKindOfClass:[NSSearchField class]])) {
-            NSString * _Nullable stringValue = values.allObjects.firstObject;
-            
-            if (stringValue == nil) {
-                searchField.stringValue = @"";
-            } else {
-                searchField.stringValue = stringValue;
-            }
+    [self.queue addBarrierBlock:^{
+        if (!force) {
+            if (compareNullableValues(self.options, options, @selector(isEqualToDictionary:))) return;
         }
+        NSMutableDictionary<NSString *, NSSet<NSString *> *> *mutableOptions = [options mutableCopy];
+        self.options = mutableOptions;
+        [mutableOptions release];
         
-        //
-        
-        obj.image = [self.factory imageForCardOptionTypeWithValues:values optionType:key];
-        
-        [self updateStateOfItem:obj];
+        [self.allOptionItems enumerateKeysAndObjectsUsingBlock:^(BlizzardHSAPIOptionType  _Nonnull key, NSMenuItem * _Nonnull obj, BOOL * _Nonnull stop) {
+            NSSet<NSString *> * _Nullable values = options[key];
+            
+            //
+            
+            [NSOperationQueue.mainQueue addOperationWithBlock:^{
+                NSSearchField * _Nullable searchField = (NSSearchField * _Nullable)obj.submenu.itemArray.firstObject.view;
+                
+                if ((searchField != nil) && ([searchField isKindOfClass:[NSSearchField class]])) {
+                    NSString * _Nullable stringValue = values.allObjects.firstObject;
+                    
+                    if (stringValue == nil) {
+                        searchField.stringValue = @"";
+                    } else {
+                        searchField.stringValue = stringValue;
+                    }
+                }
+                
+                //
+                
+                obj.image = [self.factory imageForCardOptionTypeWithValues:values optionType:key];
+            }];
+            
+            [self updateStateOfItem:obj];
+        }];
     }];
 }
 
@@ -282,115 +291,112 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardOpti
             obj.submenu = [self.factory menuForOptionType:key target:self];
             obj.title = [self.factory titleForOptionType:key];
         }];
-        
-        [self updateItemsWithOptions:self.options force:YES];
-    }];
-}
-
-- (NSMenuItem * _Nullable)itemForOptionType:(BlizzardHSAPIOptionType)optionType {
-    NSMenuItem * _Nullable __block result = nil;
-    
-    [self.allOptionItems enumerateKeysAndObjectsUsingBlock:^(BlizzardHSAPIOptionType  _Nonnull key, NSMenuItem * _Nonnull obj, BOOL * _Nonnull stop) {
-        if ([key isEqualToString:optionType]) {
-            result = obj;
-            *stop = YES;
-        }
     }];
     
-    return result;
+    [self updateItemsWithOptions:self.options force:YES];
 }
 
 - (void)keyMenuItemTriggered:(StorableMenuItem *)sender {
-    NSDictionary<NSString *, id> *userInfo = sender.userInfo;
-    
-    BOOL showsEmptyItem;
-    BOOL allowsMultipleSelection;
-    
-    if (userInfo[CardOptionsMenuFactoryStorableMenuItemShowsEmptyItemKey]) {
-        showsEmptyItem = [(NSNumber *)userInfo[CardOptionsMenuFactoryStorableMenuItemShowsEmptyItemKey] boolValue];
-    } else {
-        showsEmptyItem = NO;
-    }
-    
-    if (userInfo[CardOptionsMenuFactoryStorableMenuItemAllowsMultipleSelection]) {
-        allowsMultipleSelection = [(NSNumber *)userInfo[CardOptionsMenuFactoryStorableMenuItemAllowsMultipleSelection] boolValue];
-    } else {
-        allowsMultipleSelection = NO;
-    }
-    
-    NSString *key = userInfo[CardOptionsMenuFactoryStorableMenuItemOptionTypeKey];
-    NSString *value = userInfo[CardOptionsMenuFactoryStorableMenuItemValueKey];
-    
-    //
-    
-    NSMutableDictionary<NSString *, NSSet<NSString *> *> *newOptions = [self.options mutableCopy];
-    
-    if ([value isEqualToString:@""]) {
-        [newOptions removeObjectForKey:key];
-    } else if (!allowsMultipleSelection) {
-        NSSet<NSString *> * _Nullable values = newOptions[key];
+    [self.queue addBarrierBlock:^{
+        NSDictionary<NSString *, id> *userInfo = sender.userInfo;
         
-        if ((values == nil) || !([values containsObject:value])) {
-            newOptions[key] = [NSSet setWithObject:value];
+        BOOL showsEmptyItem;
+        BOOL allowsMultipleSelection;
+        
+        if (userInfo[CardOptionsMenuFactoryStorableMenuItemShowsEmptyItemKey]) {
+            showsEmptyItem = [(NSNumber *)userInfo[CardOptionsMenuFactoryStorableMenuItemShowsEmptyItemKey] boolValue];
         } else {
-            [newOptions removeObjectForKey:key];
-        }
-    } else {
-        NSMutableSet<NSString *> * _Nullable values = [newOptions[key] mutableCopy];
-        if (values == nil) {
-            values = [NSMutableSet<NSString *> new];
+            showsEmptyItem = NO;
         }
         
-        if ([values.allObjects containsString:value]) {
-            [values removeObject:value];
+        if (userInfo[CardOptionsMenuFactoryStorableMenuItemAllowsMultipleSelection]) {
+            allowsMultipleSelection = [(NSNumber *)userInfo[CardOptionsMenuFactoryStorableMenuItemAllowsMultipleSelection] boolValue];
         } else {
-            [values addObject:value];
+            allowsMultipleSelection = NO;
         }
         
-        if (values.count > 0) {
-            newOptions[key] = values;
-        } else if (showsEmptyItem) {
+        NSString *key = userInfo[CardOptionsMenuFactoryStorableMenuItemOptionTypeKey];
+        NSString *value = userInfo[CardOptionsMenuFactoryStorableMenuItemValueKey];
+        
+        //
+        
+        NSMutableDictionary<NSString *, NSSet<NSString *> *> *newOptions = [self.options mutableCopy];
+        
+        if ([value isEqualToString:@""]) {
             [newOptions removeObjectForKey:key];
+        } else if (!allowsMultipleSelection) {
+            NSSet<NSString *> * _Nullable values = newOptions[key];
+            
+            if ((values == nil) || !([values containsObject:value])) {
+                newOptions[key] = [NSSet setWithObject:value];
+            } else {
+                [newOptions removeObjectForKey:key];
+            }
+        } else {
+            NSMutableSet<NSString *> * _Nullable values = [newOptions[key] mutableCopy];
+            if (values == nil) {
+                values = [NSMutableSet<NSString *> new];
+            }
+            
+            if ([values.allObjects containsString:value]) {
+                [values removeObject:value];
+            } else {
+                [values addObject:value];
+            }
+            
+            if (values.count > 0) {
+                newOptions[key] = values;
+            } else if (showsEmptyItem) {
+                [newOptions removeObjectForKey:key];
+            }
+            
+            [values release];
         }
         
-        [values release];
-    }
-    
-    [self updateItemsWithOptions:newOptions];
-    [self.cardOptionsMenuDelegate cardOptionsMenu:self changedOption:newOptions];
-    
-    [newOptions release];
+        [self updateItemsWithOptions:newOptions];
+        [self.cardOptionsMenuDelegate cardOptionsMenu:self changedOption:newOptions];
+        
+        [newOptions release];
+    }];
 }
 
 - (void)updateStateOfItem:(NSMenuItem *)item {
     NSUserInterfaceItemIdentifier itemIdentifier = item.identifier;
-    BlizzardHSAPIOptionType optionType = BlizzardHSAPIOptionTypeFromNSUserInterfaceItemIdentifierCardOptionType(itemIdentifier);
     
-    NSArray<NSString *> * _Nullable values = self.options[optionType].allObjects;
-    BOOL shouldSelectEmptyValue = ((values == nil) || (values.count == 0));
-    
-    [item.submenu.itemArray enumerateObjectsUsingBlock:^(NSMenuItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        StorableMenuItem *item = (StorableMenuItem *)obj;
+    [self.queue addBarrierBlock:^{
+        BlizzardHSAPIOptionType optionType = BlizzardHSAPIOptionTypeFromNSUserInterfaceItemIdentifierCardOptionType(itemIdentifier);
         
-        if (![item isKindOfClass:[StorableMenuItem class]]) return;
+        NSArray<NSString *> * _Nullable values = self.options[optionType].allObjects;
+        BOOL shouldSelectEmptyValue = ((values == nil) || (values.count == 0));
         
-        NSString *itemValue = item.userInfo[CardOptionsMenuFactoryStorableMenuItemValueKey];
-        
-        if (shouldSelectEmptyValue) {
-            if ([@"" isEqualToString:itemValue]) {
-                item.state = NSControlStateValueOn;
+        [item.submenu.itemArray enumerateObjectsUsingBlock:^(NSMenuItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            StorableMenuItem *item = (StorableMenuItem *)obj;
+            
+            if (![item isKindOfClass:[StorableMenuItem class]]) return;
+            
+            NSString *itemValue = item.userInfo[CardOptionsMenuFactoryStorableMenuItemValueKey];
+            NSControlStateValue state;
+            
+            if (shouldSelectEmptyValue) {
+                if ([@"" isEqualToString:itemValue]) {
+                    state = NSControlStateValueOn;
+                } else {
+                    state = NSControlStateValueOff;
+                }
             } else {
-                item.state = NSControlStateValueOff;
+                if ([@"" isEqualToString:itemValue]) {
+                    state = NSControlStateValueOff;
+                } else if ([values containsString:itemValue]) {
+                    state = NSControlStateValueOn;
+                } else {
+                    state = NSControlStateValueOff;
+                }
             }
-        } else {
-            if ([@"" isEqualToString:itemValue]) {
-                item.state = NSControlStateValueOff;
-            } else if ([values containsString:itemValue]) {
-                item.state = NSControlStateValueOn;
-            } else {
-                item.state = NSControlStateValueOff;
-            }
-        }
+            
+            [NSOperationQueue.mainQueue addOperationWithBlock:^{
+                item.state = state;
+            }];
+        }];
     }];
 }
 
@@ -401,31 +407,33 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardOpti
 #pragma mark - NSSearchFieldDelegate
 
 - (void)controlTextDidEndEditing:(NSNotification *)notification {
-    StorableSearchField *searchField = (StorableSearchField *)notification.object;
-    
-    if (![searchField isKindOfClass:[StorableSearchField class]]) {
-        return;
-    }
-    
-    if ([[notification.userInfo objectForKey:@"NSTextMovement"] integerValue] == NSTextMovementReturn) {
-        NSString *key = searchField.userInfo.allKeys.firstObject;
-        NSString *value = searchField.stringValue;
+    [self.queue addBarrierBlock:^{
+        StorableSearchField *searchField = (StorableSearchField *)notification.object;
         
-        [[self itemForOptionType:key].menu cancelTracking];
-        
-        NSMutableDictionary<NSString *, NSSet<NSString *> *> *newOptions = [self.options mutableCopy];
-        
-        if ([value isEqualToString:@""]) {
-            [newOptions removeObjectForKey:key];
-        } else {
-            newOptions[key] = [NSSet setWithObject:value];
+        if (![searchField isKindOfClass:[StorableSearchField class]]) {
+            return;
         }
         
-        [self updateItemsWithOptions:newOptions];
-        [self.cardOptionsMenuDelegate cardOptionsMenu:self changedOption:newOptions];
-        
-        [newOptions release];
-    }
+        if ([[notification.userInfo objectForKey:@"NSTextMovement"] integerValue] == NSTextMovementReturn) {
+            NSString *key = searchField.userInfo.allKeys.firstObject;
+            NSString *value = searchField.stringValue;
+            
+            [self.allOptionItems[key].menu cancelTracking];
+            
+            NSMutableDictionary<NSString *, NSSet<NSString *> *> *newOptions = [self.options mutableCopy];
+            
+            if ([value isEqualToString:@""]) {
+                [newOptions removeObjectForKey:key];
+            } else {
+                newOptions[key] = [NSSet setWithObject:value];
+            }
+            
+            [self updateItemsWithOptions:newOptions];
+            [self.cardOptionsMenuDelegate cardOptionsMenu:self changedOption:newOptions];
+            
+            [newOptions release];
+        }
+    }];
 }
 
 @end

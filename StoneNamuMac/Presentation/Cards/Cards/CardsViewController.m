@@ -557,45 +557,61 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardsVie
 #pragma mark - CardOptionsMenuDelegate
 
 - (void)cardOptionsMenu:(CardOptionsMenu *)menu changedOption:(NSDictionary<NSString *,NSSet<NSString *> *> *)options {
-    [self requestDataSourceWithOptions:options reset:YES];
+    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+        [self requestDataSourceWithOptions:options reset:YES];
+    }];
 }
 
 - (void)cardOptionsMenu:(CardOptionsMenu *)menu defaultOptionsAreNeedWithSender:(NSMenuItem *)sender {
-    [self requestDataSourceWithOptions:nil reset:YES];
+    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+        [self requestDataSourceWithOptions:nil reset:YES];
+    }];
 }
 
 #pragma mark - CardOptionsToolbarDelegate
 
 - (void)cardOptionsToolbar:(CardOptionsToolbar *)toolbar changedOption:(NSDictionary<NSString *,NSSet<NSString *> *> *)options {
-    [self requestDataSourceWithOptions:options reset:YES];
+    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+        [self requestDataSourceWithOptions:options reset:YES];
+    }];
 }
 
 #pragma mark - CardOptionsTouchBarDelegate
 
 - (void)cardOptionsTouchBar:(CardOptionsTouchBar *)touchBar changedOption:(NSDictionary<NSString *,NSSet<NSString *> *> *)options {
-    [self requestDataSourceWithOptions:options reset:YES];
+    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+        [self requestDataSourceWithOptions:options reset:YES];
+    }];
 }
 
 #pragma mark - BattlegroundsCardOptionsMenuDelegate
 
 - (void)battlegroundsCardOptionsMenu:(BattlegroundsCardOptionsMenu *)menu changedOption:(NSDictionary<NSString *, NSSet<NSString *> *> *)options {
-    [self requestDataSourceWithOptions:options reset:YES];
+    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+        [self requestDataSourceWithOptions:options reset:YES];
+    }];
 }
 
 - (void)battlegroundsCardOptionsMenu:(BattlegroundsCardOptionsMenu *)menu defaultOptionsAreNeedWithSender:(NSMenuItem *)sender {
-    [self requestDataSourceWithOptions:nil reset:YES];
+    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+        [self requestDataSourceWithOptions:nil reset:YES];
+    }];
 }
 
 #pragma mark - BattlegroundsCardOptionsToolbarDelegate
 
 - (void)battlegroundsCardOptionsToolbar:(BattlegroundsCardOptionsToolbar *)toolbar changedOption:(NSDictionary<NSString *, NSSet<NSString *> *> *)options {
-    [self requestDataSourceWithOptions:options reset:YES];
+    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+        [self requestDataSourceWithOptions:options reset:YES];
+    }];
 }
 
 #pragma mark - BattlegroundsCardOptionsTouchBarDelegate
 
 - (void)battlegroundsCardOptionsTouchBar:(BattlegroundsCardOptionsTouchBar *)touchBar changedOption:(NSDictionary<NSString *, NSSet<NSString *> *> *)options {
-    [self requestDataSourceWithOptions:options reset:YES];
+    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+        [self requestDataSourceWithOptions:options reset:YES];
+    }];
 }
 
 #pragma mark - CardCollectionViewItemDelegate

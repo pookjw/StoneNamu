@@ -17,13 +17,13 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
 @interface DeckAddCardOptionsTouchBar () <NSTouchBarDelegate, NSScrubberDataSource, NSScrubberDelegate>
 @property (assign) id<DeckAddCardOptionsTouchBarDelegate> deckAddCardOptionsTouchBarDelegate;
 @property (retain) DeckAddCardOptionsMenuFactory *factory;
-
-@property (retain) NSMutableDictionary<NSString *, NSSet<NSString *> *> *options;
+@property (retain) NSOperationQueue *queue;
 
 @property (retain) NSDictionary<BlizzardHSAPIOptionType, NSPopoverTouchBarItem *> *allPopoverItems;
 @property (retain) NSDictionary<BlizzardHSAPIOptionType, NSTouchBar *> *allTouchBars;
 @property (retain) NSDictionary<BlizzardHSAPIOptionType, NSCustomTouchBarItem *> *allCustomTouchBarItems;
 @property (retain) NSDictionary<BlizzardHSAPIOptionType, NSScrubber *> *allScrubbers;
+@property (retain) NSMutableDictionary<NSString *, NSSet<NSString *> *> *options;
 @end
 
 @implementation DeckAddCardOptionsTouchBar
@@ -40,6 +40,11 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
         self.factory = factory;
         [factory release];
         
+        NSOperationQueue *queue = [NSOperationQueue new];
+        queue.qualityOfService = NSQualityOfServiceUserInitiated;
+        self.queue = queue;
+        [queue release];
+        
         self.deckAddCardOptionsTouchBarDelegate = deckAddCardOptionsTouchBarDelegate;
         
         [self configureTouchBarItems];
@@ -54,12 +59,12 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
 
 - (void)dealloc {
     [_factory release];
-    
-    [_options release];
+    [_queue release];
     [_allPopoverItems release];
     [_allTouchBars release];
     [_allCustomTouchBarItems release];
     [_allScrubbers release];
+    [_options release];
     [super dealloc];
 }
 
@@ -390,46 +395,49 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
 }
 
 - (void)updateItemsWithOptions:(NSDictionary<NSString *, NSSet<NSString *> *> *)options force:(BOOL)force {
-    if (!force) {
-        if (compareNullableValues(self.options, options, @selector(isEqualToDictionary:))) return;
-    }
-    
-    NSMutableDictionary<NSString *, NSSet<NSString *> *> *mutableOptions = [options mutableCopy];
-    self.options = mutableOptions;
-    [mutableOptions release];
-    
-    //
-    
-    [self.allPopoverItems enumerateKeysAndObjectsUsingBlock:^(BlizzardHSAPIOptionType _Nonnull key, NSPopoverTouchBarItem * _Nonnull obj, BOOL * _Nonnull stop) {
-        obj.collapsedRepresentationImage = [self.factory imageForCardOptionTypeWithValues:options[key] optionType:key];
-    }];
-    
-    [self.allScrubbers enumerateKeysAndObjectsUsingBlock:^(BlizzardHSAPIOptionType _Nonnull key, NSScrubber * _Nonnull obj, BOOL * _Nonnull stop) {
-        
-        if ([self.factory supportsMultipleSelectionFromOptionType:key]) {
-            // TODO
-            [obj reloadData];
-        } else {
-            NSArray<NSString *> *keys = [self sortedKeysFromScrubber:obj];
-            
-            if (keys.count == 0) return;
-            
-            NSSet<NSString *> * _Nullable values = options[key];
-            
-            NSInteger oldIndex = obj.selectedIndex;
-            NSInteger newIndex;
-            
-            if (values == nil) {
-                newIndex = [keys indexOfString:@""];
-            } else {
-                newIndex = [keys indexOfString:values.allObjects.firstObject];
-            }
-            
-            if ((oldIndex != newIndex) || (force)) {
-                [obj scrollItemAtIndex:newIndex toAlignment:NSScrubberAlignmentCenter animated:YES];
-                [obj setSelectedIndex:newIndex animated:YES];
-            }
+    [self.queue addBarrierBlock:^{
+        if (!force) {
+            if (compareNullableValues(self.options, options, @selector(isEqualToDictionary:))) return;
         }
+        
+        NSMutableDictionary<NSString *, NSSet<NSString *> *> *mutableOptions = [options mutableCopy];
+        self.options = mutableOptions;
+        [mutableOptions release];
+        
+        //
+        
+        [self.allPopoverItems enumerateKeysAndObjectsUsingBlock:^(BlizzardHSAPIOptionType _Nonnull key, NSPopoverTouchBarItem * _Nonnull obj, BOOL * _Nonnull stop) {
+            obj.collapsedRepresentationImage = [self.factory imageForCardOptionTypeWithValues:options[key] optionType:key];
+        }];
+        
+        [self.allScrubbers enumerateKeysAndObjectsUsingBlock:^(BlizzardHSAPIOptionType _Nonnull key, NSScrubber * _Nonnull obj, BOOL * _Nonnull stop) {
+            [NSOperationQueue.mainQueue addOperationWithBlock:^{
+                if ([self.factory supportsMultipleSelectionFromOptionType:key]) {
+                    // TODO
+                    [obj reloadData];
+                } else {
+                    NSArray<NSString *> *keys = [self sortedKeysFromScrubber:obj];
+                    
+                    if (keys.count == 0) return;
+                    
+                    NSSet<NSString *> * _Nullable values = options[key];
+                    
+                    NSInteger oldIndex = obj.selectedIndex;
+                    NSInteger newIndex;
+                    
+                    if (values == nil) {
+                        newIndex = [keys indexOfString:@""];
+                    } else {
+                        newIndex = [keys indexOfString:values.allObjects.firstObject];
+                    }
+                    
+                    if ((oldIndex != newIndex) || (force)) {
+                        [obj scrollItemAtIndex:newIndex toAlignment:NSScrubberAlignmentCenter animated:YES];
+                        [obj setSelectedIndex:newIndex animated:YES];
+                    }
+                }
+            }];
+        }];
     }];
 }
 
@@ -488,9 +496,9 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
             obj.collapsedRepresentationLabel = [self.factory titleForOptionType:key];
             obj.customizationLabel = [self.factory titleForOptionType:key];
         }];
-        
-        [self updateItemsWithOptions:self.options force:YES];
     }];
+    
+    [self updateItemsWithOptions:self.options force:YES];
 }
 
 #pragma mark - Helper
@@ -752,55 +760,57 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
 #pragma mark - NSScrubberDelegate
 
 - (void)scrubber:(NSScrubber *)scrubber didSelectItemAtIndex:(NSInteger)selectedIndex {
-    BlizzardHSAPIOptionType _Nullable key = [self.allScrubbers allKeysForObject:scrubber].firstObject;
-    
-    if (key == nil) return;
-    
-    BOOL showsEmptyItem = [self.factory hasEmptyItemAtOptionType:key];
-    BOOL supportsMultipleSelection = [self.factory supportsMultipleSelectionFromOptionType:key];
-    
-    NSArray<NSString *> *values = [self sortedKeysFromScrubber:scrubber];
-    NSString *value = values[selectedIndex];
-    
-    NSMutableDictionary<NSString *, NSSet<NSString *> *> *newOptions = [self.options mutableCopy];
-    
-    if ([value isEqualToString:@""]) {
-        [newOptions removeObjectForKey:key];
-    } else if (!supportsMultipleSelection) {
-        NSSet<NSString *> * _Nullable values = newOptions[key];
+    [self.queue addBarrierBlock:^{
+        BlizzardHSAPIOptionType _Nullable key = [self.allScrubbers allKeysForObject:scrubber].firstObject;
         
-        if ((values == nil) || !([values containsObject:value])) {
-            newOptions[key] = [NSSet setWithObject:value];
-        } else {
+        if (key == nil) return;
+        
+        BOOL showsEmptyItem = [self.factory hasEmptyItemAtOptionType:key];
+        BOOL supportsMultipleSelection = [self.factory supportsMultipleSelectionFromOptionType:key];
+        
+        NSArray<NSString *> *values = [self sortedKeysFromScrubber:scrubber];
+        NSString *value = values[selectedIndex];
+        
+        NSMutableDictionary<NSString *, NSSet<NSString *> *> *newOptions = [self.options mutableCopy];
+        
+        if ([value isEqualToString:@""]) {
             [newOptions removeObjectForKey:key];
-        }
-    } else {
-        NSMutableSet<NSString *> * _Nullable values = [self.options[key] mutableCopy];
-        if (values == nil) {
-            values = [NSMutableSet<NSString *> new];
-        }
-        
-        if ([values.allObjects containsString:value]) {
-            [values removeObject:value];
+        } else if (!supportsMultipleSelection) {
+            NSSet<NSString *> * _Nullable values = newOptions[key];
+            
+            if ((values == nil) || !([values containsObject:value])) {
+                newOptions[key] = [NSSet setWithObject:value];
+            } else {
+                [newOptions removeObjectForKey:key];
+            }
         } else {
-            [values addObject:value];
+            NSMutableSet<NSString *> * _Nullable values = [self.options[key] mutableCopy];
+            if (values == nil) {
+                values = [NSMutableSet<NSString *> new];
+            }
+            
+            if ([values.allObjects containsString:value]) {
+                [values removeObject:value];
+            } else {
+                [values addObject:value];
+            }
+            
+            if (values.count > 0) {
+                newOptions[key] = values;
+            } else if (showsEmptyItem) {
+                [newOptions removeObjectForKey:key];
+            }
+            
+            [values release];
         }
         
-        if (values.count > 0) {
-            newOptions[key] = values;
-        } else if (showsEmptyItem) {
-            [newOptions removeObjectForKey:key];
+        if (![self.options isEqualToDictionary:newOptions]) {
+            [self updateItemsWithOptions:newOptions];
+            [self.deckAddCardOptionsTouchBarDelegate deckAddCardOptionsTouchBar:self changedOption:newOptions];
         }
         
-        [values release];
-    }
-    
-    if (![self.options isEqualToDictionary:newOptions]) {
-        [self updateItemsWithOptions:newOptions];
-        [self.deckAddCardOptionsTouchBarDelegate deckAddCardOptionsTouchBar:self changedOption:newOptions];
-    }
-    
-    [newOptions release];
+        [newOptions release];
+    }];
 }
 
 @end

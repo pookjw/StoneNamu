@@ -177,7 +177,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
 - (void)configureCollectionView {
     NSScrollView *scrollView = [NSScrollView new];
     ClickableCollectionView *collectionView = [ClickableCollectionView new];
-
+    
     [self.view addSubview:scrollView];
     scrollView.translatesAutoresizingMaskIntoConstraints = NO;
     [NSLayoutConstraint activateConstraints:@[
@@ -196,7 +196,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
     NSNib *nib = [[NSNib alloc] initWithNibNamed:NSStringFromClass([DeckAddCardCollectionViewItem class]) bundle:NSBundle.mainBundle];
     [collectionView registerNib:nib forItemWithIdentifier:NSUserInterfaceItemIdentifierDeckAddCardCollectionViewItem];
     [nib release];
-
+    
     collectionView.selectable = YES;
     collectionView.allowsMultipleSelection = NO;
     collectionView.allowsEmptySelection = YES;
@@ -362,7 +362,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
     DeckAddCardsViewController * __block unretainedSelf = self;
     
     DeckAddCardsDataSource *dataSource = [[DeckAddCardsDataSource alloc] initWithCollectionView:self.collectionView
-                                                                     itemProvider:^NSCollectionViewItem * _Nullable(NSCollectionView * _Nonnull collectionView, NSIndexPath * _Nonnull indexPath, DeckAddCardItemModel * _Nonnull itemModel) {
+                                                                                   itemProvider:^NSCollectionViewItem * _Nullable(NSCollectionView * _Nonnull collectionView, NSIndexPath * _Nonnull indexPath, DeckAddCardItemModel * _Nonnull itemModel) {
         
         DeckAddCardCollectionViewItem *item = (DeckAddCardCollectionViewItem *)[collectionView makeItemWithIdentifier:NSUserInterfaceItemIdentifierDeckAddCardCollectionViewItem forIndexPath:indexPath];
         [item configureWithHSCard:itemModel.hsCard count:itemModel.count isLegendary:itemModel.isLegendary delegate:unretainedSelf];
@@ -441,22 +441,22 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
 
 - (void)collectionView:(NSCollectionView *)collectionView didSelectItemsAtIndexPaths:(NSSet<NSIndexPath *> *)indexPaths {
     [collectionView deselectItemsAtIndexPaths:indexPaths];
-//    [self.viewModel addHSCardsFromIndexPathes:indexPaths];
+    //    [self.viewModel addHSCardsFromIndexPathes:indexPaths];
 }
 
 - (BOOL)collectionView:(NSCollectionView *)collectionView canDragItemsAtIndexPaths:(NSSet<NSIndexPath *> *)indexPaths withEvent:(NSEvent *)event {
     BOOL __block result = YES;
-
+    
     [indexPaths enumerateObjectsUsingBlock:^(NSIndexPath * _Nonnull obj, BOOL * _Nonnull stop) {
         DeckAddCardItemModel * _Nullable itemModel = [self.viewModel.dataSource itemIdentifierForIndexPath:obj];
-
+        
         if (itemModel == nil) {
             result = NO;
             *stop = YES;
             return;
         }
     }];
-
+    
     return result;
 }
 
@@ -524,23 +524,31 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
 #pragma mark - DeckAddCardOptionsMenuDelegate
 
 - (void)deckAddCardOptionsMenu:(DeckAddCardOptionsMenu *)menu changedOption:(NSDictionary<NSString *,NSSet<NSString *> *> *)options {
-    [self requestDataSourceWithOptions:options reset:YES];
+    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+        [self requestDataSourceWithOptions:options reset:YES];
+    }];
 }
 
 - (void)deckAddCardOptionsMenu:(DeckAddCardOptionsMenu *)menu defaultOptionsAreNeedWithSender:(NSMenuItem *)sender {
-    [self requestDataSourceWithOptions:nil reset:YES];
+    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+        [self requestDataSourceWithOptions:nil reset:YES];
+    }];
 }
 
 #pragma mark - DeckAddCardOptionsToolbarDelegate
 
 - (void)deckAddCardOptionsToolbar:(DeckAddCardOptionsToolbar *)toolbar changedOption:(NSDictionary<NSString *,NSSet<NSString *> *> *)options {
-    [self requestDataSourceWithOptions:options reset:YES];
+    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+        [self requestDataSourceWithOptions:options reset:YES];
+    }];
 }
 
 #pragma mark - DeckAddCardOptionsTouchBarDelegate
 
 - (void)deckAddCardOptionsTouchBar:(DeckAddCardOptionsTouchBar *)touchBar changedOption:(NSDictionary<NSString *,NSSet<NSString *> *> *)options {
-    [self requestDataSourceWithOptions:options reset:YES];
+    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+        [self requestDataSourceWithOptions:options reset:YES];
+    }];
 }
 
 #pragma mark - DeckAddCardCollectionViewItemDelegate
