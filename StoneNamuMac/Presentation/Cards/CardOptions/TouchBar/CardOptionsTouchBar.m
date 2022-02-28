@@ -806,11 +806,8 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
             [values release];
         }
         
-        if (![self.options isEqualToDictionary:newOptions]) {
-            [self updateItemsWithOptions:newOptions];
-            [self.cardOptionsTouchBarDelegate cardOptionsTouchBar:self changedOption:newOptions];
-        }
-        
+        [self updateItemsWithOptions:newOptions];
+        [self.cardOptionsTouchBarDelegate cardOptionsTouchBar:self changedOption:newOptions];
         [newOptions release];
     }];
 }

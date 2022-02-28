@@ -290,10 +290,11 @@
             [values release];
         }
         
-        [self updateItemsWithOptions:newOptions];
-        [self.battlegroundsCardOptionsToolbarDelegate battlegroundsCardOptionsToolbar:self changedOption:newOptions];
-        
+        NSDictionary<NSString *, NSSet<NSString *> *> *validatedOptions = [self.factory validatedOptionsFromOptions:newOptions];
         [newOptions release];
+        
+        [self updateItemsWithOptions:validatedOptions];
+        [self.battlegroundsCardOptionsToolbarDelegate battlegroundsCardOptionsToolbar:self changedOption:validatedOptions];
     }];
 }
 
@@ -343,10 +344,11 @@
             newOptions[key] = [NSSet setWithObject:value];
         }
         
-        [self updateItemsWithOptions:newOptions];
-        [self.battlegroundsCardOptionsToolbarDelegate battlegroundsCardOptionsToolbar:self changedOption:newOptions];
-        
+        NSDictionary<NSString *, NSSet<NSString *> *> *validatedOptions = [self.factory validatedOptionsFromOptions:newOptions];
         [newOptions release];
+        
+        [self updateItemsWithOptions:validatedOptions];
+        [self.battlegroundsCardOptionsToolbarDelegate battlegroundsCardOptionsToolbar:self changedOption:validatedOptions];
     }
 }
 

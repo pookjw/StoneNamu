@@ -9,11 +9,11 @@
 
 NSArray<NSToolbarIdentifier> * allNSToolbarIdentifierBattlegroundsCardOptionTypes(void) {
     return @[
+        NSToolbarIdentifierBattlegroundsCardOptionTypeType,
         NSToolbarIdentifierBattlegroundsCardOptionTypeTextFilter,
         NSToolbarIdentifierBattlegroundsCardOptionTypeTier,
         NSToolbarIdentifierBattlegroundsCardOptionTypeAttack,
         NSToolbarIdentifierBattlegroundsCardOptionTypeHealth,
-        NSToolbarIdentifierBattlegroundsCardOptionTypeType,
         NSToolbarIdentifierBattlegroundsCardOptionTypeMinionType,
         NSToolbarIdentifierBattlegroundsCardOptionTypeKeyword,
         NSToolbarIdentifierBattlegroundsCardOptionTypeSort

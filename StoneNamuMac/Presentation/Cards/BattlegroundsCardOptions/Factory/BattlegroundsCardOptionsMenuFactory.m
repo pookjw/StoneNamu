@@ -122,6 +122,29 @@
     }
 }
 
+- (NSDictionary<NSString *, NSSet<NSString *> *> *)validatedOptionsFromOptions:(NSDictionary<NSString *, NSSet<NSString *> *> *)options {
+    NSSet<NSString *> * _Nullable typeValues = options[BlizzardHSAPIOptionTypeType];
+    BOOL isMinionType;
+    
+    if ((typeValues) && ([typeValues containsObject:HSCardTypeSlugTypeMinion])) {
+        isMinionType = YES;
+    } else {
+        isMinionType = NO;
+    }
+    
+    //
+    
+    if (isMinionType) {
+        return [[options copy] autorelease];
+    } else {
+        NSMutableDictionary<NSString *, NSSet<NSString *> *> *mutableOptions = [options mutableCopy];
+        
+        [mutableOptions removeObjectsForKeys:@[BlizzardHSAPIOptionTypeTier, BlizzardHSAPIOptionTypeAttack, BlizzardHSAPIOptionTypeHealth, BlizzardHSAPIOptionTypeMinionType]];
+        
+        return [mutableOptions autorelease];
+    }
+}
+
 - (NSString * _Nullable)titleForOptionType:(BlizzardHSAPIOptionType)optionType {
     return [ResourcesService localizationForBlizzardHSAPIOptionType:optionType];
 }

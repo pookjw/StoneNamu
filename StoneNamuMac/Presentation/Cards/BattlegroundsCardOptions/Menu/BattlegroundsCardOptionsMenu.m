@@ -181,11 +181,11 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierBattlegr
     
     //
     
-    NSArray<NSMenuItem *> *sortedAllOptionItems = @[optionTypeTextFilterItem,
+    NSArray<NSMenuItem *> *sortedAllOptionItems = @[optionTypeTypeItem,
+                                                    optionTypeTextFilterItem,
                                                     optionTypeTierItem,
                                                     optionTypeAttackItem,
                                                     optionTypeHealthItem,
-                                                    optionTypeTypeItem,
                                                     optionTypeMinionTypeItem,
                                                     optionTypeKeywordItem,
                                                     optionTypeSortItem];
@@ -301,10 +301,11 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierBattlegr
             [values release];
         }
         
-        [self updateItemsWithOptions:newOptions];
-        [self.battlegroundsCardOptionsMenuDelegate battlegroundsCardOptionsMenu:self changedOption:newOptions];
-        
+        NSDictionary<NSString *, NSSet<NSString *> *> *validatedOptions = [self.factory validatedOptionsFromOptions:newOptions];
         [newOptions release];
+        
+        [self updateItemsWithOptions:validatedOptions];
+        [self.battlegroundsCardOptionsMenuDelegate battlegroundsCardOptionsMenu:self changedOption:validatedOptions];
     }];
 }
 
@@ -375,10 +376,11 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierBattlegr
             newOptions[key] = [NSSet setWithObject:value];
         }
         
-        [self updateItemsWithOptions:newOptions];
-        [self.battlegroundsCardOptionsMenuDelegate battlegroundsCardOptionsMenu:self changedOption:newOptions];
-        
+        NSDictionary<NSString *, NSSet<NSString *> *> *validatedOptions = [self.factory validatedOptionsFromOptions:newOptions];
         [newOptions release];
+        
+        [self updateItemsWithOptions:validatedOptions];
+        [self.battlegroundsCardOptionsMenuDelegate battlegroundsCardOptionsMenu:self changedOption:validatedOptions];
     }
 }
 
