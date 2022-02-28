@@ -21,6 +21,7 @@
 @property (retain) DynamicMenuToolbarItem *createNewDeckClassicDeckItem;
 @property (retain) DynamicMenuToolbarItem *createNewDeckFromDeckCodeItem;
 @property (retain) NSArray<DynamicMenuToolbarItem *> *allItems;
+@property (retain) NSDictionary<HSDeckFormat, DynamicMenuToolbarItem *> *allHSDeckFormatItems;
 @end
 
 @implementation DecksToolbar
@@ -37,6 +38,9 @@
         
         [self setAttributes];
         [self configureToolbarItems];
+        
+        [self bind];
+        [self.factory load];
     }
     
     return self;
@@ -49,18 +53,8 @@
     [_createNewDeckClassicDeckItem release];
     [_createNewDeckFromDeckCodeItem release];
     [_allItems release];
+    [_allHSDeckFormatItems release];
     [super dealloc];
-}
-
-- (void)updateWithSlugsAndNames:(NSDictionary<HSDeckFormat,NSDictionary<NSString *,NSString *> *> *)slugsAndNames slugsAndIds:(NSDictionary<HSDeckFormat,NSDictionary<NSString *,NSNumber *> *> *)slugsAndIds {
-    self.factory.slugsAndNames = slugsAndNames;
-    self.factory.slugsAndIds = slugsAndIds;
-    
-    [self.allItems enumerateObjectsUsingBlock:^(DynamicMenuToolbarItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        NSUserInterfaceItemIdentifier itemIdentifier = obj.itemIdentifier;
-        HSDeckFormat hsDeckFormat = HSDeckFormatFromNSToolbarIdentifierDecks(itemIdentifier);
-        obj.menu = [self.factory menuForHSDeckFormat:hsDeckFormat target:self];
-    }];
 }
 
 - (void)setAttributes {
@@ -100,6 +94,12 @@
         createNewDeckFromDeckCodeItem
     ];
     
+    self.allHSDeckFormatItems = @{
+        HSDeckFormatStandard: createNewDeckStandardDeckItem,
+        HSDeckFormatWild: createNewDeckWildDeckItem,
+        HSDeckFormatClassic: createNewDeckClassicDeckItem
+    };
+    
     self.createNewDeckStandardDeckItem = createNewDeckStandardDeckItem;
     self.createNewDeckWildDeckItem = createNewDeckWildDeckItem;
     self.createNewDeckClassicDeckItem = createNewDeckClassicDeckItem;
@@ -129,7 +129,7 @@
 - (NSToolbarItem *)toolbar:(NSToolbar *)toolbar itemForItemIdentifier:(NSToolbarItemIdentifier)itemIdentifier willBeInsertedIntoToolbar:(BOOL)flag {
     NSMenuToolbarItem * _Nullable __block resultItem = nil;
     
-    [self.allItems enumerateObjectsUsingBlock:^(DynamicMenuToolbarItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    [self.allHSDeckFormatItems.allValues enumerateObjectsUsingBlock:^(DynamicMenuToolbarItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([itemIdentifier isEqualToString:obj.itemIdentifier]) {
             resultItem = obj;
             *stop = YES;
@@ -145,6 +145,21 @@
 
 - (NSArray<NSToolbarItemIdentifier> *)toolbarAllowedItemIdentifiers:(NSToolbar *)toolbar {
     return allNSToolbarIdentifierDecks();
+}
+
+- (void)bind {
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(shouldUpdateReceived:)
+                                               name:NSNotificationNameDecksMenuFactoryShouldUpdateItems
+                                             object:self.factory];
+}
+
+- (void)shouldUpdateReceived:(NSNotification *)notification {
+    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+        [self.allHSDeckFormatItems enumerateKeysAndObjectsUsingBlock:^(HSDeckFormat  _Nonnull key, DynamicMenuToolbarItem * _Nonnull obj, BOOL * _Nonnull stop) {
+            obj.menu = [self.factory menuForHSDeckFormat:key target:self];
+        }];
+    }];
 }
 
 @end

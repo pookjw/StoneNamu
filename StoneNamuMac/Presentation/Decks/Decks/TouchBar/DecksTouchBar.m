@@ -6,6 +6,7 @@
 //
 
 #import "DecksTouchBar.h"
+#import "DecksMenuFactory.h"
 #import "NSTouchBarItemIdentifierDecks+HSDeckFormat.h"
 #import <StoneNamuResources/StoneNamuResources.h>
 
@@ -14,8 +15,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
 
 @interface DecksTouchBar () <NSTouchBarDelegate, NSScrubberDataSource, NSScrubberDelegate>
 @property (assign) id<DecksTouchBarDelegate> decksTouchBarDelegate;
-@property (copy) NSDictionary<HSDeckFormat, NSDictionary<NSString *, NSString *> *> *slugsAndNames;
-@property (copy) NSDictionary<HSDeckFormat, NSDictionary<NSString *, NSNumber *> *> *slugsAndIds;
+@property (retain) DecksMenuFactory *factory;
 
 @property (retain) NSDictionary<HSDeckFormat, NSPopoverTouchBarItem *> *allPopoverItems;
 @property (retain) NSDictionary<HSDeckFormat, NSTouchBar *> *allTouchBarItems;
@@ -33,19 +33,22 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     if (self) {
         self.decksTouchBarDelegate = decksTouchBarDelegate;
         
-        self.slugsAndNames = @{};
-        self.slugsAndIds = @{};
+        DecksMenuFactory *factory = [DecksMenuFactory new];
+        self.factory = factory;
+        [factory release];
         
         [self configureItems];
         [self setAttributes];
+        
+        [self bind];
+        [self.factory load];
     }
     
     return self;
 }
 
 - (void)dealloc {
-    [_slugsAndNames release];
-    [_slugsAndIds release];
+    [_factory release];
     
     [_allPopoverItems release];
     [_allTouchBarItems release];
@@ -54,15 +57,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     
     [_createNewDeckFromDeckCodeItem release];
     [super dealloc];
-}
-
-- (void)updateWithSlugsAndNames:(NSDictionary<HSDeckFormat,NSDictionary<NSString *,NSString *> *> *)slugsAndNames slugsAndIds:(NSDictionary<HSDeckFormat,NSDictionary<NSString *,NSNumber *> *> *)slugsAndIds {
-    self.slugsAndNames = slugsAndNames;
-    self.slugsAndIds = slugsAndIds;
-    
-    [self.allScrubberItems.allValues enumerateObjectsUsingBlock:^(NSScrubber * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        [obj reloadData];
-    }];
 }
 
 - (void)configureItems {
@@ -203,11 +197,26 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     [self.decksTouchBarDelegate decksTouchBar:self createNewDeckFromDeckCodeWithIdentifier:sender.identifier];
 }
 
+- (void)bind {
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(shouldUpdateReceived:)
+                                               name:NSNotificationNameDecksMenuFactoryShouldUpdateItems
+                                             object:self.factory];
+}
+
+- (void)shouldUpdateReceived:(NSNotification *)notification {
+    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+        [self.allScrubberItems.allValues enumerateObjectsUsingBlock:^(NSScrubber * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [obj reloadData];
+        }];
+    }];
+}
+
 #pragma mark - Helper
 
 - (NSDictionary<NSString *, NSString *> *)dicFromScrubber:(NSScrubber *)scrubber {
     HSDeckFormat hsDeckFormat = [self hsDeckFormatFromScrubber:scrubber];
-    return self.slugsAndNames[hsDeckFormat];
+    return self.factory.slugsAndNames[hsDeckFormat];
 }
 
 - (NSArray<NSString *> *)sortedKeysFromScrubber:(NSScrubber *)scrubber {
@@ -287,7 +296,6 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
     
     [[self popoverTouchBarItemFromScrubber:scrubber] dismissPopover:nil];
     [self.decksTouchBarDelegate decksTouchBar:self createNewDeckWithDeckFormat:deckFormat classSlug:key];
-    
 }
 
 @end

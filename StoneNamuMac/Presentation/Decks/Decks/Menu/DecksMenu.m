@@ -21,6 +21,7 @@
 @property (retain) NSMenuItem *createNewDeckFromDeckCodeItem;
 
 @property (retain) NSArray<NSMenuItem *> *allItems;
+@property (retain) NSDictionary<HSDeckFormat, NSMenuItem *> *allHSDeckFormatItems;
 @end
 
 @implementation DecksMenu
@@ -38,8 +39,10 @@
         [self.editMenuItem.submenu addItem:[NSMenuItem separatorItem]];
         [self configureEditDeckNameItem];
         [self configureDeleteItem];
-        
         [self configureCreateDeckItems];
+        
+        [self bind];
+        [self.factory load];
     }
     
     return self;
@@ -54,18 +57,8 @@
     [_createNewDeckClassicDeckItem release];
     [_createNewDeckFromDeckCodeItem release];
     [_allItems release];
+    [_allHSDeckFormatItems release];
     [super dealloc];
-}
-
-- (void)updateWithSlugsAndNames:(NSDictionary<HSDeckFormat,NSDictionary<NSString *,NSString *> *> *)slugsAndNames slugsAndIds:(NSDictionary<HSDeckFormat,NSDictionary<NSString *,NSNumber *> *> *)slugsAndIds {
-    self.factory.slugsAndNames = slugsAndNames;
-    self.factory.slugsAndIds = slugsAndIds;
-    
-    [self.allItems enumerateObjectsUsingBlock:^(NSMenuItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        NSUserInterfaceItemIdentifier itemIdentifier = obj.identifier;
-        HSDeckFormat hsDeckFormat = HSDeckFormatFromNSUserInterfaceItemIdentifierDecks(itemIdentifier);
-        obj.submenu = [self.factory menuForHSDeckFormat:hsDeckFormat target:self];
-    }];
 }
 
 - (void)configureEditDeckNameItem {
@@ -139,6 +132,19 @@
     self.createNewDeckClassicDeckItem = createNewDeckClassicDeckItem;
     self.createNewDeckFromDeckCodeItem = createNewDeckFromDeckCodeItem;
     
+    self.allItems = @[
+        createNewDeckStandardDeckItem,
+        createNewDeckWildDeckItem,
+        createNewDeckClassicDeckItem,
+        createNewDeckFromDeckCodeItem
+    ];
+    
+    self.allHSDeckFormatItems = @{
+        HSDeckFormatStandard: createNewDeckStandardDeckItem,
+        HSDeckFormatWild: createNewDeckWildDeckItem,
+        HSDeckFormatClassic: createNewDeckClassicDeckItem
+    };
+    
     [createNewDeckStandardDeckItem release];
     [createNewDeckWildDeckItem release];
     [createNewDeckClassicDeckItem release];
@@ -154,6 +160,21 @@
 
 - (void)createNewDeckFromDeckCodeItemTriggered:(NSMenuItem *)sender {
     [self.decksMenuDelegate decksMenu:self createNewDeckFromDeckCodeWithIdentifier:sender.identifier];
+}
+
+- (void)bind {
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(shouldUpdateReceived:)
+                                               name:NSNotificationNameDecksMenuFactoryShouldUpdateItems
+                                             object:self.factory];
+}
+
+- (void)shouldUpdateReceived:(NSNotification *)notification {
+    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+        [self.allHSDeckFormatItems enumerateKeysAndObjectsUsingBlock:^(HSDeckFormat  _Nonnull key, NSMenuItem * _Nonnull obj, BOOL * _Nonnull stop) {
+            obj.submenu = [self.factory menuForHSDeckFormat:key target:self];
+        }];
+    }];
 }
 
 @end

@@ -91,7 +91,6 @@
     [self configureViewModel];
     [self bind];
     [self.viewModel requestDataSource];
-    [self.viewModel requestOptions];
 }
 
 - (void)viewDidAppear {
@@ -168,11 +167,6 @@
                                            selector:@selector(applyingSnapshotToDataSourceWasDoneReceived:)
                                                name:NSNotificationNameDecksViewModelApplyingSnapshotToDataSourceWasDone
                                              object:self.viewModel];
-    
-    [NSNotificationCenter.defaultCenter addObserver:self
-                                           selector:@selector(shouldUpdateOptionsReceived:)
-                                               name:NSNotificationNameDecksViewModelShouldUpdateOptions
-                                             object:self.viewModel];
 }
 
 - (void)applyingSnapshotToDataSourceWasDoneReceived:(NSNotification *)notification {
@@ -189,19 +183,6 @@
         [self setDecksToolbarToWindow];
         [self setDecksTouchBarToWindow];
     }];
-}
-
-- (void)shouldUpdateOptionsReceived:(NSNotification *)notification {
-    NSDictionary<HSDeckFormat, NSDictionary<NSString *, NSString *> *> * _Nullable slugsAndNames = notification.userInfo[DecksViewModelShouldUpdateOptionsSlugsAndNamesItemKey];
-    NSDictionary<HSDeckFormat, NSDictionary<NSString *, NSNumber *> *> * _Nullable slugsAndIds = notification.userInfo[DecksViewModelShouldUpdateOptionsSlugsAndIdsItemKey];
-    
-    if ((slugsAndNames) && (slugsAndIds)) {
-        [NSOperationQueue.mainQueue addOperationWithBlock:^{
-            [self.decksMenu updateWithSlugsAndNames:slugsAndNames slugsAndIds:slugsAndIds];
-            [self.decksToolbar updateWithSlugsAndNames:slugsAndNames slugsAndIds:slugsAndIds];
-            [self.decksTouchBar updateWithSlugsAndNames:slugsAndNames slugsAndIds:slugsAndIds];
-        }];
-    }
 }
 
 - (DecksDataSource *)makeDataSource {
