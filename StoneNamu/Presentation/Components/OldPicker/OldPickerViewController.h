@@ -8,7 +8,7 @@
 #import <UIKit/UIKit.h>
 #import "OldPickerItemModel.h"
 
-typedef void (^PickerViewControllerDoneCompletion)(OldPickerItemModel * _Nullable);
+typedef void (^OldPickerViewControllerDoneCompletion)(OldPickerItemModel * _Nullable);
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithDataSource:(NSArray<OldPickerItemModel *> *)dataSource
                              title:(NSString *)title
                       showEmptyRow:(BOOL)showEmptyRow
-                    doneCompletion:(PickerViewControllerDoneCompletion)doneCompletion;
+                    doneCompletion:(OldPickerViewControllerDoneCompletion)doneCompletion;
 - (void)selectIdentity:(NSString *)identity animated:(BOOL)animated;
 @end
 

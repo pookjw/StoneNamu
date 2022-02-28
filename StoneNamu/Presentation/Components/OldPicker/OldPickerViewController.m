@@ -13,7 +13,7 @@
 @property (retain) UIPickerView *pickerView;
 @property (copy) NSArray<OldPickerItemModel *> *dataSource;
 @property (readonly) BOOL showEmptyRow;
-@property (copy) PickerViewControllerDoneCompletion doneCompletion;
+@property (copy) OldPickerViewControllerDoneCompletion doneCompletion;
 @end
 
 @implementation OldPickerViewController
@@ -25,7 +25,7 @@
     [super dealloc];
 }
 
-- (instancetype)initWithDataSource:(NSArray<OldPickerItemModel *> *)dataSource title:(NSString *)title showEmptyRow:(BOOL)showEmptyRow doneCompletion:(PickerViewControllerDoneCompletion)doneCompletion {
+- (instancetype)initWithDataSource:(NSArray<OldPickerItemModel *> *)dataSource title:(NSString *)title showEmptyRow:(BOOL)showEmptyRow doneCompletion:(OldPickerViewControllerDoneCompletion)doneCompletion {
     self = [self init];
     
     if (self) {
