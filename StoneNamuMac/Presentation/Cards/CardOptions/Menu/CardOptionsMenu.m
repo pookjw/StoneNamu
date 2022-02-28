@@ -20,25 +20,8 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardOpti
 
 @property (retain) NSMenuItem *optionsMenuItem;
 @property (retain) NSMenu *optionsSubMenu;
-
-@property (retain) NSMenuItem *optionTypeTextFilterItem;
-@property (retain) NSMenuItem *optionTypeSetItem;
-@property (retain) NSMenuItem *optionTypeClassItem;
-@property (retain) NSMenuItem *optionTypeManaCostItem;
-@property (retain) NSMenuItem *optionTypeAttackItem;
-@property (retain) NSMenuItem *optionTypeHealthItem;
-@property (retain) NSMenuItem *optionTypeCollectibleItem;
-@property (retain) NSMenuItem *optionTypeRarityItem;
-@property (retain) NSMenuItem *optionTypeTypeItem;
-@property (retain) NSMenuItem *optionTypeMinionTypeItem;
-@property (retain) NSMenuItem *optionTypeSpellSchoolItem;
-@property (retain) NSMenuItem *optionTypeKeywordItem;
-@property (retain) NSMenuItem *optionTypeGameModeItem;
-@property (retain) NSMenuItem *optionTypeSortItem;
-@property (retain) NSArray<NSMenuItem *> *allOptionsItems;
-
+@property (retain) NSDictionary<BlizzardHSAPIOptionType, NSMenuItem *> *allOptionItems;
 @property (retain) NSMenuItem *resetOptionsItem;
-
 @property (retain) NSMutableDictionary<NSString *, NSSet<NSString *> *> *options;
 @end
 
@@ -72,38 +55,26 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardOpti
     
     [_optionsMenuItem release];
     [_optionsSubMenu release];
-    
-    [_optionTypeTextFilterItem release];
-    [_optionTypeSetItem release];
-    [_optionTypeClassItem release];
-    [_optionTypeManaCostItem release];
-    [_optionTypeAttackItem release];
-    [_optionTypeHealthItem release];
-    [_optionTypeCollectibleItem release];
-    [_optionTypeRarityItem release];
-    [_optionTypeTypeItem release];
-    [_optionTypeMinionTypeItem release];
-    [_optionTypeSpellSchoolItem release];
-    [_optionTypeKeywordItem release];
-    [_optionTypeGameModeItem release];
-    [_optionTypeSortItem release];
-    [_allOptionsItems release];
-    
+    [_allOptionItems release];
     [_resetOptionsItem release];
     [_options release];
     [super dealloc];
 }
 
 - (void)updateItemsWithOptions:(NSDictionary<NSString *,NSSet<NSString *> *> *)options {
+    [self updateItemsWithOptions:options force:NO];
+}
+
+- (void)updateItemsWithOptions:(NSDictionary<NSString *,NSSet<NSString *> *> *)options force:(BOOL)force {
+    if (!force) {
+        if (compareNullableValues(self.options, options, @selector(isEqualToDictionary:))) return;
+    }
     NSMutableDictionary<NSString *, NSSet<NSString *> *> *mutableOptions = [options mutableCopy];
     self.options = mutableOptions;
     [mutableOptions release];
     
-    [self.allOptionsItems enumerateObjectsUsingBlock:^(NSMenuItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        
-        NSUserInterfaceItemIdentifier identifier = obj.identifier;
-        BlizzardHSAPIOptionType optionType = BlizzardHSAPIOptionTypeFromNSUserInterfaceItemIdentifierCardOptionType(identifier);
-        NSSet<NSString *> * _Nullable values = options[optionType];
+    [self.allOptionItems enumerateKeysAndObjectsUsingBlock:^(BlizzardHSAPIOptionType  _Nonnull key, NSMenuItem * _Nonnull obj, BOOL * _Nonnull stop) {
+        NSSet<NSString *> * _Nullable values = options[key];
         
         //
         
@@ -121,7 +92,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardOpti
         
         //
         
-        obj.image = [self.factory imageForCardOptionTypeWithValues:values optionType:optionType];
+        obj.image = [self.factory imageForCardOptionTypeWithValues:values optionType:key];
         
         [self updateStateOfItem:obj];
     }];
@@ -239,7 +210,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardOpti
     
     //
     
-    NSArray *allOptionsItems = @[
+    NSArray<NSMenuItem *> *sortedAllOptionItems = @[
         optionTypeTextFilterItem,
         optionTypeSetItem,
         optionTypeClassItem,
@@ -255,24 +226,15 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardOpti
         optionTypeGameModeItem,
         optionTypeSortItem
     ];
+    NSMutableDictionary<BlizzardHSAPIOptionType, NSMenuItem *> *allOptionItems = [NSMutableDictionary<BlizzardHSAPIOptionType, NSMenuItem *> new];
+    [sortedAllOptionItems enumerateObjectsUsingBlock:^(NSMenuItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        BlizzardHSAPIOptionType optionType = BlizzardHSAPIOptionTypeFromNSUserInterfaceItemIdentifierCardOptionType(obj.identifier);
+        allOptionItems[optionType] = obj;
+    }];
     
-    self.allOptionsItems = allOptionsItems;
-    self.optionsSubMenu.itemArray = allOptionsItems;
-    
-    self.optionTypeTextFilterItem = optionTypeTextFilterItem;
-    self.optionTypeSetItem = optionTypeSetItem;
-    self.optionTypeClassItem = optionTypeClassItem;
-    self.optionTypeManaCostItem = optionTypeManaCostItem;
-    self.optionTypeAttackItem = optionTypeAttackItem;
-    self.optionTypeHealthItem = optionTypeHealthItem;
-    self.optionTypeCollectibleItem = optionTypeCollectibleItem;
-    self.optionTypeRarityItem = optionTypeRarityItem;
-    self.optionTypeTypeItem = optionTypeTypeItem;
-    self.optionTypeMinionTypeItem = optionTypeMinionTypeItem;
-    self.optionTypeSpellSchoolItem = optionTypeSpellSchoolItem;
-    self.optionTypeKeywordItem = optionTypeKeywordItem;
-    self.optionTypeGameModeItem = optionTypeGameModeItem;
-    self.optionTypeSortItem = optionTypeSortItem;
+    self.allOptionItems = allOptionItems;
+    [allOptionItems release];
+    self.optionsSubMenu.itemArray = sortedAllOptionItems;
     
     [optionTypeTextFilterItem release];
     [optionTypeSetItem release];
@@ -316,26 +278,20 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardOpti
 
 - (void)shouldUpdateReceived:(NSNotification *)notification {
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
-        [self.allOptionsItems enumerateObjectsUsingBlock:^(NSMenuItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            NSUserInterfaceItemIdentifier itemIdentifier = obj.identifier;
-            BlizzardHSAPIOptionType optionType = BlizzardHSAPIOptionTypeFromNSUserInterfaceItemIdentifierCardOptionType(itemIdentifier);
-            
-            obj.submenu = [self.factory menuForOptionType:optionType target:self];
-            obj.title = [self.factory titleForOptionType:optionType];
+        [self.allOptionItems enumerateKeysAndObjectsUsingBlock:^(BlizzardHSAPIOptionType  _Nonnull key, NSMenuItem * _Nonnull obj, BOOL * _Nonnull stop) {
+            obj.submenu = [self.factory menuForOptionType:key target:self];
+            obj.title = [self.factory titleForOptionType:key];
         }];
         
-        [self updateItemsWithOptions:self.options];
+        [self updateItemsWithOptions:self.options force:YES];
     }];
 }
 
 - (NSMenuItem * _Nullable)itemForOptionType:(BlizzardHSAPIOptionType)optionType {
     NSMenuItem * _Nullable __block result = nil;
     
-    [self.allOptionsItems enumerateObjectsUsingBlock:^(NSMenuItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        NSUserInterfaceItemIdentifier itemIdentifier = obj.identifier;
-        BlizzardHSAPIOptionType tmp = BlizzardHSAPIOptionTypeFromNSUserInterfaceItemIdentifierCardOptionType(itemIdentifier);
-        
-        if ([optionType isEqualToString:tmp]) {
+    [self.allOptionItems enumerateKeysAndObjectsUsingBlock:^(BlizzardHSAPIOptionType  _Nonnull key, NSMenuItem * _Nonnull obj, BOOL * _Nonnull stop) {
+        if ([key isEqualToString:optionType]) {
             result = obj;
             *stop = YES;
         }
@@ -367,18 +323,20 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardOpti
     
     //
     
+    NSMutableDictionary<NSString *, NSSet<NSString *> *> *newOptions = [self.options mutableCopy];
+    
     if ([value isEqualToString:@""]) {
-        [self.options removeObjectForKey:key];
+        [newOptions removeObjectForKey:key];
     } else if (!allowsMultipleSelection) {
-        NSSet<NSString *> * _Nullable values = self.options[key];
+        NSSet<NSString *> * _Nullable values = newOptions[key];
         
         if ((values == nil) || !([values containsObject:value])) {
-            self.options[key] = [NSSet setWithObject:value];
+            newOptions[key] = [NSSet setWithObject:value];
         } else {
-            [self.options removeObjectForKey:key];
+            [newOptions removeObjectForKey:key];
         }
     } else {
-        NSMutableSet<NSString *> * _Nullable values = [self.options[key] mutableCopy];
+        NSMutableSet<NSString *> * _Nullable values = [newOptions[key] mutableCopy];
         if (values == nil) {
             values = [NSMutableSet<NSString *> new];
         }
@@ -390,16 +348,18 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardOpti
         }
         
         if (values.count > 0) {
-            self.options[key] = values;
+            newOptions[key] = values;
         } else if (showsEmptyItem) {
-            [self.options removeObjectForKey:key];
+            [newOptions removeObjectForKey:key];
         }
         
         [values release];
     }
     
-    [self updateItemsWithOptions:self.options];
-    [self.cardOptionsMenuDelegate cardOptionsMenu:self changedOption:self.options];
+    [self updateItemsWithOptions:newOptions];
+    [self.cardOptionsMenuDelegate cardOptionsMenu:self changedOption:newOptions];
+    
+    [newOptions release];
 }
 
 - (void)updateStateOfItem:(NSMenuItem *)item {
@@ -453,14 +413,18 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardOpti
         
         [[self itemForOptionType:key].menu cancelTracking];
         
+        NSMutableDictionary<NSString *, NSSet<NSString *> *> *newOptions = [self.options mutableCopy];
+        
         if ([value isEqualToString:@""]) {
-            [self.options removeObjectForKey:key];
+            [newOptions removeObjectForKey:key];
         } else {
-            self.options[key] = [NSSet setWithObject:value];
+            newOptions[key] = [NSSet setWithObject:value];
         }
         
-        [self updateItemsWithOptions:self.options];
-        [self.cardOptionsMenuDelegate cardOptionsMenu:self changedOption:self.options];
+        [self updateItemsWithOptions:newOptions];
+        [self.cardOptionsMenuDelegate cardOptionsMenu:self changedOption:newOptions];
+        
+        [newOptions release];
     }
 }
 

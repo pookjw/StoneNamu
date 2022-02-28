@@ -65,9 +65,9 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
 
 - (void)setAttributes {
     self.delegate = self;
-//    self.customizationIdentifier = NSTouchBarCustomizationIdentifierBattlegroundsCardOptionsTouchBar;
+    self.customizationIdentifier = NSTouchBarCustomizationIdentifierBattlegroundsCardOptionsTouchBar;
     self.defaultItemIdentifiers = allNSTouchBarItemIdentifierBattlegroundsCardOptionTypes();
-//    self.customizationAllowedItemIdentifiers = allNSTouchBarItemIdentifierBattlegroundsCardOptionTypes();
+    self.customizationAllowedItemIdentifiers = allNSTouchBarItemIdentifierBattlegroundsCardOptionTypes();
 }
 
 - (void)configureTouchBarItems {

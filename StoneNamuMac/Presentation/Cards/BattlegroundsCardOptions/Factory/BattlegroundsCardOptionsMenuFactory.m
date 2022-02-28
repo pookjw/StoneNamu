@@ -14,7 +14,6 @@
 @interface BattlegroundsCardOptionsMenuFactory ()
 @property (retain) id<HSMetaDataUseCase> hsMetaDataUseCase;
 @property (retain) NSOperationQueue *queue;
-@property (copy, nonatomic) NSDictionary<NSString *, NSSet<NSString *> *> * _Nullable options;
 @end
 
 @implementation BattlegroundsCardOptionsMenuFactory
@@ -44,9 +43,6 @@
         self.queue = queue;
         [queue release];
         
-        [self->_options release];
-        self->_options = nil;
-        
         [self bind];
     }
     
@@ -60,7 +56,6 @@
     [_typeSlugsAndNames release];
     [_hsMetaDataUseCase release];
     [_queue release];
-    [_options release];
     [super dealloc];
 }
 
@@ -336,11 +331,6 @@
         
         [self postShouldUpdateItems];
     }];
-}
-
-- (void)setOptions:(NSDictionary<NSString *,NSSet<NSString *> *> *)options {
-    [self->_options release];
-    self->_options = [options copy];
 }
 
 - (void)bind {

@@ -489,9 +489,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
             obj.customizationLabel = [self.factory titleForOptionType:key];
         }];
         
-        [self.allScrubbers.allValues enumerateObjectsUsingBlock:^(NSScrubber * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            [obj reloadData];
-        }];
+        [self updateItemsWithOptions:self.options force:YES];
     }];
 }
 

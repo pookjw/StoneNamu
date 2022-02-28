@@ -29,7 +29,6 @@ static NSString * const BattlegroundsCardOptionsMenuFactoryStorableMenuItemAllow
 - (NSImage * _Nullable)imageForCardOptionTypeWithValues:(NSSet<NSString *> * _Nullable)values optionType:(BlizzardHSAPIOptionType)optionType;
 - (NSMenu *)menuForOptionType:(BlizzardHSAPIOptionType)optionType target:(id<NSSearchFieldDelegate>)target;
 - (void)load;
-- (void)setOptions:(NSDictionary<NSString *, NSSet<NSString *> *> *)options;
 @end
 
 NS_ASSUME_NONNULL_END

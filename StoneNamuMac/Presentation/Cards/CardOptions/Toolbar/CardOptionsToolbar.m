@@ -16,22 +16,7 @@
 @interface CardOptionsToolbar () <NSToolbarDelegate, NSSearchFieldDelegate>
 @property (assign) id<CardOptionsToolbarDelegate> cardOptionsToolbarDelegate;
 @property (retain) CardOptionsMenuFactory *factory;
-
-@property (retain) DynamicMenuToolbarItem *optionTypeTextFilterItem;
-@property (retain) DynamicMenuToolbarItem *optionTypeSetItem;
-@property (retain) DynamicMenuToolbarItem *optionTypeClassItem;
-@property (retain) DynamicMenuToolbarItem *optionTypeManaCostItem;
-@property (retain) DynamicMenuToolbarItem *optionTypeAttackItem;
-@property (retain) DynamicMenuToolbarItem *optionTypeHealthItem;
-@property (retain) DynamicMenuToolbarItem *optionTypeCollectibleItem;
-@property (retain) DynamicMenuToolbarItem *optionTypeRarityItem;
-@property (retain) DynamicMenuToolbarItem *optionTypeTypeItem;
-@property (retain) DynamicMenuToolbarItem *optionTypeMinionTypeItem;
-@property (retain) DynamicMenuToolbarItem *optionTypeSpellSchoolItem;
-@property (retain) DynamicMenuToolbarItem *optionTypeKeyowrdItem;
-@property (retain) DynamicMenuToolbarItem *optionTypeGameModeItem;
-@property (retain) DynamicMenuToolbarItem *optionTypeSortItem;
-@property (retain) NSArray<DynamicMenuToolbarItem *> *allOptionsItems;
+@property (retain) NSDictionary<BlizzardHSAPIOptionType, DynamicMenuToolbarItem *> *allOptionItems;
 @property (retain) NSMutableDictionary<NSString *, NSSet<NSString *> *> *options;
 @end
 
@@ -62,21 +47,7 @@
 
 - (void)dealloc {
     [_factory release];
-    [_optionTypeTextFilterItem release];
-    [_optionTypeSetItem release];
-    [_optionTypeClassItem release];
-    [_optionTypeManaCostItem release];
-    [_optionTypeAttackItem release];
-    [_optionTypeHealthItem release];
-    [_optionTypeCollectibleItem release];
-    [_optionTypeRarityItem release];
-    [_optionTypeTypeItem release];
-    [_optionTypeMinionTypeItem release];
-    [_optionTypeSpellSchoolItem release];
-    [_optionTypeKeyowrdItem release];
-    [_optionTypeGameModeItem release];
-    [_optionTypeSortItem release];
-    [_allOptionsItems release];
+    [_allOptionItems release];
     [_options release];
     [super dealloc];
 }
@@ -146,37 +117,24 @@
     
     //
     
-    self.allOptionsItems = @[
-        optionTypeTextFilterItem,
-        optionTypeSetItem,
-        optionTypeClassItem,
-        optionTypeManaCostItem,
-        optionTypeAttackItem,
-        optionTypeHealthItem,
-        optionTypeCollectibleItem,
-        optionTypeRarityItem,
-        optionTypeTypeItem,
-        optionTypeMinionTypeItem,
-        optionTypeSpellSchoolItem,
-        optionTypeKeyowrdItem,
-        optionTypeGameModeItem,
-        optionTypeSortItem
-    ];
+    NSDictionary<BlizzardHSAPIOptionType, DynamicMenuToolbarItem *> *allOptionItems = @{
+        BlizzardHSAPIOptionTypeTextFilter: optionTypeTextFilterItem,
+        BlizzardHSAPIOptionTypeSet: optionTypeSetItem,
+        BlizzardHSAPIOptionTypeClass: optionTypeClassItem,
+        BlizzardHSAPIOptionTypeManaCost: optionTypeManaCostItem,
+        BlizzardHSAPIOptionTypeAttack: optionTypeAttackItem,
+        BlizzardHSAPIOptionTypeHealth: optionTypeHealthItem,
+        BlizzardHSAPIOptionTypeCollectible: optionTypeCollectibleItem,
+        BlizzardHSAPIOptionTypeRarity: optionTypeRarityItem,
+        BlizzardHSAPIOptionTypeType: optionTypeTypeItem,
+        BlizzardHSAPIOptionTypeMinionType: optionTypeMinionTypeItem,
+        BlizzardHSAPIOptionTypeSpellSchool: optionTypeSpellSchoolItem,
+        BlizzardHSAPIOptionTypeKeyword: optionTypeKeyowrdItem,
+        BlizzardHSAPIOptionTypeGameMode: optionTypeGameModeItem,
+        BlizzardHSAPIOptionTypeSort: optionTypeSortItem
+    };
     
-    self.optionTypeTextFilterItem = optionTypeTextFilterItem;
-    self.optionTypeSetItem = optionTypeSetItem;
-    self.optionTypeClassItem = optionTypeClassItem;
-    self.optionTypeManaCostItem = optionTypeManaCostItem;
-    self.optionTypeAttackItem = optionTypeAttackItem;
-    self.optionTypeHealthItem = optionTypeHealthItem;
-    self.optionTypeCollectibleItem = optionTypeCollectibleItem;
-    self.optionTypeRarityItem = optionTypeRarityItem;
-    self.optionTypeTypeItem = optionTypeTypeItem;
-    self.optionTypeMinionTypeItem = optionTypeMinionTypeItem;
-    self.optionTypeSpellSchoolItem = optionTypeSpellSchoolItem;
-    self.optionTypeKeyowrdItem = optionTypeKeyowrdItem;
-    self.optionTypeGameModeItem = optionTypeGameModeItem;
-    self.optionTypeSortItem = optionTypeSortItem;
+    self.allOptionItems = allOptionItems;
     
     [optionTypeTextFilterItem release];
     [optionTypeSetItem release];
@@ -197,19 +155,25 @@
 }
 
 - (void)updateItemsWithOptions:(NSDictionary<NSString *, NSSet<NSString *> *> * _Nullable)options {
+    [self updateItemsWithOptions:options force:NO];
+}
+
+- (void)updateItemsWithOptions:(NSDictionary<NSString *, NSSet<NSString *> *> * _Nullable)options force:(BOOL)force {
+    if (!force) {
+        if (compareNullableValues(self.options, options, @selector(isEqualToDictionary:))) {
+            return;
+        }
+    }
+    
     NSMutableDictionary<NSString *, NSSet<NSString *> *> *mutableOptions = [options mutableCopy];
     self.options = mutableOptions;
     [mutableOptions release];
     
-    [self.allOptionsItems enumerateObjectsUsingBlock:^(NSMenuToolbarItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        
+    [self.allOptionItems enumerateKeysAndObjectsUsingBlock:^(BlizzardHSAPIOptionType  _Nonnull key, DynamicMenuToolbarItem * _Nonnull obj, BOOL * _Nonnull stop) {
         DynamicMenuToolbarItem *item = (DynamicMenuToolbarItem *)obj;
-        
         if (![item isKindOfClass:[DynamicMenuToolbarItem class]]) return;
         
-        NSToolbarItemIdentifier itemIdentifier = item.itemIdentifier;
-        BlizzardHSAPIOptionType optionType = BlizzardHSAPIOptionTypeFromNSToolbarIdentifierCardOptionType(itemIdentifier);
-        NSSet<NSString *> * _Nullable values = options[optionType];
+        NSSet<NSString *> * _Nullable values = options[key];
         
         //
         
@@ -227,7 +191,7 @@
         
         //
         
-        obj.image = [self.factory imageForCardOptionTypeWithValues:values optionType:optionType];
+        obj.image = [self.factory imageForCardOptionTypeWithValues:values optionType:key];
         
         [self updateStateOfMenuToolbarItem:item];
     }];
@@ -274,26 +238,20 @@
 
 - (void)shouldUpdateReceived:(NSNotification *)notification {
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
-        [self.allOptionsItems enumerateObjectsUsingBlock:^(DynamicMenuToolbarItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            NSUserInterfaceItemIdentifier itemIdentifier = obj.itemIdentifier;
-            BlizzardHSAPIOptionType optionType = BlizzardHSAPIOptionTypeFromNSToolbarIdentifierCardOptionType(itemIdentifier);
-            
-            obj.menu = [self.factory menuForOptionType:optionType target:self];
-            obj.title = [self.factory titleForOptionType:optionType];
+        [self.allOptionItems enumerateKeysAndObjectsUsingBlock:^(BlizzardHSAPIOptionType  _Nonnull key, DynamicMenuToolbarItem * _Nonnull obj, BOOL * _Nonnull stop) {
+            obj.menu = [self.factory menuForOptionType:key target:self];
+            obj.title = [self.factory titleForOptionType:key];
         }];
         
-        [self updateItemsWithOptions:self.options];
+        [self updateItemsWithOptions:self.options force:YES];
     }];
 }
 
 - (DynamicMenuToolbarItem * _Nullable)menuToolbarItemForOptionType:(BlizzardHSAPIOptionType)optionType {
     DynamicMenuToolbarItem * _Nullable __block result = nil;
     
-    [self.allOptionsItems enumerateObjectsUsingBlock:^(DynamicMenuToolbarItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        NSToolbarItemIdentifier itemIdentifier = obj.itemIdentifier;
-        BlizzardHSAPIOptionType tmp = BlizzardHSAPIOptionTypeFromNSToolbarIdentifierCardOptionType(itemIdentifier);
-        
-        if ([optionType isEqualToString:tmp]) {
+    [self.allOptionItems enumerateKeysAndObjectsUsingBlock:^(BlizzardHSAPIOptionType  _Nonnull key, DynamicMenuToolbarItem * _Nonnull obj, BOOL * _Nonnull stop) {
+        if ([key isEqualToString:optionType]) {
             result = obj;
             *stop = YES;
         }
@@ -325,18 +283,20 @@
     
     //
     
+    NSMutableDictionary<NSString *, NSSet<NSString *> *> *newOptions = [self.options mutableCopy];
+    
     if ([value isEqualToString:@""]) {
-        [self.options removeObjectForKey:key];
+        [newOptions removeObjectForKey:key];
     } else if (!supportsMultipleSelection) {
-        NSSet<NSString *> * _Nullable values = self.options[key];
+        NSSet<NSString *> * _Nullable values = newOptions[key];
         
         if ((values == nil) || !([values containsObject:value])) {
-            self.options[key] = [NSSet setWithObject:value];
+            newOptions[key] = [NSSet setWithObject:value];
         } else {
-            [self.options removeObjectForKey:key];
+            [newOptions removeObjectForKey:key];
         }
     } else {
-        NSMutableSet<NSString *> * _Nullable values = [self.options[key] mutableCopy];
+        NSMutableSet<NSString *> * _Nullable values = [newOptions[key] mutableCopy];
         if (values == nil) {
             values = [NSMutableSet<NSString *> new];
         }
@@ -348,16 +308,18 @@
         }
         
         if (values.count > 0) {
-            self.options[key] = values;
+            newOptions[key] = values;
         } else if (showsEmptyItem) {
-            [self.options removeObjectForKey:key];
+            [newOptions removeObjectForKey:key];
         }
         
         [values release];
     }
     
-    [self updateItemsWithOptions:self.options];
-    [self.cardOptionsToolbarDelegate cardOptionsToolbar:self changedOption:self.options];
+    [self updateItemsWithOptions:newOptions];
+    [self.cardOptionsToolbarDelegate cardOptionsToolbar:self changedOption:newOptions];
+    
+    [newOptions release];
 }
 
 #pragma mark - NSToolbarDelegate
@@ -365,7 +327,7 @@
 - (NSToolbarItem *)toolbar:(NSToolbar *)toolbar itemForItemIdentifier:(NSToolbarItemIdentifier)itemIdentifier willBeInsertedIntoToolbar:(BOOL)flag {
     NSMenuToolbarItem * _Nullable __block resultItem = nil;
     
-    [self.allOptionsItems enumerateObjectsUsingBlock:^(NSMenuToolbarItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    [self.allOptionItems.allValues enumerateObjectsUsingBlock:^(NSMenuToolbarItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([itemIdentifier isEqualToString:obj.itemIdentifier]) {
             resultItem = obj;
             *stop = YES;
@@ -398,14 +360,18 @@
         
         [[self menuToolbarItemForOptionType:key].menu cancelTracking];
         
+        NSMutableDictionary<NSString *, NSSet<NSString *> *> *newOptions = [self.options mutableCopy];
+        
         if ([value isEqualToString:@""]) {
-            [self.options removeObjectForKey:key];
+            [newOptions removeObjectForKey:key];
         } else {
-            self.options[key] = [NSSet setWithObject:value];
+            newOptions[key] = [NSSet setWithObject:value];
         }
         
-        [self updateItemsWithOptions:self.options];
-        [self.cardOptionsToolbarDelegate cardOptionsToolbar:self changedOption:self.options];
+        [self updateItemsWithOptions:newOptions];
+        [self.cardOptionsToolbarDelegate cardOptionsToolbar:self changedOption:newOptions];
+        
+        [newOptions release];
     }
 }
 

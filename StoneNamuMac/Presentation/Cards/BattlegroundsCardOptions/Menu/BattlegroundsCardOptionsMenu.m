@@ -20,19 +20,8 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierBattlegr
 
 @property (retain) NSMenuItem *optionsMenuItem;
 @property (retain) NSMenu *optionsSubMenu;
-
-@property (retain) NSMenuItem *optionTypeTextFilterItem;
-@property (retain) NSMenuItem *optionTypeTierItem;
-@property (retain) NSMenuItem *optionTypeAttackItem;
-@property (retain) NSMenuItem *optionTypeHealthItem;
-@property (retain) NSMenuItem *optionTypeTypeItem;
-@property (retain) NSMenuItem *optionTypeMinionTypeItem;
-@property (retain) NSMenuItem *optionTypeKeywordItem;
-@property (retain) NSMenuItem *optionTypeSortItem;
-@property (retain) NSArray<NSMenuItem *> *allOptionsItems;
-
+@property (retain) NSDictionary<BlizzardHSAPIOptionType, NSMenuItem *> *allOptionItems;
 @property (retain) NSMenuItem *resetOptionsItem;
-
 @property (retain) NSMutableDictionary<NSString *, NSSet<NSString *> *> *options;
 @end
 
@@ -63,35 +52,29 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierBattlegr
 
 - (void)dealloc {
     [_factory release];
-    
     [_optionsMenuItem release];
     [_optionsSubMenu release];
-    
-    [_optionTypeTextFilterItem release];
-    [_optionTypeTierItem release];
-    [_optionTypeAttackItem release];
-    [_optionTypeHealthItem release];
-    [_optionTypeTypeItem release];
-    [_optionTypeMinionTypeItem release];
-    [_optionTypeKeywordItem release];
-    [_optionTypeSortItem release];
-    [_allOptionsItems release];
-    
+    [_allOptionItems release];
     [_resetOptionsItem release];
     [_options release];
     [super dealloc];
 }
 
 - (void)updateItemsWithOptions:(NSDictionary<NSString *,NSSet<NSString *> *> *)options {
+    [self updateItemsWithOptions:options force:NO];
+}
+
+- (void)updateItemsWithOptions:(NSDictionary<NSString *,NSSet<NSString *> *> *)options force:(BOOL)force {
+    if (!force) {
+        if (compareNullableValues(self.options, options, @selector(isEqualToDictionary:))) return;
+    }
+    
     NSMutableDictionary<NSString *, NSSet<NSString *> *> *mutableOptions = [options mutableCopy];
     self.options = mutableOptions;
     [mutableOptions release];
     
-    [self.allOptionsItems enumerateObjectsUsingBlock:^(NSMenuItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        
-        NSUserInterfaceItemIdentifier identifier = obj.identifier;
-        BlizzardHSAPIOptionType optionType = BlizzardHSAPIOptionTypeFromNSUserInterfaceItemIdentifierBattlegroundsCardOptionType(identifier);
-        NSSet<NSString *> * _Nullable values = options[optionType];
+    [self.allOptionItems enumerateKeysAndObjectsUsingBlock:^(BlizzardHSAPIOptionType  _Nonnull key, NSMenuItem * _Nonnull obj, BOOL * _Nonnull stop) {
+        NSSet<NSString *> * _Nullable values = options[key];
         
         //
         
@@ -109,7 +92,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierBattlegr
         
         //
         
-        obj.image = [self.factory imageForCardOptionTypeWithValues:values optionType:optionType];
+        obj.image = [self.factory imageForCardOptionTypeWithValues:values optionType:key];
         
         [self updateStateOfItem:obj];
     }];
@@ -185,28 +168,23 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierBattlegr
     
     //
     
-    NSArray *allOptionsItems = @[
-        optionTypeTextFilterItem,
-        optionTypeTierItem,
-        optionTypeAttackItem,
-        optionTypeHealthItem,
-        optionTypeTypeItem,
-        optionTypeMinionTypeItem,
-        optionTypeKeywordItem,
-        optionTypeSortItem
-    ];
+    NSArray<NSMenuItem *> *sortedAllOptionItems = @[optionTypeTextFilterItem,
+                                                    optionTypeTierItem,
+                                                    optionTypeAttackItem,
+                                                    optionTypeHealthItem,
+                                                    optionTypeTypeItem,
+                                                    optionTypeMinionTypeItem,
+                                                    optionTypeKeywordItem,
+                                                    optionTypeSortItem];
+    NSMutableDictionary<BlizzardHSAPIOptionType, NSMenuItem *> *allOptionItems = [NSMutableDictionary<BlizzardHSAPIOptionType, NSMenuItem *> new];
+    [sortedAllOptionItems enumerateObjectsUsingBlock:^(NSMenuItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        BlizzardHSAPIOptionType optionType = BlizzardHSAPIOptionTypeFromNSUserInterfaceItemIdentifierBattlegroundsCardOptionType(obj.identifier);
+        allOptionItems[optionType] = obj;
+    }];
     
-    self.allOptionsItems = allOptionsItems;
-    self.optionsSubMenu.itemArray = allOptionsItems;
-    
-    self.optionTypeTextFilterItem = optionTypeTextFilterItem;
-    self.optionTypeTierItem = optionTypeTierItem;
-    self.optionTypeAttackItem = optionTypeAttackItem;
-    self.optionTypeHealthItem = optionTypeHealthItem;
-    self.optionTypeTypeItem = optionTypeTypeItem;
-    self.optionTypeMinionTypeItem = optionTypeMinionTypeItem;
-    self.optionTypeKeywordItem = optionTypeKeywordItem;
-    self.optionTypeSortItem = optionTypeSortItem;
+    self.allOptionItems = allOptionItems;
+    [allOptionItems release];
+    self.optionsSubMenu.itemArray = sortedAllOptionItems;
     
     [optionTypeTextFilterItem release];
     [optionTypeTierItem release];
@@ -244,32 +222,13 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierBattlegr
 
 - (void)shouldUpdateReceived:(NSNotification *)notification {
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
-        [self.allOptionsItems enumerateObjectsUsingBlock:^(NSMenuItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            NSUserInterfaceItemIdentifier itemIdentifier = obj.identifier;
-            BlizzardHSAPIOptionType optionType = BlizzardHSAPIOptionTypeFromNSUserInterfaceItemIdentifierBattlegroundsCardOptionType(itemIdentifier);
-            
-            obj.submenu = [self.factory menuForOptionType:optionType target:self];
-            obj.title = [self.factory titleForOptionType:optionType];
+        [self.allOptionItems enumerateKeysAndObjectsUsingBlock:^(BlizzardHSAPIOptionType  _Nonnull key, NSMenuItem * _Nonnull obj, BOOL * _Nonnull stop) {
+            obj.submenu = [self.factory menuForOptionType:key target:self];
+            obj.title = [self.factory titleForOptionType:key];
         }];
         
-        [self updateItemsWithOptions:self.options];
+        [self updateItemsWithOptions:self.options force:YES];
     }];
-}
-
-- (NSMenuItem * _Nullable)itemForOptionType:(BlizzardHSAPIOptionType)optionType {
-    NSMenuItem * _Nullable __block result = nil;
-    
-    [self.allOptionsItems enumerateObjectsUsingBlock:^(NSMenuItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        NSUserInterfaceItemIdentifier itemIdentifier = obj.identifier;
-        BlizzardHSAPIOptionType tmp = BlizzardHSAPIOptionTypeFromNSUserInterfaceItemIdentifierBattlegroundsCardOptionType(itemIdentifier);
-        
-        if ([optionType isEqualToString:tmp]) {
-            result = obj;
-            *stop = YES;
-        }
-    }];
-    
-    return result;
 }
 
 - (void)keyMenuItemTriggered:(StorableMenuItem *)sender {
@@ -295,18 +254,20 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierBattlegr
     
     //
     
+    NSMutableDictionary<NSString *, NSSet<NSString *> *> *newOptions = [self.options mutableCopy];
+    
     if ([value isEqualToString:@""]) {
-        [self.options removeObjectForKey:key];
+        [newOptions removeObjectForKey:key];
     } else if (!allowsMultipleSelection) {
-        NSSet<NSString *> * _Nullable values = self.options[key];
+        NSSet<NSString *> * _Nullable values = newOptions[key];
         
         if ((values == nil) || !([values containsObject:value])) {
-            self.options[key] = [NSSet setWithObject:value];
+            newOptions[key] = [NSSet setWithObject:value];
         } else {
-            [self.options removeObjectForKey:key];
+            [newOptions removeObjectForKey:key];
         }
     } else {
-        NSMutableSet<NSString *> * _Nullable values = [self.options[key] mutableCopy];
+        NSMutableSet<NSString *> * _Nullable values = [newOptions[key] mutableCopy];
         if (values == nil) {
             values = [NSMutableSet<NSString *> new];
         }
@@ -318,16 +279,16 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierBattlegr
         }
         
         if (values.count > 0) {
-            self.options[key] = values;
+            newOptions[key] = values;
         } else if (showsEmptyItem) {
-            [self.options removeObjectForKey:key];
+            [newOptions removeObjectForKey:key];
         }
         
         [values release];
     }
     
-    [self updateItemsWithOptions:self.options];
-    [self.battlegroundsCardOptionsMenuDelegate battlegroundsCardOptionsMenu:self changedOption:self.options];
+    [self updateItemsWithOptions:newOptions];
+    [self.battlegroundsCardOptionsMenuDelegate battlegroundsCardOptionsMenu:self changedOption:newOptions];
 }
 
 - (void)updateStateOfItem:(NSMenuItem *)item {
@@ -379,16 +340,20 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierBattlegr
         NSString *key = searchField.userInfo.allKeys.firstObject;
         NSString *value = searchField.stringValue;
         
-        [[self itemForOptionType:key].menu cancelTracking];
+        [self.allOptionItems[key].menu cancelTracking];
+        
+        NSMutableDictionary<NSString *, NSSet<NSString *> *> *newOptions = [self.options mutableCopy];
         
         if ([value isEqualToString:@""]) {
-            [self.options removeObjectForKey:key];
+            [newOptions removeObjectForKey:key];
         } else {
-            self.options[key] = [NSSet setWithObject:value];
+            newOptions[key] = [NSSet setWithObject:value];
         }
         
-        [self updateItemsWithOptions:self.options];
-        [self.battlegroundsCardOptionsMenuDelegate battlegroundsCardOptionsMenu:self changedOption:self.options];
+        [self updateItemsWithOptions:newOptions];
+        [self.battlegroundsCardOptionsMenuDelegate battlegroundsCardOptionsMenu:self changedOption:newOptions];
+        
+        [newOptions release];
     }
 }
 
