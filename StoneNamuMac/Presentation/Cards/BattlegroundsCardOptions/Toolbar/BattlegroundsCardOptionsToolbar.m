@@ -228,9 +228,9 @@
             obj.menu = [self.factory menuForOptionType:key target:self];
             obj.title = [self.factory titleForOptionType:key];
         }];
+        
+        [self updateItemsWithOptions:self.options force:YES];
     }];
-    
-    [self updateItemsWithOptions:self.options force:YES];
 }
 
 - (void)keyMenuItemTriggered:(StorableMenuItem *)sender {

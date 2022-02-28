@@ -365,9 +365,9 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
             obj.submenu = [self.factory menuForOptionType:key target:self];
             obj.title = [self.factory titleForOptionType:key];
         }];
+        
+        [self updateItemsWithOptions:self.options force:YES];
     }];
-    
-    [self updateItemsWithOptions:self.options force:YES];
 }
 
 

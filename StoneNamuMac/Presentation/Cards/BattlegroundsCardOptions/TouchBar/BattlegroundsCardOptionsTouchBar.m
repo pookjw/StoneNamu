@@ -356,9 +356,9 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
             obj.collapsedRepresentationLabel = [self.factory titleForOptionType:key];
             obj.customizationLabel = [self.factory titleForOptionType:key];
         }];
+        
+        [self updateItemsWithOptions:self.options force:YES];
     }];
-    
-    [self updateItemsWithOptions:self.options force:YES];
 }
 
 #pragma mark - Helper
