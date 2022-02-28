@@ -41,6 +41,7 @@
         [queue release];
         
         self.cardOptionsToolbarDelegate = cardOptionsToolbarDelegate;
+        
         [self setAttributes];
         [self configureToolbarItems];
         [self updateItemsWithOptions:options];

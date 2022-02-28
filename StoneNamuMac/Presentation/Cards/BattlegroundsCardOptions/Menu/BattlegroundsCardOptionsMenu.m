@@ -45,6 +45,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierBattlegr
         [queue release];
         
         self.battlegroundsCardOptionsMenuDelegate = battlegroundsCardOptionsMenuDelegate;
+        
         [self configureOptionsMenu];
         [self configureOptionsItems];
         [self configureResetOptionsItem];
@@ -82,6 +83,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierBattlegr
         
         [self.allOptionItems enumerateKeysAndObjectsUsingBlock:^(BlizzardHSAPIOptionType  _Nonnull key, NSMenuItem * _Nonnull obj, BOOL * _Nonnull stop) {
             NSSet<NSString *> * _Nullable values = options[key];
+            BOOL isEnabled = [self.factory isEnabledItemWithOptionType:key options:options];
             
             //
             
@@ -101,6 +103,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierBattlegr
                 //
                 
                 obj.image = [self.factory imageForCardOptionTypeWithValues:values optionType:key];
+                obj.enabled = isEnabled;
             }];
             
             [self updateStateOfItem:obj];

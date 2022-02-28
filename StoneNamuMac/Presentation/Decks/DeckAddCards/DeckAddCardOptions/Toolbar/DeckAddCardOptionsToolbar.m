@@ -41,6 +41,7 @@
         [queue release];
         
         self.deckAddCardOptionsToolbarDelegate = deckAddCardOptionsToolbarDelegate;
+        
         [self setAttributes];
         [self configureToolbarItems];
         [self updateItemsWithOptions:options];
@@ -170,6 +171,7 @@
         if (!force) {
             if (compareNullableValues(self.options, options, @selector(isEqualToDictionary:))) return;
         }
+        
         NSMutableDictionary<NSString *, NSSet<NSString *> *> *mutableOptions = [options mutableCopy];
         self.options = mutableOptions;
         [mutableOptions release];

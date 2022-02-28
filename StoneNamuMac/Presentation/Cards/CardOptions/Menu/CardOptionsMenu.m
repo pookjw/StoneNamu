@@ -45,6 +45,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardOpti
         [queue release];
         
         self.cardOptionsMenuDelegate = cardOptionsMenuDelegate;
+        
         [self configureOptionsMenu];
         [self configureOptionsItems];
         [self configureResetOptionsItem];
@@ -73,8 +74,11 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardOpti
 - (void)updateItemsWithOptions:(NSDictionary<NSString *,NSSet<NSString *> *> *)options force:(BOOL)force {
     [self.queue addBarrierBlock:^{
         if (!force) {
-            if (compareNullableValues(self.options, options, @selector(isEqualToDictionary:))) return;
+            if (compareNullableValues(self.options, options, @selector(isEqualToDictionary:))) {
+                return;
+            }
         }
+        
         NSMutableDictionary<NSString *, NSSet<NSString *> *> *mutableOptions = [options mutableCopy];
         self.options = mutableOptions;
         [mutableOptions release];

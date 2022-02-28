@@ -41,6 +41,7 @@
         [queue release];
         
         self.battlegroundsCardOptionsToolbarDelegate = battlegroundsCardOptionsToolbarDelegate;
+        
         [self setAttributes];
         [self configureToolbarItems];
         [self updateItemsWithOptions:options];
@@ -146,6 +147,7 @@
             if (![item isKindOfClass:[DynamicMenuToolbarItem class]]) return;
             
             NSSet<NSString *> * _Nullable values = options[key];
+            BOOL isEnabled = [self.factory isEnabledItemWithOptionType:key options:options];
             
             //
             
@@ -165,6 +167,7 @@
                 //
                 
                 obj.image = [self.factory imageForCardOptionTypeWithValues:values optionType:key];
+                obj.enabled = isEnabled;
             }];
             
             [self updateStateOfMenuToolbarItem:item];

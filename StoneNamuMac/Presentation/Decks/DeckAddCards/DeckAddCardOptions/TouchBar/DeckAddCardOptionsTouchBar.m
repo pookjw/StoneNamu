@@ -407,7 +407,9 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
         //
         
         [self.allPopoverItems enumerateKeysAndObjectsUsingBlock:^(BlizzardHSAPIOptionType _Nonnull key, NSPopoverTouchBarItem * _Nonnull obj, BOOL * _Nonnull stop) {
-            obj.collapsedRepresentationImage = [self.factory imageForCardOptionTypeWithValues:options[key] optionType:key];
+            [NSOperationQueue.mainQueue addOperationWithBlock:^{
+                obj.collapsedRepresentationImage = [self.factory imageForCardOptionTypeWithValues:options[key] optionType:key];
+            }];
         }];
         
         [self.allScrubbers enumerateKeysAndObjectsUsingBlock:^(BlizzardHSAPIOptionType _Nonnull key, NSScrubber * _Nonnull obj, BOOL * _Nonnull stop) {
@@ -539,7 +541,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
                         @"10": @"10+"} mutableCopy];
         filterKeys = nil;
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeCollectible]) {
-        mutableDic = [self.factory.slugsAndNames[optionType] mutableCopy];
+        mutableDic = [[ResourcesService localizationsForHSCardCollectible] mutableCopy];
         filterKeys = nil;
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeRarity]) {
         mutableDic = [self.factory.slugsAndNames[optionType] mutableCopy];

@@ -25,6 +25,7 @@ static NSString * const BattlegroundsCardOptionsMenuFactoryStorableMenuItemAllow
 @property (readonly, copy) NSDictionary<NSString *, NSString *> * _Nullable typeSlugsAndNames;
 - (BOOL)hasEmptyItemAtOptionType:(BlizzardHSAPIOptionType)optionType;
 - (BOOL)supportsMultipleSelectionFromOptionType:(BlizzardHSAPIOptionType)optionType;
+- (BOOL)isEnabledItemWithOptionType:(BlizzardHSAPIOptionType)optionType options:(NSDictionary<NSString *, NSSet<NSString *> *> *)options;
 - (NSString * _Nullable)titleForOptionType:(BlizzardHSAPIOptionType)optionType;
 - (NSImage * _Nullable)imageForCardOptionTypeWithValues:(NSSet<NSString *> * _Nullable)values optionType:(BlizzardHSAPIOptionType)optionType;
 - (NSMenu *)menuForOptionType:(BlizzardHSAPIOptionType)optionType target:(id<NSSearchFieldDelegate>)target;

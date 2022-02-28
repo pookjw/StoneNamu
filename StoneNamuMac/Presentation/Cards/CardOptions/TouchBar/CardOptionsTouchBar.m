@@ -397,7 +397,9 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
 - (void)updateItemsWithOptions:(NSDictionary<NSString *, NSSet<NSString *> *> *)options force:(BOOL)force {
     [self.queue addBarrierBlock:^{
         if (!force) {
-            if (compareNullableValues(self.options, options, @selector(isEqualToDictionary:))) return;
+            if (compareNullableValues(self.options, options, @selector(isEqualToDictionary:))) {
+                return;
+            }
         }
         
         NSMutableDictionary<NSString *, NSSet<NSString *> *> *mutableOptions = [options mutableCopy];
@@ -433,7 +435,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
                         newIndex = [keys indexOfString:values.allObjects.firstObject];
                     }
                     
-                    if ((oldIndex != newIndex) || (force)) {
+                    if (oldIndex != newIndex) {
                         [NSOperationQueue.mainQueue addOperationWithBlock:^{
                             [obj scrollItemAtIndex:newIndex toAlignment:NSScrubberAlignmentCenter animated:YES];
                             [obj setSelectedIndex:newIndex animated:YES];
@@ -539,7 +541,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierNSScrubb
                         @"10": @"10+"} mutableCopy];
         filterKeys = nil;
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeCollectible]) {
-        mutableDic = [self.factory.slugsAndNames[optionType] mutableCopy];
+        mutableDic = [[ResourcesService localizationsForHSCardCollectible] mutableCopy];
         filterKeys = nil;
     } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeRarity]) {
         mutableDic = [self.factory.slugsAndNames[optionType] mutableCopy];

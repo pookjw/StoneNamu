@@ -91,6 +91,37 @@
     }
 }
 
+- (BOOL)isEnabledItemWithOptionType:(BlizzardHSAPIOptionType)optionType options:(NSDictionary<NSString *, NSSet<NSString *> *> *)options {
+    NSSet<NSString *> * _Nullable typeValues = options[BlizzardHSAPIOptionTypeType];
+    BOOL isMinionType;
+    
+    if ((typeValues) && ([typeValues containsObject:HSCardTypeSlugTypeMinion])) {
+        isMinionType = YES;
+    } else {
+        isMinionType = NO;
+    }
+    
+    if ([optionType isEqualToString:BlizzardHSAPIOptionTypeTextFilter]) {
+        return YES;
+    } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeTier]) {
+        return isMinionType;
+    } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeAttack]) {
+        return isMinionType;
+    } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeHealth]) {
+        return isMinionType;
+    } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeType]) {
+        return YES;
+    } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeMinionType]) {
+        return isMinionType;
+    } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeKeyword]) {
+        return isMinionType;
+    } else if ([optionType isEqualToString:BlizzardHSAPIOptionTypeSort]) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
 - (NSString * _Nullable)titleForOptionType:(BlizzardHSAPIOptionType)optionType {
     return [ResourcesService localizationForBlizzardHSAPIOptionType:optionType];
 }
