@@ -75,6 +75,7 @@
     //
     
     NSMenu *menu = [NSMenu new];
+    menu.autoenablesItems = NO;
     menu.itemArray = itemArray;
     [itemArray release];
     

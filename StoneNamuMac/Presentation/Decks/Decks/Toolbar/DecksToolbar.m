@@ -158,6 +158,7 @@
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
         [self.allHSDeckFormatItems enumerateKeysAndObjectsUsingBlock:^(HSDeckFormat  _Nonnull key, DynamicMenuToolbarItem * _Nonnull obj, BOOL * _Nonnull stop) {
             obj.menu = [self.factory menuForHSDeckFormat:key target:self];
+            obj.enabled = YES;
         }];
     }];
 }

@@ -202,6 +202,7 @@
                 //
                 
                 obj.image = [self.factory imageForCardOptionTypeWithValues:values optionType:key];
+                obj.enabled = YES;
             }];
             
             [self updateStateOfMenuToolbarItem:item];

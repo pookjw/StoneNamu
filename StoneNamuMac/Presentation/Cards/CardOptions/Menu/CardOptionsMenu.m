@@ -104,6 +104,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardOpti
                 //
                 
                 obj.image = [self.factory imageForCardOptionTypeWithValues:values optionType:key];
+                obj.enabled = YES;
             }];
             
             [self updateStateOfItem:obj];

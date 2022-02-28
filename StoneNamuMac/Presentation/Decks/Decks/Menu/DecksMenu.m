@@ -173,6 +173,7 @@
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
         [self.allHSDeckFormatItems enumerateKeysAndObjectsUsingBlock:^(HSDeckFormat  _Nonnull key, NSMenuItem * _Nonnull obj, BOOL * _Nonnull stop) {
             obj.submenu = [self.factory menuForHSDeckFormat:key target:self];
+            obj.enabled = YES;
         }];
     }];
 }
