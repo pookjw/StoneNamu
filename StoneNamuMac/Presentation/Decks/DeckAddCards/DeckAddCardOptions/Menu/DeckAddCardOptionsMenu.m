@@ -137,7 +137,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
     NSMenuItem *saveAsImageItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeySaveAsImage]
                                                              action:NSSelectorFromString(@"saveAsImageItemTriggered:")
                                                       keyEquivalent:@""];
-//    saveAsImageItem.image = [NSImage imageWithSystemSymbolName:@"photo" accessibilityDescription:nil];
+    //    saveAsImageItem.image = [NSImage imageWithSystemSymbolName:@"photo" accessibilityDescription:nil];
     
     [self.fileMenuItem.submenu addItem:saveAsImageItem];
     
@@ -149,7 +149,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
     NSMenuItem *exportDeckCodeItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyExportDeckCode]
                                                                 action:NSSelectorFromString(@"exportDeckCodeItemTriggered:")
                                                          keyEquivalent:@""];
-//    exportDeckCodeItem.image = [NSImage imageWithSystemSymbolName:@"square.and.arrow.up" accessibilityDescription:nil];
+    //    exportDeckCodeItem.image = [NSImage imageWithSystemSymbolName:@"square.and.arrow.up" accessibilityDescription:nil];
     
     [self.fileMenuItem.submenu addItem:exportDeckCodeItem];
     
@@ -161,7 +161,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
     NSMenuItem *editDeckNameItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyEditDeckName]
                                                               action:NSSelectorFromString(@"editDeckNameItemTriggered:")
                                                        keyEquivalent:@""];
-//    editDeckNameItem.image = [NSImage imageWithSystemSymbolName:@"pencil" accessibilityDescription:nil];
+    //    editDeckNameItem.image = [NSImage imageWithSystemSymbolName:@"pencil" accessibilityDescription:nil];
     
     [self.editMenuItem.submenu addItem:editDeckNameItem];
     
@@ -173,7 +173,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
     NSMenuItem *deleteItem = [[NSMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyDeleteDeck]
                                                         action:NSSelectorFromString(@"deleteItemTriggered:")
                                                  keyEquivalent:@""];
-//    deleteItem.image = [NSImage imageWithSystemSymbolName:@"trash" accessibilityDescription:nil];
+    //    deleteItem.image = [NSImage imageWithSystemSymbolName:@"trash" accessibilityDescription:nil];
     
     [self.editMenuItem.submenu addItem:deleteItem];
     
@@ -482,33 +482,31 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
 #pragma mark - NSSearchFieldDelegate
 
 - (void)controlTextDidEndEditing:(NSNotification *)notification {
-    [self.queue addBarrierBlock:^{
-        StorableSearchField *searchField = (StorableSearchField *)notification.object;
+    StorableSearchField *searchField = (StorableSearchField *)notification.object;
+    
+    if (![searchField isKindOfClass:[StorableSearchField class]]) {
+        return;
+    }
+    
+    if ([[notification.userInfo objectForKey:@"NSTextMovement"] integerValue] == NSTextMovementReturn) {
+        NSString *key = searchField.userInfo.allKeys.firstObject;
+        NSString *value = searchField.stringValue;
         
-        if (![searchField isKindOfClass:[StorableSearchField class]]) {
-            return;
+        [self.allOptionItems[key].menu cancelTracking];
+        
+        NSMutableDictionary<NSString *, NSSet<NSString *> *> *newOptions = [self.options mutableCopy];
+        
+        if ([value isEqualToString:@""]) {
+            [newOptions removeObjectForKey:key];
+        } else {
+            newOptions[key] = [NSSet setWithObject:value];
         }
         
-        if ([[notification.userInfo objectForKey:@"NSTextMovement"] integerValue] == NSTextMovementReturn) {
-            NSString *key = searchField.userInfo.allKeys.firstObject;
-            NSString *value = searchField.stringValue;
-            
-            [self.allOptionItems[key].menu cancelTracking];
-            
-            NSMutableDictionary<NSString *, NSSet<NSString *> *> *newOptions = [self.options mutableCopy];
-            
-            if ([value isEqualToString:@""]) {
-                [newOptions removeObjectForKey:key];
-            } else {
-                newOptions[key] = [NSSet setWithObject:value];
-            }
-            
-            [self updateItemsWithOptions:newOptions];
-            [self.deckAddCardOptionsMenuDelegate deckAddCardOptionsMenu:self changedOption:newOptions];
-            
-            [newOptions release];
-        }
-    }];
+        [self updateItemsWithOptions:newOptions];
+        [self.deckAddCardOptionsMenuDelegate deckAddCardOptionsMenu:self changedOption:newOptions];
+        
+        [newOptions release];
+    }
 }
 
 @end

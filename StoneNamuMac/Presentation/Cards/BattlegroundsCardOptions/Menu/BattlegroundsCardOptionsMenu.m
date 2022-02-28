@@ -130,8 +130,8 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierBattlegr
     //
     
     NSMenuItem *optionTypeTierItem = [[NSMenuItem alloc] initWithTitle:@""
-                                                                    action:nil
-                                                             keyEquivalent:@""];
+                                                                action:nil
+                                                         keyEquivalent:@""];
     optionTypeTierItem.identifier = NSUserInterfaceItemIdentifierBattlegroundsCardOptionTypeTier;
     
     //
@@ -151,8 +151,8 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierBattlegr
     //
     
     NSMenuItem *optionTypeTypeItem = [[NSMenuItem alloc] initWithTitle:@""
-                                                                      action:nil
-                                                               keyEquivalent:@""];
+                                                                action:nil
+                                                         keyEquivalent:@""];
     optionTypeTypeItem.identifier = NSUserInterfaceItemIdentifierBattlegroundsCardOptionTypeType;
     
     //
@@ -352,33 +352,31 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierBattlegr
 #pragma mark - NSSearchFieldDelegate
 
 - (void)controlTextDidEndEditing:(NSNotification *)notification {
-    [self.queue addBarrierBlock:^{
-        StorableSearchField *searchField = (StorableSearchField *)notification.object;
+    StorableSearchField *searchField = (StorableSearchField *)notification.object;
+    
+    if (![searchField isKindOfClass:[StorableSearchField class]]) {
+        return;
+    }
+    
+    if ([[notification.userInfo objectForKey:@"NSTextMovement"] integerValue] == NSTextMovementReturn) {
+        NSString *key = searchField.userInfo.allKeys.firstObject;
+        NSString *value = searchField.stringValue;
         
-        if (![searchField isKindOfClass:[StorableSearchField class]]) {
-            return;
+        [self.allOptionItems[key].menu cancelTracking];
+        
+        NSMutableDictionary<NSString *, NSSet<NSString *> *> *newOptions = [self.options mutableCopy];
+        
+        if ([value isEqualToString:@""]) {
+            [newOptions removeObjectForKey:key];
+        } else {
+            newOptions[key] = [NSSet setWithObject:value];
         }
         
-        if ([[notification.userInfo objectForKey:@"NSTextMovement"] integerValue] == NSTextMovementReturn) {
-            NSString *key = searchField.userInfo.allKeys.firstObject;
-            NSString *value = searchField.stringValue;
-            
-            [self.allOptionItems[key].menu cancelTracking];
-            
-            NSMutableDictionary<NSString *, NSSet<NSString *> *> *newOptions = [self.options mutableCopy];
-            
-            if ([value isEqualToString:@""]) {
-                [newOptions removeObjectForKey:key];
-            } else {
-                newOptions[key] = [NSSet setWithObject:value];
-            }
-            
-            [self updateItemsWithOptions:newOptions];
-            [self.battlegroundsCardOptionsMenuDelegate battlegroundsCardOptionsMenu:self changedOption:newOptions];
-            
-            [newOptions release];
-        }
-    }];
+        [self updateItemsWithOptions:newOptions];
+        [self.battlegroundsCardOptionsMenuDelegate battlegroundsCardOptionsMenu:self changedOption:newOptions];
+        
+        [newOptions release];
+    }
 }
 
 @end
