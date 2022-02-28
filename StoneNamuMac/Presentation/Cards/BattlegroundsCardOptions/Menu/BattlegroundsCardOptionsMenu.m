@@ -300,6 +300,8 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierBattlegr
         
         [self updateItemsWithOptions:newOptions];
         [self.battlegroundsCardOptionsMenuDelegate battlegroundsCardOptionsMenu:self changedOption:newOptions];
+        
+        [newOptions release];
     }];
 }
 
