@@ -64,6 +64,7 @@
     [_value release];
     [_childHSCard release];
     [_hsCardGameModeSlugType release];
+    [_imageURL release];
     [super dealloc];
 }
 

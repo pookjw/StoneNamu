@@ -30,6 +30,7 @@
     [_childIds release];
     [_battlegroundsHero release];
     [_battlegroundsTier release];
+    [_battlegroundsUpgradeId release];
     [_battlegroundsImage release];
     [_battlegroundsImageGold release];
     [super dealloc];

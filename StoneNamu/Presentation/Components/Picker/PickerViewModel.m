@@ -164,6 +164,7 @@
                             emptyItemModel.selected = YES;
                             [snapshot reconfigureItemsWithIdentifiers:@[itemModel, emptyItemModel]];
                         } else {
+                            [snapshot release];
                             return;
                         }
                     } else {
