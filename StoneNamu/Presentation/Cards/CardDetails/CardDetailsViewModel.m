@@ -162,6 +162,13 @@
     }];
 }
 
+- (void)requestRecommendedImageURLWithCompletion:(CardDetailsViewModelRequestRecommendedImageURLCompletion)completion {
+    [self.queue addOperationWithBlock:^{
+        NSURL * _Nullable url = [self.hsCardUseCase recommendedURLOfHSCard:self.hsCard HSCardGameModeSlugType:self.hsCardGameModeSlugType isGold:self.isGold];
+        completion(url);
+    }];
+}
+
 - (NSArray<UIDragItem *> *)makeDragItemFromImage:(UIImage * _Nullable)image indexPath:(NSIndexPath * _Nullable)indexPath {
     UIDragItem *dragItem;
     
@@ -261,7 +268,8 @@
             [snapshot appendSectionsWithIdentifiers:@[childrenSectionModel]];
         }
         
-        CardDetailsItemModel *childItemModel = [[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeChild childHSCard:hsCard hsCardGameModeSlugType:self.hsCardGameModeSlugType isGold:isGold];
+        NSURL * _Nullable imageURL = [self.hsCardUseCase recommendedURLOfHSCard:hsCard HSCardGameModeSlugType:self.hsCardGameModeSlugType isGold:isGold];
+        CardDetailsItemModel *childItemModel = [[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeChild childHSCard:hsCard imageURL:imageURL isGold:isGold];
         [snapshot appendItemsWithIdentifiers:@[childItemModel] intoSectionWithIdentifier:childrenSectionModel];
         [childItemModel release];
         
@@ -271,7 +279,7 @@
             return [obj1.childHSCard compare:obj2.childHSCard];
         }];
         
-        [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:snapshot completion:^{
+        [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
             completion();
         }];
         

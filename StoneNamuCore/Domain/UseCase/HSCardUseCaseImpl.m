@@ -12,6 +12,7 @@
 #import <StoneNamuCore/PrefsUseCaseImpl.h>
 #import <StoneNamuCore/DataCacheUseCaseImpl.h>
 #import <StoneNamuCore/NSDictionary+combine.h>
+#import <StoneNamuCore/NSURL+isEmpty.h>
 
 @interface HSCardUseCaseImpl ()
 @property (retain) id<HSCardRepository> hsCardRepository;
@@ -61,6 +62,41 @@
                                      withOptions:prefOptions
                                completionHandler:completion];
     }];
+}
+
+- (NSURL * _Nullable)recommendedURLOfHSCard:(HSCard *)hsCard HSCardGameModeSlugType:(HSCardGameModeSlugType)hsCardGameModeSlugType isGold:(BOOL)isGold {
+    NSURL * _Nullable url;
+    
+    NSURL * _Nullable image = hsCard.image;
+    NSURL * _Nullable imageGold = hsCard.imageGold;
+    NSURL * _Nullable battlegroundsImage = hsCard.battlegroundsImage;
+    NSURL * _Nullable battlegroundsImageGold = hsCard.battlegroundsImageGold;
+    
+    if ([HSCardGameModeSlugTypeConstructed isEqualToString:hsCardGameModeSlugType]) {
+        url = image;
+    } else if ([HSCardGameModeSlugTypeBattlegrounds isEqualToString:hsCardGameModeSlugType]) {
+        if (isGold) {
+            if ((battlegroundsImageGold) && (!battlegroundsImageGold.isEmpty)) {
+                url = battlegroundsImageGold;
+            } else if ((battlegroundsImage) && (!battlegroundsImage.isEmpty)) {
+                url = battlegroundsImage;
+            } else if ((imageGold) && (!imageGold.isEmpty)) {
+                url = imageGold;
+            } else {
+                url = hsCard.image;
+            }
+        } else {
+            if ((battlegroundsImage) && (!battlegroundsImage.isEmpty)) {
+                url = battlegroundsImage;
+            } else {
+                url = image;
+            }
+        }
+    } else {
+        url = nil;
+    }
+    
+    return url;
 }
 
 - (void)fetchPrefsWithOptions:(NSDictionary<NSString *, NSSet<NSString *> *> * _Nullable)options completion:(void (^)(NSDictionary<NSString *, NSString *> *prefOptions, NSNumber *region))completion {

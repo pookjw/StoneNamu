@@ -30,11 +30,11 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeta
     return self;
 }
 
-- (instancetype)initWithHSCard:(HSCard *)hsCard {
+- (instancetype)initWithHSCard:(HSCard *)hsCard hsGameModeSlugType:(HSCardGameModeSlugType)hsCardGameModeSlugType isGold:(BOOL)isGold {
     self = [self init];
     
     if (self) {
-        [self.cardDetailsViewController requestWithHSCard:hsCard];
+        [self.cardDetailsViewController requestWithHSCard:hsCard hsGameModeSlugType:hsCardGameModeSlugType isGold:isGold];
     }
     
     return self;
@@ -70,7 +70,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardDeta
 }
 
 - (void)configureCardDetailsViewController; {
-    CardDetailsViewController *cardDetailsViewController = [[CardDetailsViewController alloc] initWithHSCard:nil];
+    CardDetailsViewController *cardDetailsViewController = [CardDetailsViewController new];
     [cardDetailsViewController loadViewIfNeeded];
     self.contentViewController = cardDetailsViewController;
     self.cardDetailsViewController = cardDetailsViewController;

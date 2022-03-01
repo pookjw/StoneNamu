@@ -11,6 +11,9 @@
 #import "NSView+DraggingNotification.h"
 
 @interface HSCardPopoverDetailView () <NSPopoverDelegate>
+@property (copy) HSCard * _Nullable hsCard;
+@property (copy) HSCardGameModeSlugType _Nullable hsCardGameModeSlugType;
+@property BOOL isGold;
 @property (retain) NSPopover * _Nullable popover;
 @property BOOL completed;
 @end
@@ -39,6 +42,7 @@
 
 - (void)dealloc {
     [_hsCard release];
+    [_hsCardGameModeSlugType release];
     [_popover release];
     [super dealloc];
 }
@@ -59,7 +63,7 @@
     
     if ((event.pressure >= 0.5f) && (self.popover == nil)) {
         NSPopover *popover = [NSPopover new];
-        CardDetailsViewController *vc = [[CardDetailsViewController alloc] initWithHSCard:self.hsCard];
+        CardDetailsViewController *vc = [[CardDetailsViewController alloc] initWithHSCard:self.hsCard hsGameModeSlugType:self.hsCardGameModeSlugType isGold:self.isGold];
         
         popover.contentViewController = vc;
         [vc release];
@@ -87,6 +91,12 @@
 
 - (BOOL)performDragOperation:(id<NSDraggingInfo>)sender {
     return [super performDragOperation:sender];
+}
+
+- (void)setHSCard:(HSCard *)hsCard hsGameModeSlugType:(HSCardGameModeSlugType)hsCardGameModeSlugType isGold:(BOOL)isGold {
+    self.hsCard = hsCard;
+    self.hsCardGameModeSlugType = hsCardGameModeSlugType;
+    self.isGold = isGold;
 }
 
 - (void)reset {

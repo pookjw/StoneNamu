@@ -33,7 +33,7 @@
     self.hsCard = hsCard;
     self.delegte = delegate;
     
-    self.hsCardPopoverDetailView.hsCard = hsCard;
+    [self.hsCardPopoverDetailView setHSCard:hsCard hsGameModeSlugType:hsCardGameModeSlugType isGold:NO];
     
     if ([HSCardGameModeSlugTypeConstructed isEqualToString:hsCardGameModeSlugType]) {
         [self.imageView setAsyncImageWithURL:hsCard.image indicator:YES];

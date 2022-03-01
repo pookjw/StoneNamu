@@ -13,7 +13,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CardDetailsChildCollectionViewItem : ClickableCollectionViewItem
-- (void)configureWithHSCard:(HSCard *)hsCard delegate:(id<CardDetailsChildCollectionViewItemDelegate>)delegate;
+- (void)configureWithHSCard:(HSCard *)hsCard hsCardGameModeSlugType:(HSCardGameModeSlugType)hsCardGameModeSlugType isGold:(BOOL)isGold imageURL:(NSURL * _Nullable)imageURL delegate:(id<CardDetailsChildCollectionViewItemDelegate>)delegate;
 @end
 
 NS_ASSUME_NONNULL_END

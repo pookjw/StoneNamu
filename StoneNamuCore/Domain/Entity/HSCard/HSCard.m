@@ -648,19 +648,19 @@
             self->_parentId = [coder decodeIntegerForKey:@"parentId"];
             
             [self->_battlegroundsTier release];
-            self->_battlegroundsTier = [coder decodeObjectOfClass:[NSNumber class] forKey:@"battlegroundsTier"];
+            self->_battlegroundsTier = [[coder decodeObjectOfClass:[NSNumber class] forKey:@"battlegroundsTier"] copy];
             
             [self->_battlegroundsHero release];
-            self->_battlegroundsHero = [coder decodeObjectOfClass:[NSNumber class] forKey:@"battlegroundsHero"];
+            self->_battlegroundsHero = [[coder decodeObjectOfClass:[NSNumber class] forKey:@"battlegroundsHero"] copy];
             
             [self->_battlegroundsUpgradeId release];
-            self->_battlegroundsUpgradeId = [coder decodeObjectOfClass:[NSNumber class] forKey:@"battlegroundsUpgradeId"];
+            self->_battlegroundsUpgradeId = [[coder decodeObjectOfClass:[NSNumber class] forKey:@"battlegroundsUpgradeId"] copy];
             
             [self->_battlegroundsImage release];
-            self->_battlegroundsImage = [coder decodeObjectOfClass:[NSURL class] forKey:@"battlegroundsImage"];
+            self->_battlegroundsImage = [[coder decodeObjectOfClass:[NSURL class] forKey:@"battlegroundsImage"] copy];
             
             [self->_battlegroundsImageGold release];
-            self->_battlegroundsImageGold = [coder decodeObjectOfClass:[NSURL class] forKey:@"battlegroundsImageGold"];
+            self->_battlegroundsImageGold = [[coder decodeObjectOfClass:[NSURL class] forKey:@"battlegroundsImageGold"] copy];
             
             self->_version = HSCARD_LATEST_VERSION;
         }

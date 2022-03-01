@@ -25,15 +25,15 @@ typedef NS_ENUM(NSUInteger, CardDetailsItemModelType) {
 
 @interface CardDetailsItemModel : NSObject
 @property (readonly) CardDetailsItemModelType type;
-@property (readonly, nonatomic) NSString * _Nullable primaryText;
-@property (readonly, nonatomic) NSString * _Nullable secondaryText;
-@property (readonly, nonatomic, copy) HSCard * _Nullable childHSCard;
-@property (readonly, copy) HSCardGameModeSlugType hsCardGameModeSlugType;
+@property (readonly, copy) NSString * _Nullable primaryText;
+@property (readonly, copy) NSString * _Nullable secondaryText;
+@property (readonly, copy) HSCard * _Nullable childHSCard;
+@property (readonly, copy) NSURL * _Nullable imageURL;
 @property (readonly) BOOL isGold;
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithType:(CardDetailsItemModelType)type value:(NSString * _Nullable)value;
-- (instancetype)initWithType:(CardDetailsItemModelType)type childHSCard:(HSCard *)childHSCard hsCardGameModeSlugType:(HSCardGameModeSlugType)hsCardGameModeSlugType isGold:(BOOL)isGold;
+- (instancetype)initWithType:(CardDetailsItemModelType)type childHSCard:(HSCard *)childHSCard imageURL:(NSURL * _Nullable)imageURL isGold:(BOOL)isGold;
 @end
 
 NS_ASSUME_NONNULL_END

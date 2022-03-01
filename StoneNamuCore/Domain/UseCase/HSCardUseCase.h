@@ -7,6 +7,7 @@
 
 #import <Foundation/Foundation.h>
 #import <StoneNamuCore/HSCard.h>
+#import <StoneNamuCore/HSCardGameMode.h>
 
 typedef void (^HSCardUseCaseCardsCompletion)(NSArray<HSCard *> * _Nullable, NSNumber * _Nullable, NSNumber * _Nullable, NSError * _Nullable);
 typedef void (^HSCardUseCaseCardCompletion)(HSCard * _Nullable, NSError * _Nullable);
@@ -14,14 +15,12 @@ typedef void (^HSCardUseCaseCardCompletion)(HSCard * _Nullable, NSError * _Nulla
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol HSCardUseCase <NSObject>
-
 - (void)fetchWithOptions:(NSDictionary<NSString *, NSSet<NSString *> *> * _Nullable)options
        completionHandler:(HSCardUseCaseCardsCompletion)completion;
-
 - (void)fetchWithIdOrSlug:(NSString *)idOrSlug
               withOptions:(NSDictionary<NSString *, NSSet<NSString *> *> * _Nullable)options
         completionHandler:(HSCardUseCaseCardCompletion)completion;
-
+- (NSURL * _Nullable)recommendedURLOfHSCard:(HSCard *)hsCard HSCardGameModeSlugType:(HSCardGameModeSlugType)hsCardGameModeSlugType isGold:(BOOL)isGold;
 @end
 
 NS_ASSUME_NONNULL_END

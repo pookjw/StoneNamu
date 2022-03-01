@@ -460,7 +460,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierCardsVie
         
         if (hsCard == nil) return;
         
-        [WindowsService.sharedInstance presentCardDetailsWindowWithHSCard:hsCard];
+        [WindowsService.sharedInstance presentCardDetailsWindowWithHSCard:hsCard hsGameModeSlugType:self.viewModel.hsCardGameModeSlugType isGold:NO];
     }];
 }
 

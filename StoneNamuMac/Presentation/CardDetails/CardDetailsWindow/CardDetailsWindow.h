@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CardDetailsWindow : NSWindow
-- (instancetype)initWithHSCard:(HSCard *)hsCard;
+- (instancetype)initWithHSCard:(HSCard *)hsCard hsGameModeSlugType:(HSCardGameModeSlugType)hsCardGameModeSlugType isGold:(BOOL)isGold;
 @end
 
 NS_ASSUME_NONNULL_END

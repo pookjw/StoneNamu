@@ -11,8 +11,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface HSCardSavableImageView : NSImageView
-@property (nonatomic, copy) HSCard *hsCard;
-- (instancetype)initWithHSCard:(HSCard *)hsCard;
+- (instancetype)initWithHSCard:(HSCard *)hsCard hsGameModeSlugType:(HSCardGameModeSlugType)hsCardGameModeSlugType isGold:(BOOL)isGold;
+- (void)requestWithHSCard:(HSCard *)hsCard hsGameModeSlugType:(HSCardGameModeSlugType)hsCardGameModeSlugType isGold:(BOOL)isGold;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -11,8 +11,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface HSCardPopoverDetailView : NSView
-@property (copy) HSCard * _Nullable hsCard;
 @property (readonly, nonatomic) BOOL isShown;
+- (void)setHSCard:(HSCard * _Nullable)hsCard hsGameModeSlugType:(HSCardGameModeSlugType)hsCardGameModeSlugType isGold:(BOOL)isGold;
 @end
 
 NS_ASSUME_NONNULL_END

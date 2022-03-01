@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)startWindowsObserving;
 - (void)presentNewMainWindow;
 - (BOOL)presentNewMainWindowIfNeeded;
-- (void)presentCardDetailsWindowWithHSCard:(HSCard *)hsCard;
+- (void)presentCardDetailsWindowWithHSCard:(HSCard *)hsCard hsGameModeSlugType:(HSCardGameModeSlugType)hsCardGameModeSlugType isGold:(BOOL)isGold;
 - (void)presentDeckDetailsWindowWithLocalDeck:(LocalDeck *)localDeck;
 - (void)presentNewPrefsWindow;
 - (BOOL)presentNewPrefsWindowIfNeeded;

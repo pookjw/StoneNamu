@@ -64,8 +64,7 @@
 }
 
 - (void)configureWithHSCard:(HSCard *)hsCard raritySlugType:(HSCardRaritySlugType)raritySlugType hsCardCount:(NSUInteger)hsCardCount delegate:(nonnull id<DeckDetailsCardCollectionViewItemDelegate>)delegate {
-    
-    self.hsCardPopoverDetailView.hsCard = hsCard;
+    [self.hsCardPopoverDetailView setHSCard:hsCard hsGameModeSlugType:HSCardGameModeSlugTypeConstructed isGold:NO];
     
     if (![hsCard isEqual:self.hsCard]) {
         self.manaCostLabel.stringValue = [NSString stringWithFormat:@"%lu", hsCard.manaCost];

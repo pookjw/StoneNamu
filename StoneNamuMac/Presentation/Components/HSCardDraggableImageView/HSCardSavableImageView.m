@@ -13,6 +13,10 @@
 #import <StoneNamuResources/StoneNamuResources.h>
 
 @interface HSCardSavableImageView () <NSDraggingSource>
+@property (copy) HSCard * _Nullable hsCard;
+@property (copy) HSCardGameModeSlugType _Nullable hsCardGameModeSlugType;
+@property BOOL isGold;
+@property (retain) id<HSCardUseCase> hsCardUseCase;
 @end
 
 @implementation HSCardSavableImageView
@@ -22,16 +26,20 @@
     
     if (self) {
         [self configureMenu];
+        
+        HSCardUseCaseImpl *hsCardUseCase = [HSCardUseCaseImpl new];
+        self.hsCardUseCase = hsCardUseCase;
+        [hsCardUseCase release];
     }
     
     return self;
 }
 
-- (instancetype)initWithHSCard:(HSCard *)hsCard {
+- (instancetype)initWithHSCard:(HSCard *)hsCard hsGameModeSlugType:(nonnull HSCardGameModeSlugType)hsCardGameModeSlugType isGold:(BOOL)isGold {
     self = [self init];
     
     if (self) {
-        self.hsCard = hsCard;
+        [self requestWithHSCard:hsCard hsGameModeSlugType:hsCardGameModeSlugType isGold:isGold];
     }
     
     return self;
@@ -39,16 +47,26 @@
 
 - (void)dealloc {
     [_hsCard release];
+    [_hsCardGameModeSlugType release];
+    [_hsCardUseCase release];
     [super dealloc];
 }
 
-- (void)setHsCard:(HSCard *)hsCard {
-    [self willChangeValueForKey:@"hsCard"];
-    [self->_hsCard release];
-    self->_hsCard = [hsCard copy];
-    [self didChangeValueForKey:@"hsCard"];
+- (void)requestWithHSCard:(HSCard *)hsCard hsGameModeSlugType:(HSCardGameModeSlugType)hsCardGameModeSlugType isGold:(BOOL)isGold {
+    self.hsCard = hsCard;
+    self.hsCardGameModeSlugType = hsCardGameModeSlugType;
+    self.isGold = isGold;
     
-    [self setAsyncImageWithURL:hsCard.image indicator:YES];
+    //
+    
+    NSURL * _Nullable url = [self.hsCardUseCase recommendedURLOfHSCard:hsCard HSCardGameModeSlugType:hsCardGameModeSlugType isGold:isGold];
+    
+    if (url) {
+        [self setAsyncImageWithURL:url indicator:YES];
+    } else {
+        [self clearSetAsyncImageContexts];
+        self.image = nil;
+    }
 }
 
 - (void)mouseDragged:(NSEvent *)event {

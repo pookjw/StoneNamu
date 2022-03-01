@@ -33,22 +33,14 @@
 
 @implementation CardDetailsViewController
 
-- (instancetype)init {
-    self = [super init];
-    
-    if (self) {
-        [self loadViewIfNeeded];
-    }
-    
-    return self;
-}
-
-- (instancetype)initWithHSCard:(HSCard * _Nullable)hsCard {
+- (instancetype)initWithHSCard:(HSCard *)hsCard hsGameModeSlugType:(HSCardGameModeSlugType)hsCardGameModeSlugType isGold:(BOOL)isGold {
     self = [self init];
     
     if (self) {
+        [self loadViewIfNeeded];
+        
         if (hsCard != nil) {
-            [self requestWithHSCard:hsCard];
+            [self requestWithHSCard:hsCard hsGameModeSlugType:hsCardGameModeSlugType isGold:isGold];
         }
     }
     
@@ -101,10 +93,14 @@
     [super encodeRestorableStateWithCoder:coder backgroundQueue:queue];
     
     HSCard * _Nullable hsCard = self.viewModel.hsCard;
+    HSCardGameModeSlugType _Nullable hsCardGameModeSlugType = self.viewModel.hsCardGameModeSlugType;
+    BOOL isGold = self.viewModel.isGold;
     
     if (hsCard != nil) {
         [queue addOperationWithBlock:^{
             [coder encodeObject:hsCard forKey:[NSString stringWithFormat:@"%@_hsCard", NSStringFromClass(self.class)]];
+            [coder encodeObject:hsCardGameModeSlugType forKey:[NSString stringWithFormat:@"%@_hsCardGameModeSlugType", NSStringFromClass(self.class)]];
+            [coder encodeBool:isGold forKey:[NSString stringWithFormat:@"%@_isGold", NSStringFromClass(self.class)]];
         }];
     }
 }
@@ -113,16 +109,18 @@
     [super restoreStateWithCoder:coder];
     
     HSCard * _Nullable hsCard = [coder decodeObjectOfClass:[HSCard class] forKey:[NSString stringWithFormat:@"%@_hsCard", NSStringFromClass(self.class)]];
+    HSCardGameModeSlugType _Nullable hsCardGameModeSlugType = [coder decodeObjectOfClass:[NSString class] forKey:[NSString stringWithFormat:@"%@_hsCardGameModeSlugType", NSStringFromClass(self.class)]];
+    BOOL isGold = [coder decodeBoolForKey:[NSString stringWithFormat:@"%@_isGold", NSStringFromClass(self.class)]];
+    
     if (hsCard != nil) {
-        [self requestWithHSCard:hsCard];
+        [self requestWithHSCard:hsCard hsGameModeSlugType:hsCardGameModeSlugType isGold:isGold];
     }
 }
 
-- (void)requestWithHSCard:(HSCard *)hsCard {
-    NSLog(@"%@", hsCard.slug);
+- (void)requestWithHSCard:(HSCard *)hsCard hsGameModeSlugType:(HSCardGameModeSlugType)hsCardGameModeSlugType isGold:(BOOL)isGold {
     self.view.window.title = hsCard.name;
-    self.imageView.hsCard = hsCard;
-    [self.viewModel requestDataSourceWithCard:hsCard];
+    [self.imageView requestWithHSCard:hsCard hsGameModeSlugType:hsCardGameModeSlugType isGold:isGold];
+    [self.viewModel requestDataSourceWithCard:hsCard hsGameModeSlugType:hsCardGameModeSlugType isGold:isGold];
 }
 
 - (void)setAttributes {
@@ -238,30 +236,26 @@
     [self addObserver:self forKeyPath:@"self.view.window" options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:nil];
     
     [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(startedLoadingDataSourceReceived:)
+                                               name:NSNotificationNameCardDetailsViewModelStartedLoadingDataSource
+                                             object:self.viewModel];
+    
+    [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(endedLoadingDataSourceReceived:)
                                                name:NSNotificationNameCardDetailsViewModelEndedLoadingDataSource
                                              object:self.viewModel];
-    
-    [NSNotificationCenter.defaultCenter addObserver:self
-                                           selector:@selector(startFetchingChildCardsReceived:)
-                                               name:NSNotificationNameCardDetailsViewModelStartedFetchingChildCards
-                                             object:self.viewModel];
-    
-    [NSNotificationCenter.defaultCenter addObserver:self
-                                           selector:@selector(endedChildCardsReceived:)
-                                               name:NSNotificationNameCardDetailsViewModelEndedFetchingChildCards
-                                             object:self.viewModel];
+}
+
+- (void)startedLoadingDataSourceReceived:(NSNotification *)notification {
+    [NSOperationQueue.mainQueue addOperationWithBlock:^{
+        [self addSpinnerView];
+    }];
 }
 
 - (void)endedLoadingDataSourceReceived:(NSNotification *)notification {
-    HSCard * _Nullable hsCard = notification.userInfo[NSNotificationNameCardDetailsViewModelEndedLoadingDataSourceHSCardItemKey];
-    
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
         [self.collectionView.collectionViewLayout invalidateLayout];
-        
-        if (hsCard != nil) {
-            self.view.window.title = hsCard.name;
-        }
+        [self removeAllSpinnerview];
     }];
 }
 
@@ -286,7 +280,7 @@
             case CardDetailsItemModelTypeChild: {
                 CardDetailsChildCollectionViewItem *item = (CardDetailsChildCollectionViewItem *)[collectionView makeItemWithIdentifier:NSUserInterfaceItemIdentifierCardDetailsChildCollectionViewItem forIndexPath:indexPath];
                 
-                [item configureWithHSCard:itemModel.childHSCard delegate:unretainedSelf];
+                [item configureWithHSCard:itemModel.childHSCard hsCardGameModeSlugType:itemModel.hsCardGameModeSlugType isGold:itemModel.isGold imageURL:itemModel.imageURL delegate:unretainedSelf];
                 
                 return item;
             }
@@ -437,11 +431,15 @@
 - (void)cardDetailsChildrenContentImageContentCollectionViewItem:(CardDetailsChildCollectionViewItem *)cardDetailsChildrenContentImageContentCollectionViewItem didDoubleClickWithRecognizer:(NSClickGestureRecognizer *)recognizer {
     NSSet<NSIndexPath *> *selectionIndexPaths = self.collectionView.selectionIndexPaths;
     
-    [self.viewModel hsCardsFromIndexPaths:selectionIndexPaths completion:^(NSSet<HSCard *> * _Nonnull hsCards) {
-        [hsCards enumerateObjectsUsingBlock:^(HSCard * _Nonnull obj, BOOL * _Nonnull stop) {
-            [NSOperationQueue.mainQueue addOperationWithBlock:^{
-                [WindowsService.sharedInstance presentCardDetailsWindowWithHSCard:obj];
-            }];
+    [self.viewModel itemModelsFromIndexPaths:selectionIndexPaths completion:^(NSSet<CardDetailsItemModel *> * _Nonnull itemModels) {
+        [itemModels enumerateObjectsUsingBlock:^(CardDetailsItemModel * _Nonnull obj, BOOL * _Nonnull stop) {
+            HSCard * _Nullable childHSCard = obj.childHSCard;
+            
+            if (childHSCard) {
+                [NSOperationQueue.mainQueue addOperationWithBlock:^{
+                    [WindowsService.sharedInstance presentCardDetailsWindowWithHSCard:childHSCard hsGameModeSlugType:obj.hsCardGameModeSlugType isGold:obj.isGold];
+                }];
+            }
         }];
     }];
 }

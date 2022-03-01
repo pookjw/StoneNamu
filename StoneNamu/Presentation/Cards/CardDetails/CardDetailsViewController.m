@@ -107,9 +107,9 @@
     [self.currentLayoutViewController cardDetailsLayoutUpdateCollectionViewInsets];
 }
 
-- (void)requestHSCard:(HSCard *)hsCard {
+- (void)requestHSCard:(HSCard *)hsCard  {
     [self.viewModel requestDataSourceWithCard:hsCard];
-    [self loadPrimaryImageFromHSCard:hsCard];
+    [self loadPrimaryImage];
 }
 
 - (UIViewController<CardDetailsLayoutProtocol> * _Nullable)currentLayoutViewController {
@@ -247,13 +247,18 @@
     [viewModel release];
 }
 
-- (void)loadPrimaryImageFromHSCard:(HSCard *)hsCard {
+- (void)loadPrimaryImage {
     if (self.sourceImageView.image == nil) {
-        if ([HSCardGameModeSlugTypeConstructed isEqualToString:self.viewModel.hsCardGameModeSlugType]) {
-            [self.primaryImageView setAsyncImageWithURL:hsCard.image indicator:YES];
-        } else if ([HSCardGameModeSlugTypeBattlegrounds isEqualToString:self.viewModel.hsCardGameModeSlugType]) {
-            [self.primaryImageView setAsyncImageWithURL:hsCard.battlegroundsImage indicator:YES];
-        }
+        [self.viewModel requestRecommendedImageURLWithCompletion:^(NSURL * _Nullable url) {
+            [NSOperationQueue.mainQueue addOperationWithBlock:^{
+                if (url) {
+                    [self.primaryImageView setAsyncImageWithURL:url indicator:YES];
+                } else {
+                    [self.primaryImageView clearSetAsyncImageContexts];
+                    self.primaryImageView.image = nil;
+                }
+            }];
+        }];
     } else {
         [self.primaryImageView clearSetAsyncImageContexts];
         
@@ -362,7 +367,7 @@
         
         switch (itemModel.type) {
             case CardDetailsItemModelTypeChild: {
-                CardDetailsChildContentConfiguration *configuration = [[CardDetailsChildContentConfiguration alloc] initWithHSCard:itemModel.childHSCard hsCardGameModeSlugType:itemModel.hsCardGameModeSlugType isGold:itemModel.isGold];
+                CardDetailsChildContentConfiguration *configuration = [[CardDetailsChildContentConfiguration alloc] initWithHSCard:itemModel.childHSCard imageURL:itemModel.imageURL];
                 cell.contentConfiguration = configuration;
                 [configuration release];
                 break;
@@ -411,6 +416,7 @@
 }
 
 - (void)presentCardDetailsViewControllerFromIndexPath:(NSIndexPath *)indexPath {
+#warning 
     CardDetailsItemModel * _Nullable itemModel = [self.viewModel.dataSource itemIdentifierForIndexPath:indexPath];
     if (itemModel == nil) return;
     if (itemModel.childHSCard == nil) return;

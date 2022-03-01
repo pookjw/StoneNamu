@@ -10,17 +10,15 @@
 
 @implementation CardDetailsChildContentConfiguration
 
-- (instancetype)initWithHSCard:(HSCard *)hsCard hsCardGameModeSlugType:(nonnull HSCardGameModeSlugType)hsCardGameModeSlugType isGold:(BOOL)isGold {
+- (instancetype)initWithHSCard:(HSCard *)hsCard imageURL:(NSURL * _Nullable)imageURL {
     self = [self init];
     
     if (self) {
         [self->_hsCard release];
         self->_hsCard = [hsCard copy];
         
-        [self->_hsCardGameModeSlugType release];
-        self->_hsCardGameModeSlugType = [hsCardGameModeSlugType copy];
-        
-        self->_isGold = isGold;
+        [self->_imageURL release];
+        self->_imageURL = [imageURL copy];
     }
     
     return self;
@@ -28,7 +26,7 @@
 
 - (void)dealloc {
     [_hsCard release];
-    [_hsCardGameModeSlugType release];
+    [_imageURL release];
     [super dealloc];
 }
 
@@ -41,10 +39,8 @@
         [_copy->_hsCard release];
         _copy->_hsCard = [self.hsCard copyWithZone:zone];
         
-        [_copy->_hsCardGameModeSlugType release];
-        _copy->_hsCardGameModeSlugType = [self.hsCardGameModeSlugType copyWithZone:zone];
-        
-        _copy->_isGold = self.isGold;
+        [_copy->_imageURL release];
+        _copy->_imageURL = [self.imageURL copyWithZone:zone];
     }
     
     return copy;

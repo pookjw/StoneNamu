@@ -59,7 +59,7 @@
     self.isLegendary = isLegendary;
     self.delegate = delegate;
     
-    self.hsCardPopoverDetailView.hsCard = hsCard;
+    [self.hsCardPopoverDetailView setHSCard:hsCard hsGameModeSlugType:HSCardGameModeSlugTypeConstructed isGold:NO];
     
     [self updateCountLabel];
     

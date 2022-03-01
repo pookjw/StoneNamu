@@ -33,12 +33,20 @@
     [super prepareForReuse];
 }
 
-- (void)configureWithHSCard:(HSCard *)hsCard delegate:(nonnull id<CardDetailsChildCollectionViewItemDelegate>)delegate {
+- (void)configureWithHSCard:(HSCard *)hsCard hsCardGameModeSlugType:(HSCardGameModeSlugType)hsCardGameModeSlugType isGold:(BOOL)isGold imageURL:(NSURL * _Nullable)imageURL delegate:(id<CardDetailsChildCollectionViewItemDelegate>)delegate {
     self.hsCard = hsCard;
     self.delegate = delegate;
     
-    self.hsCardPopoverDetailView.hsCard = hsCard;
-    [self.imageView setAsyncImageWithURL:hsCard.image indicator:YES];
+    [self.hsCardPopoverDetailView setHSCard:hsCard hsGameModeSlugType:hsCardGameModeSlugType isGold:isGold];
+    
+    //
+    
+    if (imageURL) {
+        [self.imageView setAsyncImageWithURL:imageURL indicator:YES];
+    } else {
+        [self.imageView clearSetAsyncImageContexts];
+        self.imageView.image = nil;
+    }
 }
 
 - (void)setAttributes {

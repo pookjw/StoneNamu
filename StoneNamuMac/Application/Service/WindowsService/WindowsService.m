@@ -94,8 +94,8 @@
     }
 }
 
-- (void)presentCardDetailsWindowWithHSCard:(HSCard *)hsCard {
-    CardDetailsWindow *cardDetailsWindow = [[CardDetailsWindow alloc] initWithHSCard:hsCard];
+- (void)presentCardDetailsWindowWithHSCard:(HSCard *)hsCard hsGameModeSlugType:(HSCardGameModeSlugType)hsCardGameModeSlugType isGold:(BOOL)isGold {
+    CardDetailsWindow *cardDetailsWindow = [[CardDetailsWindow alloc] initWithHSCard:hsCard hsGameModeSlugType:hsCardGameModeSlugType isGold:isGold];
     [cardDetailsWindow makeKeyAndOrderFront:nil];
     [cardDetailsWindow center];
     [cardDetailsWindow release];

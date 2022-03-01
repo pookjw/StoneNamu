@@ -427,7 +427,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
         
         if (hsCard == nil) return;
         
-        [WindowsService.sharedInstance presentCardDetailsWindowWithHSCard:hsCard];
+        [WindowsService.sharedInstance presentCardDetailsWindowWithHSCard:hsCard hsGameModeSlugType:HSCardGameModeSlugTypeConstructed isGold:NO];
     }];
 }
 
