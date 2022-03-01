@@ -1078,7 +1078,6 @@
 		4FB8510026C18DE200E3C89D /* NSManagedObject+_fetchRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSManagedObject+_fetchRequest.h"; sourceTree = "<group>"; };
 		4FB8510126C18DE200E3C89D /* NSManagedObject+_fetchRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObject+_fetchRequest.m"; sourceTree = "<group>"; };
 		4FB8510426C18EDB00E3C89D /* PrefsRepository.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefsRepository.h; sourceTree = "<group>"; };
-		4FB85DF827CE8E350056AFE3 /* CardDetailsCollectionViewLayoutDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardDetailsCollectionViewLayoutDelegate.h; sourceTree = "<group>"; };
 		4FB85DF927CE94B20056AFE3 /* NSURL+isEmpty.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSURL+isEmpty.h"; sourceTree = "<group>"; };
 		4FB85DFA27CE94B30056AFE3 /* NSURL+isEmpty.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSURL+isEmpty.m"; sourceTree = "<group>"; };
 		4FB8C35F2797EA0800D06E7D /* NSString+attributedStringWhenHTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+attributedStringWhenHTML.m"; sourceTree = "<group>"; };
@@ -2696,7 +2695,6 @@
 			children = (
 				4FB0ECE626B82AEE0020EE6C /* CardDetailsViewController.h */,
 				4FB0ECE726B82AEE0020EE6C /* CardDetailsViewController.m */,
-				4FB85DF827CE8E350056AFE3 /* CardDetailsCollectionViewLayoutDelegate.h */,
 				4F20B9DB27678CF1000FDA6D /* CardDetailsCollectionViewLayout.h */,
 				4F20B9DC27678CF1000FDA6D /* CardDetailsCollectionViewLayout.m */,
 				4F98E25626B9A9760067846F /* CardDetailsViewModel.h */,

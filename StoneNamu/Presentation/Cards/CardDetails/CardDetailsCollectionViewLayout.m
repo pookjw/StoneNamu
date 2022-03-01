@@ -8,19 +8,11 @@
 #import "CardDetailsCollectionViewLayout.h"
 #import "CardDetailsSectionModel.h"
 
-@interface CardDetailsCollectionViewLayout ()
-@property (assign) id<CardDetailsCollectionViewLayoutDelegate> cardDetailsCollectionViewLayoutDelegate;
-@end
-
 @implementation CardDetailsCollectionViewLayout
 
-- (instancetype)initWithCardDetailsCollectionViewLayoutDelegate:(id<CardDetailsCollectionViewLayoutDelegate>)cardDetailsCollectionViewLayoutDelegate {
-    CardDetailsCollectionViewLayout * __block unretainedSelf = self;
-    
+- (instancetype)init {
     self = [self initWithSectionProvider:^NSCollectionLayoutSection * _Nullable(NSInteger section, id<NSCollectionLayoutEnvironment> _Nonnull layoutEnvironment) {
-        CardDetailsSectionModelType type = [unretainedSelf.cardDetailsCollectionViewLayoutDelegate cardDetailsCollectionViewLayout:self cardDetailsSectionModelTypeForSection:section];
-        
-        switch (type) {
+        switch (section) {
             case CardDetailsSectionModelTypeBase: case CardDetailsSectionModelTypeDetail: {
                 UICollectionLayoutListConfiguration *layoutConfiguration = [[UICollectionLayoutListConfiguration alloc] initWithAppearance:UICollectionLayoutListAppearanceInsetGrouped];
                 layoutConfiguration.backgroundColor = UIColor.clearColor;
@@ -62,10 +54,6 @@
                 return nil;
         }
     }];
-    
-    if (self) {
-        self.cardDetailsCollectionViewLayoutDelegate = cardDetailsCollectionViewLayoutDelegate;
-    }
     
     return self;
 }

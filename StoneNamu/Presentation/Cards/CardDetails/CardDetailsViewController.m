@@ -24,7 +24,7 @@
 #import "CardDetailsChildContentView.h"
 #import <StoneNamuResources/StoneNamuResources.h>
 
-@interface CardDetailsViewController () <UICollectionViewDelegate, UICollectionViewDragDelegate, UIViewControllerTransitioningDelegate, UIContextMenuInteractionDelegate, UIDragInteractionDelegate, CardDetailsCollectionViewLayoutDelegate>
+@interface CardDetailsViewController () <UICollectionViewDelegate, UICollectionViewDragDelegate, UIViewControllerTransitioningDelegate, UIContextMenuInteractionDelegate, UIDragInteractionDelegate>
 @property (retain) UIImageView * _Nullable sourceImageView;
 @property (retain) UIImageView *primaryImageView;
 @property (retain) UIButton *closeButton;
@@ -183,7 +183,7 @@
 }
 
 - (void)configureCollectionView {
-    CardDetailsCollectionViewLayout *layout = [[CardDetailsCollectionViewLayout alloc] initWithCardDetailsCollectionViewLayoutDelegate:self];
+    CardDetailsCollectionViewLayout *layout = [CardDetailsCollectionViewLayout new];
     
     UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:layout];
     [layout release];
@@ -621,12 +621,6 @@
 
 - (NSArray<UIDragItem *> *)dragInteraction:(UIDragInteraction *)interaction itemsForAddingToSession:(id<UIDragSession>)session withTouchAtPoint:(CGPoint)point {
     return [self makeDragItemsForPrimaryImageView];
-}
-
-#pragma mark - CardDetailsCollectionViewLayoutDelegate
-
-- (CardDetailsSectionModelType)cardDetailsCollectionViewLayout:(CardDetailsCollectionViewLayout *)layout cardDetailsSectionModelTypeForSection:(NSInteger)section {
-    return [self.viewModel.dataSource sectionIdentifierForIndex:section].type;
 }
 
 @end
