@@ -15,6 +15,10 @@
 @property (retain) NSOperationQueue *queue;
 @property (retain) id<HSMetaDataUseCase> hsMetaDataUseCase;
 @property (retain) id<HSCardUseCase> hsCardUseCase;
+@property BOOL startedLoadingUpgradedCard;
+@property BOOL endedLoadingUpgradedCard;
+@property BOOL startedLoadingChildHSCards;
+@property BOOL endedLoadingChildHSCards;
 @end
 
 @implementation CardDetailsViewModel
@@ -39,6 +43,11 @@
         queue.qualityOfService = NSQualityOfServiceUserInitiated;
         self.queue = queue;
         [queue release];
+        
+        self.startedLoadingUpgradedCard = NO;
+        self.endedLoadingUpgradedCard = NO;
+        self.startedLoadingChildHSCards = NO;
+        self.endedLoadingChildHSCards = NO;
     }
     
     return self;
@@ -51,6 +60,7 @@
     [_hsCardUseCase release];
     [_queue release];
     [_hsCard release];
+    [_hsCardGameModeSlugType release];
     [super dealloc];
 }
 
@@ -59,6 +69,8 @@
         [self.hsMetaDataUseCase fetchWithCompletionHandler:^(HSMetaData * _Nullable hsMetaData, NSError * _Nullable error) {
             [self.queue addBarrierBlock:^{
                 [self postStartedLoadingDataSource];
+                self.startedLoadingUpgradedCard = [self loadUpgradedCardFromHSCard:hsCard];
+                self.startedLoadingChildHSCards = [self loadChildCardsFromHSCard:hsCard];
                 
                 [self->_hsCard release];
                 self->_hsCard = [hsCard copy];
@@ -142,8 +154,7 @@
                 [artistNameItem release];
                 
                 [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
-                    [self postEndedLoadingDataSource];
-                    [self loadChildCardsWithHSCard:hsCard];
+                    [self postEndedLoadingDataSourceIfNeeded];
                 }];
                 [snapshot release];
             }];
@@ -171,79 +182,99 @@
     return @[dragItem];
 }
 
-- (void)loadChildCardsWithHSCard:(HSCard *)hsCard {
-    NSArray<NSNumber *> *childIds = [hsCard.childIds copy];
-    if (childIds.count == 0) {
-        [childIds release];
-        return;
-    }
-    
-    [self postStartedFetchingChildCards];
+- (BOOL)loadUpgradedCardFromHSCard:(HSCard *)hsCard {
+    NSNumber * _Nullable upgradeId = hsCard.battlegroundsUpgradeId;
+    if (upgradeId == nil) return NO;
     
     [self.queue addOperationWithBlock:^{
-        SemaphoreCondition *semaphore = [[SemaphoreCondition alloc] initWithValue:-((NSInteger)childIds.count) + 1];
-        NSMutableArray<HSCard *> *childCards = [NSMutableArray<HSCard *> new];
-        
-        for (NSNumber *childId in childIds) {
-            [self.hsCardUseCase fetchWithIdOrSlug:[childId stringValue]
-                                      withOptions:nil
-                                completionHandler:^(HSCard * _Nullable childCard, NSError * _Nullable error) {
-                if (error) {
-                    NSLog(@"%@", error.localizedDescription);
-                } else if (childCard) {
-                    HSCard *copyCard = [childCard copy];
-                    [childCards addObject:copyCard];
-                    [copyCard release];
-                }
-                
-                [semaphore signal];
+        [self.hsCardUseCase fetchWithIdOrSlug:upgradeId.stringValue withOptions:@{BlizzardHSAPIOptionTypeGameMode: [NSSet setWithObject:self.hsCardGameModeSlugType]} completionHandler:^(HSCard * _Nullable hsCard, NSError * _Nullable error) {
+            if (error) {
+                NSLog(@"%@", error.localizedDescription);
+                return;
+            }
+            
+            [self appendChildHSCard:hsCard isGold:YES completion:^{
+                self.endedLoadingUpgradedCard = YES;
+                [self postEndedLoadingDataSourceIfNeeded];
             }];
-        }
-        
-        [semaphore wait];
-        [semaphore release];
-        
-        NSArray<HSCard *> *results = [childCards copy];
-        [childIds release];
-        [childCards release];
-        
-        [self updateDataSourceWithChildCards:results];
-        [results autorelease];
+        }];
     }];
+    
+    return YES;
 }
 
-- (void)updateDataSourceWithChildCards:(NSArray<HSCard *> *)childCards {
+- (BOOL)loadChildCardsFromHSCard:(HSCard *)hsCard {
+    NSArray<NSNumber *> *childIds = hsCard.childIds;
+    if (childIds.count == 0) {
+        return NO;
+    }
+    
+    [self.queue addOperationWithBlock:^{
+        NSUInteger __block completed = 0;
+        
+        [childIds enumerateObjectsUsingBlock:^(NSNumber * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            void (^postWhenCompleted)(void) = ^{
+                if (completed == childIds.count) {
+                    self.endedLoadingChildHSCards = YES;
+                    [self postEndedLoadingDataSourceIfNeeded];
+                }
+            };
+            
+            [self.hsCardUseCase fetchWithIdOrSlug:obj.stringValue withOptions:@{BlizzardHSAPIOptionTypeGameMode: [NSSet setWithObject:self.hsCardGameModeSlugType]} completionHandler:^(HSCard * _Nullable hsCard, NSError * _Nullable error) {
+                if (error) {
+                    NSLog(@"%@", error.localizedDescription);
+                    completed += 1;
+                    postWhenCompleted();
+                    return;
+                }
+                
+                [self appendChildHSCard:hsCard isGold:self.isGold completion:^{
+                    completed += 1;
+                    postWhenCompleted();
+                }];
+            }];
+        }];
+    }];
+    
+    return YES;
+}
+
+- (void)appendChildHSCard:(HSCard *)hsCard isGold:(BOOL)isGold completion:(void (^)(void))completion {
     [self.queue addBarrierBlock:^{
         NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
         
-        CardDetailsSectionModel *sectionModelChildren = [[CardDetailsSectionModel alloc] initWithType:CardDetailsSectionModelTypeChildren];
+        CardDetailsSectionModel * _Nullable __block childrenSectionModel = nil;
         
-        if ([snapshot.sectionIdentifiers containsObject:sectionModelChildren]) {
-            [snapshot deleteSectionsWithIdentifiers:@[sectionModelChildren]];
-        }
-        
-        [snapshot appendSectionsWithIdentifiers:@[sectionModelChildren]];
-        
-        [childCards enumerateObjectsUsingBlock:^(HSCard * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            CardDetailsItemModel *childCardItem = [[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeChild childHSCard:obj];
-            [snapshot appendItemsWithIdentifiers:@[childCardItem] intoSectionWithIdentifier:sectionModelChildren];
-            [childCardItem release];
+        [snapshot.sectionIdentifiers enumerateObjectsUsingBlock:^(CardDetailsSectionModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            switch (obj.type) {
+                case CardDetailsSectionModelTypeChildren:
+                    childrenSectionModel = [obj retain];
+                    *stop = YES;
+                    break;
+                default:
+                    break;
+            }
         }];
         
-        //
+        if (childrenSectionModel == nil) {
+            childrenSectionModel = [[CardDetailsSectionModel alloc] initWithType:CardDetailsSectionModelTypeChildren];
+            [snapshot appendSectionsWithIdentifiers:@[childrenSectionModel]];
+        }
         
-        [snapshot sortItemsWithSectionIdentifiers:@[sectionModelChildren] usingComparator:^NSComparisonResult(CardDetailsItemModel * _Nonnull obj1, CardDetailsItemModel * _Nonnull obj2) {
+        CardDetailsItemModel *childItemModel = [[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeChild childHSCard:hsCard hsCardGameModeSlugType:self.hsCardGameModeSlugType isGold:isGold];
+        [snapshot appendItemsWithIdentifiers:@[childItemModel] intoSectionWithIdentifier:childrenSectionModel];
+        [childItemModel release];
+        
+        [childrenSectionModel release];
+        
+        [snapshot sortItemsWithSectionIdentifiers:@[childrenSectionModel] usingComparator:^NSComparisonResult(CardDetailsItemModel * _Nonnull obj1, CardDetailsItemModel * _Nonnull obj2) {
             return [obj1.childHSCard compare:obj2.childHSCard];
         }];
         
-        [sectionModelChildren release];
-        
-        //
-        
-        [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
-            [self postEndedFetchingChildCards];
-            [self postEndedLoadingDataSource];
+        [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:snapshot completion:^{
+            completion();
         }];
+        
         [snapshot release];
     }];
 }
@@ -254,20 +285,29 @@
                                                     userInfo:nil];
 }
 
+- (void)postEndedLoadingDataSourceIfNeeded {
+    BOOL shouldPost;
+    
+    if ((!self.startedLoadingUpgradedCard) && (!self.startedLoadingChildHSCards)) {
+        shouldPost = YES;
+    } else if ((self.endedLoadingUpgradedCard) && (!self.startedLoadingChildHSCards)) {
+        shouldPost = YES;
+    } else if ((!self.startedLoadingUpgradedCard) && (self.endedLoadingChildHSCards)) {
+        shouldPost = YES;
+    } else if (self.endedLoadingUpgradedCard && self.endedLoadingChildHSCards) {
+        shouldPost = YES;
+    } else {
+        shouldPost = NO;
+    }
+    
+    if (shouldPost) {
+        [self postEndedLoadingDataSource];
+    }
+}
+
+
 - (void)postEndedLoadingDataSource {
     [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameCardDetailsViewModelEndedLoadingDataSource
-                                                      object:self
-                                                    userInfo:nil];
-}
-
-- (void)postStartedFetchingChildCards {
-    [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameCardDetailsViewModelStartedFetchingChildCards
-                                                      object:self
-                                                    userInfo:nil];
-}
-
-- (void)postEndedFetchingChildCards {
-    [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameCardDetailsViewModelEndedFetchingChildCards
                                                       object:self
                                                     userInfo:nil];
 }

@@ -28,10 +28,12 @@ typedef NS_ENUM(NSUInteger, CardDetailsItemModelType) {
 @property (readonly, nonatomic) NSString * _Nullable primaryText;
 @property (readonly, nonatomic) NSString * _Nullable secondaryText;
 @property (readonly, nonatomic, copy) HSCard * _Nullable childHSCard;
+@property (readonly, copy) HSCardGameModeSlugType hsCardGameModeSlugType;
+@property (readonly) BOOL isGold;
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithType:(CardDetailsItemModelType)type value:(NSString * _Nullable)value;
-- (instancetype)initWithType:(CardDetailsItemModelType)type childHSCard:(HSCard *)childHSCard;
+- (instancetype)initWithType:(CardDetailsItemModelType)type childHSCard:(HSCard *)childHSCard hsCardGameModeSlugType:(HSCardGameModeSlugType)hsCardGameModeSlugType isGold:(BOOL)isGold;
 @end
 
 NS_ASSUME_NONNULL_END

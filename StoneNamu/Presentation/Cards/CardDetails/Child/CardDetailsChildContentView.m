@@ -11,6 +11,8 @@
 
 @interface CardDetailsChildContentView ()
 @property (readonly, nonatomic) HSCard * _Nullable hsCard;
+@property (readonly, nonatomic) HSCardGameModeSlugType _Nullable hsCardGameModeSlugType;
+@property (readonly) BOOL isGold;
 @end
 
 @implementation CardDetailsChildContentView
@@ -63,7 +65,43 @@
     self->configuration = newContentConfig;
     
     if (![newContentConfig.hsCard isEqual:oldContentConfig.hsCard]) {
-        [self.imageView setAsyncImageWithURL:newContentConfig.hsCard.image indicator:YES];
+        NSURL * _Nullable url;
+        
+        NSURL * _Nullable image = newContentConfig.hsCard.image;
+        NSURL * _Nullable imageGold = newContentConfig.hsCard.imageGold;
+        NSURL * _Nullable battlegroundsImage = newContentConfig.hsCard.battlegroundsImage;
+        NSURL * _Nullable battlegroundsImageGold = newContentConfig.hsCard.battlegroundsImageGold;
+        
+        if ([HSCardGameModeSlugTypeConstructed isEqualToString:newContentConfig.hsCardGameModeSlugType]) {
+            url = image;
+        } else if ([HSCardGameModeSlugTypeBattlegrounds isEqualToString:newContentConfig.hsCardGameModeSlugType]) {
+            if (newContentConfig.isGold) {
+                if ((battlegroundsImageGold) && (!battlegroundsImageGold.isEmpty)) {
+                    url = battlegroundsImageGold;
+                } else if ((battlegroundsImage) && (!battlegroundsImage.isEmpty)) {
+                    url = battlegroundsImage;
+                } else if ((imageGold) && (!imageGold.isEmpty)) {
+                    url = imageGold;
+                } else {
+                    url = newContentConfig.hsCard.image;
+                }
+            } else {
+                if ((battlegroundsImage) && (!battlegroundsImage.isEmpty)) {
+                    url = battlegroundsImage;
+                } else {
+                    url = newContentConfig.hsCard.image;
+                }
+            }
+        } else {
+            url = nil;
+        }
+        
+        if (url) {
+            [self.imageView setAsyncImageWithURL:url indicator:YES];
+        } else {
+            [self.imageView clearSetAsyncImageContexts];
+            self.imageView.image = nil;
+        }
         self.imageView.hidden = NO;
     }
     
@@ -77,6 +115,24 @@
     
     CardDetailsChildContentConfiguration *contentConfiguration = (CardDetailsChildContentConfiguration *)self.configuration;
     return contentConfiguration.hsCard;
+}
+
+- (HSCardGameModeSlugType)hsCardGameModeSlugType {
+    if (![self.configuration isKindOfClass:[CardDetailsChildContentConfiguration class]]) {
+        return nil;
+    }
+    
+    CardDetailsChildContentConfiguration *contentConfiguration = (CardDetailsChildContentConfiguration *)self.configuration;
+    return contentConfiguration.hsCardGameModeSlugType;
+}
+
+- (BOOL)isGold {
+    if (![self.configuration isKindOfClass:[CardDetailsChildContentConfiguration class]]) {
+        return NO;
+    }
+    
+    CardDetailsChildContentConfiguration *contentConfiguration = (CardDetailsChildContentConfiguration *)self.configuration;
+    return contentConfiguration.isGold;
 }
 
 @end

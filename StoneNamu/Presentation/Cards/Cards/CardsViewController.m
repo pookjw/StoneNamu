@@ -251,7 +251,7 @@
     
     UIImageView *sourceImageView = contentView.imageView;
     
-    CardDetailsViewController *vc = [[CardDetailsViewController alloc] initWithHSCard:nil sourceImageView:sourceImageView];
+    CardDetailsViewController *vc = [[CardDetailsViewController alloc] initWithHSCard:nil hsGameModeSlugType:self.viewModel.hsCardGameModeSlugType isGold:NO sourceImageView:sourceImageView];
     
     [self.viewModel hsCardFromIndexPath:indexPath completion:^(HSCard * _Nonnull hsCard) {
         [NSOperationQueue.mainQueue addOperationWithBlock:^{

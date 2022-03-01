@@ -124,7 +124,7 @@
                 
                 [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
                     [self postEndedLoadingDataSource];
-                    [self loadChildCardsWithHSCard:hsCard];
+                    [self loadChildCardsFromHSCard:hsCard];
                 }];
                 [snapshot release];
             }];
@@ -153,7 +153,7 @@
     }];
 }
 
-- (void)loadChildCardsWithHSCard:(HSCard *)hsCard {
+- (void)loadChildCardsFromHSCard:(HSCard *)hsCard {
     NSArray<NSNumber *> *childIds = [hsCard.childIds copy];
     if (childIds.count == 0) {
         [childIds release];

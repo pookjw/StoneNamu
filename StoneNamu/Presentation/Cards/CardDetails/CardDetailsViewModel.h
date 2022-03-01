@@ -15,13 +15,12 @@ NS_ASSUME_NONNULL_BEGIN
 static NSNotificationName const NSNotificationNameCardDetailsViewModelStartedLoadingDataSource = @"NSNotificationNameCardDetailsViewModelStartedLoadingDataSource";
 static NSNotificationName const NSNotificationNameCardDetailsViewModelEndedLoadingDataSource = @"NSNotificationNameCardDetailsViewModelEndedLoadingDataSource";
 
-static NSNotificationName const NSNotificationNameCardDetailsViewModelStartedFetchingChildCards = @"NSNotificationNameCardDetailsViewModelStartedFetchingChildCards";
-static NSNotificationName const NSNotificationNameCardDetailsViewModelEndedFetchingChildCards = @"NSNotificationNameCardDetailsViewModelEndedFetchingChildCards";
-
 typedef UICollectionViewDiffableDataSource<CardDetailsSectionModel *, CardDetailsItemModel *> CardDetailsDataSource;
 
 @interface CardDetailsViewModel : NSObject
 @property (readonly, copy) HSCard * _Nullable hsCard;
+@property (copy) HSCardGameModeSlugType _Nullable hsCardGameModeSlugType;
+@property BOOL isGold;
 @property (readonly, retain) CardDetailsDataSource *dataSource;
 @property (copy) NSIndexPath * _Nullable contextMenuIndexPath;
 + (instancetype)new NS_UNAVAILABLE;

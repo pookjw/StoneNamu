@@ -24,7 +24,7 @@
 #import "CardDetailsChildContentView.h"
 #import <StoneNamuResources/StoneNamuResources.h>
 
-@interface CardDetailsViewController () <UICollectionViewDelegate, UICollectionViewDragDelegate, UIViewControllerTransitioningDelegate, UIContextMenuInteractionDelegate, UIDragInteractionDelegate>
+@interface CardDetailsViewController () <UICollectionViewDelegate, UICollectionViewDragDelegate, UIViewControllerTransitioningDelegate, UIContextMenuInteractionDelegate, UIDragInteractionDelegate, CardDetailsCollectionViewLayoutDelegate>
 @property (retain) UIImageView * _Nullable sourceImageView;
 @property (retain) UIImageView *primaryImageView;
 @property (retain) UIButton *closeButton;
@@ -39,12 +39,15 @@
 
 @implementation CardDetailsViewController
 
-- (instancetype)initWithHSCard:(HSCard *)hsCard sourceImageView:(UIImageView * _Nullable)sourceImageView {
+- (instancetype)initWithHSCard:(HSCard * _Nullable)hsCard hsGameModeSlugType:(HSCardGameModeSlugType)hsCardGameModeSlugType isGold:(BOOL)isGold sourceImageView:(UIImageView * _Nullable)sourceImageView {
     self = [self init];
     
     if (self) {
         self.sourceImageView = sourceImageView;
         [self loadViewIfNeeded];
+        
+        self.viewModel.hsCardGameModeSlugType = hsCardGameModeSlugType;
+        self.viewModel.isGold = isGold;
         
         if (hsCard) {
             [self requestHSCard:hsCard];
@@ -106,7 +109,7 @@
 
 - (void)requestHSCard:(HSCard *)hsCard {
     [self.viewModel requestDataSourceWithCard:hsCard];
-    [self loadPrimageImageFromHSCard:hsCard];
+    [self loadPrimaryImageFromHSCard:hsCard];
 }
 
 - (UIViewController<CardDetailsLayoutProtocol> * _Nullable)currentLayoutViewController {
@@ -158,8 +161,9 @@
     UIBackgroundConfiguration *backgroundConfiguration = [UIBackgroundConfiguration clearConfiguration];
     UIVisualEffectView *blurView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
     backgroundConfiguration.customView = blurView;
-    backgroundConfiguration.backgroundColor = UIColor.clearColor;
     [blurView release];
+    
+    backgroundConfiguration.backgroundColor = UIColor.clearColor;
     backgroundConfiguration.visualEffect = [UIVibrancyEffect effectForBlurEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleDark]];
     
     UIButtonConfiguration *buttonConfiguration = UIButtonConfiguration.tintedButtonConfiguration;
@@ -179,7 +183,7 @@
 }
 
 - (void)configureCollectionView {
-    CardDetailsCollectionViewLayout *layout = [CardDetailsCollectionViewLayout new];
+    CardDetailsCollectionViewLayout *layout = [[CardDetailsCollectionViewLayout alloc] initWithCardDetailsCollectionViewLayoutDelegate:self];
     
     UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:layout];
     [layout release];
@@ -243,10 +247,16 @@
     [viewModel release];
 }
 
-- (void)loadPrimageImageFromHSCard:(HSCard *)hsCard {
+- (void)loadPrimaryImageFromHSCard:(HSCard *)hsCard {
     if (self.sourceImageView.image == nil) {
-        [self.primaryImageView setAsyncImageWithURL:hsCard.image indicator:YES];
+        if ([HSCardGameModeSlugTypeConstructed isEqualToString:self.viewModel.hsCardGameModeSlugType]) {
+            [self.primaryImageView setAsyncImageWithURL:hsCard.image indicator:YES];
+        } else if ([HSCardGameModeSlugTypeBattlegrounds isEqualToString:self.viewModel.hsCardGameModeSlugType]) {
+            [self.primaryImageView setAsyncImageWithURL:hsCard.battlegroundsImage indicator:YES];
+        }
     } else {
+        [self.primaryImageView clearSetAsyncImageContexts];
+        
         if ((self.sourceImageView.image.isGrayScaleApplied) && (self.sourceImageView.image.imageBeforeGrayScale != nil)) {
             self.primaryImageView.image = self.sourceImageView.image.imageBeforeGrayScale;
         } else {
@@ -257,34 +267,23 @@
 
 - (void)bind {
     [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(startedLoadingDataSourceReceived:)
+                                               name:NSNotificationNameCardDetailsViewModelStartedLoadingDataSource
+                                             object:self.viewModel];
+    
+    [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(endedLoadingDataSourceReceived:)
                                                name:NSNotificationNameCardDetailsViewModelEndedLoadingDataSource
                                              object:self.viewModel];
-    
-    [NSNotificationCenter.defaultCenter addObserver:self
-                                           selector:@selector(startFetchingChildCardsReceived:)
-                                               name:NSNotificationNameCardDetailsViewModelStartedFetchingChildCards
-                                             object:self.viewModel];
-    
-    [NSNotificationCenter.defaultCenter addObserver:self
-                                           selector:@selector(endedChildCardsReceived:)
-                                               name:NSNotificationNameCardDetailsViewModelEndedFetchingChildCards
-                                             object:self.viewModel];
 }
 
-- (void)endedLoadingDataSourceReceived:(NSNotification *)notification {
-    [NSOperationQueue.mainQueue addOperationWithBlock:^{
-        [self.collectionView.collectionViewLayout invalidateLayout];
-    }];
-}
-
-- (void)startFetchingChildCardsReceived:(NSNotification *)notification {
+- (void)startedLoadingDataSourceReceived:(NSNotification *)notification {
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
         [self addSpinnerView];
     }];
 }
 
-- (void)endedChildCardsReceived:(NSNotification *)notification {
+- (void)endedLoadingDataSourceReceived:(NSNotification *)notification {
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
         [self removeAllSpinnerview];
     }];
@@ -315,6 +314,7 @@
     
     [targetLayoutViewController cardDetailsLayoutAddPrimaryImageView:self.primaryImageView];
     [targetLayoutViewController cardDetailsLayoutAddCloseButton:self.closeButton];
+    
     [targetLayoutViewController cardDetailsLayoutAddCollectionView:self.collectionView];
     [targetLayoutViewController cardDetailsLayoutUpdateCollectionViewInsets];
     
@@ -362,7 +362,7 @@
         
         switch (itemModel.type) {
             case CardDetailsItemModelTypeChild: {
-                CardDetailsChildContentConfiguration *configuration = [[CardDetailsChildContentConfiguration alloc] initWithHSCard:itemModel.childHSCard];
+                CardDetailsChildContentConfiguration *configuration = [[CardDetailsChildContentConfiguration alloc] initWithHSCard:itemModel.childHSCard hsCardGameModeSlugType:itemModel.hsCardGameModeSlugType isGold:itemModel.isGold];
                 cell.contentConfiguration = configuration;
                 [configuration release];
                 break;
@@ -426,7 +426,7 @@
     
     HSCard *hsCard = itemModel.childHSCard;
     
-    CardDetailsViewController *vc = [[CardDetailsViewController alloc] initWithHSCard:hsCard sourceImageView:contentView.imageView];
+    CardDetailsViewController *vc = [[CardDetailsViewController alloc] initWithHSCard:hsCard hsGameModeSlugType:self.viewModel.hsCardGameModeSlugType isGold:itemModel.isGold sourceImageView:contentView.imageView];
     [vc loadViewIfNeeded];
     [self presentViewController:vc animated:YES completion:^{}];
     [vc release];
@@ -615,6 +615,12 @@
 
 - (NSArray<UIDragItem *> *)dragInteraction:(UIDragInteraction *)interaction itemsForAddingToSession:(id<UIDragSession>)session withTouchAtPoint:(CGPoint)point {
     return [self makeDragItemsForPrimaryImageView];
+}
+
+#pragma mark - CardDetailsCollectionViewLayoutDelegate
+
+- (CardDetailsSectionModelType)cardDetailsCollectionViewLayout:(CardDetailsCollectionViewLayout *)layout cardDetailsSectionModelTypeForSection:(NSInteger)section {
+    return [self.viewModel.dataSource sectionIdentifierForIndex:section].type;
 }
 
 @end

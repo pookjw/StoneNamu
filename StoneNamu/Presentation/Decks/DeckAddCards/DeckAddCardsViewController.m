@@ -353,7 +353,7 @@
 }
 
 - (void)presentCardDetailsViewControllerWithHSCard:(HSCard *)hsCard sourceImageView:(UIImageView *)imageView {
-    CardDetailsViewController *vc = [[CardDetailsViewController alloc] initWithHSCard:hsCard sourceImageView:imageView];
+    CardDetailsViewController *vc = [[CardDetailsViewController alloc] initWithHSCard:hsCard hsGameModeSlugType:HSCardGameModeSlugTypeConstructed isGold:NO sourceImageView:imageView];
     [vc loadViewIfNeeded];
     [self presentViewController:vc animated:YES completion:^{}];
     [vc release];
@@ -368,7 +368,7 @@
     
     UIImageView *sourceImageView = contentView.imageView;
     
-    CardDetailsViewController *vc = [[CardDetailsViewController alloc] initWithHSCard:nil sourceImageView:sourceImageView];
+    CardDetailsViewController *vc = [[CardDetailsViewController alloc] initWithHSCard:nil hsGameModeSlugType:HSCardGameModeSlugTypeConstructed isGold:NO sourceImageView:sourceImageView];
     
     [self.viewModel hsCardFromIndexPath:indexPath completion:^(HSCard * _Nonnull hsCard) {
         [NSOperationQueue.mainQueue addOperationWithBlock:^{

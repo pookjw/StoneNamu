@@ -10,10 +10,12 @@
 @interface CardDetailsLayoutCompactViewController ()
 @property (retain) UIView *primaryImageViewContainerView;
 @property (retain) UIView *closeButtonContainerView;
+@property (retain) UIView *goldButtonContainerView;
 @property (retain) UIView *collectionViewContainerView;
 @property (retain) CAGradientLayer *gradientLayer;
 @property (retain) UIImageView * _Nullable primaryImageView;
 @property (retain) UIButton * _Nullable closeButton;
+@property (retain) UIButton * _Nullable goldButton;
 @property (retain) UICollectionView * _Nullable collectionView;
 @end
 
@@ -25,6 +27,7 @@
     if (self) {
         self.primaryImageView = nil;
         self.closeButton = nil;
+        self.goldButton = nil;
         self.collectionView = nil;
     }
     
@@ -34,10 +37,12 @@
 - (void)dealloc {
     [_primaryImageViewContainerView release];
     [_closeButtonContainerView release];
+    [_goldButtonContainerView release];
     [_collectionViewContainerView release];
     [_gradientLayer release];
     [_primaryImageView release];
     [_closeButton release];
+    [_goldButton release];
     [_collectionView release];
     [super dealloc];
 }
@@ -65,8 +70,8 @@
                                      relatedBy:NSLayoutRelationEqual
                                         toItem:self.view
                                      attribute:NSLayoutAttributeHeight
-                                    multiplier:0.5
-                                      constant:0]
+                                    multiplier:0.5f
+                                      constant:0.0f]
     ]];
     primaryImageViewContainerView.backgroundColor = UIColor.clearColor;
     
@@ -79,8 +84,8 @@
     [self.view addSubview:closeButtonContainerView];
     closeButtonContainerView.translatesAutoresizingMaskIntoConstraints = NO;
     [NSLayoutConstraint activateConstraints:@[
-        [closeButtonContainerView.topAnchor constraintEqualToAnchor:primaryImageViewContainerView.topAnchor],
-        [closeButtonContainerView.trailingAnchor constraintEqualToAnchor:primaryImageViewContainerView.trailingAnchor],
+        [closeButtonContainerView.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor],
+        [closeButtonContainerView.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor],
         [closeButtonContainerView.widthAnchor constraintEqualToConstant:60.0f],
         [closeButtonContainerView.heightAnchor constraintEqualToConstant:60.0f]
     ]];
@@ -88,6 +93,21 @@
     
     self.closeButtonContainerView = closeButtonContainerView;
     [closeButtonContainerView release];
+    
+    //
+    
+    UIView *goldButtonContainerView = [UIView new];
+    [self.view addSubview:goldButtonContainerView];
+    goldButtonContainerView.translatesAutoresizingMaskIntoConstraints = NO;
+    [NSLayoutConstraint activateConstraints:@[
+        [goldButtonContainerView.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor],
+        [goldButtonContainerView.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor],
+        [goldButtonContainerView.widthAnchor constraintEqualToConstant:60.0f],
+        [goldButtonContainerView.heightAnchor constraintEqualToConstant:60.0f]
+    ]];
+    
+    self.goldButtonContainerView = goldButtonContainerView;
+    [goldButtonContainerView release];
     
     //
     
@@ -104,11 +124,11 @@
     
     CAGradientLayer *gradientLayer = [CAGradientLayer new];
     gradientLayer.colors = @[
-        (id)[UIColor.whiteColor colorWithAlphaComponent:0].CGColor,
+        (id)[UIColor.whiteColor colorWithAlphaComponent:0.0f].CGColor,
         (id)UIColor.whiteColor.CGColor
     ];
-    gradientLayer.startPoint = CGPointMake(0, 0);
-    gradientLayer.endPoint = CGPointMake(0, 0.05);
+    gradientLayer.startPoint = CGPointMake(0.0f, 0.0f);
+    gradientLayer.endPoint = CGPointMake(0.0f, 0.05f);
     collectionViewContainerView.layer.mask = gradientLayer;
     self.gradientLayer = gradientLayer;
     [gradientLayer release];

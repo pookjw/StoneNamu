@@ -10,9 +10,11 @@
 @interface CardDetailsLayoutRegularViewController ()
 @property (retain) UIView *primaryImageViewContainerView;
 @property (retain) UIView *closeButtonContainerView;
+@property (retain) UIView *goldButtonContainerView;
 @property (retain) UIView *collectionViewContainerView;
 @property (retain) UIImageView * _Nullable primaryImageView;
 @property (retain) UIButton * _Nullable closeButton;
+@property (retain) UIButton * _Nullable goldButton;
 @property (retain) UICollectionView * _Nullable collectionView;
 @end
 
@@ -23,6 +25,9 @@
     
     if (self) {
         self.primaryImageView = nil;
+        self.closeButton = nil;
+        self.goldButton = nil;
+        self.collectionView = nil;
     }
     
     return self;
@@ -31,9 +36,11 @@
 - (void)dealloc {
     [_primaryImageViewContainerView release];
     [_closeButtonContainerView release];
+    [_goldButtonContainerView release];
     [_collectionViewContainerView release];
     [_primaryImageView release];
     [_closeButton release];
+    [_goldButton release];
     [_collectionView release];
     [super dealloc];
 }
@@ -79,6 +86,21 @@
     
     self.closeButtonContainerView = closeButtonContainerView;
     [closeButtonContainerView release];
+    
+    //
+    
+    UIView *goldButtonContainerView = [UIView new];
+    [self.view addSubview:goldButtonContainerView];
+    goldButtonContainerView.translatesAutoresizingMaskIntoConstraints = NO;
+    [NSLayoutConstraint activateConstraints:@[
+        [goldButtonContainerView.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor],
+        [goldButtonContainerView.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor],
+        [goldButtonContainerView.widthAnchor constraintEqualToConstant:60.0f],
+        [goldButtonContainerView.heightAnchor constraintEqualToConstant:60.0f]
+    ]];
+    
+    self.goldButtonContainerView = goldButtonContainerView;
+    [goldButtonContainerView release];
     
     //
     

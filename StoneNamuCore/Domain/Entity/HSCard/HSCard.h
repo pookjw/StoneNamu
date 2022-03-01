@@ -54,6 +54,7 @@ static NSPasteboardType const NSPasteboardTypeHSCard = @"com.pookjw.StoneNamu.NS
 
 @property (readonly, copy) NSNumber * _Nullable battlegroundsTier;
 @property (readonly, copy) NSNumber * _Nullable battlegroundsHero; // BOOL
+@property (readonly, copy) NSNumber * _Nullable battlegroundsUpgradeId;
 @property (readonly, copy) NSURL * _Nullable battlegroundsImage;
 @property (readonly, copy) NSURL * _Nullable battlegroundsImageGold;
 

@@ -112,6 +112,16 @@ static NSString * const UIImageViewAsyncImageCategorySessionTaskKey = @"UIImageV
     [self.sessionTask cancel];
 }
 
+- (void)clearSetAsyncImageContexts {
+    [self cancelAsyncImage];
+    
+    [self.spinnerView removeFromSuperview];
+    self.spinnerView = nil;
+    
+    self.dataCacheUseCase = nil;
+    self.currentURL = nil;
+}
+
 - (void)showSpinnerView {
     if (self.spinnerView) {
         self.spinnerView.hidden = NO;

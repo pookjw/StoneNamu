@@ -19,22 +19,36 @@
     
     if (self) {
         self->_type = type;
+        
         self.value = value;
+        
         [self->_childHSCard release];
         self->_childHSCard = nil;
+        
+        [self->_hsCardGameModeSlugType release];
+        self->_hsCardGameModeSlugType = nil;
+        
+        self->_isGold = NO;
     }
     
     return self;
 }
 
-- (instancetype)initWithType:(CardDetailsItemModelType)type childHSCard:(HSCard *)childHSCard {
+- (instancetype)initWithType:(CardDetailsItemModelType)type childHSCard:(HSCard *)childHSCard hsCardGameModeSlugType:(HSCardGameModeSlugType)hsCardGameModeSlugType isGold:(BOOL)isGold {
     self = [self init];
     
     if (self) {
         self->_type = type;
+        
         self.value = nil;
+        
         [self->_childHSCard release];
         self->_childHSCard = [childHSCard copy];
+        
+        [self->_hsCardGameModeSlugType release];
+        self->_hsCardGameModeSlugType = [hsCardGameModeSlugType copy];
+        
+        self->_isGold = isGold;
     }
     
     return self;
@@ -43,6 +57,7 @@
 - (void)dealloc {
     [_value release];
     [_childHSCard release];
+    [_hsCardGameModeSlugType release];
     [super dealloc];
 }
 
@@ -53,12 +68,15 @@
     
     CardDetailsItemModel *toCompare = (CardDetailsItemModel *)object;
     
-    return self.type == toCompare.type &&
-    (compareNullableValues(self.childHSCard, toCompare.childHSCard, @selector(isEqual:)));
+    BOOL type = (self.type == toCompare.type);
+    BOOL childHSCard = compareNullableValues(self.childHSCard, toCompare.childHSCard, @selector(isEqual:));
+    BOOL isGold = (self.isGold == toCompare.isGold);
+    
+    return type && childHSCard && isGold;
 }
 
 - (NSUInteger)hash {
-    return self.type ^ self.childHSCard.hash;
+    return self.type ^ self.childHSCard.hash ^ self.isGold;
 }
 
 - (NSString * _Nullable)primaryText {

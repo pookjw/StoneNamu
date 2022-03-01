@@ -330,6 +330,8 @@
 		4FB850F726C18BAE00E3C89D /* PrefsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FB850F626C18BAE00E3C89D /* PrefsViewController.m */; };
 		4FB850FF26C18D9300E3C89D /* Prefs.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FB850FD26C18D9300E3C89D /* Prefs.m */; };
 		4FB8510326C18DE200E3C89D /* NSManagedObject+_fetchRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FB8510126C18DE200E3C89D /* NSManagedObject+_fetchRequest.m */; };
+		4FB85DFB27CE94B30056AFE3 /* NSURL+isEmpty.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FB85DF927CE94B20056AFE3 /* NSURL+isEmpty.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4FB85DFC27CE94B30056AFE3 /* NSURL+isEmpty.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FB85DFA27CE94B30056AFE3 /* NSURL+isEmpty.m */; };
 		4FB8C35E2797E64600D06E7D /* NSString+attributedStringWhenHTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F7C68A127975F3600A56D1C /* NSString+attributedStringWhenHTML.m */; };
 		4FB8C3612797EA0800D06E7D /* NSString+attributedStringWhenHTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FB8C35F2797EA0800D06E7D /* NSString+attributedStringWhenHTML.m */; };
 		4FB8C3682797F36400D06E7D /* NSCollectionView+setOrthogonalScrollViewDrawsBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FB8C3672797F36400D06E7D /* NSCollectionView+setOrthogonalScrollViewDrawsBackground.m */; };
@@ -1076,6 +1078,9 @@
 		4FB8510026C18DE200E3C89D /* NSManagedObject+_fetchRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSManagedObject+_fetchRequest.h"; sourceTree = "<group>"; };
 		4FB8510126C18DE200E3C89D /* NSManagedObject+_fetchRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObject+_fetchRequest.m"; sourceTree = "<group>"; };
 		4FB8510426C18EDB00E3C89D /* PrefsRepository.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefsRepository.h; sourceTree = "<group>"; };
+		4FB85DF827CE8E350056AFE3 /* CardDetailsCollectionViewLayoutDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardDetailsCollectionViewLayoutDelegate.h; sourceTree = "<group>"; };
+		4FB85DF927CE94B20056AFE3 /* NSURL+isEmpty.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSURL+isEmpty.h"; sourceTree = "<group>"; };
+		4FB85DFA27CE94B30056AFE3 /* NSURL+isEmpty.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSURL+isEmpty.m"; sourceTree = "<group>"; };
 		4FB8C35F2797EA0800D06E7D /* NSString+attributedStringWhenHTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+attributedStringWhenHTML.m"; sourceTree = "<group>"; };
 		4FB8C3602797EA0800D06E7D /* NSString+attributedStringWhenHTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+attributedStringWhenHTML.h"; sourceTree = "<group>"; };
 		4FB8C3662797F36400D06E7D /* NSCollectionView+setOrthogonalScrollViewDrawsBackground.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSCollectionView+setOrthogonalScrollViewDrawsBackground.h"; sourceTree = "<group>"; };
@@ -2131,6 +2136,8 @@
 				4F22519B278B3E930004DD8D /* NSNumber+stringWithSepearatedDecimalNumber.m */,
 				4F273FB227ADC5B000F6D3B8 /* NSSet+hasValuesWhenStringType.h */,
 				4F273FB327ADC5B000F6D3B8 /* NSSet+hasValuesWhenStringType.m */,
+				4FB85DF927CE94B20056AFE3 /* NSURL+isEmpty.h */,
+				4FB85DFA27CE94B30056AFE3 /* NSURL+isEmpty.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -2689,6 +2696,7 @@
 			children = (
 				4FB0ECE626B82AEE0020EE6C /* CardDetailsViewController.h */,
 				4FB0ECE726B82AEE0020EE6C /* CardDetailsViewController.m */,
+				4FB85DF827CE8E350056AFE3 /* CardDetailsCollectionViewLayoutDelegate.h */,
 				4F20B9DB27678CF1000FDA6D /* CardDetailsCollectionViewLayout.h */,
 				4F20B9DC27678CF1000FDA6D /* CardDetailsCollectionViewLayout.m */,
 				4F98E25626B9A9760067846F /* CardDetailsViewModel.h */,
@@ -3474,6 +3482,7 @@
 				4FFDD67026CACE97008E5B45 /* LocalDeckRepositoryImpl.h in Headers */,
 				4FAA89E026A42A1500572BB4 /* BlizzardAPIRepositoryImpl.h in Headers */,
 				4F7F581527242F7C0080D6C3 /* DataCache.h in Headers */,
+				4FB85DFB27CE94B30056AFE3 /* NSURL+isEmpty.h in Headers */,
 				4F646A7626B7E8C100BEDB38 /* DataCacheRepositoryImpl.h in Headers */,
 				4F273FF427AE734D00F6D3B8 /* HSCardBackCategory.h in Headers */,
 				4F273FCC27AE725500F6D3B8 /* HSCardSetGroups.h in Headers */,
@@ -3813,6 +3822,7 @@
 				4F273FDD27AE72E000F6D3B8 /* HSCardRarity.m in Sources */,
 				4F449EAC26B1884E007CE04A /* HSCardCollectible.m in Sources */,
 				4F8754B226DB6F60000CE351 /* HSDeckFormat.m in Sources */,
+				4FB85DFC27CE94B30056AFE3 /* NSURL+isEmpty.m in Sources */,
 				4F34386926A37031001161FE /* BlizzardAPIImpl.m in Sources */,
 				4F03F56D26C7B3CF00FC9155 /* BlizzardHSAPILocale.m in Sources */,
 				4FC094FA26CD712100A7D373 /* HSDeckUseCaseImpl.m in Sources */,

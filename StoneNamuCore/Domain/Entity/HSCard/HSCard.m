@@ -210,6 +210,10 @@
     [hsCard->_battlegroundsHero release];
     hsCard->_battlegroundsHero = [battlegroundsHero copy];
     
+    NSNumber * _Nullable battlegroundsUpgradeId = battlegrounds[@"upgradeId"];
+    [hsCard->_battlegroundsUpgradeId release];
+    hsCard->_battlegroundsUpgradeId = [battlegroundsUpgradeId copy];
+    
     NSURL * _Nullable battlegroundsImage;
     if (battlegrounds[@"image"]) {
         battlegroundsImage = [NSURL URLWithString:battlegrounds[@"image"]];
@@ -309,6 +313,9 @@
         [_copy->_battlegroundsHero release];
         _copy->_battlegroundsHero = [self.battlegroundsHero copyWithZone:zone];
         
+        [_copy->_battlegroundsUpgradeId release];
+        _copy->_battlegroundsUpgradeId = [self.battlegroundsUpgradeId copyWithZone:zone];
+        
         [_copy->_battlegroundsImage release];
         _copy->_battlegroundsImage = [self.battlegroundsImage copyWithZone:zone];
         
@@ -405,6 +412,10 @@
             self->_battlegroundsHero = nil;
             
             /* diff: 0 <-> 3 */
+            [self->_battlegroundsUpgradeId release];
+            self->_battlegroundsUpgradeId = nil;
+            
+            /* diff: 0 <-> 3 */
             [self->_battlegroundsImage release];
             self->_battlegroundsImage = nil;
             
@@ -487,6 +498,10 @@
             self->_battlegroundsHero = nil;
             
             /* diff: 1 <-> 3 */
+            [self->_battlegroundsUpgradeId release];
+            self->_battlegroundsUpgradeId = nil;
+            
+            /* diff: 1 <-> 3 */
             [self->_battlegroundsImage release];
             self->_battlegroundsImage = nil;
             
@@ -562,6 +577,10 @@
             self->_battlegroundsHero = nil;
             
             /* diff: 2 <-> 3 */
+            [self->_battlegroundsUpgradeId release];
+            self->_battlegroundsUpgradeId = nil;
+            
+            /* diff: 2 <-> 3 */
             [self->_battlegroundsImage release];
             self->_battlegroundsImage = nil;
             
@@ -628,19 +647,18 @@
             
             self->_parentId = [coder decodeIntegerForKey:@"parentId"];
             
-            /* diff: 0 <-> 3 */
             [self->_battlegroundsTier release];
             self->_battlegroundsTier = [coder decodeObjectOfClass:[NSNumber class] forKey:@"battlegroundsTier"];
             
-            /* diff: 0 <-> 3 */
             [self->_battlegroundsHero release];
             self->_battlegroundsHero = [coder decodeObjectOfClass:[NSNumber class] forKey:@"battlegroundsHero"];
             
-            /* diff: 0 <-> 3 */
+            [self->_battlegroundsUpgradeId release];
+            self->_battlegroundsUpgradeId = [coder decodeObjectOfClass:[NSNumber class] forKey:@"battlegroundsUpgradeId"];
+            
             [self->_battlegroundsImage release];
             self->_battlegroundsImage = [coder decodeObjectOfClass:[NSURL class] forKey:@"battlegroundsImage"];
             
-            /* diff: 0 <-> 3 */
             [self->_battlegroundsImageGold release];
             self->_battlegroundsImageGold = [coder decodeObjectOfClass:[NSURL class] forKey:@"battlegroundsImageGold"];
             
@@ -676,6 +694,7 @@
     [coder encodeInteger:self.parentId forKey:@"parentId"];
     [coder encodeObject:self.battlegroundsTier forKey:@"battlegroundsTier"];
     [coder encodeObject:self.battlegroundsHero forKey:@"battlegroundsHero"];
+    [coder encodeObject:self.battlegroundsUpgradeId forKey:@"battlegroundsUpgradeId"];
     [coder encodeObject:self.battlegroundsImage forKey:@"battlegroundsImage"];
     [coder encodeObject:self.battlegroundsImageGold forKey:@"battlegroundsImageGold"];
     [coder encodeInteger:self.version forKey:@"version"];

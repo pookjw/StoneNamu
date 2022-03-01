@@ -6,12 +6,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CardDetailsCollectionViewLayoutDelegate.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CardDetailsCollectionViewLayout : UICollectionViewCompositionalLayout
-+ (instancetype)new;
-- (instancetype)init;
+- (instancetype)initWithCardDetailsCollectionViewLayoutDelegate:(id<CardDetailsCollectionViewLayoutDelegate>)cardDetailsCollectionViewLayoutDelegate;
 @end
 
 NS_ASSUME_NONNULL_END

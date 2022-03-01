@@ -489,13 +489,13 @@
 }
 
 - (void)presentCardDetailsViewControllerFromHSCard:(HSCard *)hsCard {
-    CardDetailsViewController *vc = [[CardDetailsViewController alloc] initWithHSCard:hsCard sourceImageView:nil];
+    CardDetailsViewController *vc = [[CardDetailsViewController alloc] initWithHSCard:hsCard hsGameModeSlugType:HSCardGameModeSlugTypeConstructed isGold:NO sourceImageView:nil];
     [self presentViewController:vc animated:YES completion:^{}];
     [vc release];
 }
 
 - (void)presentCardDetailsViewControllerFromIndexPath:(NSIndexPath *)indexPath {
-    CardDetailsViewController *vc = [[CardDetailsViewController alloc] initWithHSCard:nil sourceImageView:nil];
+    CardDetailsViewController *vc = [[CardDetailsViewController alloc] initWithHSCard:nil hsGameModeSlugType:HSCardGameModeSlugTypeConstructed isGold:NO sourceImageView:nil];
     
     [self.viewModel hsCardFromIndexPath:indexPath completion:^(HSCard * _Nullable hsCard) {
         if (hsCard) {
