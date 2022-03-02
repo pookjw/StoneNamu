@@ -163,7 +163,7 @@
 
 - (void)requestRecommendedImageURLWithCompletion:(CardDetailsViewModelRequestRecommendedImageURLCompletion)completion {
     [self.queue addOperationWithBlock:^{
-        NSURL * _Nullable url = [self.hsCardUseCase recommendedURLOfHSCard:self.hsCard HSCardGameModeSlugType:self.hsCardGameModeSlugType isGold:self.isGold];
+        NSURL * _Nullable url = [self.hsCardUseCase recommendedImageURLOfHSCard:self.hsCard HSCardGameModeSlugType:self.hsCardGameModeSlugType isGold:self.isGold];
         completion(url);
     }];
 }
@@ -282,7 +282,7 @@
             [snapshot appendSectionsWithIdentifiers:@[childrenSectionModel]];
         }
         
-        NSURL * _Nullable imageURL = [self.hsCardUseCase recommendedURLOfHSCard:hsCard HSCardGameModeSlugType:self.hsCardGameModeSlugType isGold:isGold];
+        NSURL * _Nullable imageURL = [self.hsCardUseCase recommendedImageURLOfHSCard:hsCard HSCardGameModeSlugType:self.hsCardGameModeSlugType isGold:isGold];
         CardDetailsItemModel *childItemModel = [[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeChild childHSCard:hsCard imageURL:imageURL isGold:isGold];
         [snapshot appendItemsWithIdentifiers:@[childItemModel] intoSectionWithIdentifier:childrenSectionModel];
         [childItemModel release];

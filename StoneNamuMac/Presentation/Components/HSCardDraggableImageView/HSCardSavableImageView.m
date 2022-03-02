@@ -59,7 +59,7 @@
     
     //
     
-    NSURL * _Nullable url = [self.hsCardUseCase recommendedURLOfHSCard:hsCard HSCardGameModeSlugType:hsCardGameModeSlugType isGold:isGold];
+    NSURL * _Nullable url = [self.hsCardUseCase recommendedImageURLOfHSCard:hsCard HSCardGameModeSlugType:hsCardGameModeSlugType isGold:isGold];
     
     if (url) {
         [self setAsyncImageWithURL:url indicator:YES];

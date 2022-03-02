@@ -64,7 +64,7 @@
     }];
 }
 
-- (NSURL * _Nullable)recommendedURLOfHSCard:(HSCard *)hsCard HSCardGameModeSlugType:(HSCardGameModeSlugType)hsCardGameModeSlugType isGold:(BOOL)isGold {
+- (NSURL * _Nullable)recommendedImageURLOfHSCard:(HSCard *)hsCard HSCardGameModeSlugType:(HSCardGameModeSlugType)hsCardGameModeSlugType isGold:(BOOL)isGold {
     NSURL * _Nullable url;
     
     NSURL * _Nullable image = hsCard.image;

@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)fetchWithIdOrSlug:(NSString *)idOrSlug
               withOptions:(NSDictionary<NSString *, NSSet<NSString *> *> * _Nullable)options
         completionHandler:(HSCardUseCaseCardCompletion)completion;
-- (NSURL * _Nullable)recommendedURLOfHSCard:(HSCard *)hsCard HSCardGameModeSlugType:(HSCardGameModeSlugType)hsCardGameModeSlugType isGold:(BOOL)isGold;
+- (NSURL * _Nullable)recommendedImageURLOfHSCard:(HSCard *)hsCard HSCardGameModeSlugType:(HSCardGameModeSlugType)hsCardGameModeSlugType isGold:(BOOL)isGold;
 @end
 
 NS_ASSUME_NONNULL_END
