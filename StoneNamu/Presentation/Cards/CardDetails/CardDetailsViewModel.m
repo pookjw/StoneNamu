@@ -69,8 +69,7 @@
         [self.hsMetaDataUseCase fetchWithCompletionHandler:^(HSMetaData * _Nullable hsMetaData, NSError * _Nullable error) {
             [self.queue addBarrierBlock:^{
                 [self postStartedLoadingDataSource];
-                self.startedLoadingUpgradedCard = [self loadUpgradedCardFromHSCard:hsCard];
-                self.startedLoadingChildHSCards = [self loadChildCardsFromHSCard:hsCard];
+                [self loadCardsFromHSCard:hsCard];
                 
                 [self->_hsCard release];
                 self->_hsCard = [hsCard copy];
@@ -189,6 +188,19 @@
     return @[dragItem];
 }
 
+- (void)loadCardsFromHSCard:(HSCard *)hsCard {
+    NSNumber * _Nullable upgradedId = hsCard.battlegroundsUpgradeId;
+    NSArray<NSNumber *> * _Nullable childIds = hsCard.childIds;
+    
+    // example: 52502-khadgar
+    if ((upgradedId) && (childIds) && ([@[upgradedId] isEqualToArray:childIds])) {
+        self.startedLoadingUpgradedCard = [self loadUpgradedCardFromHSCard:hsCard];
+    } else {
+        self.startedLoadingUpgradedCard = [self loadUpgradedCardFromHSCard:hsCard];
+        self.startedLoadingChildHSCards = [self loadChildCardsFromHSCard:hsCard];
+    }
+}
+
 - (BOOL)loadUpgradedCardFromHSCard:(HSCard *)hsCard {
     NSNumber * _Nullable upgradeId = hsCard.battlegroundsUpgradeId;
     if (upgradeId == nil) return NO;
@@ -197,6 +209,8 @@
         [self.hsCardUseCase fetchWithIdOrSlug:upgradeId.stringValue withOptions:@{BlizzardHSAPIOptionTypeGameMode: [NSSet setWithObject:self.hsCardGameModeSlugType]} completionHandler:^(HSCard * _Nullable hsCard, NSError * _Nullable error) {
             if (error) {
                 NSLog(@"%@", error.localizedDescription);
+                self.endedLoadingUpgradedCard = YES;
+                [self postEndedLoadingDataSourceIfNeeded];
                 return;
             }
             
