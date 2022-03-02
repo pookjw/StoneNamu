@@ -205,6 +205,9 @@
     NSNumber * _Nullable upgradeId = hsCard.battlegroundsUpgradeId;
     if (upgradeId == nil) return NO;
     
+    // example: 52502-khadgar
+    if ([upgradeId isEqualToNumber:[NSNumber numberWithUnsignedInteger:self.hsCard.cardId]]) return NO;
+    
     [self.queue addOperationWithBlock:^{
         [self.hsCardUseCase fetchWithIdOrSlug:upgradeId.stringValue withOptions:@{BlizzardHSAPIOptionTypeGameMode: [NSSet setWithObject:self.hsCardGameModeSlugType]} completionHandler:^(HSCard * _Nullable hsCard, NSError * _Nullable error) {
             if (error) {
@@ -225,7 +228,10 @@
 }
 
 - (BOOL)loadChildCardsFromHSCard:(HSCard *)hsCard {
-    NSArray<NSNumber *> *childIds = hsCard.childIds;
+    NSArray<NSNumber *> *childIds = [hsCard.childIds filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(NSNumber * _Nullable evaluatedObject, NSDictionary<NSString *,id> * _Nullable bindings) {
+        // example: 52502-khadgar
+        return [evaluatedObject isEqualToNumber:[NSNumber numberWithUnsignedInteger:self.hsCard.cardId]];
+    }]];
     if (childIds.count == 0) {
         return NO;
     }
