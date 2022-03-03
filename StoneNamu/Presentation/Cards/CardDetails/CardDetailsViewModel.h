@@ -15,7 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 static NSNotificationName const NSNotificationNameCardDetailsViewModelStartedLoadingDataSource = @"NSNotificationNameCardDetailsViewModelStartedLoadingDataSource";
 static NSNotificationName const NSNotificationNameCardDetailsViewModelEndedLoadingDataSource = @"NSNotificationNameCardDetailsViewModelEndedLoadingDataSource";
 
-typedef void (^CardDetailsViewModelRequestRecommendedImageURLCompletion)(NSURL * _Nullable url);
+typedef void (^CardDetailsViewModelItemModelsFromIndexPathsCompletion)(NSDictionary<NSIndexPath *, CardDetailsItemModel *> * itemModels);
+typedef void (^CardDetailsViewModelPreferredImageURLCompletion)(NSURL * _Nullable url);
 
 typedef UICollectionViewDiffableDataSource<CardDetailsSectionModel *, CardDetailsItemModel *> CardDetailsDataSource;
 
@@ -29,7 +30,8 @@ typedef UICollectionViewDiffableDataSource<CardDetailsSectionModel *, CardDetail
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithDataSource:(CardDetailsDataSource *)dataSource;
 - (void)requestDataSourceWithCard:(HSCard *)hsCard;
-- (void)requestRecommendedImageURLWithCompletion:(CardDetailsViewModelRequestRecommendedImageURLCompletion)completion;
+- (void)itemModelsFromIndexPaths:(NSSet<NSIndexPath *> *)indexPaths completion:(CardDetailsViewModelItemModelsFromIndexPathsCompletion)completion;
+- (void)preferredImageURLWithCompletion:(CardDetailsViewModelPreferredImageURLCompletion)completion;
 - (NSArray<UIDragItem *> *)makeDragItemFromImage:(UIImage * _Nullable)image indexPath:(NSIndexPath * _Nullable)indexPath;
 @end
 

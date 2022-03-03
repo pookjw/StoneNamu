@@ -80,7 +80,7 @@
         NSMutableDictionary<NSString *, NSURL *> *urls = [NSMutableDictionary<NSString *, NSURL *> new];
         
         [hsCards enumerateObjectsUsingBlock:^(HSCard * _Nonnull obj, BOOL * _Nonnull stop) {
-            urls[obj.name] = [hsCardUseCase recommendedImageURLOfHSCard:obj HSCardGameModeSlugType:hsCardGameModeSlugType isGold:isGold];
+            urls[obj.name] = [hsCardUseCase preferredImageURLOfHSCard:obj HSCardGameModeSlugType:hsCardGameModeSlugType isGold:isGold];
         }];
         
         self.urls = urls;
@@ -105,7 +105,7 @@
         NSMutableDictionary<NSString *, NSURL *> *urls = [NSMutableDictionary<NSString *, NSURL *> new];
         
         [hsCards enumerateObjectsUsingBlock:^(HSCard * _Nonnull obj, BOOL * _Nonnull stop) {
-            urls[obj.name] = [hsCardUseCase recommendedImageURLOfHSCard:obj HSCardGameModeSlugType:hsCardGameModeSlugTypes[obj] isGold:isGolds[obj].boolValue];
+            urls[obj.name] = [hsCardUseCase preferredImageURLOfHSCard:obj HSCardGameModeSlugType:hsCardGameModeSlugTypes[obj] isGold:isGolds[obj].boolValue];
         }];
         
         self.urls = urls;

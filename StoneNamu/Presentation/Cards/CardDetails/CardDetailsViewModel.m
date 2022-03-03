@@ -161,9 +161,25 @@
     }];
 }
 
-- (void)requestRecommendedImageURLWithCompletion:(CardDetailsViewModelRequestRecommendedImageURLCompletion)completion {
+- (void)itemModelsFromIndexPaths:(NSSet<NSIndexPath *> *)indexPaths completion:(CardDetailsViewModelItemModelsFromIndexPathsCompletion)completion {
+    [self.queue addBarrierBlock:^{
+        NSMutableDictionary<NSIndexPath *, CardDetailsItemModel *> *itemModels = [NSMutableDictionary<NSIndexPath *, CardDetailsItemModel *> new];
+        
+        [indexPaths enumerateObjectsUsingBlock:^(NSIndexPath * _Nonnull obj, BOOL * _Nonnull stop) {
+            CardDetailsItemModel * _Nullable itemModel = [self.dataSource itemIdentifierForIndexPath:obj];
+            
+            if (itemModel) {
+                itemModels[obj] = itemModel;
+            }
+        }];
+        
+        completion([itemModels autorelease]);
+    }];
+}
+
+- (void)preferredImageURLWithCompletion:(CardDetailsViewModelPreferredImageURLCompletion)completion {
     [self.queue addOperationWithBlock:^{
-        NSURL * _Nullable url = [self.hsCardUseCase recommendedImageURLOfHSCard:self.hsCard HSCardGameModeSlugType:self.hsCardGameModeSlugType isGold:self.isGold];
+        NSURL * _Nullable url = [self.hsCardUseCase preferredImageURLOfHSCard:self.hsCard HSCardGameModeSlugType:self.hsCardGameModeSlugType isGold:self.isGold];
         completion(url);
     }];
 }
@@ -282,7 +298,7 @@
             [snapshot appendSectionsWithIdentifiers:@[childrenSectionModel]];
         }
         
-        NSURL * _Nullable imageURL = [self.hsCardUseCase recommendedImageURLOfHSCard:hsCard HSCardGameModeSlugType:self.hsCardGameModeSlugType isGold:isGold];
+        NSURL * _Nullable imageURL = [self.hsCardUseCase preferredImageURLOfHSCard:hsCard HSCardGameModeSlugType:self.hsCardGameModeSlugType isGold:isGold];
         CardDetailsItemModel *childItemModel = [[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeChild childHSCard:hsCard imageURL:imageURL isGold:isGold];
         [snapshot appendItemsWithIdentifiers:@[childItemModel] intoSectionWithIdentifier:childrenSectionModel];
         [childItemModel release];

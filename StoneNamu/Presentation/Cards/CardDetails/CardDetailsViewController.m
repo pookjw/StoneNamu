@@ -249,7 +249,7 @@
 
 - (void)loadPrimaryImage {
     if (self.sourceImageView.image == nil) {
-        [self.viewModel requestRecommendedImageURLWithCompletion:^(NSURL * _Nullable url) {
+        [self.viewModel preferredImageURLWithCompletion:^(NSURL * _Nullable url) {
             [NSOperationQueue.mainQueue addOperationWithBlock:^{
                 if (url) {
                     [self.primaryImageView setAsyncImageWithURL:url indicator:YES];
@@ -416,26 +416,27 @@
 }
 
 - (void)presentCardDetailsViewControllerFromIndexPath:(NSIndexPath *)indexPath {
-#warning 
-    CardDetailsItemModel * _Nullable itemModel = [self.viewModel.dataSource itemIdentifierForIndexPath:indexPath];
-    if (itemModel == nil) return;
-    if (itemModel.childHSCard == nil) return;
-    
-    //
-    
-    UICollectionViewListCell * _Nullable cell = (UICollectionViewListCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
-    if (cell == nil) return;
-    CardDetailsChildContentView *contentView = (CardDetailsChildContentView *)cell.contentView;
-    if (![contentView isKindOfClass:[CardDetailsChildContentView class]]) return;
-    
-    //
-    
-    HSCard *hsCard = itemModel.childHSCard;
-    
-    CardDetailsViewController *vc = [[CardDetailsViewController alloc] initWithHSCard:hsCard hsGameModeSlugType:self.viewModel.hsCardGameModeSlugType isGold:itemModel.isGold sourceImageView:contentView.imageView];
-    [vc loadViewIfNeeded];
-    [self presentViewController:vc animated:YES completion:^{}];
-    [vc release];
+    [self.viewModel itemModelsFromIndexPaths:[NSSet setWithObject:indexPath] completion:^(NSDictionary<NSIndexPath *, CardDetailsItemModel *> * _Nonnull itemModels) {
+        [itemModels enumerateKeysAndObjectsUsingBlock:^(NSIndexPath * _Nonnull key, CardDetailsItemModel * _Nonnull obj, BOOL * _Nonnull stop) {
+            if (obj.childHSCard == nil) return;
+            
+            [NSOperationQueue.mainQueue addOperationWithBlock:^{
+                UICollectionViewListCell * _Nullable cell = (UICollectionViewListCell *)[self.collectionView cellForItemAtIndexPath:key];
+                if (cell == nil) return;
+                CardDetailsChildContentView *contentView = (CardDetailsChildContentView *)cell.contentView;
+                if (![contentView isKindOfClass:[CardDetailsChildContentView class]]) return;
+                
+                //
+                
+                HSCard *hsCard = obj.childHSCard;
+                
+                CardDetailsViewController *vc = [[CardDetailsViewController alloc] initWithHSCard:hsCard hsGameModeSlugType:self.viewModel.hsCardGameModeSlugType isGold:obj.isGold sourceImageView:contentView.imageView];
+                [vc loadViewIfNeeded];
+                [self presentViewController:vc animated:YES completion:^{}];
+                [vc release];
+            }];
+        }];
+    }];
 }
 
 #pragma mark - UICollectionViewDelegate

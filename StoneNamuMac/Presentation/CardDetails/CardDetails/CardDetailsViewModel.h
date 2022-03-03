@@ -14,8 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef NSCollectionViewDiffableDataSource<CardDetailsSectionModel *, CardDetailsItemModel *> CardDetailsDataSource;
 typedef void (^CardDetailsViewModelHSCardsFromIndexPathsCompletion)(NSSet<HSCard *> *hsCards);
-typedef void (^CardDetailsViewModelPhotoServiceModelsFromIndexPathsCompletion)(NSSet<HSCard *> *hsCards, NSDictionary<HSCard *, HSCardGameModeSlugType> *hsCardGameModeSlugTypes, NSDictionary<HSCard *, NSNumber *> *isGolds);
 typedef void (^CardDetailsViewModelItemModelsFromIndexPathsCompletion)(NSSet<CardDetailsItemModel *> * itemModels);
+typedef void (^CardDetailsViewModelPhotoServiceModelsFromIndexPathsCompletion)(NSSet<HSCard *> *hsCards, NSDictionary<HSCard *, HSCardGameModeSlugType> *hsCardGameModeSlugTypes, NSDictionary<HSCard *, NSNumber *> *isGolds);
 
 static NSNotificationName const NSNotificationNameCardDetailsViewModelStartedLoadingDataSource = @"NSNotificationNameCardDetailsViewModelStartedLoadingDataSource";
 static NSNotificationName const NSNotificationNameCardDetailsViewModelEndedLoadingDataSource = @"NSNotificationNameCardDetailsViewModelEndedLoadingDataSource";

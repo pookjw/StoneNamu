@@ -602,6 +602,8 @@
     
     //
     
+    [hsMetaData release];
+    
     [thirdSectionModel release];
     [forthSectionModel release];
     

@@ -257,7 +257,7 @@
             [snapshot appendSectionsWithIdentifiers:@[childrenSectionModel]];
         }
         
-        NSURL * _Nullable imageURL = [self.hsCardUseCase recommendedImageURLOfHSCard:hsCard HSCardGameModeSlugType:self.hsCardGameModeSlugType isGold:isGold];
+        NSURL * _Nullable imageURL = [self.hsCardUseCase preferredImageURLOfHSCard:hsCard HSCardGameModeSlugType:self.hsCardGameModeSlugType isGold:isGold];
         CardDetailsItemModel *childItemModel = [[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeChild childHSCard:hsCard hsCardGameModeSlugType:self.hsCardGameModeSlugType isGold:isGold imageURL:imageURL];
         [snapshot appendItemsWithIdentifiers:@[childItemModel] intoSectionWithIdentifier:childrenSectionModel];
         [childItemModel release];
