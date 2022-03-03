@@ -524,14 +524,16 @@
     return configuration;
 }
 
+- (void)contextMenuInteraction:(UIContextMenuInteraction *)interaction willEndForConfiguration:(UIContextMenuConfiguration *)configuration animator:(id<UIContextMenuInteractionAnimating>)animator {
+    [animator addCompletion:^{
+        self.contextViewController = nil;
+    }];
+}
+
 - (void)contextMenuInteraction:(UIContextMenuInteraction *)interaction willPerformPreviewActionForMenuWithConfiguration:(UIContextMenuConfiguration *)configuration animator:(id<UIContextMenuInteractionCommitAnimating>)animator {
     if (self.contextViewController != nil) {
         [animator addAnimations:^{
             [self presentViewController:self.contextViewController animated:YES completion:^{}];
-        }];
-        
-        [animator addCompletion:^{
-            self.contextViewController = nil;
         }];
     }
 }
