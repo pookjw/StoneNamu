@@ -23,6 +23,9 @@
 		4F066CC126D71B2200991A98 /* DeckBaseContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F066CC026D71B2200991A98 /* DeckBaseContentView.m */; };
 		4F0863F02751C96900B251BF /* DecksMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F0863EF2751C96900B251BF /* DecksMenu.m */; };
 		4F0863F42751D0A200B251BF /* NSUserInterfaceItemIdentifierDecks+HSDeckFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F0863F32751D0A200B251BF /* NSUserInterfaceItemIdentifierDecks+HSDeckFormat.m */; };
+		4F0A579227D161FE0053E7E5 /* HearthStoneRapidAPIImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F0A579027D161FE0053E7E5 /* HearthStoneRapidAPIImpl.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		4F0A579327D161FE0053E7E5 /* HearthStoneRapidAPIImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F0A579127D161FE0053E7E5 /* HearthStoneRapidAPIImpl.m */; };
+		4F0A579427D1620D0053E7E5 /* HearthStoneRapidAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F0A578F27D161F20053E7E5 /* HearthStoneRapidAPI.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		4F128D45273C044100C6A0D9 /* IntrinsicCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F128D44273C044100C6A0D9 /* IntrinsicCollectionView.m */; };
 		4F13AE1027C0E08E00E28BD9 /* PickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F13AE0F27C0E08E00E28BD9 /* PickerViewController.m */; };
 		4F13AE1327C0E0B500E28BD9 /* PickerViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F13AE1227C0E0B500E28BD9 /* PickerViewModel.m */; };
@@ -589,6 +592,9 @@
 		4F0863F12751C98100B251BF /* DecksMenuDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DecksMenuDelegate.h; sourceTree = "<group>"; };
 		4F0863F22751D01300B251BF /* NSUserInterfaceItemIdentifierDecks+HSDeckFormat.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSUserInterfaceItemIdentifierDecks+HSDeckFormat.h"; sourceTree = "<group>"; };
 		4F0863F32751D0A200B251BF /* NSUserInterfaceItemIdentifierDecks+HSDeckFormat.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSUserInterfaceItemIdentifierDecks+HSDeckFormat.m"; sourceTree = "<group>"; };
+		4F0A578F27D161F20053E7E5 /* HearthStoneRapidAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HearthStoneRapidAPI.h; sourceTree = "<group>"; };
+		4F0A579027D161FE0053E7E5 /* HearthStoneRapidAPIImpl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HearthStoneRapidAPIImpl.h; sourceTree = "<group>"; };
+		4F0A579127D161FE0053E7E5 /* HearthStoneRapidAPIImpl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HearthStoneRapidAPIImpl.m; sourceTree = "<group>"; };
 		4F128D43273C044100C6A0D9 /* IntrinsicCollectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IntrinsicCollectionView.h; sourceTree = "<group>"; };
 		4F128D44273C044100C6A0D9 /* IntrinsicCollectionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IntrinsicCollectionView.m; sourceTree = "<group>"; };
 		4F138422274C52DE007E68E4 /* CardDetailsChildCollectionViewItemDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardDetailsChildCollectionViewItemDelegate.h; sourceTree = "<group>"; };
@@ -2600,6 +2606,9 @@
 				4FA05F6B26A30639000E93BC /* BlizzardAPI.h */,
 				4FA56BEC26A213B2002D9FA0 /* BlizzardAPIImpl.h */,
 				4FA56BED26A213B2002D9FA0 /* BlizzardAPIImpl.m */,
+				4F0A578F27D161F20053E7E5 /* HearthStoneRapidAPI.h */,
+				4F0A579027D161FE0053E7E5 /* HearthStoneRapidAPIImpl.h */,
+				4F0A579127D161FE0053E7E5 /* HearthStoneRapidAPIImpl.m */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -3455,6 +3464,7 @@
 				4F7F580727242F020080D6C3 /* NSMutableArray+removeSingle.h in Headers */,
 				4F273FDC27AE72E000F6D3B8 /* HSCardRarity.h in Headers */,
 				4F273FD027AE726200F6D3B8 /* HSCardGameMode.h in Headers */,
+				4F0A579227D161FE0053E7E5 /* HearthStoneRapidAPIImpl.h in Headers */,
 				4F7F584E2724308C0080D6C3 /* PrefsUseCase.h in Headers */,
 				4F34385826A36FBA001161FE /* StoneNamuCore.h in Headers */,
 				4F273FE027AE72E900F6D3B8 /* HSCardClass.h in Headers */,
@@ -3488,6 +3498,7 @@
 				4F2251932789E72E0004DD8D /* NSDictionary+combine.h in Headers */,
 				4F27400227AEB87D00F6D3B8 /* HSMetaDataUseCaseImpl.h in Headers */,
 				4F273FB427ADC5B000F6D3B8 /* NSSet+hasValuesWhenStringType.h in Headers */,
+				4F0A579427D1620D0053E7E5 /* HearthStoneRapidAPI.h in Headers */,
 				4F7F581327242F650080D6C3 /* Prefs.h in Headers */,
 				4F7F5857272430C90080D6C3 /* BlizzardAPI.h in Headers */,
 				4F7F57F227242E6D0080D6C3 /* SemaphoreCondition.h in Headers */,
@@ -3815,6 +3826,7 @@
 				4F4DD75926DFD54B00893E2B /* NSMutableArray+removeSingle.m in Sources */,
 				4F466EF6272889B00035C569 /* NSArray+string.m in Sources */,
 				4F646A6326B7D73400BEDB38 /* DataCacheModel.xcdatamodeld in Sources */,
+				4F0A579327D161FE0053E7E5 /* HearthStoneRapidAPIImpl.m in Sources */,
 				4FC4DFF927AF5F8F00007AC0 /* CheckThread.m in Sources */,
 				4F34386426A36FED001161FE /* HSCard.m in Sources */,
 				4F273FDD27AE72E000F6D3B8 /* HSCardRarity.m in Sources */,

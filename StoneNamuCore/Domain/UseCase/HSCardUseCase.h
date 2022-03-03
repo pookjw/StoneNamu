@@ -11,6 +11,7 @@
 
 typedef void (^HSCardUseCaseCardsCompletion)(NSArray<HSCard *> * _Nullable, NSNumber * _Nullable, NSNumber * _Nullable, NSError * _Nullable);
 typedef void (^HSCardUseCaseCardCompletion)(HSCard * _Nullable, NSError * _Nullable);
+typedef void (^HSCardUseCaseAnimatedImageURLOfHSCardCompletion)(NSURL * _Nullable, NSError * _Nullable);
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -21,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
               withOptions:(NSDictionary<NSString *, NSSet<NSString *> *> * _Nullable)options
         completionHandler:(HSCardUseCaseCardCompletion)completion;
 - (NSURL * _Nullable)recommendedImageURLOfHSCard:(HSCard *)hsCard HSCardGameModeSlugType:(HSCardGameModeSlugType)hsCardGameModeSlugType isGold:(BOOL)isGold;
+- (void)animatedImageURLOfHSCard:(HSCard *)hsCard completionHandler:(HSCardUseCaseAnimatedImageURLOfHSCardCompletion)completion;
 @end
 
 NS_ASSUME_NONNULL_END

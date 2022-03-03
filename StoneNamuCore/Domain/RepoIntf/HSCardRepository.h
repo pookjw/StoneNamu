@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef void (^HSCardRepositoryFetchCardsCompletion)(NSArray<HSCard *> * _Nullable, NSNumber * _Nullable, NSNumber * _Nullable, NSError * _Nullable);
 typedef void (^HSCardRepositoryFetchCardCompletion)(HSCard * _Nullable, NSError * _Nullable);
+typedef void (^HSCardRepositoryGetAllInternalCardIdsCompletion)(NSDictionary<NSNumber *, NSString *> * _Nullable, NSError * _Nullable);
 
 @protocol HSCardRepository <NSObject>
 
@@ -24,6 +25,8 @@ typedef void (^HSCardRepositoryFetchCardCompletion)(HSCard * _Nullable, NSError 
               withIdOrSlug:(NSString *)idOrSlug
                withOptions:(NSDictionary<NSString *, NSString *> * _Nullable)options
          completionHandler:(HSCardRepositoryFetchCardCompletion)completion;
+
+- (void)getAllInternalCardIdsWithCompletionHandler:(HSCardRepositoryGetAllInternalCardIdsCompletion)completion;
 
 @end
 

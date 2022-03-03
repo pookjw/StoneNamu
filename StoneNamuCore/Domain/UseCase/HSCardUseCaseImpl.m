@@ -64,6 +64,26 @@
     }];
 }
 
+- (void)animatedImageURLOfHSCard:(HSCard *)hsCard completionHandler:(HSCardUseCaseAnimatedImageURLOfHSCardCompletion)completion {
+    [self.hsCardRepository getAllInternalCardIdsWithCompletionHandler:^(NSDictionary<NSNumber *,NSString *> * _Nullable internalCardIds, NSError * _Nullable error) {
+        if (error) {
+            completion(nil, error);
+            return;
+        }
+        
+        NSString *internalCardId = internalCardIds[[NSNumber numberWithUnsignedInteger:hsCard.cardId]];
+        NSURLComponents *urlComponents = [NSURLComponents new];
+        
+        urlComponents.scheme = @"https";
+        urlComponents.host = @"cards.hearthpwn.com";
+        urlComponents.path = [NSString stringWithFormat:@"/enUS/gifs/%@.gif", internalCardId];
+        
+        NSURL *url = urlComponents.URL;
+        [urlComponents release];
+        completion(url, nil);
+    }];
+}
+
 - (NSURL * _Nullable)recommendedImageURLOfHSCard:(HSCard *)hsCard HSCardGameModeSlugType:(HSCardGameModeSlugType)hsCardGameModeSlugType isGold:(BOOL)isGold {
     NSURL * _Nullable url;
     

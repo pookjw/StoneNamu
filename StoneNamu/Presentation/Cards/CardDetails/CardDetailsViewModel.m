@@ -68,6 +68,16 @@
     [self->_hsCard release];
     self->_hsCard = [hsCard copy];
     
+    [self.hsCardUseCase animatedImageURLOfHSCard:hsCard completionHandler:^(NSURL * _Nullable url, NSError * _Nullable error) {
+        if (url) {
+            [NSOperationQueue.mainQueue addOperationWithBlock:^{
+                [UIApplication.sharedApplication openURL:url options:@{} completionHandler:^(BOOL success) {
+                    
+                }];
+            }];
+        }
+    }];
+    
     [self.queue addBarrierBlock:^{
         [self.hsMetaDataUseCase fetchWithCompletionHandler:^(HSMetaData * _Nullable hsMetaData, NSError * _Nullable error) {
             [self.queue addBarrierBlock:^{
