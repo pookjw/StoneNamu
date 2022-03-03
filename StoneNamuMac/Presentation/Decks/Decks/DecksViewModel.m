@@ -126,7 +126,7 @@
                         return;
                     }
                     
-                    DecksItemModel *itemModel = [[DecksItemModel alloc] initWithType:DecksItemModelTypeDeck localDeck:localDeck classSlug:hsCardClass.slug isEasterEgg:isEasterEgg count:count];
+                    DecksItemModel *itemModel = [[DecksItemModel alloc] initWithType:DecksItemModelTypeDeck localDeck:localDeck classSlug:hsCardClass.slug isEasterEgg:isEasterEgg name:localDeck.name count:count];
                     
                     [snapshot appendItemsWithIdentifiers:@[itemModel] intoSectionWithIdentifier:sectionModel];
                     [itemModel release];
@@ -184,7 +184,7 @@
                 BOOL isEasterEgg = [self.localDeckUseCase isEasterEggDeckFromHSCards:[NSSet setWithArray:hsCards]];
                 NSUInteger count = hsCards.count;
                 
-                DecksItemModel *itemModel = [[DecksItemModel alloc] initWithType:DecksItemModelTypeDeck localDeck:localDeck classSlug:hsCardClass.slug isEasterEgg:isEasterEgg count:count];
+                DecksItemModel *itemModel = [[DecksItemModel alloc] initWithType:DecksItemModelTypeDeck localDeck:localDeck classSlug:hsCardClass.slug isEasterEgg:isEasterEgg name:localDeck.name count:count];
                 
                 [snapshot appendItemsWithIdentifiers:@[itemModel] intoSectionWithIdentifier:sectionModel];
                 [itemModel release];
@@ -336,12 +336,19 @@
                 HSCardClass *hsCardClass = [self.hsMetaDataUseCase hsCardClassFromClassId:localDeck.classId usingHSMetaData:hsMetaData];
                 
                 if (itemModel == nil) {
-                    itemModel = [[DecksItemModel alloc] initWithType:DecksItemModelTypeDeck localDeck:localDeck classSlug:hsCardClass.slug isEasterEgg:isEasterEgg count:count];
+                    itemModel = [[DecksItemModel alloc] initWithType:DecksItemModelTypeDeck localDeck:localDeck classSlug:hsCardClass.slug isEasterEgg:isEasterEgg name:localDeck.name count:count];
                     [snapshot appendItemsWithIdentifiers:@[itemModel] intoSectionWithIdentifier:sectionModel];
                     [itemModel autorelease];
                 } else {
-                    BOOL shouldReconfigure = ((itemModel.isEasterEgg == isEasterEgg) && ([itemModel.classSlug isEqualToString:hsCardClass.slug]) && (itemModel.count == count));
+                    BOOL isEqualIsEasterEgg = (itemModel.isEasterEgg == isEasterEgg);
+                    BOOL isEqualClassSlug = compareNullableValues(itemModel.classSlug, hsCardClass.slug, @selector(isEqualToString:));
+                    BOOL isEqualName = compareNullableValues(itemModel.name, localDeck.name, @selector(isEqualToString:));
+                    BOOL isEqualCount = (itemModel.count == count);
+                    
+                    BOOL shouldReconfigure = !(isEqualIsEasterEgg && isEqualClassSlug && isEqualName && isEqualCount);
+                    
                     itemModel.isEasterEgg = isEasterEgg;
+                    itemModel.name = localDeck.name;
                     itemModel.classSlug = hsCardClass.slug;
                     itemModel.count = count;
                     
