@@ -464,7 +464,7 @@
                                                            image:[UIImage systemImageNamed:@"square.and.arrow.down"]
                                                       identifier:nil
                                                          handler:^(__kindof UIAction * _Nonnull action) {
-                    PhotosService *photosService = [[PhotosService alloc] initWithHSCards:[NSSet setWithObject:itemModel.childHSCard]];
+                    PhotosService *photosService = [[PhotosService alloc] initWithHSCards:[NSSet setWithObject:itemModel.childHSCard] hsGameModeSlugType:self.viewModel.hsCardGameModeSlugType isGold:itemModel.isGold];
                     [photosService beginSavingFromViewController:self completion:^(BOOL success, NSError * _Nullable error) {}];
                     [photosService release];
                 }];
@@ -473,7 +473,7 @@
                                                             image:[UIImage systemImageNamed:@"square.and.arrow.up"]
                                                        identifier:nil
                                                           handler:^(__kindof UIAction * _Nonnull action) {
-                    PhotosService *photosService = [[PhotosService alloc] initWithHSCards:[NSSet setWithObject:itemModel.childHSCard]];
+                    PhotosService *photosService = [[PhotosService alloc] initWithHSCards:[NSSet setWithObject:itemModel.childHSCard] hsGameModeSlugType:self.viewModel.hsCardGameModeSlugType isGold:itemModel.isGold];
                     [photosService beginSharingFromViewController:self completion:^(BOOL success, NSError * _Nullable error) {}];
                     [photosService release];
                 }];
@@ -582,6 +582,8 @@
 #pragma mark - UIContextMenuInteractionDelegate
 
 - (nullable UIContextMenuConfiguration *)contextMenuInteraction:(nonnull UIContextMenuInteraction *)interaction configurationForMenuAtLocation:(CGPoint)location {
+    CardDetailsViewController * __block unretainedSelf = self;
+    
     UIContextMenuConfiguration *configuration = [UIContextMenuConfiguration configurationWithIdentifier:nil
                                                                                         previewProvider:nil
                                                                                          actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> * _Nonnull suggestedActions) {
@@ -590,7 +592,7 @@
                                                    image:[UIImage systemImageNamed:@"square.and.arrow.down"]
                                               identifier:nil
                                                  handler:^(__kindof UIAction * _Nonnull action) {
-            PhotosService *photosService = [[PhotosService alloc] initWithHSCards:[NSSet setWithObject:self.viewModel.hsCard]];
+            PhotosService *photosService = [[PhotosService alloc] initWithHSCards:[NSSet setWithObject:unretainedSelf.viewModel.hsCard] hsGameModeSlugType:unretainedSelf.viewModel.hsCardGameModeSlugType isGold:unretainedSelf.viewModel.isGold];
             [photosService beginSavingFromViewController:self completion:^(BOOL success, NSError * _Nullable error) {}];
             [photosService release];
         }];
@@ -599,7 +601,7 @@
                                                     image:[UIImage systemImageNamed:@"square.and.arrow.up"]
                                                identifier:nil
                                                   handler:^(__kindof UIAction * _Nonnull action) {
-            PhotosService *photosService = [[PhotosService alloc] initWithHSCards:[NSSet setWithObject:self.viewModel.hsCard]];
+            PhotosService *photosService = [[PhotosService alloc] initWithHSCards:[NSSet setWithObject:unretainedSelf.viewModel.hsCard] hsGameModeSlugType:unretainedSelf.viewModel.hsCardGameModeSlugType isGold:unretainedSelf.viewModel.isGold];
             [photosService beginSharingFromViewController:self completion:^(BOOL success, NSError * _Nullable error) {}];
             [photosService release];
         }];

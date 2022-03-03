@@ -234,7 +234,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
         if (hsCards.count == 0) return;
         
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
-            PhotosService *service = [[PhotosService alloc] initWithHSCards:hsCards];
+            PhotosService *service = [[PhotosService alloc] initWithHSCards:hsCards hsGameModeSlugType:HSCardGameModeSlugTypeConstructed isGold:NO];
             
             [service beginSheetModalForWindow:self.view.window completion:^(BOOL success, NSError * _Nullable error) {
                 if (error != nil) {
@@ -262,7 +262,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
                 fromView = self.view;
             }
             
-            PhotosService *service = [[PhotosService alloc] initWithHSCards:hsCards];
+            PhotosService *service = [[PhotosService alloc] initWithHSCards:hsCards hsGameModeSlugType:HSCardGameModeSlugTypeConstructed isGold:NO];
             [service beginSharingServiceOfView:fromView];
             [service release];
         }];

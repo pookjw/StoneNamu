@@ -315,9 +315,9 @@
 - (void)saveImageItemTriggered:(NSMenuItem *)sender {
     NSSet<NSIndexPath *> *interactingIndexPaths = self.collectionView.interactingIndexPaths;
     
-    [self.viewModel hsCardsFromIndexPaths:interactingIndexPaths completion:^(NSSet<HSCard *> * _Nonnull hsCards) {
+    [self.viewModel photoServiceModelsFromIndexPaths:interactingIndexPaths completion:^(NSSet<HSCard *> * _Nonnull hsCards, NSDictionary<HSCard *,HSCardGameModeSlugType> * _Nonnull hsCardGameModeSlugTypes, NSDictionary<HSCard *,NSNumber *> * _Nonnull isGolds) {
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
-            PhotosService *service = [[PhotosService alloc] initWithHSCards:hsCards];
+            PhotosService *service = [[PhotosService alloc] initWithHSCards:hsCards hsGameModeSlugTypes:hsCardGameModeSlugTypes isGolds:isGolds];
             
             [service beginSheetModalForWindow:self.view.window completion:^(BOOL success, NSError * _Nullable error) {
                 if (error != nil) {
@@ -335,15 +335,15 @@
 - (void)shareImageItemTriggered:(NSMenuItem *)sender {
     NSSet<NSIndexPath *> *interactingIndexPaths = self.collectionView.interactingIndexPaths;
     
-    [self.viewModel hsCardsFromIndexPaths:interactingIndexPaths completion:^(NSSet<HSCard *> * _Nonnull hsCards) {
+    
+    [self.viewModel photoServiceModelsFromIndexPaths:interactingIndexPaths completion:^(NSSet<HSCard *> * _Nonnull hsCards, NSDictionary<HSCard *,HSCardGameModeSlugType> * _Nonnull hsCardGameModeSlugTypes, NSDictionary<HSCard *,NSNumber *> * _Nonnull isGolds) {
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
             NSView * _Nullable fromView = [self.collectionView itemAtIndexPath:interactingIndexPaths.allObjects.lastObject].view;
-            
             if (fromView == nil) {
                 fromView = self.view;
             }
             
-            PhotosService *service = [[PhotosService alloc] initWithHSCards:hsCards];
+            PhotosService *service = [[PhotosService alloc] initWithHSCards:hsCards hsGameModeSlugTypes:hsCardGameModeSlugTypes isGolds:isGolds];
             [service beginSharingServiceOfView:fromView];
             [service release];
         }];

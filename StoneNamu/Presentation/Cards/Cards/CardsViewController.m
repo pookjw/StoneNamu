@@ -298,7 +298,7 @@
                                                    image:[UIImage systemImageNamed:@"square.and.arrow.down"]
                                               identifier:nil
                                                  handler:^(__kindof UIAction * _Nonnull action) {
-            PhotosService *photosService = [[PhotosService alloc] initWithHSCards:[NSSet setWithObject:itemModel.hsCard]];
+            PhotosService *photosService = [[PhotosService alloc] initWithHSCards:[NSSet setWithObject:itemModel.hsCard] hsGameModeSlugType:self.viewModel.hsCardGameModeSlugType isGold:NO];
             [photosService beginSavingFromViewController:self completion:^(BOOL success, NSError * _Nullable error) {}];
             [photosService release];
         }];
@@ -307,7 +307,7 @@
                                                     image:[UIImage systemImageNamed:@"square.and.arrow.up"]
                                                identifier:nil
                                                   handler:^(__kindof UIAction * _Nonnull action) {
-            PhotosService *photosService = [[PhotosService alloc] initWithHSCards:[NSSet setWithObject:itemModel.hsCard]];
+            PhotosService *photosService = [[PhotosService alloc] initWithHSCards:[NSSet setWithObject:itemModel.hsCard] hsGameModeSlugType:self.viewModel.hsCardGameModeSlugType isGold:NO];
             [photosService beginSharingFromViewController:self completion:^(BOOL success, NSError * _Nullable error) {}];
             [photosService release];
         }];

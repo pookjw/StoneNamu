@@ -290,13 +290,6 @@
     return [hsCards autorelease];
 }
 
-- (void)hsCardsFromIndexPaths:(NSSet<NSIndexPath *> *)indexPaths completion:(CardDetailsViewModelHSCardsFromIndexPathsCompletion)completion {
-    [self.queue addBarrierBlock:^{
-        NSSet<HSCard *> *hsCards = [self hsCardsFromIndexPaths:indexPaths];
-        completion(hsCards);
-    }];
-}
-
 - (void)itemModelsFromIndexPaths:(NSSet<NSIndexPath *> *)indexPaths completion:(CardDetailsViewModelItemModelsFromIndexPathsCompletion)completion {
     [self.queue addBarrierBlock:^{
         NSMutableSet<CardDetailsItemModel *> *itemModels = [NSMutableSet<CardDetailsItemModel *> new];
@@ -310,6 +303,27 @@
         }];
         
         completion([itemModels autorelease]);
+    }];
+}
+    
+- (void)photoServiceModelsFromIndexPaths:(NSSet<NSIndexPath *> *)indexPaths completion:(CardDetailsViewModelPhotoServiceModelsFromIndexPathsCompletion)completion {
+    [self.queue addBarrierBlock:^{
+        NSMutableSet<HSCard *> *hsCards = [NSMutableSet<HSCard *> new];
+        NSMutableDictionary<HSCard *, HSCardTypeSlugType> *hsCardTypeSlugType = [NSMutableDictionary<HSCard *, HSCardTypeSlugType> new];
+        NSMutableDictionary<HSCard *, NSNumber *> *isGolds = [NSMutableDictionary<HSCard *, NSNumber *> new];
+        
+        [indexPaths enumerateObjectsUsingBlock:^(NSIndexPath * _Nonnull obj, BOOL * _Nonnull stop) {
+            CardDetailsItemModel * _Nullable itemModel = [self.dataSource itemIdentifierForIndexPath:obj];
+            HSCard * _Nullable childHSCard = itemModel.childHSCard;
+            
+            if (childHSCard) {
+                [hsCards addObject:childHSCard];
+                hsCardTypeSlugType[childHSCard] = itemModel.hsCardGameModeSlugType;
+                isGolds[childHSCard] = [NSNumber numberWithBool:itemModel.isGold];
+            }
+        }];
+        
+        completion([hsCards autorelease], [hsCardTypeSlugType autorelease], [isGolds autorelease]);
     }];
 }
 

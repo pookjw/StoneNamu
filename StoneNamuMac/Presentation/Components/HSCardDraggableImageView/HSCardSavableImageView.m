@@ -100,7 +100,7 @@
 }
 
 - (void)saveItemTriggered:(NSMenuItem *)sender {
-    PhotosService *service = [[PhotosService alloc] initWithHSCards:[NSSet setWithObject:self.hsCard]];
+    PhotosService *service = [[PhotosService alloc] initWithHSCards:[NSSet setWithObject:self.hsCard] hsGameModeSlugType:self.hsCardGameModeSlugType isGold:self.isGold];
     
     [service beginSheetModalForWindow:self.window completion:^(BOOL success, NSError * _Nullable error) {
         if (error != nil) {

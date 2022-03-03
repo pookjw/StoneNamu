@@ -17,6 +17,7 @@
 @property (copy) NSDictionary<NSString *, NSURL *> * _Nullable urls;
 @property (copy) NSDictionary<NSString *, NSURL *> * _Nullable localURLs;
 @property (retain) PHPhotoLibrary *phPhotoLibrary;
+@property (retain) id<HSCardUseCase> _Nullable hsCardUseCase;
 @property (retain) id<DataCacheUseCase> _Nullable dataCacheUseCase;
 @property (retain) NSOperationQueue *queue;
 @end
@@ -31,10 +32,8 @@
         self.urls = nil;
         
         self.phPhotoLibrary = PHPhotoLibrary.sharedPhotoLibrary;
-        
-        DataCacheUseCaseImpl *dataCacheUseCase = [DataCacheUseCaseImpl new];
-        self.dataCacheUseCase = dataCacheUseCase;
-        [dataCacheUseCase release];
+        self.hsCardUseCase = nil;
+        self.dataCacheUseCase = nil;
         
         NSOperationQueue *queue = [NSOperationQueue new];
         queue.qualityOfService = NSQualityOfServiceUserInitiated;
@@ -59,21 +58,62 @@
     self = [self init];
     
     if (self) {
+        DataCacheUseCaseImpl *dataCacheUseCase = [DataCacheUseCaseImpl new];
+        self.dataCacheUseCase = dataCacheUseCase;
+        [dataCacheUseCase release];
+        
         self.urls = urls;
     }
     
     return self;
 }
 
-- (instancetype)initWithHSCards:(NSSet<HSCard *> *)hsCards {
-    NSMutableDictionary<NSString *, NSURL *> *urls = [NSMutableDictionary<NSString *, NSURL *> new];
+- (instancetype)initWithHSCards:(NSSet<HSCard *> *)hsCards hsGameModeSlugType:(HSCardGameModeSlugType)hsCardGameModeSlugType isGold:(BOOL)isGold {
+    self = [self init];
     
-    [hsCards enumerateObjectsUsingBlock:^(HSCard * _Nonnull obj, BOOL * _Nonnull stop) {
-        urls[obj.name] = obj.image;
-    }];
+    if (self) {
+        DataCacheUseCaseImpl *dataCacheUseCase = [DataCacheUseCaseImpl new];
+        self.dataCacheUseCase = dataCacheUseCase;
+        [dataCacheUseCase release];
+        
+        HSCardUseCaseImpl *hsCardUseCase = [HSCardUseCaseImpl new];
+        NSMutableDictionary<NSString *, NSURL *> *urls = [NSMutableDictionary<NSString *, NSURL *> new];
+        
+        [hsCards enumerateObjectsUsingBlock:^(HSCard * _Nonnull obj, BOOL * _Nonnull stop) {
+            urls[obj.name] = [hsCardUseCase recommendedImageURLOfHSCard:obj HSCardGameModeSlugType:hsCardGameModeSlugType isGold:isGold];
+        }];
+        
+        self.urls = urls;
+        [urls release];
+        
+        self.hsCardUseCase = hsCardUseCase;
+        [hsCardUseCase release];
+    }
     
-    self = [self initWithURLs:urls];
-    [urls release];
+    return self;
+}
+
+- (instancetype)initWithHSCards:(NSSet<HSCard *> *)hsCards hsGameModeSlugTypes:(NSDictionary<HSCard *, HSCardGameModeSlugType> *)hsCardGameModeSlugTypes isGolds:(NSDictionary<HSCard *, NSNumber *> *)isGolds {
+    self = [self init];
+    
+    if (self) {
+        DataCacheUseCaseImpl *dataCacheUseCase = [DataCacheUseCaseImpl new];
+        self.dataCacheUseCase = dataCacheUseCase;
+        [dataCacheUseCase release];
+        
+        HSCardUseCaseImpl *hsCardUseCase = [HSCardUseCaseImpl new];
+        NSMutableDictionary<NSString *, NSURL *> *urls = [NSMutableDictionary<NSString *, NSURL *> new];
+        
+        [hsCards enumerateObjectsUsingBlock:^(HSCard * _Nonnull obj, BOOL * _Nonnull stop) {
+            urls[obj.name] = [hsCardUseCase recommendedImageURLOfHSCard:obj HSCardGameModeSlugType:hsCardGameModeSlugTypes[obj] isGold:isGolds[obj].boolValue];
+        }];
+        
+        self.urls = urls;
+        [urls release];
+        
+        self.hsCardUseCase = hsCardUseCase;
+        [hsCardUseCase release];
+    }
     
     return self;
 }
@@ -83,6 +123,7 @@
     [_urls release];
     [_localURLs release];
     [_phPhotoLibrary release];
+    [_hsCardUseCase release];
     [_dataCacheUseCase release];
     [_queue release];
     [super dealloc];

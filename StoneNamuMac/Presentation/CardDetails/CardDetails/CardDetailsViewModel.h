@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef NSCollectionViewDiffableDataSource<CardDetailsSectionModel *, CardDetailsItemModel *> CardDetailsDataSource;
 typedef void (^CardDetailsViewModelHSCardsFromIndexPathsCompletion)(NSSet<HSCard *> *hsCards);
+typedef void (^CardDetailsViewModelPhotoServiceModelsFromIndexPathsCompletion)(NSSet<HSCard *> *hsCards, NSDictionary<HSCard *, HSCardGameModeSlugType> *hsCardGameModeSlugTypes, NSDictionary<HSCard *, NSNumber *> *isGolds);
 typedef void (^CardDetailsViewModelItemModelsFromIndexPathsCompletion)(NSSet<CardDetailsItemModel *> * itemModels);
 
 static NSNotificationName const NSNotificationNameCardDetailsViewModelStartedLoadingDataSource = @"NSNotificationNameCardDetailsViewModelStartedLoadingDataSource";
@@ -29,8 +30,8 @@ static NSNotificationName const NSNotificationNameCardDetailsViewModelEndedLoadi
 - (instancetype)initWithDataSource:(CardDetailsDataSource *)dataSource;
 - (void)requestDataSourceWithCard:(HSCard *)hsCard hsGameModeSlugType:(HSCardGameModeSlugType)hsCardGameModeSlugType isGold:(BOOL)isGold;
 - (NSSet<HSCard *> *)hsCardsFromIndexPaths:(NSSet<NSIndexPath *> *)indexPaths;
-- (void)hsCardsFromIndexPaths:(NSSet<NSIndexPath *> *)indexPaths completion:(CardDetailsViewModelHSCardsFromIndexPathsCompletion)completion;
 - (void)itemModelsFromIndexPaths:(NSSet<NSIndexPath *> *)indexPaths completion:(CardDetailsViewModelItemModelsFromIndexPathsCompletion)completion;
+- (void)photoServiceModelsFromIndexPaths:(NSSet<NSIndexPath *> *)indexPaths completion:(CardDetailsViewModelPhotoServiceModelsFromIndexPathsCompletion)completion;
 @end
 
 NS_ASSUME_NONNULL_END
