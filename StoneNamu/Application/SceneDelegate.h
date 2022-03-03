@@ -10,6 +10,5 @@
 
 @interface SceneDelegate : UIResponder <UIWindowSceneDelegate>
 @property (retain, nonatomic) UIWindow * window;
-@property (retain) MainViewController *mainViewController;
 @end
 

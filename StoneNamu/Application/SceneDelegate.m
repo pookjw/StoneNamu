@@ -14,7 +14,6 @@
 
 - (void)dealloc {
     [_window release];
-    [_mainViewController release];
     [super dealloc];
 }
 
@@ -34,7 +33,6 @@
 //    [self.window setTintColor:UIColor.redColor];
     
     MainViewController *mainViewController = [MainViewController new];
-    self.mainViewController = mainViewController;
     [mainViewController loadViewIfNeeded];
     
     window.rootViewController = mainViewController;

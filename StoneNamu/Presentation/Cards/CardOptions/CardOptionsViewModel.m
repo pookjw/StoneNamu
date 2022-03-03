@@ -290,11 +290,11 @@
                 
                 [sortedValues enumerateObjectsUsingBlock:^(NSString * _Nonnull obj2, NSUInteger idx, BOOL * _Nonnull stop) {
                     NSString * _Nullable text = allSlugsAndNames[obj2];
-
+                    
                     if (text == nil) {
                         text = obj2;
                     }
-
+                    
                     [texts addObject:text];
                 }];
                 
@@ -370,7 +370,7 @@
                                                                       @"10": @"10+"};
         
         //
-
+        
         NSDictionary<NSString *, NSString *> *classicSetSlugsAndNames = classicOptionTypesAndSlugsAndNames[BlizzardHSAPIOptionTypeSet];
         NSMutableDictionary<NSString *, NSString *> *standardSetSlugsAndNames = [standardOptionTypesAndSlugsAndNames[BlizzardHSAPIOptionTypeSet] mutableCopy];
         NSMutableDictionary<NSString *, NSString *> *wildSetSlugsAndNames = [wildOptionTypesAndSlugsAndNames[BlizzardHSAPIOptionTypeSet] mutableCopy];
@@ -403,7 +403,7 @@
             return [rhsNumber compare:lhsNumber];
         }
                                                                                  title:[ResourcesService localizationForBlizzardHSAPIOptionType:BlizzardHSAPIOptionTypeSet]
-                                                                          accessoryText:nil
+                                                                         accessoryText:nil
                                                                                toolTip:[ResourcesService localizationForKey:LocalizableKeyCardSetTooltipDescription]];
         
         [standardSetSlugsAndNames release];
@@ -417,14 +417,14 @@
                                                                       sectionHeaderTexts:nil
                                                                            showsEmptyRow:YES
                                                                  allowsMultipleSelection:YES
-                                                                            comparator:^NSComparisonResult(NSString * _Nonnull lhs, NSString * _Nonnull rhs) {
+                                                                              comparator:^NSComparisonResult(NSString * _Nonnull lhs, NSString * _Nonnull rhs) {
             NSString *lhsName = optionTypesAndSlugsAndNames[BlizzardHSAPIOptionTypeClass][lhs];
             NSString *rhsName = optionTypesAndSlugsAndNames[BlizzardHSAPIOptionTypeClass][rhs];
             return [lhsName compare:rhsName];
         }
-                                                                                 title:[ResourcesService localizationForBlizzardHSAPIOptionType:BlizzardHSAPIOptionTypeClass]
-                                                                            accessoryText:nil
-                                                                               toolTip:[ResourcesService localizationForKey:LocalizableKeyCardClassTooltipDescription]];
+                                                                                   title:[ResourcesService localizationForBlizzardHSAPIOptionType:BlizzardHSAPIOptionTypeClass]
+                                                                           accessoryText:nil
+                                                                                 toolTip:[ResourcesService localizationForKey:LocalizableKeyCardClassTooltipDescription]];
         
         CardOptionItemModel *manaCostItem = [[CardOptionItemModel alloc] initWithOptionType:BlizzardHSAPIOptionTypeManaCost
                                                                               slugsAndNames:@{[NSNumber numberWithUnsignedInt:1 << 1]: slugsAndNumberNames}
@@ -437,7 +437,7 @@
             return [lhsNumber compare:rhsNumber];
         }
                                                                                       title:[ResourcesService localizationForBlizzardHSAPIOptionType:BlizzardHSAPIOptionTypeManaCost]
-                                                                               accessoryText:nil
+                                                                              accessoryText:nil
                                                                                     toolTip:[ResourcesService localizationForKey:LocalizableKeyCardManaCostTooltipDescription]];
         
         CardOptionItemModel *attackItem = [[CardOptionItemModel alloc] initWithOptionType:BlizzardHSAPIOptionTypeAttack
@@ -445,28 +445,28 @@
                                                                        sectionHeaderTexts:nil
                                                                             showsEmptyRow:YES
                                                                   allowsMultipleSelection:YES
-                                                                                 comparator:^NSComparisonResult(NSString * _Nonnull lhs, NSString * _Nonnull rhs) {
+                                                                               comparator:^NSComparisonResult(NSString * _Nonnull lhs, NSString * _Nonnull rhs) {
             NSNumber *lhsNumber = [NSNumber numberWithInteger:lhs.integerValue];
             NSNumber *rhsNumber = [NSNumber numberWithInteger:rhs.integerValue];
             return [lhsNumber compare:rhsNumber];
         }
-                                                                                      title:[ResourcesService localizationForBlizzardHSAPIOptionType:BlizzardHSAPIOptionTypeAttack]
-                                                                             accessoryText:nil
-                                                                                    toolTip:[ResourcesService localizationForKey:LocalizableKeyCardAttackTooltipDescription]];
+                                                                                    title:[ResourcesService localizationForBlizzardHSAPIOptionType:BlizzardHSAPIOptionTypeAttack]
+                                                                            accessoryText:nil
+                                                                                  toolTip:[ResourcesService localizationForKey:LocalizableKeyCardAttackTooltipDescription]];
         
         CardOptionItemModel *healthItem = [[CardOptionItemModel alloc] initWithOptionType:BlizzardHSAPIOptionTypeHealth
                                                                             slugsAndNames:@{[NSNumber numberWithUnsignedInt:1 << 1]: slugsAndNumberNames}
                                                                        sectionHeaderTexts:nil
                                                                             showsEmptyRow:YES
                                                                   allowsMultipleSelection:YES
-                                                                                 comparator:^NSComparisonResult(NSString * _Nonnull lhs, NSString * _Nonnull rhs) {
+                                                                               comparator:^NSComparisonResult(NSString * _Nonnull lhs, NSString * _Nonnull rhs) {
             NSNumber *lhsNumber = [NSNumber numberWithInteger:lhs.integerValue];
             NSNumber *rhsNumber = [NSNumber numberWithInteger:rhs.integerValue];
             return [lhsNumber compare:rhsNumber];
         }
-                                                                                      title:[ResourcesService localizationForBlizzardHSAPIOptionType:BlizzardHSAPIOptionTypeHealth]
-                                                                             accessoryText:nil
-                                                                                    toolTip:[ResourcesService localizationForKey:LocalizableKeyCardHealthTooltipDescription]];
+                                                                                    title:[ResourcesService localizationForBlizzardHSAPIOptionType:BlizzardHSAPIOptionTypeHealth]
+                                                                            accessoryText:nil
+                                                                                  toolTip:[ResourcesService localizationForKey:LocalizableKeyCardHealthTooltipDescription]];
         
         CardOptionItemModel *collectibleItem = [[CardOptionItemModel alloc] initWithOptionType:BlizzardHSAPIOptionTypeCollectible
                                                                                  slugsAndNames:@{[NSNumber numberWithUnsignedInt:1 << 1]: [ResourcesService localizationsForHSCardCollectible]}
@@ -479,7 +479,7 @@
             return [lhsNumber compare:rhsNumber];
         }
                                                                                          title:[ResourcesService localizationForBlizzardHSAPIOptionType:BlizzardHSAPIOptionTypeCollectible]
-                                                                                  accessoryText:nil
+                                                                                 accessoryText:nil
                                                                                        toolTip:[ResourcesService localizationForKey:LocalizableKeyCardCollectibleTooltipDescription]];
         
         CardOptionItemModel *rarityItem = [[CardOptionItemModel alloc] initWithOptionType:BlizzardHSAPIOptionTypeRarity
@@ -493,7 +493,7 @@
             return [lhsNumber compare:rhsNumber];
         }
                                                                                     title:[ResourcesService localizationForBlizzardHSAPIOptionType:BlizzardHSAPIOptionTypeRarity]
-                                                                             accessoryText:nil
+                                                                            accessoryText:nil
                                                                                   toolTip:[ResourcesService localizationForKey:LocalizableKeyCardRarityTooltipDescription]];
         
         CardOptionItemModel *typeItem = [[CardOptionItemModel alloc] initWithOptionType:BlizzardHSAPIOptionTypeType
@@ -507,7 +507,7 @@
             return [lhsName compare:rhsName];
         }
                                                                                   title:[ResourcesService localizationForBlizzardHSAPIOptionType:BlizzardHSAPIOptionTypeType]
-                                                                           accessoryText:nil
+                                                                          accessoryText:nil
                                                                                 toolTip:[ResourcesService localizationForKey:LocalizableKeyCardTypeTooltipDescription]];
         
         CardOptionItemModel *minionType = [[CardOptionItemModel alloc] initWithOptionType:BlizzardHSAPIOptionTypeMinionType
@@ -521,7 +521,7 @@
             return [lhsName compare:rhsName];
         }
                                                                                     title:[ResourcesService localizationForBlizzardHSAPIOptionType:BlizzardHSAPIOptionTypeMinionType]
-                                                                             accessoryText:nil
+                                                                            accessoryText:nil
                                                                                   toolTip:[ResourcesService localizationForKey:LocalizableKeyCardMinionTypeTooltipDescription]];
         
         CardOptionItemModel *spellSchoolType = [[CardOptionItemModel alloc] initWithOptionType:BlizzardHSAPIOptionTypeSpellSchool
@@ -535,7 +535,7 @@
             return [lhsName compare:rhsName];
         }
                                                                                          title:[ResourcesService localizationForBlizzardHSAPIOptionType:BlizzardHSAPIOptionTypeSpellSchool]
-                                                                                  accessoryText:nil
+                                                                                 accessoryText:nil
                                                                                        toolTip:[ResourcesService localizationForKey:LocalizableKeyCardSpellSchoolTooltipDescription]];
         
         CardOptionItemModel *keywordItem = [[CardOptionItemModel alloc] initWithOptionType:BlizzardHSAPIOptionTypeKeyword
@@ -549,7 +549,7 @@
             return [lhsName compare:rhsName];
         }
                                                                                      title:[ResourcesService localizationForBlizzardHSAPIOptionType:BlizzardHSAPIOptionTypeKeyword]
-                                                                              accessoryText:nil
+                                                                             accessoryText:nil
                                                                                    toolTip:[ResourcesService localizationForKey:LocalizableKeyCardKeywordTooltipDescription]];
         
         CardOptionItemModel *textFilterItem = [[CardOptionItemModel alloc] initWithOptionType:BlizzardHSAPIOptionTypeTextFilter
@@ -561,7 +561,7 @@
             return NSOrderedSame;;
         }
                                                                                         title:[ResourcesService localizationForBlizzardHSAPIOptionType:BlizzardHSAPIOptionTypeTextFilter]
-                                                                                 accessoryText:nil
+                                                                                accessoryText:nil
                                                                                       toolTip:[ResourcesService localizationForKey:LocalizableKeyCardTextFilterTooltipDescription]];
         
         CardOptionItemModel *gameModeItem = [[CardOptionItemModel alloc] initWithOptionType:BlizzardHSAPIOptionTypeGameMode
@@ -575,7 +575,7 @@
             return [lhsName compare:rhsName];
         }
                                                                                       title:[ResourcesService localizationForBlizzardHSAPIOptionType:BlizzardHSAPIOptionTypeGameMode]
-                                                                               accessoryText:nil
+                                                                              accessoryText:nil
                                                                                     toolTip:[ResourcesService localizationForKey:LocalizableKeyCardGameModeTooltipDescription]];
         
         CardOptionItemModel *sortItem = [[CardOptionItemModel alloc] initWithOptionType:BlizzardHSAPIOptionTypeSort
@@ -589,7 +589,7 @@
             return [lhsNumber compare:rhsNumber];
         }
                                                                                   title:[ResourcesService localizationForBlizzardHSAPIOptionType:BlizzardHSAPIOptionTypeSort]
-                                                                           accessoryText:nil
+                                                                          accessoryText:nil
                                                                                 toolTip:[ResourcesService localizationForKey:LocalizableKeyCardSortTooltipDescription]];
         
         //
