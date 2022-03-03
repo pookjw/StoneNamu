@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly, copy, nullable) NSComparisonResult (^comparator)(NSString *, NSString *);
 
 @property (readonly, copy) NSString *title;
-@property (copy) NSString *accessoryText;
+@property (copy) NSString * _Nullable accessoryText;
 @property (readonly, copy) NSString *toolTip;
 
 + (instancetype)new NS_UNAVAILABLE;

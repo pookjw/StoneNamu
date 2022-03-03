@@ -115,6 +115,8 @@
                 
                 if ([BlizzardHSAPIOptionTypeTextFilter isEqualToString:obj.optionType]) {
                     obj.accessoryText = newValues.allObjects.firstObject;
+                } else if ([BlizzardHSAPIOptionTypeSort isEqualToString:obj.optionType]) {
+                    obj.accessoryText = nil;
                 } else {
                     NSMutableArray<NSString *> *texts = [NSMutableArray<NSString *> new];
                     
@@ -291,10 +293,11 @@
         //
         
         [toBeReconfiguredItemModels enumerateObjectsUsingBlock:^(BattlegroundsCardOptionItemModel * _Nonnull obj1, NSUInteger idx, BOOL * _Nonnull stop) {
-            
             if ([BlizzardHSAPIOptionTypeTextFilter isEqualToString:obj1.optionType]) {
                 obj1.accessoryText = obj1.values.allObjects.firstObject;
-            } else {
+            } else if ([BlizzardHSAPIOptionTypeSort isEqualToString:obj1.optionType]) {
+                obj1.accessoryText = nil;
+            }else {
                 NSMutableArray<NSString *> *texts = [NSMutableArray<NSString *> new];
                 
                 NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES comparator:obj1.comparator];
