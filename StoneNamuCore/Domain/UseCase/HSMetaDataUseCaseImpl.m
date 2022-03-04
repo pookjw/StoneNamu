@@ -5,7 +5,7 @@
 //  Created by Jinwoo Kim on 2/5/22.
 //
 
-#import "HSMetaDataUseCaseImpl.h"
+#import <StoneNamuCore/HSMetaDataUseCaseImpl.h>
 #import <StoneNamuCore/HSMetaDataRepositoryImpl.h>
 #import <StoneNamuCore/PrefsUseCaseImpl.h>
 #import <StoneNamuCore/BlizzardHSAPIKeys.h>

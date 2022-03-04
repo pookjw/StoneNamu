@@ -7,12 +7,20 @@
 
 #import <XCTest/XCTest.h>
 #import <StoneNamuCore/HSDeckUseCaseImpl.h>
+#import <StoneNamuCore/HSMetaDataUseCaseImpl.h>
 
 @interface HSDeckUseCaseTest : XCTestCase
 @property (retain) id<HSDeckUseCase> _Nullable hsDeckUseCase;
+@property (retain) id<HSMetaDataUseCase> _Nullable hsMetaDataUseCase;
 @end
 
 @implementation HSDeckUseCaseTest
+
+- (void)dealloc {
+    [_hsDeckUseCase release];
+    [_hsMetaDataUseCase release];
+    [super dealloc];
+}
 
 - (void)setUp {
     [super setUp];
@@ -20,11 +28,16 @@
     HSDeckUseCaseImpl *hsDeckUseCase = [HSDeckUseCaseImpl new];
     self.hsDeckUseCase = hsDeckUseCase;
     [hsDeckUseCase release];
+    
+    HSMetaDataUseCaseImpl *hsMetaDataUseCase = [HSMetaDataUseCaseImpl new];
+    self.hsMetaDataUseCase = hsMetaDataUseCase;
+    [hsMetaDataUseCase release];
 }
 
 - (void)tearDown {
     [super tearDown];
     self.hsDeckUseCase = nil;
+    self.hsMetaDataUseCase = nil;
 }
 
 - (void)testFetchByDeckCode {
@@ -79,11 +92,19 @@
         @69665
     ];
     
-    [self.hsDeckUseCase fetchDeckByCardList:cardList classId:HSCardClassPriest completion:^(HSDeck * _Nullable hsDeck, NSError * _Nullable error) {
-        XCTAssertNil(error);
-        XCTAssertNotNil(hsDeck);
-        [expectation fulfill];
-    }];
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0), ^{
+        [self.hsMetaDataUseCase fetchWithCompletionHandler:^(HSMetaData * _Nullable hsMetaData, NSError * _Nullable error) {
+            XCTAssertNil(error);
+            
+            HSCardClass *hsCardClass = [self.hsMetaDataUseCase hsCardClassFromClassSlug:HSCardClassSlugTypePriest usingHSMetaData:hsMetaData];
+            
+            [self.hsDeckUseCase fetchDeckByCardList:cardList classId:hsCardClass.classId completion:^(HSDeck * _Nullable hsDeck, NSError * _Nullable error) {
+                XCTAssertNil(error);
+                XCTAssertNotNil(hsDeck);
+                [expectation fulfill];
+            }];
+        }];
+    });
     
     XCTWaiterResult result = [XCTWaiter waitForExpectations:@[expectation] timeout:5];
     [expectation release];
