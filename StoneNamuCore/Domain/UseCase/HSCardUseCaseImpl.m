@@ -10,7 +10,6 @@
 #import <StoneNamuCore/BlizzardHSAPIKeys.h>
 #import <StoneNamuCore/BlizzardHSAPILocale.h>
 #import <StoneNamuCore/PrefsUseCaseImpl.h>
-#import <StoneNamuCore/DataCacheUseCaseImpl.h>
 #import <StoneNamuCore/NSDictionary+combine.h>
 #import <StoneNamuCore/NSURL+isEmpty.h>
 

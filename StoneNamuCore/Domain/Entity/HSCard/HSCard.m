@@ -63,14 +63,12 @@
 + (NSArray<HSCard *> *)hsCardsFromDic:(NSDictionary *)dic {
     NSMutableArray<HSCard *> *hsCards = [NSMutableArray<HSCard *> new];
     
-    for (NSDictionary *card in dic[@"cards"]) {
-        @autoreleasepool {
-            HSCard *hsCard = [HSCard hsCardFromDic:card error:nil];
-            if (hsCard) {
-                [hsCards addObject:hsCard];
-            }
+    [(NSArray<NSDictionary *> *)dic[@"cards"] enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        HSCard *hsCard = [HSCard hsCardFromDic:obj error:nil];
+        if (hsCard) {
+            [hsCards addObject:hsCard];
         }
-    }
+    }];
     
     return [hsCards autorelease];
 }

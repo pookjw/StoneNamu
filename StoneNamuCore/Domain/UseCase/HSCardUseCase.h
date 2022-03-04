@@ -9,8 +9,8 @@
 #import <StoneNamuCore/HSCard.h>
 #import <StoneNamuCore/HSCardGameMode.h>
 
-typedef void (^HSCardUseCaseCardsCompletion)(NSArray<HSCard *> * _Nullable, NSNumber * _Nullable, NSNumber * _Nullable, NSError * _Nullable);
-typedef void (^HSCardUseCaseCardCompletion)(HSCard * _Nullable, NSError * _Nullable);
+typedef void (^HSCardUseCaseCardsCompletion)(NSArray<HSCard *> * _Nullable hsCards, NSNumber * _Nullable pageCount, NSNumber * _Nullable page, NSError * _Nullable error);
+typedef void (^HSCardUseCaseCardCompletion)(HSCard * _Nullable hsCard, NSError * _Nullable error);
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -14,6 +14,11 @@
 
 @implementation DataCacheUseCaseTest
 
+- (void)dealloc {
+    [_dataCacheUseCase release];
+    [super dealloc];
+}
+
 - (void)setUp {
     [super setUp];
     

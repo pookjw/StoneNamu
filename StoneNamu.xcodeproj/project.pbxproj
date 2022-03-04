@@ -310,6 +310,15 @@
 		4FA56BAF26A21059002D9FA0 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA56BAE26A21059002D9FA0 /* SceneDelegate.m */; };
 		4FA56BB726A2105A002D9FA0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4FA56BB626A2105A002D9FA0 /* Assets.xcassets */; };
 		4FA56BBD26A2105A002D9FA0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA56BBC26A2105A002D9FA0 /* main.m */; };
+		4FA8F48527D2955F00569A81 /* HSCardBack.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FA8F48327D2955F00569A81 /* HSCardBack.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4FA8F48627D2955F00569A81 /* HSCardBack.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA8F48427D2955F00569A81 /* HSCardBack.m */; };
+		4FA8F48827D2991700569A81 /* HSCardBackRepository.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FA8F48727D2982400569A81 /* HSCardBackRepository.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		4FA8F48B27D2996700569A81 /* HSCardBackRepositoryImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FA8F48927D2996700569A81 /* HSCardBackRepositoryImpl.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		4FA8F48C27D2996700569A81 /* HSCardBackRepositoryImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA8F48A27D2996700569A81 /* HSCardBackRepositoryImpl.m */; };
+		4FA8F49027D29C9300569A81 /* HSCardBackUseCaseImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FA8F48E27D29C9300569A81 /* HSCardBackUseCaseImpl.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4FA8F49127D29C9300569A81 /* HSCardBackUseCaseImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA8F48F27D29C9300569A81 /* HSCardBackUseCaseImpl.m */; };
+		4FA8F49227D29C9700569A81 /* HSCardBackUseCase.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FA8F48D27D29C8B00569A81 /* HSCardBackUseCase.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4FA8F49427D29ED200569A81 /* HSCardBackUseCaseTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA8F49327D29ED200569A81 /* HSCardBackUseCaseTest.m */; };
 		4FA9047A26B6E26A00CD6147 /* CardContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA9047926B6E26A00CD6147 /* CardContentView.m */; };
 		4FA9047D26B6E2A000CD6147 /* CardContentConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA9047C26B6E2A000CD6147 /* CardContentConfiguration.m */; };
 		4FAA89D826A4266500572BB4 /* HSCardUseCase.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FAA89D626A4266500572BB4 /* HSCardUseCase.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1118,6 +1127,15 @@
 		4FA56BF226A216C1002D9FA0 /* BlizzardHSAPILocale.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlizzardHSAPILocale.h; sourceTree = "<group>"; };
 		4FA7A7C426E539D7005BE434 /* NSArray+countOfObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSArray+countOfObject.h"; sourceTree = "<group>"; };
 		4FA7A7C526E539D7005BE434 /* NSArray+countOfObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSArray+countOfObject.m"; sourceTree = "<group>"; };
+		4FA8F48327D2955F00569A81 /* HSCardBack.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardBack.h; sourceTree = "<group>"; };
+		4FA8F48427D2955F00569A81 /* HSCardBack.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCardBack.m; sourceTree = "<group>"; };
+		4FA8F48727D2982400569A81 /* HSCardBackRepository.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardBackRepository.h; sourceTree = "<group>"; };
+		4FA8F48927D2996700569A81 /* HSCardBackRepositoryImpl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardBackRepositoryImpl.h; sourceTree = "<group>"; };
+		4FA8F48A27D2996700569A81 /* HSCardBackRepositoryImpl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCardBackRepositoryImpl.m; sourceTree = "<group>"; };
+		4FA8F48D27D29C8B00569A81 /* HSCardBackUseCase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardBackUseCase.h; sourceTree = "<group>"; };
+		4FA8F48E27D29C9300569A81 /* HSCardBackUseCaseImpl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardBackUseCaseImpl.h; sourceTree = "<group>"; };
+		4FA8F48F27D29C9300569A81 /* HSCardBackUseCaseImpl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCardBackUseCaseImpl.m; sourceTree = "<group>"; };
+		4FA8F49327D29ED200569A81 /* HSCardBackUseCaseTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCardBackUseCaseTest.m; sourceTree = "<group>"; };
 		4FA9047826B6E26A00CD6147 /* CardContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardContentView.h; sourceTree = "<group>"; };
 		4FA9047926B6E26A00CD6147 /* CardContentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardContentView.m; sourceTree = "<group>"; };
 		4FA9047B26B6E2A000CD6147 /* CardContentConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardContentConfiguration.h; sourceTree = "<group>"; };
@@ -2611,6 +2629,8 @@
 				4FA05F7526A309C7000E93BC /* HSCardRepositoryImpl.m */,
 				4FFDD68226CADEEA008E5B45 /* HSDeckRepositoryImpl.h */,
 				4FFDD68326CADEEA008E5B45 /* HSDeckRepositoryImpl.m */,
+				4FA8F48927D2996700569A81 /* HSCardBackRepositoryImpl.h */,
+				4FA8F48A27D2996700569A81 /* HSCardBackRepositoryImpl.m */,
 				4F646A7426B7E8C100BEDB38 /* DataCacheRepositoryImpl.h */,
 				4F646A7526B7E8C100BEDB38 /* DataCacheRepositoryImpl.m */,
 				4F03F55526C79C2D00FC9155 /* PrefsRepositoryImpl.h */,
@@ -2628,6 +2648,7 @@
 				4F273FF627AEB52800F6D3B8 /* HSMetaDataRepository.h */,
 				4FA05F7326A30991000E93BC /* HSCardRepository.h */,
 				4FFDD67D26CAD868008E5B45 /* HSDeckRepository.h */,
+				4FA8F48727D2982400569A81 /* HSCardBackRepository.h */,
 				4F646A7326B7E7B900BEDB38 /* DataCacheRepository.h */,
 				4FB8510426C18EDB00E3C89D /* PrefsRepository.h */,
 				4FFDD66A26CACB79008E5B45 /* LocalDeckRepository.h */,
@@ -2720,9 +2741,19 @@
 				4F646A6026B7D71800BEDB38 /* Cache */,
 				4FE097C126A3288500BF3A6D /* API */,
 				4FE097C226A3288A00BF3A6D /* HSCard */,
+				4FA8F48227D2954800569A81 /* HSCardBack */,
 				4FFDD67726CAD3EF008E5B45 /* HSDeck */,
 			);
 			path = Entity;
+			sourceTree = "<group>";
+		};
+		4FA8F48227D2954800569A81 /* HSCardBack */ = {
+			isa = PBXGroup;
+			children = (
+				4FA8F48327D2955F00569A81 /* HSCardBack.h */,
+				4FA8F48427D2955F00569A81 /* HSCardBack.m */,
+			);
+			path = HSCardBack;
 			sourceTree = "<group>";
 		};
 		4FAA89D526A4260C00572BB4 /* UseCase */ = {
@@ -2737,6 +2768,9 @@
 				4FC094F626CD711000A7D373 /* HSDeckUseCase.h */,
 				4FC094F726CD712100A7D373 /* HSDeckUseCaseImpl.h */,
 				4FC094F826CD712100A7D373 /* HSDeckUseCaseImpl.m */,
+				4FA8F48D27D29C8B00569A81 /* HSCardBackUseCase.h */,
+				4FA8F48E27D29C9300569A81 /* HSCardBackUseCaseImpl.h */,
+				4FA8F48F27D29C9300569A81 /* HSCardBackUseCaseImpl.m */,
 				4F646A7826B7EF9100BEDB38 /* DataCacheUseCase.h */,
 				4F646A7926B7F08500BEDB38 /* DataCacheUseCaseImpl.h */,
 				4F646A7A26B7F08500BEDB38 /* DataCacheUseCaseImpl.m */,
@@ -2755,6 +2789,7 @@
 			children = (
 				4FDDE4C026F7B9000022F87C /* HSCardUseCaseTest.m */,
 				4FDDE4C226F7BC360022F87C /* HSDeckUseCaseTest.m */,
+				4FA8F49327D29ED200569A81 /* HSCardBackUseCaseTest.m */,
 				4FDDE4C426F7BDD80022F87C /* DataCacheUseCaseTest.m */,
 				4FDDE4C626F7C0030022F87C /* PrefsUseCaseTest.m */,
 			);
@@ -3562,6 +3597,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4FA8F48B27D2996700569A81 /* HSCardBackRepositoryImpl.h in Headers */,
 				4F7F583B2724303B0080D6C3 /* LocalDeckRepository.h in Headers */,
 				4FAA89DC26A426E700572BB4 /* HSCardUseCaseImpl.h in Headers */,
 				4F273FE827AE72FF00F6D3B8 /* HSCardSpellSchool.h in Headers */,
@@ -3610,13 +3646,16 @@
 				4FFDD67A26CAD40E008E5B45 /* HSDeck.h in Headers */,
 				4F7F584D272430830080D6C3 /* DataCacheUseCase.h in Headers */,
 				4FFDD67026CACE97008E5B45 /* LocalDeckRepositoryImpl.h in Headers */,
+				4FA8F48527D2955F00569A81 /* HSCardBack.h in Headers */,
 				4FAA89E026A42A1500572BB4 /* BlizzardAPIRepositoryImpl.h in Headers */,
 				4F7F581527242F7C0080D6C3 /* DataCache.h in Headers */,
+				4FA8F49227D29C9700569A81 /* HSCardBackUseCase.h in Headers */,
 				4FB85DFB27CE94B30056AFE3 /* NSURL+isEmpty.h in Headers */,
 				4F646A7626B7E8C100BEDB38 /* DataCacheRepositoryImpl.h in Headers */,
 				4F273FF427AE734D00F6D3B8 /* HSCardBackCategory.h in Headers */,
 				4F273FCC27AE725500F6D3B8 /* HSCardSetGroups.h in Headers */,
 				4F7F581827242F9E0080D6C3 /* BlizzardHSAPILocale.h in Headers */,
+				4FA8F49027D29C9300569A81 /* HSCardBackUseCaseImpl.h in Headers */,
 				4F2251932789E72E0004DD8D /* NSDictionary+combine.h in Headers */,
 				4F27400227AEB87D00F6D3B8 /* HSMetaDataUseCaseImpl.h in Headers */,
 				4F273FB427ADC5B000F6D3B8 /* NSSet+hasValuesWhenStringType.h in Headers */,
@@ -3632,6 +3671,7 @@
 				4F7F58372724303B0080D6C3 /* HSCardRepository.h in Headers */,
 				4F7F58382724303B0080D6C3 /* PrefsRepository.h in Headers */,
 				4F7F581C27242FBE0080D6C3 /* HSCard.h in Headers */,
+				4FA8F48827D2991700569A81 /* HSCardBackRepository.h in Headers */,
 				4F7F5832272430260080D6C3 /* HSDeckFormat.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3980,6 +4020,7 @@
 				4F03F56526C7A6AF00FC9155 /* PrefsUseCaseImpl.m in Sources */,
 				4F6A13AE26B26F0E0089A13A /* HSCardSort.m in Sources */,
 				4FFDD68526CADEEA008E5B45 /* HSDeckRepositoryImpl.m in Sources */,
+				4FA8F48627D2955F00569A81 /* HSCardBack.m in Sources */,
 				4F646A7C26B7F08500BEDB38 /* DataCacheUseCaseImpl.m in Sources */,
 				4F273FB527ADC5B000F6D3B8 /* NSSet+hasValuesWhenStringType.m in Sources */,
 				4F03F55826C79C2D00FC9155 /* PrefsRepositoryImpl.m in Sources */,
@@ -3987,9 +4028,11 @@
 				4F34386526A3700C001161FE /* BlizzardAPIRegionHost.m in Sources */,
 				4FB8510326C18DE200E3C89D /* NSManagedObject+_fetchRequest.m in Sources */,
 				4F2251942789E72E0004DD8D /* NSDictionary+combine.m in Sources */,
+				4FA8F48C27D2996700569A81 /* HSCardBackRepositoryImpl.m in Sources */,
 				4F273FE927AE72FF00F6D3B8 /* HSCardSpellSchool.m in Sources */,
 				4F273FD127AE726200F6D3B8 /* HSCardGameMode.m in Sources */,
 				4FFDD66926CACB30008E5B45 /* LocalDeckModel.xcdatamodeld in Sources */,
+				4FA8F49127D29C9300569A81 /* HSCardBackUseCaseImpl.m in Sources */,
 				4F27400327AEB87D00F6D3B8 /* HSMetaDataUseCaseImpl.m in Sources */,
 				4F414B0126CED5480003A0CF /* SemaphoreCondition.m in Sources */,
 				4F273FC527AE720700F6D3B8 /* HSMetaData.m in Sources */,
@@ -4030,6 +4073,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4FDDE4C126F7B9000022F87C /* HSCardUseCaseTest.m in Sources */,
+				4FA8F49427D29ED200569A81 /* HSCardBackUseCaseTest.m in Sources */,
 				4FDDE4C326F7BC360022F87C /* HSDeckUseCaseTest.m in Sources */,
 				4FDDE4C726F7C0030022F87C /* PrefsUseCaseTest.m in Sources */,
 				4FDDE4C526F7BDD80022F87C /* DataCacheUseCaseTest.m in Sources */,

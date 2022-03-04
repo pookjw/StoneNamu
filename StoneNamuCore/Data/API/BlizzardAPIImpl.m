@@ -24,20 +24,22 @@ static NSString * const BlizzardHSAPIAccessToken = @"access_token";
     components.host = NSStringForAPIFromRegionHost(regionHost);
     components.path = path;
     
+    NSMutableArray<NSURLQueryItem *> *queryItems = [NSMutableArray<NSURLQueryItem *> new];
+    
     if (options) {
-        NSMutableArray<NSURLQueryItem *> *queryItems = [NSMutableArray<NSURLQueryItem *> new];
-        
         [options enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
             NSURLQueryItem *queryItem = [[NSURLQueryItem alloc] initWithName:key value:obj];
             [queryItems addObject:queryItem];
             [queryItem release];
         }];
-        
-        [queryItems addObject:[[[NSURLQueryItem alloc] initWithName:BlizzardHSAPIAccessToken value:accessToken] autorelease]];
-        
-        components.queryItems = queryItems;
-        [queryItems release];
     }
+    
+    NSURLQueryItem *tokenQueryItem = [[NSURLQueryItem alloc] initWithName:BlizzardHSAPIAccessToken value:accessToken];
+    [queryItems addObject:tokenQueryItem];
+    [tokenQueryItem release];
+    
+    components.queryItems = queryItems;
+    [queryItems release];
     
     NSURL *url = components.URL;
     NSLog(@"%@", url.absoluteString);

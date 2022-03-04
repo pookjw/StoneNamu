@@ -50,6 +50,7 @@
 }
 
 - (void)dealloc {
+    [_secondaryText release];
     [_childHSCard release];
     [_imageURL release];
     [super dealloc];

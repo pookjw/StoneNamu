@@ -14,6 +14,11 @@
 
 @implementation PrefsUseCaseTest
 
+- (void)dealloc {
+    [_prefsUseCase release];
+    [super dealloc];
+}
+
 - (void)setUp {
     [super setUp];
     

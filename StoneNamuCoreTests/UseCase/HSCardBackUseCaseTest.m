@@ -1,41 +1,41 @@
 //
-//  HSCardUseCaseTest.m
+//  HSCardBackUseCaseTest.m
 //  StoneNamuCoreTests
 //
-//  Created by Jinwoo Kim on 9/20/21.
+//  Created by Jinwoo Kim on 3/5/22.
 //
 
 #import <XCTest/XCTest.h>
-#import <StoneNamuCore/HSCardUseCaseImpl.h>
+#import <StoneNamuCore/HSCardBackUseCaseImpl.h>
 
-@interface HSCardUseCaseTest : XCTestCase
-@property (retain) id<HSCardUseCase> _Nullable hsCardUseCase;
+@interface HSCardBackUseCaseTest : XCTestCase
+@property (retain) id<HSCardBackUseCase> _Nullable hsCardBackUseCase;
 @end
 
-@implementation HSCardUseCaseTest
+@implementation HSCardBackUseCaseTest
 
 - (void)dealloc {
-    [_hsCardUseCase release];
+    [_hsCardBackUseCase release];
     [super dealloc];
 }
 
 - (void)setUp {
     [super setUp];
     
-    HSCardUseCaseImpl *hsCardUseCase = [HSCardUseCaseImpl new];
-    self.hsCardUseCase = hsCardUseCase;
-    [hsCardUseCase release];
+    HSCardBackUseCaseImpl *hsCardBackUseCase = [HSCardBackUseCaseImpl new];
+    self.hsCardBackUseCase = hsCardBackUseCase;
+    [hsCardBackUseCase release];
 }
 
 - (void)tearDown {
     [super tearDown];
-    self.hsCardUseCase = nil;
+    self.hsCardBackUseCase = nil;
 }
 
 - (void)testFetchWithOptions {
     XCTestExpectation *expectation = [XCTestExpectation new];
     
-    [self.hsCardUseCase fetchWithOptions:nil completionHandler:^(NSArray<HSCard *> * _Nullable hsCards, NSNumber * _Nullable pageCount, NSNumber * _Nullable page, NSError * _Nullable error) {
+    [self.hsCardBackUseCase fetchWithOptions:nil completionHandler:^(NSArray<HSCardBack *> * _Nullable hsCardBacks, NSNumber * _Nullable pageCount, NSNumber * _Nullable page, NSError * _Nullable error) {
         XCTAssertNil(error);
         [expectation fulfill];
     }];
@@ -51,9 +51,9 @@
 - (void)testFetchWithIdOrSlug {
     XCTestExpectation *expectation = [XCTestExpectation new];
     
-    [self.hsCardUseCase fetchWithIdOrSlug:[@13879 stringValue] withOptions:nil completionHandler:^(HSCard * _Nullable hsCard, NSError * _Nullable error) {
+    [self.hsCardBackUseCase fetchWithIdOrSlug:@"150" withOptions:nil completionHandler:^(HSCardBack * _Nullable hsCardBack, NSError * _Nullable error) {
         XCTAssertNil(error);
-        XCTAssertNotNil(hsCard);
+        XCTAssertNotNil(hsCardBack);
         [expectation fulfill];
     }];
     

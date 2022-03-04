@@ -50,12 +50,15 @@ FOUNDATION_EXPORT const unsigned char StoneNamuCoreVersionString[];
 #import <StoneNamuCore/HSCardSort.h>
 #import <StoneNamuCore/HSDeck.h>
 #import <StoneNamuCore/HSDeckFormat.h>
+#import <StoneNamuCore/HSCardBack.h>
 #import <StoneNamuCore/HSMetaDataUseCase.h>
 #import <StoneNamuCore/HSMetaDataUseCaseImpl.h>
 #import <StoneNamuCore/HSCardUseCase.h>
 #import <StoneNamuCore/HSCardUseCaseImpl.h>
 #import <StoneNamuCore/HSDeckUseCase.h>
 #import <StoneNamuCore/HSDeckUseCaseImpl.h>
+#import <StoneNamuCore/HSCardBackUseCase.h>
+#import <StoneNamuCore/HSCardBackUseCaseImpl.h>
 #import <StoneNamuCore/DataCacheUseCase.h>
 #import <StoneNamuCore/DataCacheUseCaseImpl.h>
 #import <StoneNamuCore/PrefsUseCase.h>

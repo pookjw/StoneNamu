@@ -56,6 +56,7 @@
 }
 
 - (void)dealloc {
+    [_secondaryText release];
     [_childHSCard release];
     [_hsCardGameModeSlugType release];
     [_imageURL release];

@@ -39,6 +39,8 @@ static BlizzardHSAPIOptionType const BlizzardHSAPIOptionTypeIds = @"ids";
 static BlizzardHSAPIOptionType const BlizzardHSAPIOptionTypeCode = @"code";
 static BlizzardHSAPIOptionType const BlizzardHSAPIOptionTypeHero = @"hero";
 
+static BlizzardHSAPIOptionType const BlizzardHSAPIOptionTypeCardBackCategory = @"cardBackCategory";
+
 NSDictionary<BlizzardHSAPIOptionType, NSSet<NSString *> *> *BlizzardHSAPIDefaultOptionsFromHSCardTypeSlugType(HSCardTypeSlugType);
 NSDictionary<BlizzardHSAPIOptionType, NSSet<NSString *> *> *BlizzardConstructedHSAPIDefaultOptionsFromHSDeckFormat(HSDeckFormat);
 
