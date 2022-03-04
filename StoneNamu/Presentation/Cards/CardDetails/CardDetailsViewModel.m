@@ -218,6 +218,7 @@
 }
 
 - (BOOL)loadUpgradedCardFromHSCard:(HSCard *)hsCard {
+    if (![HSCardGameModeSlugTypeBattlegrounds isEqualToString:self.hsCardGameModeSlugType]) return NO;
     NSNumber * _Nullable upgradeId = hsCard.battlegroundsUpgradeId;
     if (upgradeId == nil) return NO;
     
