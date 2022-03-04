@@ -20,6 +20,9 @@ NSArray<NSString *> *blizzardHSAPILocales(void) {
         BlizzardHSAPILocaleRuRU,
         BlizzardHSAPILocaleZhCN,
         BlizzardHSAPILocaleEsES,
-        BlizzardHSAPILocaleZhTW
+        BlizzardHSAPILocaleEsMx,
+        BlizzardHSAPILocaleZhTW,
+        BlizzardHSAPILocalePtBR,
+        BlizzardHSAPILocaleThTH
     ];
 }

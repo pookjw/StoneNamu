@@ -52,6 +52,7 @@
     [self configureViewModel];
     [self configureDescriptionLabel];
     [self bind];
+    [self configureMenuItems];
     [self.viewModel requestPrefs];
 }
 
@@ -94,35 +95,6 @@
     NSMenu *localeMenu = [NSMenu new];
     localeMenuButton.menu = localeMenu;
     
-    NSMutableArray<StorableMenuItem *> *itemArray = [NSMutableArray<StorableMenuItem *> new];
-    
-    [blizzardHSAPILocales() enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        StorableMenuItem *item = [[StorableMenuItem alloc] initWithTitle:[ResourcesService localizationForBlizzardHSAPILocale:obj]
-                                                                  action:@selector(didTriggerLocaleItem:)
-                                                           keyEquivalent:@""
-                                                                userInfo:@{@"key": obj}];
-        item.target = self;
-        
-        [itemArray addObject:item];
-        [item release];
-    }];
-    
-    [itemArray sortUsingComparator:^NSComparisonResult(NSMenuItem *obj1, NSMenuItem *obj2) {
-        return [obj1.title compare:obj2.title];
-    }];
-    
-    StorableMenuItem *autoItem = [[StorableMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyAuto]
-                                                                  action:@selector(didTriggerLocaleItem:)
-                                                           keyEquivalent:@""
-                                                                userInfo:nil];
-    autoItem.target = self;
-    
-    [itemArray insertObject:autoItem atIndex:0];
-    [autoItem release];
-    
-    localeMenu.itemArray = itemArray;
-    [itemArray release];
-    
     //
     
     self.localeLabel = localeLabel;
@@ -153,35 +125,6 @@
     
     NSMenu *regionMenu = [NSMenu new];
     regionMenuButton.menu = regionMenu;
-    
-    NSMutableArray<StorableMenuItem *> *itemArray = [NSMutableArray<StorableMenuItem *> new];
-    
-    [blizzardHSAPIRegionsForAPI() enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        StorableMenuItem *menuItem = [[StorableMenuItem alloc] initWithTitle:[ResourcesService localizationForBlizzardAPIRegionHost:BlizzardAPIRegionHostFromNSStringForAPI(obj)]
-                                                                      action:@selector(didTriggerRegionItem:)
-                                                               keyEquivalent:@""
-                                                                    userInfo:@{@"key": obj}];
-        menuItem.target = self;
-        
-        [itemArray addObject:menuItem];
-        [menuItem release];
-    }];
-    
-    [itemArray sortUsingComparator:^NSComparisonResult(NSMenuItem *obj1, NSMenuItem *obj2) {
-        return [obj1.title compare:obj2.title];
-    }];
-    
-    StorableMenuItem *autoItem = [[StorableMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyAuto]
-                                                                  action:@selector(didTriggerRegionItem:)
-                                                           keyEquivalent:@""
-                                                                userInfo:nil];
-    autoItem.target = self;
-    
-    [itemArray insertObject:autoItem atIndex:0];
-    [autoItem release];
-    
-    regionMenu.itemArray = itemArray;
-    [itemArray release];
     
     //
     
@@ -215,6 +158,66 @@
     PrefsCardsViewModel *viewModel = [PrefsCardsViewModel new];
     self.viewModel = viewModel;
     [viewModel release];
+}
+
+- (void)configureMenuItems {
+    [self.viewModel localesWithCompletion:^(NSArray<BlizzardHSAPILocale> * _Nonnull locales) {
+        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+            NSMutableArray<StorableMenuItem *> *itemArray = [NSMutableArray<StorableMenuItem *> new];
+            
+            [locales enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                StorableMenuItem *item = [[StorableMenuItem alloc] initWithTitle:[ResourcesService localizationForBlizzardHSAPILocale:obj]
+                                                                          action:@selector(didTriggerLocaleItem:)
+                                                                   keyEquivalent:@""
+                                                                        userInfo:@{@"key": obj}];
+                item.target = self;
+                
+                [itemArray addObject:item];
+                [item release];
+            }];
+            
+            StorableMenuItem *autoItem = [[StorableMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyAuto]
+                                                                          action:@selector(didTriggerLocaleItem:)
+                                                                   keyEquivalent:@""
+                                                                        userInfo:nil];
+            autoItem.target = self;
+            
+            [itemArray insertObject:autoItem atIndex:0];
+            [autoItem release];
+            
+            self.localeMenu.itemArray = itemArray;
+            [itemArray release];
+        }];
+    }];
+    
+    [self.viewModel regionsWithCompletion:^(NSArray<NSString *> * _Nonnull regions) {
+        [NSOperationQueue.mainQueue addOperationWithBlock:^{
+            NSMutableArray<StorableMenuItem *> *itemArray = [NSMutableArray<StorableMenuItem *> new];
+            
+            [regions enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                StorableMenuItem *menuItem = [[StorableMenuItem alloc] initWithTitle:[ResourcesService localizationForBlizzardAPIRegionHost:BlizzardAPIRegionHostFromNSStringForAPI(obj)]
+                                                                              action:@selector(didTriggerRegionItem:)
+                                                                       keyEquivalent:@""
+                                                                            userInfo:@{@"key": obj}];
+                menuItem.target = self;
+                
+                [itemArray addObject:menuItem];
+                [menuItem release];
+            }];
+            
+            StorableMenuItem *autoItem = [[StorableMenuItem alloc] initWithTitle:[ResourcesService localizationForKey:LocalizableKeyAuto]
+                                                                          action:@selector(didTriggerRegionItem:)
+                                                                   keyEquivalent:@""
+                                                                        userInfo:nil];
+            autoItem.target = self;
+            
+            [itemArray insertObject:autoItem atIndex:0];
+            [autoItem release];
+            
+            self.regionMenu.itemArray = itemArray;
+            [itemArray release];
+        }];
+    }];
 }
 
 - (void)bind {

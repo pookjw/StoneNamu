@@ -8,6 +8,7 @@
 #import "PrefsLocaleViewModel.h"
 #import <StoneNamuCore/StoneNamuCore.h>
 #import "UICollectionViewDiffableDataSource+applySnapshotAndWait.h"
+#import "NSDiffableDataSourceSnapshot+sort.h"
 
 @interface PrefsLocaleViewModel ()
 @property (retain) NSOperationQueue *queue;
@@ -99,6 +100,10 @@
         }
         
         [sectionModel release];
+        
+        [snapshot sortItemsWithSectionIdentifiers:snapshot.sectionIdentifiers usingComparator:^NSComparisonResult(PrefsLocaleItemModel * _Nonnull obj1, PrefsLocaleItemModel * _Nonnull obj2) {
+            return [obj1.primaryText compare:obj2.primaryText];
+        }];
         
         [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
             [self.prefsUseCase fetchWithCompletion:^(Prefs * _Nullable prefs, NSError * _Nullable error) {

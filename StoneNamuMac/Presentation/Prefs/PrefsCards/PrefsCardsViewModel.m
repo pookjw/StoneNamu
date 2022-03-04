@@ -6,6 +6,7 @@
 //
 
 #import "PrefsCardsViewModel.h"
+#import <StoneNamuResources/StoneNamuResources.h>
 
 @interface PrefsCardsViewModel ()
 @property (retain) NSOperationQueue *queue;
@@ -89,6 +90,30 @@
         [self.prefsUseCase saveChanges];
         [self.hsMetaDataUseCase clearCache];
 //        [self.dataCacheUseCase deleteAllDataCaches];
+    }];
+}
+
+- (void)localesWithCompletion:(PrefsCardsViewModelLocalesCompletion)completion {
+    [self.queue addOperationWithBlock:^{
+        NSArray<BlizzardHSAPILocale> *sortedLocales = [blizzardHSAPILocales() sortedArrayUsingComparator:^NSComparisonResult(BlizzardHSAPILocale _Nonnull obj1, BlizzardHSAPILocale _Nonnull obj2) {
+            NSString *lhs = [ResourcesService localizationForBlizzardHSAPILocale:obj1];
+            NSString *rhs = [ResourcesService localizationForBlizzardHSAPILocale:obj2];
+            return [lhs compare:rhs];
+        }];
+        
+        completion(sortedLocales);
+    }];
+}
+
+- (void)regionsWithCompletion:(PrefsCardsViewModelRegionsCompletion)completion {
+    [self.queue addOperationWithBlock:^{
+        NSArray<NSString *> *sortedRegions = [blizzardHSAPIRegionsForAPI() sortedArrayUsingComparator:^NSComparisonResult(NSString * _Nonnull obj1, NSString * _Nonnull obj2) {
+            NSString *lhs = [ResourcesService localizationForBlizzardAPIRegionHost:BlizzardAPIRegionHostFromNSStringForAPI(obj1)];
+            NSString *rhs = [ResourcesService localizationForBlizzardAPIRegionHost:BlizzardAPIRegionHostFromNSStringForAPI(obj2)];
+            return [lhs compare:rhs];
+        }];
+        
+        completion(sortedRegions);
     }];
 }
 
