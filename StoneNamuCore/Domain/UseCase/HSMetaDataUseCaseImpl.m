@@ -262,6 +262,7 @@
     [hsMetaData.classes enumerateObjectsUsingBlock:^(HSCardClass * _Nonnull obj, BOOL * _Nonnull stop) {
         classes[obj.slug] = obj.name;
     }];
+    [classes removeObjectForKey:HSCardClassSlugTypeNeutral];
     
     NSMutableDictionary<NSString *, NSString *> *classicClasses = [classes mutableCopy];
     [classicClasses removeObjectForKey:HSCardClassSlugTypeDemonHunder];
