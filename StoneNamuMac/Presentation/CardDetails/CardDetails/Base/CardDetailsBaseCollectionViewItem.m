@@ -7,7 +7,6 @@
 
 #import "CardDetailsBaseCollectionViewItem.h"
 #import "VibrancyTextField.h"
-#import "NSString+attributedStringWhenHTML.h"
 #import <StoneNamuResources/StoneNamuResources.h>
 
 @interface CardDetailsBaseCollectionViewItem ()
@@ -37,7 +36,7 @@
 - (void)configureWithLeadingText:(NSString *)leadingText trailingText:(NSString *)trailingText {
     self.leadingLabel.stringValue = leadingText;
     
-    NSString *_trailingText = trailingText.attributedStringWhenHTML.string;
+    NSString *_trailingText = trailingText;
     
     if ((_trailingText == nil) || ([_trailingText isEqualToString:@""])) {
         self.trailingLabel.stringValue = [ResourcesService localizationForKey:LocalizableKeyEmpty];

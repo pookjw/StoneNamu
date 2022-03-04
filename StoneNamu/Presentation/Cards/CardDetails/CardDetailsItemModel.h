@@ -32,7 +32,7 @@ typedef NS_ENUM(NSUInteger, CardDetailsItemModelType) {
 @property (readonly) BOOL isGold;
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
-- (instancetype)initWithType:(CardDetailsItemModelType)type value:(NSString * _Nullable)value;
+- (instancetype)initWithType:(CardDetailsItemModelType)type secondaryText:(NSString * _Nullable)secondaryText;
 - (instancetype)initWithType:(CardDetailsItemModelType)type childHSCard:(HSCard *)childHSCard imageURL:(NSURL * _Nullable)imageURL isGold:(BOOL)isGold;
 @end
 

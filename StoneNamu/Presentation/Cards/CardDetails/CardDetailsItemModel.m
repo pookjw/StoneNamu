@@ -8,19 +8,16 @@
 #import "CardDetailsItemModel.h"
 #import <StoneNamuResources/StoneNamuResources.h>
 
-@interface CardDetailsItemModel ()
-@property (copy) NSString * _Nullable value;
-@end
-
 @implementation CardDetailsItemModel
 
-- (instancetype)initWithType:(CardDetailsItemModelType)type value:(NSString * _Nullable)value {
+- (instancetype)initWithType:(CardDetailsItemModelType)type secondaryText:(NSString * _Nullable)secondaryText {
     self = [self init];
     
     if (self) {
         self->_type = type;
         
-        self.value = value;
+        [self->_secondaryText release];
+        self->_secondaryText = [secondaryText copy];
         
         [self->_childHSCard release];
         self->_childHSCard = nil;
@@ -40,8 +37,6 @@
     if (self) {
         self->_type = type;
         
-        self.value = nil;
-        
         [self->_childHSCard release];
         self->_childHSCard = [childHSCard copy];
         
@@ -55,7 +50,6 @@
 }
 
 - (void)dealloc {
-    [_value release];
     [_childHSCard release];
     [_imageURL release];
     [super dealloc];
@@ -104,10 +98,6 @@
         default:
             return nil;
     }
-}
-
-- (NSString * _Nullable)secondaryText {
-    return self.value;
 }
 
 @end

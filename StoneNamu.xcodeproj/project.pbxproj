@@ -206,6 +206,8 @@
 		4F73EB7A278220D500D65FDB /* FontKey.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F73EB7927821F0800D65FDB /* FontKey.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4F74712C26C175FE001C45C4 /* CardDetailsChildContentConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F74712B26C175FE001C45C4 /* CardDetailsChildContentConfiguration.m */; };
 		4F74712F26C1760C001C45C4 /* CardDetailsChildContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F74712E26C1760C001C45C4 /* CardDetailsChildContentView.m */; };
+		4F7A0EF727D196E600797F5A /* NSString+attributedStringWhenHTML.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F7A0EF527D196E600797F5A /* NSString+attributedStringWhenHTML.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4F7A0EF827D196E600797F5A /* NSString+attributedStringWhenHTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F7A0EF627D196E600797F5A /* NSString+attributedStringWhenHTML.m */; };
 		4F7C688827973AC600A56D1C /* NSApplication+actualWindows.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F7C688727973AC600A56D1C /* NSApplication+actualWindows.m */; };
 		4F7C688B27973D1A00A56D1C /* NSImage+imageWithGrayScale.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F7C688A27973D1A00A56D1C /* NSImage+imageWithGrayScale.m */; };
 		4F7C689327974D7000A56D1C /* VibrancyTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F7C689127974D6F00A56D1C /* VibrancyTextField.m */; };
@@ -332,8 +334,6 @@
 		4FB8510326C18DE200E3C89D /* NSManagedObject+_fetchRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FB8510126C18DE200E3C89D /* NSManagedObject+_fetchRequest.m */; };
 		4FB85DFB27CE94B30056AFE3 /* NSURL+isEmpty.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FB85DF927CE94B20056AFE3 /* NSURL+isEmpty.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4FB85DFC27CE94B30056AFE3 /* NSURL+isEmpty.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FB85DFA27CE94B30056AFE3 /* NSURL+isEmpty.m */; };
-		4FB8C35E2797E64600D06E7D /* NSString+attributedStringWhenHTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F7C68A127975F3600A56D1C /* NSString+attributedStringWhenHTML.m */; };
-		4FB8C3612797EA0800D06E7D /* NSString+attributedStringWhenHTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FB8C35F2797EA0800D06E7D /* NSString+attributedStringWhenHTML.m */; };
 		4FB8C3682797F36400D06E7D /* NSCollectionView+setOrthogonalScrollViewDrawsBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FB8C3672797F36400D06E7D /* NSCollectionView+setOrthogonalScrollViewDrawsBackground.m */; };
 		4FC094F926CD712100A7D373 /* HSDeckUseCaseImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FC094F726CD712100A7D373 /* HSDeckUseCaseImpl.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4FC094FA26CD712100A7D373 /* HSDeckUseCaseImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC094F826CD712100A7D373 /* HSDeckUseCaseImpl.m */; };
@@ -877,6 +877,8 @@
 		4F74712B26C175FE001C45C4 /* CardDetailsChildContentConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardDetailsChildContentConfiguration.m; sourceTree = "<group>"; };
 		4F74712D26C1760C001C45C4 /* CardDetailsChildContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardDetailsChildContentView.h; sourceTree = "<group>"; };
 		4F74712E26C1760C001C45C4 /* CardDetailsChildContentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardDetailsChildContentView.m; sourceTree = "<group>"; };
+		4F7A0EF527D196E600797F5A /* NSString+attributedStringWhenHTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+attributedStringWhenHTML.h"; sourceTree = "<group>"; };
+		4F7A0EF627D196E600797F5A /* NSString+attributedStringWhenHTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+attributedStringWhenHTML.m"; sourceTree = "<group>"; };
 		4F7C688627973AC600A56D1C /* NSApplication+actualWindows.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSApplication+actualWindows.h"; sourceTree = "<group>"; };
 		4F7C688727973AC600A56D1C /* NSApplication+actualWindows.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSApplication+actualWindows.m"; sourceTree = "<group>"; };
 		4F7C688927973D1A00A56D1C /* NSImage+imageWithGrayScale.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSImage+imageWithGrayScale.h"; sourceTree = "<group>"; };
@@ -889,8 +891,6 @@
 		4F7C689B27975D1900A56D1C /* CardDetailsSeparatorBox.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardDetailsSeparatorBox.h; sourceTree = "<group>"; };
 		4F7C689C27975D1900A56D1C /* CardDetailsSeparatorBox.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardDetailsSeparatorBox.m; sourceTree = "<group>"; };
 		4F7C689E27975D1F00A56D1C /* CardDetailsSeparatorBox.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CardDetailsSeparatorBox.xib; sourceTree = "<group>"; };
-		4F7C68A027975F3600A56D1C /* NSString+attributedStringWhenHTML.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+attributedStringWhenHTML.h"; sourceTree = "<group>"; };
-		4F7C68A127975F3600A56D1C /* NSString+attributedStringWhenHTML.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+attributedStringWhenHTML.m"; sourceTree = "<group>"; };
 		4F7EC54226EB26BE00A7758D /* UIView+imageRendered.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+imageRendered.h"; sourceTree = "<group>"; };
 		4F7EC54326EB26BE00A7758D /* UIView+imageRendered.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+imageRendered.m"; sourceTree = "<group>"; };
 		4F7EC54526EB290B00A7758D /* DeckImageRenderService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckImageRenderService.h; sourceTree = "<group>"; };
@@ -1080,8 +1080,6 @@
 		4FB8510426C18EDB00E3C89D /* PrefsRepository.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefsRepository.h; sourceTree = "<group>"; };
 		4FB85DF927CE94B20056AFE3 /* NSURL+isEmpty.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSURL+isEmpty.h"; sourceTree = "<group>"; };
 		4FB85DFA27CE94B30056AFE3 /* NSURL+isEmpty.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSURL+isEmpty.m"; sourceTree = "<group>"; };
-		4FB8C35F2797EA0800D06E7D /* NSString+attributedStringWhenHTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+attributedStringWhenHTML.m"; sourceTree = "<group>"; };
-		4FB8C3602797EA0800D06E7D /* NSString+attributedStringWhenHTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+attributedStringWhenHTML.h"; sourceTree = "<group>"; };
 		4FB8C3662797F36400D06E7D /* NSCollectionView+setOrthogonalScrollViewDrawsBackground.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSCollectionView+setOrthogonalScrollViewDrawsBackground.h"; sourceTree = "<group>"; };
 		4FB8C3672797F36400D06E7D /* NSCollectionView+setOrthogonalScrollViewDrawsBackground.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSCollectionView+setOrthogonalScrollViewDrawsBackground.m"; sourceTree = "<group>"; };
 		4FC094F626CD711000A7D373 /* HSDeckUseCase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSDeckUseCase.h; sourceTree = "<group>"; };
@@ -1485,8 +1483,6 @@
 				4FDDE4B426F762FC0022F87C /* UICollectionViewDiffableDataSource+applySnapshotAndWait.m */,
 				4F248384271DA64C00A231BF /* UIView+floatingConstraints.h */,
 				4F248385271DA64C00A231BF /* UIView+floatingConstraints.m */,
-				4FB8C3602797EA0800D06E7D /* NSString+attributedStringWhenHTML.h */,
-				4FB8C35F2797EA0800D06E7D /* NSString+attributedStringWhenHTML.m */,
 				4FB238DB27CA1632001A4065 /* UINavigationController+completion.h */,
 				4FB238DC27CA1632001A4065 /* UINavigationController+completion.m */,
 				4FB238DE27CA176D001A4065 /* UITabBarController+completion.h */,
@@ -2137,6 +2133,8 @@
 				4F273FB327ADC5B000F6D3B8 /* NSSet+hasValuesWhenStringType.m */,
 				4FB85DF927CE94B20056AFE3 /* NSURL+isEmpty.h */,
 				4FB85DFA27CE94B30056AFE3 /* NSURL+isEmpty.m */,
+				4F7A0EF527D196E600797F5A /* NSString+attributedStringWhenHTML.h */,
+				4F7A0EF627D196E600797F5A /* NSString+attributedStringWhenHTML.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -3126,8 +3124,6 @@
 				4F7C688727973AC600A56D1C /* NSApplication+actualWindows.m */,
 				4F7C688927973D1A00A56D1C /* NSImage+imageWithGrayScale.h */,
 				4F7C688A27973D1A00A56D1C /* NSImage+imageWithGrayScale.m */,
-				4F7C68A027975F3600A56D1C /* NSString+attributedStringWhenHTML.h */,
-				4F7C68A127975F3600A56D1C /* NSString+attributedStringWhenHTML.m */,
 				4FB8C3662797F36400D06E7D /* NSCollectionView+setOrthogonalScrollViewDrawsBackground.h */,
 				4FB8C3672797F36400D06E7D /* NSCollectionView+setOrthogonalScrollViewDrawsBackground.m */,
 				4FDEAB4E27A52CB00087A0F2 /* NSView+DraggingNotification.h */,
@@ -3446,6 +3442,7 @@
 				4F7F581B27242FAA0080D6C3 /* BlizzardHSAPIKeys.h in Headers */,
 				4F273FE427AE72F500F6D3B8 /* HSCardMinionType.h in Headers */,
 				4F646A7126B7DFB500BEDB38 /* CoreDataStackImpl.h in Headers */,
+				4F7A0EF727D196E600797F5A /* NSString+attributedStringWhenHTML.h in Headers */,
 				4FFDD67426CAD1EE008E5B45 /* LocalDeckUseCaseImpl.h in Headers */,
 				4F7F5850272430AF0080D6C3 /* CoreDataStack.h in Headers */,
 				4F273FC427AE720700F6D3B8 /* HSMetaData.h in Headers */,
@@ -3804,6 +3801,7 @@
 				4F273FED27AE731400F6D3B8 /* HSCardMercenaryRole.m in Sources */,
 				4F273FFA27AEB5C900F6D3B8 /* HSMetaDataRepositoryImpl.m in Sources */,
 				4FFDD67B26CAD40E008E5B45 /* HSDeck.m in Sources */,
+				4F7A0EF827D196E600797F5A /* NSString+attributedStringWhenHTML.m in Sources */,
 				4F8635ED2746AE98000EC94F /* StoneNamuError.m in Sources */,
 				4F273FE527AE72F500F6D3B8 /* HSCardMinionType.m in Sources */,
 				4F03F55E26C7A15700FC9155 /* PrefsModel.xcdatamodeld in Sources */,
@@ -3888,7 +3886,6 @@
 				4F414B0726CEF9F80003A0CF /* DeckDetailsSectionModel.m in Sources */,
 				4FB0ECE826B82AEE0020EE6C /* CardDetailsViewController.m in Sources */,
 				4F7EC55426EB2B0D00A7758D /* DeckImageRenderServiceItemModel.m in Sources */,
-				4FB8C3612797EA0800D06E7D /* NSString+attributedStringWhenHTML.m in Sources */,
 				4F70E292272439940076735B /* StoneNamuErrors.m in Sources */,
 				4F8F976526D469700024FC06 /* InsetsLabel.m in Sources */,
 				4FD87F992719CD71003EED4B /* MainListItemModel.m in Sources */,
@@ -4031,7 +4028,6 @@
 				4FD43048278202AF00E7F23A /* DeckImageRenderServiceItemModel.m in Sources */,
 				4F8C051127C3BBC200216B54 /* DeckAddCardOptionsToolbar.m in Sources */,
 				F31580ED2740D69000DBD6D4 /* PrefsWindow.m in Sources */,
-				4FB8C35E2797E64600D06E7D /* NSString+attributedStringWhenHTML.m in Sources */,
 				4FC402B22738686500D25523 /* AppMenuItem.m in Sources */,
 				4F883F7127300BCB00AF0048 /* NSTouchBarItemIdentifierCardOptionType+BlizzardHSAPIOptionType.m in Sources */,
 				4F83FBDC272E6F5D002D2387 /* DynamicMenuToolbarItem.m in Sources */,

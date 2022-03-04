@@ -7,7 +7,6 @@
 
 #import "CardDetailsBasicContentView.h"
 #import "CardDetailsBasicContentConfiguration.h"
-#import "NSString+attributedStringWhenHTML.h"
 #import "InsetsLabel.h"
 #import <StoneNamuResources/StoneNamuResources.h>
 
@@ -48,15 +47,16 @@
     
     visualEffectView.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview:visualEffectView];
-    [NSLayoutConstraint activateConstraints:@[
-        [visualEffectView.topAnchor constraintEqualToAnchor:self.topAnchor],
-        [visualEffectView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
-        [visualEffectView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor]
-    ]];
     
     NSLayoutConstraint *bottomLayout = [visualEffectView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor];
     bottomLayout.priority = UILayoutPriorityDefaultHigh;
-    bottomLayout.active = YES;
+    
+    [NSLayoutConstraint activateConstraints:@[
+        [visualEffectView.topAnchor constraintEqualToAnchor:self.topAnchor],
+        [visualEffectView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
+        [visualEffectView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
+        bottomLayout
+    ]];
     
     self.visualEffectView = visualEffectView;
     [visualEffectView release];
@@ -157,7 +157,7 @@
             self.leadingLabel.text = leadingText;
         }
         
-        NSString * _Nullable trailingText = content.trailingText.attributedStringWhenHTML.string;
+        NSString * _Nullable trailingText = content.trailingText;
         
         if ((trailingText == nil) || ([trailingText isEqualToString:@""])) {
             self.trailingLabel.text = [ResourcesService localizationForKey:LocalizableKeyEmpty];

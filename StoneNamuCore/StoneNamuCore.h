@@ -27,6 +27,7 @@ FOUNDATION_EXPORT const unsigned char StoneNamuCoreVersionString[];
 #import <StoneNamuCore/NSNumber+stringWithSepearatedDecimalNumber.h>
 #import <StoneNamuCore/NSSet+hasValuesWhenStringType.h>
 #import <StoneNamuCore/NSURL+isEmpty.h>
+#import <StoneNamuCore/NSString+attributedStringWhenHTML.h>
 #import <StoneNamuCore/LocalDeck.h>
 #import <StoneNamuCore/Prefs.h>
 #import <StoneNamuCore/BlizzardAPIRegionHost.h>

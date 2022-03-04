@@ -5,7 +5,7 @@
 //  Created by Jinwoo Kim on 1/19/22.
 //
 
-#import "NSString+attributedStringWhenHTML.h"
+#import <StoneNamuCore/NSString+attributedStringWhenHTML.h>
 
 @implementation NSString (attributedStringWhenHTML)
 

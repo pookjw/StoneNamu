@@ -111,26 +111,26 @@
                 
                 //
                 
-                CardDetailsItemModel *nameItem = [[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeName value:hsCard.name];
+                CardDetailsItemModel *nameItem = [[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeName secondaryText:hsCard.name];
                 
-                CardDetailsItemModel *flavorTextItem = [[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeFlavorText value:hsCard.flavorText];
+                CardDetailsItemModel *flavorTextItem = [[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeFlavorText secondaryText:hsCard.flavorText];
                 
-                CardDetailsItemModel *textItem = [[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeText value:hsCard.text];
+                CardDetailsItemModel *textItem = [[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeText secondaryText:hsCard.text.attributedStringWhenHTML.string];
                 
                 HSCardType * _Nullable hsCardType = [self.hsMetaDataUseCase hsCardTypeFromTypeId:hsCard.cardTypeId usingHSMetaData:hsMetaData];
-                CardDetailsItemModel *typeItem = [[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeType value:hsCardType.name];
+                CardDetailsItemModel *typeItem = [[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeType secondaryText:hsCardType.name];
                 
                 HSCardRarity * _Nullable hsCardRarity = [self.hsMetaDataUseCase hsCardRarityFromRarityId:hsCard.rarityId usingHSMetaData:hsMetaData];
-                CardDetailsItemModel *rarityItem = [[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeRarity value:hsCardRarity.name];
+                CardDetailsItemModel *rarityItem = [[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeRarity secondaryText:hsCardRarity.name];
                 
                 HSCardSet * _Nullable hsCardSet = [self.hsMetaDataUseCase hsCardSetFromSetId:hsCard.cardSetId usingHSMetaData:hsMetaData];
-                CardDetailsItemModel *setItem = [[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeSet value:hsCardSet.name];
+                CardDetailsItemModel *setItem = [[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeSet secondaryText:hsCardSet.name];
                 
-                CardDetailsItemModel *classItem = [[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeClass value:cardClassValue];
+                CardDetailsItemModel *classItem = [[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeClass secondaryText:cardClassValue];
                 
-                CardDetailsItemModel *collectibleItem = [[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeCollectible value:[ResourcesService localizationForHSCardCollectible:hsCard.collectible]];
+                CardDetailsItemModel *collectibleItem = [[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeCollectible secondaryText:[ResourcesService localizationForHSCardCollectible:hsCard.collectible]];
                 
-                CardDetailsItemModel *artistNameItem = [[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeArtist value:hsCard.artistName];
+                CardDetailsItemModel *artistNameItem = [[CardDetailsItemModel alloc] initWithType:CardDetailsItemModelTypeArtist secondaryText:hsCard.artistName];
                 
                 //
                 
