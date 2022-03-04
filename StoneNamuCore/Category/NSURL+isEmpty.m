@@ -12,7 +12,7 @@
 - (BOOL)isEmpty {
     NSString * _Nullable absoluteString = self.absoluteString;
     
-    if ((absoluteString) && (![absoluteString isEqualToString:@""])) {
+    if ((absoluteString == nil) || (![absoluteString isEqualToString:@""])) {
         return NO;
     } else {
         return YES;
