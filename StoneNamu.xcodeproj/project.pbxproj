@@ -417,6 +417,7 @@
 		4FF3E0DB26CA947D002B20EA /* OneBesideSecondarySplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF3E0DA26CA947D002B20EA /* OneBesideSecondarySplitViewController.m */; };
 		4FF5729C271DC8A5007794EE /* DynamicAnimatedTransitioning.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF5729B271DC8A5007794EE /* DynamicAnimatedTransitioning.m */; };
 		4FF676CF26AAFC6A00477272 /* CardsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF676CE26AAFC6A00477272 /* CardsViewController.m */; };
+		4FFB151427D283DC004809A8 /* NSView+setMasksToBounds.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FFB151327D283DC004809A8 /* NSView+setMasksToBounds.m */; };
 		4FFBAADB26E4FE9900DBEEDB /* UIImage+imageWithGrayScale.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FFBAADA26E4FE9900DBEEDB /* UIImage+imageWithGrayScale.m */; };
 		4FFCF80727B1D48200A89660 /* compareNullableValues.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FFCF80627B1D46500A89660 /* compareNullableValues.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4FFCF80927B1D48D00A89660 /* compareNullableValues.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FFCF80827B1D48D00A89660 /* compareNullableValues.m */; };
@@ -1250,6 +1251,8 @@
 		4FF5729B271DC8A5007794EE /* DynamicAnimatedTransitioning.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DynamicAnimatedTransitioning.m; sourceTree = "<group>"; };
 		4FF676CD26AAFC6A00477272 /* CardsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardsViewController.h; sourceTree = "<group>"; };
 		4FF676CE26AAFC6A00477272 /* CardsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardsViewController.m; sourceTree = "<group>"; };
+		4FFB151227D283DC004809A8 /* NSView+setMasksToBounds.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSView+setMasksToBounds.h"; sourceTree = "<group>"; };
+		4FFB151327D283DC004809A8 /* NSView+setMasksToBounds.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSView+setMasksToBounds.m"; sourceTree = "<group>"; };
 		4FFBAAD926E4FE9900DBEEDB /* UIImage+imageWithGrayScale.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+imageWithGrayScale.h"; sourceTree = "<group>"; };
 		4FFBAADA26E4FE9900DBEEDB /* UIImage+imageWithGrayScale.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+imageWithGrayScale.m"; sourceTree = "<group>"; };
 		4FFCF80627B1D46500A89660 /* compareNullableValues.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = compareNullableValues.h; sourceTree = "<group>"; };
@@ -3132,6 +3135,8 @@
 				4FDEAB5227A589550087A0F2 /* NSAlert+presentTextFieldAlert.m */,
 				4FDEAB6627A5B67A0087A0F2 /* NSView+viewOfClass.h */,
 				4FDEAB6727A5B67A0087A0F2 /* NSView+viewOfClass.m */,
+				4FFB151227D283DC004809A8 /* NSView+setMasksToBounds.h */,
+				4FFB151327D283DC004809A8 /* NSView+setMasksToBounds.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -4089,6 +4094,7 @@
 				4FD4E024274EE2CB0037D867 /* DeckBaseCollectionViewItem.m in Sources */,
 				F38FEE5227604C1D00A00485 /* DeckAddCardSectionModel.m in Sources */,
 				4F4738B62746BBCF000C0C85 /* ClickableCollectionViewItem.m in Sources */,
+				4FFB151427D283DC004809A8 /* NSView+setMasksToBounds.m in Sources */,
 				4FB8C3682797F36400D06E7D /* NSCollectionView+setOrthogonalScrollViewDrawsBackground.m in Sources */,
 				4F646BFA27948FFD00340C07 /* DeckDetailsSeparatorBox.m in Sources */,
 				4F2CFC0A27CB863900A3BAE4 /* BattlegroundsCardOptionsMenuFactory.m in Sources */,

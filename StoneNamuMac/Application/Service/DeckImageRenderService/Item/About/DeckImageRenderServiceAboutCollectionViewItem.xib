@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19529" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="20037" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="20037"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -13,6 +13,7 @@
             <connections>
                 <outlet property="arcaneDustImageView" destination="LdX-ZO-4OS" id="Bdd-qy-phu"/>
                 <outlet property="arcaneDustLabel" destination="3vU-84-E5D" id="WWU-jm-zUg"/>
+                <outlet property="arcaneStackView" destination="1rT-AC-rjV" id="pm4-O6-JuO"/>
                 <outlet property="deckYearLabel" destination="jHL-wA-iIH" id="yOa-Hu-zoW"/>
                 <outlet property="view" destination="PbN-X5-DWE" id="5I6-DK-CeZ"/>
             </connections>

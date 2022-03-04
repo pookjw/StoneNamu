@@ -6,12 +6,14 @@
 //
 
 #import "DeckImageRenderServiceIntroCollectionViewItem.h"
+#import "NSView+setMasksToBounds.h"
 #import <StoneNamuResources/StoneNamuResources.h>
 
 @interface DeckImageRenderServiceIntroCollectionViewItem ()
 @property (retain) IBOutlet NSBox *heroImageViewContainerBox;
 @property (retain) IBOutlet NSImageView *heroImageView;
 @property (retain) IBOutlet NSBox *backgroundBox;
+@property (retain) IBOutlet NSBox *labelsContainerBox;
 @property (retain) IBOutlet NSTextField *nameLabel;
 @property (retain) IBOutlet NSTextField *classLabel;
 @property (retain) IBOutlet NSTextField *deckFormatLabel;
@@ -29,6 +31,7 @@
     [_heroImageViewContainerBox release];
     [_heroImageView release];
     [_backgroundBox release];
+    [_labelsContainerBox release];
     [_nameLabel release];
     [_classLabel release];
     [_deckFormatLabel release];
@@ -63,26 +66,25 @@
     self.classLabel.font = [ResourcesService fontForKey:FontKeyGmarketSansTTFMedium size:18.0f];
     self.deckFormatLabel.font = [ResourcesService fontForKey:FontKeyGmarketSansTTFMedium size:18.0f];
     
+    [self.labelsContainerBox setMasksToBounds:NO recursiveToSubviews:YES];
+    
     self.nameLabel.wantsLayer = YES;
     self.nameLabel.layer.shadowRadius = 2.0f;
     self.nameLabel.layer.shadowOpacity = 1.0f;
     self.nameLabel.layer.shadowOffset = CGSizeZero;
     self.nameLabel.layer.shadowColor = NSColor.blackColor.CGColor;
-    self.nameLabel.layer.masksToBounds = NO;
     
     self.classLabel.wantsLayer = YES;
     self.classLabel.layer.shadowRadius = 2.0f;
     self.classLabel.layer.shadowOpacity = 1.0f;
     self.classLabel.layer.shadowOffset = CGSizeZero;
     self.classLabel.layer.shadowColor = NSColor.blackColor.CGColor;
-    self.classLabel.layer.masksToBounds = NO;
     
     self.deckFormatLabel.wantsLayer = YES;
     self.deckFormatLabel.layer.shadowRadius = 2.0f;
     self.deckFormatLabel.layer.shadowOpacity = 1.0f;
     self.deckFormatLabel.layer.shadowOffset = CGSizeZero;
     self.deckFormatLabel.layer.shadowColor = NSColor.blackColor.CGColor;
-    self.deckFormatLabel.layer.masksToBounds = NO;
 }
 
 @end

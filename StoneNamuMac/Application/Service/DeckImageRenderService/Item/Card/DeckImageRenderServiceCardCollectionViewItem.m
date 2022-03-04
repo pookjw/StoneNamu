@@ -7,6 +7,7 @@
 
 #import "DeckImageRenderServiceCardCollectionViewItem.h"
 #import "NSTextField+setFontSizeToFitWithMaxFontSize.h"
+#import "NSView+setMasksToBounds.h"
 #import <QuartzCore/QuartzCore.h>
 #import <StoneNamuResources/StoneNamuResources.h>
 
@@ -29,7 +30,6 @@
     [self configureManaCostBoxWidthLayout];
     [self configureCountBoxWidthLayout];
     [self configureCardImageViewGradientLayer];
-    [self configureNameLabelLayer];
     [self bind];
 }
 
@@ -80,9 +80,22 @@
 - (void)setAttributes {
     self.cardImageView.wantsLayer = YES;
     self.cardImageView.postsFrameChangedNotifications = YES;
+    
+    self.manaCostLabel.wantsLayer = YES;
+    self.manaCostLabel.layer.masksToBounds = NO;
+    
+    self.countLabel.wantsLayer = YES;
+    self.countLabel.layer.masksToBounds = NO;
+    
     self.nameLabel.font = [ResourcesService fontForKey:FontKeyGmarketSansTTFMedium size:18.0f];
     self.manaCostLabel.font = [ResourcesService fontForKey:FontKeyGmarketSansTTFBold size:18.0f];
     self.countLabel.font = [ResourcesService fontForKey:FontKeyGmarketSansTTFBold size:18.0f];
+    self.nameLabel.wantsLayer = YES;
+    self.nameLabel.layer.shadowRadius = 2.0;
+    self.nameLabel.layer.shadowOpacity = 1;
+    self.nameLabel.layer.shadowOffset = CGSizeZero;
+    self.nameLabel.layer.shadowColor = NSColor.blackColor.CGColor;
+    self.nameLabel.layer.masksToBounds = NO;
 }
 
 - (void)configureManaCostBoxWidthLayout {
@@ -127,15 +140,6 @@
     self.cardImageView.layer.mask = cardImageViewGradientLayer;
     self.cardImageViewGradientLayer = cardImageViewGradientLayer;
     [cardImageViewGradientLayer release];
-}
-
-- (void)configureNameLabelLayer {
-    self.nameLabel.wantsLayer = YES;
-    self.nameLabel.layer.shadowRadius = 2.0;
-    self.nameLabel.layer.shadowOpacity = 1;
-    self.nameLabel.layer.shadowOffset = CGSizeZero;
-    self.nameLabel.layer.shadowColor = NSColor.blackColor.CGColor;
-    self.nameLabel.layer.masksToBounds = NO;
 }
 
 - (void)bind {

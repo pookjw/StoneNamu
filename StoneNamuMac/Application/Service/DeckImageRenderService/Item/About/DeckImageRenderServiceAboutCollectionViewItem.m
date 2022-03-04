@@ -10,6 +10,7 @@
 
 @interface DeckImageRenderServiceAboutCollectionViewItem ()
 @property (retain) IBOutlet NSTextField *deckYearLabel;
+@property (retain) IBOutlet NSStackView *arcaneStackView;
 @property (retain) IBOutlet NSTextField *arcaneDustLabel;
 @property (retain) IBOutlet NSImageView *arcaneDustImageView;
 @end
@@ -18,6 +19,7 @@
 
 - (void)dealloc {
     [_deckYearLabel release];
+    [_arcaneStackView release];
     [_arcaneDustLabel release];
     [_arcaneDustImageView release];
     [super dealloc];
@@ -35,7 +37,16 @@
 
 - (void)setAttributes {
     self.deckYearLabel.font = [ResourcesService fontForKey:FontKeyGmarketSansTTFMedium size:18.0f];
+    self.deckYearLabel.wantsLayer = YES;
+    self.deckYearLabel.layer.masksToBounds = NO;
+    
+    self.arcaneStackView.wantsLayer = YES;
+    self.arcaneStackView.layer.masksToBounds = NO;
+    
     self.arcaneDustLabel.font = [ResourcesService fontForKey:FontKeyGmarketSansTTFMedium size:18.0f];
+    self.arcaneDustLabel.wantsLayer = YES;
+    self.arcaneDustLabel.layer.masksToBounds = NO;
+    
     self.arcaneDustImageView.image = [ResourcesService imageForKey:ImageKeyChemistry];
 }
 
