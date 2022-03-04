@@ -74,6 +74,8 @@
     countLabel.textAlignment = NSTextAlignmentCenter;
     countLabel.backgroundColor = UIColor.tintColor;
     countLabel.textColor = UIColor.whiteColor;
+    countLabel.adjustsFontForContentSizeCategory = YES;
+    countLabel.adjustsFontSizeToFitWidth = YES;
     countLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     countLabel.translatesAutoresizingMaskIntoConstraints = NO;
     

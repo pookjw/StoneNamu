@@ -10,11 +10,12 @@
 #import "DeckDetailsManaCostGraphContentConfiguration.h"
 
 @interface DeckDetailsManaCostGraphContentView ()
-@property (class, readonly, nonatomic) UIFont *labelFont;
-@property (class, readonly, nonatomic) UIEdgeInsets labelInsets;
 @property (retain) InsetsLabel *costLabel;
+@property (retain) NSLayoutConstraint *costLabelWidthLayout;
 @property (retain) UIProgressView *progressView;
 @property (retain) InsetsLabel *countLabel;
+@property (retain) NSLayoutConstraint *countLabelWidthLayout;
+@property (readonly, nonatomic) CGFloat preferredWidth;
 @property (readonly, nonatomic) NSUInteger cardManaCost;
 @property (readonly, nonatomic) float percentage;
 @property (readonly, nonatomic) NSUInteger cardCount;
@@ -24,30 +25,6 @@
 @implementation DeckDetailsManaCostGraphContentView
 
 @synthesize configuration;
-
-+ (CGRect)preferredLabelRect {
-    NSString *string = @"99+";
-    
-    CGRect rect = [string boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX)
-                                       options:NSStringDrawingUsesLineFragmentOrigin
-                                    attributes:@{NSFontAttributeName: DeckDetailsManaCostGraphContentView.labelFont}
-                                       context:nil];
-    
-    UIEdgeInsets costLabelInsets = DeckDetailsManaCostGraphContentView.labelInsets;
-    
-    rect.size.height += (costLabelInsets.top + costLabelInsets.bottom);
-    rect.size.width += (costLabelInsets.left + costLabelInsets.right);
-    
-    return rect;
-}
-
-+ (UIFont *)labelFont {
-    return [UIFont preferredFontForTextStyle:UIFontTextStyleCaption1];
-}
-
-+ (UIEdgeInsets)labelInsets {
-    return UIEdgeInsetsMake(5, 5, 5, 5);
-}
 
 - (instancetype)init {
     self = [super init];
@@ -65,8 +42,10 @@
 - (void)dealloc {
     [configuration release];
     [_costLabel release];
+    [_costLabelWidthLayout release];
     [_progressView release];
     [_countLabel release];
+    [_countLabelWidthLayout release];
     [super dealloc];
 }
 
@@ -78,8 +57,10 @@
     InsetsLabel *costLabel = [InsetsLabel new];
     
     costLabel.textAlignment = NSTextAlignmentCenter;
-    costLabel.font = DeckDetailsManaCostGraphContentView.labelFont;
-    costLabel.contentInsets = DeckDetailsManaCostGraphContentView.labelInsets;
+    costLabel.adjustsFontForContentSizeCategory = YES;
+    costLabel.adjustsFontSizeToFitWidth = YES;
+    costLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption1];
+    costLabel.contentInsets = UIEdgeInsetsMake(5.0f, 5.0f, 5.0f, 5.0f);
     costLabel.backgroundColor = UIColor.systemBlueColor;
     costLabel.textColor = UIColor.whiteColor;
     
@@ -87,20 +68,20 @@
     
     costLabel.translatesAutoresizingMaskIntoConstraints = NO;
     
-    CGRect preferredRect = DeckDetailsManaCostGraphContentView.preferredLabelRect;
+    NSLayoutConstraint *costLabelWidthLayout = [costLabel.widthAnchor constraintEqualToConstant:self.preferredWidth];
+    NSLayoutConstraint *bottomLayout = [costLabel.bottomAnchor constraintEqualToAnchor:self.bottomAnchor];
+    bottomLayout.priority = UILayoutPriorityDefaultHigh;
+    bottomLayout.active = YES;;
     
     [NSLayoutConstraint activateConstraints:@[
         [costLabel.topAnchor constraintEqualToAnchor:self.topAnchor],
         [costLabel.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
-        [costLabel.widthAnchor constraintEqualToConstant:ceilf(preferredRect.size.width)],
-        [costLabel.heightAnchor constraintEqualToConstant:ceilf(preferredRect.size.height)]
+        bottomLayout,
+        costLabelWidthLayout
     ]];
     
-    NSLayoutConstraint *bottomLayout = [costLabel.bottomAnchor constraintEqualToAnchor:self.bottomAnchor];
-    bottomLayout.priority = UILayoutPriorityDefaultHigh;
-    bottomLayout.active = YES;
-    
     self.costLabel = costLabel;
+    self.costLabelWidthLayout = costLabelWidthLayout;
     [costLabel release];
 }
 
@@ -129,27 +110,42 @@
     InsetsLabel *countLabel = [InsetsLabel new];
     
     countLabel.textAlignment = NSTextAlignmentCenter;
-    countLabel.font = DeckDetailsManaCostGraphContentView.labelFont;
-    countLabel.contentInsets = DeckDetailsManaCostGraphContentView.labelInsets;
+    countLabel.adjustsFontForContentSizeCategory = YES;
+    countLabel.adjustsFontSizeToFitWidth = YES;
+    countLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption1];
+    countLabel.contentInsets = UIEdgeInsetsMake(5.0f, 5.0f, 5.0f, 5.0f);
     countLabel.textColor = UIColor.whiteColor;
     
     [self addSubview:countLabel];
     
     countLabel.translatesAutoresizingMaskIntoConstraints = NO;
     
-    CGRect preferredRect = DeckDetailsManaCostGraphContentView.preferredLabelRect;
+    NSLayoutConstraint *countLabelWidthLayout = [countLabel.widthAnchor constraintEqualToConstant:self.preferredWidth];
     
     [NSLayoutConstraint activateConstraints:@[
         [countLabel.topAnchor constraintEqualToAnchor:self.progressView.topAnchor],
         [countLabel.leadingAnchor constraintEqualToAnchor:self.progressView.trailingAnchor],
         [countLabel.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
         [countLabel.bottomAnchor constraintEqualToAnchor:self.progressView.bottomAnchor],
-        [countLabel.widthAnchor constraintEqualToConstant:ceilf(preferredRect.size.width)],
-        [countLabel.heightAnchor constraintEqualToConstant:ceilf(preferredRect.size.height)]
+        countLabelWidthLayout
     ]];
     
     self.countLabel = countLabel;
+    self.countLabelWidthLayout = countLabelWidthLayout;
     [countLabel release];
+}
+
+- (CGFloat)preferredWidth {
+    NSString *string = @"99+";
+    
+    CGRect rect = [string boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX)
+                                       options:NSStringDrawingUsesLineFragmentOrigin
+                                    attributes:@{NSFontAttributeName: [UIFont preferredFontForTextStyle:UIFontTextStyleCaption1]}
+                                       context:nil];
+    CGFloat margin = 10;
+    CGFloat width = ceilf(rect.size.width + margin);
+    
+    return width;
 }
 
 - (void)setConfiguration:(id<UIContentConfiguration>)configuration {
@@ -157,11 +153,8 @@
     DeckDetailsManaCostGraphContentConfiguration *newContentConfig = [(DeckDetailsManaCostGraphContentConfiguration *)configuration copy];
     self->configuration = newContentConfig;
     
-    if ((oldContentConfig == nil) || (newContentConfig.cardManaCost != oldContentConfig.cardManaCost)) {
-        [self updateCostLabel];
-    }
-    
     [self updateProgressLabel];
+    [self updateCostLabel];
     [self updateCountLabel];
     
     [oldContentConfig release];
@@ -206,6 +199,8 @@
     } else {
         self.costLabel.text = [NSString stringWithFormat:@"%lu", self.cardManaCost];
     }
+    
+    self.costLabelWidthLayout.constant = self.preferredWidth;
 }
 
 - (void)updateProgressLabel {
@@ -220,6 +215,7 @@
     }
     
     self.countLabel.text = [NSString stringWithFormat:@"%lu", self.cardCount];
+    self.countLabelWidthLayout.constant = self.preferredWidth;
 }
 
 @end
