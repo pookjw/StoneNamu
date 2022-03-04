@@ -129,7 +129,7 @@
 - (NSToolbarItem *)toolbar:(NSToolbar *)toolbar itemForItemIdentifier:(NSToolbarItemIdentifier)itemIdentifier willBeInsertedIntoToolbar:(BOOL)flag {
     NSMenuToolbarItem * _Nullable __block resultItem = nil;
     
-    [self.allHSDeckFormatItems.allValues enumerateObjectsUsingBlock:^(DynamicMenuToolbarItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    [self.allItems enumerateObjectsUsingBlock:^(DynamicMenuToolbarItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([itemIdentifier isEqualToString:obj.itemIdentifier]) {
             resultItem = obj;
             *stop = YES;
