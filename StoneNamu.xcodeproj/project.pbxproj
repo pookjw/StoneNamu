@@ -418,6 +418,18 @@
 		4FF5729C271DC8A5007794EE /* DynamicAnimatedTransitioning.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF5729B271DC8A5007794EE /* DynamicAnimatedTransitioning.m */; };
 		4FF676CF26AAFC6A00477272 /* CardsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF676CE26AAFC6A00477272 /* CardsViewController.m */; };
 		4FFB151427D283DC004809A8 /* NSView+setMasksToBounds.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FFB151327D283DC004809A8 /* NSView+setMasksToBounds.m */; };
+		4FFB151B27D287D4004809A8 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4FFB151927D287D4004809A8 /* Interface.storyboard */; };
+		4FFB151D27D287D4004809A8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4FFB151C27D287D4004809A8 /* Assets.xcassets */; };
+		4FFB152327D287D4004809A8 /* StoneNamuWatch WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4FFB152227D287D4004809A8 /* StoneNamuWatch WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		4FFB152927D287D4004809A8 /* InterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FFB152827D287D4004809A8 /* InterfaceController.m */; };
+		4FFB152C27D287D4004809A8 /* ExtensionDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FFB152B27D287D4004809A8 /* ExtensionDelegate.m */; };
+		4FFB152F27D287D4004809A8 /* ComplicationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FFB152E27D287D4004809A8 /* ComplicationController.m */; };
+		4FFB153127D287D5004809A8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4FFB153027D287D5004809A8 /* Assets.xcassets */; };
+		4FFB153527D287D5004809A8 /* StoneNamuWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 4FFB151727D287D4004809A8 /* StoneNamuWatch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		4FFB153E27D2881B004809A8 /* StoneNamuCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F34384826A36FBA001161FE /* StoneNamuCore.framework */; };
+		4FFB153F27D2881B004809A8 /* StoneNamuCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4F34384826A36FBA001161FE /* StoneNamuCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4FFB154327D28826004809A8 /* StoneNamuResources.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F23C8A9273D997C00C33F10 /* StoneNamuResources.framework */; };
+		4FFB154427D28826004809A8 /* StoneNamuResources.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4F23C8A9273D997C00C33F10 /* StoneNamuResources.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4FFBAADB26E4FE9900DBEEDB /* UIImage+imageWithGrayScale.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FFBAADA26E4FE9900DBEEDB /* UIImage+imageWithGrayScale.m */; };
 		4FFCF80727B1D48200A89660 /* compareNullableValues.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FFCF80627B1D46500A89660 /* compareNullableValues.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4FFCF80927B1D48D00A89660 /* compareNullableValues.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FFCF80827B1D48D00A89660 /* compareNullableValues.m */; };
@@ -516,6 +528,41 @@
 			remoteGlobalIDString = 4F34384726A36FBA001161FE;
 			remoteInfo = StoneNamuCore;
 		};
+		4FFB152427D287D4004809A8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4FA56B9F26A21059002D9FA0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4FFB152127D287D4004809A8;
+			remoteInfo = "StoneNamuWatch WatchKit Extension";
+		};
+		4FFB153327D287D5004809A8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4FA56B9F26A21059002D9FA0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4FFB151627D287D4004809A8;
+			remoteInfo = StoneNamuWatch;
+		};
+		4FFB154027D2881B004809A8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4FA56B9F26A21059002D9FA0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4F34384726A36FBA001161FE;
+			remoteInfo = StoneNamuCore;
+		};
+		4FFB154527D28826004809A8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4FA56B9F26A21059002D9FA0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4F23C8A8273D997C00C33F10;
+			remoteInfo = StoneNamuResources;
+		};
+		4FFB154727D28ADE004809A8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4FA56B9F26A21059002D9FA0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4FFB152127D287D4004809A8;
+			remoteInfo = "StoneNamuWatch WatchKit Extension";
+		};
 		F3024CEF274007DD001DDE08 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4FA56B9F26A21059002D9FA0 /* Project object */;
@@ -555,6 +602,40 @@
 			files = (
 				4F4892CB272460CD00126131 /* StoneNamuCore.framework in Embed Frameworks */,
 				4F23C8CF273D9D4100C33F10 /* StoneNamuResources.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4FFB153927D287D5004809A8 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				4FFB152327D287D4004809A8 /* StoneNamuWatch WatchKit Extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4FFB153D27D287D5004809A8 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				4FFB153527D287D5004809A8 /* StoneNamuWatch.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4FFB154227D2881B004809A8 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				4FFB153F27D2881B004809A8 /* StoneNamuCore.framework in Embed Frameworks */,
+				4FFB154427D28826004809A8 /* StoneNamuResources.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1253,6 +1334,18 @@
 		4FF676CE26AAFC6A00477272 /* CardsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardsViewController.m; sourceTree = "<group>"; };
 		4FFB151227D283DC004809A8 /* NSView+setMasksToBounds.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSView+setMasksToBounds.h"; sourceTree = "<group>"; };
 		4FFB151327D283DC004809A8 /* NSView+setMasksToBounds.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSView+setMasksToBounds.m"; sourceTree = "<group>"; };
+		4FFB151727D287D4004809A8 /* StoneNamuWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StoneNamuWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4FFB151A27D287D4004809A8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
+		4FFB151C27D287D4004809A8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		4FFB152227D287D4004809A8 /* StoneNamuWatch WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "StoneNamuWatch WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4FFB152727D287D4004809A8 /* InterfaceController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InterfaceController.h; sourceTree = "<group>"; };
+		4FFB152827D287D4004809A8 /* InterfaceController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InterfaceController.m; sourceTree = "<group>"; };
+		4FFB152A27D287D4004809A8 /* ExtensionDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExtensionDelegate.h; sourceTree = "<group>"; };
+		4FFB152B27D287D4004809A8 /* ExtensionDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExtensionDelegate.m; sourceTree = "<group>"; };
+		4FFB152D27D287D4004809A8 /* ComplicationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ComplicationController.h; sourceTree = "<group>"; };
+		4FFB152E27D287D4004809A8 /* ComplicationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ComplicationController.m; sourceTree = "<group>"; };
+		4FFB153027D287D5004809A8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		4FFB153227D287D5004809A8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4FFBAAD926E4FE9900DBEEDB /* UIImage+imageWithGrayScale.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+imageWithGrayScale.h"; sourceTree = "<group>"; };
 		4FFBAADA26E4FE9900DBEEDB /* UIImage+imageWithGrayScale.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+imageWithGrayScale.m"; sourceTree = "<group>"; };
 		4FFCF80627B1D46500A89660 /* compareNullableValues.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = compareNullableValues.h; sourceTree = "<group>"; };
@@ -1383,6 +1476,15 @@
 				4F8635EF2746B8BB000EC94F /* CloudKit.framework in Frameworks */,
 				4F4892CA272460CD00126131 /* StoneNamuCore.framework in Frameworks */,
 				4F23C8CE273D9D4100C33F10 /* StoneNamuResources.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4FFB151F27D287D4004809A8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4FFB153E27D2881B004809A8 /* StoneNamuCore.framework in Frameworks */,
+				4FFB154327D28826004809A8 /* StoneNamuResources.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2537,6 +2639,8 @@
 			isa = PBXGroup;
 			children = (
 				4FA56BA926A21059002D9FA0 /* StoneNamu */,
+				4FFB151827D287D4004809A8 /* StoneNamuWatch */,
+				4FFB152627D287D4004809A8 /* StoneNamuWatch WatchKit Extension */,
 				4FE856FE270089BC0008C2FB /* StoneNamuMac */,
 				4F34384926A36FBA001161FE /* StoneNamuCore */,
 				4F34385526A36FBA001161FE /* StoneNamuCoreTests */,
@@ -2556,6 +2660,8 @@
 				4FE856FD270089BC0008C2FB /* StoneNamuMac.app */,
 				4F23C8A9273D997C00C33F10 /* StoneNamuResources.framework */,
 				4F23C8D6273D9EE600C33F10 /* StoneNamuResourcesScript */,
+				4FFB151727D287D4004809A8 /* StoneNamuWatch.app */,
+				4FFB152227D287D4004809A8 /* StoneNamuWatch WatchKit Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -3260,6 +3366,30 @@
 			path = OneBesideSecondary;
 			sourceTree = "<group>";
 		};
+		4FFB151827D287D4004809A8 /* StoneNamuWatch */ = {
+			isa = PBXGroup;
+			children = (
+				4FFB151927D287D4004809A8 /* Interface.storyboard */,
+				4FFB151C27D287D4004809A8 /* Assets.xcassets */,
+			);
+			path = StoneNamuWatch;
+			sourceTree = "<group>";
+		};
+		4FFB152627D287D4004809A8 /* StoneNamuWatch WatchKit Extension */ = {
+			isa = PBXGroup;
+			children = (
+				4FFB152727D287D4004809A8 /* InterfaceController.h */,
+				4FFB152827D287D4004809A8 /* InterfaceController.m */,
+				4FFB152A27D287D4004809A8 /* ExtensionDelegate.h */,
+				4FFB152B27D287D4004809A8 /* ExtensionDelegate.m */,
+				4FFB152D27D287D4004809A8 /* ComplicationController.h */,
+				4FFB152E27D287D4004809A8 /* ComplicationController.m */,
+				4FFB153027D287D5004809A8 /* Assets.xcassets */,
+				4FFB153227D287D5004809A8 /* Info.plist */,
+			);
+			path = "StoneNamuWatch WatchKit Extension";
+			sourceTree = "<group>";
+		};
 		4FFDD65426CAC3EE008E5B45 /* Decks */ = {
 			isa = PBXGroup;
 			children = (
@@ -3577,6 +3707,7 @@
 				4F34385226A36FBA001161FE /* PBXTargetDependency */,
 				4F27402727AEBB5600F6D3B8 /* PBXTargetDependency */,
 				4F27402927AEBB5600F6D3B8 /* PBXTargetDependency */,
+				4FFB154827D28ADE004809A8 /* PBXTargetDependency */,
 			);
 			name = StoneNamuCoreTests;
 			productName = StoneNamuCoreTests;
@@ -3591,12 +3722,14 @@
 				4FA56BA426A21059002D9FA0 /* Frameworks */,
 				4FA56BA526A21059002D9FA0 /* Resources */,
 				4FA56BE526A212B6002D9FA0 /* Embed Frameworks */,
+				4FFB153D27D287D5004809A8 /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				4F34385A26A36FBA001161FE /* PBXTargetDependency */,
 				4F23C8AE273D997C00C33F10 /* PBXTargetDependency */,
+				4FFB153427D287D5004809A8 /* PBXTargetDependency */,
 			);
 			name = StoneNamu;
 			productName = StoneNamu;
@@ -3622,6 +3755,43 @@
 			productName = StoneNamuMac;
 			productReference = 4FE856FD270089BC0008C2FB /* StoneNamuMac.app */;
 			productType = "com.apple.product-type.application";
+		};
+		4FFB151627D287D4004809A8 /* StoneNamuWatch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4FFB153A27D287D5004809A8 /* Build configuration list for PBXNativeTarget "StoneNamuWatch" */;
+			buildPhases = (
+				4FFB151527D287D4004809A8 /* Resources */,
+				4FFB153927D287D5004809A8 /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4FFB152527D287D4004809A8 /* PBXTargetDependency */,
+			);
+			name = StoneNamuWatch;
+			productName = StoneNamuWatch;
+			productReference = 4FFB151727D287D4004809A8 /* StoneNamuWatch.app */;
+			productType = "com.apple.product-type.application.watchapp2";
+		};
+		4FFB152127D287D4004809A8 /* StoneNamuWatch WatchKit Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4FFB153627D287D5004809A8 /* Build configuration list for PBXNativeTarget "StoneNamuWatch WatchKit Extension" */;
+			buildPhases = (
+				4FFB151E27D287D4004809A8 /* Sources */,
+				4FFB151F27D287D4004809A8 /* Frameworks */,
+				4FFB152027D287D4004809A8 /* Resources */,
+				4FFB154227D2881B004809A8 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4FFB154127D2881B004809A8 /* PBXTargetDependency */,
+				4FFB154627D28826004809A8 /* PBXTargetDependency */,
+			);
+			name = "StoneNamuWatch WatchKit Extension";
+			productName = "StoneNamuWatch WatchKit Extension";
+			productReference = 4FFB152227D287D4004809A8 /* StoneNamuWatch WatchKit Extension.appex */;
+			productType = "com.apple.product-type.watchkit2-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -3650,6 +3820,12 @@
 					4FE856FC270089BC0008C2FB = {
 						CreatedOnToolsVersion = 13.0;
 					};
+					4FFB151627D287D4004809A8 = {
+						CreatedOnToolsVersion = 13.3;
+					};
+					4FFB152127D287D4004809A8 = {
+						CreatedOnToolsVersion = 13.3;
+					};
 				};
 			};
 			buildConfigurationList = 4FA56BA226A21059002D9FA0 /* Build configuration list for PBXProject "StoneNamu" */;
@@ -3667,6 +3843,8 @@
 			projectRoot = "";
 			targets = (
 				4FA56BA626A21059002D9FA0 /* StoneNamu */,
+				4FFB151627D287D4004809A8 /* StoneNamuWatch */,
+				4FFB152127D287D4004809A8 /* StoneNamuWatch WatchKit Extension */,
 				4FE856FC270089BC0008C2FB /* StoneNamuMac */,
 				4F34384726A36FBA001161FE /* StoneNamuCore */,
 				4F23C8A8273D997C00C33F10 /* StoneNamuResources */,
@@ -3743,6 +3921,23 @@
 				4F59008B2752FE6100217E4A /* MainListTableCellView.xib in Resources */,
 				4FD4E026274EE2E80037D867 /* DeckBaseCollectionViewItem.xib in Resources */,
 				4F73EB6A27820A0A00D65FDB /* DeckImageRenderServiceAppNameCollectionViewItem.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4FFB151527D287D4004809A8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4FFB151D27D287D4004809A8 /* Assets.xcassets in Resources */,
+				4FFB151B27D287D4004809A8 /* Interface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4FFB152027D287D4004809A8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4FFB153127D287D5004809A8 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4125,6 +4320,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4FFB151E27D287D4004809A8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4FFB152F27D287D4004809A8 /* ComplicationController.m in Sources */,
+				4FFB152C27D287D4004809A8 /* ExtensionDelegate.m in Sources */,
+				4FFB152927D287D4004809A8 /* InterfaceController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -4163,6 +4368,31 @@
 			target = 4F34384726A36FBA001161FE /* StoneNamuCore */;
 			targetProxy = 4F4892CC272460CD00126131 /* PBXContainerItemProxy */;
 		};
+		4FFB152527D287D4004809A8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4FFB152127D287D4004809A8 /* StoneNamuWatch WatchKit Extension */;
+			targetProxy = 4FFB152427D287D4004809A8 /* PBXContainerItemProxy */;
+		};
+		4FFB153427D287D5004809A8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4FFB151627D287D4004809A8 /* StoneNamuWatch */;
+			targetProxy = 4FFB153327D287D5004809A8 /* PBXContainerItemProxy */;
+		};
+		4FFB154127D2881B004809A8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4F34384726A36FBA001161FE /* StoneNamuCore */;
+			targetProxy = 4FFB154027D2881B004809A8 /* PBXContainerItemProxy */;
+		};
+		4FFB154627D28826004809A8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4F23C8A8273D997C00C33F10 /* StoneNamuResources */;
+			targetProxy = 4FFB154527D28826004809A8 /* PBXContainerItemProxy */;
+		};
+		4FFB154827D28ADE004809A8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4FFB152127D287D4004809A8 /* StoneNamuWatch WatchKit Extension */;
+			targetProxy = 4FFB154727D28ADE004809A8 /* PBXContainerItemProxy */;
+		};
 		F3024CF0274007DD001DDE08 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 4F34384726A36FBA001161FE /* StoneNamuCore */;
@@ -4196,6 +4426,14 @@
 				4F9DFBBA26B2FD2F002AACDE /* ko */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		4FFB151927D287D4004809A8 /* Interface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4FFB151A27D287D4004809A8 /* Base */,
+			);
+			name = Interface.storyboard;
 			sourceTree = "<group>";
 		};
 		F3024CF327400ACC001DDE08 /* BlizzardAPIRegionHost.strings */ = {
@@ -4742,6 +4980,126 @@
 			};
 			name = Release;
 		};
+		4FFB153727D287D5004809A8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = P53D29U9LJ;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "StoneNamuWatch WatchKit Extension/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "StoneNamuWatch WatchKit Extension";
+				INFOPLIST_KEY_CLKComplicationPrincipalClass = ComplicationController;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_WKExtensionDelegateClassName = ExtensionDelegate;
+				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pookjw.StoneNamu.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 8.0;
+			};
+			name = Debug;
+		};
+		4FFB153827D287D5004809A8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = P53D29U9LJ;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "StoneNamuWatch WatchKit Extension/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "StoneNamuWatch WatchKit Extension";
+				INFOPLIST_KEY_CLKComplicationPrincipalClass = ComplicationController;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_WKExtensionDelegateClassName = ExtensionDelegate;
+				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pookjw.StoneNamu.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 8.0;
+			};
+			name = Release;
+		};
+		4FFB153B27D287D5004809A8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = P53D29U9LJ;
+				GENERATE_INFOPLIST_FILE = YES;
+				IBSC_MODULE = StoneNamuWatch_WatchKit_Extension;
+				INFOPLIST_KEY_CFBundleDisplayName = StoneNamuWatch;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.pookjw.StoneNamu;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pookjw.StoneNamu.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 8.5;
+			};
+			name = Debug;
+		};
+		4FFB153C27D287D5004809A8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = P53D29U9LJ;
+				GENERATE_INFOPLIST_FILE = YES;
+				IBSC_MODULE = StoneNamuWatch_WatchKit_Extension;
+				INFOPLIST_KEY_CFBundleDisplayName = StoneNamuWatch;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.pookjw.StoneNamu;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pookjw.StoneNamu.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 8.5;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -4804,6 +5162,24 @@
 			buildConfigurations = (
 				4FE85709270089BD0008C2FB /* Debug */,
 				4FE8570A270089BD0008C2FB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4FFB153627D287D5004809A8 /* Build configuration list for PBXNativeTarget "StoneNamuWatch WatchKit Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4FFB153727D287D5004809A8 /* Debug */,
+				4FFB153827D287D5004809A8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4FFB153A27D287D5004809A8 /* Build configuration list for PBXNativeTarget "StoneNamuWatch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4FFB153B27D287D5004809A8 /* Debug */,
+				4FFB153C27D287D5004809A8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
