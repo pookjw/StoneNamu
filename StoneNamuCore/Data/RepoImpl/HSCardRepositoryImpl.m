@@ -45,9 +45,18 @@ static NSString * const BlizzardHSCardAPIBasePath = @"/hearthstone/cards";
         }
         
         NSError * _Nullable parseError = nil;
-        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data
-                                                            options:NSJSONReadingMutableContainers
-                                                              error:&parseError];
+        NSDictionary *dic;
+        
+        if (@available(macOS 12.0, iOS 15.0, *)) {
+            dic = [NSJSONSerialization JSONObjectWithData:data
+                                                  options:NSJSONReadingJSON5Allowed
+                                                    error:&parseError];
+        } else {
+            dic = [NSJSONSerialization JSONObjectWithData:data
+                                                  options:0
+                                                    error:&parseError];
+        }
+        
         if (parseError) {
             completion(nil, nil, nil, parseError);
             return;
@@ -79,9 +88,18 @@ static NSString * const BlizzardHSCardAPIBasePath = @"/hearthstone/cards";
         }
         
         NSError * _Nullable parseError = nil;
-        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data
-                                                            options:NSJSONReadingMutableContainers
-                                                              error:&parseError];
+        NSDictionary *dic;
+        
+        if (@available(macOS 12.0, iOS 15.0, *)) {
+            dic = [NSJSONSerialization JSONObjectWithData:data
+                                                  options:NSJSONReadingJSON5Allowed
+                                                    error:&parseError];
+        } else {
+            dic = [NSJSONSerialization JSONObjectWithData:data
+                                                  options:0
+                                                    error:&parseError];
+        }
+        
         if (parseError) {
             completion(nil, parseError);
             return;

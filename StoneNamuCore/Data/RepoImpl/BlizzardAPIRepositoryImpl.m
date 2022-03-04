@@ -55,7 +55,17 @@
         }
         
         NSError * _Nullable jsonError = nil;
-        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
+        NSDictionary *dic;
+        
+        if (@available(macOS 12.0, iOS 15.0, *)) {
+            dic = [NSJSONSerialization JSONObjectWithData:data
+                                                  options:NSJSONReadingJSON5Allowed
+                                                    error:&jsonError];
+        } else {
+            dic = [NSJSONSerialization JSONObjectWithData:data
+                                                  options:0
+                                                    error:&jsonError];
+        }
         
         if (jsonError) {
             completion(data, response, jsonError);
