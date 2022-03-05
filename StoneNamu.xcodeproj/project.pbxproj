@@ -5101,6 +5101,7 @@
 					"$(PROJECT_DIR)/StoneNamuWatch\\ WatchKit\\ Extension/Frameworks",
 				);
 				MARKETING_VERSION = 1.9;
+				OTHER_CFLAGS = "-Wno-objc-method-access";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pookjw.StoneNamu.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
@@ -5143,6 +5144,7 @@
 					"$(PROJECT_DIR)/StoneNamuWatch\\ WatchKit\\ Extension/Frameworks",
 				);
 				MARKETING_VERSION = 1.9;
+				OTHER_CFLAGS = "-Wno-objc-method-access";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pookjw.StoneNamu.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
