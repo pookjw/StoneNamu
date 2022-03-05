@@ -15,7 +15,7 @@
 @property (readonly, nonatomic) NSDictionary<NSString *, NSSet<NSString *> *> *defaultOptions;
 @property (retain) NSNumber * _Nullable pageCount;
 @property (retain) NSNumber *page;
-@property (nonatomic, readonly) BOOL canLoadMore;
+@property (readonly, nonatomic) BOOL canLoadMore;
 @property BOOL isFetching;
 @property (retain) NSOperationQueue *queue;
 @property (retain) id<PrefsUseCase> prefsUseCase;
@@ -178,6 +178,7 @@
                 self.pageCount = pageCount;
                 self.page = page;
                 self.isFetching = NO;
+                [self postEndedLoadingDataSource];
             }];
         }];
         
@@ -264,12 +265,12 @@
             
             for (DeckAddCardSectionModel *tmp in snapshot.sectionIdentifiers) {
                 if (tmp.type == DeckCardsSectionModelTypeCards) {
-                    sectionModel = tmp;
+                    sectionModel = [tmp retain];
                 }
             }
             
             if (sectionModel == nil) {
-                sectionModel = [[[DeckAddCardSectionModel alloc] initWithType:DeckCardsSectionModelTypeCards] autorelease];
+                sectionModel = [[DeckAddCardSectionModel alloc] initWithType:DeckCardsSectionModelTypeCards];
                 [snapshot appendSectionsWithIdentifiers:@[sectionModel]];
             }
             
@@ -286,13 +287,10 @@
             }
             
             [snapshot appendItemsWithIdentifiers:[[itemModels copy] autorelease] intoSectionWithIdentifier:sectionModel];
-            
+            [sectionModel release];
             [itemModels release];
             
-            [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
-                completion();
-                [self postEndedLoadingDataSource];
-            }];
+            [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:completion];
             [snapshot release];
         }];
     }];

@@ -14,7 +14,7 @@
 @property (retain) id<HSCardUseCase> hsCardUseCase;
 @property (retain) NSNumber * _Nullable pageCount;
 @property (retain) NSNumber *page;
-@property (nonatomic, readonly) BOOL canLoadMore;
+@property (readonly, nonatomic) BOOL canLoadMore;
 @property BOOL isFetching;
 @property (retain) NSOperationQueue *queue;
 @property (retain) id<PrefsUseCase> prefsUseCase;
@@ -143,6 +143,7 @@
                 self.pageCount = pageCount;
                 self.page = page;
                 self.isFetching = NO;
+                [self postEndedLoadingDataSource];
             }];
         }];
         
@@ -203,15 +204,13 @@
         
         for (CardSectionModel *tmp in snapshot.sectionIdentifiers) {
             if (tmp.type == CardSectionModelTypeCards) {
-                sectionModel = tmp;
+                sectionModel = [tmp retain];
             }
         }
         
         if (sectionModel == nil) {
-            CardSectionModel *_sectionModel = [[CardSectionModel alloc] initWithType:CardSectionModelTypeCards];
-            sectionModel = _sectionModel;
-            [snapshot appendSectionsWithIdentifiers:@[_sectionModel]];
-            [_sectionModel autorelease];
+            sectionModel = [[CardSectionModel alloc] initWithType:CardSectionModelTypeCards];
+            [snapshot appendSectionsWithIdentifiers:@[sectionModel]];
         }
         
         NSMutableArray<CardItemModel *> *itemModels = [NSMutableArray<CardItemModel *> new];
@@ -223,13 +222,10 @@
         }
         
         [snapshot appendItemsWithIdentifiers:itemModels intoSectionWithIdentifier:sectionModel];
+        [sectionModel release];
         [itemModels release];
         
-        [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:^{
-            completion();
-            [self postEndedLoadingDataSource];
-        }];
-        
+        [self.dataSource applySnapshotAndWait:snapshot animatingDifferences:YES completion:completion];
         [snapshot release];
     }];
 }

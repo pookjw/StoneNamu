@@ -2,10 +2,11 @@
 //  ExtensionDelegate.m
 //  StoneNamuWatch WatchKit Extension
 //
-//  Created by Jinwoo Kim on 3/6/22.
+//  Created by Jinwoo Kim on 3/5/22.
 //
 
 #import "ExtensionDelegate.h"
+#import <dlfcn.h>
 
 @implementation ExtensionDelegate
 

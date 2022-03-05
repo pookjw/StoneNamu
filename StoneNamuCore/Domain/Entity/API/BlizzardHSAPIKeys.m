@@ -11,8 +11,9 @@
 #import <StoneNamuCore/HSCardGameMode.h>
 #import <StoneNamuCore/HSCardSort.h>
 #import <StoneNamuCore/HSCardClass.h>
+#import <StoneNamuCore/HSCardType.h>
 
-NSDictionary<BlizzardHSAPIOptionType, NSSet<NSString *> *> *BlizzardHSAPIDefaultOptionsFromHSCardTypeSlugType(HSCardTypeSlugType hsCardTypeSlugType) {
+NSDictionary<BlizzardHSAPIOptionType, NSSet<NSString *> *> *BlizzardHSAPIDefaultOptionsFromHSCardTypeSlugType(HSCardGameModeSlugType hsCardTypeSlugType) {
     if ([HSCardGameModeSlugTypeConstructed isEqualToString:hsCardTypeSlugType]) {
         return @{
 //            BlizzardHSAPIOptionTypeSet: [NSSet setWithObject:HSCardSetSlugTypeWildCards],
@@ -51,4 +52,8 @@ NSDictionary<BlizzardHSAPIOptionType, NSSet<NSString *> *> *BlizzardConstructedH
         BlizzardHSAPIOptionTypeGameMode: [NSSet setWithObject:HSCardGameModeSlugTypeConstructed],
         BlizzardHSAPIOptionTypeSort: [NSSet setWithArray:@[NSStringFromHSCardSort(HSCardSortManaCostAsc), NSStringFromHSCardSort(HSCardSortNameAsc)]]
     };
+}
+
+NSDictionary<BlizzardHSAPIOptionType, NSSet<NSString *> *> *BlizzardHSAPIDefaultOptionsForHSCardBacks(void) {
+    return @{};
 }

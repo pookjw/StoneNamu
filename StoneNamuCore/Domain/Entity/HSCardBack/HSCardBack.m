@@ -52,6 +52,20 @@
     return [hsCardBacks autorelease];
 }
 
+- (BOOL)isEqual:(id)object {
+    if (![object isKindOfClass:[HSCardBack class]]) {
+        return NO;
+    }
+    
+    HSCardBack *toCompare = (HSCardBack *)object;
+    
+    return (self.cardBackId == toCompare.cardBackId) && ([self.slug isEqualToString:toCompare.slug]);
+}
+
+- (NSUInteger)hash {
+    return self.cardBackId ^ self.slug.hash;
+}
+
 #pragma mark - NSCopying
 
 - (id)copyWithZone:(NSZone *)zone {

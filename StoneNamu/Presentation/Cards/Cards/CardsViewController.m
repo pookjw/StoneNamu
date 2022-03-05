@@ -9,7 +9,7 @@
 #import "UIViewController+presentErrorAlert.h"
 #import "CardContentConfiguration.h"
 #import "CardContentView.h"
-#import "CardsCollectionViewCompositionalLayout.h"
+#import "CardsCollectionViewLayout.h"
 #import "CardDetailsViewController.h"
 #import "PhotosService.h"
 #import "CardOptionsViewController.h"
@@ -123,7 +123,7 @@
 }
 
 - (void)configureCollectionView {
-    CardsCollectionViewCompositionalLayout *layout = [[CardsCollectionViewCompositionalLayout alloc] init];
+    CardsCollectionViewLayout *layout = [[CardsCollectionViewLayout alloc] init];
     UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:layout];
     [layout release];
 
@@ -163,8 +163,7 @@
         return cell;
     }];
     
-    [dataSource autorelease];
-    return dataSource;
+    return [dataSource autorelease];
 }
 
 - (UICollectionViewCellRegistration *)makeCellRegistration {

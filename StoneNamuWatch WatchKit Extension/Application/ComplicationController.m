@@ -2,7 +2,7 @@
 //  ComplicationController.m
 //  StoneNamuWatch WatchKit Extension
 //
-//  Created by Jinwoo Kim on 3/6/22.
+//  Created by Jinwoo Kim on 3/5/22.
 //
 
 #import "ComplicationController.h"
@@ -12,15 +12,15 @@
 #pragma mark - Complication Configuration
 
 - (void)getComplicationDescriptorsWithHandler:(void (^)(NSArray<CLKComplicationDescriptor *> * _Nonnull))handler {
-    NSArray<CLKComplicationDescriptor *> *descriptors = @[
-        [[CLKComplicationDescriptor alloc] initWithIdentifier:@"complication"
-                                                  displayName:@"StoneNamu"
-                                            supportedFamilies:CLKAllComplicationFamilies()]
-        // Multiple complication support can be added here with more descriptors
-    ];
+//    NSArray<CLKComplicationDescriptor *> *descriptors = @[
+//        [[CLKComplicationDescriptor alloc] initWithIdentifier:@"complication"
+//                                                  displayName:@"StoneNamu"
+//                                            supportedFamilies:CLKAllComplicationFamilies()]
+//        // Multiple complication support can be added here with more descriptors
+//    ];
     
     // Call the handler with the currently supported complication descriptors
-    handler(descriptors);
+    handler(@[]);
 }
 
 - (void)handleSharedComplicationDescriptors:(NSArray<CLKComplicationDescriptor *> *)complicationDescriptors {

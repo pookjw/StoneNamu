@@ -7,7 +7,7 @@
 
 #import <Foundation/Foundation.h>
 #import <StoneNamuCore/HSDeckFormat.h>
-#import <StoneNamuCore/HSCardType.h>
+#import <StoneNamuCore/HSCardGameMode.h>
 
 /*
  https://develop.battle.net/documentation/hearthstone/game-data-apis
@@ -41,7 +41,8 @@ static BlizzardHSAPIOptionType const BlizzardHSAPIOptionTypeHero = @"hero";
 
 static BlizzardHSAPIOptionType const BlizzardHSAPIOptionTypeCardBackCategory = @"cardBackCategory";
 
-NSDictionary<BlizzardHSAPIOptionType, NSSet<NSString *> *> *BlizzardHSAPIDefaultOptionsFromHSCardTypeSlugType(HSCardTypeSlugType);
+NSDictionary<BlizzardHSAPIOptionType, NSSet<NSString *> *> *BlizzardHSAPIDefaultOptionsFromHSCardTypeSlugType(HSCardGameModeSlugType);
 NSDictionary<BlizzardHSAPIOptionType, NSSet<NSString *> *> *BlizzardConstructedHSAPIDefaultOptionsFromHSDeckFormat(HSDeckFormat);
+NSDictionary<BlizzardHSAPIOptionType, NSSet<NSString *> *> *BlizzardHSAPIDefaultOptionsForHSCardBacks(void);
 
 NS_ASSUME_NONNULL_END
