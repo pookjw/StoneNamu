@@ -1,6 +1,6 @@
 //
 //  InterfaceController.m
-//  StoneNamuWatch WatchKit Extension
+//  StoneNamuWatchPrivate WatchKit Extension
 //
 //  Created by Jinwoo Kim on 3/6/22.
 //

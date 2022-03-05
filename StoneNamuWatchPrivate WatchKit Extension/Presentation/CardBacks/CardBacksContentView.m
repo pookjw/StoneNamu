@@ -34,6 +34,7 @@
     [self->_configuration release];
     self->_configuration = [configuration copy];
     
+    // TODO
     NSURLSession *session = [NSURLSession sessionWithConfiguration:NSURLSessionConfiguration.ephemeralSessionConfiguration];
     NSURLSessionTask *task = [session dataTaskWithURL:configuration.hsCardBack.image completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         id image = [[UIImage alloc] initWithData:data];
