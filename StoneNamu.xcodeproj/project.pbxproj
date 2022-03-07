@@ -4924,7 +4924,7 @@
 				TARGETED_DEVICE_FAMILY = 4;
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/StoneNamuWatch/**";
 				USE_HEADERMAP = NO;
-				WATCHOS_DEPLOYMENT_TARGET = 8.5;
+				WATCHOS_DEPLOYMENT_TARGET = 8.0;
 			};
 			name = Debug;
 		};
@@ -4953,7 +4953,7 @@
 				TARGETED_DEVICE_FAMILY = 4;
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/StoneNamuWatch/**";
 				USE_HEADERMAP = NO;
-				WATCHOS_DEPLOYMENT_TARGET = 8.5;
+				WATCHOS_DEPLOYMENT_TARGET = 8.0;
 			};
 			name = Release;
 		};
@@ -4987,7 +4987,7 @@
 				TARGETED_DEVICE_FAMILY = 4;
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/StoneNamuWatch\\ WatchKit\\ Extension/**";
 				USE_HEADERMAP = NO;
-				WATCHOS_DEPLOYMENT_TARGET = 8.5;
+				WATCHOS_DEPLOYMENT_TARGET = 8.0;
 			};
 			name = Debug;
 		};
@@ -5021,7 +5021,7 @@
 				TARGETED_DEVICE_FAMILY = 4;
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/StoneNamuWatch\\ WatchKit\\ Extension/**";
 				USE_HEADERMAP = NO;
-				WATCHOS_DEPLOYMENT_TARGET = 8.5;
+				WATCHOS_DEPLOYMENT_TARGET = 8.0;
 			};
 			name = Release;
 		};
