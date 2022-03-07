@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CardDetailsBasicContentView : UIView <UIContentView>
+@interface CardDetailsBasicContentView : UIListContentView
 
 @end
 

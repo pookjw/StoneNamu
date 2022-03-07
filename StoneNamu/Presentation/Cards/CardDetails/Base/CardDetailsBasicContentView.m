@@ -150,14 +150,14 @@
     self->configuration = [content copy];
     
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
-        NSString * _Nullable leadingText = content.leadingText;
+        NSString * _Nullable leadingText = content.text;
         if ((leadingText == nil) || ([leadingText isEqualToString:@""])) {
             self.leadingLabel.text = [ResourcesService localizationForKey:LocalizableKeyEmpty];
         } else {
             self.leadingLabel.text = leadingText;
         }
         
-        NSString * _Nullable trailingText = content.trailingText;
+        NSString * _Nullable trailingText = content.secondaryText;
         
         if ((trailingText == nil) || ([trailingText isEqualToString:@""])) {
             self.trailingLabel.text = [ResourcesService localizationForKey:LocalizableKeyEmpty];

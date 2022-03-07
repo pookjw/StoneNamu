@@ -9,12 +9,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CardDetailsBasicContentConfiguration : NSObject <UIContentConfiguration>
-@property (readonly, copy) NSString * _Nullable leadingText;
-@property (readonly, copy) NSString * _Nullable trailingText;
-+ (instancetype)new NS_UNAVAILABLE;
-- (instancetype)init NS_UNAVAILABLE;
-- (instancetype)initWithLeadingText:(NSString * _Nullable)leadingText trailingText:(NSString * _Nullable)trailingText;
+@interface CardDetailsBasicContentConfiguration : UIListContentConfiguration
+
 @end
 
 NS_ASSUME_NONNULL_END

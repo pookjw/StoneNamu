@@ -102,14 +102,14 @@
 		4F27400227AEB87D00F6D3B8 /* HSMetaDataUseCaseImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F27400027AEB87D00F6D3B8 /* HSMetaDataUseCaseImpl.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4F27400327AEB87D00F6D3B8 /* HSMetaDataUseCaseImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F27400127AEB87D00F6D3B8 /* HSMetaDataUseCaseImpl.m */; };
 		4F27402B27AEC9F100F6D3B8 /* BlizzardHSAPIKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F27402A27AEC9F100F6D3B8 /* BlizzardHSAPIKeys.m */; };
-		4F28A9C727D59463003B0F80 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4F28A9C527D59463003B0F80 /* Interface.storyboard */; };
 		4F28A9C927D59464003B0F80 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4F28A9C827D59464003B0F80 /* Assets.xcassets */; };
 		4F28A9CF27D59464003B0F80 /* StoneNamuWatch WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4F28A9CE27D59464003B0F80 /* StoneNamuWatch WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		4F28A9D527D59464003B0F80 /* InterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F28A9D427D59464003B0F80 /* InterfaceController.m */; };
 		4F28A9D827D59464003B0F80 /* ExtensionDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F28A9D727D59464003B0F80 /* ExtensionDelegate.m */; };
 		4F28A9DB27D59464003B0F80 /* ComplicationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F28A9DA27D59464003B0F80 /* ComplicationController.m */; };
 		4F28A9DD27D59465003B0F80 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4F28A9DC27D59465003B0F80 /* Assets.xcassets */; };
 		4F28A9E127D59465003B0F80 /* StoneNamuWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 4F28A9C327D59463003B0F80 /* StoneNamuWatch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		4F28A9EA27D59635003B0F80 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4F28A9E927D59635003B0F80 /* Main.storyboard */; };
+		4F28A9ED27D5965E003B0F80 /* CardBacksInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F28A9EC27D5965E003B0F80 /* CardBacksInterfaceController.m */; };
 		4F29FD732722EAB700753E8D /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F29FD722722EAB700753E8D /* MainViewController.m */; };
 		4F2CFC0027CB648000A3BAE4 /* MainListTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2CFBFF27CB648000A3BAE4 /* MainListTableHeaderView.m */; };
 		4F2CFC0227CB649800A3BAE4 /* MainListTableHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F2CFC0127CB649700A3BAE4 /* MainListTableHeaderView.xib */; };
@@ -821,17 +821,17 @@
 		4F27400127AEB87D00F6D3B8 /* HSMetaDataUseCaseImpl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSMetaDataUseCaseImpl.m; sourceTree = "<group>"; };
 		4F27402A27AEC9F100F6D3B8 /* BlizzardHSAPIKeys.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlizzardHSAPIKeys.m; sourceTree = "<group>"; };
 		4F28A9C327D59463003B0F80 /* StoneNamuWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StoneNamuWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		4F28A9C627D59463003B0F80 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		4F28A9C827D59464003B0F80 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4F28A9CE27D59464003B0F80 /* StoneNamuWatch WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "StoneNamuWatch WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
-		4F28A9D327D59464003B0F80 /* InterfaceController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InterfaceController.h; sourceTree = "<group>"; };
-		4F28A9D427D59464003B0F80 /* InterfaceController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InterfaceController.m; sourceTree = "<group>"; };
 		4F28A9D627D59464003B0F80 /* ExtensionDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExtensionDelegate.h; sourceTree = "<group>"; };
 		4F28A9D727D59464003B0F80 /* ExtensionDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExtensionDelegate.m; sourceTree = "<group>"; };
 		4F28A9D927D59464003B0F80 /* ComplicationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ComplicationController.h; sourceTree = "<group>"; };
 		4F28A9DA27D59464003B0F80 /* ComplicationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ComplicationController.m; sourceTree = "<group>"; };
 		4F28A9DC27D59465003B0F80 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4F28A9DE27D59465003B0F80 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4F28A9E927D59635003B0F80 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		4F28A9EB27D5965E003B0F80 /* CardBacksInterfaceController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardBacksInterfaceController.h; sourceTree = "<group>"; };
+		4F28A9EC27D5965E003B0F80 /* CardBacksInterfaceController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardBacksInterfaceController.m; sourceTree = "<group>"; };
 		4F29FD712722EAB700753E8D /* MainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		4F29FD722722EAB700753E8D /* MainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		4F2CFBFE27CB648000A3BAE4 /* MainListTableHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainListTableHeaderView.h; sourceTree = "<group>"; };
@@ -1895,7 +1895,7 @@
 		4F28A9C427D59463003B0F80 /* StoneNamuWatch */ = {
 			isa = PBXGroup;
 			children = (
-				4F28A9C527D59463003B0F80 /* Interface.storyboard */,
+				4F28A9E927D59635003B0F80 /* Main.storyboard */,
 				4F28A9C827D59464003B0F80 /* Assets.xcassets */,
 			);
 			path = StoneNamuWatch;
@@ -1904,8 +1904,8 @@
 		4F28A9D227D59464003B0F80 /* StoneNamuWatch WatchKit Extension */ = {
 			isa = PBXGroup;
 			children = (
-				4F28A9D327D59464003B0F80 /* InterfaceController.h */,
-				4F28A9D427D59464003B0F80 /* InterfaceController.m */,
+				4F28A9EB27D5965E003B0F80 /* CardBacksInterfaceController.h */,
+				4F28A9EC27D5965E003B0F80 /* CardBacksInterfaceController.m */,
 				4F28A9D627D59464003B0F80 /* ExtensionDelegate.h */,
 				4F28A9D727D59464003B0F80 /* ExtensionDelegate.m */,
 				4F28A9D927D59464003B0F80 /* ComplicationController.h */,
@@ -2763,14 +2763,14 @@
 			children = (
 				4FA56BA926A21059002D9FA0 /* StoneNamu */,
 				4FE856FE270089BC0008C2FB /* StoneNamuMac */,
+				4F28A9C427D59463003B0F80 /* StoneNamuWatch */,
+				4F28A9D227D59464003B0F80 /* StoneNamuWatch WatchKit Extension */,
 				4FFB151827D287D4004809A8 /* StoneNamuWatchPrivate */,
 				4FFB152627D287D4004809A8 /* StoneNamuWatchPrivate WatchKit Extension */,
 				4F34384926A36FBA001161FE /* StoneNamuCore */,
 				4F34385526A36FBA001161FE /* StoneNamuCoreTests */,
 				4F23C8AA273D997C00C33F10 /* StoneNamuResources */,
 				4F23C8D7273D9EE600C33F10 /* StoneNamuResourcesScript */,
-				4F28A9C427D59463003B0F80 /* StoneNamuWatch */,
-				4F28A9D227D59464003B0F80 /* StoneNamuWatch WatchKit Extension */,
 				4FA56BA826A21059002D9FA0 /* Products */,
 				4FFDD66B26CACE0E008E5B45 /* Frameworks */,
 			);
@@ -4144,7 +4144,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4F28A9C927D59464003B0F80 /* Assets.xcassets in Resources */,
-				4F28A9C727D59463003B0F80 /* Interface.storyboard in Resources */,
+				4F28A9EA27D59635003B0F80 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4249,7 +4249,7 @@
 			files = (
 				4F28A9DB27D59464003B0F80 /* ComplicationController.m in Sources */,
 				4F28A9D827D59464003B0F80 /* ExtensionDelegate.m in Sources */,
-				4F28A9D527D59464003B0F80 /* InterfaceController.m in Sources */,
+				4F28A9ED27D5965E003B0F80 /* CardBacksInterfaceController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4720,14 +4720,6 @@
 				4F23C8C1273D9ABE00C33F10 /* ko */,
 			);
 			name = Localizable.strings;
-			sourceTree = "<group>";
-		};
-		4F28A9C527D59463003B0F80 /* Interface.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				4F28A9C627D59463003B0F80 /* Base */,
-			);
-			name = Interface.storyboard;
 			sourceTree = "<group>";
 		};
 		4F9DFBB926B2FD2E002AACDE /* InfoPlist.strings */ = {

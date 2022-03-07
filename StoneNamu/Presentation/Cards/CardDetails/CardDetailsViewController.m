@@ -368,24 +368,30 @@
         switch (itemModel.type) {
             case CardDetailsItemModelTypeChild: {
                 CardDetailsChildContentConfiguration *configuration = [[CardDetailsChildContentConfiguration alloc] initWithHSCard:itemModel.childHSCard imageURL:itemModel.imageURL];
+                UIBackgroundConfiguration *backgroundConfiguration = [UIBackgroundConfiguration listGroupedCellConfiguration];
+                backgroundConfiguration.backgroundColor = UIColor.clearColor;
+                
                 cell.contentConfiguration = configuration;
+                cell.backgroundConfiguration = backgroundConfiguration;
                 [configuration release];
                 break;
             }
             default: {
-                CardDetailsBasicContentConfiguration *configuration = [[CardDetailsBasicContentConfiguration alloc] initWithLeadingText:itemModel.primaryText trailingText:itemModel.secondaryText];
+                UIListContentConfiguration *configuration = [UIListContentConfiguration subtitleCellConfiguration];
+                configuration.text = itemModel.primaryText;
+                configuration.secondaryText = itemModel.secondaryText;
+                configuration.textProperties.color = UIColor.whiteColor;
+                configuration.secondaryTextProperties.color = UIColor.whiteColor;
+                
+                UIBackgroundConfiguration *backgroundConfiguration = [UIBackgroundConfiguration listGroupedCellConfiguration];
+                backgroundConfiguration.visualEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleSystemUltraThinMaterialLight];
+                backgroundConfiguration.backgroundColor = UIColor.clearColor;
+                
                 cell.contentConfiguration = configuration;
-                [configuration release];
+                cell.backgroundConfiguration = backgroundConfiguration;
                 break;
             }
         }
-        
-        
-        //
-        
-        UIBackgroundConfiguration *backgroundConfiguration = [UIBackgroundConfiguration listGroupedCellConfiguration];
-        backgroundConfiguration.backgroundColor = UIColor.clearColor;
-        cell.backgroundConfiguration = backgroundConfiguration;
     }];
     
     return cellRegistration;
