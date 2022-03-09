@@ -897,6 +897,8 @@
 		4F4C5E2026D31F0E00E3349B /* NSDiffableDataSourceSnapshot+sort.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSDiffableDataSourceSnapshot+sort.h"; sourceTree = "<group>"; };
 		4F4C5E2126D31F0E00E3349B /* NSDiffableDataSourceSnapshot+sort.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSDiffableDataSourceSnapshot+sort.m"; sourceTree = "<group>"; };
 		4F4DD75626DFBBC000893E2B /* DeckDetailsViewControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeckDetailsViewControllerDelegate.h; sourceTree = "<group>"; };
+		4F4E67AE27D8F722005F2DF1 /* StoneNamuWatch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = StoneNamuWatch.entitlements; sourceTree = "<group>"; };
+		4F4E67AF27D8F72C005F2DF1 /* StoneNamuWatch WatchKit Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "StoneNamuWatch WatchKit Extension.entitlements"; sourceTree = "<group>"; };
 		4F53D4B22722FAAF00DE6F25 /* MainLayoutProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainLayoutProtocol.h; sourceTree = "<group>"; };
 		4F53D4B927231D1900DE6F25 /* DeckAddCardSplitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeckAddCardSplitViewController.m; sourceTree = "<group>"; };
 		4F53D4BA27231D1900DE6F25 /* DeckAddCardSplitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeckAddCardSplitViewController.h; sourceTree = "<group>"; };
@@ -1830,6 +1832,7 @@
 		4F28A9C427D59463003B0F80 /* StoneNamuWatch */ = {
 			isa = PBXGroup;
 			children = (
+				4F4E67AE27D8F722005F2DF1 /* StoneNamuWatch.entitlements */,
 				4F28A9E927D59635003B0F80 /* Main.storyboard */,
 				4F28A9C827D59464003B0F80 /* Assets.xcassets */,
 			);
@@ -1839,6 +1842,7 @@
 		4F28A9D227D59464003B0F80 /* StoneNamuWatch WatchKit Extension */ = {
 			isa = PBXGroup;
 			children = (
+				4F4E67AF27D8F72C005F2DF1 /* StoneNamuWatch WatchKit Extension.entitlements */,
 				4F35436527D8A15400946302 /* Service */,
 				4F8B5A7627D899D2001BCFA4 /* Main */,
 				4F475B9927D890DC00FC6E90 /* CardBacks */,
@@ -4719,6 +4723,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_ENTITLEMENTS = StoneNamuWatch/StoneNamuWatch.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = P53D29U9LJ;
@@ -4748,6 +4753,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_ENTITLEMENTS = StoneNamuWatch/StoneNamuWatch.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = P53D29U9LJ;
@@ -4776,6 +4782,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_ENTITLEMENTS = "StoneNamuWatch WatchKit Extension/StoneNamuWatch WatchKit Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = P53D29U9LJ;
@@ -4811,6 +4818,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_ENTITLEMENTS = "StoneNamuWatch WatchKit Extension/StoneNamuWatch WatchKit Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = P53D29U9LJ;
