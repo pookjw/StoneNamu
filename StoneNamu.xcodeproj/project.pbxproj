@@ -4729,6 +4729,7 @@
 				DEVELOPMENT_TEAM = P53D29U9LJ;
 				GENERATE_INFOPLIST_FILE = YES;
 				IBSC_MODULE = StoneNamuWatch_WatchKit_Extension;
+				INFOPLIST_FILE = StoneNamuWatch/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = StoneNamuWatch;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.pookjw.StoneNamu;
@@ -4759,6 +4760,7 @@
 				DEVELOPMENT_TEAM = P53D29U9LJ;
 				GENERATE_INFOPLIST_FILE = YES;
 				IBSC_MODULE = StoneNamuWatch_WatchKit_Extension;
+				INFOPLIST_FILE = StoneNamuWatch/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = StoneNamuWatch;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.pookjw.StoneNamu;
