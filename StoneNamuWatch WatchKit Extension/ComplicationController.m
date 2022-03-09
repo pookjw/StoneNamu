@@ -12,15 +12,17 @@
 #pragma mark - Complication Configuration
 
 - (void)getComplicationDescriptorsWithHandler:(void (^)(NSArray<CLKComplicationDescriptor *> * _Nonnull))handler {
-    NSArray<CLKComplicationDescriptor *> *descriptors = @[
-        [[CLKComplicationDescriptor alloc] initWithIdentifier:@"complication"
-                                                  displayName:@"StoneNamu"
-                                            supportedFamilies:CLKAllComplicationFamilies()]
-        // Multiple complication support can be added here with more descriptors
-    ];
+//    NSArray<CLKComplicationDescriptor *> *descriptors = @[
+//        [[CLKComplicationDescriptor alloc] initWithIdentifier:@"complication"
+//                                                  displayName:@"StoneNamu"
+//                                            supportedFamilies:CLKAllComplicationFamilies()]
+//        // Multiple complication support can be added here with more descriptors
+//    ];
+//
+//    // Call the handler with the currently supported complication descriptors
+//    handler([descriptors autorelease]);
     
-    // Call the handler with the currently supported complication descriptors
-    handler(descriptors);
+    handler(@[]);
 }
 
 - (void)handleSharedComplicationDescriptors:(NSArray<CLKComplicationDescriptor *> *)complicationDescriptors {

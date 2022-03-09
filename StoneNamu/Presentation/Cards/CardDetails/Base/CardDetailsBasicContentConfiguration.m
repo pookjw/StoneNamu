@@ -12,7 +12,7 @@
 
 - (__kindof UIView<UIContentView> *)makeContentView {
     CardDetailsBasicContentView *contentView = [[CardDetailsBasicContentView alloc] initWithConfiguration:self];
-    return contentView;
+    return [contentView autorelease];
 }
 
 - (nonnull instancetype)updatedConfigurationForState:(nonnull id<UIConfigurationState>)state {

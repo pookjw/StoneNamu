@@ -22,7 +22,7 @@
     
     CardBacksController *cardBacksController = [CardBacksController new];
     [cardBacksController push];
-    [CardBacksController release];
+    [cardBacksController release];
 }
 
 @end
