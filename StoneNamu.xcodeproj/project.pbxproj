@@ -280,9 +280,7 @@
 		4F8B5A7527D8991F001BCFA4 /* CardBacksController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8B5A7427D8991F001BCFA4 /* CardBacksController.m */; };
 		4F8B5A7927D899F7001BCFA4 /* MainInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8B5A7827D899F7001BCFA4 /* MainInterfaceController.m */; };
 		4F8B5A7A27D89B13001BCFA4 /* StoneNamuCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F34384826A36FBA001161FE /* StoneNamuCore.framework */; };
-		4F8B5A7B27D89B13001BCFA4 /* StoneNamuCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4F34384826A36FBA001161FE /* StoneNamuCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4F8B5A7E27D89B13001BCFA4 /* StoneNamuResources.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F23C8A9273D997C00C33F10 /* StoneNamuResources.framework */; };
-		4F8B5A7F27D89B13001BCFA4 /* StoneNamuResources.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4F23C8A9273D997C00C33F10 /* StoneNamuResources.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4F8C050E27C3BBC200216B54 /* DeckAddCardOptionsTouchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8C04FC27C3BBC200216B54 /* DeckAddCardOptionsTouchBar.m */; };
 		4F8C050F27C3BBC200216B54 /* NSTouchBarItemIdentifierDeckAddCardOptionType+BlizzardHSAPIOptionType.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8C04FD27C3BBC200216B54 /* NSTouchBarItemIdentifierDeckAddCardOptionType+BlizzardHSAPIOptionType.m */; };
 		4F8C051027C3BBC200216B54 /* NSToolbarIdentifierDeckAddCardOptionType+BlizzardHSAPIOptionType.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8C050127C3BBC200216B54 /* NSToolbarIdentifierDeckAddCardOptionType+BlizzardHSAPIOptionType.m */; };
@@ -599,18 +597,6 @@
 				4F28A9CF27D59464003B0F80 /* StoneNamuWatch WatchKit Extension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4F8B5A8227D89B13001BCFA4 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				4F8B5A7B27D89B13001BCFA4 /* StoneNamuCore.framework in Embed Frameworks */,
-				4F8B5A7F27D89B13001BCFA4 /* StoneNamuResources.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		4FA56BE526A212B6002D9FA0 /* Embed Frameworks */ = {
@@ -3812,7 +3798,6 @@
 				4F28A9CA27D59464003B0F80 /* Sources */,
 				4F28A9CB27D59464003B0F80 /* Frameworks */,
 				4F28A9CC27D59464003B0F80 /* Resources */,
-				4F8B5A8227D89B13001BCFA4 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
