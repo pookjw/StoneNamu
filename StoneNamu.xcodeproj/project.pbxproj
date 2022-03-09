@@ -268,7 +268,6 @@
 		4F83FBDF272E7226002D2387 /* NSView+isDarkMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F83FBDE272E7226002D2387 /* NSView+isDarkMode.m */; };
 		4F8635EC2746AE98000EC94F /* StoneNamuError.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F8635EA2746AE98000EC94F /* StoneNamuError.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4F8635ED2746AE98000EC94F /* StoneNamuError.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8635EB2746AE98000EC94F /* StoneNamuError.m */; };
-		4F8635EF2746B8BB000EC94F /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F8635EE2746B8BB000EC94F /* CloudKit.framework */; };
 		4F8754B226DB6F60000CE351 /* HSDeckFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8754B126DB6F60000CE351 /* HSDeckFormat.m */; };
 		4F8754B926DB87DC000CE351 /* UIViewController+SpinnerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8754B826DB87DC000CE351 /* UIViewController+SpinnerView.m */; };
 		4F8754BC26DB91D7000CE351 /* NSIndexPath+identifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8754BB26DB91D7000CE351 /* NSIndexPath+identifier.m */; };
@@ -279,8 +278,6 @@
 		4F883F74273011FC00AF0048 /* NSTextField+setLabelStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F883F73273011FC00AF0048 /* NSTextField+setLabelStyle.m */; };
 		4F8B5A7527D8991F001BCFA4 /* CardBacksController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8B5A7427D8991F001BCFA4 /* CardBacksController.m */; };
 		4F8B5A7927D899F7001BCFA4 /* MainInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8B5A7827D899F7001BCFA4 /* MainInterfaceController.m */; };
-		4F8B5A7A27D89B13001BCFA4 /* StoneNamuCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F34384826A36FBA001161FE /* StoneNamuCore.framework */; };
-		4F8B5A7E27D89B13001BCFA4 /* StoneNamuResources.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F23C8A9273D997C00C33F10 /* StoneNamuResources.framework */; };
 		4F8C050E27C3BBC200216B54 /* DeckAddCardOptionsTouchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8C04FC27C3BBC200216B54 /* DeckAddCardOptionsTouchBar.m */; };
 		4F8C050F27C3BBC200216B54 /* NSTouchBarItemIdentifierDeckAddCardOptionType+BlizzardHSAPIOptionType.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8C04FD27C3BBC200216B54 /* NSTouchBarItemIdentifierDeckAddCardOptionType+BlizzardHSAPIOptionType.m */; };
 		4F8C051027C3BBC200216B54 /* NSToolbarIdentifierDeckAddCardOptionType+BlizzardHSAPIOptionType.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8C050127C3BBC200216B54 /* NSToolbarIdentifierDeckAddCardOptionType+BlizzardHSAPIOptionType.m */; };
@@ -288,6 +285,10 @@
 		4F8C051227C3BBC200216B54 /* DeckAddCardOptionsMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8C050627C3BBC200216B54 /* DeckAddCardOptionsMenu.m */; };
 		4F8C051327C3BBC200216B54 /* NSUserInterfaceItemIdentifierDeckAddCardOptionType+BlizzardHSAPIOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8C050A27C3BBC200216B54 /* NSUserInterfaceItemIdentifierDeckAddCardOptionType+BlizzardHSAPIOption.m */; };
 		4F8C051427C3BBC200216B54 /* DeckAddCardOptionsMenuFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8C050C27C3BBC200216B54 /* DeckAddCardOptionsMenuFactory.m */; };
+		4F8CCBEE27D963C800163357 /* StoneNamuCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F34384826A36FBA001161FE /* StoneNamuCore.framework */; };
+		4F8CCBEF27D963C800163357 /* StoneNamuCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4F34384826A36FBA001161FE /* StoneNamuCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4F8CCBF127D963C900163357 /* StoneNamuResources.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F23C8A9273D997C00C33F10 /* StoneNamuResources.framework */; };
+		4F8CCBF227D963C900163357 /* StoneNamuResources.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4F23C8A9273D997C00C33F10 /* StoneNamuResources.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4F8F976526D469700024FC06 /* InsetsLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8F976426D469700024FC06 /* InsetsLabel.m */; };
 		4F8FDEEC2744261900BA84D2 /* DecksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8FDEEB2744261900BA84D2 /* DecksViewController.m */; };
 		4F8FFF3C26E0E66A00FA6586 /* DeckAddCardsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8FFF2B26E0E66A00FA6586 /* DeckAddCardsViewModel.m */; };
@@ -597,6 +598,18 @@
 				4F28A9CF27D59464003B0F80 /* StoneNamuWatch WatchKit Extension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4F8CCBF027D963C800163357 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				4F8CCBEF27D963C800163357 /* StoneNamuCore.framework in Embed Frameworks */,
+				4F8CCBF227D963C900163357 /* StoneNamuResources.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		4FA56BE526A212B6002D9FA0 /* Embed Frameworks */ = {
@@ -1009,11 +1022,8 @@
 		4F83FBDB272E6F5D002D2387 /* DynamicMenuToolbarItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DynamicMenuToolbarItem.m; sourceTree = "<group>"; };
 		4F83FBDD272E7226002D2387 /* NSView+isDarkMode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSView+isDarkMode.h"; sourceTree = "<group>"; };
 		4F83FBDE272E7226002D2387 /* NSView+isDarkMode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSView+isDarkMode.m"; sourceTree = "<group>"; };
-		4F859F1727D3E64500F7C34D /* PepperUICore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PepperUICore.framework; path = Platforms/WatchOS.platform/Library/Developer/CoreSimulator/Profiles/Runtimes/watchOS.simruntime/Contents/Resources/RuntimeRoot/System/Library/PrivateFrameworks/PepperUICore.framework; sourceTree = DEVELOPER_DIR; };
-		4F859F1E27D3EC7100F7C34D /* PepperUICore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = PepperUICore.tbd; path = "StoneNamuWatch WatchKit Extension/Frameworks/PepperUICore.tbd"; sourceTree = "<group>"; };
 		4F8635EA2746AE98000EC94F /* StoneNamuError.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoneNamuError.h; sourceTree = "<group>"; };
 		4F8635EB2746AE98000EC94F /* StoneNamuError.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StoneNamuError.m; sourceTree = "<group>"; };
-		4F8635EE2746B8BB000EC94F /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.1.sdk/System/Library/Frameworks/CloudKit.framework; sourceTree = DEVELOPER_DIR; };
 		4F8754B126DB6F60000CE351 /* HSDeckFormat.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSDeckFormat.m; sourceTree = "<group>"; };
 		4F8754B826DB87DC000CE351 /* UIViewController+SpinnerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+SpinnerView.m"; sourceTree = "<group>"; };
 		4F8754BA26DB91D7000CE351 /* NSIndexPath+identifier.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSIndexPath+identifier.h"; sourceTree = "<group>"; };
@@ -1468,8 +1478,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4F8B5A7A27D89B13001BCFA4 /* StoneNamuCore.framework in Frameworks */,
-				4F8B5A7E27D89B13001BCFA4 /* StoneNamuResources.framework in Frameworks */,
+				4F8CCBEE27D963C800163357 /* StoneNamuCore.framework in Frameworks */,
+				4F8CCBF127D963C900163357 /* StoneNamuResources.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1502,7 +1512,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4F8635EF2746B8BB000EC94F /* CloudKit.framework in Frameworks */,
 				4F4892CA272460CD00126131 /* StoneNamuCore.framework in Frameworks */,
 				4F23C8CE273D9D4100C33F10 /* StoneNamuResources.framework in Frameworks */,
 			);
@@ -3526,9 +3535,6 @@
 		4FFDD66B26CACE0E008E5B45 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				4F859F1E27D3EC7100F7C34D /* PepperUICore.tbd */,
-				4F859F1727D3E64500F7C34D /* PepperUICore.framework */,
-				4F8635EE2746B8BB000EC94F /* CloudKit.framework */,
 				4FFDD66C26CACE0E008E5B45 /* CloudKit.framework */,
 			);
 			name = Frameworks;
@@ -3798,6 +3804,7 @@
 				4F28A9CA27D59464003B0F80 /* Sources */,
 				4F28A9CB27D59464003B0F80 /* Frameworks */,
 				4F28A9CC27D59464003B0F80 /* Resources */,
+				4F8CCBF027D963C800163357 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
