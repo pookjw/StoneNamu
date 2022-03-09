@@ -109,7 +109,6 @@
 		4F28A9DD27D59465003B0F80 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4F28A9DC27D59465003B0F80 /* Assets.xcassets */; };
 		4F28A9E127D59465003B0F80 /* StoneNamuWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 4F28A9C327D59463003B0F80 /* StoneNamuWatch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		4F28A9EA27D59635003B0F80 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4F28A9E927D59635003B0F80 /* Main.storyboard */; };
-		4F28A9ED27D5965E003B0F80 /* CardBacksInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F28A9EC27D5965E003B0F80 /* CardBacksInterfaceController.m */; };
 		4F29FD732722EAB700753E8D /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F29FD722722EAB700753E8D /* MainViewController.m */; };
 		4F2CFC0027CB648000A3BAE4 /* MainListTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2CFBFF27CB648000A3BAE4 /* MainListTableHeaderView.m */; };
 		4F2CFC0227CB649800A3BAE4 /* MainListTableHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F2CFC0127CB649700A3BAE4 /* MainListTableHeaderView.xib */; };
@@ -129,6 +128,8 @@
 		4F34386726A37022001161FE /* HSCardRepositoryImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA05F7526A309C7000E93BC /* HSCardRepositoryImpl.m */; };
 		4F34386826A37029001161FE /* BlizzardTokenAPIImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F34383D26A36501001161FE /* BlizzardTokenAPIImpl.m */; };
 		4F34386926A37031001161FE /* BlizzardAPIImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA56BED26A213B2002D9FA0 /* BlizzardAPIImpl.m */; };
+		4F35436827D8A16800946302 /* ImageViewAsyncService.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F35436727D8A16800946302 /* ImageViewAsyncService.m */; };
+		4F35436D27D8ACD000946302 /* ActivityIndicatorService.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F35436C27D8ACD000946302 /* ActivityIndicatorService.m */; };
 		4F3F1BC326E7C12000ACF80A /* TextActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F3F1BC226E7C12000ACF80A /* TextActivityViewController.m */; };
 		4F3F1BC626E7C21100ACF80A /* UIView+removeAllSubviews.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F3F1BC526E7C21100ACF80A /* UIView+removeAllSubviews.m */; };
 		4F414B0126CED5480003A0CF /* SemaphoreCondition.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF3E0D626CA7F81002B20EA /* SemaphoreCondition.m */; };
@@ -146,6 +147,9 @@
 		4F4738CF2746D5A5000C0C85 /* CardDetailsBaseCollectionViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4738CE2746D5A5000C0C85 /* CardDetailsBaseCollectionViewItem.m */; };
 		4F4738D12746D5B7000C0C85 /* CardDetailsBaseCollectionViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F4738D02746D5B7000C0C85 /* CardDetailsBaseCollectionViewItem.xib */; };
 		4F4738D42746DD11000C0C85 /* CardDetailsCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4738D32746DD11000C0C85 /* CardDetailsCollectionViewLayout.m */; };
+		4F475BA727D890DC00FC6E90 /* CardBacksItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F475B9C27D890DC00FC6E90 /* CardBacksItemModel.m */; };
+		4F475BA827D890DC00FC6E90 /* CardBacksSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F475B9D27D890DC00FC6E90 /* CardBacksSectionModel.m */; };
+		4F475BAB27D890DC00FC6E90 /* CardBacksViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F475BA527D890DC00FC6E90 /* CardBacksViewModel.m */; };
 		4F4892C52724539600126131 /* Identifier.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F4892C42724534C00126131 /* Identifier.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		4F4892CA272460CD00126131 /* StoneNamuCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F34384826A36FBA001161FE /* StoneNamuCore.framework */; };
 		4F4892CB272460CD00126131 /* StoneNamuCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4F34384826A36FBA001161FE /* StoneNamuCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -273,6 +277,12 @@
 		4F883F6E27300B1700AF0048 /* NSToolbarIdentifierCardOptionType+BlizzardHSAPIOptionType.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F883F6D27300B1700AF0048 /* NSToolbarIdentifierCardOptionType+BlizzardHSAPIOptionType.m */; };
 		4F883F7127300BCB00AF0048 /* NSTouchBarItemIdentifierCardOptionType+BlizzardHSAPIOptionType.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F883F7027300BCB00AF0048 /* NSTouchBarItemIdentifierCardOptionType+BlizzardHSAPIOptionType.m */; };
 		4F883F74273011FC00AF0048 /* NSTextField+setLabelStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F883F73273011FC00AF0048 /* NSTextField+setLabelStyle.m */; };
+		4F8B5A7527D8991F001BCFA4 /* CardBacksController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8B5A7427D8991F001BCFA4 /* CardBacksController.m */; };
+		4F8B5A7927D899F7001BCFA4 /* MainInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8B5A7827D899F7001BCFA4 /* MainInterfaceController.m */; };
+		4F8B5A7A27D89B13001BCFA4 /* StoneNamuCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F34384826A36FBA001161FE /* StoneNamuCore.framework */; };
+		4F8B5A7B27D89B13001BCFA4 /* StoneNamuCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4F34384826A36FBA001161FE /* StoneNamuCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4F8B5A7E27D89B13001BCFA4 /* StoneNamuResources.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F23C8A9273D997C00C33F10 /* StoneNamuResources.framework */; };
+		4F8B5A7F27D89B13001BCFA4 /* StoneNamuResources.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4F23C8A9273D997C00C33F10 /* StoneNamuResources.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4F8C050E27C3BBC200216B54 /* DeckAddCardOptionsTouchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8C04FC27C3BBC200216B54 /* DeckAddCardOptionsTouchBar.m */; };
 		4F8C050F27C3BBC200216B54 /* NSTouchBarItemIdentifierDeckAddCardOptionType+BlizzardHSAPIOptionType.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8C04FD27C3BBC200216B54 /* NSTouchBarItemIdentifierDeckAddCardOptionType+BlizzardHSAPIOptionType.m */; };
 		4F8C051027C3BBC200216B54 /* NSToolbarIdentifierDeckAddCardOptionType+BlizzardHSAPIOptionType.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8C050127C3BBC200216B54 /* NSToolbarIdentifierDeckAddCardOptionType+BlizzardHSAPIOptionType.m */; };
@@ -386,24 +396,6 @@
 		4FD4E024274EE2CB0037D867 /* DeckBaseCollectionViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD4E023274EE2CB0037D867 /* DeckBaseCollectionViewItem.m */; };
 		4FD4E026274EE2E80037D867 /* DeckBaseCollectionViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4FD4E025274EE2E80037D867 /* DeckBaseCollectionViewItem.xib */; };
 		4FD4E029274EE4440037D867 /* DecksCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD4E028274EE4440037D867 /* DecksCollectionViewLayout.m */; };
-		4FD58FEC27D4186700B9DE49 /* PepperUICore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FD58FC227D417BA00B9DE49 /* PepperUICore.tbd */; };
-		4FD58FED27D4186B00B9DE49 /* StoneNamuCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F34384826A36FBA001161FE /* StoneNamuCore.framework */; };
-		4FD58FEE27D4186B00B9DE49 /* StoneNamuCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4F34384826A36FBA001161FE /* StoneNamuCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		4FD58FF127D4186B00B9DE49 /* StoneNamuResources.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F23C8A9273D997C00C33F10 /* StoneNamuResources.framework */; };
-		4FD58FF227D4186B00B9DE49 /* StoneNamuResources.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4F23C8A9273D997C00C33F10 /* StoneNamuResources.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		4FD58FFB27D4197D00B9DE49 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4FFB151C27D287D4004809A8 /* Assets.xcassets */; };
-		4FD58FFC27D4198E00B9DE49 /* CardBacksContentConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA8F4B527D3B69500569A81 /* CardBacksContentConfiguration.m */; };
-		4FD58FFD27D4198E00B9DE49 /* CardBacksItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA8F4AF27D3B67C00569A81 /* CardBacksItemModel.m */; };
-		4FD58FFE27D4198E00B9DE49 /* UICollectionViewDiffableDataSource+applySnapshotAndWait.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F0B6A6A27D3BE2B00D4ABDB /* UICollectionViewDiffableDataSource+applySnapshotAndWait.m */; };
-		4FD58FFF27D4198E00B9DE49 /* MainInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FFB152827D287D4004809A8 /* MainInterfaceController.m */; };
-		4FD5900027D4198E00B9DE49 /* ExtensionDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FFB152B27D287D4004809A8 /* ExtensionDelegate.m */; };
-		4FD5900127D4198E00B9DE49 /* CardBacksViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA8F4B227D3B68600569A81 /* CardBacksViewModel.m */; };
-		4FD5900227D4198E00B9DE49 /* CardBacksContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA8F4B827D3B6AB00569A81 /* CardBacksContentView.m */; };
-		4FD5900327D4198E00B9DE49 /* ComplicationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FFB152E27D287D4004809A8 /* ComplicationController.m */; };
-		4FD5900427D4198E00B9DE49 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4FFB153027D287D5004809A8 /* Assets.xcassets */; };
-		4FD5900527D4198E00B9DE49 /* CardBacksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA8F4A527D3B29C00569A81 /* CardBacksViewController.m */; };
-		4FD5900627D4198E00B9DE49 /* CardBacksSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA8F4AC27D3B67300569A81 /* CardBacksSectionModel.m */; };
-		4FD5900827D419B200B9DE49 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4FD5900727D419B200B9DE49 /* Main.storyboard */; };
 		4FD87F8C2719C9EC003EED4B /* MainListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD87F8B2719C9EC003EED4B /* MainListViewController.m */; };
 		4FD87F902719CA15003EED4B /* MainSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD87F8F2719CA15003EED4B /* MainSplitViewController.m */; };
 		4FD87F932719CD50003EED4B /* MainListViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD87F922719CD50003EED4B /* MainListViewModel.m */; };
@@ -425,7 +417,6 @@
 		4FDEAB5027A52CB80087A0F2 /* NSView+DraggingNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FDEAB4F27A52CB80087A0F2 /* NSView+DraggingNotification.m */; };
 		4FDEAB5327A589550087A0F2 /* NSAlert+presentTextFieldAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FDEAB5227A589550087A0F2 /* NSAlert+presentTextFieldAlert.m */; };
 		4FDEAB6827A5B67A0087A0F2 /* NSView+viewOfClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FDEAB6727A5B67A0087A0F2 /* NSView+viewOfClass.m */; };
-		4FDF11E727D41C35009E8865 /* StoneNamuWatchPrivate WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4FD58FD127D417FA00B9DE49 /* StoneNamuWatchPrivate WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		4FE85708270089BD0008C2FB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE85707270089BD0008C2FB /* main.m */; };
 		4FE857622700913A0008C2FB /* MainSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE857612700913A0008C2FB /* MainSplitViewController.m */; };
 		4FE85767270092F30008C2FB /* MainListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE85766270092F30008C2FB /* MainListViewController.m */; };
@@ -566,26 +557,19 @@
 			remoteGlobalIDString = 4F34384726A36FBA001161FE;
 			remoteInfo = StoneNamuCore;
 		};
-		4FD58FEF27D4186B00B9DE49 /* PBXContainerItemProxy */ = {
+		4F8B5A7C27D89B13001BCFA4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4FA56B9F26A21059002D9FA0 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 4F34384726A36FBA001161FE;
 			remoteInfo = StoneNamuCore;
 		};
-		4FD58FF327D4186B00B9DE49 /* PBXContainerItemProxy */ = {
+		4F8B5A8027D89B13001BCFA4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4FA56B9F26A21059002D9FA0 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 4F23C8A8273D997C00C33F10;
 			remoteInfo = StoneNamuResources;
-		};
-		4FDF11E827D41C35009E8865 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4FA56B9F26A21059002D9FA0 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 4FD58FD027D417FA00B9DE49;
-			remoteInfo = "StoneNamuWatchPrivate WatchKit Extension";
 		};
 		F3024CEF274007DD001DDE08 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -617,6 +601,18 @@
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4F8B5A8227D89B13001BCFA4 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				4F8B5A7B27D89B13001BCFA4 /* StoneNamuCore.framework in Embed Frameworks */,
+				4F8B5A7F27D89B13001BCFA4 /* StoneNamuResources.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4FA56BE526A212B6002D9FA0 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -627,29 +623,6 @@
 				4F23C8B0273D997C00C33F10 /* StoneNamuResources.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4FD58FF527D4186B00B9DE49 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				4FD58FEE27D4186B00B9DE49 /* StoneNamuCore.framework in Embed Frameworks */,
-				4FD58FF227D4186B00B9DE49 /* StoneNamuResources.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4FDF11EA27D41C35009E8865 /* Embed App Extensions */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 13;
-			files = (
-				4FDF11E727D41C35009E8865 /* StoneNamuWatchPrivate WatchKit Extension.appex in Embed App Extensions */,
-			);
-			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		4FE8572A27008A240008C2FB /* Embed Frameworks */ = {
@@ -706,9 +679,6 @@
 		4F0863F12751C98100B251BF /* DecksMenuDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DecksMenuDelegate.h; sourceTree = "<group>"; };
 		4F0863F22751D01300B251BF /* NSUserInterfaceItemIdentifierDecks+HSDeckFormat.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSUserInterfaceItemIdentifierDecks+HSDeckFormat.h"; sourceTree = "<group>"; };
 		4F0863F32751D0A200B251BF /* NSUserInterfaceItemIdentifierDecks+HSDeckFormat.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSUserInterfaceItemIdentifierDecks+HSDeckFormat.m"; sourceTree = "<group>"; };
-		4F0B6A6927D3BE2B00D4ABDB /* UICollectionViewDiffableDataSource+applySnapshotAndWait.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UICollectionViewDiffableDataSource+applySnapshotAndWait.h"; sourceTree = "<group>"; };
-		4F0B6A6A27D3BE2B00D4ABDB /* UICollectionViewDiffableDataSource+applySnapshotAndWait.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UICollectionViewDiffableDataSource+applySnapshotAndWait.m"; sourceTree = "<group>"; };
-		4F0B6A6C27D3BE3B00D4ABDB /* UICollectionViewDiffableDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UICollectionViewDiffableDataSource.h; sourceTree = "<group>"; };
 		4F128D43273C044100C6A0D9 /* IntrinsicCollectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IntrinsicCollectionView.h; sourceTree = "<group>"; };
 		4F128D44273C044100C6A0D9 /* IntrinsicCollectionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IntrinsicCollectionView.m; sourceTree = "<group>"; };
 		4F138422274C52DE007E68E4 /* CardDetailsChildCollectionViewItemDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardDetailsChildCollectionViewItemDelegate.h; sourceTree = "<group>"; };
@@ -830,8 +800,6 @@
 		4F28A9DC27D59465003B0F80 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4F28A9DE27D59465003B0F80 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4F28A9E927D59635003B0F80 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		4F28A9EB27D5965E003B0F80 /* CardBacksInterfaceController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardBacksInterfaceController.h; sourceTree = "<group>"; };
-		4F28A9EC27D5965E003B0F80 /* CardBacksInterfaceController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardBacksInterfaceController.m; sourceTree = "<group>"; };
 		4F29FD712722EAB700753E8D /* MainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		4F29FD722722EAB700753E8D /* MainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		4F2CFBFE27CB648000A3BAE4 /* MainListTableHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainListTableHeaderView.h; sourceTree = "<group>"; };
@@ -860,6 +828,10 @@
 		4F34384826A36FBA001161FE /* StoneNamuCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StoneNamuCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F34384A26A36FBA001161FE /* StoneNamuCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoneNamuCore.h; sourceTree = "<group>"; };
 		4F34384F26A36FBA001161FE /* StoneNamuCoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StoneNamuCoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4F35436627D8A16800946302 /* ImageViewAsyncService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageViewAsyncService.h; sourceTree = "<group>"; };
+		4F35436727D8A16800946302 /* ImageViewAsyncService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageViewAsyncService.m; sourceTree = "<group>"; };
+		4F35436B27D8ACD000946302 /* ActivityIndicatorService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ActivityIndicatorService.h; sourceTree = "<group>"; };
+		4F35436C27D8ACD000946302 /* ActivityIndicatorService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ActivityIndicatorService.m; sourceTree = "<group>"; };
 		4F3F1BC126E7C12000ACF80A /* TextActivityViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TextActivityViewController.h; sourceTree = "<group>"; };
 		4F3F1BC226E7C12000ACF80A /* TextActivityViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TextActivityViewController.m; sourceTree = "<group>"; };
 		4F3F1BC426E7C21100ACF80A /* UIView+removeAllSubviews.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+removeAllSubviews.h"; sourceTree = "<group>"; };
@@ -890,6 +862,12 @@
 		4F4738D02746D5B7000C0C85 /* CardDetailsBaseCollectionViewItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CardDetailsBaseCollectionViewItem.xib; sourceTree = "<group>"; };
 		4F4738D22746DD11000C0C85 /* CardDetailsCollectionViewLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardDetailsCollectionViewLayout.h; sourceTree = "<group>"; };
 		4F4738D32746DD11000C0C85 /* CardDetailsCollectionViewLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardDetailsCollectionViewLayout.m; sourceTree = "<group>"; };
+		4F475B9C27D890DC00FC6E90 /* CardBacksItemModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardBacksItemModel.m; sourceTree = "<group>"; };
+		4F475B9D27D890DC00FC6E90 /* CardBacksSectionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardBacksSectionModel.m; sourceTree = "<group>"; };
+		4F475B9F27D890DC00FC6E90 /* CardBacksViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardBacksViewModel.h; sourceTree = "<group>"; };
+		4F475BA227D890DC00FC6E90 /* CardBacksSectionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardBacksSectionModel.h; sourceTree = "<group>"; };
+		4F475BA327D890DC00FC6E90 /* CardBacksItemModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardBacksItemModel.h; sourceTree = "<group>"; };
+		4F475BA527D890DC00FC6E90 /* CardBacksViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardBacksViewModel.m; sourceTree = "<group>"; };
 		4F4892C42724534C00126131 /* Identifier.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Identifier.h; sourceTree = "<group>"; };
 		4F4892D02724637D00126131 /* StoneNamuMac.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = StoneNamuMac.entitlements; sourceTree = "<group>"; };
 		4F4892D2272467E300126131 /* NSCollectionViewDiffableDataSource+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSCollectionViewDiffableDataSource+Private.h"; sourceTree = "<group>"; };
@@ -1042,7 +1020,6 @@
 		4F83FBDB272E6F5D002D2387 /* DynamicMenuToolbarItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DynamicMenuToolbarItem.m; sourceTree = "<group>"; };
 		4F83FBDD272E7226002D2387 /* NSView+isDarkMode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSView+isDarkMode.h"; sourceTree = "<group>"; };
 		4F83FBDE272E7226002D2387 /* NSView+isDarkMode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSView+isDarkMode.m"; sourceTree = "<group>"; };
-		4F859F1627D3E3DE00F7C34D /* PUICCollectionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PUICCollectionViewController.h; sourceTree = "<group>"; };
 		4F859F1727D3E64500F7C34D /* PepperUICore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PepperUICore.framework; path = Platforms/WatchOS.platform/Library/Developer/CoreSimulator/Profiles/Runtimes/watchOS.simruntime/Contents/Resources/RuntimeRoot/System/Library/PrivateFrameworks/PepperUICore.framework; sourceTree = DEVELOPER_DIR; };
 		4F859F1E27D3EC7100F7C34D /* PepperUICore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = PepperUICore.tbd; path = "StoneNamuWatch WatchKit Extension/Frameworks/PepperUICore.tbd"; sourceTree = "<group>"; };
 		4F8635EA2746AE98000EC94F /* StoneNamuError.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoneNamuError.h; sourceTree = "<group>"; };
@@ -1063,6 +1040,10 @@
 		4F883F7027300BCB00AF0048 /* NSTouchBarItemIdentifierCardOptionType+BlizzardHSAPIOptionType.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSTouchBarItemIdentifierCardOptionType+BlizzardHSAPIOptionType.m"; sourceTree = "<group>"; };
 		4F883F72273011FC00AF0048 /* NSTextField+setLabelStyle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSTextField+setLabelStyle.h"; sourceTree = "<group>"; };
 		4F883F73273011FC00AF0048 /* NSTextField+setLabelStyle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSTextField+setLabelStyle.m"; sourceTree = "<group>"; };
+		4F8B5A7327D8991F001BCFA4 /* CardBacksController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardBacksController.h; sourceTree = "<group>"; };
+		4F8B5A7427D8991F001BCFA4 /* CardBacksController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardBacksController.m; sourceTree = "<group>"; };
+		4F8B5A7727D899F7001BCFA4 /* MainInterfaceController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainInterfaceController.h; sourceTree = "<group>"; };
+		4F8B5A7827D899F7001BCFA4 /* MainInterfaceController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainInterfaceController.m; sourceTree = "<group>"; };
 		4F8C04FA27C3BBC200216B54 /* NSTouchBarItemIdentifierDeckAddCardOptionType+BlizzardHSAPIOptionType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTouchBarItemIdentifierDeckAddCardOptionType+BlizzardHSAPIOptionType.h"; sourceTree = "<group>"; };
 		4F8C04FB27C3BBC200216B54 /* DeckAddCardOptionsTouchBarDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeckAddCardOptionsTouchBarDelegate.h; sourceTree = "<group>"; };
 		4F8C04FC27C3BBC200216B54 /* DeckAddCardOptionsTouchBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeckAddCardOptionsTouchBar.m; sourceTree = "<group>"; };
@@ -1180,22 +1161,6 @@
 		4FA8F48E27D29C9300569A81 /* HSCardBackUseCaseImpl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSCardBackUseCaseImpl.h; sourceTree = "<group>"; };
 		4FA8F48F27D29C9300569A81 /* HSCardBackUseCaseImpl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCardBackUseCaseImpl.m; sourceTree = "<group>"; };
 		4FA8F49327D29ED200569A81 /* HSCardBackUseCaseTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCardBackUseCaseTest.m; sourceTree = "<group>"; };
-		4FA8F49927D3AF3200569A81 /* UIViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIViewController.h; sourceTree = "<group>"; };
-		4FA8F49A27D3AF5700569A81 /* SPViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPViewController.h; sourceTree = "<group>"; };
-		4FA8F4A427D3B29C00569A81 /* CardBacksViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardBacksViewController.h; sourceTree = "<group>"; };
-		4FA8F4A527D3B29C00569A81 /* CardBacksViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardBacksViewController.m; sourceTree = "<group>"; };
-		4FA8F4AA27D3B3DF00569A81 /* UICollectionViewCompositionalLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UICollectionViewCompositionalLayout.h; sourceTree = "<group>"; };
-		4FA8F4AB27D3B67300569A81 /* CardBacksSectionModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardBacksSectionModel.h; sourceTree = "<group>"; };
-		4FA8F4AC27D3B67300569A81 /* CardBacksSectionModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardBacksSectionModel.m; sourceTree = "<group>"; };
-		4FA8F4AE27D3B67C00569A81 /* CardBacksItemModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardBacksItemModel.h; sourceTree = "<group>"; };
-		4FA8F4AF27D3B67C00569A81 /* CardBacksItemModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardBacksItemModel.m; sourceTree = "<group>"; };
-		4FA8F4B127D3B68600569A81 /* CardBacksViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardBacksViewModel.h; sourceTree = "<group>"; };
-		4FA8F4B227D3B68600569A81 /* CardBacksViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardBacksViewModel.m; sourceTree = "<group>"; };
-		4FA8F4B427D3B69500569A81 /* CardBacksContentConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardBacksContentConfiguration.h; sourceTree = "<group>"; };
-		4FA8F4B527D3B69500569A81 /* CardBacksContentConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardBacksContentConfiguration.m; sourceTree = "<group>"; };
-		4FA8F4B727D3B6AB00569A81 /* CardBacksContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardBacksContentView.h; sourceTree = "<group>"; };
-		4FA8F4B827D3B6AB00569A81 /* CardBacksContentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardBacksContentView.m; sourceTree = "<group>"; };
-		4FA8F4BB27D3B87E00569A81 /* UIView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIView.h; sourceTree = "<group>"; };
 		4FA9047826B6E26A00CD6147 /* CardContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardContentView.h; sourceTree = "<group>"; };
 		4FA9047926B6E26A00CD6147 /* CardContentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardContentView.m; sourceTree = "<group>"; };
 		4FA9047B26B6E2A000CD6147 /* CardContentConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardContentConfiguration.h; sourceTree = "<group>"; };
@@ -1307,10 +1272,6 @@
 		4FD4E025274EE2E80037D867 /* DeckBaseCollectionViewItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DeckBaseCollectionViewItem.xib; sourceTree = "<group>"; };
 		4FD4E027274EE4440037D867 /* DecksCollectionViewLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DecksCollectionViewLayout.h; sourceTree = "<group>"; };
 		4FD4E028274EE4440037D867 /* DecksCollectionViewLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DecksCollectionViewLayout.m; sourceTree = "<group>"; };
-		4FD58FC227D417BA00B9DE49 /* PepperUICore.tbd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.text-based-dylib-definition"; path = PepperUICore.tbd; sourceTree = "<group>"; };
-		4FD58FC627D417FA00B9DE49 /* StoneNamuWatchPrivate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StoneNamuWatchPrivate.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		4FD58FD127D417FA00B9DE49 /* StoneNamuWatchPrivate WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "StoneNamuWatchPrivate WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
-		4FD5900727D419B200B9DE49 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		4FD796E2279C6E7A0055668C /* NSPasteboardNameStoneNamuPasteboard.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSPasteboardNameStoneNamuPasteboard.h; sourceTree = "<group>"; };
 		4FD87F8A2719C9EC003EED4B /* MainListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainListViewController.h; sourceTree = "<group>"; };
 		4FD87F8B2719C9EC003EED4B /* MainListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainListViewController.m; sourceTree = "<group>"; };
@@ -1416,15 +1377,6 @@
 		4FF676CE26AAFC6A00477272 /* CardsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardsViewController.m; sourceTree = "<group>"; };
 		4FFB151227D283DC004809A8 /* NSView+setMasksToBounds.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSView+setMasksToBounds.h"; sourceTree = "<group>"; };
 		4FFB151327D283DC004809A8 /* NSView+setMasksToBounds.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSView+setMasksToBounds.m"; sourceTree = "<group>"; };
-		4FFB151C27D287D4004809A8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		4FFB152727D287D4004809A8 /* MainInterfaceController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainInterfaceController.h; sourceTree = "<group>"; };
-		4FFB152827D287D4004809A8 /* MainInterfaceController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainInterfaceController.m; sourceTree = "<group>"; };
-		4FFB152A27D287D4004809A8 /* ExtensionDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExtensionDelegate.h; sourceTree = "<group>"; };
-		4FFB152B27D287D4004809A8 /* ExtensionDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExtensionDelegate.m; sourceTree = "<group>"; };
-		4FFB152D27D287D4004809A8 /* ComplicationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ComplicationController.h; sourceTree = "<group>"; };
-		4FFB152E27D287D4004809A8 /* ComplicationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ComplicationController.m; sourceTree = "<group>"; };
-		4FFB153027D287D5004809A8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		4FFB153227D287D5004809A8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4FFBAAD926E4FE9900DBEEDB /* UIImage+imageWithGrayScale.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+imageWithGrayScale.h"; sourceTree = "<group>"; };
 		4FFBAADA26E4FE9900DBEEDB /* UIImage+imageWithGrayScale.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+imageWithGrayScale.m"; sourceTree = "<group>"; };
 		4FFCF80627B1D46500A89660 /* compareNullableValues.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = compareNullableValues.h; sourceTree = "<group>"; };
@@ -1527,6 +1479,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F8B5A7A27D89B13001BCFA4 /* StoneNamuCore.framework in Frameworks */,
+				4F8B5A7E27D89B13001BCFA4 /* StoneNamuResources.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1552,16 +1506,6 @@
 				4F23C8AF273D997C00C33F10 /* StoneNamuResources.framework in Frameworks */,
 				4F34385B26A36FBA001161FE /* StoneNamuCore.framework in Frameworks */,
 				4FFDD66D26CACE0E008E5B45 /* CloudKit.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4FD58FCE27D417FA00B9DE49 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4FD58FF127D4186B00B9DE49 /* StoneNamuResources.framework in Frameworks */,
-				4FD58FED27D4186B00B9DE49 /* StoneNamuCore.framework in Frameworks */,
-				4FD58FEC27D4186700B9DE49 /* PepperUICore.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1609,15 +1553,6 @@
 				4F066CC026D71B2200991A98 /* DeckBaseContentView.m */,
 			);
 			path = Base;
-			sourceTree = "<group>";
-		};
-		4F0B6A6827D3BE1D00D4ABDB /* Category */ = {
-			isa = PBXGroup;
-			children = (
-				4F0B6A6927D3BE2B00D4ABDB /* UICollectionViewDiffableDataSource+applySnapshotAndWait.h */,
-				4F0B6A6A27D3BE2B00D4ABDB /* UICollectionViewDiffableDataSource+applySnapshotAndWait.m */,
-			);
-			path = Category;
 			sourceTree = "<group>";
 		};
 		4F128D42273C041F00C6A0D9 /* Intrinsic */ = {
@@ -1904,8 +1839,9 @@
 		4F28A9D227D59464003B0F80 /* StoneNamuWatch WatchKit Extension */ = {
 			isa = PBXGroup;
 			children = (
-				4F28A9EB27D5965E003B0F80 /* CardBacksInterfaceController.h */,
-				4F28A9EC27D5965E003B0F80 /* CardBacksInterfaceController.m */,
+				4F35436527D8A15400946302 /* Service */,
+				4F8B5A7627D899D2001BCFA4 /* Main */,
+				4F475B9927D890DC00FC6E90 /* CardBacks */,
 				4F28A9D627D59464003B0F80 /* ExtensionDelegate.h */,
 				4F28A9D727D59464003B0F80 /* ExtensionDelegate.m */,
 				4F28A9D927D59464003B0F80 /* ComplicationController.h */,
@@ -1992,6 +1928,33 @@
 			path = StoneNamuCoreTests;
 			sourceTree = "<group>";
 		};
+		4F35436527D8A15400946302 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				4F35436A27D8ACC000946302 /* ActivityIndicatorService */,
+				4F35436927D8ACBB00946302 /* ImageViewAsyncService */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		4F35436927D8ACBB00946302 /* ImageViewAsyncService */ = {
+			isa = PBXGroup;
+			children = (
+				4F35436627D8A16800946302 /* ImageViewAsyncService.h */,
+				4F35436727D8A16800946302 /* ImageViewAsyncService.m */,
+			);
+			path = ImageViewAsyncService;
+			sourceTree = "<group>";
+		};
+		4F35436A27D8ACC000946302 /* ActivityIndicatorService */ = {
+			isa = PBXGroup;
+			children = (
+				4F35436B27D8ACD000946302 /* ActivityIndicatorService.h */,
+				4F35436C27D8ACD000946302 /* ActivityIndicatorService.m */,
+			);
+			path = ActivityIndicatorService;
+			sourceTree = "<group>";
+		};
 		4F394DBA2738613F00D1148D /* Menu */ = {
 			isa = PBXGroup;
 			children = (
@@ -2062,6 +2025,21 @@
 				4F4738D02746D5B7000C0C85 /* CardDetailsBaseCollectionViewItem.xib */,
 			);
 			path = Base;
+			sourceTree = "<group>";
+		};
+		4F475B9927D890DC00FC6E90 /* CardBacks */ = {
+			isa = PBXGroup;
+			children = (
+				4F8B5A7327D8991F001BCFA4 /* CardBacksController.h */,
+				4F8B5A7427D8991F001BCFA4 /* CardBacksController.m */,
+				4F475B9F27D890DC00FC6E90 /* CardBacksViewModel.h */,
+				4F475BA527D890DC00FC6E90 /* CardBacksViewModel.m */,
+				4F475BA227D890DC00FC6E90 /* CardBacksSectionModel.h */,
+				4F475B9D27D890DC00FC6E90 /* CardBacksSectionModel.m */,
+				4F475BA327D890DC00FC6E90 /* CardBacksItemModel.h */,
+				4F475B9C27D890DC00FC6E90 /* CardBacksItemModel.m */,
+			);
+			path = CardBacks;
 			sourceTree = "<group>";
 		};
 		4F4892D1272467CD00126131 /* Private */ = {
@@ -2538,6 +2516,15 @@
 			path = TouchBar;
 			sourceTree = "<group>";
 		};
+		4F8B5A7627D899D2001BCFA4 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				4F8B5A7727D899F7001BCFA4 /* MainInterfaceController.h */,
+				4F8B5A7827D899F7001BCFA4 /* MainInterfaceController.m */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
 		4F8C04F727C3BA1900216B54 /* CardOptions */ = {
 			isa = PBXGroup;
 			children = (
@@ -2765,8 +2752,6 @@
 				4FE856FE270089BC0008C2FB /* StoneNamuMac */,
 				4F28A9C427D59463003B0F80 /* StoneNamuWatch */,
 				4F28A9D227D59464003B0F80 /* StoneNamuWatch WatchKit Extension */,
-				4FFB151827D287D4004809A8 /* StoneNamuWatchPrivate */,
-				4FFB152627D287D4004809A8 /* StoneNamuWatchPrivate WatchKit Extension */,
 				4F34384926A36FBA001161FE /* StoneNamuCore */,
 				4F34385526A36FBA001161FE /* StoneNamuCoreTests */,
 				4F23C8AA273D997C00C33F10 /* StoneNamuResources */,
@@ -2785,8 +2770,6 @@
 				4FE856FD270089BC0008C2FB /* StoneNamuMac.app */,
 				4F23C8A9273D997C00C33F10 /* StoneNamuResources.framework */,
 				4F23C8D6273D9EE600C33F10 /* StoneNamuResourcesScript */,
-				4FD58FC627D417FA00B9DE49 /* StoneNamuWatchPrivate.app */,
-				4FD58FD127D417FA00B9DE49 /* StoneNamuWatchPrivate WatchKit Extension.appex */,
 				4F28A9C327D59463003B0F80 /* StoneNamuWatch.app */,
 				4F28A9CE27D59464003B0F80 /* StoneNamuWatch WatchKit Extension.appex */,
 			);
@@ -2860,75 +2843,6 @@
 				4FA8F48427D2955F00569A81 /* HSCardBack.m */,
 			);
 			path = HSCardBack;
-			sourceTree = "<group>";
-		};
-		4FA8F49527D3AE9600569A81 /* Application */ = {
-			isa = PBXGroup;
-			children = (
-				4FA8F49E27D3B0AD00569A81 /* Service */,
-				4FFB152A27D287D4004809A8 /* ExtensionDelegate.h */,
-				4FFB152B27D287D4004809A8 /* ExtensionDelegate.m */,
-				4FFB152D27D287D4004809A8 /* ComplicationController.h */,
-				4FFB152E27D287D4004809A8 /* ComplicationController.m */,
-			);
-			path = Application;
-			sourceTree = "<group>";
-		};
-		4FA8F49627D3AEA100569A81 /* Presentation */ = {
-			isa = PBXGroup;
-			children = (
-				4FA8F49727D3AEAB00569A81 /* Main */,
-				4FA8F4A327D3B27B00569A81 /* CardBacks */,
-			);
-			path = Presentation;
-			sourceTree = "<group>";
-		};
-		4FA8F49727D3AEAB00569A81 /* Main */ = {
-			isa = PBXGroup;
-			children = (
-				4FFB152727D287D4004809A8 /* MainInterfaceController.h */,
-				4FFB152827D287D4004809A8 /* MainInterfaceController.m */,
-			);
-			path = Main;
-			sourceTree = "<group>";
-		};
-		4FA8F49827D3AF1300569A81 /* Private */ = {
-			isa = PBXGroup;
-			children = (
-				4FA8F49927D3AF3200569A81 /* UIViewController.h */,
-				4FA8F49A27D3AF5700569A81 /* SPViewController.h */,
-				4FA8F4AA27D3B3DF00569A81 /* UICollectionViewCompositionalLayout.h */,
-				4FA8F4BB27D3B87E00569A81 /* UIView.h */,
-				4F0B6A6C27D3BE3B00D4ABDB /* UICollectionViewDiffableDataSource.h */,
-				4F859F1627D3E3DE00F7C34D /* PUICCollectionViewController.h */,
-			);
-			path = Private;
-			sourceTree = "<group>";
-		};
-		4FA8F49E27D3B0AD00569A81 /* Service */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Service;
-			sourceTree = "<group>";
-		};
-		4FA8F4A327D3B27B00569A81 /* CardBacks */ = {
-			isa = PBXGroup;
-			children = (
-				4FA8F4A427D3B29C00569A81 /* CardBacksViewController.h */,
-				4FA8F4A527D3B29C00569A81 /* CardBacksViewController.m */,
-				4FA8F4B127D3B68600569A81 /* CardBacksViewModel.h */,
-				4FA8F4B227D3B68600569A81 /* CardBacksViewModel.m */,
-				4FA8F4AB27D3B67300569A81 /* CardBacksSectionModel.h */,
-				4FA8F4AC27D3B67300569A81 /* CardBacksSectionModel.m */,
-				4FA8F4AE27D3B67C00569A81 /* CardBacksItemModel.h */,
-				4FA8F4AF27D3B67C00569A81 /* CardBacksItemModel.m */,
-				4FA8F4B427D3B69500569A81 /* CardBacksContentConfiguration.h */,
-				4FA8F4B527D3B69500569A81 /* CardBacksContentConfiguration.m */,
-				4FA8F4B727D3B6AB00569A81 /* CardBacksContentView.h */,
-				4FA8F4B827D3B6AB00569A81 /* CardBacksContentView.m */,
-			);
-			path = CardBacks;
 			sourceTree = "<group>";
 		};
 		4FAA89D526A4260C00572BB4 /* UseCase */ = {
@@ -3265,14 +3179,6 @@
 			path = Base;
 			sourceTree = "<group>";
 		};
-		4FD58FC127D417BA00B9DE49 /* tbd */ = {
-			isa = PBXGroup;
-			children = (
-				4FD58FC227D417BA00B9DE49 /* PepperUICore.tbd */,
-			);
-			path = tbd;
-			sourceTree = "<group>";
-		};
 		4FD796F8279DAABE0055668C /* Decks */ = {
 			isa = PBXGroup;
 			children = (
@@ -3582,29 +3488,6 @@
 				4FF3E0DA26CA947D002B20EA /* OneBesideSecondarySplitViewController.m */,
 			);
 			path = OneBesideSecondary;
-			sourceTree = "<group>";
-		};
-		4FFB151827D287D4004809A8 /* StoneNamuWatchPrivate */ = {
-			isa = PBXGroup;
-			children = (
-				4FD5900727D419B200B9DE49 /* Main.storyboard */,
-				4FFB151C27D287D4004809A8 /* Assets.xcassets */,
-			);
-			path = StoneNamuWatchPrivate;
-			sourceTree = "<group>";
-		};
-		4FFB152627D287D4004809A8 /* StoneNamuWatchPrivate WatchKit Extension */ = {
-			isa = PBXGroup;
-			children = (
-				4FA8F49527D3AE9600569A81 /* Application */,
-				4F0B6A6827D3BE1D00D4ABDB /* Category */,
-				4FA8F49827D3AF1300569A81 /* Private */,
-				4FA8F49627D3AEA100569A81 /* Presentation */,
-				4FFB153027D287D5004809A8 /* Assets.xcassets */,
-				4FFB153227D287D5004809A8 /* Info.plist */,
-				4FD58FC127D417BA00B9DE49 /* tbd */,
-			);
-			path = "StoneNamuWatchPrivate WatchKit Extension";
 			sourceTree = "<group>";
 		};
 		4FFDD65426CAC3EE008E5B45 /* Decks */ = {
@@ -3923,10 +3806,13 @@
 				4F28A9CA27D59464003B0F80 /* Sources */,
 				4F28A9CB27D59464003B0F80 /* Frameworks */,
 				4F28A9CC27D59464003B0F80 /* Resources */,
+				4F8B5A8227D89B13001BCFA4 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				4F8B5A7D27D89B13001BCFA4 /* PBXTargetDependency */,
+				4F8B5A8127D89B13001BCFA4 /* PBXTargetDependency */,
 			);
 			name = "StoneNamuWatch WatchKit Extension";
 			productName = "StoneNamuWatch WatchKit Extension";
@@ -3993,43 +3879,6 @@
 			productReference = 4FA56BA726A21059002D9FA0 /* StoneNamu.app */;
 			productType = "com.apple.product-type.application";
 		};
-		4FD58FC527D417FA00B9DE49 /* StoneNamuWatchPrivate */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 4FD58FE927D417FB00B9DE49 /* Build configuration list for PBXNativeTarget "StoneNamuWatchPrivate" */;
-			buildPhases = (
-				4FD58FC427D417FA00B9DE49 /* Resources */,
-				4FDF11EA27D41C35009E8865 /* Embed App Extensions */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				4FDF11E927D41C35009E8865 /* PBXTargetDependency */,
-			);
-			name = StoneNamuWatchPrivate;
-			productName = StoneNamuWatchPrivate;
-			productReference = 4FD58FC627D417FA00B9DE49 /* StoneNamuWatchPrivate.app */;
-			productType = "com.apple.product-type.application.watchapp2";
-		};
-		4FD58FD027D417FA00B9DE49 /* StoneNamuWatchPrivate WatchKit Extension */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 4FD58FE527D417FB00B9DE49 /* Build configuration list for PBXNativeTarget "StoneNamuWatchPrivate WatchKit Extension" */;
-			buildPhases = (
-				4FD58FCD27D417FA00B9DE49 /* Sources */,
-				4FD58FCE27D417FA00B9DE49 /* Frameworks */,
-				4FD58FCF27D417FA00B9DE49 /* Resources */,
-				4FD58FF527D4186B00B9DE49 /* Embed Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				4FD58FF027D4186B00B9DE49 /* PBXTargetDependency */,
-				4FD58FF427D4186B00B9DE49 /* PBXTargetDependency */,
-			);
-			name = "StoneNamuWatchPrivate WatchKit Extension";
-			productName = "StoneNamuWatchPrivate WatchKit Extension";
-			productReference = 4FD58FD127D417FA00B9DE49 /* StoneNamuWatchPrivate WatchKit Extension.appex */;
-			productType = "com.apple.product-type.watchkit2-extension";
-		};
 		4FE856FC270089BC0008C2FB /* StoneNamuMac */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4FE8570B270089BD0008C2FB /* Build configuration list for PBXNativeTarget "StoneNamuMac" */;
@@ -4080,12 +3929,6 @@
 					4FA56BA626A21059002D9FA0 = {
 						CreatedOnToolsVersion = 12.5.1;
 					};
-					4FD58FC527D417FA00B9DE49 = {
-						CreatedOnToolsVersion = 13.2.1;
-					};
-					4FD58FD027D417FA00B9DE49 = {
-						CreatedOnToolsVersion = 13.2.1;
-					};
 					4FE856FC270089BC0008C2FB = {
 						CreatedOnToolsVersion = 13.0;
 					};
@@ -4111,8 +3954,6 @@
 				4F23C8A8273D997C00C33F10 /* StoneNamuResources */,
 				4F34384E26A36FBA001161FE /* StoneNamuCoreTests */,
 				4F23C8D5273D9EE600C33F10 /* StoneNamuResourcesScript */,
-				4FD58FC527D417FA00B9DE49 /* StoneNamuWatchPrivate */,
-				4FD58FD027D417FA00B9DE49 /* StoneNamuWatchPrivate WatchKit Extension */,
 				4F28A9C227D59463003B0F80 /* StoneNamuWatch */,
 				4F28A9CD27D59464003B0F80 /* StoneNamuWatch WatchKit Extension */,
 			);
@@ -4180,23 +4021,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4FD58FC427D417FA00B9DE49 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4FD58FFB27D4197D00B9DE49 /* Assets.xcassets in Resources */,
-				4FD5900827D419B200B9DE49 /* Main.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4FD58FCF27D417FA00B9DE49 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4FD5900427D4198E00B9DE49 /* Assets.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		4FE856FB270089BC0008C2FB /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -4247,9 +4071,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F475BA727D890DC00FC6E90 /* CardBacksItemModel.m in Sources */,
+				4F8B5A7927D899F7001BCFA4 /* MainInterfaceController.m in Sources */,
 				4F28A9DB27D59464003B0F80 /* ComplicationController.m in Sources */,
+				4F475BA827D890DC00FC6E90 /* CardBacksSectionModel.m in Sources */,
 				4F28A9D827D59464003B0F80 /* ExtensionDelegate.m in Sources */,
-				4F28A9ED27D5965E003B0F80 /* CardBacksInterfaceController.m in Sources */,
+				4F475BAB27D890DC00FC6E90 /* CardBacksViewModel.m in Sources */,
+				4F8B5A7527D8991F001BCFA4 /* CardBacksController.m in Sources */,
+				4F35436827D8A16800946302 /* ImageViewAsyncService.m in Sources */,
+				4F35436D27D8ACD000946302 /* ActivityIndicatorService.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4467,23 +4297,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4FD58FCD27D417FA00B9DE49 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4FD5900627D4198E00B9DE49 /* CardBacksSectionModel.m in Sources */,
-				4FD58FFC27D4198E00B9DE49 /* CardBacksContentConfiguration.m in Sources */,
-				4FD5900327D4198E00B9DE49 /* ComplicationController.m in Sources */,
-				4FD5900527D4198E00B9DE49 /* CardBacksViewController.m in Sources */,
-				4FD5900027D4198E00B9DE49 /* ExtensionDelegate.m in Sources */,
-				4FD58FFD27D4198E00B9DE49 /* CardBacksItemModel.m in Sources */,
-				4FD58FFF27D4198E00B9DE49 /* MainInterfaceController.m in Sources */,
-				4FD5900227D4198E00B9DE49 /* CardBacksContentView.m in Sources */,
-				4FD58FFE27D4198E00B9DE49 /* UICollectionViewDiffableDataSource+applySnapshotAndWait.m in Sources */,
-				4FD5900127D4198E00B9DE49 /* CardBacksViewModel.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		4FE856F9270089BC0008C2FB /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -4681,20 +4494,15 @@
 			target = 4F34384726A36FBA001161FE /* StoneNamuCore */;
 			targetProxy = 4F4892CC272460CD00126131 /* PBXContainerItemProxy */;
 		};
-		4FD58FF027D4186B00B9DE49 /* PBXTargetDependency */ = {
+		4F8B5A7D27D89B13001BCFA4 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 4F34384726A36FBA001161FE /* StoneNamuCore */;
-			targetProxy = 4FD58FEF27D4186B00B9DE49 /* PBXContainerItemProxy */;
+			targetProxy = 4F8B5A7C27D89B13001BCFA4 /* PBXContainerItemProxy */;
 		};
-		4FD58FF427D4186B00B9DE49 /* PBXTargetDependency */ = {
+		4F8B5A8127D89B13001BCFA4 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 4F23C8A8273D997C00C33F10 /* StoneNamuResources */;
-			targetProxy = 4FD58FF327D4186B00B9DE49 /* PBXContainerItemProxy */;
-		};
-		4FDF11E927D41C35009E8865 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 4FD58FD027D417FA00B9DE49 /* StoneNamuWatchPrivate WatchKit Extension */;
-			targetProxy = 4FDF11E827D41C35009E8865 /* PBXContainerItemProxy */;
+			targetProxy = 4F8B5A8027D89B13001BCFA4 /* PBXContainerItemProxy */;
 		};
 		F3024CF0274007DD001DDE08 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -4827,6 +4635,8 @@
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/StoneNamuResources";
+				USE_HEADERMAP = NO;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -4862,6 +4672,8 @@
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/StoneNamuResources";
+				USE_HEADERMAP = NO;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -4979,6 +4791,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 1.9;
+				OTHER_CFLAGS = "-Wno-objc-method-access";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pookjw.StoneNamu.Watch.Extension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
@@ -5013,6 +4826,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 1.9;
+				OTHER_CFLAGS = "-Wno-objc-method-access";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pookjw.StoneNamu.Watch.Extension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
@@ -5056,7 +4870,7 @@
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				USER_HEADER_SEARCH_PATHS = "";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/StoneNamuCore";
 				USE_HEADERMAP = NO;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -5095,7 +4909,7 @@
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				USER_HEADER_SEARCH_PATHS = "";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/StoneNamuCore";
 				USE_HEADERMAP = NO;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -5331,146 +5145,6 @@
 			};
 			name = Release;
 		};
-		4FD58FE627D417FB00B9DE49 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
-				CLANG_ENABLE_OBJC_ARC = NO;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = P53D29U9LJ;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "StoneNamuWatchPrivate WatchKit Extension/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "StoneNamuWatchPrivate WatchKit Extension";
-				INFOPLIST_KEY_CLKComplicationPrincipalClass = ComplicationController;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INFOPLIST_KEY_WKExtensionDelegateClassName = ExtensionDelegate;
-				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/StoneNamuWatchPrivate\\ WatchKit\\ Extension/tbd",
-				);
-				MARKETING_VERSION = 1.0;
-				OTHER_CFLAGS = "-Wno-objc-method-access";
-				PRODUCT_BUNDLE_IDENTIFIER = com.pookjw.StoneNamu.WatchPrivate.Extension;
-				PRODUCT_NAME = "${TARGET_NAME}";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				TARGETED_DEVICE_FAMILY = 4;
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/StoneNamuWatchPrivate\\ WatchKit\\ Extension/**";
-				USE_HEADERMAP = NO;
-				WATCHOS_DEPLOYMENT_TARGET = 8.0;
-			};
-			name = Debug;
-		};
-		4FD58FE727D417FB00B9DE49 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
-				CLANG_ENABLE_OBJC_ARC = NO;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = P53D29U9LJ;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "StoneNamuWatchPrivate WatchKit Extension/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "StoneNamuWatchPrivate WatchKit Extension";
-				INFOPLIST_KEY_CLKComplicationPrincipalClass = ComplicationController;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INFOPLIST_KEY_WKExtensionDelegateClassName = ExtensionDelegate;
-				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/StoneNamuWatchPrivate\\ WatchKit\\ Extension/tbd",
-				);
-				MARKETING_VERSION = 1.0;
-				OTHER_CFLAGS = "-Wno-objc-method-access";
-				PRODUCT_BUNDLE_IDENTIFIER = com.pookjw.StoneNamu.WatchPrivate.Extension;
-				PRODUCT_NAME = "${TARGET_NAME}";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				TARGETED_DEVICE_FAMILY = 4;
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/StoneNamuWatchPrivate\\ WatchKit\\ Extension/**";
-				USE_HEADERMAP = NO;
-				WATCHOS_DEPLOYMENT_TARGET = 8.0;
-			};
-			name = Release;
-		};
-		4FD58FEA27D417FB00B9DE49 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
-				CLANG_ENABLE_OBJC_ARC = NO;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = P53D29U9LJ;
-				GENERATE_INFOPLIST_FILE = YES;
-				IBSC_MODULE = StoneNamuWatchPrivate_WatchKit_Extension;
-				INFOPLIST_KEY_CFBundleDisplayName = StoneNamuWatchPrivate;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.pookjw.StoneNamu;
-				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.pookjw.StoneNamu.WatchPrivate;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				TARGETED_DEVICE_FAMILY = 4;
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/StoneNamuWatchPrivate/**";
-				USE_HEADERMAP = NO;
-				WATCHOS_DEPLOYMENT_TARGET = 8.0;
-			};
-			name = Debug;
-		};
-		4FD58FEB27D417FB00B9DE49 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
-				CLANG_ENABLE_OBJC_ARC = NO;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = P53D29U9LJ;
-				GENERATE_INFOPLIST_FILE = YES;
-				IBSC_MODULE = StoneNamuWatchPrivate_WatchKit_Extension;
-				INFOPLIST_KEY_CFBundleDisplayName = StoneNamuWatchPrivate;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.pookjw.StoneNamu;
-				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.pookjw.StoneNamu.WatchPrivate;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				TARGETED_DEVICE_FAMILY = 4;
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/StoneNamuWatchPrivate/**";
-				USE_HEADERMAP = NO;
-				WATCHOS_DEPLOYMENT_TARGET = 8.0;
-			};
-			name = Release;
-		};
 		4FE85709270089BD0008C2FB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -5616,24 +5290,6 @@
 			buildConfigurations = (
 				4FA56BC126A2105A002D9FA0 /* Debug */,
 				4FA56BC226A2105A002D9FA0 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		4FD58FE527D417FB00B9DE49 /* Build configuration list for PBXNativeTarget "StoneNamuWatchPrivate WatchKit Extension" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				4FD58FE627D417FB00B9DE49 /* Debug */,
-				4FD58FE727D417FB00B9DE49 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		4FD58FE927D417FB00B9DE49 /* Build configuration list for PBXNativeTarget "StoneNamuWatchPrivate" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				4FD58FEA27D417FB00B9DE49 /* Debug */,
-				4FD58FEB27D417FB00B9DE49 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

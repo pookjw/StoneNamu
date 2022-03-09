@@ -91,6 +91,7 @@ static NSString * const NSImageViewAsyncImageCategorySessionTaskKey = @"NSImageV
                         [self removeSpinnerView];
                         self.image = nil;
                     }];
+                    NSLog(@"%@", error.localizedDescription);
                     completion(nil, error);
                 } else if (data) {
                     [self.dataCacheUseCase makeDataCache:data identity:identity completion:^{
@@ -186,10 +187,6 @@ static NSString * const NSImageViewAsyncImageCategorySessionTaskKey = @"NSImageV
     self.wantsLayer = YES;
 
     [CATransaction begin];
-    
-    [CATransaction setCompletionBlock:^{
-        self.layer.opacity = 1.0f;
-    }];
     
     CABasicAnimation *fade = [CABasicAnimation animationWithKeyPath:@"opacity"];
     fade.duration = 0.3f;
