@@ -201,6 +201,7 @@
 		4F646BFC2794900B00340C07 /* DeckDetailsSeparatorBox.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F646BFB2794900B00340C07 /* DeckDetailsSeparatorBox.xib */; };
 		4F6A13AE26B26F0E0089A13A /* HSCardSort.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F6A13AD26B26F0E0089A13A /* HSCardSort.m */; };
 		4F6A13B226B273640089A13A /* StepperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F6A13B126B273640089A13A /* StepperViewController.m */; };
+		4F6E4C4827DBC78000BEF518 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4F6E4C4527DBC57C00BEF518 /* InfoPlist.strings */; };
 		4F6F181626E6064D00DC210B /* NSArray+countOfObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA7A7C526E539D7005BE434 /* NSArray+countOfObject.m */; };
 		4F70E28F2724359A0076735B /* BlizzardTokenAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F34383726A36492001161FE /* BlizzardTokenAPI.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		4F70E292272439940076735B /* StoneNamuErrors.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F70E291272439940076735B /* StoneNamuErrors.m */; };
@@ -965,6 +966,8 @@
 		4F6A13AD26B26F0E0089A13A /* HSCardSort.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSCardSort.m; sourceTree = "<group>"; };
 		4F6A13B026B273640089A13A /* StepperViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StepperViewController.h; sourceTree = "<group>"; };
 		4F6A13B126B273640089A13A /* StepperViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StepperViewController.m; sourceTree = "<group>"; };
+		4F6E4C4427DBC57C00BEF518 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		4F6E4C4627DBC57D00BEF518 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4F6F1B7726B940E700649F77 /* DynamicPresentationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DynamicPresentationController.h; sourceTree = "<group>"; };
 		4F70E291272439940076735B /* StoneNamuErrors.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StoneNamuErrors.m; sourceTree = "<group>"; };
 		4F70E2932724399A0076735B /* StoneNamuErrors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoneNamuErrors.h; sourceTree = "<group>"; };
@@ -1832,6 +1835,7 @@
 				4F28A9E927D59635003B0F80 /* Main.storyboard */,
 				4F28A9C827D59464003B0F80 /* Assets.xcassets */,
 				4F2C3EDD27D94F000024AC4E /* Info.plist */,
+				4F6E4C4527DBC57C00BEF518 /* InfoPlist.strings */,
 			);
 			path = StoneNamuWatch;
 			sourceTree = "<group>";
@@ -3983,6 +3987,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4F28A9C927D59464003B0F80 /* Assets.xcassets in Resources */,
+				4F6E4C4827DBC78000BEF518 /* InfoPlist.strings in Resources */,
 				4F28A9EA27D59635003B0F80 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4528,6 +4533,15 @@
 			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
+		4F6E4C4527DBC57C00BEF518 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4F6E4C4427DBC57C00BEF518 /* en */,
+				4F6E4C4627DBC57D00BEF518 /* ko */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		4F9DFBB926B2FD2E002AACDE /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -5019,6 +5033,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				WATCHOS_DEPLOYMENT_TARGET = 8.0;
 			};
 			name = Debug;
 		};
@@ -5074,6 +5089,7 @@
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 8.0;
 			};
 			name = Release;
 		};
