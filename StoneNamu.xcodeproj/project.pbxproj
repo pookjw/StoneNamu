@@ -289,6 +289,8 @@
 		4F8CCBEF27D963C800163357 /* StoneNamuCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4F34384826A36FBA001161FE /* StoneNamuCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4F8CCBF127D963C900163357 /* StoneNamuResources.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F23C8A9273D997C00C33F10 /* StoneNamuResources.framework */; };
 		4F8CCBF227D963C900163357 /* StoneNamuResources.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4F23C8A9273D997C00C33F10 /* StoneNamuResources.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4F8CCBF727D98F5B00163357 /* MainListInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8CCBF627D98F5B00163357 /* MainListInterfaceController.m */; };
+		4F8CCBFA27D9903E00163357 /* MainListItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8CCBF927D9903E00163357 /* MainListItemModel.m */; };
 		4F8F976526D469700024FC06 /* InsetsLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8F976426D469700024FC06 /* InsetsLabel.m */; };
 		4F8FDEEC2744261900BA84D2 /* DecksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8FDEEB2744261900BA84D2 /* DecksViewController.m */; };
 		4F8FFF3C26E0E66A00FA6586 /* DeckAddCardsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F8FFF2B26E0E66A00FA6586 /* DeckAddCardsViewModel.m */; };
@@ -1060,6 +1062,10 @@
 		4F8C050A27C3BBC200216B54 /* NSUserInterfaceItemIdentifierDeckAddCardOptionType+BlizzardHSAPIOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUserInterfaceItemIdentifierDeckAddCardOptionType+BlizzardHSAPIOption.m"; sourceTree = "<group>"; };
 		4F8C050C27C3BBC200216B54 /* DeckAddCardOptionsMenuFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeckAddCardOptionsMenuFactory.m; sourceTree = "<group>"; };
 		4F8C050D27C3BBC200216B54 /* DeckAddCardOptionsMenuFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeckAddCardOptionsMenuFactory.h; sourceTree = "<group>"; };
+		4F8CCBF527D98F5B00163357 /* MainListInterfaceController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainListInterfaceController.h; sourceTree = "<group>"; };
+		4F8CCBF627D98F5B00163357 /* MainListInterfaceController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainListInterfaceController.m; sourceTree = "<group>"; };
+		4F8CCBF827D9903E00163357 /* MainListItemModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainListItemModel.h; sourceTree = "<group>"; };
+		4F8CCBF927D9903E00163357 /* MainListItemModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainListItemModel.m; sourceTree = "<group>"; };
 		4F8F976026D45C290024FC06 /* NSMutableArray+removeSingle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+removeSingle.h"; sourceTree = "<group>"; };
 		4F8F976126D45C290024FC06 /* NSMutableArray+removeSingle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+removeSingle.m"; sourceTree = "<group>"; };
 		4F8F976326D469700024FC06 /* InsetsLabel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InsetsLabel.h; sourceTree = "<group>"; };
@@ -1841,8 +1847,7 @@
 			children = (
 				4F4E67AF27D8F72C005F2DF1 /* StoneNamuWatch WatchKit Extension.entitlements */,
 				4F35436527D8A15400946302 /* Service */,
-				4F8B5A7627D899D2001BCFA4 /* Main */,
-				4F475B9927D890DC00FC6E90 /* CardBacks */,
+				4F8CCBF327D98F2000163357 /* Presentation */,
 				4F28A9D627D59464003B0F80 /* ExtensionDelegate.h */,
 				4F28A9D727D59464003B0F80 /* ExtensionDelegate.m */,
 				4F28A9D927D59464003B0F80 /* ComplicationController.h */,
@@ -2592,6 +2597,27 @@
 				4F8C050C27C3BBC200216B54 /* DeckAddCardOptionsMenuFactory.m */,
 			);
 			path = Factory;
+			sourceTree = "<group>";
+		};
+		4F8CCBF327D98F2000163357 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				4F8CCBF427D98F4500163357 /* MainList */,
+				4F8B5A7627D899D2001BCFA4 /* Main */,
+				4F475B9927D890DC00FC6E90 /* CardBacks */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		4F8CCBF427D98F4500163357 /* MainList */ = {
+			isa = PBXGroup;
+			children = (
+				4F8CCBF527D98F5B00163357 /* MainListInterfaceController.h */,
+				4F8CCBF627D98F5B00163357 /* MainListInterfaceController.m */,
+				4F8CCBF827D9903E00163357 /* MainListItemModel.h */,
+				4F8CCBF927D9903E00163357 /* MainListItemModel.m */,
+			);
+			path = MainList;
 			sourceTree = "<group>";
 		};
 		4F8F976626D47EF10024FC06 /* InsetLabel */ = {
@@ -4070,9 +4096,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				4F475BA727D890DC00FC6E90 /* CardBacksItemModel.m in Sources */,
+				4F8CCBFA27D9903E00163357 /* MainListItemModel.m in Sources */,
 				4F8B5A7927D899F7001BCFA4 /* MainInterfaceController.m in Sources */,
 				4F28A9DB27D59464003B0F80 /* ComplicationController.m in Sources */,
 				4F475BA827D890DC00FC6E90 /* CardBacksSectionModel.m in Sources */,
+				4F8CCBF727D98F5B00163357 /* MainListInterfaceController.m in Sources */,
 				4F28A9D827D59464003B0F80 /* ExtensionDelegate.m in Sources */,
 				4F475BAB27D890DC00FC6E90 /* CardBacksViewModel.m in Sources */,
 				4F8B5A7527D8991F001BCFA4 /* CardBacksController.m in Sources */,

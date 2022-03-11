@@ -12,6 +12,7 @@
 
 @interface CardBacksController ()
 @property (retain) id viewController;
+@property (readonly, nonatomic) id rootViewController;
 @property (retain) ActivityIndicatorService *activityIndicatorService;
 @property (retain) ImageViewAsyncService *imageViewAsyncService;
 @property (retain) CardBacksViewModel *viewModel;
@@ -35,6 +36,7 @@
 }
 
 - (void)dealloc {
+    [self.rootViewController removeObserver:self forKeyPath:@"viewControllers"];
     [_viewController release];
     [_activityIndicatorService release];
     [_imageViewAsyncService release];
@@ -42,29 +44,33 @@
     [super dealloc];
 }
 
-- (void)push {
-    id application = [NSClassFromString(@"SPApplication") sharedApplication];
-    id delegate = [application delegate];
-    id window = [delegate window];
-    id rootViewController = [window rootViewController];
-    
-    NSArray *viewControllers = [(NSArray *)[rootViewController viewControllers] arrayByAddingObject:self.viewController];
-    [rootViewController setViewControllers:viewControllers animated:NO];
-    [self retain];
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+    if ([object isEqual:self.rootViewController]) {
+        if ([keyPath isEqualToString:@"viewControllers"]) {
+            [self releaseIfNeeded];
+        } else {
+            return [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+        }
+    } else {
+        return [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
 }
 
-- (void)pop {
+- (id)rootViewController {
     id application = [NSClassFromString(@"SPApplication") sharedApplication];
     id delegate = [application delegate];
     id window = [delegate window];
     id rootViewController = [window rootViewController];
     
-    NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(id  _Nullable evaluatedObject, NSDictionary<NSString *,id> * _Nullable bindings) {
-        return ![self isEqual:evaluatedObject];
-    }];
-    NSArray *viewControllers = [(NSArray *)[rootViewController viewControllers] filteredArrayUsingPredicate:predicate];
-    [rootViewController setViewControllers:viewControllers animated:NO];
-    [self release];
+    return rootViewController;
+}
+
+- (void)push {
+    id rootViewController = self.rootViewController;
+    
+    NSArray *viewControllers = [(NSArray *)[rootViewController viewControllers] arrayByAddingObject:self.viewController];
+    [rootViewController setViewControllers:viewControllers animated:YES];
+    [self retain];
 }
 
 - (void)configureViewController {
@@ -73,6 +79,7 @@
     id viewController = [[NSClassFromString(@"PUICCollectionViewController") alloc] initWithCollectionViewLayout:layout];
     [layout release];
     
+    [viewController setTitle:@"Card Backs (DEMO)"];
     [[viewController collectionView] setDelegate:self];
     
     self.viewController = viewController;
@@ -125,14 +132,14 @@
         id _Nullable __block imageView = nil;
         
         [(NSArray *)[cell subviews] enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            if ([obj isKindOfClass:NSClassFromString(@"UIImageView")]) {
+            if ([obj isKindOfClass:NSClassFromString(@"SPInterfaceImageView")]) {
                 imageView = [obj retain];
                 *stop = YES;
             }
         }];
         
         if (imageView == nil) {
-            imageView = [NSClassFromString(@"UIImageView") new];
+            imageView = [NSClassFromString(@"SPInterfaceImageView") new];
             [imageView setContentMode:1]; // UIViewContentModeScaleAspectFit
             [cell addSubview:imageView];
             
@@ -164,6 +171,8 @@
                                            selector:@selector(endedLoadingDataSourceReceived:)
                                                name:NSNotificationNameCardsViewModelEndedLoadingDataSource
                                              object:self.viewModel];
+    
+    [self.rootViewController addObserver:self forKeyPath:@"viewControllers" options:NSKeyValueObservingOptionNew context:nil];
 }
 
 - (void)startedLoadingDataSourceReceived:(NSNotification *)notification {
@@ -176,6 +185,21 @@
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
         [self.activityIndicatorService removeActivityIndicatorViewFromView:[self.viewController view] superviewIfNeeded:YES];
     }];
+}
+
+- (void)releaseIfNeeded {
+    BOOL __block shouldRelease = YES;
+    
+    [(NSArray *)[self.rootViewController viewControllers] enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj isEqual:self]) {
+            shouldRelease = NO;
+            *stop = YES;
+        }
+    }];
+    
+    if (shouldRelease) {
+        [self release];
+    }
 }
 
 #pragma mark - UICollectionViewDelegate

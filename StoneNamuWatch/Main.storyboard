@@ -6,12 +6,37 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="20006"/>
     </dependencies>
     <scenes>
-        <!--Main Interface Controller-->
+        <!--Main List Interface Controller-->
         <scene sceneID="SRL-fx-X1h">
             <objects>
-                <controller id="TIg-eg-P5o" customClass="MainInterfaceController"/>
+                <controller id="TIg-eg-P5o" customClass="MainListInterfaceController">
+                    <items>
+                        <table alignment="left" id="k5S-iP-HD7">
+                            <items>
+                                <tableRow identifier="MainListItemModel" id="3Xg-Gn-IFF" customClass="MainListItemModel">
+                                    <group key="rootItem" width="1" alignment="left" id="5KM-QQ-tcI">
+                                        <items>
+                                            <imageView alignment="left" verticalAlignment="center" image="folder" catalog="system" id="NV3-Hc-p4g"/>
+                                            <label alignment="left" verticalAlignment="center" text="Label" id="aTa-yB-fQc"/>
+                                        </items>
+                                    </group>
+                                    <connections>
+                                        <outlet property="imageView" destination="NV3-Hc-p4g" id="Bbk-bD-b61"/>
+                                        <outlet property="titleLabel" destination="aTa-yB-fQc" id="qia-Zg-sYI"/>
+                                    </connections>
+                                </tableRow>
+                            </items>
+                        </table>
+                    </items>
+                    <connections>
+                        <outlet property="table" destination="k5S-iP-HD7" id="V06-mi-wN4"/>
+                    </connections>
+                </controller>
             </objects>
             <point key="canvasLocation" x="-179" y="4"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="folder" catalog="system" width="128" height="96"/>
+    </resources>
 </document>

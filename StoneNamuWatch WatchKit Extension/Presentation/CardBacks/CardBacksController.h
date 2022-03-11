@@ -11,7 +11,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CardBacksController : NSObject
 - (void)push;
-- (void)pop;
 @end
 
 NS_ASSUME_NONNULL_END
