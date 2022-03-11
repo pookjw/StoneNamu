@@ -379,7 +379,13 @@
             default: {
                 UIListContentConfiguration *configuration = [UIListContentConfiguration subtitleCellConfiguration];
                 configuration.text = itemModel.primaryText;
-                configuration.secondaryText = itemModel.secondaryText;
+                
+                NSString *secondaryText = itemModel.secondaryText;
+                if ((secondaryText == nil) || ([secondaryText isEqualToString:@""])) {
+                    secondaryText = [ResourcesService localizationForKey:LocalizableKeyEmpty];
+                }
+                configuration.secondaryText = secondaryText;
+                
                 configuration.textProperties.color = UIColor.whiteColor;
                 configuration.secondaryTextProperties.color = UIColor.whiteColor;
                 

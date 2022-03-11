@@ -68,10 +68,11 @@
     [self->_hsCard release];
     self->_hsCard = [hsCard copy];
     
+    [self postStartedLoadingDataSource];
+    
     [self.queue addBarrierBlock:^{
         [self.hsMetaDataUseCase fetchWithCompletionHandler:^(HSMetaData * _Nullable hsMetaData, NSError * _Nullable error) {
             [self.queue addBarrierBlock:^{
-                [self postStartedLoadingDataSource];
                 [self loadCardsFromHSCard:hsCard];
                 
                 NSDiffableDataSourceSnapshot *snapshot = [self.dataSource.snapshot copy];
