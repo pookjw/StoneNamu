@@ -284,7 +284,12 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
     [self addObserver:self forKeyPath:@"self.view.window" options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:nil];
     
     [NSNotificationCenter.defaultCenter addObserver:self
-                                           selector:@selector(scrollViewDidEndLiveScrollReceived:)
+                                           selector:@selector(scrollViewDidScrollReceived:)
+                                               name:NSViewBoundsDidChangeNotification
+                                             object:self.scrollView.contentView];
+    
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(scrollViewDidScrollReceived:)
                                                name:NSScrollViewDidEndLiveScrollNotification
                                              object:self.scrollView];
     
@@ -304,7 +309,7 @@ static NSUserInterfaceItemIdentifier const NSUserInterfaceItemIdentifierDeckAddC
                                              object:self.viewModel];
 }
 
-- (void)scrollViewDidEndLiveScrollReceived:(NSNotification *)notification {
+- (void)scrollViewDidScrollReceived:(NSNotification *)notification {
     [NSOperationQueue.mainQueue addOperationWithBlock:^{
         NSRect bounds = self.scrollView.contentView.bounds;
         if ((bounds.origin.y + bounds.size.height) >= self.collectionView.collectionViewLayout.collectionViewContentSize.height) {
