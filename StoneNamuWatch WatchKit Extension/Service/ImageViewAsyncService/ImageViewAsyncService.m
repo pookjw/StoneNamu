@@ -6,6 +6,7 @@
 //
 
 #import "ImageViewAsyncService.h"
+#import "UIImageView+setImage.h"
 #import <objc/runtime.h>
 #import <StoneNamuCore/StoneNamuCore.h>
 
