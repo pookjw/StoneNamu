@@ -113,7 +113,8 @@
         case PrefsItemModelTypePnamuContributor:
             return @{
                 [ResourcesService localizationForKey:LocalizableKeyTwitter]: [NSURL URLWithString:@"https://twitter.com/Pnamu"],
-                [ResourcesService localizationForKey:LocalizableKeyTwitch]: [NSURL URLWithString:@"https://www.twitch.tv/Pnamu"]
+                [ResourcesService localizationForKey:LocalizableKeyTwitch]: [NSURL URLWithString:@"https://www.twitch.tv/Pnamu"],
+                [ResourcesService localizationForKey:LocalizableKeyYoutube]: [NSURL URLWithString:@"https://www.youtube.com/channel/UC6OiEVOVy3-eXJc8G6r4oDg"]
             };
         default:
             return nil;
