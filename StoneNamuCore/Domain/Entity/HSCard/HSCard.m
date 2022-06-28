@@ -52,7 +52,19 @@
     } else if (self.manaCost > other.manaCost) {
         return NSOrderedDescending;
     } else {
-        return comparisonResultNullableValues(self.name, other.name, @selector(compare:));
+        NSComparisonResult result = comparisonResultNullableValues(self.name, other.name, @selector(compare:));
+        
+        switch (result) {
+            case NSOrderedSame: {
+                if (self.cardId < other.cardId) {
+                    return NSOrderedAscending;
+                } else {
+                    return NSOrderedDescending;
+                }
+            }
+            default:
+                return result;
+        }
     }
 }
 
