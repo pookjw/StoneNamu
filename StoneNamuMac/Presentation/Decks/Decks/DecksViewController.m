@@ -191,7 +191,7 @@
     DecksDataSource *dataSource = [[DecksDataSource alloc] initWithCollectionView:self.collectionView itemProvider:^NSCollectionViewItem * _Nullable(NSCollectionView * _Nonnull collectionView, NSIndexPath * _Nonnull indexPath, DecksItemModel * _Nonnull itemModel) {
         DeckBaseCollectionViewItem *item = [collectionView makeItemWithIdentifier:NSUserInterfaceItemIdentifierCardDeckBaseCollectionViewItem forIndexPath:indexPath];
         
-        [item configureWithLocalDeck:itemModel.localDeck classSlug:itemModel.classSlug isEasterEgg:itemModel.isEasterEgg count:itemModel.count deckBaseCollectionViewItemDelegate:unretainedSelf];
+        [item configureWithLocalDeck:itemModel.localDeck classSlug:itemModel.classSlug isEasterEgg:itemModel.isEasterEgg count:itemModel.count maxCardsCount:itemModel.maxCardsCount deckBaseCollectionViewItemDelegate:unretainedSelf];
         
         return item;
     }];

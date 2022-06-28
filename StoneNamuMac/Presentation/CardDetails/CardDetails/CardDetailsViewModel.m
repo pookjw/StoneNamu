@@ -62,6 +62,8 @@
 }
 
 - (void)requestDataSourceWithCard:(HSCard *)hsCard hsGameModeSlugType:(HSCardGameModeSlugType)hsCardGameModeSlugType isGold:(BOOL)isGold {
+    NSLog(@"HSCard.cardId: %lu", hsCard.cardId);
+    
     [self->_hsCardGameModeSlugType release];
     self->_hsCardGameModeSlugType = [hsCardGameModeSlugType copy];
     

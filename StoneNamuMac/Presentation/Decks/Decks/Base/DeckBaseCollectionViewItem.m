@@ -63,7 +63,7 @@
     [self clearContents];
 }
 
-- (void)configureWithLocalDeck:(LocalDeck *)localDeck classSlug:(NSString *)classSlug isEasterEgg:(BOOL)isEasterEgg count:(NSUInteger)count deckBaseCollectionViewItemDelegate:(id<DeckBaseCollectionViewItemDelegate>)deckBaseCollectionViewItemDelegate {
+- (void)configureWithLocalDeck:(LocalDeck *)localDeck classSlug:(NSString *)classSlug isEasterEgg:(BOOL)isEasterEgg count:(NSUInteger)count maxCardsCount:(NSUInteger)maxCardsCount deckBaseCollectionViewItemDelegate:(id<DeckBaseCollectionViewItemDelegate>)deckBaseCollectionViewItemDelegate {
     self.isEasterEgg = isEasterEgg;
     self.deckBaseCollectionViewItemDelegate = deckBaseCollectionViewItemDelegate;
     
@@ -84,13 +84,13 @@
     }
     self.nameLabel.stringValue = name;
     
-    if (count >= HSDECK_MAX_TOTAL_CARDS) {
+    if (count >= maxCardsCount) {
         self.countLabelContainerView.hidden = YES;
     } else {
         self.countLabelContainerView.hidden = NO;
     }
     
-    self.countLabel.stringValue = [NSString stringWithFormat:@"%lu / %d", count, HSDECK_MAX_TOTAL_CARDS];
+    self.countLabel.stringValue = [NSString stringWithFormat:@"%lu / %lu", count, maxCardsCount];
     [self updateCountLabelLayer];
     
     [self updateStates];

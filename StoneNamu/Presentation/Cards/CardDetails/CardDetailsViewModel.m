@@ -65,6 +65,8 @@
 }
 
 - (void)requestDataSourceWithCard:(HSCard *)hsCard {
+    NSLog(@"HSCard.cardId: %lu", hsCard.cardId);
+    
     [self->_hsCard release];
     self->_hsCard = [hsCard copy];
     
@@ -208,8 +210,6 @@
 - (void)loadCardsFromHSCard:(HSCard *)hsCard {
     NSNumber * _Nullable upgradedId = hsCard.battlegroundsUpgradeId;
     NSArray<NSNumber *> * _Nullable childIds = hsCard.childIds;
-    
-    NSLog(@"HSCard.cardId: %lu", hsCard.cardId);
     
     // example: 52502-khadgar
     if ((upgradedId) && (childIds) && ([@[upgradedId] isEqualToArray:childIds])) {

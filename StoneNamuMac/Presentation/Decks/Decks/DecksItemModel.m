@@ -9,7 +9,7 @@
 
 @implementation DecksItemModel
 
-- (instancetype)initWithType:(DecksItemModelType)type localDeck:(LocalDeck *)localDeck classSlug:(NSString *)classSlug isEasterEgg:(BOOL)isEasterEgg name:(NSString *)name count:(NSUInteger)count {
+- (instancetype)initWithType:(DecksItemModelType)type localDeck:(LocalDeck *)localDeck classSlug:(NSString *)classSlug isEasterEgg:(BOOL)isEasterEgg name:(NSString *)name count:(NSUInteger)count maxCardsCount:(NSUInteger)maxCardsCount {
     self = [self init];
     
     if (self) {
@@ -22,6 +22,7 @@
         self.isEasterEgg = isEasterEgg;
         self.name = name;
         self.count = count;
+        self.maxCardsCount = maxCardsCount;
     }
     
     return self;

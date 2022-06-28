@@ -107,6 +107,7 @@
                     NSArray<HSCard *> *hsCards = localDeck.hsCards;
                     BOOL isEasterEgg = [self.localDeckUseCase isEasterEggDeckFromHSCards:[NSSet setWithArray:hsCards]];
                     NSUInteger count = hsCards.count;
+                    NSUInteger maxCardsCount = [self.localDeckUseCase maxCardsCountFromHSCards:hsCards];
                     
                     //
                     
@@ -126,7 +127,7 @@
                         return;
                     }
                     
-                    DecksItemModel *itemModel = [[DecksItemModel alloc] initWithType:DecksItemModelTypeDeck localDeck:localDeck classSlug:hsCardClass.slug isEasterEgg:isEasterEgg name:localDeck.name count:count];
+                    DecksItemModel *itemModel = [[DecksItemModel alloc] initWithType:DecksItemModelTypeDeck localDeck:localDeck classSlug:hsCardClass.slug isEasterEgg:isEasterEgg name:localDeck.name count:count maxCardsCount:maxCardsCount];
                     
                     [snapshot appendItemsWithIdentifiers:@[itemModel] intoSectionWithIdentifier:sectionModel];
                     [itemModel release];
@@ -183,8 +184,9 @@
                 NSArray<HSCard *> *hsCards = localDeck.hsCards;
                 BOOL isEasterEgg = [self.localDeckUseCase isEasterEggDeckFromHSCards:[NSSet setWithArray:hsCards]];
                 NSUInteger count = hsCards.count;
+                NSUInteger maxCardsCount = [self.localDeckUseCase maxCardsCountFromHSCards:hsCards];
                 
-                DecksItemModel *itemModel = [[DecksItemModel alloc] initWithType:DecksItemModelTypeDeck localDeck:localDeck classSlug:hsCardClass.slug isEasterEgg:isEasterEgg name:localDeck.name count:count];
+                DecksItemModel *itemModel = [[DecksItemModel alloc] initWithType:DecksItemModelTypeDeck localDeck:localDeck classSlug:hsCardClass.slug isEasterEgg:isEasterEgg name:localDeck.name count:count maxCardsCount:maxCardsCount];
                 
                 [snapshot appendItemsWithIdentifiers:@[itemModel] intoSectionWithIdentifier:sectionModel];
                 [itemModel release];
@@ -333,10 +335,11 @@
                 NSArray<HSCard *> *hsCards = localDeck.hsCards;
                 BOOL isEasterEgg = [self.localDeckUseCase isEasterEggDeckFromHSCards:[NSSet setWithArray:hsCards]];
                 NSUInteger count = hsCards.count;
+                NSUInteger maxCardsCount = [self.localDeckUseCase maxCardsCountFromHSCards:hsCards];
                 HSCardClass *hsCardClass = [self.hsMetaDataUseCase hsCardClassFromClassId:localDeck.classId usingHSMetaData:hsMetaData];
                 
                 if (itemModel == nil) {
-                    itemModel = [[DecksItemModel alloc] initWithType:DecksItemModelTypeDeck localDeck:localDeck classSlug:hsCardClass.slug isEasterEgg:isEasterEgg name:localDeck.name count:count];
+                    itemModel = [[DecksItemModel alloc] initWithType:DecksItemModelTypeDeck localDeck:localDeck classSlug:hsCardClass.slug isEasterEgg:isEasterEgg name:localDeck.name count:count maxCardsCount:maxCardsCount];
                     [snapshot appendItemsWithIdentifiers:@[itemModel] intoSectionWithIdentifier:sectionModel];
                     [itemModel autorelease];
                 } else {
