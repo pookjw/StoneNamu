@@ -164,7 +164,7 @@
         
         DecksItemModel *itemModel = (DecksItemModel *)item;
         
-        DeckBaseContentConfiguration *configuration = [[DeckBaseContentConfiguration alloc] initWithLocalDeck:itemModel.localDeck classSlug:itemModel.classSlug isEasterEgg:itemModel.isEasterEgg count:itemModel.count];
+        DeckBaseContentConfiguration *configuration = [[DeckBaseContentConfiguration alloc] initWithLocalDeck:itemModel.localDeck classSlug:itemModel.classSlug isEasterEgg:itemModel.isEasterEgg count:itemModel.count maxCardsCount:itemModel.maxCardsCount];
         cell.contentConfiguration = configuration;
         [configuration release];
     }];

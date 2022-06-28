@@ -39,9 +39,9 @@
         self.viewModel.localDeck = localDeck;
         [self.viewModel requestDataSourceWithOptions:nil reset:YES];
         
-        [self.viewModel countOfLocalDeckCardsWithCompletion:^(NSNumber * _Nullable countOfLocalDeckCards, BOOL isFull) {
+        [self.viewModel countOfLocalDeckCardsWithCompletion:^(NSUInteger cardsCount, NSUInteger maxCardsCount, BOOL isFull) {
             [NSOperationQueue.mainQueue addOperationWithBlock:^{
-                [self updateDeckDetailButtonTextWithCount:countOfLocalDeckCards];
+                [self updateDeckDetailButtonTextWithCount:cardsCount];
             }];
         }];
     }
@@ -79,13 +79,13 @@
 }
 
 - (void)requestDismissWithPromptIfNeeded {
-    [self.viewModel countOfLocalDeckCardsWithCompletion:^(NSNumber * _Nullable countOfLocalDeckCards, BOOL isFull) {
+    [self.viewModel countOfLocalDeckCardsWithCompletion:^(NSUInteger cardsCount, NSUInteger maxCardsCount, BOOL isFull) {
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
-            if ((isFull) || (countOfLocalDeckCards == nil)) {
+            if (isFull) {
                 [self dismissViewControllerAnimated:YES completion:^{}];
             } else {
                 UIAlertController *alert = [UIAlertController alertControllerWithTitle:[ResourcesService localizationForKey:LocalizableKeyDeckAddCardsNotFullTitle]
-                                                                               message:[NSString stringWithFormat:[ResourcesService localizationForKey:LocalizableKeyDeckAddCardsNotFullDescription], HSDECK_MAX_TOTAL_CARDS, countOfLocalDeckCards.unsignedIntegerValue]
+                                                                               message:[NSString stringWithFormat:[ResourcesService localizationForKey:LocalizableKeyDeckAddCardsNotFullDescription], maxCardsCount, cardsCount]
                                                                         preferredStyle:UIAlertControllerStyleAlert];
                 
                 UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:[ResourcesService localizationForKey:LocalizableKeyNo]
@@ -332,7 +332,7 @@
     
     if (count != nil) {
         [NSOperationQueue.mainQueue addOperationWithBlock:^{
-            [self updateDeckDetailButtonTextWithCount:count];
+            [self updateDeckDetailButtonTextWithCount:count.unsignedIntegerValue];
         }];
     }
 }
@@ -393,9 +393,9 @@
     return [nvc autorelease];
 }
 
-- (void)updateDeckDetailButtonTextWithCount:(NSNumber *)count {
+- (void)updateDeckDetailButtonTextWithCount:(NSUInteger)count {
     UIButtonConfiguration *buttonConfiguration = [self makeDeckDetailButtonConfiguration];
-    NSAttributedString *title = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ / %d", count.stringValue, HSDECK_MAX_TOTAL_CARDS]
+    NSAttributedString *title = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ / %d", [[NSNumber numberWithUnsignedInteger:count] stringValue], HSDECK_MAX_TOTAL_CARDS]
                                                                 attributes:@{NSFontAttributeName: [UIFont preferredFontForTextStyle:UIFontTextStyleTitle2],
                                                                              NSForegroundColorAttributeName: UIColor.whiteColor}];
     buttonConfiguration.attributedTitle = title;

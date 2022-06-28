@@ -23,6 +23,7 @@
 @property (readonly, nonatomic) BOOL isDarkMode;
 @property (readonly, nonatomic) BOOL isEasterEgg;
 @property (readonly, nonatomic) NSUInteger count;
+@property (readonly, nonatomic) NSUInteger maxCardsCount;
 @end
 
 @implementation DeckBaseContentView
@@ -280,6 +281,16 @@
     return contentConfiguration.count;
 }
 
+- (NSUInteger)maxCardsCount {
+    DeckBaseContentConfiguration *contentConfiguration = (DeckBaseContentConfiguration *)self.configuration;
+    
+    if (![self.configuration isKindOfClass:[DeckBaseContentConfiguration class]]) {
+        return NO;
+    }
+    
+    return contentConfiguration.maxCardsCount;
+}
+
 - (void)updateCardSetImageView {
     UIEdgeInsets inset = UIEdgeInsetsMake(-8.0f, -8.0f, -8.0f, -8.0f);
     self.cardSetImageView.image = [[ResourcesService imageForDeckFormat:self.localDeck.format] imageWithAlignmentRectInsets:inset];
@@ -305,13 +316,13 @@
 - (void)updateCountLabel {
     NSUInteger count = self.count;
     
-    if (count >= HSDECK_MAX_TOTAL_CARDS) {
+    if (count >= self.maxCardsCount) {
         self.countLabelContainerView.hidden = YES;
     } else {
         self.countLabelContainerView.hidden = NO;
     }
     
-    self.countLabel.text = [NSString stringWithFormat:@"%lu / %d", count, HSDECK_MAX_TOTAL_CARDS];
+    self.countLabel.text = [NSString stringWithFormat:@"%lu / %lu", count, self.maxCardsCount];
     [self.countLabel sizeToFit];
     [self.countLabelContainerView layoutIfNeeded];
     self.countLabel.layer.cornerRadius = self.countLabel.frame.size.height / 2.0f;

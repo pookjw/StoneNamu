@@ -22,7 +22,7 @@ static NSNotificationName const NSNotificationNameDeckAddCardsViewModelLocalDeck
 static NSString * const DeckAddCardsViewModelLocalDeckHasChangedCountOfLocalDeckCardsItemKey = @"DeckAddCardsViewModelLocalDeckHasChangedCountOfLocalDeckCardsItemKey";
 
 typedef void (^DeckAddCardsViewModelDefaultOptionsCompletion)(NSDictionary<NSString *, NSSet<NSString *> *> *options);
-typedef void (^DeckAddCardsViewModelCountOfLocalDeckCardsCompletion)(NSNumber * _Nullable countOfLocalDeckCards, BOOL isFull);
+typedef void (^DeckAddCardsViewModelCountOfLocalDeckCardsCompletion)(NSUInteger cardsCount, NSUInteger maxCardsCount, BOOL isFull);
 
 typedef UICollectionViewDiffableDataSource<DeckAddCardSectionModel *, DeckAddCardItemModel *> CardsDataSource;
 

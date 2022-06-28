@@ -39,6 +39,9 @@ static NSNotificationName const NSNotificationNameLocalDeckUseCaseDeleteAll = @"
 - (void)increaseHSCards:(NSSet<HSCard *> *)hsCards toLocalDeck:(LocalDeck *)localDeck validation:(LocalDeckUseCaseFetchWithValidation)validation;
 - (void)decreaseHSCards:(NSSet<HSCard *> *)hsCards toLocalDeck:(LocalDeck *)localDeck validation:(LocalDeckUseCaseFetchWithValidation)validation;
 - (void)makeLocalDeckWithCompletion:(LocalDeckUseCaseMakeWithCompletion)completion;
+
+- (NSUInteger)maxCardsCountFromHSCards:(NSArray<HSCard *> *)hsCards;
+- (NSUInteger)isFullFromHSCards:(NSArray<HSCard *> *)hsCards;
 @end
 
 NS_ASSUME_NONNULL_END

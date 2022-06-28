@@ -121,6 +121,7 @@
                         NSArray<HSCard *> *hsCards = localDeck.hsCards;
                         BOOL isEasterEgg = [self.localDeckUseCase isEasterEggDeckFromHSCards:[NSSet setWithArray:hsCards]];
                         NSUInteger count = hsCards.count;
+                        NSUInteger maxCardsCount = [self.localDeckUseCase maxCardsCountFromHSCards:hsCards];
                         
                         //
                         
@@ -140,7 +141,7 @@
                             return;
                         }
                         
-                        DecksItemModel *itemModel = [[DecksItemModel alloc] initWithType:DecksItemModelTypeDeck localDeck:localDeck classSlug:hsCardClass.slug isEasterEgg:isEasterEgg name:localDeck.name count:count];
+                        DecksItemModel *itemModel = [[DecksItemModel alloc] initWithType:DecksItemModelTypeDeck localDeck:localDeck classSlug:hsCardClass.slug isEasterEgg:isEasterEgg name:localDeck.name count:count maxCardsCount:maxCardsCount];
                         
                         [snapshot appendItemsWithIdentifiers:@[itemModel] intoSectionWithIdentifier:sectionModel];
                         [itemModel release];
@@ -198,8 +199,9 @@
                 NSArray<HSCard *> *hsCards = localDeck.hsCards;
                 BOOL isEasterEgg = [self.localDeckUseCase isEasterEggDeckFromHSCards:[NSSet setWithArray:hsCards]];
                 NSUInteger count = hsCards.count;
+                NSUInteger maxCardsCount = [self.localDeckUseCase maxCardsCountFromHSCards:hsCards];
                 
-                DecksItemModel *itemModel = [[DecksItemModel alloc] initWithType:DecksItemModelTypeDeck localDeck:localDeck classSlug:hsCardClass.slug isEasterEgg:isEasterEgg name:localDeck.name count:count];
+                DecksItemModel *itemModel = [[DecksItemModel alloc] initWithType:DecksItemModelTypeDeck localDeck:localDeck classSlug:hsCardClass.slug isEasterEgg:isEasterEgg name:localDeck.name count:count maxCardsCount:maxCardsCount];
                 
                 [snapshot appendItemsWithIdentifiers:@[itemModel] intoSectionWithIdentifier:sectionModel];
                 [itemModel release];
@@ -334,10 +336,11 @@
                 NSArray<HSCard *> *hsCards = localDeck.hsCards;
                 BOOL isEasterEgg = [self.localDeckUseCase isEasterEggDeckFromHSCards:[NSSet setWithArray:hsCards]];
                 NSUInteger count = hsCards.count;
+                NSUInteger maxCardsCount = [self.localDeckUseCase maxCardsCountFromHSCards:hsCards];
                 HSCardClass *hsCardClass = [self.hsMetaDataUseCase hsCardClassFromClassId:localDeck.classId usingHSMetaData:hsMetaData];
                 
                 if (itemModel == nil) {
-                    itemModel = [[DecksItemModel alloc] initWithType:DecksItemModelTypeDeck localDeck:localDeck classSlug:hsCardClass.slug isEasterEgg:isEasterEgg name:localDeck.name count:count];
+                    itemModel = [[DecksItemModel alloc] initWithType:DecksItemModelTypeDeck localDeck:localDeck classSlug:hsCardClass.slug isEasterEgg:isEasterEgg name:localDeck.name count:count maxCardsCount:maxCardsCount];
                     [snapshot appendItemsWithIdentifiers:@[itemModel] intoSectionWithIdentifier:sectionModel];
                     [itemModel autorelease];
                 } else {
@@ -345,13 +348,15 @@
                     BOOL isEqualClassSlug = compareNullableValues(itemModel.classSlug, hsCardClass.slug, @selector(isEqualToString:));
                     BOOL isEqualName = compareNullableValues(itemModel.name, localDeck.name, @selector(isEqualToString:));
                     BOOL isEqualCount = (itemModel.count == count);
+                    BOOL isEqualMaxCardsCount = (itemModel.maxCardsCount == maxCardsCount);
                     
-                    BOOL shouldReconfigure = !(isEqualIsEasterEgg && isEqualClassSlug && isEqualName && isEqualCount);
+                    BOOL shouldReconfigure = !(isEqualIsEasterEgg && isEqualClassSlug && isEqualName && isEqualCount && isEqualMaxCardsCount);
                     
                     itemModel.isEasterEgg = isEasterEgg;
                     itemModel.classSlug = hsCardClass.slug;
                     itemModel.name = localDeck.name;
                     itemModel.count = count;
+                    itemModel.maxCardsCount = maxCardsCount;
                     
                     if (shouldReconfigure) {
                         [snapshot reconfigureItemsWithIdentifiers:@[itemModel]];

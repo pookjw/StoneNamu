@@ -629,7 +629,7 @@
     
     //
     
-    NSString * _Nullable __block headerText = nil;
+    NSString * _Nullable __autoreleasing __block headerText = nil;
     
     [self.dataSource.snapshot.sectionIdentifiers enumerateObjectsUsingBlock:^(DeckDetailsSectionModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if (obj.type == DeckDetailsSectionModelTypeCards) {

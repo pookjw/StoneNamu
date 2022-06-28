@@ -21,9 +21,10 @@ typedef NS_ENUM(NSUInteger, DecksItemModelType) {
 @property BOOL isEasterEgg;
 @property (copy) NSString *name;
 @property NSUInteger count;
+@property NSUInteger maxCardsCount;
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
-- (instancetype)initWithType:(DecksItemModelType)type localDeck:(LocalDeck *)localDeck classSlug:(NSString *)classSlug isEasterEgg:(BOOL)isEasterEgg name:(NSString *)name count:(NSUInteger)count;
+- (instancetype)initWithType:(DecksItemModelType)type localDeck:(LocalDeck *)localDeck classSlug:(NSString *)classSlug isEasterEgg:(BOOL)isEasterEgg name:(NSString *)name count:(NSUInteger)count maxCardsCount:(NSUInteger)maxCardsCount;
 @end
 
 NS_ASSUME_NONNULL_END

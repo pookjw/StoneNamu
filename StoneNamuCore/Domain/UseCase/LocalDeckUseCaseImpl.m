@@ -280,6 +280,50 @@
     }];
 }
 
+- (NSUInteger)maxCardsCountFromHSCards:(NSArray<HSCard *> *)hsCards {
+    NSUInteger __block maxCount = 0;
+    
+    [hsCards enumerateObjectsUsingBlock:^(HSCard * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (obj.cardId == PRINCE_RENATHAL_CARD_ID) {
+            maxCount = HSDECK_MAX_TOTAL_CARDS_PRINCE_RENATHAL;
+            *stop = YES;
+        }
+    }];
+    
+    if (!maxCount) {
+        if (hsCards.count > HSDECK_MAX_TOTAL_CARDS_NORMAL) {
+            maxCount = HSDECK_MAX_TOTAL_CARDS;
+        } else {
+            maxCount = HSDECK_MAX_TOTAL_CARDS_NORMAL;
+        }
+    }
+    
+    return maxCount;
+}
+
+- (NSUInteger)isFullFromHSCards:(NSArray<HSCard *> *)hsCards {
+    NSUInteger count = hsCards.count;
+    
+    if (count == HSDECK_MAX_TOTAL_CARDS) {
+        return YES;
+    } else {
+        BOOL __block hasPrinceRenathal = NO;
+        
+        [hsCards enumerateObjectsUsingBlock:^(HSCard * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if (obj.cardId == PRINCE_RENATHAL_CARD_ID) {
+                hasPrinceRenathal = YES;
+                *stop = YES;
+            }
+        }];
+        
+        if (hasPrinceRenathal) {
+            return (count >= HSDECK_MAX_TOTAL_CARDS_PRINCE_RENATHAL);
+        } else {
+            return (count >= HSDECK_MAX_TOTAL_CARDS_NORMAL);
+        }
+    }
+}
+
 - (void)startObserving {
     [NSNotificationCenter.defaultCenter addObserver:self
                                            selector:@selector(changesReceived:)

@@ -16,9 +16,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly) BOOL isEasterEgg;
 @property (readonly) BOOL isDarkMode;
 @property (readonly) NSUInteger count;
+@property (readonly) NSUInteger maxCardsCount;
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
-- (instancetype)initWithLocalDeck:(LocalDeck *)localDeck classSlug:(NSString *)classSlug isEasterEgg:(BOOL)isEasterEgg count:(NSUInteger)count;
+- (instancetype)initWithLocalDeck:(LocalDeck *)localDeck classSlug:(NSString *)classSlug isEasterEgg:(BOOL)isEasterEgg count:(NSUInteger)count maxCardsCount:(NSUInteger)maxCardsCount;
 @end
 
 NS_ASSUME_NONNULL_END

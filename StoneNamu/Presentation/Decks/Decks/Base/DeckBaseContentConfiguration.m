@@ -10,7 +10,7 @@
 
 @implementation DeckBaseContentConfiguration
 
-- (instancetype)initWithLocalDeck:(LocalDeck *)localDeck classSlug:(NSString *)classSlug isEasterEgg:(BOOL)isEasterEgg count:(NSUInteger)count {
+- (instancetype)initWithLocalDeck:(LocalDeck *)localDeck classSlug:(NSString *)classSlug isEasterEgg:(BOOL)isEasterEgg count:(NSUInteger)count maxCardsCount:(NSUInteger)maxCardsCount {
     self = [self init];
     
     if (self) {
@@ -23,6 +23,7 @@
         self->_isDarkMode = NO;
         self->_isEasterEgg = isEasterEgg;
         self->_count = count;
+        self->_maxCardsCount = maxCardsCount;
     }
     
     return self;
@@ -47,6 +48,7 @@
         
         _copy->_isEasterEgg = self.isEasterEgg;
         _copy->_count = self.count;
+        _copy->_maxCardsCount = self.maxCardsCount;
     }
     
     return copy;

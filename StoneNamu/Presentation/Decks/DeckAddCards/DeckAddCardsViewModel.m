@@ -96,13 +96,12 @@
 
 - (void)countOfLocalDeckCardsWithCompletion:(DeckAddCardsViewModelCountOfLocalDeckCardsCompletion)completion {
     [self.queue addOperationWithBlock:^{
-        NSNumber * _Nullable count = nil;
+        NSArray<HSCard *> *hsCards = self.localDeck.hsCards;
+        NSUInteger cardsCount = hsCards.count;
+        NSUInteger maxCardsCount = [self.localDeckUseCase maxCardsCountFromHSCards:hsCards];
+        BOOL isFull = [self.localDeckUseCase isFullFromHSCards:hsCards];
         
-        if (self.localDeck != nil) {
-            count = [NSNumber numberWithUnsignedInteger:self.localDeck.hsCards.count];
-        }
-        BOOL isFull = count.unsignedIntegerValue >= HSDECK_MAX_TOTAL_CARDS;
-        completion(count, isFull);
+        completion(cardsCount, maxCardsCount, isFull);
     }];
 }
 
@@ -369,10 +368,10 @@
 }
 
 - (void)postLocalDeckHasChanged {
-    [self countOfLocalDeckCardsWithCompletion:^(NSNumber * _Nullable countOfLocalDeckCards, BOOL isFull) {
+    [self countOfLocalDeckCardsWithCompletion:^(NSUInteger cardsCount, NSUInteger maxCardsCount, BOOL isFull) {
         [NSNotificationCenter.defaultCenter postNotificationName:NSNotificationNameDeckAddCardsViewModelLocalDeckHasChanged
                                                           object:self
-                                                        userInfo:@{DeckAddCardsViewModelLocalDeckHasChangedCountOfLocalDeckCardsItemKey: countOfLocalDeckCards}];
+                                                        userInfo:@{DeckAddCardsViewModelLocalDeckHasChangedCountOfLocalDeckCardsItemKey: [NSNumber numberWithUnsignedInteger:cardsCount]}];
     }];
 }
 
