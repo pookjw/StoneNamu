@@ -69,7 +69,12 @@
     if (![hsCard isEqual:self.hsCard]) {
         self.manaCostLabel.stringValue = [NSString stringWithFormat:@"%lu", hsCard.manaCost];
         self.nameLabel.stringValue = hsCard.name;
-        [self.cardImageView setAsyncImageWithURL:hsCard.cropImage indicator:YES];
+        
+        if (hsCard.cropImage) {
+            [self.cardImageView setAsyncImageWithURL:hsCard.cropImage indicator:YES];
+        } else {
+            [self.cardImageView setAsyncImageWithURL:hsCard.image indicator:YES];
+        }
     }
     
     if ([HSCardRaritySlugTypeFree isEqualToString:raritySlugType]) {
