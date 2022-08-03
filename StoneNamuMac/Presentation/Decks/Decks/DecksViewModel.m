@@ -347,8 +347,9 @@
                     BOOL isEqualClassSlug = compareNullableValues(itemModel.classSlug, hsCardClass.slug, @selector(isEqualToString:));
                     BOOL isEqualName = compareNullableValues(itemModel.name, localDeck.name, @selector(isEqualToString:));
                     BOOL isEqualCount = (itemModel.count == count);
+                    BOOL isEuqalMaxCardsCount = (itemModel.maxCardsCount = maxCardsCount);
                     
-                    BOOL shouldReconfigure = !(isEqualIsEasterEgg && isEqualClassSlug && isEqualName && isEqualCount);
+                    BOOL shouldReconfigure = !(isEqualIsEasterEgg && isEqualClassSlug && isEqualName && isEqualCount && isEuqalMaxCardsCount);
                     
                     itemModel.isEasterEgg = isEasterEgg;
                     itemModel.name = localDeck.name;

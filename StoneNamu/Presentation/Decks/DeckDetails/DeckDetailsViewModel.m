@@ -276,7 +276,9 @@
 
 - (void)exportLocalizedDeckCodeWithCompletion:(DeckDetailsViewModelExportDeckCodeCompletion)completion {
     [self.queue addBarrierBlock:^{
-        if (self.localDeck.hsCards.count < HSDECK_MAX_TOTAL_CARDS) {
+        BOOL isFull = [self.localDeckUseCase isFullFromHSCards:self.localDeck.hsCards];
+        
+        if (!isFull) {
             [self postCardsAreNotFilledNotification];
             completion(nil);
             return;
@@ -675,8 +677,9 @@
 }
 
 - (void)postCardsAreNotFilledNotification {
+    NSUInteger maxCardsCount = [self.localDeckUseCase maxCardsCountFromHSCards:self.localDeck.hsCards];
     NSString *message = [NSString stringWithFormat:[ResourcesService localizationForKey:LocalizableKeyDeckExportErrorCardsAreNotFilled],
-                         HSDECK_MAX_TOTAL_CARDS,
+                         maxCardsCount,
                          self.localDeck.hsCards.count];
     NSError *error = [NSError errorWithDomain:@"com.pookjw.StoneNamu"
                                          code:113

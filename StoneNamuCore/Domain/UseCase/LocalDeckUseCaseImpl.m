@@ -281,24 +281,28 @@
 }
 
 - (NSUInteger)maxCardsCountFromHSCards:(NSArray<HSCard *> *)hsCards {
-    NSUInteger __block maxCount = 0;
+    BOOL __block hasRenathalCard = NO;
     
     [hsCards enumerateObjectsUsingBlock:^(HSCard * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if (obj.cardId == PRINCE_RENATHAL_CARD_ID) {
-            maxCount = HSDECK_MAX_TOTAL_CARDS_PRINCE_RENATHAL;
+            hasRenathalCard = YES;
             *stop = YES;
         }
     }];
     
-    if (!maxCount) {
-        if (hsCards.count > HSDECK_MAX_TOTAL_CARDS_NORMAL) {
-            maxCount = HSDECK_MAX_TOTAL_CARDS;
+    if (hasRenathalCard) {
+        if (hsCards.count > HSDECK_MAX_TOTAL_CARDS_PRINCE_RENATHAL) {
+            return HSDECK_MAX_TOTAL_CARDS;
         } else {
-            maxCount = HSDECK_MAX_TOTAL_CARDS_NORMAL;
+            return HSDECK_MAX_TOTAL_CARDS_PRINCE_RENATHAL;
+        }
+    } else {
+        if (hsCards.count > HSDECK_MAX_TOTAL_CARDS_NORMAL) {
+            return HSDECK_MAX_TOTAL_CARDS;
+        } else {
+            return HSDECK_MAX_TOTAL_CARDS_NORMAL;
         }
     }
-    
-    return maxCount;
 }
 
 - (NSUInteger)isFullFromHSCards:(NSArray<HSCard *> *)hsCards {
