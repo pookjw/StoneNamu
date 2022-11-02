@@ -110,7 +110,7 @@
         (id)NSColor.clearColor.CGColor,
         (id)NSColor.whiteColor.CGColor
     ];
-    imageViewGradientLayer.startPoint = CGPointMake(0.3f, 0.0f);
+    imageViewGradientLayer.startPoint = CGPointMake(0.0f, 0.0f);
     imageViewGradientLayer.endPoint = CGPointMake(1.0f, 0.0f);
     self.heroImageView.layer.mask = imageViewGradientLayer;
     self.heroImageViewGradientLayer = imageViewGradientLayer;
