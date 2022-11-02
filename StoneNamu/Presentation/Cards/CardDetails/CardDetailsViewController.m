@@ -541,6 +541,11 @@
     }
 }
 
+- (UIContextMenuConfiguration *)collectionView:(UICollectionView *)collectionView contextMenuConfigurationForItemsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths point:(CGPoint)point {
+    // multi-selection is not supported atm
+    return [self collectionView:collectionView contextMenuConfigurationForItemAtIndexPath:indexPaths.firstObject point:point];
+}
+
 - (UITargetedPreview *)collectionView:(UICollectionView *)collectionView previewForHighlightingContextMenuWithConfiguration:(UIContextMenuConfiguration *)configuration {
     return [self targetedPreviewWithClearBackgroundFromIdentifier:(NSString *)configuration.identifier];
 }

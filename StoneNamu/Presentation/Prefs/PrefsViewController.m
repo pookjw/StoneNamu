@@ -413,6 +413,11 @@
     }
 }
 
+- (UIContextMenuConfiguration *)collectionView:(UICollectionView *)collectionView contextMenuConfigurationForItemsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths point:(CGPoint)point {
+    // multi-selection is not supported atm
+    return [self collectionView:collectionView contextMenuConfigurationForItemAtIndexPath:indexPaths.firstObject point:point];
+}
+
 - (void)collectionView:(UICollectionView *)collectionView willEndContextMenuInteractionWithConfiguration:(UIContextMenuConfiguration *)configuration animator:(id<UIContextMenuInteractionAnimating>)animator {
     [animator addCompletion:^{
         self.contextViewController = nil;
