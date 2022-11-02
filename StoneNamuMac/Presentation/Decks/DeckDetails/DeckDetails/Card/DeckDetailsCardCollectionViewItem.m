@@ -121,11 +121,11 @@
     CAGradientLayer *cardImageViewGradientLayer = [CAGradientLayer new];
 
     cardImageViewGradientLayer.colors = @[
-        (id)[NSColor.whiteColor colorWithAlphaComponent:0].CGColor,
+        (id)NSColor.clearColor.CGColor,
         (id)NSColor.whiteColor.CGColor
     ];
-    cardImageViewGradientLayer.startPoint = CGPointMake(0, 0);
-    cardImageViewGradientLayer.endPoint = CGPointMake(0.8, 0);
+    cardImageViewGradientLayer.startPoint = CGPointMake(0.3f, 0.0f);
+    cardImageViewGradientLayer.endPoint = CGPointMake(1.0f, 0.0f);
     self.cardImageView.wantsLayer = YES;
     self.cardImageView.layer.mask = cardImageViewGradientLayer;
 

@@ -167,11 +167,11 @@
     
     CAGradientLayer *heroImageViewGradientLayer = [CAGradientLayer new];
     heroImageViewGradientLayer.colors = @[
-        (id)[UIColor.whiteColor colorWithAlphaComponent:0.0f].CGColor,
+        (id)UIColor.clearColor.CGColor,
         (id)UIColor.whiteColor.CGColor
     ];
-    heroImageViewGradientLayer.startPoint = CGPointMake(0.0f, 0.0f);
-    heroImageViewGradientLayer.endPoint = CGPointMake(0.8f, 0.0f);
+    heroImageViewGradientLayer.startPoint = CGPointMake(0.3f, 0.0f);
+    heroImageViewGradientLayer.endPoint = CGPointMake(1.0f, 0.0f);
     heroImageView.layer.mask = heroImageViewGradientLayer;
     self.heroImageViewGradientLayer = heroImageViewGradientLayer;
     [heroImageViewGradientLayer release];

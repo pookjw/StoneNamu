@@ -167,11 +167,11 @@
     
     CAGradientLayer *imageViewGradientLayer = [CAGradientLayer new];
     imageViewGradientLayer.colors = @[
-        (id)[UIColor.whiteColor colorWithAlphaComponent:0].CGColor,
+        (id)UIColor.clearColor.CGColor,
         (id)UIColor.whiteColor.CGColor
     ];
-    imageViewGradientLayer.startPoint = CGPointMake(0, 0);
-    imageViewGradientLayer.endPoint = CGPointMake(0.8, 0);
+    imageViewGradientLayer.startPoint = CGPointMake(0.3, 0);
+    imageViewGradientLayer.endPoint = CGPointMake(1.0, 0);
     imageView.layer.mask = imageViewGradientLayer;
     self.imageViewGradientLayer = imageViewGradientLayer;
     [imageViewGradientLayer release];
