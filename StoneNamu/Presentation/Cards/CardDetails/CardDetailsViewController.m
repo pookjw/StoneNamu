@@ -340,67 +340,83 @@
 }
 
 - (CardDetailsDataSource *)makeDataSource {
-    UICollectionViewCellRegistration *cellRegistration = [self makeCellRegistration];
+    UICollectionViewCellRegistration *defaultCellRegistration = [self makeDefaultCellRegistration];
+    UICollectionViewCellRegistration *childContentCellRegistration = [self makeChildContentCellRegistration];
     
     CardDetailsDataSource *dataSource = [[CardDetailsDataSource alloc] initWithCollectionView:self.collectionView
                                                                                  cellProvider:^UICollectionViewCell * _Nullable(UICollectionView * _Nonnull collectionView, NSIndexPath * _Nonnull indexPath, id  _Nonnull itemIdentifier) {
+        if (![itemIdentifier isKindOfClass:[CardDetailsItemModel class]]) {
+            return nil;
+        }
         
-        UICollectionViewCell *cell = [collectionView dequeueConfiguredReusableCellWithRegistration:cellRegistration
-                                                                                      forIndexPath:indexPath
-                                                                                              item:itemIdentifier];
-        return cell;
+        CardDetailsItemModel *itemModel = (CardDetailsItemModel *)itemIdentifier;
+        
+        switch (itemModel.type) {
+            case CardDetailsItemModelTypeChild:
+                return [collectionView dequeueConfiguredReusableCellWithRegistration:childContentCellRegistration
+                                                                        forIndexPath:indexPath
+                                                                                item:itemIdentifier];
+            default:
+                return [collectionView dequeueConfiguredReusableCellWithRegistration:defaultCellRegistration
+                                                                        forIndexPath:indexPath
+                                                                                item:itemIdentifier];
+        }
     }];
     
     return [dataSource autorelease];
 }
 
-- (UICollectionViewCellRegistration *)makeCellRegistration {
-    UICollectionViewCellRegistration *cellRegistration = [UICollectionViewCellRegistration registrationWithCellClass:[UICollectionViewListCell class]
-                                                                                                configurationHandler:^(__kindof UICollectionViewListCell * _Nonnull cell, NSIndexPath * _Nonnull indexPath, id  _Nonnull item) {
+- (UICollectionViewCellRegistration *)makeDefaultCellRegistration {
+    UICollectionViewCellRegistration *defaultCellRegistration = [UICollectionViewCellRegistration registrationWithCellClass:[UICollectionViewListCell class]
+                                                                                                       configurationHandler:^(__kindof UICollectionViewListCell * _Nonnull cell, NSIndexPath * _Nonnull indexPath, id  _Nonnull item) {
         if (![item isKindOfClass:[CardDetailsItemModel class]]) {
             return;
         }
         
-        //
+        CardDetailsItemModel *itemModel = (CardDetailsItemModel *)item;
+        
+        UIListContentConfiguration *configuration = [UIListContentConfiguration subtitleCellConfiguration];
+        configuration.text = itemModel.primaryText;
+        
+        NSString *secondaryText = itemModel.secondaryText;
+        if ((secondaryText == nil) || ([secondaryText isEqualToString:@""])) {
+            secondaryText = [ResourcesService localizationForKey:LocalizableKeyEmpty];
+        }
+        configuration.secondaryText = secondaryText;
+        
+        configuration.textProperties.color = UIColor.whiteColor;
+        configuration.secondaryTextProperties.color = UIColor.whiteColor;
+        
+        UIBackgroundConfiguration *backgroundConfiguration = [UIBackgroundConfiguration listGroupedCellConfiguration];
+        backgroundConfiguration.visualEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleSystemUltraThinMaterialLight];
+        backgroundConfiguration.backgroundColor = UIColor.clearColor;
+        
+        cell.contentConfiguration = configuration;
+        cell.backgroundConfiguration = backgroundConfiguration;
+    }];
+    
+    return defaultCellRegistration;
+}
+
+- (UICollectionViewCellRegistration *)makeChildContentCellRegistration {
+    UICollectionViewCellRegistration *childContentCellRegistration = [UICollectionViewCellRegistration registrationWithCellClass:[UICollectionViewListCell class]
+                                                                                                            configurationHandler:^(__kindof UICollectionViewListCell * _Nonnull cell, NSIndexPath * _Nonnull indexPath, id  _Nonnull item) {
+        if (![item isKindOfClass:[CardDetailsItemModel class]]) {
+            return;
+        }
         
         CardDetailsItemModel *itemModel = (CardDetailsItemModel *)item;
         
-        switch (itemModel.type) {
-            case CardDetailsItemModelTypeChild: {
-                CardDetailsChildContentConfiguration *configuration = [[CardDetailsChildContentConfiguration alloc] initWithHSCard:itemModel.childHSCard imageURL:itemModel.imageURL];
-                UIBackgroundConfiguration *backgroundConfiguration = [UIBackgroundConfiguration listGroupedCellConfiguration];
-                backgroundConfiguration.backgroundColor = UIColor.clearColor;
-                
-                cell.contentConfiguration = configuration;
-                cell.backgroundConfiguration = backgroundConfiguration;
-                [configuration release];
-                break;
-            }
-            default: {
-                UIListContentConfiguration *configuration = [UIListContentConfiguration subtitleCellConfiguration];
-                configuration.text = itemModel.primaryText;
-                
-                NSString *secondaryText = itemModel.secondaryText;
-                if ((secondaryText == nil) || ([secondaryText isEqualToString:@""])) {
-                    secondaryText = [ResourcesService localizationForKey:LocalizableKeyEmpty];
-                }
-                configuration.secondaryText = secondaryText;
-                
-                configuration.textProperties.color = UIColor.whiteColor;
-                configuration.secondaryTextProperties.color = UIColor.whiteColor;
-                
-                UIBackgroundConfiguration *backgroundConfiguration = [UIBackgroundConfiguration listGroupedCellConfiguration];
-                backgroundConfiguration.visualEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleSystemUltraThinMaterialLight];
-                backgroundConfiguration.backgroundColor = UIColor.clearColor;
-                
-                cell.contentConfiguration = configuration;
-                cell.backgroundConfiguration = backgroundConfiguration;
-                break;
-            }
-        }
+        CardDetailsChildContentConfiguration *configuration = [[CardDetailsChildContentConfiguration alloc] initWithHSCard:itemModel.childHSCard imageURL:itemModel.imageURL];
+        UIBackgroundConfiguration *backgroundConfiguration = [UIBackgroundConfiguration listGroupedCellConfiguration];
+        backgroundConfiguration.backgroundColor = UIColor.clearColor;
+        
+        cell.contentConfiguration = configuration;
+        cell.backgroundConfiguration = backgroundConfiguration;
+        [configuration release];
     }];
     
-    return cellRegistration;
+    return childContentCellRegistration;
 }
 
 - (NSArray<UIDragItem *> *)makeDragItemsForPrimaryImageView {
@@ -496,7 +512,7 @@
                 
                 return menu;
             }];
-               
+            
             return configuration;
         }
         default: {
@@ -513,7 +529,7 @@
                                                          handler:^(__kindof UIAction * _Nonnull action) {
                     
                     UIPasteboard.generalPasteboard.string = itemModel.secondaryText;
-                    }];
+                }];
                 
                 UIMenu *menu = [UIMenu menuWithChildren:@[copyAction]];
                 

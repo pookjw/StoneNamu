@@ -265,13 +265,25 @@
 }
 
 - (DeckDetailsDataSource *)makeDataSource {
-    UICollectionViewCellRegistration *cellRegistration = [self makeCellRegistration];
+    UICollectionViewCellRegistration *manaCostGraphContentCellRegistration = [self makeManaCostGraphContentCellRegistration];
+    UICollectionViewCellRegistration *cardContentCellRegistration = [self makeCardContentCellRegistration];
     
     DeckDetailsDataSource *dataSource = [[DeckDetailsDataSource alloc] initWithCollectionView:self.collectionView cellProvider:^UICollectionViewCell * _Nullable(UICollectionView * _Nonnull collectionView, NSIndexPath * _Nonnull indexPath, id _Nonnull itemIdentifier) {
         
-        UICollectionViewCell *cell = [collectionView dequeueConfiguredReusableCellWithRegistration:cellRegistration forIndexPath:indexPath item:itemIdentifier];
+        if (![itemIdentifier isKindOfClass:[DeckDetailsItemModel class]]) {
+            return nil;
+        }
         
-        return cell;
+        DeckDetailsItemModel *itemModel = (DeckDetailsItemModel *)itemIdentifier;
+        
+        switch (itemModel.type) {
+            case DeckDetailsItemModelTypeManaCostGraph:
+                return [collectionView dequeueConfiguredReusableCellWithRegistration:manaCostGraphContentCellRegistration forIndexPath:indexPath item:itemIdentifier];
+            case DeckDetailsItemModelTypeCard:
+                return [collectionView dequeueConfiguredReusableCellWithRegistration:cardContentCellRegistration forIndexPath:indexPath item:itemIdentifier];
+            default:
+                return nil;
+        }
     }];
     
     dataSource.supplementaryViewProvider = [self makeSupplementaryViewProvider];
@@ -279,38 +291,42 @@
     return [dataSource autorelease];
 }
 
-- (UICollectionViewCellRegistration *)makeCellRegistration {
-    UICollectionViewCellRegistration *cellRegistration = [UICollectionViewCellRegistration registrationWithCellClass:[UICollectionViewListCell class] configurationHandler:^(__kindof UICollectionViewListCell * _Nonnull cell, NSIndexPath * _Nonnull indexPath, id  _Nonnull item) {
-        
+- (UICollectionViewCellRegistration *)makeManaCostGraphContentCellRegistration {
+    UICollectionViewCellRegistration *manaCostGraphContentCellRegistration = [UICollectionViewCellRegistration registrationWithCellClass:[UICollectionViewListCell class]
+                                                                                                                    configurationHandler:^(__kindof UICollectionViewCell * _Nonnull cell, NSIndexPath * _Nonnull indexPath, id  _Nonnull item) {
         if (![item isKindOfClass:[DeckDetailsItemModel class]]) {
             return;
         }
         
         DeckDetailsItemModel *itemModel = (DeckDetailsItemModel *)item;
         
-        switch (itemModel.type) {
-            case DeckDetailsItemModelTypeManaCostGraph: {
-                DeckDetailsManaCostGraphContentConfiguration *configuration = [[DeckDetailsManaCostGraphContentConfiguration alloc] initWithCost:itemModel.graphManaCost.unsignedIntegerValue
-                                                                                                                                      percentage:itemModel.graphPercentage.floatValue
-                                                                                                                                       cardCount:itemModel.graphCount.unsignedIntegerValue];
-                cell.contentConfiguration = configuration;
-                [configuration release];
-                break;
-            }
-            case DeckDetailsItemModelTypeCard: {
-                DeckDetailsCardContentConfiguration *configuration = [[DeckDetailsCardContentConfiguration alloc] initWithHSCard:itemModel.hsCard
-                                                                                                                     hsCardCount:itemModel.hsCardCount.unsignedIntegerValue
-                                                                                                                  raritySlugType:itemModel.raritySlugType];
-                cell.contentConfiguration = configuration;
-                [configuration release];
-                break;
-            }
-            default:
-                break;
-        }
+        DeckDetailsManaCostGraphContentConfiguration *configuration = [[DeckDetailsManaCostGraphContentConfiguration alloc] initWithCost:itemModel.graphManaCost.unsignedIntegerValue
+                                                                                                                              percentage:itemModel.graphPercentage.floatValue
+                                                                                                                               cardCount:itemModel.graphCount.unsignedIntegerValue];
+        cell.contentConfiguration = configuration;
+        [configuration release];
     }];
     
-    return cellRegistration;
+    return manaCostGraphContentCellRegistration;
+}
+
+- (UICollectionViewCellRegistration *)makeCardContentCellRegistration {
+    UICollectionViewCellRegistration *cardContentCellRegistration = [UICollectionViewCellRegistration registrationWithCellClass:[UICollectionViewListCell class]
+                                                                                                           configurationHandler:^(__kindof UICollectionViewCell * _Nonnull cell, NSIndexPath * _Nonnull indexPath, id  _Nonnull item) {
+        if (![item isKindOfClass:[DeckDetailsItemModel class]]) {
+            return;
+        }
+        
+        DeckDetailsItemModel *itemModel = (DeckDetailsItemModel *)item;
+        
+        DeckDetailsCardContentConfiguration *configuration = [[DeckDetailsCardContentConfiguration alloc] initWithHSCard:itemModel.hsCard
+                                                                                                             hsCardCount:itemModel.hsCardCount.unsignedIntegerValue
+                                                                                                          raritySlugType:itemModel.raritySlugType];
+        cell.contentConfiguration = configuration;
+        [configuration release];
+    }];
+    
+    return cardContentCellRegistration;
 }
 
 - (UICollectionViewDiffableDataSourceSupplementaryViewProvider)makeSupplementaryViewProvider {
