@@ -264,8 +264,17 @@
     }];
     [classes removeObjectForKey:HSCardClassSlugTypeNeutral];
     
-    NSMutableDictionary<NSString *, NSString *> *classicClasses = [classes mutableCopy];
-    [classicClasses removeObjectForKey:HSCardClassSlugTypeDemonHunder];
+    NSDictionary<NSString *, NSString *> *classicClasses = @{
+        HSCardClassSlugTypeDruid: classes[HSCardClassSlugTypeDruid],
+        HSCardClassSlugTypeHunter: classes[HSCardClassSlugTypeHunter],
+        HSCardClassSlugTypeMage: classes[HSCardClassSlugTypeMage],
+        HSCardClassSlugTypePaladin: classes[HSCardClassSlugTypePaladin],
+        HSCardClassSlugTypePriest: classes[HSCardClassSlugTypePriest],
+        HSCardClassSlugTypeRogue: classes[HSCardClassSlugTypeRogue],
+        HSCardClassSlugTypeShaman: classes[HSCardClassSlugTypeShaman],
+        HSCardClassSlugTypeWarlock: classes[HSCardClassSlugTypeWarlock],
+        HSCardClassSlugTypeWarrior: classes[HSCardClassSlugTypeWarrior],
+    };
     
     NSDictionary<HSDeckFormat, NSDictionary<NSString *, NSString *> *> *result = @{
         HSDeckFormatStandard: classes,
@@ -274,7 +283,6 @@
     };
     
     [classes release];
-    [classicClasses release];
     
     return result;
 }
@@ -288,8 +296,17 @@
         classes[obj.slug] = obj.classId;
     }];
     
-    NSMutableDictionary<NSString *, NSNumber *> *classicClasses = [classes mutableCopy];
-    [classicClasses removeObjectForKey:HSCardClassSlugTypeDemonHunder];
+    NSDictionary<NSString *, NSNumber *> *classicClasses = @{
+        HSCardClassSlugTypeDruid: classes[HSCardClassSlugTypeDruid],
+        HSCardClassSlugTypeHunter: classes[HSCardClassSlugTypeHunter],
+        HSCardClassSlugTypeMage: classes[HSCardClassSlugTypeMage],
+        HSCardClassSlugTypePaladin: classes[HSCardClassSlugTypePaladin],
+        HSCardClassSlugTypePriest: classes[HSCardClassSlugTypePriest],
+        HSCardClassSlugTypeRogue: classes[HSCardClassSlugTypeRogue],
+        HSCardClassSlugTypeShaman: classes[HSCardClassSlugTypeShaman],
+        HSCardClassSlugTypeWarlock: classes[HSCardClassSlugTypeWarlock],
+        HSCardClassSlugTypeWarrior: classes[HSCardClassSlugTypeWarrior],
+    };
     
     NSDictionary<HSDeckFormat, NSDictionary<NSString *, NSNumber *> *> *result = @{
         HSDeckFormatStandard: classes,
@@ -298,7 +315,6 @@
     };
     
     [classes release];
-    [classicClasses release];
     
     return result;
 }
