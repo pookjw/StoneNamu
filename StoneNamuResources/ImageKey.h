@@ -11,6 +11,7 @@ static ImageKey const ImageKeyPnamuEasteregg2 = @"pnamu_easteregg_2";
 static ImageKey const ImageKeyPnamu = @"pnamu";
 static ImageKey const ImageKeyDruidPortrait = @"druid_portrait";
 static ImageKey const ImageKeyHunterPortrait = @"hunter_portrait";
+static ImageKey const ImageKeyDeathKnightPortrait = @"death_knight_portrait";
 static ImageKey const ImageKeyShamanPortrait = @"shaman_portrait";
 static ImageKey const ImageKeyDemonHunterPortrait = @"demon_hunter_portrait";
 static ImageKey const ImageKeyPriestPortrait = @"priest_portrait";

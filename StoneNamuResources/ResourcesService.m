@@ -87,6 +87,8 @@ static NSArray<FontKey> * _Nullable kRegisteredFontKeys = @[];
         imageKey = ImageKeyDruidPortrait;
     } else if ([hsCardClassSlugType isEqualToString:HSCardClassSlugTypeHunter]) {
         imageKey = ImageKeyHunterPortrait;
+    } else if ([hsCardClassSlugType isEqualToString:HSCardClassSlugTypeDeathKnight]) {
+        imageKey = ImageKeyDeathKnightPortrait;
     } else if ([hsCardClassSlugType isEqualToString:HSCardClassSlugTypeMage]) {
         imageKey = ImageKeyMagePortrait;
     } else if ([hsCardClassSlugType isEqualToString:HSCardClassSlugTypePaladin]) {
@@ -175,6 +177,8 @@ static NSArray<FontKey> * _Nullable kRegisteredFontKeys = @[];
         imageKey = ImageKeyDruidPortrait;
     } else if ([hsCardClassSlugType isEqualToString:HSCardClassSlugTypeHunter]) {
         imageKey = ImageKeyHunterPortrait;
+    } else if ([hsCardClassSlugType isEqualToString:HSCardClassSlugTypeDeathKnight]) {
+        imageKey = ImageKeyDeathKnightPortrait;
     } else if ([hsCardClassSlugType isEqualToString:HSCardClassSlugTypeMage]) {
         imageKey = ImageKeyMagePortrait;
     } else if ([hsCardClassSlugType isEqualToString:HSCardClassSlugTypePaladin]) {
