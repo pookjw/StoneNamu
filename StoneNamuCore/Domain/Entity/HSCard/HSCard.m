@@ -16,6 +16,7 @@
     [_classId release];
     [_multiClassIds release];
     [_minionTypeId release];
+    [_multiTypeIds release];
     [_spellSchoolId release];
     [_cardTypeId release];
     [_cardSetId release];
@@ -127,6 +128,15 @@
     } else {
         [hsCard->_minionTypeId release];
         hsCard->_minionTypeId = [minionTypeId copy];
+    }
+    
+    id multiTypeIds = dic[@"multiTypeIds"];
+    if ([multiTypeIds isEqual:[NSNull null]]) {
+        [hsCard->_multiTypeIds release];
+        hsCard->_multiTypeIds = nil;
+    } else {
+        [hsCard->_multiTypeIds release];
+        hsCard->_multiTypeIds = [multiTypeIds copy];
     }
     
     id spellSchoolId = dic[@"spellSchoolId"];
@@ -276,6 +286,9 @@
         [_copy->_multiClassIds release];
         _copy->_multiClassIds = [self.multiClassIds copyWithZone:zone];
         
+        [_copy->_multiTypeIds release];
+        _copy->_multiTypeIds = [self.multiTypeIds copyWithZone:zone];
+        
         [_copy->_minionTypeId release];
         _copy->_minionTypeId = [self.minionTypeId copyWithZone:zone];
         
@@ -365,6 +378,10 @@
             [self->_minionTypeId release];
             self->_minionTypeId = [[NSNumber numberWithInteger:[coder decodeIntegerForKey:@"minionTypeId"]] copy];
             
+            /* diff: 0 <-> 4 */
+            [self->_multiTypeIds release];
+            self->_multiTypeIds = nil;
+            
             /* diff: 0 <-> 2 */
             [self->_spellSchoolId release];
             self->_spellSchoolId = [[coder decodeObjectOfClass:[NSNumber class] forKey:@"spellSchoolId"] copy];
@@ -452,6 +469,10 @@
             [self->_minionTypeId release];
             self->_minionTypeId = [[coder decodeObjectOfClass:[NSNumber class] forKey:@"minionTypeId"] copy];
             
+            /* diff: 1 <-> 4 */
+            [self->_multiTypeIds release];
+            self->_multiTypeIds = nil;
+            
             [self->_spellSchoolId release];
             self->_spellSchoolId = [[coder decodeObjectOfClass:[NSNumber class] forKey:@"spellSchoolId"] copy];
             
@@ -537,6 +558,10 @@
             [self->_minionTypeId release];
             self->_minionTypeId = [[coder decodeObjectOfClass:[NSNumber class] forKey:@"minionTypeId"] copy];
             
+            /* diff: 2 <-> 4 */
+            [self->_multiTypeIds release];
+            self->_multiTypeIds = nil;
+            
             [self->_spellSchoolId release];
             self->_spellSchoolId = [[coder decodeObjectOfClass:[NSNumber class] forKey:@"spellSchoolId"] copy];
             
@@ -600,6 +625,84 @@
             self->_battlegroundsImageGold = nil;
             
             self->_version = HSCARD_LATEST_VERSION;
+        } else if (version == 3) {
+            self->_cardId = [coder decodeIntegerForKey:@"cardId"];
+            self->_collectible = [coder decodeIntegerForKey:@"collectible"];
+            
+            [self->_slug release];
+            self->_slug = [[coder decodeObjectOfClass:[NSString class] forKey:@"slug"] copy];
+            
+            [self->_classId release];
+            self->_classId = [[coder decodeObjectOfClass:[NSNumber class] forKey:@"classId"] copy];
+            
+            [self->_multiClassIds release];
+            self->_multiClassIds = [[coder decodeObjectOfClass:[NSArray<NSNumber *> class] forKey:@"multiClassIds"] copy];
+            
+            [self->_minionTypeId release];
+            self->_minionTypeId = [[coder decodeObjectOfClass:[NSNumber class] forKey:@"minionTypeId"] copy];
+            
+            /* diff: 3 <-> 4 */
+            [self->_multiTypeIds release];
+            self->_multiTypeIds = nil;
+            
+            [self->_spellSchoolId release];
+            self->_spellSchoolId = [[coder decodeObjectOfClass:[NSNumber class] forKey:@"spellSchoolId"] copy];
+            
+            [self->_cardTypeId release];
+            self->_cardTypeId = [[coder decodeObjectOfClass:[NSNumber class] forKey:@"cardTypeId"] copy];
+            
+            [self->_cardSetId release];
+            self->_cardSetId = [[coder decodeObjectOfClass:[NSNumber class] forKey:@"cardSetId"] copy];
+            
+            [self->_rarityId release];
+            self->_rarityId = [[coder decodeObjectOfClass:[NSNumber class] forKey:@"rarityId"] copy];
+            
+            [self->_artistName release];
+            self->_artistName = [[coder decodeObjectOfClass:[NSString class] forKey:@"artistName"] copy];
+            
+            self->_health = [coder decodeIntegerForKey:@"health"];
+            self->_attack = [coder decodeIntegerForKey:@"attack"];
+            self->_manaCost = [coder decodeIntegerForKey:@"manaCost"];
+            
+            [self->_name release];
+            self->_name = [[coder decodeObjectOfClass:[NSString class] forKey:@"name"] copy];
+            
+            [self->_text release];
+            self->_text = [[coder decodeObjectOfClass:[NSString class] forKey:@"text"] copy];
+            
+            [self->_image release];
+            self->_image = [[coder decodeObjectOfClass:[NSURL class] forKey:@"image"] copy];
+            
+            [self->_imageGold release];
+            self->_imageGold = [[coder decodeObjectOfClass:[NSURL class] forKey:@"imageGold"] copy];
+            
+            [self->_flavorText release];
+            self->_flavorText = [[coder decodeObjectOfClass:[NSString class] forKey:@"flavorText"] copy];
+            
+            [self->_cropImage release];
+            self->_cropImage = [[coder decodeObjectOfClass:[NSURL class] forKey:@"cropImage"] copy];
+            
+            [self->_childIds release];
+            self->_childIds = [[coder decodeObjectOfClass:[NSArray<NSNumber *> class] forKey:@"childIds"] copy];
+            
+            self->_parentId = [coder decodeIntegerForKey:@"parentId"];
+            
+            [self->_battlegroundsTier release];
+            self->_battlegroundsTier = [[coder decodeObjectOfClass:[NSNumber class] forKey:@"battlegroundsTier"] copy];
+            
+            [self->_battlegroundsHero release];
+            self->_battlegroundsHero = [[coder decodeObjectOfClass:[NSNumber class] forKey:@"battlegroundsHero"] copy];
+            
+            [self->_battlegroundsUpgradeId release];
+            self->_battlegroundsUpgradeId = [[coder decodeObjectOfClass:[NSNumber class] forKey:@"battlegroundsUpgradeId"] copy];
+            
+            [self->_battlegroundsImage release];
+            self->_battlegroundsImage = [[coder decodeObjectOfClass:[NSURL class] forKey:@"battlegroundsImage"] copy];
+            
+            [self->_battlegroundsImageGold release];
+            self->_battlegroundsImageGold = [[coder decodeObjectOfClass:[NSURL class] forKey:@"battlegroundsImageGold"] copy];
+            
+            self->_version = HSCARD_LATEST_VERSION;
         } else {
             self->_cardId = [coder decodeIntegerForKey:@"cardId"];
             self->_collectible = [coder decodeIntegerForKey:@"collectible"];
@@ -615,6 +718,9 @@
             
             [self->_minionTypeId release];
             self->_minionTypeId = [[coder decodeObjectOfClass:[NSNumber class] forKey:@"minionTypeId"] copy];
+            
+            [self->_multiTypeIds release];
+            self->_multiTypeIds = [[coder decodeObjectOfClass:[NSArray<NSNumber *> class] forKey:@"multiTypeIds"] copy];
             
             [self->_spellSchoolId release];
             self->_spellSchoolId = [[coder decodeObjectOfClass:[NSNumber class] forKey:@"spellSchoolId"] copy];
@@ -687,6 +793,7 @@
     [coder encodeObject:self.classId forKey:@"classId"];
     [coder encodeObject:self.multiClassIds forKey:@"multiClassIds"];
     [coder encodeObject:self.minionTypeId forKey:@"minionTypeId"];
+    [coder encodeObject:self.multiTypeIds forKey:@"multiTypeIds"];
     [coder encodeObject:self.spellSchoolId forKey:@"spellSchoolId"];
     [coder encodeObject:self.cardTypeId forKey:@"cardTypeId"];
     [coder encodeObject:self.cardSetId forKey:@"cardSetId"];

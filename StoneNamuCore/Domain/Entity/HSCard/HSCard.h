@@ -15,7 +15,7 @@
 #endif
 
 #define kHSCardType @"kHSCardType"
-#define HSCARD_LATEST_VERSION 3
+#define HSCARD_LATEST_VERSION 4
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -35,6 +35,7 @@ static NSPasteboardType const NSPasteboardTypeHSCard = @"com.pookjw.StoneNamu.NS
  */
 @property (readonly, copy) NSArray<NSNumber *> * _Nullable multiClassIds;
 @property (readonly, copy) NSNumber * _Nullable minionTypeId;
+@property (readonly, copy) NSNumber * _Nullable multiTypeIds;
 @property (readonly, copy) NSNumber * _Nullable spellSchoolId;
 @property (readonly, copy) NSNumber *cardTypeId;
 @property (readonly, copy) NSNumber *cardSetId;
