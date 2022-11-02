@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 typedef NSString * HSCardClassSlugType NS_TYPED_EXTENSIBLE_ENUM;
 static HSCardClassSlugType const HSCardClassSlugTypeNeutral = @"neutral";
 static HSCardClassSlugType const HSCardClassSlugTypeDemonHunder = @"demonhunter";
+static HSCardClassSlugType const HSCardClassSlugTypeDeathKnight = @"deathknight";
 static HSCardClassSlugType const HSCardClassSlugTypeDruid = @"druid";
 static HSCardClassSlugType const HSCardClassSlugTypeHunter = @"hunter";
 static HSCardClassSlugType const HSCardClassSlugTypeMage = @"mage";
