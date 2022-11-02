@@ -4747,7 +4747,7 @@
 				DEVELOPMENT_TEAM = P53D29U9LJ;
 				IBSC_MODULE = StoneNamuWatch_WatchKit_Extension;
 				INFOPLIST_FILE = StoneNamuWatch/Info.plist;
-				MARKETING_VERSION = 1.10;
+				MARKETING_VERSION = 1.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pookjw.StoneNamu.Watch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -4774,7 +4774,7 @@
 				DEVELOPMENT_TEAM = P53D29U9LJ;
 				IBSC_MODULE = StoneNamuWatch_WatchKit_Extension;
 				INFOPLIST_FILE = StoneNamuWatch/Info.plist;
-				MARKETING_VERSION = 1.10;
+				MARKETING_VERSION = 1.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pookjw.StoneNamu.Watch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -4804,7 +4804,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.10;
+				MARKETING_VERSION = 1.11;
 				OTHER_CFLAGS = "-Wno-objc-method-access";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pookjw.StoneNamu.Watch.Extension;
 				PRODUCT_NAME = "${TARGET_NAME}";
@@ -4835,7 +4835,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.10;
+				MARKETING_VERSION = 1.11;
 				OTHER_CFLAGS = "-Wno-objc-method-access";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pookjw.StoneNamu.Watch.Extension;
 				PRODUCT_NAME = "${TARGET_NAME}";
@@ -5119,7 +5119,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.10;
+				MARKETING_VERSION = 1.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pookjw.StoneNamu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
@@ -5146,7 +5146,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.10;
+				MARKETING_VERSION = 1.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pookjw.StoneNamu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
@@ -5184,7 +5184,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = 1.10;
+				MARKETING_VERSION = 1.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pookjw.StoneNamu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -5221,7 +5221,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = 1.10;
+				MARKETING_VERSION = 1.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pookjw.StoneNamu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
